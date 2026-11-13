@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import { QueryOutcome, QueryRecord, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
 import {
   ARCHIVE_OUTCOMES, ARCHIVE_SOURCES, ArchiveDay, ArchiveEntry, ArchiveIndex, ArchiveTrend,
@@ -72,6 +73,7 @@ function fillDay(dayStart: number, successes: number, failures: number, idBase: 
 }
 
 export default function archiveIndexCasesTest(): void {
+  configureTestText();
   describe('ArchiveEntryCases', (): void => {
     /**
      * @tc.number    SUB_STARTUP_ARCHIVEENTRYCASES_0100
@@ -83,11 +85,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0001', 0, (): void => {
+      configureTestText();
       const entry: ArchiveEntry = new ArchiveEntry();
-      expect(entry.id).assertEqual(0);
-      expect(entry.timestamp).assertEqual(0);
-      expect(entry.isValid()).assertFalse();
-      expect(entry.note).assertEqual('');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0001|ArchiveIndexCases.test.ets|assert0001|assertEqual|actual', entry.id)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0001|ArchiveIndexCases.test.ets|assert0001|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0001|ArchiveIndexCases.test.ets|assert0002|assertEqual|actual', entry.timestamp)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0001|ArchiveIndexCases.test.ets|assert0002|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0001|ArchiveIndexCases.test.ets|assert0003|assertFalse|actual|expected=false', entry.isValid())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0001|ArchiveIndexCases.test.ets|assert0004|assertEqual|actual', entry.note)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0001|ArchiveIndexCases.test.ets|assert0004|assertEqual|expected', ''));
     });
 
     /**
@@ -100,10 +103,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0002', 0, (): void => {
+      configureTestText();
       const entry: ArchiveEntry = okAt(1, D1);
-      expect(entry.isValid()).assertTrue();
-      expect(entry.source).assertEqual(RefreshSource.MANUAL);
-      expect(entry.durationMillis).assertEqual(120);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0002|ArchiveIndexCases.test.ets|assert0005|assertTrue|actual|expected=true', entry.isValid())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0002|ArchiveIndexCases.test.ets|assert0006|assertEqual|actual', entry.source)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0002|ArchiveIndexCases.test.ets|assert0006|assertEqual|expected', RefreshSource.MANUAL));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0002|ArchiveIndexCases.test.ets|assert0007|assertEqual|actual', entry.durationMillis)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0002|ArchiveIndexCases.test.ets|assert0007|assertEqual|expected', 120));
     });
 
     /**
@@ -116,10 +120,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0003', 0, (): void => {
-      expect(entryOf(0, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid()).assertFalse();
-      expect(entryOf(-1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid()).assertFalse();
-      expect(entryOf(1.5, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid()).assertFalse();
-      expect(entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid()).assertTrue();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0003|ArchiveIndexCases.test.ets|assert0008|assertFalse|actual|expected=false', entryOf(0, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0003|ArchiveIndexCases.test.ets|assert0009|assertFalse|actual|expected=false', entryOf(-1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0003|ArchiveIndexCases.test.ets|assert0010|assertFalse|actual|expected=false', entryOf(1.5, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0003|ArchiveIndexCases.test.ets|assert0011|assertTrue|actual|expected=true', entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid())).assertTrue();
     });
 
     /**
@@ -132,9 +137,10 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0004', 0, (): void => {
-      expect(entryOf(1, 0, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid()).assertFalse();
-      expect(entryOf(1, -5, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid()).assertFalse();
-      expect(entryOf(1, 1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid()).assertTrue();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0004|ArchiveIndexCases.test.ets|assert0012|assertFalse|actual|expected=false', entryOf(1, 0, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0004|ArchiveIndexCases.test.ets|assert0013|assertFalse|actual|expected=false', entryOf(1, -5, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0004|ArchiveIndexCases.test.ets|assert0014|assertTrue|actual|expected=true', entryOf(1, 1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 1).isValid())).assertTrue();
     });
 
     /**
@@ -147,9 +153,10 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0005', 0, (): void => {
-      expect(entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 0).isValid()).assertTrue();
-      expect(entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, -1).isValid()).assertFalse();
-      expect(entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, Number.NaN).isValid())
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0005|ArchiveIndexCases.test.ets|assert0015|assertTrue|actual|expected=true', entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, 0).isValid())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0005|ArchiveIndexCases.test.ets|assert0016|assertFalse|actual|expected=false', entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, -1).isValid())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0005|ArchiveIndexCases.test.ets|assert0017|assertFalse|actual|expected=false', entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.MANUAL, Number.NaN).isValid()))
         .assertFalse();
     });
 
@@ -163,10 +170,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0006', 0, (): void => {
-      expect(isKnownSource(RefreshSource.SETTINGS)).assertTrue();
-      expect(isKnownSource('未知来源')).assertFalse();
-      expect(isKnownSource('')).assertFalse();
-      expect(ARCHIVE_SOURCES.length).assertEqual(4);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0006|ArchiveIndexCases.test.ets|assert0018|assertTrue|actual|expected=true', isKnownSource(RefreshSource.SETTINGS))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0006|ArchiveIndexCases.test.ets|assert0019|assertFalse|actual|expected=false', isKnownSource('未知来源'))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0006|ArchiveIndexCases.test.ets|assert0020|assertFalse|actual|expected=false', isKnownSource(''))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0006|ArchiveIndexCases.test.ets|assert0021|assertEqual|actual', ARCHIVE_SOURCES.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0006|ArchiveIndexCases.test.ets|assert0021|assertEqual|expected', 4));
     });
 
     /**
@@ -179,9 +187,10 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0007', 0, (): void => {
-      expect(isKnownOutcome(QueryOutcome.TIMEOUT)).assertTrue();
-      expect(isKnownOutcome('blocked')).assertFalse();
-      expect(ARCHIVE_OUTCOMES.length).assertEqual(5);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0007|ArchiveIndexCases.test.ets|assert0022|assertTrue|actual|expected=true', isKnownOutcome(QueryOutcome.TIMEOUT))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0007|ArchiveIndexCases.test.ets|assert0023|assertFalse|actual|expected=false', isKnownOutcome('blocked'))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0007|ArchiveIndexCases.test.ets|assert0024|assertEqual|actual', ARCHIVE_OUTCOMES.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0007|ArchiveIndexCases.test.ets|assert0024|assertEqual|expected', 5));
     });
 
     /**
@@ -194,14 +203,15 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0008', 0, (): void => {
+      configureTestText();
       const ok: ArchiveEntry = okAt(1, D1);
       ok.result = 'a'.repeat(ENTRY_TEXT_LIMIT);
-      expect(ok.isValid()).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0008|ArchiveIndexCases.test.ets|assert0025|assertTrue|actual|expected=true', ok.isValid())).assertTrue();
       ok.result = 'a'.repeat(ENTRY_TEXT_LIMIT + 1);
-      expect(ok.isValid()).assertFalse();
-      expect(ENTRY_CODE_LIMIT).assertEqual(64);
-      expect(ENTRY_MESSAGE_LIMIT).assertEqual(512);
-      expect(ENTRY_NOTE_LIMIT).assertEqual(192);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0008|ArchiveIndexCases.test.ets|assert0026|assertFalse|actual|expected=false', ok.isValid())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0008|ArchiveIndexCases.test.ets|assert0027|assertEqual|actual', ENTRY_CODE_LIMIT)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0008|ArchiveIndexCases.test.ets|assert0027|assertEqual|expected', 64));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0008|ArchiveIndexCases.test.ets|assert0028|assertEqual|actual', ENTRY_MESSAGE_LIMIT)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0008|ArchiveIndexCases.test.ets|assert0028|assertEqual|expected', 512));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0008|ArchiveIndexCases.test.ets|assert0029|assertEqual|actual', ENTRY_NOTE_LIMIT)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0008|ArchiveIndexCases.test.ets|assert0029|assertEqual|expected', 192));
     });
 
     /**
@@ -214,14 +224,15 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0009', 0, (): void => {
+      configureTestText();
       const entry: ArchiveEntry = okAt(1, D1);
       entry.note = 'n'.repeat(ENTRY_NOTE_LIMIT);
-      expect(entry.isValid()).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0009|ArchiveIndexCases.test.ets|assert0030|assertTrue|actual|expected=true', entry.isValid())).assertTrue();
       entry.note = 'n'.repeat(ENTRY_NOTE_LIMIT + 1);
-      expect(entry.isValid()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0009|ArchiveIndexCases.test.ets|assert0031|assertFalse|actual|expected=false', entry.isValid())).assertFalse();
       entry.note = '';
       entry.errorCode = 'c'.repeat(ENTRY_CODE_LIMIT + 1);
-      expect(entry.isValid()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0009|ArchiveIndexCases.test.ets|assert0032|assertFalse|actual|expected=false', entry.isValid())).assertFalse();
     });
 
     /**
@@ -234,12 +245,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0010', 0, (): void => {
-      expect(okAt(1, D1).isValidSample()).assertTrue();
-      expect(failAt(1, D1).isValidSample()).assertTrue();
-      expect(timeoutAt(1, D1).isValidSample()).assertFalse();
-      expect(entryOf(1, D1, QueryOutcome.UNSUPPORTED, RefreshSource.MANUAL, 1).isValidSample())
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0010|ArchiveIndexCases.test.ets|assert0033|assertTrue|actual|expected=true', okAt(1, D1).isValidSample())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0010|ArchiveIndexCases.test.ets|assert0034|assertTrue|actual|expected=true', failAt(1, D1).isValidSample())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0010|ArchiveIndexCases.test.ets|assert0035|assertFalse|actual|expected=false', timeoutAt(1, D1).isValidSample())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0010|ArchiveIndexCases.test.ets|assert0036|assertFalse|actual|expected=false', entryOf(1, D1, QueryOutcome.UNSUPPORTED, RefreshSource.MANUAL, 1).isValidSample()))
         .assertFalse();
-      expect(entryOf(1, D1, QueryOutcome.UNKNOWN, RefreshSource.MANUAL, 1).isValidSample())
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0010|ArchiveIndexCases.test.ets|assert0037|assertFalse|actual|expected=false', entryOf(1, D1, QueryOutcome.UNKNOWN, RefreshSource.MANUAL, 1).isValidSample()))
         .assertFalse();
     });
 
@@ -253,13 +265,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0011', 0, (): void => {
+      configureTestText();
       const entry: ArchiveEntry = okAt(1, D1);
-      expect(entry.hasError()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0011|ArchiveIndexCases.test.ets|assert0038|assertFalse|actual|expected=false', entry.hasError())).assertFalse();
       entry.errorCode = 'E1';
-      expect(entry.hasError()).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0011|ArchiveIndexCases.test.ets|assert0039|assertTrue|actual|expected=true', entry.hasError())).assertTrue();
       entry.errorCode = '';
       entry.errorMessage = '失败原因';
-      expect(entry.hasError()).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0011|ArchiveIndexCases.test.ets|assert0040|assertTrue|actual|expected=true', entry.hasError())).assertTrue();
     });
 
     /**
@@ -272,10 +285,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0012', 0, (): void => {
+      configureTestText();
       const entry: ArchiveEntry = okAt(1, D1);
-      expect(entry.ageDaysAt(D1 + DAY_MS - 1)).assertEqual(0);
-      expect(entry.ageDaysAt(D1 + DAY_MS)).assertEqual(1);
-      expect(entry.ageDaysAt(D1 + 3 * DAY_MS + 5)).assertEqual(3);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0012|ArchiveIndexCases.test.ets|assert0041|assertEqual|actual', entry.ageDaysAt(D1 + DAY_MS - 1))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0012|ArchiveIndexCases.test.ets|assert0041|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0012|ArchiveIndexCases.test.ets|assert0042|assertEqual|actual', entry.ageDaysAt(D1 + DAY_MS))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0012|ArchiveIndexCases.test.ets|assert0042|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0012|ArchiveIndexCases.test.ets|assert0043|assertEqual|actual', entry.ageDaysAt(D1 + 3 * DAY_MS + 5))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0012|ArchiveIndexCases.test.ets|assert0043|assertEqual|expected', 3));
     });
 
     /**
@@ -288,10 +302,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0013', 0, (): void => {
+      configureTestText();
       const entry: ArchiveEntry = okAt(1, D1);
-      expect(entry.ageDaysAt(0)).assertEqual(0);
-      expect(entry.ageDaysAt(-1)).assertEqual(0);
-      expect(entry.ageDaysAt(D1 - DAY_MS)).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0013|ArchiveIndexCases.test.ets|assert0044|assertEqual|actual', entry.ageDaysAt(0))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0013|ArchiveIndexCases.test.ets|assert0044|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0013|ArchiveIndexCases.test.ets|assert0045|assertEqual|actual', entry.ageDaysAt(-1))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0013|ArchiveIndexCases.test.ets|assert0045|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0013|ArchiveIndexCases.test.ets|assert0046|assertEqual|actual', entry.ageDaysAt(D1 - DAY_MS))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0013|ArchiveIndexCases.test.ets|assert0046|assertEqual|expected', 0));
     });
 
     /**
@@ -304,14 +319,15 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0014', 0, (): void => {
+      configureTestText();
       const entry: ArchiveEntry = okAt(7, D1);
       entry.note = '原始备注';
       const copy: ArchiveEntry = entry.clone();
       copy.id = 99;
       copy.note = '改过';
-      expect(entry.id).assertEqual(7);
-      expect(entry.note).assertEqual('原始备注');
-      expect(copy.timestamp).assertEqual(entry.timestamp);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0014|ArchiveIndexCases.test.ets|assert0047|assertEqual|actual', entry.id)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0014|ArchiveIndexCases.test.ets|assert0047|assertEqual|expected', 7));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0014|ArchiveIndexCases.test.ets|assert0048|assertEqual|actual', entry.note)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0014|ArchiveIndexCases.test.ets|assert0048|assertEqual|expected', '原始备注'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0014|ArchiveIndexCases.test.ets|assert0049|assertEqual|actual', copy.timestamp)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0014|ArchiveIndexCases.test.ets|assert0049|assertEqual|expected', entry.timestamp));
     });
 
     /**
@@ -324,9 +340,10 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0015', 0, (): void => {
-      expect(okAt(1, D1).dayKey(0)).assertEqual('2024-01-15');
-      expect(okAt(1, D2).dayKey(0)).assertEqual('2024-01-16');
-      expect(okAt(1, D1).dayKey(0) === okAt(1, D2).dayKey(0)).assertFalse();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0015|ArchiveIndexCases.test.ets|assert0050|assertEqual|actual', okAt(1, D1).dayKey(0))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0015|ArchiveIndexCases.test.ets|assert0050|assertEqual|expected', '2024-01-15'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0015|ArchiveIndexCases.test.ets|assert0051|assertEqual|actual', okAt(1, D2).dayKey(0))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0015|ArchiveIndexCases.test.ets|assert0051|assertEqual|expected', '2024-01-16'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0015|ArchiveIndexCases.test.ets|assert0052|assertFalse|actual|expected=false', okAt(1, D1).dayKey(0) === okAt(1, D2).dayKey(0))).assertFalse();
     });
 
     /**
@@ -339,6 +356,7 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0016', 0, (): void => {
+      configureTestText();
       const record: QueryRecord = new QueryRecord();
       record.id = 5;
       record.timestamp = D1;
@@ -347,10 +365,10 @@ export default function archiveIndexCasesTest(): void {
       record.result = '已开启';
       record.durationMillis = 88;
       const entry: ArchiveEntry = archiveEntryOf(record);
-      expect(entry.id).assertEqual(5);
-      expect(entry.source).assertEqual(RefreshSource.SETTINGS);
-      expect(entry.durationMillis).assertEqual(88);
-      expect(entry.note).assertEqual('');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0016|ArchiveIndexCases.test.ets|assert0053|assertEqual|actual', entry.id)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0016|ArchiveIndexCases.test.ets|assert0053|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0016|ArchiveIndexCases.test.ets|assert0054|assertEqual|actual', entry.source)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0016|ArchiveIndexCases.test.ets|assert0054|assertEqual|expected', RefreshSource.SETTINGS));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0016|ArchiveIndexCases.test.ets|assert0055|assertEqual|actual', entry.durationMillis)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0016|ArchiveIndexCases.test.ets|assert0055|assertEqual|expected', 88));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0016|ArchiveIndexCases.test.ets|assert0056|assertEqual|actual', entry.note)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0016|ArchiveIndexCases.test.ets|assert0056|assertEqual|expected', ''));
     });
 
     /**
@@ -363,15 +381,16 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveEntryCases0017', 0, (): void => {
+      configureTestText();
       const bad: QueryRecord = new QueryRecord();
       bad.id = 0;
       const good: QueryRecord = new QueryRecord();
       good.id = 2;
       good.timestamp = D1;
       const entries: ArchiveEntry[] = archiveEntriesOf([bad, good]);
-      expect(entries.length).assertEqual(1);
-      expect(entries[0].id).assertEqual(2);
-      expect(entries[0].timestamp).assertEqual(D1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0017|ArchiveIndexCases.test.ets|assert0057|assertEqual|actual', entries.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0017|ArchiveIndexCases.test.ets|assert0057|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0017|ArchiveIndexCases.test.ets|assert0058|assertEqual|actual', entries[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0017|ArchiveIndexCases.test.ets|assert0058|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0017|ArchiveIndexCases.test.ets|assert0059|assertEqual|actual', entries[0].timestamp)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveEntryCases_0017|ArchiveIndexCases.test.ets|assert0059|assertEqual|expected', D1));
     });
   });
 
@@ -386,9 +405,10 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0001', 0, (): void => {
-      expect(dayKeyOf(D1, 0)).assertEqual('2024-01-15');
-      expect(dayKeyOf(D2, 0)).assertEqual('2024-01-16');
-      expect(dayKeyOf(D1, 0).length).assertEqual(10);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0001|ArchiveIndexCases.test.ets|assert0060|assertEqual|actual', dayKeyOf(D1, 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0001|ArchiveIndexCases.test.ets|assert0060|assertEqual|expected', '2024-01-15'));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0001|ArchiveIndexCases.test.ets|assert0061|assertEqual|actual', dayKeyOf(D2, 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0001|ArchiveIndexCases.test.ets|assert0061|assertEqual|expected', '2024-01-16'));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0001|ArchiveIndexCases.test.ets|assert0062|assertEqual|actual', dayKeyOf(D1, 0).length)).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0001|ArchiveIndexCases.test.ets|assert0062|assertEqual|expected', 10));
     });
 
     /**
@@ -401,10 +421,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0002', 0, (): void => {
+      configureTestText();
       const lateUtc: number = D1 - 8 * 60 * 60 * 1000;
-      expect(dayKeyOf(lateUtc, 0)).assertEqual('2024-01-14');
-      expect(dayKeyOf(lateUtc, 480)).assertEqual('2024-01-15');
-      expect(dayKeyOf(lateUtc, 0) === dayKeyOf(lateUtc, 480)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0002|ArchiveIndexCases.test.ets|assert0063|assertEqual|actual', dayKeyOf(lateUtc, 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0002|ArchiveIndexCases.test.ets|assert0063|assertEqual|expected', '2024-01-14'));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0002|ArchiveIndexCases.test.ets|assert0064|assertEqual|actual', dayKeyOf(lateUtc, 480))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0002|ArchiveIndexCases.test.ets|assert0064|assertEqual|expected', '2024-01-15'));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0002|ArchiveIndexCases.test.ets|assert0065|assertFalse|actual|expected=false', dayKeyOf(lateUtc, 0) === dayKeyOf(lateUtc, 480))).assertFalse();
     });
 
     /**
@@ -417,9 +438,10 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0003', 0, (): void => {
-      expect(dayKeyOf(D1, Number.NaN)).assertEqual(dayKeyOf(D1, 0));
-      expect(dayKeyOf(D1, Number.POSITIVE_INFINITY)).assertEqual(dayKeyOf(D1, 0));
-      expect(dayKeyOf(D1, 5)).assertEqual(dayKeyOf(D1, 0));
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0003|ArchiveIndexCases.test.ets|assert0066|assertEqual|actual', dayKeyOf(D1, Number.NaN))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0003|ArchiveIndexCases.test.ets|assert0066|assertEqual|expected', dayKeyOf(D1, 0)));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0003|ArchiveIndexCases.test.ets|assert0067|assertEqual|actual', dayKeyOf(D1, Number.POSITIVE_INFINITY))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0003|ArchiveIndexCases.test.ets|assert0067|assertEqual|expected', dayKeyOf(D1, 0)));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0003|ArchiveIndexCases.test.ets|assert0068|assertEqual|actual', dayKeyOf(D1, 5))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0003|ArchiveIndexCases.test.ets|assert0068|assertEqual|expected', dayKeyOf(D1, 0)));
     });
 
     /**
@@ -432,9 +454,10 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0004', 0, (): void => {
-      expect(dayKeyOf(0, 0)).assertEqual('');
-      expect(dayKeyOf(-1, 0)).assertEqual('');
-      expect(dayKeyOf(Number.NaN, 0)).assertEqual('');
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0004|ArchiveIndexCases.test.ets|assert0069|assertEqual|actual', dayKeyOf(0, 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0004|ArchiveIndexCases.test.ets|assert0069|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0004|ArchiveIndexCases.test.ets|assert0070|assertEqual|actual', dayKeyOf(-1, 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0004|ArchiveIndexCases.test.ets|assert0070|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0004|ArchiveIndexCases.test.ets|assert0071|assertEqual|actual', dayKeyOf(Number.NaN, 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0004|ArchiveIndexCases.test.ets|assert0071|assertEqual|expected', ''));
     });
 
     /**
@@ -447,10 +470,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0005', 0, (): void => {
-      expect(pad2(0)).assertEqual('00');
-      expect(pad2(9)).assertEqual('09');
-      expect(pad2(10)).assertEqual('10');
-      expect(pad2(59)).assertEqual('59');
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0005|ArchiveIndexCases.test.ets|assert0072|assertEqual|actual', pad2(0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0005|ArchiveIndexCases.test.ets|assert0072|assertEqual|expected', '00'));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0005|ArchiveIndexCases.test.ets|assert0073|assertEqual|actual', pad2(9))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0005|ArchiveIndexCases.test.ets|assert0073|assertEqual|expected', '09'));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0005|ArchiveIndexCases.test.ets|assert0074|assertEqual|actual', pad2(10))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0005|ArchiveIndexCases.test.ets|assert0074|assertEqual|expected', '10'));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0005|ArchiveIndexCases.test.ets|assert0075|assertEqual|actual', pad2(59))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0005|ArchiveIndexCases.test.ets|assert0075|assertEqual|expected', '59'));
     });
 
     /**
@@ -463,9 +487,10 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0006', 0, (): void => {
-      expect(dayStartMillis('2024-01-15', 0)).assertEqual(D1);
-      expect(dayStartMillis('2024-01-16', 0)).assertEqual(D2);
-      expect(isDayKey('2024-01-15')).assertTrue();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0006|ArchiveIndexCases.test.ets|assert0076|assertEqual|actual', dayStartMillis('2024-01-15', 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0006|ArchiveIndexCases.test.ets|assert0076|assertEqual|expected', D1));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0006|ArchiveIndexCases.test.ets|assert0077|assertEqual|actual', dayStartMillis('2024-01-16', 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0006|ArchiveIndexCases.test.ets|assert0077|assertEqual|expected', D2));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0006|ArchiveIndexCases.test.ets|assert0078|assertTrue|actual|expected=true', isDayKey('2024-01-15'))).assertTrue();
     });
 
     /**
@@ -478,10 +503,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0007', 0, (): void => {
-      expect(dayStartMillis('2026-02-31', 0)).assertEqual(0);
-      expect(isDayKey('2026-02-31')).assertFalse();
-      expect(isDayKey('2023-02-29')).assertFalse();
-      expect(isDayKey('2024-02-29')).assertTrue();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0007|ArchiveIndexCases.test.ets|assert0079|assertEqual|actual', dayStartMillis('2026-02-31', 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0007|ArchiveIndexCases.test.ets|assert0079|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0007|ArchiveIndexCases.test.ets|assert0080|assertFalse|actual|expected=false', isDayKey('2026-02-31'))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0007|ArchiveIndexCases.test.ets|assert0081|assertFalse|actual|expected=false', isDayKey('2023-02-29'))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0007|ArchiveIndexCases.test.ets|assert0082|assertTrue|actual|expected=true', isDayKey('2024-02-29'))).assertTrue();
     });
 
     /**
@@ -494,11 +520,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0008', 0, (): void => {
-      expect(dayStartMillis('2024-1-15', 0)).assertEqual(D1);
-      expect(isDayKey('2024-1-15')).assertTrue();
-      expect(dayStartMillis('2024/01/15', 0)).assertEqual(0);
-      expect(dayStartMillis('', 0)).assertEqual(0);
-      expect(isDayKey('')).assertFalse();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0008|ArchiveIndexCases.test.ets|assert0083|assertEqual|actual', dayStartMillis('2024-1-15', 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0008|ArchiveIndexCases.test.ets|assert0083|assertEqual|expected', D1));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0008|ArchiveIndexCases.test.ets|assert0084|assertTrue|actual|expected=true', isDayKey('2024-1-15'))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0008|ArchiveIndexCases.test.ets|assert0085|assertEqual|actual', dayStartMillis('2024/01/15', 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0008|ArchiveIndexCases.test.ets|assert0085|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0008|ArchiveIndexCases.test.ets|assert0086|assertEqual|actual', dayStartMillis('', 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0008|ArchiveIndexCases.test.ets|assert0086|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0008|ArchiveIndexCases.test.ets|assert0087|assertFalse|actual|expected=false', isDayKey(''))).assertFalse();
     });
 
     /**
@@ -511,10 +538,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0009', 0, (): void => {
-      expect(dayEndMillis('2024-01-15', 0)).assertEqual(D1 + DAY_MS - 1);
-      expect(dayEndMillis('2024-01-15', 0) - dayStartMillis('2024-01-15', 0))
-        .assertEqual(DAY_MS - 1);
-      expect(dayEndMillis('2026-02-31', 0)).assertEqual(0);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0009|ArchiveIndexCases.test.ets|assert0088|assertEqual|actual', dayEndMillis('2024-01-15', 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0009|ArchiveIndexCases.test.ets|assert0088|assertEqual|expected', D1 + DAY_MS - 1));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0009|ArchiveIndexCases.test.ets|assert0089|assertEqual|actual', dayEndMillis('2024-01-15', 0) - dayStartMillis('2024-01-15', 0)))
+        .assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0009|ArchiveIndexCases.test.ets|assert0089|assertEqual|expected', DAY_MS - 1));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0009|ArchiveIndexCases.test.ets|assert0090|assertEqual|actual', dayEndMillis('2026-02-31', 0))).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0009|ArchiveIndexCases.test.ets|assert0090|assertEqual|expected', 0));
     });
 
     /**
@@ -527,10 +555,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDayKeyCases0010', 0, (): void => {
+      configureTestText();
       const offset: number = localOffsetMinutes(D1);
-      expect(Number.isFinite(offset)).assertTrue();
-      expect(offset >= -840 && offset <= 840).assertTrue();
-      expect(offset).assertEqual(localOffsetMinutes(0));
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0010|ArchiveIndexCases.test.ets|assert0091|assertTrue|actual|expected=true', Number.isFinite(offset))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0010|ArchiveIndexCases.test.ets|assert0092|assertTrue|actual|expected=true', offset >= -840 && offset <= 840)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_DayKeyCases_0010|ArchiveIndexCases.test.ets|assert0093|assertEqual|actual', offset)).assertEqual(traceParameter('com.samples.appstartupauto_DayKeyCases_0010|ArchiveIndexCases.test.ets|assert0093|assertEqual|expected', localOffsetMinutes(0)));
     });
   });
 
@@ -545,10 +574,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDistributionCases0001', 0, (): void => {
+      configureTestText();
       const list = distributionOf(['a', 'b'], [3, 0]);
-      expect(list.length).assertEqual(2);
-      expect(list[0].count).assertEqual(3);
-      expect(list[1].count).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0001|ArchiveIndexCases.test.ets|assert0094|assertEqual|actual', list.length)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0001|ArchiveIndexCases.test.ets|assert0094|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0001|ArchiveIndexCases.test.ets|assert0095|assertEqual|actual', list[0].count)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0001|ArchiveIndexCases.test.ets|assert0095|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0001|ArchiveIndexCases.test.ets|assert0096|assertEqual|actual', list[1].count)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0001|ArchiveIndexCases.test.ets|assert0096|assertEqual|expected', 0));
     });
 
     /**
@@ -561,10 +591,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDistributionCases0002', 0, (): void => {
+      configureTestText();
       const list = distributionOf(['a', 'b', 'c'], [0, 2, 0], false);
-      expect(list.length).assertEqual(1);
-      expect(list[0].label).assertEqual('b');
-      expect(list[0].label === 'a').assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0002|ArchiveIndexCases.test.ets|assert0097|assertEqual|actual', list.length)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0002|ArchiveIndexCases.test.ets|assert0097|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0002|ArchiveIndexCases.test.ets|assert0098|assertEqual|actual', list[0].label)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0002|ArchiveIndexCases.test.ets|assert0098|assertEqual|expected', 'b'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0002|ArchiveIndexCases.test.ets|assert0099|assertFalse|actual|expected=false', list[0].label === 'a')).assertFalse();
     });
 
     /**
@@ -577,10 +608,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDistributionCases0003', 0, (): void => {
+      configureTestText();
       const list = distributionOf(['a', 'b', 'c'], [1]);
-      expect(list.length).assertEqual(3);
-      expect(list[1].count).assertEqual(0);
-      expect(list[2].count).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0003|ArchiveIndexCases.test.ets|assert0100|assertEqual|actual', list.length)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0003|ArchiveIndexCases.test.ets|assert0100|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0003|ArchiveIndexCases.test.ets|assert0101|assertEqual|actual', list[1].count)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0003|ArchiveIndexCases.test.ets|assert0101|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0003|ArchiveIndexCases.test.ets|assert0102|assertEqual|actual', list[2].count)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0003|ArchiveIndexCases.test.ets|assert0102|assertEqual|expected', 0));
     });
 
     /**
@@ -593,10 +625,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDistributionCases0004', 0, (): void => {
+      configureTestText();
       const list = distributionOf(['a', 'b', 'c'], [-5, Number.NaN, 4]);
-      expect(list[0].count).assertEqual(0);
-      expect(list[1].count).assertEqual(0);
-      expect(list[2].count).assertEqual(4);
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0004|ArchiveIndexCases.test.ets|assert0103|assertEqual|actual', list[0].count)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0004|ArchiveIndexCases.test.ets|assert0103|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0004|ArchiveIndexCases.test.ets|assert0104|assertEqual|actual', list[1].count)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0004|ArchiveIndexCases.test.ets|assert0104|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0004|ArchiveIndexCases.test.ets|assert0105|assertEqual|actual', list[2].count)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0004|ArchiveIndexCases.test.ets|assert0105|assertEqual|expected', 4));
     });
 
     /**
@@ -609,11 +642,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDistributionCases0005', 0, (): void => {
+      configureTestText();
       const list = sortedDistribution(['a', 'b', 'c'], [1, 5, 3]);
-      expect(list.length).assertEqual(3);
-      expect(list[0].label).assertEqual('b');
-      expect(list[1].label).assertEqual('c');
-      expect(list[2].label).assertEqual('a');
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0005|ArchiveIndexCases.test.ets|assert0106|assertEqual|actual', list.length)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0005|ArchiveIndexCases.test.ets|assert0106|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0005|ArchiveIndexCases.test.ets|assert0107|assertEqual|actual', list[0].label)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0005|ArchiveIndexCases.test.ets|assert0107|assertEqual|expected', 'b'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0005|ArchiveIndexCases.test.ets|assert0108|assertEqual|actual', list[1].label)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0005|ArchiveIndexCases.test.ets|assert0108|assertEqual|expected', 'c'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0005|ArchiveIndexCases.test.ets|assert0109|assertEqual|actual', list[2].label)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0005|ArchiveIndexCases.test.ets|assert0109|assertEqual|expected', 'a'));
     });
 
     /**
@@ -626,10 +660,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDistributionCases0006', 0, (): void => {
+      configureTestText();
       const list = sortedDistribution(['z', 'a'], [2, 2]);
-      expect(list[0].label).assertEqual('a');
-      expect(list[1].label).assertEqual('z');
-      expect(list.length).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0006|ArchiveIndexCases.test.ets|assert0110|assertEqual|actual', list[0].label)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0006|ArchiveIndexCases.test.ets|assert0110|assertEqual|expected', 'a'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0006|ArchiveIndexCases.test.ets|assert0111|assertEqual|actual', list[1].label)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0006|ArchiveIndexCases.test.ets|assert0111|assertEqual|expected', 'z'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0006|ArchiveIndexCases.test.ets|assert0112|assertEqual|actual', list.length)).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0006|ArchiveIndexCases.test.ets|assert0112|assertEqual|expected', 2));
     });
 
     /**
@@ -642,11 +677,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testDistributionCases0007', 0, (): void => {
-      expect(archiveOutcomeLabel(QueryOutcome.SUCCESS)).assertEqual('成功');
-      expect(archiveOutcomeLabel(QueryOutcome.TIMEOUT)).assertEqual('超时');
-      expect(archiveOutcomeLabel('blocked')).assertEqual('未知');
-      expect(archiveSourceLabel(RefreshSource.INITIAL)).assertEqual('首次进入');
-      expect(archiveSourceLabel('other')).assertEqual('未标注');
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0113|assertEqual|actual', archiveOutcomeLabel(QueryOutcome.SUCCESS))).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0113|assertEqual|expected', '成功'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0114|assertEqual|actual', archiveOutcomeLabel(QueryOutcome.TIMEOUT))).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0114|assertEqual|expected', '超时'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0115|assertEqual|actual', archiveOutcomeLabel('blocked'))).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0115|assertEqual|expected', '未知'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0116|assertEqual|actual', archiveSourceLabel(RefreshSource.INITIAL))).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0116|assertEqual|expected', '首次进入'));
+      expect(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0117|assertEqual|actual', archiveSourceLabel('other'))).assertEqual(traceParameter('com.samples.appstartupauto_DistributionCases_0007|ArchiveIndexCases.test.ets|assert0117|assertEqual|expected', '未标注'));
     });
   });
 
@@ -661,12 +697,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0001', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 3);
-      expect(day.total).assertEqual(0);
-      expect(day.valid()).assertEqual(0);
-      expect(day.samples.length).assertEqual(0);
-      expect(day.sourceCounts.length).assertEqual(ARCHIVE_SOURCES.length);
-      expect(day.latestValidId).assertEqual(-1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0118|assertEqual|actual', day.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0118|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0119|assertEqual|actual', day.valid())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0119|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0120|assertEqual|actual', day.samples.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0120|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0121|assertEqual|actual', day.sourceCounts.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0121|assertEqual|expected', ARCHIVE_SOURCES.length));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0122|assertEqual|actual', day.latestValidId)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0001|ArchiveIndexCases.test.ets|assert0122|assertEqual|expected', -1));
     });
 
     /**
@@ -679,11 +716,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0002', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', -4);
       day.add(okAt(1, D1));
-      expect(day.sampleLimit).assertEqual(0);
-      expect(day.samples.length).assertEqual(0);
-      expect(day.sampleTruncated()).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0002|ArchiveIndexCases.test.ets|assert0123|assertEqual|actual', day.sampleLimit)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0002|ArchiveIndexCases.test.ets|assert0123|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0002|ArchiveIndexCases.test.ets|assert0124|assertEqual|actual', day.samples.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0002|ArchiveIndexCases.test.ets|assert0124|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0002|ArchiveIndexCases.test.ets|assert0125|assertEqual|actual', day.sampleTruncated())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0002|ArchiveIndexCases.test.ets|assert0125|assertEqual|expected', 1));
     });
 
     /**
@@ -696,16 +734,17 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0003', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(okAt(1, D1));
       day.add(okAt(2, D1 + 1000));
       day.add(failAt(3, D1 + 2000));
       day.add(timeoutAt(4, D1 + 3000));
-      expect(day.total).assertEqual(4);
-      expect(day.success).assertEqual(2);
-      expect(day.failure).assertEqual(1);
-      expect(day.timeout).assertEqual(1);
-      expect(day.valid()).assertEqual(3);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0126|assertEqual|actual', day.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0126|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0127|assertEqual|actual', day.success)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0127|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0128|assertEqual|actual', day.failure)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0128|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0129|assertEqual|actual', day.timeout)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0129|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0130|assertEqual|actual', day.valid())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0003|ArchiveIndexCases.test.ets|assert0130|assertEqual|expected', 3));
     });
 
     /**
@@ -718,13 +757,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0004', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(okAt(1, D1));
       day.add(failAt(2, D1 + 1000));
       day.add(failAt(3, D1 + 2000));
-      expect(day.successRate()).assertEqual(33.3);
-      expect(day.successRate() < 33.4).assertTrue();
-      expect(day.valid()).assertEqual(3);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0004|ArchiveIndexCases.test.ets|assert0131|assertEqual|actual', day.successRate())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0004|ArchiveIndexCases.test.ets|assert0131|assertEqual|expected', 33.3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0004|ArchiveIndexCases.test.ets|assert0132|assertTrue|actual|expected=true', day.successRate() < 33.4)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0004|ArchiveIndexCases.test.ets|assert0133|assertEqual|actual', day.valid())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0004|ArchiveIndexCases.test.ets|assert0133|assertEqual|expected', 3));
     });
 
     /**
@@ -737,11 +777,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0005', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(timeoutAt(1, D1));
-      expect(day.valid()).assertEqual(0);
-      expect(day.successRate()).assertEqual(0);
-      expect(day.latestValidId).assertEqual(-1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0005|ArchiveIndexCases.test.ets|assert0134|assertEqual|actual', day.valid())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0005|ArchiveIndexCases.test.ets|assert0134|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0005|ArchiveIndexCases.test.ets|assert0135|assertEqual|actual', day.successRate())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0005|ArchiveIndexCases.test.ets|assert0135|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0005|ArchiveIndexCases.test.ets|assert0136|assertEqual|actual', day.latestValidId)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0005|ArchiveIndexCases.test.ets|assert0136|assertEqual|expected', -1));
     });
 
     /**
@@ -754,11 +795,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0006', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(okAt(1, D1));
-      expect(day.successRate()).assertEqual(100);
-      expect(day.successRate() === 99.9).assertFalse();
-      expect(day.valid()).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0006|ArchiveIndexCases.test.ets|assert0137|assertEqual|actual', day.successRate())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0006|ArchiveIndexCases.test.ets|assert0137|assertEqual|expected', 100));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0006|ArchiveIndexCases.test.ets|assert0138|assertFalse|actual|expected=false', day.successRate() === 99.9)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0006|ArchiveIndexCases.test.ets|assert0139|assertEqual|actual', day.valid())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0006|ArchiveIndexCases.test.ets|assert0139|assertEqual|expected', 1));
     });
 
     /**
@@ -771,14 +813,15 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0007', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(okAt(1, D1));
       day.add(entryOf(2, D1 + 1, QueryOutcome.SUCCESS, RefreshSource.SETTINGS, 5));
-      expect(day.sourceCount(RefreshSource.MANUAL)).assertEqual(1);
-      expect(day.sourceCount(RefreshSource.SETTINGS)).assertEqual(1);
-      expect(day.sourceCount('other')).assertEqual(0);
-      expect(day.outcomeCount(QueryOutcome.SUCCESS)).assertEqual(2);
-      expect(day.outcomeCount('blocked')).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0140|assertEqual|actual', day.sourceCount(RefreshSource.MANUAL))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0140|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0141|assertEqual|actual', day.sourceCount(RefreshSource.SETTINGS))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0141|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0142|assertEqual|actual', day.sourceCount('other'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0142|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0143|assertEqual|actual', day.outcomeCount(QueryOutcome.SUCCESS))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0143|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0144|assertEqual|actual', day.outcomeCount('blocked'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0007|ArchiveIndexCases.test.ets|assert0144|assertEqual|expected', 0));
     });
 
     /**
@@ -791,13 +834,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0008', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 2);
       day.add(okAt(1, D1));
       day.add(okAt(2, D1 + 1000));
       day.add(okAt(3, D1 + 2000));
-      expect(day.samples.length).assertEqual(2);
-      expect(day.sampleTruncated()).assertEqual(1);
-      expect(day.total).assertEqual(3);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0008|ArchiveIndexCases.test.ets|assert0145|assertEqual|actual', day.samples.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0008|ArchiveIndexCases.test.ets|assert0145|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0008|ArchiveIndexCases.test.ets|assert0146|assertEqual|actual', day.sampleTruncated())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0008|ArchiveIndexCases.test.ets|assert0146|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0008|ArchiveIndexCases.test.ets|assert0147|assertEqual|actual', day.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0008|ArchiveIndexCases.test.ets|assert0147|assertEqual|expected', 3));
     });
 
     /**
@@ -810,13 +854,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0009', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 5);
       const source: ArchiveEntry = okAt(1, D1);
       day.add(source);
       source.note = '外部改写';
-      expect(day.samples[0].note).assertEqual('');
-      expect(day.samples[0].id).assertEqual(1);
-      expect(day.samples.length).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0009|ArchiveIndexCases.test.ets|assert0148|assertEqual|actual', day.samples[0].note)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0009|ArchiveIndexCases.test.ets|assert0148|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0009|ArchiveIndexCases.test.ets|assert0149|assertEqual|actual', day.samples[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0009|ArchiveIndexCases.test.ets|assert0149|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0009|ArchiveIndexCases.test.ets|assert0150|assertEqual|actual', day.samples.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0009|ArchiveIndexCases.test.ets|assert0150|assertEqual|expected', 1));
     });
 
     /**
@@ -829,12 +874,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0010', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(timeoutAt(1, D1));
-      expect(day.latestValidId).assertEqual(-1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0010|ArchiveIndexCases.test.ets|assert0151|assertEqual|actual', day.latestValidId)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0010|ArchiveIndexCases.test.ets|assert0151|assertEqual|expected', -1));
       day.add(okAt(2, D1 + 1000));
-      expect(day.latestValidId).assertEqual(2);
-      expect(day.valid()).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0010|ArchiveIndexCases.test.ets|assert0152|assertEqual|actual', day.latestValidId)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0010|ArchiveIndexCases.test.ets|assert0152|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0010|ArchiveIndexCases.test.ets|assert0153|assertEqual|actual', day.valid())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0010|ArchiveIndexCases.test.ets|assert0153|assertEqual|expected', 1));
     });
 
     /**
@@ -847,13 +893,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0011', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(okAt(5, D1));
       day.add(okAt(9, D1));
-      expect(day.latestValidAt).assertEqual(D1);
-      expect(day.latestValidId).assertEqual(9);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0011|ArchiveIndexCases.test.ets|assert0154|assertEqual|actual', day.latestValidAt)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0011|ArchiveIndexCases.test.ets|assert0154|assertEqual|expected', D1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0011|ArchiveIndexCases.test.ets|assert0155|assertEqual|actual', day.latestValidId)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0011|ArchiveIndexCases.test.ets|assert0155|assertEqual|expected', 9));
       day.add(okAt(7, D1));
-      expect(day.latestValidId).assertEqual(9);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0011|ArchiveIndexCases.test.ets|assert0156|assertEqual|actual', day.latestValidId)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0011|ArchiveIndexCases.test.ets|assert0156|assertEqual|expected', 9));
     });
 
     /**
@@ -866,13 +913,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0012', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(okAt(1, D1 + 5000));
       day.add(okAt(2, D1 + 1000));
       day.add(okAt(3, D1 + 9000));
-      expect(day.firstAt).assertEqual(D1 + 1000);
-      expect(day.lastAt).assertEqual(D1 + 9000);
-      expect(day.firstAt < day.lastAt).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0012|ArchiveIndexCases.test.ets|assert0157|assertEqual|actual', day.firstAt)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0012|ArchiveIndexCases.test.ets|assert0157|assertEqual|expected', D1 + 1000));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0012|ArchiveIndexCases.test.ets|assert0158|assertEqual|actual', day.lastAt)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0012|ArchiveIndexCases.test.ets|assert0158|assertEqual|expected', D1 + 9000));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0012|ArchiveIndexCases.test.ets|assert0159|assertTrue|actual|expected=true', day.firstAt < day.lastAt)).assertTrue();
     });
 
     /**
@@ -885,12 +933,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0013', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(okAt(1, D1));
       day.add(failAt(2, D1 + 1000));
-      expect(day.summaryText()).assertEqual('2024-01-15：共 2 条（有效 2），成功率 50%');
-      expect(day.valid()).assertEqual(2);
-      expect(day.summaryText().indexOf('50%') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0013|ArchiveIndexCases.test.ets|assert0160|assertEqual|actual', day.summaryText())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0013|ArchiveIndexCases.test.ets|assert0160|assertEqual|expected', '2024-01-15：共 2 条（有效 2），成功率 50%'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0013|ArchiveIndexCases.test.ets|assert0161|assertEqual|actual', day.valid())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0013|ArchiveIndexCases.test.ets|assert0161|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0013|ArchiveIndexCases.test.ets|assert0162|assertTrue|actual|expected=true', day.summaryText().indexOf('50%') > 0)).assertTrue();
     });
 
     /**
@@ -903,13 +952,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0014', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 1);
       day.add(okAt(1, D1));
       day.add(okAt(2, D1 + 1000));
-      expect(day.summaryText()).assertEqual(
-        '2024-01-15：共 2 条（有效 2），成功率 100%；另有 1 条仅计入统计');
-      expect(day.summaryText().indexOf('仅计入统计') > 0).assertTrue();
-      expect(day.summaryText().indexOf('100%') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0014|ArchiveIndexCases.test.ets|assert0163|assertEqual|actual', day.summaryText())).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveDayCases_0014|ArchiveIndexCases.test.ets|assert0163|assertEqual|expected', '2024-01-15：共 2 条（有效 2），成功率 100%；另有 1 条仅计入统计'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0014|ArchiveIndexCases.test.ets|assert0164|assertTrue|actual|expected=true', day.summaryText().indexOf('仅计入统计') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0014|ArchiveIndexCases.test.ets|assert0165|assertTrue|actual|expected=true', day.summaryText().indexOf('100%') > 0)).assertTrue();
     });
 
     /**
@@ -922,12 +972,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveDayCases0015', 0, (): void => {
+      configureTestText();
       const day: ArchiveDay = new ArchiveDay('2024-01-15', 10);
       day.add(okAt(1, D1));
-      expect(day.sourceDistribution().length).assertEqual(ARCHIVE_SOURCES.length);
-      expect(day.outcomeDistribution().length).assertEqual(ARCHIVE_OUTCOMES.length);
-      expect(day.sourceDistribution(false).length).assertEqual(1);
-      expect(day.outcomeDistribution(false).length).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0015|ArchiveIndexCases.test.ets|assert0166|assertEqual|actual', day.sourceDistribution().length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0015|ArchiveIndexCases.test.ets|assert0166|assertEqual|expected', ARCHIVE_SOURCES.length));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0015|ArchiveIndexCases.test.ets|assert0167|assertEqual|actual', day.outcomeDistribution().length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0015|ArchiveIndexCases.test.ets|assert0167|assertEqual|expected', ARCHIVE_OUTCOMES.length));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0015|ArchiveIndexCases.test.ets|assert0168|assertEqual|actual', day.sourceDistribution(false).length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0015|ArchiveIndexCases.test.ets|assert0168|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0015|ArchiveIndexCases.test.ets|assert0169|assertEqual|actual', day.outcomeDistribution(false).length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveDayCases_0015|ArchiveIndexCases.test.ets|assert0169|assertEqual|expected', 1));
     });
   });
 
@@ -942,13 +993,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testIndexBoundsCases0001', 0, (): void => {
+      configureTestText();
       const bounds: IndexBounds = new IndexBounds();
-      expect(bounds.maxDays).assertEqual(INDEX_MAX_DAYS);
-      expect(bounds.samplesPerDay).assertEqual(INDEX_SAMPLES_PER_DAY);
-      expect(bounds.recentValid).assertEqual(INDEX_RECENT_VALID);
-      expect(bounds.trendPoints).assertEqual(INDEX_TREND_POINTS);
-      expect(INDEX_MAX_DAYS).assertEqual(180);
-      expect(INDEX_TREND_POINTS).assertEqual(60);
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0170|assertEqual|actual', bounds.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0170|assertEqual|expected', INDEX_MAX_DAYS));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0171|assertEqual|actual', bounds.samplesPerDay)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0171|assertEqual|expected', INDEX_SAMPLES_PER_DAY));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0172|assertEqual|actual', bounds.recentValid)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0172|assertEqual|expected', INDEX_RECENT_VALID));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0173|assertEqual|actual', bounds.trendPoints)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0173|assertEqual|expected', INDEX_TREND_POINTS));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0174|assertEqual|actual', INDEX_MAX_DAYS)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0174|assertEqual|expected', 180));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0175|assertEqual|actual', INDEX_TREND_POINTS)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0001|ArchiveIndexCases.test.ets|assert0175|assertEqual|expected', 60));
     });
 
     /**
@@ -961,10 +1013,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testIndexBoundsCases0002', 0, (): void => {
-      expect(new IndexBounds().describe())
-        .assertEqual('最多 180 天｜每日 20 条样本｜最近 10 条有效样本｜趋势 60 天');
-      expect(new IndexBounds().describe().split('｜').length).assertEqual(4);
-      expect(new IndexBounds().describe().indexOf('180 天') > 0).assertTrue();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0002|ArchiveIndexCases.test.ets|assert0176|assertEqual|actual', new IndexBounds().describe()))
+        .assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0002|ArchiveIndexCases.test.ets|assert0176|assertEqual|expected', '最多 180 天｜每日 20 条样本｜最近 10 条有效样本｜趋势 60 天'));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0002|ArchiveIndexCases.test.ets|assert0177|assertEqual|actual', new IndexBounds().describe().split('｜').length)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0002|ArchiveIndexCases.test.ets|assert0177|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0002|ArchiveIndexCases.test.ets|assert0178|assertTrue|actual|expected=true', new IndexBounds().describe().indexOf('180 天') > 0)).assertTrue();
     });
 
     /**
@@ -977,11 +1030,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testIndexBoundsCases0003', 0, (): void => {
+      configureTestText();
       const safe: IndexBounds = new IndexBounds(0, 0, 0, 0).normalized();
-      expect(safe.maxDays).assertEqual(1);
-      expect(safe.samplesPerDay).assertEqual(1);
-      expect(safe.recentValid).assertEqual(1);
-      expect(safe.trendPoints).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0003|ArchiveIndexCases.test.ets|assert0179|assertEqual|actual', safe.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0003|ArchiveIndexCases.test.ets|assert0179|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0003|ArchiveIndexCases.test.ets|assert0180|assertEqual|actual', safe.samplesPerDay)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0003|ArchiveIndexCases.test.ets|assert0180|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0003|ArchiveIndexCases.test.ets|assert0181|assertEqual|actual', safe.recentValid)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0003|ArchiveIndexCases.test.ets|assert0181|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0003|ArchiveIndexCases.test.ets|assert0182|assertEqual|actual', safe.trendPoints)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0003|ArchiveIndexCases.test.ets|assert0182|assertEqual|expected', 1));
     });
 
     /**
@@ -994,11 +1048,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testIndexBoundsCases0004', 0, (): void => {
+      configureTestText();
       const safe: IndexBounds = new IndexBounds(5000, 900, 300, 400).normalized();
-      expect(safe.maxDays).assertEqual(3660);
-      expect(safe.samplesPerDay).assertEqual(500);
-      expect(safe.recentValid).assertEqual(100);
-      expect(safe.trendPoints).assertEqual(365);
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0004|ArchiveIndexCases.test.ets|assert0183|assertEqual|actual', safe.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0004|ArchiveIndexCases.test.ets|assert0183|assertEqual|expected', 3660));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0004|ArchiveIndexCases.test.ets|assert0184|assertEqual|actual', safe.samplesPerDay)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0004|ArchiveIndexCases.test.ets|assert0184|assertEqual|expected', 500));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0004|ArchiveIndexCases.test.ets|assert0185|assertEqual|actual', safe.recentValid)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0004|ArchiveIndexCases.test.ets|assert0185|assertEqual|expected', 100));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0004|ArchiveIndexCases.test.ets|assert0186|assertEqual|actual', safe.trendPoints)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0004|ArchiveIndexCases.test.ets|assert0186|assertEqual|expected', 365));
     });
 
     /**
@@ -1011,11 +1066,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testIndexBoundsCases0005', 0, (): void => {
+      configureTestText();
       const safe: IndexBounds = new IndexBounds(Number.NaN, Number.POSITIVE_INFINITY, 5, 5)
         .normalized();
-      expect(safe.maxDays).assertEqual(1);
-      expect(safe.samplesPerDay).assertEqual(1);
-      expect(safe.recentValid).assertEqual(5);
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0005|ArchiveIndexCases.test.ets|assert0187|assertEqual|actual', safe.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0005|ArchiveIndexCases.test.ets|assert0187|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0005|ArchiveIndexCases.test.ets|assert0188|assertEqual|actual', safe.samplesPerDay)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0005|ArchiveIndexCases.test.ets|assert0188|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0005|ArchiveIndexCases.test.ets|assert0189|assertEqual|actual', safe.recentValid)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0005|ArchiveIndexCases.test.ets|assert0189|assertEqual|expected', 5));
     });
 
     /**
@@ -1028,11 +1084,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testIndexBoundsCases0006', 0, (): void => {
+      configureTestText();
       const source: IndexBounds = new IndexBounds(0, 0, 0, 0);
       const safe: IndexBounds = source.normalized();
-      expect(source.maxDays).assertEqual(0);
-      expect(safe.maxDays).assertEqual(1);
-      expect(safe === source).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0006|ArchiveIndexCases.test.ets|assert0190|assertEqual|actual', source.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0006|ArchiveIndexCases.test.ets|assert0190|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0006|ArchiveIndexCases.test.ets|assert0191|assertEqual|actual', safe.maxDays)).assertEqual(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0006|ArchiveIndexCases.test.ets|assert0191|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_IndexBoundsCases_0006|ArchiveIndexCases.test.ets|assert0192|assertFalse|actual|expected=false', safe === source)).assertFalse();
     });
   });
 
@@ -1047,13 +1104,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0001', 0, (): void => {
+      configureTestText();
       const index: ArchiveIndex = buildArchiveIndex([], new IndexBounds(), 0, D1);
-      expect(index.isEmpty()).assertTrue();
-      expect(index.total).assertEqual(0);
-      expect(index.days.length).assertEqual(0);
-      expect(index.emptyState()).assertEqual('归档为空：还没有任何归档记录');
-      expect(index.caption()).assertEqual('归档为空：还没有任何归档记录');
-      expect(index.notices.length).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0193|assertTrue|actual|expected=true', index.isEmpty())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0194|assertEqual|actual', index.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0194|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0195|assertEqual|actual', index.days.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0195|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0196|assertEqual|actual', index.emptyState())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0196|assertEqual|expected', '归档为空：还没有任何归档记录'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0197|assertEqual|actual', index.caption())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0197|assertEqual|expected', '归档为空：还没有任何归档记录'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0198|assertEqual|actual', index.notices.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0001|ArchiveIndexCases.test.ets|assert0198|assertEqual|expected', 1));
     });
 
     /**
@@ -1066,11 +1124,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0002', 0, (): void => {
+      configureTestText();
       const invalid: ArchiveEntry = new ArchiveEntry(0, D1);
       const index: ArchiveIndex = buildArchiveIndex([invalid, new ArchiveEntry(-1, D2)]);
-      expect(index.rejectedEntries).assertEqual(2);
-      expect(index.emptyState()).assertEqual('归档为空：2 条记录均未通过字段校验');
-      expect(index.notices[0]).assertEqual('已忽略 2 条未通过字段校验的记录');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0002|ArchiveIndexCases.test.ets|assert0199|assertEqual|actual', index.rejectedEntries)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0002|ArchiveIndexCases.test.ets|assert0199|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0002|ArchiveIndexCases.test.ets|assert0200|assertEqual|actual', index.emptyState())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0002|ArchiveIndexCases.test.ets|assert0200|assertEqual|expected', '归档为空：2 条记录均未通过字段校验'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0002|ArchiveIndexCases.test.ets|assert0201|assertEqual|actual', index.notices[0])).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0002|ArchiveIndexCases.test.ets|assert0201|assertEqual|expected', '已忽略 2 条未通过字段校验的记录'));
     });
 
     /**
@@ -1083,12 +1142,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0003', 0, (): void => {
+      configureTestText();
       const index: ArchiveIndex = buildArchiveIndex(fillDay(D1, 2, 0, 1));
-      expect(index.emptyState()).assertEqual('');
-      expect(index.isEmpty()).assertFalse();
-      expect(index.droppedEntries).assertEqual(0);
-      expect(index.caption()).assertEqual('归档索引｜1 天｜2 条｜有效 2 条');
-      expect(index.caption().indexOf('窗口外')).assertEqual(-1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0202|assertEqual|actual', index.emptyState())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0202|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0203|assertFalse|actual|expected=false', index.isEmpty())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0204|assertEqual|actual', index.droppedEntries)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0204|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0205|assertEqual|actual', index.caption())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0205|assertEqual|expected', '归档索引｜1 天｜2 条｜有效 2 条'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0206|assertEqual|actual', index.caption().indexOf('窗口外'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0003|ArchiveIndexCases.test.ets|assert0206|assertEqual|expected', -1));
     });
 
     /**
@@ -1101,12 +1161,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0004', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 1, 0, 1).concat(fillDay(D2, 1, 0, 10));
       const index: ArchiveIndex = buildArchiveIndex(entries, new IndexBounds(), 0);
-      expect(index.days.length).assertEqual(2);
-      expect(index.days[0].dayKey).assertEqual('2024-01-16');
-      expect(index.days[1].dayKey).assertEqual('2024-01-15');
-      expect(index.dayKeys().join(',')).assertEqual('2024-01-16,2024-01-15');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0004|ArchiveIndexCases.test.ets|assert0207|assertEqual|actual', index.days.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0004|ArchiveIndexCases.test.ets|assert0207|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0004|ArchiveIndexCases.test.ets|assert0208|assertEqual|actual', index.days[0].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0004|ArchiveIndexCases.test.ets|assert0208|assertEqual|expected', '2024-01-16'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0004|ArchiveIndexCases.test.ets|assert0209|assertEqual|actual', index.days[1].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0004|ArchiveIndexCases.test.ets|assert0209|assertEqual|expected', '2024-01-15'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0004|ArchiveIndexCases.test.ets|assert0210|assertEqual|actual', index.dayKeys().join(','))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0004|ArchiveIndexCases.test.ets|assert0210|assertEqual|expected', '2024-01-16,2024-01-15'));
     });
 
     /**
@@ -1119,13 +1180,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0005', 0, (): void => {
+      configureTestText();
       const lateUtc: number = D2 - 8 * 60 * 60 * 1000;
       const entry: ArchiveEntry = okAt(1, lateUtc);
       const utc: ArchiveIndex = buildArchiveIndex([entry], new IndexBounds(), 0);
       const east: ArchiveIndex = buildArchiveIndex([entry], new IndexBounds(), 480);
-      expect(utc.days[0].dayKey).assertEqual('2024-01-15');
-      expect(east.days[0].dayKey).assertEqual('2024-01-16');
-      expect(utc.total).assertEqual(east.total);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0005|ArchiveIndexCases.test.ets|assert0211|assertEqual|actual', utc.days[0].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0005|ArchiveIndexCases.test.ets|assert0211|assertEqual|expected', '2024-01-15'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0005|ArchiveIndexCases.test.ets|assert0212|assertEqual|actual', east.days[0].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0005|ArchiveIndexCases.test.ets|assert0212|assertEqual|expected', '2024-01-16'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0005|ArchiveIndexCases.test.ets|assert0213|assertEqual|actual', utc.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0005|ArchiveIndexCases.test.ets|assert0213|assertEqual|expected', east.total));
     });
 
     /**
@@ -1138,14 +1200,15 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0006', 0, (): void => {
+      configureTestText();
       const bad: ArchiveEntry = okAt(1, D1);
       bad.outcome = 'blocked';
       const good: ArchiveEntry = okAt(2, D1 + 1000);
       const index: ArchiveIndex = buildArchiveIndex([bad, good]);
-      expect(index.rejectedEntries).assertEqual(1);
-      expect(index.total).assertEqual(1);
-      expect(index.days[0].total).assertEqual(1);
-      expect(index.notices[0].indexOf('已忽略 1 条') === 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0006|ArchiveIndexCases.test.ets|assert0214|assertEqual|actual', index.rejectedEntries)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0006|ArchiveIndexCases.test.ets|assert0214|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0006|ArchiveIndexCases.test.ets|assert0215|assertEqual|actual', index.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0006|ArchiveIndexCases.test.ets|assert0215|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0006|ArchiveIndexCases.test.ets|assert0216|assertEqual|actual', index.days[0].total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0006|ArchiveIndexCases.test.ets|assert0216|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0006|ArchiveIndexCases.test.ets|assert0217|assertTrue|actual|expected=true', index.notices[0].indexOf('已忽略 1 条') === 0)).assertTrue();
     });
 
     /**
@@ -1158,16 +1221,17 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0007', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [okAt(1, D1), failAt(2, D1 + 1000),
         timeoutAt(3, D1 + 2000)];
       const index: ArchiveIndex = buildArchiveIndex(entries);
-      expect(index.total).assertEqual(3);
-      expect(index.success).assertEqual(1);
-      expect(index.failure).assertEqual(1);
-      expect(index.timeout).assertEqual(1);
-      expect(index.validCount()).assertEqual(2);
-      expect(index.newestAt).assertEqual(D1 + 2000);
-      expect(index.oldestAt).assertEqual(D1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0218|assertEqual|actual', index.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0218|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0219|assertEqual|actual', index.success)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0219|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0220|assertEqual|actual', index.failure)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0220|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0221|assertEqual|actual', index.timeout)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0221|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0222|assertEqual|actual', index.validCount())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0222|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0223|assertEqual|actual', index.newestAt)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0223|assertEqual|expected', D1 + 2000));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0224|assertEqual|actual', index.oldestAt)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0007|ArchiveIndexCases.test.ets|assert0224|assertEqual|expected', D1));
     });
 
     /**
@@ -1180,11 +1244,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0008', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 5, 0, 1);
       const index: ArchiveIndex = buildArchiveIndex(entries, new IndexBounds(180, 20, 2, 60));
-      expect(index.recentValid.length).assertEqual(2);
-      expect(index.latestValidId()).assertEqual(5);
-      expect(index.recentValid[0].id).assertEqual(5);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0008|ArchiveIndexCases.test.ets|assert0225|assertEqual|actual', index.recentValid.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0008|ArchiveIndexCases.test.ets|assert0225|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0008|ArchiveIndexCases.test.ets|assert0226|assertEqual|actual', index.latestValidId())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0008|ArchiveIndexCases.test.ets|assert0226|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0008|ArchiveIndexCases.test.ets|assert0227|assertEqual|actual', index.recentValid[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0008|ArchiveIndexCases.test.ets|assert0227|assertEqual|expected', 5));
     });
 
     /**
@@ -1197,13 +1262,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0009', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [timeoutAt(1, D1),
         entryOf(2, D1 + 1000, QueryOutcome.UNSUPPORTED, RefreshSource.MANUAL, 0),
         okAt(3, D1 + 2000)];
       const index: ArchiveIndex = buildArchiveIndex(entries);
-      expect(index.recentValid.length).assertEqual(1);
-      expect(index.recentValid[0].id).assertEqual(3);
-      expect(index.total).assertEqual(3);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0009|ArchiveIndexCases.test.ets|assert0228|assertEqual|actual', index.recentValid.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0009|ArchiveIndexCases.test.ets|assert0228|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0009|ArchiveIndexCases.test.ets|assert0229|assertEqual|actual', index.recentValid[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0009|ArchiveIndexCases.test.ets|assert0229|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0009|ArchiveIndexCases.test.ets|assert0230|assertEqual|actual', index.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0009|ArchiveIndexCases.test.ets|assert0230|assertEqual|expected', 3));
     });
 
     /**
@@ -1216,13 +1282,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0010', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 2, 0, 1).concat(fillDay(D2, 3, 0, 10));
       const index: ArchiveIndex = buildArchiveIndex(entries, new IndexBounds(1, 20, 10, 60));
-      expect(index.days.length).assertEqual(1);
-      expect(index.days[0].dayKey).assertEqual('2024-01-16');
-      expect(index.total).assertEqual(3);
-      expect(index.droppedEntries).assertEqual(2);
-      expect(index.droppedDays).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0231|assertEqual|actual', index.days.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0231|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0232|assertEqual|actual', index.days[0].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0232|assertEqual|expected', '2024-01-16'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0233|assertEqual|actual', index.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0233|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0234|assertEqual|actual', index.droppedEntries)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0234|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0235|assertEqual|actual', index.droppedDays)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0010|ArchiveIndexCases.test.ets|assert0235|assertEqual|expected', 1));
     });
 
     /**
@@ -1235,13 +1302,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0011', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 1, 0, 1).concat(fillDay(D2, 1, 0, 10));
       const index: ArchiveIndex = buildArchiveIndex(entries, new IndexBounds(1, 20, 10, 60));
-      expect(index.notices.some((notice: string): boolean =>
-        notice.indexOf('（涉及 1 个日期）') > 0)).assertTrue();
-      expect(index.notices.some((notice: string): boolean =>
-        notice.indexOf('超出 1 天索引窗口') > 0)).assertTrue();
-      expect(index.notices.length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0011|ArchiveIndexCases.test.ets|assert0236|assertTrue|actual|expected=true', index.notices.some((notice: string): boolean =>
+        notice.indexOf('（涉及 1 个日期）') > 0))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0011|ArchiveIndexCases.test.ets|assert0237|assertTrue|actual|expected=true', index.notices.some((notice: string): boolean =>
+        notice.indexOf('超出 1 天索引窗口') > 0))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0011|ArchiveIndexCases.test.ets|assert0238|assertTrue|actual|expected=true', index.notices.length > 0)).assertTrue();
     });
 
     /**
@@ -1254,11 +1322,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0012', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 1, 0, 1).concat(fillDay(D2, 2, 0, 10));
       const index: ArchiveIndex = buildArchiveIndex(entries, new IndexBounds(1, 20, 10, 60));
-      expect(index.caption()).assertEqual('归档索引｜1 天｜2 条｜有效 2 条｜窗口外 1 条');
-      expect(index.caption().indexOf('窗口外') > 0).assertTrue();
-      expect(index.caption().indexOf('2 条') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0012|ArchiveIndexCases.test.ets|assert0239|assertEqual|actual', index.caption())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0012|ArchiveIndexCases.test.ets|assert0239|assertEqual|expected', '归档索引｜1 天｜2 条｜有效 2 条｜窗口外 1 条'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0012|ArchiveIndexCases.test.ets|assert0240|assertTrue|actual|expected=true', index.caption().indexOf('窗口外') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0012|ArchiveIndexCases.test.ets|assert0241|assertTrue|actual|expected=true', index.caption().indexOf('2 条') > 0)).assertTrue();
     });
 
     /**
@@ -1271,12 +1340,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0013', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 25, 0, 1);
       const index: ArchiveIndex = buildArchiveIndex(entries, new IndexBounds(180, 20, 10, 60));
-      expect(index.days[0].total).assertEqual(25);
-      expect(index.days[0].samples.length).assertEqual(20);
-      expect(index.days[0].sampleTruncated()).assertEqual(5);
-      expect(index.total).assertEqual(25);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0013|ArchiveIndexCases.test.ets|assert0242|assertEqual|actual', index.days[0].total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0013|ArchiveIndexCases.test.ets|assert0242|assertEqual|expected', 25));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0013|ArchiveIndexCases.test.ets|assert0243|assertEqual|actual', index.days[0].samples.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0013|ArchiveIndexCases.test.ets|assert0243|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0013|ArchiveIndexCases.test.ets|assert0244|assertEqual|actual', index.days[0].sampleTruncated())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0013|ArchiveIndexCases.test.ets|assert0244|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0013|ArchiveIndexCases.test.ets|assert0245|assertEqual|actual', index.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0013|ArchiveIndexCases.test.ets|assert0245|assertEqual|expected', 25));
     });
 
     /**
@@ -1289,15 +1359,16 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0014', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 1, 1, 1).concat(fillDay(D2, 2, 0, 10));
       const index: ArchiveIndex = buildArchiveIndex(entries);
       const sources: CountEntry[] = index.sourceDistribution(false);
-      expect(sources.length).assertEqual(1);
-      expect(sources[0].count).assertEqual(4);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0246|assertEqual|actual', sources.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0246|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0247|assertEqual|actual', sources[0].count)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0247|assertEqual|expected', 4));
       const outcomes: CountEntry[] = index.outcomeDistribution(false);
-      expect(outcomes.length).assertEqual(2);
-      expect(index.outcomeCounts[0]).assertEqual(3);
-      expect(index.outcomeCounts[1]).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0248|assertEqual|actual', outcomes.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0248|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0249|assertEqual|actual', index.outcomeCounts[0])).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0249|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0250|assertEqual|actual', index.outcomeCounts[1])).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0014|ArchiveIndexCases.test.ets|assert0250|assertEqual|expected', 1));
     });
 
     /**
@@ -1310,12 +1381,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0015', 0, (): void => {
+      configureTestText();
       const index: ArchiveIndex = buildArchiveIndex(fillDay(D1, 1, 0, 1));
-      expect(index.dayOf('2024-01-15') !== undefined).assertTrue();
-      expect(index.dayOf('2024-01-20') === undefined).assertTrue();
-      expect(index.dayDetail('2024-01-20').found).assertFalse();
-      expect(index.dayDetail('2024-01-20').text())
-        .assertEqual('2024-01-20：没有该日期的记录（索引窗口 2024-01-15 至 2024-01-15）');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0015|ArchiveIndexCases.test.ets|assert0251|assertTrue|actual|expected=true', index.dayOf('2024-01-15') !== undefined)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0015|ArchiveIndexCases.test.ets|assert0252|assertTrue|actual|expected=true', index.dayOf('2024-01-20') === undefined)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0015|ArchiveIndexCases.test.ets|assert0253|assertFalse|actual|expected=false', index.dayDetail('2024-01-20').found)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0015|ArchiveIndexCases.test.ets|assert0254|assertEqual|actual', index.dayDetail('2024-01-20').text()))
+        .assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0015|ArchiveIndexCases.test.ets|assert0254|assertEqual|expected', '2024-01-20：没有该日期的记录（索引窗口 2024-01-15 至 2024-01-15）'));
     });
 
     /**
@@ -1328,11 +1400,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0016', 0, (): void => {
+      configureTestText();
       const index: ArchiveIndex = buildArchiveIndex(fillDay(D1, 1, 0, 1));
       const detail = index.dayDetail('2024/01/15');
-      expect(detail.found).assertFalse();
-      expect(detail.notice).assertEqual('日期格式应为 yyyy-MM-dd');
-      expect(detail.samples.length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0016|ArchiveIndexCases.test.ets|assert0255|assertFalse|actual|expected=false', detail.found)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0016|ArchiveIndexCases.test.ets|assert0256|assertEqual|actual', detail.notice)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0016|ArchiveIndexCases.test.ets|assert0256|assertEqual|expected', '日期格式应为 yyyy-MM-dd'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0016|ArchiveIndexCases.test.ets|assert0257|assertEqual|actual', detail.samples.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0016|ArchiveIndexCases.test.ets|assert0257|assertEqual|expected', 0));
     });
 
     /**
@@ -1345,11 +1418,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0017', 0, (): void => {
+      configureTestText();
       const index: ArchiveIndex = buildArchiveIndex([]);
       const detail = index.dayDetail('2024-01-15');
-      expect(detail.found).assertFalse();
-      expect(detail.notice).assertEqual('归档为空，尚无任何日期索引');
-      expect(detail.total).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0017|ArchiveIndexCases.test.ets|assert0258|assertFalse|actual|expected=false', detail.found)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0017|ArchiveIndexCases.test.ets|assert0259|assertEqual|actual', detail.notice)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0017|ArchiveIndexCases.test.ets|assert0259|assertEqual|expected', '归档为空，尚无任何日期索引'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0017|ArchiveIndexCases.test.ets|assert0260|assertEqual|actual', detail.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0017|ArchiveIndexCases.test.ets|assert0260|assertEqual|expected', 0));
     });
 
     /**
@@ -1362,15 +1436,16 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0018', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 25, 0, 1);
       const index: ArchiveIndex = buildArchiveIndex(entries, new IndexBounds(180, 20, 10, 60));
       const detail = index.dayDetail('2024-01-15');
-      expect(detail.found).assertTrue();
-      expect(detail.total).assertEqual(25);
-      expect(detail.samples.length).assertEqual(20);
-      expect(detail.truncated).assertEqual(5);
-      expect(detail.notice).assertEqual('当天只保留最近 20 条样本');
-      expect(detail.text().indexOf('另有 5 条仅计入统计') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0261|assertTrue|actual|expected=true', detail.found)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0262|assertEqual|actual', detail.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0262|assertEqual|expected', 25));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0263|assertEqual|actual', detail.samples.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0263|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0264|assertEqual|actual', detail.truncated)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0264|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0265|assertEqual|actual', detail.notice)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0265|assertEqual|expected', '当天只保留最近 20 条样本'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0018|ArchiveIndexCases.test.ets|assert0266|assertTrue|actual|expected=true', detail.text().indexOf('另有 5 条仅计入统计') > 0)).assertTrue();
     });
 
     /**
@@ -1383,13 +1458,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0019', 0, (): void => {
+      configureTestText();
       const settings: ArchiveEntry = entryOf(1, D1, QueryOutcome.SUCCESS, RefreshSource.SETTINGS, 9);
       const entries: ArchiveEntry[] = [settings].concat(fillDay(D2, 1, 0, 10));
       const index: ArchiveIndex = buildArchiveIndex(entries);
-      expect(index.matchDays('', '').length).assertEqual(2);
-      expect(index.matchDays(RefreshSource.SETTINGS, '').length).assertEqual(1);
-      expect(index.matchDays(RefreshSource.SETTINGS, '').length === 2).assertFalse();
-      expect(index.matchDays('', QueryOutcome.FAILURE).length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0019|ArchiveIndexCases.test.ets|assert0267|assertEqual|actual', index.matchDays('', '').length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0019|ArchiveIndexCases.test.ets|assert0267|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0019|ArchiveIndexCases.test.ets|assert0268|assertEqual|actual', index.matchDays(RefreshSource.SETTINGS, '').length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0019|ArchiveIndexCases.test.ets|assert0268|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0019|ArchiveIndexCases.test.ets|assert0269|assertFalse|actual|expected=false', index.matchDays(RefreshSource.SETTINGS, '').length === 2)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0019|ArchiveIndexCases.test.ets|assert0270|assertEqual|actual', index.matchDays('', QueryOutcome.FAILURE).length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0019|ArchiveIndexCases.test.ets|assert0270|assertEqual|expected', 0));
     });
 
     /**
@@ -1402,10 +1478,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveIndexBuildCases0020', 0, (): void => {
+      configureTestText();
       const index: ArchiveIndex = buildArchiveIndex(fillDay(D1, 2, 1, 1));
-      expect(index.matchDays('', '').length).assertEqual(1);
-      expect(index.matchDays(RefreshSource.MANUAL, '').length).assertEqual(1);
-      expect(index.matchDays(RefreshSource.INITIAL, '').length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0020|ArchiveIndexCases.test.ets|assert0271|assertEqual|actual', index.matchDays('', '').length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0020|ArchiveIndexCases.test.ets|assert0271|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0020|ArchiveIndexCases.test.ets|assert0272|assertEqual|actual', index.matchDays(RefreshSource.MANUAL, '').length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0020|ArchiveIndexCases.test.ets|assert0272|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0020|ArchiveIndexCases.test.ets|assert0273|assertEqual|actual', index.matchDays(RefreshSource.INITIAL, '').length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveIndexBuildCases_0020|ArchiveIndexCases.test.ets|assert0273|assertEqual|expected', 0));
     });
   });
 
@@ -1420,11 +1497,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0001', 0, (): void => {
+      configureTestText();
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex([]));
-      expect(trend.points.length).assertEqual(0);
-      expect(trend.direction).assertEqual(TrendDirection.UNKNOWN);
-      expect(trend.text()).assertEqual('趋势数据不足：归档为空');
-      expect(trend.sampleDays).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0001|ArchiveIndexCases.test.ets|assert0274|assertEqual|actual', trend.points.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0001|ArchiveIndexCases.test.ets|assert0274|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0001|ArchiveIndexCases.test.ets|assert0275|assertEqual|actual', trend.direction)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0001|ArchiveIndexCases.test.ets|assert0275|assertEqual|expected', TrendDirection.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0001|ArchiveIndexCases.test.ets|assert0276|assertEqual|actual', trend.text())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0001|ArchiveIndexCases.test.ets|assert0276|assertEqual|expected', '趋势数据不足：归档为空'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0001|ArchiveIndexCases.test.ets|assert0277|assertEqual|actual', trend.sampleDays)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0001|ArchiveIndexCases.test.ets|assert0277|assertEqual|expected', 0));
     });
 
     /**
@@ -1437,12 +1515,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0002', 0, (): void => {
+      configureTestText();
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(fillDay(D1, 3, 0, 1)));
-      expect(trend.points.length).assertEqual(1);
-      expect(trend.sampleDays).assertEqual(1);
-      expect(trend.direction).assertEqual(TrendDirection.UNKNOWN);
-      expect(trend.deltaRate).assertEqual(0);
-      expect(trend.text()).assertEqual('趋势数据不足：只有 1 个有效样本日（至少需要 2 个）');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0278|assertEqual|actual', trend.points.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0278|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0279|assertEqual|actual', trend.sampleDays)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0279|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0280|assertEqual|actual', trend.direction)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0280|assertEqual|expected', TrendDirection.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0281|assertEqual|actual', trend.deltaRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0281|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0282|assertEqual|actual', trend.text())).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0002|ArchiveIndexCases.test.ets|assert0282|assertEqual|expected', '趋势数据不足：只有 1 个有效样本日（至少需要 2 个）'));
     });
 
     /**
@@ -1455,14 +1534,15 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0003', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 0, 1, 1).concat(fillDay(D2, 1, 0, 10))
         .concat(fillDay(D3, 1, 0, 20));
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries));
-      expect(trend.direction).assertEqual(TrendDirection.RISING);
-      expect(trend.deltaRate).assertEqual(100);
-      expect(trend.sampleDays).assertEqual(3);
-      expect(trend.text()).assertEqual(
-        '2024-01-15 → 2024-01-17｜成功率 0% → 100%｜上升（+100 个百分点）');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0003|ArchiveIndexCases.test.ets|assert0283|assertEqual|actual', trend.direction)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0003|ArchiveIndexCases.test.ets|assert0283|assertEqual|expected', TrendDirection.RISING));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0003|ArchiveIndexCases.test.ets|assert0284|assertEqual|actual', trend.deltaRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0003|ArchiveIndexCases.test.ets|assert0284|assertEqual|expected', 100));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0003|ArchiveIndexCases.test.ets|assert0285|assertEqual|actual', trend.sampleDays)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0003|ArchiveIndexCases.test.ets|assert0285|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0003|ArchiveIndexCases.test.ets|assert0286|assertEqual|actual', trend.text())).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0003|ArchiveIndexCases.test.ets|assert0286|assertEqual|expected', '2024-01-15 → 2024-01-17｜成功率 0% → 100%｜上升（+100 个百分点）'));
     });
 
     /**
@@ -1475,13 +1555,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0004', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 1, 0, 1).concat(fillDay(D2, 0, 1, 10))
         .concat(fillDay(D3, 0, 1, 20));
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries));
-      expect(trend.direction).assertEqual(TrendDirection.FALLING);
-      expect(trend.deltaRate).assertEqual(-100);
-      expect(trend.text().indexOf('下降（-100 个百分点）') > 0).assertTrue();
-      expect(trend.text().indexOf('+') === -1).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0004|ArchiveIndexCases.test.ets|assert0287|assertEqual|actual', trend.direction)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0004|ArchiveIndexCases.test.ets|assert0287|assertEqual|expected', TrendDirection.FALLING));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0004|ArchiveIndexCases.test.ets|assert0288|assertEqual|actual', trend.deltaRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0004|ArchiveIndexCases.test.ets|assert0288|assertEqual|expected', -100));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0004|ArchiveIndexCases.test.ets|assert0289|assertTrue|actual|expected=true', trend.text().indexOf('下降（-100 个百分点）') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0004|ArchiveIndexCases.test.ets|assert0290|assertTrue|actual|expected=true', trend.text().indexOf('+') === -1)).assertTrue();
     });
 
     /**
@@ -1494,12 +1575,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0005', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 9, 1, 1).concat(fillDay(D2, 1, 0, 10));
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries));
-      expect(trend.deltaRate).assertEqual(10);
-      expect(trend.direction).assertEqual(TrendDirection.STABLE);
-      expect(trend.text()).assertEqual(
-        '2024-01-15 → 2024-01-16｜成功率 90% → 100%｜基本持平（+10 个百分点）');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0005|ArchiveIndexCases.test.ets|assert0291|assertEqual|actual', trend.deltaRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0005|ArchiveIndexCases.test.ets|assert0291|assertEqual|expected', 10));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0005|ArchiveIndexCases.test.ets|assert0292|assertEqual|actual', trend.direction)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0005|ArchiveIndexCases.test.ets|assert0292|assertEqual|expected', TrendDirection.STABLE));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0005|ArchiveIndexCases.test.ets|assert0293|assertEqual|actual', trend.text())).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0005|ArchiveIndexCases.test.ets|assert0293|assertEqual|expected', '2024-01-15 → 2024-01-16｜成功率 90% → 100%｜基本持平（+10 个百分点）'));
     });
 
     /**
@@ -1512,12 +1594,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0006', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 1, 1, 1).concat(fillDay(D2, 3, 1, 10));
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries));
-      expect(trend.points[0].successRate).assertEqual(50);
-      expect(trend.points[1].successRate).assertEqual(75);
-      expect(trend.deltaRate).assertEqual(25);
-      expect(trend.direction).assertEqual(TrendDirection.RISING);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0006|ArchiveIndexCases.test.ets|assert0294|assertEqual|actual', trend.points[0].successRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0006|ArchiveIndexCases.test.ets|assert0294|assertEqual|expected', 50));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0006|ArchiveIndexCases.test.ets|assert0295|assertEqual|actual', trend.points[1].successRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0006|ArchiveIndexCases.test.ets|assert0295|assertEqual|expected', 75));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0006|ArchiveIndexCases.test.ets|assert0296|assertEqual|actual', trend.deltaRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0006|ArchiveIndexCases.test.ets|assert0296|assertEqual|expected', 25));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0006|ArchiveIndexCases.test.ets|assert0297|assertEqual|actual', trend.direction)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0006|ArchiveIndexCases.test.ets|assert0297|assertEqual|expected', TrendDirection.RISING));
     });
 
     /**
@@ -1530,13 +1613,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0007', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [timeoutAt(1, D1)].concat(fillDay(D2, 1, 0, 10))
         .concat(fillDay(D3, 1, 0, 20));
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries));
-      expect(trend.points.length).assertEqual(3);
-      expect(trend.sampleDays).assertEqual(2);
-      expect(trend.direction).assertEqual(TrendDirection.STABLE);
-      expect(trend.deltaRate).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0007|ArchiveIndexCases.test.ets|assert0298|assertEqual|actual', trend.points.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0007|ArchiveIndexCases.test.ets|assert0298|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0007|ArchiveIndexCases.test.ets|assert0299|assertEqual|actual', trend.sampleDays)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0007|ArchiveIndexCases.test.ets|assert0299|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0007|ArchiveIndexCases.test.ets|assert0300|assertEqual|actual', trend.direction)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0007|ArchiveIndexCases.test.ets|assert0300|assertEqual|expected', TrendDirection.STABLE));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0007|ArchiveIndexCases.test.ets|assert0301|assertEqual|actual', trend.deltaRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0007|ArchiveIndexCases.test.ets|assert0301|assertEqual|expected', 0));
     });
 
     /**
@@ -1549,12 +1633,13 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0008', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = [timeoutAt(1, D1), timeoutAt(2, D2)];
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries));
-      expect(trend.points.length).assertEqual(2);
-      expect(trend.sampleDays).assertEqual(0);
-      expect(trend.direction).assertEqual(TrendDirection.UNKNOWN);
-      expect(trend.text().indexOf('只有 0 个有效样本日') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0008|ArchiveIndexCases.test.ets|assert0302|assertEqual|actual', trend.points.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0008|ArchiveIndexCases.test.ets|assert0302|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0008|ArchiveIndexCases.test.ets|assert0303|assertEqual|actual', trend.sampleDays)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0008|ArchiveIndexCases.test.ets|assert0303|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0008|ArchiveIndexCases.test.ets|assert0304|assertEqual|actual', trend.direction)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0008|ArchiveIndexCases.test.ets|assert0304|assertEqual|expected', TrendDirection.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0008|ArchiveIndexCases.test.ets|assert0305|assertTrue|actual|expected=true', trend.text().indexOf('只有 0 个有效样本日') > 0)).assertTrue();
     });
 
     /**
@@ -1567,14 +1652,15 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0009', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 1, 0, 1).concat(fillDay(D2, 1, 0, 10))
         .concat(fillDay(D3, 1, 0, 20));
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries, new IndexBounds(180, 20, 10,
         2)));
-      expect(trend.points.length).assertEqual(2);
-      expect(trend.points[0].dayKey).assertEqual('2024-01-16');
-      expect(trend.points[1].dayKey).assertEqual('2024-01-17');
-      expect(trend.sampleDays).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0009|ArchiveIndexCases.test.ets|assert0306|assertEqual|actual', trend.points.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0009|ArchiveIndexCases.test.ets|assert0306|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0009|ArchiveIndexCases.test.ets|assert0307|assertEqual|actual', trend.points[0].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0009|ArchiveIndexCases.test.ets|assert0307|assertEqual|expected', '2024-01-16'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0009|ArchiveIndexCases.test.ets|assert0308|assertEqual|actual', trend.points[1].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0009|ArchiveIndexCases.test.ets|assert0308|assertEqual|expected', '2024-01-17'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0009|ArchiveIndexCases.test.ets|assert0309|assertEqual|actual', trend.sampleDays)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0009|ArchiveIndexCases.test.ets|assert0309|assertEqual|expected', 2));
     });
 
     /**
@@ -1587,11 +1673,12 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0010', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 1, 0, 1).concat(fillDay(D3, 1, 0, 20));
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries));
-      expect(trend.points[0].dayKey).assertEqual('2024-01-15');
-      expect(trend.points[1].dayKey).assertEqual('2024-01-17');
-      expect(trend.points.length).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0010|ArchiveIndexCases.test.ets|assert0310|assertEqual|actual', trend.points[0].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0010|ArchiveIndexCases.test.ets|assert0310|assertEqual|expected', '2024-01-15'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0010|ArchiveIndexCases.test.ets|assert0311|assertEqual|actual', trend.points[1].dayKey)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0010|ArchiveIndexCases.test.ets|assert0311|assertEqual|expected', '2024-01-17'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0010|ArchiveIndexCases.test.ets|assert0312|assertEqual|actual', trend.points.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0010|ArchiveIndexCases.test.ets|assert0312|assertEqual|expected', 2));
     });
 
     /**
@@ -1604,13 +1691,14 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0011', 0, (): void => {
+      configureTestText();
       const entries: ArchiveEntry[] = fillDay(D1, 2, 1, 1);
       const trend: ArchiveTrend = buildTrend(buildArchiveIndex(entries));
       const point: TrendPoint = trend.points[0];
-      expect(point.total).assertEqual(3);
-      expect(point.valid).assertEqual(3);
-      expect(point.failure).assertEqual(1);
-      expect(point.successRate).assertEqual(66.7);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0011|ArchiveIndexCases.test.ets|assert0313|assertEqual|actual', point.total)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0011|ArchiveIndexCases.test.ets|assert0313|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0011|ArchiveIndexCases.test.ets|assert0314|assertEqual|actual', point.valid)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0011|ArchiveIndexCases.test.ets|assert0314|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0011|ArchiveIndexCases.test.ets|assert0315|assertEqual|actual', point.failure)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0011|ArchiveIndexCases.test.ets|assert0315|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0011|ArchiveIndexCases.test.ets|assert0316|assertEqual|actual', point.successRate)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0011|ArchiveIndexCases.test.ets|assert0316|assertEqual|expected', 66.7));
     });
 
     /**
@@ -1623,10 +1711,11 @@ export default function archiveIndexCasesTest(): void {
      */
 
     it('testArchiveTrendCases0012', 0, (): void => {
-      expect(trendDirectionLabel(TrendDirection.RISING)).assertEqual('上升');
-      expect(trendDirectionLabel(TrendDirection.FALLING)).assertEqual('下降');
-      expect(trendDirectionLabel(TrendDirection.STABLE)).assertEqual('基本持平');
-      expect(trendDirectionLabel(TrendDirection.UNKNOWN)).assertEqual('数据不足');
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0012|ArchiveIndexCases.test.ets|assert0317|assertEqual|actual', trendDirectionLabel(TrendDirection.RISING))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0012|ArchiveIndexCases.test.ets|assert0317|assertEqual|expected', '上升'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0012|ArchiveIndexCases.test.ets|assert0318|assertEqual|actual', trendDirectionLabel(TrendDirection.FALLING))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0012|ArchiveIndexCases.test.ets|assert0318|assertEqual|expected', '下降'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0012|ArchiveIndexCases.test.ets|assert0319|assertEqual|actual', trendDirectionLabel(TrendDirection.STABLE))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0012|ArchiveIndexCases.test.ets|assert0319|assertEqual|expected', '基本持平'));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0012|ArchiveIndexCases.test.ets|assert0320|assertEqual|actual', trendDirectionLabel(TrendDirection.UNKNOWN))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveTrendCases_0012|ArchiveIndexCases.test.ets|assert0320|assertEqual|expected', '数据不足'));
     });
   });
 }
