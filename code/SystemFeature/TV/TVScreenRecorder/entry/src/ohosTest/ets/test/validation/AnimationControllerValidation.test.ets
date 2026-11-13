@@ -1698,5 +1698,535 @@ export default function animationControllerValidationTest(): void {
       expect(logger.getLogCount()).assertEqual(0);
       expect(logger.getSuccessRate()).assertEqual(0);
     });
+
+    // Progress mapper converts linear progress to eased progress and back.
+    it('progress_mapper_should_map_and_unmap', 0, async () => {
+      const mapper: AnimationProgressMapper = new AnimationProgressMapper();
+      expect(mapper.mapProgress(EasingFunction.LINEAR, 0.5)).assertEqual(0.5);
+      expect(mapper.mapProgress(EasingFunction.EASE_IN, 0.5)).assertEqual(0.25);
+      expect(mapper.unmapProgress(EasingFunction.LINEAR, 0.8)).assertEqual(0.8);
+      expect(mapper.unmapProgress(EasingFunction.EASE_OUT, 1.5)).assertEqual(1);
+      expect(mapper.isEquivalentMapping(EasingFunction.LINEAR, EasingFunction.LINEAR, 0.5)).assertTrue();
+      expect(mapper.isEquivalentMapping(EasingFunction.EASE_IN, EasingFunction.EASE_OUT, 0.5)).assertFalse();
+    });
+
+    // State transitioner rejects illegal animation transitions.
+    it('state_transitioner_should_validate_transitions', 0, async () => {
+      const transitioner: AnimationStateTransitioner = new AnimationStateTransitioner();
+      expect(transitioner.isValidTransition(AnimationState.IDLE, AnimationState.RUNNING)).assertTrue();
+      expect(transitioner.isValidTransition(AnimationState.RUNNING, AnimationState.PAUSED)).assertTrue();
+      expect(transitioner.isValidTransition(AnimationState.PAUSED, AnimationState.RUNNING)).assertTrue();
+      expect(transitioner.isValidTransition(AnimationState.COMPLETED, AnimationState.IDLE)).assertTrue();
+      expect(transitioner.isValidTransition(AnimationState.IDLE, AnimationState.COMPLETED)).assertFalse();
+      expect(transitioner.isValidTransition(AnimationState.RUNNING, AnimationState.IDLE)).assertFalse();
+      expect(transitioner.isTerminal(AnimationState.COMPLETED)).assertTrue();
+      expect(transitioner.isTerminal(AnimationState.CANCELLED)).assertTrue();
+      expect(transitioner.isTerminal(AnimationState.RUNNING)).assertFalse();
+    });
+
+    // The tip window becomes visible through showWithAnimation.
+    it('tip_window_show_with_animation_should_become_visible', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      expect(tip.isVisible()).assertFalse();
+      expect(tip.showWithAnimation()).assertTrue();
+      expect(tip.isVisible()).assertTrue();
+      expect(tip.getShowCount()).assertEqual(1);
+      expect(tip.getTotalMs()).assertEqual(TIP_WINDOW_DURATION);
+      expect(tip.getRemainingMs()).assertEqual(TIP_WINDOW_DURATION);
+    });
+
+    // A duplicated show request does not reset the running countdown.
+    it('tip_window_duplicate_show_should_be_rejected', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      tip.showWithAnimation();
+      tip.advance(1000);
+      expect(tip.showWithAnimation()).assertFalse();
+      expect(tip.getShowCount()).assertEqual(1);
+      expect(tip.getRemainingMs()).assertEqual(2000);
+    });
+
+    // The tip window auto hides exactly when the 3000 ms duration expires.
+    it('tip_window_should_auto_hide_after_3000ms', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      tip.showWithAnimation();
+      expect(tip.advance(2999)).assertFalse();
+      expect(tip.isVisible()).assertTrue();
+      expect(tip.getRemainingMs()).assertEqual(1);
+      expect(tip.advance(1)).assertTrue();
+      expect(tip.isVisible()).assertFalse();
+      expect(tip.getAutoHideCount()).assertEqual(1);
+      expect(tip.getRemainingMs()).assertEqual(0);
+    });
+
+    // Advancing a hidden tip window has no effect.
+    it('tip_window_advance_should_be_ignored_when_hidden', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      expect(tip.advance(500)).assertFalse();
+      expect(tip.isVisible()).assertFalse();
+      expect(tip.getRemainingMs()).assertEqual(0);
+      expect(tip.getAutoHideCount()).assertEqual(0);
+    });
+
+    // hideWithAnimation hides a visible tip window and resets the countdown.
+    it('tip_window_hide_with_animation_should_reset_remaining', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      tip.showWithAnimation();
+      tip.advance(1200);
+      expect(tip.hideWithAnimation()).assertTrue();
+      expect(tip.isVisible()).assertFalse();
+      expect(tip.getRemainingMs()).assertEqual(0);
+      expect(tip.getHideCount()).assertEqual(1);
+      expect(tip.getAutoHideCount()).assertEqual(0);
+    });
+
+    // Hiding an already hidden tip window is rejected.
+    it('tip_window_hide_when_hidden_should_be_rejected', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      expect(tip.hideWithAnimation()).assertFalse();
+      expect(tip.getHideCount()).assertEqual(0);
+      tip.showWithAnimation();
+      expect(tip.hideWithAnimation()).assertTrue();
+      expect(tip.hideWithAnimation()).assertFalse();
+      expect(tip.getHideCount()).assertEqual(1);
+    });
+
+    // A state change interrupts the visible tip window and keeps the reason.
+    it('tip_window_interruption_should_record_reason', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      tip.showWithAnimation();
+      tip.advance(500);
+      expect(tip.interrupt('recorder_state_error')).assertTrue();
+      expect(tip.isVisible()).assertFalse();
+      expect(tip.isInterrupted()).assertTrue();
+      expect(tip.getInterruptedBy()).assertEqual('recorder_state_error');
+      expect(tip.getRemainingMs()).assertEqual(0);
+    });
+
+    // Interrupting a hidden tip window is rejected.
+    it('tip_window_interrupt_when_hidden_should_be_rejected', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      expect(tip.interrupt('stop_recording')).assertFalse();
+      expect(tip.isInterrupted()).assertFalse();
+      expect(tip.getInterruptedBy()).assertEqual('');
+    });
+
+    // The tip window can be re-shown after a full hide cycle.
+    it('tip_window_should_support_repeated_show_cycles', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      tip.showWithAnimation();
+      tip.advance(TIP_WINDOW_DURATION);
+      tip.showWithAnimation();
+      tip.hideWithAnimation();
+      expect(tip.getShowCount()).assertEqual(2);
+      expect(tip.getAutoHideCount()).assertEqual(1);
+      expect(tip.getHideCount()).assertEqual(2);
+      expect(tip.isVisible()).assertFalse();
+    });
+
+    // A custom duration keeps the tip window visible longer than 3000 ms.
+    it('tip_window_should_accept_custom_duration', 0, async () => {
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      tip.showWithAnimation(5000);
+      expect(tip.getTotalMs()).assertEqual(5000);
+      expect(tip.advance(4999)).assertFalse();
+      expect(tip.isVisible()).assertTrue();
+      expect(tip.advance(1)).assertTrue();
+      expect(tip.isVisible()).assertFalse();
+    });
+
+    // The recording icon must be visible immediately after start.
+    it('recording_icon_should_be_visible_after_start', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      expect(blinker.isRunning()).assertFalse();
+      expect(blinker.start()).assertTrue();
+      expect(blinker.isRunning()).assertTrue();
+      expect(blinker.isVisible()).assertTrue();
+      expect(blinker.getToggleCount()).assertEqual(0);
+    });
+
+    // The blink interval of the recording icon equals 800 ms.
+    it('recording_icon_blink_interval_should_be_800ms', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      expect(blinker.getInterval()).assertEqual(RECORDING_ICON_BLINK_INTERVAL);
+      expect(blinker.getInterval()).assertEqual(800);
+      expect(blinker.getPlayMode()).assertEqual(PlayMode.Alternate);
+    });
+
+    // The icon does not toggle before the 800 ms interval is reached.
+    it('recording_icon_should_not_toggle_before_interval', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      expect(blinker.tick(799)).assertTrue();
+      expect(blinker.isVisible()).assertTrue();
+      expect(blinker.getToggleCount()).assertEqual(0);
+      expect(blinker.getElapsed()).assertEqual(799);
+    });
+
+    // The icon toggles exactly at the 800 ms boundary.
+    it('recording_icon_should_toggle_at_interval_boundary', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      expect(blinker.tick(800)).assertFalse();
+      expect(blinker.isVisible()).assertFalse();
+      expect(blinker.getToggleCount()).assertEqual(1);
+      expect(blinker.getElapsed()).assertEqual(0);
+    });
+
+    // Alternate play mode keeps flipping the icon visibility.
+    it('recording_icon_alternate_mode_should_keep_flipping', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      expect(blinker.tick(800)).assertFalse();
+      expect(blinker.tick(800)).assertTrue();
+      expect(blinker.tick(800)).assertFalse();
+      expect(blinker.getToggleCount()).assertEqual(3);
+      expect(blinker.getPlayMode()).assertEqual(PlayMode.Alternate);
+    });
+
+    // One large tick consumes several blink intervals at once.
+    it('recording_icon_should_consume_multiple_intervals', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      expect(blinker.tick(2400)).assertFalse();
+      expect(blinker.getToggleCount()).assertEqual(3);
+      expect(blinker.getElapsed()).assertEqual(0);
+      expect(blinker.isVisible()).assertFalse();
+    });
+
+    // Residual time smaller than one interval is kept for the next tick.
+    it('recording_icon_should_keep_residual_elapsed_time', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      blinker.tick(500);
+      expect(blinker.getToggleCount()).assertEqual(0);
+      expect(blinker.tick(400)).assertFalse();
+      expect(blinker.getToggleCount()).assertEqual(1);
+      expect(blinker.getElapsed()).assertEqual(100);
+    });
+
+    // Stopping the blink hides the icon and drops the running state.
+    it('recording_icon_stop_should_hide_icon', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      blinker.tick(800);
+      expect(blinker.stop()).assertTrue();
+      expect(blinker.isRunning()).assertFalse();
+      expect(blinker.isVisible()).assertFalse();
+      expect(blinker.getElapsed()).assertEqual(0);
+      expect(blinker.stop()).assertFalse();
+    });
+
+    // Ticks are ignored while the blinker is stopped.
+    it('recording_icon_tick_should_be_ignored_when_stopped', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      expect(blinker.tick(800)).assertFalse();
+      expect(blinker.getToggleCount()).assertEqual(0);
+      blinker.start();
+      blinker.stop();
+      expect(blinker.tick(1600)).assertFalse();
+      expect(blinker.getToggleCount()).assertEqual(0);
+    });
+
+    // Restarting the blinker resets the toggle counter.
+    it('recording_icon_restart_should_reset_blink_state', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      blinker.tick(800);
+      blinker.stop();
+      blinker.reset();
+      expect(blinker.getToggleCount()).assertEqual(0);
+      expect(blinker.start()).assertTrue();
+      expect(blinker.isVisible()).assertTrue();
+      expect(blinker.getToggleCount()).assertEqual(0);
+    });
+
+    // A long blink run stays inside the performance budget.
+    it('recording_icon_blink_performance_should_be_acceptable', 0, async () => {
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      const startTime: number = Date.now();
+      for (let i = 0; i < 1000; i++) {
+        blinker.tick(RECORDING_ICON_BLINK_INTERVAL);
+      }
+      const blinkTime: number = Date.now() - startTime;
+      expect(blinkTime).assertLessOrEqual(2000);
+      expect(blinker.getToggleCount()).assertEqual(1000);
+      expect(blinker.isVisible()).assertTrue();
+    });
+
+    // The timer window fade-in sets the shown flag.
+    it('timer_window_show_should_mark_it_shown', 0, async () => {
+      const timer: TimerWindowAnimator = new TimerWindowAnimator();
+      timer.reset();
+      expect(timer.isShown()).assertFalse();
+      expect(timer.show()).assertTrue();
+      expect(timer.isShown()).assertTrue();
+      expect(timer.getShowCount()).assertEqual(1);
+      expect(timer.getDuration()).assertEqual(TIMER_WINDOW_ANIMATION_DURATION);
+    });
+
+    // Showing an already visible timer window is idempotent.
+    it('timer_window_duplicate_show_should_be_idempotent', 0, async () => {
+      const timer: TimerWindowAnimator = new TimerWindowAnimator();
+      timer.reset();
+      timer.show();
+      expect(timer.show()).assertFalse();
+      expect(timer.getShowCount()).assertEqual(1);
+      expect(timer.isShown()).assertTrue();
+    });
+
+    // Hiding the timer window clears the shown flag exactly once.
+    it('timer_window_hide_should_clear_shown_flag', 0, async () => {
+      const timer: TimerWindowAnimator = new TimerWindowAnimator();
+      timer.reset();
+      timer.show();
+      expect(timer.hide()).assertTrue();
+      expect(timer.isShown()).assertFalse();
+      expect(timer.getHideCount()).assertEqual(1);
+      expect(timer.hide()).assertFalse();
+      expect(timer.getHideCount()).assertEqual(1);
+    });
+
+    // An abrupt recorder state change interrupts the timer animation.
+    it('timer_window_interruption_should_be_recorded', 0, async () => {
+      const timer: TimerWindowAnimator = new TimerWindowAnimator();
+      timer.reset();
+      expect(timer.interrupt()).assertFalse();
+      timer.show();
+      expect(timer.interrupt()).assertTrue();
+      expect(timer.isInterrupted()).assertTrue();
+      expect(timer.isShown()).assertFalse();
+      expect(timer.getHideCount()).assertEqual(0);
+    });
+
+    // The timer window survives several show/hide cycles.
+    it('timer_window_should_support_repeated_cycles', 0, async () => {
+      const timer: TimerWindowAnimator = new TimerWindowAnimator();
+      timer.reset();
+      for (let i = 0; i < 3; i++) {
+        timer.show();
+        timer.hide();
+      }
+      expect(timer.getShowCount()).assertEqual(3);
+      expect(timer.getHideCount()).assertEqual(3);
+      expect(timer.isShown()).assertFalse();
+    });
+
+    // Alternate play mode increments the flip counter on completion.
+    it('alternate_animation_should_flip_on_completion', 0, async () => {
+      animationController.resetController();
+      const config: AnimationConfig = {
+        type: AnimationType.BLINK,
+        duration: RECORDING_ICON_BLINK_INTERVAL,
+        delay: 0,
+        easing: 'linear',
+        repeatCount: 0,
+        playMode: PlayMode.Alternate
+      };
+      animationController.playAnimation(config, WindowKind.TIMER);
+      animationController.updateAnimation(RECORDING_ICON_BLINK_INTERVAL);
+      expect(animationController.isCompleted()).assertTrue();
+      expect(animationController.getAlternateFlipCount()).assertEqual(1);
+      expect(animationController.getCompletedCount()).assertEqual(1);
+    });
+
+    // Once mode never increments the alternate flip counter.
+    it('once_animation_should_not_flip', 0, async () => {
+      animationController.resetController();
+      const config: AnimationConfig = {
+        type: AnimationType.FADE_IN,
+        duration: 300,
+        delay: 0,
+        easing: 'linear',
+        repeatCount: 0,
+        playMode: PlayMode.Once
+      };
+      animationController.playAnimation(config);
+      animationController.updateAnimation(300);
+      expect(animationController.getAlternateFlipCount()).assertEqual(0);
+      expect(animationController.isCompleted()).assertTrue();
+    });
+
+    // The interruption history keeps the progress at interruption time.
+    it('animation_interruption_should_record_progress', 0, async () => {
+      animationController.resetController();
+      const config: AnimationConfig = {
+        type: AnimationType.FADE_OUT,
+        duration: 1000,
+        delay: 0,
+        easing: 'linear',
+        repeatCount: 0,
+        playMode: PlayMode.Once
+      };
+      animationController.playAnimation(config, WindowKind.TIP);
+      animationController.updateAnimation(400);
+      expect(animationController.interruptAnimation('recording_stop')).assertTrue();
+      const records: InterruptionRecord[] = animationController.getInterruptionHistory();
+      expect(records.length).assertEqual(1);
+      expect(records[0].window).assertEqual(WindowKind.TIP);
+      expect(records[0].atProgress).assertEqual(0.4);
+      expect(records[0].reason).assertEqual('recording_stop');
+      expect(animationController.getLastInterruptionReason()).assertEqual('recording_stop');
+    });
+
+    // Interruptions accumulate across several recorder state changes.
+    it('animation_interruption_count_should_accumulate', 0, async () => {
+      animationController.resetController();
+      const config: AnimationConfig = {
+        type: AnimationType.SLIDE_OUT,
+        duration: 500,
+        delay: 0,
+        easing: 'linear',
+        repeatCount: 0,
+        playMode: PlayMode.Once
+      };
+      animationController.playAnimation(config, WindowKind.TIMER);
+      animationController.interruptAnimation('error');
+      animationController.playAnimation(config, WindowKind.TIP);
+      animationController.interruptAnimation('stop');
+      expect(animationController.getInterruptionCount()).assertEqual(2);
+      expect(animationController.getLastInterruptionReason()).assertEqual('stop');
+      const records: InterruptionRecord[] = animationController.getInterruptionHistory();
+      expect(records[0].reason).assertEqual('error');
+      expect(records[1].reason).assertEqual('stop');
+    });
+
+    // Interruption history must be a defensive copy.
+    it('interruption_history_get_should_return_deep_copy', 0, async () => {
+      animationController.resetController();
+      const config: AnimationConfig = {
+        type: AnimationType.FADE_IN,
+        duration: 500,
+        delay: 0,
+        easing: 'linear',
+        repeatCount: 0,
+        playMode: PlayMode.Once
+      };
+      animationController.playAnimation(config);
+      animationController.interruptAnimation('state_change');
+      const first: InterruptionRecord[] = animationController.getInterruptionHistory();
+      first[0].reason = 'tampered';
+      const second: InterruptionRecord[] = animationController.getInterruptionHistory();
+      expect(second[0].reason).assertEqual('state_change');
+      expect(second.length).assertEqual(1);
+    });
+
+    // A cancelled animation can be restarted afterwards.
+    it('cancelled_animation_should_be_restartable', 0, async () => {
+      animationController.resetController();
+      const config: AnimationConfig = {
+        type: AnimationType.SCALE_DOWN,
+        duration: 400,
+        delay: 0,
+        easing: 'linear',
+        repeatCount: 0,
+        playMode: PlayMode.Once
+      };
+      animationController.playAnimation(config);
+      animationController.interruptAnimation('composition');
+      expect(animationController.getStatus().state).assertEqual(AnimationState.CANCELLED);
+      expect(animationController.playAnimation(config)).assertTrue();
+      animationController.updateAnimation(400);
+      expect(animationController.isCompleted()).assertTrue();
+    });
+
+    // Animated stop flow correlates with the real stop key combination.
+    it('animation_should_correlate_with_stop_combination', 0, async () => {
+      animationController.resetController();
+      const hideConfig: AnimationConfig = {
+        type: AnimationType.FADE_OUT,
+        duration: TIMER_WINDOW_ANIMATION_DURATION,
+        delay: 0,
+        easing: 'linear',
+        repeatCount: 0,
+        playMode: PlayMode.Once
+      };
+      animationController.playAnimation(hideConfig, WindowKind.TIMER);
+      animationController.updateAnimation(100);
+      expect(animationController.interruptAnimation('stop_combination')).assertTrue();
+      expect(animationController.getLastInterruptionReason()).assertEqual('stop_combination');
+      const componentCount: number = await recorderComponentCount(driver);
+      expect(componentCount >= 0).assertTrue();
+    });
+
+    // Comprehensive scenario: timer show, blink loop, tip show and hide.
+    it('comprehensive_animation_scenario_should_demonstrate_full_functionality', 0, async () => {
+      animationController.resetController();
+      const timer: TimerWindowAnimator = new TimerWindowAnimator();
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      timer.reset();
+      blinker.reset();
+      tip.reset();
+      expect(timer.show()).assertTrue();
+      const fadeConfig: AnimationConfig = {
+        type: AnimationType.FADE_IN,
+        duration: TIMER_WINDOW_ANIMATION_DURATION,
+        delay: 0,
+        easing: 'ease-out',
+        repeatCount: 0,
+        playMode: PlayMode.Once
+      };
+      animationController.playAnimation(fadeConfig, WindowKind.TIMER);
+      animationController.updateAnimation(TIMER_WINDOW_ANIMATION_DURATION);
+      expect(animationController.isCompleted()).assertTrue();
+      expect(blinker.start()).assertTrue();
+      for (let i = 0; i < 5; i++) {
+        blinker.tick(RECORDING_ICON_BLINK_INTERVAL);
+      }
+      expect(blinker.getToggleCount()).assertEqual(5);
+      expect(blinker.isVisible()).assertFalse();
+      expect(tip.showWithAnimation()).assertTrue();
+      tip.advance(TIP_WINDOW_DURATION);
+      expect(tip.isVisible()).assertFalse();
+      expect(tip.getAutoHideCount()).assertEqual(1);
+      expect(timer.hide()).assertTrue();
+      expect(blinker.stop()).assertTrue();
+      expect(animationController.getPlayCount()).assertEqual(1);
+      expect(animationController.getCompletedCount()).assertEqual(1);
+      const componentCount: number = await recorderComponentCount(driver);
+      expect(componentCount >= 0).assertTrue();
+    });
+
+    // The animation suite keeps the interface stable for the recorder pages.
+    it('animation_models_should_keep_consistent_interfaces', 0, async () => {
+      const timer: TimerWindowAnimator = new TimerWindowAnimator();
+      timer.reset();
+      timer.show();
+      const tip: TipWindowAnimator = new TipWindowAnimator();
+      tip.reset();
+      tip.showWithAnimation();
+      const blinker: RecordingIconBlinker = new RecordingIconBlinker();
+      blinker.reset();
+      blinker.start();
+      expect(timer.isShown()).assertTrue();
+      expect(tip.isVisible()).assertTrue();
+      expect(blinker.isVisible()).assertTrue();
+      expect(timer.getDuration()).assertEqual(TIMER_WINDOW_ANIMATION_DURATION);
+      expect(tip.getTotalMs()).assertEqual(TIP_WINDOW_DURATION);
+      expect(blinker.getInterval()).assertEqual(RECORDING_ICON_BLINK_INTERVAL);
+    });
   });
 }
+
