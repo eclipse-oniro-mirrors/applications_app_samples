@@ -364,10 +364,10 @@
 | 用例编号（源码） | 旧名 | 规范运行名 |
 |---|---|---|
 | [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0100](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets#L70>) | `testContinuationAdditional0001` | `com.samples.appcontinuation_ContinuationAdditional_0001` |
-| [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0200](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets#L104>) | `testContinuationAdditional0002` | `com.samples.appcontinuation_ContinuationAdditional_0002` |
-| [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0300](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets#L138>) | `testContinuationAdditional0003` | `com.samples.appcontinuation_ContinuationAdditional_0003` |
-| [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0400](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets#L168>) | `testContinuationAdditional0004` | `com.samples.appcontinuation_ContinuationAdditional_0004` |
-| [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0500](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets#L198>) | `testContinuationAdditional0005` | `com.samples.appcontinuation_ContinuationAdditional_0005` |
+| [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0200](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets>)（源码第104行） | `testContinuationAdditional0002` | `com.samples.appcontinuation_ContinuationAdditional_0002` |
+| [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0300](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets>)（源码第138行） | `testContinuationAdditional0003` | `com.samples.appcontinuation_ContinuationAdditional_0003` |
+| [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0400](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets>)（源码第168行） | `testContinuationAdditional0004` | `com.samples.appcontinuation_ContinuationAdditional_0004` |
+| [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0500](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets>)（源码第198行） | `testContinuationAdditional0005` | `com.samples.appcontinuation_ContinuationAdditional_0005` |
 | [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0600](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets#L232>) | `testContinuationAdditional0006` | `com.samples.appcontinuation_ContinuationAdditional_0006` |
 | [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0700](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets#L264>) | `testContinuationAdditional0007` | `com.samples.appcontinuation_ContinuationAdditional_0007` |
 | [SUB_CONTINUATION_CONTINUATIONADDITIONAL_0800](<entry/src/ohosTest/ets/test/ContinuationAdditional.test.ets#L297>) | `testContinuationAdditional0008` | `com.samples.appcontinuation_ContinuationAdditional_0008` |
@@ -397,10 +397,10 @@
 | [SUB_CONTINUATION_ARCHIVEWAVEONE_0100](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L47>) | `testContinuationArchiveWaveOne0001` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0001` |
 | [SUB_CONTINUATION_ARCHIVEWAVEONE_0200](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L73>) | `testContinuationArchiveWaveOne0002` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0002` |
 | [SUB_CONTINUATION_ARCHIVEWAVEONE_0300](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L96>) | `testContinuationArchiveWaveOne0003` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0003` |
-| [SUB_CONTINUATION_ARCHIVEWAVEONE_0400](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L122>) | `testContinuationArchiveWaveOne0004` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0004` |
-| [SUB_CONTINUATION_ARCHIVEWAVEONE_0500](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L138>) | `testContinuationArchiveWaveOne0005` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0005` |
-| [SUB_CONTINUATION_ARCHIVEWAVEONE_0600](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L160>) | `testContinuationArchiveWaveOne0006` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0006` |
-| [SUB_CONTINUATION_ARCHIVEWAVEONE_0700](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L187>) | `testContinuationArchiveWaveOne0007` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0007` |
+| [SUB_CONTINUATION_ARCHIVEWAVEONE_0400](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets>)（源码第122行） | `testContinuationArchiveWaveOne0004` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0004` |
+| [SUB_CONTINUATION_ARCHIVEWAVEONE_0500](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets>)（源码第138行） | `testContinuationArchiveWaveOne0005` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0005` |
+| [SUB_CONTINUATION_ARCHIVEWAVEONE_0600](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets>)（源码第160行） | `testContinuationArchiveWaveOne0006` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0006` |
+| [SUB_CONTINUATION_ARCHIVEWAVEONE_0700](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets>)（源码第187行） | `testContinuationArchiveWaveOne0007` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0007` |
 | [SUB_CONTINUATION_ARCHIVEWAVEONE_0800](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L206>) | `testContinuationArchiveWaveOne0008` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0008` |
 | [SUB_CONTINUATION_ARCHIVEWAVEONE_0900](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L229>) | `testContinuationArchiveWaveOne0009` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0009` |
 | [SUB_CONTINUATION_ARCHIVEWAVEONE_1000](<entry/src/ohosTest/ets/test/ContinuationArchiveWaveOne.test.ets#L253>) | `testContinuationArchiveWaveOne0010` | `com.samples.appcontinuation_ContinuationArchiveWaveOne_0010` |
@@ -419,7 +419,7 @@
 | [SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0100](<entry/src/ohosTest/ets/test/ContinuationModeBoundaryWaveTwo.test.ets#L34>) | `testContinuationModeBoundaryWaveTwo0001` | `com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0001` |
 | [SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0200](<entry/src/ohosTest/ets/test/ContinuationModeBoundaryWaveTwo.test.ets#L67>) | `testContinuationModeBoundaryWaveTwo0002` | `com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0002` |
 | [SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0300](<entry/src/ohosTest/ets/test/ContinuationModeBoundaryWaveTwo.test.ets#L94>) | `testContinuationModeBoundaryWaveTwo0003` | `com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0003` |
-| [SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0400](<entry/src/ohosTest/ets/test/ContinuationModeBoundaryWaveTwo.test.ets#L125>) | `testContinuationModeBoundaryWaveTwo0004` | `com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0004` |
+| [SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0400](<entry/src/ohosTest/ets/test/ContinuationModeBoundaryWaveTwo.test.ets>)（源码第125行） | `testContinuationModeBoundaryWaveTwo0004` | `com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0004` |
 
 ### [ContinuationPageWaveOne.test.ets](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets>)（8 例）
 
@@ -429,9 +429,9 @@
 | [SUB_CONTINUATION_PAGEWAVEONE_0200](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets#L48>) | `testContinuationPageWaveOne0002` | `com.samples.appcontinuation_ContinuationPageWaveOne_0002` |
 | [SUB_CONTINUATION_PAGEWAVEONE_0300](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets#L75>) | `testContinuationPageWaveOne0003` | `com.samples.appcontinuation_ContinuationPageWaveOne_0003` |
 | [SUB_CONTINUATION_PAGEWAVEONE_0400](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets#L99>) | `testContinuationPageWaveOne0004` | `com.samples.appcontinuation_ContinuationPageWaveOne_0004` |
-| [SUB_CONTINUATION_PAGEWAVEONE_0500](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets#L126>) | `testContinuationPageWaveOne0005` | `com.samples.appcontinuation_ContinuationPageWaveOne_0005` |
-| [SUB_CONTINUATION_PAGEWAVEONE_0600](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets#L155>) | `testContinuationPageWaveOne0006` | `com.samples.appcontinuation_ContinuationPageWaveOne_0006` |
-| [SUB_CONTINUATION_PAGEWAVEONE_0700](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets#L182>) | `testContinuationPageWaveOne0007` | `com.samples.appcontinuation_ContinuationPageWaveOne_0007` |
+| [SUB_CONTINUATION_PAGEWAVEONE_0500](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets>)（源码第126行） | `testContinuationPageWaveOne0005` | `com.samples.appcontinuation_ContinuationPageWaveOne_0005` |
+| [SUB_CONTINUATION_PAGEWAVEONE_0600](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets>)（源码第155行） | `testContinuationPageWaveOne0006` | `com.samples.appcontinuation_ContinuationPageWaveOne_0006` |
+| [SUB_CONTINUATION_PAGEWAVEONE_0700](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets>)（源码第182行） | `testContinuationPageWaveOne0007` | `com.samples.appcontinuation_ContinuationPageWaveOne_0007` |
 | [SUB_CONTINUATION_PAGEWAVEONE_0800](<entry/src/ohosTest/ets/test/ContinuationPageWaveOne.test.ets#L209>) | `testContinuationPageWaveOne0008` | `com.samples.appcontinuation_ContinuationPageWaveOne_0008` |
 
 ### [ContinuationScenarios.test.ets](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets>)（10 例）
@@ -439,7 +439,7 @@
 | 用例编号（源码） | 旧名 | 规范运行名 |
 |---|---|---|
 | [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0100](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L84>) | `testContinuationScenarios0001` | `com.samples.appcontinuation_ContinuationScenarios_0001` |
-| [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0200](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L142>) | `testContinuationScenarios0002` | `com.samples.appcontinuation_ContinuationScenarios_0002` |
+| [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0200](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets>)（源码第142行） | `testContinuationScenarios0002` | `com.samples.appcontinuation_ContinuationScenarios_0002` |
 | [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0300](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L239>) | `testContinuationScenarios0003` | `com.samples.appcontinuation_ContinuationScenarios_0003` |
 | [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0400](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L316>) | `testContinuationScenarios0004` | `com.samples.appcontinuation_ContinuationScenarios_0004` |
 | [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0500](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L500>) | `testContinuationScenarios0005` | `com.samples.appcontinuation_ContinuationScenarios_0005` |
@@ -447,16 +447,16 @@
 | [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0700](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L707>) | `testContinuationScenarios0007` | `com.samples.appcontinuation_ContinuationScenarios_0007` |
 | [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0800](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L886>) | `testContinuationScenarios0008` | `com.samples.appcontinuation_ContinuationScenarios_0008` |
 | [SUB_CONTINUATION_CONTINUATIONSCENARIOS_0900](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L973>) | `testContinuationScenarios0009` | `com.samples.appcontinuation_ContinuationScenarios_0009` |
-| [SUB_CONTINUATION_CONTINUATIONSCENARIOS_1000](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets#L1117>) | `testContinuationScenarios0010` | `com.samples.appcontinuation_ContinuationScenarios_0010` |
+| [SUB_CONTINUATION_CONTINUATIONSCENARIOS_1000](<entry/src/ohosTest/ets/test/ContinuationScenarios.test.ets>)（源码第1117行） | `testContinuationScenarios0010` | `com.samples.appcontinuation_ContinuationScenarios_0010` |
 
 ### [ContinuationScenes.test.ets](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets>)（10 例）
 
 | 用例编号（源码） | 旧名 | 规范运行名 |
 |---|---|---|
-| [SUB_CONTINUATION_CONTINUATIONSCENES_0100](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets#L105>) | `testContinuationScenes0001` | `com.samples.appcontinuation_ContinuationScenes_0001` |
-| [SUB_CONTINUATION_CONTINUATIONSCENES_0200](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets#L139>) | `testContinuationScenes0002` | `com.samples.appcontinuation_ContinuationScenes_0002` |
-| [SUB_CONTINUATION_CONTINUATIONSCENES_0300](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets#L159>) | `testContinuationScenes0003` | `com.samples.appcontinuation_ContinuationScenes_0003` |
-| [SUB_CONTINUATION_CONTINUATIONSCENES_0400](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets#L178>) | `testContinuationScenes0004` | `com.samples.appcontinuation_ContinuationScenes_0004` |
+| [SUB_CONTINUATION_CONTINUATIONSCENES_0100](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets>)（源码第105行） | `testContinuationScenes0001` | `com.samples.appcontinuation_ContinuationScenes_0001` |
+| [SUB_CONTINUATION_CONTINUATIONSCENES_0200](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets>)（源码第139行） | `testContinuationScenes0002` | `com.samples.appcontinuation_ContinuationScenes_0002` |
+| [SUB_CONTINUATION_CONTINUATIONSCENES_0300](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets>)（源码第159行） | `testContinuationScenes0003` | `com.samples.appcontinuation_ContinuationScenes_0003` |
+| [SUB_CONTINUATION_CONTINUATIONSCENES_0400](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets>)（源码第178行） | `testContinuationScenes0004` | `com.samples.appcontinuation_ContinuationScenes_0004` |
 | [SUB_CONTINUATION_CONTINUATIONSCENES_0500](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets#L206>) | `testContinuationScenes0005` | `com.samples.appcontinuation_ContinuationScenes_0005` |
 | [SUB_CONTINUATION_CONTINUATIONSCENES_0600](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets#L265>) | `testContinuationScenes0006` | `com.samples.appcontinuation_ContinuationScenes_0006` |
 | [SUB_CONTINUATION_CONTINUATIONSCENES_0700](<entry/src/ohosTest/ets/test/ContinuationScenes.test.ets#L292>) | `testContinuationScenes0007` | `com.samples.appcontinuation_ContinuationScenes_0007` |
@@ -471,9 +471,9 @@
 | [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0100](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets#L33>) | `testContinuationTransactions0001` | `com.samples.appcontinuation_ContinuationTransactions_0001` |
 | [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0200](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets#L59>) | `testContinuationTransactions0002` | `com.samples.appcontinuation_ContinuationTransactions_0002` |
 | [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0300](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets#L86>) | `testContinuationTransactions0003` | `com.samples.appcontinuation_ContinuationTransactions_0003` |
-| [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0400](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets#L111>) | `testContinuationTransactions0004` | `com.samples.appcontinuation_ContinuationTransactions_0004` |
-| [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0500](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets#L145>) | `testContinuationTransactions0005` | `com.samples.appcontinuation_ContinuationTransactions_0005` |
-| [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0600](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets#L175>) | `testContinuationTransactions0006` | `com.samples.appcontinuation_ContinuationTransactions_0006` |
+| [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0400](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets>)（源码第111行） | `testContinuationTransactions0004` | `com.samples.appcontinuation_ContinuationTransactions_0004` |
+| [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0500](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets>)（源码第145行） | `testContinuationTransactions0005` | `com.samples.appcontinuation_ContinuationTransactions_0005` |
+| [SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0600](<entry/src/ohosTest/ets/test/ContinuationTransactions.test.ets>)（源码第175行） | `testContinuationTransactions0006` | `com.samples.appcontinuation_ContinuationTransactions_0006` |
 
 ### [ContinuationVersioning.test.ets](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets>)（12 例）
 
@@ -482,8 +482,8 @@
 | [SUB_CONTINUATION_CONTINUATIONVERSIONING_0100](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets#L40>) | `testContinuationVersioning0001` | `com.samples.appcontinuation_ContinuationVersioning_0001` |
 | [SUB_CONTINUATION_CONTINUATIONVERSIONING_0200](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets#L65>) | `testContinuationVersioning0002` | `com.samples.appcontinuation_ContinuationVersioning_0002` |
 | [SUB_CONTINUATION_CONTINUATIONVERSIONING_0300](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets#L97>) | `testContinuationVersioning0003` | `com.samples.appcontinuation_ContinuationVersioning_0003` |
-| [SUB_CONTINUATION_CONTINUATIONVERSIONING_0400](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets#L135>) | `testContinuationVersioning0004` | `com.samples.appcontinuation_ContinuationVersioning_0004` |
-| [SUB_CONTINUATION_CONTINUATIONVERSIONING_0500](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets#L169>) | `testContinuationVersioning0005` | `com.samples.appcontinuation_ContinuationVersioning_0005` |
+| [SUB_CONTINUATION_CONTINUATIONVERSIONING_0400](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets>)（源码第135行） | `testContinuationVersioning0004` | `com.samples.appcontinuation_ContinuationVersioning_0004` |
+| [SUB_CONTINUATION_CONTINUATIONVERSIONING_0500](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets>)（源码第169行） | `testContinuationVersioning0005` | `com.samples.appcontinuation_ContinuationVersioning_0005` |
 | [SUB_CONTINUATION_CONTINUATIONVERSIONING_0600](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets#L205>) | `testContinuationVersioning0006` | `com.samples.appcontinuation_ContinuationVersioning_0006` |
 | [SUB_CONTINUATION_CONTINUATIONVERSIONING_0700](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets#L234>) | `testContinuationVersioning0007` | `com.samples.appcontinuation_ContinuationVersioning_0007` |
 | [SUB_CONTINUATION_CONTINUATIONVERSIONING_0800](<entry/src/ohosTest/ets/test/ContinuationVersioning.test.ets#L261>) | `testContinuationVersioning0008` | `com.samples.appcontinuation_ContinuationVersioning_0008` |
@@ -500,11 +500,11 @@
 | [SUB_CONTINUATION_WORKBENCHWAVEONE_0200](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L51>) | `testContinuationWorkbenchWaveOne0002` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0002` |
 | [SUB_CONTINUATION_WORKBENCHWAVEONE_0300](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L71>) | `testContinuationWorkbenchWaveOne0003` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0003` |
 | [SUB_CONTINUATION_WORKBENCHWAVEONE_0400](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L91>) | `testContinuationWorkbenchWaveOne0004` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0004` |
-| [SUB_CONTINUATION_WORKBENCHWAVEONE_0500](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L107>) | `testContinuationWorkbenchWaveOne0005` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0005` |
-| [SUB_CONTINUATION_WORKBENCHWAVEONE_0600](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L125>) | `testContinuationWorkbenchWaveOne0006` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0006` |
-| [SUB_CONTINUATION_WORKBENCHWAVEONE_0700](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L142>) | `testContinuationWorkbenchWaveOne0007` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0007` |
-| [SUB_CONTINUATION_WORKBENCHWAVEONE_0800](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L167>) | `testContinuationWorkbenchWaveOne0008` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0008` |
-| [SUB_CONTINUATION_WORKBENCHWAVEONE_0900](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L187>) | `testContinuationWorkbenchWaveOne0009` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0009` |
+| [SUB_CONTINUATION_WORKBENCHWAVEONE_0500](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets>)（源码第107行） | `testContinuationWorkbenchWaveOne0005` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0005` |
+| [SUB_CONTINUATION_WORKBENCHWAVEONE_0600](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets>)（源码第125行） | `testContinuationWorkbenchWaveOne0006` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0006` |
+| [SUB_CONTINUATION_WORKBENCHWAVEONE_0700](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets>)（源码第142行） | `testContinuationWorkbenchWaveOne0007` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0007` |
+| [SUB_CONTINUATION_WORKBENCHWAVEONE_0800](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets>)（源码第167行） | `testContinuationWorkbenchWaveOne0008` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0008` |
+| [SUB_CONTINUATION_WORKBENCHWAVEONE_0900](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets>)（源码第187行） | `testContinuationWorkbenchWaveOne0009` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0009` |
 | [SUB_CONTINUATION_WORKBENCHWAVEONE_1000](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L203>) | `testContinuationWorkbenchWaveOne0010` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0010` |
 | [SUB_CONTINUATION_WORKBENCHWAVEONE_1100](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L225>) | `testContinuationWorkbenchWaveOne0011` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0011` |
 | [SUB_CONTINUATION_WORKBENCHWAVEONE_1200](<entry/src/ohosTest/ets/test/ContinuationWorkbenchWaveOne.test.ets#L246>) | `testContinuationWorkbenchWaveOne0012` | `com.samples.appcontinuation_ContinuationWorkbenchWaveOne_0012` |
@@ -526,11 +526,11 @@
 | [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0100](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L61>) | `testDocumentFormFlowCases0001` | `com.samples.appcontinuation_DocumentFormFlowCases_0001` |
 | [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0200](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L80>) | `testDocumentFormFlowCases0002` | `com.samples.appcontinuation_DocumentFormFlowCases_0002` |
 | [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0300](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L99>) | `testDocumentFormFlowCases0003` | `com.samples.appcontinuation_DocumentFormFlowCases_0003` |
-| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0400](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L118>) | `testDocumentFormFlowCases0004` | `com.samples.appcontinuation_DocumentFormFlowCases_0004` |
-| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0500](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L137>) | `testDocumentFormFlowCases0005` | `com.samples.appcontinuation_DocumentFormFlowCases_0005` |
-| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0600](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L156>) | `testDocumentFormFlowCases0006` | `com.samples.appcontinuation_DocumentFormFlowCases_0006` |
-| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0700](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L175>) | `testDocumentFormFlowCases0007` | `com.samples.appcontinuation_DocumentFormFlowCases_0007` |
-| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0800](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L194>) | `testDocumentFormFlowCases0008` | `com.samples.appcontinuation_DocumentFormFlowCases_0008` |
+| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0400](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets>)（源码第118行） | `testDocumentFormFlowCases0004` | `com.samples.appcontinuation_DocumentFormFlowCases_0004` |
+| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0500](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets>)（源码第137行） | `testDocumentFormFlowCases0005` | `com.samples.appcontinuation_DocumentFormFlowCases_0005` |
+| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0600](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets>)（源码第156行） | `testDocumentFormFlowCases0006` | `com.samples.appcontinuation_DocumentFormFlowCases_0006` |
+| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0700](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets>)（源码第175行） | `testDocumentFormFlowCases0007` | `com.samples.appcontinuation_DocumentFormFlowCases_0007` |
+| [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0800](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets>)（源码第194行） | `testDocumentFormFlowCases0008` | `com.samples.appcontinuation_DocumentFormFlowCases_0008` |
 | [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_0900](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L215>) | `testDocumentFormFlowCases0009` | `com.samples.appcontinuation_DocumentFormFlowCases_0009` |
 | [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_1000](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L235>) | `testDocumentFormFlowCases0010` | `com.samples.appcontinuation_DocumentFormFlowCases_0010` |
 | [SUB_CONTINUATION_DOCUMENTFORMFLOWCASES_1100](<entry/src/ohosTest/ets/test/DocumentFormFlowCases.test.ets#L252>) | `testDocumentFormFlowCases0011` | `com.samples.appcontinuation_DocumentFormFlowCases_0011` |
@@ -571,12 +571,12 @@
 | [SUB_CONTINUATION_FIELDTRIPLECASES_0100](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L49>) | `testFieldTripleCases0001` | `com.samples.appcontinuation_FieldTripleCases_0001` |
 | [SUB_CONTINUATION_FIELDTRIPLECASES_0200](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L67>) | `testFieldTripleCases0002` | `com.samples.appcontinuation_FieldTripleCases_0002` |
 | [SUB_CONTINUATION_FIELDTRIPLECASES_0300](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L84>) | `testFieldTripleCases0003` | `com.samples.appcontinuation_FieldTripleCases_0003` |
-| [SUB_CONTINUATION_FIELDTRIPLECASES_0400](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L100>) | `testFieldTripleCases0004` | `com.samples.appcontinuation_FieldTripleCases_0004` |
-| [SUB_CONTINUATION_FIELDTRIPLECASES_0500](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L118>) | `testFieldTripleCases0005` | `com.samples.appcontinuation_FieldTripleCases_0005` |
-| [SUB_CONTINUATION_FIELDTRIPLECASES_0600](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L134>) | `testFieldTripleCases0006` | `com.samples.appcontinuation_FieldTripleCases_0006` |
-| [SUB_CONTINUATION_FIELDTRIPLECASES_0700](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L150>) | `testFieldTripleCases0007` | `com.samples.appcontinuation_FieldTripleCases_0007` |
-| [SUB_CONTINUATION_FIELDTRIPLECASES_0800](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L168>) | `testFieldTripleCases0008` | `com.samples.appcontinuation_FieldTripleCases_0008` |
-| [SUB_CONTINUATION_FIELDTRIPLECASES_0900](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L184>) | `testFieldTripleCases0009` | `com.samples.appcontinuation_FieldTripleCases_0009` |
+| [SUB_CONTINUATION_FIELDTRIPLECASES_0400](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets>)（源码第100行） | `testFieldTripleCases0004` | `com.samples.appcontinuation_FieldTripleCases_0004` |
+| [SUB_CONTINUATION_FIELDTRIPLECASES_0500](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets>)（源码第118行） | `testFieldTripleCases0005` | `com.samples.appcontinuation_FieldTripleCases_0005` |
+| [SUB_CONTINUATION_FIELDTRIPLECASES_0600](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets>)（源码第134行） | `testFieldTripleCases0006` | `com.samples.appcontinuation_FieldTripleCases_0006` |
+| [SUB_CONTINUATION_FIELDTRIPLECASES_0700](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets>)（源码第150行） | `testFieldTripleCases0007` | `com.samples.appcontinuation_FieldTripleCases_0007` |
+| [SUB_CONTINUATION_FIELDTRIPLECASES_0800](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets>)（源码第168行） | `testFieldTripleCases0008` | `com.samples.appcontinuation_FieldTripleCases_0008` |
+| [SUB_CONTINUATION_FIELDTRIPLECASES_0900](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets>)（源码第184行） | `testFieldTripleCases0009` | `com.samples.appcontinuation_FieldTripleCases_0009` |
 | [SUB_CONTINUATION_FIELDTRIPLECASES_1000](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L201>) | `testFieldTripleCases0010` | `com.samples.appcontinuation_FieldTripleCases_0010` |
 | [SUB_CONTINUATION_FIELDTRIPLECASES_1100](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L218>) | `testFieldTripleCases0011` | `com.samples.appcontinuation_FieldTripleCases_0011` |
 | [SUB_CONTINUATION_FIELDDECISIONCASES_0100](<entry/src/ohosTest/ets/test/MergeRecoveryMatrixCases.test.ets#L237>) | `testFieldDecisionCases0001` | `com.samples.appcontinuation_FieldDecisionCases_0001` |
@@ -625,10 +625,10 @@
 |---|---|---|
 | [SUB_CONTINUATION_PAYLOADSCHEMAMATRIX_0100](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L54>) | `testPayloadSchemaMatrix0001` | `com.samples.appcontinuation_PayloadSchemaMatrix_0001` |
 | [SUB_CONTINUATION_PAYLOADSCHEMAMATRIX_0200](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L87>) | `testPayloadSchemaMatrix0002` | `com.samples.appcontinuation_PayloadSchemaMatrix_0002` |
-| [SUB_CONTINUATION_PAYLOADSCHEMAMATRIX_0300](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L109>) | `testPayloadSchemaMatrix0003` | `com.samples.appcontinuation_PayloadSchemaMatrix_0003` |
-| [SUB_CONTINUATION_PAYLOADCODECMATRIX_0100](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L133>) | `testPayloadCodecMatrix0001` | `com.samples.appcontinuation_PayloadCodecMatrix_0001` |
-| [SUB_CONTINUATION_PAYLOADCODECMATRIX_0200](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L164>) | `testPayloadCodecMatrix0002` | `com.samples.appcontinuation_PayloadCodecMatrix_0002` |
-| [SUB_CONTINUATION_PAYLOADCODECMATRIX_0300](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L195>) | `testPayloadCodecMatrix0003` | `com.samples.appcontinuation_PayloadCodecMatrix_0003` |
+| [SUB_CONTINUATION_PAYLOADSCHEMAMATRIX_0300](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets>)（源码第109行） | `testPayloadSchemaMatrix0003` | `com.samples.appcontinuation_PayloadSchemaMatrix_0003` |
+| [SUB_CONTINUATION_PAYLOADCODECMATRIX_0100](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets>)（源码第133行） | `testPayloadCodecMatrix0001` | `com.samples.appcontinuation_PayloadCodecMatrix_0001` |
+| [SUB_CONTINUATION_PAYLOADCODECMATRIX_0200](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets>)（源码第164行） | `testPayloadCodecMatrix0002` | `com.samples.appcontinuation_PayloadCodecMatrix_0002` |
+| [SUB_CONTINUATION_PAYLOADCODECMATRIX_0300](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets>)（源码第195行） | `testPayloadCodecMatrix0003` | `com.samples.appcontinuation_PayloadCodecMatrix_0003` |
 | [SUB_CONTINUATION_PAYLOADCODECMATRIX_0400](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L224>) | `testPayloadCodecMatrix0004` | `com.samples.appcontinuation_PayloadCodecMatrix_0004` |
 | [SUB_CONTINUATION_PAYLOADCODECMATRIX_0500](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L247>) | `testPayloadCodecMatrix0005` | `com.samples.appcontinuation_PayloadCodecMatrix_0005` |
 | [SUB_CONTINUATION_CONFLICTPOLICYMATRIX_0100](<entry/src/ohosTest/ets/test/PayloadMatrix.test.ets#L284>) | `testConflictPolicyMatrix0001` | `com.samples.appcontinuation_ConflictPolicyMatrix_0001` |
@@ -643,10 +643,10 @@
 
 | 用例编号（源码） | 旧名 | 规范运行名 |
 |---|---|---|
-| [SUB_CONTINUATION_PAYLOADFIELDCASES_0100](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets#L111>) | `testPayloadFieldCases0001` | `com.samples.appcontinuation_PayloadFieldCases_0001` |
-| [SUB_CONTINUATION_PAYLOADFIELDCASES_0200](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets#L133>) | `testPayloadFieldCases0002` | `com.samples.appcontinuation_PayloadFieldCases_0002` |
-| [SUB_CONTINUATION_PAYLOADFIELDCASES_0300](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets#L155>) | `testPayloadFieldCases0003` | `com.samples.appcontinuation_PayloadFieldCases_0003` |
-| [SUB_CONTINUATION_PAYLOADFIELDCASES_0400](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets#L178>) | `testPayloadFieldCases0004` | `com.samples.appcontinuation_PayloadFieldCases_0004` |
+| [SUB_CONTINUATION_PAYLOADFIELDCASES_0100](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets>)（源码第111行） | `testPayloadFieldCases0001` | `com.samples.appcontinuation_PayloadFieldCases_0001` |
+| [SUB_CONTINUATION_PAYLOADFIELDCASES_0200](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets>)（源码第133行） | `testPayloadFieldCases0002` | `com.samples.appcontinuation_PayloadFieldCases_0002` |
+| [SUB_CONTINUATION_PAYLOADFIELDCASES_0300](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets>)（源码第155行） | `testPayloadFieldCases0003` | `com.samples.appcontinuation_PayloadFieldCases_0003` |
+| [SUB_CONTINUATION_PAYLOADFIELDCASES_0400](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets>)（源码第178行） | `testPayloadFieldCases0004` | `com.samples.appcontinuation_PayloadFieldCases_0004` |
 | [SUB_CONTINUATION_PAYLOADFIELDCASES_0500](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets#L200>) | `testPayloadFieldCases0005` | `com.samples.appcontinuation_PayloadFieldCases_0005` |
 | [SUB_CONTINUATION_PAYLOADFIELDCASES_0600](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets#L220>) | `testPayloadFieldCases0006` | `com.samples.appcontinuation_PayloadFieldCases_0006` |
 | [SUB_CONTINUATION_PAYLOADFIELDCASES_0700](<entry/src/ohosTest/ets/test/PayloadRuleCases.test.ets#L239>) | `testPayloadFieldCases0007` | `com.samples.appcontinuation_PayloadFieldCases_0007` |
@@ -688,7 +688,7 @@
 | [SUB_CONTINUATION_SCENECONTEXTCASES_0200](<entry/src/ohosTest/ets/test/RestoreSceneCases.test.ets#L57>) | `testSceneContextCases0002` | `com.samples.appcontinuation_SceneContextCases_0002` |
 | [SUB_CONTINUATION_SCENECONTEXTCASES_0300](<entry/src/ohosTest/ets/test/RestoreSceneCases.test.ets#L76>) | `testSceneContextCases0003` | `com.samples.appcontinuation_SceneContextCases_0003` |
 | [SUB_CONTINUATION_SCENECONTEXTCASES_0400](<entry/src/ohosTest/ets/test/RestoreSceneCases.test.ets#L97>) | `testSceneContextCases0004` | `com.samples.appcontinuation_SceneContextCases_0004` |
-| [SUB_CONTINUATION_SCENECONTEXTCASES_0500](<entry/src/ohosTest/ets/test/RestoreSceneCases.test.ets#L114>) | `testSceneContextCases0005` | `com.samples.appcontinuation_SceneContextCases_0005` |
+| [SUB_CONTINUATION_SCENECONTEXTCASES_0500](<entry/src/ohosTest/ets/test/RestoreSceneCases.test.ets>)（源码第114行） | `testSceneContextCases0005` | `com.samples.appcontinuation_SceneContextCases_0005` |
 
 ### [RetryDictionaryCases.test.ets](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets>)（10 例）
 
@@ -697,9 +697,9 @@
 | [SUB_CONTINUATION_RETRYPOLICYCASESB_0100](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L47>) | `testRetryPolicyCasesB0001` | `com.samples.appcontinuation_RetryPolicyCasesB_0001` |
 | [SUB_CONTINUATION_RETRYPOLICYCASESB_0200](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L73>) | `testRetryPolicyCasesB0002` | `com.samples.appcontinuation_RetryPolicyCasesB_0002` |
 | [SUB_CONTINUATION_RETRYPOLICYCASESB_0300](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L97>) | `testRetryPolicyCasesB0003` | `com.samples.appcontinuation_RetryPolicyCasesB_0003` |
-| [SUB_CONTINUATION_RETRYPOLICYCASESB_0400](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L128>) | `testRetryPolicyCasesB0004` | `com.samples.appcontinuation_RetryPolicyCasesB_0004` |
-| [SUB_CONTINUATION_RETRYPOLICYCASESB_0500](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L152>) | `testRetryPolicyCasesB0005` | `com.samples.appcontinuation_RetryPolicyCasesB_0005` |
-| [SUB_CONTINUATION_FIELDDICTIONARYCASES_0100](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L186>) | `testFieldDictionaryCases0001` | `com.samples.appcontinuation_FieldDictionaryCases_0001` |
+| [SUB_CONTINUATION_RETRYPOLICYCASESB_0400](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets>)（源码第128行） | `testRetryPolicyCasesB0004` | `com.samples.appcontinuation_RetryPolicyCasesB_0004` |
+| [SUB_CONTINUATION_RETRYPOLICYCASESB_0500](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets>)（源码第152行） | `testRetryPolicyCasesB0005` | `com.samples.appcontinuation_RetryPolicyCasesB_0005` |
+| [SUB_CONTINUATION_FIELDDICTIONARYCASES_0100](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets>)（源码第186行） | `testFieldDictionaryCases0001` | `com.samples.appcontinuation_FieldDictionaryCases_0001` |
 | [SUB_CONTINUATION_FIELDDICTIONARYCASES_0200](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L212>) | `testFieldDictionaryCases0002` | `com.samples.appcontinuation_FieldDictionaryCases_0002` |
 | [SUB_CONTINUATION_FIELDDICTIONARYCASES_0300](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L236>) | `testFieldDictionaryCases0003` | `com.samples.appcontinuation_FieldDictionaryCases_0003` |
 | [SUB_CONTINUATION_FIELDDICTIONARYCASES_0400](<entry/src/ohosTest/ets/test/RetryDictionaryCases.test.ets#L262>) | `testFieldDictionaryCases0004` | `com.samples.appcontinuation_FieldDictionaryCases_0004` |
@@ -711,11 +711,11 @@
 |---|---|---|
 | [SUB_CONTINUATION_SCENARIOCATALOGCASES_0100](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L50>) | `testScenarioCatalogCases0001` | `com.samples.appcontinuation_ScenarioCatalogCases_0001` |
 | [SUB_CONTINUATION_SCENARIOCATALOGCASES_0200](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L77>) | `testScenarioCatalogCases0002` | `com.samples.appcontinuation_ScenarioCatalogCases_0002` |
-| [SUB_CONTINUATION_SCENARIOCATALOGCASES_0300](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L101>) | `testScenarioCatalogCases0003` | `com.samples.appcontinuation_ScenarioCatalogCases_0003` |
-| [SUB_CONTINUATION_SCENARIOCATALOGCASES_0400](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L122>) | `testScenarioCatalogCases0004` | `com.samples.appcontinuation_ScenarioCatalogCases_0004` |
-| [SUB_CONTINUATION_SCENARIOCATALOGCASES_0500](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L142>) | `testScenarioCatalogCases0005` | `com.samples.appcontinuation_ScenarioCatalogCases_0005` |
-| [SUB_CONTINUATION_PAYLOADVALIDATORCASES_0100](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L167>) | `testPayloadValidatorCases0001` | `com.samples.appcontinuation_PayloadValidatorCases_0001` |
-| [SUB_CONTINUATION_PAYLOADVALIDATORCASES_0200](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L191>) | `testPayloadValidatorCases0002` | `com.samples.appcontinuation_PayloadValidatorCases_0002` |
+| [SUB_CONTINUATION_SCENARIOCATALOGCASES_0300](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets>)（源码第101行） | `testScenarioCatalogCases0003` | `com.samples.appcontinuation_ScenarioCatalogCases_0003` |
+| [SUB_CONTINUATION_SCENARIOCATALOGCASES_0400](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets>)（源码第122行） | `testScenarioCatalogCases0004` | `com.samples.appcontinuation_ScenarioCatalogCases_0004` |
+| [SUB_CONTINUATION_SCENARIOCATALOGCASES_0500](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets>)（源码第142行） | `testScenarioCatalogCases0005` | `com.samples.appcontinuation_ScenarioCatalogCases_0005` |
+| [SUB_CONTINUATION_PAYLOADVALIDATORCASES_0100](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets>)（源码第167行） | `testPayloadValidatorCases0001` | `com.samples.appcontinuation_PayloadValidatorCases_0001` |
+| [SUB_CONTINUATION_PAYLOADVALIDATORCASES_0200](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets>)（源码第191行） | `testPayloadValidatorCases0002` | `com.samples.appcontinuation_PayloadValidatorCases_0002` |
 | [SUB_CONTINUATION_PAYLOADVALIDATORCASES_0300](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L214>) | `testPayloadValidatorCases0003` | `com.samples.appcontinuation_PayloadValidatorCases_0003` |
 | [SUB_CONTINUATION_PAYLOADVALIDATORCASES_0400](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L242>) | `testPayloadValidatorCases0004` | `com.samples.appcontinuation_PayloadValidatorCases_0004` |
 | [SUB_CONTINUATION_PAYLOADVALIDATORCASES_0500](<entry/src/ohosTest/ets/test/ScenarioValidatorCases.test.ets#L271>) | `testPayloadValidatorCases0005` | `com.samples.appcontinuation_PayloadValidatorCases_0005` |
@@ -729,11 +729,11 @@
 | [SUB_CONTINUATION_BACKUPCLIPBOARD_0100](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L28>) | `testContinuationBackupClipboard0001` | `com.samples.appcontinuation_ContinuationBackupClipboard_0001` |
 | [SUB_CONTINUATION_BACKUPCLIPBOARD_0200](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L53>) | `testContinuationBackupClipboard0002` | `com.samples.appcontinuation_ContinuationBackupClipboard_0002` |
 | [SUB_CONTINUATION_BACKUPCLIPBOARD_0300](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L76>) | `testContinuationBackupClipboard0003` | `com.samples.appcontinuation_ContinuationBackupClipboard_0003` |
-| [SUB_CONTINUATION_BACKUPCLIPBOARD_0400](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L101>) | `testContinuationBackupClipboard0004` | `com.samples.appcontinuation_ContinuationBackupClipboard_0004` |
-| [SUB_CONTINUATION_BACKUPCLIPBOARD_0500](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L121>) | `testContinuationBackupClipboard0005` | `com.samples.appcontinuation_ContinuationBackupClipboard_0005` |
-| [SUB_CONTINUATION_BACKUPCLIPBOARD_0600](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L141>) | `testContinuationBackupClipboard0006` | `com.samples.appcontinuation_ContinuationBackupClipboard_0006` |
-| [SUB_CONTINUATION_BACKUPCLIPBOARD_0700](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L165>) | `testContinuationBackupClipboard0007` | `com.samples.appcontinuation_ContinuationBackupClipboard_0007` |
-| [SUB_CONTINUATION_BACKUPCLIPBOARD_0800](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L188>) | `testContinuationBackupClipboard0008` | `com.samples.appcontinuation_ContinuationBackupClipboard_0008` |
+| [SUB_CONTINUATION_BACKUPCLIPBOARD_0400](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets>)（源码第101行） | `testContinuationBackupClipboard0004` | `com.samples.appcontinuation_ContinuationBackupClipboard_0004` |
+| [SUB_CONTINUATION_BACKUPCLIPBOARD_0500](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets>)（源码第121行） | `testContinuationBackupClipboard0005` | `com.samples.appcontinuation_ContinuationBackupClipboard_0005` |
+| [SUB_CONTINUATION_BACKUPCLIPBOARD_0600](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets>)（源码第141行） | `testContinuationBackupClipboard0006` | `com.samples.appcontinuation_ContinuationBackupClipboard_0006` |
+| [SUB_CONTINUATION_BACKUPCLIPBOARD_0700](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets>)（源码第165行） | `testContinuationBackupClipboard0007` | `com.samples.appcontinuation_ContinuationBackupClipboard_0007` |
+| [SUB_CONTINUATION_BACKUPCLIPBOARD_0800](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets>)（源码第188行） | `testContinuationBackupClipboard0008` | `com.samples.appcontinuation_ContinuationBackupClipboard_0008` |
 | [SUB_CONTINUATION_BACKUPCLIPBOARD_0900](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L212>) | `testContinuationBackupClipboard0009` | `com.samples.appcontinuation_ContinuationBackupClipboard_0009` |
 | [SUB_CONTINUATION_BACKUPCLIPBOARD_1000](<entry/src/ohosTest/ets/test/SceneBackupClipboardCases.test.ets#L237>) | `testContinuationBackupClipboard0010` | `com.samples.appcontinuation_ContinuationBackupClipboard_0010` |
 
@@ -745,10 +745,10 @@
 | [SUB_CONTINUATION_BACKUPLIFECYCLE_0200](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L49>) | `testContinuationBackupLifecycle0002` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0002` |
 | [SUB_CONTINUATION_BACKUPLIFECYCLE_0300](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L71>) | `testContinuationBackupLifecycle0003` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0003` |
 | [SUB_CONTINUATION_BACKUPLIFECYCLE_0400](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L91>) | `testContinuationBackupLifecycle0004` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0004` |
-| [SUB_CONTINUATION_BACKUPLIFECYCLE_0500](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L114>) | `testContinuationBackupLifecycle0005` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0005` |
-| [SUB_CONTINUATION_BACKUPLIFECYCLE_0600](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L136>) | `testContinuationBackupLifecycle0006` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0006` |
-| [SUB_CONTINUATION_BACKUPLIFECYCLE_0700](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L160>) | `testContinuationBackupLifecycle0007` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0007` |
-| [SUB_CONTINUATION_BACKUPLIFECYCLE_0800](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L186>) | `testContinuationBackupLifecycle0008` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0008` |
+| [SUB_CONTINUATION_BACKUPLIFECYCLE_0500](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets>)（源码第114行） | `testContinuationBackupLifecycle0005` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0005` |
+| [SUB_CONTINUATION_BACKUPLIFECYCLE_0600](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets>)（源码第136行） | `testContinuationBackupLifecycle0006` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0006` |
+| [SUB_CONTINUATION_BACKUPLIFECYCLE_0700](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets>)（源码第160行） | `testContinuationBackupLifecycle0007` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0007` |
+| [SUB_CONTINUATION_BACKUPLIFECYCLE_0800](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets>)（源码第186行） | `testContinuationBackupLifecycle0008` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0008` |
 | [SUB_CONTINUATION_BACKUPLIFECYCLE_0900](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L217>) | `testContinuationBackupLifecycle0009` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0009` |
 | [SUB_CONTINUATION_BACKUPLIFECYCLE_1000](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L247>) | `testContinuationBackupLifecycle0010` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0010` |
 | [SUB_CONTINUATION_BACKUPLIFECYCLE_1100](<entry/src/ohosTest/ets/test/SceneBackupLifecycleCases.test.ets#L273>) | `testContinuationBackupLifecycle0011` | `com.samples.appcontinuation_ContinuationBackupLifecycle_0011` |
@@ -760,11 +760,11 @@
 | [SUB_CONTINUATION_BACKUPPLAN_0100](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L37>) | `testContinuationBackupPlan0001` | `com.samples.appcontinuation_ContinuationBackupPlan_0001` |
 | [SUB_CONTINUATION_BACKUPPLAN_0200](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L63>) | `testContinuationBackupPlan0002` | `com.samples.appcontinuation_ContinuationBackupPlan_0002` |
 | [SUB_CONTINUATION_BACKUPPLAN_0300](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L87>) | `testContinuationBackupPlan0003` | `com.samples.appcontinuation_ContinuationBackupPlan_0003` |
-| [SUB_CONTINUATION_BACKUPPLAN_0400](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L109>) | `testContinuationBackupPlan0004` | `com.samples.appcontinuation_ContinuationBackupPlan_0004` |
-| [SUB_CONTINUATION_BACKUPPLAN_0500](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L130>) | `testContinuationBackupPlan0005` | `com.samples.appcontinuation_ContinuationBackupPlan_0005` |
-| [SUB_CONTINUATION_BACKUPPLAN_0600](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L151>) | `testContinuationBackupPlan0006` | `com.samples.appcontinuation_ContinuationBackupPlan_0006` |
-| [SUB_CONTINUATION_BACKUPPLAN_0700](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L172>) | `testContinuationBackupPlan0007` | `com.samples.appcontinuation_ContinuationBackupPlan_0007` |
-| [SUB_CONTINUATION_BACKUPPLAN_0800](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L196>) | `testContinuationBackupPlan0008` | `com.samples.appcontinuation_ContinuationBackupPlan_0008` |
+| [SUB_CONTINUATION_BACKUPPLAN_0400](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets>)（源码第109行） | `testContinuationBackupPlan0004` | `com.samples.appcontinuation_ContinuationBackupPlan_0004` |
+| [SUB_CONTINUATION_BACKUPPLAN_0500](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets>)（源码第130行） | `testContinuationBackupPlan0005` | `com.samples.appcontinuation_ContinuationBackupPlan_0005` |
+| [SUB_CONTINUATION_BACKUPPLAN_0600](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets>)（源码第151行） | `testContinuationBackupPlan0006` | `com.samples.appcontinuation_ContinuationBackupPlan_0006` |
+| [SUB_CONTINUATION_BACKUPPLAN_0700](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets>)（源码第172行） | `testContinuationBackupPlan0007` | `com.samples.appcontinuation_ContinuationBackupPlan_0007` |
+| [SUB_CONTINUATION_BACKUPPLAN_0800](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets>)（源码第196行） | `testContinuationBackupPlan0008` | `com.samples.appcontinuation_ContinuationBackupPlan_0008` |
 | [SUB_CONTINUATION_BACKUPPLAN_0900](<entry/src/ohosTest/ets/test/SceneBackupPlanningCases.test.ets#L213>) | `testContinuationBackupPlan0009` | `com.samples.appcontinuation_ContinuationBackupPlan_0009` |
 
 ### [SceneBackupTransactionCases.test.ets](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets>)（14 例）
@@ -774,10 +774,10 @@
 | [SUB_CONTINUATION_BACKUPTRANSACTION_0100](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L37>) | `testContinuationBackupTransaction0001` | `com.samples.appcontinuation_ContinuationBackupTransaction_0001` |
 | [SUB_CONTINUATION_BACKUPTRANSACTION_0200](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L68>) | `testContinuationBackupTransaction0002` | `com.samples.appcontinuation_ContinuationBackupTransaction_0002` |
 | [SUB_CONTINUATION_BACKUPTRANSACTION_0300](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L91>) | `testContinuationBackupTransaction0003` | `com.samples.appcontinuation_ContinuationBackupTransaction_0003` |
-| [SUB_CONTINUATION_BACKUPTRANSACTION_0400](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L114>) | `testContinuationBackupTransaction0004` | `com.samples.appcontinuation_ContinuationBackupTransaction_0004` |
-| [SUB_CONTINUATION_BACKUPTRANSACTION_0500](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L144>) | `testContinuationBackupTransaction0005` | `com.samples.appcontinuation_ContinuationBackupTransaction_0005` |
-| [SUB_CONTINUATION_BACKUPTRANSACTION_0600](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L166>) | `testContinuationBackupTransaction0006` | `com.samples.appcontinuation_ContinuationBackupTransaction_0006` |
-| [SUB_CONTINUATION_BACKUPTRANSACTION_0700](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L193>) | `testContinuationBackupTransaction0007` | `com.samples.appcontinuation_ContinuationBackupTransaction_0007` |
+| [SUB_CONTINUATION_BACKUPTRANSACTION_0400](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets>)（源码第114行） | `testContinuationBackupTransaction0004` | `com.samples.appcontinuation_ContinuationBackupTransaction_0004` |
+| [SUB_CONTINUATION_BACKUPTRANSACTION_0500](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets>)（源码第144行） | `testContinuationBackupTransaction0005` | `com.samples.appcontinuation_ContinuationBackupTransaction_0005` |
+| [SUB_CONTINUATION_BACKUPTRANSACTION_0600](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets>)（源码第166行） | `testContinuationBackupTransaction0006` | `com.samples.appcontinuation_ContinuationBackupTransaction_0006` |
+| [SUB_CONTINUATION_BACKUPTRANSACTION_0700](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets>)（源码第193行） | `testContinuationBackupTransaction0007` | `com.samples.appcontinuation_ContinuationBackupTransaction_0007` |
 | [SUB_CONTINUATION_BACKUPTRANSACTION_0800](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L217>) | `testContinuationBackupTransaction0008` | `com.samples.appcontinuation_ContinuationBackupTransaction_0008` |
 | [SUB_CONTINUATION_BACKUPTRANSACTION_0900](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L239>) | `testContinuationBackupTransaction0009` | `com.samples.appcontinuation_ContinuationBackupTransaction_0009` |
 | [SUB_CONTINUATION_BACKUPTRANSACTION_1000](<entry/src/ohosTest/ets/test/SceneBackupTransactionCases.test.ets#L265>) | `testContinuationBackupTransaction0010` | `com.samples.appcontinuation_ContinuationBackupTransaction_0010` |
@@ -793,11 +793,11 @@
 | [SUB_CONTINUATION_SCENEMODELMATRIX_0100](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L63>) | `testSceneModelMatrix0001` | `com.samples.appcontinuation_SceneModelMatrix_0001` |
 | [SUB_CONTINUATION_SCENEMODELMATRIX_0200](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L79>) | `testSceneModelMatrix0002` | `com.samples.appcontinuation_SceneModelMatrix_0002` |
 | [SUB_CONTINUATION_SCENEMODELMATRIX_0300](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L98>) | `testSceneModelMatrix0003` | `com.samples.appcontinuation_SceneModelMatrix_0003` |
-| [SUB_CONTINUATION_SCENEMODELMATRIX_0400](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L115>) | `testSceneModelMatrix0004` | `com.samples.appcontinuation_SceneModelMatrix_0004` |
-| [SUB_CONTINUATION_SCENEMODELMATRIX_0500](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L132>) | `testSceneModelMatrix0005` | `com.samples.appcontinuation_SceneModelMatrix_0005` |
-| [SUB_CONTINUATION_SCENEMODELMATRIX_0600](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L148>) | `testSceneModelMatrix0006` | `com.samples.appcontinuation_SceneModelMatrix_0006` |
-| [SUB_CONTINUATION_SCENEMODELMATRIX_0700](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L169>) | `testSceneModelMatrix0007` | `com.samples.appcontinuation_SceneModelMatrix_0007` |
-| [SUB_CONTINUATION_SCENEMODELMATRIX_0800](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L186>) | `testSceneModelMatrix0008` | `com.samples.appcontinuation_SceneModelMatrix_0008` |
+| [SUB_CONTINUATION_SCENEMODELMATRIX_0400](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets>)（源码第115行） | `testSceneModelMatrix0004` | `com.samples.appcontinuation_SceneModelMatrix_0004` |
+| [SUB_CONTINUATION_SCENEMODELMATRIX_0500](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets>)（源码第132行） | `testSceneModelMatrix0005` | `com.samples.appcontinuation_SceneModelMatrix_0005` |
+| [SUB_CONTINUATION_SCENEMODELMATRIX_0600](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets>)（源码第148行） | `testSceneModelMatrix0006` | `com.samples.appcontinuation_SceneModelMatrix_0006` |
+| [SUB_CONTINUATION_SCENEMODELMATRIX_0700](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets>)（源码第169行） | `testSceneModelMatrix0007` | `com.samples.appcontinuation_SceneModelMatrix_0007` |
+| [SUB_CONTINUATION_SCENEMODELMATRIX_0800](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets>)（源码第186行） | `testSceneModelMatrix0008` | `com.samples.appcontinuation_SceneModelMatrix_0008` |
 | [SUB_CONTINUATION_SCENEMODELMATRIX_0900](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L204>) | `testSceneModelMatrix0009` | `com.samples.appcontinuation_SceneModelMatrix_0009` |
 | [SUB_CONTINUATION_SCENEMODELMATRIX_1000](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L221>) | `testSceneModelMatrix0010` | `com.samples.appcontinuation_SceneModelMatrix_0010` |
 | [SUB_CONTINUATION_SCENEMODELMATRIX_1100](<entry/src/ohosTest/ets/test/SceneModelMatrix.test.ets#L236>) | `testSceneModelMatrix0011` | `com.samples.appcontinuation_SceneModelMatrix_0011` |
@@ -822,11 +822,11 @@
 | [SUB_CONTINUATION_SCENERECOVERYB2_0100](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L49>) | `testSceneRecoveryBatchTwo0001` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0001` |
 | [SUB_CONTINUATION_SCENERECOVERYB2_0200](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L69>) | `testSceneRecoveryBatchTwo0002` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0002` |
 | [SUB_CONTINUATION_SCENERECOVERYB2_0300](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L88>) | `testSceneRecoveryBatchTwo0003` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0003` |
-| [SUB_CONTINUATION_SCENERECOVERYB2_0400](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L107>) | `testSceneRecoveryBatchTwo0004` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0004` |
-| [SUB_CONTINUATION_SCENERECOVERYB2_0500](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L124>) | `testSceneRecoveryBatchTwo0005` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0005` |
-| [SUB_CONTINUATION_SCENERECOVERYB2_0600](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L144>) | `testSceneRecoveryBatchTwo0006` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0006` |
-| [SUB_CONTINUATION_SCENERECOVERYB2_0700](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L164>) | `testSceneRecoveryBatchTwo0007` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0007` |
-| [SUB_CONTINUATION_SCENERECOVERYB2_0800](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L185>) | `testSceneRecoveryBatchTwo0008` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0008` |
+| [SUB_CONTINUATION_SCENERECOVERYB2_0400](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets>)（源码第107行） | `testSceneRecoveryBatchTwo0004` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0004` |
+| [SUB_CONTINUATION_SCENERECOVERYB2_0500](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets>)（源码第124行） | `testSceneRecoveryBatchTwo0005` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0005` |
+| [SUB_CONTINUATION_SCENERECOVERYB2_0600](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets>)（源码第144行） | `testSceneRecoveryBatchTwo0006` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0006` |
+| [SUB_CONTINUATION_SCENERECOVERYB2_0700](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets>)（源码第164行） | `testSceneRecoveryBatchTwo0007` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0007` |
+| [SUB_CONTINUATION_SCENERECOVERYB2_0800](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets>)（源码第185行） | `testSceneRecoveryBatchTwo0008` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0008` |
 | [SUB_CONTINUATION_SCENERECOVERYB2_0900](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L205>) | `testSceneRecoveryBatchTwo0009` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0009` |
 | [SUB_CONTINUATION_SCENERECOVERYB2_1000](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L227>) | `testSceneRecoveryBatchTwo0010` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0010` |
 | [SUB_CONTINUATION_SCENERECOVERYB2_1100](<entry/src/ohosTest/ets/test/SceneRecoveryB2.test.ets#L251>) | `testSceneRecoveryBatchTwo0011` | `com.samples.appcontinuation_SceneRecoveryBatchTwo_0011` |
@@ -839,9 +839,9 @@
 | [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0100](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L34>) | `testWorkspaceBackupNativeQa0001` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0001` |
 | [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0200](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L56>) | `testWorkspaceBackupNativeQa0002` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0002` |
 | [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0300](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L84>) | `testWorkspaceBackupNativeQa0003` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0003` |
-| [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0400](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L117>) | `testWorkspaceBackupNativeQa0004` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0004` |
-| [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0500](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L144>) | `testWorkspaceBackupNativeQa0005` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0005` |
-| [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0600](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L174>) | `testWorkspaceBackupNativeQa0006` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0006` |
+| [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0400](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets>)（源码第117行） | `testWorkspaceBackupNativeQa0004` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0004` |
+| [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0500](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets>)（源码第144行） | `testWorkspaceBackupNativeQa0005` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0005` |
+| [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0600](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets>)（源码第174行） | `testWorkspaceBackupNativeQa0006` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0006` |
 | [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0700](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L203>) | `testWorkspaceBackupNativeQa0007` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0007` |
 | [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0800](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L232>) | `testWorkspaceBackupNativeQa0008` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0008` |
 | [SUB_CONTINUATION_WORKSPACE_NATIVE_QA_0900](<entry/src/ohosTest/ets/test/WorkspaceBackupNativeQa.test.ets#L263>) | `testWorkspaceBackupNativeQa0009` | `com.samples.appcontinuation_WorkspaceBackupNativeQa_0009` |
@@ -856,10 +856,10 @@
 | [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0100](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L38>) | `testWorkspaceBackupUiQa0001` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0001` |
 | [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0200](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L58>) | `testWorkspaceBackupUiQa0002` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0002` |
 | [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0300](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L79>) | `testWorkspaceBackupUiQa0003` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0003` |
-| [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0400](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L101>) | `testWorkspaceBackupUiQa0004` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0004` |
-| [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0500](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L128>) | `testWorkspaceBackupUiQa0005` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0005` |
-| [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0600](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L151>) | `testWorkspaceBackupUiQa0006` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0006` |
-| [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0700](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L184>) | `testWorkspaceBackupUiQa0007` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0007` |
+| [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0400](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets>)（源码第101行） | `testWorkspaceBackupUiQa0004` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0004` |
+| [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0500](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets>)（源码第128行） | `testWorkspaceBackupUiQa0005` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0005` |
+| [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0600](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets>)（源码第151行） | `testWorkspaceBackupUiQa0006` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0006` |
+| [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0700](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets>)（源码第184行） | `testWorkspaceBackupUiQa0007` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0007` |
 | [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0800](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L208>) | `testWorkspaceBackupUiQa0008` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0008` |
 | [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_0900](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L232>) | `testWorkspaceBackupUiQa0009` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0009` |
 | [SUB_CONTINUATION_WORKSPACEBACKUPUIQA_1000](<entry/src/ohosTest/ets/test/WorkspaceBackupUiQa.test.ets#L252>) | `testWorkspaceBackupUiQa0010` | `com.samples.appcontinuation_WorkspaceBackupUiQa_0010` |
@@ -879,12 +879,12 @@
 |---|---|---|
 | [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0100](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L64>) | `testDocumentWorkspaceCases0001` | `com.samples.appcontinuation_DocumentWorkspaceCases_0001` |
 | [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0200](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L83>) | `testDocumentWorkspaceCases0002` | `com.samples.appcontinuation_DocumentWorkspaceCases_0002` |
-| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0300](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L102>) | `testDocumentWorkspaceCases0003` | `com.samples.appcontinuation_DocumentWorkspaceCases_0003` |
-| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0400](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L119>) | `testDocumentWorkspaceCases0004` | `com.samples.appcontinuation_DocumentWorkspaceCases_0004` |
-| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0500](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L136>) | `testDocumentWorkspaceCases0005` | `com.samples.appcontinuation_DocumentWorkspaceCases_0005` |
-| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0600](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L154>) | `testDocumentWorkspaceCases0006` | `com.samples.appcontinuation_DocumentWorkspaceCases_0006` |
-| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0700](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L173>) | `testDocumentWorkspaceCases0007` | `com.samples.appcontinuation_DocumentWorkspaceCases_0007` |
-| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0800](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L194>) | `testDocumentWorkspaceCases0008` | `com.samples.appcontinuation_DocumentWorkspaceCases_0008` |
+| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0300](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets>)（源码第102行） | `testDocumentWorkspaceCases0003` | `com.samples.appcontinuation_DocumentWorkspaceCases_0003` |
+| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0400](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets>)（源码第119行） | `testDocumentWorkspaceCases0004` | `com.samples.appcontinuation_DocumentWorkspaceCases_0004` |
+| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0500](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets>)（源码第136行） | `testDocumentWorkspaceCases0005` | `com.samples.appcontinuation_DocumentWorkspaceCases_0005` |
+| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0600](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets>)（源码第154行） | `testDocumentWorkspaceCases0006` | `com.samples.appcontinuation_DocumentWorkspaceCases_0006` |
+| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0700](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets>)（源码第173行） | `testDocumentWorkspaceCases0007` | `com.samples.appcontinuation_DocumentWorkspaceCases_0007` |
+| [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0800](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets>)（源码第194行） | `testDocumentWorkspaceCases0008` | `com.samples.appcontinuation_DocumentWorkspaceCases_0008` |
 | [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_0900](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L211>) | `testDocumentWorkspaceCases0009` | `com.samples.appcontinuation_DocumentWorkspaceCases_0009` |
 | [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_1000](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L230>) | `testDocumentWorkspaceCases0010` | `com.samples.appcontinuation_DocumentWorkspaceCases_0010` |
 | [SUB_CONTINUATION_DOCUMENTWORKSPACECASES_1100](<entry/src/ohosTest/ets/test/WorkspaceCases.test.ets#L253>) | `testDocumentWorkspaceCases0011` | `com.samples.appcontinuation_DocumentWorkspaceCases_0011` |
@@ -932,5 +932,5 @@
 |---|---|---|
 | [SUB_CONTINUATION_FORMALSCENEUI_0100](<entry/src/ohosTest/ets/test/FormalSceneUiSmoke.test.ets#L40>) | 新增独立用例 | `com.samples.appcontinuation_FormalSceneUiSmoke_0001` |
 | [SUB_CONTINUATION_FORMALSCENEUI_0200](<entry/src/ohosTest/ets/test/FormalSceneUiSmoke.test.ets#L81>) | 新增独立用例 | `com.samples.appcontinuation_FormalSceneUiSmoke_0002` |
-| [SUB_CONTINUATION_FORMALSCENEUI_0300](<entry/src/ohosTest/ets/test/FormalSceneUiSmoke.test.ets#L126>) | 新增独立用例 | `com.samples.appcontinuation_FormalSceneUiSmoke_0003` |
-| [SUB_CONTINUATION_FORMALSCENEUI_0400](<entry/src/ohosTest/ets/test/FormalSceneUiSmoke.test.ets#L171>) | 新增独立用例 | `com.samples.appcontinuation_FormalSceneUiSmoke_0004` |
+| [SUB_CONTINUATION_FORMALSCENEUI_0300](<entry/src/ohosTest/ets/test/FormalSceneUiSmoke.test.ets>)（源码第126行） | 新增独立用例 | `com.samples.appcontinuation_FormalSceneUiSmoke_0003` |
+| [SUB_CONTINUATION_FORMALSCENEUI_0400](<entry/src/ohosTest/ets/test/FormalSceneUiSmoke.test.ets>)（源码第171行） | 新增独立用例 | `com.samples.appcontinuation_FormalSceneUiSmoke_0004` |

@@ -121,7 +121,7 @@ export const ON: UiSelector = new UiSelector();
 interface OwnedAbilityIdentity { bundleName: string; moduleName: string; name: string; }
 
 export class UiTestSession {
-  readonly id: string;
+  public readonly id: string;
   private accepting: boolean = true;
   private deadline: number;
   private cleanupMs: number;
@@ -623,8 +623,11 @@ export class UiTestComponent {
       // not evidence that a gesture moved the viewport or reached either edge.
       if (before === undefined && !directed) { towardTop = step >= 8; }
       const movingTowardTop: boolean = towardTop;
-      if (movingTowardTop) { await this.driver.swipe(x, gestureTop, x, gestureBottom); }
-      else { await this.driver.swipe(x, gestureBottom, x, gestureTop); }
+      if (movingTowardTop) {
+        await this.driver.swipe(x, gestureTop, x, gestureBottom);
+      } else {
+        await this.driver.swipe(x, gestureBottom, x, gestureTop);
+      }
       await this.driver.session.pause(50);
       const after = this.driver.readScrollOffset();
       if (before !== undefined && after !== undefined && Math.abs(after - before) < 0.5) {
