@@ -47,6 +47,11 @@ import launcherPlusGridTest from './LauncherPlusGrid.test';
 import launcherPlusBeansTest from './LauncherPlusBeans.test';
 import launcherPlusEventsTest from './LauncherPlusEvents.test';
 import launcherPlusBundleTest from './LauncherPlusBundle.test';
+import launcherPlusCheckDeepTest from './LauncherPlusCheckDeep.test';
+import launcherPlusConstantsDeepTest from './LauncherPlusConstantsDeep.test';
+import launcherPlusGridDeepTest from './LauncherPlusGridDeep.test';
+import launcherPlusBeanDeepTest from './LauncherPlusBeanDeep.test';
+import launcherPlusBundleDeepTest from './LauncherPlusBundleDeep.test';
 export default function testsuite() {
   abilityTest();
   baseLogicTest();
@@ -81,4 +86,9 @@ export default function testsuite() {
   launcherPlusBeansTest();
   launcherPlusEventsTest();
   launcherPlusBundleTest();
+  launcherPlusCheckDeepTest();
+  launcherPlusConstantsDeepTest();
+  launcherPlusGridDeepTest();
+  launcherPlusBeanDeepTest();
+  launcherPlusBundleDeepTest();
 }
