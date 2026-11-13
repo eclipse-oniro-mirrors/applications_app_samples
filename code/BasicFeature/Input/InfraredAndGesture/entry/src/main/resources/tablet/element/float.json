@@ -1,0 +1,24 @@
+{
+  "float": [
+    {
+      "name": "page_padding",
+      "value": "20vp"
+    },
+    {
+      "name": "card_radius",
+      "value": "12vp"
+    },
+    {
+      "name": "title_font",
+      "value": "28fp"
+    },
+    {
+      "name": "body_font",
+      "value": "18fp"
+    },
+    {
+      "name": "caption_font",
+      "value": "15fp"
+    }
+  ]
+}
