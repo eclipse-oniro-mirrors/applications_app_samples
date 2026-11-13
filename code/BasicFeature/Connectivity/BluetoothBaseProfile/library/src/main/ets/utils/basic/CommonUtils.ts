@@ -62,11 +62,11 @@ export class CommonUtils {
   /**
    * safe all JSON decode parse
    * @param json - JSON string
-   * @returns decode parse after against object
+   * @returns decode parse after against object, or null when parsing fails
    */
-  static safeParse(json: string): object | null {
+  static safeParse<T>(json: string): T | null {
     try {
-      return JSON.parse(json);
+      return JSON.parse(json) as T;
     } catch (e) {
       hilog.error(DOMAIN, TAG, 'CommonUtils safeParse: failed to parse JSON');
       return null;

@@ -17,6 +17,7 @@ import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { HdpModel, HdpJson } from '../model/HdpModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
+import { ServiceCallbackCounts } from '../types/ServiceCallbackCounts';
 
 /**
  * @interface HdpOperationRecord
@@ -112,6 +113,41 @@ export interface HdpConnectionConfig {
   enablePerformanceTracing: boolean;
   /** Custom parameters for profile-specific configuration */
   customParameters: Map<string, string>;
+}
+
+/**
+ * @interface HdpServiceStatistics
+ * @description Comprehensive statistics snapshot returned by HdpService.getStatistics().
+ */
+export interface HdpServiceStatistics {
+  /** Service name */
+  serviceName: string;
+  /** Whether the service is initialized */
+  isInitialized: boolean;
+  /** Current connection state */
+  connectionState: BluetoothConnectionState;
+  /** Number of connected devices */
+  connectedDeviceCount: number;
+  /** Connected device identifiers */
+  connectedDevices: string[];
+  /** Whether an operation is in progress */
+  isProcessing: boolean;
+  /** Pending operation queue size */
+  queueSize: number;
+  /** Current retry count */
+  currentRetryCount: number;
+  /** Last error message */
+  lastError: string;
+  /** Recorded state transition count */
+  stateTransitionCount: number;
+  /** Performance metrics snapshot */
+  performanceMetrics: HdpPerformanceMetrics;
+  /** Operation history entry count */
+  operationHistoryCount: number;
+  /** Operation record count */
+  operationRecordCount: number;
+  /** Callback counters */
+  callbackCounts: ServiceCallbackCounts;
 }
 
 /**
@@ -696,9 +732,9 @@ export class HdpService {
   /**
    * @method getStatistics
    * @description Returns comprehensive service statistics.
-   * @returns {object} Statistics object with connection, operation, and performance data.
+   * @returns {HdpServiceStatistics} Statistics object with connection, operation, and performance data.
    */
-  getStatistics(): object {
+  getStatistics(): HdpServiceStatistics {
     const metrics: HdpPerformanceMetrics = this.getPerformanceMetrics();
     return {
       serviceName: this.serviceName,

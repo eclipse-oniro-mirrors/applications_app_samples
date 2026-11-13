@@ -22,6 +22,7 @@ import {
   BluetoothProfileType
 } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
+import { ServiceCallbackCounts } from '../types/ServiceCallbackCounts';
 
 /**
  * @interface HfpCallInfo
@@ -159,6 +160,37 @@ export interface HfpDialCommand {
   redialLast: boolean;
   /** Whether this is an emergency call */
   isEmergency: boolean;
+}
+
+/**
+ * @interface HfpServiceStatistics
+ * @description Comprehensive statistics snapshot returned by HfpService.getStatistics().
+ */
+export interface HfpServiceStatistics {
+  /** Service name */
+  serviceName: string;
+  /** Whether the service is initialized */
+  isInitialized: boolean;
+  /** Current connection state */
+  connectionState: BluetoothConnectionState;
+  /** Current HFP protocol state */
+  hfpState: HfpConnectionState;
+  /** Number of connected devices */
+  connectedDeviceCount: number;
+  /** Number of active calls */
+  activeCallCount: number;
+  /** Total calls recorded in history */
+  totalCallsInHistory: number;
+  /** Whether voice recognition is active */
+  voiceRecognitionActive: boolean;
+  /** Whether in-band ringing is enabled */
+  inBandRinging: boolean;
+  /** Whether three-way calling is supported */
+  threeWayCalling: boolean;
+  /** Operation history entry count */
+  operationHistoryCount: number;
+  /** Callback counters */
+  callbackCounts: ServiceCallbackCounts;
 }
 
 /**
@@ -1149,9 +1181,9 @@ export class HfpService {
   /**
    * @method getStatistics
    * @description Returns comprehensive service statistics.
-   * @returns {object} Statistics object.
+   * @returns {HfpServiceStatistics} Statistics object.
    */
-  getStatistics(): object {
+  getStatistics(): HfpServiceStatistics {
     return {
       serviceName: this.serviceName,
       isInitialized: this.isInitialized,

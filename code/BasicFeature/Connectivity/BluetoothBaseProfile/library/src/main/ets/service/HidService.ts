@@ -17,6 +17,7 @@ import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { HidModel, HidJson } from '../model/HidModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
+import { ServiceCallbackCounts } from '../types/ServiceCallbackCounts';
 
 /**
  * @interface HidOperationRecord
@@ -112,6 +113,41 @@ export interface HidConnectionConfig {
   enablePerformanceTracing: boolean;
   /** Custom parameters for profile-specific configuration */
   customParameters: Map<string, string>;
+}
+
+/**
+ * @interface HidServiceStatistics
+ * @description Comprehensive statistics snapshot returned by HidService.getStatistics().
+ */
+export interface HidServiceStatistics {
+  /** Service name */
+  serviceName: string;
+  /** Whether the service is initialized */
+  isInitialized: boolean;
+  /** Current connection state */
+  connectionState: BluetoothConnectionState;
+  /** Number of connected devices */
+  connectedDeviceCount: number;
+  /** Connected device identifiers */
+  connectedDevices: string[];
+  /** Whether an operation is in progress */
+  isProcessing: boolean;
+  /** Pending operation queue size */
+  queueSize: number;
+  /** Current retry count */
+  currentRetryCount: number;
+  /** Last error message */
+  lastError: string;
+  /** Recorded state transition count */
+  stateTransitionCount: number;
+  /** Performance metrics snapshot */
+  performanceMetrics: HidPerformanceMetrics;
+  /** Operation history entry count */
+  operationHistoryCount: number;
+  /** Operation record count */
+  operationRecordCount: number;
+  /** Callback counters */
+  callbackCounts: ServiceCallbackCounts;
 }
 
 /**
@@ -696,9 +732,9 @@ export class HidService {
   /**
    * @method getStatistics
    * @description Returns comprehensive service statistics.
-   * @returns {object} Statistics object with connection, operation, and performance data.
+   * @returns {HidServiceStatistics} Statistics object with connection, operation, and performance data.
    */
-  getStatistics(): object {
+  getStatistics(): HidServiceStatistics {
     const metrics: HidPerformanceMetrics = this.getPerformanceMetrics();
     return {
       serviceName: this.serviceName,
