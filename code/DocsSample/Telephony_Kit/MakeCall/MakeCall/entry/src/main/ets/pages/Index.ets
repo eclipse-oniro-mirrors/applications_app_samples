@@ -48,29 +48,30 @@ struct JumpCall {
           observer.on('callStateChange', slotId, (data: CallStateCallback) => {
               console.info('call state change, data is:' + JSON.stringify(data));
           });
+      }
     }
 
     startCalldialCall() {
     // [EndExclude DialCall]
     // 调用查询能力接口
-    let isSupport = call.hasVoiceCapability();
-    if (isSupport) {
-        // 如果设备支持呼叫能力，调用以下接口进行拨号
-        call.dialCall("13xxxx", (err: BusinessError) => {
-            console.error(`callback: dial call err->${JSON.stringify(err)}`);
-        })
+      let isSupport = call.hasVoiceCapability();
+      if (isSupport) {
+          // 如果设备支持呼叫能力，调用以下接口进行拨号
+          call.dialCall("13xxxx", (err: BusinessError) => {
+              console.error(`callback: dial call err->${JSON.stringify(err)}`);
+          })
 
-        // 订阅通话业务状态变化（可选）
-        class SlotId {slotId: number = 0}
-        class CallStateCallback {
-            state: call.CallState = call.CallState.CALL_STATE_UNKNOWN;
-            number: string = "";
-        }
-        let slotId: SlotId = {slotId: 0}
-        observer.on("callStateChange", slotId, (data: CallStateCallback) => {
-            console.info("call state change, data is:" + JSON.stringify(data));
-        });
-    }
+          // 订阅通话业务状态变化（可选）
+          class SlotId {slotId: number = 0}
+          class CallStateCallback {
+              state: call.CallState = call.CallState.CALL_STATE_UNKNOWN;
+              number: string = "";
+          }
+          let slotId: SlotId = {slotId: 0}
+          observer.on("callStateChange", slotId, (data: CallStateCallback) => {
+          console.info("call state change, data is:" + JSON.stringify(data));
+          });
+      }
     }
 // [End DialCall]
   }
