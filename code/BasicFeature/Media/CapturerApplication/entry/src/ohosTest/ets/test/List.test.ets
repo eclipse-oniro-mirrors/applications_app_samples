@@ -15,6 +15,47 @@
 
 import abilityTest from './Ability.test';
 
+import audioSourceTypeCoreTest from './AudioSourceTypeCore.test';
+import audioSamplingRateCoreTest from './AudioSamplingRateCore.test';
+import audioChannelCoreTest from './AudioChannelCore.test';
+import audioSampleFormatCoreTest from './AudioSampleFormatCore.test';
+import interruptHintTypeCoreTest from './InterruptHintTypeCore.test';
+import audioStateCoreTest from './AudioStateCore.test';
+import bufferWalkCoreTest from './BufferWalkCore.test';
+import recordingMetadataDefaultsCoreTest from './RecordingMetadataDefaultsCore.test';
+import recordingMetadataStateCoreTest from './RecordingMetadataStateCore.test';
+import samplingRateKeyMapCoreTest from './SamplingRateKeyMapCore.test';
+import channelKeyMapCoreTest from './ChannelKeyMapCore.test';
+import sourceTypeKeyMapCoreTest from './SourceTypeKeyMapCore.test';
+import sampleFormatKeyMapCoreTest from './SampleFormatKeyMapCore.test';
+import samplingRateOptionsCoreTest from './SamplingRateOptionsCore.test';
+import channelSourceOptionsCoreTest from './ChannelSourceOptionsCore.test';
+import sampleFormatOptionsCoreTest from './SampleFormatOptionsCore.test';
+import mediaToolsCountdownCoreTest from './MediaToolsCountdownCore.test';
+import mediaToolsByteLengthCoreTest from './MediaToolsByteLengthCore.test';
+import mediaToolsOffsetCoreTest from './MediaToolsOffsetCore.test';
+import selectMapConsistencyCoreTest from './SelectMapConsistencyCore.test';
+
 export default function testsuite() {
   abilityTest();
+  audioSourceTypeCoreTest();
+  audioSamplingRateCoreTest();
+  audioChannelCoreTest();
+  audioSampleFormatCoreTest();
+  interruptHintTypeCoreTest();
+  audioStateCoreTest();
+  bufferWalkCoreTest();
+  recordingMetadataDefaultsCoreTest();
+  recordingMetadataStateCoreTest();
+  samplingRateKeyMapCoreTest();
+  channelKeyMapCoreTest();
+  sourceTypeKeyMapCoreTest();
+  sampleFormatKeyMapCoreTest();
+  samplingRateOptionsCoreTest();
+  channelSourceOptionsCoreTest();
+  sampleFormatOptionsCoreTest();
+  mediaToolsCountdownCoreTest();
+  mediaToolsByteLengthCoreTest();
+  mediaToolsOffsetCoreTest();
+  selectMapConsistencyCoreTest();
 }
