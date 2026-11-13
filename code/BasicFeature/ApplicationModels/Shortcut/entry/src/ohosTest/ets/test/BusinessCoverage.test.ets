@@ -33,23 +33,23 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0001'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0001'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0001'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         const store = createBusiness(scope, io, clock.now);
         store.retry();
-        expect(io.reads, caseName('BusinessCoverage', '0001')).assertEqual(0);
-        expect(store.snapshot().ready, caseName('BusinessCoverage', '0001')).assertFalse();
+        expect(io.reads, caseName('BusinessCoverage', '0001'), 'BusinessCoverage.test.ets:A0001').assertEqual(0);
+        expect(store.snapshot().ready, caseName('BusinessCoverage', '0001'), 'BusinessCoverage.test.ets:A0002').assertFalse();
         store.initialize(getTestContext());
         store.initialize(getTestContext());
         await waitBusiness(scope, store);
         store.initialize(getTestContext());
         store.retry();
-        expect(io.reads, caseName('BusinessCoverage', '0001')).assertEqual(1);
-        expect(io.writes, caseName('BusinessCoverage', '0001')).assertEqual(0);
-        expect(store.snapshot().todos.length, caseName('BusinessCoverage', '0001')).assertEqual(3);
-        expect(store.snapshot().collections.length, caseName('BusinessCoverage', '0001')).assertEqual(3);
+        expect(io.reads, caseName('BusinessCoverage', '0001'), 'BusinessCoverage.test.ets:A0003').assertEqual(1);
+        expect(io.writes, caseName('BusinessCoverage', '0001'), 'BusinessCoverage.test.ets:A0004').assertEqual(0);
+        expect(store.snapshot().todos.length, caseName('BusinessCoverage', '0001'), 'BusinessCoverage.test.ets:A0005').assertEqual(3);
+        expect(store.snapshot().collections.length, caseName('BusinessCoverage', '0001'), 'BusinessCoverage.test.ets:A0006').assertEqual(3);
       });
     });
 
@@ -62,8 +62,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0002'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0002'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0002'), async (scope: CaseScope): Promise<void> => {
         for (const raw of [
           '{',
           'null',
@@ -74,25 +74,25 @@ export default function businessCoverageTests(): void {
           const io = new ControlledBusinessStorage();
           io.value = raw;
           const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
-          expect(store.snapshot().ready, caseName('BusinessCoverage', '0002')).assertFalse();
-          expect(store.errorText(), caseName('BusinessCoverage', '0002')).assertEqual('读取失败，请重试');
-          expect(io.value, caseName('BusinessCoverage', '0002')).assertEqual(raw);
-          expect(io.writes, caseName('BusinessCoverage', '0002')).assertEqual(0);
+          expect(store.snapshot().ready, caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0007').assertFalse();
+          expect(store.errorText(), caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0008').assertEqual('读取失败，请重试');
+          expect(io.value, caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0009').assertEqual(raw);
+          expect(io.writes, caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0010').assertEqual(0);
           io.value = '';
           store.retry();
           await waitBusiness(scope, store);
-          expect(store.snapshot().ready, caseName('BusinessCoverage', '0002')).assertTrue();
-          expect(store.errorText(), caseName('BusinessCoverage', '0002')).assertEqual('');
-          expect(io.reads, caseName('BusinessCoverage', '0002')).assertEqual(2);
+          expect(store.snapshot().ready, caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0011').assertTrue();
+          expect(store.errorText(), caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0012').assertEqual('');
+          expect(io.reads, caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0013').assertEqual(2);
         }
         const io = new ControlledBusinessStorage();
         io.failRead = true;
         const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
-        expect(store.snapshot().ready, caseName('BusinessCoverage', '0002')).assertFalse();
+        expect(store.snapshot().ready, caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0014').assertFalse();
         io.failRead = false;
         store.retry();
         await waitBusiness(scope, store);
-        expect(store.snapshot().ready, caseName('BusinessCoverage', '0002')).assertTrue();
+        expect(store.snapshot().ready, caseName('BusinessCoverage', '0002'), 'BusinessCoverage.test.ets:A0015').assertTrue();
       });
     });
 
@@ -105,8 +105,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0003'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0003'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0003'), async (scope: CaseScope): Promise<void> => {
         const invalid: string[] = [
           '[null]', '[{"id":"","title":"t","body":"b","createdAt":0}]',
           '[{"id":"a","title":2,"body":"b","createdAt":0}]',
@@ -118,9 +118,9 @@ export default function businessCoverageTests(): void {
           const io = new ControlledBusinessStorage();
           io.value = `{"version":1,"notes":${notes},"draftTitle":"","draftBody":"","todoDays":[]}`;
           const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
-          expect(store.snapshot().ready, caseName('BusinessCoverage', '0003')).assertFalse();
-          expect(store.snapshot().notes.length, caseName('BusinessCoverage', '0003')).assertEqual(0);
-          expect(io.writes, caseName('BusinessCoverage', '0003')).assertEqual(0);
+          expect(store.snapshot().ready, caseName('BusinessCoverage', '0003'), 'BusinessCoverage.test.ets:A0016').assertFalse();
+          expect(store.snapshot().notes.length, caseName('BusinessCoverage', '0003'), 'BusinessCoverage.test.ets:A0017').assertEqual(0);
+          expect(io.writes, caseName('BusinessCoverage', '0003'), 'BusinessCoverage.test.ets:A0018').assertEqual(0);
         }
         for (const kind of [0, 1, 2, 3, 4]) {
           const data = new StoredBusinessFixture();
@@ -136,8 +136,8 @@ export default function businessCoverageTests(): void {
           const io = new ControlledBusinessStorage();
           io.value = JSON.stringify(data);
           const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
-          expect(store.snapshot().ready, caseName('BusinessCoverage', '0003')).assertFalse();
-          expect(io.writes, caseName('BusinessCoverage', '0003')).assertEqual(0);
+          expect(store.snapshot().ready, caseName('BusinessCoverage', '0003'), 'BusinessCoverage.test.ets:A0019').assertFalse();
+          expect(io.writes, caseName('BusinessCoverage', '0003'), 'BusinessCoverage.test.ets:A0020').assertEqual(0);
         }
       });
     });
@@ -151,8 +151,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0004'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0004'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0004'), async (scope: CaseScope): Promise<void> => {
         const badDays: string[] = [
           '[null]',
           '[{"date":"2026-1-2","items":[' +
@@ -171,14 +171,14 @@ export default function businessCoverageTests(): void {
           const io = new ControlledBusinessStorage();
           io.value = `{"version":1,"notes":[],"draftTitle":"","draftBody":"","todoDays":${days}}`;
           const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
-          expect(store.snapshot().ready, caseName('BusinessCoverage', '0004')).assertFalse();
-          expect(io.writes, caseName('BusinessCoverage', '0004')).assertEqual(0);
+          expect(store.snapshot().ready, caseName('BusinessCoverage', '0004'), 'BusinessCoverage.test.ets:A0021').assertFalse();
+          expect(io.writes, caseName('BusinessCoverage', '0004'), 'BusinessCoverage.test.ets:A0022').assertEqual(0);
         }
         const data = new StoredBusinessFixture();
         data.todoDays = [new StoredDayFixture(), new StoredDayFixture()];
         const io = new ControlledBusinessStorage();
         io.value = JSON.stringify(data);
-        expect((await loadBusiness(scope, io, new FixedBusinessClock().now)).snapshot().ready, caseName('BusinessCoverage', '0004')).assertFalse();
+        expect((await loadBusiness(scope, io, new FixedBusinessClock().now)).snapshot().ready, caseName('BusinessCoverage', '0004'), 'BusinessCoverage.test.ets:A0023').assertFalse();
       });
     });
 
@@ -191,8 +191,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0005'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0005'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0005'), async (scope: CaseScope): Promise<void> => {
         const data = new StoredBusinessFixture();
         data.draftTitle = '中'.repeat(60);
         data.draftBody = '文'.repeat(4000);
@@ -201,11 +201,11 @@ export default function businessCoverageTests(): void {
         const io = new ControlledBusinessStorage();
         io.value = JSON.stringify(data);
         const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
-        expect(store.snapshot().ready, caseName('BusinessCoverage', '0005')).assertTrue();
-        expect(store.snapshot().notes.length, caseName('BusinessCoverage', '0005')).assertEqual(50);
-        expect(store.snapshot().draftBody.length, caseName('BusinessCoverage', '0005')).assertEqual(4000);
-        expect(store.snapshot().todos[0].id, caseName('BusinessCoverage', '0005')).assertEqual('plan');
-        expect(io.writes, caseName('BusinessCoverage', '0005')).assertEqual(0);
+        expect(store.snapshot().ready, caseName('BusinessCoverage', '0005'), 'BusinessCoverage.test.ets:A0024').assertTrue();
+        expect(store.snapshot().notes.length, caseName('BusinessCoverage', '0005'), 'BusinessCoverage.test.ets:A0025').assertEqual(50);
+        expect(store.snapshot().draftBody.length, caseName('BusinessCoverage', '0005'), 'BusinessCoverage.test.ets:A0026').assertEqual(4000);
+        expect(store.snapshot().todos[0].id, caseName('BusinessCoverage', '0005'), 'BusinessCoverage.test.ets:A0027').assertEqual('plan');
+        expect(io.writes, caseName('BusinessCoverage', '0005'), 'BusinessCoverage.test.ets:A0028').assertEqual(0);
       });
     });
 
@@ -218,24 +218,24 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0006'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0006'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0006'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
         store.setDraftTitle('标'.repeat(61));
         store.setDraftBody('文'.repeat(4001));
-        expect(store.snapshot().draftTitle.length, caseName('BusinessCoverage', '0006')).assertEqual(60);
-        expect(store.snapshot().draftBody.length, caseName('BusinessCoverage', '0006')).assertEqual(4000);
-        expect(await store.keepDraft(), caseName('BusinessCoverage', '0006')).assertTrue();
+        expect(store.snapshot().draftTitle.length, caseName('BusinessCoverage', '0006'), 'BusinessCoverage.test.ets:A0029').assertEqual(60);
+        expect(store.snapshot().draftBody.length, caseName('BusinessCoverage', '0006'), 'BusinessCoverage.test.ets:A0030').assertEqual(4000);
+        expect(await store.keepDraft(), caseName('BusinessCoverage', '0006'), 'BusinessCoverage.test.ets:A0031').assertTrue();
         const writes = io.writes;
         store.setDraftTitle('changed');
-        expect(store.hasDraftChanges(), caseName('BusinessCoverage', '0006')).assertTrue();
+        expect(store.hasDraftChanges(), caseName('BusinessCoverage', '0006'), 'BusinessCoverage.test.ets:A0032').assertTrue();
         store.setDraftTitle('标'.repeat(60));
-        expect(store.hasDraftChanges(), caseName('BusinessCoverage', '0006')).assertFalse();
-        expect(await store.keepDraft(), caseName('BusinessCoverage', '0006')).assertTrue();
-        expect(io.writes, caseName('BusinessCoverage', '0006')).assertEqual(writes);
+        expect(store.hasDraftChanges(), caseName('BusinessCoverage', '0006'), 'BusinessCoverage.test.ets:A0033').assertFalse();
+        expect(await store.keepDraft(), caseName('BusinessCoverage', '0006'), 'BusinessCoverage.test.ets:A0034').assertTrue();
+        expect(io.writes, caseName('BusinessCoverage', '0006'), 'BusinessCoverage.test.ets:A0035').assertEqual(writes);
         store.openNote();
-        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0006')).assertEqual('标'.repeat(60));
+        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0006'), 'BusinessCoverage.test.ets:A0036').assertEqual('标'.repeat(60));
       });
     });
 
@@ -248,24 +248,24 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0007'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0007'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0007'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         const store = await loadBusiness(scope, io, clock.now);
         store.setDraftBody('  ' + '首'.repeat(30) + '\n第二行  ');
-        expect(await store.saveNote(), caseName('BusinessCoverage', '0007')).assertTrue();
+        expect(await store.saveNote(), caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0037').assertTrue();
         const first = store.snapshot().notes[0];
-        expect(first.title, caseName('BusinessCoverage', '0007')).assertEqual('首'.repeat(24));
-        expect(first.body, caseName('BusinessCoverage', '0007')).assertEqual('首'.repeat(30) + '\n第二行');
+        expect(first.title, caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0038').assertEqual('首'.repeat(24));
+        expect(first.body, caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0039').assertEqual('首'.repeat(30) + '\n第二行');
         store.setDraftTitle('  仅标题  ');
-        expect(await store.saveNote(), caseName('BusinessCoverage', '0007')).assertTrue();
+        expect(await store.saveNote(), caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0040').assertTrue();
         const state = store.snapshot();
-        expect(state.notes[0].title, caseName('BusinessCoverage', '0007')).assertEqual('仅标题');
-        expect(state.notes[0].body, caseName('BusinessCoverage', '0007')).assertEqual('');
-        expect(state.notes[0].createdAt, caseName('BusinessCoverage', '0007')).assertEqual(first.createdAt);
-        expect(state.notes[0].id === first.id, caseName('BusinessCoverage', '0007')).assertFalse();
-        expect(state.draftKept, caseName('BusinessCoverage', '0007')).assertFalse();
+        expect(state.notes[0].title, caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0041').assertEqual('仅标题');
+        expect(state.notes[0].body, caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0042').assertEqual('');
+        expect(state.notes[0].createdAt, caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0043').assertEqual(first.createdAt);
+        expect(state.notes[0].id === first.id, caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0044').assertFalse();
+        expect(state.draftKept, caseName('BusinessCoverage', '0007'), 'BusinessCoverage.test.ets:A0045').assertFalse();
       });
     });
 
@@ -278,23 +278,23 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0008'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0008'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0008'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0008'), async (scope: CaseScope): Promise<void> => {
         const data = new StoredBusinessFixture();
         for (let i = 0; i < 50; i++) { data.notes.push(new NoteItem(`old-${i}`, 't', 'b', i)); }
         const io = new ControlledBusinessStorage();
         io.value = JSON.stringify(data);
         const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
         store.setDraftTitle('new');
-        expect(await store.saveNote(), caseName('BusinessCoverage', '0008')).assertFalse();
-        expect(store.errorText(), caseName('BusinessCoverage', '0008')).assertEqual('便签已满，请先删除');
-        expect(io.writes, caseName('BusinessCoverage', '0008')).assertEqual(0);
-        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0008')).assertEqual('new');
-        expect(await store.deleteNote('does-not-exist'), caseName('BusinessCoverage', '0008')).assertFalse();
-        expect(io.writes, caseName('BusinessCoverage', '0008')).assertEqual(0);
-        expect(await store.deleteNote('old-0'), caseName('BusinessCoverage', '0008')).assertTrue();
-        expect(await store.saveNote(), caseName('BusinessCoverage', '0008')).assertTrue();
-        expect(store.snapshot().notes.length, caseName('BusinessCoverage', '0008')).assertEqual(50);
+        expect(await store.saveNote(), caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0046').assertFalse();
+        expect(store.errorText(), caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0047').assertEqual('便签已满，请先删除');
+        expect(io.writes, caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0048').assertEqual(0);
+        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0049').assertEqual('new');
+        expect(await store.deleteNote('does-not-exist'), caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0050').assertFalse();
+        expect(io.writes, caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0051').assertEqual(0);
+        expect(await store.deleteNote('old-0'), caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0052').assertTrue();
+        expect(await store.saveNote(), caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0053').assertTrue();
+        expect(store.snapshot().notes.length, caseName('BusinessCoverage', '0008'), 'BusinessCoverage.test.ets:A0054').assertEqual(50);
       });
     });
 
@@ -307,8 +307,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0009'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0009'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0009'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0009'), async (scope: CaseScope): Promise<void> => {
         const store = await loadBusiness(scope, new ControlledBusinessStorage(), new FixedBusinessClock().now);
         store.setDraftTitle('original');
         await store.saveNote();
@@ -320,12 +320,12 @@ export default function businessCoverageTests(): void {
         state.notes.length = 0;
         state.todos.length = 0;
         const fresh = store.snapshot();
-        expect(fresh.notes.length, caseName('BusinessCoverage', '0009')).assertEqual(1);
-        expect(fresh.notes[0].title, caseName('BusinessCoverage', '0009')).assertEqual('original');
-        expect(fresh.todos.length, caseName('BusinessCoverage', '0009')).assertEqual(3);
-        expect(fresh.todos[0].done, caseName('BusinessCoverage', '0009')).assertFalse();
-        expect(fresh.collections[0].title, caseName('BusinessCoverage', '0009')).assertEqual('每日计划清单');
-        expect(fresh.collections[0].content.length > 0, caseName('BusinessCoverage', '0009')).assertTrue();
+        expect(fresh.notes.length, caseName('BusinessCoverage', '0009'), 'BusinessCoverage.test.ets:A0055').assertEqual(1);
+        expect(fresh.notes[0].title, caseName('BusinessCoverage', '0009'), 'BusinessCoverage.test.ets:A0056').assertEqual('original');
+        expect(fresh.todos.length, caseName('BusinessCoverage', '0009'), 'BusinessCoverage.test.ets:A0057').assertEqual(3);
+        expect(fresh.todos[0].done, caseName('BusinessCoverage', '0009'), 'BusinessCoverage.test.ets:A0058').assertFalse();
+        expect(fresh.collections[0].title, caseName('BusinessCoverage', '0009'), 'BusinessCoverage.test.ets:A0059').assertEqual('每日计划清单');
+        expect(fresh.collections[0].content.length > 0, caseName('BusinessCoverage', '0009'), 'BusinessCoverage.test.ets:A0060').assertTrue();
       });
     });
 
@@ -338,22 +338,22 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0010'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0010'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0010'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0010'), async (scope: CaseScope): Promise<void> => {
         const store = await loadBusiness(scope, new ControlledBusinessStorage(), new FixedBusinessClock().now);
         let events = 0;
         const listener = (): void => { events++; };
         store.subscribe(listener);
         store.subscribe(listener);
         store.setDraftTitle('one');
-        expect(events, caseName('BusinessCoverage', '0010')).assertEqual(1);
+        expect(events, caseName('BusinessCoverage', '0010'), 'BusinessCoverage.test.ets:A0061').assertEqual(1);
         store.unsubscribe(listener);
         store.setDraftTitle('two');
-        expect(events, caseName('BusinessCoverage', '0010')).assertEqual(1);
+        expect(events, caseName('BusinessCoverage', '0010'), 'BusinessCoverage.test.ets:A0062').assertEqual(1);
         store.subscribe(listener);
         store.dispose();
         store.openNote();
-        expect(events, caseName('BusinessCoverage', '0010')).assertEqual(1);
+        expect(events, caseName('BusinessCoverage', '0010'), 'BusinessCoverage.test.ets:A0063').assertEqual(1);
       });
     });
 
@@ -366,26 +366,26 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0011'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0011'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0011'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0011'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         io.readGate = new Deferred<string>();
         const store = createBusiness(scope, io, new FixedBusinessClock().now);
         store.setDraftTitle('ignored');
-        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0011')).assertEqual('');
-        expect(await store.discardDraft(), caseName('BusinessCoverage', '0011')).assertFalse();
-        expect(store.errorText(), caseName('BusinessCoverage', '0011')).assertEqual('存储不可用，请重试');
+        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0064').assertEqual('');
+        expect(await store.discardDraft(), caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0065').assertFalse();
+        expect(store.errorText(), caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0066').assertEqual('存储不可用，请重试');
         store.initialize(getTestContext());
         store.initialize(getTestContext());
         store.setDraftBody('ignored');
-        expect(await store.resetToday(), caseName('BusinessCoverage', '0011')).assertFalse();
-        expect(store.errorText(), caseName('BusinessCoverage', '0011')).assertEqual('正在读取');
-        expect(io.reads, caseName('BusinessCoverage', '0011')).assertEqual(1);
-        expect(io.writes, caseName('BusinessCoverage', '0011')).assertEqual(0);
+        expect(await store.resetToday(), caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0067').assertFalse();
+        expect(store.errorText(), caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0068').assertEqual('正在读取');
+        expect(io.reads, caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0069').assertEqual(1);
+        expect(io.writes, caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0070').assertEqual(0);
         io.readGate.resolve('');
         await waitBusiness(scope, store);
-        expect(store.snapshot().ready, caseName('BusinessCoverage', '0011')).assertTrue();
-        expect(store.snapshot().draftBody, caseName('BusinessCoverage', '0011')).assertEqual('');
+        expect(store.snapshot().ready, caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0071').assertTrue();
+        expect(store.snapshot().draftBody, caseName('BusinessCoverage', '0011'), 'BusinessCoverage.test.ets:A0072').assertEqual('');
       });
     });
 
@@ -398,26 +398,26 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0012'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0012'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0012'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0012'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
         io.writeGate = new Deferred<void>();
         store.setDraftTitle('frozen');
         const pending = store.saveNote();
-        expect(store.snapshot().busy, caseName('BusinessCoverage', '0012')).assertTrue();
+        expect(store.snapshot().busy, caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0073').assertTrue();
         store.setDraftTitle('ignored');
         store.setDraftBody('ignored');
-        expect(await store.keepDraft(), caseName('BusinessCoverage', '0012')).assertFalse();
-        expect(await store.resetToday(), caseName('BusinessCoverage', '0012')).assertFalse();
-        expect(io.writes, caseName('BusinessCoverage', '0012')).assertEqual(1);
-        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0012')).assertEqual('frozen');
-        expect(store.snapshot().draftBody, caseName('BusinessCoverage', '0012')).assertEqual('');
+        expect(await store.keepDraft(), caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0074').assertFalse();
+        expect(await store.resetToday(), caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0075').assertFalse();
+        expect(io.writes, caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0076').assertEqual(1);
+        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0077').assertEqual('frozen');
+        expect(store.snapshot().draftBody, caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0078').assertEqual('');
         io.writeGate.resolve(undefined);
-        expect(await pending, caseName('BusinessCoverage', '0012')).assertTrue();
-        expect(store.snapshot().notes.length, caseName('BusinessCoverage', '0012')).assertEqual(1);
-        expect(store.snapshot().notes[0].title, caseName('BusinessCoverage', '0012')).assertEqual('frozen');
-        expect(store.snapshot().busy, caseName('BusinessCoverage', '0012')).assertFalse();
+        expect(await pending, caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0079').assertTrue();
+        expect(store.snapshot().notes.length, caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0080').assertEqual(1);
+        expect(store.snapshot().notes[0].title, caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0081').assertEqual('frozen');
+        expect(store.snapshot().busy, caseName('BusinessCoverage', '0012'), 'BusinessCoverage.test.ets:A0082').assertFalse();
       });
     });
 
@@ -430,8 +430,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0013'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0013'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0013'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0013'), async (scope: CaseScope): Promise<void> => {
         for (const reject of [false, true]) {
           const io = new ControlledBusinessStorage();
           const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
@@ -444,13 +444,13 @@ export default function businessCoverageTests(): void {
           } else {
             io.writeGate.resolve(undefined);
           }
-          expect(await pending, caseName('BusinessCoverage', '0013')).assertFalse();
+          expect(await pending, caseName('BusinessCoverage', '0013'), 'BusinessCoverage.test.ets:A0083').assertFalse();
           const state = store.snapshot();
-          expect(state.ready, caseName('BusinessCoverage', '0013')).assertFalse();
-          expect(state.busy, caseName('BusinessCoverage', '0013')).assertFalse();
-          expect(state.notes.length, caseName('BusinessCoverage', '0013')).assertEqual(0);
-          expect(state.message, caseName('BusinessCoverage', '0013')).assertEqual('');
-          expect(state.error, caseName('BusinessCoverage', '0013')).assertEqual('');
+          expect(state.ready, caseName('BusinessCoverage', '0013'), 'BusinessCoverage.test.ets:A0084').assertFalse();
+          expect(state.busy, caseName('BusinessCoverage', '0013'), 'BusinessCoverage.test.ets:A0085').assertFalse();
+          expect(state.notes.length, caseName('BusinessCoverage', '0013'), 'BusinessCoverage.test.ets:A0086').assertEqual(0);
+          expect(state.message, caseName('BusinessCoverage', '0013'), 'BusinessCoverage.test.ets:A0087').assertEqual('');
+          expect(state.error, caseName('BusinessCoverage', '0013'), 'BusinessCoverage.test.ets:A0088').assertEqual('');
         }
       });
     });
@@ -464,8 +464,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0014'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0014'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0014'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0014'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const old = new Deferred<string>();
         io.readGate = old;
@@ -482,10 +482,10 @@ export default function businessCoverageTests(): void {
         old.resolve('malformed old data');
         await Promise.resolve();
         await Promise.resolve();
-        expect(io.reads, caseName('BusinessCoverage', '0014')).assertEqual(2);
-        expect(store.snapshot().ready, caseName('BusinessCoverage', '0014')).assertTrue();
-        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0014')).assertEqual('new-generation');
-        expect(store.errorText(), caseName('BusinessCoverage', '0014')).assertEqual('');
+        expect(io.reads, caseName('BusinessCoverage', '0014'), 'BusinessCoverage.test.ets:A0089').assertEqual(2);
+        expect(store.snapshot().ready, caseName('BusinessCoverage', '0014'), 'BusinessCoverage.test.ets:A0090').assertTrue();
+        expect(store.snapshot().draftTitle, caseName('BusinessCoverage', '0014'), 'BusinessCoverage.test.ets:A0091').assertEqual('new-generation');
+        expect(store.errorText(), caseName('BusinessCoverage', '0014'), 'BusinessCoverage.test.ets:A0092').assertEqual('');
       });
     });
 
@@ -498,19 +498,19 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0015'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0015'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0015'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0015'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock(2026, 12, 31);
         const store = await loadBusiness(scope, io, clock.now);
         const oldId = store.snapshot().todos[0].id;
         clock.setDate(2027, 1, 1);
-        expect(await store.setTodoDone(oldId, true), caseName('BusinessCoverage', '0015')).assertFalse();
-        expect(store.snapshot().todoDate, caseName('BusinessCoverage', '0015')).assertEqual('2027-01-01');
-        expect(store.errorText(), caseName('BusinessCoverage', '0015')).assertEqual('日期已更新，请重新选择');
-        expect(store.snapshot().todos.every((item: TodoItem) => !item.done), caseName('BusinessCoverage', '0015')).assertTrue();
-        expect(io.writes, caseName('BusinessCoverage', '0015')).assertEqual(1);
-        expect(await store.setTodoDone(store.snapshot().todos[0].id, true), caseName('BusinessCoverage', '0015')).assertTrue();
+        expect(await store.setTodoDone(oldId, true), caseName('BusinessCoverage', '0015'), 'BusinessCoverage.test.ets:A0093').assertFalse();
+        expect(store.snapshot().todoDate, caseName('BusinessCoverage', '0015'), 'BusinessCoverage.test.ets:A0094').assertEqual('2027-01-01');
+        expect(store.errorText(), caseName('BusinessCoverage', '0015'), 'BusinessCoverage.test.ets:A0095').assertEqual('日期已更新，请重新选择');
+        expect(store.snapshot().todos.every((item: TodoItem) => !item.done), caseName('BusinessCoverage', '0015'), 'BusinessCoverage.test.ets:A0096').assertTrue();
+        expect(io.writes, caseName('BusinessCoverage', '0015'), 'BusinessCoverage.test.ets:A0097').assertEqual(1);
+        expect(await store.setTodoDone(store.snapshot().todos[0].id, true), caseName('BusinessCoverage', '0015'), 'BusinessCoverage.test.ets:A0098').assertTrue();
       });
     });
 
@@ -523,18 +523,18 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0016'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0016'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0016'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0016'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const store = await loadBusiness(scope, io, new FixedBusinessClock().now);
-        expect(await store.setTodoDone(store.snapshot().todos[0].id, false), caseName('BusinessCoverage', '0016')).assertTrue();
-        expect(await store.setTodoDone('missing', true), caseName('BusinessCoverage', '0016')).assertFalse();
-        expect(io.writes, caseName('BusinessCoverage', '0016')).assertEqual(0);
-        expect(store.errorText(), caseName('BusinessCoverage', '0016')).assertEqual('待办已更新，请刷新');
+        expect(await store.setTodoDone(store.snapshot().todos[0].id, false), caseName('BusinessCoverage', '0016'), 'BusinessCoverage.test.ets:A0099').assertTrue();
+        expect(await store.setTodoDone('missing', true), caseName('BusinessCoverage', '0016'), 'BusinessCoverage.test.ets:A0100').assertFalse();
+        expect(io.writes, caseName('BusinessCoverage', '0016'), 'BusinessCoverage.test.ets:A0101').assertEqual(0);
+        expect(store.errorText(), caseName('BusinessCoverage', '0016'), 'BusinessCoverage.test.ets:A0102').assertEqual('待办已更新，请刷新');
         const id = store.snapshot().todos[0].id;
-        expect(await store.setTodoDone(id, true), caseName('BusinessCoverage', '0016')).assertTrue();
-        expect(await store.setTodoDone(id, true), caseName('BusinessCoverage', '0016')).assertTrue();
-        expect(io.writes, caseName('BusinessCoverage', '0016')).assertEqual(1);
+        expect(await store.setTodoDone(id, true), caseName('BusinessCoverage', '0016'), 'BusinessCoverage.test.ets:A0103').assertTrue();
+        expect(await store.setTodoDone(id, true), caseName('BusinessCoverage', '0016'), 'BusinessCoverage.test.ets:A0104').assertTrue();
+        expect(io.writes, caseName('BusinessCoverage', '0016'), 'BusinessCoverage.test.ets:A0105').assertEqual(1);
       });
     });
 
@@ -547,8 +547,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0017'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0017'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0017'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0017'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         const store = await loadBusiness(scope, io, clock.now);
@@ -556,16 +556,16 @@ export default function businessCoverageTests(): void {
         const saved = io.value;
         io.failWrite = true;
         clock.setDate(2026, 11, 3);
-        expect(await store.refreshTodos(), caseName('BusinessCoverage', '0017')).assertFalse();
-        expect(store.snapshot().todoDate, caseName('BusinessCoverage', '0017')).assertEqual('2026-11-02');
-        expect(store.snapshot().todos[0].done, caseName('BusinessCoverage', '0017')).assertTrue();
-        expect(io.value, caseName('BusinessCoverage', '0017')).assertEqual(saved);
+        expect(await store.refreshTodos(), caseName('BusinessCoverage', '0017'), 'BusinessCoverage.test.ets:A0106').assertFalse();
+        expect(store.snapshot().todoDate, caseName('BusinessCoverage', '0017'), 'BusinessCoverage.test.ets:A0107').assertEqual('2026-11-02');
+        expect(store.snapshot().todos[0].done, caseName('BusinessCoverage', '0017'), 'BusinessCoverage.test.ets:A0108').assertTrue();
+        expect(io.value, caseName('BusinessCoverage', '0017'), 'BusinessCoverage.test.ets:A0109').assertEqual(saved);
         clock.setDate(2026, 11, 2);
-        expect(await store.resetToday(), caseName('BusinessCoverage', '0017')).assertFalse();
-        expect(store.snapshot().todos[0].done, caseName('BusinessCoverage', '0017')).assertTrue();
+        expect(await store.resetToday(), caseName('BusinessCoverage', '0017'), 'BusinessCoverage.test.ets:A0110').assertFalse();
+        expect(store.snapshot().todos[0].done, caseName('BusinessCoverage', '0017'), 'BusinessCoverage.test.ets:A0111').assertTrue();
         io.failWrite = false;
-        expect(await store.resetToday(), caseName('BusinessCoverage', '0017')).assertTrue();
-        expect(store.snapshot().todos.every((item: TodoItem) => !item.done), caseName('BusinessCoverage', '0017')).assertTrue();
+        expect(await store.resetToday(), caseName('BusinessCoverage', '0017'), 'BusinessCoverage.test.ets:A0112').assertTrue();
+        expect(store.snapshot().todos.every((item: TodoItem) => !item.done), caseName('BusinessCoverage', '0017'), 'BusinessCoverage.test.ets:A0113').assertTrue();
       });
     });
 
@@ -578,11 +578,11 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0018'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0018'), async () => {
-        expect(localDateKey(new Date(2024, 1, 29, 0, 0, 0).getTime()), caseName('BusinessCoverage', '0018')).assertEqual('2024-02-29');
-        expect(localDateKey(new Date(2026, 0, 2, 23, 59, 59).getTime()), caseName('BusinessCoverage', '0018')).assertEqual('2026-01-02');
-        expect(localDateKey(new Date(2026, 11, 31, 23, 59, 59).getTime()), caseName('BusinessCoverage', '0018')).assertEqual('2026-12-31');
+    it(caseName('BusinessCoverage', '0018'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0018'), async (): Promise<void> => {
+        expect(localDateKey(new Date(2024, 1, 29, 0, 0, 0).getTime()), caseName('BusinessCoverage', '0018'), 'BusinessCoverage.test.ets:A0114').assertEqual('2024-02-29');
+        expect(localDateKey(new Date(2026, 0, 2, 23, 59, 59).getTime()), caseName('BusinessCoverage', '0018'), 'BusinessCoverage.test.ets:A0115').assertEqual('2026-01-02');
+        expect(localDateKey(new Date(2026, 11, 31, 23, 59, 59).getTime()), caseName('BusinessCoverage', '0018'), 'BusinessCoverage.test.ets:A0116').assertEqual('2026-12-31');
       });
     });
 
@@ -595,25 +595,25 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0019'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0019'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0019'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0019'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         const first = await loadBusiness(scope, io, clock.now);
         first.setDraftTitle('first');
-        expect(await first.saveNote(), caseName('BusinessCoverage', '0019')).assertTrue();
+        expect(await first.saveNote(), caseName('BusinessCoverage', '0019'), 'BusinessCoverage.test.ets:A0117').assertTrue();
         const originalId = first.snapshot().notes[0].id;
         first.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
         reopened.setDraftTitle('second');
-        expect(await reopened.saveNote(), caseName('BusinessCoverage', '0019')).assertTrue();
+        expect(await reopened.saveNote(), caseName('BusinessCoverage', '0019'), 'BusinessCoverage.test.ets:A0118').assertTrue();
         const notes = reopened.snapshot().notes;
-        expect(notes.length, caseName('BusinessCoverage', '0019')).assertEqual(2);
-        expect(notes[0].id === originalId, caseName('BusinessCoverage', '0019')).assertFalse();
+        expect(notes.length, caseName('BusinessCoverage', '0019'), 'BusinessCoverage.test.ets:A0119').assertEqual(2);
+        expect(notes[0].id === originalId, caseName('BusinessCoverage', '0019'), 'BusinessCoverage.test.ets:A0120').assertFalse();
         reopened.dispose();
         const verified = await loadBusiness(scope, io, clock.now);
-        expect(verified.snapshot().ready, caseName('BusinessCoverage', '0019')).assertTrue();
-        expect(verified.snapshot().notes.length, caseName('BusinessCoverage', '0019')).assertEqual(2);
+        expect(verified.snapshot().ready, caseName('BusinessCoverage', '0019'), 'BusinessCoverage.test.ets:A0121').assertTrue();
+        expect(verified.snapshot().notes.length, caseName('BusinessCoverage', '0019'), 'BusinessCoverage.test.ets:A0122').assertEqual(2);
       });
     });
 
@@ -626,8 +626,8 @@ export default function businessCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('BusinessCoverage', '0020'), 0, async () => {
-      await runCase(caseName('BusinessCoverage', '0020'), async (scope: CaseScope) => {
+    it(caseName('BusinessCoverage', '0020'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessCoverage', '0020'), async (scope: CaseScope): Promise<void> => {
         const clock = new FixedBusinessClock();
         const data = new StoredBusinessFixture();
         data.notes = [new NoteItem(`${clock.now()}-1`, 'old-one', 'kept', clock.now()),
@@ -636,17 +636,17 @@ export default function businessCoverageTests(): void {
         io.value = JSON.stringify(data);
         const store = await loadBusiness(scope, io, clock.now);
         store.setDraftTitle('new-two');
-        expect(await store.saveNote(), caseName('BusinessCoverage', '0020')).assertTrue();
+        expect(await store.saveNote(), caseName('BusinessCoverage', '0020'), 'BusinessCoverage.test.ets:A0123').assertTrue();
         store.setDraftTitle('new-four');
-        expect(await store.saveNote(), caseName('BusinessCoverage', '0020')).assertTrue();
+        expect(await store.saveNote(), caseName('BusinessCoverage', '0020'), 'BusinessCoverage.test.ets:A0124').assertTrue();
         const notes = store.snapshot().notes;
-        expect(notes.length, caseName('BusinessCoverage', '0020')).assertEqual(4);
-        expect(notes[0].id, caseName('BusinessCoverage', '0020')).assertEqual(`${clock.now()}-4`);
-        expect(notes[1].id, caseName('BusinessCoverage', '0020')).assertEqual(`${clock.now()}-2`);
-        expect(notes[2].title, caseName('BusinessCoverage', '0020')).assertEqual('old-one');
-        expect(notes[3].title, caseName('BusinessCoverage', '0020')).assertEqual('old-three');
+        expect(notes.length, caseName('BusinessCoverage', '0020'), 'BusinessCoverage.test.ets:A0125').assertEqual(4);
+        expect(notes[0].id, caseName('BusinessCoverage', '0020'), 'BusinessCoverage.test.ets:A0126').assertEqual(`${clock.now()}-4`);
+        expect(notes[1].id, caseName('BusinessCoverage', '0020'), 'BusinessCoverage.test.ets:A0127').assertEqual(`${clock.now()}-2`);
+        expect(notes[2].title, caseName('BusinessCoverage', '0020'), 'BusinessCoverage.test.ets:A0128').assertEqual('old-one');
+        expect(notes[3].title, caseName('BusinessCoverage', '0020'), 'BusinessCoverage.test.ets:A0129').assertEqual('old-three');
         const ids = notes.map((note: NoteItem) => note.id);
-        expect(new Set(ids).size, caseName('BusinessCoverage', '0020')).assertEqual(4);
+        expect(new Set(ids).size, caseName('BusinessCoverage', '0020'), 'BusinessCoverage.test.ets:A0130').assertEqual(4);
       });
     });
   });

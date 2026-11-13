@@ -42,15 +42,15 @@ export default function recycleNativeQaTests(): void {
         const target: NoteItem = await f.save(store, '需要归回', '中文\n第二行 😀');
         const survivor: NoteItem = await f.save(store, '仍在列表', '未删除正文');
         const originalHistory: NoteRevision[] = store.historyFor(target.id);
-        expect(await store.moveNoteToTrash(target.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0001')).assertTrue();
+        expect(await store.moveNoteToTrash(target.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0001'), 'RecycleNativeQa.test.ets:A0001').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().notes.map((note: NoteItem): string => note.id).join(','), caseName('RecycleNativeQa', '0001')).assertEqual(survivor.id);
-        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0001')).assertEqual('中文\n第二行 😀');
-        expect(reopened.snapshot().recycledNotes[0].history[0].revisionId, caseName('RecycleNativeQa', '0001')).assertEqual(originalHistory[0].revisionId);
-        expect(reopened.historyFor(target.id).length, caseName('RecycleNativeQa', '0001')).assertEqual(0);
+        expect(reopened.snapshot().notes.map((note: NoteItem): string => note.id).join(','), caseName('RecycleNativeQa', '0001'), 'RecycleNativeQa.test.ets:A0002').assertEqual(survivor.id);
+        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0001'), 'RecycleNativeQa.test.ets:A0003').assertEqual('中文\n第二行 😀');
+        expect(reopened.snapshot().recycledNotes[0].history[0].revisionId, caseName('RecycleNativeQa', '0001'), 'RecycleNativeQa.test.ets:A0004').assertEqual(originalHistory[0].revisionId);
+        expect(reopened.historyFor(target.id).length, caseName('RecycleNativeQa', '0001'), 'RecycleNativeQa.test.ets:A0005').assertEqual(0);
         const disk: StoredData = await f.readDocument();
-        expect(disk.recycleBin[0].note.id, caseName('RecycleNativeQa', '0001')).assertEqual(target.id);
-        expect(disk.version, caseName('RecycleNativeQa', '0001')).assertEqual(2);
+        expect(disk.recycleBin[0].note.id, caseName('RecycleNativeQa', '0001'), 'RecycleNativeQa.test.ets:A0006').assertEqual(target.id);
+        expect(disk.version, caseName('RecycleNativeQa', '0001'), 'RecycleNativeQa.test.ets:A0007').assertEqual(2);
       });
     });
 
@@ -70,19 +70,19 @@ export default function recycleNativeQaTests(): void {
         store.beginEditNote(target.id);
         store.setDraftTitle('修订标题');
         store.setDraftBody('保存过的第二版');
-        expect(await store.saveNote(), caseName('RecycleNativeQa', '0002')).assertTrue();
+        expect(await store.saveNote(), caseName('RecycleNativeQa', '0002'), 'RecycleNativeQa.test.ets:A0008').assertTrue();
         const historyIds: string = store.historyFor(target.id)
           .map((row: NoteRevision): string => row.revisionId).join(',');
-        expect(await store.moveNoteToTrash(target.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0002')).assertTrue();
+        expect(await store.moveNoteToTrash(target.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0002'), 'RecycleNativeQa.test.ets:A0009').assertTrue();
         const middle: BusinessStore = await f.reopen();
         const trashId: string = middle.snapshot().recycledNotes[0].trashId;
-        expect(await middle.restoreTrashedNote(trashId), caseName('RecycleNativeQa', '0002')).assertTrue();
+        expect(await middle.restoreTrashedNote(trashId), caseName('RecycleNativeQa', '0002'), 'RecycleNativeQa.test.ets:A0010').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0002')).assertEqual('保存过的第二版');
-        expect(reopened.historyFor(target.id).map((row: NoteRevision): string => row.revisionId).join(','), caseName('RecycleNativeQa', '0002'))
+        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0002'), 'RecycleNativeQa.test.ets:A0011').assertEqual('保存过的第二版');
+        expect(reopened.historyFor(target.id).map((row: NoteRevision): string => row.revisionId).join(','), caseName('RecycleNativeQa', '0002'), 'RecycleNativeQa.test.ets:A0012')
           .assertEqual(historyIds);
-        expect(reopened.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0002')).assertEqual(0);
-        expect((await f.readDocument()).notes[0].id, caseName('RecycleNativeQa', '0002')).assertEqual(target.id);
+        expect(reopened.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0002'), 'RecycleNativeQa.test.ets:A0013').assertEqual(0);
+        expect((await f.readDocument()).notes[0].id, caseName('RecycleNativeQa', '0002'), 'RecycleNativeQa.test.ets:A0014').assertEqual(target.id);
       });
     });
 
@@ -105,13 +105,13 @@ export default function recycleNativeQaTests(): void {
         await store.moveNoteToTrash(second.id, TrashEditDecision.REQUIRE_DECISION);
         const firstTrash = store.snapshot().recycledNotes.find((row): boolean => row.note.id === first.id);
         if (firstTrash === undefined) { throw new Error('Target trash was not created'); }
-        expect(await store.purgeTrashedNote(firstTrash.trashId), caseName('RecycleNativeQa', '0003')).assertTrue();
+        expect(await store.purgeTrashedNote(firstTrash.trashId), caseName('RecycleNativeQa', '0003'), 'RecycleNativeQa.test.ets:A0015').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().recycledNotes.map((row): string => row.note.id).join(','), caseName('RecycleNativeQa', '0003')).assertEqual(second.id);
-        expect(reopened.snapshot().recycledNotes[0].history[0].noteId, caseName('RecycleNativeQa', '0003')).assertEqual(second.id);
-        expect(reopened.snapshot().favoriteIds.join(','), caseName('RecycleNativeQa', '0003')).assertEqual('planning');
-        expect(reopened.snapshot().todos.some((row): boolean => row.title === '回收操作不影响待办'), caseName('RecycleNativeQa', '0003')).assertTrue();
-        expect(await reopened.restoreTrashedNote(firstTrash.trashId), caseName('RecycleNativeQa', '0003')).assertFalse();
+        expect(reopened.snapshot().recycledNotes.map((row): string => row.note.id).join(','), caseName('RecycleNativeQa', '0003'), 'RecycleNativeQa.test.ets:A0016').assertEqual(second.id);
+        expect(reopened.snapshot().recycledNotes[0].history[0].noteId, caseName('RecycleNativeQa', '0003'), 'RecycleNativeQa.test.ets:A0017').assertEqual(second.id);
+        expect(reopened.snapshot().favoriteIds.join(','), caseName('RecycleNativeQa', '0003'), 'RecycleNativeQa.test.ets:A0018').assertEqual('planning');
+        expect(reopened.snapshot().todos.some((row): boolean => row.title === '回收操作不影响待办'), caseName('RecycleNativeQa', '0003'), 'RecycleNativeQa.test.ets:A0019').assertTrue();
+        expect(await reopened.restoreTrashedNote(firstTrash.trashId), caseName('RecycleNativeQa', '0003'), 'RecycleNativeQa.test.ets:A0020').assertFalse();
       });
     });
 
@@ -133,16 +133,16 @@ export default function recycleNativeQaTests(): void {
         await store.moveNoteToTrash(boundary.id, TrashEditDecision.REQUIRE_DECISION);
         f.time++;
         const loaded: BusinessStore = await f.reopen();
-        expect(loaded.snapshot().expiredTrashCount, caseName('RecycleNativeQa', '0004')).assertEqual(1);
-        expect(loaded.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0004')).assertEqual(2);
+        expect(loaded.snapshot().expiredTrashCount, caseName('RecycleNativeQa', '0004'), 'RecycleNativeQa.test.ets:A0021').assertEqual(1);
+        expect(loaded.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0004'), 'RecycleNativeQa.test.ets:A0022').assertEqual(2);
         const result: TrashCleanupResult = await loaded.purgeExpiredNotes();
-        expect(result.success, caseName('RecycleNativeQa', '0004')).assertTrue();
-        expect(result.removed, caseName('RecycleNativeQa', '0004')).assertEqual(1);
+        expect(result.success, caseName('RecycleNativeQa', '0004'), 'RecycleNativeQa.test.ets:A0023').assertTrue();
+        expect(result.removed, caseName('RecycleNativeQa', '0004'), 'RecycleNativeQa.test.ets:A0024').assertEqual(1);
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().recycledNotes[0].note.id, caseName('RecycleNativeQa', '0004')).assertEqual(boundary.id);
-        expect(reopened.snapshot().expiredTrashCount, caseName('RecycleNativeQa', '0004')).assertEqual(0);
+        expect(reopened.snapshot().recycledNotes[0].note.id, caseName('RecycleNativeQa', '0004'), 'RecycleNativeQa.test.ets:A0025').assertEqual(boundary.id);
+        expect(reopened.snapshot().expiredTrashCount, caseName('RecycleNativeQa', '0004'), 'RecycleNativeQa.test.ets:A0026').assertEqual(0);
         expect((await f.readDocument()).noteHistory.some(
-          (row: NoteRevision): boolean => row.noteId === expired.id), caseName('RecycleNativeQa', '0004')).assertFalse();
+          (row: NoteRevision): boolean => row.noteId === expired.id), caseName('RecycleNativeQa', '0004'), 'RecycleNativeQa.test.ets:A0027').assertFalse();
       });
     });
 
@@ -162,16 +162,16 @@ export default function recycleNativeQaTests(): void {
         const deletedAt: number = f.time;
         f.time += NOTE_RECYCLE_RETENTION_MS;
         const boundary: BusinessStore = await f.reopen();
-        expect(boundary.snapshot().expiredTrashCount, caseName('RecycleNativeQa', '0005')).assertEqual(0);
+        expect(boundary.snapshot().expiredTrashCount, caseName('RecycleNativeQa', '0005'), 'RecycleNativeQa.test.ets:A0028').assertEqual(0);
         const cleanup: TrashCleanupResult = await boundary.purgeExpiredNotes();
-        expect(cleanup.removed, caseName('RecycleNativeQa', '0005')).assertEqual(0);
+        expect(cleanup.removed, caseName('RecycleNativeQa', '0005'), 'RecycleNativeQa.test.ets:A0029').assertEqual(0);
         f.time = deletedAt - 100;
         const backwards: BusinessStore = await f.reopen();
-        expect(backwards.snapshot().expiredTrashCount, caseName('RecycleNativeQa', '0005')).assertEqual(0);
-        expect(await backwards.restoreTrashedNote(backwards.snapshot().recycledNotes[0].trashId), caseName('RecycleNativeQa', '0005')).assertTrue();
+        expect(backwards.snapshot().expiredTrashCount, caseName('RecycleNativeQa', '0005'), 'RecycleNativeQa.test.ets:A0030').assertEqual(0);
+        expect(await backwards.restoreTrashedNote(backwards.snapshot().recycledNotes[0].trashId), caseName('RecycleNativeQa', '0005'), 'RecycleNativeQa.test.ets:A0031').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0005')).assertEqual('保留完整正文');
-        expect(reopened.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0005')).assertEqual(0);
+        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0005'), 'RecycleNativeQa.test.ets:A0032').assertEqual('保留完整正文');
+        expect(reopened.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0005'), 'RecycleNativeQa.test.ets:A0033').assertEqual(0);
       });
     });
 
@@ -191,14 +191,14 @@ export default function recycleNativeQaTests(): void {
         store.setDraftTitle('删除时保留编辑');
         store.setDraftBody('尚未点保存的正文');
         await store.keepEditDraft();
-        expect(await store.moveNoteToTrash(note.id, TrashEditDecision.KEEP_CHANGES), caseName('RecycleNativeQa', '0006')).assertTrue();
+        expect(await store.moveNoteToTrash(note.id, TrashEditDecision.KEEP_CHANGES), caseName('RecycleNativeQa', '0006'), 'RecycleNativeQa.test.ets:A0034').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0006')).assertEqual('尚未点保存的正文');
-        expect(reopened.snapshot().editingNoteId, caseName('RecycleNativeQa', '0006')).assertEqual('');
-        expect(reopened.snapshot().editDraftPersisted, caseName('RecycleNativeQa', '0006')).assertFalse();
+        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0006'), 'RecycleNativeQa.test.ets:A0035').assertEqual('尚未点保存的正文');
+        expect(reopened.snapshot().editingNoteId, caseName('RecycleNativeQa', '0006'), 'RecycleNativeQa.test.ets:A0036').assertEqual('');
+        expect(reopened.snapshot().editDraftPersisted, caseName('RecycleNativeQa', '0006'), 'RecycleNativeQa.test.ets:A0037').assertFalse();
         expect(reopened.snapshot().recycledNotes[0].history.some((row: NoteRevision): boolean =>
-          row.action === 'edit' && row.body === '基线'), caseName('RecycleNativeQa', '0006')).assertTrue();
-        expect((await f.readDocument()).notes.length, caseName('RecycleNativeQa', '0006')).assertEqual(0);
+          row.action === 'edit' && row.body === '基线'), caseName('RecycleNativeQa', '0006'), 'RecycleNativeQa.test.ets:A0038').assertTrue();
+        expect((await f.readDocument()).notes.length, caseName('RecycleNativeQa', '0006'), 'RecycleNativeQa.test.ets:A0039').assertEqual(0);
       });
     });
 
@@ -218,16 +218,16 @@ export default function recycleNativeQaTests(): void {
         store.beginEditNote(note.id);
         store.setDraftBody('明确放弃的编辑');
         await store.keepEditDraft();
-        expect(await store.moveNoteToTrash(note.id, TrashEditDecision.DISCARD_CHANGES), caseName('RecycleNativeQa', '0007')).assertTrue();
+        expect(await store.moveNoteToTrash(note.id, TrashEditDecision.DISCARD_CHANGES), caseName('RecycleNativeQa', '0007'), 'RecycleNativeQa.test.ets:A0040').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0007')).assertEqual('已保存原文');
+        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0007'), 'RecycleNativeQa.test.ets:A0041').assertEqual('已保存原文');
         expect(reopened.snapshot().recycledNotes[0].history
-          .map((row: NoteRevision): string => row.revisionId).join(','), caseName('RecycleNativeQa', '0007')).assertEqual(revision);
-        expect(reopened.snapshot().editingNoteId, caseName('RecycleNativeQa', '0007')).assertEqual('');
-        expect((await f.readDocument()).editBody, caseName('RecycleNativeQa', '0007')).assertEqual('');
-        expect(await reopened.restoreTrashedNote(reopened.snapshot().recycledNotes[0].trashId), caseName('RecycleNativeQa', '0007')).assertTrue();
+          .map((row: NoteRevision): string => row.revisionId).join(','), caseName('RecycleNativeQa', '0007'), 'RecycleNativeQa.test.ets:A0042').assertEqual(revision);
+        expect(reopened.snapshot().editingNoteId, caseName('RecycleNativeQa', '0007'), 'RecycleNativeQa.test.ets:A0043').assertEqual('');
+        expect((await f.readDocument()).editBody, caseName('RecycleNativeQa', '0007'), 'RecycleNativeQa.test.ets:A0044').assertEqual('');
+        expect(await reopened.restoreTrashedNote(reopened.snapshot().recycledNotes[0].trashId), caseName('RecycleNativeQa', '0007'), 'RecycleNativeQa.test.ets:A0045').assertTrue();
         const restored: BusinessStore = await f.reopen();
-        expect(restored.snapshot().notes[0].body, caseName('RecycleNativeQa', '0007')).assertEqual('已保存原文');
+        expect(restored.snapshot().notes[0].body, caseName('RecycleNativeQa', '0007'), 'RecycleNativeQa.test.ets:A0046').assertEqual('已保存原文');
       });
     });
 
@@ -246,14 +246,14 @@ export default function recycleNativeQaTests(): void {
         const before: string = await f.readRaw();
         store.beginEditNote(note.id);
         store.setDraftBody('取消之后继续编辑');
-        expect(await store.moveNoteToTrash(note.id, TrashEditDecision.CANCEL), caseName('RecycleNativeQa', '0008')).assertFalse();
-        expect(await f.readRaw(), caseName('RecycleNativeQa', '0008')).assertEqual(before);
-        expect(store.snapshot().draftBody, caseName('RecycleNativeQa', '0008')).assertEqual('取消之后继续编辑');
-        expect(store.snapshot().editingNoteId, caseName('RecycleNativeQa', '0008')).assertEqual(note.id);
-        expect(await store.saveNote(), caseName('RecycleNativeQa', '0008')).assertTrue();
+        expect(await store.moveNoteToTrash(note.id, TrashEditDecision.CANCEL), caseName('RecycleNativeQa', '0008'), 'RecycleNativeQa.test.ets:A0047').assertFalse();
+        expect(await f.readRaw(), caseName('RecycleNativeQa', '0008'), 'RecycleNativeQa.test.ets:A0048').assertEqual(before);
+        expect(store.snapshot().draftBody, caseName('RecycleNativeQa', '0008'), 'RecycleNativeQa.test.ets:A0049').assertEqual('取消之后继续编辑');
+        expect(store.snapshot().editingNoteId, caseName('RecycleNativeQa', '0008'), 'RecycleNativeQa.test.ets:A0050').assertEqual(note.id);
+        expect(await store.saveNote(), caseName('RecycleNativeQa', '0008'), 'RecycleNativeQa.test.ets:A0051').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0008')).assertEqual('取消之后继续编辑');
-        expect(reopened.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0008')).assertEqual(0);
+        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0008'), 'RecycleNativeQa.test.ets:A0052').assertEqual('取消之后继续编辑');
+        expect(reopened.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0008'), 'RecycleNativeQa.test.ets:A0053').assertEqual(0);
       });
     });
 
@@ -274,15 +274,15 @@ export default function recycleNativeQaTests(): void {
         const legacy: string = JSON.stringify(document);
         await f.seed(legacy);
         const migrated: BusinessStore = await f.open();
-        expect(migrated.snapshot().notes[0].id, caseName('RecycleNativeQa', '0009')).assertEqual(note.id);
-        expect(await f.readRaw(), caseName('RecycleNativeQa', '0009')).assertEqual(legacy);
-        expect(migrated.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0009')).assertEqual(0);
-        expect(await migrated.moveNoteToTrash(note.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0009')).assertTrue();
+        expect(migrated.snapshot().notes[0].id, caseName('RecycleNativeQa', '0009'), 'RecycleNativeQa.test.ets:A0054').assertEqual(note.id);
+        expect(await f.readRaw(), caseName('RecycleNativeQa', '0009'), 'RecycleNativeQa.test.ets:A0055').assertEqual(legacy);
+        expect(migrated.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0009'), 'RecycleNativeQa.test.ets:A0056').assertEqual(0);
+        expect(await migrated.moveNoteToTrash(note.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0009'), 'RecycleNativeQa.test.ets:A0057').assertTrue();
         const upgraded: StoredData = await f.readDocument();
-        expect(upgraded.version, caseName('RecycleNativeQa', '0009')).assertEqual(2);
-        expect(upgraded.recycleBin[0].note.body, caseName('RecycleNativeQa', '0009')).assertEqual('旧用户正文');
+        expect(upgraded.version, caseName('RecycleNativeQa', '0009'), 'RecycleNativeQa.test.ets:A0058').assertEqual(2);
+        expect(upgraded.recycleBin[0].note.body, caseName('RecycleNativeQa', '0009'), 'RecycleNativeQa.test.ets:A0059').assertEqual('旧用户正文');
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().recycledNotes[0].history[0].noteId, caseName('RecycleNativeQa', '0009')).assertEqual(note.id);
+        expect(reopened.snapshot().recycledNotes[0].history[0].noteId, caseName('RecycleNativeQa', '0009'), 'RecycleNativeQa.test.ets:A0060').assertEqual(note.id);
       });
     });
 
@@ -304,14 +304,14 @@ export default function recycleNativeQaTests(): void {
         const future: string = JSON.stringify(futureDocument);
         await f.seed(future);
         const rejected: BusinessStore = await f.open();
-        expect(rejected.snapshot().ready, caseName('RecycleNativeQa', '0010')).assertFalse();
-        expect(await rejected.saveNote(), caseName('RecycleNativeQa', '0010')).assertFalse();
-        expect(await f.readRaw(), caseName('RecycleNativeQa', '0010')).assertEqual(future);
-        expect(rejected.snapshot().notes.length, caseName('RecycleNativeQa', '0010')).assertEqual(0);
+        expect(rejected.snapshot().ready, caseName('RecycleNativeQa', '0010'), 'RecycleNativeQa.test.ets:A0061').assertFalse();
+        expect(await rejected.saveNote(), caseName('RecycleNativeQa', '0010'), 'RecycleNativeQa.test.ets:A0062').assertFalse();
+        expect(await f.readRaw(), caseName('RecycleNativeQa', '0010'), 'RecycleNativeQa.test.ets:A0063').assertEqual(future);
+        expect(rejected.snapshot().notes.length, caseName('RecycleNativeQa', '0010'), 'RecycleNativeQa.test.ets:A0064').assertEqual(0);
         await f.seed(good);
         const recovered: BusinessStore = await f.open();
-        expect(recovered.snapshot().ready, caseName('RecycleNativeQa', '0010')).assertTrue();
-        expect(recovered.snapshot().notes[0].id, caseName('RecycleNativeQa', '0010')).assertEqual(note.id);
+        expect(recovered.snapshot().ready, caseName('RecycleNativeQa', '0010'), 'RecycleNativeQa.test.ets:A0065').assertTrue();
+        expect(recovered.snapshot().notes[0].id, caseName('RecycleNativeQa', '0010'), 'RecycleNativeQa.test.ets:A0066').assertEqual(note.id);
       });
     });
 
@@ -331,11 +331,11 @@ export default function recycleNativeQaTests(): void {
         await nativeStore.put('qa-sentinel', 'only-this-test');
         await nativeStore.flush();
         const store: BusinessStore = await f.open();
-        expect(store.snapshot().ready, caseName('RecycleNativeQa', '0011')).assertFalse();
-        expect(await store.purgeTrashedNote('trash-1'), caseName('RecycleNativeQa', '0011')).assertFalse();
-        expect(await nativeStore.get('workspace', ''), caseName('RecycleNativeQa', '0011')).assertEqual(42);
-        expect(await nativeStore.get('qa-sentinel', ''), caseName('RecycleNativeQa', '0011')).assertEqual('only-this-test');
-        expect(store.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0011')).assertEqual(0);
+        expect(store.snapshot().ready, caseName('RecycleNativeQa', '0011'), 'RecycleNativeQa.test.ets:A0067').assertFalse();
+        expect(await store.purgeTrashedNote('trash-1'), caseName('RecycleNativeQa', '0011'), 'RecycleNativeQa.test.ets:A0068').assertFalse();
+        expect(await nativeStore.get('workspace', ''), caseName('RecycleNativeQa', '0011'), 'RecycleNativeQa.test.ets:A0069').assertEqual(42);
+        expect(await nativeStore.get('qa-sentinel', ''), caseName('RecycleNativeQa', '0011'), 'RecycleNativeQa.test.ets:A0070').assertEqual('only-this-test');
+        expect(store.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0011'), 'RecycleNativeQa.test.ets:A0071').assertEqual(0);
       });
     });
 
@@ -358,15 +358,15 @@ export default function recycleNativeQaTests(): void {
           await f.save(store, `占用活跃槽位-${index}`, `各槽位独立正文-${index}`);
         }
         const fullRaw: string = await f.readRaw();
-        expect(await store.restoreTrashedNote(trashId), caseName('RecycleNativeQa', '0012')).assertFalse();
-        expect(await f.readRaw(), caseName('RecycleNativeQa', '0012')).assertEqual(fullRaw);
-        expect(store.snapshot().recycledNotes[0].note.id, caseName('RecycleNativeQa', '0012')).assertEqual(recycled.id);
+        expect(await store.restoreTrashedNote(trashId), caseName('RecycleNativeQa', '0012'), 'RecycleNativeQa.test.ets:A0072').assertFalse();
+        expect(await f.readRaw(), caseName('RecycleNativeQa', '0012'), 'RecycleNativeQa.test.ets:A0073').assertEqual(fullRaw);
+        expect(store.snapshot().recycledNotes[0].note.id, caseName('RecycleNativeQa', '0012'), 'RecycleNativeQa.test.ets:A0074').assertEqual(recycled.id);
         const victimId: string = store.snapshot().notes[0].id;
-        expect(await store.moveNoteToTrash(victimId, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0012')).assertTrue();
-        expect(await store.restoreTrashedNote(trashId), caseName('RecycleNativeQa', '0012')).assertTrue();
+        expect(await store.moveNoteToTrash(victimId, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0012'), 'RecycleNativeQa.test.ets:A0075').assertTrue();
+        expect(await store.restoreTrashedNote(trashId), caseName('RecycleNativeQa', '0012'), 'RecycleNativeQa.test.ets:A0076').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().notes.some((row: NoteItem): boolean => row.id === recycled.id), caseName('RecycleNativeQa', '0012')).assertTrue();
-        expect(reopened.snapshot().recycledNotes.map((row): string => row.note.id).join(','), caseName('RecycleNativeQa', '0012')).assertEqual(victimId);
+        expect(reopened.snapshot().notes.some((row: NoteItem): boolean => row.id === recycled.id), caseName('RecycleNativeQa', '0012'), 'RecycleNativeQa.test.ets:A0077').assertTrue();
+        expect(reopened.snapshot().recycledNotes.map((row): string => row.note.id).join(','), caseName('RecycleNativeQa', '0012'), 'RecycleNativeQa.test.ets:A0078').assertEqual(victimId);
       });
     });
 
@@ -390,16 +390,16 @@ export default function recycleNativeQaTests(): void {
         }
         const pending: NoteItem = await f.save(store, '容量拒绝目标', '不可静默丢弃');
         const before: string = await f.readRaw();
-        expect(await store.moveNoteToTrash(pending.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0013')).assertFalse();
-        expect(await f.readRaw(), caseName('RecycleNativeQa', '0013')).assertEqual(before);
-        expect(store.snapshot().notes[0].id, caseName('RecycleNativeQa', '0013')).assertEqual(pending.id);
+        expect(await store.moveNoteToTrash(pending.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0013'), 'RecycleNativeQa.test.ets:A0079').assertFalse();
+        expect(await f.readRaw(), caseName('RecycleNativeQa', '0013'), 'RecycleNativeQa.test.ets:A0080').assertEqual(before);
+        expect(store.snapshot().notes[0].id, caseName('RecycleNativeQa', '0013'), 'RecycleNativeQa.test.ets:A0081').assertEqual(pending.id);
         const staleId: string = store.snapshot().recycledNotes[0].trashId;
-        expect(await store.purgeTrashedNote(staleId), caseName('RecycleNativeQa', '0013')).assertTrue();
-        expect(await store.moveNoteToTrash(pending.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0013')).assertTrue();
+        expect(await store.purgeTrashedNote(staleId), caseName('RecycleNativeQa', '0013'), 'RecycleNativeQa.test.ets:A0082').assertTrue();
+        expect(await store.moveNoteToTrash(pending.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0013'), 'RecycleNativeQa.test.ets:A0083').assertTrue();
         const reopened: BusinessStore = await f.reopen();
-        expect(await reopened.restoreTrashedNote(staleId), caseName('RecycleNativeQa', '0013')).assertFalse();
-        expect(reopened.snapshot().recycledNotes.some((row): boolean => row.note.id === pending.id), caseName('RecycleNativeQa', '0013')).assertTrue();
-        expect(reopened.snapshot().notes.length, caseName('RecycleNativeQa', '0013')).assertEqual(0);
+        expect(await reopened.restoreTrashedNote(staleId), caseName('RecycleNativeQa', '0013'), 'RecycleNativeQa.test.ets:A0084').assertFalse();
+        expect(reopened.snapshot().recycledNotes.some((row): boolean => row.note.id === pending.id), caseName('RecycleNativeQa', '0013'), 'RecycleNativeQa.test.ets:A0085').assertTrue();
+        expect(reopened.snapshot().notes.length, caseName('RecycleNativeQa', '0013'), 'RecycleNativeQa.test.ets:A0086').assertEqual(0);
       });
     });
 
@@ -418,17 +418,17 @@ export default function recycleNativeQaTests(): void {
         await a.moveNoteToTrash(first.id, TrashEditDecision.REQUIRE_DECISION);
         await withRecycleNativeQa(caseName('RecycleNativeQa', '0014'), async (right: RecycleNativeQaFixture): Promise<void> => {
           const b: BusinessStore = await right.open();
-          expect(b.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0014')).assertEqual(0);
+          expect(b.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0014'), 'RecycleNativeQa.test.ets:A0087').assertEqual(0);
           const second: NoteItem = await right.save(b, '右命名空间', '只属于右侧');
           await b.moveNoteToTrash(second.id, TrashEditDecision.REQUIRE_DECISION);
           await a.purgeTrashedNote(a.snapshot().recycledNotes[0].trashId);
           const reopenedRight: BusinessStore = await right.reopen();
-          expect(reopenedRight.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0014')).assertEqual('只属于右侧');
-          expect((await left.readDocument()).recycleBin.length, caseName('RecycleNativeQa', '0014')).assertEqual(0);
+          expect(reopenedRight.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0014'), 'RecycleNativeQa.test.ets:A0088').assertEqual('只属于右侧');
+          expect((await left.readDocument()).recycleBin.length, caseName('RecycleNativeQa', '0014'), 'RecycleNativeQa.test.ets:A0089').assertEqual(0);
         });
         const reopenedLeft: BusinessStore = await left.reopen();
-        expect(reopenedLeft.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0014')).assertEqual(0);
-        expect(reopenedLeft.snapshot().notes.length, caseName('RecycleNativeQa', '0014')).assertEqual(0);
+        expect(reopenedLeft.snapshot().recycledNotes.length, caseName('RecycleNativeQa', '0014'), 'RecycleNativeQa.test.ets:A0090').assertEqual(0);
+        expect(reopenedLeft.snapshot().notes.length, caseName('RecycleNativeQa', '0014'), 'RecycleNativeQa.test.ets:A0091').assertEqual(0);
       });
     });
 
@@ -443,18 +443,18 @@ export default function recycleNativeQaTests(): void {
     it(caseName('RecycleNativeQa', '0015'), 0, async (): Promise<void> => {
       await withRecycleNativeQa(caseName('RecycleNativeQa', '0015'), async (f: RecycleNativeQaFixture): Promise<void> => {
         const adapter: PreferencesBusinessStorage = new PreferencesBusinessStorage(f.namespace);
-        expect(await adapter.read(f.context), caseName('RecycleNativeQa', '0015')).assertEqual('');
+        expect(await adapter.read(f.context), caseName('RecycleNativeQa', '0015'), 'RecycleNativeQa.test.ets:A0092').assertEqual('');
         await adapter.write('first-flushed-value');
-        expect(await adapter.reload(f.context), caseName('RecycleNativeQa', '0015')).assertEqual('first-flushed-value');
+        expect(await adapter.reload(f.context), caseName('RecycleNativeQa', '0015'), 'RecycleNativeQa.test.ets:A0093').assertEqual('first-flushed-value');
         const nativeStore: preferences.Preferences = await preferences.getPreferences(f.context,
           { name: f.namespace });
         await nativeStore.put('qa-unrelated-key', 'must-survive');
         await nativeStore.flush();
         await adapter.write('second-flushed-value');
-        expect(await adapter.reload(f.context), caseName('RecycleNativeQa', '0015')).assertEqual('second-flushed-value');
+        expect(await adapter.reload(f.context), caseName('RecycleNativeQa', '0015'), 'RecycleNativeQa.test.ets:A0094').assertEqual('second-flushed-value');
         const reopenedNative: preferences.Preferences = await preferences.getPreferences(f.context,
           { name: f.namespace });
-        expect(await reopenedNative.get('qa-unrelated-key', ''), caseName('RecycleNativeQa', '0015')).assertEqual('must-survive');
+        expect(await reopenedNative.get('qa-unrelated-key', ''), caseName('RecycleNativeQa', '0015'), 'RecycleNativeQa.test.ets:A0095').assertEqual('must-survive');
       });
     });
 
@@ -477,11 +477,11 @@ export default function recycleNativeQaTests(): void {
         } catch (error) {
           failures.push(error as BusinessWriteError);
         }
-        expect(failures.length, caseName('RecycleNativeQa', '0016')).assertEqual(1);
-        expect(failures[0].uncertain, caseName('RecycleNativeQa', '0016')).assertTrue();
-        expect(await adapter.reload(f.context), caseName('RecycleNativeQa', '0016')).assertEqual('confirmed-before-native-rejection');
+        expect(failures.length, caseName('RecycleNativeQa', '0016'), 'RecycleNativeQa.test.ets:A0096').assertEqual(1);
+        expect(failures[0].uncertain, caseName('RecycleNativeQa', '0016'), 'RecycleNativeQa.test.ets:A0097').assertTrue();
+        expect(await adapter.reload(f.context), caseName('RecycleNativeQa', '0016'), 'RecycleNativeQa.test.ets:A0098').assertEqual('confirmed-before-native-rejection');
         await adapter.write('confirmed-after-reload');
-        expect(await adapter.reload(f.context), caseName('RecycleNativeQa', '0016')).assertEqual('confirmed-after-reload');
+        expect(await adapter.reload(f.context), caseName('RecycleNativeQa', '0016'), 'RecycleNativeQa.test.ets:A0099').assertEqual('confirmed-after-reload');
       });
     });
     /**
@@ -504,9 +504,9 @@ export default function recycleNativeQaTests(): void {
         f.mark('seventeen-current-seed-complete');
         const rejected: BusinessStore = await f.open();
         f.mark('seventeen-current-load-complete');
-        expect(rejected.snapshot().ready, caseName('RecycleNativeQa', '0017')).assertFalse();
+        expect(rejected.snapshot().ready, caseName('RecycleNativeQa', '0017'), 'RecycleNativeQa.test.ets:A0100').assertFalse();
         // Compare every code unit, but do not make Hypium format two entire 8MiB values on success.
-        expect((await f.readRaw()) === oversizedCurrent, caseName('RecycleNativeQa', '0017')).assertTrue();
+        expect((await f.readRaw()) === oversizedCurrent, caseName('RecycleNativeQa', '0017'), 'RecycleNativeQa.test.ets:A0101').assertTrue();
         f.mark('seventeen-current-preservation-asserted');
         document.version = 1;
         const oversizedLegacy: string = JSON.stringify(document) + padding;
@@ -514,15 +514,15 @@ export default function recycleNativeQaTests(): void {
         f.mark('seventeen-legacy-seed-complete');
         const legacy: BusinessStore = await f.open();
         f.mark('seventeen-legacy-load-complete');
-        expect(legacy.snapshot().notes[0].id, caseName('RecycleNativeQa', '0017')).assertEqual(note.id);
-        expect((await f.readRaw()) === oversizedLegacy, caseName('RecycleNativeQa', '0017')).assertTrue();
+        expect(legacy.snapshot().notes[0].id, caseName('RecycleNativeQa', '0017'), 'RecycleNativeQa.test.ets:A0102').assertEqual(note.id);
+        expect((await f.readRaw()) === oversizedLegacy, caseName('RecycleNativeQa', '0017'), 'RecycleNativeQa.test.ets:A0103').assertTrue();
         f.mark('seventeen-legacy-preservation-asserted');
-        expect(await legacy.moveNoteToTrash(note.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0017')).assertTrue();
+        expect(await legacy.moveNoteToTrash(note.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0017'), 'RecycleNativeQa.test.ets:A0104').assertTrue();
         f.mark('seventeen-upgrade-committed');
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0017')).assertEqual('真实正文而非填充内容');
-        expect((await f.readDocument()).version, caseName('RecycleNativeQa', '0017')).assertEqual(2);
-        expect((await f.readRaw()).length < MAX_WORKSPACE_BYTES, caseName('RecycleNativeQa', '0017')).assertTrue();
+        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0017'), 'RecycleNativeQa.test.ets:A0105').assertEqual('真实正文而非填充内容');
+        expect((await f.readDocument()).version, caseName('RecycleNativeQa', '0017'), 'RecycleNativeQa.test.ets:A0106').assertEqual(2);
+        expect((await f.readRaw()).length < MAX_WORKSPACE_BYTES, caseName('RecycleNativeQa', '0017'), 'RecycleNativeQa.test.ets:A0107').assertTrue();
         f.mark('seventeen-cold-reopen-validated');
       });
     });
@@ -552,15 +552,15 @@ export default function recycleNativeQaTests(): void {
         f.time += 100;
         loaded.beginEditNote(active.id);
         loaded.setDraftBody('新增修订后的正文');
-        expect(await loaded.saveNote(), caseName('RecycleNativeQa', '0018')).assertTrue();
+        expect(await loaded.saveNote(), caseName('RecycleNativeQa', '0018'), 'RecycleNativeQa.test.ets:A0108').assertTrue();
         const reopened: BusinessStore = await f.reopen();
         const disk: StoredData = await f.readDocument();
-        expect(disk.noteHistory.length + disk.recycleBin[0].history.length, caseName('RecycleNativeQa', '0018')).assertEqual(MAX_WORKSPACE_HISTORY);
+        expect(disk.noteHistory.length + disk.recycleBin[0].history.length, caseName('RecycleNativeQa', '0018'), 'RecycleNativeQa.test.ets:A0109').assertEqual(MAX_WORKSPACE_HISTORY);
         expect(disk.recycleBin[0].history.some((row: NoteRevision): boolean =>
-          row.revisionId === `qa-bin-history-${MAX_WORKSPACE_HISTORY - 2}`), caseName('RecycleNativeQa', '0018')).assertFalse();
-        expect(reopened.historyFor(active.id).some((row: NoteRevision): boolean => row.body === '编辑前正文'), caseName('RecycleNativeQa', '0018')).assertTrue();
-        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0018')).assertEqual('新增修订后的正文');
-        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0018')).assertEqual('回收正文仍要完整');
+          row.revisionId === `qa-bin-history-${MAX_WORKSPACE_HISTORY - 2}`), caseName('RecycleNativeQa', '0018'), 'RecycleNativeQa.test.ets:A0110').assertFalse();
+        expect(reopened.historyFor(active.id).some((row: NoteRevision): boolean => row.body === '编辑前正文'), caseName('RecycleNativeQa', '0018'), 'RecycleNativeQa.test.ets:A0111').assertTrue();
+        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0018'), 'RecycleNativeQa.test.ets:A0112').assertEqual('新增修订后的正文');
+        expect(reopened.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0018'), 'RecycleNativeQa.test.ets:A0113').assertEqual('回收正文仍要完整');
       });
     });
 
@@ -583,14 +583,14 @@ export default function recycleNativeQaTests(): void {
         f.mark('nineteen-disposed-with-write-pending');
         await store.whenStorageIdle();
         f.mark('nineteen-native-write-settled');
-        expect(await pending, caseName('RecycleNativeQa', '0019')).assertFalse();
-        expect(store.snapshot().ready, caseName('RecycleNativeQa', '0019')).assertFalse();
-        expect(store.snapshot().notes.length, caseName('RecycleNativeQa', '0019')).assertEqual(0);
+        expect(await pending, caseName('RecycleNativeQa', '0019'), 'RecycleNativeQa.test.ets:A0114').assertFalse();
+        expect(store.snapshot().ready, caseName('RecycleNativeQa', '0019'), 'RecycleNativeQa.test.ets:A0115').assertFalse();
+        expect(store.snapshot().notes.length, caseName('RecycleNativeQa', '0019'), 'RecycleNativeQa.test.ets:A0116').assertEqual(0);
         const reopened: BusinessStore = await f.reopen();
         f.mark('nineteen-cold-reopen-complete');
-        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0019')).assertEqual('等待Preferences实际flush后读取');
-        expect(reopened.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0019')).assertFalse();
-        expect((await f.readDocument()).notes[0].title, caseName('RecycleNativeQa', '0019')).assertEqual('离开时的真实写入');
+        expect(reopened.snapshot().notes[0].body, caseName('RecycleNativeQa', '0019'), 'RecycleNativeQa.test.ets:A0117').assertEqual('等待Preferences实际flush后读取');
+        expect(reopened.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0019'), 'RecycleNativeQa.test.ets:A0118').assertFalse();
+        expect((await f.readDocument()).notes[0].title, caseName('RecycleNativeQa', '0019'), 'RecycleNativeQa.test.ets:A0119').assertEqual('离开时的真实写入');
       });
     });
 
@@ -611,21 +611,21 @@ export default function recycleNativeQaTests(): void {
         await store.toggleFavorite('reading');
         await store.addTodo('保留待办业务');
         fault.arm();
-        expect(await store.moveNoteToTrash(target.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0020')).assertFalse();
-        expect(store.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0020')).assertTrue();
-        expect(store.snapshot().notes.some((row: NoteItem): boolean => row.id === target.id), caseName('RecycleNativeQa', '0020')).assertTrue();
-        expect((await f.readDocument()).recycleBin[0].note.id, caseName('RecycleNativeQa', '0020')).assertEqual(target.id);
+        expect(await store.moveNoteToTrash(target.id, TrashEditDecision.REQUIRE_DECISION), caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0120').assertFalse();
+        expect(store.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0121').assertTrue();
+        expect(store.snapshot().notes.some((row: NoteItem): boolean => row.id === target.id), caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0122').assertTrue();
+        expect((await f.readDocument()).recycleBin[0].note.id, caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0123').assertEqual(target.id);
         const writes: number = fault.writes;
-        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0020')).assertTrue();
-        expect(store.snapshot().notes.map((row: NoteItem): string => row.id).join(','), caseName('RecycleNativeQa', '0020')).assertEqual(survivor.id);
-        expect(store.snapshot().favoriteIds.join(','), caseName('RecycleNativeQa', '0020')).assertEqual('reading');
-        expect(store.snapshot().todos.some((row): boolean => row.title === '保留待办业务'), caseName('RecycleNativeQa', '0020')).assertTrue();
-        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0020')).assertTrue();
-        expect(fault.reloads, caseName('RecycleNativeQa', '0020')).assertEqual(1);
-        expect(fault.writes, caseName('RecycleNativeQa', '0020')).assertEqual(writes);
+        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0124').assertTrue();
+        expect(store.snapshot().notes.map((row: NoteItem): string => row.id).join(','), caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0125').assertEqual(survivor.id);
+        expect(store.snapshot().favoriteIds.join(','), caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0126').assertEqual('reading');
+        expect(store.snapshot().todos.some((row): boolean => row.title === '保留待办业务'), caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0127').assertTrue();
+        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0128').assertTrue();
+        expect(fault.reloads, caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0129').assertEqual(1);
+        expect(fault.writes, caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0130').assertEqual(writes);
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().recycledNotes.map((row): string => row.note.id).join(','), caseName('RecycleNativeQa', '0020')).assertEqual(target.id);
-        expect(reopened.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0020')).assertFalse();
+        expect(reopened.snapshot().recycledNotes.map((row): string => row.note.id).join(','), caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0131').assertEqual(target.id);
+        expect(reopened.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0020'), 'RecycleNativeQa.test.ets:A0132').assertFalse();
       });
     });
 
@@ -653,27 +653,27 @@ export default function recycleNativeQaTests(): void {
         await nativeStore.put('workspace', foreignRaw);
         await nativeStore.flush();
         const writes: number = fault.writes;
-        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0021')).assertFalse();
-        expect(store.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0021')).assertTrue();
-        expect(await store.purgeTrashedNote('trash-1'), caseName('RecycleNativeQa', '0021')).assertFalse();
-        expect(await f.readRaw(), caseName('RecycleNativeQa', '0021')).assertEqual(foreignRaw);
+        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0133').assertFalse();
+        expect(store.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0134').assertTrue();
+        expect(await store.purgeTrashedNote('trash-1'), caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0135').assertFalse();
+        expect(await f.readRaw(), caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0136').assertEqual(foreignRaw);
         // recoverStorage invalidated the previous native handle; obtain a fresh one before each edit.
         const damagedStore: preferences.Preferences = await preferences.getPreferences(f.context,
           { name: f.namespace });
         await damagedStore.put('workspace', '{qa-broken-document');
         await damagedStore.flush();
-        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0021')).assertFalse();
-        expect(store.snapshot().notes[0].body, caseName('RecycleNativeQa', '0021')).assertEqual('原始正文');
+        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0137').assertFalse();
+        expect(store.snapshot().notes[0].body, caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0138').assertEqual('原始正文');
         const repairedStore: preferences.Preferences = await preferences.getPreferences(f.context,
           { name: f.namespace });
         await repairedStore.put('workspace', candidate);
         await repairedStore.flush();
-        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0021')).assertTrue();
-        expect(store.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0021')).assertEqual('原始正文');
-        expect(fault.writes, caseName('RecycleNativeQa', '0021')).assertEqual(writes);
+        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0139').assertTrue();
+        expect(store.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0140').assertEqual('原始正文');
+        expect(fault.writes, caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0141').assertEqual(writes);
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().notes.length, caseName('RecycleNativeQa', '0021')).assertEqual(0);
-        expect(reopened.snapshot().recycledNotes[0].note.id, caseName('RecycleNativeQa', '0021')).assertEqual(target.id);
+        expect(reopened.snapshot().notes.length, caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0142').assertEqual(0);
+        expect(reopened.snapshot().recycledNotes[0].note.id, caseName('RecycleNativeQa', '0021'), 'RecycleNativeQa.test.ets:A0143').assertEqual(target.id);
       });
     });
 
@@ -694,22 +694,22 @@ export default function recycleNativeQaTests(): void {
         store.setDraftTitle('等待显式重试');
         store.setDraftBody('核对旧文档不能清掉这个草稿');
         fault.arm();
-        expect(await store.saveNote(), caseName('RecycleNativeQa', '0022')).assertFalse();
+        expect(await store.saveNote(), caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0144').assertFalse();
         const nativeStore: preferences.Preferences = await preferences.getPreferences(f.context,
           { name: f.namespace });
         await nativeStore.put('workspace', before);
         await nativeStore.flush();
         const writes: number = fault.writes;
-        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0022')).assertTrue();
-        expect(store.snapshot().notes.map((row: NoteItem): string => row.id).join(','), caseName('RecycleNativeQa', '0022')).assertEqual(survivor.id);
-        expect(store.snapshot().draftBody, caseName('RecycleNativeQa', '0022')).assertEqual('核对旧文档不能清掉这个草稿');
-        expect(store.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0022')).assertFalse();
-        expect(fault.writes, caseName('RecycleNativeQa', '0022')).assertEqual(writes);
-        expect(await store.saveNote(), caseName('RecycleNativeQa', '0022')).assertTrue();
-        expect(fault.writes, caseName('RecycleNativeQa', '0022')).assertEqual(writes + 1);
+        expect(await store.recoverStorage(), caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0145').assertTrue();
+        expect(store.snapshot().notes.map((row: NoteItem): string => row.id).join(','), caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0146').assertEqual(survivor.id);
+        expect(store.snapshot().draftBody, caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0147').assertEqual('核对旧文档不能清掉这个草稿');
+        expect(store.snapshot().storageRecoveryRequired, caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0148').assertFalse();
+        expect(fault.writes, caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0149').assertEqual(writes);
+        expect(await store.saveNote(), caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0150').assertTrue();
+        expect(fault.writes, caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0151').assertEqual(writes + 1);
         const reopened: BusinessStore = await f.reopen();
-        expect(reopened.snapshot().notes.length, caseName('RecycleNativeQa', '0022')).assertEqual(2);
-        expect(reopened.snapshot().notes.some((row: NoteItem): boolean => row.body === '核对旧文档不能清掉这个草稿'), caseName('RecycleNativeQa', '0022')).assertTrue();
+        expect(reopened.snapshot().notes.length, caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0152').assertEqual(2);
+        expect(reopened.snapshot().notes.some((row: NoteItem): boolean => row.body === '核对旧文档不能清掉这个草稿'), caseName('RecycleNativeQa', '0022'), 'RecycleNativeQa.test.ets:A0153').assertTrue();
       });
     });
 
@@ -734,14 +734,14 @@ export default function recycleNativeQaTests(): void {
         const badRaw: string = JSON.stringify(broken);
         await f.seed(badRaw);
         const rejected: BusinessStore = await f.open();
-        expect(rejected.snapshot().ready, caseName('RecycleNativeQa', '0023')).assertFalse();
-        expect((await rejected.purgeExpiredNotes()).success, caseName('RecycleNativeQa', '0023')).assertFalse();
-        expect(await f.readRaw(), caseName('RecycleNativeQa', '0023')).assertEqual(badRaw);
+        expect(rejected.snapshot().ready, caseName('RecycleNativeQa', '0023'), 'RecycleNativeQa.test.ets:A0154').assertFalse();
+        expect((await rejected.purgeExpiredNotes()).success, caseName('RecycleNativeQa', '0023'), 'RecycleNativeQa.test.ets:A0155').assertFalse();
+        expect(await f.readRaw(), caseName('RecycleNativeQa', '0023'), 'RecycleNativeQa.test.ets:A0156').assertEqual(badRaw);
         await f.seed(good);
         const recovered: BusinessStore = await f.open();
-        expect(recovered.snapshot().notes[0].body, caseName('RecycleNativeQa', '0023')).assertEqual('活跃原文');
-        expect(recovered.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0023')).assertEqual('回收原文');
-        expect(recovered.snapshot().recycledNotes[0].history[0].noteId, caseName('RecycleNativeQa', '0023')).assertEqual(recycled.id);
+        expect(recovered.snapshot().notes[0].body, caseName('RecycleNativeQa', '0023'), 'RecycleNativeQa.test.ets:A0157').assertEqual('活跃原文');
+        expect(recovered.snapshot().recycledNotes[0].note.body, caseName('RecycleNativeQa', '0023'), 'RecycleNativeQa.test.ets:A0158').assertEqual('回收原文');
+        expect(recovered.snapshot().recycledNotes[0].history[0].noteId, caseName('RecycleNativeQa', '0023'), 'RecycleNativeQa.test.ets:A0159').assertEqual(recycled.id);
       });
     });
   });
