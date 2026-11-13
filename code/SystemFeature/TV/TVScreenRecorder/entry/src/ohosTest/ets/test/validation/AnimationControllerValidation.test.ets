@@ -1586,5 +1586,117 @@ export default function animationControllerValidationTest(): void {
       expect(sequence[2]).assertEqual(0.5);
       expect(sequence[4]).assertEqual(1);
     });
+
+    // Scheduling model exposes and clones every field including PlayMode.
+    it('scheduling_model_should_expose_and_clone_fields', 0, async () => {
+      const model: AnimationSchedulingModel = new AnimationSchedulingModel(
+        AnimationType.FADE_IN, EasingFunction.EASE_OUT, PlayMode.Once, 300, 0, WindowKind.TIMER);
+      expect(model.getAnimationType()).assertEqual(AnimationType.FADE_IN);
+      expect(model.getEasing()).assertEqual(EasingFunction.EASE_OUT);
+      expect(model.getPlayMode()).assertEqual(PlayMode.Once);
+      expect(model.getDuration()).assertEqual(300);
+      expect(model.getRepeatCount()).assertEqual(0);
+      expect(model.getWindow()).assertEqual(WindowKind.TIMER);
+      expect(model.isValid()).assertTrue();
+      const cloned: AnimationSchedulingModel = model.clone();
+      expect(model.equals(cloned)).assertTrue();
+      cloned.setRepeatCount(2);
+      expect(model.equals(cloned)).assertFalse();
+      expect(cloned.getRepeatCount()).assertEqual(2);
+      expect(model.toString().includes('fade_in')).assertTrue();
+    });
+
+    // Alternate play mode is recognised by the scheduling model.
+    it('scheduling_model_should_identify_alternate_mode', 0, async () => {
+      const blink: AnimationSchedulingModel = new AnimationSchedulingModel(
+        AnimationType.BLINK, EasingFunction.LINEAR, PlayMode.Alternate, RECORDING_ICON_BLINK_INTERVAL, 0,
+        WindowKind.TIMER);
+      expect(blink.isAlternateMode()).assertTrue();
+      const once: AnimationSchedulingModel = new AnimationSchedulingModel(
+        AnimationType.FADE_IN, EasingFunction.LINEAR, PlayMode.Once, 500, 0);
+      expect(once.isAlternateMode()).assertFalse();
+      const invalid: AnimationSchedulingModel = new AnimationSchedulingModel(
+        AnimationType.FADE_IN, EasingFunction.LINEAR, PlayMode.Once, -10, -1);
+      expect(invalid.isValid()).assertFalse();
+    });
+
+    // Scheduling statistics aggregate both floating window animations.
+    it('scheduling_statistics_should_aggregate_schedules', 0, async () => {
+      const stats: AnimationSchedulingStatistics = new AnimationSchedulingStatistics();
+      stats.addSchedule(new AnimationSchedulingModel(
+        AnimationType.FADE_IN, EasingFunction.LINEAR, PlayMode.Once, 200, 0, WindowKind.TIMER));
+      stats.addSchedule(new AnimationSchedulingModel(
+        AnimationType.FADE_IN, EasingFunction.LINEAR, PlayMode.Once, 400, 0, WindowKind.TIP));
+      stats.addSchedule(new AnimationSchedulingModel(
+        AnimationType.BLINK, EasingFunction.LINEAR, PlayMode.Alternate, 600, 0, WindowKind.TIMER));
+      expect(stats.getScheduleCount()).assertEqual(3);
+      expect(stats.getScheduleCountByType(AnimationType.FADE_IN)).assertEqual(2);
+      expect(stats.getScheduleCountByType(AnimationType.BLINK)).assertEqual(1);
+      expect(stats.getScheduleCountByWindow(WindowKind.TIMER)).assertEqual(2);
+      expect(stats.getScheduleCountByWindow(WindowKind.TIP)).assertEqual(1);
+      expect(stats.getAverageDuration()).assertEqual(400);
+      expect(stats.getAlternateScheduleCount()).assertEqual(1);
+      stats.clear();
+      expect(stats.getScheduleCount()).assertEqual(0);
+    });
+
+    // Callback recorder stores one record per triggered state.
+    it('callback_recorder_should_record_and_count', 0, async () => {
+      const recorder: AnimationCallbackRecorder = new AnimationCallbackRecorder();
+      recorder.recordCallback(AnimationState.RUNNING, 0.5);
+      recorder.recordCallback(AnimationState.COMPLETED, 1);
+      recorder.recordCallback(AnimationState.PAUSED, 0.7);
+      expect(recorder.getRecordCount()).assertEqual(3);
+      expect(recorder.getRecordCountByState(AnimationState.RUNNING)).assertEqual(1);
+      expect(recorder.getRecordCountByState(AnimationState.COMPLETED)).assertEqual(1);
+      const records: CallbackRecord[] = recorder.getRecords();
+      expect(records[0].callbackId).assertEqual(0);
+      expect(records[2].callbackId).assertEqual(2);
+      recorder.clear();
+      expect(recorder.getRecordCount()).assertEqual(0);
+    });
+
+    // Schedule validator enforces the recording window constraints.
+    it('schedule_validator_should_check_constraints', 0, async () => {
+      const validator: AnimationScheduleValidator = new AnimationScheduleValidator();
+      const valid: AnimationSchedulingModel = new AnimationSchedulingModel(
+        AnimationType.FADE_IN, EasingFunction.LINEAR, PlayMode.Once, 300, 0);
+      expect(validator.validateSchedule(valid)).assertTrue();
+      const invalidRepeat: AnimationSchedulingModel = new AnimationSchedulingModel(
+        AnimationType.BLINK, EasingFunction.LINEAR, PlayMode.Alternate,
+        RECORDING_ICON_BLINK_INTERVAL, 2);
+      expect(validator.validateSchedule(invalidRepeat)).assertFalse();
+      expect(validator.isDurationRecommended(300)).assertTrue();
+      expect(validator.isDurationRecommended(TIP_WINDOW_DURATION)).assertTrue();
+      expect(validator.isDurationRecommended(50)).assertFalse();
+      expect(validator.isDurationRecommended(4000)).assertFalse();
+    });
+
+    // The 800 ms blink interval is inside the readable range.
+    it('schedule_validator_should_validate_blink_interval', 0, async () => {
+      const validator: AnimationScheduleValidator = new AnimationScheduleValidator();
+      expect(validator.isBlinkIntervalValid(RECORDING_ICON_BLINK_INTERVAL)).assertTrue();
+      expect(validator.isBlinkIntervalValid(199)).assertFalse();
+      expect(validator.isBlinkIntervalValid(1501)).assertFalse();
+      expect(validator.isBlinkIntervalValid(200)).assertTrue();
+      expect(validator.isBlinkIntervalValid(1500)).assertTrue();
+    });
+
+    // Command logger tracks the success rate of show/hide commands.
+    it('command_logger_should_track_success_rate', 0, async () => {
+      const logger: AnimationCommandLogger = new AnimationCommandLogger();
+      logger.log(AnimationCommand.SHOW, AnimationType.FADE_IN, WindowKind.TIMER, true);
+      logger.log(AnimationCommand.HIDE, AnimationType.FADE_OUT, WindowKind.TIMER, true);
+      logger.log(AnimationCommand.SHOW, AnimationType.SLIDE_IN, WindowKind.TIP, false);
+      expect(logger.getLogCount()).assertEqual(3);
+      expect(logger.getLogCountByCommand(AnimationCommand.SHOW)).assertEqual(2);
+      expect(logger.getLogCountByCommand(AnimationCommand.HIDE)).assertEqual(1);
+      expect(logger.getLogCountByWindow(WindowKind.TIMER)).assertEqual(2);
+      expect(logger.getLogCountByWindow(WindowKind.TIP)).assertEqual(1);
+      expect(logger.getSuccessRate()).assertEqual(2 / 3);
+      logger.clear();
+      expect(logger.getLogCount()).assertEqual(0);
+      expect(logger.getSuccessRate()).assertEqual(0);
+    });
   });
 }
