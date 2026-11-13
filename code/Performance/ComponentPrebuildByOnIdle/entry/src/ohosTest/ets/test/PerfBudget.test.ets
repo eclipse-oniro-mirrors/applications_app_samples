@@ -72,7 +72,6 @@ class PoolProbeItem {
 
 export default function PerfBudgetTest() {
   describe('PerfBudgetTest', () => {
-  describe('perfMockData', () => {
     beforeEach(async () => {
       await paceTurn();
     });
@@ -286,6 +285,5 @@ export default function PerfBudgetTest() {
     });
 
 
-  });
   });
 }

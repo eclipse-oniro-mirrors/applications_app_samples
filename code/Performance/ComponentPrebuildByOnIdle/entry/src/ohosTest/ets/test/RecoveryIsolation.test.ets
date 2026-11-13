@@ -72,7 +72,6 @@ class PoolProbeItem {
 
 export default function RecoveryIsolationTest() {
   describe('RecoveryIsolationTest', () => {
-  describe('recoverTitle', () => {
     beforeEach(async () => {
       await paceTurn();
     });
@@ -286,6 +285,5 @@ export default function RecoveryIsolationTest() {
     });
 
 
-  });
   });
 }

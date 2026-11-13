@@ -74,7 +74,6 @@ class PoolProbeItem {
 
 export default function CompatibilityTest() {
   describe('CompatibilityTest', () => {
-  describe('compatData', () => {
     beforeEach(async () => {
       await paceTurn();
     });
@@ -288,6 +287,5 @@ export default function CompatibilityTest() {
     });
 
 
-  });
   });
 }

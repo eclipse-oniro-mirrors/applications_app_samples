@@ -72,7 +72,6 @@ class PoolProbeItem {
 
 export default function InputBoundaryTest() {
   describe('InputBoundaryTest', () => {
-  describe('boundaryTitle', () => {
     beforeEach(async () => {
       await paceTurn();
     });
@@ -268,6 +267,5 @@ export default function InputBoundaryTest() {
     });
 
 
-  });
   });
 }

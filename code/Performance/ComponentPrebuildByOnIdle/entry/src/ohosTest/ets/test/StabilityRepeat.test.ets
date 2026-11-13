@@ -72,7 +72,6 @@ class PoolProbeItem {
 
 export default function StabilityRepeatTest() {
   describe('StabilityRepeatTest', () => {
-  describe('stableTitle', () => {
     beforeEach(async () => {
       await paceTurn();
     });
@@ -280,6 +279,5 @@ export default function StabilityRepeatTest() {
     });
 
 
-  });
   });
 }
