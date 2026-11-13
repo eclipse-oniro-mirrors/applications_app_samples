@@ -14,7 +14,8 @@
  */
 
 import { describe, it, expect } from '@ohos/hypium';
-import { AvrcpModel, AvrcpState, BluetoothConnectionState } from 'library';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { AvrcpModel, AvrcpState, BluetoothConnectionState, AvrcpData, AvrcpModelJson } from 'library';
 
 const DEVICE_ID: string = 'avrcp_model_device';
 const SIBLING_ID: string = 'sibling_avrcp_device';
@@ -86,33 +87,105 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 0
      */
     it('testAvrcpModel0001', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0001', 'begin');
       const before: number = Date.now();
-      const model = new AvrcpModel();
+      const model: AvrcpModel = new AvrcpModel();
       const after: number = Date.now();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#1 ' + "model.deviceId" + ' = ' + JSON.stringify(model.deviceId));
       expect(model.deviceId).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#2 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.DISCONNECTED);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#3 ' + "model.data" + ' = ' + JSON.stringify(model.data));
       expect(model.data).assertEqual(null);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#4 ' + "model.operationLog.length" + ' = ' + JSON.stringify(model.operationLog.length));
       expect(model.operationLog.length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#5 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#6 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#7 ' + "model.errorMessage" + ' = ' + JSON.stringify(model.errorMessage));
       expect(model.errorMessage).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#8 ' + "model.errorCode" + ' = ' + JSON.stringify(model.errorCode));
       expect(model.errorCode).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#9 ' + "model.connectionDuration" + ' = ' + JSON.stringify(model.connectionDuration));
       expect(model.connectionDuration).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#10 ' + "model.connectionStartTime" + ' = ' + JSON.stringify(model.connectionStartTime));
       expect(model.connectionStartTime).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#11 ' + "model.playbackState" + ' = ' + JSON.stringify(model.playbackState));
       expect(model.playbackState).assertEqual(DEFAULT_PLAYBACK_STATE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#12 ' + "model.trackName" + ' = ' + JSON.stringify(model.trackName));
       expect(model.trackName).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#13 ' + "model.artistName" + ' = ' + JSON.stringify(model.artistName));
       expect(model.artistName).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#14 ' + "model.albumName" + ' = ' + JSON.stringify(model.albumName));
       expect(model.albumName).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#15 ' + "model.position" + ' = ' + JSON.stringify(model.position));
       expect(model.position).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#16 ' + "model.duration" + ' = ' + JSON.stringify(model.duration));
       expect(model.duration).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#17 ' + "model.volume" + ' = ' + JSON.stringify(model.volume));
       expect(model.volume).assertEqual(DEFAULT_VOLUME);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#18 ' + "model.playlistCount" + ' = ' + JSON.stringify(model.playlistCount));
       expect(model.playlistCount).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#19 ' + "model.currentTrackIndex" + ' = ' + JSON.stringify(model.currentTrackIndex));
       expect(model.currentTrackIndex).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#20 ' + "model.maxRetries" + ' = ' + JSON.stringify(model.maxRetries));
       expect(model.maxRetries).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#21 ' + "model.timeoutMs" + ' = ' + JSON.stringify(model.timeoutMs));
       expect(model.timeoutMs).assertEqual(10000);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#22 ' + "model.isInitialized" + ' = ' + JSON.stringify(model.isInitialized));
       expect(model.isInitialized).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0001',
+        '#23 ' + "model.lastUpdateTime >= before && model.lastUpdateTime <= after" + ' = ' +
+        JSON.stringify(model.lastUpdateTime >= before && model.lastUpdateTime <= after));
       expect(model.lastUpdateTime >= before && model.lastUpdateTime <= after).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0001', 'end');
     });
 
     /*
@@ -124,25 +197,61 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 0
      */
     it('testAvrcpModel0002', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
-      const sibling = new AvrcpModel(SIBLING_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0002', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
+      const sibling: AvrcpModel = new AvrcpModel(SIBLING_ID);
 
       model.playbackState = 'playing';
       model.trackName = 'First Track';
       model.volume = 80;
       model.markConnecting();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#1 ' + "model.deviceId" + ' = ' + JSON.stringify(model.deviceId));
       expect(model.deviceId).assertEqual(DEVICE_ID);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#2 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.CONNECTING);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#3 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#4 ' + "sibling.deviceId" + ' = ' + JSON.stringify(sibling.deviceId));
       expect(sibling.deviceId).assertEqual(SIBLING_ID);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#5 ' + "sibling.state" + ' = ' + JSON.stringify(sibling.state));
       expect(sibling.state).assertEqual(AvrcpState.DISCONNECTED);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#6 ' + "sibling.playbackState" + ' = ' + JSON.stringify(sibling.playbackState));
       expect(sibling.playbackState).assertEqual(DEFAULT_PLAYBACK_STATE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#7 ' + "sibling.trackName" + ' = ' + JSON.stringify(sibling.trackName));
       expect(sibling.trackName).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#8 ' + "sibling.volume" + ' = ' + JSON.stringify(sibling.volume));
       expect(sibling.volume).assertEqual(DEFAULT_VOLUME);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#9 ' + "sibling.currentTrackIndex" + ' = ' + JSON.stringify(sibling.currentTrackIndex));
       expect(sibling.currentTrackIndex).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#10 assert ' + "expect(sibling.getLogs().length).assertEqual(0)");
       expect(sibling.getLogs().length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0002',
+        '#11 assert ' +
+        "expect(model.toString().indexOf('AvrcpModel[deviceId=' + DEVICE_ID + ', state=connecting')).assertEqual(0)");
       expect(model.toString().indexOf('AvrcpModel[deviceId=' + DEVICE_ID + ', state=connecting')).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0002', 'end');
     });
 
     // ==================== connection state transitions (4 cases) ====================
@@ -156,20 +265,49 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 0
      */
     it('testAvrcpModel0003', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0003', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       const created: number = model.lastUpdateTime;
 
       model.markConnecting();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#1 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.CONNECTING);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#2 assert ' + "expect(model.isConnecting()).assertTrue()");
       expect(model.isConnecting()).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#3 assert ' + "expect(model.isConnected()).assertFalse()");
       expect(model.isConnected()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#4 ' + "model.connectionStartTime > 0" + ' = ' + JSON.stringify(model.connectionStartTime > 0));
       expect(model.connectionStartTime > 0).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#5 ' + "model.connectionStartTime >= created" + ' = ' + JSON.stringify(model.connectionStartTime >= created));
       expect(model.connectionStartTime >= created).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#6 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#7 assert ' + "expect(model.getLogs().length).assertEqual(1)");
       expect(model.getLogs().length).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#8 assert ' + "expect(lastLog(model)).assertEqual('Connecting to device')");
       expect(lastLog(model)).assertEqual('Connecting to device');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0003',
+        '#9 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0003', 'end');
     });
 
     /*
@@ -181,24 +319,62 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 0
      */
     it('testAvrcpModel0004', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0004', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       model.markConnecting();
       model.markError('absolute volume unsupported', 35200003);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#1 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#2 ' + "model.errorCode" + ' = ' + JSON.stringify(model.errorCode));
       expect(model.errorCode).assertEqual(35200003);
 
       model.markConnected();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#3 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.CONNECTED);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#4 assert ' + "expect(model.isConnected()).assertTrue()");
       expect(model.isConnected()).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#5 assert ' + "expect(model.isConnecting()).assertFalse()");
       expect(model.isConnecting()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#6 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#7 ' + "model.errorMessage" + ' = ' + JSON.stringify(model.errorMessage));
       expect(model.errorMessage).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#8 ' + "model.errorCode" + ' = ' + JSON.stringify(model.errorCode));
       expect(model.errorCode).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#9 assert ' + "expect(model.getConnectionDuration() >= model.connectionDuration).assertTrue()");
       expect(model.getConnectionDuration() >= model.connectionDuration).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#10 assert ' + "expect(model.getLogs().length).assertEqual(3)");
       expect(model.getLogs().length).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#11 assert ' + "expect(lastLog(model)).assertEqual('Connected to device')");
       expect(lastLog(model)).assertEqual('Connected to device');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0004',
+        '#12 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(3);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0004', 'end');
     });
 
     /*
@@ -210,23 +386,55 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 0
      */
     it('testAvrcpModel0005', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0005', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       model.markConnecting();
       model.markConnected();
 
       model.markDisconnecting();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#1 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.DISCONNECTING);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#2 assert ' + "expect(model.isConnected()).assertFalse()");
       expect(model.isConnected()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#3 assert ' + "expect(model.isConnecting()).assertFalse()");
       expect(model.isConnecting()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#4 assert ' + "expect(lastLog(model)).assertEqual('Disconnecting from device')");
       expect(lastLog(model)).assertEqual('Disconnecting from device');
 
       model.markDisconnected();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#5 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.DISCONNECTED);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#6 ' + "model.connectionDuration" + ' = ' + JSON.stringify(model.connectionDuration));
       expect(model.connectionDuration).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#7 assert ' + "expect(model.getConnectionDuration()).assertEqual(0)");
       expect(model.getConnectionDuration()).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#8 assert ' + "expect(model.getLogs().length).assertEqual(4)");
       expect(model.getLogs().length).assertEqual(4);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#9 assert ' + "expect(lastLog(model)).assertEqual('Disconnected from device')");
       expect(lastLog(model)).assertEqual('Disconnected from device');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0005',
+        '#10 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(4);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0005', 'end');
     });
 
     /*
@@ -238,31 +446,78 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 1
      */
     it('testAvrcpModel0006', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0006', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
 
       model.markError('pass play notification lost', 35200004);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#1 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.ERROR);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#2 ' + "model.errorMessage" + ' = ' + JSON.stringify(model.errorMessage));
       expect(model.errorMessage).assertEqual('pass play notification lost');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#3 ' + "model.errorCode" + ' = ' + JSON.stringify(model.errorCode));
       expect(model.errorCode).assertEqual(35200004);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#4 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#5 assert ' + "expect(model.canRetry()).assertTrue()");
       expect(model.canRetry()).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#6 assert ' + "expect(lastLog(model)).assertEqual('Error: pass play notification lost')");
       expect(lastLog(model)).assertEqual('Error: pass play notification lost');
 
       model.markError('pass play notification lost', 35200004);
       model.markError('pass play notification lost', 35200004);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#7 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#8 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(model.maxRetries);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#9 assert ' + "expect(model.canRetry()).assertFalse()");
       expect(model.canRetry()).assertFalse();
 
       model.markError('pass play notification lost', 35200004);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#10 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(4);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#11 assert ' + "expect(model.canRetry()).assertFalse()");
       expect(model.canRetry()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#12 assert ' + "expect(model.getLogs().length).assertEqual(4)");
       expect(model.getLogs().length).assertEqual(4);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#13 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(4);
 
       model.markConnected();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#14 assert ' + "expect(model.canRetry()).assertTrue()");
       expect(model.canRetry()).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0006',
+        '#15 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0006', 'end');
     });
 
     // ==================== operation log row for (2 cases) ====================
@@ -276,23 +531,55 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 0
      */
     it('testAvrcpModel0007', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0007', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       model.addLog('first entry');
       model.addLog('second entry');
 
       const logs = model.getLogs();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#1 ' + "logs.length" + ' = ' + JSON.stringify(logs.length));
       expect(logs.length).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#2 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#3 assert ' + "expect(logs[0].indexOf('[')).assertEqual(0)");
       expect(logs[0].indexOf('[')).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#4 assert ' + "expect(logs[0].indexOf('first entry')).assertEqual(logs[0].length - 11)");
       expect(logs[0].indexOf('first entry')).assertEqual(logs[0].length - 11);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#5 assert ' + "expect(logs[1].indexOf('T')).assertLarger(0)");
       expect(logs[1].indexOf('T')).assertLarger(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#6 assert ' + "expect(logs[1].indexOf('Z] ')).assertLarger(0)");
       expect(logs[1].indexOf('Z] ')).assertLarger(0);
 
       logs.push('injected');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#7 ' + "logs.length" + ' = ' + JSON.stringify(logs.length));
       expect(logs.length).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#8 assert ' + "expect(model.getLogs().length).assertEqual(2)");
       expect(model.getLogs().length).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#9 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.DISCONNECTED);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0007',
+        '#10 ' + "model.volume" + ' = ' + JSON.stringify(model.volume));
       expect(model.volume).assertEqual(DEFAULT_VOLUME);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0007', 'end');
     });
 
     /*
@@ -304,28 +591,66 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 1
      */
     it('testAvrcpModel0008', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0008', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       for (let i = 0; i < MAX_LOG + 5; i++) {
         model.addLog('log-' + i);
       }
 
       const logs = model.getLogs();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#1 ' + "logs.length" + ' = ' + JSON.stringify(logs.length));
       expect(logs.length).assertEqual(MAX_LOG);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#2 ' + "model.operationLog.length" + ' = ' + JSON.stringify(model.operationLog.length));
       expect(model.operationLog.length).assertEqual(MAX_LOG);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#3 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(MAX_LOG + 5);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#4 assert ' + "expect(lastLog(model)).assertEqual('log-204')");
       expect(lastLog(model)).assertEqual('log-204');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#5 assert ' + "expect(logs[0].indexOf('log-5')).assertLarger(0)");
       expect(logs[0].indexOf('log-5')).assertLarger(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#6 assert ' + "expect(logs[0].indexOf('log-0 ')).assertEqual(-1)");
       expect(logs[0].indexOf('log-0 ')).assertEqual(-1);
 
       model.clearLogs();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#7 assert ' + "expect(model.getLogs().length).assertEqual(0)");
       expect(model.getLogs().length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#8 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(MAX_LOG + 5);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#9 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.DISCONNECTED);
 
       model.addLog('gamma');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#10 assert ' + "expect(model.getLogs().length).assertEqual(1)");
       expect(model.getLogs().length).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#11 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(MAX_LOG + 6);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0008',
+        '#12 assert ' + "expect(lastLog(model)).assertEqual('gamma')");
       expect(lastLog(model)).assertEqual('gamma');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0008', 'end');
     });
 
     // ==================== data payload and state entry (2 cases) ====================
@@ -339,32 +664,89 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 0
      */
     it('testAvrcpModel0009', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0009', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       const created: number = model.lastUpdateTime;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+        '#1 ' + "model.data" + ' = ' + JSON.stringify(model.data));
       expect(model.data).assertEqual(null);
 
       const payload: AvrcpDataPayload = buildPayload('playing', 'Night Drive', 48000);
       model.updateData(payload);
 
-      const stored: ESObject = model.data;
+      const stored: AvrcpData | null = model.data;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+        '#2 ' + "model.data !== null" + ' = ' + JSON.stringify(model.data !== null));
       expect(model.data !== null).assertTrue();
-      expect(stored.playbackState).assertEqual('playing');
-      expect(stored.trackName).assertEqual('Night Drive');
-      expect(stored.artistName).assertEqual('Sample Artist');
-      expect(stored.albumName).assertEqual('Sample Album');
-      expect(stored.position).assertEqual(48000);
-      expect(stored.duration).assertEqual(214000);
-      expect(stored.volume).assertEqual(65);
-      expect(stored.playlistCount).assertEqual(18);
-      expect(stored.currentTrackIndex).assertEqual(3);
+      if (stored !== null) {
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#3 ' + "stored.playbackState" + ' = ' + JSON.stringify(stored.playbackState));
+        expect(stored.playbackState).assertEqual('playing');
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#4 ' + "stored.trackName" + ' = ' + JSON.stringify(stored.trackName));
+        expect(stored.trackName).assertEqual('Night Drive');
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#5 ' + "stored.artistName" + ' = ' + JSON.stringify(stored.artistName));
+        expect(stored.artistName).assertEqual('Sample Artist');
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#6 ' + "stored.albumName" + ' = ' + JSON.stringify(stored.albumName));
+        expect(stored.albumName).assertEqual('Sample Album');
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#7 ' + "stored.position" + ' = ' + JSON.stringify(stored.position));
+        expect(stored.position).assertEqual(48000);
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#8 ' + "stored.duration" + ' = ' + JSON.stringify(stored.duration));
+        expect(stored.duration).assertEqual(214000);
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#9 ' + "stored.volume" + ' = ' + JSON.stringify(stored.volume));
+        expect(stored.volume).assertEqual(65);
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#10 ' + "stored.playlistCount" + ' = ' + JSON.stringify(stored.playlistCount));
+        expect(stored.playlistCount).assertEqual(18);
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#11 ' + "stored.currentTrackIndex" + ' = ' + JSON.stringify(stored.currentTrackIndex));
+        expect(stored.currentTrackIndex).assertEqual(3);
+      }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+        '#12 assert ' + "expect(model.getLogs().length).assertEqual(0)");
       expect(model.getLogs().length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+        '#13 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+        '#14 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.DISCONNECTED);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+        '#15 ' + "model.lastUpdateTime >= created" + ' = ' + JSON.stringify(model.lastUpdateTime >= created));
       expect(model.lastUpdateTime >= created).assertTrue();
 
       payload.position = 96000;
-      expect(stored.position).assertEqual(96000);
+      if (stored !== null) {
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+          '#16 ' + "stored.position" + ' = ' + JSON.stringify(stored.position));
+        expect(stored.position).assertEqual(96000);
+      }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0009',
+        '#17 ' + "model.position" + ' = ' + JSON.stringify(model.position));
       expect(model.position).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0009', 'end');
     });
 
     /*
@@ -376,15 +758,31 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 1
      */
     it('testAvrcpModel0010', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0010', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       model.markConnecting();
       const before: number = model.lastUpdateTime;
 
       model.updateConnectionState(BluetoothConnectionState.CONNECTED);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#1 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.CONNECTING);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#2 assert ' + "expect(model.isConnected()).assertFalse()");
       expect(model.isConnected()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#3 assert ' + "expect(model.getLogs().length).assertEqual(1)");
       expect(model.getLogs().length).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#4 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#5 ' + "model.lastUpdateTime >= before" + ' = ' + JSON.stringify(model.lastUpdateTime >= before));
       expect(model.lastUpdateTime >= before).assertTrue();
 
       model.updateConnectionState(BluetoothConnectionState.DISCONNECTED);
@@ -392,14 +790,39 @@ export default function avrcpModelTest(): void {
       model.updateConnectionState(BluetoothConnectionState.CONNECTION_FAILED);
       model.updateConnectionState(BluetoothConnectionState.CONNECTION_TIMEOUT);
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#6 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.CONNECTING);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#7 assert ' + "expect(model.isConnecting()).assertTrue()");
       expect(model.isConnecting()).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#8 assert ' + "expect(model.getLogs().length).assertEqual(1)");
       expect(model.getLogs().length).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#9 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#10 ' + "model.errorMessage" + ' = ' + JSON.stringify(model.errorMessage));
       expect(model.errorMessage).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#11 ' + "model.errorCode" + ' = ' + JSON.stringify(model.errorCode));
       expect(model.errorCode).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#12 ' + "model.connectionDuration" + ' = ' + JSON.stringify(model.connectionDuration));
       expect(model.connectionDuration).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0010',
+        '#13 ' + "model.data" + ' = ' + JSON.stringify(model.data));
       expect(model.data).assertEqual(null);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0010', 'end');
     });
 
     // ==================== reset and serialize (2 cases) ====================
@@ -413,7 +836,8 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 1
      */
     it('testAvrcpModel0011', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0011', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       model.markConnecting();
       model.markConnected();
       model.markError('notification window closed', 35200002);
@@ -422,27 +846,79 @@ export default function avrcpModelTest(): void {
       model.trackName = 'Open Road';
       model.volume = 22;
       model.currentTrackIndex = 5;
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#1 assert ' + "expect(model.getLogs().length).assertEqual(3)");
       expect(model.getLogs().length).assertEqual(3);
 
       model.reset();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#2 ' + "model.state" + ' = ' + JSON.stringify(model.state));
       expect(model.state).assertEqual(AvrcpState.DISCONNECTED);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#3 ' + "model.data" + ' = ' + JSON.stringify(model.data));
       expect(model.data).assertEqual(null);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#4 assert ' + "expect(model.getLogs().length).assertEqual(0)");
       expect(model.getLogs().length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#5 ' + "model.operationCount" + ' = ' + JSON.stringify(model.operationCount));
       expect(model.operationCount).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#6 ' + "model.retryCount" + ' = ' + JSON.stringify(model.retryCount));
       expect(model.retryCount).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#7 ' + "model.errorMessage" + ' = ' + JSON.stringify(model.errorMessage));
       expect(model.errorMessage).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#8 ' + "model.errorCode" + ' = ' + JSON.stringify(model.errorCode));
       expect(model.errorCode).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#9 ' + "model.connectionDuration" + ' = ' + JSON.stringify(model.connectionDuration));
       expect(model.connectionDuration).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#10 ' + "model.connectionStartTime" + ' = ' + JSON.stringify(model.connectionStartTime));
       expect(model.connectionStartTime).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#11 assert ' + "expect(model.isConnected()).assertFalse()");
       expect(model.isConnected()).assertFalse();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#12 ' + "model.playbackState" + ' = ' + JSON.stringify(model.playbackState));
       expect(model.playbackState).assertEqual('paused');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#13 ' + "model.trackName" + ' = ' + JSON.stringify(model.trackName));
       expect(model.trackName).assertEqual('Open Road');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#14 ' + "model.volume" + ' = ' + JSON.stringify(model.volume));
       expect(model.volume).assertEqual(22);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#15 ' + "model.currentTrackIndex" + ' = ' + JSON.stringify(model.currentTrackIndex));
       expect(model.currentTrackIndex).assertEqual(5);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#16 ' + "model.deviceId" + ' = ' + JSON.stringify(model.deviceId));
       expect(model.deviceId).assertEqual(DEVICE_ID);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0011',
+        '#17 ' + "model.isInitialized" + ' = ' + JSON.stringify(model.isInitialized));
       expect(model.isInitialized).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0011', 'end');
     });
 
     /*
@@ -454,32 +930,82 @@ export default function avrcpModelTest(): void {
      * @tc.level Level 1
      */
     it('testAvrcpModel0012', 0, () => {
-      const model = new AvrcpModel(DEVICE_ID);
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0012', 'begin');
+      const model: AvrcpModel = new AvrcpModel(DEVICE_ID);
       model.markConnecting();
       model.markError('element id invalid', 35200005);
       model.trackName = 'Hidden Track';
       model.volume = 31;
 
-      const json: ESObject = model.toJSON();
+      const json: AvrcpModelJson = model.toJSON();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#1 ' + "json.state" + ' = ' + JSON.stringify(json.state));
       expect(json.state).assertEqual(AvrcpState.ERROR);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#2 ' + "json.deviceId" + ' = ' + JSON.stringify(json.deviceId));
       expect(json.deviceId).assertEqual(DEVICE_ID);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#3 ' + "json.retryCount" + ' = ' + JSON.stringify(json.retryCount));
       expect(json.retryCount).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#4 ' + "json.errorMessage" + ' = ' + JSON.stringify(json.errorMessage));
       expect(json.errorMessage).assertEqual('element id invalid');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#5 ' + "json.errorCode" + ' = ' + JSON.stringify(json.errorCode));
       expect(json.errorCode).assertEqual(35200005);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#6 ' + "json.operationCount" + ' = ' + JSON.stringify(json.operationCount));
       expect(json.operationCount).assertEqual(2);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#7 ' + "json.connectionDuration" + ' = ' + JSON.stringify(json.connectionDuration));
       expect(json.connectionDuration).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#8 ' + "json.data" + ' = ' + JSON.stringify(json.data));
       expect(json.data).assertEqual(null);
       const serialized: string = JSON.stringify(model.toJSON());
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#9 assert ' + "expect(serialized.indexOf('trackName')).assertEqual(-1)");
       expect(serialized.indexOf('trackName')).assertEqual(-1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#10 assert ' + "expect(serialized.indexOf('volume')).assertEqual(-1)");
       expect(serialized.indexOf('volume')).assertEqual(-1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#11 assert ' + "expect(serialized.indexOf('maxRetries')).assertEqual(-1)");
       expect(serialized.indexOf('maxRetries')).assertEqual(-1);
 
       const summary: string = model.toString();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#12 assert ' + "expect(summary.indexOf('AvrcpModel[deviceId=' + DEVICE_ID)).assertEqual(0)");
       expect(summary.indexOf('AvrcpModel[deviceId=' + DEVICE_ID)).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#13 assert ' + "expect(summary.indexOf('state=error')).assertLarger(0)");
       expect(summary.indexOf('state=error')).assertLarger(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#14 assert ' + "expect(summary.indexOf('retryCount=1')).assertLarger(0)");
       expect(summary.indexOf('retryCount=1')).assertLarger(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#15 assert ' + "expect(summary.indexOf('ops=2')).assertLarger(0)");
       expect(summary.indexOf('ops=2')).assertLarger(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testAvrcpModel0012',
+        '#16 assert ' + "expect(summary.charAt(summary.length - 1)).assertEqual(']')");
       expect(summary.charAt(summary.length - 1)).assertEqual(']');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testAvrcpModel0012', 'end');
     });
   });
 }
