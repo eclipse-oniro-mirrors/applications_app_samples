@@ -1,0 +1,688 @@
+{
+  "string": [
+    {
+      "name": "settings_status_idle",
+      "value": "Idle"
+    },
+    {
+      "name": "settings_status_opening",
+      "value": "Opening page"
+    },
+    {
+      "name": "settings_status_querying",
+      "value": "Querying"
+    },
+    {
+      "name": "settings_status_success",
+      "value": "Operation succeeded"
+    },
+    {
+      "name": "settings_status_failed",
+      "value": "Operation failed"
+    },
+    {
+      "name": "settings_status_unknown",
+      "value": "Unknown status"
+    },
+    {
+      "name": "settings_type_pin",
+      "value": "PIN Settings"
+    },
+    {
+      "name": "settings_type_nfc",
+      "value": "NFC Settings"
+    },
+    {
+      "name": "settings_type_double_click",
+      "value": "Double-click Settings"
+    },
+    {
+      "name": "settings_type_unknown",
+      "value": "Unknown setting"
+    },
+    {
+      "name": "settings_desc_open_pin",
+      "value": "Open the PIN settings page"
+    },
+    {
+      "name": "settings_desc_open_nfc",
+      "value": "Open the NFC settings page"
+    },
+    {
+      "name": "settings_desc_open_double_click",
+      "value": "Open the double-click settings page"
+    },
+    {
+      "name": "settings_result_pin_opened",
+      "value": "PIN settings page opened"
+    },
+    {
+      "name": "settings_result_nfc_opened",
+      "value": "NFC settings page opened"
+    },
+    {
+      "name": "settings_result_double_click_opened",
+      "value": "Double-click settings page opened"
+    },
+    {
+      "name": "perm_status_granted",
+      "value": "Granted"
+    },
+    {
+      "name": "perm_status_denied",
+      "value": "Denied"
+    },
+    {
+      "name": "perm_status_not_determined",
+      "value": "Not determined"
+    },
+    {
+      "name": "perm_status_restricted",
+      "value": "Restricted"
+    },
+    {
+      "name": "perm_status_unknown",
+      "value": "Unknown"
+    },
+    {
+      "name": "perm_none",
+      "value": "No permission"
+    },
+    {
+      "name": "perm_dnd",
+      "value": "Do Not Disturb status query"
+    },
+    {
+      "name": "perm_internet",
+      "value": "Internet access"
+    },
+    {
+      "name": "perm_network_info",
+      "value": "Network information query"
+    },
+    {
+      "name": "perm_wifi_config",
+      "value": "Wi-Fi configuration"
+    },
+    {
+      "name": "perm_wifi_info",
+      "value": "Wi-Fi information query"
+    },
+    {
+      "name": "perm_bluetooth_set",
+      "value": "Bluetooth settings"
+    },
+    {
+      "name": "perm_bluetooth_use",
+      "value": "Bluetooth use"
+    },
+    {
+      "name": "perm_bluetooth_local_info",
+      "value": "Local Bluetooth information query"
+    },
+    {
+      "name": "perm_camera",
+      "value": "Camera use"
+    },
+    {
+      "name": "perm_microphone",
+      "value": "Microphone use"
+    },
+    {
+      "name": "perm_read_media",
+      "value": "Media file reading"
+    },
+    {
+      "name": "perm_write_media",
+      "value": "Media file writing"
+    },
+    {
+      "name": "perm_location",
+      "value": "Location information"
+    },
+    {
+      "name": "perm_approx_location",
+      "value": "Approximate location information"
+    },
+    {
+      "name": "perm_read_contacts",
+      "value": "Contact reading"
+    },
+    {
+      "name": "perm_write_contacts",
+      "value": "Contact writing"
+    },
+    {
+      "name": "perm_read_call_log",
+      "value": "Call log reading"
+    },
+    {
+      "name": "perm_write_call_log",
+      "value": "Call log writing"
+    },
+    {
+      "name": "perm_read_sms",
+      "value": "SMS reading"
+    },
+    {
+      "name": "perm_send_sms",
+      "value": "SMS sending"
+    },
+    {
+      "name": "perm_read_storage",
+      "value": "Storage reading"
+    },
+    {
+      "name": "perm_write_storage",
+      "value": "Storage writing"
+    },
+    {
+      "name": "perm_vibrate",
+      "value": "Vibration control"
+    },
+    {
+      "name": "perm_wallpaper",
+      "value": "Wallpaper settings"
+    },
+    {
+      "name": "perm_agent_reminder",
+      "value": "Publish agent reminder"
+    },
+    {
+      "name": "storage_level_sufficient",
+      "value": "Sufficient"
+    },
+    {
+      "name": "storage_level_normal",
+      "value": "Normal"
+    },
+    {
+      "name": "storage_level_low",
+      "value": "Low"
+    },
+    {
+      "name": "storage_level_critical",
+      "value": "Critical"
+    },
+    {
+      "name": "log_level_debug",
+      "value": "Debug"
+    },
+    {
+      "name": "log_level_info",
+      "value": "Info"
+    },
+    {
+      "name": "log_level_warn",
+      "value": "Warn"
+    },
+    {
+      "name": "log_level_error",
+      "value": "Error"
+    },
+    {
+      "name": "log_level_fatal",
+      "value": "Fatal"
+    },
+    {
+      "name": "log_level_unknown",
+      "value": "Unknown"
+    },
+    {
+      "name": "type_param_required_empty",
+      "value": "Required parameter '%s' cannot be empty"
+    },
+    {
+      "name": "file_type_image",
+      "value": "Image file"
+    },
+    {
+      "name": "file_type_document",
+      "value": "Document file"
+    },
+    {
+      "name": "file_type_audio",
+      "value": "Audio file"
+    },
+    {
+      "name": "file_type_video",
+      "value": "Video file"
+    },
+    {
+      "name": "file_type_other",
+      "value": "Other file"
+    },
+    {
+      "name": "clip_type_text",
+      "value": "Plain text"
+    },
+    {
+      "name": "clip_type_url",
+      "value": "URL link"
+    },
+    {
+      "name": "clip_type_image",
+      "value": "Image resource"
+    },
+    {
+      "name": "clip_type_html",
+      "value": "HTML rich text"
+    },
+    {
+      "name": "clip_type_unknown",
+      "value": "Unknown type"
+    },
+    {
+      "name": "clip_type_none",
+      "value": "Not identified"
+    },
+    {
+      "name": "net_type_cellular",
+      "value": "Cellular network"
+    },
+    {
+      "name": "net_type_ethernet",
+      "value": "Ethernet"
+    },
+    {
+      "name": "net_type_bluetooth",
+      "value": "Bluetooth"
+    },
+    {
+      "name": "net_type_unknown",
+      "value": "Unknown network"
+    },
+    {
+      "name": "net_type_none",
+      "value": "Not identified"
+    },
+    {
+      "name": "net_state_connected",
+      "value": "Connected"
+    },
+    {
+      "name": "net_state_disconnected",
+      "value": "Disconnected"
+    },
+    {
+      "name": "net_state_connecting",
+      "value": "Connecting"
+    },
+    {
+      "name": "net_state_suspended",
+      "value": "Suspended"
+    },
+    {
+      "name": "net_state_unknown",
+      "value": "Unknown state"
+    },
+    {
+      "name": "net_bw_gigabit",
+      "value": "Gigabit bandwidth"
+    },
+    {
+      "name": "net_bw_megabit",
+      "value": "Megabit bandwidth"
+    },
+    {
+      "name": "net_bw_mobile",
+      "value": "Mobile network bandwidth"
+    },
+    {
+      "name": "net_bw_low_power",
+      "value": "Low-power narrowband"
+    },
+    {
+      "name": "net_bw_unknown",
+      "value": "Unknown bandwidth"
+    },
+    {
+      "name": "http_status_200",
+      "value": "OK"
+    },
+    {
+      "name": "http_status_201",
+      "value": "Created"
+    },
+    {
+      "name": "http_status_204",
+      "value": "No content"
+    },
+    {
+      "name": "http_status_301",
+      "value": "Moved permanently"
+    },
+    {
+      "name": "http_status_302",
+      "value": "Temporary redirect"
+    },
+    {
+      "name": "http_status_400",
+      "value": "Bad request"
+    },
+    {
+      "name": "http_status_401",
+      "value": "Unauthorized"
+    },
+    {
+      "name": "http_status_403",
+      "value": "Forbidden"
+    },
+    {
+      "name": "http_status_404",
+      "value": "Not found"
+    },
+    {
+      "name": "http_status_408",
+      "value": "Request timeout"
+    },
+    {
+      "name": "http_status_500",
+      "value": "Internal server error"
+    },
+    {
+      "name": "http_status_502",
+      "value": "Bad gateway"
+    },
+    {
+      "name": "http_status_503",
+      "value": "Service unavailable"
+    },
+    {
+      "name": "http_status_unknown",
+      "value": "Unknown status"
+    },
+    {
+      "name": "date_week_sun",
+      "value": "Sunday"
+    },
+    {
+      "name": "date_week_mon",
+      "value": "Monday"
+    },
+    {
+      "name": "date_week_tue",
+      "value": "Tuesday"
+    },
+    {
+      "name": "date_week_wed",
+      "value": "Wednesday"
+    },
+    {
+      "name": "date_week_thu",
+      "value": "Thursday"
+    },
+    {
+      "name": "date_week_fri",
+      "value": "Friday"
+    },
+    {
+      "name": "date_week_sat",
+      "value": "Saturday"
+    },
+    {
+      "name": "date_month_jan",
+      "value": "January"
+    },
+    {
+      "name": "date_month_feb",
+      "value": "February"
+    },
+    {
+      "name": "date_month_mar",
+      "value": "March"
+    },
+    {
+      "name": "date_month_apr",
+      "value": "April"
+    },
+    {
+      "name": "date_month_may",
+      "value": "May"
+    },
+    {
+      "name": "date_month_jun",
+      "value": "June"
+    },
+    {
+      "name": "date_month_jul",
+      "value": "July"
+    },
+    {
+      "name": "date_month_aug",
+      "value": "August"
+    },
+    {
+      "name": "date_month_sep",
+      "value": "September"
+    },
+    {
+      "name": "date_month_oct",
+      "value": "October"
+    },
+    {
+      "name": "date_month_nov",
+      "value": "November"
+    },
+    {
+      "name": "date_month_dec",
+      "value": "December"
+    },
+    {
+      "name": "date_just_now",
+      "value": "Just now"
+    },
+    {
+      "name": "date_upcoming",
+      "value": "Upcoming"
+    },
+    {
+      "name": "date_minutes_ago",
+      "value": "%d minutes ago"
+    },
+    {
+      "name": "date_hours_ago",
+      "value": "%d hours ago"
+    },
+    {
+      "name": "date_days_ago",
+      "value": "%d days ago"
+    },
+    {
+      "name": "date_weeks_ago",
+      "value": "%d weeks ago"
+    },
+    {
+      "name": "date_months_ago",
+      "value": "%d months ago"
+    },
+    {
+      "name": "date_years_ago",
+      "value": "%d years ago"
+    },
+    {
+      "name": "validate_channel_empty",
+      "value": "Channel ID cannot be empty"
+    },
+    {
+      "name": "validate_channel_too_long",
+      "value": "Channel ID cannot be longer than %d characters"
+    },
+    {
+      "name": "validate_channel_pass",
+      "value": "Channel ID validated"
+    },
+    {
+      "name": "validate_device_empty",
+      "value": "Device ID cannot be empty"
+    },
+    {
+      "name": "validate_device_too_short",
+      "value": "Device ID cannot be shorter than %d characters"
+    },
+    {
+      "name": "validate_device_too_long",
+      "value": "Device ID cannot be longer than %d characters"
+    },
+    {
+      "name": "validate_device_format",
+      "value": "Invalid device ID format: only letters, digits and hyphens are allowed, and it cannot start or end with a hyphen"
+    },
+    {
+      "name": "validate_device_pass",
+      "value": "Device ID validated"
+    },
+    {
+      "name": "validate_code_not_int",
+      "value": "Error code must be an integer"
+    },
+    {
+      "name": "validate_code_out_of_range",
+      "value": "Error code must be between 0 and 99999"
+    },
+    {
+      "name": "validate_code_pass",
+      "value": "Error code validated"
+    },
+    {
+      "name": "validate_ts_invalid",
+      "value": "Timestamp must be a valid number"
+    },
+    {
+      "name": "validate_ts_negative",
+      "value": "Timestamp must be positive"
+    },
+    {
+      "name": "validate_ts_future",
+      "value": "Timestamp cannot be later than the current time"
+    },
+    {
+      "name": "validate_ts_pass",
+      "value": "Timestamp validated"
+    },
+    {
+      "name": "validate_str_empty",
+      "value": "String cannot be empty"
+    },
+    {
+      "name": "validate_str_too_short",
+      "value": "String cannot be shorter than %d characters"
+    },
+    {
+      "name": "validate_str_too_long",
+      "value": "String cannot be longer than %d characters"
+    },
+    {
+      "name": "validate_str_pass",
+      "value": "String validated"
+    },
+    {
+      "name": "validate_num_invalid",
+      "value": "Value must be a valid number"
+    },
+    {
+      "name": "validate_num_out_of_range",
+      "value": "Value must be between %1$d and %2$d"
+    },
+    {
+      "name": "validate_num_pass",
+      "value": "Value validated"
+    },
+    {
+      "name": "validate_enum_empty",
+      "value": "Enum value cannot be empty"
+    },
+    {
+      "name": "validate_enum_list_empty",
+      "value": "Enum value list cannot be empty"
+    },
+    {
+      "name": "validate_enum_not_allowed",
+      "value": "Value \"%s\" is not in the allowed enum range"
+    },
+    {
+      "name": "validate_enum_pass",
+      "value": "Enum value validated"
+    },
+    {
+      "name": "validate_array_not_array",
+      "value": "Parameter must be an array"
+    },
+    {
+      "name": "validate_array_too_short",
+      "value": "Array length cannot be less than %d"
+    },
+    {
+      "name": "validate_array_pass",
+      "value": "Array validated"
+    },
+    {
+      "name": "page_title_index",
+      "value": "System Configuration Samples"
+    },
+    {
+      "name": "page_title_custom_config",
+      "value": "Custom Configuration"
+    },
+    {
+      "name": "page_title_intelligent_scene",
+      "value": "Intelligent Scene"
+    },
+    {
+      "name": "page_title_settings_lite",
+      "value": "Settings Information"
+    },
+    {
+      "name": "duration_zero",
+      "value": "0s"
+    },
+    {
+      "name": "duration_days",
+      "value": "%dd"
+    },
+    {
+      "name": "duration_hours",
+      "value": "%dh"
+    },
+    {
+      "name": "duration_minutes",
+      "value": "%dm"
+    },
+    {
+      "name": "duration_seconds",
+      "value": "%ds"
+    },
+    {
+      "name": "compact_unit_wan",
+      "value": "×10⁴"
+    },
+    {
+      "name": "compact_unit_yi",
+      "value": "×10⁸"
+    },
+    {
+      "name": "validate_field_required",
+      "value": "%1$s is required"
+    },
+    {
+      "name": "validate_field_min_length",
+      "value": "%1$s cannot be shorter than %2$d characters"
+    },
+    {
+      "name": "validate_field_max_length",
+      "value": "%1$s cannot be longer than %2$d characters"
+    },
+    {
+      "name": "validate_field_pattern",
+      "value": "Invalid format for %1$s"
+    },
+    {
+      "name": "date_format_locale",
+      "value": "MM/dd/yyyy"
+    },
+    {
+      "name": "list_separator",
+      "value": ", "
+    }
+  ]
+}

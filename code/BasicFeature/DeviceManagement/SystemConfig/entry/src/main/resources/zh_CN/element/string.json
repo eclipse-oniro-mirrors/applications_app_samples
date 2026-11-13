@@ -1,0 +1,428 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "系统配置示例模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "系统配置 API 示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "系统配置"
+    },
+    {
+      "name": "permission_reason_get_dnd_state",
+      "value": "用于获取免打扰模式状态"
+    },
+    {
+      "name": "page_index_title",
+      "value": "系统配置示例"
+    },
+    {
+      "name": "app_intro_title",
+      "value": "SystemConfig 示例"
+    },
+    {
+      "name": "app_intro_desc",
+      "value": "本示例演示 Basic Services Kit 中的定制配置、情景模式和设置信息接口。"
+    },
+    {
+      "name": "page_custom_config",
+      "value": "定制配置"
+    },
+    {
+      "name": "page_intelligent_scene",
+      "value": "情景模式"
+    },
+    {
+      "name": "page_settings_lite",
+      "value": "设置信息"
+    },
+    {
+      "name": "desc_custom_config",
+      "value": "获取应用预置渠道号等定制配置信息"
+    },
+    {
+      "name": "desc_intelligent_scene",
+      "value": "查询免打扰模式状态和通知权限"
+    },
+    {
+      "name": "desc_settings_lite",
+      "value": "打开系统设置页面并查询快捷操作状态"
+    },
+    {
+      "name": "nav_desc_custom_config",
+      "value": "获取设备渠道标识符（customConfig.getChannelId）"
+    },
+    {
+      "name": "nav_desc_intelligent_scene",
+      "value": "查询免打扰状态和通知允许状态（intelligentScene）"
+    },
+    {
+      "name": "nav_desc_settings_lite",
+      "value": "打开系统设置页面和查询双击应用（settingsLite）"
+    },
+    {
+      "name": "btn_get_channel_id",
+      "value": "获取渠道号"
+    },
+    {
+      "name": "btn_view_detail",
+      "value": "查看详情"
+    },
+    {
+      "name": "btn_reset",
+      "value": "重置"
+    },
+    {
+      "name": "btn_check_dnd",
+      "value": "查询免打扰状态"
+    },
+    {
+      "name": "btn_query_notify",
+      "value": "查询通知允许状态"
+    },
+    {
+      "name": "btn_query_all",
+      "value": "查询全部状态"
+    },
+    {
+      "name": "btn_check_notify_allowed",
+      "value": "查询通知白名单"
+    },
+    {
+      "name": "btn_open_pin_page",
+      "value": "打开 PIN 设置页面"
+    },
+    {
+      "name": "btn_open_nfc_page",
+      "value": "打开 NFC 设置页面"
+    },
+    {
+      "name": "btn_open_double_click_page",
+      "value": "打开双击设置页面"
+    },
+    {
+      "name": "btn_query_double_click",
+      "value": "查询双击应用"
+    },
+    {
+      "name": "btn_open_pin_settings",
+      "value": "打开 PIN 设置"
+    },
+    {
+      "name": "btn_open_nfc_settings",
+      "value": "打开 NFC 设置"
+    },
+    {
+      "name": "btn_open_double_click",
+      "value": "打开双击亮屏设置"
+    },
+    {
+      "name": "btn_check_double_click_app",
+      "value": "查询双击默认应用"
+    },
+    {
+      "name": "card_channel_title",
+      "value": "渠道配置信息"
+    },
+    {
+      "name": "card_channel_subtitle",
+      "value": "customConfig.getChannelId() 接口调用结果"
+    },
+    {
+      "name": "card_dnd_title",
+      "value": "免打扰状态信息"
+    },
+    {
+      "name": "card_dnd_subtitle",
+      "value": "intelligentScene 模块查询结果"
+    },
+    {
+      "name": "card_pin_title",
+      "value": "PIN 码设置"
+    },
+    {
+      "name": "card_pin_subtitle",
+      "value": "settingsLite.openPinSettingPage()"
+    },
+    {
+      "name": "card_nfc_title",
+      "value": "NFC 设置"
+    },
+    {
+      "name": "card_nfc_subtitle",
+      "value": "settingsLite.openNfcSettingsPage()"
+    },
+    {
+      "name": "card_double_click_title",
+      "value": "双击设置"
+    },
+    {
+      "name": "card_double_click_subtitle",
+      "value": "settingsLite.openDoubleClickSettingsPage() / isDoubleClickAppForSelf()"
+    },
+    {
+      "name": "card_detail_title",
+      "value": "详细数据"
+    },
+    {
+      "name": "card_detail_subtitle_channel",
+      "value": "ChannelConfigModel JSON 表示"
+    },
+    {
+      "name": "card_detail_subtitle_dnd",
+      "value": "DoNotDisturbModel JSON 表示"
+    },
+    {
+      "name": "card_detail_subtitle_settings",
+      "value": "SettingsItemModel JSON 表示"
+    },
+    {
+      "name": "label_channel_id",
+      "value": "渠道号:"
+    },
+    {
+      "name": "label_status",
+      "value": "状态:"
+    },
+    {
+      "name": "label_dnd_mode",
+      "value": "免打扰模式:"
+    },
+    {
+      "name": "label_notify_allowed",
+      "value": "通知允许:"
+    },
+    {
+      "name": "label_query_status",
+      "value": "查询状态:"
+    },
+    {
+      "name": "label_required_permission",
+      "value": "所需权限:"
+    },
+    {
+      "name": "label_query_result",
+      "value": "查询结果:"
+    },
+    {
+      "name": "label_result",
+      "value": "结果"
+    },
+    {
+      "name": "label_log",
+      "value": "运行日志"
+    },
+    {
+      "name": "log_panel_title",
+      "value": "操作日志"
+    },
+    {
+      "name": "log_count",
+      "value": "共 %d 条"
+    },
+    {
+      "name": "log_empty",
+      "value": "暂无日志"
+    },
+    {
+      "name": "info_card_empty",
+      "value": "暂无内容"
+    },
+    {
+      "name": "status_uninitialized",
+      "value": "未初始化"
+    },
+    {
+      "name": "status_loading",
+      "value": "获取中"
+    },
+    {
+      "name": "status_success",
+      "value": "获取成功"
+    },
+    {
+      "name": "status_failed",
+      "value": "获取失败"
+    },
+    {
+      "name": "status_unknown",
+      "value": "未知"
+    },
+    {
+      "name": "status_idle",
+      "value": "空闲"
+    },
+    {
+      "name": "status_querying",
+      "value": "查询中"
+    },
+    {
+      "name": "status_query_success",
+      "value": "查询成功"
+    },
+    {
+      "name": "status_query_failed",
+      "value": "查询失败"
+    },
+    {
+      "name": "value_not_fetched",
+      "value": "未获取"
+    },
+    {
+      "name": "value_not_queried",
+      "value": "未查询"
+    },
+    {
+      "name": "value_enabled",
+      "value": "已启用"
+    },
+    {
+      "name": "value_disabled",
+      "value": "未启用"
+    },
+    {
+      "name": "value_allowed",
+      "value": "允许"
+    },
+    {
+      "name": "value_not_allowed",
+      "value": "不允许"
+    },
+    {
+      "name": "log_vm_initialized",
+      "value": "视图模型初始化完成"
+    },
+    {
+      "name": "log_state_reset",
+      "value": "状态已重置"
+    },
+    {
+      "name": "log_fetching_channel_id",
+      "value": "正在获取渠道号..."
+    },
+    {
+      "name": "log_channel_success",
+      "value": "获取渠道号成功: %s"
+    },
+    {
+      "name": "log_channel_failed",
+      "value": "获取渠道号失败: %s"
+    },
+    {
+      "name": "log_channel_exception",
+      "value": "获取渠道号异常"
+    },
+    {
+      "name": "log_querying_dnd",
+      "value": "正在查询免打扰状态..."
+    },
+    {
+      "name": "log_dnd_state",
+      "value": "免打扰状态: %s"
+    },
+    {
+      "name": "log_querying_notify",
+      "value": "正在查询通知允许状态..."
+    },
+    {
+      "name": "log_notify_state",
+      "value": "通知允许状态: %s"
+    },
+    {
+      "name": "log_querying_all",
+      "value": "正在查询所有免打扰状态..."
+    },
+    {
+      "name": "log_query_all_done",
+      "value": "查询完成 - 免打扰: %s, 通知: %s"
+    },
+    {
+      "name": "log_query_failed",
+      "value": "查询失败: %s"
+    },
+    {
+      "name": "log_opening_pin",
+      "value": "正在打开 PIN 设置页面..."
+    },
+    {
+      "name": "log_opening_nfc",
+      "value": "正在打开 NFC 设置页面..."
+    },
+    {
+      "name": "log_opening_double_click",
+      "value": "正在打开双击设置页面..."
+    },
+    {
+      "name": "log_querying_double_click",
+      "value": "正在查询双击应用信息..."
+    },
+    {
+      "name": "log_pin_opened",
+      "value": "PIN 设置页面已打开"
+    },
+    {
+      "name": "log_nfc_opened",
+      "value": "NFC 设置页面已打开"
+    },
+    {
+      "name": "log_double_click_opened",
+      "value": "双击设置页面已打开"
+    },
+    {
+      "name": "log_open_pin_failed",
+      "value": "打开 PIN 设置页面失败: %s"
+    },
+    {
+      "name": "log_open_nfc_failed",
+      "value": "打开 NFC 设置页面失败: %s"
+    },
+    {
+      "name": "log_open_double_click_failed",
+      "value": "打开双击设置页面失败: %s"
+    },
+    {
+      "name": "log_error_no_context",
+      "value": "错误: 上下文未初始化"
+    },
+    {
+      "name": "log_double_click_query_failed",
+      "value": "双击查询失败: %s"
+    },
+    {
+      "name": "log_double_click_result",
+      "value": "双击查询结果: %s"
+    },
+    {
+      "name": "result_click_self",
+      "value": "是双击应用自身"
+    },
+    {
+      "name": "result_click_not_self",
+      "value": "不是双击应用自身"
+    },
+    {
+      "name": "result_click_error",
+      "value": "查询出错"
+    },
+    {
+      "name": "result_click_unknown",
+      "value": "未知结果"
+    },
+    {
+      "name": "setting_pin_desc",
+      "value": "打开 PIN 码设置页面"
+    },
+    {
+      "name": "setting_nfc_desc",
+      "value": "打开 NFC 设置页面"
+    },
+    {
+      "name": "setting_double_click_desc",
+      "value": "打开双击设置页面"
+    }
+  ]
+}
