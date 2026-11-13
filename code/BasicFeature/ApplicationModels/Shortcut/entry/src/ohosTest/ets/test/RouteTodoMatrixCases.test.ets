@@ -57,14 +57,14 @@ export default function routeTodoMatrixCasesTest(): void {
      */
 
     it(caseName('EntryRouteMatrixCases', '0001'), 0, (): void => {
-      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0001')).assertTrue();
-      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0001')).assertTrue();
-      expect(ROUTE_TABLE.every((entry: RouteEntry): boolean => entry.routeId.length > 0), caseName('EntryRouteMatrixCases', '0001')).assertTrue();
+      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0001').assertTrue();
+      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0002').assertTrue();
+      expect(ROUTE_TABLE.every((entry: RouteEntry): boolean => entry.routeId.length > 0), caseName('EntryRouteMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0003').assertTrue();
       const ids: string[] = routeIds();
-      expect(ids.length, caseName('EntryRouteMatrixCases', '0001')).assertEqual(ROUTE_TABLE.length);
-      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length, caseName('EntryRouteMatrixCases', '0001'))
+      expect(ids.length, caseName('EntryRouteMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0004').assertEqual(ROUTE_TABLE.length);
+      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length, caseName('EntryRouteMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0005')
         .assertEqual(0);
-      expect(ids.every((id: string): boolean => id.length > 0), caseName('EntryRouteMatrixCases', '0001')).assertTrue();
+      expect(ids.every((id: string): boolean => id.length > 0), caseName('EntryRouteMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0006').assertTrue();
     });
 
     /**
@@ -84,10 +84,10 @@ export default function routeTodoMatrixCasesTest(): void {
           found++;
         }
       });
-      expect(found, caseName('EntryRouteMatrixCases', '0002')).assertEqual(ROUTE_TABLE.length);
-      expect(routeOf('no-such-route') === undefined, caseName('EntryRouteMatrixCases', '0002')).assertTrue();
-      expect(routeIds().length, caseName('EntryRouteMatrixCases', '0002')).assertEqual(ROUTE_TABLE.length);
-      expect(routeOf(routeIds()[0]) === undefined, caseName('EntryRouteMatrixCases', '0002')).assertFalse();
+      expect(found, caseName('EntryRouteMatrixCases', '0002'), 'RouteTodoMatrixCases.test.ets:A0007').assertEqual(ROUTE_TABLE.length);
+      expect(routeOf('no-such-route') === undefined, caseName('EntryRouteMatrixCases', '0002'), 'RouteTodoMatrixCases.test.ets:A0008').assertTrue();
+      expect(routeIds().length, caseName('EntryRouteMatrixCases', '0002'), 'RouteTodoMatrixCases.test.ets:A0009').assertEqual(ROUTE_TABLE.length);
+      expect(routeOf(routeIds()[0]) === undefined, caseName('EntryRouteMatrixCases', '0002'), 'RouteTodoMatrixCases.test.ets:A0010').assertFalse();
     });
 
     /**
@@ -102,11 +102,11 @@ export default function routeTodoMatrixCasesTest(): void {
     it(caseName('EntryRouteMatrixCases', '0003'), 0, (): void => {
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
         const page: RoutePage = pageOf(entry.routeId);
-        expect(page === undefined, caseName('EntryRouteMatrixCases', '0003')).assertFalse();
-        expect(entry.page !== undefined, caseName('EntryRouteMatrixCases', '0003')).assertTrue();
+        expect(page === undefined, caseName('EntryRouteMatrixCases', '0003'), 'RouteTodoMatrixCases.test.ets:A0011').assertFalse();
+        expect(entry.page !== undefined, caseName('EntryRouteMatrixCases', '0003'), 'RouteTodoMatrixCases.test.ets:A0012').assertTrue();
       });
-      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0003')).assertTrue();
-      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0003')).assertTrue();
+      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0003'), 'RouteTodoMatrixCases.test.ets:A0013').assertTrue();
+      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0003'), 'RouteTodoMatrixCases.test.ets:A0014').assertTrue();
     });
 
     /**
@@ -119,10 +119,10 @@ export default function routeTodoMatrixCasesTest(): void {
      */
 
     it(caseName('EntryRouteMatrixCases', '0004'), 0, (): void => {
-      expect(routeOf('') === undefined, caseName('EntryRouteMatrixCases', '0004')).assertTrue();
-      expect(routeOf('no-such-route') === undefined, caseName('EntryRouteMatrixCases', '0004')).assertTrue();
-      expect(pageOf('no-such-route') !== undefined, caseName('EntryRouteMatrixCases', '0004')).assertTrue();
-      expect(routeIds().indexOf('no-such-route') < 0, caseName('EntryRouteMatrixCases', '0004')).assertTrue();
+      expect(routeOf('') === undefined, caseName('EntryRouteMatrixCases', '0004'), 'RouteTodoMatrixCases.test.ets:A0015').assertTrue();
+      expect(routeOf('no-such-route') === undefined, caseName('EntryRouteMatrixCases', '0004'), 'RouteTodoMatrixCases.test.ets:A0016').assertTrue();
+      expect(pageOf('no-such-route') !== undefined, caseName('EntryRouteMatrixCases', '0004'), 'RouteTodoMatrixCases.test.ets:A0017').assertTrue();
+      expect(routeIds().indexOf('no-such-route') < 0, caseName('EntryRouteMatrixCases', '0004'), 'RouteTodoMatrixCases.test.ets:A0018').assertTrue();
     });
 
     /**
@@ -138,10 +138,10 @@ export default function routeTodoMatrixCasesTest(): void {
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
         const names: string[] = entry.params.map((param: RouteParam): string => param.name);
         expect(names.filter((name: string, index: number): boolean =>
-          names.indexOf(name) !== index).length, caseName('EntryRouteMatrixCases', '0005')).assertEqual(0);
+          names.indexOf(name) !== index).length, caseName('EntryRouteMatrixCases', '0005'), 'RouteTodoMatrixCases.test.ets:A0019').assertEqual(0);
       });
-      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0005')).assertTrue();
-      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0005')).assertTrue();
+      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0005'), 'RouteTodoMatrixCases.test.ets:A0020').assertTrue();
+      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0005'), 'RouteTodoMatrixCases.test.ets:A0021').assertTrue();
     });
 
     /**
@@ -156,11 +156,11 @@ export default function routeTodoMatrixCasesTest(): void {
     it(caseName('EntryRouteMatrixCases', '0006'), 0, (): void => {
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
         requiredParams(entry).forEach((param: RouteParam): void => {
-          expect(param.required, caseName('EntryRouteMatrixCases', '0006')).assertTrue();
-          expect(param.name.length > 0, caseName('EntryRouteMatrixCases', '0006')).assertTrue();
+          expect(param.required, caseName('EntryRouteMatrixCases', '0006'), 'RouteTodoMatrixCases.test.ets:A0022').assertTrue();
+          expect(param.name.length > 0, caseName('EntryRouteMatrixCases', '0006'), 'RouteTodoMatrixCases.test.ets:A0023').assertTrue();
         });
       });
-      expect(ROUTE_TABLE.some((entry: RouteEntry): boolean => requiredParams(entry).length > 0), caseName('EntryRouteMatrixCases', '0006'))
+      expect(ROUTE_TABLE.some((entry: RouteEntry): boolean => requiredParams(entry).length > 0), caseName('EntryRouteMatrixCases', '0006'), 'RouteTodoMatrixCases.test.ets:A0024')
         .assertTrue();
     });
 
@@ -181,9 +181,9 @@ export default function routeTodoMatrixCasesTest(): void {
           resolved++;
         }
       });
-      expect(resolved, caseName('EntryRouteMatrixCases', '0007')).assertEqual(ROUTE_TABLE.length);
-      expect(resolved > 0, caseName('EntryRouteMatrixCases', '0007')).assertTrue();
-      expect(resolveRoute(requestFor(ROUTE_TABLE[0].routeId, true)).ok, caseName('EntryRouteMatrixCases', '0007')).assertTrue();
+      expect(resolved, caseName('EntryRouteMatrixCases', '0007'), 'RouteTodoMatrixCases.test.ets:A0025').assertEqual(ROUTE_TABLE.length);
+      expect(resolved > 0, caseName('EntryRouteMatrixCases', '0007'), 'RouteTodoMatrixCases.test.ets:A0026').assertTrue();
+      expect(resolveRoute(requestFor(ROUTE_TABLE[0].routeId, true)).ok, caseName('EntryRouteMatrixCases', '0007'), 'RouteTodoMatrixCases.test.ets:A0027').assertTrue();
     });
 
     /**
@@ -201,10 +201,10 @@ export default function routeTodoMatrixCasesTest(): void {
       request.loggedIn = true;
       request.at = 1000;
       const result: RouteResolution = resolveRoute(request);
-      expect(result.ok, caseName('EntryRouteMatrixCases', '0008')).assertFalse();
-      expect(result.issues.length > 0, caseName('EntryRouteMatrixCases', '0008')).assertTrue();
-      expect(request.loggedIn, caseName('EntryRouteMatrixCases', '0008')).assertTrue();
-      expect(result.issues[0].length > 0, caseName('EntryRouteMatrixCases', '0008')).assertTrue();
+      expect(result.ok, caseName('EntryRouteMatrixCases', '0008'), 'RouteTodoMatrixCases.test.ets:A0028').assertFalse();
+      expect(result.issues.length > 0, caseName('EntryRouteMatrixCases', '0008'), 'RouteTodoMatrixCases.test.ets:A0029').assertTrue();
+      expect(request.loggedIn, caseName('EntryRouteMatrixCases', '0008'), 'RouteTodoMatrixCases.test.ets:A0030').assertTrue();
+      expect(result.issues[0].length > 0, caseName('EntryRouteMatrixCases', '0008'), 'RouteTodoMatrixCases.test.ets:A0031').assertTrue();
     });
 
     /**
@@ -219,15 +219,15 @@ export default function routeTodoMatrixCasesTest(): void {
     it(caseName('EntryRouteMatrixCases', '0009'), 0, (): void => {
       const guarded: RouteEntry[] = ROUTE_TABLE.filter((entry: RouteEntry): boolean =>
         requiredParams(entry).length > 0);
-      expect(guarded.length > 0, caseName('EntryRouteMatrixCases', '0009')).assertTrue();
+      expect(guarded.length > 0, caseName('EntryRouteMatrixCases', '0009'), 'RouteTodoMatrixCases.test.ets:A0032').assertTrue();
       const entry: RouteEntry = guarded[0];
       const request: RouteRequest = new RouteRequest();
       request.routeId = entry.routeId;
       request.loggedIn = true;
       request.at = 1000;
       const result: RouteResolution = resolveRoute(request);
-      expect(result.ok, caseName('EntryRouteMatrixCases', '0009')).assertFalse();
-      expect(result.missing.length > 0, caseName('EntryRouteMatrixCases', '0009')).assertTrue();
+      expect(result.ok, caseName('EntryRouteMatrixCases', '0009'), 'RouteTodoMatrixCases.test.ets:A0033').assertFalse();
+      expect(result.missing.length > 0, caseName('EntryRouteMatrixCases', '0009'), 'RouteTodoMatrixCases.test.ets:A0034').assertTrue();
     });
 
     /**
@@ -242,12 +242,12 @@ export default function routeTodoMatrixCasesTest(): void {
     it(caseName('EntryRouteMatrixCases', '0010'), 0, (): void => {
       const guarded: RouteEntry[] = ROUTE_TABLE.filter((entry: RouteEntry): boolean =>
         entry.requiresLogin);
-      expect(guarded.length > 0, caseName('EntryRouteMatrixCases', '0010')).assertTrue();
+      expect(guarded.length > 0, caseName('EntryRouteMatrixCases', '0010'), 'RouteTodoMatrixCases.test.ets:A0035').assertTrue();
       guarded.forEach((entry: RouteEntry): void => {
         const anonymous: RouteResolution = resolveRoute(requestFor(entry.routeId, false));
-        expect(anonymous.ok, caseName('EntryRouteMatrixCases', '0010')).assertFalse();
+        expect(anonymous.ok, caseName('EntryRouteMatrixCases', '0010'), 'RouteTodoMatrixCases.test.ets:A0036').assertFalse();
         const authenticated: RouteResolution = resolveRoute(requestFor(entry.routeId, true));
-        expect(authenticated.ok, caseName('EntryRouteMatrixCases', '0010')).assertTrue();
+        expect(authenticated.ok, caseName('EntryRouteMatrixCases', '0010'), 'RouteTodoMatrixCases.test.ets:A0037').assertTrue();
       });
     });
 
@@ -263,12 +263,12 @@ export default function routeTodoMatrixCasesTest(): void {
     it(caseName('EntryRouteMatrixCases', '0011'), 0, (): void => {
       const open: RouteEntry[] = ROUTE_TABLE.filter((entry: RouteEntry): boolean =>
         !entry.requiresLogin);
-      expect(open.length > 0, caseName('EntryRouteMatrixCases', '0011')).assertTrue();
+      expect(open.length > 0, caseName('EntryRouteMatrixCases', '0011'), 'RouteTodoMatrixCases.test.ets:A0038').assertTrue();
       open.forEach((entry: RouteEntry): void => {
-        expect(resolveRoute(requestFor(entry.routeId, false)).ok, caseName('EntryRouteMatrixCases', '0011')).assertTrue();
+        expect(resolveRoute(requestFor(entry.routeId, false)).ok, caseName('EntryRouteMatrixCases', '0011'), 'RouteTodoMatrixCases.test.ets:A0039').assertTrue();
       });
-      expect(open.every((entry: RouteEntry): boolean => !entry.requiresLogin), caseName('EntryRouteMatrixCases', '0011')).assertTrue();
-      expect(open.length <= ROUTE_TABLE.length, caseName('EntryRouteMatrixCases', '0011')).assertTrue();
+      expect(open.every((entry: RouteEntry): boolean => !entry.requiresLogin), caseName('EntryRouteMatrixCases', '0011'), 'RouteTodoMatrixCases.test.ets:A0040').assertTrue();
+      expect(open.length <= ROUTE_TABLE.length, caseName('EntryRouteMatrixCases', '0011'), 'RouteTodoMatrixCases.test.ets:A0041').assertTrue();
     });
 
     /**
@@ -282,10 +282,10 @@ export default function routeTodoMatrixCasesTest(): void {
 
     it(caseName('EntryRouteMatrixCases', '0012'), 0, (): void => {
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
-        expect(entry.description.length > 0, caseName('EntryRouteMatrixCases', '0012')).assertTrue();
+        expect(entry.description.length > 0, caseName('EntryRouteMatrixCases', '0012'), 'RouteTodoMatrixCases.test.ets:A0042').assertTrue();
       });
-      expect(ROUTE_TABLE[0].description.length > 0, caseName('EntryRouteMatrixCases', '0012')).assertTrue();
-      expect(ROUTE_TABLE.length, caseName('EntryRouteMatrixCases', '0012')).assertEqual(routeIds().length);
+      expect(ROUTE_TABLE[0].description.length > 0, caseName('EntryRouteMatrixCases', '0012'), 'RouteTodoMatrixCases.test.ets:A0043').assertTrue();
+      expect(ROUTE_TABLE.length, caseName('EntryRouteMatrixCases', '0012'), 'RouteTodoMatrixCases.test.ets:A0044').assertEqual(routeIds().length);
     });
   });
 
@@ -300,11 +300,11 @@ export default function routeTodoMatrixCasesTest(): void {
      */
 
     it(caseName('TodoRulesMatrixCases', '0001'), 0, (): void => {
-      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0001')).assertTrue();
+      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0045').assertTrue();
       const ids: string[] = TODO_TRANSITIONS.map((rule: TodoTransition): string => rule.ruleId);
-      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length, caseName('TodoRulesMatrixCases', '0001'))
+      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length, caseName('TodoRulesMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0046')
         .assertEqual(0);
-      expect(ids.every((id: string): boolean => id.length > 0), caseName('TodoRulesMatrixCases', '0001')).assertTrue();
+      expect(ids.every((id: string): boolean => id.length > 0), caseName('TodoRulesMatrixCases', '0001'), 'RouteTodoMatrixCases.test.ets:A0047').assertTrue();
     });
 
     /**
@@ -318,11 +318,11 @@ export default function routeTodoMatrixCasesTest(): void {
 
     it(caseName('TodoRulesMatrixCases', '0002'), 0, (): void => {
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
-        expect(rule.note.length > 0, caseName('TodoRulesMatrixCases', '0002')).assertTrue();
-        expect(todoStateLabel(rule.from).length > 0, caseName('TodoRulesMatrixCases', '0002')).assertTrue();
-        expect(todoEventLabel(rule.event).length > 0, caseName('TodoRulesMatrixCases', '0002')).assertTrue();
+        expect(rule.note.length > 0, caseName('TodoRulesMatrixCases', '0002'), 'RouteTodoMatrixCases.test.ets:A0048').assertTrue();
+        expect(todoStateLabel(rule.from).length > 0, caseName('TodoRulesMatrixCases', '0002'), 'RouteTodoMatrixCases.test.ets:A0049').assertTrue();
+        expect(todoEventLabel(rule.event).length > 0, caseName('TodoRulesMatrixCases', '0002'), 'RouteTodoMatrixCases.test.ets:A0050').assertTrue();
       });
-      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0002')).assertTrue();
+      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0002'), 'RouteTodoMatrixCases.test.ets:A0051').assertTrue();
     });
 
     /**
@@ -342,9 +342,9 @@ export default function routeTodoMatrixCasesTest(): void {
           applied++;
         }
       });
-      expect(applied, caseName('TodoRulesMatrixCases', '0003')).assertEqual(TODO_TRANSITIONS.length);
-      expect(applied > 0, caseName('TodoRulesMatrixCases', '0003')).assertTrue();
-      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0003')).assertTrue();
+      expect(applied, caseName('TodoRulesMatrixCases', '0003'), 'RouteTodoMatrixCases.test.ets:A0052').assertEqual(TODO_TRANSITIONS.length);
+      expect(applied > 0, caseName('TodoRulesMatrixCases', '0003'), 'RouteTodoMatrixCases.test.ets:A0053').assertTrue();
+      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0003'), 'RouteTodoMatrixCases.test.ets:A0054').assertTrue();
     });
 
     /**
@@ -359,12 +359,12 @@ export default function routeTodoMatrixCasesTest(): void {
     it(caseName('TodoRulesMatrixCases', '0004'), 0, (): void => {
       const rule: TodoTransition = TODO_TRANSITIONS[0];
       const result: TodoTransitionResult = nextTodoState(rule.from, rule.event);
-      expect(result.applied, caseName('TodoRulesMatrixCases', '0004')).assertTrue();
-      expect(result.rule !== undefined, caseName('TodoRulesMatrixCases', '0004')).assertTrue();
+      expect(result.applied, caseName('TodoRulesMatrixCases', '0004'), 'RouteTodoMatrixCases.test.ets:A0055').assertTrue();
+      expect(result.rule !== undefined, caseName('TodoRulesMatrixCases', '0004'), 'RouteTodoMatrixCases.test.ets:A0056').assertTrue();
       if (result.rule !== undefined) {
-        expect(result.rule.ruleId, caseName('TodoRulesMatrixCases', '0004')).assertEqual(rule.ruleId);
+        expect(result.rule.ruleId, caseName('TodoRulesMatrixCases', '0004'), 'RouteTodoMatrixCases.test.ets:A0057').assertEqual(rule.ruleId);
       }
-      expect(result.reason.length, caseName('TodoRulesMatrixCases', '0004')).assertEqual(0);
+      expect(result.reason.length, caseName('TodoRulesMatrixCases', '0004'), 'RouteTodoMatrixCases.test.ets:A0058').assertEqual(0);
     });
 
 ;
@@ -385,12 +385,12 @@ export default function routeTodoMatrixCasesTest(): void {
           states.push(rule.from);
         }
       });
-      expect(states.length > 0, caseName('TodoRulesMatrixCases', '0006')).assertTrue();
+      expect(states.length > 0, caseName('TodoRulesMatrixCases', '0006'), 'RouteTodoMatrixCases.test.ets:A0059').assertTrue();
       states.forEach((state: TodoState): void => {
         const events: TodoEvent[] = todoEventsOf(state);
-        expect(events.length > 0, caseName('TodoRulesMatrixCases', '0006')).assertTrue();
+        expect(events.length > 0, caseName('TodoRulesMatrixCases', '0006'), 'RouteTodoMatrixCases.test.ets:A0060').assertTrue();
       });
-      expect(states.length <= 5, caseName('TodoRulesMatrixCases', '0006')).assertTrue();
+      expect(states.length <= 5, caseName('TodoRulesMatrixCases', '0006'), 'RouteTodoMatrixCases.test.ets:A0061').assertTrue();
     });
 
     /**
@@ -409,11 +409,11 @@ export default function routeTodoMatrixCasesTest(): void {
           closed.push(rule.to);
         }
       });
-      expect(closed.length > 0, caseName('TodoRulesMatrixCases', '0007')).assertTrue();
+      expect(closed.length > 0, caseName('TodoRulesMatrixCases', '0007'), 'RouteTodoMatrixCases.test.ets:A0062').assertTrue();
       closed.forEach((state: TodoState): void => {
-        expect(isClosedState(state), caseName('TodoRulesMatrixCases', '0007')).assertTrue();
+        expect(isClosedState(state), caseName('TodoRulesMatrixCases', '0007'), 'RouteTodoMatrixCases.test.ets:A0063').assertTrue();
       });
-      expect(closed.indexOf(TodoState.DONE) >= 0, caseName('TodoRulesMatrixCases', '0007')).assertTrue();
+      expect(closed.indexOf(TodoState.DONE) >= 0, caseName('TodoRulesMatrixCases', '0007'), 'RouteTodoMatrixCases.test.ets:A0064').assertTrue();
     });
 
     /**
@@ -437,10 +437,10 @@ export default function routeTodoMatrixCasesTest(): void {
       });
       const labels: string[] = states.map((state: TodoState): string => todoStateLabel(state));
       expect(labels.filter((label: string, index: number): boolean =>
-        labels.indexOf(label) !== index).length, caseName('TodoRulesMatrixCases', '0008')).assertEqual(0);
-      expect(labels.every((label: string): boolean => label.length > 0), caseName('TodoRulesMatrixCases', '0008')).assertTrue();
-      expect(labels.length, caseName('TodoRulesMatrixCases', '0008')).assertEqual(states.length);
-      expect(labels.length > 0, caseName('TodoRulesMatrixCases', '0008')).assertTrue();
+        labels.indexOf(label) !== index).length, caseName('TodoRulesMatrixCases', '0008'), 'RouteTodoMatrixCases.test.ets:A0065').assertEqual(0);
+      expect(labels.every((label: string): boolean => label.length > 0), caseName('TodoRulesMatrixCases', '0008'), 'RouteTodoMatrixCases.test.ets:A0066').assertTrue();
+      expect(labels.length, caseName('TodoRulesMatrixCases', '0008'), 'RouteTodoMatrixCases.test.ets:A0067').assertEqual(states.length);
+      expect(labels.length > 0, caseName('TodoRulesMatrixCases', '0008'), 'RouteTodoMatrixCases.test.ets:A0068').assertTrue();
     });
 
     /**
@@ -461,10 +461,10 @@ export default function routeTodoMatrixCasesTest(): void {
       });
       const labels: string[] = events.map((event: TodoEvent): string => todoEventLabel(event));
       expect(labels.filter((label: string, index: number): boolean =>
-        labels.indexOf(label) !== index).length, caseName('TodoRulesMatrixCases', '0009')).assertEqual(0);
-      expect(labels.every((label: string): boolean => label.length > 0), caseName('TodoRulesMatrixCases', '0009')).assertTrue();
-      expect(labels.length, caseName('TodoRulesMatrixCases', '0009')).assertEqual(events.length);
-      expect(labels.length > 0, caseName('TodoRulesMatrixCases', '0009')).assertTrue();
+        labels.indexOf(label) !== index).length, caseName('TodoRulesMatrixCases', '0009'), 'RouteTodoMatrixCases.test.ets:A0069').assertEqual(0);
+      expect(labels.every((label: string): boolean => label.length > 0), caseName('TodoRulesMatrixCases', '0009'), 'RouteTodoMatrixCases.test.ets:A0070').assertTrue();
+      expect(labels.length, caseName('TodoRulesMatrixCases', '0009'), 'RouteTodoMatrixCases.test.ets:A0071').assertEqual(events.length);
+      expect(labels.length > 0, caseName('TodoRulesMatrixCases', '0009'), 'RouteTodoMatrixCases.test.ets:A0072').assertTrue();
     });
 
     /**
@@ -478,11 +478,11 @@ export default function routeTodoMatrixCasesTest(): void {
 
     it(caseName('TodoRulesMatrixCases', '0010'), 0, (): void => {
       const item: TodoItem = new TodoItem();
-      expect(item.id, caseName('TodoRulesMatrixCases', '0010')).assertEqual('');
-      expect(item.priority, caseName('TodoRulesMatrixCases', '0010')).assertEqual(1);
-      expect(item.state, caseName('TodoRulesMatrixCases', '0010')).assertEqual(TodoState.OPEN);
-      expect(item.dueAt, caseName('TodoRulesMatrixCases', '0010')).assertEqual(0);
-      expect(item.estimateMinutes, caseName('TodoRulesMatrixCases', '0010')).assertEqual(0);
+      expect(item.id, caseName('TodoRulesMatrixCases', '0010'), 'RouteTodoMatrixCases.test.ets:A0073').assertEqual('');
+      expect(item.priority, caseName('TodoRulesMatrixCases', '0010'), 'RouteTodoMatrixCases.test.ets:A0074').assertEqual(1);
+      expect(item.state, caseName('TodoRulesMatrixCases', '0010'), 'RouteTodoMatrixCases.test.ets:A0075').assertEqual(TodoState.OPEN);
+      expect(item.dueAt, caseName('TodoRulesMatrixCases', '0010'), 'RouteTodoMatrixCases.test.ets:A0076').assertEqual(0);
+      expect(item.estimateMinutes, caseName('TodoRulesMatrixCases', '0010'), 'RouteTodoMatrixCases.test.ets:A0077').assertEqual(0);
     });
 
     /**
@@ -501,13 +501,13 @@ export default function routeTodoMatrixCasesTest(): void {
           closedStates.push(rule.from);
         }
       });
-      expect(closedStates.length > 0, caseName('TodoRulesMatrixCases', '0011')).assertTrue();
+      expect(closedStates.length > 0, caseName('TodoRulesMatrixCases', '0011'), 'RouteTodoMatrixCases.test.ets:A0078').assertTrue();
       closedStates.forEach((state: TodoState): void => {
         const events: TodoEvent[] = todoEventsOf(state);
-        expect(events.every((event: TodoEvent): boolean => todoEventLabel(event).length > 0), caseName('TodoRulesMatrixCases', '0011'))
+        expect(events.every((event: TodoEvent): boolean => todoEventLabel(event).length > 0), caseName('TodoRulesMatrixCases', '0011'), 'RouteTodoMatrixCases.test.ets:A0079')
           .assertTrue();
       });
-      expect(closedStates.indexOf(TodoState.DONE) >= 0, caseName('TodoRulesMatrixCases', '0011')).assertTrue();
+      expect(closedStates.indexOf(TodoState.DONE) >= 0, caseName('TodoRulesMatrixCases', '0011'), 'RouteTodoMatrixCases.test.ets:A0080').assertTrue();
     });
 
     /**
@@ -534,9 +534,9 @@ export default function routeTodoMatrixCasesTest(): void {
           reachable++;
         }
       });
-      expect(reachable, caseName('TodoRulesMatrixCases', '0012')).assertEqual(targets.length);
-      expect(targets.length > 0, caseName('TodoRulesMatrixCases', '0012')).assertTrue();
-      expect(targets.indexOf(TodoState.OPEN) >= 0, caseName('TodoRulesMatrixCases', '0012')).assertTrue();
+      expect(reachable, caseName('TodoRulesMatrixCases', '0012'), 'RouteTodoMatrixCases.test.ets:A0081').assertEqual(targets.length);
+      expect(targets.length > 0, caseName('TodoRulesMatrixCases', '0012'), 'RouteTodoMatrixCases.test.ets:A0082').assertTrue();
+      expect(targets.indexOf(TodoState.OPEN) >= 0, caseName('TodoRulesMatrixCases', '0012'), 'RouteTodoMatrixCases.test.ets:A0083').assertTrue();
     });
 
     /**
@@ -551,10 +551,10 @@ export default function routeTodoMatrixCasesTest(): void {
     it(caseName('TodoRulesMatrixCases', '0013'), 0, (): void => {
       const first: TodoEvent[] = todoEventsOf(TodoState.OPEN);
       const second: TodoEvent[] = todoEventsOf(TodoState.OPEN);
-      expect(first.length, caseName('TodoRulesMatrixCases', '0013')).assertEqual(second.length);
-      expect(first.every((event: TodoEvent, index: number): boolean => event === second[index]), caseName('TodoRulesMatrixCases', '0013'))
+      expect(first.length, caseName('TodoRulesMatrixCases', '0013'), 'RouteTodoMatrixCases.test.ets:A0084').assertEqual(second.length);
+      expect(first.every((event: TodoEvent, index: number): boolean => event === second[index]), caseName('TodoRulesMatrixCases', '0013'), 'RouteTodoMatrixCases.test.ets:A0085')
         .assertTrue();
-      expect(first.length > 0, caseName('TodoRulesMatrixCases', '0013')).assertTrue();
+      expect(first.length > 0, caseName('TodoRulesMatrixCases', '0013'), 'RouteTodoMatrixCases.test.ets:A0086').assertTrue();
     });
 
     /**
@@ -570,9 +570,9 @@ export default function routeTodoMatrixCasesTest(): void {
       const rule: TodoTransition = TODO_TRANSITIONS[0];
       const first: TodoTransitionResult = nextTodoState(rule.from, rule.event);
       const second: TodoTransitionResult = nextTodoState(rule.from, rule.event);
-      expect(first.applied, caseName('TodoRulesMatrixCases', '0014')).assertEqual(second.applied);
-      expect(first.to, caseName('TodoRulesMatrixCases', '0014')).assertEqual(second.to);
-      expect(first.reason, caseName('TodoRulesMatrixCases', '0014')).assertEqual(second.reason);
+      expect(first.applied, caseName('TodoRulesMatrixCases', '0014'), 'RouteTodoMatrixCases.test.ets:A0087').assertEqual(second.applied);
+      expect(first.to, caseName('TodoRulesMatrixCases', '0014'), 'RouteTodoMatrixCases.test.ets:A0088').assertEqual(second.to);
+      expect(first.reason, caseName('TodoRulesMatrixCases', '0014'), 'RouteTodoMatrixCases.test.ets:A0089').assertEqual(second.reason);
     });
   });
 }

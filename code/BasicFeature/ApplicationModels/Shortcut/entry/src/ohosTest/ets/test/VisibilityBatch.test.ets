@@ -121,23 +121,23 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0001'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0001'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0001'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         const service = await start(scope, api);
         await service.previewBatch(['a', 'b'], false);
         const plan: BatchPlan = batch(service);
-        expect(plan.items[0].originalVisible, caseName('VisibilityBatchProductionService', '0001')).assertTrue();
-        expect(plan.items[1].originalVisible, caseName('VisibilityBatchProductionService', '0001')).assertFalse();
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0001')).assertEqual(0);
+        expect(plan.items[0].originalVisible, caseName('VisibilityBatchProductionService', '0001'), 'VisibilityBatch.test.ets:A0001').assertTrue();
+        expect(plan.items[1].originalVisible, caseName('VisibilityBatchProductionService', '0001'), 'VisibilityBatch.test.ets:A0002').assertFalse();
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0001'), 'VisibilityBatch.test.ets:A0003').assertEqual(0);
         const token: number = preview(service).token;
         await service.executeBatchPreview(token);
-        expect(api.calls.join(','), caseName('VisibilityBatchProductionService', '0001')).assertEqual('a:false,b:false');
-        expect(batch(service).items.every((item) => item.result === 'confirmed'), caseName('VisibilityBatchProductionService', '0001')).assertTrue();
+        expect(api.calls.join(','), caseName('VisibilityBatchProductionService', '0001'), 'VisibilityBatch.test.ets:A0004').assertEqual('a:false,b:false');
+        expect(batch(service).items.every((item) => item.result === 'confirmed'), caseName('VisibilityBatchProductionService', '0001'), 'VisibilityBatch.test.ets:A0005').assertTrue();
         await service.executeBatchPreview(token);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0001')).assertEqual(2);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0001'), 'VisibilityBatch.test.ets:A0006').assertEqual(2);
         plan.items[0].originalVisible = false;
-        expect(batch(service).items[0].originalVisible, caseName('VisibilityBatchProductionService', '0001')).assertTrue();
+        expect(batch(service).items[0].originalVisible, caseName('VisibilityBatchProductionService', '0001'), 'VisibilityBatch.test.ets:A0007').assertTrue();
       });
     });
     /**
@@ -150,16 +150,16 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0002'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0002'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0002'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         api.rejectAfter = [1];
         const service = await start(scope, api);
         await apply(service, ['a'], false);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0002')).assertEqual('confirmed');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0002'), 'VisibilityBatch.test.ets:A0008').assertEqual('confirmed');
         await service.previewBatchRetry(batch(service).batchId);
-        expect(preview(service).items.length, caseName('VisibilityBatchProductionService', '0002')).assertEqual(0);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0002')).assertEqual(1);
+        expect(preview(service).items.length, caseName('VisibilityBatchProductionService', '0002'), 'VisibilityBatch.test.ets:A0009').assertEqual(0);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0002'), 'VisibilityBatch.test.ets:A0010').assertEqual(1);
       });
     });
     /**
@@ -172,21 +172,21 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0003'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0003'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0003'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         api.infos[1].visible = true;
         api.rejectBefore = [2];
         const service = await start(scope, api);
         await apply(service, ['a', 'b'], false);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0003')).assertEqual('confirmed');
-        expect(batch(service).items[1].result, caseName('VisibilityBatchProductionService', '0003')).assertEqual('failed');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0003'), 'VisibilityBatch.test.ets:A0011').assertEqual('confirmed');
+        expect(batch(service).items[1].result, caseName('VisibilityBatchProductionService', '0003'), 'VisibilityBatch.test.ets:A0012').assertEqual('failed');
         await service.previewBatchRetry(batch(service).batchId);
-        expect(preview(service).items.map((row) => row.id).join(','), caseName('VisibilityBatchProductionService', '0003')).assertEqual('b');
+        expect(preview(service).items.map((row) => row.id).join(','), caseName('VisibilityBatchProductionService', '0003'), 'VisibilityBatch.test.ets:A0013').assertEqual('b');
         await service.executeBatchPreview(preview(service).token);
-        expect(api.calls.join(','), caseName('VisibilityBatchProductionService', '0003')).assertEqual('a:false,b:false,b:false');
-        expect(batch(service).items[0].attempt, caseName('VisibilityBatchProductionService', '0003')).assertEqual(1);
-        expect(batch(service).items[1].attempt, caseName('VisibilityBatchProductionService', '0003')).assertEqual(2);
+        expect(api.calls.join(','), caseName('VisibilityBatchProductionService', '0003'), 'VisibilityBatch.test.ets:A0014').assertEqual('a:false,b:false,b:false');
+        expect(batch(service).items[0].attempt, caseName('VisibilityBatchProductionService', '0003'), 'VisibilityBatch.test.ets:A0015').assertEqual(1);
+        expect(batch(service).items[1].attempt, caseName('VisibilityBatchProductionService', '0003'), 'VisibilityBatch.test.ets:A0016').assertEqual(2);
       });
     });
     /**
@@ -199,18 +199,18 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0004'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0004'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0004'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         api.omitAt = [4];
         const service = await start(scope, api);
         await apply(service, ['a'], false);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0004')).assertEqual('unknown');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0004'), 'VisibilityBatch.test.ets:A0017').assertEqual('unknown');
         await service.previewBatchRetry(batch(service).batchId);
-        expect(preview(service).items.length, caseName('VisibilityBatchProductionService', '0004')).assertEqual(0);
+        expect(preview(service).items.length, caseName('VisibilityBatchProductionService', '0004'), 'VisibilityBatch.test.ets:A0018').assertEqual(0);
         await service.reconcileBatch(batch(service).batchId);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0004')).assertEqual('confirmed');
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0004')).assertEqual(1);
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0004'), 'VisibilityBatch.test.ets:A0019').assertEqual('confirmed');
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0004'), 'VisibilityBatch.test.ets:A0020').assertEqual(1);
       });
     });
     /**
@@ -223,20 +223,20 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0005'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0005'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0005'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         const service = await start(scope, api);
         await apply(service, ['a', 'b'], true);
         await service.previewBatchRestore(batch(service).batchId);
         const restore: BatchPreview = preview(service);
-        expect(restore.items[0].eligible, caseName('VisibilityBatchProductionService', '0005')).assertFalse();
-        expect(restore.items[1].target, caseName('VisibilityBatchProductionService', '0005')).assertFalse();
+        expect(restore.items[0].eligible, caseName('VisibilityBatchProductionService', '0005'), 'VisibilityBatch.test.ets:A0021').assertFalse();
+        expect(restore.items[1].target, caseName('VisibilityBatchProductionService', '0005'), 'VisibilityBatch.test.ets:A0022').assertFalse();
         await service.executeBatchPreview(restore.token);
-        expect(api.infos[0].visible, caseName('VisibilityBatchProductionService', '0005')).assertTrue();
-        expect(api.infos[1].visible, caseName('VisibilityBatchProductionService', '0005')).assertFalse();
-        expect(batch(service).items[1].restoreResult, caseName('VisibilityBatchProductionService', '0005')).assertEqual('confirmed');
-        expect(api.calls.join(','), caseName('VisibilityBatchProductionService', '0005')).assertEqual('a:true,b:true,b:false');
+        expect(api.infos[0].visible, caseName('VisibilityBatchProductionService', '0005'), 'VisibilityBatch.test.ets:A0023').assertTrue();
+        expect(api.infos[1].visible, caseName('VisibilityBatchProductionService', '0005'), 'VisibilityBatch.test.ets:A0024').assertFalse();
+        expect(batch(service).items[1].restoreResult, caseName('VisibilityBatchProductionService', '0005'), 'VisibilityBatch.test.ets:A0025').assertEqual('confirmed');
+        expect(api.calls.join(','), caseName('VisibilityBatchProductionService', '0005'), 'VisibilityBatch.test.ets:A0026').assertEqual('a:true,b:true,b:false');
       });
     });
     /**
@@ -249,20 +249,20 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0006'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0006'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0006'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         const service = await start(scope, api);
         await apply(service, ['a'], false);
         api.rejectBefore = [2];
         await service.previewBatchRestore(batch(service).batchId);
         await service.executeBatchPreview(preview(service).token);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0006')).assertEqual('confirmed');
-        expect(batch(service).items[0].restoreResult, caseName('VisibilityBatchProductionService', '0006')).assertEqual('failed');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0006'), 'VisibilityBatch.test.ets:A0027').assertEqual('confirmed');
+        expect(batch(service).items[0].restoreResult, caseName('VisibilityBatchProductionService', '0006'), 'VisibilityBatch.test.ets:A0028').assertEqual('failed');
         await service.previewBatchRestore(batch(service).batchId);
         await service.executeBatchPreview(preview(service).token);
-        expect(batch(service).items[0].restoreResult, caseName('VisibilityBatchProductionService', '0006')).assertEqual('confirmed');
-        expect(api.calls.join(','), caseName('VisibilityBatchProductionService', '0006')).assertEqual('a:false,a:true,a:true');
+        expect(batch(service).items[0].restoreResult, caseName('VisibilityBatchProductionService', '0006'), 'VisibilityBatch.test.ets:A0029').assertEqual('confirmed');
+        expect(api.calls.join(','), caseName('VisibilityBatchProductionService', '0006'), 'VisibilityBatch.test.ets:A0030').assertEqual('a:false,a:true,a:true');
       });
     });
     /**
@@ -275,17 +275,17 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0007'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0007'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0007'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         api.omitAt = [2, 3];
         const service = await start(scope, api);
         await apply(service, ['a'], false);
-        expect(batch(service).items[0].originalKnown, caseName('VisibilityBatchProductionService', '0007')).assertFalse();
+        expect(batch(service).items[0].originalKnown, caseName('VisibilityBatchProductionService', '0007'), 'VisibilityBatch.test.ets:A0031').assertFalse();
         await service.previewBatchRestore(batch(service).batchId);
-        expect(preview(service).items[0].eligible, caseName('VisibilityBatchProductionService', '0007')).assertFalse();
+        expect(preview(service).items[0].eligible, caseName('VisibilityBatchProductionService', '0007'), 'VisibilityBatch.test.ets:A0032').assertFalse();
         await service.executeBatchPreview(preview(service).token, true);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0007')).assertEqual(1);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0007'), 'VisibilityBatch.test.ets:A0033').assertEqual(1);
       });
     });
     /**
@@ -298,24 +298,24 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0008'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0008'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0008'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0008'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         api.omitAt = [4];
         const service = await start(scope, api);
         await apply(service, ['a'], false);
         await service.previewBatchRestore(batch(service).batchId);
-        expect(preview(service).items[0].externalChange, caseName('VisibilityBatchProductionService', '0008')).assertTrue();
+        expect(preview(service).items[0].externalChange, caseName('VisibilityBatchProductionService', '0008'), 'VisibilityBatch.test.ets:A0034').assertTrue();
         await service.executeBatchPreview(preview(service).token, false);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0008')).assertEqual(1);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0008'), 'VisibilityBatch.test.ets:A0035').assertEqual(1);
         await service.previewBatchRestore(batch(service).batchId);
         await service.executeBatchPreview(preview(service).token, true);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0008')).assertEqual(2);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0008'), 'VisibilityBatch.test.ets:A0036').assertEqual(2);
         await service.previewBatch(['a'], false);
         api.infos[0].visible = false;
         await service.executeBatchPreview(preview(service).token);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0008')).assertEqual(2);
-        expect(service.snapshot().batchMessage.includes('状态变化'), caseName('VisibilityBatchProductionService', '0008')).assertTrue();
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0008'), 'VisibilityBatch.test.ets:A0037').assertEqual(2);
+        expect(service.snapshot().batchMessage.includes('状态变化'), caseName('VisibilityBatchProductionService', '0008'), 'VisibilityBatch.test.ets:A0038').assertTrue();
       });
     });
     /**
@@ -328,8 +328,8 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0009'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0009'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0009'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0009'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         const storage: MemoryBatchStorage = new MemoryBatchStorage();
         const service = await start(scope, api, storage);
@@ -337,15 +337,15 @@ export default function visibilityBatchTests(): void {
         const id: string = batch(service).batchId;
         service.dispose();
         const reopened = await start(scope, api, storage);
-        expect(reopened.snapshot().batchPreview, caseName('VisibilityBatchProductionService', '0009')).assertUndefined();
-        expect(batch(reopened).interrupted, caseName('VisibilityBatchProductionService', '0009')).assertTrue();
+        expect(reopened.snapshot().batchPreview, caseName('VisibilityBatchProductionService', '0009'), 'VisibilityBatch.test.ets:A0039').assertUndefined();
+        expect(batch(reopened).interrupted, caseName('VisibilityBatchProductionService', '0009'), 'VisibilityBatch.test.ets:A0040').assertTrue();
         await reopened.executeBatchPreview(1);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0009')).assertEqual(1);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0009'), 'VisibilityBatch.test.ets:A0041').assertEqual(1);
         await reopened.previewBatch(['b'], true);
-        expect(batch(reopened).batchId === id, caseName('VisibilityBatchProductionService', '0009')).assertFalse();
+        expect(batch(reopened).batchId === id, caseName('VisibilityBatchProductionService', '0009'), 'VisibilityBatch.test.ets:A0042').assertFalse();
         let rejected: boolean = false;
         try { decodeJournal(storage.value.replace('"sequence":2', '"sequence":0')); } catch (_) { rejected = true; }
-        expect(rejected, caseName('VisibilityBatchProductionService', '0009')).assertTrue();
+        expect(rejected, caseName('VisibilityBatchProductionService', '0009'), 'VisibilityBatch.test.ets:A0043').assertTrue();
       });
     });
     /**
@@ -358,21 +358,21 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0010'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0010'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0010'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0010'), async (scope: CaseScope): Promise<void> => {
         for (const failAt of [2, 3]) {
           const api: BatchApi = new BatchApi();
           const storage: MemoryBatchStorage = new MemoryBatchStorage();
           storage.failAtWrite = failAt;
           const service = await start(scope, api, storage);
           await apply(service, ['a'], false);
-          expect(api.calls.length, caseName('VisibilityBatchProductionService', '0010')).assertEqual(failAt === 2 ? 0 : 1);
-          expect(service.snapshot().batchReady, caseName('VisibilityBatchProductionService', '0010')).assertFalse();
-          expect(service.snapshot().batchError.length > 0, caseName('VisibilityBatchProductionService', '0010')).assertTrue();
+          expect(api.calls.length, caseName('VisibilityBatchProductionService', '0010'), 'VisibilityBatch.test.ets:A0044').assertEqual(failAt === 2 ? 0 : 1);
+          expect(service.snapshot().batchReady, caseName('VisibilityBatchProductionService', '0010'), 'VisibilityBatch.test.ets:A0045').assertFalse();
+          expect(service.snapshot().batchError.length > 0, caseName('VisibilityBatchProductionService', '0010'), 'VisibilityBatch.test.ets:A0046').assertTrue();
           service.dispose();
           const reopened = await start(scope, api, storage);
-          expect(batch(reopened).items[0].result, caseName('VisibilityBatchProductionService', '0010')).assertEqual(failAt === 2 ? 'not-run' : 'unknown');
-          expect(reopened.snapshot().batchPreview, caseName('VisibilityBatchProductionService', '0010')).assertUndefined();
+          expect(batch(reopened).items[0].result, caseName('VisibilityBatchProductionService', '0010'), 'VisibilityBatch.test.ets:A0047').assertEqual(failAt === 2 ? 'not-run' : 'unknown');
+          expect(reopened.snapshot().batchPreview, caseName('VisibilityBatchProductionService', '0010'), 'VisibilityBatch.test.ets:A0048').assertUndefined();
         }
       });
     });
@@ -386,8 +386,8 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0011'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0011'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0011'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0011'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         const storage: MemoryBatchStorage = new MemoryBatchStorage();
         const service = await start(scope, api, storage);
@@ -395,15 +395,15 @@ export default function visibilityBatchTests(): void {
         api.writeGate = new Deferred<void>();
         const running: Promise<void> = service.executeBatchPreview(preview(service).token);
         for (let n = 0; n < 20; n++) { await Promise.resolve(); }
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0011')).assertEqual(1);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0011'), 'VisibilityBatch.test.ets:A0049').assertEqual(1);
         service.dispose();
         const reopened = await start(scope, api, storage);
         const writes: number = storage.writes;
         api.writeGate.resolve(undefined);
         await running;
-        expect(storage.writes, caseName('VisibilityBatchProductionService', '0011')).assertEqual(writes);
-        expect(batch(reopened).items[0].result, caseName('VisibilityBatchProductionService', '0011')).assertEqual('unknown');
-        expect(reopened.snapshot().busy, caseName('VisibilityBatchProductionService', '0011')).assertFalse();
+        expect(storage.writes, caseName('VisibilityBatchProductionService', '0011'), 'VisibilityBatch.test.ets:A0050').assertEqual(writes);
+        expect(batch(reopened).items[0].result, caseName('VisibilityBatchProductionService', '0011'), 'VisibilityBatch.test.ets:A0051').assertEqual('unknown');
+        expect(reopened.snapshot().busy, caseName('VisibilityBatchProductionService', '0011'), 'VisibilityBatch.test.ets:A0052').assertFalse();
       });
     });
     /**
@@ -416,18 +416,18 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0012'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0012'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0012'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0012'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         api.delayedQueryAt = 4;
         const service = await start(scope, api, new MemoryBatchStorage(), 5);
         await apply(service, ['a'], false);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0012')).assertEqual('unknown');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0012'), 'VisibilityBatch.test.ets:A0053').assertEqual('unknown');
         api.queryGate.resolve([shortcutInfo('a', false)]);
         await Promise.resolve();
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0012')).assertEqual('unknown');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0012'), 'VisibilityBatch.test.ets:A0054').assertEqual('unknown');
         await service.reconcileBatch(batch(service).batchId);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0012')).assertEqual('confirmed');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0012'), 'VisibilityBatch.test.ets:A0055').assertEqual('confirmed');
       });
     });
     /**
@@ -440,17 +440,17 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0013'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0013'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0013'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0013'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         api.terminalAt = [1];
         const service = await start(scope, api);
         await apply(service, ['a'], false);
-        expect(batch(service).items[0].retryBlocked, caseName('VisibilityBatchProductionService', '0013')).assertTrue();
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0013')).assertEqual('failed');
+        expect(batch(service).items[0].retryBlocked, caseName('VisibilityBatchProductionService', '0013'), 'VisibilityBatch.test.ets:A0056').assertTrue();
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0013'), 'VisibilityBatch.test.ets:A0057').assertEqual('failed');
         await service.previewBatchRetry(batch(service).batchId);
-        expect(preview(service).items.length, caseName('VisibilityBatchProductionService', '0013')).assertEqual(0);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0013')).assertEqual(1);
+        expect(preview(service).items.length, caseName('VisibilityBatchProductionService', '0013'), 'VisibilityBatch.test.ets:A0058').assertEqual(0);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0013'), 'VisibilityBatch.test.ets:A0059').assertEqual(1);
       });
     });
     /**
@@ -463,18 +463,18 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0014'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0014'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0014'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0014'), async (scope: CaseScope): Promise<void> => {
         const storage: MemoryBatchStorage = new MemoryBatchStorage();
         storage.value = '{bad';
         const broken = await start(scope, new BatchApi(), storage);
         await broken.previewBatch(['a'], false);
-        expect(storage.value, caseName('VisibilityBatchProductionService', '0014')).assertEqual('{bad');
-        expect(storage.writes, caseName('VisibilityBatchProductionService', '0014')).assertEqual(0);
+        expect(storage.value, caseName('VisibilityBatchProductionService', '0014'), 'VisibilityBatch.test.ets:A0060').assertEqual('{bad');
+        expect(storage.writes, caseName('VisibilityBatchProductionService', '0014'), 'VisibilityBatch.test.ets:A0061').assertEqual(0);
         const service = await start(scope);
         for (let n = 0; n < 7; n++) { await service.previewBatch(['a'], n % 2 === 0); }
-        expect(service.snapshot().batches.length, caseName('VisibilityBatchProductionService', '0014')).assertEqual(5);
-        expect(batch(service).batchId, caseName('VisibilityBatchProductionService', '0014')).assertEqual('batch-7');
+        expect(service.snapshot().batches.length, caseName('VisibilityBatchProductionService', '0014'), 'VisibilityBatch.test.ets:A0062').assertEqual(5);
+        expect(batch(service).batchId, caseName('VisibilityBatchProductionService', '0014'), 'VisibilityBatch.test.ets:A0063').assertEqual('batch-7');
       });
     });
     /**
@@ -487,23 +487,23 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0015'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0015'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0015'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0015'), async (scope: CaseScope): Promise<void> => {
         const api: BatchApi = new BatchApi();
         api.writeGate = new Deferred<void>();
         const service = await start(scope, api, new MemoryBatchStorage(), 5);
         await apply(service, ['a'], false);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0015')).assertEqual('unknown');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0015'), 'VisibilityBatch.test.ets:A0064').assertEqual('unknown');
         await service.reconcileBatch(batch(service).batchId);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0015')).assertEqual('unknown');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0015'), 'VisibilityBatch.test.ets:A0065').assertEqual('unknown');
         await service.previewBatchRetry(batch(service).batchId);
-        expect(preview(service).items.length, caseName('VisibilityBatchProductionService', '0015')).assertEqual(0);
+        expect(preview(service).items.length, caseName('VisibilityBatchProductionService', '0015'), 'VisibilityBatch.test.ets:A0066').assertEqual(0);
         await service.setVisible('a', false);
-        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0015')).assertEqual(1);
+        expect(api.calls.length, caseName('VisibilityBatchProductionService', '0015'), 'VisibilityBatch.test.ets:A0067').assertEqual(1);
         api.writeGate.resolve(undefined);
         for (let n = 0; n < 8; n++) { await Promise.resolve(); }
         await service.reconcileBatch(batch(service).batchId);
-        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0015')).assertEqual('confirmed');
+        expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0015'), 'VisibilityBatch.test.ets:A0068').assertEqual('confirmed');
       });
     });
     /**
@@ -516,17 +516,17 @@ export default function visibilityBatchTests(): void {
      */
 
 
-    it(caseName('VisibilityBatchProductionService', '0016'), 0, async () => {
-      await runCase(caseName('VisibilityBatchProductionService', '0016'), async (scope: CaseScope) => {
+    it(caseName('VisibilityBatchProductionService', '0016'), 0, async (): Promise<void> => {
+      await runCase(caseName('VisibilityBatchProductionService', '0016'), async (scope: CaseScope): Promise<void> => {
         for (const failBegin of [false, true]) {
           const telemetry: ControlledTelemetry = new ControlledTelemetry();
           telemetry.failBegin = failBegin;
           telemetry.failFinish = true;
           const service = await start(scope, new BatchApi(), new MemoryBatchStorage(), 5000, telemetry);
           await apply(service, ['a'], false);
-          expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0016')).assertEqual('confirmed');
-          expect(telemetry.begins > 0, caseName('VisibilityBatchProductionService', '0016')).assertTrue();
-          expect(telemetry.finishes, caseName('VisibilityBatchProductionService', '0016')).assertEqual(failBegin ? 0 : telemetry.begins);
+          expect(batch(service).items[0].result, caseName('VisibilityBatchProductionService', '0016'), 'VisibilityBatch.test.ets:A0069').assertEqual('confirmed');
+          expect(telemetry.begins > 0, caseName('VisibilityBatchProductionService', '0016'), 'VisibilityBatch.test.ets:A0070').assertTrue();
+          expect(telemetry.finishes, caseName('VisibilityBatchProductionService', '0016'), 'VisibilityBatch.test.ets:A0071').assertEqual(failBegin ? 0 : telemetry.begins);
         }
       });
     });

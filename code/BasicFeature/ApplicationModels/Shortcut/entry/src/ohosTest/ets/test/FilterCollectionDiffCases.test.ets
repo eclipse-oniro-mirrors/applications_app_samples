@@ -72,9 +72,9 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('FilterChainMatrixCases', '0001'), 0, (): void => {
       const chain: FilterChain = chainOf([]);
-      expect(evaluateChain(chain, target('a', '一', [], false)), caseName('FilterChainMatrixCases', '0001')).assertTrue();
-      expect(applyChain([target('a', '一', [], false)], chain).length, caseName('FilterChainMatrixCases', '0001')).assertEqual(1);
-      expect(chain.nodes.length, caseName('FilterChainMatrixCases', '0001')).assertEqual(0);
+      expect(evaluateChain(chain, target('a', '一', [], false)), caseName('FilterChainMatrixCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0001').assertTrue();
+      expect(applyChain([target('a', '一', [], false)], chain).length, caseName('FilterChainMatrixCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0002').assertEqual(1);
+      expect(chain.nodes.length, caseName('FilterChainMatrixCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0003').assertEqual(0);
     });
 
     /**
@@ -88,9 +88,9 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('FilterChainMatrixCases', '0002'), 0, (): void => {
       const node: FilterNode = nodeOf(FilterField.TITLE, FilterOperator.CONTAINS, '学习');
-      expect(matchNode(target('a', '学习记录', [], false), node), caseName('FilterChainMatrixCases', '0002')).assertTrue();
-      expect(matchNode(target('b', '其他', [], false), node), caseName('FilterChainMatrixCases', '0002')).assertFalse();
-      expect(node.value, caseName('FilterChainMatrixCases', '0002')).assertEqual('学习');
+      expect(matchNode(target('a', '学习记录', [], false), node), caseName('FilterChainMatrixCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0004').assertTrue();
+      expect(matchNode(target('b', '其他', [], false), node), caseName('FilterChainMatrixCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0005').assertFalse();
+      expect(node.value, caseName('FilterChainMatrixCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0006').assertEqual('学习');
     });
 
     /**
@@ -105,10 +105,10 @@ export default function filterCollectionDiffCasesTest(): void {
     it(caseName('FilterChainMatrixCases', '0003'), 0, (): void => {
       const node: FilterNode = nodeOf(FilterField.TITLE, FilterOperator.CONTAINS, '学习');
       const hit: FilterTarget = target('a', '学习记录', [], false);
-      expect(matchNode(hit, node), caseName('FilterChainMatrixCases', '0003')).assertTrue();
+      expect(matchNode(hit, node), caseName('FilterChainMatrixCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0007').assertTrue();
       node.negate = true;
-      expect(matchNode(hit, node), caseName('FilterChainMatrixCases', '0003')).assertFalse();
-      expect(matchNode(target('b', '其他', [], false), node), caseName('FilterChainMatrixCases', '0003')).assertTrue();
+      expect(matchNode(hit, node), caseName('FilterChainMatrixCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0008').assertFalse();
+      expect(matchNode(target('b', '其他', [], false), node), caseName('FilterChainMatrixCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0009').assertTrue();
     });
 
     /**
@@ -126,12 +126,12 @@ export default function filterCollectionDiffCasesTest(): void {
       const chain: FilterChain = chainOf([first, second]);
       const both: FilterTarget = target('a', '学习记录', [], false);
       const neither: FilterTarget = target('b', '其他', [], false);
-      expect(evaluateChain(chainOf([first]), both), caseName('FilterChainMatrixCases', '0004')).assertTrue();
-      expect(evaluateChain(chainOf([second]), both), caseName('FilterChainMatrixCases', '0004')).assertTrue();
-      expect(evaluateChain(chain, both), caseName('FilterChainMatrixCases', '0004')).assertTrue();
-      expect(evaluateChain(chainOf([first]), neither), caseName('FilterChainMatrixCases', '0004')).assertFalse();
-      expect(evaluateChain(chain, neither), caseName('FilterChainMatrixCases', '0004')).assertFalse();
-      expect(chain.nodes.length, caseName('FilterChainMatrixCases', '0004')).assertEqual(2);
+      expect(evaluateChain(chainOf([first]), both), caseName('FilterChainMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0010').assertTrue();
+      expect(evaluateChain(chainOf([second]), both), caseName('FilterChainMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0011').assertTrue();
+      expect(evaluateChain(chain, both), caseName('FilterChainMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0012').assertTrue();
+      expect(evaluateChain(chainOf([first]), neither), caseName('FilterChainMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0013').assertFalse();
+      expect(evaluateChain(chain, neither), caseName('FilterChainMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0014').assertFalse();
+      expect(chain.nodes.length, caseName('FilterChainMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0015').assertEqual(2);
     });
 
     /**
@@ -150,10 +150,10 @@ export default function filterCollectionDiffCasesTest(): void {
       const targets: FilterTarget[] = [target('a', '记录一', [], false), target('b', '其他', [], false),
         target('c', '记录二', [], false)];
       const kept: FilterTarget[] = applyChain(targets, chain);
-      expect(kept.length, caseName('FilterChainMatrixCases', '0005')).assertEqual(2);
-      expect(kept[0].id, caseName('FilterChainMatrixCases', '0005')).assertEqual('a');
-      expect(kept[1].id, caseName('FilterChainMatrixCases', '0005')).assertEqual('c');
-      expect(applyChain([], chain).length, caseName('FilterChainMatrixCases', '0005')).assertEqual(0);
+      expect(kept.length, caseName('FilterChainMatrixCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0016').assertEqual(2);
+      expect(kept[0].id, caseName('FilterChainMatrixCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0017').assertEqual('a');
+      expect(kept[1].id, caseName('FilterChainMatrixCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0018').assertEqual('c');
+      expect(applyChain([], chain).length, caseName('FilterChainMatrixCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0019').assertEqual(0);
     });
 
     /**
@@ -170,9 +170,9 @@ export default function filterCollectionDiffCasesTest(): void {
       const targets: FilterTarget[] = [target('c', '三', [], false), target('a', '一', [], false),
         target('b', '二', [], false)];
       const kept: FilterTarget[] = applyChain(targets, chain);
-      expect(kept.length, caseName('FilterChainMatrixCases', '0006')).assertEqual(3);
-      expect(kept[0].id, caseName('FilterChainMatrixCases', '0006')).assertEqual('c');
-      expect(kept[2].id, caseName('FilterChainMatrixCases', '0006')).assertEqual('b');
+      expect(kept.length, caseName('FilterChainMatrixCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0020').assertEqual(3);
+      expect(kept[0].id, caseName('FilterChainMatrixCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0021').assertEqual('c');
+      expect(kept[2].id, caseName('FilterChainMatrixCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0022').assertEqual('b');
     });
 
     /**
@@ -186,11 +186,11 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('FilterChainMatrixCases', '0007'), 0, (): void => {
       const node: FilterNode = nodeOf(FilterField.STATE, FilterOperator.EQUALS, 'open');
-      expect(matchNode(target('a', '一', [], false), node), caseName('FilterChainMatrixCases', '0007')).assertTrue();
+      expect(matchNode(target('a', '一', [], false), node), caseName('FilterChainMatrixCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0023').assertTrue();
       const closed: FilterTarget = target('b', '二', [], false);
       closed.state = 'done';
-      expect(matchNode(closed, node), caseName('FilterChainMatrixCases', '0007')).assertFalse();
-      expect(node.operator, caseName('FilterChainMatrixCases', '0007')).assertEqual(FilterOperator.EQUALS);
+      expect(matchNode(closed, node), caseName('FilterChainMatrixCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0024').assertFalse();
+      expect(node.operator, caseName('FilterChainMatrixCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0025').assertEqual(FilterOperator.EQUALS);
     });
 
     /**
@@ -206,10 +206,10 @@ export default function filterCollectionDiffCasesTest(): void {
       const labels: string[] = [operatorLabel(FilterOperator.CONTAINS), operatorLabel(FilterOperator.EQUALS),
         operatorLabel(FilterOperator.GREATER), operatorLabel(FilterOperator.LESS)];
       expect(labels.filter((label: string, index: number): boolean =>
-        labels.indexOf(label) !== index).length, caseName('FilterChainMatrixCases', '0008')).assertEqual(0);
-      expect(labels.every((label: string): boolean => label.length > 0), caseName('FilterChainMatrixCases', '0008')).assertTrue();
-      expect(labels.length, caseName('FilterChainMatrixCases', '0008')).assertEqual(4);
-      expect(operatorLabel(FilterOperator.CONTAINS).length > 0, caseName('FilterChainMatrixCases', '0008')).assertTrue();
+        labels.indexOf(label) !== index).length, caseName('FilterChainMatrixCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0026').assertEqual(0);
+      expect(labels.every((label: string): boolean => label.length > 0), caseName('FilterChainMatrixCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0027').assertTrue();
+      expect(labels.length, caseName('FilterChainMatrixCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0028').assertEqual(4);
+      expect(operatorLabel(FilterOperator.CONTAINS).length > 0, caseName('FilterChainMatrixCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0029').assertTrue();
     });
 
     /**
@@ -225,9 +225,9 @@ export default function filterCollectionDiffCasesTest(): void {
       const labels: string[] = [fieldLabel(FilterField.TITLE), fieldLabel(FilterField.TAG),
         fieldLabel(FilterField.STATE), fieldLabel(FilterField.GROUP)];
       expect(labels.filter((label: string, index: number): boolean =>
-        labels.indexOf(label) !== index).length, caseName('FilterChainMatrixCases', '0009')).assertEqual(0);
-      expect(labels.every((label: string): boolean => label.length > 0), caseName('FilterChainMatrixCases', '0009')).assertTrue();
-      expect(labels.length, caseName('FilterChainMatrixCases', '0009')).assertEqual(4);
+        labels.indexOf(label) !== index).length, caseName('FilterChainMatrixCases', '0009'), 'FilterCollectionDiffCases.test.ets:A0030').assertEqual(0);
+      expect(labels.every((label: string): boolean => label.length > 0), caseName('FilterChainMatrixCases', '0009'), 'FilterCollectionDiffCases.test.ets:A0031').assertTrue();
+      expect(labels.length, caseName('FilterChainMatrixCases', '0009'), 'FilterCollectionDiffCases.test.ets:A0032').assertEqual(4);
     });
 
     /**
@@ -241,10 +241,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('FilterChainMatrixCases', '0011'), 0, (): void => {
       const node: FilterNode = nodeOf(FilterField.TITLE, FilterOperator.HAS_TAG, '工作');
-      expect(matchNode(target('a', '一', ['生活', '工作'], false), node), caseName('FilterChainMatrixCases', '0011')).assertTrue();
-      expect(matchNode(target('b', '二', ['生活'], false), node), caseName('FilterChainMatrixCases', '0011')).assertFalse();
-      expect(matchNode(target('c', '三', [], false), node), caseName('FilterChainMatrixCases', '0011')).assertFalse();
-      expect(node.operator, caseName('FilterChainMatrixCases', '0011')).assertEqual(FilterOperator.HAS_TAG);
+      expect(matchNode(target('a', '一', ['生活', '工作'], false), node), caseName('FilterChainMatrixCases', '0011'), 'FilterCollectionDiffCases.test.ets:A0033').assertTrue();
+      expect(matchNode(target('b', '二', ['生活'], false), node), caseName('FilterChainMatrixCases', '0011'), 'FilterCollectionDiffCases.test.ets:A0034').assertFalse();
+      expect(matchNode(target('c', '三', [], false), node), caseName('FilterChainMatrixCases', '0011'), 'FilterCollectionDiffCases.test.ets:A0035').assertFalse();
+      expect(node.operator, caseName('FilterChainMatrixCases', '0011'), 'FilterCollectionDiffCases.test.ets:A0036').assertEqual(FilterOperator.HAS_TAG);
     });
 
     /**
@@ -262,10 +262,10 @@ export default function filterCollectionDiffCasesTest(): void {
       const chain: FilterChain = chainOf([node]);
       const targets: FilterTarget[] = [target('a', '学习记录', [], false), target('b', '工作记录', [], false)];
       const kept: FilterTarget[] = applyChain(targets, chain);
-      expect(kept.length, caseName('FilterChainMatrixCases', '0012')).assertEqual(1);
-      expect(kept[0].id, caseName('FilterChainMatrixCases', '0012')).assertEqual('b');
-      expect(node.negate, caseName('FilterChainMatrixCases', '0012')).assertTrue();
-      expect(chain.nodes.length, caseName('FilterChainMatrixCases', '0012')).assertEqual(1);
+      expect(kept.length, caseName('FilterChainMatrixCases', '0012'), 'FilterCollectionDiffCases.test.ets:A0037').assertEqual(1);
+      expect(kept[0].id, caseName('FilterChainMatrixCases', '0012'), 'FilterCollectionDiffCases.test.ets:A0038').assertEqual('b');
+      expect(node.negate, caseName('FilterChainMatrixCases', '0012'), 'FilterCollectionDiffCases.test.ets:A0039').assertTrue();
+      expect(chain.nodes.length, caseName('FilterChainMatrixCases', '0012'), 'FilterCollectionDiffCases.test.ets:A0040').assertEqual(1);
     });
   });
 
@@ -280,10 +280,10 @@ export default function filterCollectionDiffCasesTest(): void {
      */
 
     it(caseName('CollectionGovernanceCases', '0001'), 0, (): void => {
-      expect(COLLECTION_RULES.length > 0, caseName('CollectionGovernanceCases', '0001')).assertTrue();
+      expect(COLLECTION_RULES.length > 0, caseName('CollectionGovernanceCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0041').assertTrue();
       const ids: string[] = collectionRuleIds();
-      expect(ids.length, caseName('CollectionGovernanceCases', '0001')).assertEqual(COLLECTION_RULES.length);
-      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length, caseName('CollectionGovernanceCases', '0001'))
+      expect(ids.length, caseName('CollectionGovernanceCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0042').assertEqual(COLLECTION_RULES.length);
+      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length, caseName('CollectionGovernanceCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0043')
         .assertEqual(0);
     });
 
@@ -304,10 +304,10 @@ export default function filterCollectionDiffCasesTest(): void {
           found++;
         }
       });
-      expect(found, caseName('CollectionGovernanceCases', '0002')).assertEqual(COLLECTION_RULES.length);
-      expect(collectionRuleOf('no-such-rule') === undefined, caseName('CollectionGovernanceCases', '0002')).assertTrue();
-      expect(collectionRuleIds().length, caseName('CollectionGovernanceCases', '0002')).assertEqual(COLLECTION_RULES.length);
-      expect(collectionRuleOf(collectionRuleIds()[0]) === undefined, caseName('CollectionGovernanceCases', '0002')).assertFalse();
+      expect(found, caseName('CollectionGovernanceCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0044').assertEqual(COLLECTION_RULES.length);
+      expect(collectionRuleOf('no-such-rule') === undefined, caseName('CollectionGovernanceCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0045').assertTrue();
+      expect(collectionRuleIds().length, caseName('CollectionGovernanceCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0046').assertEqual(COLLECTION_RULES.length);
+      expect(collectionRuleOf(collectionRuleIds()[0]) === undefined, caseName('CollectionGovernanceCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0047').assertFalse();
     });
 
     /**
@@ -325,11 +325,11 @@ export default function filterCollectionDiffCasesTest(): void {
       COLLECTION_RULES.forEach((rule: CollectionRule): void => {
         total += collectionRulesOfKind(rule.kind).length > 0 ? 0 : 1;
       });
-      expect(total, caseName('CollectionGovernanceCases', '0003')).assertEqual(0);
-      expect(validity > 0, caseName('CollectionGovernanceCases', '0003')).assertTrue();
-      expect(COLLECTION_RULES.length > 0, caseName('CollectionGovernanceCases', '0003')).assertTrue();
+      expect(total, caseName('CollectionGovernanceCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0048').assertEqual(0);
+      expect(validity > 0, caseName('CollectionGovernanceCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0049').assertTrue();
+      expect(COLLECTION_RULES.length > 0, caseName('CollectionGovernanceCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0050').assertTrue();
       expect(collectionRulesOfKind(CollectionRuleKind.VALIDITY).every((rule: CollectionRule): boolean =>
-        rule.kind === CollectionRuleKind.VALIDITY), caseName('CollectionGovernanceCases', '0003')).assertTrue();
+        rule.kind === CollectionRuleKind.VALIDITY), caseName('CollectionGovernanceCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0051').assertTrue();
     });
 
     /**
@@ -350,11 +350,11 @@ export default function filterCollectionDiffCasesTest(): void {
           unique.push(action);
         }
       });
-      expect(unique.length > 0, caseName('CollectionGovernanceCases', '0005')).assertTrue();
+      expect(unique.length > 0, caseName('CollectionGovernanceCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0052').assertTrue();
       unique.forEach((action: CollectionAction): void => {
-        expect(actionLabel(action).length > 0, caseName('CollectionGovernanceCases', '0005')).assertTrue();
+        expect(actionLabel(action).length > 0, caseName('CollectionGovernanceCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0053').assertTrue();
       });
-      expect(actions.length, caseName('CollectionGovernanceCases', '0005')).assertEqual(COLLECTION_RULES.length);
+      expect(actions.length, caseName('CollectionGovernanceCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0054').assertEqual(COLLECTION_RULES.length);
     });
 
     /**
@@ -369,11 +369,11 @@ export default function filterCollectionDiffCasesTest(): void {
     it(caseName('CollectionGovernanceCases', '0006'), 0, (): void => {
       const destructive: CollectionRule[] = COLLECTION_RULES.filter((rule: CollectionRule): boolean =>
         shrinksList(rule.action));
-      expect(destructive.length > 0, caseName('CollectionGovernanceCases', '0006')).assertTrue();
+      expect(destructive.length > 0, caseName('CollectionGovernanceCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0055').assertTrue();
       destructive.forEach((rule: CollectionRule): void => {
-        expect(needsConfirm(rule.action), caseName('CollectionGovernanceCases', '0006')).assertTrue();
+        expect(needsConfirm(rule.action), caseName('CollectionGovernanceCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0056').assertTrue();
       });
-      expect(destructive.length < COLLECTION_RULES.length, caseName('CollectionGovernanceCases', '0006')).assertTrue();
+      expect(destructive.length < COLLECTION_RULES.length, caseName('CollectionGovernanceCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0057').assertTrue();
     });
 
     /**
@@ -387,9 +387,9 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('CollectionGovernanceCases', '0007'), 0, (): void => {
       const keep: boolean = needsConfirm(CollectionAction.KEEP);
-      expect(keep, caseName('CollectionGovernanceCases', '0007')).assertFalse();
-      expect(shrinksList(CollectionAction.KEEP), caseName('CollectionGovernanceCases', '0007')).assertFalse();
-      expect(actionLabel(CollectionAction.KEEP).length > 0, caseName('CollectionGovernanceCases', '0007')).assertTrue();
+      expect(keep, caseName('CollectionGovernanceCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0058').assertFalse();
+      expect(shrinksList(CollectionAction.KEEP), caseName('CollectionGovernanceCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0059').assertFalse();
+      expect(actionLabel(CollectionAction.KEEP).length > 0, caseName('CollectionGovernanceCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0060').assertTrue();
     });
 
     /**
@@ -404,10 +404,10 @@ export default function filterCollectionDiffCasesTest(): void {
     it(caseName('CollectionGovernanceCases', '0008'), 0, (): void => {
       const levels: CollectionLevel[] = COLLECTION_RULES.map((rule: CollectionRule): CollectionLevel =>
         rule.level);
-      expect(levels.length, caseName('CollectionGovernanceCases', '0008')).assertEqual(COLLECTION_RULES.length);
-      expect(levels.indexOf(CollectionLevel.WARN) >= 0, caseName('CollectionGovernanceCases', '0008')).assertTrue();
-      expect(COLLECTION_RULES.length > 0, caseName('CollectionGovernanceCases', '0008')).assertTrue();
-      expect((levels[0] as string).length > 0, caseName('CollectionGovernanceCases', '0008')).assertTrue();
+      expect(levels.length, caseName('CollectionGovernanceCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0061').assertEqual(COLLECTION_RULES.length);
+      expect(levels.indexOf(CollectionLevel.WARN) >= 0, caseName('CollectionGovernanceCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0062').assertTrue();
+      expect(COLLECTION_RULES.length > 0, caseName('CollectionGovernanceCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0063').assertTrue();
+      expect((levels[0] as string).length > 0, caseName('CollectionGovernanceCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0064').assertTrue();
     });
 
     /**
@@ -421,10 +421,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('CollectionGovernanceCases', '0009'), 0, (): void => {
       COLLECTION_RULES.forEach((rule: CollectionRule): void => {
-        expect(rule.threshold >= 0, caseName('CollectionGovernanceCases', '0009')).assertTrue();
-        expect(rule.description.length > 0, caseName('CollectionGovernanceCases', '0009')).assertTrue();
+        expect(rule.threshold >= 0, caseName('CollectionGovernanceCases', '0009'), 'FilterCollectionDiffCases.test.ets:A0065').assertTrue();
+        expect(rule.description.length > 0, caseName('CollectionGovernanceCases', '0009'), 'FilterCollectionDiffCases.test.ets:A0066').assertTrue();
       });
-      expect(COLLECTION_RULES.length > 0, caseName('CollectionGovernanceCases', '0009')).assertTrue();
+      expect(COLLECTION_RULES.length > 0, caseName('CollectionGovernanceCases', '0009'), 'FilterCollectionDiffCases.test.ets:A0067').assertTrue();
     });
 
     /**
@@ -438,11 +438,11 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('CollectionGovernanceCases', '0010'), 0, (): void => {
       const item: CollectionItem = new CollectionItem();
-      expect(item.id, caseName('CollectionGovernanceCases', '0010')).assertEqual('');
-      expect(item.tags.length, caseName('CollectionGovernanceCases', '0010')).assertEqual(0);
-      expect(item.pinned, caseName('CollectionGovernanceCases', '0010')).assertFalse();
-      expect(item.savedAt, caseName('CollectionGovernanceCases', '0010')).assertEqual(0);
-      expect(item.source, caseName('CollectionGovernanceCases', '0010')).assertEqual('');
+      expect(item.id, caseName('CollectionGovernanceCases', '0010'), 'FilterCollectionDiffCases.test.ets:A0068').assertEqual('');
+      expect(item.tags.length, caseName('CollectionGovernanceCases', '0010'), 'FilterCollectionDiffCases.test.ets:A0069').assertEqual(0);
+      expect(item.pinned, caseName('CollectionGovernanceCases', '0010'), 'FilterCollectionDiffCases.test.ets:A0070').assertFalse();
+      expect(item.savedAt, caseName('CollectionGovernanceCases', '0010'), 'FilterCollectionDiffCases.test.ets:A0071').assertEqual(0);
+      expect(item.source, caseName('CollectionGovernanceCases', '0010'), 'FilterCollectionDiffCases.test.ets:A0072').assertEqual('');
     });
   });
 
@@ -458,10 +458,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('TextDiffMatrixCases', '0001'), 0, (): void => {
       const result: DiffResult = diffLines('a\nb', 'a\nb');
-      expect(result.summary.added, caseName('TextDiffMatrixCases', '0001')).assertEqual(0);
-      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0001')).assertEqual(0);
-      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0001')).assertTrue();
-      expect(result.lines.length > 0, caseName('TextDiffMatrixCases', '0001')).assertTrue();
+      expect(result.summary.added, caseName('TextDiffMatrixCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0073').assertEqual(0);
+      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0074').assertEqual(0);
+      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0075').assertTrue();
+      expect(result.lines.length > 0, caseName('TextDiffMatrixCases', '0001'), 'FilterCollectionDiffCases.test.ets:A0076').assertTrue();
     });
 
     /**
@@ -475,10 +475,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('TextDiffMatrixCases', '0002'), 0, (): void => {
       const result: DiffResult = diffLines('a', 'a\nb');
-      expect(result.summary.added, caseName('TextDiffMatrixCases', '0002')).assertEqual(1);
-      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0002')).assertEqual(0);
-      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0002')).assertFalse();
-      expect(result.summary.equal >= 1, caseName('TextDiffMatrixCases', '0002')).assertTrue();
+      expect(result.summary.added, caseName('TextDiffMatrixCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0077').assertEqual(1);
+      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0078').assertEqual(0);
+      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0079').assertFalse();
+      expect(result.summary.equal >= 1, caseName('TextDiffMatrixCases', '0002'), 'FilterCollectionDiffCases.test.ets:A0080').assertTrue();
     });
 
     /**
@@ -492,10 +492,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('TextDiffMatrixCases', '0003'), 0, (): void => {
       const result: DiffResult = diffLines('a\nb', 'a');
-      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0003')).assertEqual(1);
-      expect(result.summary.added, caseName('TextDiffMatrixCases', '0003')).assertEqual(0);
-      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0003')).assertFalse();
-      expect(result.summary.equal >= 1, caseName('TextDiffMatrixCases', '0003')).assertTrue();
+      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0081').assertEqual(1);
+      expect(result.summary.added, caseName('TextDiffMatrixCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0082').assertEqual(0);
+      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0083').assertFalse();
+      expect(result.summary.equal >= 1, caseName('TextDiffMatrixCases', '0003'), 'FilterCollectionDiffCases.test.ets:A0084').assertTrue();
     });
 
     /**
@@ -509,10 +509,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('TextDiffMatrixCases', '0004'), 0, (): void => {
       const result: DiffResult = diffLines('a\nb', 'a\nc');
-      expect(result.summary.added, caseName('TextDiffMatrixCases', '0004')).assertEqual(1);
-      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0004')).assertEqual(1);
-      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0004')).assertFalse();
-      expect(result.lines.length >= 2, caseName('TextDiffMatrixCases', '0004')).assertTrue();
+      expect(result.summary.added, caseName('TextDiffMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0085').assertEqual(1);
+      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0086').assertEqual(1);
+      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0087').assertFalse();
+      expect(result.lines.length >= 2, caseName('TextDiffMatrixCases', '0004'), 'FilterCollectionDiffCases.test.ets:A0088').assertTrue();
     });
 
     /**
@@ -526,10 +526,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('TextDiffMatrixCases', '0005'), 0, (): void => {
       const result: DiffResult = diffLines('', 'a\nb');
-      expect(result.summary.added, caseName('TextDiffMatrixCases', '0005')).assertEqual(2);
-      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0005')).assertEqual(0);
-      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0005')).assertFalse();
-      expect(result.summary.equal, caseName('TextDiffMatrixCases', '0005')).assertEqual(0);
+      expect(result.summary.added, caseName('TextDiffMatrixCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0089').assertEqual(2);
+      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0090').assertEqual(0);
+      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0091').assertFalse();
+      expect(result.summary.equal, caseName('TextDiffMatrixCases', '0005'), 'FilterCollectionDiffCases.test.ets:A0092').assertEqual(0);
     });
 
     /**
@@ -543,10 +543,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('TextDiffMatrixCases', '0006'), 0, (): void => {
       const result: DiffResult = diffLines('a\nb', '');
-      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0006')).assertEqual(2);
-      expect(result.summary.added, caseName('TextDiffMatrixCases', '0006')).assertEqual(0);
-      expect(result.summary.equal, caseName('TextDiffMatrixCases', '0006')).assertEqual(0);
-      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0006')).assertFalse();
+      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0093').assertEqual(2);
+      expect(result.summary.added, caseName('TextDiffMatrixCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0094').assertEqual(0);
+      expect(result.summary.equal, caseName('TextDiffMatrixCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0095').assertEqual(0);
+      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0006'), 'FilterCollectionDiffCases.test.ets:A0096').assertFalse();
     });
 
     /**
@@ -560,10 +560,10 @@ export default function filterCollectionDiffCasesTest(): void {
 
     it(caseName('TextDiffMatrixCases', '0007'), 0, (): void => {
       const result: DiffResult = diffLines('', '');
-      expect(result.summary.added, caseName('TextDiffMatrixCases', '0007')).assertEqual(0);
-      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0007')).assertEqual(0);
-      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0007')).assertTrue();
-      expect(result.summary.equal, caseName('TextDiffMatrixCases', '0007')).assertEqual(0);
+      expect(result.summary.added, caseName('TextDiffMatrixCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0097').assertEqual(0);
+      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0098').assertEqual(0);
+      expect(result.summary.identical, caseName('TextDiffMatrixCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0099').assertTrue();
+      expect(result.summary.equal, caseName('TextDiffMatrixCases', '0007'), 'FilterCollectionDiffCases.test.ets:A0100').assertEqual(0);
     });
 
     /**
@@ -580,11 +580,11 @@ export default function filterCollectionDiffCasesTest(): void {
       const added = result.lines.filter((line): boolean => line.kind === DiffKind.ADDED);
       const removed = result.lines.filter((line): boolean => line.kind === DiffKind.REMOVED);
       const equal = result.lines.filter((line): boolean => line.kind === DiffKind.EQUAL);
-      expect(added.map((line): string => `${line.text}:${line.oldLine}:${line.newLine}`).join('|'), caseName('TextDiffMatrixCases', '0008'))
+      expect(added.map((line): string => `${line.text}:${line.oldLine}:${line.newLine}`).join('|'), caseName('TextDiffMatrixCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0101')
         .assertEqual('intro:-1:1|insert:-1:4');
-      expect(removed.map((line): string => `${line.text}:${line.oldLine}:${line.newLine}`).join('|'), caseName('TextDiffMatrixCases', '0008'))
+      expect(removed.map((line): string => `${line.text}:${line.oldLine}:${line.newLine}`).join('|'), caseName('TextDiffMatrixCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0102')
         .assertEqual('remove:2:-1');
-      expect(equal.map((line): string => `${line.text}:${line.oldLine}:${line.newLine}`).join('|'), caseName('TextDiffMatrixCases', '0008'))
+      expect(equal.map((line): string => `${line.text}:${line.oldLine}:${line.newLine}`).join('|'), caseName('TextDiffMatrixCases', '0008'), 'FilterCollectionDiffCases.test.ets:A0103')
         .assertEqual('head:1:2|anchor:3:3|tail:4:5');
     });
 
@@ -605,11 +605,11 @@ export default function filterCollectionDiffCasesTest(): void {
       const changed: DiffSummary = new DiffSummary();
       changed.added = 2;
       changed.removed = 1;
-      expect(diffBadge(changed).length > 0, caseName('TextDiffMatrixCases', '0011')).assertTrue();
+      expect(diffBadge(changed).length > 0, caseName('TextDiffMatrixCases', '0011'), 'FilterCollectionDiffCases.test.ets:A0104').assertTrue();
       const identical: DiffSummary = new DiffSummary();
       identical.identical = true;
-      expect(diffBadge(identical).length > 0, caseName('TextDiffMatrixCases', '0011')).assertTrue();
-      expect(diffBadge(changed) !== diffBadge(identical), caseName('TextDiffMatrixCases', '0011')).assertTrue();
+      expect(diffBadge(identical).length > 0, caseName('TextDiffMatrixCases', '0011'), 'FilterCollectionDiffCases.test.ets:A0105').assertTrue();
+      expect(diffBadge(changed) !== diffBadge(identical), caseName('TextDiffMatrixCases', '0011'), 'FilterCollectionDiffCases.test.ets:A0106').assertTrue();
     });
 
     /**
@@ -624,9 +624,9 @@ export default function filterCollectionDiffCasesTest(): void {
     it(caseName('TextDiffMatrixCases', '0012'), 0, (): void => {
       const result: DiffResult = diffLines('a\nb\nc', 'a\nx\nc');
       const counted: number = result.summary.added + result.summary.removed + result.summary.equal;
-      expect(result.summary.added, caseName('TextDiffMatrixCases', '0012')).assertEqual(1);
-      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0012')).assertEqual(1);
-      expect(result.summary.equal, caseName('TextDiffMatrixCases', '0012')).assertEqual(2);
+      expect(result.summary.added, caseName('TextDiffMatrixCases', '0012'), 'FilterCollectionDiffCases.test.ets:A0107').assertEqual(1);
+      expect(result.summary.removed, caseName('TextDiffMatrixCases', '0012'), 'FilterCollectionDiffCases.test.ets:A0108').assertEqual(1);
+      expect(result.summary.equal, caseName('TextDiffMatrixCases', '0012'), 'FilterCollectionDiffCases.test.ets:A0109').assertEqual(2);
     });
   });
 }

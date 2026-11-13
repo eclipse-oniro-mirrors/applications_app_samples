@@ -32,8 +32,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0001'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0001'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0001'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -52,11 +52,11 @@ export default function businessRecoveryB2Tests(): void {
         await store.keepEditDraft();
         io.failWrite = true;
         const saved = io.value;
-        expect(await store.discardForLeave(), caseName('BusinessRecoveryBatchTwo', '0001')).assertFalse();
-        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0001')).assertEqual(id);
-        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0001')).assertEqual('编辑正文');
-        expect(io.value, caseName('BusinessRecoveryBatchTwo', '0001')).assertEqual(saved);
-        expect(store.errorText(), caseName('BusinessRecoveryBatchTwo', '0001')).assertEqual('保存失败，请重试');
+        expect(await store.discardForLeave(), caseName('BusinessRecoveryBatchTwo', '0001'), 'BusinessRecoveryB2.test.ets:A0001').assertFalse();
+        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0001'), 'BusinessRecoveryB2.test.ets:A0002').assertEqual(id);
+        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0001'), 'BusinessRecoveryB2.test.ets:A0003').assertEqual('编辑正文');
+        expect(io.value, caseName('BusinessRecoveryBatchTwo', '0001'), 'BusinessRecoveryB2.test.ets:A0004').assertEqual(saved);
+        expect(store.errorText(), caseName('BusinessRecoveryBatchTwo', '0001'), 'BusinessRecoveryB2.test.ets:A0005').assertEqual('保存失败，请重试');
       });
     });
 
@@ -68,8 +68,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0002'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0002'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0002'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -89,12 +89,12 @@ export default function businessRecoveryB2Tests(): void {
         const gate = new Deferred<void>();
         io.writeGate = gate;
         const pending = store.discardForLeave();
-        expect(store.snapshot().busy, caseName('BusinessRecoveryBatchTwo', '0002')).assertTrue();
-        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0002')).assertEqual(id);
-        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0002')).assertEqual('编辑正文');
+        expect(store.snapshot().busy, caseName('BusinessRecoveryBatchTwo', '0002'), 'BusinessRecoveryB2.test.ets:A0006').assertTrue();
+        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0002'), 'BusinessRecoveryB2.test.ets:A0007').assertEqual(id);
+        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0002'), 'BusinessRecoveryB2.test.ets:A0008').assertEqual('编辑正文');
         gate.resolve(undefined);
-        expect(await pending, caseName('BusinessRecoveryBatchTwo', '0002')).assertTrue();
-        expect(store.snapshot().editDraftPersisted, caseName('BusinessRecoveryBatchTwo', '0002')).assertFalse();
+        expect(await pending, caseName('BusinessRecoveryBatchTwo', '0002'), 'BusinessRecoveryB2.test.ets:A0009').assertTrue();
+        expect(store.snapshot().editDraftPersisted, caseName('BusinessRecoveryBatchTwo', '0002'), 'BusinessRecoveryB2.test.ets:A0010').assertFalse();
       });
     });
 
@@ -106,8 +106,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0003'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0003'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0003'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -124,13 +124,13 @@ export default function businessRecoveryB2Tests(): void {
         store.beginEditNote(id);
         store.setDraftBody('编辑正文');
         await store.keepEditDraft();
-        expect(await store.discardForLeave(), caseName('BusinessRecoveryBatchTwo', '0003')).assertTrue();
+        expect(await store.discardForLeave(), caseName('BusinessRecoveryBatchTwo', '0003'), 'BusinessRecoveryB2.test.ets:A0011').assertTrue();
         store.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0003')).assertEqual('');
-        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0003')).assertEqual('独立草稿');
-        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0003')).assertEqual('原正文');
-        expect(reopened.snapshot().editDraftPersisted, caseName('BusinessRecoveryBatchTwo', '0003')).assertFalse();
+        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0003'), 'BusinessRecoveryB2.test.ets:A0012').assertEqual('');
+        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0003'), 'BusinessRecoveryB2.test.ets:A0013').assertEqual('独立草稿');
+        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0003'), 'BusinessRecoveryB2.test.ets:A0014').assertEqual('原正文');
+        expect(reopened.snapshot().editDraftPersisted, caseName('BusinessRecoveryBatchTwo', '0003'), 'BusinessRecoveryB2.test.ets:A0015').assertFalse();
       });
     });
 
@@ -142,8 +142,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0004'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0004'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0004'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -162,13 +162,13 @@ export default function businessRecoveryB2Tests(): void {
         await store.keepEditDraft();
         store.setDraftBody('未落盘正文');
         io.failWrite = true;
-        expect(await store.keepEditDraft(), caseName('BusinessRecoveryBatchTwo', '0004')).assertFalse();
-        expect(store.hasUnsavedNoteWork(), caseName('BusinessRecoveryBatchTwo', '0004')).assertTrue();
+        expect(await store.keepEditDraft(), caseName('BusinessRecoveryBatchTwo', '0004'), 'BusinessRecoveryB2.test.ets:A0016').assertFalse();
+        expect(store.hasUnsavedNoteWork(), caseName('BusinessRecoveryBatchTwo', '0004'), 'BusinessRecoveryB2.test.ets:A0017').assertTrue();
         store.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0004')).assertEqual('编辑正文');
-        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0004')).assertEqual('原正文');
-        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0004')).assertEqual(id);
+        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0004'), 'BusinessRecoveryB2.test.ets:A0018').assertEqual('编辑正文');
+        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0004'), 'BusinessRecoveryB2.test.ets:A0019').assertEqual('原正文');
+        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0004'), 'BusinessRecoveryB2.test.ets:A0020').assertEqual(id);
       });
     });
 
@@ -180,8 +180,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0005'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0005'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0005'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -201,11 +201,11 @@ export default function businessRecoveryB2Tests(): void {
         await store.toggleFavorite('reading');
         store.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0005')).assertEqual('编辑正文');
-        expect(reopened.snapshot().favoriteIds.join(','), caseName('BusinessRecoveryBatchTwo', '0005')).assertEqual('reading');
-        expect(reopened.snapshot().editBaseRevision, caseName('BusinessRecoveryBatchTwo', '0005')).assertEqual(base);
+        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0005'), 'BusinessRecoveryB2.test.ets:A0021').assertEqual('编辑正文');
+        expect(reopened.snapshot().favoriteIds.join(','), caseName('BusinessRecoveryBatchTwo', '0005'), 'BusinessRecoveryB2.test.ets:A0022').assertEqual('reading');
+        expect(reopened.snapshot().editBaseRevision, caseName('BusinessRecoveryBatchTwo', '0005'), 'BusinessRecoveryB2.test.ets:A0023').assertEqual(base);
         await reopened.discardForLeave();
-        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0005')).assertEqual('独立草稿');
+        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0005'), 'BusinessRecoveryB2.test.ets:A0024').assertEqual('独立草稿');
       });
     });
 
@@ -217,8 +217,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0006'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0006'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0006'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -239,10 +239,10 @@ export default function businessRecoveryB2Tests(): void {
         await store.setTodoDone(task, true);
         store.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().todos[0].done, caseName('BusinessRecoveryBatchTwo', '0006')).assertTrue();
-        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0006')).assertEqual('编辑正文');
-        expect(reopened.snapshot().editBaseRevision, caseName('BusinessRecoveryBatchTwo', '0006')).assertEqual(base);
-        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0006')).assertEqual('原正文');
+        expect(reopened.snapshot().todos[0].done, caseName('BusinessRecoveryBatchTwo', '0006'), 'BusinessRecoveryB2.test.ets:A0025').assertTrue();
+        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0006'), 'BusinessRecoveryB2.test.ets:A0026').assertEqual('编辑正文');
+        expect(reopened.snapshot().editBaseRevision, caseName('BusinessRecoveryBatchTwo', '0006'), 'BusinessRecoveryB2.test.ets:A0027').assertEqual(base);
+        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0006'), 'BusinessRecoveryB2.test.ets:A0028').assertEqual('原正文');
       });
     });
 
@@ -254,8 +254,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0007'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0007'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0007'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -275,10 +275,10 @@ export default function businessRecoveryB2Tests(): void {
         await store.deleteNote('other');
         store.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().notes.map((note: NoteItem): string => note.id).join(','), caseName('BusinessRecoveryBatchTwo', '0007')).assertEqual(id);
-        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0007')).assertEqual(id);
-        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0007')).assertEqual('编辑正文');
-        expect(reopened.historyFor('other').length, caseName('BusinessRecoveryBatchTwo', '0007')).assertEqual(0);
+        expect(reopened.snapshot().notes.map((note: NoteItem): string => note.id).join(','), caseName('BusinessRecoveryBatchTwo', '0007'), 'BusinessRecoveryB2.test.ets:A0029').assertEqual(id);
+        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0007'), 'BusinessRecoveryB2.test.ets:A0030').assertEqual(id);
+        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0007'), 'BusinessRecoveryB2.test.ets:A0031').assertEqual('编辑正文');
+        expect(reopened.historyFor('other').length, caseName('BusinessRecoveryBatchTwo', '0007'), 'BusinessRecoveryB2.test.ets:A0032').assertEqual(0);
       });
     });
 
@@ -290,8 +290,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0008'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0008'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0008'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0008'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -311,10 +311,10 @@ export default function businessRecoveryB2Tests(): void {
         await store.moveNoteToTrash(id, TrashEditDecision.DISCARD_CHANGES);
         store.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0008')).assertEqual('');
-        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0008')).assertEqual('独立草稿');
-        expect(reopened.snapshot().notes.map((note: NoteItem): string => note.id).join(','), caseName('BusinessRecoveryBatchTwo', '0008')).assertEqual('other');
-        expect(reopened.historyFor(id).length, caseName('BusinessRecoveryBatchTwo', '0008')).assertEqual(0);
+        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0008'), 'BusinessRecoveryB2.test.ets:A0033').assertEqual('');
+        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0008'), 'BusinessRecoveryB2.test.ets:A0034').assertEqual('独立草稿');
+        expect(reopened.snapshot().notes.map((note: NoteItem): string => note.id).join(','), caseName('BusinessRecoveryBatchTwo', '0008'), 'BusinessRecoveryB2.test.ets:A0035').assertEqual('other');
+        expect(reopened.historyFor(id).length, caseName('BusinessRecoveryBatchTwo', '0008'), 'BusinessRecoveryB2.test.ets:A0036').assertEqual(0);
       });
     });
 
@@ -326,8 +326,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0009'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0009'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0009'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0009'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -345,13 +345,13 @@ export default function businessRecoveryB2Tests(): void {
         store.setDraftBody('编辑正文');
         await store.keepEditDraft();
         io.failWrite = true;
-        expect(await store.moveNoteToTrash(id, TrashEditDecision.DISCARD_CHANGES), caseName('BusinessRecoveryBatchTwo', '0009')).assertFalse();
+        expect(await store.moveNoteToTrash(id, TrashEditDecision.DISCARD_CHANGES), caseName('BusinessRecoveryBatchTwo', '0009'), 'BusinessRecoveryB2.test.ets:A0037').assertFalse();
         store.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0009')).assertEqual(id);
-        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0009')).assertEqual('编辑正文');
-        expect(reopened.historyFor(id)[0].revisionId, caseName('BusinessRecoveryBatchTwo', '0009')).assertEqual(base);
-        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0009')).assertEqual('原正文');
+        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0009'), 'BusinessRecoveryB2.test.ets:A0038').assertEqual(id);
+        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0009'), 'BusinessRecoveryB2.test.ets:A0039').assertEqual('编辑正文');
+        expect(reopened.historyFor(id)[0].revisionId, caseName('BusinessRecoveryBatchTwo', '0009'), 'BusinessRecoveryB2.test.ets:A0040').assertEqual(base);
+        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0009'), 'BusinessRecoveryB2.test.ets:A0041').assertEqual('原正文');
       });
     });
 
@@ -363,8 +363,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0010'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0010'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0010'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0010'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -383,11 +383,11 @@ export default function businessRecoveryB2Tests(): void {
         await store.keepEditDraft();
         const before = io.value;
         io.failWrite = true;
-        expect(await store.restoreRevision(id, 'older'), caseName('BusinessRecoveryBatchTwo', '0010')).assertFalse();
-        expect(io.value, caseName('BusinessRecoveryBatchTwo', '0010')).assertEqual(before);
-        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0010')).assertEqual('编辑正文');
-        expect(store.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0010')).assertEqual('原正文');
-        expect(store.historyFor(id).length, caseName('BusinessRecoveryBatchTwo', '0010')).assertEqual(2);
+        expect(await store.restoreRevision(id, 'older'), caseName('BusinessRecoveryBatchTwo', '0010'), 'BusinessRecoveryB2.test.ets:A0042').assertFalse();
+        expect(io.value, caseName('BusinessRecoveryBatchTwo', '0010'), 'BusinessRecoveryB2.test.ets:A0043').assertEqual(before);
+        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0010'), 'BusinessRecoveryB2.test.ets:A0044').assertEqual('编辑正文');
+        expect(store.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0010'), 'BusinessRecoveryB2.test.ets:A0045').assertEqual('原正文');
+        expect(store.historyFor(id).length, caseName('BusinessRecoveryBatchTwo', '0010'), 'BusinessRecoveryB2.test.ets:A0046').assertEqual(2);
       });
     });
 
@@ -399,8 +399,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0011'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0011'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0011'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0011'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -423,12 +423,12 @@ export default function businessRecoveryB2Tests(): void {
         const pending = store.keepEditDraft();
         store.dispose();
         gate.resolve(undefined);
-        expect(await pending, caseName('BusinessRecoveryBatchTwo', '0011')).assertFalse();
-        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0011')).assertEqual('');
+        expect(await pending, caseName('BusinessRecoveryBatchTwo', '0011'), 'BusinessRecoveryB2.test.ets:A0047').assertFalse();
+        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0011'), 'BusinessRecoveryB2.test.ets:A0048').assertEqual('');
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0011')).assertEqual('最终保留');
-        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0011')).assertEqual('原正文');
-        expect(reopened.hasUnsavedNoteWork(), caseName('BusinessRecoveryBatchTwo', '0011')).assertTrue();
+        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0011'), 'BusinessRecoveryB2.test.ets:A0049').assertEqual('最终保留');
+        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0011'), 'BusinessRecoveryB2.test.ets:A0050').assertEqual('原正文');
+        expect(reopened.hasUnsavedNoteWork(), caseName('BusinessRecoveryBatchTwo', '0011'), 'BusinessRecoveryB2.test.ets:A0051').assertTrue();
       });
     });
 
@@ -440,8 +440,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0012'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0012'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0012'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0012'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -460,16 +460,16 @@ export default function businessRecoveryB2Tests(): void {
         await store.keepEditDraft();
         store.setDraftTitle('重试标题');
         io.failWrite = true;
-        expect(await store.keepEditDraft(), caseName('BusinessRecoveryBatchTwo', '0012')).assertFalse();
-        expect(store.snapshot().busy, caseName('BusinessRecoveryBatchTwo', '0012')).assertFalse();
+        expect(await store.keepEditDraft(), caseName('BusinessRecoveryBatchTwo', '0012'), 'BusinessRecoveryB2.test.ets:A0052').assertFalse();
+        expect(store.snapshot().busy, caseName('BusinessRecoveryBatchTwo', '0012'), 'BusinessRecoveryB2.test.ets:A0053').assertFalse();
         io.failWrite = false;
-        expect(await store.keepEditDraft(), caseName('BusinessRecoveryBatchTwo', '0012')).assertTrue();
-        expect(store.errorText(), caseName('BusinessRecoveryBatchTwo', '0012')).assertEqual('');
+        expect(await store.keepEditDraft(), caseName('BusinessRecoveryBatchTwo', '0012'), 'BusinessRecoveryB2.test.ets:A0054').assertTrue();
+        expect(store.errorText(), caseName('BusinessRecoveryBatchTwo', '0012'), 'BusinessRecoveryB2.test.ets:A0055').assertEqual('');
         store.dispose();
         const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0012')).assertEqual('重试标题');
-        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0012')).assertEqual('编辑正文');
-        expect(reopened.snapshot().notes[0].title, caseName('BusinessRecoveryBatchTwo', '0012')).assertEqual('原标题');
+        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0012'), 'BusinessRecoveryB2.test.ets:A0056').assertEqual('重试标题');
+        expect(reopened.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0012'), 'BusinessRecoveryB2.test.ets:A0057').assertEqual('编辑正文');
+        expect(reopened.snapshot().notes[0].title, caseName('BusinessRecoveryBatchTwo', '0012'), 'BusinessRecoveryB2.test.ets:A0058').assertEqual('原标题');
       });
     });
 
@@ -481,8 +481,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0013'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0013'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0013'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0013'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -495,16 +495,16 @@ export default function businessRecoveryB2Tests(): void {
         await scope.until(() => !store.snapshot().busy, (changed: () => void): (() => void) => {
           store.subscribe(changed); return (): void => { store.unsubscribe(changed); };
         });
-        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0013')).assertEqual('target');
-        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0013')).assertEqual('取消前的编辑');
-        expect(io.value, caseName('BusinessRecoveryBatchTwo', '0013')).assertEqual(before);
-        expect(store.errorText(), caseName('BusinessRecoveryBatchTwo', '0013')).assertEqual('保存失败，请重试');
+        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0013'), 'BusinessRecoveryB2.test.ets:A0059').assertEqual('target');
+        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0013'), 'BusinessRecoveryB2.test.ets:A0060').assertEqual('取消前的编辑');
+        expect(io.value, caseName('BusinessRecoveryBatchTwo', '0013'), 'BusinessRecoveryB2.test.ets:A0061').assertEqual(before);
+        expect(store.errorText(), caseName('BusinessRecoveryBatchTwo', '0013'), 'BusinessRecoveryB2.test.ets:A0062').assertEqual('保存失败，请重试');
         io.failWrite = false; store.cancelEdit();
         await scope.until(() => !store.snapshot().busy, (changed: () => void): (() => void) => {
           store.subscribe(changed); return (): void => { store.unsubscribe(changed); };
         });
-        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0013')).assertEqual('');
-        expect(store.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0013')).assertEqual('独立草稿');
+        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0013'), 'BusinessRecoveryB2.test.ets:A0063').assertEqual('');
+        expect(store.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0013'), 'BusinessRecoveryB2.test.ets:A0064').assertEqual('独立草稿');
       });
     });
 
@@ -516,8 +516,8 @@ export default function businessRecoveryB2Tests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it(caseName('BusinessRecoveryBatchTwo', '0014'), 0, async () => {
-      await runCase(caseName('BusinessRecoveryBatchTwo', '0014'), async (scope: CaseScope) => {
+    it(caseName('BusinessRecoveryBatchTwo', '0014'), 0, async (): Promise<void> => {
+      await runCase(caseName('BusinessRecoveryBatchTwo', '0014'), async (scope: CaseScope): Promise<void> => {
         const io = new ControlledBusinessStorage();
         const clock = new FixedBusinessClock();
         io.value = '{"version":1,"notes":[' +
@@ -528,17 +528,17 @@ export default function businessRecoveryB2Tests(): void {
         const gate = new Deferred<void>(); io.writeGate = gate;
         scope.cleanup(() => gate.resolve(undefined));
         store.cancelEdit();
-        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0014')).assertEqual('target');
-        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0014')).assertEqual('待取消编辑');
-        expect(store.snapshot().busy, caseName('BusinessRecoveryBatchTwo', '0014')).assertTrue();
+        expect(store.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0014'), 'BusinessRecoveryB2.test.ets:A0065').assertEqual('target');
+        expect(store.snapshot().draftBody, caseName('BusinessRecoveryBatchTwo', '0014'), 'BusinessRecoveryB2.test.ets:A0066').assertEqual('待取消编辑');
+        expect(store.snapshot().busy, caseName('BusinessRecoveryBatchTwo', '0014'), 'BusinessRecoveryB2.test.ets:A0067').assertTrue();
         gate.resolve(undefined);
         await scope.until(() => !store.snapshot().busy, (changed: () => void): (() => void) => {
           store.subscribe(changed); return (): void => { store.unsubscribe(changed); };
         });
         store.dispose(); const reopened = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0014')).assertEqual('');
-        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0014')).assertEqual('原正文');
-        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0014')).assertEqual('独立草稿');
+        expect(reopened.snapshot().editingNoteId, caseName('BusinessRecoveryBatchTwo', '0014'), 'BusinessRecoveryB2.test.ets:A0068').assertEqual('');
+        expect(reopened.snapshot().notes[0].body, caseName('BusinessRecoveryBatchTwo', '0014'), 'BusinessRecoveryB2.test.ets:A0069').assertEqual('原正文');
+        expect(reopened.snapshot().draftTitle, caseName('BusinessRecoveryBatchTwo', '0014'), 'BusinessRecoveryB2.test.ets:A0070').assertEqual('独立草稿');
       });
     });
   });

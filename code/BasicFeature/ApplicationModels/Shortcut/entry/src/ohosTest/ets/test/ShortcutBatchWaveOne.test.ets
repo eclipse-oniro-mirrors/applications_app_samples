@@ -39,10 +39,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.service.previewBatch([], false);
         await h.service.previewBatch(['a', 'a'], false);
         await h.service.previewBatch(excess, true);
-        expect(h.api.queries, caseName('ShortcutBatchWaveOne', '0001')).assertEqual(1);
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0001')).assertEqual(0);
-        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0001')).assertUndefined();
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0001')).assertEqual(0);
+        expect(h.api.queries, caseName('ShortcutBatchWaveOne', '0001'), 'ShortcutBatchWaveOne.test.ets:A0001').assertEqual(1);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0001'), 'ShortcutBatchWaveOne.test.ets:A0002').assertEqual(0);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0001'), 'ShortcutBatchWaveOne.test.ets:A0003').assertUndefined();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0001'), 'ShortcutBatchWaveOne.test.ets:A0004').assertEqual(0);
       });
     });
 
@@ -59,10 +59,10 @@ export default function shortcutBatchWaveOneTests(): void {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         await h.service.previewBatch(['a', 'removed'], false);
-        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0002')).assertEqual('所选入口已变化，请重新选择');
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0002')).assertEqual(0);
-        expect(h.service.snapshot().batches.length, caseName('ShortcutBatchWaveOne', '0002')).assertEqual(0);
-        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0002')).assertUndefined();
+        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0002'), 'ShortcutBatchWaveOne.test.ets:A0005').assertEqual('所选入口已变化，请重新选择');
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0002'), 'ShortcutBatchWaveOne.test.ets:A0006').assertEqual(0);
+        expect(h.service.snapshot().batches.length, caseName('ShortcutBatchWaveOne', '0002'), 'ShortcutBatchWaveOne.test.ets:A0007').assertEqual(0);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0002'), 'ShortcutBatchWaveOne.test.ets:A0008').assertUndefined();
       });
     });
 
@@ -83,10 +83,10 @@ export default function shortcutBatchWaveOneTests(): void {
         const original: string = h.io.value;
         await h.start();
         await h.service.previewBatch(['b'], true);
-        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0003')).assertEqual('批次编号已达上限，未执行');
-        expect(h.io.value, caseName('ShortcutBatchWaveOne', '0003')).assertEqual(original);
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0003')).assertEqual(0);
-        expect(h.plan().batchId, caseName('ShortcutBatchWaveOne', '0003')).assertEqual('batch-1');
+        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0003'), 'ShortcutBatchWaveOne.test.ets:A0009').assertEqual('批次编号已达上限，未执行');
+        expect(h.io.value, caseName('ShortcutBatchWaveOne', '0003'), 'ShortcutBatchWaveOne.test.ets:A0010').assertEqual(original);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0003'), 'ShortcutBatchWaveOne.test.ets:A0011').assertEqual(0);
+        expect(h.plan().batchId, caseName('ShortcutBatchWaveOne', '0003'), 'ShortcutBatchWaveOne.test.ets:A0012').assertEqual('batch-1');
       });
     });
 
@@ -104,11 +104,11 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.start();
         h.io.failWrite = true;
         await h.service.previewBatch(['a'], false);
-        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0004')).assertFalse();
-        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0004')).assertEqual('批次存档写入失败，已停止；先重新读取/核对，禁止盲目重试');
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0004')).assertEqual(0);
-        expect(h.io.value, caseName('ShortcutBatchWaveOne', '0004')).assertEqual('');
-        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0004')).assertUndefined();
+        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0004'), 'ShortcutBatchWaveOne.test.ets:A0013').assertFalse();
+        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0004'), 'ShortcutBatchWaveOne.test.ets:A0014').assertEqual('批次存档写入失败，已停止；先重新读取/核对，禁止盲目重试');
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0004'), 'ShortcutBatchWaveOne.test.ets:A0015').assertEqual(0);
+        expect(h.io.value, caseName('ShortcutBatchWaveOne', '0004'), 'ShortcutBatchWaveOne.test.ets:A0016').assertEqual('');
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0004'), 'ShortcutBatchWaveOne.test.ets:A0017').assertUndefined();
       });
     });
 
@@ -128,10 +128,10 @@ export default function shortcutBatchWaveOneTests(): void {
         const token: number = h.preview().token;
         h.service.cancelBatchPreview();
         await h.service.executeBatchPreview(token);
-        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0005')).assertUndefined();
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0005')).assertEqual(0);
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0005')).assertEqual('not-run');
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0005')).assertEqual(1);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0005'), 'ShortcutBatchWaveOne.test.ets:A0018').assertUndefined();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0005'), 'ShortcutBatchWaveOne.test.ets:A0019').assertEqual(0);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0005'), 'ShortcutBatchWaveOne.test.ets:A0020').assertEqual('not-run');
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0005'), 'ShortcutBatchWaveOne.test.ets:A0021').assertEqual(1);
       });
     });
 
@@ -151,12 +151,12 @@ export default function shortcutBatchWaveOneTests(): void {
         const oldToken: number = h.preview().token;
         await h.service.previewBatch(['b'], true);
         await h.service.executeBatchPreview(oldToken);
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0006')).assertEqual(0);
-        expect(h.preview().items[0].id, caseName('ShortcutBatchWaveOne', '0006')).assertEqual('b');
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0006'), 'ShortcutBatchWaveOne.test.ets:A0022').assertEqual(0);
+        expect(h.preview().items[0].id, caseName('ShortcutBatchWaveOne', '0006'), 'ShortcutBatchWaveOne.test.ets:A0023').assertEqual('b');
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.api.writes.join(','), caseName('ShortcutBatchWaveOne', '0006')).assertEqual('b:true');
-        expect(h.service.snapshot().batches[1].items[0].result, caseName('ShortcutBatchWaveOne', '0006')).assertEqual('not-run');
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0006')).assertEqual('confirmed');
+        expect(h.api.writes.join(','), caseName('ShortcutBatchWaveOne', '0006'), 'ShortcutBatchWaveOne.test.ets:A0024').assertEqual('b:true');
+        expect(h.service.snapshot().batches[1].items[0].result, caseName('ShortcutBatchWaveOne', '0006'), 'ShortcutBatchWaveOne.test.ets:A0025').assertEqual('not-run');
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0006'), 'ShortcutBatchWaveOne.test.ets:A0026').assertEqual('confirmed');
       });
     });
 
@@ -175,10 +175,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.start();
         h.api.failQuery = true;
         await h.service.previewBatch(['b'], true);
-        expect(h.service.snapshot().queryError, caseName('ShortcutBatchWaveOne', '0007')).assertEqual('code=350001；query unavailable');
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0007')).assertEqual('failed');
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0007')).assertEqual(0);
-        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0007')).assertUndefined();
+        expect(h.service.snapshot().queryError, caseName('ShortcutBatchWaveOne', '0007'), 'ShortcutBatchWaveOne.test.ets:A0027').assertEqual('code=350001；query unavailable');
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0007'), 'ShortcutBatchWaveOne.test.ets:A0028').assertEqual('failed');
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0007'), 'ShortcutBatchWaveOne.test.ets:A0029').assertEqual(0);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0007'), 'ShortcutBatchWaveOne.test.ets:A0030').assertUndefined();
       });
     });
 
@@ -196,15 +196,15 @@ export default function shortcutBatchWaveOneTests(): void {
         h.io.value = JSON.stringify(waveJournal());
         h.io.failRead = true;
         await h.start();
-        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0008')).assertFalse();
-        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0008')).assertEqual('批次存档读取失败；不会覆盖或重放，请重试读取');
+        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0008'), 'ShortcutBatchWaveOne.test.ets:A0031').assertFalse();
+        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0008'), 'ShortcutBatchWaveOne.test.ets:A0032').assertEqual('批次存档读取失败；不会覆盖或重放，请重试读取');
         h.io.failRead = false;
         await h.service.loadBatches();
-        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0008')).assertTrue();
-        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0008')).assertEqual('');
-        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0008')).assertTrue();
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0008')).assertEqual(0);
-        expect(h.io.reads, caseName('ShortcutBatchWaveOne', '0008')).assertEqual(2);
+        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0008'), 'ShortcutBatchWaveOne.test.ets:A0033').assertTrue();
+        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0008'), 'ShortcutBatchWaveOne.test.ets:A0034').assertEqual('');
+        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0008'), 'ShortcutBatchWaveOne.test.ets:A0035').assertTrue();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0008'), 'ShortcutBatchWaveOne.test.ets:A0036').assertEqual(0);
+        expect(h.io.reads, caseName('ShortcutBatchWaveOne', '0008'), 'ShortcutBatchWaveOne.test.ets:A0037').assertEqual(2);
       });
     });
 
@@ -231,10 +231,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.start();
         oldRead.resolve(JSON.stringify(waveJournal()));
         await waveSettle();
-        expect(h.plan().items[0].id, caseName('ShortcutBatchWaveOne', '0009')).assertEqual('b');
-        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0009')).assertTrue();
-        expect(h.io.reads, caseName('ShortcutBatchWaveOne', '0009')).assertEqual(2);
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0009')).assertEqual(0);
+        expect(h.plan().items[0].id, caseName('ShortcutBatchWaveOne', '0009'), 'ShortcutBatchWaveOne.test.ets:A0038').assertEqual('b');
+        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0009'), 'ShortcutBatchWaveOne.test.ets:A0039').assertTrue();
+        expect(h.io.reads, caseName('ShortcutBatchWaveOne', '0009'), 'ShortcutBatchWaveOne.test.ets:A0040').assertEqual(2);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0009'), 'ShortcutBatchWaveOne.test.ets:A0041').assertEqual(0);
       });
     });
 
@@ -253,11 +253,11 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.service.previewBatch(['a'], false);
         h.api.failQuery = true;
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0010')).assertEqual(0);
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0010')).assertEqual(0);
-        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0010')).assertUndefined();
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0010')).assertEqual(1);
-        expect(h.service.snapshot().queryError, caseName('ShortcutBatchWaveOne', '0010')).assertEqual('code=350001；query unavailable');
+        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0010'), 'ShortcutBatchWaveOne.test.ets:A0042').assertEqual(0);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0010'), 'ShortcutBatchWaveOne.test.ets:A0043').assertEqual(0);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0010'), 'ShortcutBatchWaveOne.test.ets:A0044').assertUndefined();
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0010'), 'ShortcutBatchWaveOne.test.ets:A0045').assertEqual(1);
+        expect(h.service.snapshot().queryError, caseName('ShortcutBatchWaveOne', '0010'), 'ShortcutBatchWaveOne.test.ets:A0046').assertEqual('code=350001；query unavailable');
       });
     });
 
@@ -276,10 +276,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.service.previewBatch(['a'], false);
         h.api.infos = [shortcutInfo('b', false)];
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0011')).assertEqual('确认后状态变化，未执行；请重新预览');
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0011')).assertEqual(0);
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0011')).assertEqual(1);
-        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0011')).assertEqual(0);
+        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0011'), 'ShortcutBatchWaveOne.test.ets:A0047').assertEqual('确认后状态变化，未执行；请重新预览');
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0011'), 'ShortcutBatchWaveOne.test.ets:A0048').assertEqual(0);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0011'), 'ShortcutBatchWaveOne.test.ets:A0049').assertEqual(1);
+        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0011'), 'ShortcutBatchWaveOne.test.ets:A0050').assertEqual(0);
       });
     });
 
@@ -298,10 +298,10 @@ export default function shortcutBatchWaveOneTests(): void {
         h.api.infos = [shortcutInfo('a', false)];
         await h.start();
         await h.service.previewBatchRetry('batch-1');
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0012')).assertEqual('confirmed');
-        expect(h.preview().items.length, caseName('ShortcutBatchWaveOne', '0012')).assertEqual(0);
-        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0012')).assertEqual(1);
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0012')).assertEqual(0);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0012'), 'ShortcutBatchWaveOne.test.ets:A0051').assertEqual('confirmed');
+        expect(h.preview().items.length, caseName('ShortcutBatchWaveOne', '0012'), 'ShortcutBatchWaveOne.test.ets:A0052').assertEqual(0);
+        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0012'), 'ShortcutBatchWaveOne.test.ets:A0053').assertEqual(1);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0012'), 'ShortcutBatchWaveOne.test.ets:A0054').assertEqual(0);
       });
     });
 
@@ -320,10 +320,10 @@ export default function shortcutBatchWaveOneTests(): void {
         h.api.infos = [];
         await h.start();
         await h.service.previewBatchRetry('batch-1');
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0013')).assertEqual('unknown');
-        expect(h.preview().items.length, caseName('ShortcutBatchWaveOne', '0013')).assertEqual(0);
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0013')).assertEqual(0);
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0013')).assertEqual(1);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0013'), 'ShortcutBatchWaveOne.test.ets:A0055').assertEqual('unknown');
+        expect(h.preview().items.length, caseName('ShortcutBatchWaveOne', '0013'), 'ShortcutBatchWaveOne.test.ets:A0056').assertEqual(0);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0013'), 'ShortcutBatchWaveOne.test.ets:A0057').assertEqual(0);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0013'), 'ShortcutBatchWaveOne.test.ets:A0058').assertEqual(1);
       });
     });
 
@@ -341,11 +341,11 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.start();
         await h.service.previewBatch(['a'], false);
         await h.service.previewBatchRestore(h.plan().batchId);
-        expect(h.preview().items[0].reason, caseName('ShortcutBatchWaveOne', '0014')).assertEqual('原批次未执行，不补偿');
-        expect(h.preview().items[0].eligible, caseName('ShortcutBatchWaveOne', '0014')).assertFalse();
+        expect(h.preview().items[0].reason, caseName('ShortcutBatchWaveOne', '0014'), 'ShortcutBatchWaveOne.test.ets:A0059').assertEqual('原批次未执行，不补偿');
+        expect(h.preview().items[0].eligible, caseName('ShortcutBatchWaveOne', '0014'), 'ShortcutBatchWaveOne.test.ets:A0060').assertFalse();
         await h.service.executeBatchPreview(h.preview().token, true);
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0014')).assertEqual(0);
-        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0014')).assertEqual(0);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0014'), 'ShortcutBatchWaveOne.test.ets:A0061').assertEqual(0);
+        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0014'), 'ShortcutBatchWaveOne.test.ets:A0062').assertEqual(0);
       });
     });
 
@@ -364,11 +364,11 @@ export default function shortcutBatchWaveOneTests(): void {
         h.api.infos = [shortcutInfo('a')];
         await h.start();
         await h.service.previewBatchRestore('batch-1');
-        expect(h.preview().items[0].reason, caseName('ShortcutBatchWaveOne', '0015')).assertEqual('当前visible未知，先核对，不重放');
-        expect(h.preview().items[0].target, caseName('ShortcutBatchWaveOne', '0015')).assertTrue();
+        expect(h.preview().items[0].reason, caseName('ShortcutBatchWaveOne', '0015'), 'ShortcutBatchWaveOne.test.ets:A0063').assertEqual('当前visible未知，先核对，不重放');
+        expect(h.preview().items[0].target, caseName('ShortcutBatchWaveOne', '0015'), 'ShortcutBatchWaveOne.test.ets:A0064').assertTrue();
         await h.service.executeBatchPreview(h.preview().token, true);
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0015')).assertEqual(0);
-        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0015')).assertEqual(0);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0015'), 'ShortcutBatchWaveOne.test.ets:A0065').assertEqual(0);
+        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0015'), 'ShortcutBatchWaveOne.test.ets:A0066').assertEqual(0);
       });
     });
 
@@ -390,10 +390,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.service.previewBatchRetry('batch-1');
         const writes: number = h.io.writes.length;
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0016')).assertEqual(100);
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0016')).assertEqual(0);
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0016')).assertEqual(writes);
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0016')).assertEqual('failed');
+        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0016'), 'ShortcutBatchWaveOne.test.ets:A0067').assertEqual(100);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0016'), 'ShortcutBatchWaveOne.test.ets:A0068').assertEqual(0);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0016'), 'ShortcutBatchWaveOne.test.ets:A0069').assertEqual(writes);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0016'), 'ShortcutBatchWaveOne.test.ets:A0070').assertEqual('failed');
       });
     });
 
@@ -416,10 +416,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.start();
         await h.service.previewBatchRestore('batch-1');
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0017')).assertEqual(100);
-        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0017')).assertEqual('failed');
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0017')).assertEqual(0);
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0017')).assertEqual(0);
+        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0017'), 'ShortcutBatchWaveOne.test.ets:A0071').assertEqual(100);
+        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0017'), 'ShortcutBatchWaveOne.test.ets:A0072').assertEqual('failed');
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0017'), 'ShortcutBatchWaveOne.test.ets:A0073').assertEqual(0);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0017'), 'ShortcutBatchWaveOne.test.ets:A0074').assertEqual(0);
       });
     });
 
@@ -442,10 +442,10 @@ export default function shortcutBatchWaveOneTests(): void {
         h.api.infos = [];
         await h.start();
         await h.service.reconcileBatch('batch-1');
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0018')).assertEqual('unknown');
-        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0018')).assertEqual('unknown');
-        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0018')).assertFalse();
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0018')).assertEqual(0);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0018'), 'ShortcutBatchWaveOne.test.ets:A0075').assertEqual('unknown');
+        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0018'), 'ShortcutBatchWaveOne.test.ets:A0076').assertEqual('unknown');
+        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0018'), 'ShortcutBatchWaveOne.test.ets:A0077').assertFalse();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0018'), 'ShortcutBatchWaveOne.test.ets:A0078').assertEqual(0);
       });
     });
 
@@ -467,10 +467,10 @@ export default function shortcutBatchWaveOneTests(): void {
         h.io.value = JSON.stringify(journal);
         await h.start();
         await h.service.reconcileBatch('batch-1');
-        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0019')).assertEqual('confirmed');
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0019')).assertEqual('confirmed');
-        expect(h.plan().items[0].lastVisible, caseName('ShortcutBatchWaveOne', '0019')).assertFalse();
-        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0019')).assertEqual(0);
+        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0019'), 'ShortcutBatchWaveOne.test.ets:A0079').assertEqual('confirmed');
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0019'), 'ShortcutBatchWaveOne.test.ets:A0080').assertEqual('confirmed');
+        expect(h.plan().items[0].lastVisible, caseName('ShortcutBatchWaveOne', '0019'), 'ShortcutBatchWaveOne.test.ets:A0081').assertFalse();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0019'), 'ShortcutBatchWaveOne.test.ets:A0082').assertEqual(0);
       });
     });
 
@@ -490,12 +490,12 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.start();
         await h.service.previewBatch(['a'], false);
         await h.service.executeBatchPreview(h.preview().token);
-        expect(atSdk[0].batches[0].items[0].result, caseName('ShortcutBatchWaveOne', '0020')).assertEqual('unknown');
-        expect(atSdk[0].batches[0].items[0].attempt, caseName('ShortcutBatchWaveOne', '0020')).assertEqual(1);
-        expect(atSdk[0].batches[0].interrupted, caseName('ShortcutBatchWaveOne', '0020')).assertTrue();
-        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0020')).assertFalse();
-        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0020')).assertEqual('confirmed');
-        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0020')).assertEqual(3);
+        expect(atSdk[0].batches[0].items[0].result, caseName('ShortcutBatchWaveOne', '0020'), 'ShortcutBatchWaveOne.test.ets:A0083').assertEqual('unknown');
+        expect(atSdk[0].batches[0].items[0].attempt, caseName('ShortcutBatchWaveOne', '0020'), 'ShortcutBatchWaveOne.test.ets:A0084').assertEqual(1);
+        expect(atSdk[0].batches[0].interrupted, caseName('ShortcutBatchWaveOne', '0020'), 'ShortcutBatchWaveOne.test.ets:A0085').assertTrue();
+        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0020'), 'ShortcutBatchWaveOne.test.ets:A0086').assertFalse();
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0020'), 'ShortcutBatchWaveOne.test.ets:A0087').assertEqual('confirmed');
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0020'), 'ShortcutBatchWaveOne.test.ets:A0088').assertEqual(3);
       });
     });
   });

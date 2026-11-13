@@ -42,14 +42,14 @@ export default function recycleBatchPreviewTests(): void {
         const store: BusinessStore = await openRecycle(scope, io);
         const preview: RecycleBatchPreview = store.previewRecycleBatch(
           ['trash-3', 'trash-1'], RecycleBatchAction.RESTORE);
-        expect(preview.eligible, caseName('ShortcutRecycleBatchPreview', '0001')).assertTrue();
-        expect(preview.rows.map((row): string => row.noteId).join(','), caseName('ShortcutRecycleBatchPreview', '0001')).assertEqual('recycled-2,recycled-0');
-        expect(preview.rows[0].historyCount, caseName('ShortcutRecycleBatchPreview', '0001')).assertEqual(1);
-        expect(preview.availableSlots, caseName('ShortcutRecycleBatchPreview', '0001')).assertEqual(49);
-        expect(preview.resultingActiveCount, caseName('ShortcutRecycleBatchPreview', '0001')).assertEqual(3);
-        expect(preview.resultingTrashCount, caseName('ShortcutRecycleBatchPreview', '0001')).assertEqual(1);
-        expect(io.value, caseName('ShortcutRecycleBatchPreview', '0001')).assertEqual(before);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0001')).assertEqual(0);
+        expect(preview.eligible, caseName('ShortcutRecycleBatchPreview', '0001'), 'RecycleBatchPreview.test.ets:A0001').assertTrue();
+        expect(preview.rows.map((row): string => row.noteId).join(','), caseName('ShortcutRecycleBatchPreview', '0001'), 'RecycleBatchPreview.test.ets:A0002').assertEqual('recycled-2,recycled-0');
+        expect(preview.rows[0].historyCount, caseName('ShortcutRecycleBatchPreview', '0001'), 'RecycleBatchPreview.test.ets:A0003').assertEqual(1);
+        expect(preview.availableSlots, caseName('ShortcutRecycleBatchPreview', '0001'), 'RecycleBatchPreview.test.ets:A0004').assertEqual(49);
+        expect(preview.resultingActiveCount, caseName('ShortcutRecycleBatchPreview', '0001'), 'RecycleBatchPreview.test.ets:A0005').assertEqual(3);
+        expect(preview.resultingTrashCount, caseName('ShortcutRecycleBatchPreview', '0001'), 'RecycleBatchPreview.test.ets:A0006').assertEqual(1);
+        expect(io.value, caseName('ShortcutRecycleBatchPreview', '0001'), 'RecycleBatchPreview.test.ets:A0007').assertEqual(before);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0001'), 'RecycleBatchPreview.test.ets:A0008').assertEqual(0);
       });
     });
 
@@ -69,12 +69,12 @@ export default function recycleBatchPreviewTests(): void {
         for (let index: number = 1; index <= 51; index++) { excessive.push(`trash-${index}`); }
         for (const selection of [[], excessive]) {
           const preview = store.previewRecycleBatch(selection, RecycleBatchAction.PURGE);
-          expect(preview.eligible, caseName('ShortcutRecycleBatchPreview', '0002')).assertFalse();
-          expect(preview.errors.includes('请选择1至50个回收项'), caseName('ShortcutRecycleBatchPreview', '0002')).assertTrue();
-          expect((await store.applyRecycleBatch(preview.token)).affected, caseName('ShortcutRecycleBatchPreview', '0002')).assertEqual(0);
-          expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0002')).assertEqual(0);
+          expect(preview.eligible, caseName('ShortcutRecycleBatchPreview', '0002'), 'RecycleBatchPreview.test.ets:A0009').assertFalse();
+          expect(preview.errors.includes('请选择1至50个回收项'), caseName('ShortcutRecycleBatchPreview', '0002'), 'RecycleBatchPreview.test.ets:A0010').assertTrue();
+          expect((await store.applyRecycleBatch(preview.token)).affected, caseName('ShortcutRecycleBatchPreview', '0002'), 'RecycleBatchPreview.test.ets:A0011').assertEqual(0);
+          expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0002'), 'RecycleBatchPreview.test.ets:A0012').assertEqual(0);
         }
-        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0002')).assertEqual(3);
+        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0002'), 'RecycleBatchPreview.test.ets:A0013').assertEqual(3);
       });
     });
 
@@ -91,12 +91,12 @@ export default function recycleBatchPreviewTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(1, 2));
         const store: BusinessStore = await openRecycle(scope, io);
         const preview = store.previewRecycleBatch(['trash-1', 'trash-1'], RecycleBatchAction.RESTORE);
-        expect(preview.errors.includes('选择含重复回收标识'), caseName('ShortcutRecycleBatchPreview', '0003')).assertTrue();
+        expect(preview.errors.includes('选择含重复回收标识'), caseName('ShortcutRecycleBatchPreview', '0003'), 'RecycleBatchPreview.test.ets:A0014').assertTrue();
         const result = await store.applyRecycleBatch(preview.token);
-        expect(result.success, caseName('ShortcutRecycleBatchPreview', '0003')).assertFalse();
-        expect(result.affected, caseName('ShortcutRecycleBatchPreview', '0003')).assertEqual(0);
-        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleBatchPreview', '0003')).assertEqual('active-0');
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0003')).assertEqual(0);
+        expect(result.success, caseName('ShortcutRecycleBatchPreview', '0003'), 'RecycleBatchPreview.test.ets:A0015').assertFalse();
+        expect(result.affected, caseName('ShortcutRecycleBatchPreview', '0003'), 'RecycleBatchPreview.test.ets:A0016').assertEqual(0);
+        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleBatchPreview', '0003'), 'RecycleBatchPreview.test.ets:A0017').assertEqual('active-0');
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0003'), 'RecycleBatchPreview.test.ets:A0018').assertEqual(0);
       });
     });
 
@@ -113,11 +113,11 @@ export default function recycleBatchPreviewTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(1, 2));
         const store: BusinessStore = await openRecycle(scope, io);
         const preview = store.previewRecycleBatch(['trash-1', 'trash-99'], RecycleBatchAction.RESTORE);
-        expect(preview.rows[0].eligible, caseName('ShortcutRecycleBatchPreview', '0004')).assertTrue();
-        expect(preview.rows[1].reason, caseName('ShortcutRecycleBatchPreview', '0004')).assertEqual('条目不存在或已变化');
-        expect((await store.applyRecycleBatch(preview.token)).success, caseName('ShortcutRecycleBatchPreview', '0004')).assertFalse();
-        expect(store.snapshot().recycledNotes.some((entry): boolean => entry.trashId === 'trash-1'), caseName('ShortcutRecycleBatchPreview', '0004')).assertTrue();
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0004')).assertEqual(0);
+        expect(preview.rows[0].eligible, caseName('ShortcutRecycleBatchPreview', '0004'), 'RecycleBatchPreview.test.ets:A0019').assertTrue();
+        expect(preview.rows[1].reason, caseName('ShortcutRecycleBatchPreview', '0004'), 'RecycleBatchPreview.test.ets:A0020').assertEqual('条目不存在或已变化');
+        expect((await store.applyRecycleBatch(preview.token)).success, caseName('ShortcutRecycleBatchPreview', '0004'), 'RecycleBatchPreview.test.ets:A0021').assertFalse();
+        expect(store.snapshot().recycledNotes.some((entry): boolean => entry.trashId === 'trash-1'), caseName('ShortcutRecycleBatchPreview', '0004'), 'RecycleBatchPreview.test.ets:A0022').assertTrue();
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0004'), 'RecycleBatchPreview.test.ets:A0023').assertEqual(0);
       });
     });
 
@@ -137,13 +137,13 @@ export default function recycleBatchPreviewTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(data);
         const store: BusinessStore = await openRecycle(scope, io, clock);
         const restore = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.RESTORE);
-        expect(restore.eligible, caseName('ShortcutRecycleBatchPreview', '0005')).assertFalse();
-        expect(restore.rows[1].reason, caseName('ShortcutRecycleBatchPreview', '0005')).assertEqual('超过30天保留期');
-        expect((await store.applyRecycleBatch(restore.token)).affected, caseName('ShortcutRecycleBatchPreview', '0005')).assertEqual(0);
+        expect(restore.eligible, caseName('ShortcutRecycleBatchPreview', '0005'), 'RecycleBatchPreview.test.ets:A0024').assertFalse();
+        expect(restore.rows[1].reason, caseName('ShortcutRecycleBatchPreview', '0005'), 'RecycleBatchPreview.test.ets:A0025').assertEqual('超过30天保留期');
+        expect((await store.applyRecycleBatch(restore.token)).affected, caseName('ShortcutRecycleBatchPreview', '0005'), 'RecycleBatchPreview.test.ets:A0026').assertEqual(0);
         const purge = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.PURGE);
-        expect(purge.eligible, caseName('ShortcutRecycleBatchPreview', '0005')).assertTrue();
-        expect(purge.resultingTrashCount, caseName('ShortcutRecycleBatchPreview', '0005')).assertEqual(0);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0005')).assertEqual(0);
+        expect(purge.eligible, caseName('ShortcutRecycleBatchPreview', '0005'), 'RecycleBatchPreview.test.ets:A0027').assertTrue();
+        expect(purge.resultingTrashCount, caseName('ShortcutRecycleBatchPreview', '0005'), 'RecycleBatchPreview.test.ets:A0028').assertEqual(0);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0005'), 'RecycleBatchPreview.test.ets:A0029').assertEqual(0);
       });
     });
 
@@ -160,12 +160,12 @@ export default function recycleBatchPreviewTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(49, 2));
         const store: BusinessStore = await openRecycle(scope, io);
         const preview = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.RESTORE);
-        expect(preview.rows.every((row): boolean => row.eligible), caseName('ShortcutRecycleBatchPreview', '0006')).assertTrue();
-        expect(preview.errors.includes('活动便签名额不足：需要2，可用1'), caseName('ShortcutRecycleBatchPreview', '0006')).assertTrue();
-        expect((await store.applyRecycleBatch(preview.token)).affected, caseName('ShortcutRecycleBatchPreview', '0006')).assertEqual(0);
-        expect(store.snapshot().notes.length, caseName('ShortcutRecycleBatchPreview', '0006')).assertEqual(49);
-        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0006')).assertEqual(2);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0006')).assertEqual(0);
+        expect(preview.rows.every((row): boolean => row.eligible), caseName('ShortcutRecycleBatchPreview', '0006'), 'RecycleBatchPreview.test.ets:A0030').assertTrue();
+        expect(preview.errors.includes('活动便签名额不足：需要2，可用1'), caseName('ShortcutRecycleBatchPreview', '0006'), 'RecycleBatchPreview.test.ets:A0031').assertTrue();
+        expect((await store.applyRecycleBatch(preview.token)).affected, caseName('ShortcutRecycleBatchPreview', '0006'), 'RecycleBatchPreview.test.ets:A0032').assertEqual(0);
+        expect(store.snapshot().notes.length, caseName('ShortcutRecycleBatchPreview', '0006'), 'RecycleBatchPreview.test.ets:A0033').assertEqual(49);
+        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0006'), 'RecycleBatchPreview.test.ets:A0034').assertEqual(2);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0006'), 'RecycleBatchPreview.test.ets:A0035').assertEqual(0);
       });
     });
 
@@ -182,12 +182,12 @@ export default function recycleBatchPreviewTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(50, 2));
         const store: BusinessStore = await openRecycle(scope, io);
         const preview = store.previewRecycleBatch(['trash-2', 'trash-1'], RecycleBatchAction.PURGE);
-        expect(preview.eligible, caseName('ShortcutRecycleBatchPreview', '0007')).assertTrue();
-        expect(preview.availableSlots, caseName('ShortcutRecycleBatchPreview', '0007')).assertEqual(0);
-        expect(preview.resultingActiveCount, caseName('ShortcutRecycleBatchPreview', '0007')).assertEqual(50);
-        expect(preview.resultingTrashCount, caseName('ShortcutRecycleBatchPreview', '0007')).assertEqual(0);
-        expect(preview.resultingHistoryCount, caseName('ShortcutRecycleBatchPreview', '0007')).assertEqual(50);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0007')).assertEqual(0);
+        expect(preview.eligible, caseName('ShortcutRecycleBatchPreview', '0007'), 'RecycleBatchPreview.test.ets:A0036').assertTrue();
+        expect(preview.availableSlots, caseName('ShortcutRecycleBatchPreview', '0007'), 'RecycleBatchPreview.test.ets:A0037').assertEqual(0);
+        expect(preview.resultingActiveCount, caseName('ShortcutRecycleBatchPreview', '0007'), 'RecycleBatchPreview.test.ets:A0038').assertEqual(50);
+        expect(preview.resultingTrashCount, caseName('ShortcutRecycleBatchPreview', '0007'), 'RecycleBatchPreview.test.ets:A0039').assertEqual(0);
+        expect(preview.resultingHistoryCount, caseName('ShortcutRecycleBatchPreview', '0007'), 'RecycleBatchPreview.test.ets:A0040').assertEqual(50);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0007'), 'RecycleBatchPreview.test.ets:A0041').assertEqual(0);
       });
     });
 
@@ -211,12 +211,12 @@ export default function recycleBatchPreviewTests(): void {
         preview.errors.push('注入');
         const owned = store.snapshot().recycleBatchPreview;
         if (owned === undefined) { throw new Error('missing owned preview'); }
-        expect(owned.rows[0].trashId, caseName('ShortcutRecycleBatchPreview', '0008')).assertEqual('trash-1');
-        expect(owned.rows[0].title, caseName('ShortcutRecycleBatchPreview', '0008')).assertEqual('回收标题0');
-        expect((await store.applyRecycleBatch(preview.token)).affected, caseName('ShortcutRecycleBatchPreview', '0008')).assertEqual(2);
-        expect(store.snapshot().notes.map((note): string => note.id).join(','), caseName('ShortcutRecycleBatchPreview', '0008'))
+        expect(owned.rows[0].trashId, caseName('ShortcutRecycleBatchPreview', '0008'), 'RecycleBatchPreview.test.ets:A0042').assertEqual('trash-1');
+        expect(owned.rows[0].title, caseName('ShortcutRecycleBatchPreview', '0008'), 'RecycleBatchPreview.test.ets:A0043').assertEqual('回收标题0');
+        expect((await store.applyRecycleBatch(preview.token)).affected, caseName('ShortcutRecycleBatchPreview', '0008'), 'RecycleBatchPreview.test.ets:A0044').assertEqual(2);
+        expect(store.snapshot().notes.map((note): string => note.id).join(','), caseName('ShortcutRecycleBatchPreview', '0008'), 'RecycleBatchPreview.test.ets:A0045')
           .assertEqual('recycled-0,recycled-1,active-0');
-        expect(store.snapshot().recycledNotes[0].trashId, caseName('ShortcutRecycleBatchPreview', '0008')).assertEqual('trash-3');
+        expect(store.snapshot().recycledNotes[0].trashId, caseName('ShortcutRecycleBatchPreview', '0008'), 'RecycleBatchPreview.test.ets:A0046').assertEqual('trash-3');
       });
     });
 
@@ -234,15 +234,15 @@ export default function recycleBatchPreviewTests(): void {
         const store: BusinessStore = new BusinessStore(io, new FixedBusinessClock().now);
         scope.cleanup((): void => { store.dispose(); io.release(); });
         const cold = store.previewRecycleBatch(['trash-1'], RecycleBatchAction.PURGE);
-        expect(cold.token, caseName('ShortcutRecycleBatchPreview', '0009')).assertEqual('');
-        expect(cold.errors.includes('存储尚未就绪'), caseName('ShortcutRecycleBatchPreview', '0009')).assertTrue();
+        expect(cold.token, caseName('ShortcutRecycleBatchPreview', '0009'), 'RecycleBatchPreview.test.ets:A0047').assertEqual('');
+        expect(cold.errors.includes('存储尚未就绪'), caseName('ShortcutRecycleBatchPreview', '0009'), 'RecycleBatchPreview.test.ets:A0048').assertTrue();
         store.initialize(getTestContext()); await waitBusiness(scope, store);
         io.writeGate = new Deferred<void>(); const writing: Promise<boolean> = store.deleteNote('active-0');
         const busy = store.previewRecycleBatch(['trash-1'], RecycleBatchAction.PURGE);
-        expect(busy.token, caseName('ShortcutRecycleBatchPreview', '0009')).assertEqual('');
-        expect(busy.errors.includes('正在保存，请稍候'), caseName('ShortcutRecycleBatchPreview', '0009')).assertTrue();
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0009')).assertEqual(1);
-        io.writeGate.resolve(undefined); expect(await writing, caseName('ShortcutRecycleBatchPreview', '0009')).assertTrue();
+        expect(busy.token, caseName('ShortcutRecycleBatchPreview', '0009'), 'RecycleBatchPreview.test.ets:A0049').assertEqual('');
+        expect(busy.errors.includes('正在保存，请稍候'), caseName('ShortcutRecycleBatchPreview', '0009'), 'RecycleBatchPreview.test.ets:A0050').assertTrue();
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0009'), 'RecycleBatchPreview.test.ets:A0051').assertEqual(1);
+        io.writeGate.resolve(undefined); expect(await writing, caseName('ShortcutRecycleBatchPreview', '0009'), 'RecycleBatchPreview.test.ets:A0052').assertTrue();
       });
     });
 
@@ -260,10 +260,10 @@ export default function recycleBatchPreviewTests(): void {
         const before: string = io.value; const store: BusinessStore = await openRecycle(scope, io);
         const preview = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.PURGE);
         store.cancelRecycleBatchPreview(preview.token);
-        expect(store.snapshot().recycleBatchPreview, caseName('ShortcutRecycleBatchPreview', '0010')).assertUndefined();
-        expect((await store.applyRecycleBatch(preview.token)).success, caseName('ShortcutRecycleBatchPreview', '0010')).assertFalse();
-        expect(io.value, caseName('ShortcutRecycleBatchPreview', '0010')).assertEqual(before);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0010')).assertEqual(0);
+        expect(store.snapshot().recycleBatchPreview, caseName('ShortcutRecycleBatchPreview', '0010'), 'RecycleBatchPreview.test.ets:A0053').assertUndefined();
+        expect((await store.applyRecycleBatch(preview.token)).success, caseName('ShortcutRecycleBatchPreview', '0010'), 'RecycleBatchPreview.test.ets:A0054').assertFalse();
+        expect(io.value, caseName('ShortcutRecycleBatchPreview', '0010'), 'RecycleBatchPreview.test.ets:A0055').assertEqual(before);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0010'), 'RecycleBatchPreview.test.ets:A0056').assertEqual(0);
       });
     });
 
@@ -282,11 +282,11 @@ export default function recycleBatchPreviewTests(): void {
         const old = store.previewRecycleBatch(['trash-1'], RecycleBatchAction.RESTORE);
         const next = store.previewRecycleBatch(['trash-2'], RecycleBatchAction.PURGE);
         store.cancelRecycleBatchPreview(old.token);
-        expect((await store.applyRecycleBatch(old.token)).success, caseName('ShortcutRecycleBatchPreview', '0011')).assertFalse();
-        expect((await store.applyRecycleBatch(next.token)).success, caseName('ShortcutRecycleBatchPreview', '0011')).assertTrue();
-        expect(store.snapshot().recycledNotes[0].trashId, caseName('ShortcutRecycleBatchPreview', '0011')).assertEqual('trash-1');
-        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleBatchPreview', '0011')).assertEqual('active-0');
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0011')).assertEqual(1);
+        expect((await store.applyRecycleBatch(old.token)).success, caseName('ShortcutRecycleBatchPreview', '0011'), 'RecycleBatchPreview.test.ets:A0057').assertFalse();
+        expect((await store.applyRecycleBatch(next.token)).success, caseName('ShortcutRecycleBatchPreview', '0011'), 'RecycleBatchPreview.test.ets:A0058').assertTrue();
+        expect(store.snapshot().recycledNotes[0].trashId, caseName('ShortcutRecycleBatchPreview', '0011'), 'RecycleBatchPreview.test.ets:A0059').assertEqual('trash-1');
+        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleBatchPreview', '0011'), 'RecycleBatchPreview.test.ets:A0060').assertEqual('active-0');
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0011'), 'RecycleBatchPreview.test.ets:A0061').assertEqual(1);
       });
     });
 
@@ -304,12 +304,12 @@ export default function recycleBatchPreviewTests(): void {
         const store: BusinessStore = await openRecycle(scope, io);
         const old = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.RESTORE);
         await store.toggleFavorite('reading'); const writes: number = io.writes;
-        expect((await store.applyRecycleBatch(old.token)).success, caseName('ShortcutRecycleBatchPreview', '0012')).assertFalse();
-        expect(store.snapshot().favoriteIds.join(','), caseName('ShortcutRecycleBatchPreview', '0012')).assertEqual('reading');
-        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0012')).assertEqual(2);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0012')).assertEqual(writes);
+        expect((await store.applyRecycleBatch(old.token)).success, caseName('ShortcutRecycleBatchPreview', '0012'), 'RecycleBatchPreview.test.ets:A0062').assertFalse();
+        expect(store.snapshot().favoriteIds.join(','), caseName('ShortcutRecycleBatchPreview', '0012'), 'RecycleBatchPreview.test.ets:A0063').assertEqual('reading');
+        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0012'), 'RecycleBatchPreview.test.ets:A0064').assertEqual(2);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0012'), 'RecycleBatchPreview.test.ets:A0065').assertEqual(writes);
         const next = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.RESTORE);
-        expect(next.rootRevision > old.rootRevision, caseName('ShortcutRecycleBatchPreview', '0012')).assertTrue();
+        expect(next.rootRevision > old.rootRevision, caseName('ShortcutRecycleBatchPreview', '0012'), 'RecycleBatchPreview.test.ets:A0066').assertTrue();
       });
     });
 
@@ -329,11 +329,11 @@ export default function recycleBatchPreviewTests(): void {
         const old = store.previewRecycleBatch(['trash-1'], RecycleBatchAction.RESTORE);
         clock.setDate(2026, 11, 3); store.applyEntryFilter('todayOpen');
         const result = await store.applyRecycleBatch(old.token);
-        expect(result.success, caseName('ShortcutRecycleBatchPreview', '0013')).assertFalse();
-        expect(result.message, caseName('ShortcutRecycleBatchPreview', '0013')).assertEqual('数据已变化，请重新预览');
-        expect(store.snapshot().todoDate, caseName('ShortcutRecycleBatchPreview', '0013')).assertEqual('2026-11-03');
-        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0013')).assertEqual(2);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0013')).assertEqual(0);
+        expect(result.success, caseName('ShortcutRecycleBatchPreview', '0013'), 'RecycleBatchPreview.test.ets:A0067').assertFalse();
+        expect(result.message, caseName('ShortcutRecycleBatchPreview', '0013'), 'RecycleBatchPreview.test.ets:A0068').assertEqual('数据已变化，请重新预览');
+        expect(store.snapshot().todoDate, caseName('ShortcutRecycleBatchPreview', '0013'), 'RecycleBatchPreview.test.ets:A0069').assertEqual('2026-11-03');
+        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0013'), 'RecycleBatchPreview.test.ets:A0070').assertEqual(2);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0013'), 'RecycleBatchPreview.test.ets:A0071').assertEqual(0);
       });
     });
 
@@ -351,12 +351,12 @@ export default function recycleBatchPreviewTests(): void {
         const store: BusinessStore = await openRecycle(scope, io);
         const old = store.previewRecycleBatch(['trash-1'], RecycleBatchAction.PURGE);
         store.dispose(); store.initialize(getTestContext()); await waitBusiness(scope, store);
-        expect((await store.applyRecycleBatch(old.token)).affected, caseName('ShortcutRecycleBatchPreview', '0014')).assertEqual(0);
+        expect((await store.applyRecycleBatch(old.token)).affected, caseName('ShortcutRecycleBatchPreview', '0014'), 'RecycleBatchPreview.test.ets:A0072').assertEqual(0);
         const next = store.previewRecycleBatch(['trash-1'], RecycleBatchAction.PURGE);
-        expect(next.token === old.token, caseName('ShortcutRecycleBatchPreview', '0014')).assertFalse();
-        expect(next.epoch > old.epoch, caseName('ShortcutRecycleBatchPreview', '0014')).assertTrue();
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0014')).assertEqual(0);
-        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0014')).assertEqual(2);
+        expect(next.token === old.token, caseName('ShortcutRecycleBatchPreview', '0014'), 'RecycleBatchPreview.test.ets:A0073').assertFalse();
+        expect(next.epoch > old.epoch, caseName('ShortcutRecycleBatchPreview', '0014'), 'RecycleBatchPreview.test.ets:A0074').assertTrue();
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0014'), 'RecycleBatchPreview.test.ets:A0075').assertEqual(0);
+        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0014'), 'RecycleBatchPreview.test.ets:A0076').assertEqual(2);
       });
     });
 
@@ -377,11 +377,11 @@ export default function recycleBatchPreviewTests(): void {
         const right: BusinessStore = await openRecycle(scope, rightIo);
         const a = left.previewRecycleBatch(['trash-1'], RecycleBatchAction.RESTORE);
         const b = right.previewRecycleBatch(['trash-1'], RecycleBatchAction.RESTORE);
-        expect((await right.applyRecycleBatch(a.token)).success, caseName('ShortcutRecycleBatchPreview', '0015')).assertFalse();
-        expect((await right.applyRecycleBatch(b.token)).success, caseName('ShortcutRecycleBatchPreview', '0015')).assertTrue();
-        expect(leftIo.writes, caseName('ShortcutRecycleBatchPreview', '0015')).assertEqual(0);
-        expect(rightIo.writes, caseName('ShortcutRecycleBatchPreview', '0015')).assertEqual(1);
-        expect(left.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0015')).assertEqual(2);
+        expect((await right.applyRecycleBatch(a.token)).success, caseName('ShortcutRecycleBatchPreview', '0015'), 'RecycleBatchPreview.test.ets:A0077').assertFalse();
+        expect((await right.applyRecycleBatch(b.token)).success, caseName('ShortcutRecycleBatchPreview', '0015'), 'RecycleBatchPreview.test.ets:A0078').assertTrue();
+        expect(leftIo.writes, caseName('ShortcutRecycleBatchPreview', '0015'), 'RecycleBatchPreview.test.ets:A0079').assertEqual(0);
+        expect(rightIo.writes, caseName('ShortcutRecycleBatchPreview', '0015'), 'RecycleBatchPreview.test.ets:A0080').assertEqual(1);
+        expect(left.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0015'), 'RecycleBatchPreview.test.ets:A0081').assertEqual(2);
       });
     });
 
@@ -398,13 +398,13 @@ export default function recycleBatchPreviewTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(1, 2));
         const store: BusinessStore = await openRecycle(scope, io);
         const old = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.RESTORE); io.failWrite = true;
-        expect((await store.applyRecycleBatch(old.token)).success, caseName('ShortcutRecycleBatchPreview', '0016')).assertFalse();
+        expect((await store.applyRecycleBatch(old.token)).success, caseName('ShortcutRecycleBatchPreview', '0016'), 'RecycleBatchPreview.test.ets:A0082').assertFalse();
         io.failWrite = false;
-        expect((await store.applyRecycleBatch(old.token)).affected, caseName('ShortcutRecycleBatchPreview', '0016')).assertEqual(0);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0016')).assertEqual(1);
+        expect((await store.applyRecycleBatch(old.token)).affected, caseName('ShortcutRecycleBatchPreview', '0016'), 'RecycleBatchPreview.test.ets:A0083').assertEqual(0);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0016'), 'RecycleBatchPreview.test.ets:A0084').assertEqual(1);
         const next = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.RESTORE);
-        expect((await store.applyRecycleBatch(next.token)).affected, caseName('ShortcutRecycleBatchPreview', '0016')).assertEqual(2);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0016')).assertEqual(2);
+        expect((await store.applyRecycleBatch(next.token)).affected, caseName('ShortcutRecycleBatchPreview', '0016'), 'RecycleBatchPreview.test.ets:A0085').assertEqual(2);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0016'), 'RecycleBatchPreview.test.ets:A0086').assertEqual(2);
       });
     });
 
@@ -423,13 +423,13 @@ export default function recycleBatchPreviewTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(data);
         const store: BusinessStore = await openRecycle(scope, io, clock);
         const preview = store.previewRecycleBatch(['trash-1', 'trash-2'], RecycleBatchAction.RESTORE);
-        expect(preview.eligible, caseName('ShortcutRecycleBatchPreview', '0017')).assertTrue(); clock.setDate(2026, 11, 3);
+        expect(preview.eligible, caseName('ShortcutRecycleBatchPreview', '0017'), 'RecycleBatchPreview.test.ets:A0087').assertTrue(); clock.setDate(2026, 11, 3);
         const result = await store.applyRecycleBatch(preview.token);
-        expect(result.success, caseName('ShortcutRecycleBatchPreview', '0017')).assertFalse();
-        expect(result.message.includes('超过30天保留期'), caseName('ShortcutRecycleBatchPreview', '0017')).assertTrue();
-        expect(store.snapshot().notes.length, caseName('ShortcutRecycleBatchPreview', '0017')).assertEqual(0);
-        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0017')).assertEqual(2);
-        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0017')).assertEqual(0);
+        expect(result.success, caseName('ShortcutRecycleBatchPreview', '0017'), 'RecycleBatchPreview.test.ets:A0088').assertFalse();
+        expect(result.message.includes('超过30天保留期'), caseName('ShortcutRecycleBatchPreview', '0017'), 'RecycleBatchPreview.test.ets:A0089').assertTrue();
+        expect(store.snapshot().notes.length, caseName('ShortcutRecycleBatchPreview', '0017'), 'RecycleBatchPreview.test.ets:A0090').assertEqual(0);
+        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleBatchPreview', '0017'), 'RecycleBatchPreview.test.ets:A0091').assertEqual(2);
+        expect(io.writes, caseName('ShortcutRecycleBatchPreview', '0017'), 'RecycleBatchPreview.test.ets:A0092').assertEqual(0);
       });
     });
   });

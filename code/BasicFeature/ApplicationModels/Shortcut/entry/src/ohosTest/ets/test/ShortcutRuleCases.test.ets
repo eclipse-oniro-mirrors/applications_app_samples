@@ -67,12 +67,12 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('EntryRouteCases', '0001'), 0, (): void => {
       const entry = requireEntry('sc.note.new');
-      expect(entry?.page, caseName('EntryRouteCases', '0001')).assertEqual(RoutePage.NOTE);
-      expect(pageOf('sc.note.new'), caseName('EntryRouteCases', '0001')).assertEqual(RoutePage.NOTE);
-      expect(entry?.params.length, caseName('EntryRouteCases', '0001')).assertEqual(2);
-      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0001')).assertFalse();
-      expect(routesOfPage(RoutePage.NOTE).indexOf('sc.note.new') >= 0, caseName('EntryRouteCases', '0001')).assertTrue();
-      expect(entry?.description.length > 0, caseName('EntryRouteCases', '0001')).assertTrue();
+      expect(entry?.page, caseName('EntryRouteCases', '0001'), 'ShortcutRuleCases.test.ets:A0001').assertEqual(RoutePage.NOTE);
+      expect(pageOf('sc.note.new'), caseName('EntryRouteCases', '0001'), 'ShortcutRuleCases.test.ets:A0002').assertEqual(RoutePage.NOTE);
+      expect(entry?.params.length, caseName('EntryRouteCases', '0001'), 'ShortcutRuleCases.test.ets:A0003').assertEqual(2);
+      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0001'), 'ShortcutRuleCases.test.ets:A0004').assertFalse();
+      expect(routesOfPage(RoutePage.NOTE).indexOf('sc.note.new') >= 0, caseName('EntryRouteCases', '0001'), 'ShortcutRuleCases.test.ets:A0005').assertTrue();
+      expect(entry?.description.length > 0, caseName('EntryRouteCases', '0001'), 'ShortcutRuleCases.test.ets:A0006').assertTrue();
     });
 
     /**
@@ -86,11 +86,11 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('EntryRouteCases', '0002'), 0, (): void => {
       const entry = requireEntry('sc.todo.today');
-      expect(entry?.page, caseName('EntryRouteCases', '0002')).assertEqual(RoutePage.TODO);
-      expect(entry?.params.length, caseName('EntryRouteCases', '0002')).assertEqual(2);
-      expect(entry?.paramOf('date')?.fallback, caseName('EntryRouteCases', '0002')).assertEqual('today');
-      expect(entry?.paramOf('filter')?.fallback, caseName('EntryRouteCases', '0002')).assertEqual('all');
-      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0002')).assertFalse();
+      expect(entry?.page, caseName('EntryRouteCases', '0002'), 'ShortcutRuleCases.test.ets:A0007').assertEqual(RoutePage.TODO);
+      expect(entry?.params.length, caseName('EntryRouteCases', '0002'), 'ShortcutRuleCases.test.ets:A0008').assertEqual(2);
+      expect(entry?.paramOf('date')?.fallback, caseName('EntryRouteCases', '0002'), 'ShortcutRuleCases.test.ets:A0009').assertEqual('today');
+      expect(entry?.paramOf('filter')?.fallback, caseName('EntryRouteCases', '0002'), 'ShortcutRuleCases.test.ets:A0010').assertEqual('all');
+      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0002'), 'ShortcutRuleCases.test.ets:A0011').assertFalse();
     });
 
     /**
@@ -104,10 +104,10 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('EntryRouteCases', '0003'), 0, (): void => {
       const entry = routeOf('sc.collection.saved');
-      expect(entry?.page, caseName('EntryRouteCases', '0003')).assertEqual(RoutePage.COLLECTION);
-      expect(entry?.paramOf('sort')?.fallback, caseName('EntryRouteCases', '0003')).assertEqual('recent');
-      expect(entry?.maxAgeMs, caseName('EntryRouteCases', '0003')).assertEqual(0);
-      expect(routesOfPage(RoutePage.COLLECTION)[0], caseName('EntryRouteCases', '0003')).assertEqual('sc.collection.saved');
+      expect(entry?.page, caseName('EntryRouteCases', '0003'), 'ShortcutRuleCases.test.ets:A0012').assertEqual(RoutePage.COLLECTION);
+      expect(entry?.paramOf('sort')?.fallback, caseName('EntryRouteCases', '0003'), 'ShortcutRuleCases.test.ets:A0013').assertEqual('recent');
+      expect(entry?.maxAgeMs, caseName('EntryRouteCases', '0003'), 'ShortcutRuleCases.test.ets:A0014').assertEqual(0);
+      expect(routesOfPage(RoutePage.COLLECTION)[0], caseName('EntryRouteCases', '0003'), 'ShortcutRuleCases.test.ets:A0015').assertEqual('sc.collection.saved');
     });
 
     /**
@@ -121,12 +121,12 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('EntryRouteCases', '0004'), 0, (): void => {
       const entry = routeOf('sc.detail');
-      expect(entry?.page, caseName('EntryRouteCases', '0004')).assertEqual(RoutePage.DETAIL);
-      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0004')).assertTrue();
-      expect(entry?.paramOf('noteId')?.required, caseName('EntryRouteCases', '0004')).assertTrue();
+      expect(entry?.page, caseName('EntryRouteCases', '0004'), 'ShortcutRuleCases.test.ets:A0016').assertEqual(RoutePage.DETAIL);
+      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0004'), 'ShortcutRuleCases.test.ets:A0017').assertTrue();
+      expect(entry?.paramOf('noteId')?.required, caseName('EntryRouteCases', '0004'), 'ShortcutRuleCases.test.ets:A0018').assertTrue();
       const blocked = resolveRoute(new RouteRequest('sc.detail', 0));
-      expect(blocked.ok, caseName('EntryRouteCases', '0004')).assertFalse();
-      expect(routesOfPage(RoutePage.DETAIL).length, caseName('EntryRouteCases', '0004')).assertEqual(2);
+      expect(blocked.ok, caseName('EntryRouteCases', '0004'), 'ShortcutRuleCases.test.ets:A0019').assertFalse();
+      expect(routesOfPage(RoutePage.DETAIL).length, caseName('EntryRouteCases', '0004'), 'ShortcutRuleCases.test.ets:A0020').assertEqual(2);
     });
 
     /**
@@ -140,10 +140,10 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('EntryRouteCases', '0005'), 0, (): void => {
       const entry = routeOf('sc.calls');
-      expect(entry?.page, caseName('EntryRouteCases', '0005')).assertEqual(RoutePage.CALL_LOG);
-      expect(entry?.paramOf('range')?.fallback, caseName('EntryRouteCases', '0005')).assertEqual('week');
-      expect(routesOfPage(RoutePage.CALL_LOG).length, caseName('EntryRouteCases', '0005')).assertEqual(1);
-      expect(pageOf('sc.calls'), caseName('EntryRouteCases', '0005')).assertEqual(RoutePage.CALL_LOG);
+      expect(entry?.page, caseName('EntryRouteCases', '0005'), 'ShortcutRuleCases.test.ets:A0021').assertEqual(RoutePage.CALL_LOG);
+      expect(entry?.paramOf('range')?.fallback, caseName('EntryRouteCases', '0005'), 'ShortcutRuleCases.test.ets:A0022').assertEqual('week');
+      expect(routesOfPage(RoutePage.CALL_LOG).length, caseName('EntryRouteCases', '0005'), 'ShortcutRuleCases.test.ets:A0023').assertEqual(1);
+      expect(pageOf('sc.calls'), caseName('EntryRouteCases', '0005'), 'ShortcutRuleCases.test.ets:A0024').assertEqual(RoutePage.CALL_LOG);
     });
 
     /**
@@ -157,10 +157,10 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('EntryRouteCases', '0006'), 0, (): void => {
       const entry = requireEntry('sc.rule.center');
-      expect(entry?.page, caseName('EntryRouteCases', '0006')).assertEqual(RoutePage.RULE_CENTER);
-      expect(entry?.params.length, caseName('EntryRouteCases', '0006')).assertEqual(0);
-      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0006')).assertFalse();
-      expect(routesOfPage(RoutePage.RULE_CENTER).length, caseName('EntryRouteCases', '0006')).assertEqual(1);
+      expect(entry?.page, caseName('EntryRouteCases', '0006'), 'ShortcutRuleCases.test.ets:A0025').assertEqual(RoutePage.RULE_CENTER);
+      expect(entry?.params.length, caseName('EntryRouteCases', '0006'), 'ShortcutRuleCases.test.ets:A0026').assertEqual(0);
+      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0006'), 'ShortcutRuleCases.test.ets:A0027').assertFalse();
+      expect(routesOfPage(RoutePage.RULE_CENTER).length, caseName('EntryRouteCases', '0006'), 'ShortcutRuleCases.test.ets:A0028').assertEqual(1);
     });
 
     /**
@@ -174,18 +174,18 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('EntryRouteCases', '0007'), 0, (): void => {
       const entry = routeOf('sc.note.resume');
-      expect(entry?.page, caseName('EntryRouteCases', '0007')).assertEqual(RoutePage.NOTE);
-      expect(entry?.maxAgeMs, caseName('EntryRouteCases', '0007')).assertEqual(600000);
-      expect(entry?.paramOf('draftId')?.required, caseName('EntryRouteCases', '0007')).assertTrue();
+      expect(entry?.page, caseName('EntryRouteCases', '0007'), 'ShortcutRuleCases.test.ets:A0029').assertEqual(RoutePage.NOTE);
+      expect(entry?.maxAgeMs, caseName('EntryRouteCases', '0007'), 'ShortcutRuleCases.test.ets:A0030').assertEqual(600000);
+      expect(entry?.paramOf('draftId')?.required, caseName('EntryRouteCases', '0007'), 'ShortcutRuleCases.test.ets:A0031').assertTrue();
       const fresh: RouteRequest = new RouteRequest('sc.note.resume', Date.now());
       fresh.put('draftId', 'draft-1');
       const resolved = resolveRoute(fresh);
-      expect(resolved.ok, caseName('EntryRouteCases', '0007')).assertTrue();
-      expect(resolved.expired, caseName('EntryRouteCases', '0007')).assertFalse();
-      expect(resolved.get('draftId'), caseName('EntryRouteCases', '0007')).assertEqual('draft-1');
+      expect(resolved.ok, caseName('EntryRouteCases', '0007'), 'ShortcutRuleCases.test.ets:A0032').assertTrue();
+      expect(resolved.expired, caseName('EntryRouteCases', '0007'), 'ShortcutRuleCases.test.ets:A0033').assertFalse();
+      expect(resolved.get('draftId'), caseName('EntryRouteCases', '0007'), 'ShortcutRuleCases.test.ets:A0034').assertEqual('draft-1');
       const stale: RouteRequest = new RouteRequest('sc.note.resume', 1000);
       stale.put('draftId', 'draft-1');
-      expect(resolveRoute(stale).expired, caseName('EntryRouteCases', '0007')).assertTrue();
+      expect(resolveRoute(stale).expired, caseName('EntryRouteCases', '0007'), 'ShortcutRuleCases.test.ets:A0035').assertTrue();
     });
 
     /**
@@ -199,19 +199,19 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('EntryRouteCases', '0008'), 0, (): void => {
       const entry = routeOf('sc.todo.detail');
-      expect(entry?.page, caseName('EntryRouteCases', '0008')).assertEqual(RoutePage.DETAIL);
-      expect(entry?.maxAgeMs, caseName('EntryRouteCases', '0008')).assertEqual(1800000);
-      expect(entry?.paramOf('from')?.fallback, caseName('EntryRouteCases', '0008')).assertEqual('shortcut');
-      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0008')).assertTrue();
+      expect(entry?.page, caseName('EntryRouteCases', '0008'), 'ShortcutRuleCases.test.ets:A0036').assertEqual(RoutePage.DETAIL);
+      expect(entry?.maxAgeMs, caseName('EntryRouteCases', '0008'), 'ShortcutRuleCases.test.ets:A0037').assertEqual(1800000);
+      expect(entry?.paramOf('from')?.fallback, caseName('EntryRouteCases', '0008'), 'ShortcutRuleCases.test.ets:A0038').assertEqual('shortcut');
+      expect(entry?.requiresLogin, caseName('EntryRouteCases', '0008'), 'ShortcutRuleCases.test.ets:A0039').assertTrue();
       const request: RouteRequest = new RouteRequest('sc.todo.detail', Date.now());
       request.loggedIn = true;
       request.put('todoId', 'todo-9');
       request.put('from', 'todoPage');
       const resolved = resolveRoute(request);
-      expect(resolved.ok, caseName('EntryRouteCases', '0008')).assertTrue();
-      expect(resolved.get('from'), caseName('EntryRouteCases', '0008')).assertEqual('todoPage');
-      expect(resolved.keys.length, caseName('EntryRouteCases', '0008')).assertEqual(2);
-      expect(resolved.page, caseName('EntryRouteCases', '0008')).assertEqual(RoutePage.DETAIL);
+      expect(resolved.ok, caseName('EntryRouteCases', '0008'), 'ShortcutRuleCases.test.ets:A0040').assertTrue();
+      expect(resolved.get('from'), caseName('EntryRouteCases', '0008'), 'ShortcutRuleCases.test.ets:A0041').assertEqual('todoPage');
+      expect(resolved.keys.length, caseName('EntryRouteCases', '0008'), 'ShortcutRuleCases.test.ets:A0042').assertEqual(2);
+      expect(resolved.page, caseName('EntryRouteCases', '0008'), 'ShortcutRuleCases.test.ets:A0043').assertEqual(RoutePage.DETAIL);
     });
 
     /**
@@ -224,14 +224,14 @@ export default function shortcutRuleCasesTest(): void {
      */
 
     it(caseName('EntryRouteCases', '0009'), 0, (): void => {
-      expect(ROUTE_TABLE.length, caseName('EntryRouteCases', '0009')).assertEqual(8);
-      expect(routeIds().length, caseName('EntryRouteCases', '0009')).assertEqual(8);
-      expect(auditRoutes().ok, caseName('EntryRouteCases', '0009')).assertTrue();
-      expect(auditRoutes().summary(), caseName('EntryRouteCases', '0009')).assertEqual('路由表自洽');
-      expect(pageOf('sc.missing'), caseName('EntryRouteCases', '0009')).assertEqual(RoutePage.HOME);
+      expect(ROUTE_TABLE.length, caseName('EntryRouteCases', '0009'), 'ShortcutRuleCases.test.ets:A0044').assertEqual(8);
+      expect(routeIds().length, caseName('EntryRouteCases', '0009'), 'ShortcutRuleCases.test.ets:A0045').assertEqual(8);
+      expect(auditRoutes().ok, caseName('EntryRouteCases', '0009'), 'ShortcutRuleCases.test.ets:A0046').assertTrue();
+      expect(auditRoutes().summary(), caseName('EntryRouteCases', '0009'), 'ShortcutRuleCases.test.ets:A0047').assertEqual('路由表自洽');
+      expect(pageOf('sc.missing'), caseName('EntryRouteCases', '0009'), 'ShortcutRuleCases.test.ets:A0048').assertEqual(RoutePage.HOME);
       ROUTE_TABLE.forEach((entry): void => {
-        expect(routesOfPage(entry.page).indexOf(entry.routeId) >= 0, caseName('EntryRouteCases', '0009')).assertTrue();
-        expect(entry.text().indexOf(entry.routeId) === 0, caseName('EntryRouteCases', '0009')).assertTrue();
+        expect(routesOfPage(entry.page).indexOf(entry.routeId) >= 0, caseName('EntryRouteCases', '0009'), 'ShortcutRuleCases.test.ets:A0049').assertTrue();
+        expect(entry.text().indexOf(entry.routeId) === 0, caseName('EntryRouteCases', '0009'), 'ShortcutRuleCases.test.ets:A0050').assertTrue();
       });
     });
   });
@@ -248,12 +248,12 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('TodoTransitionCases', '0001'), 0, (): void => {
       const events: TodoEvent[] = todoEventsOf(TodoState.OPEN);
-      expect(events.length, caseName('TodoTransitionCases', '0001')).assertEqual(5);
-      expect(events.indexOf(TodoEvent.START) >= 0, caseName('TodoTransitionCases', '0001')).assertTrue();
-      expect(events.indexOf(TodoEvent.FINISH) >= 0, caseName('TodoTransitionCases', '0001')).assertTrue();
-      expect(events.indexOf(TodoEvent.DROP) >= 0, caseName('TodoTransitionCases', '0001')).assertTrue();
-      expect(events.indexOf(TodoEvent.DEFER) >= 0, caseName('TodoTransitionCases', '0001')).assertTrue();
-      expect(events.indexOf(TodoEvent.EXPIRE) >= 0, caseName('TodoTransitionCases', '0001')).assertTrue();
+      expect(events.length, caseName('TodoTransitionCases', '0001'), 'ShortcutRuleCases.test.ets:A0051').assertEqual(5);
+      expect(events.indexOf(TodoEvent.START) >= 0, caseName('TodoTransitionCases', '0001'), 'ShortcutRuleCases.test.ets:A0052').assertTrue();
+      expect(events.indexOf(TodoEvent.FINISH) >= 0, caseName('TodoTransitionCases', '0001'), 'ShortcutRuleCases.test.ets:A0053').assertTrue();
+      expect(events.indexOf(TodoEvent.DROP) >= 0, caseName('TodoTransitionCases', '0001'), 'ShortcutRuleCases.test.ets:A0054').assertTrue();
+      expect(events.indexOf(TodoEvent.DEFER) >= 0, caseName('TodoTransitionCases', '0001'), 'ShortcutRuleCases.test.ets:A0055').assertTrue();
+      expect(events.indexOf(TodoEvent.EXPIRE) >= 0, caseName('TodoTransitionCases', '0001'), 'ShortcutRuleCases.test.ets:A0056').assertTrue();
     });
 
     /**
@@ -266,11 +266,11 @@ export default function shortcutRuleCasesTest(): void {
      */
 
     it(caseName('TodoTransitionCases', '0002'), 0, (): void => {
-      expect(todoEventsOf(TodoState.DOING).length, caseName('TodoTransitionCases', '0002')).assertEqual(4);
-      expect(nextTodoState(TodoState.DOING, TodoEvent.FINISH).to, caseName('TodoTransitionCases', '0002')).assertEqual(TodoState.DONE);
-      expect(nextTodoState(TodoState.DOING, TodoEvent.DROP).to, caseName('TodoTransitionCases', '0002')).assertEqual(TodoState.DROPPED);
-      expect(nextTodoState(TodoState.DOING, TodoEvent.DEFER).to, caseName('TodoTransitionCases', '0002')).assertEqual(TodoState.DEFERRED);
-      expect(nextTodoState(TodoState.DOING, TodoEvent.EXPIRE).to, caseName('TodoTransitionCases', '0002')).assertEqual(TodoState.DROPPED);
+      expect(todoEventsOf(TodoState.DOING).length, caseName('TodoTransitionCases', '0002'), 'ShortcutRuleCases.test.ets:A0057').assertEqual(4);
+      expect(nextTodoState(TodoState.DOING, TodoEvent.FINISH).to, caseName('TodoTransitionCases', '0002'), 'ShortcutRuleCases.test.ets:A0058').assertEqual(TodoState.DONE);
+      expect(nextTodoState(TodoState.DOING, TodoEvent.DROP).to, caseName('TodoTransitionCases', '0002'), 'ShortcutRuleCases.test.ets:A0059').assertEqual(TodoState.DROPPED);
+      expect(nextTodoState(TodoState.DOING, TodoEvent.DEFER).to, caseName('TodoTransitionCases', '0002'), 'ShortcutRuleCases.test.ets:A0060').assertEqual(TodoState.DEFERRED);
+      expect(nextTodoState(TodoState.DOING, TodoEvent.EXPIRE).to, caseName('TodoTransitionCases', '0002'), 'ShortcutRuleCases.test.ets:A0061').assertEqual(TodoState.DROPPED);
     });
 
     /**
@@ -283,11 +283,11 @@ export default function shortcutRuleCasesTest(): void {
      */
 
     it(caseName('TodoTransitionCases', '0003'), 0, (): void => {
-      expect(todoEventsOf(TodoState.DEFERRED).length, caseName('TodoTransitionCases', '0003')).assertEqual(3);
-      expect(nextTodoState(TodoState.DEFERRED, TodoEvent.REOPEN).to, caseName('TodoTransitionCases', '0003')).assertEqual(TodoState.OPEN);
-      expect(nextTodoState(TodoState.DEFERRED, TodoEvent.START).to, caseName('TodoTransitionCases', '0003')).assertEqual(TodoState.DOING);
-      expect(nextTodoState(TodoState.DEFERRED, TodoEvent.EXPIRE).to, caseName('TodoTransitionCases', '0003')).assertEqual(TodoState.DROPPED);
-      expect(todoStateLabel(TodoState.DEFERRED), caseName('TodoTransitionCases', '0003')).assertEqual('已推迟');
+      expect(todoEventsOf(TodoState.DEFERRED).length, caseName('TodoTransitionCases', '0003'), 'ShortcutRuleCases.test.ets:A0062').assertEqual(3);
+      expect(nextTodoState(TodoState.DEFERRED, TodoEvent.REOPEN).to, caseName('TodoTransitionCases', '0003'), 'ShortcutRuleCases.test.ets:A0063').assertEqual(TodoState.OPEN);
+      expect(nextTodoState(TodoState.DEFERRED, TodoEvent.START).to, caseName('TodoTransitionCases', '0003'), 'ShortcutRuleCases.test.ets:A0064').assertEqual(TodoState.DOING);
+      expect(nextTodoState(TodoState.DEFERRED, TodoEvent.EXPIRE).to, caseName('TodoTransitionCases', '0003'), 'ShortcutRuleCases.test.ets:A0065').assertEqual(TodoState.DROPPED);
+      expect(todoStateLabel(TodoState.DEFERRED), caseName('TodoTransitionCases', '0003'), 'ShortcutRuleCases.test.ets:A0066').assertEqual('已推迟');
     });
 
     /**
@@ -300,12 +300,12 @@ export default function shortcutRuleCasesTest(): void {
      */
 
     it(caseName('TodoTransitionCases', '0004'), 0, (): void => {
-      expect(todoEventsOf(TodoState.DONE).length, caseName('TodoTransitionCases', '0004')).assertEqual(1);
-      expect(todoEventsOf(TodoState.DROPPED).length, caseName('TodoTransitionCases', '0004')).assertEqual(1);
-      expect(nextTodoState(TodoState.DONE, TodoEvent.REOPEN).to, caseName('TodoTransitionCases', '0004')).assertEqual(TodoState.OPEN);
-      expect(nextTodoState(TodoState.DROPPED, TodoEvent.REOPEN).to, caseName('TodoTransitionCases', '0004')).assertEqual(TodoState.OPEN);
-      expect(nextTodoState(TodoState.DONE, TodoEvent.START).applied, caseName('TodoTransitionCases', '0004')).assertFalse();
-      expect(nextTodoState(TodoState.DROPPED, TodoEvent.FINISH).applied, caseName('TodoTransitionCases', '0004')).assertFalse();
+      expect(todoEventsOf(TodoState.DONE).length, caseName('TodoTransitionCases', '0004'), 'ShortcutRuleCases.test.ets:A0067').assertEqual(1);
+      expect(todoEventsOf(TodoState.DROPPED).length, caseName('TodoTransitionCases', '0004'), 'ShortcutRuleCases.test.ets:A0068').assertEqual(1);
+      expect(nextTodoState(TodoState.DONE, TodoEvent.REOPEN).to, caseName('TodoTransitionCases', '0004'), 'ShortcutRuleCases.test.ets:A0069').assertEqual(TodoState.OPEN);
+      expect(nextTodoState(TodoState.DROPPED, TodoEvent.REOPEN).to, caseName('TodoTransitionCases', '0004'), 'ShortcutRuleCases.test.ets:A0070').assertEqual(TodoState.OPEN);
+      expect(nextTodoState(TodoState.DONE, TodoEvent.START).applied, caseName('TodoTransitionCases', '0004'), 'ShortcutRuleCases.test.ets:A0071').assertFalse();
+      expect(nextTodoState(TodoState.DROPPED, TodoEvent.FINISH).applied, caseName('TodoTransitionCases', '0004'), 'ShortcutRuleCases.test.ets:A0072').assertFalse();
     });
 
     /**
@@ -318,13 +318,13 @@ export default function shortcutRuleCasesTest(): void {
      */
 
     it(caseName('TodoTransitionCases', '0005'), 0, (): void => {
-      expect(TODO_TRANSITIONS.length, caseName('TodoTransitionCases', '0005')).assertEqual(14);
-      expect(auditTodoRules().ok, caseName('TodoTransitionCases', '0005')).assertTrue();
+      expect(TODO_TRANSITIONS.length, caseName('TodoTransitionCases', '0005'), 'ShortcutRuleCases.test.ets:A0073').assertEqual(14);
+      expect(auditTodoRules().ok, caseName('TodoTransitionCases', '0005'), 'ShortcutRuleCases.test.ets:A0074').assertTrue();
       TODO_TRANSITIONS.forEach((rule): void => {
         const result = nextTodoState(rule.from, rule.event);
-        expect(result.applied, caseName('TodoTransitionCases', '0005')).assertTrue();
-        expect(result.to, caseName('TodoTransitionCases', '0005')).assertEqual(rule.to);
-        expect(result.rule !== undefined, caseName('TodoTransitionCases', '0005')).assertTrue();
+        expect(result.applied, caseName('TodoTransitionCases', '0005'), 'ShortcutRuleCases.test.ets:A0075').assertTrue();
+        expect(result.to, caseName('TodoTransitionCases', '0005'), 'ShortcutRuleCases.test.ets:A0076').assertEqual(rule.to);
+        expect(result.rule !== undefined, caseName('TodoTransitionCases', '0005'), 'ShortcutRuleCases.test.ets:A0077').assertTrue();
       });
     });
 
@@ -338,14 +338,14 @@ export default function shortcutRuleCasesTest(): void {
      */
 
     it(caseName('TodoTransitionCases', '0006'), 0, (): void => {
-      expect(priorityWeight(3), caseName('TodoTransitionCases', '0006')).assertEqual(100);
-      expect(priorityWeight(2), caseName('TodoTransitionCases', '0006')).assertEqual(70);
-      expect(priorityWeight(1), caseName('TodoTransitionCases', '0006')).assertEqual(40);
-      expect(priorityWeight(0), caseName('TodoTransitionCases', '0006')).assertEqual(10);
+      expect(priorityWeight(3), caseName('TodoTransitionCases', '0006'), 'ShortcutRuleCases.test.ets:A0078').assertEqual(100);
+      expect(priorityWeight(2), caseName('TodoTransitionCases', '0006'), 'ShortcutRuleCases.test.ets:A0079').assertEqual(70);
+      expect(priorityWeight(1), caseName('TodoTransitionCases', '0006'), 'ShortcutRuleCases.test.ets:A0080').assertEqual(40);
+      expect(priorityWeight(0), caseName('TodoTransitionCases', '0006'), 'ShortcutRuleCases.test.ets:A0081').assertEqual(10);
       const high: TodoItem = new TodoItem('h', '高优先', 3);
       const low: TodoItem = new TodoItem('l', '低优先', 0);
-      expect(scoreOf(high, NOW) > scoreOf(low, NOW), caseName('TodoTransitionCases', '0006')).assertTrue();
-      expect(sortTodos([low, high], NOW)[0].id, caseName('TodoTransitionCases', '0006')).assertEqual('h');
+      expect(scoreOf(high, NOW) > scoreOf(low, NOW), caseName('TodoTransitionCases', '0006'), 'ShortcutRuleCases.test.ets:A0082').assertTrue();
+      expect(sortTodos([low, high], NOW)[0].id, caseName('TodoTransitionCases', '0006'), 'ShortcutRuleCases.test.ets:A0083').assertEqual('h');
     });
 
     /**
@@ -363,12 +363,12 @@ export default function shortcutRuleCasesTest(): void {
         item.dueAt = offset === 0 ? 0 : NOW + offset;
         return item;
       };
-      expect(dueBucket(build(-1000), NOW), caseName('TodoTransitionCases', '0007')).assertEqual('已逾期');
-      expect(dueBucket(build(1000), NOW), caseName('TodoTransitionCases', '0007')).assertEqual('今天');
-      expect(dueBucket(build(DAY + 1), NOW), caseName('TodoTransitionCases', '0007')).assertEqual('明天');
-      expect(dueBucket(build(3 * DAY), NOW), caseName('TodoTransitionCases', '0007')).assertEqual('本周');
-      expect(dueBucket(build(30 * DAY), NOW), caseName('TodoTransitionCases', '0007')).assertEqual('以后');
-      expect(dueBucket(build(0), NOW), caseName('TodoTransitionCases', '0007')).assertEqual('无截止');
+      expect(dueBucket(build(-1000), NOW), caseName('TodoTransitionCases', '0007'), 'ShortcutRuleCases.test.ets:A0084').assertEqual('已逾期');
+      expect(dueBucket(build(1000), NOW), caseName('TodoTransitionCases', '0007'), 'ShortcutRuleCases.test.ets:A0085').assertEqual('今天');
+      expect(dueBucket(build(DAY + 1), NOW), caseName('TodoTransitionCases', '0007'), 'ShortcutRuleCases.test.ets:A0086').assertEqual('明天');
+      expect(dueBucket(build(3 * DAY), NOW), caseName('TodoTransitionCases', '0007'), 'ShortcutRuleCases.test.ets:A0087').assertEqual('本周');
+      expect(dueBucket(build(30 * DAY), NOW), caseName('TodoTransitionCases', '0007'), 'ShortcutRuleCases.test.ets:A0088').assertEqual('以后');
+      expect(dueBucket(build(0), NOW), caseName('TodoTransitionCases', '0007'), 'ShortcutRuleCases.test.ets:A0089').assertEqual('无截止');
     });
   });
 
@@ -383,11 +383,11 @@ export default function shortcutRuleCasesTest(): void {
      */
 
     it(caseName('SearchEngineCases', '0001'), 0, (): void => {
-      expect(tokenize('便签 note').length, caseName('SearchEngineCases', '0001')).assertEqual(3);
-      expect(tokenize('ABC def')[0], caseName('SearchEngineCases', '0001')).assertEqual('abc');
-      expect(tokenize('，。、').length, caseName('SearchEngineCases', '0001')).assertEqual(0);
-      expect(uniqueTokens('便签便签').length, caseName('SearchEngineCases', '0001')).assertEqual(2);
-      expect(countOccurrences('todo TODO todo', 'todo'), caseName('SearchEngineCases', '0001')).assertEqual(3);
+      expect(tokenize('便签 note').length, caseName('SearchEngineCases', '0001'), 'ShortcutRuleCases.test.ets:A0090').assertEqual(3);
+      expect(tokenize('ABC def')[0], caseName('SearchEngineCases', '0001'), 'ShortcutRuleCases.test.ets:A0091').assertEqual('abc');
+      expect(tokenize('，。、').length, caseName('SearchEngineCases', '0001'), 'ShortcutRuleCases.test.ets:A0092').assertEqual(0);
+      expect(uniqueTokens('便签便签').length, caseName('SearchEngineCases', '0001'), 'ShortcutRuleCases.test.ets:A0093').assertEqual(2);
+      expect(countOccurrences('todo TODO todo', 'todo'), caseName('SearchEngineCases', '0001'), 'ShortcutRuleCases.test.ets:A0094').assertEqual(3);
     });
 
     /**
@@ -403,9 +403,9 @@ export default function shortcutRuleCasesTest(): void {
       const titleDoc: SearchDoc = doc('t1', '便签', '无关内容', []);
       const bodyDoc: SearchDoc = doc('t2', '无关标题', '便签', []);
       const tokens: string[] = uniqueTokens('便签');
-      expect(scoreDoc(titleDoc, tokens, NOW) > scoreDoc(bodyDoc, tokens, NOW), caseName('SearchEngineCases', '0002')).assertTrue();
-      expect(scoreDoc(titleDoc, [], NOW), caseName('SearchEngineCases', '0002')).assertEqual(0);
-      expect(auditDocs([titleDoc, bodyDoc]).ok, caseName('SearchEngineCases', '0002')).assertTrue();
+      expect(scoreDoc(titleDoc, tokens, NOW) > scoreDoc(bodyDoc, tokens, NOW), caseName('SearchEngineCases', '0002'), 'ShortcutRuleCases.test.ets:A0095').assertTrue();
+      expect(scoreDoc(titleDoc, [], NOW), caseName('SearchEngineCases', '0002'), 'ShortcutRuleCases.test.ets:A0096').assertEqual(0);
+      expect(auditDocs([titleDoc, bodyDoc]).ok, caseName('SearchEngineCases', '0002'), 'ShortcutRuleCases.test.ets:A0097').assertTrue();
     });
 
     /**
@@ -420,11 +420,11 @@ export default function shortcutRuleCasesTest(): void {
     it(caseName('SearchEngineCases', '0003'), 0, (): void => {
       const docs: SearchDoc[] = corpus();
       const hits = search(docs, '便签', NOW, 10);
-      expect(hits.length, caseName('SearchEngineCases', '0003')).assertEqual(2);
-      expect(hits[0].id, caseName('SearchEngineCases', '0003')).assertEqual('n1');
-      expect(hits[0].score > hits[1].score, caseName('SearchEngineCases', '0003')).assertTrue();
-      expect(search(docs, '不存在', NOW, 10).length, caseName('SearchEngineCases', '0003')).assertEqual(0);
-      expect(search(docs, '', NOW, 10).length, caseName('SearchEngineCases', '0003')).assertEqual(0);
+      expect(hits.length, caseName('SearchEngineCases', '0003'), 'ShortcutRuleCases.test.ets:A0098').assertEqual(2);
+      expect(hits[0].id, caseName('SearchEngineCases', '0003'), 'ShortcutRuleCases.test.ets:A0099').assertEqual('n1');
+      expect(hits[0].score > hits[1].score, caseName('SearchEngineCases', '0003'), 'ShortcutRuleCases.test.ets:A0100').assertTrue();
+      expect(search(docs, '不存在', NOW, 10).length, caseName('SearchEngineCases', '0003'), 'ShortcutRuleCases.test.ets:A0101').assertEqual(0);
+      expect(search(docs, '', NOW, 10).length, caseName('SearchEngineCases', '0003'), 'ShortcutRuleCases.test.ets:A0102').assertEqual(0);
     });
 
     /**
@@ -438,10 +438,10 @@ export default function shortcutRuleCasesTest(): void {
 
     it(caseName('SearchEngineCases', '0004'), 0, (): void => {
       const docs: SearchDoc[] = corpus();
-      expect(search(docs, '便签', NOW, 1).length, caseName('SearchEngineCases', '0004')).assertEqual(1);
-      expect(search(docs, '便签', NOW, 2).length, caseName('SearchEngineCases', '0004')).assertEqual(2);
-      expect(search(docs, '便签', NOW, 0).length, caseName('SearchEngineCases', '0004')).assertEqual(2);
-      expect(auditDocs(docs).ok, caseName('SearchEngineCases', '0004')).assertTrue();
+      expect(search(docs, '便签', NOW, 1).length, caseName('SearchEngineCases', '0004'), 'ShortcutRuleCases.test.ets:A0103').assertEqual(1);
+      expect(search(docs, '便签', NOW, 2).length, caseName('SearchEngineCases', '0004'), 'ShortcutRuleCases.test.ets:A0104').assertEqual(2);
+      expect(search(docs, '便签', NOW, 0).length, caseName('SearchEngineCases', '0004'), 'ShortcutRuleCases.test.ets:A0105').assertEqual(2);
+      expect(auditDocs(docs).ok, caseName('SearchEngineCases', '0004'), 'ShortcutRuleCases.test.ets:A0106').assertTrue();
     });
 
     /**
@@ -454,12 +454,12 @@ export default function shortcutRuleCasesTest(): void {
      */
 
     it(caseName('SearchEngineCases', '0005'), 0, (): void => {
-      expect(snippetOf('便签', ['便']), caseName('SearchEngineCases', '0005')).assertEqual('便签');
-      expect(snippetOf('', ['便']), caseName('SearchEngineCases', '0005')).assertEqual('');
+      expect(snippetOf('便签', ['便']), caseName('SearchEngineCases', '0005'), 'ShortcutRuleCases.test.ets:A0107').assertEqual('便签');
+      expect(snippetOf('', ['便']), caseName('SearchEngineCases', '0005'), 'ShortcutRuleCases.test.ets:A0108').assertEqual('');
       const marked: string = highlight('便签 note', uniqueTokens('便签'));
-      expect(marked.indexOf('[便]') === 0, caseName('SearchEngineCases', '0005')).assertTrue();
-      expect(highlight('', ['便']), caseName('SearchEngineCases', '0005')).assertEqual('');
-      expect(highlight('文本', []), caseName('SearchEngineCases', '0005')).assertEqual('文本');
+      expect(marked.indexOf('[便]') === 0, caseName('SearchEngineCases', '0005'), 'ShortcutRuleCases.test.ets:A0109').assertTrue();
+      expect(highlight('', ['便']), caseName('SearchEngineCases', '0005'), 'ShortcutRuleCases.test.ets:A0110').assertEqual('');
+      expect(highlight('文本', []), caseName('SearchEngineCases', '0005'), 'ShortcutRuleCases.test.ets:A0111').assertEqual('文本');
     });
 
     /**
@@ -475,9 +475,9 @@ export default function shortcutRuleCasesTest(): void {
       const broken: SearchDoc[] = corpus();
       broken.push(new SearchDoc('', '', ''));
       const audit = auditDocs(broken);
-      expect(audit.ok, caseName('SearchEngineCases', '0006')).assertFalse();
-      expect(audit.findings.length, caseName('SearchEngineCases', '0006')).assertEqual(2);
-      expect(audit.summary().indexOf('；') > 0, caseName('SearchEngineCases', '0006')).assertTrue();
+      expect(audit.ok, caseName('SearchEngineCases', '0006'), 'ShortcutRuleCases.test.ets:A0112').assertFalse();
+      expect(audit.findings.length, caseName('SearchEngineCases', '0006'), 'ShortcutRuleCases.test.ets:A0113').assertEqual(2);
+      expect(audit.summary().indexOf('；') > 0, caseName('SearchEngineCases', '0006'), 'ShortcutRuleCases.test.ets:A0114').assertTrue();
     });
   });
 }
