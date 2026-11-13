@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { SafeExecutor } from '../../../main/ets/core/SafeExecutor';
 import { WaveExecutorClock, WaveReply, waveDrain } from '../support/PerformanceWaveOneFixtures';
 
@@ -32,13 +34,13 @@ export default function performanceExecutorWaveOneTests(): void {
       const executor = new SafeExecutor(clock, (): void => {});
       let calls = 0;
       const action = (): Promise<number> => { calls++; return Promise.resolve(9); };
-      expect((await executor.wait(0, action)).status).assertEqual('cancelled');
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:35 assertEqual actual', (await executor.wait(0, action)).status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:35 assertEqual expected', 'cancelled'));
       const token = executor.acquire();
-      expect((await executor.wait(token + 1, action)).status).assertEqual('cancelled');
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:37 assertEqual actual', (await executor.wait(token + 1, action)).status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:37 assertEqual expected', 'cancelled'));
       executor.cancel();
-      expect((await executor.wait(token, action)).status).assertEqual('cancelled');
-      expect(calls).assertEqual(0);
-      expect(clock.timeoutDelays.length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:39 assertEqual actual', (await executor.wait(token, action)).status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:39 assertEqual expected', 'cancelled'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:40 assertEqual actual', calls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:40 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:41 assertEqual actual', clock.timeoutDelays.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0001 PerformanceExecutorWaveOne.test:41 assertEqual expected', 0));
       executor.release(token);
     });
 
@@ -57,12 +59,12 @@ export default function performanceExecutorWaveOneTests(): void {
       const zero = await executor.wait(token, (): Promise<number> => Promise.resolve(0));
       const no = await executor.wait(token, (): Promise<boolean> => Promise.resolve(false));
       const empty = await executor.wait(token, (): Promise<void> => Promise.resolve());
-      expect(zero.value).assertEqual(0);
-      expect(no.value).assertFalse();
-      expect(empty.status).assertEqual('success');
-      expect(empty.error).assertUndefined();
-      expect(clock.clearedTimeouts.length).assertEqual(3);
-      expect(executor.busy()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:60 assertEqual actual', zero.value)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:60 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:61 assertFalse actual', no.value)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:62 assertEqual actual', empty.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:62 assertEqual expected', 'success'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:63 assertUndefined actual', empty.error)).assertUndefined();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:64 assertEqual actual', clock.clearedTimeouts.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:64 assertEqual expected', 3));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0002 PerformanceExecutorWaveOne.test:65 assertTrue actual', executor.busy())).assertTrue();
       executor.release(token);
     });
 
@@ -81,12 +83,12 @@ export default function performanceExecutorWaveOneTests(): void {
       const token = executor.acquire();
       const failure = new Error('async failure');
       const result = await executor.wait(token, (): Promise<number> => Promise.reject(failure));
-      expect(result.status).assertEqual('error');
-      expect(result.error === failure).assertTrue();
-      expect(result.value).assertUndefined();
-      expect(notifications).assertEqual(1);
-      expect((await executor.wait(token, (): Promise<number> => Promise.resolve(42))).value).assertEqual(42);
-      expect(clock.pendingTimers()).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:84 assertEqual actual', result.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:84 assertEqual expected', 'error'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:85 assertTrue actual', result.error === failure)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:86 assertUndefined actual', result.value)).assertUndefined();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:87 assertEqual actual', notifications)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:87 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:88 assertEqual actual', (await executor.wait(token, (): Promise<number> => Promise.resolve(42))).value)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:88 assertEqual expected', 42));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:89 assertEqual actual', clock.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0003 PerformanceExecutorWaveOne.test:89 assertEqual expected', 0));
       executor.release(token);
     });
 
@@ -104,12 +106,12 @@ export default function performanceExecutorWaveOneTests(): void {
       const token = executor.acquire();
       const failure = new Error('before promise');
       const result = await executor.wait(token, (): Promise<number> => { throw failure; });
-      expect(result.error === failure).assertTrue();
-      expect(result.status).assertEqual('error');
-      expect(clock.clearedTimeouts.length).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0004 PerformanceExecutorWaveOne.test:107 assertTrue actual', result.error === failure)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0004 PerformanceExecutorWaveOne.test:108 assertEqual actual', result.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0004 PerformanceExecutorWaveOne.test:108 assertEqual expected', 'error'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0004 PerformanceExecutorWaveOne.test:109 assertEqual actual', clock.clearedTimeouts.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0004 PerformanceExecutorWaveOne.test:109 assertEqual expected', 1));
       executor.release(token);
-      expect(executor.busy()).assertFalse();
-      expect(executor.acquire() > token).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0004 PerformanceExecutorWaveOne.test:111 assertFalse actual', executor.busy())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0004 PerformanceExecutorWaveOne.test:112 assertTrue actual', executor.acquire() > token)).assertTrue();
     });
 
     /**
@@ -130,12 +132,12 @@ export default function performanceExecutorWaveOneTests(): void {
         statuses.push(result.status);
       });
       clock.advance(24); await waveDrain();
-      expect(statuses.length).assertEqual(0);
-      expect(executor.quarantined()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0005 PerformanceExecutorWaveOne.test:133 assertEqual actual', statuses.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0005 PerformanceExecutorWaveOne.test:133 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0005 PerformanceExecutorWaveOne.test:134 assertFalse actual', executor.quarantined())).assertFalse();
       clock.advance(1); await pending;
-      expect(statuses.join('|')).assertEqual('timeout');
-      expect(clock.timeoutDelays[0]).assertEqual(25);
-      expect(executor.quarantined()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0005 PerformanceExecutorWaveOne.test:136 assertEqual actual', statuses.join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0005 PerformanceExecutorWaveOne.test:136 assertEqual expected', 'timeout'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0005 PerformanceExecutorWaveOne.test:137 assertEqual actual', clock.timeoutDelays[0])).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0005 PerformanceExecutorWaveOne.test:137 assertEqual expected', 25));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0005 PerformanceExecutorWaveOne.test:138 assertTrue actual', executor.quarantined())).assertTrue();
       executor.release(token); reply.resolve(7); await waveDrain();
     });
 
@@ -156,13 +158,13 @@ export default function performanceExecutorWaveOneTests(): void {
       clock.advance(10000);
       const result = await pending;
       executor.release(token);
-      expect(executor.acquire()).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:159 assertEqual actual', executor.acquire())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:159 assertEqual expected', 0));
       reply.resolve('late value'); await waveDrain();
-      expect(result.status).assertEqual('timeout');
-      expect(result.value).assertUndefined();
-      expect(executor.busy()).assertFalse();
-      expect(executor.reason()).assertEqual('timeout');
-      expect(clock.timeoutDelays[0]).assertEqual(10000);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:161 assertEqual actual', result.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:161 assertEqual expected', 'timeout'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:162 assertUndefined actual', result.value)).assertUndefined();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:163 assertFalse actual', executor.busy())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:164 assertEqual actual', executor.reason())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:164 assertEqual expected', 'timeout'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:165 assertEqual actual', clock.timeoutDelays[0])).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0006 PerformanceExecutorWaveOne.test:165 assertEqual expected', 10000));
     });
 
     /**
@@ -184,12 +186,12 @@ export default function performanceExecutorWaveOneTests(): void {
       const result = await pending;
       executor.release(first);
       reply.reject(new Error('late rejection')); await waveDrain();
-      expect(result.error).assertUndefined();
-      expect(notifications).assertEqual(3);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0007 PerformanceExecutorWaveOne.test:187 assertUndefined actual', result.error)).assertUndefined();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0007 PerformanceExecutorWaveOne.test:188 assertEqual actual', notifications)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0007 PerformanceExecutorWaveOne.test:188 assertEqual expected', 3));
       const second = executor.acquire();
-      expect(second > first).assertTrue();
-      expect(executor.reason()).assertEqual('');
-      expect((await executor.wait(second, (): Promise<number> => Promise.resolve(8))).value).assertEqual(8);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0007 PerformanceExecutorWaveOne.test:190 assertTrue actual', second > first)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0007 PerformanceExecutorWaveOne.test:191 assertEqual actual', executor.reason())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0007 PerformanceExecutorWaveOne.test:191 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0007 PerformanceExecutorWaveOne.test:192 assertEqual actual', (await executor.wait(second, (): Promise<number> => Promise.resolve(8))).value)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0007 PerformanceExecutorWaveOne.test:192 assertEqual expected', 8));
       executor.release(second);
     });
 
@@ -209,13 +211,13 @@ export default function performanceExecutorWaveOneTests(): void {
       const pending = executor.wait(token, (): Promise<number> => reply.promise, 30);
       executor.cancel();
       const result = await pending;
-      expect(result.status).assertEqual('cancelled');
-      expect(clock.pendingTimers()).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:212 assertEqual actual', result.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:212 assertEqual expected', 'cancelled'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:213 assertEqual actual', clock.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:213 assertEqual expected', 0));
       executor.release(token);
-      expect(executor.acquire()).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:215 assertEqual actual', executor.acquire())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:215 assertEqual expected', 0));
       clock.advance(100); reply.resolve(5); await waveDrain();
-      expect(executor.reason()).assertEqual('cancelled');
-      expect(executor.busy()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:217 assertEqual actual', executor.reason())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:217 assertEqual expected', 'cancelled'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0008 PerformanceExecutorWaveOne.test:218 assertFalse actual', executor.busy())).assertFalse();
     });
 
     /**
@@ -233,13 +235,13 @@ export default function performanceExecutorWaveOneTests(): void {
       const token = executor.acquire();
       const pending = executor.wait(token, (): Promise<number> => reply.promise);
       executor.release(token);
-      expect(executor.quarantined()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0009 PerformanceExecutorWaveOne.test:236 assertTrue actual', executor.quarantined())).assertTrue();
       executor.cancel();
-      expect(executor.reason()).assertEqual('');
-      expect(clock.pendingTimers()).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0009 PerformanceExecutorWaveOne.test:238 assertEqual actual', executor.reason())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0009 PerformanceExecutorWaveOne.test:238 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0009 PerformanceExecutorWaveOne.test:239 assertEqual actual', clock.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0009 PerformanceExecutorWaveOne.test:239 assertEqual expected', 1));
       reply.resolve(91);
-      expect((await pending).value).assertEqual(91);
-      expect(executor.busy()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0009 PerformanceExecutorWaveOne.test:241 assertEqual actual', (await pending).value)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0009 PerformanceExecutorWaveOne.test:241 assertEqual expected', 91));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0009 PerformanceExecutorWaveOne.test:242 assertFalse actual', executor.busy())).assertFalse();
     });
 
     /**
@@ -259,11 +261,11 @@ export default function performanceExecutorWaveOneTests(): void {
       let oldCalls = 0;
       const stale = await executor.wait(first, (): Promise<number> => { oldCalls++; return Promise.resolve(1); });
       executor.release(first);
-      expect(stale.status).assertEqual('cancelled');
-      expect(oldCalls).assertEqual(0);
-      expect(executor.acquire()).assertEqual(0);
-      expect((await executor.wait(second, (): Promise<number> => Promise.resolve(2))).value).assertEqual(2);
-      expect(clock.timeoutDelays.length).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:262 assertEqual actual', stale.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:262 assertEqual expected', 'cancelled'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:263 assertEqual actual', oldCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:263 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:264 assertEqual actual', executor.acquire())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:264 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:265 assertEqual actual', (await executor.wait(second, (): Promise<number> => Promise.resolve(2))).value)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:265 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:266 assertEqual actual', clock.timeoutDelays.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0010 PerformanceExecutorWaveOne.test:266 assertEqual expected', 1));
       executor.release(second);
     });
 
@@ -283,11 +285,11 @@ export default function performanceExecutorWaveOneTests(): void {
       executor.cancel();
       let nextCalls = 0;
       const next = await executor.wait(token, (): Promise<string> => { nextCalls++; return Promise.resolve('next'); });
-      expect(first.value).assertEqual('first');
-      expect(next.status).assertEqual('cancelled');
-      expect(nextCalls).assertEqual(0);
-      expect(clock.clearedTimeouts.length).assertEqual(1);
-      expect(executor.quarantined()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:286 assertEqual actual', first.value)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:286 assertEqual expected', 'first'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:287 assertEqual actual', next.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:287 assertEqual expected', 'cancelled'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:288 assertEqual actual', nextCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:288 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:289 assertEqual actual', clock.clearedTimeouts.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:289 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0011 PerformanceExecutorWaveOne.test:290 assertFalse actual', executor.quarantined())).assertFalse();
       executor.release(token);
     });
 
@@ -310,13 +312,13 @@ export default function performanceExecutorWaveOneTests(): void {
         statuses.push(result.status);
       });
       clock.advance(5); await waveDrain();
-      expect(statuses.length).assertEqual(0);
-      expect(executor.reason()).assertEqual('');
-      expect(clock.pendingTimers()).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:313 assertEqual actual', statuses.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:313 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:314 assertEqual actual', executor.reason())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:314 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:315 assertEqual actual', clock.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:315 assertEqual expected', 1));
       reply.resolve(2); await pending;
       clock.advance(20);
-      expect(statuses.join('|')).assertEqual('success');
-      expect(clock.pendingTimers()).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:318 assertEqual actual', statuses.join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:318 assertEqual expected', 'success'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:319 assertEqual actual', clock.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_PerformanceExecutorWaveOne_0012 PerformanceExecutorWaveOne.test:319 assertEqual expected', 0));
       executor.release(token);
     });
   });

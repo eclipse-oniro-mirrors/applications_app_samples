@@ -14,10 +14,11 @@
  */
 
 import { Want } from '@kit.AbilityKit';
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { AppNavigation, NavigationDialog, NavigationRouter } from '../../../main/ets/navigation/AppNavigation';
 import { parseLaunchRequest } from '../../../main/ets/navigation/LaunchRequest';
-import { PageKey } from '../../../main/ets/model/ShortcutModels';
+import { PageKey } from '../../../main/ets/model/ShortcutScenes';
 import { BusinessStore } from '../../../main/ets/business/BusinessStore';
 import { CaseScope, getTestContext, runCase } from '../support/CaseScope';
 import { FixedBusinessClock, MemoryBusinessStorage, startBusiness } from '../support/BusinessFixture';
@@ -74,25 +75,25 @@ export default function appNavigationTests(): void {
      */
 
 
-    it('testProductionAppNavigation0001', 0, async () => {
-      await runCase(async (scope: CaseScope) => {
+    it(caseName('ProductionAppNavigation', '0001'), 0, async () => {
+      await runCase(caseName('ProductionAppNavigation', '0001'), async (scope: CaseScope) => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.readGate = new Deferred<string>();
         const store: BusinessStore = createBusiness(scope, io, new FixedBusinessClock().now);
         const routes: TestRouter = new TestRouter();
         const nav = navigation(scope, store, routes);
-        expect(parseLaunchRequest(want('todo.list', 'todayOpen'), true).filter).assertEqual('todayOpen');
+        expect(parseLaunchRequest(want('todo.list', 'todayOpen'), true).filter, caseName('ProductionAppNavigation', '0001')).assertEqual('todayOpen');
         nav.receiveWant(want('todo.list', 'todayOpen'), true);
         nav.activate(PageKey.HOME, () => {});
         store.initialize(getTestContext());
-        expect(routes.calls.length).assertEqual(0);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0001')).assertEqual(0);
         io.readGate.resolve('');
         await waitBusiness(scope, store);
         await settle();
-        expect(routes.calls.length).assertEqual(1);
-        expect(store.snapshot().todoFilter).assertEqual('未完成');
-        expect(store.snapshot().todoDate).assertEqual('2026-11-02');
-        expect(io.writes).assertEqual(0);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0001')).assertEqual(1);
+        expect(store.snapshot().todoFilter, caseName('ProductionAppNavigation', '0001')).assertEqual('未完成');
+        expect(store.snapshot().todoDate, caseName('ProductionAppNavigation', '0001')).assertEqual('2026-11-02');
+        expect(io.writes, caseName('ProductionAppNavigation', '0001')).assertEqual(0);
       });
     });
     /**
@@ -105,8 +106,8 @@ export default function appNavigationTests(): void {
      */
 
 
-    it('testProductionAppNavigation0002', 0, async () => {
-      await runCase(async (scope: CaseScope) => {
+    it(caseName('ProductionAppNavigation', '0002'), 0, async () => {
+      await runCase(caseName('ProductionAppNavigation', '0002'), async (scope: CaseScope) => {
         const store = await startBusiness(scope, new MemoryBusinessStorage(), new FixedBusinessClock());
         const routes: TestRouter = new TestRouter();
         routes.gate = new Deferred<void>();
@@ -116,24 +117,24 @@ export default function appNavigationTests(): void {
         nav.receiveWant(want('todo.list', 'todayOpen'), false);
         nav.receiveWant(want('collection.list', 'saved'), false);
         await settle();
-        expect(routes.calls.length).assertEqual(1);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0002')).assertEqual(1);
         routes.gate.resolve(undefined);
         await settle();
-        expect(routes.calls.length).assertEqual(1);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0002')).assertEqual(1);
         nav.activate(PageKey.TODO, () => {});
         await settle();
-        expect(routes.calls.length).assertEqual(2);
-        expect(store.snapshot().favoritesOnly).assertTrue();
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0002')).assertEqual(2);
+        expect(store.snapshot().favoritesOnly, caseName('ProductionAppNavigation', '0002')).assertTrue();
         let revisits: number = 0;
         nav.activate(PageKey.COLLECTION, () => { revisits++; });
         store.setFavoritesOnly(false);
         store.setCollectionQuery('不存在');
         nav.receiveWant(want('collection.list', 'saved'), false);
         await settle();
-        expect(routes.calls.length).assertEqual(2);
-        expect(revisits).assertEqual(1);
-        expect(store.snapshot().favoritesOnly).assertTrue();
-        expect(store.snapshot().collectionQuery).assertEqual('');
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0002')).assertEqual(2);
+        expect(revisits, caseName('ProductionAppNavigation', '0002')).assertEqual(1);
+        expect(store.snapshot().favoritesOnly, caseName('ProductionAppNavigation', '0002')).assertTrue();
+        expect(store.snapshot().collectionQuery, caseName('ProductionAppNavigation', '0002')).assertEqual('');
       });
     });
     /**
@@ -146,12 +147,12 @@ export default function appNavigationTests(): void {
      */
 
 
-    it('testProductionAppNavigation0003', 0, async () => {
-      await runCase(async (scope: CaseScope) => {
+    it(caseName('ProductionAppNavigation', '0003'), 0, async () => {
+      await runCase(caseName('ProductionAppNavigation', '0003'), async (scope: CaseScope) => {
         const storage: MemoryBusinessStorage = new MemoryBusinessStorage();
         const store = await startBusiness(scope, storage, new FixedBusinessClock());
         store.setDraftTitle('原稿');
-        expect(await store.saveNote()).assertTrue();
+        expect(await store.saveNote(), caseName('ProductionAppNavigation', '0003')).assertTrue();
         store.beginEditNote(store.snapshot().notes[0].id);
         store.setDraftTitle('修改中');
         const routes: TestRouter = new TestRouter();
@@ -160,21 +161,21 @@ export default function appNavigationTests(): void {
         nav.activate(PageKey.NOTE, () => {});
         nav.receiveWant(want('collection.list', 'saved'), false);
         await settle();
-        expect(dialogs.calls).assertEqual(1);
-        expect(routes.calls.length).assertEqual(0);
-        expect(store.snapshot().favoritesOnly).assertFalse();
+        expect(dialogs.calls, caseName('ProductionAppNavigation', '0003')).assertEqual(1);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0003')).assertEqual(0);
+        expect(store.snapshot().favoritesOnly, caseName('ProductionAppNavigation', '0003')).assertFalse();
         dialogs.answer = 0;
         storage.failNextWrite = true;
         nav.receiveWant(want('collection.list', 'saved'), false);
         await settle();
-        expect(routes.calls.length).assertEqual(0);
-        expect(store.snapshot().draftTitle).assertEqual('修改中');
-        expect(store.hasUnsavedNoteWork()).assertTrue();
-        expect(dialogs.toasts).assertEqual(1);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0003')).assertEqual(0);
+        expect(store.snapshot().draftTitle, caseName('ProductionAppNavigation', '0003')).assertEqual('修改中');
+        expect(store.hasUnsavedNoteWork(), caseName('ProductionAppNavigation', '0003')).assertTrue();
+        expect(dialogs.toasts, caseName('ProductionAppNavigation', '0003')).assertEqual(1);
         nav.receiveWant(want('collection.list', 'saved'), false);
         await settle();
-        expect(routes.calls.length).assertEqual(1);
-        expect(store.snapshot().notes[0].title).assertEqual('修改中');
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0003')).assertEqual(1);
+        expect(store.snapshot().notes[0].title, caseName('ProductionAppNavigation', '0003')).assertEqual('修改中');
       });
     });
     /**
@@ -187,11 +188,11 @@ export default function appNavigationTests(): void {
      */
 
 
-    it('testProductionAppNavigation0004', 0, async () => {
-      await runCase(async (scope: CaseScope) => {
+    it(caseName('ProductionAppNavigation', '0004'), 0, async () => {
+      await runCase(caseName('ProductionAppNavigation', '0004'), async (scope: CaseScope) => {
         const store = await startBusiness(scope, new MemoryBusinessStorage(), new FixedBusinessClock());
         store.setDraftTitle('原稿');
-        expect(await store.saveNote()).assertTrue();
+        expect(await store.saveNote(), caseName('ProductionAppNavigation', '0004')).assertTrue();
         store.beginEditNote(store.snapshot().notes[0].id);
         store.setDraftTitle('已保存修改');
         const routes: TestRouter = new TestRouter();
@@ -204,14 +205,14 @@ export default function appNavigationTests(): void {
         nav.activate(PageKey.NOTE, () => {});
         nav.receiveWant(want('collection.list', 'saved'), false);
         await settle();
-        expect(store.snapshot().favoritesOnly).assertFalse();
-        expect(store.snapshot().notes[0].title).assertEqual('已保存修改');
-        expect(store.hasUnsavedNoteWork()).assertFalse();
+        expect(store.snapshot().favoritesOnly, caseName('ProductionAppNavigation', '0004')).assertFalse();
+        expect(store.snapshot().notes[0].title, caseName('ProductionAppNavigation', '0004')).assertEqual('已保存修改');
+        expect(store.hasUnsavedNoteWork(), caseName('ProductionAppNavigation', '0004')).assertFalse();
         routes.fail = false;
         nav.receiveWant(want('collection.list', 'saved'), false);
         await settle();
-        expect(routes.calls.length).assertEqual(2);
-        expect(store.snapshot().favoritesOnly).assertTrue();
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0004')).assertEqual(2);
+        expect(store.snapshot().favoritesOnly, caseName('ProductionAppNavigation', '0004')).assertTrue();
       });
     });
     /**
@@ -224,8 +225,8 @@ export default function appNavigationTests(): void {
      */
 
 
-    it('testProductionAppNavigation0005', 0, async () => {
-      await runCase(async (scope: CaseScope) => {
+    it(caseName('ProductionAppNavigation', '0005'), 0, async () => {
+      await runCase(caseName('ProductionAppNavigation', '0005'), async (scope: CaseScope) => {
         const store = await startBusiness(scope, new MemoryBusinessStorage(), new FixedBusinessClock());
         store.setDraftTitle('未保存');
         const routes: TestRouter = new TestRouter();
@@ -238,15 +239,15 @@ export default function appNavigationTests(): void {
         nav.receiveWant(want('collection.list', 'saved'), false);
         dialogs.gate.resolve(2);
         await settle();
-        expect(dialogs.calls).assertEqual(1);
-        expect(routes.calls.length).assertEqual(0);
+        expect(dialogs.calls, caseName('ProductionAppNavigation', '0005')).assertEqual(1);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0005')).assertEqual(0);
         dialogs.gate = new Deferred<number>();
         nav.receiveWant(want('todo.list', 'todayOpen'), false);
         nav.dispose();
         dialogs.gate.resolve(0);
         await settle();
-        expect(routes.calls.length).assertEqual(0);
-        expect(store.hasUnsavedNoteWork()).assertTrue();
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0005')).assertEqual(0);
+        expect(store.hasUnsavedNoteWork(), caseName('ProductionAppNavigation', '0005')).assertTrue();
       });
     });
     /**
@@ -259,29 +260,29 @@ export default function appNavigationTests(): void {
      */
 
 
-    it('testProductionAppNavigation0006', 0, async () => {
-      await runCase(async (scope: CaseScope) => {
+    it(caseName('ProductionAppNavigation', '0006'), 0, async () => {
+      await runCase(caseName('ProductionAppNavigation', '0006'), async (scope: CaseScope) => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         const store: BusinessStore = createBusiness(scope, io, new FixedBusinessClock().now);
         const routes: TestRouter = new TestRouter();
         const nav = navigation(scope, store, routes);
         nav.activate(PageKey.HOME, () => {});
         await nav.openDetail('sc.note.new');
-        expect(routes.calls.length).assertEqual(0);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0006')).assertEqual(0);
         store.initialize(getTestContext());
         await waitBusiness(scope, store);
         await settle();
-        expect(routes.calls[0]).assertEqual('push:pages/ShortcutDetailPage:sc.note.new');
+        expect(routes.calls[0], caseName('ProductionAppNavigation', '0006')).assertEqual('push:scenes/pages/ShortcutDetailPage:sc.note.new');
         nav.activate(PageKey.HOME, () => {});
         io.writeGate = new Deferred<void>();
         store.setDraftTitle('写入中');
         const saving: Promise<boolean> = store.keepDraft();
         await nav.openDetail('sc.todo.today');
-        expect(routes.calls.length).assertEqual(1);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0006')).assertEqual(1);
         io.writeGate.resolve(undefined);
-        expect(await saving).assertTrue();
+        expect(await saving, caseName('ProductionAppNavigation', '0006')).assertTrue();
         await settle();
-        expect(routes.calls[1]).assertEqual('push:pages/ShortcutDetailPage:sc.todo.today');
+        expect(routes.calls[1], caseName('ProductionAppNavigation', '0006')).assertEqual('push:scenes/pages/ShortcutDetailPage:sc.todo.today');
       });
     });
     /**
@@ -294,8 +295,8 @@ export default function appNavigationTests(): void {
      */
 
 
-    it('testProductionAppNavigation0007', 0, async () => {
-      await runCase(async (scope: CaseScope) => {
+    it(caseName('ProductionAppNavigation', '0007'), 0, async () => {
+      await runCase(caseName('ProductionAppNavigation', '0007'), async (scope: CaseScope) => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         const store: BusinessStore = createBusiness(scope, io, new FixedBusinessClock().now);
         store.initialize(getTestContext());
@@ -319,14 +320,14 @@ export default function appNavigationTests(): void {
         nav.receiveWant(want('collection.list', 'saved'), false);
         old.resolve(2);
         await settle();
-        expect(reports).assertEqual(0);
-        expect(dialogs.toasts).assertEqual(0);
+        expect(reports, caseName('ProductionAppNavigation', '0007')).assertEqual(0);
+        expect(dialogs.toasts, caseName('ProductionAppNavigation', '0007')).assertEqual(0);
         io.writeGate.resolve(undefined);
-        expect(await saving).assertTrue();
+        expect(await saving, caseName('ProductionAppNavigation', '0007')).assertTrue();
         await settle();
-        expect(routes.calls.length).assertEqual(1);
-        expect(store.snapshot().favoritesOnly).assertTrue();
-        expect(reports).assertEqual(1);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0007')).assertEqual(1);
+        expect(store.snapshot().favoritesOnly, caseName('ProductionAppNavigation', '0007')).assertTrue();
+        expect(reports, caseName('ProductionAppNavigation', '0007')).assertEqual(1);
       });
     });
     /**
@@ -337,8 +338,8 @@ export default function appNavigationTests(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testProductionAppNavigation0008', 0, async () => {
-      await runCase(async (scope: CaseScope) => {
+    it(caseName('ProductionAppNavigation', '0008'), 0, async () => {
+      await runCase(caseName('ProductionAppNavigation', '0008'), async (scope: CaseScope) => {
         const io: MemoryBusinessStorage = new MemoryBusinessStorage();
         const store = await startBusiness(scope, io, new FixedBusinessClock());
         const routes: TestRouter = new TestRouter();
@@ -348,17 +349,17 @@ export default function appNavigationTests(): void {
         nav.activate(PageKey.DETAIL, () => {});
         const returning: Promise<void> = nav.back();
         await settle();
-        expect(routes.calls[0]).assertEqual('back:false');
+        expect(routes.calls[0], caseName('ProductionAppNavigation', '0008')).assertEqual('back:false');
         let homeRevisits: number = 0;
         nav.activate(PageKey.HOME, (): void => { homeRevisits++; });
         backGate.resolve(undefined);
         await returning;
         await nav.open(PageKey.HOME);
         await nav.open(PageKey.CALL_LOG);
-        expect(homeRevisits).assertEqual(1);
-        expect(routes.calls.length).assertEqual(2);
-        expect(routes.calls[1]).assertEqual('push:pages/ActivityPage:');
-        expect(io.writeCount).assertEqual(0);
+        expect(homeRevisits, caseName('ProductionAppNavigation', '0008')).assertEqual(1);
+        expect(routes.calls.length, caseName('ProductionAppNavigation', '0008')).assertEqual(2);
+        expect(routes.calls[1], caseName('ProductionAppNavigation', '0008')).assertEqual('push:scenes/pages/ActivityPage:');
+        expect(io.writeCount, caseName('ProductionAppNavigation', '0008')).assertEqual(0);
       });
     });
   });

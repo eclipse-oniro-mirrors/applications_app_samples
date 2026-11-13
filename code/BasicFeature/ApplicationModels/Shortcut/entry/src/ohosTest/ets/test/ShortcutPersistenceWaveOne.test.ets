@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { BusinessEntryContext, BusinessStore, NoteRevision } from '../../../main/ets/business/BusinessStore';
 import { CaseScope, runCase } from '../support/CaseScope';
 import { FixedBusinessClock } from '../support/BusinessFixture';
@@ -38,8 +39,8 @@ export default function shortcutPersistenceWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutPersistenceWaveOne0001', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutPersistenceWaveOne', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutPersistenceWaveOne', '0001'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.value = persistedArchive();
         const clock: FixedBusinessClock = new FixedBusinessClock();
@@ -48,16 +49,16 @@ export default function shortcutPersistenceWaveOneTests(): void {
         const checkpoint: BusinessEntryContext = store.entryContext();
         store.beginEditNote('b');
         store.restoreEntryContext(checkpoint);
-        expect(store.snapshot().editingNoteId).assertEqual('a');
-        expect(store.snapshot().editBaseRevision).assertEqual('ar');
-        expect(store.snapshot().draftBody).assertEqual('正文A');
-        expect(io.writes).assertEqual(0);
+        expect(store.snapshot().editingNoteId, caseName('ShortcutPersistenceWaveOne', '0001')).assertEqual('a');
+        expect(store.snapshot().editBaseRevision, caseName('ShortcutPersistenceWaveOne', '0001')).assertEqual('ar');
+        expect(store.snapshot().draftBody, caseName('ShortcutPersistenceWaveOne', '0001')).assertEqual('正文A');
+        expect(io.writes, caseName('ShortcutPersistenceWaveOne', '0001')).assertEqual(0);
         store.setDraftBody('A的续写');
         await store.keepEditDraft();
         store.dispose();
         const reopened: BusinessStore = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().editBaseRevision).assertEqual('ar');
-        expect(reopened.snapshot().draftBody).assertEqual('A的续写');
+        expect(reopened.snapshot().editBaseRevision, caseName('ShortcutPersistenceWaveOne', '0001')).assertEqual('ar');
+        expect(reopened.snapshot().draftBody, caseName('ShortcutPersistenceWaveOne', '0001')).assertEqual('A的续写');
       });
     });
 
@@ -69,21 +70,21 @@ export default function shortcutPersistenceWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutPersistenceWaveOne0002', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutPersistenceWaveOne', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutPersistenceWaveOne', '0002'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.value = persistedArchive(',"editNoteId":"missing","editTitle":"编辑标题","editBody":"编辑正文"');
         const broken: string = io.value;
         const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
-        expect(store.snapshot().ready).assertFalse();
-        expect(io.value).assertEqual(broken);
-        expect(io.writes).assertEqual(0);
+        expect(store.snapshot().ready, caseName('ShortcutPersistenceWaveOne', '0002')).assertFalse();
+        expect(io.value, caseName('ShortcutPersistenceWaveOne', '0002')).assertEqual(broken);
+        expect(io.writes, caseName('ShortcutPersistenceWaveOne', '0002')).assertEqual(0);
         io.value = persistedArchive(',"editNoteId":"a","editTitle":"编辑标题","editBody":"编辑正文"');
         store.retry();
         await waitBusiness(scope, store);
-        expect(store.snapshot().editingNoteId).assertEqual('a');
-        expect(store.snapshot().draftBody).assertEqual('编辑正文');
-        expect(store.snapshot().notes[0].body).assertEqual('正文A');
+        expect(store.snapshot().editingNoteId, caseName('ShortcutPersistenceWaveOne', '0002')).assertEqual('a');
+        expect(store.snapshot().draftBody, caseName('ShortcutPersistenceWaveOne', '0002')).assertEqual('编辑正文');
+        expect(store.snapshot().notes[0].body, caseName('ShortcutPersistenceWaveOne', '0002')).assertEqual('正文A');
       });
     });
 
@@ -95,20 +96,20 @@ export default function shortcutPersistenceWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutPersistenceWaveOne0003', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutPersistenceWaveOne', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutPersistenceWaveOne', '0003'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.value = persistedArchive(',"editNoteId":"a","editBaseRevision":"ar","editTitle":"标题","editBody":7');
         const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
-        expect(store.snapshot().notes.length).assertEqual(0);
-        expect(store.errorText()).assertEqual('读取失败，请重试');
-        expect(io.writes).assertEqual(0);
+        expect(store.snapshot().notes.length, caseName('ShortcutPersistenceWaveOne', '0003')).assertEqual(0);
+        expect(store.errorText(), caseName('ShortcutPersistenceWaveOne', '0003')).assertEqual('读取失败，请重试');
+        expect(io.writes, caseName('ShortcutPersistenceWaveOne', '0003')).assertEqual(0);
         io.value = persistedArchive(',"editNoteId":"a","editBaseRevision":"ar","editTitle":"标题","editBody":"合法编辑正文"');
         store.retry();
         await waitBusiness(scope, store);
-        expect(store.snapshot().draftBody).assertEqual('合法编辑正文');
-        expect(store.snapshot().editBaseRevision).assertEqual('ar');
-        expect(store.hasUnsavedNoteWork()).assertTrue();
+        expect(store.snapshot().draftBody, caseName('ShortcutPersistenceWaveOne', '0003')).assertEqual('合法编辑正文');
+        expect(store.snapshot().editBaseRevision, caseName('ShortcutPersistenceWaveOne', '0003')).assertEqual('ar');
+        expect(store.hasUnsavedNoteWork(), caseName('ShortcutPersistenceWaveOne', '0003')).assertTrue();
       });
     });
 
@@ -120,20 +121,20 @@ export default function shortcutPersistenceWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutPersistenceWaveOne0004', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutPersistenceWaveOne', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutPersistenceWaveOne', '0004'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.value = persistedArchive().replace('"revisionId":"br"', '"revisionId":"ar"');
         const original: string = io.value;
         const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
-        expect(store.snapshot().ready).assertFalse();
-        expect(store.historyFor('a').length).assertEqual(0);
-        expect(io.value).assertEqual(original);
-        expect(io.writes).assertEqual(0);
+        expect(store.snapshot().ready, caseName('ShortcutPersistenceWaveOne', '0004')).assertFalse();
+        expect(store.historyFor('a').length, caseName('ShortcutPersistenceWaveOne', '0004')).assertEqual(0);
+        expect(io.value, caseName('ShortcutPersistenceWaveOne', '0004')).assertEqual(original);
+        expect(io.writes, caseName('ShortcutPersistenceWaveOne', '0004')).assertEqual(0);
         io.value = persistedArchive();
         store.retry();
         await waitBusiness(scope, store);
-        expect(store.historyFor('b')[0].revisionId).assertEqual('br');
+        expect(store.historyFor('b')[0].revisionId, caseName('ShortcutPersistenceWaveOne', '0004')).assertEqual('br');
       });
     });
 
@@ -145,20 +146,20 @@ export default function shortcutPersistenceWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutPersistenceWaveOne0005', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutPersistenceWaveOne', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutPersistenceWaveOne', '0005'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.value = persistedArchive().replace('"action":"edit"', '"action":"publish"');
         const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
-        expect(store.snapshot().ready).assertFalse();
-        expect(store.snapshot().notes.length).assertEqual(0);
-        expect(io.writes).assertEqual(0);
+        expect(store.snapshot().ready, caseName('ShortcutPersistenceWaveOne', '0005')).assertFalse();
+        expect(store.snapshot().notes.length, caseName('ShortcutPersistenceWaveOne', '0005')).assertEqual(0);
+        expect(io.writes, caseName('ShortcutPersistenceWaveOne', '0005')).assertEqual(0);
         io.value = persistedArchive();
         store.retry();
         await waitBusiness(scope, store);
-        expect(store.historyFor('a')[0].action).assertEqual('edit');
-        expect(await store.restoreRevision('a', 'ar')).assertTrue();
-        expect(store.snapshot().notes[0].title).assertEqual('旧A');
+        expect(store.historyFor('a')[0].action, caseName('ShortcutPersistenceWaveOne', '0005')).assertEqual('edit');
+        expect(await store.restoreRevision('a', 'ar'), caseName('ShortcutPersistenceWaveOne', '0005')).assertTrue();
+        expect(store.snapshot().notes[0].title, caseName('ShortcutPersistenceWaveOne', '0005')).assertEqual('旧A');
       });
     });
 
@@ -170,22 +171,22 @@ export default function shortcutPersistenceWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutPersistenceWaveOne0006', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutPersistenceWaveOne', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutPersistenceWaveOne', '0006'), async (scope: CaseScope): Promise<void> => {
         for (const favorites of ['["reading","reading"]', '["missing"]']) {
           const io: ControlledBusinessStorage = new ControlledBusinessStorage();
           io.value = persistedArchive(`,"favorites":${favorites}`);
           const original: string = io.value;
           const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
-          expect(store.snapshot().ready).assertFalse();
-          expect(io.value).assertEqual(original);
-          expect(io.writes).assertEqual(0);
+          expect(store.snapshot().ready, caseName('ShortcutPersistenceWaveOne', '0006')).assertFalse();
+          expect(io.value, caseName('ShortcutPersistenceWaveOne', '0006')).assertEqual(original);
+          expect(io.writes, caseName('ShortcutPersistenceWaveOne', '0006')).assertEqual(0);
           io.value = persistedArchive(',"favorites":["reading"]');
           store.retry();
           await waitBusiness(scope, store);
           store.setFavoritesOnly(true);
-          expect(store.snapshot().visibleCollections.map((item): string => item.id).join(',')).assertEqual('reading');
-          expect(store.snapshot().notes[0].id).assertEqual('a');
+          expect(store.snapshot().visibleCollections.map((item): string => item.id).join(','), caseName('ShortcutPersistenceWaveOne', '0006')).assertEqual('reading');
+          expect(store.snapshot().notes[0].id, caseName('ShortcutPersistenceWaveOne', '0006')).assertEqual('a');
         }
       });
     });
@@ -198,8 +199,8 @@ export default function shortcutPersistenceWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutPersistenceWaveOne0007', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutPersistenceWaveOne', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutPersistenceWaveOne', '0007'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.value = persistedArchive();
         const clock: FixedBusinessClock = new FixedBusinessClock();
@@ -208,14 +209,14 @@ export default function shortcutPersistenceWaveOneTests(): void {
         history[0].title = '调用者篡改';
         history[0].body = '调用者篡改正文';
         history.length = 0;
-        expect(store.historyFor('a')[0].title).assertEqual('旧A');
-        expect(await store.restoreRevision('a', 'ar')).assertTrue();
-        expect(store.snapshot().notes[0].body).assertEqual('旧正文A');
+        expect(store.historyFor('a')[0].title, caseName('ShortcutPersistenceWaveOne', '0007')).assertEqual('旧A');
+        expect(await store.restoreRevision('a', 'ar'), caseName('ShortcutPersistenceWaveOne', '0007')).assertTrue();
+        expect(store.snapshot().notes[0].body, caseName('ShortcutPersistenceWaveOne', '0007')).assertEqual('旧正文A');
         store.dispose();
         const reopened: BusinessStore = await loadBusiness(scope, io, clock.now);
-        expect(reopened.historyFor('a')[0].body).assertEqual('正文A');
-        expect(reopened.historyFor('a')[1].title).assertEqual('旧A');
-        expect(reopened.snapshot().notes[1].title).assertEqual('当前B');
+        expect(reopened.historyFor('a')[0].body, caseName('ShortcutPersistenceWaveOne', '0007')).assertEqual('正文A');
+        expect(reopened.historyFor('a')[1].title, caseName('ShortcutPersistenceWaveOne', '0007')).assertEqual('旧A');
+        expect(reopened.snapshot().notes[1].title, caseName('ShortcutPersistenceWaveOne', '0007')).assertEqual('当前B');
       });
     });
 
@@ -227,18 +228,18 @@ export default function shortcutPersistenceWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutPersistenceWaveOne0008', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutPersistenceWaveOne', '0008'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutPersistenceWaveOne', '0008'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.value = persistedArchive();
         const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
         const original: string = io.value;
-        expect(await store.restoreRevision('a', 'br')).assertFalse();
-        expect(store.errorText()).assertEqual('历史版本不存在');
-        expect(store.snapshot().notes[0].title).assertEqual('当前A');
-        expect(store.historyFor('a').length).assertEqual(1);
-        expect(io.value).assertEqual(original);
-        expect(io.writes).assertEqual(0);
+        expect(await store.restoreRevision('a', 'br'), caseName('ShortcutPersistenceWaveOne', '0008')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutPersistenceWaveOne', '0008')).assertEqual('历史版本不存在');
+        expect(store.snapshot().notes[0].title, caseName('ShortcutPersistenceWaveOne', '0008')).assertEqual('当前A');
+        expect(store.historyFor('a').length, caseName('ShortcutPersistenceWaveOne', '0008')).assertEqual(1);
+        expect(io.value, caseName('ShortcutPersistenceWaveOne', '0008')).assertEqual(original);
+        expect(io.writes, caseName('ShortcutPersistenceWaveOne', '0008')).assertEqual(0);
       });
     });
   });

@@ -27,6 +27,7 @@
  */
 
 import { ExperimentRecord } from '../ExperimentLedger';
+import { message, localize } from '../TextMessages';
 
 /** 条件比较结论。 */
 export enum ConditionVerdict {
@@ -39,11 +40,11 @@ export enum ConditionVerdict {
 export function conditionVerdictLabel(verdict: ConditionVerdict): string {
   switch (verdict) {
     case ConditionVerdict.SAME:
-      return '同条件';
+      return message('report_verdict_same');
     case ConditionVerdict.PARTIAL:
-      return '部分不同';
+      return message('report_verdict_partial');
     default:
-      return '不可比';
+      return message('report_verdict_incomparable');
   }
 }
 
@@ -58,17 +59,17 @@ const FINGERPRINT_PREFIX: string = 'cf';
 const FINGERPRINT_SCHEMA: string = 'cf-v1';
 
 /** 字段标签，用于差异与缺失说明；顺序即展示顺序。 */
-const FIELD_DEVICE: string = '设备型号';
-const FIELD_OS: string = '系统版本';
-const FIELD_APP: string = '应用版本';
-const FIELD_WORKLOAD: string = '负载标识';
-const FIELD_MODE: string = '回收模式';
-const FIELD_SIZE: string = '资源大小';
-const FIELD_DIGEST: string = '资源摘要';
-const FIELD_TARGETS: string = '目标集合';
-const FIELD_PROTOCOL: string = '采样协议';
-const FIELD_FOREGROUND: string = '前后台';
-const FIELD_SCOPE: string = '安装/回收目标清单';
+const FIELD_DEVICE: string = 'report_field_device';
+const FIELD_OS: string = 'report_field_os';
+const FIELD_APP: string = 'report_field_app';
+const FIELD_WORKLOAD: string = 'report_field_workload';
+const FIELD_MODE: string = 'report_field_mode';
+const FIELD_SIZE: string = 'report_field_size';
+const FIELD_DIGEST: string = 'report_field_digest';
+const FIELD_TARGETS: string = 'report_field_targets';
+const FIELD_PROTOCOL: string = 'report_field_protocol';
+const FIELD_FOREGROUND: string = 'report_field_foreground';
+const FIELD_SCOPE: string = 'report_field_scope';
 
 /** 一次实验的采样条件。字段为空或哨兵值表示「未记录」，不做默认补齐。 */
 export class ConditionFields {
@@ -121,27 +122,31 @@ export class ConditionFields {
   /** 回收模式标签，与账本 ExperimentRecord.modeLabel 保持一致。 */
   modeLabel(): string {
     if (this.mode === 'files') {
-      return '文件回收';
+      return message('report_mode_files');
     }
     if (this.mode === 'modules') {
-      return '模块回收';
+      return message('report_mode_modules');
     }
     if (this.mode === 'control') {
-      return '对照组';
+      return message('report_mode_control');
     }
-    return '模式未记录';
+    return message('report_mode_unrecorded');
   }
 
   /** 资源描述：大小 + 摘要。 */
   assetText(): string {
-    const size: string = this.assetBytes > 0 ? `${this.assetBytes} 字节` : '大小未记录';
-    return `${size} / 摘要 ${this.assetDigest.length > 0 ? this.assetDigest : '未记录'}`;
+    const size: string = this.assetBytes > 0 ? message('report_bytes', [this.assetBytes]) :
+      message('report_size_unrecorded');
+    return message('report_size_digest', [size,
+      this.assetDigest.length > 0 ? this.assetDigest : message('report_unrecorded')]);
   }
 
   /** 目标集合描述：个数 + 摘要（不含目标名，避免把路径带进报告）。 */
   targetText(): string {
-    const count: string = this.targetCount >= 0 ? `${this.targetCount} 项` : '个数未记录';
-    return `${count} / 摘要 ${this.targetDigest.length > 0 ? this.targetDigest : '未记录'}`;
+    const count: string = this.targetCount >= 0 ? message('report_items', [this.targetCount]) :
+      message('report_count_unrecorded');
+    return message('report_size_digest', [count,
+      this.targetDigest.length > 0 ? this.targetDigest : message('report_unrecorded')]);
   }
 }
 
@@ -194,7 +199,7 @@ export class ConditionDiff {
   }
 
   text(): string {
-    return `${this.label}（${this.left} → ${this.right}）`;
+    return message('report_condition_diff', [localize(this.label), localize(this.left), localize(this.right)]);
   }
 }
 
@@ -226,13 +231,18 @@ export class ConditionComparison {
 
   text(): string {
     if (this.verdict === ConditionVerdict.INCOMPARABLE) {
-      return `不可比：${this.missing.length > 0 ? this.missing.join('；') : '关键字段缺失'}`;
+      const missing: string = this.missing.map((item: string): string => localize(item))
+        .join(message('report_list_separator'));
+      return message('report_comparison_incomparable',
+        [missing.length > 0 ? missing : message('report_key_fields_missing')]);
     }
     if (this.verdict === ConditionVerdict.SAME) {
-      return `同条件（指纹 ${this.fingerprint}）`;
+      return message('report_comparison_same', [this.fingerprint]);
     }
-    const detail: string = this.diffs.map((item: ConditionDiff): string => item.text()).join('；');
-    return `部分不同（指纹 ${this.fingerprint}）：${detail.length > 0 ? detail : '字段值不同'}`;
+    const detail: string = this.diffs.map((item: ConditionDiff): string => item.text())
+      .join(message('report_list_separator'));
+    return message('report_comparison_partial', [this.fingerprint,
+      detail.length > 0 ? detail : message('report_field_values_differ')]);
   }
 }
 
@@ -364,33 +374,33 @@ function scopeDigestOf(files: string[], modules: string[], targets: string[]): s
 export function missingFieldsOf(fields: ConditionFields): string[] {
   const missing: string[] = [];
   if (fields.device.trim().length === 0) {
-    missing.push(FIELD_DEVICE);
+    missing.push(message(FIELD_DEVICE));
   }
   if (fields.osVersion.trim().length === 0) {
-    missing.push(FIELD_OS);
+    missing.push(message(FIELD_OS));
   }
   if (fields.appVersion.trim().length === 0) {
-    missing.push(FIELD_APP);
+    missing.push(message(FIELD_APP));
   }
   if (fields.workloadId.trim().length === 0) {
-    missing.push(FIELD_WORKLOAD);
+    missing.push(message(FIELD_WORKLOAD));
   }
   if (['control', 'files', 'modules'].indexOf(fields.mode) < 0) {
-    missing.push(FIELD_MODE);
+    missing.push(message(FIELD_MODE));
   }
   if (!Number.isSafeInteger(fields.assetBytes) || fields.assetBytes <= 0) {
-    missing.push(FIELD_SIZE);
+    missing.push(message(FIELD_SIZE));
   }
   if (!/^[0-9a-f]{8,64}$/.test(fields.assetDigest)) {
-    missing.push(FIELD_DIGEST);
+    missing.push(message(FIELD_DIGEST));
   }
   if (fields.targetCount < 0 || fields.targetDigest.length === 0) {
-    missing.push(FIELD_TARGETS);
+    missing.push(message(FIELD_TARGETS));
   } else if (fields.targetCount === 0 && fields.mode !== 'control') {
-    missing.push(FIELD_TARGETS);
+    missing.push(message(FIELD_TARGETS));
   }
   if (fields.protocol.trim().length === 0) {
-    missing.push(FIELD_PROTOCOL);
+    missing.push(message(FIELD_PROTOCOL));
   }
   return missing;
 }
@@ -423,20 +433,27 @@ export function fingerprintOf(fields: ConditionFields): string {
 
 /** 可读条件描述：设备/系统/版本 → 负载/模式 → 资源 → 目标集合 → 协议/前后台。 */
 export function describeCondition(fields: ConditionFields): string {
-  const device: string = fields.device.trim().length > 0 ? fields.device.trim() : '设备未记录';
-  const os: string = fields.osVersion.trim().length > 0 ? fields.osVersion.trim() : '系统未记录';
-  const app: string = fields.appVersion.trim().length > 0 ? fields.appVersion.trim() : '版本未记录';
+  const device: string = fields.device.trim().length > 0 ? localize(fields.device.trim()) :
+    message('report_device_unrecorded');
+  const os: string = fields.osVersion.trim().length > 0 ? localize(fields.osVersion.trim()) :
+    message('report_os_unrecorded');
+  const app: string = fields.appVersion.trim().length > 0 ? fields.appVersion.trim() :
+    message('report_version_unrecorded');
   const workload: string = fields.workloadLabel.trim().length > 0 ?
-    `${fields.workloadLabel.trim()}（${fields.workloadId.trim()}）` :
-    (fields.workloadId.trim().length > 0 ? fields.workloadId.trim() : '负载未记录');
-  const protocol: string = fields.protocol.trim().length > 0 ? fields.protocol.trim() : '协议未记录';
-  const foreground: string = fields.foreground.trim().length > 0 ? ` · ${fields.foreground.trim()}` : '';
-  return `${device} · ${os} · APP ${app}｜${workload} · ${fields.modeLabel()}｜` +
-    `样本 ${fields.assetBytes > 0 ? `${fields.assetBytes} 字节` : '未记录'} · ` +
-    `摘要 ${fields.assetDigest.length > 0 ? fields.assetDigest : '未记录'}｜` +
-    `目标 ${fields.targetCount >= 0 ? `${fields.targetCount} 项` : '未记录'} · ` +
-    `摘要 ${fields.targetDigest.length > 0 ? fields.targetDigest : '未记录'}｜` +
-    `协议 ${protocol}${foreground}`;
+    message('report_workload_named', [localize(fields.workloadLabel.trim()), fields.workloadId.trim()]) :
+    (fields.workloadId.trim().length > 0 ? fields.workloadId.trim() : message('report_workload_unrecorded'));
+  // Localize only the presentation; protocol stored in fields and canonicalText stays byte-identical.
+  const protocol: string = fields.protocol.trim().length > 0 ? localize(fields.protocol.trim()) :
+    message('report_protocol_unrecorded');
+  const foreground: string = fields.foreground.trim().length > 0 ?
+    message('report_foreground_suffix', [localize(fields.foreground.trim())]) : '';
+  const size: string = fields.assetBytes > 0 ? message('report_bytes', [fields.assetBytes]) :
+    message('report_unrecorded');
+  const count: string = fields.targetCount >= 0 ? message('report_items', [fields.targetCount]) :
+    message('report_unrecorded');
+  return message('report_condition_description', [device, os, app, workload, fields.modeLabel(), size,
+    fields.assetDigest.length > 0 ? fields.assetDigest : message('report_unrecorded'), count,
+    fields.targetDigest.length > 0 ? fields.targetDigest : message('report_unrecorded'), protocol, foreground]);
 }
 
 /**
@@ -484,42 +501,42 @@ export function fieldsOfRecord(record: ExperimentRecord,
 function differencesOf(base: ConditionFields, other: ConditionFields): ConditionDiff[] {
   const diffs: ConditionDiff[] = [];
   if (base.device.trim() !== other.device.trim()) {
-    diffs.push(new ConditionDiff(FIELD_DEVICE, orUnrecorded(base.device), orUnrecorded(other.device)));
+    diffs.push(new ConditionDiff(message(FIELD_DEVICE), orUnrecorded(base.device), orUnrecorded(other.device)));
   }
   if (base.osVersion.trim() !== other.osVersion.trim()) {
-    diffs.push(new ConditionDiff(FIELD_OS, orUnrecorded(base.osVersion), orUnrecorded(other.osVersion)));
+    diffs.push(new ConditionDiff(message(FIELD_OS), orUnrecorded(base.osVersion), orUnrecorded(other.osVersion)));
   }
   if (base.appVersion.trim() !== other.appVersion.trim()) {
-    diffs.push(new ConditionDiff(FIELD_APP, orUnrecorded(base.appVersion), orUnrecorded(other.appVersion)));
+    diffs.push(new ConditionDiff(message(FIELD_APP), orUnrecorded(base.appVersion), orUnrecorded(other.appVersion)));
   }
   if (base.workloadId.trim() !== other.workloadId.trim()) {
-    diffs.push(new ConditionDiff(FIELD_WORKLOAD, workloadText(base), workloadText(other)));
+    diffs.push(new ConditionDiff(message(FIELD_WORKLOAD), workloadText(base), workloadText(other)));
   }
   if (base.mode !== other.mode) {
-    diffs.push(new ConditionDiff(FIELD_MODE, base.modeLabel(), other.modeLabel()));
+    diffs.push(new ConditionDiff(message(FIELD_MODE), base.modeLabel(), other.modeLabel()));
   }
   if (base.assetBytes !== other.assetBytes) {
-    diffs.push(new ConditionDiff(FIELD_SIZE, orUnrecorded(String(base.assetBytes)),
+    diffs.push(new ConditionDiff(message(FIELD_SIZE), orUnrecorded(String(base.assetBytes)),
       orUnrecorded(String(other.assetBytes))));
   }
   if (base.assetDigest !== other.assetDigest) {
-    diffs.push(new ConditionDiff(FIELD_DIGEST, orUnrecorded(base.assetDigest),
+    diffs.push(new ConditionDiff(message(FIELD_DIGEST), orUnrecorded(base.assetDigest),
       orUnrecorded(other.assetDigest)));
   }
   if (base.targetCount !== other.targetCount || base.targetDigest !== other.targetDigest) {
-    diffs.push(new ConditionDiff(FIELD_TARGETS, base.targetText(), other.targetText()));
+    diffs.push(new ConditionDiff(message(FIELD_TARGETS), base.targetText(), other.targetText()));
   }
   if (base.protocol.trim() !== other.protocol.trim()) {
-    diffs.push(new ConditionDiff(FIELD_PROTOCOL, orUnrecorded(base.protocol),
+    diffs.push(new ConditionDiff(message(FIELD_PROTOCOL), orUnrecorded(base.protocol),
       orUnrecorded(other.protocol)));
   }
   // 前后台与安装/回收目标清单是辅助字段：缺失不会使整条记录不可比，但也不允许当成相同。
   if (base.foreground !== other.foreground) {
-    diffs.push(new ConditionDiff(FIELD_FOREGROUND, orUnrecorded(base.foreground),
+    diffs.push(new ConditionDiff(message(FIELD_FOREGROUND), orUnrecorded(base.foreground),
       orUnrecorded(other.foreground)));
   }
   if (base.scopeDigest !== other.scopeDigest) {
-    diffs.push(new ConditionDiff(FIELD_SCOPE, orUnrecorded(base.scopeDigest),
+    diffs.push(new ConditionDiff(message(FIELD_SCOPE), orUnrecorded(base.scopeDigest),
       orUnrecorded(other.scopeDigest)));
   }
   return diffs;
@@ -529,13 +546,13 @@ function workloadText(fields: ConditionFields): string {
   const label: string = fields.workloadLabel.trim();
   const id: string = fields.workloadId.trim();
   if (label.length > 0 && id.length > 0) {
-    return `${label}（${id}）`;
+    return message('report_workload_named', [localize(label), id]);
   }
-  return label.length > 0 ? label : (id.length > 0 ? id : '未记录');
+  return label.length > 0 ? localize(label) : (id.length > 0 ? id : message('report_unrecorded'));
 }
 
 function orUnrecorded(value: string): string {
-  return value.trim().length > 0 ? value.trim() : '未记录';
+  return value.trim().length > 0 ? localize(value.trim()) : message('report_unrecorded');
 }
 
 /**
@@ -546,10 +563,10 @@ function orUnrecorded(value: string): string {
 export function compareConditions(base: ConditionFields, other: ConditionFields): ConditionComparison {
   const comparison: ConditionComparison = new ConditionComparison();
   missingFieldsOf(base).forEach((label: string): void => {
-    comparison.missing.push(`左侧缺少${label}`);
+    comparison.missing.push(message('report_left_missing', [label]));
   });
   missingFieldsOf(other).forEach((label: string): void => {
-    comparison.missing.push(`右侧缺少${label}`);
+    comparison.missing.push(message('report_right_missing', [label]));
   });
   if (comparison.missing.length > 0) {
     comparison.verdict = ConditionVerdict.INCOMPARABLE;
@@ -561,7 +578,8 @@ export function compareConditions(base: ConditionFields, other: ConditionFields)
     comparison.verdict = ConditionVerdict.SAME;
   } else {
     if (comparison.diffs.length === 0) {
-      comparison.diffs.push(new ConditionDiff('条件指纹', comparison.fingerprint, fingerprintOf(other)));
+      comparison.diffs.push(new ConditionDiff(message('report_field_fingerprint'), comparison.fingerprint,
+        fingerprintOf(other)));
     }
     comparison.verdict = ConditionVerdict.PARTIAL;
   }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { uiText } from '../i18n/Strings';
+import { shortcutText as uiText } from '../i18n/Strings';
 import { logWarning } from './Logger';
 import { common, shortcutManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -21,8 +21,7 @@ import { CallRecord, clockText, ShortcutItem, ShortcutView } from '../model/Shor
 import { PlatformShortcutApi, ShortcutApi } from './ShortcutApi';
 import { BatchStorage, PreferencesBatchStorage } from './BatchStorage';
 import { BatchSpan, BatchTelemetry, PlatformBatchTelemetry } from './BatchTelemetry';
-import { BatchItem, BatchJournal, BatchMode, BatchPlan, BatchPreview, BatchPreviewItem,
-  copyBatch, copyJournal, copyPreview, decodeJournal } from './VisibilityBatch';
+import { BatchItem, BatchJournal, BatchMode, BatchPlan, BatchPreview, BatchPreviewItem, copyBatch, copyJournal, copyPreview, decodeJournal } from './VisibilityBatch';
 
 class ShortcutListener {
   public id: number;
@@ -53,6 +52,7 @@ export class ShortcutService {
   private disposed: boolean = true;
   private initializing: boolean = false;
   private checking: boolean = false;
+  private supportChecked: boolean = false;
   private querying: boolean = false;
   private setting: boolean = false;
   private writingId: string = '';
@@ -137,15 +137,15 @@ export class ShortcutService {
 
   checkSupport(): void {
     const api: string = 'isShortcutSupported';
-    if (!this.available(api, uiText("shortcut_text_0208"), false)) {
+    if (!this.available(api, uiText('shortcut_text_0208'), false)) {
       return;
     }
     const generation: number = this.generation;
     this.checking = true;
-    this.view.support = uiText("shortcut_text_0317");
+    this.view.support = uiText('shortcut_text_0317');
     this.view.supportError = '';
     this.syncBusy();
-    this.addRecord(api, uiText("shortcut_text_0208"), uiText("shortcut_text_0216"), uiText("shortcut_text_0315"));
+    this.addRecord(api, uiText('shortcut_text_0208'), uiText('shortcut_text_0216'), uiText('shortcut_text_0315'));
     this.notify();
     try {
       if (!this.isCurrent(generation)) {
@@ -155,16 +155,18 @@ export class ShortcutService {
       if (!this.isCurrent(generation)) {
         return;
       }
+      this.supportChecked = true;
       this.view.supported = supported;
-      this.view.support = supported ? uiText("shortcut_text_0749") : uiText("shortcut_text_0133");
-      this.addRecord(api, uiText("shortcut_text_0208"), uiText("shortcut_text_0161"), uiText("shortcut_text_0233", [String(supported)]));
+      this.view.support = supported ? uiText('shortcut_text_0749') : uiText('shortcut_text_0133');
+      this.addRecord(api, uiText('shortcut_text_0208'), uiText('shortcut_text_0161'), uiText('shortcut_text_0233', [String(supported)]));
     } catch (error) {
       if (this.isCurrent(generation)) {
         const message: string = this.errorText(error as BusinessError);
+        this.supportChecked = true;
         this.view.supported = false;
-        this.view.support = uiText("shortcut_text_0316");
+        this.view.support = uiText('shortcut_text_0316');
         this.view.supportError = message;
-        this.addRecord(api, uiText("shortcut_text_0208"), uiText("shortcut_text_0513"), message);
+        this.addRecord(api, uiText('shortcut_text_0208'), uiText('shortcut_text_0513'), message);
       }
     } finally {
       this.checking = false;
@@ -175,10 +177,10 @@ export class ShortcutService {
   }
 
   async refresh(): Promise<void> {
-    if (!this.available('getAllShortcutInfoForSelf', uiText("shortcut_text_0068"), true)) {
+    if (!this.available('getAllShortcutInfoForSelf', uiText('shortcut_text_0068'), true)) {
       return;
     }
-    await this.query(this.generation, uiText("shortcut_text_0534"));
+    await this.query(this.generation, uiText('shortcut_text_0534'));
   }
 
   async setVisible(id: string, visible: boolean): Promise<void> {
@@ -188,7 +190,7 @@ export class ShortcutService {
     const generation: number = this.generation;
     this.setting = true;
     this.writingId = id;
-    this.view.batchMessage = uiText("shortcut_text_0748");
+    this.view.batchMessage = uiText('shortcut_text_0748');
     this.syncBusy();
     try {
       const result: WriteResult = await this.applyVisibility(generation, id, visible);
@@ -201,42 +203,42 @@ export class ShortcutService {
   }
 
   async restoreAll(): Promise<void> {
-    if (!this.available('setShortcutVisibleForSelf', uiText("shortcut_text_0463"), true)) {
+    if (!this.available('setShortcutVisibleForSelf', uiText('shortcut_text_0463'), true)) {
       return;
     }
     const ids: string[] = this.view.items.filter((item: ShortcutItem) => item.visible === false)
       .map((item: ShortcutItem) => item.id);
     if (ids.length === 0) {
-      this.view.batchMessage = uiText("shortcut_text_0464");
-      this.addRecord(uiText("shortcut_text_0281"), uiText("shortcut_text_0068"), uiText("shortcut_text_0589"), uiText("shortcut_text_0464"));
+      this.view.batchMessage = uiText('shortcut_text_0464');
+      this.addRecord(uiText('shortcut_text_0281'), uiText('shortcut_text_0068'), uiText('shortcut_text_0589'), uiText('shortcut_text_0464'));
       this.notify();
       return;
     }
     const generation: number = this.generation;
     this.setting = true;
     let completed: number = 0;
-    this.addRecord(uiText("shortcut_text_0281"), uiText("shortcut_text_0068"), uiText("shortcut_text_0352"), uiText("shortcut_text_0783", [String(ids.length)]));
+    this.addRecord(uiText('shortcut_text_0281'), uiText('shortcut_text_0068'), uiText('shortcut_text_0352'), uiText('shortcut_text_0783', [String(ids.length)]));
     try {
       for (const id of ids) {
         if (!this.isCurrent(generation)) {
           return;
         }
         this.writingId = id;
-        this.view.batchMessage = uiText("shortcut_text_0747", [String(completed + 1), String(ids.length)]);
+        this.view.batchMessage = uiText('shortcut_text_0747', [String(completed + 1), String(ids.length)]);
         this.syncBusy();
         const result: WriteResult = await this.applyVisibility(generation, id, true);
         if (!this.isCurrent(generation)) {
           return;
         }
         if (result !== WriteResult.CONFIRMED) {
-          this.view.batchMessage = uiText("shortcut_text_0659", [String(completed), String(ids.length), String(this.resultText(result))]);
-          this.addRecord(uiText("shortcut_text_0281"), id, uiText("shortcut_text_0677"), this.view.batchMessage);
+          this.view.batchMessage = uiText('shortcut_text_0659', [String(completed), String(ids.length), String(this.resultText(result))]);
+          this.addRecord(uiText('shortcut_text_0281'), id, uiText('shortcut_text_0677'), this.view.batchMessage);
           return;
         }
         completed++;
       }
-      this.view.batchMessage = uiText("shortcut_text_0658", [String(completed)]);
-      this.addRecord(uiText("shortcut_text_0281"), uiText("shortcut_text_0068"), uiText("shortcut_text_0161"), this.view.batchMessage);
+      this.view.batchMessage = uiText('shortcut_text_0658', [String(completed)]);
+      this.addRecord(uiText('shortcut_text_0281'), uiText('shortcut_text_0068'), uiText('shortcut_text_0161'), this.view.batchMessage);
     } finally {
       this.finishSetting();
     }
@@ -258,7 +260,7 @@ export class ShortcutService {
       this.view.batchError = '';
     } catch (_) {
       if (this.isCurrent(generation)) {
-        this.view.batchError = uiText("shortcut_text_0417");
+        this.view.batchError = uiText('shortcut_text_0417');
       }
     } finally {
       if (this.isCurrent(generation)) {
@@ -281,11 +283,11 @@ export class ShortcutService {
     this.view.batchPreview = undefined;
     this.syncBusy();
     try {
-      if (!await this.query(generation, uiText("shortcut_text_0422"), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
+      if (!await this.query(generation, uiText('shortcut_text_0422'), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
       const next: BatchJournal = copyJournal(this.journal);
       const plan: BatchPlan = new BatchPlan();
       if (next.sequence >= Number.MAX_SAFE_INTEGER) {
-        this.view.batchMessage = uiText("shortcut_text_0416");
+        this.view.batchMessage = uiText('shortcut_text_0416');
         return;
       }
       next.sequence += 1;
@@ -293,7 +295,7 @@ export class ShortcutService {
       plan.createdAt = Date.now();
       for (const id of ids) {
         const item: ShortcutItem | undefined = this.view.items.find((entry: ShortcutItem) => entry.id === id);
-        if (item === undefined) { this.view.batchMessage = uiText("shortcut_text_0544"); return; }
+        if (item === undefined) { this.view.batchMessage = uiText('shortcut_text_0544'); return; }
         const row: BatchItem = new BatchItem();
         row.id = id;
         row.target = target;
@@ -307,7 +309,7 @@ export class ShortcutService {
       next.batches = next.batches.slice(0, 5);
       if (!await this.persistJournal(next, generation)) { return; }
       this.makePreview(plan, 'apply');
-      this.view.batchMessage = uiText("shortcut_text_0443");
+      this.view.batchMessage = uiText('shortcut_text_0443');
     } finally {
       this.finishSetting();
     }
@@ -321,7 +323,7 @@ export class ShortcutService {
     this.view.batchPreview = undefined;
     this.syncBusy();
     try {
-      if (!await this.query(generation, uiText("shortcut_text_0421"), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
+      if (!await this.query(generation, uiText('shortcut_text_0421'), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
       const next: BatchJournal = copyJournal(this.journal);
       const plan: BatchPlan | undefined = next.batches.find((entry: BatchPlan) => entry.batchId === batchId);
       if (plan === undefined) { return; }
@@ -347,7 +349,7 @@ export class ShortcutService {
       }
       plan.interrupted = false;
       await this.persistJournal(next, generation);
-      if (this.isCurrent(generation)) { this.view.batchMessage = uiText("shortcut_text_0267"); }
+      if (this.isCurrent(generation)) { this.view.batchMessage = uiText('shortcut_text_0267'); }
     } finally {
       this.finishSetting();
     }
@@ -368,7 +370,7 @@ export class ShortcutService {
     this.view.batchPreview = undefined;
     this.syncBusy();
     try {
-      if (!await this.query(generation, uiText("shortcut_text_0771"), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
+      if (!await this.query(generation, uiText('shortcut_text_0771'), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
       const next: BatchJournal = copyJournal(this.journal);
       const plan: BatchPlan | undefined = next.batches.find((entry: BatchPlan) => entry.batchId === batchId);
       if (plan === undefined) { return; }
@@ -386,8 +388,8 @@ export class ShortcutService {
       }
       this.makePreview(plan, mode);
       this.view.batchMessage = mode === 'restore' ?
-        uiText("shortcut_text_0126") :
-        uiText("shortcut_text_0340");
+        uiText('shortcut_text_0126') :
+        uiText('shortcut_text_0340');
     } finally {
       this.finishSetting();
     }
@@ -408,22 +410,22 @@ export class ShortcutService {
       entry.target = mode === 'restore' ? row.originalVisible : row.target;
       if (this.uncompletedWrites.includes(row.id)) {
         entry.eligible = false;
-        entry.reason = uiText("shortcut_text_0349");
+        entry.reason = uiText('shortcut_text_0349');
       } else if (mode !== 'apply' && row.retryBlocked) {
         entry.eligible = false;
-        entry.reason = uiText("shortcut_text_0466");
+        entry.reason = uiText('shortcut_text_0466');
       } else if (mode === 'restore' && (!row.originalKnown || row.attempt === 0)) {
         entry.eligible = false;
-        entry.reason = row.originalKnown ? uiText("shortcut_text_0713") : uiText("shortcut_text_0715");
+        entry.reason = row.originalKnown ? uiText('shortcut_text_0713') : uiText('shortcut_text_0715');
       } else if (mode !== 'apply' && !entry.currentKnown) {
         entry.eligible = false;
-        entry.reason = uiText("shortcut_text_0211");
+        entry.reason = uiText('shortcut_text_0211');
       } else if (mode === 'restore' && entry.currentVisible === entry.target) {
         entry.eligible = false;
-        entry.reason = uiText("shortcut_text_0210");
+        entry.reason = uiText('shortcut_text_0210');
       } else {
         entry.externalChange = mode === 'restore' && (!row.lastKnown || row.lastVisible !== entry.currentVisible);
-        entry.reason = entry.externalChange ? uiText("shortcut_text_0231") : uiText("shortcut_text_0361");
+        entry.reason = entry.externalChange ? uiText('shortcut_text_0231') : uiText('shortcut_text_0361');
       }
       preview.items.push(entry);
     }
@@ -441,12 +443,12 @@ export class ShortcutService {
     this.view.batchPreview = undefined;
     this.syncBusy();
     try {
-      if (!await this.query(generation, uiText("shortcut_text_0475"), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
+      if (!await this.query(generation, uiText('shortcut_text_0475'), this.batchTimeoutMs) || !this.isCurrent(generation)) { return; }
       for (const entry of preview.items) {
         const item: ShortcutItem | undefined = this.view.items.find((row: ShortcutItem) => row.id === entry.id);
         const known: boolean = item !== undefined && item.visibleExplicit;
         if (known !== entry.currentKnown || (known && item !== undefined && item.visible !== entry.currentVisible)) {
-          this.view.batchMessage = uiText("shortcut_text_0476");
+          this.view.batchMessage = uiText('shortcut_text_0476');
           return;
         }
       }
@@ -490,7 +492,7 @@ export class ShortcutService {
         completedPlan.interrupted = false;
         if (!await this.persistJournal(completed, generation)) { return; }
       }
-      this.view.batchMessage = uiText("shortcut_text_0419");
+      this.view.batchMessage = uiText('shortcut_text_0419');
     } finally {
       this.finishBatchSpan(span);
       this.finishSetting();
@@ -507,7 +509,7 @@ export class ShortcutService {
   }
 
   private batchAvailable(): boolean {
-    return this.view.batchReady && !this.view.batchLoading && this.available(uiText("shortcut_text_0606"), uiText("shortcut_text_0068"), true);
+    return this.view.batchReady && !this.view.batchLoading && this.available(uiText('shortcut_text_0606'), uiText('shortcut_text_0068'), true);
   }
 
   private beginBatchSpan(stage: string): BatchSpan | undefined {
@@ -538,7 +540,7 @@ export class ShortcutService {
       if (this.isCurrent(generation)) {
         this.view.batchReady = false;
         this.view.batchPreview = undefined;
-        this.view.batchError = uiText("shortcut_text_0418");
+        this.view.batchError = uiText('shortcut_text_0418');
         this.notify();
       }
       return false;
@@ -555,11 +557,11 @@ export class ShortcutService {
     this.notify();
   }
 
-  recordNavigation(target: string, message: string, status: string = uiText("shortcut_text_0161")): void {
+  recordNavigation(target: string, message: string, status: string = uiText('shortcut_text_0161')): void {
     if (this.disposed) {
       return;
     }
-    this.addRecord(uiText("shortcut_text_0642"), target, status, message);
+    this.addRecord(uiText('shortcut_text_0642'), target, status, message);
     this.notify();
   }
 
@@ -593,17 +595,17 @@ export class ShortcutService {
       return false;
     }
     if (this.checking || this.querying || this.setting) {
-      this.addRecord(api, target, uiText("shortcut_text_0589"), uiText("shortcut_text_0142"));
+      this.addRecord(api, target, uiText('shortcut_text_0589'), uiText('shortcut_text_0142'));
       this.notify();
       return false;
     }
     if (api === 'setShortcutVisibleForSelf' && this.uncompletedWrites.length > 0) {
-      this.addRecord(api, target, uiText("shortcut_text_0589"), uiText("shortcut_text_0350"));
+      this.addRecord(api, target, uiText('shortcut_text_0589'), uiText('shortcut_text_0350'));
       this.notify();
       return false;
     }
     if (requireSupport && !this.view.supported) {
-      this.addRecord(api, target, uiText("shortcut_text_0589"), this.view.support === uiText("shortcut_text_0133") ? uiText("shortcut_text_0499") : uiText("shortcut_text_0449"));
+      this.addRecord(api, target, uiText('shortcut_text_0589'), this.supportChecked && this.view.supportError.length === 0 ? uiText('shortcut_text_0499') : uiText('shortcut_text_0449'));
       this.notify();
       return false;
     }
@@ -618,7 +620,7 @@ export class ShortcutService {
     this.querying = true;
     this.view.queryError = '';
     this.syncBusy();
-    this.addRecord(api, uiText("shortcut_text_0068"), uiText("shortcut_text_0216"), reason);
+    this.addRecord(api, uiText('shortcut_text_0068'), uiText('shortcut_text_0216'), reason);
     this.notify();
     try {
       if (!this.isCurrent(generation)) {
@@ -631,18 +633,18 @@ export class ShortcutService {
       const items: ShortcutItem[] = [];
       for (const info of infos) {
         const item: ShortcutItem = new ShortcutItem(this.copyInfo(info), this.resolveTitle(info));
-        item.status = item.visibleExplicit ? uiText("shortcut_text_0651") : uiText("shortcut_text_0405");
+        item.status = item.visibleExplicit ? uiText('shortcut_text_0651') : uiText('shortcut_text_0405');
         items.push(item);
       }
       this.view.items = items;
       this.view.lastQuery = clockText(Date.now());
-      this.addRecord(api, uiText("shortcut_text_0068"), uiText("shortcut_text_0161"), uiText("shortcut_text_0234", [String(items.length)]));
+      this.addRecord(api, uiText('shortcut_text_0068'), uiText('shortcut_text_0161'), uiText('shortcut_text_0234', [String(items.length)]));
       return true;
     } catch (error) {
       if (this.isCurrent(generation)) {
         const message: string = this.errorText(error as BusinessError);
         this.view.queryError = message;
-        this.addRecord(api, uiText("shortcut_text_0068"), uiText("shortcut_text_0513"), message);
+        this.addRecord(api, uiText('shortcut_text_0068'), uiText('shortcut_text_0513'), message);
       }
       return false;
     } finally {
@@ -659,8 +661,8 @@ export class ShortcutService {
       return WriteResult.STALE;
     }
     const api: string = 'setShortcutVisibleForSelf';
-    this.updateItem(id, uiText("shortcut_text_0504"), '');
-    this.addRecord(api, id, uiText("shortcut_text_0216"), `visible=${visible}`);
+    this.updateItem(id, uiText('shortcut_text_0504'), '');
+    this.addRecord(api, id, uiText('shortcut_text_0216'), `visible=${visible}`);
     this.notify();
     if (!this.isCurrent(generation)) {
       return WriteResult.STALE;
@@ -682,8 +684,8 @@ export class ShortcutService {
         return WriteResult.STALE;
       }
       const message: string = this.errorText(error as BusinessError);
-      this.updateItem(id, uiText("shortcut_text_0503"), message);
-      this.addRecord(api, id, uiText("shortcut_text_0513"), message);
+      this.updateItem(id, uiText('shortcut_text_0503'), message);
+      this.addRecord(api, id, uiText('shortcut_text_0513'), message);
       if (!verifyRejected) { return WriteResult.FAILED; }
       const code: number = (error as BusinessError).code;
       this.terminalWrite = code === 201 || code === 202 || code === 801 || code === 17700070;
@@ -692,33 +694,33 @@ export class ShortcutService {
     if (!this.isCurrent(generation)) {
       return WriteResult.STALE;
     }
-    if (!rejected) { this.addRecord(api, id, uiText("shortcut_text_0161"), uiText("shortcut_text_0324", [String(visible)])); }
-    this.updateItem(id, uiText("shortcut_text_0205"), '');
-    const queried: boolean = await this.query(generation, uiText("shortcut_text_0502", [String(id)]), verifyRejected ? this.batchTimeoutMs : 0);
+    if (!rejected) { this.addRecord(api, id, uiText('shortcut_text_0161'), uiText('shortcut_text_0324', [String(visible)])); }
+    this.updateItem(id, uiText('shortcut_text_0205'), '');
+    const queried: boolean = await this.query(generation, uiText('shortcut_text_0502', [String(id)]), verifyRejected ? this.batchTimeoutMs : 0);
     if (!this.isCurrent(generation)) {
       return WriteResult.STALE;
     }
     if (!queried) {
-      const message: string = uiText("shortcut_text_0291", [String(this.view.queryError)]);
-      this.updateItem(id, uiText("shortcut_text_0205"), message);
-      this.addRecord(uiText("shortcut_text_0358"), id, uiText("shortcut_text_0205"), message);
+      const message: string = uiText('shortcut_text_0291', [String(this.view.queryError)]);
+      this.updateItem(id, uiText('shortcut_text_0205'), message);
+      this.addRecord(uiText('shortcut_text_0358'), id, uiText('shortcut_text_0205'), message);
       return WriteResult.PENDING;
     }
     const item: ShortcutItem | undefined = this.view.items.find((entry: ShortcutItem) => entry.id === id);
     if (item === undefined || !item.visibleExplicit) {
-      const message: string = item === undefined ? uiText("shortcut_text_0293") : uiText("shortcut_text_0292");
-      this.updateItem(id, uiText("shortcut_text_0205"), message);
-      this.addRecord(uiText("shortcut_text_0358"), id, uiText("shortcut_text_0205"), message);
+      const message: string = item === undefined ? uiText('shortcut_text_0293') : uiText('shortcut_text_0292');
+      this.updateItem(id, uiText('shortcut_text_0205'), message);
+      this.addRecord(uiText('shortcut_text_0358'), id, uiText('shortcut_text_0205'), message);
       return WriteResult.PENDING;
     }
     if (item.visible !== visible) {
-      const message: string = uiText("shortcut_text_0430", [String(visible), String(item.visible)]);
-      this.updateItem(id, uiText("shortcut_text_0290"), message);
-      this.addRecord(uiText("shortcut_text_0358"), id, uiText("shortcut_text_0290"), message);
+      const message: string = uiText('shortcut_text_0430', [String(visible), String(item.visible)]);
+      this.updateItem(id, uiText('shortcut_text_0290'), message);
+      this.addRecord(uiText('shortcut_text_0358'), id, uiText('shortcut_text_0290'), message);
       return verifyRejected && this.uncompletedWrites.includes(id) ? WriteResult.PENDING : WriteResult.MISMATCH;
     }
-    this.updateItem(id, uiText("shortcut_text_0294"), '');
-    this.addRecord(uiText("shortcut_text_0358"), id, uiText("shortcut_text_0294"), `visible=${visible}`);
+    this.updateItem(id, uiText('shortcut_text_0294'), '');
+    this.addRecord(uiText('shortcut_text_0358'), id, uiText('shortcut_text_0294'), `visible=${visible}`);
     return WriteResult.CONFIRMED;
   }
 
@@ -733,11 +735,11 @@ export class ShortcutService {
 
   private resultText(result: WriteResult): string {
     switch (result) {
-      case WriteResult.CONFIRMED: return uiText("shortcut_text_0294");
-      case WriteResult.MISMATCH: return uiText("shortcut_text_0290");
-      case WriteResult.PENDING: return uiText("shortcut_text_0676");
-      case WriteResult.FAILED: return uiText("shortcut_text_0503");
-      default: return uiText("shortcut_text_0141");
+      case WriteResult.CONFIRMED: return uiText('shortcut_text_0294');
+      case WriteResult.MISMATCH: return uiText('shortcut_text_0290');
+      case WriteResult.PENDING: return uiText('shortcut_text_0676');
+      case WriteResult.FAILED: return uiText('shortcut_text_0503');
+      default: return uiText('shortcut_text_0141');
     }
   }
 
@@ -761,14 +763,14 @@ export class ShortcutService {
       try {
         resourceContext = context.createModuleContext(info.moduleName);
       } catch (error) {
-        this.addRecord('createModuleContext', info.id, uiText("shortcut_text_0513"), this.errorText(error as BusinessError));
+        this.addRecord('createModuleContext', info.id, uiText('shortcut_text_0513'), this.errorText(error as BusinessError));
       }
     }
     if (info.labelId !== undefined && info.labelId > 0) {
       try {
         return resourceContext.resourceManager.getStringSync(info.labelId);
       } catch (error) {
-        this.addRecord('resourceManager.getStringSync', info.id, uiText("shortcut_text_0513"), this.errorText(error as BusinessError));
+        this.addRecord('resourceManager.getStringSync', info.id, uiText('shortcut_text_0513'), this.errorText(error as BusinessError));
       }
     }
     let resourceName: string = '';
@@ -788,7 +790,7 @@ export class ShortcutService {
         }
         return resourceContext.resourceManager.getStringByNameSync(resourceName);
       } catch (error) {
-        this.addRecord(api, info.id, uiText("shortcut_text_0513"), this.errorText(error as BusinessError));
+        this.addRecord(api, info.id, uiText('shortcut_text_0513'), this.errorText(error as BusinessError));
       }
       return info.id;
     }
@@ -862,7 +864,7 @@ export class ShortcutService {
 
   private errorText(error: BusinessError): string {
     if (error === undefined || error === null) {
-      return "code=not provided; no error details";
+      return uiText('shortcut_text_0793');
     }
     const code: string = error.code === undefined ? 'not provided' : `${error.code}`;
     const message: string = error.message === undefined || error.message.length === 0 ? `${error}` : error.message;

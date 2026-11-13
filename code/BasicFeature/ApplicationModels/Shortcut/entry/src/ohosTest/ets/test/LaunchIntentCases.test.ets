@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   ENTRY_RULES, EntryRequest, EntryRule, EntrySource, auditEntry, parseUri, resolveEntry,
   ruleIds as entryIds, ruleLines as entryLines, ruleOf as entryRuleOf, rulesOf as entriesOf,
@@ -31,20 +32,20 @@ export default function launchEntryCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testLaunchEntryCases0001', 0, (): void => {
-      expect(ENTRY_RULES.length).assertEqual(20);
-      expect(entryIds().length).assertEqual(20);
-      expect(entryLines().length).assertEqual(20);
+    it(caseName('LaunchEntryCases', '0001'), 0, (): void => {
+      expect(ENTRY_RULES.length, caseName('LaunchEntryCases', '0001')).assertEqual(20);
+      expect(entryIds().length, caseName('LaunchEntryCases', '0001')).assertEqual(20);
+      expect(entryLines().length, caseName('LaunchEntryCases', '0001')).assertEqual(20);
       const audit = auditEntry();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.ok).assertTrue();
-      expect(audit.summary()).assertEqual('入口规则表自洽');
+      expect(audit.findings.length, caseName('LaunchEntryCases', '0001')).assertEqual(0);
+      expect(audit.ok, caseName('LaunchEntryCases', '0001')).assertTrue();
+      expect(audit.summary(), caseName('LaunchEntryCases', '0001')).assertEqual('入口规则表自洽');
       ENTRY_RULES.forEach((rule: EntryRule): void => {
-        expect(rule.routeId.length > 0).assertTrue();
-        expect(rule.description.length > 0).assertTrue();
-        expect(rule.text().indexOf(rule.ruleId) === 0).assertTrue();
+        expect(rule.routeId.length > 0, caseName('LaunchEntryCases', '0001')).assertTrue();
+        expect(rule.description.length > 0, caseName('LaunchEntryCases', '0001')).assertTrue();
+        expect(rule.text().indexOf(rule.ruleId) === 0, caseName('LaunchEntryCases', '0001')).assertTrue();
       });
-      expect(entryRuleOf('IN-99')).assertEqual(undefined);
+      expect(entryRuleOf('IN-99'), caseName('LaunchEntryCases', '0001')).assertEqual(undefined);
     });
 
     /**
@@ -56,18 +57,18 @@ export default function launchEntryCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testLaunchEntryCases0002', 0, (): void => {
+    it(caseName('LaunchEntryCases', '0002'), 0, (): void => {
       const counts: number[] = sourceCounts();
-      expect(counts.length).assertEqual(6);
-      expect(counts[0]).assertEqual(5);
-      expect(counts[1]).assertEqual(6);
-      expect(counts[2]).assertEqual(3);
-      expect(counts[3]).assertEqual(3);
-      expect(counts[4]).assertEqual(2);
-      expect(counts[5]).assertEqual(1);
-      expect(entriesOf(EntrySource.SHORTCUT).length).assertEqual(5);
-      expect(sourceLines().length).assertEqual(6);
-      expect(sourceLabel(EntrySource.RESUME)).assertEqual('进程恢复');
+      expect(counts.length, caseName('LaunchEntryCases', '0002')).assertEqual(6);
+      expect(counts[0], caseName('LaunchEntryCases', '0002')).assertEqual(5);
+      expect(counts[1], caseName('LaunchEntryCases', '0002')).assertEqual(6);
+      expect(counts[2], caseName('LaunchEntryCases', '0002')).assertEqual(3);
+      expect(counts[3], caseName('LaunchEntryCases', '0002')).assertEqual(3);
+      expect(counts[4], caseName('LaunchEntryCases', '0002')).assertEqual(2);
+      expect(counts[5], caseName('LaunchEntryCases', '0002')).assertEqual(1);
+      expect(entriesOf(EntrySource.SHORTCUT).length, caseName('LaunchEntryCases', '0002')).assertEqual(5);
+      expect(sourceLines().length, caseName('LaunchEntryCases', '0002')).assertEqual(6);
+      expect(sourceLabel(EntrySource.RESUME), caseName('LaunchEntryCases', '0002')).assertEqual('进程恢复');
     });
 
     /**
@@ -79,21 +80,21 @@ export default function launchEntryCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testLaunchEntryCases0003', 0, (): void => {
+    it(caseName('LaunchEntryCases', '0003'), 0, (): void => {
       const parsed = parseUri('app://detail?noteId=note-1&from=shortcut');
-      expect(parsed.keys.length).assertEqual(2);
-      expect(parsed.get('noteId')).assertEqual('note-1');
-      expect(parsed.get('from')).assertEqual('shortcut');
-      expect(parsed.uri).assertEqual('app://detail');
+      expect(parsed.keys.length, caseName('LaunchEntryCases', '0003')).assertEqual(2);
+      expect(parsed.get('noteId'), caseName('LaunchEntryCases', '0003')).assertEqual('note-1');
+      expect(parsed.get('from'), caseName('LaunchEntryCases', '0003')).assertEqual('shortcut');
+      expect(parsed.uri, caseName('LaunchEntryCases', '0003')).assertEqual('app://detail');
       const bare = parseUri('app://calls');
-      expect(bare.keys.length).assertEqual(0);
-      expect(bare.uri).assertEqual('app://calls');
+      expect(bare.keys.length, caseName('LaunchEntryCases', '0003')).assertEqual(0);
+      expect(bare.uri, caseName('LaunchEntryCases', '0003')).assertEqual('app://calls');
       const malformed = parseUri('app://x?a&b=&c=1');
-      expect(malformed.get('c')).assertEqual('1');
-      expect(malformed.keys.length).assertEqual(2);
-      expect(malformed.get('b')).assertEqual('');
-      expect(malformed.get('a')).assertEqual('');
-      expect(parsed.text().indexOf('deeplink') < 0).assertTrue();
+      expect(malformed.get('c'), caseName('LaunchEntryCases', '0003')).assertEqual('1');
+      expect(malformed.keys.length, caseName('LaunchEntryCases', '0003')).assertEqual(2);
+      expect(malformed.get('b'), caseName('LaunchEntryCases', '0003')).assertEqual('');
+      expect(malformed.get('a'), caseName('LaunchEntryCases', '0003')).assertEqual('');
+      expect(parsed.text().indexOf('deeplink') < 0, caseName('LaunchEntryCases', '0003')).assertTrue();
     });
 
     /**
@@ -105,18 +106,18 @@ export default function launchEntryCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testLaunchEntryCases0004', 0, (): void => {
+    it(caseName('LaunchEntryCases', '0004'), 0, (): void => {
       const note = resolveEntry(new EntryRequest(EntrySource.SHORTCUT, 'shortcut://note/new'));
-      expect(note.routeId).assertEqual('sc.note.new');
-      expect(note.matchedRuleId).assertEqual('IN-01');
-      expect(note.fallback).assertFalse();
-      expect(note.ok()).assertTrue();
-      expect(note.text().indexOf('sc.note.new') === 0).assertTrue();
+      expect(note.routeId, caseName('LaunchEntryCases', '0004')).assertEqual('sc.note.new');
+      expect(note.matchedRuleId, caseName('LaunchEntryCases', '0004')).assertEqual('IN-01');
+      expect(note.fallback, caseName('LaunchEntryCases', '0004')).assertFalse();
+      expect(note.ok(), caseName('LaunchEntryCases', '0004')).assertTrue();
+      expect(note.text().indexOf('sc.note.new') === 0, caseName('LaunchEntryCases', '0004')).assertTrue();
       const fallback = resolveEntry(new EntryRequest(EntrySource.SHORTCUT,
         'shortcut://unknown'));
-      expect(fallback.routeId).assertEqual('sc.rule.center');
-      expect(fallback.matchedRuleId).assertEqual('IN-18');
-      expect(fallback.fallback).assertTrue();
+      expect(fallback.routeId, caseName('LaunchEntryCases', '0004')).assertEqual('sc.rule.center');
+      expect(fallback.matchedRuleId, caseName('LaunchEntryCases', '0004')).assertEqual('IN-18');
+      expect(fallback.fallback, caseName('LaunchEntryCases', '0004')).assertTrue();
     });
 
     /**
@@ -128,20 +129,20 @@ export default function launchEntryCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testLaunchEntryCases0005', 0, (): void => {
+    it(caseName('LaunchEntryCases', '0005'), 0, (): void => {
       const detail = resolveEntry(new EntryRequest(EntrySource.SHORTCUT, 'shortcut://detail'));
-      expect(detail.ok()).assertFalse();
-      expect(detail.missing.length).assertEqual(1);
-      expect(detail.missing[0]).assertEqual('noteId');
-      expect(detail.issues.length).assertEqual(2);
-      expect(detail.text().indexOf('需处理') > 0).assertTrue();
+      expect(detail.ok(), caseName('LaunchEntryCases', '0005')).assertFalse();
+      expect(detail.missing.length, caseName('LaunchEntryCases', '0005')).assertEqual(1);
+      expect(detail.missing[0], caseName('LaunchEntryCases', '0005')).assertEqual('noteId');
+      expect(detail.issues.length, caseName('LaunchEntryCases', '0005')).assertEqual(2);
+      expect(detail.text().indexOf('需处理') > 0, caseName('LaunchEntryCases', '0005')).assertTrue();
       const authorized = new EntryRequest(EntrySource.SHORTCUT, 'shortcut://detail');
       authorized.loggedIn = true;
       authorized.put('noteId', 'note-1');
       const plan = resolveEntry(authorized);
-      expect(plan.ok()).assertTrue();
-      expect(plan.routeId).assertEqual('sc.detail');
-      expect(plan.fallback).assertFalse();
+      expect(plan.ok(), caseName('LaunchEntryCases', '0005')).assertTrue();
+      expect(plan.routeId, caseName('LaunchEntryCases', '0005')).assertEqual('sc.detail');
+      expect(plan.fallback, caseName('LaunchEntryCases', '0005')).assertFalse();
     });
 
     /**
@@ -153,25 +154,25 @@ export default function launchEntryCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testLaunchEntryCases0006', 0, (): void => {
+    it(caseName('LaunchEntryCases', '0006'), 0, (): void => {
       const parsed = parseUri('app://detail?noteId=note-9');
       parsed.source = EntrySource.DEEPLINK;
       parsed.loggedIn = true;
       const plan = resolveEntry(parsed);
-      expect(plan.routeId).assertEqual('sc.detail');
-      expect(plan.matchedRuleId).assertEqual('IN-07');
-      expect(plan.ok()).assertTrue();
+      expect(plan.routeId, caseName('LaunchEntryCases', '0006')).assertEqual('sc.detail');
+      expect(plan.matchedRuleId, caseName('LaunchEntryCases', '0006')).assertEqual('IN-07');
+      expect(plan.ok(), caseName('LaunchEntryCases', '0006')).assertTrue();
       const unknown = resolveEntry(new EntryRequest(EntrySource.UNKNOWN, 'x://anything'));
-      expect(unknown.routeId).assertEqual('sc.rule.center');
-      expect(unknown.matchedRuleId).assertEqual('IN-20');
-      expect(unknown.fallback).assertTrue();
-      expect(unknown.ok()).assertTrue();
+      expect(unknown.routeId, caseName('LaunchEntryCases', '0006')).assertEqual('sc.rule.center');
+      expect(unknown.matchedRuleId, caseName('LaunchEntryCases', '0006')).assertEqual('IN-20');
+      expect(unknown.fallback, caseName('LaunchEntryCases', '0006')).assertTrue();
+      expect(unknown.ok(), caseName('LaunchEntryCases', '0006')).assertTrue();
       const extra = new EntryRequest(EntrySource.DEEPLINK, 'app://note');
       extra.put('unexpected', 'value');
       const extraPlan = resolveEntry(extra);
-      expect(extraPlan.routeId).assertEqual('sc.note.new');
-      expect(extraPlan.issues.length).assertEqual(1);
-      expect(extraPlan.issues[0].indexOf('忽略多余参数') === 0).assertTrue();
+      expect(extraPlan.routeId, caseName('LaunchEntryCases', '0006')).assertEqual('sc.note.new');
+      expect(extraPlan.issues.length, caseName('LaunchEntryCases', '0006')).assertEqual(1);
+      expect(extraPlan.issues[0].indexOf('忽略多余参数') === 0, caseName('LaunchEntryCases', '0006')).assertTrue();
     });
   });
 }

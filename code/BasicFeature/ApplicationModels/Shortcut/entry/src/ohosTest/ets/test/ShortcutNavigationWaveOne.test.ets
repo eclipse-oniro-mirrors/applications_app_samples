@@ -14,10 +14,11 @@
  */
 
 import { Want } from '@kit.AbilityKit';
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { AppNavigation } from '../../../main/ets/navigation/AppNavigation';
 import { BusinessStore } from '../../../main/ets/business/BusinessStore';
-import { PageKey } from '../../../main/ets/model/ShortcutModels';
+import { PageKey } from '../../../main/ets/model/ShortcutScenes';
 import { CaseScope, runCase } from '../support/CaseScope';
 import { FixedBusinessClock } from '../support/BusinessFixture';
 import { ControlledBusinessStorage, loadBusiness } from '../support/CoverageFixture';
@@ -68,18 +69,18 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0001', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0001'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.nav.receiveWant(shortcutWant('todo.list', 'todayOpen'), true);
         h.nav.receiveWant(shortcutWant('collection.list', 'saved'), true);
         h.nav.activate(PageKey.HOME, (): void => {});
         await waveSettle();
-        expect(h.routes.calls.join(',')).assertEqual('push:pages/CollectionPage:');
-        expect(h.store.snapshot().favoritesOnly).assertTrue();
-        expect(h.store.snapshot().todoFilter).assertEqual('全部');
-        expect(h.io.writes).assertEqual(0);
-        expect(h.reports.join(',')).assertEqual('collection:冷启动:成功');
+        expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0001')).assertEqual('push:scenes/pages/CollectionPage:');
+        expect(h.store.snapshot().favoritesOnly, caseName('ShortcutNavigationWaveOne', '0001')).assertTrue();
+        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0001')).assertEqual('全部');
+        expect(h.io.writes, caseName('ShortcutNavigationWaveOne', '0001')).assertEqual(0);
+        expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0001')).assertEqual('collection:冷启动:成功');
       });
     });
 
@@ -91,17 +92,17 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0002', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0002'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.nav.receiveWant(shortcutWant('todo.list', 'todayOpen'), false);
         h.nav.receiveWant(shortcutWant('collection.list', 'todayOpen'), false);
         h.nav.activate(PageKey.HOME, (): void => {});
         await waveSettle();
-        expect(h.routes.calls.join(',')).assertEqual('push:pages/TodoPage:');
-        expect(h.store.snapshot().todoFilter).assertEqual('未完成');
-        expect(h.reports.join(',')).assertEqual('启动参数:invalid-parameters:失败,todo:热启动:成功');
-        expect(h.store.snapshot().favoritesOnly).assertFalse();
+        expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0002')).assertEqual('push:scenes/pages/TodoPage:');
+        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0002')).assertEqual('未完成');
+        expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0002')).assertEqual('启动参数:invalid-parameters:失败,todo:热启动:成功');
+        expect(h.store.snapshot().favoritesOnly, caseName('ShortcutNavigationWaveOne', '0002')).assertFalse();
       });
     });
 
@@ -113,23 +114,23 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0003', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0003'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         let revisits: number = 0;
         h.nav.activate(PageKey.HOME, (): void => { revisits++; });
         h.nav.deactivate(PageKey.NOTE);
         await h.nav.open(PageKey.HOME);
-        expect(revisits).assertEqual(1);
+        expect(revisits, caseName('ShortcutNavigationWaveOne', '0003')).assertEqual(1);
         h.nav.deactivate(PageKey.HOME);
         h.nav.receiveWant(shortcutWant('collection.list', 'saved'), false);
         await waveSettle();
-        expect(h.routes.calls.length).assertEqual(0);
-        expect(h.store.snapshot().favoritesOnly).assertFalse();
+        expect(h.routes.calls.length, caseName('ShortcutNavigationWaveOne', '0003')).assertEqual(0);
+        expect(h.store.snapshot().favoritesOnly, caseName('ShortcutNavigationWaveOne', '0003')).assertFalse();
         h.nav.activate(PageKey.HOME, (): void => {});
         await waveSettle();
-        expect(h.routes.calls.join(',')).assertEqual('push:pages/CollectionPage:');
-        expect(h.store.snapshot().favoritesOnly).assertTrue();
+        expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0003')).assertEqual('push:scenes/pages/CollectionPage:');
+        expect(h.store.snapshot().favoritesOnly, caseName('ShortcutNavigationWaveOne', '0003')).assertTrue();
       });
     });
 
@@ -141,20 +142,20 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0004', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0004'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.store.setDraftBody('未保存的会议结论');
         let revisits: number = 0;
         h.nav.activate(PageKey.NOTE, (): void => { revisits++; });
         h.nav.receiveWant(shortcutWant('note.new'), false);
         await waveSettle();
-        expect(revisits).assertEqual(1);
-        expect(h.store.snapshot().draftBody).assertEqual('未保存的会议结论');
-        expect(h.store.hasUnsavedNoteWork()).assertTrue();
-        expect(h.dialog.editing.length).assertEqual(0);
-        expect(h.routes.calls.length).assertEqual(0);
-        expect(h.io.writes).assertEqual(0);
+        expect(revisits, caseName('ShortcutNavigationWaveOne', '0004')).assertEqual(1);
+        expect(h.store.snapshot().draftBody, caseName('ShortcutNavigationWaveOne', '0004')).assertEqual('未保存的会议结论');
+        expect(h.store.hasUnsavedNoteWork(), caseName('ShortcutNavigationWaveOne', '0004')).assertTrue();
+        expect(h.dialog.editing.length, caseName('ShortcutNavigationWaveOne', '0004')).assertEqual(0);
+        expect(h.routes.calls.length, caseName('ShortcutNavigationWaveOne', '0004')).assertEqual(0);
+        expect(h.io.writes, caseName('ShortcutNavigationWaveOne', '0004')).assertEqual(0);
       });
     });
 
@@ -166,18 +167,18 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0005', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0005'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         let revisits: number = 0;
         h.nav.activate(PageKey.DETAIL, (): void => { revisits++; });
         await h.nav.openDetail('sc.note.new');
         await h.nav.openDetail('sc.todo.today');
-        expect(h.routes.calls.join(',')).assertEqual(
-          'replace:pages/ShortcutDetailPage:sc.note.new,replace:pages/ShortcutDetailPage:sc.todo.today');
-        expect(revisits).assertEqual(0);
-        expect(h.reports.join(',')).assertEqual('detail:应用内:成功,detail:应用内:成功');
-        expect(h.io.writes).assertEqual(0);
+        expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0005')).assertEqual(
+          'replace:scenes/pages/ShortcutDetailPage:sc.note.new,replace:scenes/pages/ShortcutDetailPage:sc.todo.today');
+        expect(revisits, caseName('ShortcutNavigationWaveOne', '0005')).assertEqual(0);
+        expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0005')).assertEqual('detail:应用内:成功,detail:应用内:成功');
+        expect(h.io.writes, caseName('ShortcutNavigationWaveOne', '0005')).assertEqual(0);
       });
     });
 
@@ -189,20 +190,20 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0006', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0006'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.routes.depth = 1;
         h.nav.activate(PageKey.TODO, (): void => {});
         await h.nav.back();
         h.nav.receiveWant(shortcutWant('collection.list', 'saved'), false);
         await waveSettle();
-        expect(h.routes.calls.join(',')).assertEqual('replace:pages/Index:');
-        expect(h.store.snapshot().favoritesOnly).assertFalse();
+        expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0006')).assertEqual('replace:pages/Index:');
+        expect(h.store.snapshot().favoritesOnly, caseName('ShortcutNavigationWaveOne', '0006')).assertFalse();
         h.nav.activate(PageKey.HOME, (): void => {});
         await waveSettle();
-        expect(h.routes.calls[1]).assertEqual('push:pages/CollectionPage:');
-        expect(h.reports.join(',')).assertEqual('collection:热启动:成功');
+        expect(h.routes.calls[1], caseName('ShortcutNavigationWaveOne', '0006')).assertEqual('push:scenes/pages/CollectionPage:');
+        expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0006')).assertEqual('collection:热启动:成功');
       });
     });
 
@@ -214,8 +215,8 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0007', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0007'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.routes.gate = new Deferred<void>();
         h.nav.activate(PageKey.TODO, (): void => {});
@@ -224,12 +225,12 @@ export default function shortcutNavigationWaveOneTests(): void {
         h.nav.receiveWant(shortcutWant('note.new'), false);
         h.routes.gate.resolve(undefined);
         await returning;
-        expect(h.routes.calls.join(',')).assertEqual('back:false');
-        expect(h.reports.length).assertEqual(0);
+        expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0007')).assertEqual('back:false');
+        expect(h.reports.length, caseName('ShortcutNavigationWaveOne', '0007')).assertEqual(0);
         h.nav.activate(PageKey.HOME, (): void => {});
         await waveSettle();
-        expect(h.routes.calls[1]).assertEqual('push:pages/NotePage:');
-        expect(h.dialog.editing.length).assertEqual(0);
+        expect(h.routes.calls[1], caseName('ShortcutNavigationWaveOne', '0007')).assertEqual('push:scenes/pages/NotePage:');
+        expect(h.dialog.editing.length, caseName('ShortcutNavigationWaveOne', '0007')).assertEqual(0);
       });
     });
 
@@ -241,8 +242,8 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0008', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0008'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0008'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.store.setDraftTitle('继续编辑');
         h.dialog.gate = new Deferred<number>();
@@ -253,11 +254,11 @@ export default function shortcutNavigationWaveOneTests(): void {
         await returning;
         h.nav.activate(PageKey.NOTE, (): void => {});
         await waveSettle();
-        expect(h.routes.calls.length).assertEqual(0);
-        expect(h.store.snapshot().draftTitle).assertEqual('继续编辑');
-        expect(h.store.hasUnsavedNoteWork()).assertTrue();
-        expect(h.store.snapshot().favoritesOnly).assertFalse();
-        expect(h.dialog.editing.join(',')).assertEqual('false');
+        expect(h.routes.calls.length, caseName('ShortcutNavigationWaveOne', '0008')).assertEqual(0);
+        expect(h.store.snapshot().draftTitle, caseName('ShortcutNavigationWaveOne', '0008')).assertEqual('继续编辑');
+        expect(h.store.hasUnsavedNoteWork(), caseName('ShortcutNavigationWaveOne', '0008')).assertTrue();
+        expect(h.store.snapshot().favoritesOnly, caseName('ShortcutNavigationWaveOne', '0008')).assertFalse();
+        expect(h.dialog.editing.join(','), caseName('ShortcutNavigationWaveOne', '0008')).assertEqual('false');
       });
     });
 
@@ -269,18 +270,18 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0009', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0009'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0009'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.nav.activate(PageKey.TODO, (): void => {});
         h.routes.fail = true;
         await h.nav.back();
-        expect(h.reports.join(',')).assertEqual('todo:router-failed:失败');
-        expect(h.dialog.toasts.join(',')).assertEqual('页面打开失败，请重试');
+        expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0009')).assertEqual('todo:router-failed:失败');
+        expect(h.dialog.toasts.join(','), caseName('ShortcutNavigationWaveOne', '0009')).assertEqual('页面打开失败，请重试');
         h.routes.fail = false;
         await h.nav.back();
-        expect(h.routes.calls.join(',')).assertEqual('back:false,back:false');
-        expect(h.io.writes).assertEqual(0);
+        expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0009')).assertEqual('back:false,back:false');
+        expect(h.io.writes, caseName('ShortcutNavigationWaveOne', '0009')).assertEqual(0);
       });
     });
 
@@ -292,18 +293,18 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0010', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0010'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0010'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.store.setDraftTitle('对话框失败前草稿');
         h.dialog.fail = true;
         h.nav.activate(PageKey.NOTE, (): void => {});
         await h.nav.open(PageKey.TODO);
-        expect(h.routes.calls.length).assertEqual(0);
-        expect(h.io.writes).assertEqual(0);
-        expect(h.store.hasUnsavedNoteWork()).assertTrue();
-        expect(h.reports.join(',')).assertEqual('todo:应用内:取消');
-        expect(h.dialog.toasts.length).assertEqual(0);
+        expect(h.routes.calls.length, caseName('ShortcutNavigationWaveOne', '0010')).assertEqual(0);
+        expect(h.io.writes, caseName('ShortcutNavigationWaveOne', '0010')).assertEqual(0);
+        expect(h.store.hasUnsavedNoteWork(), caseName('ShortcutNavigationWaveOne', '0010')).assertTrue();
+        expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0010')).assertEqual('todo:应用内:取消');
+        expect(h.dialog.toasts.length, caseName('ShortcutNavigationWaveOne', '0010')).assertEqual(0);
       });
     });
 
@@ -315,8 +316,8 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0011', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0011'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0011'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.store.selectTodoDate('2026-11-01');
         h.store.setTodoFilter('已完成');
@@ -326,12 +327,12 @@ export default function shortcutNavigationWaveOneTests(): void {
         h.nav.activate(PageKey.COLLECTION, (): void => {});
         h.nav.receiveWant(shortcutWant('todo.list', 'todayOpen'), false);
         await waveSettle();
-        expect(h.store.snapshot().todoDate).assertEqual('2026-11-01');
-        expect(h.store.snapshot().todoFollowToday).assertFalse();
-        expect(h.store.snapshot().todoFilter).assertEqual('已完成');
-        expect(h.store.snapshot().collectionQuery).assertEqual('阅读');
-        expect(h.store.snapshot().collectionCategory).assertEqual('阅读');
-        expect(h.reports.join(',')).assertEqual('collection:router-failed:失败');
+        expect(h.store.snapshot().todoDate, caseName('ShortcutNavigationWaveOne', '0011')).assertEqual('2026-11-01');
+        expect(h.store.snapshot().todoFollowToday, caseName('ShortcutNavigationWaveOne', '0011')).assertFalse();
+        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0011')).assertEqual('已完成');
+        expect(h.store.snapshot().collectionQuery, caseName('ShortcutNavigationWaveOne', '0011')).assertEqual('阅读');
+        expect(h.store.snapshot().collectionCategory, caseName('ShortcutNavigationWaveOne', '0011')).assertEqual('阅读');
+        expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0011')).assertEqual('collection:router-failed:失败');
       });
     });
 
@@ -343,21 +344,21 @@ export default function shortcutNavigationWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveOne0012', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveOne', '0012'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveOne', '0012'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.store.selectTodoDate('2026-11-01');
         h.nav.activate(PageKey.TODO, (): void => {});
         h.nav.receiveWant(shortcutWant('todo.list', 'todayOpen'), false);
         await waveSettle();
-        expect(h.store.snapshot().todoDate).assertEqual('2026-11-02');
-        expect(h.store.snapshot().todoFollowToday).assertTrue();
+        expect(h.store.snapshot().todoDate, caseName('ShortcutNavigationWaveOne', '0012')).assertEqual('2026-11-02');
+        expect(h.store.snapshot().todoFollowToday, caseName('ShortcutNavigationWaveOne', '0012')).assertTrue();
         const oldId: string = h.store.snapshot().todos[0].id;
         h.clock.setDate(2026, 11, 3);
-        expect(await h.store.setTodoDone(oldId, true)).assertFalse();
-        expect(h.store.snapshot().todoDate).assertEqual('2026-11-03');
-        expect(h.store.snapshot().todos[0].done).assertFalse();
-        expect(h.store.errorText()).assertEqual('日期已更新，请重新选择');
+        expect(await h.store.setTodoDone(oldId, true), caseName('ShortcutNavigationWaveOne', '0012')).assertFalse();
+        expect(h.store.snapshot().todoDate, caseName('ShortcutNavigationWaveOne', '0012')).assertEqual('2026-11-03');
+        expect(h.store.snapshot().todos[0].done, caseName('ShortcutNavigationWaveOne', '0012')).assertFalse();
+        expect(h.store.errorText(), caseName('ShortcutNavigationWaveOne', '0012')).assertEqual('日期已更新，请重新选择');
       });
     });
   });

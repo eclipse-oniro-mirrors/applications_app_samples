@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { traceParameter } from '../support/TestLog';
 import { describe, expect } from '@ohos/hypium';
 import { scenario } from '../support/BoundedCase';
 import { FakePlatform, MemoryStore, fixtureError } from '../support/FakePlatform';
@@ -86,13 +87,13 @@ export default function experimentTests(): void {
         'step=1\nname=Alice\nphone=10086\naddress=Example\nnote=Draft'];
       WORKLOADS.forEach((spec, index: number): void => {
         const padded: string = payloads[index] + '\n# fixture payload padding';
-        expect(verifyWorkload(spec, bytes(padded)).ok).assertTrue();
-        expect(verifyWorkload(spec, bytes('')).ok).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0001 Experiment.test:89 assertTrue actual', verifyWorkload(spec, bytes(padded)).ok)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0001 Experiment.test:90 assertFalse actual', verifyWorkload(spec, bytes('')).ok)).assertFalse();
       });
-      expect(verifyWorkload(WORKLOADS[1], bytes('Title||2026-11-05\n# padding for size threshold')).ok).assertFalse();
-      expect(verifyWorkload(WORKLOADS[2], bytes('photo.svg|-1|96')).ok).assertFalse();
-      expect(verifyWorkload(WORKLOADS[3], bytes('step=1\nname=Alice')).ok).assertFalse();
-      expect(workloadOf('not-in-package') === undefined).assertTrue();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0001 Experiment.test:92 assertFalse actual', verifyWorkload(WORKLOADS[1], bytes('Title||2026-11-05\n# padding for size threshold')).ok)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0001 Experiment.test:93 assertFalse actual', verifyWorkload(WORKLOADS[2], bytes('photo.svg|-1|96')).ok)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0001 Experiment.test:94 assertFalse actual', verifyWorkload(WORKLOADS[3], bytes('step=1\nname=Alice')).ok)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0001 Experiment.test:95 assertTrue actual', workloadOf('not-in-package') === undefined)).assertTrue();
     });
 
     /**
@@ -109,20 +110,20 @@ export default function experimentTests(): void {
       const platform = new FakePlatform(); const service = AppService.fromPlatform(platform);
       try {
         const ok = await service.evictFiles(['entry.hap']);
-        expect(ok.status).assertEqual('success'); expect(ok.dispatched).assertTrue(); expect(ok.inFlight).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:112 assertEqual actual', ok.status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:112 assertEqual expected', 'success')); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:112 assertTrue actual', ok.dispatched)).assertTrue(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:112 assertFalse actual', ok.inFlight)).assertFalse();
         platform.fileErrorCode = 123;
         const rejected = await service.evictFiles(['entry.hap']);
-        expect(rejected.status).assertEqual('rejected'); expect(rejected.code).assertEqual(123);
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:115 assertEqual actual', rejected.status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:115 assertEqual expected', 'rejected')); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:115 assertEqual actual', rejected.code)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:115 assertEqual expected', 123));
         platform.fileAvailable = false;
         const blocked = await service.evictFiles(['entry.hap']);
-        expect(blocked.status).assertEqual('not-dispatched'); expect(blocked.dispatched).assertFalse();
-        expect(platform.fileCalls.length).assertEqual(2);
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:118 assertEqual actual', blocked.status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:118 assertEqual expected', 'not-dispatched')); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:118 assertFalse actual', blocked.dispatched)).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:119 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:119 assertEqual expected', 2));
         platform.fileAvailable = true; platform.fileErrorCode = -1; platform.deferFile = true;
         const pending = service.evictFiles(['entry.hap']); platform.advance(10000);
         const timeout = await pending;
-        expect(timeout.status).assertEqual('timeout'); expect(timeout.inFlight).assertTrue();
-        expect(timeout.dispatched).assertTrue();
-        platform.releaseFile(); await drain(); expect(service.isExperimentBusy()).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:123 assertEqual actual', timeout.status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:123 assertEqual expected', 'timeout')); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:123 assertTrue actual', timeout.inFlight)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:124 assertTrue actual', timeout.dispatched)).assertTrue();
+        platform.releaseFile(); await drain(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0002 Experiment.test:125 assertFalse actual', service.isExperimentBusy())).assertFalse();
       } finally { platform.releaseFile(); service.dispose(); }
     });
 
@@ -140,12 +141,12 @@ export default function experimentTests(): void {
       const platform = new LabPlatform(); const service = AppService.fromPlatform(platform);
       try {
         const record = required(await service.runExperiment('W-NOTES', 'control'));
-        expect(record.complete()).assertTrue(); expect(record.requestStatus).assertEqual('not-requested');
-        expect(record.stages.map((stage): string => stage.key).join('|')).assertEqual(FLOW_KEYS.join('|'));
-        expect(platform.names.join('|')).assertEqual('workloads/notes_list.txt|workloads/notes_list.txt');
-        expect(platform.fileCalls.length).assertEqual(0); expect(service.ledgerRecords().length).assertEqual(1);
-        expect(record.condition.length > 0).assertTrue();
-        record.note = 'caller mutation'; expect(service.ledgerRecords()[0].note === 'caller mutation').assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:143 assertTrue actual', record.complete())).assertTrue(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:143 assertEqual actual', record.requestStatus)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:143 assertEqual expected', 'not-requested'));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:144 assertEqual actual', record.stages.map((stage): string => stage.key).join('|'))).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:144 assertEqual expected', FLOW_KEYS.join('|')));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:145 assertEqual actual', platform.names.join('|'))).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:145 assertEqual expected', 'workloads/notes_list.txt|workloads/notes_list.txt'));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:146 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:146 assertEqual expected', 0)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:146 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:146 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:147 assertTrue actual', record.condition.length > 0)).assertTrue();
+        record.note = 'caller mutation'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0003 Experiment.test:148 assertFalse actual', service.ledgerRecords()[0].note === 'caller mutation')).assertFalse();
       } finally { service.dispose(); }
     });
 
@@ -169,10 +170,10 @@ export default function experimentTests(): void {
         const service = AppService.fromPlatform(platform);
         try {
           const record = required(await service.runExperiment('W-NOTES', 'files'));
-          expect(record.complete()).assertFalse(); expect(record.skipped() > 0).assertTrue();
-          expect(service.ledgerRecords().length).assertEqual(1);
-          expect(digestLedger(service.ledgerRecords())[0].medianDuration).assertEqual(-1);
-          if (failure < 3) { expect(platform.fileCalls.length).assertEqual(0); }
+          expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0004 Experiment.test:172 assertFalse actual', record.complete())).assertFalse(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0004 Experiment.test:172 assertTrue actual', record.skipped() > 0)).assertTrue();
+          expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0004 Experiment.test:173 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0004 Experiment.test:173 assertEqual expected', 1));
+          expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0004 Experiment.test:174 assertEqual actual', digestLedger(service.ledgerRecords())[0].medianDuration)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0004 Experiment.test:174 assertEqual expected', -1));
+          if (failure < 3) { expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0004 Experiment.test:175 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0004 Experiment.test:175 assertEqual expected', 0)); }
         } finally { service.dispose(); }
       }
     });
@@ -192,17 +193,17 @@ export default function experimentTests(): void {
       const service = AppService.fromPlatform(platform);
       try {
         const running = service.runExperiment('W-NOTES', 'files'); await drain();
-        expect(platform.fileCalls.length).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:195 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:195 assertEqual expected', 1));
         platform.advance(10000); const record = required(await running);
-        expect(record.stages[3].status).assertEqual('超时'); expect(record.complete()).assertFalse();
-        expect(service.isQuarantined()).assertTrue(); expect(service.isExperimentBusy()).assertTrue();
-        const blocked = await service.evictFiles(['entry.hap']); expect(blocked.dispatched).assertFalse();
-        expect(await service.runExperiment('W-NOTES', 'control') === undefined).assertTrue();
-        expect(platform.fileCalls.length).assertEqual(1); expect(service.ledgerRecords().length).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:197 assertEqual actual', record.stages[3].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:197 assertEqual expected', '超时')); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:197 assertFalse actual', record.complete())).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:198 assertTrue actual', service.isQuarantined())).assertTrue(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:198 assertTrue actual', service.isExperimentBusy())).assertTrue();
+        const blocked = await service.evictFiles(['entry.hap']); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:199 assertFalse actual', blocked.dispatched)).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:200 assertTrue actual', await service.runExperiment('W-NOTES', 'control') === undefined)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:201 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:201 assertEqual expected', 1)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:201 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:201 assertEqual expected', 1));
         platform.releaseFile(); await drain();
-        expect(service.isExperimentBusy()).assertFalse(); expect(service.ledgerRecords().length).assertEqual(1);
-        expect(service.ledgerRecords()[0].stages[3].status).assertEqual('超时');
-        expect(platform.names.length).assertEqual(1); expect(platform.pendingTimers()).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:203 assertFalse actual', service.isExperimentBusy())).assertFalse(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:203 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:203 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:204 assertEqual actual', service.ledgerRecords()[0].stages[3].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:204 assertEqual expected', '超时'));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:205 assertEqual actual', platform.names.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:205 assertEqual expected', 1)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:205 assertEqual actual', platform.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:205 assertEqual expected', 0));
       } finally { platform.releaseFile(); service.dispose(); }
     });
 
@@ -222,13 +223,13 @@ export default function experimentTests(): void {
       try {
         const running = service.runExperiment('W-NOTES', 'files'); await drain();
         service.cancelExperiment(); const record = required(await running);
-        expect(record.stages[3].status).assertEqual('已取消'); expect(service.isQuarantined()).assertTrue();
-        expect(platform.pendingTimers()).assertEqual(0); expect(service.ledgerRecords().length).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:225 assertEqual actual', record.stages[3].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:225 assertEqual expected', '已取消')); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:225 assertTrue actual', service.isQuarantined())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:226 assertEqual actual', platform.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:226 assertEqual expected', 0)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:226 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:226 assertEqual expected', 1));
         platform.releaseFile(); await drain();
-        expect(service.isExperimentBusy()).assertFalse();
-        expect(service.ledgerRecords()[0].stages[3].status).assertEqual('已取消');
-        expect(service.getState().logs.some((row): boolean =>
-          row.code === 678 && row.api === 'evictFilePages')).assertTrue();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:228 assertFalse actual', service.isExperimentBusy())).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:229 assertEqual actual', service.ledgerRecords()[0].stages[3].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:229 assertEqual expected', '已取消'));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:230 assertTrue actual', service.getState().logs.some((row): boolean =>
+          row.code === 678 && row.api === 'evictFilePages'))).assertTrue();
       } finally { platform.releaseFile(); service.dispose(); }
     });
 
@@ -248,16 +249,16 @@ export default function experimentTests(): void {
       ledger.append(first); ledger.append(second);
       const reopened = new ExperimentLedger();
       reopened.restore(restoreRecords(JSON.parse(JSON.stringify(ledger.all()))));
-      expect(reopened.all().map((record): string => record.id).join('|')).assertEqual('EXP-2|EXP-1');
-      reopened.restore(reopened.all()); expect(reopened.all()[0].id).assertEqual('EXP-2');
-      const duplicate = reopened.append(first); expect(duplicate.id === 'EXP-1').assertFalse();
-      duplicate.stages[0].status = '失败'; expect(reopened.all()[0].stages[0].status).assertEqual('成功');
-      expect(restoreRecords([first, first]).length).assertEqual(1);
-      first.stages[1].status = '跳过'; expect(first.complete()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:251 assertEqual actual', reopened.all().map((record): string => record.id).join('|'))).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:251 assertEqual expected', 'EXP-2|EXP-1'));
+      reopened.restore(reopened.all()); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:252 assertEqual actual', reopened.all()[0].id)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:252 assertEqual expected', 'EXP-2'));
+      const duplicate = reopened.append(first); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:253 assertFalse actual', duplicate.id === 'EXP-1')).assertFalse();
+      duplicate.stages[0].status = '失败'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:254 assertEqual actual', reopened.all()[0].stages[0].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:254 assertEqual expected', '成功'));
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:255 assertEqual actual', restoreRecords([first, first]).length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:255 assertEqual expected', 1));
+      first.stages[1].status = '跳过'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:256 assertFalse actual', first.complete())).assertFalse();
       for (let index = 0; index < 35; index++) { reopened.append(completeRecord()); }
-      expect(reopened.size()).assertEqual(30);
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:258 assertEqual actual', reopened.size())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:258 assertEqual expected', 30));
       const corrupted = completeRecord('bad'); corrupted.stages[0].elapsedMs = Number.NaN;
-      expect(restoreRecords([corrupted]).length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:260 assertEqual actual', restoreRecords([corrupted]).length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:260 assertEqual expected', 0));
     });
 
     /**
@@ -273,15 +274,15 @@ export default function experimentTests(): void {
     scenario('testAppPerformanceExperiments0008', (): void => {
       const left = completeRecord('left'); const right = completeRecord('right');
       const comparison = compareRecords(left, right);
-      expect(comparison.comparable).assertTrue(); expect(comparison.sameContent).assertTrue();
-      expect(comparison.text().indexOf('校验 一致') >= 0).assertTrue();
-      right.mode = 'files'; expect(compareRecords(left, right).comparable).assertFalse(); right.mode = 'control';
-      right.condition = 'different'; expect(compareRecords(left, right).comparable).assertFalse();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:276 assertTrue actual', comparison.comparable)).assertTrue(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:276 assertTrue actual', comparison.sameContent)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:277 assertTrue actual', comparison.text().indexOf('校验 一致') >= 0)).assertTrue();
+      right.mode = 'files'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:278 assertFalse actual', compareRecords(left, right).comparable)).assertFalse(); right.mode = 'control';
+      right.condition = 'different'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:279 assertFalse actual', compareRecords(left, right).comparable)).assertFalse();
       right.condition = left.condition; right.stages[1].status = '失败'; right.stages[1].elapsedMs = 9000;
       const groups = digestLedger([left, right]);
-      expect(groups.length).assertEqual(1); expect(groups[0].medianDuration).assertEqual(60);
-      expect(groups[0].p90Duration).assertEqual(60); expect(groups[0].failed).assertEqual(1);
-      right.condition = 'different'; expect(digestLedger([left, right]).length).assertEqual(2);
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:282 assertEqual actual', groups.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:282 assertEqual expected', 1)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:282 assertEqual actual', groups[0].medianDuration)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:282 assertEqual expected', 60));
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:283 assertEqual actual', groups[0].p90Duration)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:283 assertEqual expected', 60)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:283 assertEqual actual', groups[0].failed)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:283 assertEqual expected', 1));
+      right.condition = 'different'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:284 assertEqual actual', digestLedger([left, right]).length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:284 assertEqual expected', 2));
     });
 
     /**
@@ -295,20 +296,20 @@ export default function experimentTests(): void {
 
 
     scenario('testAppPerformanceExperiments0009', async (): Promise<void> => {
-      expect(flowMetricSamples(undefined).length).assertEqual(0);
-      expect(evaluateGate([]).verdict()).assertEqual(GateVerdict.NOT_EVALUABLE);
-      expect(evaluateFlowGate(undefined).verdict()).assertEqual(GateVerdict.NOT_EVALUABLE);
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:298 assertEqual actual', flowMetricSamples(undefined).length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:298 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:299 assertEqual actual', evaluateGate([]).verdict())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:299 assertEqual expected', GateVerdict.NOT_EVALUABLE));
+      expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:300 assertEqual actual', evaluateFlowGate(undefined).verdict())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:300 assertEqual expected', GateVerdict.NOT_EVALUABLE));
       const platform = new LabPlatform(); const service = AppService.fromPlatform(platform);
       try {
         await service.runExperiment('W-NOTES', 'control'); const flow = service.getState().maintenance;
         const samples = flowMetricSamples(flow);
-        expect(samples.find((item): boolean => item.key === 'success.ratio')?.value).assertEqual(100);
-        expect(samples.filter((item): boolean => item.key.indexOf('stage.') === 0).length).assertEqual(6);
-        expect(evaluateFlowGate(flow).verdict()).assertEqual(GateVerdict.PASS);
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:305 assertEqual actual', samples.find((item): boolean => item.key === 'success.ratio')?.value)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:305 assertEqual expected', 100));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:306 assertEqual actual', samples.filter((item): boolean => item.key.indexOf('stage.') === 0).length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:306 assertEqual expected', 6));
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:307 assertEqual actual', evaluateFlowGate(flow).verdict())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:307 assertEqual expected', GateVerdict.PASS));
         if (flow === undefined) { throw new Error('Missing completed flow'); }
         flow.steps[1].status = '跳过';
-        expect(flowMetricSamples(flow).some((item): boolean => item.key === 'stage.config.ms')).assertFalse();
-        expect(evaluateFlowGate(flow).verdict() === GateVerdict.PASS).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:310 assertFalse actual', flowMetricSamples(flow).some((item): boolean => item.key === 'stage.config.ms'))).assertFalse();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:311 assertFalse actual', evaluateFlowGate(flow).verdict() === GateVerdict.PASS)).assertFalse();
       } finally { service.dispose(); }
     });
 
@@ -330,13 +331,13 @@ export default function experimentTests(): void {
       try {
         await service.runExperiment('W-NOTES', 'control'); await service.runExperiment('W-NOTES', 'control');
         await service.whenSaved(); before = service.ledgerRecords().map((record): string => record.id).join('|');
-        const text = service.exportLedger(); expect(text.indexOf('fixture-board') < 0).assertTrue();
-        expect(text.indexOf('workloads/notes_list.txt') < 0).assertTrue();
-        expect(text.indexOf('sample-1') >= 0).assertTrue();
+        const text = service.exportLedger(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0010 Experiment.test:333 assertTrue actual', text.indexOf('fixture-board') < 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0010 Experiment.test:334 assertTrue actual', text.indexOf('workloads/notes_list.txt') < 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0010 Experiment.test:335 assertTrue actual', text.indexOf('sample-1') >= 0)).assertTrue();
       } finally { service.dispose(); }
       const reopened = AppService.fromPlatform(new LabPlatform(store));
       try {
-        expect(reopened.ledgerRecords().map((record): string => record.id).join('|')).assertEqual(before);
+        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0010 Experiment.test:339 assertEqual actual', reopened.ledgerRecords().map((record): string => record.id).join('|'))).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0010 Experiment.test:339 assertEqual expected', before));
       } finally {
         reopened.dispose();
       }
