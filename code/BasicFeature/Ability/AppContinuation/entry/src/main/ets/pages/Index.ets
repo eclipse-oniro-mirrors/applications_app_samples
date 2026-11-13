@@ -21,6 +21,7 @@ import { router } from '@kit.ArkUI';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { getLearningController } from '../learning/LearningContext';
 import { SceneWorkspaceBackup } from '../components/SceneWorkspaceBackup';
+import { TextEditorPanel } from '../components/TextEditorPanel';
 import {
   DocKind, DocumentSlot, DocumentWorkspace, checkIsolation, docLines, multiSlotKinds, workspaceLines
 } from '../learning/document/DocumentWorkspace';
@@ -69,8 +70,8 @@ struct Index {
   @State activeTab: number = 1;
   @State private toolsExpanded: boolean = false;
   @State private textActionsExpanded: boolean = false;
-  @State levelFilter: string = localize('ac_index_001');
-  @State operationFilter: string = localize('ac_index_001');
+  @State levelFilter: string = 'all';
+  @State operationFilter: string = 'all';
   @State message: string = '';
   @State environmentExpanded: boolean = false;
   private controller: LearningController | undefined = undefined;
@@ -323,7 +324,7 @@ struct Index {
         this.message = localize('ac_index_012');
         return;
       }
-      const documentationUrl = context.resourceManager.getStringValue($r('app.string.official_doc_url').id);
+      const documentationUrl: string = context.resourceManager.getStringSync($r('app.string.official_doc_url').id);
       context.startAbility({ action: 'ohos.want.action.viewData', uri: documentationUrl })
         .catch((error: BusinessError) => {
           this.message = localize('ac_index_013', [learningError(error)]);
@@ -358,15 +359,24 @@ struct Index {
 
   private filteredRecords(): OperationRecord[] {
     return this.snapshot.records.filter((record: OperationRecord) => {
-      const levelMatch = this.levelFilter === localize('ac_index_001') ||
-        (this.levelFilter === localize('ac_index_023') && record.level === 'ERROR') ||
-        (this.levelFilter === localize('ac_index_024') && record.level === 'WARN');
-      const operationMatch = this.operationFilter === localize('ac_index_001') ||
+      const levelMatch = this.levelFilter === 'all' || this.levelFilter === record.level;
+      const operationMatch = this.operationFilter === 'all' ||
         (this.operationFilter === 'ON' && record.operation === 'ON') ||
         (this.operationFilter === 'OFF' && record.operation === 'OFF') ||
-        (this.operationFilter === localize('ac_index_026') && record.operation !== 'ON' && record.operation !== 'OFF');
+        (this.operationFilter === 'system' && record.operation !== 'ON' && record.operation !== 'OFF');
       return levelMatch && operationMatch;
     });
+  }
+
+  private levelFilterLabel(code: string): ResourceStr {
+    if (code === 'ERROR') { return $r('app.string.ac_index_023'); }
+    if (code === 'WARN') { return $r('app.string.ac_index_024'); }
+    return $r('app.string.ac_index_001');
+  }
+
+  private operationFilterLabel(code: string): ResourceStr {
+    if (code === 'ON' || code === 'OFF') { return code; }
+    return code === 'system' ? $r('app.string.ac_index_026') : $r('app.string.ac_index_001');
   }
 
   private noticeText(): string {
@@ -381,198 +391,256 @@ struct Index {
   }
 
   @Builder
-  private pageTitle(title: string) {
-    Text(title).fontSize(26).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK)
-      .width('100%').padding({ top: 12, bottom: 8 });
+  private pageTitle(title: ResourceStr) {
+    Text(title)
+      .fontSize(26)
+      .fontWeight(FontWeight.Bold)
+      .fontColor(LEARNING_INK)
+      .width('100%')
+      .padding({ top: 12, bottom: 8 });
   }
 
   @Builder
   private introductionPage() {
     Scroll() {
       Column({ space: 16 }) {
-        this.pageTitle(localize('ac_index_028'))
+        this.pageTitle($r('app.string.ac_index_028'))
         Text($r('app.string.ac_index_029'))
-          .fontSize(15).lineHeight(24).fontColor(LEARNING_MUTED).width('100%');
-        LearningCard({ title: localize('ac_index_030') }) {
-          LearningLine({ label: localize('ac_index_031'), value: localize('ac_index_032') })
-          LearningLine({ label: localize('ac_index_033'), value: localize('ac_index_034') })
-          LearningLine({ label: localize('ac_index_035'), value: localize('ac_index_036') })
+          .fontSize(15)
+          .lineHeight(24)
+          .fontColor(LEARNING_MUTED)
+          .width('100%');
+        LearningCard({ title: $r('app.string.ac_index_030') }) {
+          LearningLine({ label: $r('app.string.ac_index_031'), value: $r('app.string.ac_index_032') })
+          LearningLine({ label: $r('app.string.ac_index_033'), value: $r('app.string.ac_index_034') })
+          LearningLine({ label: $r('app.string.ac_index_035'), value: $r('app.string.ac_index_036') })
         }
-        LearningAction({ label: localize('ac_index_037'), onTap: () => this.changeTab(1) })
-        LearningAction({ label: localize('ac_index_038'), secondary: true, onTap: () => this.openOfficialDoc() })
-      }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 24 });
-    }.width('100%').height('100%').scrollBar(BarState.Auto).align(Alignment.TopStart);
+        LearningAction({ label: $r('app.string.ac_index_037'), onTap: () => this.changeTab(1) })
+        LearningAction({ label: $r('app.string.ac_index_038'), secondary: true, onTap: () => this.openOfficialDoc() })
+      }
+      .width('100%')
+      .padding({ left: 20, right: 20, top: 8, bottom: 24 });
+    }
+    .width('100%')
+    .height('100%')
+    .scrollBar(BarState.Auto)
+    .align(Alignment.TopStart);
   }
 
   @Builder
   private operationPage() {
     Scroll() {
       Column({ space: 16 }) {
-        this.pageTitle(localize('ac_index_039'))
+        this.pageTitle($r('app.string.ac_index_039'))
         Row({ space: 12 }) {
-          Text(this.snapshot.sessionState).fontSize(14).lineHeight(21).fontColor(LEARNING_MUTED).layoutWeight(1)
-          Button($r('app.string.ac_index_040'), { type: ButtonType.Normal }).height(44).fontSize(14)
-            .fontColor(LEARNING_BLUE).backgroundColor('#EEF4FF').borderRadius(10)
-            .onClick(() => this.open('pages/ProcessPage'))
-        }.width('100%')
+          Text(this.snapshot.sessionState)
+            .fontSize(14)
+            .lineHeight(21)
+            .fontColor(LEARNING_MUTED)
+            .layoutWeight(1)
+          Button($r('app.string.ac_index_040'), { type: ButtonType.Normal })
+            .height(44)
+            .fontSize(14)
+            .fontColor(LEARNING_BLUE)
+            .backgroundColor('#EEF4FF')
+            .borderRadius(10)
+            .onClick(() => this.open('continuation/pages/ProcessPage'))
+        }
+        .width('100%')
         Row({ space: 8 }) {
-          LearningAction({ label: localize('ac_sceneworkspacebackup_033'), secondary: true, actionEnabled: this.snapshot.canEdit,
-            onTap: () => this.openBusiness('note', 'pages/NoteScenePage') }).layoutWeight(1)
-          LearningAction({ label: localize('ac_sceneworkspacebackup_034'), secondary: true, actionEnabled: this.snapshot.canEdit,
-            onTap: () => this.openBusiness('reading', 'pages/ReadingScenePage') }).layoutWeight(1)
-          LearningAction({ label: localize('ac_sceneworkspacebackup_035'), secondary: true, actionEnabled: this.snapshot.canEdit,
-            onTap: () => this.openBusiness('form', 'pages/FormScenePage') }).layoutWeight(1)
-        }.width('100%')
+          LearningAction({ label: $r('app.string.ac_sceneworkspacebackup_033'), secondary: true, actionEnabled: this.snapshot.canEdit,
+            onTap: () => this.openBusiness('note', 'continuation/pages/NoteScenePage') }).layoutWeight(1)
+          LearningAction({ label: $r('app.string.ac_sceneworkspacebackup_034'), secondary: true, actionEnabled: this.snapshot.canEdit,
+            onTap: () => this.openBusiness('reading', 'continuation/pages/ReadingScenePage') }).layoutWeight(1)
+          LearningAction({ label: $r('app.string.ac_sceneworkspacebackup_035'), secondary: true, actionEnabled: this.snapshot.canEdit,
+            onTap: () => this.openBusiness('form', 'continuation/pages/FormScenePage') }).layoutWeight(1)
+        }
+        .width('100%')
         if (this.snapshot.conflictPending) {
           LearningCard({
-            title: this.snapshot.conflictKind === 'document' ? localize('ac_index_044') : localize('ac_index_045'),
-            subtitle: this.snapshot.conflictAccepted ? localize('ac_index_046') : localize('ac_index_047')
+            title: this.snapshot.conflictKind === 'document' ? $r('app.string.ac_index_044') : $r('app.string.ac_index_045'),
+            subtitle: this.snapshot.conflictAccepted ? $r('app.string.ac_index_046') : $r('app.string.ac_index_047')
           }) {
-            Text(this.snapshot.conflictSummary).fontSize(14).fontColor(LEARNING_INK).width('100%')
+            Text(this.snapshot.conflictSummary)
+              .fontSize(14)
+              .fontColor(LEARNING_INK)
+              .width('100%')
             if (this.snapshot.conflictAccepted) {
               Text($r('app.string.ac_index_048'))
-                .fontSize(13).fontColor(LEARNING_MUTED).width('100%')
+                .fontSize(13)
+                .fontColor(LEARNING_MUTED)
+                .width('100%')
             } else {
-              LearningAction({ label: localize('ac_scenecontinuationstatus_007'), onTap: () => this.invoke('acceptConflict') })
-              LearningAction({ label: localize('ac_index_050'), secondary: true,
+              LearningAction({ label: $r('app.string.ac_scenecontinuationstatus_007'), onTap: () => this.invoke('acceptConflict') })
+              LearningAction({ label: $r('app.string.ac_index_050'), secondary: true,
                 onTap: () => this.invoke('rejectConflict') })
             }
           }
         }
-        LearningCard({ title: localize('ac_index_051') }) {
-          TextArea({ text: this.snapshot.text, placeholder: localize('ac_index_052'), controller: this.editor })
-            .width('100%').height(160).fontSize(15).fontColor(LEARNING_INK).backgroundColor('#F5F7FA')
-            .borderRadius(12).maxLength(MAX_TEXT_LENGTH).enabled(this.snapshot.canEdit)
-            .onChange((text: string) => this.changeText(text))
-            .onTextSelectionChange((start: number, end: number) => this.changeSelection(start, end))
-            .onEditChange((editing: boolean) => {
+        LearningCard({ title: $r('app.string.ac_index_051') }) {
+          TextEditorPanel({
+            text: this.snapshot.text,
+            selectionStart: this.snapshot.selectionStart,
+            selectionEnd: this.snapshot.selectionEnd,
+            savedStatus: this.snapshot.savedTextStatus,
+            editable: this.snapshot.canEdit,
+            editor: this.editor,
+            onTextChanged: (value: string): void => this.changeText(value),
+            onSelectionChanged: (start: number, end: number): void => this.changeSelection(start, end),
+            onEditingChanged: (editing: boolean): void => {
               this.editing = editing;
               if (editing && this.selectionNeedsFocus) { this.scheduleSelection(); }
-            })
-            .onAppear(() => this.scheduleSelection());
-          LearningLine({
-            label: localize('ac_index_053'),
-            value: `${this.snapshot.text.length} / ${MAX_TEXT_LENGTH}  ·  ` +
-              `[${this.snapshot.selectionStart}, ${this.snapshot.selectionEnd})`
+            },
+            onEditorAppeared: (): void => this.scheduleSelection(),
+            onSave: (): void => this.invoke('save')
           })
-          LearningLine({ label: localize('ac_index_054'), value: this.snapshot.savedTextStatus })
-          LearningAction({ label: localize('ac_index_055'), actionEnabled: this.snapshot.canEdit, onTap: () => this.invoke('save') })
-          LearningAction({ label: this.textActionsExpanded ? localize('ac_index_056') : localize('ac_index_057'), secondary: true,
+          LearningAction({ label: this.textActionsExpanded ? $r('app.string.ac_index_056') : $r('app.string.ac_index_057'), secondary: true,
             onTap: () => { this.textActionsExpanded = !this.textActionsExpanded; } })
           if (this.textActionsExpanded) {
-            LearningLine({ label: localize('ac_index_058'),
+            LearningLine({ label: $r('app.string.ac_index_058'),
               value: this.snapshot.documentId.length > 0 ?
-                `${this.snapshot.documentId} · r${this.snapshot.revision}` : localize('ac_index_059') })
-            LearningAction({ label: localize('ac_index_060'), secondary: true, actionEnabled: this.snapshot.canEdit,
+                `${this.snapshot.documentId} · r${this.snapshot.revision}` : $r('app.string.ac_index_059') })
+            LearningAction({ label: $r('app.string.ac_index_060'), secondary: true, actionEnabled: this.snapshot.canEdit,
               onTap: () => this.confirmExample() })
-            LearningAction({ label: localize('ac_index_061'), secondary: true, actionEnabled: this.snapshot.canEdit,
+            LearningAction({ label: $r('app.string.ac_index_061'), secondary: true, actionEnabled: this.snapshot.canEdit,
               onTap: () => confirmLearningAction(this.getUIContext(), localize('ac_index_062'), localize('ac_index_063'),
                 () => this.invoke('newDocument'), (message: string) => this.feedback(message)) })
-            LearningAction({ label: localize('ac_index_064'), secondary: true, actionEnabled: this.snapshot.canEdit,
+            LearningAction({ label: $r('app.string.ac_index_064'), secondary: true, actionEnabled: this.snapshot.canEdit,
               onTap: () => this.confirmClearText() })
           }
         }
         SceneWorkspaceBackup({ controller: this.controller })
-        LearningCard({ title: localize('ac_index_065') }) {
-          LearningAction({ label: this.toolsExpanded ? localize('ac_index_066') : localize('ac_index_067'), secondary: true,
+        LearningCard({ title: $r('app.string.ac_index_065') }) {
+          LearningAction({ label: this.toolsExpanded ? $r('app.string.ac_index_066') : $r('app.string.ac_index_067'), secondary: true,
             onTap: () => { this.toolsExpanded = !this.toolsExpanded; } })
           if (this.toolsExpanded) {
-            LearningLine({ label: localize('ac_index_068'), value: this.snapshot.launchReason })
-            LearningLine({ label: localize('ac_index_069'), value: this.snapshot.listenerState })
-            LearningAction({ label: localize('ac_index_070'), actionEnabled: this.snapshot.canRegister,
+            LearningLine({ label: $r('app.string.ac_index_068'), value: this.snapshot.launchReason })
+            LearningLine({ label: $r('app.string.ac_index_069'), value: this.snapshot.listenerState })
+            LearningAction({ label: $r('app.string.ac_index_070'), actionEnabled: this.snapshot.canRegister,
               onTap: () => this.invoke('on') })
-            LearningAction({ label: localize('ac_index_071'), actionEnabled: this.snapshot.canUnregister,
+            LearningAction({ label: $r('app.string.ac_index_071'), actionEnabled: this.snapshot.canUnregister,
               secondary: true, onTap: () => this.invoke('off') })
-            LearningAction({ label: localize('ac_index_072'), secondary: true, onTap: () => this.invoke('environment') })
+            LearningAction({ label: $r('app.string.ac_index_072'), secondary: true, onTap: () => this.invoke('environment') })
             if (this.snapshot.environment.length > 0) {
-              LearningAction({ label: this.environmentExpanded ? localize('ac_calldetailpage_026') : localize('ac_calldetailpage_027'), secondary: true,
+              LearningAction({ label: this.environmentExpanded ? $r('app.string.ac_calldetailpage_026') : $r('app.string.ac_calldetailpage_027'), secondary: true,
                 onTap: () => { this.environmentExpanded = !this.environmentExpanded; } })
               if (this.environmentExpanded) { LearningEnvironment({ items: this.snapshot.environment }) }
             }
-            LearningAction({ label: localize('ac_index_075'), secondary: true, actionEnabled: this.controller !== undefined,
+            LearningAction({ label: $r('app.string.ac_index_075'), secondary: true, actionEnabled: this.controller !== undefined,
               onTap: () => this.invoke('permission') })
           }
         }
-      }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 24 });
-    }.width('100%').height('100%').scrollBar(BarState.Auto).align(Alignment.TopStart);
+      }
+      .width('100%')
+      .padding({ left: 20, right: 20, top: 8, bottom: 24 });
+    }
+    .width('100%')
+    .height('100%')
+    .scrollBar(BarState.Auto)
+    .align(Alignment.TopStart);
   }
 
   @Builder
   private diagnosisPage() {
     Scroll() {
       Column({ space: 16 }) {
-        this.pageTitle(localize('ac_index_076'))
-        LearningCard({ title: localize('ac_index_077') }) {
+        this.pageTitle($r('app.string.ac_index_076'))
+        LearningCard({ title: $r('app.string.ac_index_077') }) {
           if (this.snapshot.latestRecord !== undefined) {
-            LearningLine({ label: localize('ac_calldetailpage_009'), value: this.snapshot.latestRecord.result })
+            LearningLine({ label: $r('app.string.ac_calldetailpage_009'), value: this.snapshot.latestRecord.result })
             if (this.snapshot.latestRecord.errorCode.length > 0) {
-              LearningLine({ label: localize('ac_calldetailpage_015'), value: this.snapshot.latestRecord.errorCode })
+              LearningLine({ label: $r('app.string.ac_calldetailpage_015'), value: this.snapshot.latestRecord.errorCode })
             }
             LearningAction({
-              label: localize('ac_learningui_023'),
+              label: $r('app.string.ac_learningui_023'),
               secondary: true,
-              onTap: () => this.open('pages/CallDetailPage',
+              onTap: () => this.open('continuation/pages/CallDetailPage',
                 this.snapshot.latestRecord === undefined ? '' : this.snapshot.latestRecord.id)
             })
           } else {
-            Text($r('app.string.ac_index_081')).fontSize(14).fontColor(LEARNING_MUTED).width('100%');
+            Text($r('app.string.ac_index_081'))
+              .fontSize(14)
+              .fontColor(LEARNING_MUTED)
+              .width('100%');
           }
         }
-        LearningCard({ title: localize('ac_calldetailpage_021'), subtitle: localize('ac_index_083', [this.snapshot.records.length]) }) {
+        LearningCard({ title: $r('app.string.ac_calldetailpage_021'), subtitle: localize('ac_index_083', [this.snapshot.records.length]) }) {
           Row({ space: 6 }) {
-            ForEach([localize('ac_index_001'), localize('ac_index_023'), localize('ac_index_024')], (filter: string) => {
-              Button(filter, { type: ButtonType.Normal }).fontSize(14).height(44).layoutWeight(1).borderRadius(10)
+            ForEach(['all', 'ERROR', 'WARN'], (filter: string) => {
+              Button(this.levelFilterLabel(filter), { type: ButtonType.Normal })
+                .fontSize(14)
+                .height(44)
+                .layoutWeight(1)
+                .borderRadius(10)
                 .fontColor(this.levelFilter === filter ? '#FFFFFF' : LEARNING_BLUE)
                 .backgroundColor(this.levelFilter === filter ? LEARNING_BLUE : '#EEF4FF')
                 .onClick(() => { this.levelFilter = filter; });
             }, (filter: string) => filter)
-          }.width('100%');
+          }
+          .width('100%');
           Row({ space: 6 }) {
-            ForEach([localize('ac_index_001'), 'ON', 'OFF', localize('ac_index_026')], (filter: string) => {
-              Button(filter, { type: ButtonType.Normal }).fontSize(13).height(44).layoutWeight(1).borderRadius(10)
+            ForEach(['all', 'ON', 'OFF', 'system'], (filter: string) => {
+              Button(this.operationFilterLabel(filter), { type: ButtonType.Normal })
+                .fontSize(13)
+                .height(44)
+                .layoutWeight(1)
+                .borderRadius(10)
                 .fontColor(this.operationFilter === filter ? '#FFFFFF' : LEARNING_BLUE)
                 .backgroundColor(this.operationFilter === filter ? LEARNING_BLUE : '#EEF4FF')
                 .onClick(() => { this.operationFilter = filter; });
             }, (filter: string) => filter)
-          }.width('100%');
+          }
+          .width('100%');
           if (this.filteredRecords().length === 0) {
-            Text($r('app.string.ac_index_089')).fontSize(14).fontColor(LEARNING_MUTED).width('100%');
+            Text($r('app.string.ac_index_089'))
+              .fontSize(14)
+              .fontColor(LEARNING_MUTED)
+              .width('100%');
           } else {
             ForEach(this.filteredRecords(), (record: OperationRecord) => {
-              LearningRecord({ record: record, onOpen: () => this.open('pages/CallDetailPage', record.id) })
+              LearningRecord({ record: record, onOpen: () => this.open('continuation/pages/CallDetailPage', record.id) })
             }, (record: OperationRecord) => record.id)
           }
-          LearningAction({ label: localize('ac_index_090'), onTap: () => this.copySummary() })
-          LearningAction({ label: localize('ac_index_091'), secondary: true, onTap: () => this.confirmClearRecords() })
+          LearningAction({ label: $r('app.string.ac_index_090'), onTap: () => this.copySummary() })
+          LearningAction({ label: $r('app.string.ac_index_091'), secondary: true, onTap: () => this.confirmClearRecords() })
         }
-      }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 24 });
-    }.width('100%').height('100%').scrollBar(BarState.Auto).align(Alignment.TopStart);
+      }
+      .width('100%')
+      .padding({ left: 20, right: 20, top: 8, bottom: 24 });
+    }
+    .width('100%')
+    .height('100%')
+    .scrollBar(BarState.Auto)
+    .align(Alignment.TopStart);
   }
 
   @Builder
   private payloadPage() {
     Scroll() {
       Column({ space: 12 }) {
-        LearningDisclosure({ title: localize('ac_index_092'), subtitle: this.payloadSummary() }) {
+        LearningDisclosure({ title: $r('app.string.ac_index_092'), subtitle: this.payloadSummary() }) {
           Column({ space: 8 }) {
             ForEach(this.payloadFieldLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string) => line)
-          }.width('100%')
+          }
+          .width('100%')
         }
-        LearningDisclosure({ title: localize('ac_index_093'), subtitle: this.readinessSummary() }) {
+        LearningDisclosure({ title: $r('app.string.ac_index_093'), subtitle: this.readinessSummary() }) {
           Column({ space: 8 }) {
             ForEach(this.readinessLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string) => line)
-          }.width('100%')
+          }
+          .width('100%')
         }
-        LearningDisclosure({ title: localize('ac_index_094'), subtitle: this.conflictSummary() }) {
+        LearningDisclosure({ title: $r('app.string.ac_index_094'), subtitle: this.conflictSummary() }) {
           Column({ space: 8 }) {
             ForEach(this.conflictLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string) => line)
-          }.width('100%')
+          }
+          .width('100%')
         }
         Button($r('app.string.ac_index_095'), { type: ButtonType.Normal })
           .width('100%')
@@ -582,13 +650,19 @@ struct Index {
           .backgroundColor('#EAF2FF')
           .borderRadius(12)
           .onClick(() => {
-            router.pushUrl({ url: 'pages/ScenarioPage' }).catch((error: BusinessError): void => {
+            router.pushUrl({ url: 'continuation/pages/ScenarioPage' }).catch((error: BusinessError): void => {
               hilog.warn(0xF811, '[Sample_AppContinuation]',
                 'ScenarioPage navigation failed, code=%{public}d', error.code);
             });
           })
-      }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 24 });
-    }.width('100%').height('100%').scrollBar(BarState.Auto).align(Alignment.TopStart);
+      }
+      .width('100%')
+      .padding({ left: 20, right: 20, top: 8, bottom: 24 });
+    }
+    .width('100%')
+    .height('100%')
+    .scrollBar(BarState.Auto)
+    .align(Alignment.TopStart);
   }
 
   private payloadSummary(): string {
@@ -685,7 +759,8 @@ struct Index {
     const session: FormSession = new FormSession('expense-1');
     const kind: FormField = new FormField('kind', localize('ac_index_109'), true, 8);
     session.addField(kind);
-    session.setValue('kind', localize('ac_index_152'));
+    // Keep the serialized branch trigger independent of the current display language.
+    session.setValue('kind', '采购');
     const budget: FormField = new FormField('budget', localize('ac_index_111'), true, 16);
     budget.visibleWhen = ['budget'];
     session.addField(budget);
@@ -760,67 +835,97 @@ struct Index {
   private workspacePage() {
     Scroll() {
       Column({ space: 16 }) {
-        this.pageTitle(localize('ac_index_127'))
-        LearningDisclosure({ title: localize('ac_index_128'), subtitle: localize('ac_index_129') }) {
+        this.pageTitle($r('app.string.ac_index_127'))
+        LearningDisclosure({ title: $r('app.string.ac_index_128'), subtitle: $r('app.string.ac_index_129') }) {
           Column({ space: 8 }) {
             ForEach(this.docWorkspaceLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string, index: number) => `doc-${index}-${line}`)
-          }.width('100%')
+          }
+          .width('100%')
         }
-        LearningDisclosure({ title: localize('ac_index_130'), subtitle: this.demoFormSummary() }) {
+        LearningDisclosure({ title: $r('app.string.ac_index_130'), subtitle: this.demoFormSummary() }) {
           Column({ space: 8 }) {
             ForEach(this.demoFormLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string, index: number) => `form-${index}-${line}`)
-          }.width('100%')
+          }
+          .width('100%')
         }
-        LearningDisclosure({ title: localize('ac_index_131'), subtitle: localize('ac_index_132') }) {
+        LearningDisclosure({ title: $r('app.string.ac_index_131'), subtitle: $r('app.string.ac_index_132') }) {
           Column({ space: 8 }) {
             ForEach(this.demoMergeLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string, index: number) => `merge-${index}-${line}`)
-          }.width('100%')
+          }
+          .width('100%')
         }
-        LearningDisclosure({ title: localize('ac_index_133'), subtitle: localize('ac_index_134') }) {
+        LearningDisclosure({ title: $r('app.string.ac_index_133'), subtitle: $r('app.string.ac_index_134') }) {
           Column({ space: 8 }) {
             ForEach(this.demoRecoveryLines(), (line: string) => {
               LearningLine({ label: line })
             }, (line: string, index: number) => `rec-${index}-${line}`)
-          }.width('100%')
+          }
+          .width('100%')
         }
-      }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 24 });
-    }.width('100%').height('100%').scrollBar(BarState.Auto).align(Alignment.TopStart);
+      }
+      .width('100%')
+      .padding({ left: 20, right: 20, top: 8, bottom: 24 });
+    }
+    .width('100%')
+    .height('100%')
+    .scrollBar(BarState.Auto)
+    .align(Alignment.TopStart);
   }
 
   @Builder
-  private tabLabel(label: string, index: number) {
+  private tabLabel(label: ResourceStr, index: number) {
     Column() {
-      Text(label).fontSize(14).fontWeight(this.activeTab === index ? FontWeight.Bold : FontWeight.Normal)
+      Text(label)
+        .fontSize(14)
+        .fontWeight(this.activeTab === index ? FontWeight.Bold : FontWeight.Normal)
         .fontColor(this.activeTab === index ? LEARNING_BLUE : LEARNING_MUTED);
-    }.width('100%').height(56).justifyContent(FlexAlign.Center);
+    }
+    .width('100%')
+    .height(56)
+    .justifyContent(FlexAlign.Center);
   }
 
   build() {
     Column() {
       if (this.noticeText().length > 0) {
         Scroll() {
-          LearningNotice({ title: localize('ac_learningui_017'), message: this.noticeText() })
-        }.width('100%').padding({ left: 20, right: 20, top: 8, bottom: 4 })
-          .constraintSize({ maxHeight: '25%' }).scrollBar(BarState.Auto).align(Alignment.TopStart);
+          LearningNotice({ message: this.noticeText() })
+        }
+        .width('100%')
+        .padding({ left: 20, right: 20, top: 8, bottom: 4 })
+          .constraintSize({ maxHeight: '25%' })
+          .scrollBar(BarState.Auto)
+          .align(Alignment.TopStart);
       }
       Tabs({ barPosition: BarPosition.End, index: this.activeTab }) {
-        TabContent() { this.introductionPage() }.tabBar(this.tabLabel(localize('ac_index_136'), 0))
-        TabContent() { this.operationPage() }.tabBar(this.tabLabel(localize('ac_index_137'), 1))
-        TabContent() { this.diagnosisPage() }.tabBar(this.tabLabel(localize('ac_index_138'), 2))
-        TabContent() { this.payloadPage() }.tabBar(this.tabLabel(localize('ac_index_139'), 3))
-        TabContent() { this.workspacePage() }.tabBar(this.tabLabel(localize('ac_index_140'), 4))
+        TabContent() { this.introductionPage() }
+          .tabBar(this.tabLabel($r('app.string.ac_index_136'), 0))
+        TabContent() { this.operationPage() }
+          .tabBar(this.tabLabel($r('app.string.ac_index_137'), 1))
+        TabContent() { this.diagnosisPage() }
+          .tabBar(this.tabLabel($r('app.string.ac_index_138'), 2))
+        TabContent() { this.payloadPage() }
+          .tabBar(this.tabLabel($r('app.string.ac_index_139'), 3))
+        TabContent() { this.workspacePage() }
+          .tabBar(this.tabLabel($r('app.string.ac_index_140'), 4))
       }
-      .layoutWeight(1).width('100%').barHeight(60).barMode(BarMode.Fixed)
+      .layoutWeight(1)
+      .width('100%')
+      .barHeight(60)
+      .barMode(BarMode.Fixed)
       .onChange((index: number) => {
         this.activeTab = index;
         if (index === 1) { this.scheduleSelection(); }
       });
-    }.width('100%').height('100%').backgroundColor(LEARNING_BG);
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(LEARNING_BG);
   }
 }
