@@ -25,8 +25,8 @@ import {
 } from '../../../main/ets/model/StoragePath';
 import { getAppContext, loadEntryModuleContext, removeFileIfExists } from './TestHelper';
 
-const DOMAIN: number = 0xFF00;
-const TAG: string = '[Sample_AbilityFeature_AreaRecord]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 export default function storageAreaRecordCoreTest(): void {
   describe('AbilityFeatureStorageAreaRecordCoreTest', () => {
@@ -44,6 +44,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0001 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -71,6 +72,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0002 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -98,6 +100,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0003 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -125,6 +128,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0004 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -152,6 +156,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0005 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -179,6 +184,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0006 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -206,6 +212,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec.multi.dot.log';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0007 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -233,6 +240,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0008 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -260,6 +268,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0009 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -287,6 +296,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0010 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -314,6 +324,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0011 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -341,6 +352,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0012 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -368,6 +380,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0013 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -395,6 +408,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0014 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -422,6 +436,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec.multi.dot.log';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0015 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -449,6 +464,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0016 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -476,6 +492,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0017 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -503,6 +520,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0018 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -530,6 +548,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0019 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -557,6 +576,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0020 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -584,6 +604,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0021 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -611,6 +632,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0022 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -638,6 +660,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec.multi.dot.log';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0023 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -665,6 +688,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0024 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -692,6 +716,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0025 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -719,6 +744,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0026 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -746,6 +772,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0027 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -773,6 +800,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0028 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -800,6 +828,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0029 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -827,6 +856,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0030 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -854,6 +884,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec.multi.dot.log';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0031 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -881,6 +912,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0032 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -908,6 +940,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.DATABASE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.DATABASE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0033 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.DATABASE);
       expect(before.dir).assertEqual(context.databaseDir);
       expect(before.dir.includes('/database')).assertTrue();
@@ -935,6 +968,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.DATABASE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.DATABASE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0034 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.DATABASE);
       expect(before.dir).assertEqual(context.databaseDir);
       expect(before.dir.includes('/database')).assertTrue();
@@ -962,6 +996,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.DATABASE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.DATABASE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0035 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.DATABASE);
       expect(before.dir).assertEqual(context.databaseDir);
       expect(before.dir.includes('/database')).assertTrue();
@@ -989,6 +1024,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.DATABASE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.DATABASE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0036 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.DATABASE);
       expect(before.dir).assertEqual(context.databaseDir);
       expect(before.dir.includes('/database')).assertTrue();
@@ -1016,6 +1052,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.DATABASE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.DATABASE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0037 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.DATABASE);
       expect(before.dir).assertEqual(context.databaseDir);
       expect(before.dir.includes('/database')).assertTrue();
@@ -1043,6 +1080,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.DATABASE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.DATABASE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0038 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.DATABASE);
       expect(before.dir).assertEqual(context.databaseDir);
       expect(before.dir.includes('/database')).assertTrue();
@@ -1070,6 +1108,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec.multi.dot.log';
       removeFileIfExists(recordStoragePath(context, StorageArea.DATABASE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.DATABASE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0039 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.DATABASE);
       expect(before.dir).assertEqual(context.databaseDir);
       expect(before.dir.includes('/database')).assertTrue();
@@ -1097,6 +1136,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.DATABASE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.DATABASE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0040 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.DATABASE);
       expect(before.dir).assertEqual(context.databaseDir);
       expect(before.dir.includes('/database')).assertTrue();
@@ -1124,6 +1164,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0041 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -1151,6 +1192,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0042 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -1178,6 +1220,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0043 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -1205,6 +1248,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0044 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -1232,6 +1276,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0045 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -1259,6 +1304,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0046 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -1286,6 +1332,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec.multi.dot.log';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0047 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -1313,6 +1360,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.CACHE, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0048 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.CACHE);
       expect(before.dir).assertEqual(context.cacheDir);
       expect(before.dir.endsWith('/cache')).assertTrue();
@@ -1340,6 +1388,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0049 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -1367,6 +1416,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0050 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -1394,6 +1444,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0051 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -1421,6 +1472,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0052 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -1448,6 +1500,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0053 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -1475,6 +1528,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0054 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -1502,6 +1556,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec.multi.dot.log';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0055 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -1529,6 +1584,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.FILES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0056 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.FILES);
       expect(before.dir).assertEqual(context.filesDir);
       expect(before.dir.endsWith('/files')).assertTrue();
@@ -1556,6 +1612,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0057 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -1583,6 +1640,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0058 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -1610,6 +1668,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0059 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -1637,6 +1696,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0060 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -1664,6 +1724,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0061 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -1691,6 +1752,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0062 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -1718,6 +1780,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec.multi.dot.log';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0063 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -1745,6 +1808,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.PREFERENCES, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.PREFERENCES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0064 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.PREFERENCES);
       expect(before.dir).assertEqual(context.preferencesDir);
       expect(before.dir.endsWith('/preferences')).assertTrue();
@@ -1772,6 +1836,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_plain.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0065 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -1799,6 +1864,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = 'rec_noslash.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0066 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -1826,6 +1892,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '//rec_double.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0067 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -1853,6 +1920,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec_中文.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0068 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -1880,6 +1948,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/rec sp.txt';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0069 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();
@@ -1907,6 +1976,7 @@ export default function storageAreaRecordCoreTest(): void {
       const name: string = '/.rec_hidden';
       removeFileIfExists(recordStoragePath(context, StorageArea.TEMP, name).filePath);
       const before: StoragePathRecord = recordStoragePath(context, StorageArea.TEMP, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaRecord0070 params: name=${name}, before=${JSON.stringify(before)}`);
       expect(before.area).assertEqual(StorageArea.TEMP);
       expect(before.dir).assertEqual(context.tempDir);
       expect(before.dir.endsWith('/temp')).assertTrue();

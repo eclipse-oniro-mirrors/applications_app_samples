@@ -17,8 +17,8 @@ import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { joinStoragePath } from '../../../main/ets/model/StoragePath';
 
-const DOMAIN: number = 0xFF00;
-const TAG: string = '[Sample_AbilityFeature_JoinPath]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 export default function joinPathMatrixCoreTest(): void {
   describe('AbilityFeatureJoinPathMatrixCoreTest', () => {
@@ -35,6 +35,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = 'test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0001 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/test.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -56,6 +57,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0002 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/test.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -77,6 +79,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '//test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0003 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/test.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -98,6 +101,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/////test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0004 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/test.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -119,6 +123,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0005 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache');
       expect(joined.length).assertEqual(39);
       expect(joined.startsWith(dir)).assertTrue();
@@ -140,6 +145,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0006 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache');
       expect(joined.length).assertEqual(39);
       expect(joined.startsWith(dir)).assertTrue();
@@ -161,6 +167,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '//';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0007 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache');
       expect(joined.length).assertEqual(39);
       expect(joined.startsWith(dir)).assertTrue();
@@ -182,6 +189,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '////';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0008 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache');
       expect(joined.length).assertEqual(39);
       expect(joined.startsWith(dir)).assertTrue();
@@ -203,6 +211,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = 'a/b.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0009 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/a/b.txt');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -224,6 +233,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/a/b/c.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0010 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/a/b/c.txt');
       expect(joined.length).assertEqual(49);
       expect(joined.startsWith(dir)).assertTrue();
@@ -245,6 +255,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '.hidden';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0011 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/.hidden');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -266,6 +277,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/.hidden';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0012 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/.hidden');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -287,6 +299,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = 'noext';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0013 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/noext');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -308,6 +321,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/中文名.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0014 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/中文名.txt');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -329,6 +343,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '数据.db';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0015 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/数据.db');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -350,6 +365,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = ' lead.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0016 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/ lead.txt');
       expect(joined.length).assertEqual(49);
       expect(joined.startsWith(dir)).assertTrue();
@@ -371,6 +387,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/trail.txt ';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0017 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/trail.txt ');
       expect(joined.length).assertEqual(50);
       expect(joined.startsWith(dir)).assertTrue();
@@ -392,6 +409,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = 'sp ace.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0018 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/sp ace.txt');
       expect(joined.length).assertEqual(50);
       expect(joined.startsWith(dir)).assertTrue();
@@ -413,6 +431,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = 'a.b.c.d';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0019 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/a.b.c.d');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -434,6 +453,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/../up.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0020 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/../up.txt');
       expect(joined.length).assertEqual(49);
       expect(joined.startsWith(dir)).assertTrue();
@@ -455,6 +475,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = './cur.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0021 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/./cur.txt');
       expect(joined.length).assertEqual(49);
       expect(joined.startsWith(dir)).assertTrue();
@@ -476,6 +497,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = 'name/';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0022 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/name/');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -497,6 +519,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/name//';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0023 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/name//');
       expect(joined.length).assertEqual(46);
       expect(joined.startsWith(dir)).assertTrue();
@@ -518,6 +541,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0024 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
       expect(joined.length).assertEqual(80);
       expect(joined.startsWith(dir)).assertTrue();
@@ -539,6 +563,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/cache';
       const name: string = '/emoji😀.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0025 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/cache/emoji😀.txt');
       expect(joined.length).assertEqual(51);
       expect(joined.startsWith(dir)).assertTrue();
@@ -560,6 +585,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = 'test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0026 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/test.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -581,6 +607,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0027 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/test.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -602,6 +629,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '//test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0028 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/test.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -623,6 +651,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/////test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0029 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/test.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -644,6 +673,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0030 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files');
       expect(joined.length).assertEqual(39);
       expect(joined.startsWith(dir)).assertTrue();
@@ -665,6 +695,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0031 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files');
       expect(joined.length).assertEqual(39);
       expect(joined.startsWith(dir)).assertTrue();
@@ -686,6 +717,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '//';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0032 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files');
       expect(joined.length).assertEqual(39);
       expect(joined.startsWith(dir)).assertTrue();
@@ -707,6 +739,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '////';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0033 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files');
       expect(joined.length).assertEqual(39);
       expect(joined.startsWith(dir)).assertTrue();
@@ -728,6 +761,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = 'a/b.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0034 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/a/b.txt');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -749,6 +783,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/a/b/c.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0035 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/a/b/c.txt');
       expect(joined.length).assertEqual(49);
       expect(joined.startsWith(dir)).assertTrue();
@@ -770,6 +805,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '.hidden';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0036 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/.hidden');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -791,6 +827,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/.hidden';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0037 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/.hidden');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -812,6 +849,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = 'noext';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0038 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/noext');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -833,6 +871,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/中文名.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0039 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/中文名.txt');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -854,6 +893,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '数据.db';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0040 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/数据.db');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -875,6 +915,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = ' lead.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0041 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/ lead.txt');
       expect(joined.length).assertEqual(49);
       expect(joined.startsWith(dir)).assertTrue();
@@ -896,6 +937,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/trail.txt ';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0042 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/trail.txt ');
       expect(joined.length).assertEqual(50);
       expect(joined.startsWith(dir)).assertTrue();
@@ -917,6 +959,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = 'sp ace.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0043 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/sp ace.txt');
       expect(joined.length).assertEqual(50);
       expect(joined.startsWith(dir)).assertTrue();
@@ -938,6 +981,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = 'a.b.c.d';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0044 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/a.b.c.d');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -959,6 +1003,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/../up.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0045 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/../up.txt');
       expect(joined.length).assertEqual(49);
       expect(joined.startsWith(dir)).assertTrue();
@@ -980,6 +1025,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = './cur.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0046 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/./cur.txt');
       expect(joined.length).assertEqual(49);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1001,6 +1047,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = 'name/';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0047 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/name/');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1022,6 +1069,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/name//';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0048 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/name//');
       expect(joined.length).assertEqual(46);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1043,6 +1091,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0049 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
       expect(joined.length).assertEqual(80);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1064,6 +1113,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/files';
       const name: string = '/emoji😀.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0050 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/files/emoji😀.txt');
       expect(joined.length).assertEqual(51);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1085,6 +1135,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = 'test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0051 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/test.txt');
       expect(joined.length).assertEqual(54);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1106,6 +1157,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0052 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/test.txt');
       expect(joined.length).assertEqual(54);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1127,6 +1179,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '//test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0053 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/test.txt');
       expect(joined.length).assertEqual(54);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1148,6 +1201,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/////test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0054 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/test.txt');
       expect(joined.length).assertEqual(54);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1169,6 +1223,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0055 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1190,6 +1245,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0056 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1211,6 +1267,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '//';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0057 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1232,6 +1289,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '////';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0058 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences');
       expect(joined.length).assertEqual(45);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1253,6 +1311,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = 'a/b.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0059 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/a/b.txt');
       expect(joined.length).assertEqual(53);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1274,6 +1333,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/a/b/c.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0060 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/a/b/c.txt');
       expect(joined.length).assertEqual(55);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1295,6 +1355,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '.hidden';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0061 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/.hidden');
       expect(joined.length).assertEqual(53);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1316,6 +1377,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/.hidden';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0062 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/.hidden');
       expect(joined.length).assertEqual(53);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1337,6 +1399,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = 'noext';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0063 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/noext');
       expect(joined.length).assertEqual(51);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1358,6 +1421,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/中文名.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0064 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/中文名.txt');
       expect(joined.length).assertEqual(53);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1379,6 +1443,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '数据.db';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0065 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/数据.db');
       expect(joined.length).assertEqual(51);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1400,6 +1465,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = ' lead.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0066 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/ lead.txt');
       expect(joined.length).assertEqual(55);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1421,6 +1487,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/trail.txt ';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0067 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/trail.txt ');
       expect(joined.length).assertEqual(56);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1442,6 +1509,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = 'sp ace.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0068 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/sp ace.txt');
       expect(joined.length).assertEqual(56);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1463,6 +1531,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = 'a.b.c.d';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0069 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/a.b.c.d');
       expect(joined.length).assertEqual(53);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1484,6 +1553,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/../up.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0070 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/../up.txt');
       expect(joined.length).assertEqual(55);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1505,6 +1575,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = './cur.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0071 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/./cur.txt');
       expect(joined.length).assertEqual(55);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1526,6 +1597,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = 'name/';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0072 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/name/');
       expect(joined.length).assertEqual(51);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1547,6 +1619,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/name//';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0073 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/name//');
       expect(joined.length).assertEqual(52);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1568,6 +1641,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0074 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
       expect(joined.length).assertEqual(86);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1589,6 +1663,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/preferences';
       const name: string = '/emoji😀.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0075 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/preferences/emoji😀.txt');
       expect(joined.length).assertEqual(57);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1610,6 +1685,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = 'test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0076 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/test.txt');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1631,6 +1707,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '/test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0077 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/test.txt');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1652,6 +1729,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '//test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0078 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/test.txt');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1673,6 +1751,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '/////test.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0079 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/test.txt');
       expect(joined.length).assertEqual(47);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1694,6 +1773,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0080 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp');
       expect(joined.length).assertEqual(38);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1715,6 +1795,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '/';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0081 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp');
       expect(joined.length).assertEqual(38);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1736,6 +1817,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '//';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0082 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp');
       expect(joined.length).assertEqual(38);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1757,6 +1839,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '////';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0083 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp');
       expect(joined.length).assertEqual(38);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1778,6 +1861,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = 'a/b.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0084 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/a/b.txt');
       expect(joined.length).assertEqual(46);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1799,6 +1883,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '/a/b/c.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0085 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/a/b/c.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1820,6 +1905,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '.hidden';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0086 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/.hidden');
       expect(joined.length).assertEqual(46);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1841,6 +1927,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '/.hidden';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0087 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/.hidden');
       expect(joined.length).assertEqual(46);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1862,6 +1949,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = 'noext';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0088 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/noext');
       expect(joined.length).assertEqual(44);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1883,6 +1971,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '/中文名.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0089 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/中文名.txt');
       expect(joined.length).assertEqual(46);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1904,6 +1993,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = '数据.db';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0090 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/数据.db');
       expect(joined.length).assertEqual(44);
       expect(joined.startsWith(dir)).assertTrue();
@@ -1925,6 +2015,7 @@ export default function joinPathMatrixCoreTest(): void {
       const dir: string = '/data/storage/el2/base/haps/entry/temp';
       const name: string = ' lead.txt';
       const joined: string = joinStoragePath(dir, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinPathMatrix0091 params: dir=${dir}, name=${name}, joined=${joined}`);
       expect(joined).assertEqual('/data/storage/el2/base/haps/entry/temp/ lead.txt');
       expect(joined.length).assertEqual(48);
       expect(joined.startsWith(dir)).assertTrue();

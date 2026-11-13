@@ -18,8 +18,8 @@ import { StartOptions } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { buildStartOptions, formatStartOptions } from '../../../main/ets/model/LaunchIntent';
 
-const DOMAIN: number = 0xFF00;
-const TAG: string = '[Sample_AbilityFeature_OptionsFormat]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 export default function startOptionsFormatTest(): void {
   describe('AbilityFeatureStartOptionsFormatTest', () => {
@@ -35,6 +35,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0001 begin');
       const options: StartOptions = { displayId: 0, withAnimation: true, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0001 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=true, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=true, ')).assertTrue();
@@ -54,6 +55,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0002 begin');
       const options: StartOptions = { displayId: 0, withAnimation: true, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0002 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=true, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=true, ')).assertTrue();
@@ -73,6 +75,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0003 begin');
       const options: StartOptions = { displayId: 0, withAnimation: true, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0003 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=true, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=true, ')).assertTrue();
@@ -92,6 +95,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0004 begin');
       const options: StartOptions = { displayId: 0, withAnimation: true };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0004 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=true, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=true, ')).assertTrue();
@@ -111,6 +115,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0005 begin');
       const options: StartOptions = { displayId: 0, withAnimation: true, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0005 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=true, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=true, ')).assertTrue();
@@ -130,6 +135,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0006 begin');
       const options: StartOptions = { displayId: 0, withAnimation: true, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0006 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=true, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=true, ')).assertTrue();
@@ -149,6 +155,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0007 begin');
       const options: StartOptions = { displayId: 0, withAnimation: false, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0007 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=false, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=false, ')).assertTrue();
@@ -168,6 +175,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0008 begin');
       const options: StartOptions = { displayId: 0, withAnimation: false, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0008 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=false, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=false, ')).assertTrue();
@@ -187,6 +195,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0009 begin');
       const options: StartOptions = { displayId: 0, withAnimation: false, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0009 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=false, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=false, ')).assertTrue();
@@ -206,6 +215,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0010 begin');
       const options: StartOptions = { displayId: 0, withAnimation: false };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0010 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=false, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=false, ')).assertTrue();
@@ -225,6 +235,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0011 begin');
       const options: StartOptions = { displayId: 0, withAnimation: false, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0011 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=false, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=false, ')).assertTrue();
@@ -244,6 +255,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0012 begin');
       const options: StartOptions = { displayId: 0, withAnimation: false, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0012 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=false, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=false, ')).assertTrue();
@@ -263,6 +275,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0013 begin');
       const options: StartOptions = { displayId: 0, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0013 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=undefined, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=undefined, ')).assertTrue();
@@ -282,6 +295,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0014 begin');
       const options: StartOptions = { displayId: 0, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0014 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=undefined, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=undefined, ')).assertTrue();
@@ -301,6 +315,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0015 begin');
       const options: StartOptions = { displayId: 0, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0015 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=undefined, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=undefined, ')).assertTrue();
@@ -320,6 +335,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0016 begin');
       const options: StartOptions = { displayId: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0016 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=undefined, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=undefined, ')).assertTrue();
@@ -339,6 +355,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0017 begin');
       const options: StartOptions = { displayId: 0, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0017 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=undefined, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=undefined, ')).assertTrue();
@@ -358,6 +375,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0018 begin');
       const options: StartOptions = { displayId: 0, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0018 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=undefined, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=0, withAnimation=undefined, ')).assertTrue();
@@ -377,6 +395,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0019 begin');
       const options: StartOptions = { displayId: 1, withAnimation: true, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0019 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=true, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=true, ')).assertTrue();
@@ -396,6 +415,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0020 begin');
       const options: StartOptions = { displayId: 1, withAnimation: true, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0020 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=true, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=true, ')).assertTrue();
@@ -415,6 +435,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0021 begin');
       const options: StartOptions = { displayId: 1, withAnimation: true, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0021 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=true, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=true, ')).assertTrue();
@@ -434,6 +455,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0022 begin');
       const options: StartOptions = { displayId: 1, withAnimation: true };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0022 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=true, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=true, ')).assertTrue();
@@ -453,6 +475,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0023 begin');
       const options: StartOptions = { displayId: 1, withAnimation: true, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0023 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=true, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=true, ')).assertTrue();
@@ -472,6 +495,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0024 begin');
       const options: StartOptions = { displayId: 1, withAnimation: true, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0024 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=true, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=true, ')).assertTrue();
@@ -491,6 +515,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0025 begin');
       const options: StartOptions = { displayId: 1, withAnimation: false, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0025 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=false, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=false, ')).assertTrue();
@@ -510,6 +535,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0026 begin');
       const options: StartOptions = { displayId: 1, withAnimation: false, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0026 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=false, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=false, ')).assertTrue();
@@ -529,6 +555,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0027 begin');
       const options: StartOptions = { displayId: 1, withAnimation: false, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0027 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=false, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=false, ')).assertTrue();
@@ -548,6 +575,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0028 begin');
       const options: StartOptions = { displayId: 1, withAnimation: false };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0028 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=false, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=false, ')).assertTrue();
@@ -567,6 +595,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0029 begin');
       const options: StartOptions = { displayId: 1, withAnimation: false, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0029 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=false, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=false, ')).assertTrue();
@@ -586,6 +615,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0030 begin');
       const options: StartOptions = { displayId: 1, withAnimation: false, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0030 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=false, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=false, ')).assertTrue();
@@ -605,6 +635,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0031 begin');
       const options: StartOptions = { displayId: 1, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0031 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=undefined, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=undefined, ')).assertTrue();
@@ -624,6 +655,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0032 begin');
       const options: StartOptions = { displayId: 1, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0032 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=undefined, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=undefined, ')).assertTrue();
@@ -643,6 +675,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0033 begin');
       const options: StartOptions = { displayId: 1, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0033 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=undefined, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=undefined, ')).assertTrue();
@@ -662,6 +695,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0034 begin');
       const options: StartOptions = { displayId: 1 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0034 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=undefined, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=undefined, ')).assertTrue();
@@ -681,6 +715,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0035 begin');
       const options: StartOptions = { displayId: 1, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0035 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=undefined, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=undefined, ')).assertTrue();
@@ -700,6 +735,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0036 begin');
       const options: StartOptions = { displayId: 1, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0036 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=1, withAnimation=undefined, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=1, withAnimation=undefined, ')).assertTrue();
@@ -719,6 +755,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0037 begin');
       const options: StartOptions = { displayId: -1, withAnimation: true, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0037 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=true, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=true, ')).assertTrue();
@@ -738,6 +775,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0038 begin');
       const options: StartOptions = { displayId: -1, withAnimation: true, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0038 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=true, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=true, ')).assertTrue();
@@ -757,6 +795,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0039 begin');
       const options: StartOptions = { displayId: -1, withAnimation: true, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0039 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=true, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=true, ')).assertTrue();
@@ -776,6 +815,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0040 begin');
       const options: StartOptions = { displayId: -1, withAnimation: true };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0040 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=true, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=true, ')).assertTrue();
@@ -795,6 +835,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0041 begin');
       const options: StartOptions = { displayId: -1, withAnimation: true, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0041 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=true, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=true, ')).assertTrue();
@@ -814,6 +855,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0042 begin');
       const options: StartOptions = { displayId: -1, withAnimation: true, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0042 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=true, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=true, ')).assertTrue();
@@ -833,6 +875,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0043 begin');
       const options: StartOptions = { displayId: -1, withAnimation: false, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0043 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=false, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=false, ')).assertTrue();
@@ -852,6 +895,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0044 begin');
       const options: StartOptions = { displayId: -1, withAnimation: false, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0044 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=false, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=false, ')).assertTrue();
@@ -871,6 +915,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0045 begin');
       const options: StartOptions = { displayId: -1, withAnimation: false, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0045 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=false, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=false, ')).assertTrue();
@@ -890,6 +935,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0046 begin');
       const options: StartOptions = { displayId: -1, withAnimation: false };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0046 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=false, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=false, ')).assertTrue();
@@ -909,6 +955,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0047 begin');
       const options: StartOptions = { displayId: -1, withAnimation: false, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0047 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=false, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=false, ')).assertTrue();
@@ -928,6 +975,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0048 begin');
       const options: StartOptions = { displayId: -1, withAnimation: false, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0048 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=false, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=false, ')).assertTrue();
@@ -947,6 +995,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0049 begin');
       const options: StartOptions = { displayId: -1, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0049 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=undefined, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=undefined, ')).assertTrue();
@@ -966,6 +1015,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0050 begin');
       const options: StartOptions = { displayId: -1, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0050 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=undefined, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=undefined, ')).assertTrue();
@@ -985,6 +1035,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0051 begin');
       const options: StartOptions = { displayId: -1, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0051 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=undefined, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=undefined, ')).assertTrue();
@@ -1004,6 +1055,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0052 begin');
       const options: StartOptions = { displayId: -1 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0052 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=undefined, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=undefined, ')).assertTrue();
@@ -1023,6 +1075,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0053 begin');
       const options: StartOptions = { displayId: -1, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0053 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=undefined, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=undefined, ')).assertTrue();
@@ -1042,6 +1095,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0054 begin');
       const options: StartOptions = { displayId: -1, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0054 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=-1, withAnimation=undefined, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=-1, withAnimation=undefined, ')).assertTrue();
@@ -1061,6 +1115,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0055 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: true, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0055 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=true, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=true, ')).assertTrue();
@@ -1080,6 +1135,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0056 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: true, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0056 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=true, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=true, ')).assertTrue();
@@ -1099,6 +1155,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0057 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: true, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0057 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=true, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=true, ')).assertTrue();
@@ -1118,6 +1175,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0058 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: true };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0058 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=true, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=true, ')).assertTrue();
@@ -1137,6 +1195,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0059 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: true, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0059 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=true, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=true, ')).assertTrue();
@@ -1156,6 +1215,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0060 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: true, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0060 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=true, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=true, ')).assertTrue();
@@ -1175,6 +1235,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0061 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: false, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0061 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=false, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=false, ')).assertTrue();
@@ -1194,6 +1255,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0062 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: false, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0062 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=false, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=false, ')).assertTrue();
@@ -1213,6 +1275,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0063 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: false, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0063 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=false, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=false, ')).assertTrue();
@@ -1232,6 +1295,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0064 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: false };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0064 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=false, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=false, ')).assertTrue();
@@ -1251,6 +1315,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0065 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: false, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0065 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=false, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=false, ')).assertTrue();
@@ -1270,6 +1335,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0066 begin');
       const options: StartOptions = { displayId: 2147483647, withAnimation: false, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0066 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=false, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=false, ')).assertTrue();
@@ -1289,6 +1355,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0067 begin');
       const options: StartOptions = { displayId: 2147483647, windowLeft: 50, windowTop: 100, windowWidth: 300, windowHeight: 400 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0067 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=undefined, left=50, top=100, width=300, height=400');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=undefined, ')).assertTrue();
@@ -1308,6 +1375,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0068 begin');
       const options: StartOptions = { displayId: 2147483647, windowLeft: 0, windowTop: 0, windowWidth: 0, windowHeight: 0 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0068 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=undefined, left=0, top=0, width=0, height=0');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=undefined, ')).assertTrue();
@@ -1327,6 +1395,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0069 begin');
       const options: StartOptions = { displayId: 2147483647, windowLeft: -10, windowTop: -20, windowWidth: 1920, windowHeight: 1080 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0069 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=undefined, left=-10, top=-20, width=1920, height=1080');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=undefined, ')).assertTrue();
@@ -1346,6 +1415,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0070 begin');
       const options: StartOptions = { displayId: 2147483647 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0070 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=undefined, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=undefined, ')).assertTrue();
@@ -1365,6 +1435,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0071 begin');
       const options: StartOptions = { displayId: 2147483647, windowLeft: 1, windowTop: 2, windowWidth: 3, windowHeight: 4 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0071 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=undefined, left=1, top=2, width=3, height=4');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=undefined, ')).assertTrue();
@@ -1384,6 +1455,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0072 begin');
       const options: StartOptions = { displayId: 2147483647, windowLeft: 0.5, windowTop: 1.25, windowWidth: 99.9, windowHeight: 100 };
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0072 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=2147483647, withAnimation=undefined, left=0.5, top=1.25, width=99.9, height=100');
       expect(text.split(', ').length).assertEqual(6);
       expect(text.startsWith('displayId=2147483647, withAnimation=undefined, ')).assertTrue();
@@ -1403,6 +1475,7 @@ export default function startOptionsFormatTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0073 begin');
       const options: StartOptions = {};
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0073 params: options=${JSON.stringify(options)}, text=${text}`);
       expect(text).assertEqual('displayId=undefined, withAnimation=undefined, left=undefined, top=undefined, width=undefined, height=undefined');
       expect(text.split('undefined').length).assertEqual(7);
       expect(text.includes('=0')).assertFalse();
@@ -1420,6 +1493,7 @@ export default function startOptionsFormatTest(): void {
     it('testStartOptionsFormat0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0074 begin');
       const text: string = formatStartOptions(buildStartOptions(true));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0074 params: text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=true, left=50, top=100, width=300, height=400');
       expect(text.includes('withAnimation=true')).assertTrue();
       expect(text.includes('withAnimation=false')).assertFalse();
@@ -1437,6 +1511,7 @@ export default function startOptionsFormatTest(): void {
     it('testStartOptionsFormat0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFormat0075 begin');
       const text: string = formatStartOptions(buildStartOptions(false));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFormat0075 params: text=${text}`);
       expect(text).assertEqual('displayId=0, withAnimation=false, left=50, top=100, width=300, height=400');
       expect(text.includes('withAnimation=false')).assertTrue();
       expect(text.includes('withAnimation=true')).assertFalse();

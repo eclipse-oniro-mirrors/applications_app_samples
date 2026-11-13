@@ -29,8 +29,8 @@ import {
 } from '../../../main/ets/model/StoragePath';
 import { getAppContext } from './TestHelper';
 
-const DOMAIN: number = 0xFF00;
-const TAG: string = '[Sample_AbilityFeature_AreaSubset]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 export default function storageAreaSubsetTest(): void {
   describe('AbilityFeatureStorageAreaSubsetTest', () => {
@@ -47,6 +47,7 @@ export default function storageAreaSubsetTest(): void {
       const context: common.Context = getAppContext();
       const name: string = '/subset_fill_00.txt';
       removeStorageFiles(context, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0001 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).join(',')).assertEqual('cache,files,preferences,temp,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('00000');
@@ -72,6 +73,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_fill_01.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0002 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(1);
       expect(countMissing(context, name).join(',')).assertEqual('files,preferences,temp,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('10000');
@@ -97,6 +99,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_fill_02.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.filesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0003 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(1);
       expect(countMissing(context, name).join(',')).assertEqual('cache,preferences,temp,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('01000');
@@ -123,6 +126,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.filesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0004 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('preferences,temp,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('11000');
@@ -148,6 +152,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_fill_04.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.preferencesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0005 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(1);
       expect(countMissing(context, name).join(',')).assertEqual('cache,files,temp,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('00100');
@@ -174,6 +179,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0006 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('files,temp,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('10100');
@@ -200,6 +206,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0007 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('cache,temp,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('01100');
@@ -227,6 +234,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0008 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('temp,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('11100');
@@ -252,6 +260,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_fill_08.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0009 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(1);
       expect(countMissing(context, name).join(',')).assertEqual('cache,files,preferences,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('00010');
@@ -278,6 +287,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0010 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('files,preferences,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('10010');
@@ -304,6 +314,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0011 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('cache,preferences,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('01010');
@@ -331,6 +342,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0012 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('preferences,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('11010');
@@ -357,6 +369,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0013 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('cache,files,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('00110');
@@ -384,6 +397,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0014 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('files,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('10110');
@@ -411,6 +425,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0015 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('cache,database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('01110');
@@ -439,6 +454,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0016 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(4);
       expect(countMissing(context, name).join(',')).assertEqual('database');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('11110');
@@ -464,6 +480,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_fill_16.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0017 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(1);
       expect(countMissing(context, name).join(',')).assertEqual('cache,files,preferences,temp');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('00001');
@@ -490,6 +507,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0018 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('files,preferences,temp');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('10001');
@@ -516,6 +534,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0019 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('cache,preferences,temp');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('01001');
@@ -543,6 +562,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0020 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('preferences,temp');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('11001');
@@ -569,6 +589,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0021 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('cache,files,temp');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('00101');
@@ -596,6 +617,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0022 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('files,temp');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('10101');
@@ -623,6 +645,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0023 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('cache,temp');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('01101');
@@ -651,6 +674,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0024 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(4);
       expect(countMissing(context, name).join(',')).assertEqual('temp');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('11101');
@@ -677,6 +701,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0025 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(2);
       expect(countMissing(context, name).join(',')).assertEqual('cache,files,preferences');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('00011');
@@ -704,6 +729,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0026 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('files,preferences');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('10011');
@@ -731,6 +757,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0027 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('cache,preferences');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('01011');
@@ -759,6 +786,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0028 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(4);
       expect(countMissing(context, name).join(',')).assertEqual('preferences');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('11011');
@@ -786,6 +814,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0029 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(3);
       expect(countMissing(context, name).join(',')).assertEqual('cache,files');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('00111');
@@ -814,6 +843,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0030 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(4);
       expect(countMissing(context, name).join(',')).assertEqual('files');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('10111');
@@ -842,6 +872,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0031 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(4);
       expect(countMissing(context, name).join(',')).assertEqual('cache');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('01111');
@@ -871,6 +902,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0032 params: name=${name}`);
       expect(countExisting(context, name)).assertEqual(5);
       expect(countMissing(context, name).join(',')).assertEqual('');
       expect(listStoragePaths(context, name).map((record: StoragePathRecord) => record.exists ? '1' : '0').join('')).assertEqual('11111');
@@ -895,6 +927,7 @@ export default function storageAreaSubsetTest(): void {
       const context: common.Context = getAppContext();
       const name: string = '/subset_drop_00.txt';
       removeStorageFiles(context, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0033 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(0);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -916,6 +949,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_drop_01.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0034 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(1);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -937,6 +971,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_drop_02.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.filesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0035 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(1);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -959,6 +994,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.filesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0036 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -980,6 +1016,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_drop_04.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.preferencesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0037 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(1);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1002,6 +1039,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0038 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1024,6 +1062,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0039 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1047,6 +1086,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0040 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1068,6 +1108,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_drop_08.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0041 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(1);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1090,6 +1131,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0042 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1112,6 +1154,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0043 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1135,6 +1178,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0044 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1157,6 +1201,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0045 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1180,6 +1225,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0046 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1203,6 +1249,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0047 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1227,6 +1274,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0048 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(4);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1248,6 +1296,7 @@ export default function storageAreaSubsetTest(): void {
       const name: string = '/subset_drop_16.txt';
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0049 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(1);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1270,6 +1319,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0050 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1292,6 +1342,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0051 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1315,6 +1366,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0052 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1337,6 +1389,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0053 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1360,6 +1413,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0054 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1383,6 +1437,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0055 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1407,6 +1462,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0056 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(4);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1429,6 +1485,7 @@ export default function storageAreaSubsetTest(): void {
       removeStorageFiles(context, name);
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0057 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(2);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1452,6 +1509,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.cacheDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0058 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1475,6 +1533,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0059 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1499,6 +1558,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.filesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0060 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(4);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1522,6 +1582,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0061 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(3);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1546,6 +1607,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0062 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(4);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1570,6 +1632,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0063 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(4);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);
@@ -1595,6 +1658,7 @@ export default function storageAreaSubsetTest(): void {
       createStorageFile(joinStoragePath(context.preferencesDir, name));
       createStorageFile(joinStoragePath(context.tempDir, name));
       createStorageFile(joinStoragePath(context.databaseDir, name));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreaSubset0064 params: name=${name}`);
       expect(removeStorageFiles(context, name)).assertEqual(5);
       expect(countExisting(context, name)).assertEqual(0);
       expect(countMissing(context, name).length).assertEqual(5);

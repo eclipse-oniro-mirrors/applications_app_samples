@@ -18,8 +18,8 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import { loadOverrideResourceManager } from './TestHelper';
 
-const DOMAIN: number = 0xFF00;
-const TAG: string = '[Sample_AbilityFeature_Resource]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 export default function resourceLocaleMatrixTest(): void {
   describe('AbilityFeatureResourceLocaleMatrixTest', () => {
@@ -35,6 +35,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0001 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('module_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0001 params: value=${value}`);
       expect(value).assertEqual('系统的基础新特性示例');
       expect(value.length).assertEqual(10);
       expect(await manager.getStringByName('module_desc')).assertEqual('系统的基础新特性示例');
@@ -54,6 +55,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0002 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('EntryAbility_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0002 params: value=${value}`);
       expect(value).assertEqual('首页Ability');
       expect(value.length).assertEqual(9);
       expect(await manager.getStringByName('EntryAbility_desc')).assertEqual('首页Ability');
@@ -73,6 +75,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0003 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('EntryAbility_label');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0003 params: value=${value}`);
       expect(value).assertEqual('基础能力增强');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('EntryAbility_label')).assertEqual('基础能力增强');
@@ -92,6 +95,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0004 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('NewAbility_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0004 params: value=${value}`);
       expect(value).assertEqual('Ability用于被启动');
       expect(value.length).assertEqual(12);
       expect(await manager.getStringByName('NewAbility_desc')).assertEqual('Ability用于被启动');
@@ -111,6 +115,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0005 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('NewAbility_label');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0005 params: value=${value}`);
       expect(value).assertEqual('NewAbility');
       expect(value.length).assertEqual(10);
       expect(await manager.getStringByName('NewAbility_label')).assertEqual('NewAbility');
@@ -130,6 +135,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0006 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Chinese_language');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0006 params: value=${value}`);
       expect(value).assertEqual('设置中文语言');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('Set_Chinese_language')).assertEqual('设置中文语言');
@@ -149,6 +155,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0007 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_English_Language');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0007 params: value=${value}`);
       expect(value).assertEqual('设置英文语言');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('Set_English_Language')).assertEqual('设置英文语言');
@@ -168,6 +175,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0008 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Dark_Mode');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0008 params: value=${value}`);
       expect(value).assertEqual('设置深色模式');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('Set_Dark_Mode')).assertEqual('设置深色模式');
@@ -187,6 +195,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0009 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Light_Mode');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0009 params: value=${value}`);
       expect(value).assertEqual('设置浅色模式');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('Set_Light_Mode')).assertEqual('设置浅色模式');
@@ -206,6 +215,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0010 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Implicit_Launch_not_Popup');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0010 params: value=${value}`);
       expect(value).assertEqual('隐式启动不弹窗');
       expect(value.length).assertEqual(7);
       expect(await manager.getStringByName('Implicit_Launch_not_Popup')).assertEqual('隐式启动不弹窗');
@@ -225,6 +235,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0011 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Implicit_Launch_Popup');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0011 params: value=${value}`);
       expect(value).assertEqual('隐式启动弹窗');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('Implicit_Launch_Popup')).assertEqual('隐式启动弹窗');
@@ -244,6 +255,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0012 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('CreateStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0012 params: value=${value}`);
       expect(value).assertEqual('创建数据');
       expect(value.length).assertEqual(4);
       expect(await manager.getStringByName('CreateStorageData')).assertEqual('创建数据');
@@ -263,6 +275,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0013 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('CheckStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0013 params: value=${value}`);
       expect(value).assertEqual('检查数据');
       expect(value.length).assertEqual(4);
       expect(await manager.getStringByName('CheckStorageData')).assertEqual('检查数据');
@@ -282,6 +295,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0014 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('ClearStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0014 params: value=${value}`);
       expect(value).assertEqual('清理数据');
       expect(value.length).assertEqual(4);
       expect(await manager.getStringByName('ClearStorageData')).assertEqual('清理数据');
@@ -301,6 +315,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0015 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('system_BasicCharacter_Demo');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0015 params: value=${value}`);
       expect(value).assertEqual('基础能力增强');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('system_BasicCharacter_Demo')).assertEqual('基础能力增强');
@@ -320,6 +335,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0016 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('toggle');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0016 params: value=${value}`);
       expect(value).assertEqual('toggle');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('toggle')).assertEqual('toggle');
@@ -339,6 +355,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0017 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('arrow');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0017 params: value=${value}`);
       expect(value).assertEqual('arrow');
       expect(value.length).assertEqual(5);
       expect(await manager.getStringByName('arrow')).assertEqual('arrow');
@@ -358,6 +375,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0018 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('create_File_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0018 params: value=${value}`);
       expect(value).assertEqual('创建缓存文件成功');
       expect(value.length).assertEqual(8);
       expect(await manager.getStringByName('create_File_Success')).assertEqual('创建缓存文件成功');
@@ -377,6 +395,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0019 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('search_File_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0019 params: value=${value}`);
       expect(value).assertEqual('查询到缓存文件');
       expect(value.length).assertEqual(7);
       expect(await manager.getStringByName('search_File_Success')).assertEqual('查询到缓存文件');
@@ -396,6 +415,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0020 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('search_File_Failed');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0020 params: value=${value}`);
       expect(value).assertEqual('未找到缓存文件');
       expect(value.length).assertEqual(7);
       expect(await manager.getStringByName('search_File_Failed')).assertEqual('未找到缓存文件');
@@ -415,6 +435,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0021 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('clean_Data_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0021 params: value=${value}`);
       expect(value).assertEqual('清理数据成功');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('clean_Data_Success')).assertEqual('清理数据成功');
@@ -434,6 +455,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0022 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('clean_Data_Failed');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0022 params: value=${value}`);
       expect(value).assertEqual('未找到缓存文件，');
       expect(value.length).assertEqual(8);
       expect(await manager.getStringByName('clean_Data_Failed')).assertEqual('未找到缓存文件，');
@@ -453,6 +475,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0023 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('start_animation');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0023 params: value=${value}`);
       expect(value).assertEqual('启动动画');
       expect(value.length).assertEqual(4);
       expect(await manager.getStringByName('start_animation')).assertEqual('启动动画');
@@ -472,6 +495,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0024 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('setStartOptionsPage');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0024 params: value=${value}`);
       expect(value).assertEqual('设置StartOptions启动Ability');
       expect(value.length).assertEqual(23);
       expect(await manager.getStringByName('setStartOptionsPage')).assertEqual('设置StartOptions启动Ability');
@@ -491,6 +515,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0025 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('empty');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0025 params: value=${value}`);
       expect(value).assertEqual('暂无内容');
       expect(value.length).assertEqual(4);
       expect(await manager.getStringByName('empty')).assertEqual('暂无内容');
@@ -510,6 +535,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0026 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('switchDarkSuccess');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0026 params: value=${value}`);
       expect(value).assertEqual('切换深色模式成功');
       expect(value.length).assertEqual(8);
       expect(await manager.getStringByName('switchDarkSuccess')).assertEqual('切换深色模式成功');
@@ -529,6 +555,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0027 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('switchLightSuccess');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0027 params: value=${value}`);
       expect(value).assertEqual('切换浅色模式成功');
       expect(value.length).assertEqual(8);
       expect(await manager.getStringByName('switchLightSuccess')).assertEqual('切换浅色模式成功');
@@ -548,6 +575,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0028 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('open');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0028 params: value=${value}`);
       expect(value).assertEqual('开启');
       expect(value.length).assertEqual(2);
       expect(await manager.getStringByName('open')).assertEqual('开启');
@@ -567,6 +595,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0029 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('close');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0029 params: value=${value}`);
       expect(value).assertEqual('关闭');
       expect(value.length).assertEqual(2);
       expect(await manager.getStringByName('close')).assertEqual('关闭');
@@ -586,6 +615,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0030 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('module_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0030 params: value=${value}`);
       expect(value).assertEqual('Basic capabilities are enhanced');
       expect(value.length).assertEqual(31);
       expect(await manager.getStringByName('module_desc')).assertEqual('Basic capabilities are enhanced');
@@ -605,6 +635,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0031 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('EntryAbility_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0031 params: value=${value}`);
       expect(value).assertEqual('Home Ability');
       expect(value.length).assertEqual(12);
       expect(await manager.getStringByName('EntryAbility_desc')).assertEqual('Home Ability');
@@ -624,6 +655,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0032 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('EntryAbility_label');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0032 params: value=${value}`);
       expect(value).assertEqual('SystemBasicAbilityFeature');
       expect(value.length).assertEqual(25);
       expect(await manager.getStringByName('EntryAbility_label')).assertEqual('SystemBasicAbilityFeature');
@@ -643,6 +675,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0033 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('NewAbility_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0033 params: value=${value}`);
       expect(value).assertEqual('Ability used by start');
       expect(value.length).assertEqual(21);
       expect(await manager.getStringByName('NewAbility_desc')).assertEqual('Ability used by start');
@@ -662,6 +695,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0034 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('NewAbility_label');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0034 params: value=${value}`);
       expect(value).assertEqual('NewAbility');
       expect(value.length).assertEqual(10);
       expect(await manager.getStringByName('NewAbility_label')).assertEqual('NewAbility');
@@ -681,6 +715,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0035 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Chinese_language');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0035 params: value=${value}`);
       expect(value).assertEqual('Set Chinese language');
       expect(value.length).assertEqual(20);
       expect(await manager.getStringByName('Set_Chinese_language')).assertEqual('Set Chinese language');
@@ -700,6 +735,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0036 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_English_Language');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0036 params: value=${value}`);
       expect(value).assertEqual('Set English Language');
       expect(value.length).assertEqual(20);
       expect(await manager.getStringByName('Set_English_Language')).assertEqual('Set English Language');
@@ -719,6 +755,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0037 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Dark_Mode');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0037 params: value=${value}`);
       expect(value).assertEqual('Set Dark Mode');
       expect(value.length).assertEqual(13);
       expect(await manager.getStringByName('Set_Dark_Mode')).assertEqual('Set Dark Mode');
@@ -738,6 +775,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0038 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Light_Mode');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0038 params: value=${value}`);
       expect(value).assertEqual('Set Light Mode');
       expect(value.length).assertEqual(14);
       expect(await manager.getStringByName('Set_Light_Mode')).assertEqual('Set Light Mode');
@@ -757,6 +795,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0039 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Implicit_Launch_not_Popup');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0039 params: value=${value}`);
       expect(value).assertEqual('Implicit Launch not Popup');
       expect(value.length).assertEqual(25);
       expect(await manager.getStringByName('Implicit_Launch_not_Popup')).assertEqual('Implicit Launch not Popup');
@@ -776,6 +815,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0040 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Implicit_Launch_Popup');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0040 params: value=${value}`);
       expect(value).assertEqual('Implicit Launch Popup');
       expect(value.length).assertEqual(21);
       expect(await manager.getStringByName('Implicit_Launch_Popup')).assertEqual('Implicit Launch Popup');
@@ -795,6 +835,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0041 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('CreateStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0041 params: value=${value}`);
       expect(value).assertEqual('Create Storage Data');
       expect(value.length).assertEqual(19);
       expect(await manager.getStringByName('CreateStorageData')).assertEqual('Create Storage Data');
@@ -814,6 +855,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0042 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('CheckStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0042 params: value=${value}`);
       expect(value).assertEqual('Check Storage Data');
       expect(value.length).assertEqual(18);
       expect(await manager.getStringByName('CheckStorageData')).assertEqual('Check Storage Data');
@@ -833,6 +875,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0043 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('ClearStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0043 params: value=${value}`);
       expect(value).assertEqual('Clear Storage Data');
       expect(value.length).assertEqual(18);
       expect(await manager.getStringByName('ClearStorageData')).assertEqual('Clear Storage Data');
@@ -852,6 +895,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0044 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('system_BasicCharacter_Demo');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0044 params: value=${value}`);
       expect(value).assertEqual('Basic capabilities are enhanced');
       expect(value.length).assertEqual(31);
       expect(await manager.getStringByName('system_BasicCharacter_Demo')).assertEqual('Basic capabilities are enhanced');
@@ -871,6 +915,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0045 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('toggle');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0045 params: value=${value}`);
       expect(value).assertEqual('toggle');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('toggle')).assertEqual('toggle');
@@ -890,6 +935,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0046 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('arrow');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0046 params: value=${value}`);
       expect(value).assertEqual('arrow');
       expect(value.length).assertEqual(5);
       expect(await manager.getStringByName('arrow')).assertEqual('arrow');
@@ -909,6 +955,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0047 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('create_File_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0047 params: value=${value}`);
       expect(value).assertEqual('createFileSuccess');
       expect(value.length).assertEqual(17);
       expect(await manager.getStringByName('create_File_Success')).assertEqual('createFileSuccess');
@@ -928,6 +975,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0048 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('search_File_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0048 params: value=${value}`);
       expect(value).assertEqual('searchFileSuccess');
       expect(value.length).assertEqual(17);
       expect(await manager.getStringByName('search_File_Success')).assertEqual('searchFileSuccess');
@@ -947,6 +995,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0049 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('search_File_Failed');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0049 params: value=${value}`);
       expect(value).assertEqual('searchFileFailed');
       expect(value.length).assertEqual(16);
       expect(await manager.getStringByName('search_File_Failed')).assertEqual('searchFileFailed');
@@ -966,6 +1015,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0050 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('clean_Data_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0050 params: value=${value}`);
       expect(value).assertEqual('cleanDataSuccess');
       expect(value.length).assertEqual(16);
       expect(await manager.getStringByName('clean_Data_Success')).assertEqual('cleanDataSuccess');
@@ -985,6 +1035,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0051 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('clean_Data_Failed');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0051 params: value=${value}`);
       expect(value).assertEqual('cleanDataFailed');
       expect(value.length).assertEqual(15);
       expect(await manager.getStringByName('clean_Data_Failed')).assertEqual('cleanDataFailed');
@@ -1004,6 +1055,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0052 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('start_animation');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0052 params: value=${value}`);
       expect(value).assertEqual('start animation');
       expect(value.length).assertEqual(15);
       expect(await manager.getStringByName('start_animation')).assertEqual('start animation');
@@ -1023,6 +1075,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0053 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('setStartOptionsPage');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0053 params: value=${value}`);
       expect(value).assertEqual('Set StartOptions StartAbility');
       expect(value.length).assertEqual(29);
       expect(await manager.getStringByName('setStartOptionsPage')).assertEqual('Set StartOptions StartAbility');
@@ -1042,6 +1095,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0054 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('empty');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0054 params: value=${value}`);
       expect(value).assertEqual('empty');
       expect(value.length).assertEqual(5);
       expect(await manager.getStringByName('empty')).assertEqual('empty');
@@ -1061,6 +1115,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0055 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('switchDarkSuccess');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0055 params: value=${value}`);
       expect(value).assertEqual('switch DarkMode Success');
       expect(value.length).assertEqual(23);
       expect(await manager.getStringByName('switchDarkSuccess')).assertEqual('switch DarkMode Success');
@@ -1080,6 +1135,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0056 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('switchLightSuccess');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0056 params: value=${value}`);
       expect(value).assertEqual('switch LightMode Success');
       expect(value.length).assertEqual(24);
       expect(await manager.getStringByName('switchLightSuccess')).assertEqual('switch LightMode Success');
@@ -1099,6 +1155,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0057 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('open');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0057 params: value=${value}`);
       expect(value).assertEqual('open');
       expect(value.length).assertEqual(4);
       expect(await manager.getStringByName('open')).assertEqual('open');
@@ -1118,6 +1175,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0058 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('en_Latn_US', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('close');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0058 params: value=${value}`);
       expect(value).assertEqual('close');
       expect(value.length).assertEqual(5);
       expect(await manager.getStringByName('close')).assertEqual('close');
@@ -1137,6 +1195,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0059 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('module_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0059 params: value=${value}`);
       expect(value).assertEqual('Basic capabilities are enhanced');
       expect(value.length).assertEqual(31);
       expect(await manager.getStringByName('module_desc')).assertEqual('Basic capabilities are enhanced');
@@ -1156,6 +1215,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0060 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('EntryAbility_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0060 params: value=${value}`);
       expect(value).assertEqual('Home Ability');
       expect(value.length).assertEqual(12);
       expect(await manager.getStringByName('EntryAbility_desc')).assertEqual('Home Ability');
@@ -1175,6 +1235,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0061 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('EntryAbility_label');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0061 params: value=${value}`);
       expect(value).assertEqual('Basic capabilities are enhanced');
       expect(value.length).assertEqual(31);
       expect(await manager.getStringByName('EntryAbility_label')).assertEqual('Basic capabilities are enhanced');
@@ -1194,6 +1255,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0062 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('NewAbility_desc');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0062 params: value=${value}`);
       expect(value).assertEqual('Ability used by start');
       expect(value.length).assertEqual(21);
       expect(await manager.getStringByName('NewAbility_desc')).assertEqual('Ability used by start');
@@ -1213,6 +1275,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0063 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('NewAbility_label');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0063 params: value=${value}`);
       expect(value).assertEqual('NewAbility');
       expect(value.length).assertEqual(10);
       expect(await manager.getStringByName('NewAbility_label')).assertEqual('NewAbility');
@@ -1232,6 +1295,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0064 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Chinese_language');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0064 params: value=${value}`);
       expect(value).assertEqual('Set Chinese language');
       expect(value.length).assertEqual(20);
       expect(await manager.getStringByName('Set_Chinese_language')).assertEqual('Set Chinese language');
@@ -1251,6 +1315,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0065 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_English_Language');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0065 params: value=${value}`);
       expect(value).assertEqual('Set English Language');
       expect(value.length).assertEqual(20);
       expect(await manager.getStringByName('Set_English_Language')).assertEqual('Set English Language');
@@ -1270,6 +1335,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0066 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Dark_Mode');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0066 params: value=${value}`);
       expect(value).assertEqual('Set Dark Mode');
       expect(value.length).assertEqual(13);
       expect(await manager.getStringByName('Set_Dark_Mode')).assertEqual('Set Dark Mode');
@@ -1289,6 +1355,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0067 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Set_Light_Mode');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0067 params: value=${value}`);
       expect(value).assertEqual('Set Light Mode');
       expect(value.length).assertEqual(14);
       expect(await manager.getStringByName('Set_Light_Mode')).assertEqual('Set Light Mode');
@@ -1308,6 +1375,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0068 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Implicit_Launch_not_Popup');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0068 params: value=${value}`);
       expect(value).assertEqual('Implicit Launch not Popup');
       expect(value.length).assertEqual(25);
       expect(await manager.getStringByName('Implicit_Launch_not_Popup')).assertEqual('Implicit Launch not Popup');
@@ -1327,6 +1395,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0069 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('Implicit_Launch_Popup');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0069 params: value=${value}`);
       expect(value).assertEqual('Implicit Launch Popup');
       expect(value.length).assertEqual(21);
       expect(await manager.getStringByName('Implicit_Launch_Popup')).assertEqual('Implicit Launch Popup');
@@ -1346,6 +1415,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0070 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('CreateStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0070 params: value=${value}`);
       expect(value).assertEqual('Create Storage Data');
       expect(value.length).assertEqual(19);
       expect(await manager.getStringByName('CreateStorageData')).assertEqual('Create Storage Data');
@@ -1365,6 +1435,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0071 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('CheckStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0071 params: value=${value}`);
       expect(value).assertEqual('Check Storage Data');
       expect(value.length).assertEqual(18);
       expect(await manager.getStringByName('CheckStorageData')).assertEqual('Check Storage Data');
@@ -1384,6 +1455,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0072 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('ClearStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0072 params: value=${value}`);
       expect(value).assertEqual('Clear Storage Data');
       expect(value.length).assertEqual(18);
       expect(await manager.getStringByName('ClearStorageData')).assertEqual('Clear Storage Data');
@@ -1403,6 +1475,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0073 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('system_BasicCharacter_Demo');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0073 params: value=${value}`);
       expect(value).assertEqual('Basic capabilities are enhanced');
       expect(value.length).assertEqual(31);
       expect(await manager.getStringByName('system_BasicCharacter_Demo')).assertEqual('Basic capabilities are enhanced');
@@ -1422,6 +1495,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0074 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('toggle');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0074 params: value=${value}`);
       expect(value).assertEqual('toggle');
       expect(value.length).assertEqual(6);
       expect(await manager.getStringByName('toggle')).assertEqual('toggle');
@@ -1441,6 +1515,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0075 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('arrow');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0075 params: value=${value}`);
       expect(value).assertEqual('arrow');
       expect(value.length).assertEqual(5);
       expect(await manager.getStringByName('arrow')).assertEqual('arrow');
@@ -1460,6 +1535,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0076 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('create_File_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0076 params: value=${value}`);
       expect(value).assertEqual('createFileSuccess');
       expect(value.length).assertEqual(17);
       expect(await manager.getStringByName('create_File_Success')).assertEqual('createFileSuccess');
@@ -1479,6 +1555,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0077 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('search_File_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0077 params: value=${value}`);
       expect(value).assertEqual('searchFileSuccess');
       expect(value.length).assertEqual(17);
       expect(await manager.getStringByName('search_File_Success')).assertEqual('searchFileSuccess');
@@ -1498,6 +1575,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0078 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('search_File_Failed');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0078 params: value=${value}`);
       expect(value).assertEqual('searchFileFailed');
       expect(value.length).assertEqual(16);
       expect(await manager.getStringByName('search_File_Failed')).assertEqual('searchFileFailed');
@@ -1517,6 +1595,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0079 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('clean_Data_Success');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0079 params: value=${value}`);
       expect(value).assertEqual('cleanDataSuccess');
       expect(value.length).assertEqual(16);
       expect(await manager.getStringByName('clean_Data_Success')).assertEqual('cleanDataSuccess');
@@ -1536,6 +1615,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0080 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('clean_Data_Failed');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0080 params: value=${value}`);
       expect(value).assertEqual('cleanDataFailed');
       expect(value.length).assertEqual(15);
       expect(await manager.getStringByName('clean_Data_Failed')).assertEqual('cleanDataFailed');
@@ -1555,6 +1635,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0081 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('start_animation');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0081 params: value=${value}`);
       expect(value).assertEqual('start animation');
       expect(value.length).assertEqual(15);
       expect(await manager.getStringByName('start_animation')).assertEqual('start animation');
@@ -1574,6 +1655,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0082 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('setStartOptionsPage');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0082 params: value=${value}`);
       expect(value).assertEqual('Set StartOptions StartAbility');
       expect(value.length).assertEqual(29);
       expect(await manager.getStringByName('setStartOptionsPage')).assertEqual('Set StartOptions StartAbility');
@@ -1593,6 +1675,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0083 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('empty');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0083 params: value=${value}`);
       expect(value).assertEqual('empty');
       expect(value.length).assertEqual(5);
       expect(await manager.getStringByName('empty')).assertEqual('empty');
@@ -1612,6 +1695,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0084 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('switchDarkSuccess');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0084 params: value=${value}`);
       expect(value).assertEqual('switch DarkMode Success');
       expect(value.length).assertEqual(23);
       expect(await manager.getStringByName('switchDarkSuccess')).assertEqual('switch DarkMode Success');
@@ -1631,6 +1715,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0085 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('switchLightSuccess');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0085 params: value=${value}`);
       expect(value).assertEqual('switch LightMode Success');
       expect(value.length).assertEqual(24);
       expect(await manager.getStringByName('switchLightSuccess')).assertEqual('switch LightMode Success');
@@ -1650,6 +1735,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0086 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('open');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0086 params: value=${value}`);
       expect(value).assertEqual('open');
       expect(value.length).assertEqual(4);
       expect(await manager.getStringByName('open')).assertEqual('open');
@@ -1669,6 +1755,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0087 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('fr_Latn_FR', resourceManager.ColorMode.LIGHT);
       const value: string = manager.getStringByNameSync('close');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0087 params: value=${value}`);
       expect(value).assertEqual('close');
       expect(value.length).assertEqual(5);
       expect(await manager.getStringByName('close')).assertEqual('close');
@@ -1688,6 +1775,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0088 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const color: number = manager.getColorByNameSync('start_window_background');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0088 params: color=${color}`);
       expect(color).assertEqual(0xFFFFFFFF);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0xFFFFFF);
@@ -1707,6 +1795,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0089 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const color: number = manager.getColorByNameSync('background');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0089 params: color=${color}`);
       expect(color).assertEqual(0xFFFAFAFA);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0xFAFAFA);
@@ -1726,6 +1815,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0090 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const color: number = manager.getColorByNameSync('line_color');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0090 params: color=${color}`);
       expect(color).assertEqual(0xFF182431);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0x182431);
@@ -1745,6 +1835,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0091 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const color: number = manager.getColorByNameSync('text_color');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0091 params: color=${color}`);
       expect(color).assertEqual(0xFF182431);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0x182431);
@@ -1764,6 +1855,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0092 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.LIGHT);
       const color: number = manager.getColorByNameSync('button_color');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0092 params: color=${color}`);
       expect(color).assertEqual(0xFF182431);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0x182431);
@@ -1783,6 +1875,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0093 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.DARK);
       const color: number = manager.getColorByNameSync('start_window_background');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0093 params: color=${color}`);
       expect(color).assertEqual(0xFFFFFFFF);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0xFFFFFF);
@@ -1802,6 +1895,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0094 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.DARK);
       const color: number = manager.getColorByNameSync('background');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0094 params: color=${color}`);
       expect(color).assertEqual(0xFFFAFAFA);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0xFAFAFA);
@@ -1821,6 +1915,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0095 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.DARK);
       const color: number = manager.getColorByNameSync('line_color');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0095 params: color=${color}`);
       expect(color).assertEqual(0xFF182431);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0x182431);
@@ -1840,6 +1935,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0096 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.DARK);
       const color: number = manager.getColorByNameSync('text_color');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0096 params: color=${color}`);
       expect(color).assertEqual(0xFF182431);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0x182431);
@@ -1859,6 +1955,7 @@ export default function resourceLocaleMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceLocaleMatrix0097 begin');
       const manager: resourceManager.ResourceManager = await loadOverrideResourceManager('zh_Hans_CN', resourceManager.ColorMode.DARK);
       const color: number = manager.getColorByNameSync('button_color');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceLocaleMatrix0097 params: color=${color}`);
       expect(color).assertEqual(0xFF182431);
       expect(color >>> 24).assertEqual(0xFF);
       expect(color & 0xFFFFFF).assertEqual(0x182431);
