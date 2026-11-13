@@ -373,7 +373,7 @@ export function claimUiTestSession(want: Want, owner: common.UIAbilityContext): 
 }
 
 export class UiTestDriver {
-  readonly session: UiTestSession;
+  public readonly session: UiTestSession;
   private native: NativeDriver;
   private displays: Map<number, Point> = new Map<number, Point>();
   private inputSelector: UiSelector | undefined = undefined;

@@ -612,9 +612,15 @@ export class UiTestComponent {
         if (bounds.right > bounds.left && bounds.bottom > bounds.top) {
           if (centerInside(bounds, left, top, right, bottom)) { return found; }
           const center = (bounds.top + bounds.bottom) / 2;
-          if (center < top) { towardTop = true; directed = true; }
-          else if (center >= bottom) { towardTop = false; directed = true; }
-          else { return undefined; }
+          if (center < top) {
+            towardTop = true;
+            directed = true;
+          } else if (center >= bottom) {
+            towardTop = false;
+            directed = true;
+          } else {
+            return undefined;
+          }
         }
       }
       if (step === 16 || exhausted) { return undefined; }
