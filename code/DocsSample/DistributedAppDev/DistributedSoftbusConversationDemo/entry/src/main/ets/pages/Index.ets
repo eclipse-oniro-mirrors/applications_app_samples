@@ -30,7 +30,7 @@ const deviceId = 'networkId_or_Udid'
 // [Start data_callback]
 // 定义消息回调
 let messageCallback: conversation.DataCallback = (deviceId: string, msg: ArrayBuffer): void => {
-  hilog.info(DOMAIN, TAG, 'Received message from: %{public}s', deviceId);
+  hilog.info(DOMAIN, TAG, 'Message received');
   hilog.info(DOMAIN, TAG, 'Message length: %{public}d', msg.byteLength);
   let bufferView = new Uint8Array(msg);
   let messageStr = '';
@@ -79,11 +79,7 @@ struct Index {
     try {
       let devices = conversation.getTrustedDevices() as conversation.DeviceNodeInfo[];
       if (devices && devices.length > 0) {
-        let deviceInfo = devices.map((d, idx) =>
-          `${idx + 1}. ${d.deviceName} (${d.networkId}) - Type:${d.deviceTypeId} - Nearby:${d.nearby}`
-        ).join('\n');
         hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
-        hilog.info(DOMAIN, TAG, 'Devices list: \n %{public}s', deviceInfo);
       } else {
         hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
       }
@@ -135,7 +131,7 @@ struct Index {
 
       conversation.postConversationData(deviceId, bundleName, abilityName, arrayBuffer)
         .then(() => {
-          hilog.info(DOMAIN, TAG, 'Message sent successfully to %{public}s', deviceId);
+          hilog.info(DOMAIN, TAG, 'Message sent successfully');
         })
         .catch((err : BusinessError) => {
           hilog.error(DOMAIN, TAG, 'sendMessage error: %{public}s - %{public}s', err.code, err.message);

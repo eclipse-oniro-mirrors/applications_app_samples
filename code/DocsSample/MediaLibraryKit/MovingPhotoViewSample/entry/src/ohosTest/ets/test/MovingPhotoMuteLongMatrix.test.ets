@@ -24,10 +24,10 @@ const BUNDLE_NAME: string = 'com.example.movingphotoviewsample';
 const ENTRY_ABILITY: string = 'EntryAbility';
 const PLAY_TEXT: string = 'PLAY';
 const STOP_TEXT: string = 'STOP';
-const PLAYING_TEXT: string = '\u5f00\u59cb\u64ad\u653e';
-const STOPPED_TEXT: string = '\u505c\u6b62\u64ad\u653e';
-const MUTE_TEXT: string = '\u9759\u97f3';
-const UNMUTE_TEXT: string = '\u53d6\u6d88\u9759\u97f3';
+const PLAYING_TEXT: string = '开始播放';
+const STOPPED_TEXT: string = '停止播放';
+const MUTE_TEXT: string = '静音';
+const UNMUTE_TEXT: string = '取消静音';
 const DELEGATOR = abilityDelegatorRegistry.getAbilityDelegator();
 
 function delay(ms: number): Promise<void> {

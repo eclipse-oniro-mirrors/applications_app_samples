@@ -48,7 +48,7 @@ export default function conversationUiMatrixTest() {
       await DELEGATOR.startAbility(want);
       await delay(2500);
       driver = await Driver.create();
-      const allowText: string = '\u5141\u8bb8';
+      const allowText: string = '允许';
       const allow1: Component = await driver.findComponent(ON.text(allowText));
       if (allow1 !== null) {
         await allow1.click();

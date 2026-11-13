@@ -22,7 +22,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0001
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0001
-     * @tc.desc   Test controller API surface, long matrix case 1.
+     * @tc.desc   Test controller API usage, long matrix case 1.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -37,7 +37,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0002
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0002
-     * @tc.desc   Test controller API surface, long matrix case 2.
+     * @tc.desc   Test controller API usage, long matrix case 2.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -52,7 +52,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0003
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0003
-     * @tc.desc   Test controller API surface, long matrix case 3.
+     * @tc.desc   Test controller API usage, long matrix case 3.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -67,7 +67,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0004
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0004
-     * @tc.desc   Test controller API surface, long matrix case 4.
+     * @tc.desc   Test controller API usage, long matrix case 4.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -82,7 +82,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0005
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0005
-     * @tc.desc   Test controller API surface, long matrix case 5.
+     * @tc.desc   Test controller API usage, long matrix case 5.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -97,7 +97,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0006
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0006
-     * @tc.desc   Test controller API surface, long matrix case 6.
+     * @tc.desc   Test controller API usage, long matrix case 6.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -112,7 +112,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0007
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0007
-     * @tc.desc   Test controller API surface, long matrix case 7.
+     * @tc.desc   Test controller API usage, long matrix case 7.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -127,7 +127,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0008
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0008
-     * @tc.desc   Test controller API surface, long matrix case 8.
+     * @tc.desc   Test controller API usage, long matrix case 8.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -142,7 +142,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0009
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0009
-     * @tc.desc   Test controller API surface, long matrix case 9.
+     * @tc.desc   Test controller API usage, long matrix case 9.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -157,7 +157,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0010
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0010
-     * @tc.desc   Test controller API surface, long matrix case 10.
+     * @tc.desc   Test controller API usage, long matrix case 10.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -172,7 +172,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0011
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0011
-     * @tc.desc   Test controller API surface, long matrix case 11.
+     * @tc.desc   Test controller API usage, long matrix case 11.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -187,7 +187,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0012
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0012
-     * @tc.desc   Test controller API surface, long matrix case 12.
+     * @tc.desc   Test controller API usage, long matrix case 12.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -202,7 +202,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0013
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0013
-     * @tc.desc   Test controller API surface, long matrix case 13.
+     * @tc.desc   Test controller API usage, long matrix case 13.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -217,7 +217,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0014
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0014
-     * @tc.desc   Test controller API surface, long matrix case 14.
+     * @tc.desc   Test controller API usage, long matrix case 14.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -232,7 +232,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0015
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0015
-     * @tc.desc   Test controller API surface, long matrix case 15.
+     * @tc.desc   Test controller API usage, long matrix case 15.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -247,7 +247,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0016
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0016
-     * @tc.desc   Test controller API surface, long matrix case 16.
+     * @tc.desc   Test controller API usage, long matrix case 16.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -262,7 +262,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0017
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0017
-     * @tc.desc   Test controller API surface, long matrix case 17.
+     * @tc.desc   Test controller API usage, long matrix case 17.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -277,7 +277,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0018
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0018
-     * @tc.desc   Test controller API surface, long matrix case 18.
+     * @tc.desc   Test controller API usage, long matrix case 18.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -292,7 +292,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0019
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0019
-     * @tc.desc   Test controller API surface, long matrix case 19.
+     * @tc.desc   Test controller API usage, long matrix case 19.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -307,7 +307,7 @@ export default function movingPhotoControllerLongMatrixTest() {
     /**
      * @tc.name   testControllerLong0020
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_LONG_0020
-     * @tc.desc   Test controller API surface, long matrix case 20.
+     * @tc.desc   Test controller API usage, long matrix case 20.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2

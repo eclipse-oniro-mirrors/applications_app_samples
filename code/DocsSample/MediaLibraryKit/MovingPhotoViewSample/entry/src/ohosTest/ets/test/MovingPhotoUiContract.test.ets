@@ -52,7 +52,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0004
@@ -62,7 +62,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0005
@@ -72,7 +72,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0006
@@ -102,7 +102,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0009
@@ -112,7 +112,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0010
@@ -122,7 +122,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0011
@@ -152,7 +152,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0014
@@ -162,7 +162,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0015
@@ -172,7 +172,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0016
@@ -202,7 +202,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0019
@@ -212,7 +212,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0020
@@ -222,7 +222,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0021
@@ -252,7 +252,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0023', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0024
@@ -262,7 +262,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0024', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0025
@@ -272,7 +272,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0026
@@ -302,7 +302,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0028', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0029
@@ -312,7 +312,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0029', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0030
@@ -322,7 +322,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0030', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0031
@@ -352,7 +352,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0034
@@ -362,7 +362,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0035
@@ -372,7 +372,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0036
@@ -402,7 +402,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0038', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0039
@@ -412,7 +412,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0039', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0040
@@ -422,7 +422,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0040', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0041
@@ -452,7 +452,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0043', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0044
@@ -462,7 +462,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0044', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0045
@@ -472,7 +472,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0045', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0046
@@ -502,7 +502,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0048', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0049
@@ -512,7 +512,7 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u53d6\u6d88\u9759\u97f3')); expect(true).assertTrue(); })
+    it('testUiContract0049', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('取消静音')); expect(true).assertTrue(); })
 
     /**
      * @tc.name   testUiContract0050
@@ -522,6 +522,6 @@ export default function movingPhotoUiContractTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testUiContract0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e')); expect(true).assertTrue(); })
+    it('testUiContract0050', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => { await driver.assertComponentExist(ON.text('动态照片已加载，长按可播放')); expect(true).assertTrue(); })
   })
 }

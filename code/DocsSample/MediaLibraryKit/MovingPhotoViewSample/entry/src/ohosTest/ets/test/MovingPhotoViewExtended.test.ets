@@ -25,9 +25,9 @@ const BUNDLE_NAME: string = 'com.example.movingphotoviewsample';
 const ENTRY_ABILITY: string = 'EntryAbility';
 const PLAY_TEXT: string = 'PLAY';
 const STOP_TEXT: string = 'STOP';
-const PLAYING_TEXT: string = '\u5f00\u59cb\u64ad\u653e';
-const STOPPED_TEXT: string = '\u505c\u6b62\u64ad\u653e';
-const LOADED_TEXT: string = '\u52a8\u6001\u7167\u7247\u5df2\u52a0\u8f7d\uff0c\u957f\u6309\u53ef\u64ad\u653e';
+const PLAYING_TEXT: string = '开始播放';
+const STOPPED_TEXT: string = '停止播放';
+const LOADED_TEXT: string = '动态照片已加载，长按可播放';
 const DELEGATOR = abilityDelegatorRegistry.getAbilityDelegator();
 
 function delay(ms: number): Promise<void> {
@@ -188,7 +188,7 @@ export default function movingPhotoViewExtendedTest() {
     /**
      * @tc.name   testControllerApi0009
      * @tc.number MOVING_PHOTO_VIEW_EXT_0900
-     * @tc.desc   Test the controller playback method surface.
+     * @tc.desc   Test the controller playback method usage.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2

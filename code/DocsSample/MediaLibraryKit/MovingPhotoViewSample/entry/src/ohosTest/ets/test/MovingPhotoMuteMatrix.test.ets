@@ -22,8 +22,8 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_MovingPhotoView_MuteMatrix]';
 const BUNDLE_NAME: string = 'com.example.movingphotoviewsample';
 const ENTRY_ABILITY: string = 'EntryAbility';
-const MUTE_TEXT: string = '\u9759\u97f3';
-const UNMUTE_TEXT: string = '\u53d6\u6d88\u9759\u97f3';
+const MUTE_TEXT: string = '静音';
+const UNMUTE_TEXT: string = '取消静音';
 const DELEGATOR = abilityDelegatorRegistry.getAbilityDelegator();
 
 function delay(ms: number): Promise<void> {

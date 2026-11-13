@@ -22,7 +22,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0001
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0001
-     * @tc.desc   Test controller instance and playback API surface, case 1.
+     * @tc.desc   Test controller instance and playback API usage, case 1.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -38,7 +38,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0002
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0002
-     * @tc.desc   Test controller instance and playback API surface, case 2.
+     * @tc.desc   Test controller instance and playback API usage, case 2.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -54,7 +54,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0003
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0003
-     * @tc.desc   Test controller instance and playback API surface, case 3.
+     * @tc.desc   Test controller instance and playback API usage, case 3.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -70,7 +70,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0004
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0004
-     * @tc.desc   Test controller instance and playback API surface, case 4.
+     * @tc.desc   Test controller instance and playback API usage, case 4.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -86,7 +86,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0005
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0005
-     * @tc.desc   Test controller instance and playback API surface, case 5.
+     * @tc.desc   Test controller instance and playback API usage, case 5.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -102,7 +102,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0006
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0006
-     * @tc.desc   Test controller instance and playback API surface, case 6.
+     * @tc.desc   Test controller instance and playback API usage, case 6.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -118,7 +118,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0007
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0007
-     * @tc.desc   Test controller instance and playback API surface, case 7.
+     * @tc.desc   Test controller instance and playback API usage, case 7.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -134,7 +134,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0008
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0008
-     * @tc.desc   Test controller instance and playback API surface, case 8.
+     * @tc.desc   Test controller instance and playback API usage, case 8.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -150,7 +150,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0009
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0009
-     * @tc.desc   Test controller instance and playback API surface, case 9.
+     * @tc.desc   Test controller instance and playback API usage, case 9.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -166,7 +166,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0010
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0010
-     * @tc.desc   Test controller instance and playback API surface, case 10.
+     * @tc.desc   Test controller instance and playback API usage, case 10.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -182,7 +182,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0011
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0011
-     * @tc.desc   Test controller instance and playback API surface, case 11.
+     * @tc.desc   Test controller instance and playback API usage, case 11.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -198,7 +198,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0012
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0012
-     * @tc.desc   Test controller instance and playback API surface, case 12.
+     * @tc.desc   Test controller instance and playback API usage, case 12.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -214,7 +214,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0013
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0013
-     * @tc.desc   Test controller instance and playback API surface, case 13.
+     * @tc.desc   Test controller instance and playback API usage, case 13.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -230,7 +230,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0014
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0014
-     * @tc.desc   Test controller instance and playback API surface, case 14.
+     * @tc.desc   Test controller instance and playback API usage, case 14.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -246,7 +246,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0015
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0015
-     * @tc.desc   Test controller instance and playback API surface, case 15.
+     * @tc.desc   Test controller instance and playback API usage, case 15.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -262,7 +262,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0016
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0016
-     * @tc.desc   Test controller instance and playback API surface, case 16.
+     * @tc.desc   Test controller instance and playback API usage, case 16.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -278,7 +278,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0017
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0017
-     * @tc.desc   Test controller instance and playback API surface, case 17.
+     * @tc.desc   Test controller instance and playback API usage, case 17.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -294,7 +294,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0018
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0018
-     * @tc.desc   Test controller instance and playback API surface, case 18.
+     * @tc.desc   Test controller instance and playback API usage, case 18.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -310,7 +310,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0019
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0019
-     * @tc.desc   Test controller instance and playback API surface, case 19.
+     * @tc.desc   Test controller instance and playback API usage, case 19.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -326,7 +326,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0020
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0020
-     * @tc.desc   Test controller instance and playback API surface, case 20.
+     * @tc.desc   Test controller instance and playback API usage, case 20.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -342,7 +342,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0021
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0021
-     * @tc.desc   Test controller instance and playback API surface, case 21.
+     * @tc.desc   Test controller instance and playback API usage, case 21.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -358,7 +358,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0022
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0022
-     * @tc.desc   Test controller instance and playback API surface, case 22.
+     * @tc.desc   Test controller instance and playback API usage, case 22.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -374,7 +374,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0023
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0023
-     * @tc.desc   Test controller instance and playback API surface, case 23.
+     * @tc.desc   Test controller instance and playback API usage, case 23.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -390,7 +390,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0024
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0024
-     * @tc.desc   Test controller instance and playback API surface, case 24.
+     * @tc.desc   Test controller instance and playback API usage, case 24.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -406,7 +406,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0025
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0025
-     * @tc.desc   Test controller instance and playback API surface, case 25.
+     * @tc.desc   Test controller instance and playback API usage, case 25.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -422,7 +422,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0026
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0026
-     * @tc.desc   Test controller instance and playback API surface, case 26.
+     * @tc.desc   Test controller instance and playback API usage, case 26.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -438,7 +438,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0027
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0027
-     * @tc.desc   Test controller instance and playback API surface, case 27.
+     * @tc.desc   Test controller instance and playback API usage, case 27.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -454,7 +454,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0028
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0028
-     * @tc.desc   Test controller instance and playback API surface, case 28.
+     * @tc.desc   Test controller instance and playback API usage, case 28.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -470,7 +470,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0029
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0029
-     * @tc.desc   Test controller instance and playback API surface, case 29.
+     * @tc.desc   Test controller instance and playback API usage, case 29.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
@@ -486,7 +486,7 @@ export default function movingPhotoControllerStateMatrixTest() {
     /**
      * @tc.name   testControllerStateMatrix0030
      * @tc.number MOVING_PHOTO_VIEW_CONTROLLER_STATE_0030
-     * @tc.desc   Test controller instance and playback API surface, case 30.
+     * @tc.desc   Test controller instance and playback API usage, case 30.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2

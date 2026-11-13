@@ -24,8 +24,8 @@ const BUNDLE_NAME: string = 'com.example.movingphotoviewsample';
 const ENTRY_ABILITY: string = 'EntryAbility';
 const PLAY_TEXT: string = 'PLAY';
 const STOP_TEXT: string = 'STOP';
-const PLAYING_TEXT: string = '\u5f00\u59cb\u64ad\u653e';
-const STOPPED_TEXT: string = '\u505c\u6b62\u64ad\u653e';
+const PLAYING_TEXT: string = '开始播放';
+const STOPPED_TEXT: string = '停止播放';
 const DELEGATOR = abilityDelegatorRegistry.getAbilityDelegator();
 
 function delay(ms: number): Promise<void> {
