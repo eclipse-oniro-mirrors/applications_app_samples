@@ -23,6 +23,10 @@ import Want from '@ohos.app.ability.Want';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 
 export default class TestAbility extends Ability {
+    /**
+     * Entry point of the test ability. The hypium framework is started here and
+     * the aggregated suite exported by List.test.ets is executed.
+     */
     onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
         hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
@@ -68,5 +72,18 @@ export default class TestAbility extends Ability {
     onBackground() {
         hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
         hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground');
+    }
+
+    /**
+     * Triggered when the system wants to reclaim memory. The test ability does
+     * not own business caches, therefore only the level is reported.
+     */
+    onMemoryLevel(level: AbilityConstant.MemoryLevel) {
+        hilog.info(0x0000, 'testTag', 'TestAbility memory level: %{public}d', level);
+    }
+
+    onWindowStageRestore(windowStage: Window.WindowStage) {
+        hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
+        hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageRestore');
     }
 }

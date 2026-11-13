@@ -13,28 +13,271 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
-import mockFactoriesTest from './foundation/MockFactories.test'
-import testAssertsTest from './foundation/TestAsserts.test'
-import testDataBuilderTest from './foundation/TestDataBuilder.test'
-import srManagerDomainTest from './srmanager/SRManagerDomain.test'
-import srManagerConcurrencyTest from './srmanager/SRManagerConcurrency.test'
-import srManagerChaosTest from './srmanager/SRManagerChaos.test'
-import windowManagerDomainTest from './window/WindowManagerDomain.test'
-import floatWindowSceneTest from './window/FloatWindowScene.test'
-import abilityLifecycleTest from './ability/AbilityLifecycle.test'
-import recordingOrchestrationTest from './ability/RecordingOrchestration.test'
+// Aggregated entry of the TVScreenRecorder test suite.
+// Every module below validates one functional area of the screen recorder:
+// recording state machine, floating timer/tip windows, service extension
+// lifecycle, input stop combination, persistence and performance budgets.
 
-export default function testsuite() {
-  abilityTest()
-  mockFactoriesTest()
-  testAssertsTest()
-  testDataBuilderTest()
-  srManagerDomainTest()
-  srManagerConcurrencyTest()
-  srManagerChaosTest()
-  windowManagerDomainTest()
-  floatWindowSceneTest()
-  abilityLifecycleTest()
-  recordingOrchestrationTest()
+import abilityTest from './Ability.test';
+import abilityLifecycleTest from './ability/AbilityLifecycle.test';
+import abilityLifecycleConcurrencyDeepTest from './ability/AbilityLifecycleConcurrencyDeep.test';
+import abilityRecentStatusProjectionTest from './ability/AbilityRecentStatusProjection.test';
+import abilityRecoveryRecentStressTest from './ability/AbilityRecoveryRecentStress.test';
+import recordingOrchestrationTest from './ability/RecordingOrchestration.test';
+import recordingOrchestrationDeepFlowTest from './ability/RecordingOrchestrationDeepFlow.test';
+import coldStartPollutionIsolationTest from './contract/ColdStartPollutionIsolation.test';
+import contractStateConsistencyTest from './contract/ContractStateConsistency.test';
+import dataContractDriftMatrixTest from './contract/DataContractDriftMatrix.test';
+import grayReleaseContractCanaryTest from './contract/GrayReleaseContractCanary.test';
+import persistenceIsolationRegressionTest from './contract/PersistenceIsolationRegression.test';
+import securityBoundaryDefenseTest from './contract/SecurityBoundaryDefense.test';
+import foundationAdvancedFixturesTest from './foundation/FoundationAdvancedFixtures.test';
+import foundationRegressionMatrixTest from './foundation/FoundationRegressionMatrix.test';
+import foundationStressCanaryTest from './foundation/FoundationStressCanary.test';
+import mockFactoriesTest from './foundation/MockFactories.test';
+import mockFactoriesInputWindowDeepTest from './foundation/MockFactoriesInputWindowDeep.test';
+import mockFactoriesPhotoAndSRApiDeepTest from './foundation/MockFactoriesPhotoAndSRApiDeep.test';
+import testAssertsTest from './foundation/TestAsserts.test';
+import testDataBuilderTest from './foundation/TestDataBuilder.test';
+import advancedScenariosTest from './integration/AdvancedScenarios.test';
+import comprehensiveRegressionTest from './integration/ComprehensiveRegression.test';
+import deviceCompatibilityTest from './integration/DeviceCompatibility.test';
+import integrationTestingTest from './integration/IntegrationTesting.test';
+import localizationTestingTest from './integration/LocalizationTesting.test';
+import networkConnectivityTest from './integration/NetworkConnectivity.test';
+import recorderCompatibilityTest from './integration/RecorderCompatibility.test';
+import systemIntegrationTest from './integration/SystemIntegration.test';
+import userScenariosTest from './integration/UserScenarios.test';
+import accessibilityNavigationTest from './interaction/AccessibilityNavigation.test';
+import buttonInteractionTest from './interaction/ButtonInteraction.test';
+import contentScalingTest from './interaction/ContentScaling.test';
+import dataBindingTest from './interaction/DataBinding.test';
+import dialogPositioningTest from './interaction/DialogPositioning.test';
+import eventHandlingTest from './interaction/EventHandling.test';
+import eventPropagationTest from './interaction/EventPropagation.test';
+import focusNavigationTest from './interaction/FocusNavigation.test';
+import focusRingBehaviorTest from './interaction/FocusRingBehavior.test';
+import gestureRecognitionTest from './interaction/GestureRecognition.test';
+import themeVariationTest from './interaction/ThemeVariation.test';
+import touchInteractionTest from './interaction/TouchInteraction.test';
+import uiComponentRenderingTest from './interaction/UIComponentRendering.test';
+import visualEffectsTest from './interaction/VisualEffects.test';
+import configurationChangesTest from './lifecyclestate/ConfigurationChanges.test';
+import dialogLifecycleTest from './lifecyclestate/DialogLifecycle.test';
+import dialogStateManagementTest from './lifecyclestate/DialogStateManagement.test';
+import errorRecoveryTest from './lifecyclestate/ErrorRecovery.test';
+import exceptionHandlingTest from './lifecyclestate/ExceptionHandling.test';
+import extensionLifecycleTest from './lifecyclestate/ExtensionLifecycle.test';
+import resourceManagementTest from './lifecyclestate/ResourceManagement.test';
+import sessionManagementTest from './lifecyclestate/SessionManagement.test';
+import statePersistenceTest from './lifecyclestate/StatePersistence.test';
+import stateRecoveryTest from './lifecyclestate/StateRecovery.test';
+import exceptionRecoveryJointRegressionTest from './performance/ExceptionRecoveryJointRegression.test';
+import longRunMixedStressTest from './performance/LongRunMixedStress.test';
+import performanceCanaryAndExtremeSweepTest from './performance/PerformanceCanaryAndExtremeSweep.test';
+import resolutionRotationExtremeTest from './performance/ResolutionRotationExtreme.test';
+import startupLatencyMatrixTest from './performance/StartupLatencyMatrix.test';
+import concurrencyControlTest from './performancestability/ConcurrencyControl.test';
+import longTermStabilityTest from './performancestability/LongTermStability.test';
+import memoryLeakDetectionTest from './performancestability/MemoryLeakDetection.test';
+import recorderPerformanceTest from './performancestability/RecorderPerformance.test';
+import recorderPerformanceStressTest from './performancestability/RecorderPerformanceStress.test';
+import recorderPowerConsumptionTest from './performancestability/RecorderPowerConsumption.test';
+import timerAnimationPerformanceTest from './performancestability/TimerAnimationPerformance.test';
+import recorderInputInteractionTest from './recorderdialog/RecorderInputInteraction.test';
+import recorderItemInfoModelTest from './recorderdialog/RecorderItemInfoModel.test';
+import recorderMenuConfigurationTest from './recorderdialog/RecorderMenuConfiguration.test';
+import recordingModelDeepTest from './recorderdialog/RecordingModelDeep.test';
+import recordingOperationCatalogTest from './recorderdialog/RecordingOperationCatalog.test';
+import recordingOperationFlowTest from './recorderdialog/RecordingOperationFlow.test';
+import recordingOperationsTest from './recorderdialog/RecordingOperations.test';
+import recordingOperationWorkflowTest from './recorderdialog/RecordingOperationWorkflow.test';
+import screenRecorderDialogConcurrencyTest from './recorderdialog/ScreenRecorderDialogConcurrency.test';
+import screenRecorderDialogConsistencyTest from './recorderdialog/ScreenRecorderDialogConsistency.test';
+import screenRecorderDialogErrorRecoveryTest from './recorderdialog/ScreenRecorderDialogErrorRecovery.test';
+import screenRecorderDialogLifecycleTest from './recorderdialog/ScreenRecorderDialogLifecycle.test';
+import screenRecorderDialogStateManagementTest from './recorderdialog/ScreenRecorderDialogStateManagement.test';
+import screenRecorderDialogStressTest from './recorderdialog/ScreenRecorderDialogStress.test';
+import screenRecorderDialogUITest from './recorderdialog/ScreenRecorderDialogUI.test';
+import screenRecorderEndToEndTest from './recorderdialog/ScreenRecorderEndToEnd.test';
+import recorderAppVersionTest from './recordervalidation/RecorderAppVersion.test';
+import recorderAuthSessionTest from './recordervalidation/RecorderAuthSession.test';
+import recorderInterruptionRecoveryTest from './recordervalidation/RecorderInterruptionRecovery.test';
+import recorderNotificationTest from './recordervalidation/RecorderNotification.test';
+import recorderOfflineNetworkTest from './recordervalidation/RecorderOfflineNetwork.test';
+import recordingDataSourceValidationTest from './recordervalidation/RecordingDataSourceValidation.test';
+import recordingSessionValidationTest from './recordervalidation/RecordingSessionValidation.test';
+import srManagerEventToolValidationTest from './recordervalidation/SRManagerEventToolValidation.test';
+import recorderSecurityTest from './security/RecorderSecurity.test';
+import securityAccessibilityTest from './security/SecurityAccessibility.test';
+import securityValidationTest from './security/SecurityValidation.test';
+import abilityCommandFlowTest from './service/AbilityCommandFlow.test';
+import inputShortcutDeepTest from './service/InputShortcutDeep.test';
+import srManagerChaosTest from './srmanager/SRManagerChaos.test';
+import srManagerCompatibilityStressTest from './srmanager/SRManagerCompatibilityStress.test';
+import srManagerConcurrencyTest from './srmanager/SRManagerConcurrency.test';
+import srManagerDataConsistencyTest from './srmanager/SRManagerDataConsistency.test';
+import srManagerDomainTest from './srmanager/SRManagerDomain.test';
+import srManagerFaultAndRecoveryTest from './srmanager/SRManagerFaultAndRecovery.test';
+import srManagerPersistenceLifecycleTest from './srmanager/SRManagerPersistenceLifecycle.test';
+import srManagerStateMatrixDeepTest from './srmanager/SRManagerStateMatrixDeep.test';
+import accessibilityTextReadabilityTest from './ui/AccessibilityTextReadability.test';
+import accessibilityTreeIntegrityTest from './ui/AccessibilityTreeIntegrity.test';
+import desktopLayoutBoundaryRegressionTest from './ui/DesktopLayoutBoundaryRegression.test';
+import focusNavigationAndRenderMatrixTest from './ui/FocusNavigationAndRenderMatrix.test';
+import recentStatusBarJointRegressionTest from './ui/RecentStatusBarJointRegression.test';
+import uiDialogPresentationMatrixTest from './ui/UIDialogPresentationMatrix.test';
+import uiEditShortcutRegressionTest from './ui/UIEditShortcutRegression.test';
+import uiHomeInteractionMatrixTest from './ui/UIHomeInteractionMatrix.test';
+import uiPermissionAndLaunchFlowTest from './ui/UIPermissionAndLaunchFlow.test';
+import uiRecentTaskCompositeTest from './ui/UIRecentTaskComposite.test';
+import uiTimerProjectionDeepTest from './ui/UITimerProjectionDeep.test';
+import animationControllerValidationTest from './validation/AnimationControllerValidation.test';
+import boundaryErrorTestingTest from './validation/BoundaryErrorTesting.test';
+import commonEventUtilValidationTest from './validation/CommonEventUtilValidation.test';
+import configurationManagerValidationTest from './validation/ConfigurationManagerValidation.test';
+import dialogStateManagerValidationTest from './validation/DialogStateManagerValidation.test';
+import focusManagerValidationTest from './validation/FocusManagerValidation.test';
+import inputValidationTest from './validation/InputValidation.test';
+import keyCodeValidationTest from './validation/KeyCodeValidation.test';
+import loggerValidationTest from './validation/LoggerValidation.test';
+import pointerUtilValidationTest from './validation/PointerUtilValidation.test';
+import resourceLoaderValidationTest from './validation/ResourceLoaderValidation.test';
+import floatWindowSceneTest from './window/FloatWindowScene.test';
+import windowCompatibilityMatrixDeepTest from './window/WindowCompatibilityMatrixDeep.test';
+import windowManagerDomainTest from './window/WindowManagerDomain.test';
+import windowPopupConcurrencyStressTest from './window/WindowPopupConcurrencyStress.test';
+import windowStatusBarLinkageTest from './window/WindowStatusBarLinkage.test';
+
+export default function testsuite(): void {
+  abilityTest();
+  abilityLifecycleTest();
+  abilityLifecycleConcurrencyDeepTest();
+  abilityRecentStatusProjectionTest();
+  abilityRecoveryRecentStressTest();
+  recordingOrchestrationTest();
+  recordingOrchestrationDeepFlowTest();
+  coldStartPollutionIsolationTest();
+  contractStateConsistencyTest();
+  dataContractDriftMatrixTest();
+  grayReleaseContractCanaryTest();
+  persistenceIsolationRegressionTest();
+  securityBoundaryDefenseTest();
+  foundationAdvancedFixturesTest();
+  foundationRegressionMatrixTest();
+  foundationStressCanaryTest();
+  mockFactoriesTest();
+  mockFactoriesInputWindowDeepTest();
+  mockFactoriesPhotoAndSRApiDeepTest();
+  testAssertsTest();
+  testDataBuilderTest();
+  advancedScenariosTest();
+  comprehensiveRegressionTest();
+  deviceCompatibilityTest();
+  integrationTestingTest();
+  localizationTestingTest();
+  networkConnectivityTest();
+  recorderCompatibilityTest();
+  systemIntegrationTest();
+  userScenariosTest();
+  accessibilityNavigationTest();
+  buttonInteractionTest();
+  contentScalingTest();
+  dataBindingTest();
+  dialogPositioningTest();
+  eventHandlingTest();
+  eventPropagationTest();
+  focusNavigationTest();
+  focusRingBehaviorTest();
+  gestureRecognitionTest();
+  themeVariationTest();
+  touchInteractionTest();
+  uiComponentRenderingTest();
+  visualEffectsTest();
+  configurationChangesTest();
+  dialogLifecycleTest();
+  dialogStateManagementTest();
+  errorRecoveryTest();
+  exceptionHandlingTest();
+  extensionLifecycleTest();
+  resourceManagementTest();
+  sessionManagementTest();
+  statePersistenceTest();
+  stateRecoveryTest();
+  exceptionRecoveryJointRegressionTest();
+  longRunMixedStressTest();
+  performanceCanaryAndExtremeSweepTest();
+  resolutionRotationExtremeTest();
+  startupLatencyMatrixTest();
+  concurrencyControlTest();
+  longTermStabilityTest();
+  memoryLeakDetectionTest();
+  recorderPerformanceTest();
+  recorderPerformanceStressTest();
+  recorderPowerConsumptionTest();
+  timerAnimationPerformanceTest();
+  recorderInputInteractionTest();
+  recorderItemInfoModelTest();
+  recorderMenuConfigurationTest();
+  recordingModelDeepTest();
+  recordingOperationCatalogTest();
+  recordingOperationFlowTest();
+  recordingOperationsTest();
+  recordingOperationWorkflowTest();
+  screenRecorderDialogConcurrencyTest();
+  screenRecorderDialogConsistencyTest();
+  screenRecorderDialogErrorRecoveryTest();
+  screenRecorderDialogLifecycleTest();
+  screenRecorderDialogStateManagementTest();
+  screenRecorderDialogStressTest();
+  screenRecorderDialogUITest();
+  screenRecorderEndToEndTest();
+  recorderAppVersionTest();
+  recorderAuthSessionTest();
+  recorderInterruptionRecoveryTest();
+  recorderNotificationTest();
+  recorderOfflineNetworkTest();
+  recordingDataSourceValidationTest();
+  recordingSessionValidationTest();
+  srManagerEventToolValidationTest();
+  recorderSecurityTest();
+  securityAccessibilityTest();
+  securityValidationTest();
+  abilityCommandFlowTest();
+  inputShortcutDeepTest();
+  srManagerChaosTest();
+  srManagerCompatibilityStressTest();
+  srManagerConcurrencyTest();
+  srManagerDataConsistencyTest();
+  srManagerDomainTest();
+  srManagerFaultAndRecoveryTest();
+  srManagerPersistenceLifecycleTest();
+  srManagerStateMatrixDeepTest();
+  accessibilityTextReadabilityTest();
+  accessibilityTreeIntegrityTest();
+  desktopLayoutBoundaryRegressionTest();
+  focusNavigationAndRenderMatrixTest();
+  recentStatusBarJointRegressionTest();
+  uiDialogPresentationMatrixTest();
+  uiEditShortcutRegressionTest();
+  uiHomeInteractionMatrixTest();
+  uiPermissionAndLaunchFlowTest();
+  uiRecentTaskCompositeTest();
+  uiTimerProjectionDeepTest();
+  animationControllerValidationTest();
+  boundaryErrorTestingTest();
+  commonEventUtilValidationTest();
+  configurationManagerValidationTest();
+  dialogStateManagerValidationTest();
+  focusManagerValidationTest();
+  inputValidationTest();
+  keyCodeValidationTest();
+  loggerValidationTest();
+  pointerUtilValidationTest();
+  resourceLoaderValidationTest();
+  floatWindowSceneTest();
+  windowCompatibilityMatrixDeepTest();
+  windowManagerDomainTest();
+  windowPopupConcurrencyStressTest();
+  windowStatusBarLinkageTest();
 }
