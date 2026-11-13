@@ -2,1790 +2,2237 @@
   "string": [
     {
       "name": "shortcut_text_0263",
+      "description": "含标签运算符名称",
       "value": "含标签"
     },
     {
       "name": "shortcut_text_0264",
+      "description": "合并操作名称",
       "value": "合并"
     },
     {
       "name": "shortcut_text_0265",
+      "description": "治理合并与清理数量摘要片段",
       "value": "合并 %1$s、清理 %2$s、"
     },
     {
       "name": "shortcut_text_0266",
+      "description": "合并后的筛选链摘要",
       "value": "合并链：%1$s｜%2$s 个节点"
     },
     {
       "name": "shortcut_text_0267",
+      "description": "核对完成后的重试资格说明",
       "value": "核对完成；仅已确认失败项可重试，未知项仍不重放"
     },
     {
       "name": "shortcut_text_0268",
+      "description": "核对状态操作名称",
       "value": "核对状态"
     },
     {
       "name": "shortcut_text_0269",
+      "description": "候选存档不一致的诊断提示",
       "value": "候选存档不一致"
     },
     {
       "name": "shortcut_text_0270",
+      "description": "候选存档不一致而未写入的提示",
       "value": "候选存档不一致，未写入"
     },
     {
       "name": "shortcut_text_0271",
+      "description": "候选存档超过空间预算的诊断提示",
       "value": "候选存档超过8MiB空间预算"
     },
     {
       "name": "shortcut_text_0272",
+      "description": "忽略多余参数的诊断提示",
       "value": "忽略多余参数：%1$s"
     },
     {
       "name": "shortcut_text_0273",
+      "description": "未知参数忽略规则说明",
       "value": "忽略未知参数"
     },
     {
       "name": "shortcut_text_0274",
+      "description": "忽略未知参数的诊断提示",
       "value": "忽略未知参数：%1$s"
     },
     {
       "name": "shortcut_text_0276",
+      "description": "恢复指定日期示例待办的确认提问",
       "value": "恢复 %1$s 的3条待办？"
     },
     {
       "name": "shortcut_text_0277",
+      "description": "恢复结果与尝试次数摘要",
       "value": "恢复：%1$s · %2$s次"
     },
     {
       "name": "shortcut_text_0279",
+      "description": "恢复当日样例操作名称",
       "value": "恢复当日样例"
     },
     {
       "name": "shortcut_text_0281",
+      "description": "恢复全部操作名称",
       "value": "恢复全部"
     },
     {
       "name": "shortcut_text_0282",
+      "description": "恢复快捷入口设置操作名称",
       "value": "恢复入口设置"
     },
     {
       "name": "shortcut_text_0283",
+      "description": "恢复上次草稿的过期规则说明",
       "value": "恢复上次草稿，超过 10 分钟按过期处理"
     },
     {
       "name": "shortcut_text_0284",
+      "description": "恢复上次草稿的标识要求说明",
       "value": "恢复上次草稿需带草稿标识"
     },
     {
       "name": "shortcut_text_0285",
+      "description": "恢复设置操作名称",
       "value": "恢复设置"
     },
     {
       "name": "shortcut_text_0286",
+      "description": "恢复设置预览标题",
       "value": "恢复设置预览"
     },
     {
       "name": "shortcut_text_0287",
+      "description": "恢复为待处理操作名称",
       "value": "恢复为待处理"
     },
     {
       "name": "shortcut_text_0288",
+      "description": "恢复详情页路由名称",
       "value": "恢复详情页"
     },
     {
       "name": "shortcut_text_0290",
+      "description": "回读不一致的诊断提示",
       "value": "回读不一致"
     },
     {
       "name": "shortcut_text_0291",
+      "description": "回读失败原因摘要",
       "value": "回读失败：%1$s"
     },
     {
       "name": "shortcut_text_0292",
+      "description": "回读缺少可见性字段的诊断提示",
       "value": "回读未返回 visible"
     },
     {
       "name": "shortcut_text_0293",
+      "description": "回读缺少目标快捷方式的诊断提示",
       "value": "回读未返回该快捷方式"
     },
     {
       "name": "shortcut_text_0294",
+      "description": "回读一致的结果提示",
       "value": "回读一致"
     },
     {
       "name": "shortcut_text_0295",
+      "description": "回顾今日进度的示例待办",
       "value": "回顾今日进度"
     },
     {
       "name": "shortcut_text_0297",
+      "description": "回收项变化后重新查看的提示",
       "value": "回收项已变化，请重新查看"
     },
     {
       "name": "shortcut_text_0302",
+      "description": "回收站编号上限诊断提示",
       "value": "回收站编号已达上限"
     },
     {
       "name": "shortcut_text_0305",
+      "description": "回收站已满时先清理的提示",
       "value": "回收站已满，请先清理"
     },
     {
       "name": "shortcut_text_0306",
+      "description": "会话变化后阻止旧操作更新页面的提示",
       "value": "会话已变化，旧操作不更新当前页面"
     },
     {
       "name": "shortcut_text_0307",
+      "description": "会议记录模板标题",
       "value": "会议记录模板"
     },
     {
       "name": "shortcut_text_0308",
+      "description": "会议记录模板正文",
       "value": "会议主题：\n会议时间：\n参会人员：\n\n讨论事项：\n\n已定结论：\n\n后续行动：负责人 / 截止日期"
     },
     {
       "name": "shortcut_text_0309",
+      "description": "活动便签名额不足的数量摘要",
       "value": "活动便签名额不足：需要%1$s，可用%2$s"
     },
     {
       "name": "shortcut_text_0311",
+      "description": "基本信息标题",
       "value": "基本信息"
     },
     {
       "name": "shortcut_text_0312",
+      "description": "即将到期状态名称",
       "value": "即将到期"
     },
     {
       "name": "shortcut_text_0313",
+      "description": "记录完整接续过程的示例待办",
       "value": "记录一次完整的接续过程"
     },
     {
       "name": "shortcut_text_0314",
+      "description": "继续编辑操作名称",
       "value": "继续编辑"
     },
     {
       "name": "shortcut_text_0315",
+      "description": "检测快捷方式支持情况的操作名称",
       "value": "检测快捷方式支持情况"
     },
     {
       "name": "shortcut_text_0316",
+      "description": "能力检测失败状态名称",
       "value": "检测失败"
     },
     {
       "name": "shortcut_text_0317",
+      "description": "能力检测进度文字",
       "value": "检测中"
     },
     {
       "name": "shortcut_text_0318",
+      "description": "工作词语检索的命中数量摘要",
       "value": "检索“工作”命中 %1$s 条"
     },
     {
       "name": "shortcut_text_0319",
+      "description": "检索小写比对规则说明",
       "value": "检索时同样按小写比对"
     },
     {
       "name": "shortcut_text_0320",
+      "description": "检索数据自洽结果提示",
       "value": "检索数据自洽"
     },
     {
       "name": "shortcut_text_0322",
+      "description": "建议取消置顶的数量摘要",
       "value": "建议取消置顶：%1$s 条"
     },
     {
       "name": "shortcut_text_0324",
+      "description": "接口完成后的可见性结果摘要",
       "value": "接口完成，visible=%1$s"
     },
     {
       "name": "shortcut_text_0325",
+      "description": "接续学习示例便签标题",
       "value": "接续学习记录"
     },
     {
       "name": "shortcut_text_0326",
+      "description": "节点编号重复的诊断提示",
       "value": "节点编号重复：%1$s.%2$s"
     },
     {
       "name": "shortcut_text_0327",
+      "description": "操作结果摘要",
       "value": "结果：%1$s"
     },
     {
       "name": "shortcut_text_0328",
+      "description": "标签截断至二十四字符的处理说明",
       "value": "截断到 24"
     },
     {
       "name": "shortcut_text_0329",
+      "description": "截止时间超过一天的原因说明",
       "value": "截止时间晚于 24 小时"
     },
     {
       "name": "shortcut_text_0330",
+      "description": "截止时间在一天内的原因说明",
       "value": "截止时间在 24 小时内"
     },
     {
       "name": "shortcut_text_0331",
+      "description": "截止时间已过的原因说明",
       "value": "截止时间早于当前时间"
     },
     {
       "name": "shortcut_text_0332",
+      "description": "路由解析结果摘要",
       "value": "解析结果：%1$s"
     },
     {
       "name": "shortcut_text_0333",
+      "description": "解析示例摘要",
       "value": "解析示例：%1$s"
     },
     {
       "name": "shortcut_text_0334",
+      "description": "今日待办功能名称",
       "value": "今日待办"
     },
     {
       "name": "shortcut_text_0335",
+      "description": "今日待办示例内容简介",
       "value": "今日待办包含三条任务，其中一条已逾期。"
     },
     {
       "name": "shortcut_text_0336",
+      "description": "今日待办快捷方式说明",
       "value": "今日待办快捷方式"
     },
     {
       "name": "shortcut_text_0337",
+      "description": "今天日期筛选名称",
       "value": "今天"
     },
     {
       "name": "shortcut_text_0338",
+      "description": "仅提醒治理操作名称",
       "value": "仅提醒"
     },
     {
       "name": "shortcut_text_0339",
+      "description": "单个标签保持原样的规则说明",
       "value": "仅有一个标签时不改动"
     },
     {
       "name": "shortcut_text_0340",
+      "description": "仅重试已核对失败项的规则说明",
       "value": "仅重试已核对失败项；已确认、未知及未执行项均不会重写"
     },
     {
       "name": "shortcut_text_0341",
+      "description": "近期便签标题",
       "value": "近期笔记"
     },
     {
       "name": "shortcut_text_0342",
+      "description": "进程恢复标题",
       "value": "进程恢复"
     },
     {
       "name": "shortcut_text_0343",
+      "description": "进入指定功能的操作名称",
       "value": "进入%1$s"
     },
     {
       "name": "shortcut_text_0344",
+      "description": "进入即将到期分组的操作名称",
       "value": "进入即将到期分组"
     },
     {
       "name": "shortcut_text_0345",
+      "description": "进行中待办状态名称",
       "value": "进行中"
     },
     {
       "name": "shortcut_text_0346",
+      "description": "精确匹配名称",
       "value": "精确"
     },
     {
       "name": "shortcut_text_0347",
+      "description": "静态快捷方式类型名称",
       "value": "静态"
     },
     {
       "name": "shortcut_text_0348",
+      "description": "旧草稿名称",
       "value": "旧草稿"
     },
     {
       "name": "shortcut_text_0349",
+      "description": "旧设置请求在途时禁止重复写入的提示",
       "value": "旧设置请求仍在途，不重复写入；稍后核对"
     },
     {
       "name": "shortcut_text_0350",
+      "description": "旧设置请求在途时先核对的提示",
       "value": "旧设置请求仍在途，先核对，不重复写入"
     },
     {
       "name": "shortcut_text_0351",
+      "description": "旧文本行数摘要",
       "value": "旧文本 %1$s 行"
     },
     {
       "name": "shortcut_text_0352",
+      "description": "开始操作名称",
       "value": "开始"
     },
     {
       "name": "shortcut_text_0353",
+      "description": "开始处理操作名称",
       "value": "开始处理"
     },
     {
       "name": "shortcut_text_0355",
+      "description": "可恢复条目摘要",
       "value": "可恢复：%1$s"
     },
     {
       "name": "shortcut_text_0358",
+      "description": "可见性核对标题",
       "value": "可见性核对"
     },
     {
       "name": "shortcut_text_0359",
+      "description": "允许进入状态名称",
       "value": "可进入"
     },
     {
       "name": "shortcut_text_0361",
+      "description": "可执行状态名称",
       "value": "可执行"
     },
     {
       "name": "shortcut_text_0363",
+      "description": "空标签不建索引的规则说明",
       "value": "空标签不进入索引"
     },
     {
       "name": "shortcut_text_0364",
+      "description": "空查询命中数量摘要",
       "value": "空查询命中：%1$s 条"
     },
     {
       "name": "shortcut_text_0365",
+      "description": "快捷方式功能名称",
       "value": "快捷方式"
     },
     {
       "name": "shortcut_text_0366",
+      "description": "快捷方式参数版本无效的诊断提示",
       "value": "快捷方式参数版本无效"
     },
     {
       "name": "shortcut_text_0367",
+      "description": "快捷方式操作或筛选无效的诊断提示",
       "value": "快捷方式操作或筛选值无效"
     },
     {
       "name": "shortcut_text_0368",
+      "description": "快捷方式详情标题",
       "value": "快捷方式详情"
     },
     {
       "name": "shortcut_text_0369",
+      "description": "快捷入口管理标题",
       "value": "快捷入口管理"
     },
     {
       "name": "shortcut_text_0370",
+      "description": "快捷入口路由标题",
       "value": "快捷入口路由"
     },
     {
       "name": "shortcut_text_0371",
+      "description": "来源字段名称",
       "value": "来源"
     },
     {
       "name": "shortcut_text_0373",
+      "description": "来源没有匹配规则的诊断提示",
       "value": "来源 %1$s 没有匹配规则"
     },
     {
       "name": "shortcut_text_0374",
+      "description": "空来源按未知来源处理的规则说明",
       "value": "来源为空，按未知来源重新打标签"
     },
     {
       "name": "shortcut_text_0375",
+      "description": "来源缺少规则的诊断提示",
       "value": "来源无规则：%1$s"
     },
     {
       "name": "shortcut_text_0376",
+      "description": "类别缺少用例的诊断提示",
       "value": "类别无用例：%1$s"
     },
     {
       "name": "shortcut_text_0377",
+      "description": "冷启动来源名称",
       "value": "冷启动"
     },
     {
       "name": "shortcut_text_0379",
+      "description": "历史版本不存在的诊断提示",
       "value": "历史版本不存在"
     },
     {
       "name": "shortcut_text_0380",
+      "description": "重复任务跳过例外日的规则说明",
       "value": "例外日跳过，顺延到下一个有效日"
     },
     {
       "name": "shortcut_text_0381",
+      "description": "链编号不连续的诊断提示",
       "value": "链编号不连续：期望 %1$s，实际 %2$s"
     },
     {
       "name": "shortcut_text_0382",
+      "description": "链编号重复的诊断提示",
       "value": "链编号重复：%1$s"
     },
     {
       "name": "shortcut_text_0383",
+      "description": "链缺少名称的诊断提示",
       "value": "链缺少名称：%1$s"
     },
     {
       "name": "shortcut_text_0386",
+      "description": "路由表自洽结果提示",
       "value": "路由表自洽"
     },
     {
       "name": "shortcut_text_0387",
+      "description": "路由重复的诊断提示",
       "value": "路由重复：%1$s"
     },
     {
       "name": "shortcut_text_0388",
+      "description": "没有截止时间的提示",
       "value": "没有截止时间"
     },
     {
       "name": "shortcut_text_0389",
+      "description": "没有可比较内容的提示",
       "value": "没有可比较的内容"
     },
     {
       "name": "shortcut_text_0390",
+      "description": "没有可检索词语的提示",
       "value": "没有可检索的词"
     },
     {
       "name": "shortcut_text_0392",
+      "description": "没有匹配待办的提示",
       "value": "没有匹配的待办"
     },
     {
       "name": "shortcut_text_0393",
+      "description": "没有匹配资料的提示",
       "value": "没有匹配的资料"
     },
     {
       "name": "shortcut_text_0395",
+      "description": "没有需要保留修改的提示",
       "value": "没有需要保留的修改"
     },
     {
       "name": "shortcut_text_0396",
+      "description": "没有过期回收项的提示",
       "value": "没有已过期回收项"
     },
     {
       "name": "shortcut_text_0397",
+      "description": "每日计划模板标题",
       "value": "每日计划清单"
     },
     {
       "name": "shortcut_text_0398",
+      "description": "每天重复选项名称",
       "value": "每天"
     },
     {
       "name": "shortcut_text_0399",
+      "description": "每月重复选项名称",
       "value": "每月"
     },
     {
       "name": "shortcut_text_0400",
+      "description": "每周重复选项名称",
       "value": "每周"
     },
     {
       "name": "shortcut_text_0401",
+      "description": "无需登录要求名称",
       "value": "免登录"
     },
     {
       "name": "shortcut_text_0402",
+      "description": "明天日期筛选名称",
       "value": "明天"
     },
     {
       "name": "shortcut_text_0403",
+      "description": "命中条目数量摘要",
       "value": "命中 %1$s 条"
     },
     {
       "name": "shortcut_text_0404",
+      "description": "模块字段名称",
       "value": "模块"
     },
     {
       "name": "shortcut_text_0405",
+      "description": "默认显示状态说明",
       "value": "默认显示"
     },
     {
       "name": "shortcut_text_0406",
+      "description": "目标值摘要",
       "value": "目标 %1$s"
     },
     {
       "name": "shortcut_text_0407",
+      "description": "目标能力字段名称",
       "value": "目标 Ability"
     },
     {
       "name": "shortcut_text_0408",
+      "description": "目标为显示的状态文字",
       "value": "目标：显示"
     },
     {
       "name": "shortcut_text_0409",
+      "description": "目标为隐藏的状态文字",
       "value": "目标：隐藏"
     },
     {
       "name": "shortcut_text_0410",
+      "description": "目标应用包字段名称",
       "value": "目标包"
     },
     {
       "name": "shortcut_text_0411",
+      "description": "目标模块字段名称",
       "value": "目标模块"
     },
     {
       "name": "shortcut_text_0412",
+      "description": "目标页面未知的诊断提示",
       "value": "目标页面未知：%1$s"
     },
     {
       "name": "shortcut_text_0413",
+      "description": "内容字段名称",
       "value": "内容"
     },
     {
       "name": "shortcut_text_0414",
+      "description": "内容完全相同的比较结果",
       "value": "内容完全相同"
     },
     {
       "name": "shortcut_text_0415",
+      "description": "内容未变化的结果提示",
       "value": "内容未变化"
     },
     {
       "name": "shortcut_text_0416",
+      "description": "批次编号达上限而未执行的提示",
       "value": "批次编号已达上限，未执行"
     },
     {
       "name": "shortcut_text_0417",
+      "description": "批次存档读取失败的防覆盖重放说明",
       "value": "批次存档读取失败；不会覆盖或重放，请重试读取"
     },
     {
       "name": "shortcut_text_0418",
+      "description": "批次存档写入失败后的停止与核对说明",
       "value": "批次存档写入失败，已停止；先重新读取/核对，禁止盲目重试"
     },
     {
       "name": "shortcut_text_0419",
+      "description": "批次结束后的逐项结果与不确定性说明",
       "value": "批次结束；逐项结果见下方，未知不代表失败，补偿不保证原子性"
     },
     {
       "name": "shortcut_text_0420",
+      "description": "带数量的批次历史标题",
       "value": "批次历史（%1$s）"
     },
     {
       "name": "shortcut_text_0421",
+      "description": "核对批次未知结果的操作名称",
       "value": "批次未知结果核对"
     },
     {
       "name": "shortcut_text_0422",
+      "description": "批次预览前核对的操作名称",
       "value": "批次预览前核对"
     },
     {
       "name": "shortcut_text_0423",
+      "description": "批量操作无效的诊断提示",
       "value": "批量操作无效"
     },
     {
       "name": "shortcut_text_0424",
+      "description": "批量管理标题",
       "value": "批量管理"
     },
     {
       "name": "shortcut_text_0427",
+      "description": "批量设置预览标题",
       "value": "批量设置预览"
     },
     {
       "name": "shortcut_text_0429",
+      "description": "普通优先级名称",
       "value": "普通"
     },
     {
       "name": "shortcut_text_0430",
+      "description": "预期与回读可见性对比摘要",
       "value": "期望 visible=%1$s，回读 visible=%2$s"
     },
     {
       "name": "shortcut_text_0431",
+      "description": "其余条目保持原样的规则说明",
       "value": "其余情况一律保留，不做隐式变更"
     },
     {
       "name": "shortcut_text_0432",
+      "description": "启动参数标题",
       "value": "启动参数"
     },
     {
       "name": "shortcut_text_0433",
+      "description": "状态迁移编号重复的诊断提示",
       "value": "迁移编号重复：%1$s"
     },
     {
       "name": "shortcut_text_0434",
+      "description": "迁移前后状态相同的诊断提示",
       "value": "迁移前后状态相同：%1$s"
     },
     {
       "name": "shortcut_text_0438",
+      "description": "清空记录操作名称",
       "value": "清空记录"
     },
     {
       "name": "shortcut_text_0439",
+      "description": "清理操作名称",
       "value": "清理"
     },
     {
       "name": "shortcut_text_0443",
+      "description": "确认前核对预览及补偿限制说明",
       "value": "请核对预览后确认；原值未知的项不能精确补偿"
     },
     {
       "name": "shortcut_text_0444",
+      "description": "便签标题和内容为空时的输入提示",
       "value": "请输入标题或内容"
     },
     {
       "name": "shortcut_text_0445",
+      "description": "待办内容为空时的输入提示",
       "value": "请输入待办内容"
     },
     {
       "name": "shortcut_text_0446",
+      "description": "先保存或取消当前编辑的提示",
       "value": "请先保存或取消编辑"
     },
     {
       "name": "shortcut_text_0447",
+      "description": "先处理未保存内容的提示",
       "value": "请先处理当前未保存内容"
     },
     {
       "name": "shortcut_text_0448",
+      "description": "先核对存储结果的提示",
       "value": "请先核对存储结果"
     },
     {
       "name": "shortcut_text_0449",
+      "description": "先检测支持情况的提示",
       "value": "请先检测支持情况"
     },
     {
       "name": "shortcut_text_0450",
+      "description": "先处理目标便签编辑的提示",
       "value": "请先选择保留或放弃目标便签的编辑"
     },
     {
       "name": "shortcut_text_0451",
+      "description": "回收项选择数量限制提示",
       "value": "请选择1至50个回收项"
     },
     {
       "name": "shortcut_text_0454",
+      "description": "取消收藏操作名称",
       "value": "取消收藏"
     },
     {
       "name": "shortcut_text_0456",
+      "description": "取消置顶操作名称",
       "value": "取消置顶"
     },
     {
       "name": "shortcut_text_0457",
+      "description": "去除标签井号前缀的规则说明",
       "value": "去掉 # 前缀"
     },
     {
       "name": "shortcut_text_0458",
+      "description": "去除标签首尾空白的规则说明",
       "value": "去掉首尾空白"
     },
     {
       "name": "shortcut_text_0459",
+      "description": "去年资料示例标题",
       "value": "去年的资料"
     },
     {
       "name": "shortcut_text_0460",
+      "description": "按规范化值去重的规则说明",
       "value": "去重按规范化后的值"
     },
     {
       "name": "shortcut_text_0461",
+      "description": "全部条目筛选名称",
       "value": "全部"
     },
     {
       "name": "shortcut_text_0463",
+      "description": "全部快捷方式筛选名称",
       "value": "全部快捷方式"
     },
     {
       "name": "shortcut_text_0464",
+      "description": "所有快捷入口已显示的状态提示",
       "value": "全部入口已显示"
     },
     {
       "name": "shortcut_text_0465",
+      "description": "全部显示操作名称",
       "value": "全部显示"
     },
     {
       "name": "shortcut_text_0466",
+      "description": "权限或能力错误封闭重试的说明",
       "value": "权限/能力/无效ID错误已封闭重试，请修正条件后创建新预览"
     },
     {
       "name": "shortcut_text_0467",
+      "description": "缺少参数集合的诊断提示",
       "value": "缺参数：%1$s"
     },
     {
       "name": "shortcut_text_0469",
+      "description": "缺少必填参数的诊断提示",
       "value": "缺少必填参数：%1$s"
     },
     {
       "name": "shortcut_text_0470",
+      "description": "缺少标题的诊断提示",
       "value": "缺少标题：%1$s"
     },
     {
       "name": "shortcut_text_0471",
+      "description": "缺少参数的诊断提示",
       "value": "缺少参数：%1$s"
     },
     {
       "name": "shortcut_text_0472",
+      "description": "缺少目标路由的诊断提示",
       "value": "缺少目标路由：%1$s"
     },
     {
       "name": "shortcut_text_0473",
+      "description": "缺少说明的诊断提示",
       "value": "缺少说明：%1$s"
     },
     {
       "name": "shortcut_text_0474",
+      "description": "缺省显示状态名称",
       "value": "缺省 · 显示"
     },
     {
       "name": "shortcut_text_0475",
+      "description": "确认后重新核对的操作名称",
       "value": "确认后重新核对"
     },
     {
       "name": "shortcut_text_0476",
+      "description": "确认后状态变化而未执行的提示",
       "value": "确认后状态变化，未执行；请重新预览"
     },
     {
       "name": "shortcut_text_0479",
+      "description": "批量设置确认标题",
       "value": "确认批量设置"
     },
     {
       "name": "shortcut_text_0480",
+      "description": "确认设置操作名称",
       "value": "确认设置"
     },
     {
       "name": "shortcut_text_0482",
+      "description": "确认执行操作名称",
       "value": "确认执行"
     },
     {
       "name": "shortcut_text_0483",
+      "description": "热启动来源名称",
       "value": "热启动"
     },
     {
       "name": "shortcut_text_0484",
+      "description": "任务条目名称",
       "value": "任务"
     },
     {
       "name": "shortcut_text_0485",
+      "description": "日期无效的诊断提示",
       "value": "日期无效"
     },
     {
       "name": "shortcut_text_0486",
+      "description": "日期变化后重新选择的提示",
       "value": "日期已更新，请重新选择"
     },
     {
       "name": "shortcut_text_0487",
+      "description": "快捷入口不存在的诊断提示",
       "value": "入口不存在"
     },
     {
       "name": "shortcut_text_0488",
+      "description": "入口规则表自洽结果提示",
       "value": "入口规则表自洽"
     },
     {
       "name": "shortcut_text_0489",
+      "description": "快捷入口信息标题",
       "value": "入口信息"
     },
     {
       "name": "shortcut_text_0490",
+      "description": "入口意图章节标题",
       "value": "入口意图"
     },
     {
       "name": "shortcut_text_0492",
+      "description": "筛选链标题",
       "value": "筛选链"
     },
     {
       "name": "shortcut_text_0493",
+      "description": "筛选链自洽结果提示",
       "value": "筛选链自洽"
     },
     {
       "name": "shortcut_text_0494",
+      "description": "删除操作名称",
       "value": "删除"
     },
     {
       "name": "shortcut_text_0495",
+      "description": "删除条目摘要",
       "value": "删除：%1$s"
     },
     {
       "name": "shortcut_text_0497",
+      "description": "确认上次写入未生效后的操作提示",
       "value": "上次写入未生效，可重新操作"
     },
     {
       "name": "shortcut_text_0498",
+      "description": "尚未检测能力的状态名称",
       "value": "尚未检测"
     },
     {
       "name": "shortcut_text_0499",
+      "description": "设备不支持状态名称",
       "value": "设备不支持"
     },
     {
       "name": "shortcut_text_0500",
+      "description": "设备与更多信息标题",
       "value": "设备与更多"
     },
     {
       "name": "shortcut_text_0501",
+      "description": "设置结果与尝试次数摘要",
       "value": "设置：%1$s · %2$s次；"
     },
     {
       "name": "shortcut_text_0502",
+      "description": "设置后回读结果摘要",
       "value": "设置后回读：%1$s"
     },
     {
       "name": "shortcut_text_0503",
+      "description": "设置失败状态名称",
       "value": "设置失败"
     },
     {
       "name": "shortcut_text_0504",
+      "description": "设置进度文字",
       "value": "设置中"
     },
     {
       "name": "shortcut_text_0505",
+      "description": "深链来源名称",
       "value": "深链"
     },
     {
       "name": "shortcut_text_0506",
+      "description": "深链打开便签的路由名称",
       "value": "深链打开便签"
     },
     {
       "name": "shortcut_text_0507",
+      "description": "深链打开待办的路由名称",
       "value": "深链打开待办"
     },
     {
       "name": "shortcut_text_0508",
+      "description": "深链打开调用记录的路由名称",
       "value": "深链打开调用记录"
     },
     {
       "name": "shortcut_text_0509",
+      "description": "深链打开规则中心的路由名称",
       "value": "深链打开规则中心"
     },
     {
       "name": "shortcut_text_0510",
+      "description": "深链详情的登录及标识要求说明",
       "value": "深链详情需登录且带标识"
     },
     {
       "name": "shortcut_text_0511",
+      "description": "生成预览操作名称",
       "value": "生成预览"
     },
     {
       "name": "shortcut_text_0513",
+      "description": "失败状态名称",
       "value": "失败"
     },
     {
       "name": "shortcut_text_0514",
+      "description": "已核对未达目标的失败状态名称",
       "value": "失败（已核对未达目标）"
     },
     {
       "name": "shortcut_text_0515",
+      "description": "示例入口摘要",
       "value": "示例入口：%1$s"
     },
     {
       "name": "shortcut_text_0516",
+      "description": "收藏功能名称",
       "value": "收藏"
     },
     {
       "name": "shortcut_text_0517",
+      "description": "收藏资料功能简介",
       "value": "收藏的常用资料，支持按标签筛选。"
     },
     {
       "name": "shortcut_text_0518",
+      "description": "收藏规则表自洽结果提示",
       "value": "收藏规则表自洽"
     },
     {
       "name": "shortcut_text_0519",
+      "description": "收藏列表快捷方式说明",
       "value": "收藏列表快捷方式"
     },
     {
       "name": "shortcut_text_0520",
+      "description": "收藏内容不存在的诊断提示",
       "value": "收藏内容不存在"
     },
     {
       "name": "shortcut_text_0521",
+      "description": "收藏示例标题",
       "value": "收藏示例"
     },
     {
       "name": "shortcut_text_0522",
+      "description": "收藏治理标题",
       "value": "收藏治理"
     },
     {
       "name": "shortcut_text_0523",
+      "description": "收藏资料标题",
       "value": "收藏资料"
     },
     {
       "name": "shortcut_text_0525",
+      "description": "收起操作名称",
       "value": "收起"
     },
     {
       "name": "shortcut_text_0526",
+      "description": "手动删除原因名称",
       "value": "手动删除"
     },
     {
       "name": "shortcut_text_0527",
+      "description": "保留手工置顶状态的规则说明",
       "value": "手工标记为置顶的条目保持置顶"
     },
     {
       "name": "shortcut_text_0528",
+      "description": "手工置顶状态名称",
       "value": "手工置顶"
     },
     {
       "name": "shortcut_text_0529",
+      "description": "首页导航名称",
       "value": "首页"
     },
     {
       "name": "shortcut_text_0530",
+      "description": "阅读摘录模板正文",
       "value": "书名 / 文章：\n作者：\n阅读日期：\n\n重点摘录：\n\n我的想法：\n\n下一步行动："
     },
     {
       "name": "shortcut_text_0531",
+      "description": "数据变化后重新预览的提示",
       "value": "数据已变化，请重新预览"
     },
     {
       "name": "shortcut_text_0532",
+      "description": "数值运算符缺少阈值的诊断提示",
       "value": "数值运算符缺少阈值：%1$s.%2$s"
     },
     {
       "name": "shortcut_text_0533",
+      "description": "刷新操作名称",
       "value": "刷新"
     },
     {
       "name": "shortcut_text_0534",
+      "description": "刷新快捷方式操作名称",
       "value": "刷新快捷方式"
     },
     {
       "name": "shortcut_text_0536",
+      "description": "刷新列表后重新查看的提示",
       "value": "刷新列表后重新查看"
     },
     {
       "name": "shortcut_text_0537",
+      "description": "刷新进度文字",
       "value": "刷新中"
     },
     {
       "name": "shortcut_text_0538",
+      "description": "双方改动摘要",
       "value": "双方都改：%1$s"
     },
     {
       "name": "shortcut_text_0542",
+      "description": "宿主能力字段名称",
       "value": "宿主 Ability"
     },
     {
       "name": "shortcut_text_0543",
+      "description": "随手记录想法的操作说明",
       "value": "随手记录想法"
     },
     {
       "name": "shortcut_text_0544",
+      "description": "所选入口变化后重新选择的提示",
       "value": "所选入口已变化，请重新选择"
     },
     {
       "name": "shortcut_text_0545",
+      "description": "所选条目不可整体处理时重新预览的提示",
       "value": "所选条目不可整体处理，请重新预览"
     },
     {
       "name": "shortcut_text_0546",
+      "description": "所选条目变化的诊断提示",
       "value": "所选条目已变化"
     },
     {
       "name": "shortcut_text_0547",
+      "description": "所选条目变化而未执行的提示",
       "value": "所选条目已变化，未执行"
     },
     {
       "name": "shortcut_text_0548",
+      "description": "添加操作名称",
       "value": "添加"
     },
     {
       "name": "shortcut_text_0549",
+      "description": "条目不存在或已变化的诊断提示",
       "value": "条目不存在或已变化"
     },
     {
       "name": "shortcut_text_0550",
+      "description": "通知来源名称",
       "value": "通知"
     },
     {
       "name": "shortcut_text_0551",
+      "description": "通知打开调用记录的路由名称",
       "value": "通知点击查看记录"
     },
     {
       "name": "shortcut_text_0552",
+      "description": "通知打开收藏的路由名称",
       "value": "通知点击查看收藏"
     },
     {
       "name": "shortcut_text_0553",
+      "description": "通知打开待办详情的路由名称",
       "value": "通知点击进入待办详情"
     },
     {
       "name": "shortcut_text_0554",
+      "description": "忽略标题空白差异的收藏判重规则说明",
       "value": "同来源且标题仅差空白字符视为重复"
     },
     {
       "name": "shortcut_text_0555",
+      "description": "同来源同标题收藏合并规则说明",
       "value": "同来源同标题视为重复收藏，合并为一条"
     },
     {
       "name": "shortcut_text_0556",
+      "description": "收藏来源与标题重复的诊断提示",
       "value": "同来源同标题重复"
     },
     {
       "name": "shortcut_text_0557",
+      "description": "同一便签内标签重复的诊断提示",
       "value": "同一篇笔记内重复标签"
     },
     {
       "name": "shortcut_text_0558",
+      "description": "显式声明同义词而不推断的规则说明",
       "value": "同义词表显式声明，不自动推断"
     },
     {
       "name": "shortcut_text_0559",
+      "description": "统一转为小写的规范化规则说明",
       "value": "统一为小写"
     },
     {
       "name": "shortcut_text_0560",
+      "description": "图标字段名称",
       "value": "图标"
     },
     {
       "name": "shortcut_text_0561",
+      "description": "图标资源标识字段名称",
       "value": "图标资源 ID"
     },
     {
       "name": "shortcut_text_0562",
+      "description": "推迟待办操作名称",
       "value": "推迟"
     },
     {
       "name": "shortcut_text_0563",
+      "description": "推迟待办到期后自动放弃的规则说明",
       "value": "推迟到期后自动放弃"
     },
     {
       "name": "shortcut_text_0564",
+      "description": "推迟到以后操作名称",
       "value": "推迟到以后"
     },
     {
       "name": "shortcut_text_0566",
+      "description": "完成待办操作名称",
       "value": "完成"
     },
     {
       "name": "shortcut_text_0568",
+      "description": "已完成待办需要重新处理的原因说明",
       "value": "完成后又需要处理"
     },
     {
       "name": "shortcut_text_0569",
+      "description": "完成态不再提醒逾期的规则说明",
       "value": "完成态不再提示逾期"
     },
     {
       "name": "shortcut_text_0570",
+      "description": "完成重要任务的示例标题",
       "value": "完成一项重要任务"
     },
     {
       "name": "shortcut_text_0571",
+      "description": "完全相同的比较结果名称",
       "value": "完全相同"
     },
     {
       "name": "shortcut_text_0572",
+      "description": "布尔为假运算符名称",
       "value": "为假"
     },
     {
       "name": "shortcut_text_0573",
+      "description": "布尔为真运算符名称",
       "value": "为真"
     },
     {
       "name": "shortcut_text_0574",
+      "description": "未到期状态名称",
       "value": "未到期"
     },
     {
       "name": "shortcut_text_0575",
+      "description": "未返回值的替代文字",
       "value": "未返回"
     },
     {
       "name": "shortcut_text_0577",
+      "description": "未解析值摘要",
       "value": "未解析：%1$s"
     },
     {
       "name": "shortcut_text_0578",
+      "description": "未识别快捷方式的回落规则说明",
       "value": "未识别快捷方式回落到规则中心"
     },
     {
       "name": "shortcut_text_0579",
+      "description": "未识别深链的回落规则说明",
       "value": "未识别深链回落到调用记录"
     },
     {
       "name": "shortcut_text_0580",
+      "description": "未提供值的替代文字",
       "value": "未提供"
     },
     {
       "name": "shortcut_text_0581",
+      "description": "未完成筛选名称",
       "value": "未完成"
     },
     {
       "name": "shortcut_text_0582",
+      "description": "未知值的替代文字",
       "value": "未知"
     },
     {
       "name": "shortcut_text_0583",
+      "description": "未知结果须先核对的状态名称",
       "value": "未知（须先核对）"
     },
     {
       "name": "shortcut_text_0584",
+      "description": "未知来源名称",
       "value": "未知来源"
     },
     {
       "name": "shortcut_text_0585",
+      "description": "未知来源的诊断提示",
       "value": "未知来源：%1$s"
     },
     {
       "name": "shortcut_text_0586",
+      "description": "未知来源的统一回落规则说明",
       "value": "未知来源统一回落到规则中心"
     },
     {
       "name": "shortcut_text_0587",
+      "description": "未知路由的诊断提示",
       "value": "未知路由：%1$s"
     },
     {
       "name": "shortcut_text_0588",
+      "description": "未知路由的回落目标摘要",
       "value": "未知路由落到：%1$s"
     },
     {
       "name": "shortcut_text_0589",
+      "description": "未执行状态名称",
       "value": "未执行"
     },
     {
       "name": "shortcut_text_0590",
+      "description": "未置顶状态名称",
       "value": "未置顶"
     },
     {
       "name": "shortcut_text_0591",
+      "description": "文本过长时按不同处理的说明",
       "value": "文本过长，已按不同处理"
     },
     {
       "name": "shortcut_text_0592",
+      "description": "超出比较行数上限时整体替换的说明",
       "value": "文本行数超过比较上限，已按整体替换处理"
     },
     {
       "name": "shortcut_text_0593",
+      "description": "文本运算符缺少取值的诊断提示",
       "value": "文本运算符缺少取值：%1$s.%2$s"
     },
     {
       "name": "shortcut_text_0594",
+      "description": "文档来源名称",
       "value": "文档"
     },
     {
       "name": "shortcut_text_0595",
+      "description": "文档标识重复的诊断提示",
       "value": "文档 id 重复：%1$s"
     },
     {
       "name": "shortcut_text_0596",
+      "description": "无参数列表的替代文字",
       "value": "无参数"
     },
     {
       "name": "shortcut_text_0597",
+      "description": "无改动状态名称",
       "value": "无改动"
     },
     {
       "name": "shortcut_text_0598",
+      "description": "无截止日期选项名称",
       "value": "无截止"
     },
     {
       "name": "shortcut_text_0599",
+      "description": "无截止日期与已完成待办数量摘要",
       "value": "无截止 %1$s｜已完成 %2$s"
     },
     {
       "name": "shortcut_text_0600",
+      "description": "无截止日期待办不参与逾期排序的规则说明",
       "value": "无截止的待办不参与逾期排序"
     },
     {
       "name": "shortcut_text_0601",
+      "description": "无匹配结果状态名称",
       "value": "无匹配结果"
     },
     {
       "name": "shortcut_text_0602",
+      "description": "无需治理状态名称",
       "value": "无需治理"
     },
     {
       "name": "shortcut_text_0603",
+      "description": "显示操作名称",
       "value": "显示"
     },
     {
       "name": "shortcut_text_0604",
+      "description": "显示数量与总数摘要",
       "value": "显示 %1$s / %2$s"
     },
     {
       "name": "shortcut_text_0605",
+      "description": "显示快捷入口操作名称",
       "value": "显示入口"
     },
     {
       "name": "shortcut_text_0606",
+      "description": "显隐批次标题",
       "value": "显隐批次"
     },
     {
       "name": "shortcut_text_0607",
+      "description": "文本相同后缀摘要",
       "value": "相同后缀：%1$s"
     },
     {
       "name": "shortcut_text_0608",
+      "description": "文本相同前缀摘要",
       "value": "相同前缀：%1$s"
     },
     {
       "name": "shortcut_text_0609",
+      "description": "便签详情快捷方式的标识要求说明",
       "value": "详情快捷方式必须带 noteId"
     },
     {
       "name": "shortcut_text_0610",
+      "description": "小于运算符名称",
       "value": "小于"
     },
     {
       "name": "shortcut_text_0611",
+      "description": "小组件来源名称",
       "value": "小组件"
     },
     {
       "name": "shortcut_text_0612",
+      "description": "小组件打开待办的路由名称",
       "value": "小组件查看待办"
     },
     {
       "name": "shortcut_text_0613",
+      "description": "小组件打开收藏的路由名称",
       "value": "小组件查看收藏"
     },
     {
       "name": "shortcut_text_0614",
+      "description": "小组件新建便签的路由名称",
       "value": "小组件新建便签"
     },
     {
       "name": "shortcut_text_0615",
+      "description": "效率类别名称",
       "value": "效率"
     },
     {
       "name": "shortcut_text_0617",
+      "description": "写入结果未确认时重新读取核对的提示",
       "value": "写入结果未确认，请先重新读取核对"
     },
     {
       "name": "shortcut_text_0620",
+      "description": "新文本行数摘要",
       "value": "新文本 %1$s 行"
     },
     {
       "name": "shortcut_text_0621",
+      "description": "文本新增、删除与未变行数摘要",
       "value": "新增 %1$s 行，删除 %2$s 行，共 %3$s 行未变"
     },
     {
       "name": "shortcut_text_0622",
+      "description": "新增条目摘要",
       "value": "新增：%1$s"
     },
     {
       "name": "shortcut_text_0623",
+      "description": "带字数限制的新增待办输入提示",
       "value": "新增待办（最多 60 字）"
     },
     {
       "name": "shortcut_text_0624",
+      "description": "修改保存到所选日期的说明",
       "value": "修改将保存在所选日期"
     },
     {
       "name": "shortcut_text_0625",
+      "description": "需处理状态名称",
       "value": "需处理"
     },
     {
       "name": "shortcut_text_0626",
+      "description": "需登录状态名称",
       "value": "需登录"
     },
     {
       "name": "shortcut_text_0628",
+      "description": "登录后才能进入的提示",
       "value": "需要登录后才能进入"
     },
     {
       "name": "shortcut_text_0632",
+      "description": "选填参数标记",
       "value": "选填"
     },
     {
       "name": "shortcut_text_0633",
+      "description": "所选回收标识重复的诊断提示",
       "value": "选择含重复回收标识"
     },
     {
       "name": "shortcut_text_0634",
+      "description": "选择待调整快捷入口的提示",
       "value": "选择要调整的入口"
     },
     {
       "name": "shortcut_text_0635",
+      "description": "学习类别名称",
       "value": "学习"
     },
     {
       "name": "shortcut_text_0636",
+      "description": "学习记录示例便签标题",
       "value": "学习记录"
     },
     {
       "name": "shortcut_text_0637",
+      "description": "延期不掩盖原有逾期的规则说明",
       "value": "延期不掩盖已发生的逾期"
     },
     {
       "name": "shortcut_text_0638",
+      "description": "延期后仍未到期的原因说明",
       "value": "延期后仍未到期"
     },
     {
       "name": "shortcut_text_0639",
+      "description": "延期后仍逾期的原因说明",
       "value": "延期后仍逾期"
     },
     {
       "name": "shortcut_text_0640",
+      "description": "延期更新截止时间的规则说明",
       "value": "延期只是一次新的截止时间"
     },
     {
       "name": "shortcut_text_0641",
+      "description": "页面打开失败及重试提示",
       "value": "页面打开失败，请重试"
     },
     {
       "name": "shortcut_text_0642",
+      "description": "页面跳转标题",
       "value": "页面跳转"
     },
     {
       "name": "shortcut_text_0643",
+      "description": "一个月内收藏一律保留的规则说明",
       "value": "一个月内的收藏一律保留"
     },
     {
       "name": "shortcut_text_0644",
+      "description": "一小时内整理内容的示例说明",
       "value": "一小时内整理的内容"
     },
     {
       "name": "shortcut_text_0650",
+      "description": "超过保留期而不可恢复的提示",
       "value": "已超过30天保留期，不能恢复"
     },
     {
       "name": "shortcut_text_0651",
+      "description": "已读取状态名称",
       "value": "已读取"
     },
     {
       "name": "shortcut_text_0652",
+      "description": "已放弃待办状态名称",
       "value": "已放弃"
     },
     {
       "name": "shortcut_text_0653",
+      "description": "已放弃编辑修改的结果提示",
       "value": "已放弃编辑修改"
     },
     {
       "name": "shortcut_text_0656",
+      "description": "已过期而禁止恢复的诊断提示",
       "value": "已过期，不允许恢复"
     },
     {
       "name": "shortcut_text_0657",
+      "description": "已恢复状态名称",
       "value": "已恢复"
     },
     {
       "name": "shortcut_text_0658",
+      "description": "已恢复条目数量摘要",
       "value": "已恢复 %1$s 项"
     },
     {
       "name": "shortcut_text_0659",
+      "description": "部分恢复后停止的结果摘要",
       "value": "已恢复 %1$s/%2$s，%3$s，已停止"
     },
     {
       "name": "shortcut_text_0660",
+      "description": "待办恢复成功提示",
       "value": "已恢复待办"
     },
     {
       "name": "shortcut_text_0661",
+      "description": "当日样例恢复成功提示",
       "value": "已恢复当日样例"
     },
     {
       "name": "shortcut_text_0662",
+      "description": "恢复到历史版本的结果提示",
       "value": "已恢复到历史版本"
     },
     {
       "name": "shortcut_text_0663",
+      "description": "回到今天日期的结果提示",
       "value": "已回到今天"
     },
     {
       "name": "shortcut_text_0664",
+      "description": "批量恢复便签数量的结果提示",
       "value": "已批量恢复%1$s项便签"
     },
     {
       "name": "shortcut_text_0665",
+      "description": "批量永久删除便签数量的结果提示",
       "value": "已批量永久删除%1$s项便签"
     },
     {
       "name": "shortcut_text_0667",
+      "description": "编辑内容已清空的结果提示",
       "value": "已清空编辑内容"
     },
     {
       "name": "shortcut_text_0668",
+      "description": "清理过期便签数量的结果提示",
       "value": "已清理%1$s项过期便签"
     },
     {
       "name": "shortcut_text_0669",
+      "description": "编辑已取消的结果提示",
       "value": "已取消编辑"
     },
     {
       "name": "shortcut_text_0670",
+      "description": "批量预览已取消的结果提示",
       "value": "已取消批量预览"
     },
     {
       "name": "shortcut_text_0671",
+      "description": "收藏已取消的结果提示",
       "value": "已取消收藏"
     },
     {
       "name": "shortcut_text_0672",
+      "description": "移入回收站已取消的结果提示",
       "value": "已取消移入回收站"
     },
     {
       "name": "shortcut_text_0673",
+      "description": "批次条目已确认状态名称",
       "value": "已确认"
     },
     {
       "name": "shortcut_text_0674",
+      "description": "当前已是所选历史版本的提示",
       "value": "已是该历史版本"
     },
     {
       "name": "shortcut_text_0675",
+      "description": "添加收藏成功提示",
       "value": "已收藏"
     },
     {
       "name": "shortcut_text_0676",
+      "description": "已提交并等待核对的状态提示",
       "value": "已提交，待核对"
     },
     {
       "name": "shortcut_text_0677",
+      "description": "已停止状态名称",
       "value": "已停止"
     },
     {
       "name": "shortcut_text_0678",
+      "description": "已推迟待办状态名称",
       "value": "已推迟"
     },
     {
       "name": "shortcut_text_0679",
+      "description": "已完成待办状态名称",
       "value": "已完成"
     },
     {
       "name": "shortcut_text_0680",
+      "description": "已完成与全部待办数量摘要",
       "value": "已完成 %1$s / %2$s"
     },
     {
       "name": "shortcut_text_0681",
+      "description": "已完成后重新打开的待办状态名称",
       "value": "已完成但被重新打开"
     },
     {
       "name": "shortcut_text_0682",
+      "description": "已完成条目名称",
       "value": "已完成事项"
     },
     {
       "name": "shortcut_text_0683",
+      "description": "快捷入口已显示状态名称",
       "value": "已显示"
     },
     {
       "name": "shortcut_text_0685",
+      "description": "已移入回收站的结果提示",
       "value": "已移入回收站"
     },
     {
       "name": "shortcut_text_0686",
+      "description": "快捷入口已隐藏状态名称",
       "value": "已隐藏"
     },
     {
       "name": "shortcut_text_0687",
+      "description": "永久删除后无法恢复的提示",
       "value": "已永久删除，无法恢复"
     },
     {
       "name": "shortcut_text_0688",
+      "description": "已逾期待办状态名称",
       "value": "已逾期"
     },
     {
       "name": "shortcut_text_0689",
+      "description": "已置顶状态名称",
       "value": "已置顶"
     },
     {
       "name": "shortcut_text_0690",
+      "description": "以后日期分组名称",
       "value": "以后"
     },
     {
       "name": "shortcut_text_0691",
+      "description": "隐藏操作名称",
       "value": "隐藏"
     },
     {
       "name": "shortcut_text_0692",
+      "description": "隐藏快捷入口操作名称",
       "value": "隐藏入口"
     },
     {
       "name": "shortcut_text_0693",
+      "description": "应用分身索引字段名称",
       "value": "应用分身索引"
     },
     {
       "name": "shortcut_text_0694",
+      "description": "应用内来源名称",
       "value": "应用内"
     },
     {
       "name": "shortcut_text_0695",
+      "description": "英文大小写不同的原因说明",
       "value": "英文大小写不同"
     },
     {
       "name": "shortcut_text_0702",
+      "description": "优先级为负的诊断提示",
       "value": "优先级为负：%1$s"
     },
     {
       "name": "shortcut_text_0704",
+      "description": "有效状态名称",
       "value": "有效"
     },
     {
       "name": "shortcut_text_0705",
+      "description": "有效期非法的诊断提示",
       "value": "有效期非法：%1$s"
     },
     {
       "name": "shortcut_text_0706",
+      "description": "待办逾期与到期状态数量摘要前段",
       "value": "逾期 %1$s｜即将到期 %2$s｜未到期 %3$s｜"
     },
     {
       "name": "shortcut_text_0707",
+      "description": "逾期天数按绝对值展示的规则说明",
       "value": "逾期按绝对值展示天数"
     },
     {
       "name": "shortcut_text_0708",
+      "description": "逾期天数摘要",
       "value": "逾期天数：%1$s"
     },
     {
       "name": "shortcut_text_0709",
+      "description": "与存储上限一致的规则说明",
       "value": "与存储上限一致"
     },
     {
       "name": "shortcut_text_0710",
+      "description": "预览编号上限诊断提示",
       "value": "预览编号已达上限"
     },
     {
       "name": "shortcut_text_0711",
+      "description": "预览失效后重新预览的提示",
       "value": "预览已失效，请重新预览"
     },
     {
       "name": "shortcut_text_0712",
+      "description": "阈值为负的诊断提示",
       "value": "阈值为负：%1$s"
     },
     {
       "name": "shortcut_text_0713",
+      "description": "原批次未执行时不补偿的说明",
       "value": "原批次未执行，不补偿"
     },
     {
       "name": "shortcut_text_0714",
+      "description": "原设置未知的诊断提示",
       "value": "原设置未知"
     },
     {
       "name": "shortcut_text_0715",
+      "description": "原可见性未知时无法精确恢复的说明",
       "value": "原始visible未知，不能精确恢复"
     },
     {
       "name": "shortcut_text_0716",
+      "description": "阅读类别名称",
       "value": "阅读"
     },
     {
       "name": "shortcut_text_0717",
+      "description": "阅读摘录模板标题",
       "value": "阅读摘录模板"
     },
     {
       "name": "shortcut_text_0719",
+      "description": "快捷方式暂无参数的提示",
       "value": "暂无参数"
     },
     {
       "name": "shortcut_text_0720",
+      "description": "待办列表为空的提示",
       "value": "暂无待办"
     },
     {
       "name": "shortcut_text_0721",
+      "description": "调用记录为空的提示",
       "value": "暂无调用记录"
     },
     {
       "name": "shortcut_text_0722",
+      "description": "快捷入口列表为空的提示",
       "value": "暂无快捷入口"
     },
     {
       "name": "shortcut_text_0724",
+      "description": "批次记录为空的提示",
       "value": "暂无批次记录"
     },
     {
       "name": "shortcut_text_0725",
+      "description": "摘要为空时建议补全的提示",
       "value": "摘要为空，建议补全"
     },
     {
       "name": "shortcut_text_0726",
+      "description": "标题有效而摘要为空时保留并提示的规则说明",
       "value": "摘要为空但标题有效，保留并提示补全"
     },
     {
       "name": "shortcut_text_0727",
+      "description": "展开操作名称",
       "value": "展开"
     },
     {
       "name": "shortcut_text_0728",
+      "description": "带箭头的展开导航文字",
       "value": "展开  ›"
     },
     {
       "name": "shortcut_text_0729",
+      "description": "展示时可恢复标签前缀的说明",
       "value": "展示时可再加回"
     },
     {
       "name": "shortcut_text_0730",
+      "description": "连续分隔符折叠的规范化规则说明",
       "value": "折叠为一个分隔符"
     },
     {
       "name": "shortcut_text_0731",
+      "description": "本地检索示例便签正文",
       "value": "这是一条便签示例，用于演示本地检索。"
     },
     {
       "name": "shortcut_text_0732",
+      "description": "整理类别名称",
       "value": "整理"
     },
     {
       "name": "shortcut_text_0733",
+      "description": "整理今日待办的示例标题",
       "value": "整理今日待办"
     },
     {
       "name": "shortcut_text_0734",
+      "description": "整理今日待办与收藏的示例标题",
       "value": "整理今日待办与收藏"
     },
     {
       "name": "shortcut_text_0735",
+      "description": "整理今日计划的示例标题",
       "value": "整理今日计划"
     },
     {
       "name": "shortcut_text_0736",
+      "description": "整理收藏标签的示例标题",
       "value": "整理收藏标签"
     },
     {
       "name": "shortcut_text_0739",
+      "description": "正常展示的规则说明",
       "value": "正常展示"
     },
     {
       "name": "shortcut_text_0740",
+      "description": "便签正文摘要字段名称",
       "value": "正文摘要"
     },
     {
       "name": "shortcut_text_0741",
+      "description": "正在保存时请稍候的提示",
       "value": "正在保存，请稍候"
     },
     {
       "name": "shortcut_text_0742",
+      "description": "正在编辑便签的状态提示",
       "value": "正在编辑便签"
     },
     {
       "name": "shortcut_text_0743",
+      "description": "正在查看所选日期待办的状态摘要",
       "value": "正在查看 %1$s 的待办"
     },
     {
       "name": "shortcut_text_0744",
+      "description": "查询进度文字",
       "value": "正在查询"
     },
     {
       "name": "shortcut_text_0745",
+      "description": "读取进度文字",
       "value": "正在读取"
     },
     {
       "name": "shortcut_text_0746",
+      "description": "快捷入口读取进度文字",
       "value": "正在读取快捷入口"
     },
     {
       "name": "shortcut_text_0747",
+      "description": "恢复进度数量摘要",
       "value": "正在恢复 %1$s/%2$s"
     },
     {
       "name": "shortcut_text_0748",
+      "description": "应用设置的进度文字",
       "value": "正在设置"
     },
     {
       "name": "shortcut_text_0749",
+      "description": "能力已支持状态名称",
       "value": "支持"
     },
     {
       "name": "shortcut_text_0750",
+      "description": "直接开始操作名称",
       "value": "直接开始"
     },
     {
       "name": "shortcut_text_0751",
+      "description": "直接完成操作名称",
       "value": "直接完成"
     },
     {
       "name": "shortcut_text_0752",
+      "description": "去重后只保留一条的处理说明",
       "value": "只保留一个"
     },
     {
       "name": "shortcut_text_0753",
+      "description": "只看收藏筛选关闭状态名称",
       "value": "只看收藏：关"
     },
     {
       "name": "shortcut_text_0754",
+      "description": "只看收藏筛选开启状态名称",
       "value": "只看收藏：开"
     },
     {
       "name": "shortcut_text_0756",
+      "description": "仅本机改动的摘要",
       "value": "只有本机前进：%1$s"
     },
     {
       "name": "shortcut_text_0758",
+      "description": "至少保留一项待办的限制说明",
       "value": "至少保留一项待办"
     },
     {
       "name": "shortcut_text_0759",
+      "description": "置顶操作名称",
       "value": "置顶"
     },
     {
       "name": "shortcut_text_0760",
+      "description": "置顶动作数量摘要",
       "value": "置顶动作 %1$s 条"
     },
     {
       "name": "shortcut_text_0761",
+      "description": "置顶超限时取消最早置顶的规则说明",
       "value": "置顶条目超过 3 条时取消最早的置顶"
     },
     {
       "name": "shortcut_text_0762",
+      "description": "条目清理后同步取消置顶的规则说明",
       "value": "置顶条目已被清理时同步取消置顶"
     },
     {
       "name": "shortcut_text_0763",
+      "description": "置顶资料标题",
       "value": "置顶资料"
     },
     {
       "name": "shortcut_text_0764",
+      "description": "重复任务本次已完成的原因说明",
       "value": "重复任务本次已完成"
     },
     {
       "name": "shortcut_text_0765",
+      "description": "重复任务落入例外日的原因说明",
       "value": "重复任务落入例外日期"
     },
     {
       "name": "shortcut_text_0766",
+      "description": "重复任务下次发生时间摘要",
       "value": "重复任务下次：%1$s"
     },
     {
       "name": "shortcut_text_0767",
+      "description": "重复任务下次发生时间未定的提示",
       "value": "重复任务下次未定"
     },
     {
       "name": "shortcut_text_0768",
+      "description": "重复收藏的诊断提示",
       "value": "重复收藏"
     },
     {
       "name": "shortcut_text_0769",
+      "description": "重设标签操作名称",
       "value": "重设标签"
     },
     {
       "name": "shortcut_text_0770",
+      "description": "重设标签与需确认数量摘要",
       "value": "重设标签 %1$s、需确认 %2$s"
     },
     {
       "name": "shortcut_text_0771",
+      "description": "重试或补偿预览前核对的操作名称",
       "value": "重试/补偿预览前核对"
     },
     {
       "name": "shortcut_text_0772",
+      "description": "重试失败条目操作名称",
       "value": "重试失败项"
     },
     {
       "name": "shortcut_text_0773",
+      "description": "重试预览标题",
       "value": "重试预览"
     },
     {
       "name": "shortcut_text_0774",
+      "description": "重新查询操作名称",
       "value": "重新查询"
     },
     {
       "name": "shortcut_text_0775",
+      "description": "重新打开操作名称",
       "value": "重新打开"
     },
     {
       "name": "shortcut_text_0776",
+      "description": "重新打开后按当前时间重算的规则说明",
       "value": "重新打开后按当前时间重算"
     },
     {
       "name": "shortcut_text_0779",
+      "description": "重新读取批次操作名称",
       "value": "重新读取批次"
     },
     {
       "name": "shortcut_text_0780",
+      "description": "重新读取失败时禁止重复写入的提示",
       "value": "重新读取失败，仍禁止重复写入"
     },
     {
       "name": "shortcut_text_0781",
+      "description": "重新捡起已放弃待办的操作名称",
       "value": "重新捡起"
     },
     {
       "name": "shortcut_text_0782",
+      "description": "重新检测能力操作名称",
       "value": "重新检测"
     },
     {
       "name": "shortcut_text_0783",
+      "description": "逐条恢复指定数量条目的操作名称",
       "value": "逐条恢复 %1$s 项"
     },
     {
       "name": "shortcut_text_0784",
+      "description": "状态字段名称",
       "value": "状态"
     },
     {
       "name": "shortcut_text_0785",
+      "description": "状态缺少出口迁移的诊断提示",
       "value": "状态没有出口：%1$s"
     },
     {
       "name": "shortcut_text_0786",
+      "description": "状态未知名称",
       "value": "状态未知"
     },
     {
       "name": "shortcut_text_0787",
+      "description": "桌面快捷方式来源名称",
       "value": "桌面快捷方式"
     },
     {
       "name": "shortcut_text_0788",
+      "description": "桌面快捷入口标题",
       "value": "桌面快捷入口"
     },
     {
       "name": "shortcut_text_0789",
+      "description": "资料类别名称",
       "value": "资料"
     },
     {
       "name": "shortcut_text_0790",
+      "description": "自定义选项名称",
       "value": "自定义"
     },
     {
       "name": "shortcut_text_0791",
+      "description": "最近记录数量摘要",
       "value": "最近 %1$s 条"
     },
     {
       "name": "shortcut_text_0792",
+      "description": "最近一天更新的筛选名称",
       "value": "最近一天更新"
     },
     {
       "name": "shortcut_text_0793",
+      "description": "错误码及详情缺失时的替代文字",
       "value": "code=未提供；无错误详情"
     }
   ]

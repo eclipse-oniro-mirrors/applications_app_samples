@@ -20,6 +20,9 @@
 #include <cstring>
 #include <ctime>
 #include <fcntl.h>
+#include <exception>
+#include <mutex>
+#include <new>
 #include <sys/resource.h>
 #include <string>
 #include <sys/mman.h>
@@ -52,6 +55,7 @@ struct Probe {
     std::string operation;
     int errorCode = 0;
     std::string message;
+    int cleanupErrorCode = 0; // Secondary cleanup failure never overwrites a primary sample error.
     int64_t fileBytes = 0;
     int64_t pageBytes = 0;
     int64_t totalPages = 0;
@@ -103,91 +107,150 @@ int64_t ClockMs(clockid_t id)
         value.tv_sec * MILLISECONDS_PER_SECOND + value.tv_nsec / NANOSECONDS_PER_MILLISECOND : 0;
 }
 
-void Number(napi_env env, napi_value object, const char *key, double number)
+// Never overwrite a pending JavaScript exception with a secondary native error.
+bool NapiOk(napi_env env, napi_status status)
 {
-    napi_value value;
-    napi_create_double(env, number, &value);
-    napi_set_named_property(env, object, key, value);
+    if (status == napi_ok) {
+        return true;
+    }
+    bool pending = false;
+    if (napi_is_exception_pending(env, &pending) != napi_ok || pending) {
+        return false;
+    }
+    const napi_status thrown = napi_throw_error(env, nullptr, "pageprobe N-API operation failed");
+    if (thrown != napi_ok) {
+        return false;
+    }
+    return false;
 }
 
-void Text(napi_env env, napi_value object, const char *key, const std::string &text)
+napi_value ThrowError(napi_env env, const char *message)
 {
-    napi_value value;
-    napi_create_string_utf8(env, text.c_str(), text.size(), &value);
-    napi_set_named_property(env, object, key, value);
+    bool pending = false;
+    if (napi_is_exception_pending(env, &pending) != napi_ok || pending) {
+        return nullptr;
+    }
+    const napi_status thrown = napi_throw_error(env, nullptr, message);
+    if (thrown != napi_ok) {
+        return nullptr;
+    }
+    return nullptr;
 }
 
-void Boolean(napi_env env, napi_value object, const char *key, bool flag)
+bool Property(napi_env env, napi_value object, const char *key, napi_value value)
 {
-    napi_value value;
-    napi_get_boolean(env, flag, &value);
-    napi_set_named_property(env, object, key, value);
+    return object != nullptr && value != nullptr && NapiOk(env, napi_set_named_property(env, object, key, value));
 }
+
+bool Number(napi_env env, napi_value object, const char *key, double number)
+{
+    napi_value value = nullptr;
+    return NapiOk(env, napi_create_double(env, number, &value)) && Property(env, object, key, value);
+}
+
+bool Text(napi_env env, napi_value object, const char *key, const std::string &text)
+{
+    napi_value value = nullptr;
+    return NapiOk(env, napi_create_string_utf8(env, text.c_str(), text.size(), &value)) &&
+        Property(env, object, key, value);
+}
+
+bool Boolean(napi_env env, napi_value object, const char *key, bool flag)
+{
+    napi_value value = nullptr;
+    return NapiOk(env, napi_get_boolean(env, flag, &value)) && Property(env, object, key, value);
+}
+
+// A descriptor is consumed exactly once. In particular, close(EINTR) is not retried:
+// the descriptor may already have been closed and reused by another thread.
+class ScopedFd {
+public:
+    explicit ScopedFd(int fd) : fd_(fd) {}
+    ~ScopedFd() { if (fd_ >= 0) { close(fd_); } }
+    ScopedFd(const ScopedFd &) = delete;
+    ScopedFd &operator=(const ScopedFd &) = delete;
+    int Get() const { return fd_; }
+    int Take() { const int fd = fd_; fd_ = -1; return fd; }
+private:
+    int fd_ = -1;
+};
 
 napi_value Result(napi_env env, const Probe &probe)
 {
-    napi_value object;
-    napi_create_object(env, &object);
-    Boolean(env, object, "ok", probe.ok);
-    Boolean(env, object, "residencyTrusted", probe.residencyTrusted);
-    Text(env, object, "residencyTrustReason", probe.residencyTrustReason);
-    Text(env, object, "operation", probe.operation);
-    Number(env, object, "errorCode", probe.errorCode);
-    Text(env, object, "message", probe.message);
-    Number(env, object, "fileBytes", probe.fileBytes);
-    Number(env, object, "pageBytes", probe.pageBytes);
-    Number(env, object, "totalPages", probe.totalPages);
-    Number(env, object, "residentPages", probe.residentPages);
-    Number(env, object, "residentBytes", probe.residentBytes);
-    Number(env, object, "residentContentBytes", probe.residentBytes);
-    Text(env, object, "residentBytesMeaning",
-        "file content bytes covered by raw reported resident pages; not physical allocation or reclaimed bytes");
-    Number(env, object, "bytesRead", probe.bytesRead);
-    Number(env, object, "checksum", probe.checksum);
-    Text(env, object, "inode", probe.inode);
-    Text(env, object, "deviceId", probe.deviceId);
-    Number(env, object, "deviceMajor", probe.deviceMajor);
-    Number(env, object, "deviceMinor", probe.deviceMinor);
-    Text(env, object, "inodeNumber", probe.inodeNumber);
-    Text(env, object, "inodeHex", probe.inodeHex);
-    Number(env, object, "fileOwnerUid", probe.fileOwnerUid);
-    Number(env, object, "processUid", probe.processUid);
-    Number(env, object, "realUid", probe.realUid);
-    Boolean(env, object, "ownsFile", probe.ownsFile);
-    Boolean(env, object, "writeOpenAllowed", probe.writeOpenAllowed);
-    Number(env, object, "writeOpenErrno", probe.writeOpenErrno);
-    Boolean(env, object, "ownerOrWritable", probe.ownerOrWritable);
-    Number(env, object, "sampleStartedMonotonicMs", probe.sampleStartedMonotonicMs);
-    Number(env, object, "sampleCompletedMonotonicMs", probe.sampleCompletedMonotonicMs);
-    Number(env, object, "sampleWallTimeMs", probe.sampleWallTimeMs);
-    Text(env, object, "kernelName", probe.kernelName);
-    Text(env, object, "kernelRelease", probe.kernelRelease);
+    napi_value object = nullptr;
+    if (!NapiOk(env, napi_create_object(env, &object))) {
+        return nullptr;
+    }
+    if (!Boolean(env, object, "ok", probe.ok)) { return nullptr; }
+    if (!Boolean(env, object, "residencyTrusted", probe.residencyTrusted)) { return nullptr; }
+    if (!Text(env, object, "residencyTrustReason", probe.residencyTrustReason)) { return nullptr; }
+    if (!Text(env, object, "operation", probe.operation)) { return nullptr; }
+    if (!Number(env, object, "errorCode", probe.errorCode)) { return nullptr; }
+    if (!Number(env, object, "cleanupErrorCode", probe.cleanupErrorCode)) { return nullptr; }
+    if (!Text(env, object, "message", probe.message)) { return nullptr; }
+    if (!Number(env, object, "fileBytes", probe.fileBytes)) { return nullptr; }
+    if (!Number(env, object, "pageBytes", probe.pageBytes)) { return nullptr; }
+    if (!Number(env, object, "totalPages", probe.totalPages)) { return nullptr; }
+    if (!Number(env, object, "residentPages", probe.residentPages)) { return nullptr; }
+    if (!Number(env, object, "residentBytes", probe.residentBytes)) { return nullptr; }
+    if (!Number(env, object, "residentContentBytes", probe.residentBytes)) { return nullptr; }
+    if (!Text(env, object, "residentBytesMeaning",
+        "file content bytes covered by raw reported resident pages; not physical allocation or reclaimed bytes")) { return nullptr; }
+    if (!Number(env, object, "bytesRead", probe.bytesRead)) { return nullptr; }
+    if (!Number(env, object, "checksum", probe.checksum)) { return nullptr; }
+    if (!Text(env, object, "inode", probe.inode)) { return nullptr; }
+    if (!Text(env, object, "deviceId", probe.deviceId)) { return nullptr; }
+    if (!Number(env, object, "deviceMajor", probe.deviceMajor)) { return nullptr; }
+    if (!Number(env, object, "deviceMinor", probe.deviceMinor)) { return nullptr; }
+    if (!Text(env, object, "inodeNumber", probe.inodeNumber)) { return nullptr; }
+    if (!Text(env, object, "inodeHex", probe.inodeHex)) { return nullptr; }
+    if (!Number(env, object, "fileOwnerUid", probe.fileOwnerUid)) { return nullptr; }
+    if (!Number(env, object, "processUid", probe.processUid)) { return nullptr; }
+    if (!Number(env, object, "realUid", probe.realUid)) { return nullptr; }
+    if (!Boolean(env, object, "ownsFile", probe.ownsFile)) { return nullptr; }
+    if (!Boolean(env, object, "writeOpenAllowed", probe.writeOpenAllowed)) { return nullptr; }
+    if (!Number(env, object, "writeOpenErrno", probe.writeOpenErrno)) { return nullptr; }
+    if (!Boolean(env, object, "ownerOrWritable", probe.ownerOrWritable)) { return nullptr; }
+    if (!Number(env, object, "sampleStartedMonotonicMs", probe.sampleStartedMonotonicMs)) { return nullptr; }
+    if (!Number(env, object, "sampleCompletedMonotonicMs", probe.sampleCompletedMonotonicMs)) { return nullptr; }
+    if (!Number(env, object, "sampleWallTimeMs", probe.sampleWallTimeMs)) { return nullptr; }
+    if (!Text(env, object, "kernelName", probe.kernelName)) { return nullptr; }
+    if (!Text(env, object, "kernelRelease", probe.kernelRelease)) { return nullptr; }
     return object;
 }
 
 void Fail(Probe &probe, const char *operation)
 {
-    probe.errorCode = errno;
+    const int errorCode = errno;
+    probe.errorCode = errorCode;
     probe.operation = operation;
-    probe.message = std::string(operation) + ": " + std::strerror(errno);
+    probe.message = std::string(operation) + ": " + std::strerror(errorCode);
 }
 
-bool ArgumentPath(napi_env env, napi_callback_info info, std::string &path)
+enum class PathArgument { VALID, INVALID, NAPI_FAILURE };
+
+PathArgument ArgumentPath(napi_env env, napi_callback_info info, std::string &path)
 {
     size_t argc = 1;
-    napi_value argv[1];
-    napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
-    size_t length = 0;
-    if (argc != 1 || napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length) != napi_ok ||
-        length == 0 || length > MAX_PATH_BYTES) {
-        return false;
+    napi_value argv[1] = {nullptr};
+    if (!NapiOk(env, napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr))) {
+        return PathArgument::NAPI_FAILURE;
     }
+    if (argc != 1) { return PathArgument::INVALID; }
+    napi_valuetype type = napi_undefined;
+    if (!NapiOk(env, napi_typeof(env, argv[0], &type))) { return PathArgument::NAPI_FAILURE; }
+    if (type != napi_string) { return PathArgument::INVALID; }
+    size_t length = 0;
+    if (!NapiOk(env, napi_get_value_string_utf8(env, argv[0], nullptr, 0, &length))) {
+        return PathArgument::NAPI_FAILURE;
+    }
+    if (length == 0 || length > MAX_PATH_BYTES) { return PathArgument::INVALID; }
     std::vector<char> buffer(length + 1);
-    if (napi_get_value_string_utf8(env, argv[0], buffer.data(), buffer.size(), &length) != napi_ok) {
-        return false;
+    if (!NapiOk(env, napi_get_value_string_utf8(env, argv[0], buffer.data(), buffer.size(), &length))) {
+        return PathArgument::NAPI_FAILURE;
     }
     path.assign(buffer.data(), length);
-    return path.find('\0') == std::string::npos;
+    return path.find('\0') == std::string::npos ? PathArgument::VALID : PathArgument::INVALID;
 }
 
 std::string UnsignedHex(uint64_t value)
@@ -235,7 +298,8 @@ void PermissionSignal(int fd, const std::string &path, Probe &probe)
 {
     // This tests effective write OPEN access, without O_TRUNC or any write to the target.
     // It is NOT a claim about the exact mincore permission gate of a particular kernel.
-    const int writable = open(path.c_str(), O_WRONLY | O_CLOEXEC);
+    ScopedFd writableOwner(open(path.c_str(), O_WRONLY | O_CLOEXEC));
+    const int writable = writableOwner.Get();
     if (writable < 0) {
         probe.writeOpenErrno = errno;
     } else {
@@ -248,7 +312,6 @@ void PermissionSignal(int fd, const std::string &path, Probe &probe)
         } else {
             probe.writeOpenAllowed = true;
         }
-        close(writable);
     }
     probe.ownerOrWritable = probe.ownsFile || probe.writeOpenAllowed;
 }
@@ -290,12 +353,126 @@ void CountResidentPages(const std::vector<unsigned char> &resident, Probe &probe
     }
 }
 
+// Each N-API environment owns its own mapping. Handles from a worker cannot
+// operate on another environment's mapping; only handle allocation is process-wide.
+struct HeldMapping {
+    int fd = -1;
+    void *address = MAP_FAILED;
+    size_t length = 0;
+    uint32_t handle = 0;
+    bool pagemapEstablished = false;
+    bool unreported = false; // A failed begin serialization has not returned a handle to JavaScript.
+    Probe identity;
+
+    HeldMapping() = default;
+    HeldMapping(const HeldMapping &) = delete;
+    HeldMapping &operator=(const HeldMapping &) = delete;
+    ~HeldMapping() { int ignored = 0; Release(ignored); }
+
+    bool Release(int &errorCode)
+    {
+        if (address != MAP_FAILED && munmap(address, length) != 0) {
+            errorCode = errno;
+            return false; // Keep address, length, fd and handle for a later cleanup attempt.
+        }
+        address = MAP_FAILED;
+        length = 0;
+        handle = 0;
+        pagemapEstablished = false;
+        unreported = false;
+        const int owned = fd;
+        fd = -1; // Consume before close; do not retry an ambiguous close(EINTR).
+        if (owned >= 0 && close(owned) != 0) {
+            errorCode = errno;
+            return false;
+        }
+        return true;
+    }
+};
+
+struct EnvironmentState {
+    HeldMapping held;
+    EnvironmentState *nextRetired = nullptr;
+};
+std::atomic<uint32_t> g_nextMappingHandle {0};
+std::mutex g_retiredMutex;
+EnvironmentState *g_retired = nullptr;
+
+// If a teardown munmap fails, retain its native ownership outside the dead env.
+// Later env initialization/teardown retries only these orphan resources under a
+// mutex. There are no napi_env/napi_value references and no cross-worker live access.
+void RetryRetiredMappings()
+{
+    std::lock_guard<std::mutex> lock(g_retiredMutex);
+    EnvironmentState **link = &g_retired;
+    while (*link != nullptr) {
+        EnvironmentState *state = *link;
+        int cleanupError = 0;
+        state->held.Release(cleanupError);
+        if (state->held.address == MAP_FAILED) {
+            *link = state->nextRetired;
+            delete state;
+        } else {
+            link = &state->nextRetired;
+        }
+    }
+}
+
+void CleanupEnvironment(void *data)
+{
+    auto *state = static_cast<EnvironmentState *>(data);
+    int cleanupError = 0;
+    state->held.Release(cleanupError);
+    if (state->held.address == MAP_FAILED) {
+        delete state;
+    } else {
+        std::lock_guard<std::mutex> lock(g_retiredMutex);
+        state->nextRetired = g_retired;
+        g_retired = state;
+    }
+    RetryRetiredMappings();
+}
+
+EnvironmentState *CallbackState(napi_env env, napi_callback_info info)
+{
+    size_t argc = 0;
+    void *data = nullptr;
+    if (!NapiOk(env, napi_get_cb_info(env, info, &argc, nullptr, nullptr, &data))) {
+        return nullptr;
+    }
+    if (data == nullptr) {
+        ThrowError(env, "pageprobe environment state is unavailable");
+        return nullptr;
+    }
+    return static_cast<EnvironmentState *>(data);
+}
+
+class StateCleanupGuard {
+public:
+    explicit StateCleanupGuard(EnvironmentState *state) : state_(state) {}
+    ~StateCleanupGuard() { CleanupEnvironment(state_); }
+    StateCleanupGuard(const StateCleanupGuard &) = delete;
+    StateCleanupGuard &operator=(const StateCleanupGuard &) = delete;
+private:
+    EnvironmentState *state_;
+};
+
 void SampleFd(int fd, Probe &probe)
 {
     // No read/fault of the temporary PROT_NONE mapping. Clock boundaries enclose the raw sample.
     probe.sampleStartedMonotonicMs = ClockMs(CLOCK_MONOTONIC);
     probe.sampleWallTimeMs = ClockMs(CLOCK_REALTIME);
-    void *mapping = mmap(nullptr, probe.fileBytes, PROT_NONE, MAP_SHARED, fd, 0);
+    auto *mappingState = new (std::nothrow) EnvironmentState();
+    if (mappingState == nullptr) {
+        errno = ENOMEM;
+        Fail(probe, "allocate-mapping-owner");
+        return;
+    }
+    StateCleanupGuard mappingOwner(mappingState);
+    HeldMapping &region = mappingState->held;
+    region.length = static_cast<size_t>(probe.fileBytes);
+    region.address = mmap(nullptr, probe.fileBytes, PROT_NONE, MAP_SHARED, fd, 0);
+    void *mapping = region.address;
     if (mapping == MAP_FAILED) {
         Fail(probe, "mmap");
     } else {
@@ -312,7 +489,16 @@ void SampleFd(int fd, Probe &probe)
                 "no-owner-or-effective-write-open; residency unobserved, not zero eviction; kernel gate unknown";
             probe.message = "Raw file-page residency vector; not process RSS or API reclaimed quantity";
         }
-        munmap(mapping, probe.fileBytes);
+        int cleanupError = 0;
+        if (!region.Release(cleanupError)) {
+            probe.ok = false;
+            probe.residencyTrusted = false;
+            probe.cleanupErrorCode = cleanupError;
+            if (probe.errorCode == 0) {
+                errno = cleanupError;
+                Fail(probe, "munmap-sample");
+            }
+        }
     }
     probe.sampleCompletedMonotonicMs = ClockMs(CLOCK_MONOTONIC);
 }
@@ -321,7 +507,8 @@ Probe ProbePath(const std::string &path, bool warm)
 {
     Probe probe;
     probe.operation = warm ? "pread-all-bytes+mincore" : "mincore";
-    const int fd = open(path.c_str(), O_RDONLY | O_CLOEXEC);
+    ScopedFd fdOwner(open(path.c_str(), O_RDONLY | O_CLOEXEC));
+    const int fd = fdOwner.Get();
     if (fd < 0) {
         Fail(probe, "open-read");
         return probe;
@@ -332,14 +519,15 @@ Probe ProbePath(const std::string &path, bool warm)
             SampleFd(fd, probe);
         }
     }
-    close(fd);
     return probe;
 }
 
 napi_value Measure(napi_env env, napi_callback_info info, bool warm)
 {
     std::string path;
-    if (!ArgumentPath(env, info, path)) {
+    const PathArgument argument = ArgumentPath(env, info, path);
+    if (argument == PathArgument::NAPI_FAILURE) { return nullptr; }
+    if (argument == PathArgument::INVALID) {
         Probe probe;
         probe.operation = "argument";
         probe.errorCode = EINVAL;
@@ -462,42 +650,68 @@ void RemoveCalibrationFile(int dir, const std::string &name, const struct stat &
     }
 }
 
+class CalibrationCleanupGuard {
+public:
+    CalibrationCleanupGuard(int dir, const std::string &name, const struct stat &created,
+        bool identified, Calibration &result) : dir_(dir), name_(name), created_(created),
+        identified_(identified), result_(result) {}
+    ~CalibrationCleanupGuard() { Remove(); }
+    CalibrationCleanupGuard(const CalibrationCleanupGuard &) = delete;
+    CalibrationCleanupGuard &operator=(const CalibrationCleanupGuard &) = delete;
+
+    void Remove()
+    {
+        if (!completed_) {
+            completed_ = true;
+            RemoveCalibrationFile(dir_, name_, created_, identified_, result_);
+        }
+    }
+
+private:
+    int dir_;
+    const std::string &name_;
+    const struct stat &created_;
+    bool identified_;
+    Calibration &result_;
+    bool completed_ = false;
+};
+
 Calibration Calibrate(const std::string &directory)
 {
     Calibration result;
-    const int dir = open(directory.c_str(), O_RDONLY | O_DIRECTORY | O_CLOEXEC);
+    ScopedFd dirOwner(open(directory.c_str(), O_RDONLY | O_DIRECTORY | O_CLOEXEC));
+    const int dir = dirOwner.Get();
     if (dir < 0) {
         result.errorCode = errno;
         result.message = std::strerror(errno);
         return result;
     }
     if (!ValidateCalibrationDirectory(dir, result)) {
-        close(dir);
         return result;
     }
     const std::string name = CalibrationName();
     result.path = directory + "/" + name;
     result.phase = "create-new-private-file";
     // Never accept an existing inode. All write/fsync/fadvise operations below use ONLY this new fd.
-    const int fd = openat(dir, name.c_str(), O_CREAT | O_EXCL | O_RDWR | O_CLOEXEC | O_NOFOLLOW, PRIVATE_FILE_MODE);
+    ScopedFd fdOwner(openat(dir, name.c_str(), O_CREAT | O_EXCL | O_RDWR | O_CLOEXEC | O_NOFOLLOW, PRIVATE_FILE_MODE));
+    const int fd = fdOwner.Get();
     if (fd < 0) {
         result.errorCode = errno;
         result.message = std::strerror(errno);
-        close(dir);
         return result;
     }
     struct stat created {};
-    result.phase = "identify-new-private-file";
     const bool identified = fstat(fd, &created) == 0;
+    const int identifyError = identified ? 0 : errno;
+    CalibrationCleanupGuard cleanup(dir, name, created, identified, result);
+    result.phase = "identify-new-private-file";
     if (!identified) {
-        result.errorCode = errno;
+        result.errorCode = identifyError;
     }
     std::vector<unsigned char> buffer(IO_BUFFER_BYTES, CALIBRATION_FILL_BYTE);
     WriteCalibrationFile(fd, identified, buffer, result);
     CompleteCalibration(fd, result);
-    RemoveCalibrationFile(dir, name, created, identified, result);
-    close(fd);
-    close(dir);
+    cleanup.Remove(); // Update returned cleanup fields before any return-value copy is made.
     return result;
 }
 
@@ -505,42 +719,34 @@ napi_value CalibratePrivate(napi_env env, napi_callback_info info)
 {
     std::string directory;
     Calibration calibration;
-    if (!ArgumentPath(env, info, directory)) {
+    const PathArgument argument = ArgumentPath(env, info, directory);
+    if (argument == PathArgument::NAPI_FAILURE) { return nullptr; }
+    if (argument == PathArgument::INVALID) {
         calibration.errorCode = EINVAL;
         calibration.message = "Expected one app-private directory path";
     } else {
         calibration = Calibrate(directory);
     }
-    napi_value object;
-    napi_create_object(env, &object);
-    Boolean(env, object, "ok", calibration.ok);
-    Boolean(env, object, "passed", calibration.passed);
-    Text(env, object, "path", calibration.path);
-    Text(env, object, "phase", calibration.phase);
-    Number(env, object, "errorCode", calibration.errorCode);
-    Text(env, object, "message", calibration.message);
-    Number(env, object, "bytesWritten", calibration.bytesWritten);
-    Number(env, object, "fsyncReturnCode", calibration.fsyncReturnCode);
-    Number(env, object, "fadviseReturnCode", calibration.fadviseReturnCode);
-    Boolean(env, object, "removed", calibration.removed);
-    Number(env, object, "cleanupErrorCode", calibration.cleanupErrorCode);
-    napi_set_named_property(env, object, "afterWrite", Result(env, calibration.afterWrite));
-    napi_set_named_property(env, object, "afterDrop", Result(env, calibration.afterDrop));
-    napi_set_named_property(env, object, "afterRead", Result(env, calibration.afterRead));
+    napi_value object = nullptr;
+    if (!NapiOk(env, napi_create_object(env, &object))) {
+        return nullptr;
+    }
+    if (!Boolean(env, object, "ok", calibration.ok)) { return nullptr; }
+    if (!Boolean(env, object, "passed", calibration.passed)) { return nullptr; }
+    if (!Text(env, object, "path", calibration.path)) { return nullptr; }
+    if (!Text(env, object, "phase", calibration.phase)) { return nullptr; }
+    if (!Number(env, object, "errorCode", calibration.errorCode)) { return nullptr; }
+    if (!Text(env, object, "message", calibration.message)) { return nullptr; }
+    if (!Number(env, object, "bytesWritten", calibration.bytesWritten)) { return nullptr; }
+    if (!Number(env, object, "fsyncReturnCode", calibration.fsyncReturnCode)) { return nullptr; }
+    if (!Number(env, object, "fadviseReturnCode", calibration.fadviseReturnCode)) { return nullptr; }
+    if (!Boolean(env, object, "removed", calibration.removed)) { return nullptr; }
+    if (!Number(env, object, "cleanupErrorCode", calibration.cleanupErrorCode)) { return nullptr; }
+    if (!Property(env, object, "afterWrite", Result(env, calibration.afterWrite))) { return nullptr; }
+    if (!Property(env, object, "afterDrop", Result(env, calibration.afterDrop))) { return nullptr; }
+    if (!Property(env, object, "afterRead", Result(env, calibration.afterRead))) { return nullptr; }
     return object;
 }
-
-// A single held, genuinely readable private HAP mapping. Only the REAL SDK may advise it.
-struct HeldMapping {
-    int fd = -1;
-    void *address = MAP_FAILED;
-    size_t length = 0;
-    uint32_t handle = 0;
-    bool pagemapEstablished = false;
-    Probe identity;
-};
-HeldMapping g_held;
-std::atomic<uint32_t> g_nextMappingHandle {0};
 
 std::string AddressHex(uintptr_t address)
 {
@@ -550,53 +756,56 @@ std::string AddressHex(uintptr_t address)
 bool MappingHandle(napi_env env, napi_callback_info info, uint32_t &value)
 {
     size_t argc = 1;
-    napi_value argv[1];
-    napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
-    return argc == 1 && napi_get_value_uint32(env, argv[0], &value) == napi_ok && value != 0;
+    napi_value argv[1] = {nullptr};
+    if (!NapiOk(env, napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr))) { return false; }
+    if (argc != 1) { return true; }
+    napi_valuetype type = napi_undefined;
+    if (!NapiOk(env, napi_typeof(env, argv[0], &type))) { return false; }
+    return type != napi_number || NapiOk(env, napi_get_value_uint32(env, argv[0], &value));
 }
 
-void NullableNumber(napi_env env, napi_value object, const char *key, bool valid, double value)
+bool NullableNumber(napi_env env, napi_value object, const char *key, bool valid, double value)
 {
     if (valid) {
-        Number(env, object, key, value);
-        return;
+        return Number(env, object, key, value);
     }
-    napi_value nullValue;
-    napi_get_null(env, &nullValue);
-    napi_set_named_property(env, object, key, nullValue);
+    napi_value nullValue = nullptr;
+    return NapiOk(env, napi_get_null(env, &nullValue)) && Property(env, object, key, nullValue);
 }
 
-void MappingHeader(napi_env env, napi_value object, uint32_t handle, bool active, bool valid, const Probe &file)
+bool MappingHeader(napi_env env, napi_value object, const HeldMapping &held, uint32_t handle, bool active, bool valid, const Probe &file)
 {
-    Boolean(env, object, "ok", valid);
-    Number(env, object, "handle", active ? handle : 0);
-    Number(env, object, "errorCode", active ? file.errorCode : ESTALE);
-    Text(env, object, "message", valid ? "Held PROT_READ MAP_PRIVATE mapping; not global pagecache quantity" :
-        (active ? file.message : "No matching live mapping handle"));
-    Number(env, object, "mappedBytes", active ? g_held.length : 0);
-    Text(env, object, "virtualStart", active ? AddressHex(reinterpret_cast<uintptr_t>(g_held.address)) : "");
-    Text(env, object, "virtualEnd",
-        active ? AddressHex(reinterpret_cast<uintptr_t>(g_held.address) + g_held.length) : "");
+    if (!Boolean(env, object, "ok", valid)) { return false; }
+    if (!Number(env, object, "handle", active ? handle : 0)) { return false; }
+    if (!Number(env, object, "errorCode", active ? file.errorCode : ESTALE)) { return false; }
+    if (!Text(env, object, "message", valid ? "Held PROT_READ MAP_PRIVATE mapping; not global pagecache quantity" :
+        (active ? file.message : "No matching live mapping handle"))) { return false; }
+    if (!Number(env, object, "mappedBytes", active ? held.length : 0)) { return false; }
+    if (!Text(env, object, "virtualStart", active ? AddressHex(reinterpret_cast<uintptr_t>(held.address)) : "")) { return false; }
+    if (!Text(env, object, "virtualEnd",
+        active ? AddressHex(reinterpret_cast<uintptr_t>(held.address) + held.length) : "")) { return false; }
+    return true;
 }
 
-void MappingFdPath(napi_env env, napi_value object, bool active)
+bool MappingFdPath(napi_env env, napi_value object, const HeldMapping &held, bool active)
 {
     std::string fdPath;
     int linkError = 0;
     if (active) {
         char path[MAX_PATH_BYTES + 1];
-        const ssize_t count = readlink(("/proc/self/fd/" + std::to_string(g_held.fd)).c_str(), path, sizeof(path) - 1);
+        const ssize_t count = readlink(("/proc/self/fd/" + std::to_string(held.fd)).c_str(), path, sizeof(path) - 1);
         if (count >= 0) {
             fdPath.assign(path, count);
         } else {
             linkError = errno;
         }
     }
-    Text(env, object, "fdPath", fdPath);
-    Number(env, object, "fdPathErrorCode", linkError);
+    if (!Text(env, object, "fdPath", fdPath)) { return false; }
+    if (!Number(env, object, "fdPathErrorCode", linkError)) { return false; }
+    return true;
 }
 
-void TouchMapping(napi_env env, napi_value object, const Probe &file, bool shouldTouch,
+bool TouchMapping(napi_env env, napi_value object, const HeldMapping &held, const Probe &file, bool shouldTouch,
     int64_t &touched, uint32_t &checksum)
 {
     struct rusage faultsBefore {};
@@ -608,7 +817,7 @@ void TouchMapping(napi_env env, napi_value object, const Probe &file, bool shoul
     bool faultsKnown = false;
     if (shouldTouch) {
         faultsKnown = getrusage(faultScope, &faultsBefore) == 0;
-        const volatile unsigned char *bytes = static_cast<const volatile unsigned char *>(g_held.address);
+        const volatile unsigned char *bytes = static_cast<const volatile unsigned char *>(held.address);
         // Read EVERY file byte via the held mapping. This populates its PTEs, unlike pread().
         for (int64_t index = 0; index < file.fileBytes; ++index) {
             checksum = (checksum ^ bytes[index]) * CHECKSUM_PRIME;
@@ -616,13 +825,14 @@ void TouchMapping(napi_env env, napi_value object, const Probe &file, bool shoul
         touched = file.fileBytes;
         faultsKnown = getrusage(faultScope, &faultsAfter) == 0 && faultsKnown;
     }
-    Number(env, object, "bytesTouched", touched);
-    Number(env, object, "checksum", checksum);
-    Text(env, object, "faultScope", faultScope == RUSAGE_SELF ?
-        "process-during-synchronous-touch" : "thread-during-synchronous-touch");
-    Boolean(env, object, "faultCountersAvailable", faultsKnown);
-    NullableNumber(env, object, "minorFaults", faultsKnown, faultsAfter.ru_minflt - faultsBefore.ru_minflt);
-    NullableNumber(env, object, "majorFaults", faultsKnown, faultsAfter.ru_majflt - faultsBefore.ru_majflt);
+    if (!Number(env, object, "bytesTouched", touched)) { return false; }
+    if (!Number(env, object, "checksum", checksum)) { return false; }
+    if (!Text(env, object, "faultScope", faultScope == RUSAGE_SELF ?
+        "process-during-synchronous-touch" : "thread-during-synchronous-touch")) { return false; }
+    if (!Boolean(env, object, "faultCountersAvailable", faultsKnown)) { return false; }
+    if (!NullableNumber(env, object, "minorFaults", faultsKnown, faultsAfter.ru_minflt - faultsBefore.ru_minflt)) { return false; }
+    if (!NullableNumber(env, object, "majorFaults", faultsKnown, faultsAfter.ru_majflt - faultsBefore.ru_majflt)) { return false; }
+    return true;
 }
 
 struct PagemapSample {
@@ -644,14 +854,15 @@ bool ReadPagemapEntry(int pagemap, uint64_t page, uint64_t &entry, int &errorCod
     return true;
 }
 
-void ReadPresentPages(const Probe &file, PagemapSample &sample)
+void ReadPresentPages(const HeldMapping &held, const Probe &file, PagemapSample &sample)
 {
-    const int pagemap = open("/proc/self/pagemap", O_RDONLY | O_CLOEXEC);
+    ScopedFd pagemapOwner(open("/proc/self/pagemap", O_RDONLY | O_CLOEXEC));
+    const int pagemap = pagemapOwner.Get();
     if (pagemap < 0) {
         sample.errorCode = errno;
         return;
     }
-    const uint64_t firstPage = reinterpret_cast<uintptr_t>(g_held.address) / file.pageBytes;
+    const uint64_t firstPage = reinterpret_cast<uintptr_t>(held.address) / file.pageBytes;
     sample.readable = true;
     for (int64_t index = 0; index < file.totalPages; ++index) {
         uint64_t entry = 0;
@@ -664,18 +875,17 @@ void ReadPresentPages(const Probe &file, PagemapSample &sample)
             ++sample.present;
         }
     }
-    close(pagemap);
 }
 
-void SampleHeldResidency(Probe &file)
+void SampleHeldResidency(const HeldMapping &held, Probe &file)
 {
-    file.ownerOrWritable = g_held.identity.ownerOrWritable;
-    file.ownsFile = g_held.identity.ownsFile;
-    file.writeOpenAllowed = g_held.identity.writeOpenAllowed;
-    file.writeOpenErrno = g_held.identity.writeOpenErrno;
+    file.ownerOrWritable = held.identity.ownerOrWritable;
+    file.ownsFile = held.identity.ownsFile;
+    file.writeOpenAllowed = held.identity.writeOpenAllowed;
+    file.writeOpenErrno = held.identity.writeOpenErrno;
     file.operation = "held-mapping-mincore";
     std::vector<unsigned char> resident(static_cast<size_t>(file.totalPages));
-    if (mincore(g_held.address, file.fileBytes, resident.data()) == 0) {
+    if (mincore(held.address, file.fileBytes, resident.data()) == 0) {
         file.ok = true;
         CountResidentPages(resident, file);
         file.residencyTrusted = file.ownerOrWritable;
@@ -685,130 +895,195 @@ void SampleHeldResidency(Probe &file)
     }
 }
 
-void MappingPagemap(napi_env env, napi_value object, bool valid, const PagemapSample &sample)
+bool MappingPagemap(napi_env env, napi_value object, const HeldMapping &held, bool valid, const PagemapSample &sample)
 {
-    Boolean(env, object, "pagemapReadable", sample.readable);
-    Boolean(env, object, "pagemapEstablished", valid && g_held.pagemapEstablished);
-    Number(env, object, "pagemapErrorCode", sample.errorCode);
-    Text(env, object, "pagemapMeaning",
-        "PRESENT PTE count for ONLY virtualStart..virtualEnd; not global filecache or physical memory returned");
-    NullableNumber(env, object, "rawPresentPages", sample.readable, sample.present);
-    NullableNumber(env, object, "presentPages", valid && sample.readable && g_held.pagemapEstablished, sample.present);
+    if (!Boolean(env, object, "pagemapReadable", sample.readable)) { return false; }
+    if (!Boolean(env, object, "pagemapEstablished", valid && held.pagemapEstablished)) { return false; }
+    if (!Number(env, object, "pagemapErrorCode", sample.errorCode)) { return false; }
+    if (!Text(env, object, "pagemapMeaning",
+        "PRESENT PTE count for ONLY virtualStart..virtualEnd; not global filecache or physical memory returned")) { return false; }
+    if (!NullableNumber(env, object, "rawPresentPages", sample.readable, sample.present)) { return false; }
+    if (!NullableNumber(env, object, "presentPages", valid && sample.readable && held.pagemapEstablished, sample.present)) { return false; }
+    return true;
 }
 
-napi_value MappingObservation(napi_env env, uint32_t handle, bool touch)
+napi_value MappingObservation(napi_env env, HeldMapping &held, uint32_t handle, bool touch)
 {
-    napi_value object;
-    napi_create_object(env, &object);
-    const bool active = g_held.fd >= 0 && g_held.address != MAP_FAILED && g_held.handle == handle;
+    napi_value object = nullptr;
+    if (!NapiOk(env, napi_create_object(env, &object))) {
+        return nullptr;
+    }
+    const bool active = held.fd >= 0 && held.address != MAP_FAILED && held.handle == handle;
     Probe file;
-    bool valid = active && Metadata(g_held.fd, file);
-    if (valid && (file.inode != g_held.identity.inode || file.fileBytes != g_held.identity.fileBytes)) {
+    bool valid = active && Metadata(held.fd, file);
+    if (valid && (file.inode != held.identity.inode || file.fileBytes != held.identity.fileBytes)) {
         valid = false;
         file.errorCode = ESTALE;
         file.message = "Held file identity or length changed";
     }
-    MappingHeader(env, object, handle, active, valid, file);
-    MappingFdPath(env, object, active);
+    if (!MappingHeader(env, object, held, handle, active, valid, file)) { return nullptr; }
+    if (!MappingFdPath(env, object, held, active)) { return nullptr; }
     int64_t touched = 0;
     uint32_t checksum = CHECKSUM_OFFSET_BASIS;
-    TouchMapping(env, object, file, valid && touch, touched, checksum);
+    if (!TouchMapping(env, object, held, file, valid && touch, touched, checksum)) { return nullptr; }
     PagemapSample sample;
     file.sampleStartedMonotonicMs = ClockMs(CLOCK_MONOTONIC);
     file.sampleWallTimeMs = ClockMs(CLOCK_REALTIME);
     if (valid) {
-        ReadPresentPages(file, sample);
+        ReadPresentPages(held, file, sample);
         if (touch && sample.readable && sample.present == file.totalPages) {
-            g_held.pagemapEstablished = true;
+            held.pagemapEstablished = true;
         }
-        SampleHeldResidency(file);
+        SampleHeldResidency(held, file);
     }
     file.bytesRead = touched;
     file.checksum = checksum;
     file.sampleCompletedMonotonicMs = ClockMs(CLOCK_MONOTONIC);
-    MappingPagemap(env, object, valid, sample);
-    napi_set_named_property(env, object, "file", Result(env, file));
+    if (!MappingPagemap(env, object, held, valid, sample)) { return nullptr; }
+    if (!Property(env, object, "file", Result(env, file))) { return nullptr; }
     return object;
 }
 
 napi_value BeginMapping(napi_env env, napi_callback_info info)
 {
+    EnvironmentState *state = CallbackState(env, info);
+    if (state == nullptr) { return nullptr; }
+    HeldMapping &held = state->held;
     std::string path;
-    if (g_held.fd >= 0 || !ArgumentPath(env, info, path)) {
-        napi_throw_error(env, nullptr, "Mapping already active or invalid target path");
-        return nullptr;
+    if (held.unreported) {
+        int cleanupError = 0;
+        if (!held.Release(cleanupError)) {
+            return ThrowError(env, "Previous failed begin still requires native mapping cleanup");
+        }
     }
-    const int fd = open(path.c_str(), O_RDONLY | O_CLOEXEC);
+    if (held.fd >= 0) { return ThrowError(env, "Mapping already active or invalid target path"); }
+    const PathArgument argument = ArgumentPath(env, info, path);
+    if (argument == PathArgument::NAPI_FAILURE) { return nullptr; }
+    if (argument == PathArgument::INVALID) {
+        return ThrowError(env, "Mapping already active or invalid target path");
+    }
+    ScopedFd fdOwner(open(path.c_str(), O_RDONLY | O_CLOEXEC));
+    const int fd = fdOwner.Get();
     Probe identity;
     if (fd < 0 || !Metadata(fd, identity)) {
-        if (fd >= 0) {
-            close(fd);
-        }
-        napi_throw_error(env, nullptr, "Cannot open/stat held mapping target");
-        return nullptr;
+        return ThrowError(env, "Cannot open/stat held mapping target");
     }
     PermissionSignal(fd, path, identity);
     const size_t length = static_cast<size_t>(identity.totalPages * identity.pageBytes);
+    // Copy any allocating metadata before acquiring the mmap.
+    held.identity = identity;
     void *address = mmap(nullptr, length, PROT_READ, MAP_PRIVATE, fd, 0);
     if (address == MAP_FAILED) {
-        close(fd);
-        napi_throw_error(env, nullptr, "PROT_READ MAP_PRIVATE mmap failed");
-        return nullptr;
+        return ThrowError(env, "PROT_READ MAP_PRIVATE mmap failed");
     }
-    g_held.fd = fd;
-    g_held.address = address;
-    g_held.length = length;
-    g_held.handle = ++g_nextMappingHandle;
-    g_held.pagemapEstablished = false;
-    g_held.identity = identity;
-    return MappingObservation(env, g_held.handle, true);
+    held.fd = fdOwner.Take();
+    held.address = address;
+    held.length = length;
+    do { held.handle = ++g_nextMappingHandle; } while (held.handle == 0);
+    held.pagemapEstablished = false;
+    held.unreported = true;
+    napi_value result = nullptr;
+    try {
+        result = MappingObservation(env, held, held.handle, true);
+    } catch (...) {
+        int cleanupError = 0;
+        held.Release(cleanupError);
+        throw;
+    }
+    if (result == nullptr) {
+        int cleanupError = 0;
+        held.Release(cleanupError); // Preserve failed munmap state for the next begin/env cleanup.
+    } else {
+        held.unreported = false;
+    }
+    return result;
 }
 
 napi_value SampleMapping(napi_env env, napi_callback_info info)
 {
+    EnvironmentState *state = CallbackState(env, info);
+    if (state == nullptr) { return nullptr; }
     uint32_t handle = 0;
-    MappingHandle(env, info, handle);
-    return MappingObservation(env, handle, false);
+    if (!MappingHandle(env, info, handle)) { return nullptr; }
+    return MappingObservation(env, state->held, handle, false);
 }
 
 napi_value RereadMapping(napi_env env, napi_callback_info info)
 {
+    EnvironmentState *state = CallbackState(env, info);
+    if (state == nullptr) { return nullptr; }
     uint32_t handle = 0;
-    MappingHandle(env, info, handle);
-    return MappingObservation(env, handle, true);
+    if (!MappingHandle(env, info, handle)) { return nullptr; }
+    return MappingObservation(env, state->held, handle, true);
 }
 
 napi_value ReleaseMapping(napi_env env, napi_callback_info info)
 {
+    EnvironmentState *state = CallbackState(env, info);
+    if (state == nullptr) { return nullptr; }
     uint32_t handle = 0;
-    const bool active = MappingHandle(env, info, handle) && g_held.fd >= 0 && g_held.handle == handle;
-    bool released = false;
-    if (active) {
-        released = munmap(g_held.address, g_held.length) == 0;
-        close(g_held.fd);
-        g_held = HeldMapping();
-    }
-    napi_value result;
-    napi_get_boolean(env, released, &result);
+    if (!MappingHandle(env, info, handle)) { return nullptr; }
+    HeldMapping &held = state->held;
+    const bool active = held.fd >= 0 && held.handle == handle;
+    int cleanupError = 0;
+    const bool released = active && held.Release(cleanupError);
+    napi_value result = nullptr;
+    if (!NapiOk(env, napi_get_boolean(env, released, &result))) { return nullptr; }
     return result;
 }
 
 napi_value Warm(napi_env env, napi_callback_info info) { return Measure(env, info, true); }
 napi_value Sample(napi_env env, napi_callback_info info) { return Measure(env, info, false); }
 
+template<napi_value (*Callback)(napi_env, napi_callback_info)>
+napi_value GuardCallback(napi_env env, napi_callback_info info)
+{
+    try {
+        bool pending = false;
+        if (!NapiOk(env, napi_is_exception_pending(env, &pending)) || pending) { return nullptr; }
+        return Callback(env, info);
+    } catch (const std::exception &) {
+        return ThrowError(env, "pageprobe native allocation or operation failed");
+    } catch (...) {
+        return ThrowError(env, "pageprobe native operation failed");
+    }
+}
+
+napi_value Initialize(napi_env env, napi_value exports)
+{
+    RetryRetiredMappings();
+    auto *state = new (std::nothrow) EnvironmentState();
+    if (state == nullptr) { return ThrowError(env, "Cannot allocate pageprobe environment state"); }
+    if (!NapiOk(env, napi_add_env_cleanup_hook(env, CleanupEnvironment, state))) {
+        delete state;
+        return nullptr;
+    }
+    const napi_property_descriptor descriptors[] = {
+        {"warmFile", nullptr, GuardCallback<Warm>, nullptr, nullptr, nullptr, napi_default, state},
+        {"sampleFile", nullptr, GuardCallback<Sample>, nullptr, nullptr, nullptr, napi_default, state},
+        {"calibratePrivateFile", nullptr, GuardCallback<CalibratePrivate>, nullptr, nullptr, nullptr, napi_default, state},
+        {"beginMappedFile", nullptr, GuardCallback<BeginMapping>, nullptr, nullptr, nullptr, napi_default, state},
+        {"sampleMappedFile", nullptr, GuardCallback<SampleMapping>, nullptr, nullptr, nullptr, napi_default, state},
+        {"rereadMappedFile", nullptr, GuardCallback<RereadMapping>, nullptr, nullptr, nullptr, napi_default, state},
+        {"releaseMappedFile", nullptr, GuardCallback<ReleaseMapping>, nullptr, nullptr, nullptr, napi_default, state}
+    };
+    if (!NapiOk(env, napi_define_properties(env, exports, sizeof(descriptors) / sizeof(descriptors[0]), descriptors))) {
+        return nullptr; // Registered env cleanup hook owns state, even on partial initialization.
+    }
+    return exports;
+}
+
 napi_value Init(napi_env env, napi_value exports)
 {
-    const napi_property_descriptor descriptors[] = {
-        {"warmFile", nullptr, Warm, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"sampleFile", nullptr, Sample, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"calibratePrivateFile", nullptr, CalibratePrivate, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"beginMappedFile", nullptr, BeginMapping, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"sampleMappedFile", nullptr, SampleMapping, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"rereadMappedFile", nullptr, RereadMapping, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"releaseMappedFile", nullptr, ReleaseMapping, nullptr, nullptr, nullptr, napi_default, nullptr}
-    };
-    napi_define_properties(env, exports, sizeof(descriptors) / sizeof(descriptors[0]), descriptors);
-    return exports;
+    try {
+        bool pending = false;
+        if (!NapiOk(env, napi_is_exception_pending(env, &pending)) || pending) { return nullptr; }
+        return Initialize(env, exports);
+    } catch (const std::exception &) {
+        return ThrowError(env, "pageprobe environment initialization failed");
+    } catch (...) {
+        return ThrowError(env, "pageprobe environment initialization failed");
+    }
 }
 
 napi_module g_module = {1, 0, nullptr, Init, "pageprobe", nullptr, {0}};
