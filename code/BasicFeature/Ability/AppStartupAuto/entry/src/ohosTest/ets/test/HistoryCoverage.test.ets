@@ -91,7 +91,7 @@ export default function historyCoverageTest(): void {
       fixture = new HistoryFixture();
     });
 
-    afterEach(async () => {
+    afterEach(async (): Promise<void> => {
       fixture.service.dispose();
       fixture.clock.clearAll();
       fixture.api.finishPending();
@@ -107,7 +107,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0001', 0, async () => {
+    it('testAutoStartupHistoryCoverage0001', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -146,7 +146,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0002', 0, async () => {
+    it('testAutoStartupHistoryCoverage0002', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.storage.value = '{not json';
@@ -182,7 +182,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0003', 0, async () => {
+    it('testAutoStartupHistoryCoverage0003', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.storage.failWrite = true;
@@ -220,7 +220,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0004', 0, async () => {
+    it('testAutoStartupHistoryCoverage0004', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.storage.failRead = true;
@@ -248,7 +248,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0005', 0, async () => {
+    it('testAutoStartupHistoryCoverage0005', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       const now = f.clock.now();
@@ -276,7 +276,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0006', 0, async () => {
+    it('testAutoStartupHistoryCoverage0006', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       const now = f.clock.now();
@@ -305,7 +305,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0007', 0, async () => {
+    it('testAutoStartupHistoryCoverage0007', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       const now = f.clock.now();
@@ -339,7 +339,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0008', 0, async () => {
+    it('testAutoStartupHistoryCoverage0008', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       const now = f.clock.now();
@@ -370,7 +370,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0009', 0, async () => {
+    it('testAutoStartupHistoryCoverage0009', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       const now = f.clock.now();
@@ -401,7 +401,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0010', 0, async () => {
+    it('testAutoStartupHistoryCoverage0010', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       const long: BusinessError = new Error('x'.repeat(600)) as BusinessError;
@@ -434,7 +434,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0011', 0, async () => {
+    it('testAutoStartupHistoryCoverage0011', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       const now = f.clock.now();
@@ -485,7 +485,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0012', 0, async () => {
+    it('testAutoStartupHistoryCoverage0012', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       const now = f.clock.now();
@@ -530,7 +530,7 @@ export default function historyCoverageTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupHistoryCoverage0013', 0, async () => {
+    it('testAutoStartupHistoryCoverage0013', 0, async (): Promise<void> => {
       configureTestText();
       const first = fixture;
       const exact: BusinessError = new Error('y'.repeat(512)) as BusinessError;

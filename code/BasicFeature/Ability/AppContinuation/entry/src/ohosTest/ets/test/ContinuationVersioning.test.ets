@@ -49,7 +49,7 @@ export default function continuationVersioning(): void {
       withLearning((fixture: LearningFixture): void => {
         fixture.controller.markWindowReady();
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag('doc-alpha', 5, 'v2正文🌱', 'v2-tag', 2, 6))), 3);
+          versionedBag('doc-alpha', 5, 'v2正文🌱', 'v2-tag', 2, 6))), AbilityConstant.LaunchReason.CONTINUATION);
         const value: LearningSnapshot = fixture.controller.snapshot();
         loggedExpect(value.committed, 'ContinuationVersioning.test.ets:A0001', BUNDLE + '_ContinuationVersioning_0001').assertTrue();
         loggedExpect(value.text, 'ContinuationVersioning.test.ets:A0002', BUNDLE + '_ContinuationVersioning_0001').assertEqual('v2正文🌱');
@@ -83,7 +83,7 @@ export default function continuationVersioning(): void {
         withLearning((fixture: LearningFixture): void => {
           fixture.controller.updateText('本机原文');
           fixture.controller.markWindowReady();
-          fixture.controller.handleLaunch(inboundWant(raw), 3);
+          fixture.controller.handleLaunch(inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
           const value = fixture.controller.snapshot();
           loggedExpect(value.committed, 'ContinuationVersioning.test.ets:A0008', BUNDLE + '_ContinuationVersioning_0002').assertFalse();
           loggedExpect(value.text, 'ContinuationVersioning.test.ets:A0009', BUNDLE + '_ContinuationVersioning_0002').assertEqual('本机原文');
@@ -112,7 +112,7 @@ export default function continuationVersioning(): void {
         const writes = fixture.store.putCalls;
         fixture.controller.markWindowReady();
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag(afterSave.documentId, 0, '旧的接续正文', 'stale-tag', 0, 4))), 3);
+          versionedBag(afterSave.documentId, 0, '旧的接续正文', 'stale-tag', 0, 4))), AbilityConstant.LaunchReason.CONTINUATION);
         let value = fixture.controller.snapshot();
         loggedExpect(value.conflictPending, 'ContinuationVersioning.test.ets:A0014', BUNDLE + '_ContinuationVersioning_0003').assertTrue();
         loggedExpect(value.committed, 'ContinuationVersioning.test.ets:A0015', BUNDLE + '_ContinuationVersioning_0003').assertFalse();
@@ -148,7 +148,7 @@ export default function continuationVersioning(): void {
         const writes = fixture.store.putCalls;
         fixture.controller.markWindowReady();
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag(documentId, 1, '同号不同内容', 'divergent-tag', 0, 3))), 3);
+          versionedBag(documentId, 1, '同号不同内容', 'divergent-tag', 0, 3))), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(fixture.controller.snapshot().conflictPending, 'ContinuationVersioning.test.ets:A0025', BUNDLE + '_ContinuationVersioning_0004').assertTrue();
         fixture.controller.rejectConflict();
         const value = fixture.controller.snapshot();
@@ -188,7 +188,7 @@ export default function continuationVersioning(): void {
         loggedExpect(decoded['revision'], 'ContinuationVersioning.test.ets:A0036', BUNDLE + '_ContinuationVersioning_0005').assertEqual(1);
         withLearning((target: LearningFixture): void => {
           target.controller.markWindowReady();
-          target.controller.handleLaunch({ parameters: parameters } as Want, 3);
+          target.controller.handleLaunch({ parameters: parameters } as Want, AbilityConstant.LaunchReason.CONTINUATION);
           const restored = target.controller.snapshot();
           loggedExpect(restored.committed, 'ContinuationVersioning.test.ets:A0037', BUNDLE + '_ContinuationVersioning_0005').assertTrue();
           loggedExpect(restored.documentId, 'ContinuationVersioning.test.ets:A0038', BUNDLE + '_ContinuationVersioning_0005').assertEqual(documentId);
@@ -220,7 +220,7 @@ export default function continuationVersioning(): void {
         loggedExpect(decoded['documentId'], 'ContinuationVersioning.test.ets:A0044', BUNDLE + '_ContinuationVersioning_0006').assertEqual('');
         withLearning((target: LearningFixture): void => {
           target.controller.markWindowReady();
-          target.controller.handleLaunch({ parameters: parameters } as Want, 3);
+          target.controller.handleLaunch({ parameters: parameters } as Want, AbilityConstant.LaunchReason.CONTINUATION);
           const value = target.controller.snapshot();
           loggedExpect(value.committed, 'ContinuationVersioning.test.ets:A0045', BUNDLE + '_ContinuationVersioning_0006').assertTrue();
           loggedExpect(value.text, 'ContinuationVersioning.test.ets:A0046', BUNDLE + '_ContinuationVersioning_0006').assertEqual('v1兼容正文');
@@ -246,7 +246,7 @@ export default function continuationVersioning(): void {
         const documentId = fixture.controller.snapshot().documentId;
         fixture.controller.markWindowReady();
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag(documentId, 0, '候选', 'wait-tag', 0, 2))), 3);
+          versionedBag(documentId, 0, '候选', 'wait-tag', 0, 2))), AbilityConstant.LaunchReason.CONTINUATION);
         const writes = fixture.store.putCalls;
         fixture.controller.markWindowReady();
         fixture.controller.markWindowReady();
@@ -273,7 +273,7 @@ export default function continuationVersioning(): void {
         const documentId = fixture.controller.snapshot().documentId;
         const writes = fixture.store.putCalls;
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag(documentId, 0, '冲突候选', 'gate-tag', 0, 4))), 10);
+          versionedBag(documentId, 0, '冲突候选', 'gate-tag', 0, 4))), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         loggedExpect(fixture.controller.snapshot().conflictPending, 'ContinuationVersioning.test.ets:A0052', BUNDLE + '_ContinuationVersioning_0008').assertTrue();
         fixture.controller.acceptConflict();
         loggedExpect(fixture.controller.snapshot().conflictAccepted, 'ContinuationVersioning.test.ets:A0053', BUNDLE + '_ContinuationVersioning_0008').assertTrue();
@@ -308,7 +308,7 @@ export default function continuationVersioning(): void {
         const writes = fixture.store.putCalls;
         fixture.controller.markWindowReady();
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag(before.documentId, 0, '失败候选', 'fail-tag', 0, 4))), 3);
+          versionedBag(before.documentId, 0, '失败候选', 'fail-tag', 0, 4))), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.store.failPutCalls = [fixture.store.putCalls + 1];
         fixture.controller.acceptConflict();
         const after = fixture.controller.snapshot();
@@ -335,7 +335,7 @@ export default function continuationVersioning(): void {
         fixture.controller.updateText('文档A未保存修改');
         fixture.controller.markWindowReady();
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag('doc-other', 3, '文档B', 'switch-tag', 0, 3))), 3);
+          versionedBag('doc-other', 3, '文档B', 'switch-tag', 0, 3))), AbilityConstant.LaunchReason.CONTINUATION);
         let value = fixture.controller.snapshot();
         loggedExpect(value.conflictPending, 'ContinuationVersioning.test.ets:A0065', BUNDLE + '_ContinuationVersioning_0010').assertTrue();
         loggedExpect(value.conflictKind, 'ContinuationVersioning.test.ets:A0066', BUNDLE + '_ContinuationVersioning_0010').assertEqual('document');
@@ -362,7 +362,7 @@ export default function continuationVersioning(): void {
         fixture.controller.saveText();
         fixture.controller.markWindowReady();
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag('doc-other', 7, '文档B', 'switch-clean', 0, 3))), 3);
+          versionedBag('doc-other', 7, '文档B', 'switch-clean', 0, 3))), AbilityConstant.LaunchReason.CONTINUATION);
         const value = fixture.controller.snapshot();
         loggedExpect(value.conflictPending, 'ContinuationVersioning.test.ets:A0070', BUNDLE + '_ContinuationVersioning_0011').assertFalse();
         loggedExpect(value.committed, 'ContinuationVersioning.test.ets:A0071', BUNDLE + '_ContinuationVersioning_0011').assertTrue();
@@ -396,7 +396,7 @@ export default function continuationVersioning(): void {
         fixture.controller.updateText('本机修改');
         fixture.controller.markWindowReady();
         fixture.controller.handleLaunch(inboundWant(JSON.stringify(
-          versionedBag('doc-limit', 999999999, '候选', 'limit-tag', 0, 3))), 3);
+          versionedBag('doc-limit', 999999999, '候选', 'limit-tag', 0, 3))), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.controller.acceptConflict();
         loggedExpect(fixture.controller.snapshot().committed, 'ContinuationVersioning.test.ets:A0075', BUNDLE + '_ContinuationVersioning_0012').assertFalse();
         loggedExpect(fixture.store.putCalls, 'ContinuationVersioning.test.ets:A0076', BUNDLE + '_ContinuationVersioning_0012').assertEqual(0);

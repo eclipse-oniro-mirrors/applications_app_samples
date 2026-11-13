@@ -76,7 +76,7 @@ export default function continuationModeBoundaryWaveTwo(): void {
       try {
         f.controller.updateText('原文本已保存'); f.controller.saveText(); const raw = f.store.getSync(STORE_KEY, '');
         f.controller.updateText('原文本未保存编辑'); f.controller.markWindowReady();
-        f.controller.handleLaunch(waveWant(encodeScene(waveReading('cross-mode-reading', 4, 1, 2))), 3);
+        f.controller.handleLaunch(waveWant(encodeScene(waveReading('cross-mode-reading', 4, 1, 2))), AbilityConstant.LaunchReason.CONTINUATION);
         const target = waveTarget(f);
         f.controller.reportScenePosition(target.request, 'reading', target.document.documentId, 4, 1, 2, true);
         loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationModeBoundaryWaveTwo.test.ets:A0011', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertTrue();
@@ -108,7 +108,7 @@ export default function continuationModeBoundaryWaveTwo(): void {
         bag['version'] = 2;
         bag['documentId'] = 'incoming-text-doc';
         bag['revision'] = 5;
-        f.controller.markWindowReady(); f.controller.handleLaunch(inboundWant(JSON.stringify(bag)), 3);
+        f.controller.markWindowReady(); f.controller.handleLaunch(inboundWant(JSON.stringify(bag)), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationModeBoundaryWaveTwo.test.ets:A0019', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertTrue();
         loggedExpect(f.store.getSync(STORE_KEY, ''), 'ContinuationModeBoundaryWaveTwo.test.ets:A0020', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertEqual('');
         f.controller.acceptConflict();
@@ -135,7 +135,7 @@ export default function continuationModeBoundaryWaveTwo(): void {
       const page = new ScenePageSession('form');
       try {
         fillWaveForm(source); source.gotoFormStep(1); const incoming = source.document('form'); incoming.revision = 4;
-        f.controller.handleLaunch(waveWant(encodeScene(incoming)), 3);
+        f.controller.handleLaunch(waveWant(encodeScene(incoming)), AbilityConstant.LaunchReason.CONTINUATION);
         f.controller.markWindowReady();
         page.bind(f.controller, (): void => {});
         const old = waveTarget(f); page.receipt(old, 0, 0, true);

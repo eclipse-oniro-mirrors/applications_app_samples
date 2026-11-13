@@ -14,6 +14,7 @@
  */
 
 /** Production transaction regressions; controlled stores do not constitute device restart evidence. */
+import { AbilityConstant } from '@kit.AbilityKit';
 import { describe } from '@ohos/hypium';
 import { loggedExpect } from '../support/LoggedExpect';
 import { LearningFixture, inboundWant, payloadBag, rawPayload, withLearning } from '../support/LearningFixtures';
@@ -42,7 +43,7 @@ export default function continuationTransactions(): void {
     scenario(BUNDLE + '_ContinuationTransactions_0001', (): void => {
       withLearning((f: LearningFixture): void => {
         f.controller.markWindowReady();
-        f.controller.handleLaunch(inboundWant(rawPayload('旧版来文', 'legacy', 0, 4)), 3);
+        f.controller.handleLaunch(inboundWant(rawPayload('旧版来文', 'legacy', 0, 4)), AbilityConstant.LaunchReason.CONTINUATION);
         const after = f.controller.snapshot();
         loggedExpect(after.committed, 'ContinuationTransactions.test.ets:A0001', BUNDLE + '_ContinuationTransactions_0001').assertTrue();
         loggedExpect(after.documentId, 'ContinuationTransactions.test.ets:A0002', BUNDLE + '_ContinuationTransactions_0001').assertEqual('');
@@ -70,7 +71,7 @@ export default function continuationTransactions(): void {
         withLearning((f: LearningFixture): void => {
           f.controller.updateText('未保存的编辑');
           f.controller.markWindowReady();
-          f.controller.handleLaunch(inboundWant(raw), 3);
+          f.controller.handleLaunch(inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
           loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationTransactions.test.ets:A0007', BUNDLE + '_ContinuationTransactions_0002').assertTrue();
           loggedExpect(f.controller.snapshot().committed, 'ContinuationTransactions.test.ets:A0008', BUNDLE + '_ContinuationTransactions_0002').assertFalse();
           loggedExpect(f.store.putCalls, 'ContinuationTransactions.test.ets:A0009', BUNDLE + '_ContinuationTransactions_0002').assertEqual(0);
@@ -96,7 +97,7 @@ export default function continuationTransactions(): void {
       withLearning((f: LearningFixture): void => {
         f.controller.updateText('A未保存');
         f.controller.markWindowReady();
-        f.controller.handleLaunch(inboundWant(v2('doc-b', 3, 'B正文', 'switch')), 3);
+        f.controller.handleLaunch(inboundWant(v2('doc-b', 3, 'B正文', 'switch')), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationTransactions.test.ets:A0013', BUNDLE + '_ContinuationTransactions_0003').assertTrue();
         f.controller.acceptConflict();
         loggedExpect(f.controller.snapshot().committed, 'ContinuationTransactions.test.ets:A0014', BUNDLE + '_ContinuationTransactions_0003').assertTrue();
@@ -127,7 +128,7 @@ export default function continuationTransactions(): void {
             lastEditable = snapshot.canEdit;
           });
           f.controller.markWindowReady();
-          f.controller.handleLaunch(inboundWant(v2('doc-a', 1, '远端旧版', 'accept-final')), 3);
+          f.controller.handleLaunch(inboundWant(v2('doc-a', 1, '远端旧版', 'accept-final')), AbilityConstant.LaunchReason.CONTINUATION);
           f.controller.acceptConflict();
           loggedExpect(lastActive, 'ContinuationTransactions.test.ets:A0018', BUNDLE + '_ContinuationTransactions_0004').assertFalse();
           loggedExpect(lastEditable, 'ContinuationTransactions.test.ets:A0019', BUNDLE + '_ContinuationTransactions_0004').assertTrue();
@@ -156,7 +157,7 @@ export default function continuationTransactions(): void {
         f.controller.updateText('相同正文');
         f.controller.updateSelection(0, 4);
         f.controller.markWindowReady();
-        f.controller.handleLaunch(inboundWant(v2('doc-b', 3, '相同正文', 'same-content')), 3);
+        f.controller.handleLaunch(inboundWant(v2('doc-b', 3, '相同正文', 'same-content')), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationTransactions.test.ets:A0024', BUNDLE + '_ContinuationTransactions_0005').assertTrue();
         loggedExpect(f.controller.snapshot().conflictKind, 'ContinuationTransactions.test.ets:A0025', BUNDLE + '_ContinuationTransactions_0005').assertEqual('document');
         loggedExpect(f.store.putCalls, 'ContinuationTransactions.test.ets:A0026', BUNDLE + '_ContinuationTransactions_0005').assertEqual(0);
@@ -166,7 +167,7 @@ export default function continuationTransactions(): void {
         loggedExpect(f.controller.snapshot().text, 'ContinuationTransactions.test.ets:A0029', BUNDLE + '_ContinuationTransactions_0005').assertEqual('相同正文');
         loggedExpect(f.store.putCalls, 'ContinuationTransactions.test.ets:A0030', BUNDLE + '_ContinuationTransactions_0005').assertEqual(0);
         // 拒绝后 dirty 也应保留，同文档更高版本仍需选择。
-        f.controller.handleLaunch(inboundWant(v2('doc-a', 9, '其他正文', 'still-dirty')), 3);
+        f.controller.handleLaunch(inboundWant(v2('doc-a', 9, '其他正文', 'still-dirty')), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationTransactions.test.ets:A0031', BUNDLE + '_ContinuationTransactions_0005').assertTrue();
       }, v2('doc-a', 2, '已保存正文', 'seed'));
     });

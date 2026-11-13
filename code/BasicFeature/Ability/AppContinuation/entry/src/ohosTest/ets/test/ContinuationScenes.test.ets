@@ -230,7 +230,7 @@ export default function continuationScenes(): void {
             work.setFormField('address', '半填');
           }
           const raw = outgoing(source); const first = decodeScene(raw).value as SceneDocument;
-          target.controller.handleLaunch(inbound(raw), 10); target.controller.markWindowReady();
+          target.controller.handleLaunch(inbound(raw), AbilityConstant.LaunchReason.PREPARE_CONTINUATION); target.controller.markWindowReady();
           target.native.deliverOn(0, undefined, resultInfo(0));
           loggedExpect(target.controller.snapshot().committed, 'ContinuationScenes.test.ets:A0049', BUNDLE + '_ContinuationScenes_0005').assertFalse(); loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0050', BUNDLE + '_ContinuationScenes_0005').assertEqual(0);
           loggedExpect(target.native.onCallbacks.length, 'ContinuationScenes.test.ets:A0051', BUNDLE + '_ContinuationScenes_0005').assertEqual(1);
@@ -275,7 +275,7 @@ export default function continuationScenes(): void {
       const source = new SceneControllerFixture(); const target = new SceneControllerFixture();
       try {
         source.controller.openScene('reading'); source.controller.sceneWorkbench.gotoParagraph(2, 1);
-        target.controller.handleLaunch(inbound(outgoing(source)), 3); target.controller.markWindowReady();
+        target.controller.handleLaunch(inbound(outgoing(source)), AbilityConstant.LaunchReason.CONTINUATION); target.controller.markWindowReady();
         const old = targetOf(target); receipt(target, old, false);
         loggedExpect(target.controller.snapshot().targetPage, 'ContinuationScenes.test.ets:A0060', BUNDLE + '_ContinuationScenes_0006').assertEqual('continuation/pages/ProcessPage');
         loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0061', BUNDLE + '_ContinuationScenes_0006').assertEqual(0);
@@ -304,7 +304,7 @@ export default function continuationScenes(): void {
         source.controller.openScene('note'); source.controller.sceneWorkbench.editNote('远端', '远端草稿', 0, 2);
         target.controller.openScene('note'); target.controller.sceneWorkbench.editNote('本机', '本机草稿', 1, 3);
         const before = target.controller.sceneWorkbench.document('note');
-        target.controller.handleLaunch(inbound(outgoing(source)), 10); target.controller.acceptConflict();
+        target.controller.handleLaunch(inbound(outgoing(source)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION); target.controller.acceptConflict();
         loggedExpect(target.controller.snapshot().conflictAccepted, 'ContinuationScenes.test.ets:A0066', BUNDLE + '_ContinuationScenes_0007').assertTrue();
         loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0067', BUNDLE + '_ContinuationScenes_0007').assertEqual(0);
         receipt(target, targetOf(target));
@@ -342,9 +342,9 @@ export default function continuationScenes(): void {
         const source = new SceneControllerFixture();
         try {
           source.controller.openScene('form'); source.controller.sceneWorkbench.setFormField('phone', '13812345678');
-          f.controller.handleLaunch({} as Want, 10);
+          f.controller.handleLaunch({} as Want, AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
           f.native.deliverOn(0, undefined, resultInfo(0, '13812345678 隐私地址'));
-          f.controller.handleLaunch(inbound(outgoing(source)), 3);
+          f.controller.handleLaunch(inbound(outgoing(source)), AbilityConstant.LaunchReason.CONTINUATION);
           const summary = JSON.stringify(f.controller.snapshot().records);
           loggedExpect(summary.indexOf('13812345678'), 'ContinuationScenes.test.ets:A0077', BUNDLE + '_ContinuationScenes_0008').assertEqual(-1); loggedExpect(summary.indexOf('隐私地址'), 'ContinuationScenes.test.ets:A0078', BUNDLE + '_ContinuationScenes_0008').assertEqual(-1);
           f.controller.stopLocalWait(); const writes = f.store.putCalls;
@@ -370,10 +370,10 @@ export default function continuationScenes(): void {
         const raw = outgoing(source);
         const parameters: Record<string, Object> = {};
         parameters[TEXT_PAYLOAD_KEY] = raw;
-        target.controller.handleLaunch({ parameters: parameters } as Want, 3);
+        target.controller.handleLaunch({ parameters: parameters } as Want, AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0081', BUNDLE + '_ContinuationScenes_0009').assertEqual(0);
         parameters[SCENE_PAYLOAD_KEY] = raw;
-        target.controller.handleLaunch({ parameters: parameters } as Want, 3);
+        target.controller.handleLaunch({ parameters: parameters } as Want, AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(target.controller.snapshot().sessionActive, 'ContinuationScenes.test.ets:A0082', BUNDLE + '_ContinuationScenes_0009').assertFalse();
         loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0083', BUNDLE + '_ContinuationScenes_0009').assertEqual(0);
         const broken = new SceneWorkbench(new SceneTestStore('{bad'));

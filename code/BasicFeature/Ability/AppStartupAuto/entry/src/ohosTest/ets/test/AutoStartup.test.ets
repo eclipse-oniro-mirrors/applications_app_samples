@@ -30,7 +30,7 @@ export default function autoStartupTest(): void {
       fixture = new AutoStartupFixture();
     });
 
-    afterEach(async () => {
+    afterEach(async (): Promise<void> => {
       fixture.service.dispose();
       const remainingTimers: number = fixture.clock.pendingCount();
       fixture.clock.clearAll();
@@ -49,7 +49,7 @@ export default function autoStartupTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupQueries0001', 0, async () => {
+    it('testAutoStartupQueries0001', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       expect(traceParameter('com.samples.appstartupauto_AutoStartupQueries_0001|AutoStartup.test.ets|assert0003|assertEqual|actual', f.service.snapshot().phase)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupQueries_0001|AutoStartup.test.ets|assert0003|assertEqual|expected', QueryPhase.IDLE));
@@ -90,7 +90,7 @@ export default function autoStartupTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupQueries0002', 0, async () => {
+    it('testAutoStartupQueries0002', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -185,7 +185,7 @@ export default function autoStartupTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupQueries0005', 0, async () => {
+    it('testAutoStartupQueries0005', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -219,7 +219,7 @@ export default function autoStartupTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupQueries0006', 0, async () => {
+    it('testAutoStartupQueries0006', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -270,7 +270,7 @@ export default function autoStartupTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupQueries0007', 0, async () => {
+    it('testAutoStartupQueries0007', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -304,7 +304,7 @@ export default function autoStartupTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupQueries0008', 0, async () => {
+    it('testAutoStartupQueries0008', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -347,7 +347,7 @@ export default function autoStartupTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupQueries0009', 0, async () => {
+    it('testAutoStartupQueries0009', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -394,7 +394,7 @@ export default function autoStartupTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupQueries0010', 0, async () => {
+    it('testAutoStartupQueries0010', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       for (let index = 0; index < 21; index++) {

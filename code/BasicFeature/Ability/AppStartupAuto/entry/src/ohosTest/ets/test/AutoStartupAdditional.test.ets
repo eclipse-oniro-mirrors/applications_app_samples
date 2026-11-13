@@ -51,7 +51,7 @@ export default function autoStartupAdditionalTest(): void {
       fixture = new AutoStartupFixture();
     });
 
-    afterEach(async () => {
+    afterEach(async (): Promise<void> => {
       fixture.service.dispose();
       const remainingTimers: number = fixture.clock.pendingCount();
       fixture.clock.clearAll();
@@ -70,7 +70,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0001', 0, async () => {
+    it('testAutoStartupAdditionalBranches0001', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       let notifications: number = 0;
@@ -116,7 +116,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0002', 0, async () => {
+    it('testAutoStartupAdditionalBranches0002', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -164,7 +164,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0003', 0, async () => {
+    it('testAutoStartupAdditionalBranches0003', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -203,7 +203,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0004', 0, async () => {
+    it('testAutoStartupAdditionalBranches0004', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -241,7 +241,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0005', 0, async () => {
+    it('testAutoStartupAdditionalBranches0005', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -293,7 +293,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0006', 0, async () => {
+    it('testAutoStartupAdditionalBranches0006', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -336,7 +336,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0007', 0, async () => {
+    it('testAutoStartupAdditionalBranches0007', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       let throwingCalls: number = 0;
@@ -463,7 +463,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0010', 0, async () => {
+    it('testAutoStartupAdditionalBranches0010', 0, async (): Promise<void> => {
       configureTestText();
       const f = fixture;
       f.service.refresh(RefreshSource.INITIAL);
@@ -493,7 +493,7 @@ export default function autoStartupAdditionalTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testAutoStartupAdditionalBranches0011', 0, async () => {
+    it('testAutoStartupAdditionalBranches0011', 0, async (): Promise<void> => {
       configureTestText();
       const api = new EmptyRejectionApi();
       const clock = new ManualQueryClock();

@@ -98,7 +98,7 @@ export default function sceneBackupLifecycleCases(): void {
     it(BUNDLE + '_ContinuationBackupLifecycle_0004', 0, (): void => {
       const f = new BackupFixture();
       try {
-        const preview = f.controller.previewSceneBackup(backupRaw()); f.controller.handleLaunch({} as Want, 10);
+        const preview = f.controller.previewSceneBackup(backupRaw()); f.controller.handleLaunch({} as Want, AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         loggedExpect(f.controller.restoreSceneBackup(preview.token, true).code, 'SceneBackupLifecycleCases.test.ets:A0017', BUNDLE + '_ContinuationBackupLifecycle_0004').assertEqual(SceneBackupCode.BLOCKED);
         loggedExpect(f.controller.previewSceneBackup(backupRaw()).code, 'SceneBackupLifecycleCases.test.ets:A0018', BUNDLE + '_ContinuationBackupLifecycle_0004').assertEqual(SceneBackupCode.BLOCKED);
         loggedExpect(f.controller.snapshot().sessionActive, 'SceneBackupLifecycleCases.test.ets:A0019', BUNDLE + '_ContinuationBackupLifecycle_0004').assertTrue(); loggedExpect(f.native.onCallbacks.length, 'SceneBackupLifecycleCases.test.ets:A0020', BUNDLE + '_ContinuationBackupLifecycle_0004').assertEqual(1);

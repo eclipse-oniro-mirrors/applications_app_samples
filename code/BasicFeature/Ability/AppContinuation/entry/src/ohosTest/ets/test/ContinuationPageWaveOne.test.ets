@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { AbilityConstant } from '@kit.AbilityKit';
 import { describe } from '@ohos/hypium';
 import { loggedExpect } from '../support/LoggedExpect';
 import { BUNDLE, loggedCase as it } from '../support/BoundedCase';
@@ -82,7 +83,7 @@ export default function continuationPageWaveOne(): void {
     it(BUNDLE + '_ContinuationPageWaveOne_0003', 0, (): void => {
       const f = new WaveSceneFixture(); const page = new ScenePageSession('reading');
       try {
-        f.controller.handleLaunch(waveWant(encodeScene(waveReading('preview-reading', 4, 2, 1))), 3);
+        f.controller.handleLaunch(waveWant(encodeScene(waveReading('preview-reading', 4, 2, 1))), AbilityConstant.LaunchReason.CONTINUATION);
         page.bind(f.controller, (): void => {}); const copy = page.target();
         if (copy === undefined) { throw new Error('Missing page target'); }
         copy.document.state.reading.chapter = 0;
@@ -106,7 +107,7 @@ export default function continuationPageWaveOne(): void {
     it(BUNDLE + '_ContinuationPageWaveOne_0004', 0, (): void => {
       const f = new WaveSceneFixture(); const page = new ScenePageSession('reading');
       try {
-        f.controller.handleLaunch(waveWant(encodeScene(waveReading('leave-reading', 3, 1, 2))), 3);
+        f.controller.handleLaunch(waveWant(encodeScene(waveReading('leave-reading', 3, 1, 2))), AbilityConstant.LaunchReason.CONTINUATION);
         f.controller.markWindowReady();
         page.bind(f.controller, (): void => {}); const old = waveTarget(f); page.hide();
         page.receipt(old, 1, 2, true);
@@ -135,7 +136,7 @@ export default function continuationPageWaveOne(): void {
       const oldPage = new ScenePageSession('reading');
       const newPage = new ScenePageSession('reading');
       try {
-        f.controller.handleLaunch(waveWant(encodeScene(waveReading('new-page', 5, 2, 2))), 3);
+        f.controller.handleLaunch(waveWant(encodeScene(waveReading('new-page', 5, 2, 2))), AbilityConstant.LaunchReason.CONTINUATION);
         f.controller.markWindowReady();
         oldPage.bind(f.controller, (): void => {}); const oldRequest = waveTarget(f).request;
         f.controller.retryBusinessPosition();
@@ -162,7 +163,7 @@ export default function continuationPageWaveOne(): void {
     it(BUNDLE + '_ContinuationPageWaveOne_0006', 0, (): void => {
       const f = new WaveSceneFixture(); const page = new ScenePageSession('note'); let changes: number = 0;
       try {
-        f.controller.handleLaunch(waveWant(encodeScene(waveNote('detach-note', 2, '待接续正文'))), 3);
+        f.controller.handleLaunch(waveWant(encodeScene(waveNote('detach-note', 2, '待接续正文'))), AbilityConstant.LaunchReason.CONTINUATION);
         page.bind(f.controller, (): void => { changes++; });
         const original = waveTarget(f);
         page.detach();
@@ -191,7 +192,7 @@ export default function continuationPageWaveOne(): void {
       const wrongPage = new ScenePageSession('note');
       const page = new ScenePageSession('reading');
       try {
-        f.controller.handleLaunch(waveWant(encodeScene(waveReading('receipt-id', 6, 1, 1))), 3);
+        f.controller.handleLaunch(waveWant(encodeScene(waveReading('receipt-id', 6, 1, 1))), AbilityConstant.LaunchReason.CONTINUATION);
         f.controller.markWindowReady();
         wrongPage.bind(f.controller, (): void => {}); const target = waveTarget(f);
         wrongPage.receipt(target, 1, 1, true);
@@ -219,7 +220,7 @@ export default function continuationPageWaveOne(): void {
         const note = waveNote('coordinate-note', 3, 'A😀BC');
         note.state.note.selectionStart = 1;
         note.state.note.selectionEnd = 3;
-        f.controller.handleLaunch(waveWant(encodeScene(note)), 3);
+        f.controller.handleLaunch(waveWant(encodeScene(note)), AbilityConstant.LaunchReason.CONTINUATION);
         f.controller.markWindowReady();
         page.bind(f.controller, (): void => {});
         const old = waveTarget(f); page.receipt(old, 0, 3, true);

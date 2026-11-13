@@ -83,7 +83,7 @@ export default function continuationAdditional(): void {
       checkedLearning((f: LearningFixture): void => {
         seedEditor(f);
         f.controller.markWindowReady();
-        receiveChoosingIncoming(f, inboundWant(padded), 3);
+        receiveChoosingIncoming(f, inboundWant(padded), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(f.controller.snapshot().committed, 'ContinuationAdditional.test.ets:A0005', BUNDLE + '_ContinuationAdditional_0001').assertTrue();
         assertEditor(f, '边界正文', 0, 2);
         loggedExpect(f.store.flushCalls, 'ContinuationAdditional.test.ets:A0006', BUNDLE + '_ContinuationAdditional_0001').assertEqual(1);
@@ -91,7 +91,7 @@ export default function continuationAdditional(): void {
       checkedLearning((f: LearningFixture): void => {
         seedEditor(f);
         f.controller.markWindowReady();
-        receiveChoosingIncoming(f, inboundWant(padded + ' '), 3);
+        receiveChoosingIncoming(f, inboundWant(padded + ' '), AbilityConstant.LaunchReason.CONTINUATION);
         assertEditor(f);
         loggedExpect(f.controller.snapshot().committed, 'ContinuationAdditional.test.ets:A0007', BUNDLE + '_ContinuationAdditional_0001').assertFalse();
         loggedExpect(latest(f, 'RESTORE').stage, 'ContinuationAdditional.test.ets:A0008', BUNDLE + '_ContinuationAdditional_0001').assertEqual('候选校验失败');
@@ -122,7 +122,7 @@ export default function continuationAdditional(): void {
         loggedExpect(decoded['text'], 'ContinuationAdditional.test.ets:A0013', BUNDLE + '_ContinuationAdditional_0002').assertEqual(text);
         checkedLearning((target: LearningFixture): void => {
           target.controller.markWindowReady();
-          target.controller.handleLaunch({ parameters: parameters } as Want, 3);
+          target.controller.handleLaunch({ parameters: parameters } as Want, AbilityConstant.LaunchReason.CONTINUATION);
           assertEditor(target, text, 0, text.length);
           const stored = target.store.stored();
           checkedLearning((reopened: LearningFixture): void => {
@@ -183,7 +183,7 @@ export default function continuationAdditional(): void {
         loggedExpect(f.native.onCallbacks.length, 'ContinuationAdditional.test.ets:A0022', BUNDLE + '_ContinuationAdditional_0004').assertEqual(0);
         loggedExpect(f.store.putCalls, 'ContinuationAdditional.test.ets:A0023', BUNDLE + '_ContinuationAdditional_0004').assertEqual(0);
         f.controller.markWindowGone();
-        receiveChoosingIncoming(f, inboundWant(rawPayload('正常接续', 'ordinary-active', 0, 2)), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('正常接续', 'ordinary-active', 0, 2)), AbilityConstant.LaunchReason.CONTINUATION);
         const id = f.controller.snapshot().sessionRecordId;
         receiveChoosingIncoming(f, {} as Want, 99);
         loggedExpect(f.controller.snapshot().sessionRecordId, 'ContinuationAdditional.test.ets:A0024', BUNDLE + '_ContinuationAdditional_0004').assertEqual(id);
@@ -207,12 +207,12 @@ export default function continuationAdditional(): void {
       checkedLearning((f: LearningFixture): void => {
         seedEditor(f);
         const raw = rawPayload('保留候选', 'fixed-deadline', 0, 2);
-        receiveChoosingIncoming(f, inboundWant(raw), 10);
+        receiveChoosingIncoming(f, inboundWant(raw), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         f.native.deliverOn(0);
         const id = f.controller.snapshot().sessionRecordId;
         f.clock.advance(10000);
-        receiveChoosingIncoming(f, inboundWant(rawPayload('不可替换', 'duplicate-prepare', 0, 2)), 10);
-        receiveChoosingIncoming(f, inboundWant(raw), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('不可替换', 'duplicate-prepare', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
+        receiveChoosingIncoming(f, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
         f.controller.markWindowGone();
         loggedExpect(f.controller.snapshot().sessionRecordId, 'ContinuationAdditional.test.ets:A0027', BUNDLE + '_ContinuationAdditional_0005').assertEqual(id);
         loggedExpect(f.native.onCallbacks.length, 'ContinuationAdditional.test.ets:A0028', BUNDLE + '_ContinuationAdditional_0005').assertEqual(1);
@@ -241,17 +241,17 @@ export default function continuationAdditional(): void {
       checkedLearning((f: LearningFixture): void => {
         seedEditor(f);
         const expired = rawPayload('超时候选', 'ordinary-expired', 0, 2);
-        receiveChoosingIncoming(f, inboundWant(expired), 3);
+        receiveChoosingIncoming(f, inboundWant(expired), AbilityConstant.LaunchReason.CONTINUATION);
         f.clock.advance(15000);
         loggedExpect(latest(f, 'RESTORE').stage, 'ContinuationAdditional.test.ets:A0034', BUNDLE + '_ContinuationAdditional_0006').assertEqual('页面窗口超时');
         loggedExpect(f.controller.snapshot().canEdit, 'ContinuationAdditional.test.ets:A0035', BUNDLE + '_ContinuationAdditional_0006').assertTrue();
         loggedExpect(f.native.onCallbacks.length, 'ContinuationAdditional.test.ets:A0036', BUNDLE + '_ContinuationAdditional_0006').assertEqual(0);
         loggedExpect(f.native.offCallbacks.length, 'ContinuationAdditional.test.ets:A0037', BUNDLE + '_ContinuationAdditional_0006').assertEqual(0);
         f.controller.markWindowReady();
-        receiveChoosingIncoming(f, inboundWant(expired), 3);
+        receiveChoosingIncoming(f, inboundWant(expired), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(restoreCount(f), 'ContinuationAdditional.test.ets:A0038', BUNDLE + '_ContinuationAdditional_0006').assertEqual(1);
         loggedExpect(f.store.flushCalls, 'ContinuationAdditional.test.ets:A0039', BUNDLE + '_ContinuationAdditional_0006').assertEqual(0);
-        receiveChoosingIncoming(f, inboundWant(rawPayload('新轮正常', 'ordinary-fresh', 0, 2)), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('新轮正常', 'ordinary-fresh', 0, 2)), AbilityConstant.LaunchReason.CONTINUATION);
         assertEditor(f, '新轮正常', 0, 2);
         loggedExpect(f.controller.snapshot().committed, 'ContinuationAdditional.test.ets:A0040', BUNDLE + '_ContinuationAdditional_0006').assertTrue();
         loggedExpect(restoreCount(f), 'ContinuationAdditional.test.ets:A0041', BUNDLE + '_ContinuationAdditional_0006').assertEqual(2);
@@ -273,7 +273,7 @@ export default function continuationAdditional(): void {
       checkedLearning((f: LearningFixture): void => {
         seedEditor(f);
         f.controller.markWindowReady();
-        receiveChoosingIncoming(f, inboundWant(rawPayload('窗口撤回', 'withdrawn-window', 0, 2)), 10);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('窗口撤回', 'withdrawn-window', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         f.clock.advance(5000);
         f.controller.markWindowGone();
         f.native.deliverOn(0);
@@ -305,13 +305,13 @@ export default function continuationAdditional(): void {
     scenario(BUNDLE + '_ContinuationAdditional_0008', (): void => {
       checkedLearning((f: LearningFixture): void => {
         f.controller.markWindowReady();
-        receiveChoosingIncoming(f, inboundWant(rawPayload('首轮成功', 'before-page-error', 0, 2)), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('首轮成功', 'before-page-error', 0, 2)), AbilityConstant.LaunchReason.CONTINUATION);
         const durable = f.store.stored();
         const firstId = f.controller.snapshot().sessionRecordId;
         f.controller.reportPageFailure('not stored as a platform detail');
         loggedExpect(f.store.stored(), 'ContinuationAdditional.test.ets:A0051', BUNDLE + '_ContinuationAdditional_0008').assertEqual(durable);
         loggedExpect(f.controller.record(firstId)?.stage, 'ContinuationAdditional.test.ets:A0052', BUNDLE + '_ContinuationAdditional_0008').assertEqual('已提交');
-        receiveChoosingIncoming(f, inboundWant(rawPayload('重载后恢复', 'after-page-error', 0, 2)), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('重载后恢复', 'after-page-error', 0, 2)), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(f.controller.snapshot().committed, 'ContinuationAdditional.test.ets:A0053', BUNDLE + '_ContinuationAdditional_0008').assertFalse();
         loggedExpect(f.controller.snapshot().sessionActive, 'ContinuationAdditional.test.ets:A0054', BUNDLE + '_ContinuationAdditional_0008').assertTrue();
         loggedExpect(f.store.flushCalls, 'ContinuationAdditional.test.ets:A0055', BUNDLE + '_ContinuationAdditional_0008').assertEqual(1);
@@ -335,14 +335,14 @@ export default function continuationAdditional(): void {
       checkedLearning((f: LearningFixture): void => {
         seedEditor(f);
         f.controller.markWindowReady();
-        receiveChoosingIncoming(f, inboundWant('{broken'), 10);
+        receiveChoosingIncoming(f, inboundWant('{broken'), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         loggedExpect(latest(f, 'RESTORE').stage, 'ContinuationAdditional.test.ets:A0057', BUNDLE + '_ContinuationAdditional_0009').assertEqual('候选校验失败');
         loggedExpect(f.native.onCallbacks.length, 'ContinuationAdditional.test.ets:A0058', BUNDLE + '_ContinuationAdditional_0009').assertEqual(0);
         loggedExpect(f.native.offCallbacks.length, 'ContinuationAdditional.test.ets:A0059', BUNDLE + '_ContinuationAdditional_0009').assertEqual(0);
         loggedExpect(f.clock.pendingCount(), 'ContinuationAdditional.test.ets:A0060', BUNDLE + '_ContinuationAdditional_0009').assertEqual(0);
         loggedExpect(f.store.putCalls, 'ContinuationAdditional.test.ets:A0061', BUNDLE + '_ContinuationAdditional_0009').assertEqual(0);
         assertEditor(f);
-        receiveChoosingIncoming(f, inboundWant(rawPayload('修正后', 'valid-retry', 0, 2)), 10);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('修正后', 'valid-retry', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         loggedExpect(f.native.onCallbacks.length, 'ContinuationAdditional.test.ets:A0062', BUNDLE + '_ContinuationAdditional_0009').assertEqual(1);
         f.native.deliverOn(0);
         loggedExpect(f.controller.snapshot().committed, 'ContinuationAdditional.test.ets:A0063', BUNDLE + '_ContinuationAdditional_0009').assertTrue();
@@ -365,13 +365,13 @@ export default function continuationAdditional(): void {
         seedEditor(f);
         f.controller.markWindowReady();
         f.native.onFailure = platformError(16300501, 'quick registration failed');
-        receiveChoosingIncoming(f, inboundWant(rawPayload('失败候选', 'on-sync-failed', 0, 2)), 10);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('失败候选', 'on-sync-failed', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         loggedExpect(latest(f, 'RESTORE').stage, 'ContinuationAdditional.test.ets:A0064', BUNDLE + '_ContinuationAdditional_0010').assertEqual('ON 同步失败');
         loggedExpect(f.native.offCallbacks.length, 'ContinuationAdditional.test.ets:A0065', BUNDLE + '_ContinuationAdditional_0010').assertEqual(1);
         loggedExpect(f.store.flushCalls, 'ContinuationAdditional.test.ets:A0066', BUNDLE + '_ContinuationAdditional_0010').assertEqual(0);
         assertEditor(f);
         f.native.onFailure = undefined;
-        receiveChoosingIncoming(f, inboundWant(rawPayload('新轮候选', 'after-on-failure', 0, 2)), 10);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('新轮候选', 'after-on-failure', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         loggedExpect(f.native.onCallbacks.length, 'ContinuationAdditional.test.ets:A0067', BUNDLE + '_ContinuationAdditional_0010').assertEqual(1);
         loggedExpect(f.controller.snapshot().quickResult, 'ContinuationAdditional.test.ets:A0068', BUNDLE + '_ContinuationAdditional_0010').assertEqual('等待上一轮监听操作结束');
         f.native.deliverOn(0);
@@ -402,15 +402,15 @@ export default function continuationAdditional(): void {
         seedEditor(f);
         const first = rawPayload('首个候选', 'conflict-first', 0, 2);
         const other = rawPayload('第二候选', 'conflict-other', 0, 2);
-        receiveChoosingIncoming(f, inboundWant(first), 3);
-        receiveChoosingIncoming(f, inboundWant(other), 3);
+        receiveChoosingIncoming(f, inboundWant(first), AbilityConstant.LaunchReason.CONTINUATION);
+        receiveChoosingIncoming(f, inboundWant(other), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(latest(f, 'RESTORE').stage, 'ContinuationAdditional.test.ets:A0073', BUNDLE + '_ContinuationAdditional_0011').assertEqual('候选冲突');
         loggedExpect(f.store.putCalls, 'ContinuationAdditional.test.ets:A0074', BUNDLE + '_ContinuationAdditional_0011').assertEqual(0);
         f.controller.markWindowReady();
-        receiveChoosingIncoming(f, inboundWant(first), 3);
+        receiveChoosingIncoming(f, inboundWant(first), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(restoreCount(f), 'ContinuationAdditional.test.ets:A0075', BUNDLE + '_ContinuationAdditional_0011').assertEqual(1);
         assertEditor(f);
-        receiveChoosingIncoming(f, inboundWant(other), 3);
+        receiveChoosingIncoming(f, inboundWant(other), AbilityConstant.LaunchReason.CONTINUATION);
         assertEditor(f, '第二候选', 0, 2);
         loggedExpect(restoreCount(f), 'ContinuationAdditional.test.ets:A0076', BUNDLE + '_ContinuationAdditional_0011').assertEqual(2);
         loggedExpect(f.store.flushCalls, 'ContinuationAdditional.test.ets:A0077', BUNDLE + '_ContinuationAdditional_0011').assertEqual(1);
@@ -430,14 +430,14 @@ export default function continuationAdditional(): void {
       checkedLearning((f: LearningFixture): void => {
         f.controller.markWindowReady();
         for (let i: number = 0; i < 49; i++) {
-          receiveChoosingIncoming(f, inboundWant(rawPayload(`文档-${i}`, `fifo-${i}`, 0, 1)), 3);
+          receiveChoosingIncoming(f, inboundWant(rawPayload(`文档-${i}`, `fifo-${i}`, 0, 1)), AbilityConstant.LaunchReason.CONTINUATION);
           loggedExpect(f.controller.snapshot().committed, 'ContinuationAdditional.test.ets:A0078', BUNDLE + '_ContinuationAdditional_0012').assertTrue();
         }
         loggedExpect(f.store.flushCalls, 'ContinuationAdditional.test.ets:A0079', BUNDLE + '_ContinuationAdditional_0012').assertEqual(49);
-        receiveChoosingIncoming(f, inboundWant(rawPayload('文档-1', 'fifo-1', 0, 1)), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('文档-1', 'fifo-1', 0, 1)), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(f.store.flushCalls, 'ContinuationAdditional.test.ets:A0080', BUNDLE + '_ContinuationAdditional_0012').assertEqual(49);
         assertEditor(f, '文档-48', 0, 1);
-        receiveChoosingIncoming(f, inboundWant(rawPayload('文档-0', 'fifo-0', 0, 1)), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('文档-0', 'fifo-0', 0, 1)), AbilityConstant.LaunchReason.CONTINUATION);
         assertEditor(f, '文档-0', 0, 1);
         loggedExpect(f.store.flushCalls, 'ContinuationAdditional.test.ets:A0081', BUNDLE + '_ContinuationAdditional_0012').assertEqual(50);
         loggedExpect(f.clock.pendingCount(), 'ContinuationAdditional.test.ets:A0082', BUNDLE + '_ContinuationAdditional_0012').assertEqual(0);
@@ -500,7 +500,7 @@ export default function continuationAdditional(): void {
         f.controller.saveText();
         f.controller.clearText();
         f.controller.markWindowReady();
-        receiveChoosingIncoming(f, inboundWant(rawPayload('不应写入', 'frozen-restore', 0, 2)), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('不应写入', 'frozen-restore', 0, 2)), AbilityConstant.LaunchReason.CONTINUATION);
         assertEditor(f);
         loggedExpect(f.controller.snapshot().committed, 'ContinuationAdditional.test.ets:A0096', BUNDLE + '_ContinuationAdditional_0014').assertFalse();
         loggedExpect(latest(f, 'RESTORE').stage, 'ContinuationAdditional.test.ets:A0097', BUNDLE + '_ContinuationAdditional_0014').assertEqual('持久化失败');
@@ -561,7 +561,7 @@ export default function continuationAdditional(): void {
           observed.push(f.controller.snapshot());
         };
         f.controller.markWindowReady();
-        f.controller.handleLaunch(inboundWant(rawPayload('新UI内容🌱', 'ordering-new', 2, 4)), 3);
+        f.controller.handleLaunch(inboundWant(rawPayload('新UI内容🌱', 'ordering-new', 2, 4)), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(flushInspections, 'ContinuationAdditional.test.ets:A0109', BUNDLE + '_ContinuationAdditional_0016').assertEqual(1);
         loggedExpect(observed.length, 'ContinuationAdditional.test.ets:A0110', BUNDLE + '_ContinuationAdditional_0016').assertEqual(1);
         const during = observed[0];
@@ -626,10 +626,10 @@ export default function continuationAdditional(): void {
       checkedLearning((f: LearningFixture): void => {
         seedEditor(f);
         const secret = 'LATE_CANDIDATE_SEALED';
-        receiveChoosingIncoming(f, inboundWant(), 10);
+        receiveChoosingIncoming(f, inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         const id = f.controller.snapshot().sessionRecordId;
         f.native.deliverOn(0, undefined, resultInfo(0, `received ${secret} safely`));
-        receiveChoosingIncoming(f, inboundWant(rawPayload(secret, 'late-sensitive-data', 0, 4)), 3);
+        receiveChoosingIncoming(f, inboundWant(rawPayload(secret, 'late-sensitive-data', 0, 4)), AbilityConstant.LaunchReason.CONTINUATION);
         const record = f.controller.record(id);
         if (record === undefined) { throw new Error('Missing restore result'); }
         loggedExpect(record.resultInfo.indexOf(secret), 'ContinuationAdditional.test.ets:A0127', BUNDLE + '_ContinuationAdditional_0018').assertEqual(-1);
@@ -695,7 +695,7 @@ export default function continuationAdditional(): void {
       try {
         seedEditor(f);
         f.controller.requestPermission();
-        receiveChoosingIncoming(f, inboundWant(rawPayload('销毁前候选', 'destroyed-round', 0, 2)), 10);
+        receiveChoosingIncoming(f, inboundWant(rawPayload('销毁前候选', 'destroyed-round', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         f.controller.markWindowReady();
         f.controller.dispose();
         const frozen = JSON.stringify(f.controller.snapshot());
@@ -719,7 +719,7 @@ export default function continuationAdditional(): void {
         f.controller.stopLocalWait();
         f.controller.checkEnvironment();
         f.controller.requestPermission();
-        receiveChoosingIncoming(f, inboundWant(rawPayload()), 10);
+        receiveChoosingIncoming(f, inboundWant(rawPayload()), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         f.controller.markWindowReady();
         f.controller.markWindowGone();
         f.controller.reportPageFailure('late page error');

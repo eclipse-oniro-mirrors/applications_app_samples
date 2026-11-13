@@ -129,7 +129,7 @@ export default function continuationScenarios(): void {
         fixture.controller.fillExample();
         loggedExpect(fixture.controller.snapshot().text.length > 0, 'ContinuationScenarios.test.ets:A0011', BUNDLE + '_ContinuationScenarios_0001').assertTrue();
         seedOriginal(fixture);
-        receiveChoosingIncoming(fixture, inboundWant(), 10);
+        receiveChoosingIncoming(fixture, inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         fixture.controller.updateText('被锁定的编辑');
         fixture.controller.updateSelection(1, 1);
         fixture.controller.fillExample();
@@ -153,7 +153,7 @@ export default function continuationScenarios(): void {
         withLearning((fixture: LearningFixture): void => {
           seedOriginal(fixture);
           fixture.controller.markWindowReady();
-          receiveChoosingIncoming(fixture, inboundWant(raw), 3);
+          receiveChoosingIncoming(fixture, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
           assertOriginal(fixture);
           loggedExpect(fixture.controller.snapshot().sessionActive, 'ContinuationScenarios.test.ets:A0013', BUNDLE + '_ContinuationScenarios_0002').assertFalse();
           loggedExpect(latest(fixture, 'RESTORE').level, 'ContinuationScenarios.test.ets:A0014', BUNDLE + '_ContinuationScenarios_0002').assertEqual('ERROR');
@@ -174,7 +174,7 @@ export default function continuationScenarios(): void {
           seedOriginal(fixture);
           const bag = payloadBag('A🌱B', 'test-tag', 0, 1);
           bag[entry.key] = entry.value;
-          receiveChoosingIncoming(fixture, inboundWant(JSON.stringify(bag)), 3);
+          receiveChoosingIncoming(fixture, inboundWant(JSON.stringify(bag)), AbilityConstant.LaunchReason.CONTINUATION);
           fixture.controller.markWindowReady();
           assertOriginal(fixture);
           loggedExpect(fixture.store.putCalls, 'ContinuationScenarios.test.ets:A0015', BUNDLE + '_ContinuationScenarios_0002').assertEqual(0);
@@ -186,7 +186,7 @@ export default function continuationScenarios(): void {
           const full = payloadBag();
           const missing: Record<string, Object> = {};
           Object.keys(full).forEach((key: string): void => { if (key !== omitted) { missing[key] = full[key]; } });
-          receiveChoosingIncoming(fixture, inboundWant(JSON.stringify(missing)), 3);
+          receiveChoosingIncoming(fixture, inboundWant(JSON.stringify(missing)), AbilityConstant.LaunchReason.CONTINUATION);
           loggedExpect(fixture.controller.snapshot().sessionActive, 'ContinuationScenarios.test.ets:A0016', BUNDLE + '_ContinuationScenarios_0002').assertFalse();
           loggedExpect(fixture.controller.snapshot().committed, 'ContinuationScenarios.test.ets:A0017', BUNDLE + '_ContinuationScenarios_0002').assertFalse();
         });
@@ -204,13 +204,13 @@ export default function continuationScenarios(): void {
         loggedExpect((decoded['transferId'] as string).length > 0, 'ContinuationScenarios.test.ets:A0022', BUNDLE + '_ContinuationScenarios_0002').assertTrue();
         withLearning((target: LearningFixture): void => {
           target.controller.markWindowReady();
-          target.controller.handleLaunch(inboundWant(raw), 3);
+          target.controller.handleLaunch(inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
           loggedExpect(target.controller.snapshot().text, 'ContinuationScenarios.test.ets:A0023', BUNDLE + '_ContinuationScenarios_0002').assertEqual('A🌱B');
           loggedExpect(target.controller.snapshot().selectionStart, 'ContinuationScenarios.test.ets:A0024', BUNDLE + '_ContinuationScenarios_0002').assertEqual(1);
           loggedExpect(target.controller.snapshot().selectionEnd, 'ContinuationScenarios.test.ets:A0025', BUNDLE + '_ContinuationScenarios_0002').assertEqual(3);
           loggedExpect(target.controller.snapshot().committed, 'ContinuationScenarios.test.ets:A0026', BUNDLE + '_ContinuationScenarios_0002').assertTrue();
         });
-        source.controller.handleLaunch(inboundWant(), 10);
+        source.controller.handleLaunch(inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         const blocked: Record<string, Object> = {};
         loggedExpect(source.controller.buildContinuation(blocked), 'ContinuationScenarios.test.ets:A0027', BUNDLE + '_ContinuationScenarios_0002').assertEqual(AbilityConstant.OnContinueResult.REJECT);
         loggedExpect(Object.keys(blocked).length, 'ContinuationScenarios.test.ets:A0028', BUNDLE + '_ContinuationScenarios_0002').assertEqual(0);
@@ -220,7 +220,7 @@ export default function continuationScenarios(): void {
       withLearning((fixture: LearningFixture): void => {
         const raw = rawPayload('🌱'.repeat(2048), 't'.repeat(96), 0, 4096);
         fixture.controller.markWindowReady();
-        receiveChoosingIncoming(fixture, inboundWant(raw), 3);
+        receiveChoosingIncoming(fixture, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
         loggedExpect(fixture.controller.snapshot().committed, 'ContinuationScenarios.test.ets:A0030', BUNDLE + '_ContinuationScenarios_0002').assertTrue();
         loggedExpect(fixture.controller.snapshot().text.length, 'ContinuationScenarios.test.ets:A0031', BUNDLE + '_ContinuationScenarios_0002').assertEqual(4096);
         loggedExpect(fixture.controller.snapshot().selectionEnd, 'ContinuationScenarios.test.ets:A0032', BUNDLE + '_ContinuationScenarios_0002').assertEqual(4096);
@@ -228,7 +228,7 @@ export default function continuationScenarios(): void {
       withLearning((fixture: LearningFixture): void => {
         const bag = payloadBag('', 'empty', 0, 0);
         bag['extension'] = 'optional fixture value';
-        receiveChoosingIncoming(fixture, inboundWant(JSON.stringify(bag)), 3);
+        receiveChoosingIncoming(fixture, inboundWant(JSON.stringify(bag)), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.controller.markWindowReady();
         loggedExpect(fixture.controller.snapshot().committed, 'ContinuationScenarios.test.ets:A0033', BUNDLE + '_ContinuationScenarios_0002').assertTrue();
         loggedExpect(fixture.controller.snapshot().text, 'ContinuationScenarios.test.ets:A0034', BUNDLE + '_ContinuationScenarios_0002').assertEqual('');
@@ -512,7 +512,7 @@ export default function continuationScenarios(): void {
           const raw = rawPayload('A🌱B', `ordinary-${order}`, 1, 3);
           for (let i: number = 0; i < order.length; i++) {
             if (order.charAt(i) === 'D') {
-              receiveChoosingIncoming(fixture, inboundWant(raw), 3);
+              receiveChoosingIncoming(fixture, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
             } else {
               fixture.controller.markWindowReady();
             }
@@ -523,10 +523,10 @@ export default function continuationScenarios(): void {
           loggedExpect(fixture.controller.snapshot().selectionStart, 'ContinuationScenarios.test.ets:A0157', BUNDLE + '_ContinuationScenarios_0005').assertEqual(1);
           loggedExpect(fixture.controller.snapshot().selectionEnd, 'ContinuationScenarios.test.ets:A0158', BUNDLE + '_ContinuationScenarios_0005').assertEqual(3);
           loggedExpect(fixture.store.flushCalls, 'ContinuationScenarios.test.ets:A0159', BUNDLE + '_ContinuationScenarios_0005').assertEqual(1);
-          receiveChoosingIncoming(fixture, inboundWant(raw), 3);
+          receiveChoosingIncoming(fixture, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
           fixture.controller.markWindowReady();
           loggedExpect(fixture.store.flushCalls, 'ContinuationScenarios.test.ets:A0160', BUNDLE + '_ContinuationScenarios_0005').assertEqual(1);
-          receiveChoosingIncoming(fixture, inboundWant(rawPayload('下一轮', 'new-round', 0, 3)), 3);
+          receiveChoosingIncoming(fixture, inboundWant(rawPayload('下一轮', 'new-round', 0, 3)), AbilityConstant.LaunchReason.CONTINUATION);
           loggedExpect(fixture.controller.snapshot().text, 'ContinuationScenarios.test.ets:A0161', BUNDLE + '_ContinuationScenarios_0005').assertEqual('下一轮');
           loggedExpect(fixture.store.flushCalls, 'ContinuationScenarios.test.ets:A0162', BUNDLE + '_ContinuationScenarios_0005').assertEqual(2);
         });
@@ -534,12 +534,12 @@ export default function continuationScenarios(): void {
       withLearning((fixture: LearningFixture): void => {
         seedOriginal(fixture);
         const raw = rawPayload();
-        receiveChoosingIncoming(fixture, inboundWant(raw), 3);
-        receiveChoosingIncoming(fixture, inboundWant(raw), 3);
+        receiveChoosingIncoming(fixture, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
+        receiveChoosingIncoming(fixture, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.controller.updateText('在途编辑');
         assertOriginal(fixture);
         loggedExpect(fixture.controller.snapshot().sessionActive, 'ContinuationScenarios.test.ets:A0163', BUNDLE + '_ContinuationScenarios_0005').assertTrue();
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload('冲突内容', 'conflict', 0, 2)), 3);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload('冲突内容', 'conflict', 0, 2)), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.controller.markWindowReady();
         assertOriginal(fixture);
         loggedExpect(fixture.controller.snapshot().sessionActive, 'ContinuationScenarios.test.ets:A0164', BUNDLE + '_ContinuationScenarios_0005').assertFalse();
@@ -550,7 +550,7 @@ export default function continuationScenarios(): void {
         seedOriginal(fixture);
         fixture.controller.markWindowReady();
         fixture.controller.markWindowGone();
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 3);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.CONTINUATION);
         assertOriginal(fixture);
         fixture.controller.reportPageFailure('private page text');
         loggedExpect(latest(fixture, 'RESTORE').stage, 'ContinuationScenarios.test.ets:A0167', BUNDLE + '_ContinuationScenarios_0005').assertEqual('页面加载失败');
@@ -573,8 +573,8 @@ export default function continuationScenarios(): void {
       ['RDW', 'RWD', 'DRW', 'DWR', 'WRD', 'WDR'].forEach((order: string): void => {
         withLearning((fixture: LearningFixture): void => {
           seedOriginal(fixture);
-          receiveChoosingIncoming(fixture, inboundWant(), 10);
-          receiveChoosingIncoming(fixture, inboundWant(), 10);
+          receiveChoosingIncoming(fixture, inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
+          receiveChoosingIncoming(fixture, inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
           loggedExpect(fixture.native.onCallbacks.length, 'ContinuationScenarios.test.ets:A0169', BUNDLE + '_ContinuationScenarios_0006').assertEqual(1);
           const raw = rawPayload('快速文本🌱', `quick-${order}`, 0, 2);
           for (let i: number = 0; i < order.length; i++) {
@@ -583,8 +583,8 @@ export default function continuationScenarios(): void {
               fixture.native.deliverOn(0);
               fixture.native.deliverOn(0, undefined, resultInfo(1));
             } else if (signal === 'D') {
-              receiveChoosingIncoming(fixture, inboundWant(raw), 3);
-              receiveChoosingIncoming(fixture, inboundWant(raw), 3);
+              receiveChoosingIncoming(fixture, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
+              receiveChoosingIncoming(fixture, inboundWant(raw), AbilityConstant.LaunchReason.CONTINUATION);
             } else {
               fixture.controller.markWindowReady();
             }
@@ -600,7 +600,7 @@ export default function continuationScenarios(): void {
       [1, 22].forEach((state: number): void => {
         withLearning((fixture: LearningFixture): void => {
           seedOriginal(fixture);
-          receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 10);
+          receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
           fixture.controller.markWindowReady();
           fixture.native.deliverOn(0, undefined, resultInfo(state));
           assertOriginal(fixture);
@@ -610,10 +610,10 @@ export default function continuationScenarios(): void {
       });
       withLearning((fixture: LearningFixture): void => {
         seedOriginal(fixture);
-        receiveChoosingIncoming(fixture, inboundWant(), 10);
+        receiveChoosingIncoming(fixture, inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         fixture.native.deliverOn(0, platformError(), resultInfo());
         loggedExpect(latest(fixture, 'RESTORE').errorCode, 'ContinuationScenarios.test.ets:A0177', BUNDLE + '_ContinuationScenarios_0006').assertEqual('16300501');
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 3);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.controller.markWindowReady();
         assertOriginal(fixture);
       });
@@ -621,7 +621,7 @@ export default function continuationScenarios(): void {
         fixture.native.onImmediate = true;
         fixture.native.offImmediate = true;
         fixture.controller.markWindowReady();
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload('同步完成', 'sync-complete', 0, 2)), 10);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload('同步完成', 'sync-complete', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         loggedExpect(fixture.controller.snapshot().committed, 'ContinuationScenarios.test.ets:A0178', BUNDLE + '_ContinuationScenarios_0006').assertTrue();
         loggedExpect(fixture.controller.snapshot().canRegister, 'ContinuationScenarios.test.ets:A0179', BUNDLE + '_ContinuationScenarios_0006').assertTrue();
         loggedExpect(fixture.native.onCallbacks.length, 'ContinuationScenarios.test.ets:A0180', BUNDLE + '_ContinuationScenarios_0006').assertEqual(1);
@@ -630,7 +630,7 @@ export default function continuationScenarios(): void {
       });
       withLearning((fixture: LearningFixture): void => {
         fixture.controller.registerProbe();
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload('交接', 'handoff', 0, 2)), 10);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload('交接', 'handoff', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         loggedExpect(fixture.native.onCallbacks.length, 'ContinuationScenarios.test.ets:A0183', BUNDLE + '_ContinuationScenarios_0006').assertEqual(1);
         loggedExpect(fixture.native.offCallbacks.length, 'ContinuationScenarios.test.ets:A0184', BUNDLE + '_ContinuationScenarios_0006').assertEqual(1);
         fixture.native.deliverOn(0);
@@ -649,7 +649,7 @@ export default function continuationScenarios(): void {
           if (failure === 'sync') {
             fixture.native.offFailure = platformError();
           }
-          receiveChoosingIncoming(fixture, inboundWant(rawPayload('交接重试🌱', `retry-${failure}`, 0, 2)), 10);
+          receiveChoosingIncoming(fixture, inboundWant(rawPayload('交接重试🌱', `retry-${failure}`, 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
           loggedExpect(fixture.native.offCallbacks.length, 'ContinuationScenarios.test.ets:A0189', BUNDLE + '_ContinuationScenarios_0006').assertEqual(1);
           loggedExpect(fixture.controller.snapshot().sessionActive, 'ContinuationScenarios.test.ets:A0190', BUNDLE + '_ContinuationScenarios_0006').assertTrue();
           loggedExpect(fixture.controller.snapshot().canRegister, 'ContinuationScenarios.test.ets:A0191', BUNDLE + '_ContinuationScenarios_0006').assertFalse();
@@ -717,12 +717,12 @@ export default function continuationScenarios(): void {
       missing.forEach((phase: string): void => {
         withLearning((fixture: LearningFixture): void => {
           seedOriginal(fixture);
-          receiveChoosingIncoming(fixture, inboundWant(), 10);
+          receiveChoosingIncoming(fixture, inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
           if (phase !== '快速结果') {
             fixture.native.deliverOn(0);
           }
           if (phase === '页面窗口') {
-            receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 3);
+            receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.CONTINUATION);
           }
           fixture.clock.advance(14999);
           loggedExpect(fixture.controller.snapshot().sessionActive, 'ContinuationScenarios.test.ets:A0215', BUNDLE + '_ContinuationScenarios_0007').assertTrue();
@@ -733,18 +733,18 @@ export default function continuationScenarios(): void {
           loggedExpect(fixture.native.offCallbacks.length, 'ContinuationScenarios.test.ets:A0218', BUNDLE + '_ContinuationScenarios_0007').assertEqual(1);
           fixture.native.deliverOn(0);
           fixture.native.deliverOff(0);
-          receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 3);
+          receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.CONTINUATION);
           fixture.controller.markWindowReady();
           assertOriginal(fixture);
         });
       });
       withLearning((fixture: LearningFixture): void => {
-        receiveChoosingIncoming(fixture, inboundWant(), 10);
+        receiveChoosingIncoming(fixture, inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         fixture.clock.advance(14999);
         fixture.native.deliverOn(0);
         fixture.clock.advance(14999);
         loggedExpect(fixture.controller.snapshot().sessionActive, 'ContinuationScenarios.test.ets:A0219', BUNDLE + '_ContinuationScenarios_0007').assertTrue();
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 3);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.clock.advance(14999);
         loggedExpect(fixture.controller.snapshot().sessionActive, 'ContinuationScenarios.test.ets:A0220', BUNDLE + '_ContinuationScenarios_0007').assertTrue();
         fixture.controller.markWindowReady();
@@ -756,14 +756,14 @@ export default function continuationScenarios(): void {
       });
       withLearning((fixture: LearningFixture): void => {
         seedOriginal(fixture);
-        receiveChoosingIncoming(fixture, inboundWant(), 10);
+        receiveChoosingIncoming(fixture, inboundWant(), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         fixture.controller.stopLocalWait();
         fixture.native.deliverOn(0);
         fixture.native.deliverOff(0);
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload('迟到文本', 'late', 0, 2)), 3);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload('迟到文本', 'late', 0, 2)), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.controller.markWindowReady();
         assertOriginal(fixture);
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload('新轮文本', 'fresh', 0, 2)), 10);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload('新轮文本', 'fresh', 0, 2)), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         fixture.native.deliverOn(1);
         loggedExpect(fixture.controller.snapshot().committed, 'ContinuationScenarios.test.ets:A0224', BUNDLE + '_ContinuationScenarios_0007').assertTrue();
         loggedExpect(fixture.controller.snapshot().text, 'ContinuationScenarios.test.ets:A0225', BUNDLE + '_ContinuationScenarios_0007').assertEqual('新轮文本');
@@ -961,7 +961,7 @@ export default function continuationScenarios(): void {
       withLearning((fixture: LearningFixture): void => {
         seedOriginal(fixture);
         fixture.store.failFlushCalls = [1];
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 3);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.CONTINUATION);
         fixture.controller.markWindowReady();
         assertOriginal(fixture);
         loggedExpect(latest(fixture, 'RESTORE').stage, 'ContinuationScenarios.test.ets:A0302', BUNDLE + '_ContinuationScenarios_0008').assertEqual('持久化失败');
@@ -1071,9 +1071,9 @@ export default function continuationScenarios(): void {
         loggedExpect(fixture.controller.record('missing'), 'ContinuationScenarios.test.ets:A0332', BUNDLE + '_ContinuationScenarios_0009').assertUndefined();
       });
       withLearning((fixture: LearningFixture): void => {
-        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 10);
+        receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.PREPARE_CONTINUATION);
         for (let i: number = 0; i < 30; i++) {
-          receiveChoosingIncoming(fixture, inboundWant(rawPayload()), 3);
+          receiveChoosingIncoming(fixture, inboundWant(rawPayload()), AbilityConstant.LaunchReason.CONTINUATION);
         }
         const id = fixture.controller.snapshot().sessionRecordId;
         loggedExpect(latest(fixture, 'RESTORE').events.length <= 24, 'ContinuationScenarios.test.ets:A0333', BUNDLE + '_ContinuationScenarios_0009').assertTrue();

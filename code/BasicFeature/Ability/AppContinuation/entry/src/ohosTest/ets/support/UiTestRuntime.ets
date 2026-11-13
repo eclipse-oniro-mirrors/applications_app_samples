@@ -128,7 +128,7 @@ export class UiSelector {
 export const ON: UiSelector = new UiSelector();
 
 export class UiTestSession {
-  readonly id: string;
+  public readonly id: string;
   private accepting: boolean = true;
   private deadline: number;
   private cleanupMs: number;
@@ -619,8 +619,11 @@ export class UiTestComponent {
       // Without a harness probe this remains bounded blind search, not proof of an edge.
       if (before === undefined && !directed) { towardTop = step >= 2; }
       const movingTowardTop: boolean = towardTop;
-      if (movingTowardTop) { await this.driver.swipe(x, top, x, bottom); }
-      else { await this.driver.swipe(x, bottom, x, top); }
+      if (movingTowardTop) {
+        await this.driver.swipe(x, top, x, bottom);
+      } else {
+        await this.driver.swipe(x, bottom, x, top);
+      }
       await this.driver.session.pause(30);
       const after: number | undefined = this.driver.readScrollOffset();
       if (before !== undefined && after !== undefined) {
@@ -628,8 +631,12 @@ export class UiTestComponent {
         safeUiLog('info', `UI scroll probe target=${selector.traceName()}, step=${step}, ` +
           `direction=${movingTowardTop ? 'top' : 'bottom'}, before=${before}, after=${after}, progressed=${progressed}`);
         if (!progressed) {
-          if (reversed) { exhausted = true; }
-          else { reversed = true; towardTop = !movingTowardTop; }
+          if (reversed) {
+            exhausted = true;
+          } else {
+            reversed = true;
+            towardTop = !movingTowardTop;
+          }
         }
       }
     }
