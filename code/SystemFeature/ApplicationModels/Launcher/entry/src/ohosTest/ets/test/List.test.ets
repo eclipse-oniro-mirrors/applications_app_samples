@@ -41,6 +41,12 @@ import launcherPermissionDeep2Test from './LauncherPermissionDeep2.test';
 import launcherAbilityFinalTest from './LauncherAbilityFinal.test';
 import bundleContractTest from './BundleContract.test';
 
+import launcherPlusConstantsTest from './LauncherPlusConstants.test';
+import launcherPlusEmptyTest from './LauncherPlusEmpty.test';
+import launcherPlusGridTest from './LauncherPlusGrid.test';
+import launcherPlusBeansTest from './LauncherPlusBeans.test';
+import launcherPlusEventsTest from './LauncherPlusEvents.test';
+import launcherPlusBundleTest from './LauncherPlusBundle.test';
 export default function testsuite() {
   abilityTest();
   baseLogicTest();
@@ -69,4 +75,10 @@ export default function testsuite() {
   launcherPermissionDeep2Test();
   launcherAbilityFinalTest();
   bundleContractTest();
+  launcherPlusConstantsTest();
+  launcherPlusEmptyTest();
+  launcherPlusGridTest();
+  launcherPlusBeansTest();
+  launcherPlusEventsTest();
+  launcherPlusBundleTest();
 }
