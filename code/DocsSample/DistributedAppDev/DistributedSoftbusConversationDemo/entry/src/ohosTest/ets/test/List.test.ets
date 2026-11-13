@@ -57,6 +57,12 @@ import conversationMessageEdgeTest from './ConversationMessageEdge.test';
 import conversationUiEdgeTest from './ConversationUiEdge.test';
 import conversationLastBatchTest from './ConversationLastBatch.test';
 
+import conversationPlusApiTest from './ConversationPlusApi.test';
+import conversationPlusTypesTest from './ConversationPlusTypes.test';
+import conversationPlusBundleTest from './ConversationPlusBundle.test';
+import conversationPlusPermissionTest from './ConversationPlusPermission.test';
+import conversationPlusUiTest from './ConversationPlusUi.test';
+import conversationPlusContractTest from './ConversationPlusContract.test';
 export default function testsuite() {
   abilityTest();
   conversationUiMatrixTest();
@@ -101,4 +107,10 @@ export default function testsuite() {
   conversationMessageEdgeTest();
   conversationUiEdgeTest();
   conversationLastBatchTest();
+  conversationPlusApiTest();
+  conversationPlusTypesTest();
+  conversationPlusBundleTest();
+  conversationPlusPermissionTest();
+  conversationPlusUiTest();
+  conversationPlusContractTest();
 }
