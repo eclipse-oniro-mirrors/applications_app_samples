@@ -72,7 +72,9 @@ struct Index {
   runTests() {
     taskpool.execute(observeJSON1).then((res) => {
       this.layout = UIUtils.makeObserved(res as LayoutS);
-    })
+    }).catch((e: BusinessError) => {
+      console.error(`taskpool execute error, message is: ${e.message}`);
+    });
   }
 // [End transferableObject_makeObserved]
 // [EndExclude transferableObject_Text]
