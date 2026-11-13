@@ -103,6 +103,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="network/Bluetooth/entry/src/main/java/ohos/samples/bluetooth/adapter/" desc="Not contains 3rd code，license file is not required in this subdirectory."/>
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/AppScope/resources/base/media/background.png" desc="Provided by InfraredAndGesture"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/AppScope/resources/base/media/foreground.png" desc="Provided by InfraredAndGesture"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/background.png" desc="Provided by InfraredAndGesture"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/foreground.png" desc="Provided by InfraredAndGesture"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/startIcon.png" desc="Provided by InfraredAndGesture"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/screenshots/main_page.png" desc="Provided by InfraredAndGesture screenshots"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/background.png" desc="Provided by NetworkSecurity"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/foreground.png" desc="Provided by NetworkSecurity"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/background.png" desc="Provided by NetworkSecurity"/>
@@ -2704,6 +2710,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/entry/src/main/resources/rawfile/sample_contacts.vcf" desc="示例VCF数据文件，vCard格式不支持注释，无需添加License头"/>
 			</filefilter>
             <filefilter name="copyrightPolicyFilter" desc="Copyright文件头校验策略的过滤条件" >
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/screenshots/main_page.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>

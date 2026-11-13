@@ -1,0 +1,688 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Meeting scene console and orchestration"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Meeting scene console and orchestration"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "MeetingScene"
+    },
+    {
+      "name": "phone_entering_console",
+      "value": "Entering console..."
+    },
+    {
+      "name": "phone_console_title",
+      "value": "Console"
+    },
+    {
+      "name": "phone_no_room",
+      "value": "No room configured"
+    },
+    {
+      "name": "phone_devices_title",
+      "value": "Devices"
+    },
+    {
+      "name": "phone_no_devices",
+      "value": "No devices"
+    },
+    {
+      "name": "phone_room_config",
+      "value": "Room Config"
+    },
+    {
+      "name": "phone_scene_editor",
+      "value": "Scene Editor"
+    },
+    {
+      "name": "phone_settings",
+      "value": "Settings"
+    },
+    {
+      "name": "phone_back",
+      "value": "Back"
+    },
+    {
+      "name": "phone_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "phone_correct_title",
+      "value": "Correct expected state of %s to"
+    },
+    {
+      "name": "phone_expect_on",
+      "value": "Expected On"
+    },
+    {
+      "name": "phone_expect_off",
+      "value": "Expected Off"
+    },
+    {
+      "name": "phone_rooms_title",
+      "value": "Rooms"
+    },
+    {
+      "name": "phone_new_room_hint",
+      "value": "New room name"
+    },
+    {
+      "name": "phone_create_room",
+      "value": "Create"
+    },
+    {
+      "name": "phone_enter_room",
+      "value": "Enter"
+    },
+    {
+      "name": "phone_delete_room",
+      "value": "Delete Room"
+    },
+    {
+      "name": "phone_delete_device",
+      "value": "Delete Device"
+    },
+    {
+      "name": "phone_current_room",
+      "value": "Current room: %s"
+    },
+    {
+      "name": "phone_new_device_hint",
+      "value": "Device name"
+    },
+    {
+      "name": "phone_add_device",
+      "value": "Add Device"
+    },
+    {
+      "name": "phone_select_device",
+      "value": "Select device"
+    },
+    {
+      "name": "phone_keys_title",
+      "value": "Keys"
+    },
+    {
+      "name": "phone_select_device_first",
+      "value": "Select a device in the list first"
+    },
+    {
+      "name": "phone_no_keys",
+      "value": "No keys"
+    },
+    {
+      "name": "phone_library_empty",
+      "value": "IR library is empty, cannot bind keys"
+    },
+    {
+      "name": "phone_semantic_label",
+      "value": "Key semantic"
+    },
+    {
+      "name": "phone_brand_label",
+      "value": "Library brand"
+    },
+    {
+      "name": "phone_code_label",
+      "value": "Library code"
+    },
+    {
+      "name": "phone_bind_key",
+      "value": "Bind Key"
+    },
+    {
+      "name": "phone_test_send",
+      "value": "Test Send"
+    },
+    {
+      "name": "phone_read_only_hint",
+      "value": "Read-only device, cannot send infrared codes"
+    },
+    {
+      "name": "phone_config_package",
+      "value": "Config Package"
+    },
+    {
+      "name": "phone_export_room",
+      "value": "Export This Room"
+    },
+    {
+      "name": "phone_import_hint",
+      "value": "Config file path"
+    },
+    {
+      "name": "phone_import",
+      "value": "Import"
+    },
+    {
+      "name": "phone_scenes_title",
+      "value": "Scenes"
+    },
+    {
+      "name": "phone_no_scenes",
+      "value": "No scenes"
+    },
+    {
+      "name": "phone_new_scene",
+      "value": "New Scene"
+    },
+    {
+      "name": "phone_steps_title",
+      "value": "Scene steps: %s"
+    },
+    {
+      "name": "phone_step_no",
+      "value": "Step %d"
+    },
+    {
+      "name": "phone_step_delay",
+      "value": "Delay %d ms"
+    },
+    {
+      "name": "phone_add_step",
+      "value": "Add Step"
+    },
+    {
+      "name": "phone_remove_step",
+      "value": "Remove"
+    },
+    {
+      "name": "phone_move_up",
+      "value": "Move Up"
+    },
+    {
+      "name": "phone_move_down",
+      "value": "Move Down"
+    },
+    {
+      "name": "phone_enable",
+      "value": "Enable"
+    },
+    {
+      "name": "phone_disable",
+      "value": "Disable"
+    },
+    {
+      "name": "phone_validate",
+      "value": "Validate"
+    },
+    {
+      "name": "phone_select_key",
+      "value": "Select key"
+    },
+    {
+      "name": "phone_send_logs",
+      "value": "Send Logs"
+    },
+    {
+      "name": "tablet_app_title",
+      "value": "Room Device Orchestration"
+    },
+    {
+      "name": "tablet_read_only_notice",
+      "value": "Orchestration device - cannot emit infrared; configuration and import/export only"
+    },
+    {
+      "name": "tablet_config_transfer",
+      "value": "Config Package"
+    },
+    {
+      "name": "tablet_rooms_title",
+      "value": "Rooms"
+    },
+    {
+      "name": "tablet_room_list_empty",
+      "value": "No rooms yet. Create one first"
+    },
+    {
+      "name": "tablet_device_count",
+      "value": "Devices %d"
+    },
+    {
+      "name": "tablet_scene_count",
+      "value": "Scenes %d"
+    },
+    {
+      "name": "tablet_enter_room",
+      "value": "Configure"
+    },
+    {
+      "name": "tablet_new_room_hint",
+      "value": "Room name"
+    },
+    {
+      "name": "tablet_create_room",
+      "value": "Create Room"
+    },
+    {
+      "name": "tablet_back",
+      "value": "Back"
+    },
+    {
+      "name": "tablet_room_config",
+      "value": "Room Config"
+    },
+    {
+      "name": "tablet_scene_editor",
+      "value": "Scene Editor"
+    },
+    {
+      "name": "tablet_room_info",
+      "value": "Room Info"
+    },
+    {
+      "name": "tablet_room_name_hint",
+      "value": "Room name"
+    },
+    {
+      "name": "tablet_room_note_hint",
+      "value": "Room note (optional)"
+    },
+    {
+      "name": "tablet_save",
+      "value": "Save"
+    },
+    {
+      "name": "tablet_delete_room",
+      "value": "Delete Room"
+    },
+    {
+      "name": "tablet_devices_title",
+      "value": "Devices"
+    },
+    {
+      "name": "tablet_no_devices",
+      "value": "No devices. Add one first"
+    },
+    {
+      "name": "tablet_edit_device",
+      "value": "Edit"
+    },
+    {
+      "name": "tablet_new_device_hint",
+      "value": "Device name"
+    },
+    {
+      "name": "tablet_add_device",
+      "value": "Add Device"
+    },
+    {
+      "name": "tablet_device_detail",
+      "value": "Device Info"
+    },
+    {
+      "name": "tablet_device_brand_hint",
+      "value": "Brand, e.g. Demo"
+    },
+    {
+      "name": "tablet_device_model_hint",
+      "value": "Model, e.g. Demo-PJ-01"
+    },
+    {
+      "name": "tablet_save_device",
+      "value": "Save Device"
+    },
+    {
+      "name": "tablet_apply_template",
+      "value": "Apply Template"
+    },
+    {
+      "name": "tablet_delete_device",
+      "value": "Delete Device"
+    },
+    {
+      "name": "tablet_template_none",
+      "value": "No templates"
+    },
+    {
+      "name": "tablet_keys_title",
+      "value": "Key Bindings"
+    },
+    {
+      "name": "tablet_select_device_first",
+      "value": "Select a device above first"
+    },
+    {
+      "name": "tablet_no_keys",
+      "value": "This device has no keys. Apply a template or bind manually"
+    },
+    {
+      "name": "tablet_key_unbound",
+      "value": "No IR code bound"
+    },
+    {
+      "name": "tablet_unbind_key",
+      "value": "Unbind"
+    },
+    {
+      "name": "tablet_key_brand",
+      "value": "Library brand"
+    },
+    {
+      "name": "tablet_key_code",
+      "value": "Library code"
+    },
+    {
+      "name": "tablet_library_empty",
+      "value": "IR library is empty, no codes to select"
+    },
+    {
+      "name": "tablet_bind_key",
+      "value": "Bind to This Key"
+    },
+    {
+      "name": "tablet_scenes_title",
+      "value": "Scenes"
+    },
+    {
+      "name": "tablet_no_scenes",
+      "value": "No scenes. Create one first"
+    },
+    {
+      "name": "tablet_select",
+      "value": "Select"
+    },
+    {
+      "name": "tablet_delete",
+      "value": "Delete"
+    },
+    {
+      "name": "tablet_scene_name_hint",
+      "value": "Scene name"
+    },
+    {
+      "name": "tablet_rename",
+      "value": "Rename"
+    },
+    {
+      "name": "tablet_new_scene",
+      "value": "New Scene"
+    },
+    {
+      "name": "tablet_steps_title",
+      "value": "Steps"
+    },
+    {
+      "name": "tablet_no_steps",
+      "value": "No steps yet"
+    },
+    {
+      "name": "tablet_step_no",
+      "value": "Step %d"
+    },
+    {
+      "name": "tablet_step_delay",
+      "value": "Delay %d ms"
+    },
+    {
+      "name": "tablet_step_enabled",
+      "value": "Enabled"
+    },
+    {
+      "name": "tablet_step_disabled",
+      "value": "Disabled"
+    },
+    {
+      "name": "tablet_delay_minus",
+      "value": "Delay -100"
+    },
+    {
+      "name": "tablet_delay_plus",
+      "value": "Delay +100"
+    },
+    {
+      "name": "tablet_move_up",
+      "value": "Move Up"
+    },
+    {
+      "name": "tablet_move_down",
+      "value": "Move Down"
+    },
+    {
+      "name": "tablet_add_step",
+      "value": "Add Step"
+    },
+    {
+      "name": "tablet_save_and_validate",
+      "value": "Save and Validate"
+    },
+    {
+      "name": "tablet_select_key",
+      "value": "Select key"
+    },
+    {
+      "name": "tablet_config_transfer_title",
+      "value": "Config Package Transfer"
+    },
+    {
+      "name": "tablet_export_title",
+      "value": "Export"
+    },
+    {
+      "name": "tablet_export_hint",
+      "value": "Select rooms to export; the generated file can be imported on the phone"
+    },
+    {
+      "name": "tablet_selected",
+      "value": "Selected"
+    },
+    {
+      "name": "tablet_export",
+      "value": "Export Config Package"
+    },
+    {
+      "name": "tablet_import_title",
+      "value": "Import"
+    },
+    {
+      "name": "tablet_import_warning",
+      "value": "Import overwrites the local configuration; the database is backed up first"
+    },
+    {
+      "name": "tablet_import_hint",
+      "value": "Full path of the config file"
+    },
+    {
+      "name": "tablet_import",
+      "value": "Import Config Package"
+    },
+    {
+      "name": "tablet_import_failed_title",
+      "value": "Failed Items"
+    },
+    {
+      "name": "msg_operation_failed",
+      "value": "Operation failed"
+    },
+    {
+      "name": "msg_room_name_required",
+      "value": "Enter a room name"
+    },
+    {
+      "name": "msg_room_created",
+      "value": "Room created"
+    },
+    {
+      "name": "msg_room_saved",
+      "value": "Room saved"
+    },
+    {
+      "name": "msg_room_deleted",
+      "value": "Room deleted"
+    },
+    {
+      "name": "msg_room_not_exist",
+      "value": "Room does not exist"
+    },
+    {
+      "name": "msg_no_room_hint",
+      "value": "No room yet. Create one on the orchestration home page"
+    },
+    {
+      "name": "msg_select_room_first",
+      "value": "Select a room first"
+    },
+    {
+      "name": "msg_enter_device_name",
+      "value": "Enter a device name"
+    },
+    {
+      "name": "msg_device_added",
+      "value": "Device added"
+    },
+    {
+      "name": "msg_device_saved",
+      "value": "Device saved"
+    },
+    {
+      "name": "msg_device_deleted",
+      "value": "Device deleted"
+    },
+    {
+      "name": "msg_device_deleted_with_keys",
+      "value": "Device and its keys deleted"
+    },
+    {
+      "name": "msg_select_device_first",
+      "value": "Select a device first"
+    },
+    {
+      "name": "msg_select_library_code",
+      "value": "Select a library code first"
+    },
+    {
+      "name": "msg_no_template_for_type",
+      "value": "No template for this device type"
+    },
+    {
+      "name": "msg_no_library_code",
+      "value": "No code available in the IR library"
+    },
+    {
+      "name": "msg_template_keys_created",
+      "value": "Created %d keys from the template"
+    },
+    {
+      "name": "msg_key_bound",
+      "value": "Key bound"
+    },
+    {
+      "name": "msg_key_rebound",
+      "value": "Key rebound"
+    },
+    {
+      "name": "msg_key_unbound",
+      "value": "IR code unbound from key"
+    },
+    {
+      "name": "msg_select_key_first",
+      "value": "Select a key first"
+    },
+    {
+      "name": "msg_key_not_exist",
+      "value": "Key does not exist"
+    },
+    {
+      "name": "msg_key_no_ir_code",
+      "value": "This key has no IR code bound"
+    },
+    {
+      "name": "msg_enter_config_path",
+      "value": "Enter a config file path"
+    },
+    {
+      "name": "msg_select_at_least_one_room",
+      "value": "Select at least one room"
+    },
+    {
+      "name": "msg_export_summary",
+      "value": "Rooms %d · Devices %d"
+    },
+    {
+      "name": "msg_import_summary",
+      "value": "Imported: rooms %d, devices %d, keys %d, scenes %d"
+    },
+    {
+      "name": "msg_import_summary_dots",
+      "value": "Imported: rooms %d · devices %d · keys %d · scenes %d"
+    },
+    {
+      "name": "msg_import_failed_items",
+      "value": "%s, failed items %d"
+    },
+    {
+      "name": "msg_import_backup_suffix",
+      "value": "%s (backed up before import)"
+    },
+    {
+      "name": "msg_new_scene_name",
+      "value": "New Scene"
+    },
+    {
+      "name": "msg_scene_created",
+      "value": "Scene created"
+    },
+    {
+      "name": "msg_scene_saved",
+      "value": "Scene saved"
+    },
+    {
+      "name": "msg_scene_saved_with_issues",
+      "value": "Scene saved, but some items are missing"
+    },
+    {
+      "name": "msg_scene_deleted",
+      "value": "Scene deleted"
+    },
+    {
+      "name": "msg_scene_not_exist",
+      "value": "Scene does not exist"
+    },
+    {
+      "name": "msg_scene_name_saved",
+      "value": "Scene name saved"
+    },
+    {
+      "name": "msg_select_scene_first",
+      "value": "Select a scene first"
+    },
+    {
+      "name": "msg_select_scene_and_name",
+      "value": "Select a scene and enter a name"
+    },
+    {
+      "name": "msg_select_device_and_key",
+      "value": "Select a device and a key first"
+    },
+    {
+      "name": "msg_step_added",
+      "value": "Step added"
+    },
+    {
+      "name": "msg_step_deleted",
+      "value": "Step deleted"
+    },
+    {
+      "name": "msg_step_delay_updated",
+      "value": "Step delay updated"
+    },
+    {
+      "name": "msg_validation_passed",
+      "value": "Validation passed"
+    },
+    {
+      "name": "msg_scene_invalid",
+      "value": "Scene configuration is invalid"
+    },
+    {
+      "name": "msg_load_room_config_failed",
+      "value": "Failed to load room configuration"
+    }
+  ]
+}
