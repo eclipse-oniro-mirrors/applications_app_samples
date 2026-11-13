@@ -67,6 +67,7 @@ struct Index {
       throw new Error('请先准备文件');
     }
     const entry = this.provider.createVirtualEntry();
+    // oriUri 是非空占位 URI，不要求文件已存在；落入方使用实际获取的 URI。
     const fileUri: uniformDataStruct.FileUri = {
       uniformDataType: 'general.file-uri',
       oriUri: `file:///virtual/${encodeURIComponent(entry.itemInfo.name)}`,

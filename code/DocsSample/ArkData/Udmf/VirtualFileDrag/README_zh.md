@@ -23,6 +23,35 @@
 - [DropReceiver.ets](entry/src/main/ets/model/DropReceiver.ets)：获取落入文件的 URI 列表，交给业务处理。
 - [ohosTest.md](ohosTest.md)：人工验证步骤和预期现象。
 
+### 具体实现
+
+建议先选择默认的“文档”场景，按以下顺序阅读。目录场景只改变节点树，按需解压场景只改变内容来源，拖拽接口的调用方式相同。
+
+```text
+prepareDocuments() 声明文件信息
+  → createVirtualEntry() 绑定内容回调
+  → createDragData() 附加到 FileUri.virtualEntry
+  → onDragStart：event.setData()
+  → onDrop：getDroppedFileUris()
+  → handleUris() 交给业务处理
+```
+
+| 接口或类型 | 如何使用 | 对应代码 |
+| --- | --- | --- |
+| `VirtualFileItem` | 设置文件名、id、准确的 size 和毫秒时间戳 modifyTime。id 用于回调查找数据源。 | `VirtualFileProvider.ets`：`prepareDocuments()` |
+| `VirtualDirItem`、`VirtualItemType` | 用 subItems 放置文件或子目录；根节点可以是文件，也可以是目录。 | `VirtualFileProvider.ets`：`prepareDocuments()` |
+| `VirtualFileInfo` | itemInfo 指定根节点，onRead 提供内容，onStat 和 onCancel 按需设置。 | `VirtualFileProvider.ets`：`createVirtualEntry()` |
+| `onStat(id)` | 返回该 id 对应文件的信息。 | `createVirtualEntry()` 中的 onStat |
+| `onRead(id, offset, length)` | 返回从 offset 开始的内容，最多 length 字节；到末尾返回空数组，失败时抛出异常使 Promise 拒绝。 | `createVirtualEntry()` 中的 onRead |
+| `onCancel(ids)` | 取消这些 id 当前待处理的任务。本地示例没有额外的可取消任务，回调为空实现并说明原因。 | `createVirtualEntry()` 中的 onCancel |
+| `FileUri.virtualEntry` | 附加 VirtualFileInfo，设置文件或目录的 fileType，并填写非空占位 oriUri。占位路径不要求对应真实文件。 | `Index.ets`：`createDragData()` |
+| `UnifiedRecord`、`UnifiedData`、`DragEvent.setData()` | 将 FileUri 作为文件记录放入统一数据，在起拖回调中设置。 | `Index.ets`：`createDragData()`、`onDragStart` |
+| `DragEvent.getData()`、`getRecords()`、`getEntry()` | 在落入回调中取得实际返回的文件 URI；不使用起拖方的占位 URI。 | `DropReceiver.ets`：`getDroppedFileUris()` |
+
+`SourceFile`和`sources`是示例自己的数据源及索引，不是 SDK 接口。`prepareArchive()`把自带 ZIP 放入应用目录，`readArchive()`在读取时解压并读取指定范围，业务可将这部分替换为自己的内容获取方式。
+
+绿色接收区只把 URI 传给`handleUris()`，获取 URI 本身不会触发内容读取。需要验证 onRead 时，将文件拖到文件管理器等会实际打开并读取文件的应用。
+
 ### 接口用法和约束
 
 - size 必须准确、非负，空文件为 0；modifyTime 使用毫秒时间戳。不同内容使用不同 id，同一文件各次读取使用同一个 id。

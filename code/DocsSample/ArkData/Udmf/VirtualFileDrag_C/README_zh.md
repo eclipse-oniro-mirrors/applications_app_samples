@@ -24,19 +24,59 @@
 - [virtual_file_receiver.cpp](entry/src/main/cpp/virtual_file_receiver.cpp)：通过C接口获取落入数据并复制 URI 字符串，交给业务处理。
 - [ohosTest.md](ohosTest.md)：人工验证步骤和预期现象。
 
+### 具体实现
+
+建议先选择默认的“文档”场景，按以下顺序阅读。虚拟文件接口集中在`virtual_file_provider.cpp`，URI 获取集中在`virtual_file_receiver.cpp`；Native ArkUI 布局和 NAPI 参数转换位于`napi_init.cpp`。
+
+```text
+NODE_ON_DRAG_START
+  → CreateVirtualDragData()：节点 → VirtualFileInfo → FileUri → Record → Data
+  → OH_ArkUI_DragEvent_SetData()
+  → NODE_ON_DROP：GetDroppedFileUris()
+  → NotifyUris() → handleUris() 交给业务处理
+```
+
+| 接口 | 如何使用 | 对应代码 |
+| --- | --- | --- |
+| `OH_UDMF_CreateVirtualFileItem`、`OH_UDMF_SetVirtualFileSize` | 创建文件节点，设置名称、id、修改时间和准确大小。 | `CreateFileItem()` |
+| `OH_UDMF_CreateVirtualDirectoryItem` | 创建目录节点。 | `CreateRoot()` |
+| `OH_UDMF_AddVirtualItemChild` | 将子节点复制到目录，之后释放调用方持有的原子节点。 | `AddChildAndDestroy()` |
+| `OH_UDMF_VirtualFileCallbacks` | structSize 设置为 sizeof(callbacks)，onRead 必选，onStat 和 onCancel 可选。 | `CreateVirtualDragData()` |
+| `OH_UDMF_VirtualFileOnStat` | 返回通过创建接口获得的新文件节点，返回后由 UDMF 接管。 | `OnStat()` |
+| `OH_UDMF_VirtualFileOnRead` | 将请求范围的内容写入 data，用 bytesRead 输出字节数，函数返回状态码；不保存或释放 data。 | `OnRead()` |
+| `OH_UDMF_VirtualFileOnCancel` | 停止对应 id 当前待处理的任务。本地示例没有额外的可取消任务，直接返回成功。 | `OnCancel()` |
+| `OH_UDMF_CreateVirtualFileInfo` | 关联根节点、回调及 context；创建成功后由 UDMF 管理 context，最终调用 finalize。 | `CreateVirtualDragData()` |
+| `OH_UDMF_VirtualFileFinalize` | 释放业务上下文及其数据源。示例的 Finalize 回调负责删除 ProviderContext。 | `Finalize()` |
+| `OH_UdsFileUri_Create`、`OH_UdsFileUri_SetFileUri`、`OH_UdsFileUri_SetFileType` | 创建 FileUri，填写非空占位 URI 和文件类型；普通文件使用 general.file，目录使用 general.directory。 | `CreateVirtualDragData()` |
+| `OH_UDMF_SetFileUriVirtualEntry` | 将 VirtualFileInfo 附加到 FileUri，再通过 Record、Data 设置拖拽数据。 | `CreateVirtualDragData()` |
+| `OH_UDMF_ClearFileUriVirtualEntry` | 解除指定 FileUri 的附加关系，不影响此前已放入 Record 的独立引用。 | `CreateVirtualDragData()` 的临时对象清理 |
+| `OH_UDMF_DestroyVirtualItem`、`OH_UDMF_DestroyVirtualFileInfo` | 释放调用方持有的节点或包装对象；其他对象持有的独立引用仍然有效。 | `CreateFileItem()`、`AddChildAndDestroy()`、`CreateVirtualDragData()` |
+| `OH_ArkUI_DragEvent_SetData` | 在起拖事件设置统一数据，并将该 Data 保留到拖拽结束。 | `napi_init.cpp`：`OnNodeEvent()` |
+| `OH_ArkUI_DragEvent_GetUdmfData`、`OH_UdmfRecord_GetFileUri`、`OH_UdsFileUri_GetFileUri` | 在落入事件提取 URI，销毁临时对象前复制字符串。 | `GetDroppedFileUris()` |
+
+资源释放需要区分三个时机：
+
+1. 节点被复制后，释放原节点；FileUri 被加入 Record 后，可以清理临时 FileUri 和 VirtualFileInfo 包装对象。
+2. `OH_ArkUI_DragEvent_SetData()`暂存 Data 指针，拖拽结束后再销毁该 Data。
+3. 业务 context 由成功创建的 VirtualFileInfo 管理，不能在拖拽结束时直接删除；由最终的 Finalize 回调释放。创建失败时，示例中的 unique_ptr 自动清理尚未交给 UDMF 的 context。
+
+`ProviderContext`、`SourceFile`和`PrepareFileContent()`属于示例数据源，不是 SDK 接口。按需解压场景在准备阶段压缩少量文本，到 onRead 时解压。业务可替换该函数，从自己的文件、压缩内容或网络资源提供字节数据。
+
+绿色接收区仅提取 URI 并交给`handleUris()`。读取、复制、保存或打开由业务决定，不在示例中自动执行。
+
 ### 接口用法和约束
 
 - size 必须准确、非负，空文件为 0；modifyTime 使用毫秒时间戳。不同内容使用不同 id，同一文件各次读取使用同一个 id。
 - onRead 从 offset 开始提供不超过 length 的字节；length 不是已读取长度。成功到达末尾才返回空数据，失败不能用空数据伪装 EOF。
 - onStat 返回文件元数据；声明准确大小后，普通 stat 不保证每次都调用 onStat，不能据此判断失败。
-- onCancel 取消当前待处理任务，应允许重复通知，不能永久禁止同一 id 的后续读取；用户中止拖拽不保证一定触发该回调。本示例无异步读取任务，回调记录通知并返回成功。
+- onCancel 取消当前待处理任务，应允许重复通知，不能永久禁止同一 id 的后续读取；用户中止拖拽不保证一定触发该回调。本示例无异步读取任务，回调直接返回成功。
 - CreateVirtualFileInfo 成功后 context 由 UDMF 管理，最终调用 finalize；失败时由调用方释放。AddVirtualItemChild 复制 child，原 child 仍需销毁。FileUri/Record 持有独立引用，可以清理临时包装对象；交给 ArkUI 的 OH_UdmfData 保留到拖拽结束。
 - 示例未申请后台保活能力。实际应用应根据后台运行条件保障提供数据期间的可用性；提供方退出或回调失败会导致目标读取失败。
 - C 压缩场景使用 zlib 内存压缩流，展示按需解压，不是完整 ZIP 归档浏览器。
 
 ### 权限与依赖
 
-不涉及额外权限。使用 SDK 提供的 UDMF、Native ArkUI、NAPI、HiLog和 zlib 库。采用 Stage 模型和动态 ArkTS，不包含 ArkTS 1.2 静态接口。
+不涉及额外权限。使用 SDK 提供的 UDMF、Native ArkUI、NAPI 和 zlib 库。采用 Stage 模型和动态 ArkTS，不包含 ArkTS 1.2 静态接口。
 
 ### 资料同源
 

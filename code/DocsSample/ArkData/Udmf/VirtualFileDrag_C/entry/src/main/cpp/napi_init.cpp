@@ -20,7 +20,6 @@
 #include <arkui/drag_and_drop.h>
 #include <arkui/native_interface.h>
 #include <arkui/native_node.h>
-#include <hilog/log.h>
 #include <napi/native_api.h>
 #include <vector>
 
@@ -122,7 +121,6 @@ void OnNodeEvent(ArkUI_NodeEvent* event)
         return;
     }
     const int result = OH_ArkUI_DragEvent_SetData(drag, data);
-    OH_LOG_Print(LOG_APP, LOG_INFO, 0xD004101, "VirtualFileDragC", "SetData result=%{public}d", result);
     // ArkUI 暂存此指针，必须保留到拖拽结束；随后会话中的回调引用由 UDMF 管理。
     if (result == 0) {
         g_dragData = data;
