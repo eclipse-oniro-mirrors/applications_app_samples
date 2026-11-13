@@ -32,19 +32,19 @@ export default function launchCoverageTests(): void {
      */
 
 
-    it(caseName('LaunchCoverage', '0001'), 0, async () => {
-      await runCase(caseName('LaunchCoverage', '0001'), async () => {
+    it(caseName('LaunchCoverage', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('LaunchCoverage', '0001'), async (): Promise<void> => {
         const wants: Want[] = [{ parameters: {} }, { parameters: { other: 'value' } }];
         for (const cold of [false, true]) {
           for (const want of wants) {
             const result = parseLaunchRequest(want, cold);
-            expect(result.page, caseName('LaunchCoverage', '0001')).assertEqual(PageKey.HOME);
-            expect(result.error, caseName('LaunchCoverage', '0001')).assertEqual('');
-            expect(result.source, caseName('LaunchCoverage', '0001')).assertEqual(cold ? '冷启动' : '热启动');
+            expect(result.page, caseName('LaunchCoverage', '0001'), 'LaunchCoverage.test.ets:A0001').assertEqual(PageKey.HOME);
+            expect(result.error, caseName('LaunchCoverage', '0001'), 'LaunchCoverage.test.ets:A0002').assertEqual('');
+            expect(result.source, caseName('LaunchCoverage', '0001'), 'LaunchCoverage.test.ets:A0003').assertEqual(cold ? '冷启动' : '热启动');
           }
           const orphan: Want = { parameters: { 'sc.filter': 'saved' } };
-          expect(parseLaunchRequest(orphan, cold).error, caseName('LaunchCoverage', '0001')).assertEqual('快捷方式参数版本无效');
-          expect(parseLaunchRequest(orphan, cold).page, caseName('LaunchCoverage', '0001')).assertEqual(PageKey.HOME);
+          expect(parseLaunchRequest(orphan, cold).error, caseName('LaunchCoverage', '0001'), 'LaunchCoverage.test.ets:A0004').assertEqual('快捷方式参数版本无效');
+          expect(parseLaunchRequest(orphan, cold).page, caseName('LaunchCoverage', '0001'), 'LaunchCoverage.test.ets:A0005').assertEqual(PageKey.HOME);
         }
       });
     });
@@ -57,13 +57,13 @@ export default function launchCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('LaunchCoverage', '0002'), 0, async () => {
-      await runCase(caseName('LaunchCoverage', '0002'), async () => {
+    it(caseName('LaunchCoverage', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('LaunchCoverage', '0002'), async (): Promise<void> => {
         const noVersion: Want = { parameters: { 'sc.action': 'note.new' } };
         const noAction: Want = { parameters: { 'sc.version': '1' } };
-        expect(parseLaunchRequest(noVersion, true).error, caseName('LaunchCoverage', '0002')).assertEqual('快捷方式参数版本无效');
-        expect(parseLaunchRequest(noAction, false).error, caseName('LaunchCoverage', '0002')).assertEqual('快捷方式操作或筛选值无效');
-        expect(parseLaunchRequest(noVersion, false).page, caseName('LaunchCoverage', '0002')).assertEqual(PageKey.HOME);
+        expect(parseLaunchRequest(noVersion, true).error, caseName('LaunchCoverage', '0002'), 'LaunchCoverage.test.ets:A0006').assertEqual('快捷方式参数版本无效');
+        expect(parseLaunchRequest(noAction, false).error, caseName('LaunchCoverage', '0002'), 'LaunchCoverage.test.ets:A0007').assertEqual('快捷方式操作或筛选值无效');
+        expect(parseLaunchRequest(noVersion, false).page, caseName('LaunchCoverage', '0002'), 'LaunchCoverage.test.ets:A0008').assertEqual(PageKey.HOME);
       });
     });
     /**
@@ -75,8 +75,8 @@ export default function launchCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('LaunchCoverage', '0003'), 0, async () => {
-      await runCase(caseName('LaunchCoverage', '0003'), async () => {
+    it(caseName('LaunchCoverage', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('LaunchCoverage', '0003'), async (): Promise<void> => {
         const invalid: Want[] = [
           { parameters: { 'sc.version': ' 1', 'sc.action': 'note.new' } },
           { parameters: { 'sc.version': '1', 'sc.action': 'NOTE.NEW' } },
@@ -85,11 +85,11 @@ export default function launchCoverageTests(): void {
           { parameters: { 'sc.version': '1', 'sc.action': 'collection.list', 'sc.filter': 'saved ' } }
         ];
         for (const want of invalid) {
-          expect(parseLaunchRequest(want, true).page, caseName('LaunchCoverage', '0003')).assertEqual(PageKey.HOME);
-          expect(parseLaunchRequest(want, true).error.length > 0, caseName('LaunchCoverage', '0003')).assertTrue();
+          expect(parseLaunchRequest(want, true).page, caseName('LaunchCoverage', '0003'), 'LaunchCoverage.test.ets:A0009').assertEqual(PageKey.HOME);
+          expect(parseLaunchRequest(want, true).error.length > 0, caseName('LaunchCoverage', '0003'), 'LaunchCoverage.test.ets:A0010').assertTrue();
         }
-        expect(invalid.length, caseName('LaunchCoverage', '0003')).assertEqual(5);
-        expect(parseLaunchRequest(invalid[0], true).page, caseName('LaunchCoverage', '0003')).assertEqual(PageKey.HOME);
+        expect(invalid.length, caseName('LaunchCoverage', '0003'), 'LaunchCoverage.test.ets:A0011').assertEqual(5);
+        expect(parseLaunchRequest(invalid[0], true).page, caseName('LaunchCoverage', '0003'), 'LaunchCoverage.test.ets:A0012').assertEqual(PageKey.HOME);
       });
     });
     /**
@@ -101,8 +101,8 @@ export default function launchCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('LaunchCoverage', '0004'), 0, async () => {
-      await runCase(caseName('LaunchCoverage', '0004'), async () => {
+    it(caseName('LaunchCoverage', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('LaunchCoverage', '0004'), async (): Promise<void> => {
         const invalid: Want[] = [
           { parameters: { 'sc.version': true, 'sc.action': 'note.new' } },
           { parameters: { 'sc.version': '1', 'sc.action': 1 } },
@@ -112,11 +112,11 @@ export default function launchCoverageTests(): void {
         ];
         for (const want of invalid) {
           const result = parseLaunchRequest(want, false);
-          expect(result.page, caseName('LaunchCoverage', '0004')).assertEqual(PageKey.HOME);
-          expect(result.error.length > 0, caseName('LaunchCoverage', '0004')).assertTrue();
+          expect(result.page, caseName('LaunchCoverage', '0004'), 'LaunchCoverage.test.ets:A0013').assertEqual(PageKey.HOME);
+          expect(result.error.length > 0, caseName('LaunchCoverage', '0004'), 'LaunchCoverage.test.ets:A0014').assertTrue();
         }
-        expect(invalid.length, caseName('LaunchCoverage', '0004')).assertEqual(5);
-        expect(parseLaunchRequest(invalid[1], false).error.length > 0, caseName('LaunchCoverage', '0004')).assertTrue();
+        expect(invalid.length, caseName('LaunchCoverage', '0004'), 'LaunchCoverage.test.ets:A0015').assertEqual(5);
+        expect(parseLaunchRequest(invalid[1], false).error.length > 0, caseName('LaunchCoverage', '0004'), 'LaunchCoverage.test.ets:A0016').assertTrue();
       });
     });
     /**
@@ -128,19 +128,19 @@ export default function launchCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('LaunchCoverage', '0005'), 0, async () => {
-      await runCase(caseName('LaunchCoverage', '0005'), async () => {
+    it(caseName('LaunchCoverage', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('LaunchCoverage', '0005'), async (): Promise<void> => {
         const want: Want = { parameters: { 'sc.version': '1', 'sc.action': 'note.new', unrelated: 'preserved' } };
         const before = JSON.stringify(want);
         const first = parseLaunchRequest(want, true);
         first.page = PageKey.DETAIL;
         first.error = 'changed';
         const second = parseLaunchRequest(want, false);
-        expect(JSON.stringify(want), caseName('LaunchCoverage', '0005')).assertEqual(before);
-        expect(first === second, caseName('LaunchCoverage', '0005')).assertFalse();
-        expect(second.page, caseName('LaunchCoverage', '0005')).assertEqual(PageKey.NOTE);
-        expect(second.error, caseName('LaunchCoverage', '0005')).assertEqual('');
-        expect(second.source, caseName('LaunchCoverage', '0005')).assertEqual('热启动');
+        expect(JSON.stringify(want), caseName('LaunchCoverage', '0005'), 'LaunchCoverage.test.ets:A0017').assertEqual(before);
+        expect(first === second, caseName('LaunchCoverage', '0005'), 'LaunchCoverage.test.ets:A0018').assertFalse();
+        expect(second.page, caseName('LaunchCoverage', '0005'), 'LaunchCoverage.test.ets:A0019').assertEqual(PageKey.NOTE);
+        expect(second.error, caseName('LaunchCoverage', '0005'), 'LaunchCoverage.test.ets:A0020').assertEqual('');
+        expect(second.source, caseName('LaunchCoverage', '0005'), 'LaunchCoverage.test.ets:A0021').assertEqual('热启动');
       });
     });
   });

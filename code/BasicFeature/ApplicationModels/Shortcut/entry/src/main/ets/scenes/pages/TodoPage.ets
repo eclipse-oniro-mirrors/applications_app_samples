@@ -14,6 +14,7 @@
  */
 
 import { businessLabel } from '../../i18n/BusinessLabels';
+import { todoTitleText } from '../../i18n/BuiltinText';
 import { uiText } from '../../i18n/Strings';
 import { BG, CARD, TEXT, MUTED, ACCENT, OK, PageHeader, StatusBanner, EmptyState } from '../../components/Ui';
 import { BusinessSnapshot, TodoDateSummary, TodoItem, businessStore, localDateKey } from '../../business/BusinessStore';
@@ -135,7 +136,7 @@ struct TodoPage {
             .height(44)
             .onChange((value: string) => { this.editingTitle = value; })
         } else {
-          Text(item.title)
+          Text(todoTitleText(item.id, item.title, this.view.todoDate))
             .fontSize(15)
             .fontColor(item.done ? MUTED : TEXT)
             .decoration({ type: item.done ? TextDecorationType.LineThrough : TextDecorationType.None })

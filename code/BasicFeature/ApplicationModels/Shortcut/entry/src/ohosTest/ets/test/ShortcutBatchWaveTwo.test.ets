@@ -72,13 +72,13 @@ export default function shortcutBatchWaveTwoTests(): void {
         io.writeGate.resolve(undefined);
         await oldPreview;
         await waveSettle();
-        expect(service.snapshot().busy, caseName('ShortcutBatchWaveTwo', '0001')).assertFalse();
-        expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0001')).assertTrue();
-        expect(currentBatch(service).items[0].id, caseName('ShortcutBatchWaveTwo', '0001')).assertEqual('a');
-        expect(service.snapshot().batchPreview, caseName('ShortcutBatchWaveTwo', '0001')).assertUndefined();
+        expect(service.snapshot().busy, caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0001').assertFalse();
+        expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0002').assertTrue();
+        expect(currentBatch(service).items[0].id, caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0003').assertEqual('a');
+        expect(service.snapshot().batchPreview, caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0004').assertUndefined();
         await service.previewBatch(['b'], true);
-        expect(currentBatch(service).batchId, caseName('ShortcutBatchWaveTwo', '0001')).assertEqual('batch-2');
-        expect(service.snapshot().batches[1].items[0].id, caseName('ShortcutBatchWaveTwo', '0001')).assertEqual('a');
+        expect(currentBatch(service).batchId, caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0005').assertEqual('batch-2');
+        expect(service.snapshot().batches[1].items[0].id, caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0006').assertEqual('a');
         io.holdAt = 3;
         io.writeGate = new Deferred<void>();
         const oldExecution: Promise<void> = service.executeBatchPreview(currentPreview(service).token);
@@ -96,13 +96,13 @@ export default function shortcutBatchWaveTwoTests(): void {
         traces.push([currentBatch(service).items[0].result]);
         await service.previewBatch(['a'], false);
         observations.push(Number(currentBatch(service).batchId.substring(6)));
-        expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0001')).assertEqual(0);
+        expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0007').assertEqual(0);
       });
-      expect(observations.join(','), caseName('ShortcutBatchWaveTwo', '0001')).assertEqual('1,1,2,3,1,1,3');
-      expect(traces[0].join(','), caseName('ShortcutBatchWaveTwo', '0001')).assertEqual(
+      expect(observations.join(','), caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0008').assertEqual('1,1,2,3,1,1,3');
+      expect(traces[0].join(','), caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0009').assertEqual(
         'read,write-start-1,write-end-1,read,write-start-2,write-end-2,' +
         'write-start-3,write-end-3,read,write-start-4,write-end-4');
-      expect(traces[1].join(','), caseName('ShortcutBatchWaveTwo', '0001')).assertEqual('unknown');
+      expect(traces[1].join(','), caseName('ShortcutBatchWaveTwo', '0001'), 'ShortcutBatchWaveTwo.test.ets:A0010').assertEqual('unknown');
     });
 
     /**
@@ -124,12 +124,12 @@ export default function shortcutBatchWaveTwoTests(): void {
         const service: ShortcutService = createWaveTwoService(scope, api, io);
         await readyWaveTwoService(scope, service);
         await service.previewBatchRestore('batch-1');
-        expect(currentPreview(service).items[0].eligible, caseName('ShortcutBatchWaveTwo', '0002')).assertFalse();
-        expect(currentPreview(service).items[0].reason, caseName('ShortcutBatchWaveTwo', '0002')).assertEqual('权限/能力/无效ID错误已封闭重试，请修正条件后创建新预览');
+        expect(currentPreview(service).items[0].eligible, caseName('ShortcutBatchWaveTwo', '0002'), 'ShortcutBatchWaveTwo.test.ets:A0011').assertFalse();
+        expect(currentPreview(service).items[0].reason, caseName('ShortcutBatchWaveTwo', '0002'), 'ShortcutBatchWaveTwo.test.ets:A0012').assertEqual('权限/能力/无效ID错误已封闭重试，请修正条件后创建新预览');
         await service.executeBatchPreview(currentPreview(service).token, true);
-        expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0002')).assertEqual(0);
-        expect(currentBatch(service).items[0].restoreAttempt, caseName('ShortcutBatchWaveTwo', '0002')).assertEqual(0);
-        expect(io.writes.length, caseName('ShortcutBatchWaveTwo', '0002')).assertEqual(0);
+        expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0002'), 'ShortcutBatchWaveTwo.test.ets:A0013').assertEqual(0);
+        expect(currentBatch(service).items[0].restoreAttempt, caseName('ShortcutBatchWaveTwo', '0002'), 'ShortcutBatchWaveTwo.test.ets:A0014').assertEqual(0);
+        expect(io.writes.length, caseName('ShortcutBatchWaveTwo', '0002'), 'ShortcutBatchWaveTwo.test.ets:A0015').assertEqual(0);
       });
     });
 
@@ -152,19 +152,19 @@ export default function shortcutBatchWaveTwoTests(): void {
         await service.executeBatchPreview(currentPreview(service).token);
         await service.previewBatchRestore('batch-1');
         await service.executeBatchPreview(currentPreview(service).token);
-        expect(currentBatch(service).items[0].restoreResult, caseName('ShortcutBatchWaveTwo', '0003')).assertEqual('unknown');
+        expect(currentBatch(service).items[0].restoreResult, caseName('ShortcutBatchWaveTwo', '0003'), 'ShortcutBatchWaveTwo.test.ets:A0016').assertEqual('unknown');
         await service.reconcileBatch('batch-1');
-        expect(currentBatch(service).items[0].result, caseName('ShortcutBatchWaveTwo', '0003')).assertEqual('unknown');
+        expect(currentBatch(service).items[0].result, caseName('ShortcutBatchWaveTwo', '0003'), 'ShortcutBatchWaveTwo.test.ets:A0017').assertEqual('unknown');
         await service.previewBatchRestore('batch-1');
-        expect(currentPreview(service).items[0].eligible, caseName('ShortcutBatchWaveTwo', '0003')).assertFalse();
+        expect(currentPreview(service).items[0].eligible, caseName('ShortcutBatchWaveTwo', '0003'), 'ShortcutBatchWaveTwo.test.ets:A0018').assertFalse();
         await service.executeBatchPreview(currentPreview(service).token, true);
-        expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0003')).assertEqual(1);
+        expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0003'), 'ShortcutBatchWaveTwo.test.ets:A0019').assertEqual(1);
         api.restoreGate.resolve(undefined);
         await waveSettle();
         await service.reconcileBatch('batch-1');
-        expect(currentBatch(service).items[0].restoreResult, caseName('ShortcutBatchWaveTwo', '0003')).assertEqual('confirmed');
-        expect(currentBatch(service).items[0].restoreAttempt, caseName('ShortcutBatchWaveTwo', '0003')).assertEqual(1);
-        expect(api.writes.join(','), caseName('ShortcutBatchWaveTwo', '0003')).assertEqual('a:false,a:true');
+        expect(currentBatch(service).items[0].restoreResult, caseName('ShortcutBatchWaveTwo', '0003'), 'ShortcutBatchWaveTwo.test.ets:A0020').assertEqual('confirmed');
+        expect(currentBatch(service).items[0].restoreAttempt, caseName('ShortcutBatchWaveTwo', '0003'), 'ShortcutBatchWaveTwo.test.ets:A0021').assertEqual(1);
+        expect(api.writes.join(','), caseName('ShortcutBatchWaveTwo', '0003'), 'ShortcutBatchWaveTwo.test.ets:A0022').assertEqual('a:false,a:true');
       });
     });
 
@@ -190,11 +190,11 @@ export default function shortcutBatchWaveTwoTests(): void {
           const api: WaveShortcutPort = new WaveShortcutPort();
           const service: ShortcutService = createWaveTwoService(scope, api, io);
           await readyWaveTwoService(scope, service);
-          expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0004')).assertFalse();
-          expect(service.snapshot().batches.length, caseName('ShortcutBatchWaveTwo', '0004')).assertEqual(0);
-          expect(io.value, caseName('ShortcutBatchWaveTwo', '0004')).assertEqual(raw);
-          expect(io.writes.length, caseName('ShortcutBatchWaveTwo', '0004')).assertEqual(0);
-          expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0004')).assertEqual(0);
+          expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0004'), 'ShortcutBatchWaveTwo.test.ets:A0023').assertFalse();
+          expect(service.snapshot().batches.length, caseName('ShortcutBatchWaveTwo', '0004'), 'ShortcutBatchWaveTwo.test.ets:A0024').assertEqual(0);
+          expect(io.value, caseName('ShortcutBatchWaveTwo', '0004'), 'ShortcutBatchWaveTwo.test.ets:A0025').assertEqual(raw);
+          expect(io.writes.length, caseName('ShortcutBatchWaveTwo', '0004'), 'ShortcutBatchWaveTwo.test.ets:A0026').assertEqual(0);
+          expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0004'), 'ShortcutBatchWaveTwo.test.ets:A0027').assertEqual(0);
         }
       });
     });
@@ -222,11 +222,11 @@ export default function shortcutBatchWaveTwoTests(): void {
           const service: ShortcutService = createWaveTwoService(scope, api, io);
           await readyWaveTwoService(scope, service);
           await service.previewBatchRetry('batch-1');
-          expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0005')).assertFalse();
-          expect(service.snapshot().batchPreview, caseName('ShortcutBatchWaveTwo', '0005')).assertUndefined();
-          expect(io.value, caseName('ShortcutBatchWaveTwo', '0005')).assertEqual(raw);
-          expect(io.writes.length, caseName('ShortcutBatchWaveTwo', '0005')).assertEqual(0);
-          expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0005')).assertEqual(0);
+          expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0005'), 'ShortcutBatchWaveTwo.test.ets:A0028').assertFalse();
+          expect(service.snapshot().batchPreview, caseName('ShortcutBatchWaveTwo', '0005'), 'ShortcutBatchWaveTwo.test.ets:A0029').assertUndefined();
+          expect(io.value, caseName('ShortcutBatchWaveTwo', '0005'), 'ShortcutBatchWaveTwo.test.ets:A0030').assertEqual(raw);
+          expect(io.writes.length, caseName('ShortcutBatchWaveTwo', '0005'), 'ShortcutBatchWaveTwo.test.ets:A0031').assertEqual(0);
+          expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0005'), 'ShortcutBatchWaveTwo.test.ets:A0032').assertEqual(0);
         }
       });
     });
@@ -250,16 +250,16 @@ export default function shortcutBatchWaveTwoTests(): void {
         const api: WaveShortcutPort = new WaveShortcutPort();
         const service: ShortcutService = createWaveTwoService(scope, api, io);
         await readyWaveTwoService(scope, service);
-        expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0006')).assertFalse();
-        expect(service.snapshot().batchError, caseName('ShortcutBatchWaveTwo', '0006')).assertEqual('批次存档读取失败；不会覆盖或重放，请重试读取');
-        expect(io.writes.length, caseName('ShortcutBatchWaveTwo', '0006')).assertEqual(0);
+        expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0006'), 'ShortcutBatchWaveTwo.test.ets:A0033').assertFalse();
+        expect(service.snapshot().batchError, caseName('ShortcutBatchWaveTwo', '0006'), 'ShortcutBatchWaveTwo.test.ets:A0034').assertEqual('批次存档读取失败；不会覆盖或重放，请重试读取');
+        expect(io.writes.length, caseName('ShortcutBatchWaveTwo', '0006'), 'ShortcutBatchWaveTwo.test.ets:A0035').assertEqual(0);
         journal.batches[0].items[0].restoreAttempt = 0;
         journal.batches[0].items[0].restoreResult = 'not-run';
         io.value = JSON.stringify(journal);
         await service.loadBatches();
-        expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0006')).assertTrue();
-        expect(currentBatch(service).items[0].originalKnown, caseName('ShortcutBatchWaveTwo', '0006')).assertFalse();
-        expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0006')).assertEqual(0);
+        expect(service.snapshot().batchReady, caseName('ShortcutBatchWaveTwo', '0006'), 'ShortcutBatchWaveTwo.test.ets:A0036').assertTrue();
+        expect(currentBatch(service).items[0].originalKnown, caseName('ShortcutBatchWaveTwo', '0006'), 'ShortcutBatchWaveTwo.test.ets:A0037').assertFalse();
+        expect(api.writes.length, caseName('ShortcutBatchWaveTwo', '0006'), 'ShortcutBatchWaveTwo.test.ets:A0038').assertEqual(0);
       });
     });
   });

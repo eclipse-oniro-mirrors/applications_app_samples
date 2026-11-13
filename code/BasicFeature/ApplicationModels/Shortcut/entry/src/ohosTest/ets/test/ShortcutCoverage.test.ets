@@ -32,28 +32,28 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0001'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0001'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0001'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         f.api.supportError = new FixtureError(801, 'unavailable');
         f.initialize();
         await f.idle();
-        expect(f.service.snapshot().support, caseName('ShortcutCoverage', '0001')).assertEqual('检测失败');
+        expect(f.service.snapshot().support, caseName('ShortcutCoverage', '0001'), 'ShortcutCoverage.test.ets:A0001').assertEqual('检测失败');
         await f.service.refresh();
-        expect(f.api.queries.length, caseName('ShortcutCoverage', '0001')).assertEqual(0);
+        expect(f.api.queries.length, caseName('ShortcutCoverage', '0001'), 'ShortcutCoverage.test.ets:A0002').assertEqual(0);
         f.api.supportError = undefined;
         f.service.checkSupport();
-        expect(f.service.snapshot().supported, caseName('ShortcutCoverage', '0001')).assertTrue();
-        expect(f.service.snapshot().supportError, caseName('ShortcutCoverage', '0001')).assertEqual('');
+        expect(f.service.snapshot().supported, caseName('ShortcutCoverage', '0001'), 'ShortcutCoverage.test.ets:A0003').assertTrue();
+        expect(f.service.snapshot().supportError, caseName('ShortcutCoverage', '0001'), 'ShortcutCoverage.test.ets:A0004').assertEqual('');
         const pending = f.service.refresh();
         (await f.query(0)).resolve([shortcutInfo('recovered', true)]);
         await pending;
-        expect(f.service.snapshot().items[0].id, caseName('ShortcutCoverage', '0001')).assertEqual('recovered');
+        expect(f.service.snapshot().items[0].id, caseName('ShortcutCoverage', '0001'), 'ShortcutCoverage.test.ets:A0005').assertEqual('recovered');
         f.api.supported = false;
         f.service.checkSupport();
         await f.service.setVisible('recovered', false);
-        expect(f.api.settings.length, caseName('ShortcutCoverage', '0001')).assertEqual(0);
-        expect(f.service.snapshot().items[0].id, caseName('ShortcutCoverage', '0001')).assertEqual('recovered');
+        expect(f.api.settings.length, caseName('ShortcutCoverage', '0001'), 'ShortcutCoverage.test.ets:A0006').assertEqual(0);
+        expect(f.service.snapshot().items[0].id, caseName('ShortcutCoverage', '0001'), 'ShortcutCoverage.test.ets:A0007').assertEqual('recovered');
       });
     });
 
@@ -66,17 +66,17 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0002'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0002'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0002'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         await f.load([shortcutInfo('first', false), shortcutInfo('second', false)]);
         const pending = f.service.restoreAll();
         (await f.setting(0)).pending.resolve(undefined);
         (await f.query(1)).resolve([shortcutInfo('first', false), shortcutInfo('second', false)]);
         await pending;
-        expect(f.api.settings.length, caseName('ShortcutCoverage', '0002')).assertEqual(1);
-        expect(f.service.snapshot().batchMessage, caseName('ShortcutCoverage', '0002')).assertEqual('已恢复 0/2，回读不一致，已停止');
-        expect(f.service.snapshot().busy, caseName('ShortcutCoverage', '0002')).assertFalse();
+        expect(f.api.settings.length, caseName('ShortcutCoverage', '0002'), 'ShortcutCoverage.test.ets:A0008').assertEqual(1);
+        expect(f.service.snapshot().batchMessage, caseName('ShortcutCoverage', '0002'), 'ShortcutCoverage.test.ets:A0009').assertEqual('已恢复 0/2，回读不一致，已停止');
+        expect(f.service.snapshot().busy, caseName('ShortcutCoverage', '0002'), 'ShortcutCoverage.test.ets:A0010').assertFalse();
       });
     });
 
@@ -89,8 +89,8 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0003'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0003'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0003'), async (scope: CaseScope): Promise<void> => {
         for (const missing of [false, true]) {
           const f = new ShortcutFixture(scope);
           await f.load([shortcutInfo('first', false), shortcutInfo('second', false)]);
@@ -103,10 +103,10 @@ export default function shortcutCoverageTests(): void {
             read.reject(new FixtureError(55, 'readback down'));
           }
           await pending;
-          expect(f.api.settings.length, caseName('ShortcutCoverage', '0003')).assertEqual(1);
-          expect(f.service.snapshot().batchMessage, caseName('ShortcutCoverage', '0003')).assertContain('已恢复 0/2，已提交，待核对，已停止');
-          expect(f.service.snapshot().settingId, caseName('ShortcutCoverage', '0003')).assertEqual('');
-          expect(f.service.snapshot().busy, caseName('ShortcutCoverage', '0003')).assertFalse();
+          expect(f.api.settings.length, caseName('ShortcutCoverage', '0003'), 'ShortcutCoverage.test.ets:A0011').assertEqual(1);
+          expect(f.service.snapshot().batchMessage, caseName('ShortcutCoverage', '0003'), 'ShortcutCoverage.test.ets:A0012').assertContain('已恢复 0/2，已提交，待核对，已停止');
+          expect(f.service.snapshot().settingId, caseName('ShortcutCoverage', '0003'), 'ShortcutCoverage.test.ets:A0013').assertEqual('');
+          expect(f.service.snapshot().busy, caseName('ShortcutCoverage', '0003'), 'ShortcutCoverage.test.ets:A0014').assertFalse();
         }
       });
     });
@@ -120,17 +120,17 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0004'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0004'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0004'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         await f.load([]);
         let observed = '';
         f.service.subscribe(() => { throw new Error('broken observer'); });
         f.service.subscribe(() => { observed = f.service.snapshot().records[0].message; });
         f.service.recordNavigation('note', 'new-message');
-        expect(observed, caseName('ShortcutCoverage', '0004')).assertEqual('new-message');
-        expect(f.service.snapshot().busy, caseName('ShortcutCoverage', '0004')).assertFalse();
-        expect(f.service.snapshot().records.length >= 1, caseName('ShortcutCoverage', '0004')).assertTrue();
+        expect(observed, caseName('ShortcutCoverage', '0004'), 'ShortcutCoverage.test.ets:A0015').assertEqual('new-message');
+        expect(f.service.snapshot().busy, caseName('ShortcutCoverage', '0004'), 'ShortcutCoverage.test.ets:A0016').assertFalse();
+        expect(f.service.snapshot().records.length >= 1, caseName('ShortcutCoverage', '0004'), 'ShortcutCoverage.test.ets:A0017').assertTrue();
       });
     });
 
@@ -143,18 +143,18 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0005'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0005'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0005'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         await f.load([]);
         let remaining = 0;
         f.service.subscribe(() => f.service.dispose());
         f.service.subscribe(() => { remaining++; });
         f.service.recordNavigation('note', 'dispose-now');
-        expect(remaining, caseName('ShortcutCoverage', '0005')).assertEqual(0);
-        expect(f.service.snapshot().records.length, caseName('ShortcutCoverage', '0005')).assertEqual(0);
+        expect(remaining, caseName('ShortcutCoverage', '0005'), 'ShortcutCoverage.test.ets:A0018').assertEqual(0);
+        expect(f.service.snapshot().records.length, caseName('ShortcutCoverage', '0005'), 'ShortcutCoverage.test.ets:A0019').assertEqual(0);
         await f.service.refresh();
-        expect(f.api.queries.length, caseName('ShortcutCoverage', '0005')).assertEqual(1);
+        expect(f.api.queries.length, caseName('ShortcutCoverage', '0005'), 'ShortcutCoverage.test.ets:A0020').assertEqual(1);
       });
     });
 
@@ -167,23 +167,23 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0006'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0006'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0006'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         await f.load([shortcutInfo('old', true)]);
         const pending = f.service.setVisible('old', false);
         const write = await f.setting(0);
         f.initialize();
-        expect(f.api.queries.length, caseName('ShortcutCoverage', '0006')).assertEqual(1);
+        expect(f.api.queries.length, caseName('ShortcutCoverage', '0006'), 'ShortcutCoverage.test.ets:A0021').assertEqual(1);
         write.pending.reject(new FixtureError(99, 'old-generation-error'));
         await pending;
         (await f.query(1)).resolve([shortcutInfo('new', false)]);
         await f.idle();
         const state = f.service.snapshot();
-        expect(state.items[0].id, caseName('ShortcutCoverage', '0006')).assertEqual('new');
-        expect(state.queryError, caseName('ShortcutCoverage', '0006')).assertEqual('');
-        expect(state.records.some((r) => r.message.includes('old-generation-error')), caseName('ShortcutCoverage', '0006')).assertFalse();
-        expect(f.api.supportCalls, caseName('ShortcutCoverage', '0006')).assertEqual(2);
+        expect(state.items[0].id, caseName('ShortcutCoverage', '0006'), 'ShortcutCoverage.test.ets:A0022').assertEqual('new');
+        expect(state.queryError, caseName('ShortcutCoverage', '0006'), 'ShortcutCoverage.test.ets:A0023').assertEqual('');
+        expect(state.records.some((r) => r.message.includes('old-generation-error')), caseName('ShortcutCoverage', '0006'), 'ShortcutCoverage.test.ets:A0024').assertFalse();
+        expect(f.api.supportCalls, caseName('ShortcutCoverage', '0006'), 'ShortcutCoverage.test.ets:A0025').assertEqual(2);
       });
     });
 
@@ -196,8 +196,8 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0007'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0007'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0007'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         await f.load([shortcutInfo('old', true)]);
         const pending = f.service.setVisible('old', false);
@@ -209,9 +209,9 @@ export default function shortcutCoverageTests(): void {
         await pending;
         (await f.query(2)).resolve([shortcutInfo('new', true)]);
         await f.idle();
-        expect(f.service.snapshot().items[0].id, caseName('ShortcutCoverage', '0007')).assertEqual('new');
-        expect(f.service.snapshot().settingId, caseName('ShortcutCoverage', '0007')).assertEqual('');
-        expect(f.service.snapshot().batchMessage, caseName('ShortcutCoverage', '0007')).assertEqual('');
+        expect(f.service.snapshot().items[0].id, caseName('ShortcutCoverage', '0007'), 'ShortcutCoverage.test.ets:A0026').assertEqual('new');
+        expect(f.service.snapshot().settingId, caseName('ShortcutCoverage', '0007'), 'ShortcutCoverage.test.ets:A0027').assertEqual('');
+        expect(f.service.snapshot().batchMessage, caseName('ShortcutCoverage', '0007'), 'ShortcutCoverage.test.ets:A0028').assertEqual('');
       });
     });
 
@@ -224,8 +224,8 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0008'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0008'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0008'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0008'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         const infos: shortcutManager.ShortcutInfo[] = [];
         for (const prefix of ['$string:', 'app.string.', '@string/']) {
@@ -237,10 +237,10 @@ export default function shortcutCoverageTests(): void {
         await f.load(infos);
         const expected = getTestContext().createModuleContext('entry_test').resourceManager
           .getStringSync($r('app.string.shortcut_note_new').id);
-        expect(f.service.snapshot().items.every((item) => item.title === expected), caseName('ShortcutCoverage', '0008')).assertTrue();
-        expect(f.service.snapshot().queryError, caseName('ShortcutCoverage', '0008')).assertEqual('');
-        expect(f.service.snapshot().items.length >= 1, caseName('ShortcutCoverage', '0008')).assertTrue();
-        expect(expected.length > 0, caseName('ShortcutCoverage', '0008')).assertTrue();
+        expect(f.service.snapshot().items.every((item) => item.title === expected), caseName('ShortcutCoverage', '0008'), 'ShortcutCoverage.test.ets:A0029').assertTrue();
+        expect(f.service.snapshot().queryError, caseName('ShortcutCoverage', '0008'), 'ShortcutCoverage.test.ets:A0030').assertEqual('');
+        expect(f.service.snapshot().items.length >= 1, caseName('ShortcutCoverage', '0008'), 'ShortcutCoverage.test.ets:A0031').assertTrue();
+        expect(expected.length > 0, caseName('ShortcutCoverage', '0008'), 'ShortcutCoverage.test.ets:A0032').assertTrue();
       });
     });
 
@@ -253,8 +253,8 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0009'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0009'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0009'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0009'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         const badModule = shortcutInfo('bad-module', true);
         badModule.moduleName = 'module_that_does_not_exist';
@@ -269,14 +269,14 @@ export default function shortcutCoverageTests(): void {
         empty.wants = undefined;
         await f.load([badModule, badId, badName, empty]);
         const state = f.service.snapshot();
-        expect(state.items.map((item) => item.title).join('|'), caseName('ShortcutCoverage', '0009'))
+        expect(state.items.map((item) => item.title).join('|'), caseName('ShortcutCoverage', '0009'), 'ShortcutCoverage.test.ets:A0033')
           .assertEqual('literal-fallback|literal-after-id-error|bad-name|empty');
-        expect(state.items[3].raw.wants, caseName('ShortcutCoverage', '0009')).assertUndefined();
-        expect(state.queryError, caseName('ShortcutCoverage', '0009')).assertEqual('');
-        expect(state.records.some((r) => r.api === 'createModuleContext' && r.status === '失败'), caseName('ShortcutCoverage', '0009')).assertTrue();
-        expect(state.records.some((r) => r.api === 'resourceManager.getStringSync' && r.status === '失败'), caseName('ShortcutCoverage', '0009')).assertTrue();
+        expect(state.items[3].raw.wants, caseName('ShortcutCoverage', '0009'), 'ShortcutCoverage.test.ets:A0034').assertUndefined();
+        expect(state.queryError, caseName('ShortcutCoverage', '0009'), 'ShortcutCoverage.test.ets:A0035').assertEqual('');
+        expect(state.records.some((r) => r.api === 'createModuleContext' && r.status === '失败'), caseName('ShortcutCoverage', '0009'), 'ShortcutCoverage.test.ets:A0036').assertTrue();
+        expect(state.records.some((r) => r.api === 'resourceManager.getStringSync' && r.status === '失败'), caseName('ShortcutCoverage', '0009'), 'ShortcutCoverage.test.ets:A0037').assertTrue();
         expect(state.records.some(
-          (r) => r.api === 'resourceManager.getStringByNameSync' && r.status === '失败'), caseName('ShortcutCoverage', '0009')).assertTrue();
+          (r) => r.api === 'resourceManager.getStringByNameSync' && r.status === '失败'), caseName('ShortcutCoverage', '0009'), 'ShortcutCoverage.test.ets:A0038').assertTrue();
       });
     });
 
@@ -289,20 +289,20 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0010'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0010'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0010'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0010'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         await f.load([shortcutInfo('old', true)]);
         const pending = f.service.refresh();
         (await f.query(1)).reject(new Error('no business code') as BusinessError);
         await pending;
-        expect(f.service.snapshot().queryError, caseName('ShortcutCoverage', '0010')).assertEqual('code=not provided；no business code');
+        expect(f.service.snapshot().queryError, caseName('ShortcutCoverage', '0010'), 'ShortcutCoverage.test.ets:A0039').assertEqual('code=not provided；no business code');
         const retry = f.service.refresh();
         (await f.query(2)).resolve([]);
         await retry;
-        expect(f.service.snapshot().items.length, caseName('ShortcutCoverage', '0010')).assertEqual(0);
-        expect(f.service.snapshot().queryError, caseName('ShortcutCoverage', '0010')).assertEqual('');
-        expect(f.service.snapshot().lastQuery.length > 0, caseName('ShortcutCoverage', '0010')).assertTrue();
+        expect(f.service.snapshot().items.length, caseName('ShortcutCoverage', '0010'), 'ShortcutCoverage.test.ets:A0040').assertEqual(0);
+        expect(f.service.snapshot().queryError, caseName('ShortcutCoverage', '0010'), 'ShortcutCoverage.test.ets:A0041').assertEqual('');
+        expect(f.service.snapshot().lastQuery.length > 0, caseName('ShortcutCoverage', '0010'), 'ShortcutCoverage.test.ets:A0042').assertTrue();
       });
     });
 
@@ -315,8 +315,8 @@ export default function shortcutCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it(caseName('ShortcutCoverage', '0011'), 0, async () => {
-      await runCase(caseName('ShortcutCoverage', '0011'), async (scope: CaseScope) => {
+    it(caseName('ShortcutCoverage', '0011'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutCoverage', '0011'), async (scope: CaseScope): Promise<void> => {
         const f = new ShortcutFixture(scope);
         f.service.unsubscribe(-1);
         f.service.checkSupport();
@@ -325,18 +325,18 @@ export default function shortcutCoverageTests(): void {
         await f.service.restoreAll();
         f.service.clearRecords();
         f.service.recordNavigation('x', 'ignored');
-        expect(f.api.supportCalls, caseName('ShortcutCoverage', '0011')).assertEqual(0);
-        expect(f.api.queries.length, caseName('ShortcutCoverage', '0011')).assertEqual(0);
-        expect(f.api.settings.length, caseName('ShortcutCoverage', '0011')).assertEqual(0);
-        expect(f.service.snapshot().records.length, caseName('ShortcutCoverage', '0011')).assertEqual(0);
+        expect(f.api.supportCalls, caseName('ShortcutCoverage', '0011'), 'ShortcutCoverage.test.ets:A0043').assertEqual(0);
+        expect(f.api.queries.length, caseName('ShortcutCoverage', '0011'), 'ShortcutCoverage.test.ets:A0044').assertEqual(0);
+        expect(f.api.settings.length, caseName('ShortcutCoverage', '0011'), 'ShortcutCoverage.test.ets:A0045').assertEqual(0);
+        expect(f.service.snapshot().records.length, caseName('ShortcutCoverage', '0011'), 'ShortcutCoverage.test.ets:A0046').assertEqual(0);
         await f.load([]);
         const one = f.service.subscribe(() => {});
         const two = f.service.subscribe(() => {});
-        expect(two > one, caseName('ShortcutCoverage', '0011')).assertTrue();
+        expect(two > one, caseName('ShortcutCoverage', '0011'), 'ShortcutCoverage.test.ets:A0047').assertTrue();
         f.service.unsubscribe(one);
         f.service.unsubscribe(one);
         f.service.unsubscribe(99999);
-        expect(f.service.snapshot().supported, caseName('ShortcutCoverage', '0011')).assertTrue();
+        expect(f.service.snapshot().supported, caseName('ShortcutCoverage', '0011'), 'ShortcutCoverage.test.ets:A0048').assertTrue();
       });
     });
   });

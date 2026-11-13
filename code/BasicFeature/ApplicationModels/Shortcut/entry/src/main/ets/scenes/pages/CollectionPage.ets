@@ -14,6 +14,7 @@
  */
 
 import { businessLabel } from '../../i18n/BusinessLabels';
+import { collectionTitleText, collectionContentText } from '../../i18n/BuiltinText';
 import { uiText } from '../../i18n/Strings';
 import { BG, CARD, TEXT, MUTED, ACCENT, LINE, PageHeader, EmptyState, FieldRow } from '../../components/Ui';
 import { BusinessSnapshot, CollectionItem, businessStore } from '../../business/BusinessStore';
@@ -82,7 +83,7 @@ struct CollectionPage {
   @Builder
   private detailPanel() {
     Column({ space: 16 }) {
-      Text(this.selected.title)
+      Text(collectionTitleText(this.selected.id, this.selected.title))
         .fontSize(24)
         .fontWeight(FontWeight.Bold)
         .fontColor(TEXT)
@@ -101,7 +102,10 @@ struct CollectionPage {
         .enabled(this.view.ready && !this.view.busy && !this.view.storageRecoveryRequired)
         .onClick(() => { void businessStore.toggleFavorite(this.selected.id); })
       Scroll() {
-        FieldRow({ label: uiText('shortcut_text_0413'), value: this.selected.content })
+        FieldRow({
+          label: uiText('shortcut_text_0413'),
+          value: collectionContentText(this.selected.id, this.selected.content)
+        })
       }
       .width('100%')
       .layoutWeight(1)
@@ -126,7 +130,7 @@ struct CollectionPage {
     Column({ space: 12 }) {
       Row({ space: 12 }) {
         Column({ space: 8 }) {
-          Text(item.title)
+          Text(collectionTitleText(item.id, item.title))
             .fontSize(18)
             .fontWeight(FontWeight.Medium)
             .fontColor(TEXT)
@@ -150,7 +154,7 @@ struct CollectionPage {
           .fontColor(ACCENT)
       }
       .width('100%')
-      Text(item.content)
+      Text(collectionContentText(item.id, item.content))
         .fontSize(14)
         .fontColor(MUTED)
         .maxLines(2)
@@ -163,7 +167,9 @@ struct CollectionPage {
     .border({ width: 1, color: LINE })
     .borderRadius(16)
     .onClick(() => this.openDetail(item))
-    .accessibilityText(uiText('shortcut_text_0016', [String(item.title)]))
+    .accessibilityText(uiText('shortcut_text_0016', [
+      String(collectionTitleText(item.id, item.title))
+    ]))
   }
 
   build() {

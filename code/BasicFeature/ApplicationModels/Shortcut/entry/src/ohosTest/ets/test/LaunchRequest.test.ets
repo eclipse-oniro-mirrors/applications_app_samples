@@ -43,16 +43,16 @@ export default function launchRequestTests(): void {
         for (const cold of [true, false]) {
           for (let index = 0; index < actions.length; index++) {
             const request: LaunchRequest = parseLaunchRequest(wantFor(actions[index], filters[index]), cold);
-            expect(request.page, caseName('LaunchRequest', '0001')).assertEqual(pages[index]);
-            expect(request.source, caseName('LaunchRequest', '0001')).assertEqual(cold ? '冷启动' : '热启动');
-            expect(request.error, caseName('LaunchRequest', '0001')).assertEqual('');
+            expect(request.page, caseName('LaunchRequest', '0001'), 'LaunchRequest.test.ets:A0001').assertEqual(pages[index]);
+            expect(request.source, caseName('LaunchRequest', '0001'), 'LaunchRequest.test.ets:A0002').assertEqual(cold ? '冷启动' : '热启动');
+            expect(request.error, caseName('LaunchRequest', '0001'), 'LaunchRequest.test.ets:A0003').assertEqual('');
           }
         }
         const home: Want = {};
-        expect(parseLaunchRequest(home, true).page, caseName('LaunchRequest', '0001')).assertEqual(PageKey.HOME);
-        expect(parseLaunchRequest(home, false).error, caseName('LaunchRequest', '0001')).assertEqual('');
+        expect(parseLaunchRequest(home, true).page, caseName('LaunchRequest', '0001'), 'LaunchRequest.test.ets:A0004').assertEqual(PageKey.HOME);
+        expect(parseLaunchRequest(home, false).error, caseName('LaunchRequest', '0001'), 'LaunchRequest.test.ets:A0005').assertEqual('');
         const note: Want = { parameters: { 'sc.version': '1', 'sc.action': 'note.new' } };
-        expect(parseLaunchRequest(note, true).page, caseName('LaunchRequest', '0001')).assertEqual(PageKey.NOTE);
+        expect(parseLaunchRequest(note, true).page, caseName('LaunchRequest', '0001'), 'LaunchRequest.test.ets:A0006').assertEqual(PageKey.NOTE);
         const invalid: Want[] = [
           wantFor('note.new', '', '2'),
           wantFor('note.new', '', ''),
@@ -64,8 +64,8 @@ export default function launchRequestTests(): void {
         ];
         for (const want of invalid) {
           const request: LaunchRequest = parseLaunchRequest(want, true);
-          expect(request.error.length > 0, caseName('LaunchRequest', '0001')).assertTrue();
-          expect(request.page, caseName('LaunchRequest', '0001')).assertEqual(PageKey.HOME);
+          expect(request.error.length > 0, caseName('LaunchRequest', '0001'), 'LaunchRequest.test.ets:A0007').assertTrue();
+          expect(request.page, caseName('LaunchRequest', '0001'), 'LaunchRequest.test.ets:A0008').assertEqual(PageKey.HOME);
         }
       });
     });

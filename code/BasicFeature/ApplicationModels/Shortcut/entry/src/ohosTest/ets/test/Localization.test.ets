@@ -34,7 +34,7 @@ export default function localizationTests(): void {
       await runCase(caseName('ShortcutLocalization', '0001'), async (): Promise<void> => {
         try {
           setStringResolver(undefined);
-          expect(uiText('shortcut_text_0619'), caseName('ShortcutLocalization', '0001')).assertEqual('Create note');
+          expect(uiText('shortcut_text_0619'), caseName('ShortcutLocalization', '0001'), 'Localization.test.ets:A0001').assertEqual('Create note');
         } finally {
           useModelBaselineStrings();
         }
@@ -53,7 +53,7 @@ export default function localizationTests(): void {
       await runCase(caseName('ShortcutLocalization', '0002'), async (): Promise<void> => {
         try {
           setStringResolver(undefined);
-          expect(uiText('shortcut_text_0016', ['%2$s']), caseName('ShortcutLocalization', '0002')).assertEqual('%2$s, view details');
+          expect(uiText('shortcut_text_0016', ['%2$s']), caseName('ShortcutLocalization', '0002'), 'Localization.test.ets:A0002').assertEqual('%2$s, view details');
         } finally {
           useModelBaselineStrings();
         }
@@ -73,10 +73,10 @@ export default function localizationTests(): void {
         const id: string = FEATURES[0].id;
         try {
           setStringResolver((_name: string): string => 'Localized title');
-          expect(FEATURES[0].title, caseName('ShortcutLocalization', '0003')).assertEqual('Localized title');
+          expect(FEATURES[0].title, caseName('ShortcutLocalization', '0003'), 'Localization.test.ets:A0003').assertEqual('Localized title');
           setStringResolver((_name: string): string => { throw new Error('Controlled resource failure'); });
-          expect(FEATURES[0].title, caseName('ShortcutLocalization', '0003')).assertEqual('Create note');
-          expect(FEATURES[0].id, caseName('ShortcutLocalization', '0003')).assertEqual(id);
+          expect(FEATURES[0].title, caseName('ShortcutLocalization', '0003'), 'Localization.test.ets:A0004').assertEqual('Create note');
+          expect(FEATURES[0].id, caseName('ShortcutLocalization', '0003'), 'Localization.test.ets:A0005').assertEqual(id);
         } finally {
           useModelBaselineStrings();
         }

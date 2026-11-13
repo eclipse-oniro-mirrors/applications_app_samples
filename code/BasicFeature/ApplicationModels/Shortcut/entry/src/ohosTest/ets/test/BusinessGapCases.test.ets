@@ -76,14 +76,14 @@ export default function businessGapCasesTest(): void {
 
     it(caseName('BatchCopyCases', '0001'), 0, (): void => {
       const item: BatchItem = new BatchItem();
-      expect(item.id, caseName('BatchCopyCases', '0001')).assertEqual('');
-      expect(item.attempt, caseName('BatchCopyCases', '0001')).assertEqual(0);
-      expect(item.result, caseName('BatchCopyCases', '0001')).assertEqual('not-run');
-      expect(item.restoreResult, caseName('BatchCopyCases', '0001')).assertEqual('not-run');
-      expect(item.retryBlocked, caseName('BatchCopyCases', '0001')).assertFalse();
-      expect(item.originalKnown, caseName('BatchCopyCases', '0001')).assertFalse();
-      expect(item.target, caseName('BatchCopyCases', '0001')).assertFalse();
-      expect(item.lastVisible, caseName('BatchCopyCases', '0001')).assertFalse();
+      expect(item.id, caseName('BatchCopyCases', '0001'), 'BusinessGapCases.test.ets:A0001').assertEqual('');
+      expect(item.attempt, caseName('BatchCopyCases', '0001'), 'BusinessGapCases.test.ets:A0002').assertEqual(0);
+      expect(item.result, caseName('BatchCopyCases', '0001'), 'BusinessGapCases.test.ets:A0003').assertEqual('not-run');
+      expect(item.restoreResult, caseName('BatchCopyCases', '0001'), 'BusinessGapCases.test.ets:A0004').assertEqual('not-run');
+      expect(item.retryBlocked, caseName('BatchCopyCases', '0001'), 'BusinessGapCases.test.ets:A0005').assertFalse();
+      expect(item.originalKnown, caseName('BatchCopyCases', '0001'), 'BusinessGapCases.test.ets:A0006').assertFalse();
+      expect(item.target, caseName('BatchCopyCases', '0001'), 'BusinessGapCases.test.ets:A0007').assertFalse();
+      expect(item.lastVisible, caseName('BatchCopyCases', '0001'), 'BusinessGapCases.test.ets:A0008').assertFalse();
     });
 
     /**
@@ -97,9 +97,9 @@ export default function businessGapCasesTest(): void {
 
     it(caseName('BatchCopyCases', '0002'), 0, (): void => {
       const journal: BatchJournal = new BatchJournal();
-      expect(journal.version, caseName('BatchCopyCases', '0002')).assertEqual(1);
-      expect(journal.sequence, caseName('BatchCopyCases', '0002')).assertEqual(0);
-      expect(journal.batches.length, caseName('BatchCopyCases', '0002')).assertEqual(0);
+      expect(journal.version, caseName('BatchCopyCases', '0002'), 'BusinessGapCases.test.ets:A0009').assertEqual(1);
+      expect(journal.sequence, caseName('BatchCopyCases', '0002'), 'BusinessGapCases.test.ets:A0010').assertEqual(0);
+      expect(journal.batches.length, caseName('BatchCopyCases', '0002'), 'BusinessGapCases.test.ets:A0011').assertEqual(0);
     });
 
     /**
@@ -113,12 +113,12 @@ export default function businessGapCasesTest(): void {
 
     it(caseName('BatchCopyCases', '0003'), 0, (): void => {
       const item: BatchPreviewItem = new BatchPreviewItem();
-      expect(item.id, caseName('BatchCopyCases', '0003')).assertEqual('');
-      expect(item.eligible, caseName('BatchCopyCases', '0003')).assertTrue();
-      expect(item.externalChange, caseName('BatchCopyCases', '0003')).assertFalse();
-      expect(item.reason, caseName('BatchCopyCases', '0003')).assertEqual('');
-      expect(item.target, caseName('BatchCopyCases', '0003')).assertFalse();
-      expect(item.currentVisible, caseName('BatchCopyCases', '0003')).assertFalse();
+      expect(item.id, caseName('BatchCopyCases', '0003'), 'BusinessGapCases.test.ets:A0012').assertEqual('');
+      expect(item.eligible, caseName('BatchCopyCases', '0003'), 'BusinessGapCases.test.ets:A0013').assertTrue();
+      expect(item.externalChange, caseName('BatchCopyCases', '0003'), 'BusinessGapCases.test.ets:A0014').assertFalse();
+      expect(item.reason, caseName('BatchCopyCases', '0003'), 'BusinessGapCases.test.ets:A0015').assertEqual('');
+      expect(item.target, caseName('BatchCopyCases', '0003'), 'BusinessGapCases.test.ets:A0016').assertFalse();
+      expect(item.currentVisible, caseName('BatchCopyCases', '0003'), 'BusinessGapCases.test.ets:A0017').assertFalse();
     });
 
     /**
@@ -131,10 +131,10 @@ export default function businessGapCasesTest(): void {
      */
 
     it(caseName('BatchCopyCases', '0004'), 0, (): void => {
-      expect(batchResultText('confirmed'), caseName('BatchCopyCases', '0004')).assertEqual('已确认');
-      expect(batchResultText('failed'), caseName('BatchCopyCases', '0004')).assertEqual('失败（已核对未达目标）');
-      expect(batchResultText('unknown'), caseName('BatchCopyCases', '0004')).assertEqual('未知（须先核对）');
-      expect(batchResultText('not-run'), caseName('BatchCopyCases', '0004')).assertEqual('未执行');
+      expect(batchResultText('confirmed'), caseName('BatchCopyCases', '0004'), 'BusinessGapCases.test.ets:A0018').assertEqual('已确认');
+      expect(batchResultText('failed'), caseName('BatchCopyCases', '0004'), 'BusinessGapCases.test.ets:A0019').assertEqual('失败（已核对未达目标）');
+      expect(batchResultText('unknown'), caseName('BatchCopyCases', '0004'), 'BusinessGapCases.test.ets:A0020').assertEqual('未知（须先核对）');
+      expect(batchResultText('not-run'), caseName('BatchCopyCases', '0004'), 'BusinessGapCases.test.ets:A0021').assertEqual('未执行');
     });
 
     /**
@@ -149,17 +149,17 @@ export default function businessGapCasesTest(): void {
     it(caseName('BatchCopyCases', '0005'), 0, (): void => {
       const source: BatchPlan = batchPlanOf([batchItemOf('a', 'confirmed')]);
       const copy: BatchPlan = copyBatch(source);
-      expect(copy.batchId, caseName('BatchCopyCases', '0005')).assertEqual('batch-7');
-      expect(copy.createdAt, caseName('BatchCopyCases', '0005')).assertEqual(1700);
-      expect(copy.interrupted, caseName('BatchCopyCases', '0005')).assertTrue();
-      expect(copy.items.length, caseName('BatchCopyCases', '0005')).assertEqual(1);
-      expect(copy.items[0].restoreResult, caseName('BatchCopyCases', '0005')).assertEqual('failed');
-      expect(copy.items[0].retryBlocked, caseName('BatchCopyCases', '0005')).assertTrue();
+      expect(copy.batchId, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0022').assertEqual('batch-7');
+      expect(copy.createdAt, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0023').assertEqual(1700);
+      expect(copy.interrupted, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0024').assertTrue();
+      expect(copy.items.length, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0025').assertEqual(1);
+      expect(copy.items[0].restoreResult, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0026').assertEqual('failed');
+      expect(copy.items[0].retryBlocked, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0027').assertTrue();
       source.items[0].id = 'changed';
       source.items[0].attempt = 99;
-      expect(copy.items[0].id, caseName('BatchCopyCases', '0005')).assertEqual('a');
-      expect(copy.items[0].attempt, caseName('BatchCopyCases', '0005')).assertEqual(2);
-      expect(copy.items.length, caseName('BatchCopyCases', '0005')).assertEqual(1);
+      expect(copy.items[0].id, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0028').assertEqual('a');
+      expect(copy.items[0].attempt, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0029').assertEqual(2);
+      expect(copy.items.length, caseName('BatchCopyCases', '0005'), 'BusinessGapCases.test.ets:A0030').assertEqual(1);
     });
 
     /**
@@ -174,10 +174,10 @@ export default function businessGapCasesTest(): void {
     it(caseName('BatchCopyCases', '0006'), 0, (): void => {
       const source: BatchPlan = batchPlanOf([]);
       const copy: BatchPlan = copyBatch(source);
-      expect(copy.items.length, caseName('BatchCopyCases', '0006')).assertEqual(0);
-      expect(copy.batchId, caseName('BatchCopyCases', '0006')).assertEqual('batch-7');
+      expect(copy.items.length, caseName('BatchCopyCases', '0006'), 'BusinessGapCases.test.ets:A0031').assertEqual(0);
+      expect(copy.batchId, caseName('BatchCopyCases', '0006'), 'BusinessGapCases.test.ets:A0032').assertEqual('batch-7');
       source.items.push(batchItemOf('late', 'failed'));
-      expect(copy.items.length, caseName('BatchCopyCases', '0006')).assertEqual(0);
+      expect(copy.items.length, caseName('BatchCopyCases', '0006'), 'BusinessGapCases.test.ets:A0033').assertEqual(0);
     });
 
     /**
@@ -194,12 +194,12 @@ export default function businessGapCasesTest(): void {
       journal.sequence = 9;
       journal.batches = [batchPlanOf([batchItemOf('a', 'confirmed')])];
       const copy: BatchJournal = copyJournal(journal);
-      expect(copy.version, caseName('BatchCopyCases', '0007')).assertEqual(1);
-      expect(copy.sequence, caseName('BatchCopyCases', '0007')).assertEqual(9);
-      expect(copy.batches.length, caseName('BatchCopyCases', '0007')).assertEqual(1);
-      expect(copy.batches[0].items.length, caseName('BatchCopyCases', '0007')).assertEqual(1);
+      expect(copy.version, caseName('BatchCopyCases', '0007'), 'BusinessGapCases.test.ets:A0034').assertEqual(1);
+      expect(copy.sequence, caseName('BatchCopyCases', '0007'), 'BusinessGapCases.test.ets:A0035').assertEqual(9);
+      expect(copy.batches.length, caseName('BatchCopyCases', '0007'), 'BusinessGapCases.test.ets:A0036').assertEqual(1);
+      expect(copy.batches[0].items.length, caseName('BatchCopyCases', '0007'), 'BusinessGapCases.test.ets:A0037').assertEqual(1);
       journal.batches[0].items[0].target = false;
-      expect(copy.batches[0].items[0].target, caseName('BatchCopyCases', '0007')).assertTrue();
+      expect(copy.batches[0].items[0].target, caseName('BatchCopyCases', '0007'), 'BusinessGapCases.test.ets:A0038').assertTrue();
     });
 
     /**
@@ -218,14 +218,14 @@ export default function businessGapCasesTest(): void {
       item.reason = '外部已变';
       const preview: BatchPreview = previewOf([item]);
       const copy: BatchPreview = copyPreview(preview);
-      expect(copy.token, caseName('BatchCopyCases', '0008')).assertEqual(11);
-      expect(copy.batchId, caseName('BatchCopyCases', '0008')).assertEqual('batch-3');
-      expect(copy.mode, caseName('BatchCopyCases', '0008')).assertEqual('retry');
-      expect(copy.items.length, caseName('BatchCopyCases', '0008')).assertEqual(1);
-      expect(copy.items[0].eligible, caseName('BatchCopyCases', '0008')).assertFalse();
-      expect(copy.items[0].reason, caseName('BatchCopyCases', '0008')).assertEqual('外部已变');
+      expect(copy.token, caseName('BatchCopyCases', '0008'), 'BusinessGapCases.test.ets:A0039').assertEqual(11);
+      expect(copy.batchId, caseName('BatchCopyCases', '0008'), 'BusinessGapCases.test.ets:A0040').assertEqual('batch-3');
+      expect(copy.mode, caseName('BatchCopyCases', '0008'), 'BusinessGapCases.test.ets:A0041').assertEqual('retry');
+      expect(copy.items.length, caseName('BatchCopyCases', '0008'), 'BusinessGapCases.test.ets:A0042').assertEqual(1);
+      expect(copy.items[0].eligible, caseName('BatchCopyCases', '0008'), 'BusinessGapCases.test.ets:A0043').assertFalse();
+      expect(copy.items[0].reason, caseName('BatchCopyCases', '0008'), 'BusinessGapCases.test.ets:A0044').assertEqual('外部已变');
       item.reason = 'changed';
-      expect(copy.items[0].reason, caseName('BatchCopyCases', '0008')).assertEqual('外部已变');
+      expect(copy.items[0].reason, caseName('BatchCopyCases', '0008'), 'BusinessGapCases.test.ets:A0045').assertEqual('外部已变');
     });
   });
 }

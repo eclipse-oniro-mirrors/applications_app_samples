@@ -20,6 +20,8 @@
  * 缺口与不可观测状态显式登记，任何比较都不把缺失值当成 0。
  */
 
+import { message } from './TextMessages';
+
 /** 阶段。 */
 export class ExperimentStage {
   public key: string = '';
@@ -289,7 +291,8 @@ export class ExperimentLedger {
 
   /** 脱敏导出：只有编码、字节数、校验值、耗时与状态，不含路径与正文。 */
   exportText(): string {
-    const lines: string[] = ['# 实验记录（脱敏）', `# 共 ${this.records.length} 条`];
+    const lines: string[] = [message('ap_dynamic_experiment_records_redacted'),
+      message('ap_dynamic_records', [this.records.length])];
     this.records.forEach((record: ExperimentRecord, index: number): void => {
       const conditionId: number = this.records.findIndex((item: ExperimentRecord): boolean =>
         item.condition === record.condition) + 1;

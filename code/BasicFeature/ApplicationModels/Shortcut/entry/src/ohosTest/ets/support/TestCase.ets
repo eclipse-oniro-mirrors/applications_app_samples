@@ -48,13 +48,15 @@ export function assertionSummary(value: Object | undefined | null): string {
 export class LoggedExpectation {
   private actual: Object | undefined | null;
   private readonly owner: string;
-  constructor(actual: Object | undefined | null, owner: string) {
+  private readonly site: string;
+  constructor(actual: Object | undefined | null, owner: string, site: string = 'unbound') {
     this.actual = actual;
     this.owner = owner;
+    this.site = site;
   }
 
   private log(method: string, expected: Object | undefined | null): void {
-    logInfo(`${this.owner} assertion=${method} actual=${assertionSummary(this.actual)} ` +
+    logInfo(`${this.owner} site=${this.site} assertion=${method} actual=${assertionSummary(this.actual)} ` +
       `expected=${assertionSummary(expected)}`);
   }
 
@@ -84,6 +86,6 @@ export class LoggedExpectation {
   }
 }
 
-export function expect(actual: Object | undefined | null, owner: string): LoggedExpectation {
-  return new LoggedExpectation(actual, owner);
+export function expect(actual: Object | undefined | null, owner: string, site: string = 'unbound'): LoggedExpectation {
+  return new LoggedExpectation(actual, owner, site);
 }

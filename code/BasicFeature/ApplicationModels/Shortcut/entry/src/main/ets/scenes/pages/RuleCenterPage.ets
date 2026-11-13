@@ -185,16 +185,19 @@ struct RuleCenterPage {
     const targets: FilterTarget[] = sampleTargets();
     const filterLines: string[] = [];
     chainNames().forEach((name: string): void => {
-      filterLines.push(uiText('shortcut_text_0019', [String(name), String(PRESET_CHAINS.length)]));
+      filterLines.push(uiText('shortcut_text_0019', [businessLabel(name), String(PRESET_CHAINS.length)]));
     });
     chainLines().forEach((line: string): void => {
       filterLines.push(line);
     });
     chainCounts(targets).forEach((count: number, index: number): void => {
-      filterLines.push(uiText('shortcut_text_0015', [String(PRESET_CHAINS[index].name), String(count)]));
+      filterLines.push(uiText('shortcut_text_0015', [businessLabel(PRESET_CHAINS[index].name), String(count)]));
     });
-    const merged: FilterChain = mergeChains(PRESET_CHAINS[1], PRESET_CHAINS[4]);
-    filterLines.push(uiText('shortcut_text_0266', [String(merged.name), String(merged.size())]));
+    const mergeLeft: FilterChain = PRESET_CHAINS[1];
+    const mergeRight: FilterChain = PRESET_CHAINS[4];
+    const merged: FilterChain = mergeChains(mergeLeft, mergeRight);
+    const mergedDisplayName: string = `${businessLabel(mergeLeft.name)} + ${businessLabel(mergeRight.name)}`;
+    filterLines.push(uiText('shortcut_text_0266', [mergedDisplayName, String(merged.size())]));
     filterLines.push(auditChains().summary());
     this.filterLinesState = filterLines;
 

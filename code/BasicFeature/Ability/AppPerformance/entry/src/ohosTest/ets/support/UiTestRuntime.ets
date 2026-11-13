@@ -114,7 +114,7 @@ export class UiSelector {
 export const ON: UiSelector = new UiSelector();
 
 export class UiTestSession {
-  readonly id: string;
+  public readonly id: string;
   private accepting: boolean = true;
   private deadline: number;
   private cleanupMs: number;
@@ -252,9 +252,10 @@ export class UiTestSession {
     if (pendingNative !== undefined) { throw new Error('Concurrent native UI operation rejected before dispatch'); }
     pendingNative = this; dispatching = this;
     let operation: Promise<T>;
-    try { operation = work(); }
-    catch (error) { pendingNative = undefined; throw error as Error; }
-    finally { dispatching = undefined; }
+    try { operation = work(); } catch (error) {
+      pendingNative = undefined;
+      throw error as Error;
+    } finally { dispatching = undefined; }
     // This observer alone releases busy. A deadline/race/close never pretends to cancel native work.
     const tracked: Promise<T> = operation.then((value: T): T => {
       if (pendingNative === this) { pendingNative = undefined; }
@@ -349,7 +350,7 @@ export function requireUiTestSession(id: string): UiTestSession {
 }
 
 export class UiTestDriver {
-  readonly session: UiTestSession;
+  public readonly session: UiTestSession;
   private native: NativeDriver;
   private displays: Map<number, Point> = new Map<number, Point>();
   private inputSelector: UiSelector | undefined = undefined;

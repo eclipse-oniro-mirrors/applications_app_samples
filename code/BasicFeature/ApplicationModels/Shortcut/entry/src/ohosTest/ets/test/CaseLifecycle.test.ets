@@ -42,7 +42,7 @@ export default function caseLifecycleTests(): void {
       const phases: string[] = [];
       await runWithCleanup(caseName('CaseLifecycle', '0001'), (): void => { phases.push('body'); },
         [(): void => { phases.push('release'); }, (): void => { phases.push('reset'); }]);
-      expect(phases.join(','), caseName('CaseLifecycle', '0001')).assertEqual('body,release,reset');
+      expect(phases.join(','), caseName('CaseLifecycle', '0001'), 'CaseLifecycle.test.ets:A0001').assertEqual('body,release,reset');
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_0200
@@ -56,9 +56,9 @@ export default function caseLifecycleTests(): void {
         await runWithCleanup(caseName('CaseLifecycle', '0002'), (): void => { throw primary; },
           [(): void => { cleaned = true; }]);
       });
-      expect(cleaned, caseName('CaseLifecycle', '0002')).assertTrue();
-      expect(result.failed, caseName('CaseLifecycle', '0002')).assertTrue();
-      expect(result.value === primary, caseName('CaseLifecycle', '0002')).assertTrue();
+      expect(cleaned, caseName('CaseLifecycle', '0002'), 'CaseLifecycle.test.ets:A0002').assertTrue();
+      expect(result.failed, caseName('CaseLifecycle', '0002'), 'CaseLifecycle.test.ets:A0003').assertTrue();
+      expect(result.value === primary, caseName('CaseLifecycle', '0002'), 'CaseLifecycle.test.ets:A0004').assertTrue();
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_0300
@@ -72,9 +72,9 @@ export default function caseLifecycleTests(): void {
         await runWithCleanup(caseName('CaseLifecycle', '0003'), (): void => {},
           [(): void => { throw secondary; }, (): void => { reset = true; }]);
       });
-      expect(reset, caseName('CaseLifecycle', '0003')).assertTrue();
-      expect(result.failed, caseName('CaseLifecycle', '0003')).assertTrue();
-      expect(result.value === secondary, caseName('CaseLifecycle', '0003')).assertTrue();
+      expect(reset, caseName('CaseLifecycle', '0003'), 'CaseLifecycle.test.ets:A0005').assertTrue();
+      expect(result.failed, caseName('CaseLifecycle', '0003'), 'CaseLifecycle.test.ets:A0006').assertTrue();
+      expect(result.value === secondary, caseName('CaseLifecycle', '0003'), 'CaseLifecycle.test.ets:A0007').assertTrue();
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_0400
@@ -89,8 +89,8 @@ export default function caseLifecycleTests(): void {
         await runWithCleanup(caseName('CaseLifecycle', '0004'), (): void => { throw primary; },
           [(): void => { throw secondary; }, (): void => { finalCleanup = true; }]);
       });
-      expect(finalCleanup, caseName('CaseLifecycle', '0004')).assertTrue();
-      expect(result.value === primary, caseName('CaseLifecycle', '0004')).assertTrue();
+      expect(finalCleanup, caseName('CaseLifecycle', '0004'), 'CaseLifecycle.test.ets:A0008').assertTrue();
+      expect(result.value === primary, caseName('CaseLifecycle', '0004'), 'CaseLifecycle.test.ets:A0009').assertTrue();
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_0500
@@ -105,8 +105,8 @@ export default function caseLifecycleTests(): void {
           [async (): Promise<void> => { await Promise.resolve(); phases.push(1); throw secondary; },
             (): void => { phases.push(2); }]);
       });
-      expect(phases.join(','), caseName('CaseLifecycle', '0005')).assertEqual('1,2');
-      expect(result.value === secondary, caseName('CaseLifecycle', '0005')).assertTrue();
+      expect(phases.join(','), caseName('CaseLifecycle', '0005'), 'CaseLifecycle.test.ets:A0010').assertEqual('1,2');
+      expect(result.value === secondary, caseName('CaseLifecycle', '0005'), 'CaseLifecycle.test.ets:A0011').assertTrue();
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_0600
@@ -120,8 +120,8 @@ export default function caseLifecycleTests(): void {
         },
           [(): void => { throw new Error('cleanup must not replace undefined'); }]);
       });
-      expect(result.failed, caseName('CaseLifecycle', '0006')).assertTrue();
-      expect(result.value, caseName('CaseLifecycle', '0006')).assertUndefined();
+      expect(result.failed, caseName('CaseLifecycle', '0006'), 'CaseLifecycle.test.ets:A0012').assertTrue();
+      expect(result.value, caseName('CaseLifecycle', '0006'), 'CaseLifecycle.test.ets:A0013').assertUndefined();
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_0700
@@ -133,8 +133,8 @@ export default function caseLifecycleTests(): void {
         await runWithCleanup(caseName('CaseLifecycle', '0007'), (): void => {},
           [async (): Promise<void> => { await Promise.reject<void>(null); }]);
       });
-      expect(result.failed, caseName('CaseLifecycle', '0007')).assertTrue();
-      expect(result.value === null, caseName('CaseLifecycle', '0007')).assertTrue();
+      expect(result.failed, caseName('CaseLifecycle', '0007'), 'CaseLifecycle.test.ets:A0014').assertTrue();
+      expect(result.value === null, caseName('CaseLifecycle', '0007'), 'CaseLifecycle.test.ets:A0015').assertTrue();
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_0800
@@ -149,7 +149,7 @@ export default function caseLifecycleTests(): void {
       scope.finish();
       scope.finish();
       scope.cleanup((): void => { actions.push(3); });
-      expect(actions.join(','), caseName('CaseLifecycle', '0008')).assertEqual('2,1,3');
+      expect(actions.join(','), caseName('CaseLifecycle', '0008'), 'CaseLifecycle.test.ets:A0016').assertEqual('2,1,3');
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_0900
@@ -166,8 +166,8 @@ export default function caseLifecycleTests(): void {
           throw primary;
         });
       });
-      expect(actions.join(','), caseName('CaseLifecycle', '0009')).assertEqual('2,1');
-      expect(result.value === primary, caseName('CaseLifecycle', '0009')).assertTrue();
+      expect(actions.join(','), caseName('CaseLifecycle', '0009'), 'CaseLifecycle.test.ets:A0017').assertEqual('2,1');
+      expect(result.value === primary, caseName('CaseLifecycle', '0009'), 'CaseLifecycle.test.ets:A0018').assertTrue();
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_1000
@@ -183,9 +183,9 @@ export default function caseLifecycleTests(): void {
           });
         }, 1);
       });
-      expect(result.failed, caseName('CaseLifecycle', '0010')).assertTrue();
-      expect(released, caseName('CaseLifecycle', '0010')).assertTrue();
-      expect(result.value?.message, caseName('CaseLifecycle', '0010')).assertEqual('case-watchdog-timeout');
+      expect(result.failed, caseName('CaseLifecycle', '0010'), 'CaseLifecycle.test.ets:A0019').assertTrue();
+      expect(released, caseName('CaseLifecycle', '0010'), 'CaseLifecycle.test.ets:A0020').assertTrue();
+      expect(result.value?.message, caseName('CaseLifecycle', '0010'), 'CaseLifecycle.test.ets:A0021').assertEqual('case-watchdog-timeout');
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_1100
@@ -201,9 +201,9 @@ export default function caseLifecycleTests(): void {
           scope.cleanup((): void => { throw secondary; });
         });
       });
-      expect(result.failed, caseName('CaseLifecycle', '0011')).assertTrue();
-      expect(result.value === secondary, caseName('CaseLifecycle', '0011')).assertTrue();
-      expect(released, caseName('CaseLifecycle', '0011')).assertTrue();
+      expect(result.failed, caseName('CaseLifecycle', '0011'), 'CaseLifecycle.test.ets:A0022').assertTrue();
+      expect(result.value === secondary, caseName('CaseLifecycle', '0011'), 'CaseLifecycle.test.ets:A0023').assertTrue();
+      expect(released, caseName('CaseLifecycle', '0011'), 'CaseLifecycle.test.ets:A0024').assertTrue();
     });
 
     /** @tc.number SUB_SHORTCUT_CASELIFECYCLE_1200
@@ -221,9 +221,9 @@ export default function caseLifecycleTests(): void {
           });
         }, 1);
       });
-      expect(result.failed, caseName('CaseLifecycle', '0012')).assertTrue();
-      expect(finalCleanup, caseName('CaseLifecycle', '0012')).assertTrue();
-      expect(result.value?.message, caseName('CaseLifecycle', '0012')).assertEqual('case-watchdog-timeout');
+      expect(result.failed, caseName('CaseLifecycle', '0012'), 'CaseLifecycle.test.ets:A0025').assertTrue();
+      expect(finalCleanup, caseName('CaseLifecycle', '0012'), 'CaseLifecycle.test.ets:A0026').assertTrue();
+      expect(result.value?.message, caseName('CaseLifecycle', '0012'), 'CaseLifecycle.test.ets:A0027').assertEqual('case-watchdog-timeout');
     });
   });
 }
