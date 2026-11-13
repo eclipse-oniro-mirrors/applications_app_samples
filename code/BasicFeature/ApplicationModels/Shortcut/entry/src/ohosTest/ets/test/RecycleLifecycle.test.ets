@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   BusinessStore, StoredData, NoteRevision, RecycledNote, decodeBusinessDocument
 } from '../../../main/ets/business/BusinessStore';
@@ -33,24 +34,24 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0001', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0001'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage();
         io.value = JSON.stringify(recycleInput());
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const store: BusinessStore = await openRecycle(scope, io, clock);
-        expect(await store.deleteNote('active-0')).assertTrue();
-        expect(store.snapshot().notes.map((note): string => note.id).join(',')).assertEqual('active-1');
-        expect(store.historyFor('active-0').length).assertEqual(0);
-        expect(store.snapshot().recycledNotes[0].history[0].body).assertEqual('旧正文0');
+        expect(await store.deleteNote('active-0'), caseName('ShortcutRecycleLifecycle', '0001')).assertTrue();
+        expect(store.snapshot().notes.map((note): string => note.id).join(','), caseName('ShortcutRecycleLifecycle', '0001')).assertEqual('active-1');
+        expect(store.historyFor('active-0').length, caseName('ShortcutRecycleLifecycle', '0001')).assertEqual(0);
+        expect(store.snapshot().recycledNotes[0].history[0].body, caseName('ShortcutRecycleLifecycle', '0001')).assertEqual('旧正文0');
         const token: string = store.snapshot().recycledNotes[0].trashId;
         store.dispose();
         const reopened: BusinessStore = await openRecycle(scope, io, clock);
-        expect(await reopened.restoreTrashedNote(token)).assertTrue();
-        expect(reopened.snapshot().notes[0].body).assertEqual('正式正文0');
-        expect(reopened.snapshot().notes[0].createdAt).assertEqual(1);
-        expect(reopened.historyFor('active-0')[0].revisionId).assertEqual('active-history-0');
-        expect(reopened.snapshot().recycledNotes.length).assertEqual(0);
+        expect(await reopened.restoreTrashedNote(token), caseName('ShortcutRecycleLifecycle', '0001')).assertTrue();
+        expect(reopened.snapshot().notes[0].body, caseName('ShortcutRecycleLifecycle', '0001')).assertEqual('正式正文0');
+        expect(reopened.snapshot().notes[0].createdAt, caseName('ShortcutRecycleLifecycle', '0001')).assertEqual(1);
+        expect(reopened.historyFor('active-0')[0].revisionId, caseName('ShortcutRecycleLifecycle', '0001')).assertEqual('active-history-0');
+        expect(reopened.snapshot().recycledNotes.length, caseName('ShortcutRecycleLifecycle', '0001')).assertEqual(0);
       });
     });
 
@@ -62,16 +63,16 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0002', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0002'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftBody('未确认编辑');
-        expect(await store.deleteNote('active-0')).assertFalse();
-        expect(store.errorText()).assertEqual('请先选择保留或放弃目标便签的编辑');
-        expect(store.snapshot().notes[0].body).assertEqual('正式正文0');
-        expect(store.snapshot().editingNoteId).assertEqual('active-0');
-        expect(io.writes).assertEqual(0);
+        expect(await store.deleteNote('active-0'), caseName('ShortcutRecycleLifecycle', '0002')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutRecycleLifecycle', '0002')).assertEqual('请先选择保留或放弃目标便签的编辑');
+        expect(store.snapshot().notes[0].body, caseName('ShortcutRecycleLifecycle', '0002')).assertEqual('正式正文0');
+        expect(store.snapshot().editingNoteId, caseName('ShortcutRecycleLifecycle', '0002')).assertEqual('active-0');
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0002')).assertEqual(0);
       });
     });
 
@@ -83,20 +84,20 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0003', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0003'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftTitle('  最新标题  '); store.setDraftBody(' 最新正文 ');
-        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES)).assertTrue();
+        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES), caseName('ShortcutRecycleLifecycle', '0003')).assertTrue();
         const saved: StoredData = decodeBusinessDocument(io.value);
-        expect(saved.recycleBin[0].note.title).assertEqual('最新标题');
-        expect(saved.recycleBin[0].note.body).assertEqual('最新正文');
-        expect(saved.recycleBin[0].history[0].body).assertEqual('正式正文0');
-        expect(saved.recycleBin[0].history[0].action).assertEqual('edit');
-        expect(saved.editNoteId).assertEqual('');
-        expect(io.writes).assertEqual(1);
-        expect(store.snapshot().draftBody).assertEqual('独立草稿正文');
+        expect(saved.recycleBin[0].note.title, caseName('ShortcutRecycleLifecycle', '0003')).assertEqual('最新标题');
+        expect(saved.recycleBin[0].note.body, caseName('ShortcutRecycleLifecycle', '0003')).assertEqual('最新正文');
+        expect(saved.recycleBin[0].history[0].body, caseName('ShortcutRecycleLifecycle', '0003')).assertEqual('正式正文0');
+        expect(saved.recycleBin[0].history[0].action, caseName('ShortcutRecycleLifecycle', '0003')).assertEqual('edit');
+        expect(saved.editNoteId, caseName('ShortcutRecycleLifecycle', '0003')).assertEqual('');
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0003')).assertEqual(1);
+        expect(store.snapshot().draftBody, caseName('ShortcutRecycleLifecycle', '0003')).assertEqual('独立草稿正文');
       });
     });
 
@@ -108,17 +109,17 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0004', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0004'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftBody('放弃的编辑'); await store.keepEditDraft();
-        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.DISCARD_CHANGES)).assertTrue();
-        expect(store.snapshot().recycledNotes[0].note.body).assertEqual('正式正文0');
-        expect(store.snapshot().recycledNotes[0].history.length).assertEqual(1);
-        expect(store.snapshot().draftBody).assertEqual('独立草稿正文');
-        expect(decodeBusinessDocument(io.value).editNoteId).assertEqual('');
-        expect(store.snapshot().draftDirty).assertFalse();
+        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.DISCARD_CHANGES), caseName('ShortcutRecycleLifecycle', '0004')).assertTrue();
+        expect(store.snapshot().recycledNotes[0].note.body, caseName('ShortcutRecycleLifecycle', '0004')).assertEqual('正式正文0');
+        expect(store.snapshot().recycledNotes[0].history.length, caseName('ShortcutRecycleLifecycle', '0004')).assertEqual(1);
+        expect(store.snapshot().draftBody, caseName('ShortcutRecycleLifecycle', '0004')).assertEqual('独立草稿正文');
+        expect(decodeBusinessDocument(io.value).editNoteId, caseName('ShortcutRecycleLifecycle', '0004')).assertEqual('');
+        expect(store.snapshot().draftDirty, caseName('ShortcutRecycleLifecycle', '0004')).assertFalse();
       });
     });
 
@@ -130,19 +131,19 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0005', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0005'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftBody('持久编辑'); await store.keepEditDraft();
         const before: string = io.value; const writes: number = io.writes;
-        expect(store.requiresTrashEditDecision('active-0')).assertTrue();
-        expect(await store.deleteNote('active-0')).assertFalse();
-        expect(store.snapshot().draftDirty).assertFalse();
-        expect(io.writes).assertEqual(writes);
-        expect(io.value).assertEqual(before);
-        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES)).assertTrue();
-        expect(store.snapshot().recycledNotes[0].note.body).assertEqual('持久编辑');
+        expect(store.requiresTrashEditDecision('active-0'), caseName('ShortcutRecycleLifecycle', '0005')).assertTrue();
+        expect(await store.deleteNote('active-0'), caseName('ShortcutRecycleLifecycle', '0005')).assertFalse();
+        expect(store.snapshot().draftDirty, caseName('ShortcutRecycleLifecycle', '0005')).assertFalse();
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0005')).assertEqual(writes);
+        expect(io.value, caseName('ShortcutRecycleLifecycle', '0005')).assertEqual(before);
+        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES), caseName('ShortcutRecycleLifecycle', '0005')).assertTrue();
+        expect(store.snapshot().recycledNotes[0].note.body, caseName('ShortcutRecycleLifecycle', '0005')).assertEqual('持久编辑');
       });
     });
 
@@ -154,16 +155,16 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0006', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0006'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftBody('取消时保留');
-        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.CANCEL)).assertFalse();
-        expect(store.snapshot().draftBody).assertEqual('取消时保留');
-        expect(store.historyFor('active-0')[0].body).assertEqual('旧正文0');
-        expect(store.snapshot().recycledNotes.length).assertEqual(0);
-        expect(io.writes).assertEqual(0);
+        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.CANCEL), caseName('ShortcutRecycleLifecycle', '0006')).assertFalse();
+        expect(store.snapshot().draftBody, caseName('ShortcutRecycleLifecycle', '0006')).assertEqual('取消时保留');
+        expect(store.historyFor('active-0')[0].body, caseName('ShortcutRecycleLifecycle', '0006')).assertEqual('旧正文0');
+        expect(store.snapshot().recycledNotes.length, caseName('ShortcutRecycleLifecycle', '0006')).assertEqual(0);
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0006')).assertEqual(0);
       });
     });
 
@@ -175,19 +176,19 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0007', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0007'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-1'); store.setDraftBody('另一篇已保留'); await store.keepEditDraft();
         store.setDraftBody('另一篇内存中的后续编辑');
-        expect(await store.deleteNote('active-0')).assertTrue();
-        expect(store.snapshot().editingNoteId).assertEqual('active-1');
-        expect(store.snapshot().draftBody).assertEqual('另一篇内存中的后续编辑');
-        expect(store.hasUnsavedNoteWork()).assertTrue();
+        expect(await store.deleteNote('active-0'), caseName('ShortcutRecycleLifecycle', '0007')).assertTrue();
+        expect(store.snapshot().editingNoteId, caseName('ShortcutRecycleLifecycle', '0007')).assertEqual('active-1');
+        expect(store.snapshot().draftBody, caseName('ShortcutRecycleLifecycle', '0007')).assertEqual('另一篇内存中的后续编辑');
+        expect(store.hasUnsavedNoteWork(), caseName('ShortcutRecycleLifecycle', '0007')).assertTrue();
         const saved: StoredData = decodeBusinessDocument(io.value);
-        expect(saved.editBody).assertEqual('另一篇已保留');
-        expect(saved.recycleBin[0].note.id).assertEqual('active-0');
+        expect(saved.editBody, caseName('ShortcutRecycleLifecycle', '0007')).assertEqual('另一篇已保留');
+        expect(saved.recycleBin[0].note.id, caseName('ShortcutRecycleLifecycle', '0007')).assertEqual('active-0');
       });
     });
 
@@ -199,16 +200,16 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0008', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0008'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0008'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftTitle('  '); store.setDraftBody('\n');
-        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES)).assertFalse();
-        expect(store.errorText()).assertEqual('请输入标题或内容');
-        expect(store.snapshot().notes[0].title).assertEqual('正式标题0');
-        expect(store.snapshot().editingNoteId).assertEqual('active-0');
-        expect(io.writes).assertEqual(0);
+        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES), caseName('ShortcutRecycleLifecycle', '0008')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutRecycleLifecycle', '0008')).assertEqual('请输入标题或内容');
+        expect(store.snapshot().notes[0].title, caseName('ShortcutRecycleLifecycle', '0008')).assertEqual('正式标题0');
+        expect(store.snapshot().editingNoteId, caseName('ShortcutRecycleLifecycle', '0008')).assertEqual('active-0');
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0008')).assertEqual(0);
       });
     });
 
@@ -220,18 +221,18 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0009', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0009'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0009'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(1, 50));
         const store: BusinessStore = await openRecycle(scope, io);
         const before: string = io.value;
-        expect(await store.deleteNote('active-0')).assertFalse();
-        expect(store.errorText()).assertEqual('回收站已满，请先清理');
-        expect(store.snapshot().notes[0].id).assertEqual('active-0');
+        expect(await store.deleteNote('active-0'), caseName('ShortcutRecycleLifecycle', '0009')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutRecycleLifecycle', '0009')).assertEqual('回收站已满，请先清理');
+        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleLifecycle', '0009')).assertEqual('active-0');
         expect(store.snapshot().recycledNotes.some(
-          (entry: RecycledNote): boolean => entry.trashId === 'trash-1')).assertTrue();
-        expect(io.value).assertEqual(before);
-        expect(io.writes).assertEqual(0);
+          (entry: RecycledNote): boolean => entry.trashId === 'trash-1'), caseName('ShortcutRecycleLifecycle', '0009')).assertTrue();
+        expect(io.value, caseName('ShortcutRecycleLifecycle', '0009')).assertEqual(before);
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0009')).assertEqual(0);
       });
     });
 
@@ -243,18 +244,18 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0010', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0010'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0010'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(50, 1));
         const store: BusinessStore = await openRecycle(scope, io);
-        expect(await store.restoreTrashedNote('trash-1')).assertFalse();
-        expect(store.errorText()).assertEqual('便签已满，请先释放名额');
-        expect(io.writes).assertEqual(0);
-        expect(store.snapshot().recycledNotes[0].note.body).assertEqual('回收正文0');
+        expect(await store.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0010')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutRecycleLifecycle', '0010')).assertEqual('便签已满，请先释放名额');
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0010')).assertEqual(0);
+        expect(store.snapshot().recycledNotes[0].note.body, caseName('ShortcutRecycleLifecycle', '0010')).assertEqual('回收正文0');
         await store.deleteNote('active-0');
-        expect(await store.restoreTrashedNote('trash-1')).assertTrue();
-        expect(store.snapshot().notes[0].id).assertEqual('recycled-0');
-        expect(store.snapshot().notes.length).assertEqual(50);
+        expect(await store.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0010')).assertTrue();
+        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleLifecycle', '0010')).assertEqual('recycled-0');
+        expect(store.snapshot().notes.length, caseName('ShortcutRecycleLifecycle', '0010')).assertEqual(50);
       });
     });
 
@@ -266,17 +267,17 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0011', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0011'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0011'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(0, 1));
         const store: BusinessStore = await openRecycle(scope, io);
         await store.restoreTrashedNote('trash-1'); await store.deleteNote('recycled-0');
-        expect(store.snapshot().recycledNotes[0].trashId).assertEqual('trash-2');
+        expect(store.snapshot().recycledNotes[0].trashId, caseName('ShortcutRecycleLifecycle', '0011')).assertEqual('trash-2');
         const writes: number = io.writes;
-        expect(await store.purgeTrashedNote('trash-1')).assertFalse();
-        expect(await store.restoreTrashedNote('trash-1')).assertFalse();
-        expect(store.snapshot().recycledNotes[0].note.body).assertEqual('回收正文0');
-        expect(io.writes).assertEqual(writes);
+        expect(await store.purgeTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0011')).assertFalse();
+        expect(await store.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0011')).assertFalse();
+        expect(store.snapshot().recycledNotes[0].note.body, caseName('ShortcutRecycleLifecycle', '0011')).assertEqual('回收正文0');
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0011')).assertEqual(writes);
       });
     });
 
@@ -288,19 +289,19 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0012', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0012'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0012'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(1, 2));
         const store: BusinessStore = await openRecycle(scope, io);
-        expect(await store.purgeTrashedNote('trash-1')).assertTrue();
-        expect(store.snapshot().recycledNotes.map((entry: RecycledNote): string => entry.trashId).join(','))
+        expect(await store.purgeTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0012')).assertTrue();
+        expect(store.snapshot().recycledNotes.map((entry: RecycledNote): string => entry.trashId).join(','), caseName('ShortcutRecycleLifecycle', '0012'))
           .assertEqual('trash-2');
-        expect(store.snapshot().notes[0].body).assertEqual('正式正文0');
-        expect(decodeBusinessDocument(io.value).recycleSequence).assertEqual(2);
+        expect(store.snapshot().notes[0].body, caseName('ShortcutRecycleLifecycle', '0012')).assertEqual('正式正文0');
+        expect(decodeBusinessDocument(io.value).recycleSequence, caseName('ShortcutRecycleLifecycle', '0012')).assertEqual(2);
         store.dispose();
         const reopened: BusinessStore = await openRecycle(scope, io);
-        expect(await reopened.restoreTrashedNote('trash-1')).assertFalse();
-        expect(reopened.snapshot().recycledNotes[0].history[0].noteId).assertEqual('recycled-1');
+        expect(await reopened.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0012')).assertFalse();
+        expect(reopened.snapshot().recycledNotes[0].history[0].noteId, caseName('ShortcutRecycleLifecycle', '0012')).assertEqual('recycled-1');
       });
     });
 
@@ -312,19 +313,19 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0013', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0013'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0013'), async (scope: CaseScope): Promise<void> => {
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const data: StoredData = recycleInput(0, 2, clock.now() - NOTE_RECYCLE_RETENTION_MS);
         data.recycleBin[1].deletedAt--;
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(data);
         const store: BusinessStore = await openRecycle(scope, io, clock);
-        expect(store.snapshot().expiredTrashCount).assertEqual(1);
-        expect(await store.restoreTrashedNote('trash-1')).assertTrue();
-        expect(await store.restoreTrashedNote('trash-2')).assertFalse();
-        expect(store.errorText()).assertEqual('已超过30天保留期，不能恢复');
-        expect(store.snapshot().notes[0].id).assertEqual('recycled-0');
-        expect(store.snapshot().recycledNotes[0].trashId).assertEqual('trash-2');
+        expect(store.snapshot().expiredTrashCount, caseName('ShortcutRecycleLifecycle', '0013')).assertEqual(1);
+        expect(await store.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0013')).assertTrue();
+        expect(await store.restoreTrashedNote('trash-2'), caseName('ShortcutRecycleLifecycle', '0013')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutRecycleLifecycle', '0013')).assertEqual('已超过30天保留期，不能恢复');
+        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleLifecycle', '0013')).assertEqual('recycled-0');
+        expect(store.snapshot().recycledNotes[0].trashId, caseName('ShortcutRecycleLifecycle', '0013')).assertEqual('trash-2');
       });
     });
 
@@ -336,18 +337,18 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0014', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0014'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0014'), async (scope: CaseScope): Promise<void> => {
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const io: RecycleBusinessStorage = new RecycleBusinessStorage();
         io.value = JSON.stringify(recycleInput(0, 1, clock.now() + NOTE_RECYCLE_RETENTION_MS));
         const store: BusinessStore = await openRecycle(scope, io, clock);
         const result = await store.purgeExpiredNotes();
-        expect(result.success).assertTrue();
-        expect(result.removed).assertEqual(0);
-        expect(io.writes).assertEqual(0);
-        expect(await store.restoreTrashedNote('trash-1')).assertTrue();
-        expect(store.snapshot().notes[0].body).assertEqual('回收正文0');
+        expect(result.success, caseName('ShortcutRecycleLifecycle', '0014')).assertTrue();
+        expect(result.removed, caseName('ShortcutRecycleLifecycle', '0014')).assertEqual(0);
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0014')).assertEqual(0);
+        expect(await store.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0014')).assertTrue();
+        expect(store.snapshot().notes[0].body, caseName('ShortcutRecycleLifecycle', '0014')).assertEqual('回收正文0');
       });
     });
 
@@ -359,8 +360,8 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0015', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0015'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0015'), async (scope: CaseScope): Promise<void> => {
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const data: StoredData = recycleInput(1, 3, clock.now());
         data.recycleBin[0].deletedAt = clock.now() - NOTE_RECYCLE_RETENTION_MS - 1;
@@ -368,12 +369,12 @@ export default function recycleLifecycleTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(data);
         const store: BusinessStore = await openRecycle(scope, io, clock);
         const result = await store.purgeExpiredNotes();
-        expect(result.success).assertTrue();
-        expect(result.removed).assertEqual(2);
-        expect(store.snapshot().recycledNotes[0].trashId).assertEqual('trash-3');
-        expect(store.snapshot().notes[0].title).assertEqual('正式标题0');
-        expect(decodeBusinessDocument(io.value).recycleSequence).assertEqual(3);
-        expect(io.writes).assertEqual(1);
+        expect(result.success, caseName('ShortcutRecycleLifecycle', '0015')).assertTrue();
+        expect(result.removed, caseName('ShortcutRecycleLifecycle', '0015')).assertEqual(2);
+        expect(store.snapshot().recycledNotes[0].trashId, caseName('ShortcutRecycleLifecycle', '0015')).assertEqual('trash-3');
+        expect(store.snapshot().notes[0].title, caseName('ShortcutRecycleLifecycle', '0015')).assertEqual('正式标题0');
+        expect(decodeBusinessDocument(io.value).recycleSequence, caseName('ShortcutRecycleLifecycle', '0015')).assertEqual(3);
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0015')).assertEqual(1);
       });
     });
 
@@ -385,8 +386,8 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0016', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0016'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0016'), async (scope: CaseScope): Promise<void> => {
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const data: StoredData = recycleInput(0, 1);
         data.recycleBin[0].note.id = `${clock.now()}-1`;
@@ -394,12 +395,12 @@ export default function recycleLifecycleTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(data);
         const store: BusinessStore = await openRecycle(scope, io, clock);
         store.setDraftTitle('新建的另一篇'); store.setDraftBody('新内容');
-        expect(await store.saveNote()).assertTrue();
-        expect(store.snapshot().notes[0].id).assertEqual(`${clock.now()}-2`);
-        expect(await store.restoreTrashedNote('trash-1')).assertTrue();
-        expect(store.snapshot().notes.map((note): string => note.id).join(','))
+        expect(await store.saveNote(), caseName('ShortcutRecycleLifecycle', '0016')).assertTrue();
+        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleLifecycle', '0016')).assertEqual(`${clock.now()}-2`);
+        expect(await store.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0016')).assertTrue();
+        expect(store.snapshot().notes.map((note): string => note.id).join(','), caseName('ShortcutRecycleLifecycle', '0016'))
           .assertEqual(`${clock.now()}-1,${clock.now()}-2`);
-        expect(store.snapshot().notes[1].body).assertEqual('新内容');
+        expect(store.snapshot().notes[1].body, caseName('ShortcutRecycleLifecycle', '0016')).assertEqual('新内容');
       });
     });
 
@@ -411,15 +412,15 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0017', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0017'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0017'), async (scope: CaseScope): Promise<void> => {
         const data: StoredData = recycleInput(1); data.recycleSequence = Number.MAX_SAFE_INTEGER;
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(data);
         const store: BusinessStore = await openRecycle(scope, io);
-        expect(await store.deleteNote('active-0')).assertFalse();
-        expect(store.errorText()).assertEqual('回收站编号已达上限');
-        expect(store.snapshot().notes[0].id).assertEqual('active-0');
-        expect(io.writes).assertEqual(0);
+        expect(await store.deleteNote('active-0'), caseName('ShortcutRecycleLifecycle', '0017')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutRecycleLifecycle', '0017')).assertEqual('回收站编号已达上限');
+        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleLifecycle', '0017')).assertEqual('active-0');
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0017')).assertEqual(0);
       });
     });
 
@@ -431,8 +432,8 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0018', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0018'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0018'), async (scope: CaseScope): Promise<void> => {
         const data: StoredData = recycleInput(1, 1);
         for (let index: number = 2; index <= 99; index++) {
           data.noteHistory.push(new NoteRevision(`older-${index}`, 'active-0', `历史${index}`, '历史正文', index, 'edit'));
@@ -440,14 +441,14 @@ export default function recycleLifecycleTests(): void {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(data);
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftBody('新增修订后的正文');
-        expect(await store.saveNote()).assertTrue();
+        expect(await store.saveNote(), caseName('ShortcutRecycleLifecycle', '0018')).assertTrue();
         const saved: StoredData = decodeBusinessDocument(io.value);
-        expect(saved.noteHistory.length + saved.recycleBin[0].history.length).assertEqual(100);
+        expect(saved.noteHistory.length + saved.recycleBin[0].history.length, caseName('ShortcutRecycleLifecycle', '0018')).assertEqual(100);
         expect(saved.noteHistory.some(
-          (revision: NoteRevision): boolean => revision.revisionId === 'active-history-0')).assertFalse();
-        expect(saved.recycleBin[0].note.body).assertEqual('回收正文0');
-        expect(saved.recycleBin[0].history[0].revisionId).assertEqual('recycled-history-0');
-        expect(store.snapshot().notes[0].body).assertEqual('新增修订后的正文');
+          (revision: NoteRevision): boolean => revision.revisionId === 'active-history-0'), caseName('ShortcutRecycleLifecycle', '0018')).assertFalse();
+        expect(saved.recycleBin[0].note.body, caseName('ShortcutRecycleLifecycle', '0018')).assertEqual('回收正文0');
+        expect(saved.recycleBin[0].history[0].revisionId, caseName('ShortcutRecycleLifecycle', '0018')).assertEqual('recycled-history-0');
+        expect(store.snapshot().notes[0].body, caseName('ShortcutRecycleLifecycle', '0018')).assertEqual('新增修订后的正文');
       });
     });
     /**
@@ -458,16 +459,16 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0019', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0019'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0019'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftTitle('  '); store.setDraftBody(' 第一行保留\n第二行 ');
-        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES)).assertTrue();
-        expect(store.snapshot().recycledNotes[0].note.title).assertEqual('第一行保留');
-        expect(store.snapshot().recycledNotes[0].note.body).assertEqual('第一行保留\n第二行');
-        expect(store.snapshot().recycledNotes[0].history[0].title).assertEqual('正式标题0');
-        expect(store.snapshot().draftBody).assertEqual('独立草稿正文');
+        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES), caseName('ShortcutRecycleLifecycle', '0019')).assertTrue();
+        expect(store.snapshot().recycledNotes[0].note.title, caseName('ShortcutRecycleLifecycle', '0019')).assertEqual('第一行保留');
+        expect(store.snapshot().recycledNotes[0].note.body, caseName('ShortcutRecycleLifecycle', '0019')).assertEqual('第一行保留\n第二行');
+        expect(store.snapshot().recycledNotes[0].history[0].title, caseName('ShortcutRecycleLifecycle', '0019')).assertEqual('正式标题0');
+        expect(store.snapshot().draftBody, caseName('ShortcutRecycleLifecycle', '0019')).assertEqual('独立草稿正文');
       });
     });
 
@@ -479,17 +480,17 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0020', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0020'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0020'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput());
         const store: BusinessStore = await openRecycle(scope, io);
         store.beginEditNote('active-0'); store.setDraftBody('目标已保留内容'); await store.keepEditDraft();
         store.beginEditNote('active-1');
-        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES)).assertTrue();
-        expect(store.snapshot().recycledNotes[0].note.body).assertEqual('目标已保留内容');
-        expect(store.snapshot().editingNoteId).assertEqual('active-1');
-        expect(store.snapshot().draftBody).assertEqual('正式正文1');
-        expect(decodeBusinessDocument(io.value).editNoteId).assertEqual('');
+        expect(await store.moveNoteToTrash('active-0', TrashEditDecision.KEEP_CHANGES), caseName('ShortcutRecycleLifecycle', '0020')).assertTrue();
+        expect(store.snapshot().recycledNotes[0].note.body, caseName('ShortcutRecycleLifecycle', '0020')).assertEqual('目标已保留内容');
+        expect(store.snapshot().editingNoteId, caseName('ShortcutRecycleLifecycle', '0020')).assertEqual('active-1');
+        expect(store.snapshot().draftBody, caseName('ShortcutRecycleLifecycle', '0020')).assertEqual('正式正文1');
+        expect(decodeBusinessDocument(io.value).editNoteId, caseName('ShortcutRecycleLifecycle', '0020')).assertEqual('');
       });
     });
 
@@ -501,17 +502,17 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0021', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0021'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0021'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(1, 1));
         const store: BusinessStore = await openRecycle(scope, io);
         store.setDraftTitle('正在写的新便签'); store.setDraftBody('不能被恢复操作覆盖');
-        expect(await store.restoreTrashedNote('trash-1')).assertTrue();
-        expect(store.snapshot().draftTitle).assertEqual('正在写的新便签');
-        expect(store.snapshot().draftBody).assertEqual('不能被恢复操作覆盖');
-        expect(store.hasUnsavedNoteWork()).assertTrue();
-        expect(decodeBusinessDocument(io.value).draftBody).assertEqual('独立草稿正文');
-        expect(store.snapshot().notes[0].body).assertEqual('回收正文0');
+        expect(await store.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0021')).assertTrue();
+        expect(store.snapshot().draftTitle, caseName('ShortcutRecycleLifecycle', '0021')).assertEqual('正在写的新便签');
+        expect(store.snapshot().draftBody, caseName('ShortcutRecycleLifecycle', '0021')).assertEqual('不能被恢复操作覆盖');
+        expect(store.hasUnsavedNoteWork(), caseName('ShortcutRecycleLifecycle', '0021')).assertTrue();
+        expect(decodeBusinessDocument(io.value).draftBody, caseName('ShortcutRecycleLifecycle', '0021')).assertEqual('独立草稿正文');
+        expect(store.snapshot().notes[0].body, caseName('ShortcutRecycleLifecycle', '0021')).assertEqual('回收正文0');
       });
     });
 
@@ -523,19 +524,19 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0022', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0022'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0022'), async (scope: CaseScope): Promise<void> => {
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const data: StoredData = recycleInput(1, 1);
         data.recycleBin[0].history[0].revisionId = `${clock.now()}-r1`;
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(data);
         const store: BusinessStore = await openRecycle(scope, io, clock);
         store.beginEditNote('active-0'); store.setDraftBody('新的真实编辑');
-        expect(await store.saveNote()).assertTrue();
-        expect(store.historyFor('active-0')[0].revisionId).assertEqual(`${clock.now()}-r2`);
-        expect(store.snapshot().recycledNotes[0].history[0].revisionId).assertEqual(`${clock.now()}-r1`);
-        expect(store.snapshot().recycledNotes[0].history[0].body).assertEqual('回收旧正文0');
-        expect(store.snapshot().notes[0].body).assertEqual('新的真实编辑');
+        expect(await store.saveNote(), caseName('ShortcutRecycleLifecycle', '0022')).assertTrue();
+        expect(store.historyFor('active-0')[0].revisionId, caseName('ShortcutRecycleLifecycle', '0022')).assertEqual(`${clock.now()}-r2`);
+        expect(store.snapshot().recycledNotes[0].history[0].revisionId, caseName('ShortcutRecycleLifecycle', '0022')).assertEqual(`${clock.now()}-r1`);
+        expect(store.snapshot().recycledNotes[0].history[0].body, caseName('ShortcutRecycleLifecycle', '0022')).assertEqual('回收旧正文0');
+        expect(store.snapshot().notes[0].body, caseName('ShortcutRecycleLifecycle', '0022')).assertEqual('新的真实编辑');
       });
     });
 
@@ -547,17 +548,17 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0023', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0023'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0023'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(1, 1));
         const before: string = io.value;
         const store: BusinessStore = await openRecycle(scope, io);
-        expect(await store.deleteNote('missing-note')).assertFalse();
-        expect(await store.purgeTrashedNote('active-0')).assertFalse();
-        expect(await store.restoreTrashedNote('recycled-0')).assertFalse();
-        expect(store.snapshot().notes[0].id).assertEqual('active-0');
-        expect(io.value).assertEqual(before);
-        expect(io.writes).assertEqual(0);
+        expect(await store.deleteNote('missing-note'), caseName('ShortcutRecycleLifecycle', '0023')).assertFalse();
+        expect(await store.purgeTrashedNote('active-0'), caseName('ShortcutRecycleLifecycle', '0023')).assertFalse();
+        expect(await store.restoreTrashedNote('recycled-0'), caseName('ShortcutRecycleLifecycle', '0023')).assertFalse();
+        expect(store.snapshot().notes[0].id, caseName('ShortcutRecycleLifecycle', '0023')).assertEqual('active-0');
+        expect(io.value, caseName('ShortcutRecycleLifecycle', '0023')).assertEqual(before);
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0023')).assertEqual(0);
       });
     });
 
@@ -569,17 +570,17 @@ export default function recycleLifecycleTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutRecycleLifecycle0024', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutRecycleLifecycle', '0024'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutRecycleLifecycle', '0024'), async (scope: CaseScope): Promise<void> => {
         const io: RecycleBusinessStorage = new RecycleBusinessStorage(); io.value = JSON.stringify(recycleInput(1, 1));
         const original: string = io.value; io.failRead = true;
         const store: BusinessStore = await openRecycle(scope, io);
-        expect(await store.deleteNote('active-0')).assertFalse();
-        expect(await store.restoreTrashedNote('trash-1')).assertFalse();
-        expect(await store.purgeTrashedNote('trash-1')).assertFalse();
-        expect((await store.purgeExpiredNotes()).success).assertFalse();
-        expect(io.value).assertEqual(original);
-        expect(io.writes).assertEqual(0);
+        expect(await store.deleteNote('active-0'), caseName('ShortcutRecycleLifecycle', '0024')).assertFalse();
+        expect(await store.restoreTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0024')).assertFalse();
+        expect(await store.purgeTrashedNote('trash-1'), caseName('ShortcutRecycleLifecycle', '0024')).assertFalse();
+        expect((await store.purgeExpiredNotes()).success, caseName('ShortcutRecycleLifecycle', '0024')).assertFalse();
+        expect(io.value, caseName('ShortcutRecycleLifecycle', '0024')).assertEqual(original);
+        expect(io.writes, caseName('ShortcutRecycleLifecycle', '0024')).assertEqual(0);
       });
     });
   });
