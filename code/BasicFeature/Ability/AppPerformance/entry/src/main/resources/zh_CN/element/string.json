@@ -2500,5 +2500,1465 @@
       "value": "实际 {0} 字节",
       "description": "应用性能显示文案：实际 参数 字节"
     },
+    {
+      "name": "ap_dynamic_text_decoding_failed",
+      "value": "文本解码失败",
+      "description": "应用性能显示文案：文本解码失败"
+    },
+    {
+      "name": "ap_dynamic_text_is_readable",
+      "value": "文本内容可读",
+      "description": "应用性能显示文案：文本内容可读"
+    },
+    {
+      "name": "ap_dynamic_no_valid_lines",
+      "value": "没有任何有效行",
+      "description": "应用性能显示文案：没有任何有效行"
+    },
+    {
+      "name": "ap_dynamic_nonempty_lines",
+      "value": "{0} 行有效内容",
+      "description": "应用性能显示文案：参数 行有效内容"
+    },
+    {
+      "name": "ap_dynamic_first_line",
+      "value": "首行：{0}",
+      "description": "应用性能显示文案：首行：参数"
+    },
+    {
+      "name": "ap_dynamic_empty",
+      "value": "（空）",
+      "description": "应用性能显示文案：（空）"
+    },
+    {
+      "name": "ap_dynamic_insufficient_note_sample",
+      "value": "笔记样本不足",
+      "description": "应用性能显示文案：笔记样本不足"
+    },
+    {
+      "name": "ap_dynamic_note_list_structure_is_complete",
+      "value": "笔记列表结构完整",
+      "description": "应用性能显示文案：笔记列表结构完整"
+    },
+    {
+      "name": "ap_dynamic_note_list_issues_malformed_rows_empty_rows",
+      "value": "笔记列表有问题（{0} 行字段异常，{1} 行内容为空）",
+      "description": "应用性能显示文案：笔记列表有问题（参数 行字段异常，参数 行内容为空）"
+    },
+    {
+      "name": "ap_dynamic_notes",
+      "value": "{0} 条笔记",
+      "description": "应用性能显示文案：参数 条笔记"
+    },
+    {
+      "name": "ap_dynamic_first_entry",
+      "value": "首条：{0}",
+      "description": "应用性能显示文案：首条：参数"
+    },
+    {
+      "name": "ap_dynamic_image_index_is_parseable",
+      "value": "图片索引可解析",
+      "description": "应用性能显示文案：图片索引可解析"
+    },
+    {
+      "name": "ap_dynamic_index_entries_have_invalid_dimensions",
+      "value": "{0} 条索引尺寸非法",
+      "description": "应用性能显示文案：参数 条索引尺寸非法"
+    },
+    {
+      "name": "ap_dynamic_index_entries",
+      "value": "{0} 条索引",
+      "description": "应用性能显示文案：参数 条索引"
+    },
+    {
+      "name": "ap_dynamic_pixels_in_total",
+      "value": "合计 {0} 像素",
+      "description": "应用性能显示文案：合计 参数 像素"
+    },
+    {
+      "name": "ap_dynamic_form_draft_fields_are_complete",
+      "value": "表单草稿字段齐全",
+      "description": "应用性能显示文案：表单草稿字段齐全"
+    },
+    {
+      "name": "ap_dynamic_missing_fields",
+      "value": "缺少字段：{0}",
+      "description": "应用性能显示文案：缺少字段：参数"
+    },
+    {
+      "name": "ap_dynamic_required_fields_filled",
+      "value": "已填 {0}/{1} 个必填字段",
+      "description": "应用性能显示文案：已填 参数/参数 个必填字段"
+    },
+    {
+      "name": "ap_dynamic_current_step",
+      "value": "当前步骤：{0}",
+      "description": "应用性能显示文案：当前步骤：参数"
+    },
+    {
+      "name": "ap_dynamic_workload_catalog_is_consistent",
+      "value": "负载目录自洽",
+      "description": "应用性能显示文案：负载目录自洽"
+    },
+    {
+      "name": "ap_dynamic_duplicate_workload_id",
+      "value": "负载编号重复：{0}",
+      "description": "应用性能显示文案：负载编号重复：参数"
+    },
+    {
+      "name": "ap_dynamic_missing_sample_path",
+      "value": "缺少样本路径：{0}",
+      "description": "应用性能显示文案：缺少样本路径：参数"
+    },
+    {
+      "name": "ap_dynamic_invalid_byte_threshold",
+      "value": "字节阈值非法：{0}",
+      "description": "应用性能显示文案：字节阈值非法：参数"
+    },
+    {
+      "name": "ap_dynamic_ledger_v1_6_stages_single_run_same_resource_re_read",
+      "value": "ledger-v1 · 6 阶段 · 单次运行 · 同资源重读",
+      "description": "应用性能显示文案：ledger-v1 · 6 阶段 · 单次运行 · 同资源重读"
+    },
+    {
+      "name": "ap_dynamic_status_marker_320",
+      "value": "{0}：{1}",
+      "description": "应用性能显示文案：参数：参数"
+    },
+    {
+      "name": "ap_dynamic_entries_321",
+      "value": "{0} 条",
+      "description": "应用性能显示文案：参数 条"
+    },
+    {
+      "name": "ap_dynamic_status_marker_322",
+      "value": "✓ {0}",
+      "description": "应用性能显示文案：✓ 参数"
+    },
+    {
+      "name": "ap_dynamic_status_marker_323",
+      "value": "✗ {0}",
+      "description": "应用性能显示文案：✗ 参数"
+    },
+    {
+      "name": "ap_dynamic_status_marker_324",
+      "value": "- {0}",
+      "description": "应用性能显示文案：- 参数"
+    },
+    {
+      "name": "ap_dynamic_ms_325",
+      "value": "{0} {1}｜{2}｜{3}｜{4} ms",
+      "description": "应用性能显示文案：参数 参数｜参数｜参数｜参数 ms"
+    },
+    {
+      "name": "ap_dynamic_file_scanning_should_finish_within_400_ms",
+      "value": "文件扫描应在 400 ms 内完成",
+      "description": "应用性能显示文案：文件扫描应在 400 ms 内完成"
+    },
+    {
+      "name": "ap_dynamic_cache_scanning_should_finish_within_300_ms",
+      "value": "缓存扫描应在 300 ms 内完成",
+      "description": "应用性能显示文案：缓存扫描应在 300 ms 内完成"
+    },
+    {
+      "name": "ap_dynamic_memory_snapshot_reads_should_be_quick_exceeding_the_limit_indicates_blockin",
+      "value": "内存快照读取较快，超过说明有阻塞",
+      "description": "应用性能显示文案：内存快照读取较快，超过说明有阻塞"
+    },
+    {
+      "name": "ap_dynamic_inventory_validation_only_compares_in_memory_data",
+      "value": "清单校验只做内存比较",
+      "description": "应用性能显示文案：清单校验只做内存比较"
+    },
+    {
+      "name": "ap_dynamic_cache_inventory_validation_also_compares_in_memory_data",
+      "value": "缓存清单校验同上",
+      "description": "应用性能显示文案：缓存清单校验同上"
+    },
+    {
+      "name": "ap_dynamic_budget_calculation_should_be_pure_computation",
+      "value": "预算计算应为纯计算",
+      "description": "应用性能显示文案：预算计算应为纯计算"
+    },
+    {
+      "name": "ap_dynamic_cleanup_time_estimated_for_500_files",
+      "value": "按 500 个文件估算的清理时间",
+      "description": "应用性能显示文案：按 500 个文件估算的清理时间"
+    },
+    {
+      "name": "ap_dynamic_estimated_for_500_cache_files",
+      "value": "按 500 个缓存文件估算",
+      "description": "应用性能显示文案：按 500 个缓存文件估算"
+    },
+    {
+      "name": "ap_dynamic_memory_reclamation_depends_on_system_scheduling",
+      "value": "内存回收受系统调度影响",
+      "description": "应用性能显示文案：内存回收受系统调度影响"
+    },
+    {
+      "name": "ap_dynamic_at_least_one_task_batch_is_expected",
+      "value": "至少应切出一批任务",
+      "description": "应用性能显示文案：至少应切出一批任务"
+    },
+    {
+      "name": "ap_dynamic_verification_reads_metadata_only",
+      "value": "回读只读元数据",
+      "description": "应用性能显示文案：回读只读元数据"
+    },
+    {
+      "name": "ap_dynamic_verification_also_reads_metadata_only",
+      "value": "回读同上",
+      "description": "应用性能显示文案：回读同上"
+    },
+    {
+      "name": "ap_dynamic_summary_generation_should_only_assemble_strings",
+      "value": "摘要生成应为字符串拼接",
+      "description": "应用性能显示文案：摘要生成应为字符串拼接"
+    },
+    {
+      "name": "ap_dynamic_total_budget_for_the_maintenance_flow",
+      "value": "整轮维护的总预算",
+      "description": "应用性能显示文案：整轮维护的总预算"
+    },
+    {
+      "name": "ap_dynamic_critical_steps_should_not_fail",
+      "value": "关键步骤不应失败",
+      "description": "应用性能显示文案：关键步骤不应失败"
+    },
+    {
+      "name": "ap_dynamic_skipped_steps_indicate_unmet_dependencies",
+      "value": "跳过说明依赖未满足",
+      "description": "应用性能显示文案：跳过说明依赖未满足"
+    },
+    {
+      "name": "ap_dynamic_cold_launch_p90_budget",
+      "value": "冷启动九成样本的预算",
+      "description": "应用性能显示文案：冷启动九成样本的预算"
+    },
+    {
+      "name": "ap_dynamic_warm_launch_p90_budget",
+      "value": "温启动九成样本的预算",
+      "description": "应用性能显示文案：温启动九成样本的预算"
+    },
+    {
+      "name": "ap_dynamic_hot_launch_p90_budget",
+      "value": "热启动九成样本的预算",
+      "description": "应用性能显示文案：热启动九成样本的预算"
+    },
+    {
+      "name": "ap_dynamic_first_frame_budget",
+      "value": "首帧的预算",
+      "description": "应用性能显示文案：首帧的预算"
+    },
+    {
+      "name": "ap_dynamic_interactivity_budget",
+      "value": "可交互的预算",
+      "description": "应用性能显示文案：可交互的预算"
+    },
+    {
+      "name": "ap_dynamic_byte_limit_per_maintenance_flow",
+      "value": "单次维护处理的字节上限",
+      "description": "应用性能显示文案：单次维护处理的字节上限"
+    },
+    {
+      "name": "ap_dynamic_maintenance_step_success_rate",
+      "value": "维护步骤成功率",
+      "description": "应用性能显示文案：维护步骤成功率"
+    },
+    {
+      "name": "ap_dynamic_a_high_retry_ratio_indicates_frequent_initial_failures",
+      "value": "重试比例过高说明初始失败偏多",
+      "description": "应用性能显示文案：重试比例过高说明初始失败偏多"
+    },
+    {
+      "name": "ap_dynamic_critical_steps_must_not_fail",
+      "value": "关键步骤不允许失败",
+      "description": "应用性能显示文案：关键步骤不允许失败"
+    },
+    {
+      "name": "ap_dynamic_the_maintenance_flow_must_not_exceed_6_seconds",
+      "value": "整轮维护不超过 6 秒",
+      "description": "应用性能显示文案：整轮维护不超过 6 秒"
+    },
+    {
+      "name": "ap_dynamic_file_cleanup_must_not_exceed_2_seconds",
+      "value": "文件清理不超过 2 秒",
+      "description": "应用性能显示文案：文件清理不超过 2 秒"
+    },
+    {
+      "name": "ap_dynamic_cache_cleanup_must_not_exceed_1_5_seconds",
+      "value": "缓存清理不超过 1.5 秒",
+      "description": "应用性能显示文案：缓存清理不超过 1.5 秒"
+    },
+    {
+      "name": "ap_dynamic_excess_file_scanning_time_is_a_minor_regression",
+      "value": "文件扫描超出视为轻微退化",
+      "description": "应用性能显示文案：文件扫描超出视为轻微退化"
+    },
+    {
+      "name": "ap_dynamic_excess_cache_scanning_time_is_a_minor_regression",
+      "value": "缓存扫描超出视为轻微退化",
+      "description": "应用性能显示文案：缓存扫描超出视为轻微退化"
+    },
+    {
+      "name": "ap_dynamic_inventory_validation_should_remain_lightweight",
+      "value": "清单校验应保持轻量",
+      "description": "应用性能显示文案：清单校验应保持轻量"
+    },
+    {
+      "name": "ap_dynamic_verification_read_duration_should_be_stable",
+      "value": "回读耗时应稳定",
+      "description": "应用性能显示文案：回读耗时应稳定"
+    },
+    {
+      "name": "ap_dynamic_step_success_rate_must_be_at_least_95",
+      "value": "步骤成功率不低于 95%",
+      "description": "应用性能显示文案：步骤成功率不低于 95%"
+    },
+    {
+      "name": "ap_dynamic_retry_ratio_must_not_exceed_10",
+      "value": "重试比例不超过 10%",
+      "description": "应用性能显示文案：重试比例不超过 10%"
+    },
+    {
+      "name": "ap_dynamic_skipped_steps_indicate_unmet_dependencies_360",
+      "value": "出现跳过说明依赖未满足",
+      "description": "应用性能显示文案：出现跳过说明依赖未满足"
+    },
+    {
+      "name": "ap_dynamic_cold_launch_p90_budget_361",
+      "value": "冷启动九成样本预算",
+      "description": "应用性能显示文案：冷启动九成样本预算"
+    },
+    {
+      "name": "ap_dynamic_warm_launch_p90_budget_362",
+      "value": "温启动九成样本预算",
+      "description": "应用性能显示文案：温启动九成样本预算"
+    },
+    {
+      "name": "ap_dynamic_hot_launch_p90_budget_363",
+      "value": "热启动九成样本预算",
+      "description": "应用性能显示文案：热启动九成样本预算"
+    },
+    {
+      "name": "ap_dynamic_exceeding_the_first_frame_budget_produces_a_warning",
+      "value": "首帧预算超出视为提示",
+      "description": "应用性能显示文案：首帧预算超出视为提示"
+    },
+    {
+      "name": "ap_dynamic_exceeding_the_interactivity_budget_produces_a_warning",
+      "value": "可交互预算超出视为提示",
+      "description": "应用性能显示文案：可交互预算超出视为提示"
+    },
+    {
+      "name": "ap_dynamic_byte_limit_per_operation",
+      "value": "单次处理字节上限",
+      "description": "应用性能显示文案：单次处理字节上限"
+    },
+    {
+      "name": "ap_dynamic_summary_generation_should_remain_lightweight",
+      "value": "摘要生成应保持轻量",
+      "description": "应用性能显示文案：摘要生成应保持轻量"
+    },
+    {
+      "name": "ap_dynamic_this_sample_s_real_stage_budget_is_not_a_system_guarantee",
+      "value": "本示例真实阶段预算，不代表系统承诺",
+      "description": "应用性能显示文案：本示例真实阶段预算，不代表系统承诺"
+    },
+    {
+      "name": "ap_dynamic_all_actual_stages_must_succeed_early_stops_or_missing_results_cannot_pass",
+      "value": "所有真实阶段须成功，早停或缺失不可通过",
+      "description": "应用性能显示文案：所有真实阶段须成功，早停或缺失不可通过"
+    },
+    {
+      "name": "ap_dynamic_failures_must_block_the_gate",
+      "value": "失败不能放行",
+      "description": "应用性能显示文案：失败不能放行"
+    },
+    {
+      "name": "ap_series_default_scope",
+      "value": "负载与模式由上方选择；默认重复{0}次",
+      "description": "应用性能显示文案：负载与模式由上方选择；默认重复参数次"
+    },
+    {
+      "name": "ap_series_not_started",
+      "value": "尚未开始系列",
+      "description": "应用性能显示文案：尚未开始系列"
+    },
+    {
+      "name": "ap_series_phase_not_started",
+      "value": "未开始",
+      "description": "应用性能显示文案：未开始"
+    },
+    {
+      "name": "ap_series_no_archive",
+      "value": "尚无系列存档",
+      "description": "应用性能显示文案：尚无系列存档"
+    },
+    {
+      "name": "ap_series_references",
+      "value": "可用 {0} / {1} 条，缺失 {2} 条",
+      "description": "应用性能显示文案：可用 参数 / 参数 条，缺失 参数 条"
+    },
+    {
+      "name": "ap_series_phase_preparing",
+      "value": "准备中",
+      "description": "应用性能显示文案：准备中"
+    },
+    {
+      "name": "ap_series_phase_running",
+      "value": "运行中",
+      "description": "应用性能显示文案：运行中"
+    },
+    {
+      "name": "ap_series_phase_stopping",
+      "value": "等待本次完成后停止",
+      "description": "应用性能显示文案：等待本次完成后停止"
+    },
+    {
+      "name": "ap_series_phase_cancelling",
+      "value": "正在取消本地等待",
+      "description": "应用性能显示文案：正在取消本地等待"
+    },
+    {
+      "name": "ap_series_phase_completed",
+      "value": "已完成",
+      "description": "应用性能显示文案：已完成"
+    },
+    {
+      "name": "ap_series_phase_stopped",
+      "value": "已停止",
+      "description": "应用性能显示文案：已停止"
+    },
+    {
+      "name": "ap_series_phase_cancelled",
+      "value": "已取消",
+      "description": "应用性能显示文案：已取消"
+    },
+    {
+      "name": "ap_series_phase_condition_changed",
+      "value": "条件变化，已停止",
+      "description": "应用性能显示文案：条件变化，已停止"
+    },
+    {
+      "name": "ap_series_phase_save_failed",
+      "value": "保存失败，已停止",
+      "description": "应用性能显示文案：保存失败，已停止"
+    },
+    {
+      "name": "ap_series_phase_interrupted",
+      "value": "进程结束，系列中断",
+      "description": "应用性能显示文案：进程结束，系列中断"
+    },
+    {
+      "name": "ap_series_phase_failed",
+      "value": "实验失败，已停止",
+      "description": "应用性能显示文案：实验失败，已停止"
+    },
+    {
+      "name": "ap_series_sdk_isolated",
+      "value": "SDK尚未settle，继续隔离；不会自动重发",
+      "description": "应用性能显示文案：SDK尚未settle，继续隔离；不会自动重发"
+    },
+    {
+      "name": "ap_series_current_iteration",
+      "value": "第 {0} / {1} 次；",
+      "description": "应用性能显示文案：第 参数 / 参数 次；"
+    },
+    {
+      "name": "ap_series_progress",
+      "value": "{0}已开始 {1}；已结束 {2}；有效 {3}；失败/缺失 {4}；未执行 {5}",
+      "description": "应用性能显示文案：参数已开始 参数；已结束 参数；有效 参数；失败/缺失 参数；未执行 参数"
+    },
+    {
+      "name": "ap_series_scope",
+      "value": "结果来源：{0} / {1}；计划 {2} 次",
+      "description": "应用性能显示文案：结果来源：参数 / 参数；计划 参数 次"
+    },
+    {
+      "name": "ap_series_saved",
+      "value": "已保存",
+      "description": "应用性能显示文案：已保存"
+    },
+    {
+      "name": "ap_series_save_failed",
+      "value": "保存失败，当前结果仅在内存保留",
+      "description": "应用性能显示文案：保存失败，当前结果仅在内存保留"
+    },
+    {
+      "name": "ap_series_saving",
+      "value": "保存中，尚未确认落盘",
+      "description": "应用性能显示文案：保存中，尚未确认落盘"
+    },
+    {
+      "name": "ap_series_repetition_count",
+      "value": "重复次数：{0}",
+      "description": "应用性能显示文案：重复次数：参数"
+    },
+    {
+      "name": "ap_series_reason_separator",
+      "value": "；",
+      "description": "应用性能显示文案：；"
+    },
+    {
+      "name": "ap_series_comparison_group_incomparable",
+      "value": "{0}｜不可比：{1}｜左 {2}/{3} 有效，右 {4}/{5} 有效；缺失不作0",
+      "description": "应用性能显示文案：参数｜不可比：参数｜左 参数/参数 有效，右 参数/参数 有效；缺失不作0"
+    },
+    {
+      "name": "ap_series_comparison_group_comparable",
+      "value": "{0}｜同条件有效样本：左 {1}，右 {2}｜P50 {3} → {4} ms（差 {5} ms）｜P90 {6} → {7} ms（差 {8} ms）｜均值 {9} → {10} ms（差 {11} ms）",
+      "description": "应用性能显示文案：参数｜同条件有效样本：左 参数，右 参数｜P50 参数 → 参数 ms（差 参数 ms）｜P90 参数 → 参数 ms（差 参数 ms）｜均值 参数 → 参数 ms（差 参数 ms"
+    },
+    {
+      "name": "ap_series_comparison_rejected",
+      "value": "不可比：{0}",
+      "description": "应用性能显示文案：不可比：参数"
+    },
+    {
+      "name": "ap_series_comparison_no_samples",
+      "value": "不可比：没有可用真实样本",
+      "description": "应用性能显示文案：不可比：没有可用真实样本"
+    },
+    {
+      "name": "ap_series_comparison_groups",
+      "value": "{0} 个同条件组可比较；其余 {1} 组不混合统计",
+      "description": "应用性能显示文案：参数 个同条件组可比较；其余 参数 组不混合统计"
+    },
+    {
+      "name": "ap_series_comparison_no_valid_pair",
+      "value": "不可比：没有双方同条件有效样本；缺失不作0",
+      "description": "应用性能显示文案：不可比：没有双方同条件有效样本；缺失不作0"
+    },
+    {
+      "name": "ap_series_comparison_references",
+      "value": "引用：左可用 {0}、缺失 {1}；右可用 {2}、缺失 {3}",
+      "description": "应用性能显示文案：引用：左可用 参数、缺失 参数；右可用 参数、缺失 参数"
+    },
+    {
+      "name": "ap_series_comparison_limits",
+      "value": "只比较真实阶段耗时；不同模式、资源或条件不合并，不推断回收量或统计显著性。",
+      "description": "应用性能显示文案：只比较真实阶段耗时；不同模式、资源或条件不合并，不推断回收量或统计显著性。"
+    },
+    {
+      "name": "ap_series_comparison_left_unavailable",
+      "value": "左侧系列不存在或元信息已淘汰",
+      "description": "应用性能显示文案：左侧系列不存在或元信息已淘汰"
+    },
+    {
+      "name": "ap_series_comparison_right_unavailable",
+      "value": "右侧系列不存在或元信息已淘汰",
+      "description": "应用性能显示文案：右侧系列不存在或元信息已淘汰"
+    },
+    {
+      "name": "ap_series_comparison_distinct_required",
+      "value": "请选择两个不同系列",
+      "description": "应用性能显示文案：请选择两个不同系列"
+    },
+    {
+      "name": "ap_series_comparison_workload_differs",
+      "value": "负载不同",
+      "description": "应用性能显示文案：负载不同"
+    },
+    {
+      "name": "ap_series_comparison_mode_differs",
+      "value": "回收模式不同，不能作为同条件比较",
+      "description": "应用性能显示文案：回收模式不同，不能作为同条件比较"
+    },
+    {
+      "name": "ap_series_comparison_group_label",
+      "value": "条件对照{0}",
+      "description": "应用性能显示文案：条件对照参数"
+    },
+    {
+      "name": "ap_series_comparison_left_no_valid_samples",
+      "value": "左侧无同条件有效样本",
+      "description": "应用性能显示文案：左侧无同条件有效样本"
+    },
+    {
+      "name": "ap_series_comparison_right_no_valid_samples",
+      "value": "右侧无同条件有效样本",
+      "description": "应用性能显示文案：右侧无同条件有效样本"
+    },
+    {
+      "name": "ap_series_history_none_selected",
+      "value": "尚未选择系列历史",
+      "description": "应用性能显示文案：尚未选择系列历史"
+    },
+    {
+      "name": "ap_series_history_no_baseline",
+      "value": "尚未选择另一个对照系列",
+      "description": "应用性能显示文案：尚未选择另一个对照系列"
+    },
+    {
+      "name": "ap_series_history_no_references",
+      "value": "没有所选系列引用",
+      "description": "应用性能显示文案：没有所选系列引用"
+    },
+    {
+      "name": "ap_series_history_format_markdown",
+      "value": "Markdown",
+      "description": "应用性能显示文案：Markdown"
+    },
+    {
+      "name": "ap_series_history_format_csv",
+      "value": "CSV",
+      "description": "应用性能显示文案：CSV"
+    },
+    {
+      "name": "ap_series_history_choose_comparison",
+      "value": "选择两个不同系列查看同条件比较",
+      "description": "应用性能显示文案：选择两个不同系列查看同条件比较"
+    },
+    {
+      "name": "ap_series_history_row_title",
+      "value": "系列{0}｜{1} / {2}｜{3}",
+      "description": "应用性能显示文案：系列参数｜参数 / 参数｜参数"
+    },
+    {
+      "name": "ap_series_history_row_detail",
+      "value": "计划 {0}；开始 {1}；记录 {2}；可用 {3}；缺失 {4}",
+      "description": "应用性能显示文案：计划 参数；开始 参数；记录 参数；可用 参数；缺失 参数"
+    },
+    {
+      "name": "ap_series_history_selected",
+      "value": "已选：{0}",
+      "description": "应用性能显示文案：已选：参数"
+    },
+    {
+      "name": "ap_series_history_baseline",
+      "value": "对照：{0}",
+      "description": "应用性能显示文案：对照：参数"
+    },
+    {
+      "name": "ap_series_history_selection_evicted",
+      "value": "所选系列元信息已淘汰；请显式重新选择",
+      "description": "应用性能显示文案：所选系列元信息已淘汰；请显式重新选择"
+    },
+    {
+      "name": "ap_series_history_records_unavailable",
+      "value": "不可用：只使用当前系列引用的记录",
+      "description": "应用性能显示文案：不可用：只使用当前系列引用的记录"
+    },
+    {
+      "name": "ap_series_history_baseline_evicted",
+      "value": "对照系列元信息已淘汰；请重新选择",
+      "description": "应用性能显示文案：对照系列元信息已淘汰；请重新选择"
+    },
+    {
+      "name": "ap_series_history_report_unavailable",
+      "value": "历史报告未生成：{0}",
+      "description": "应用性能显示文案：历史报告未生成：参数"
+    },
+    {
+      "name": "ap_series_history_copying",
+      "value": "正在复制所选系列历史（{0}）",
+      "description": "应用性能显示文案：正在复制所选系列历史（参数）"
+    },
+    {
+      "name": "ap_series_history_copied",
+      "value": "已复制所选系列历史（{0}）",
+      "description": "应用性能显示文案：已复制所选系列历史（参数）"
+    },
+    {
+      "name": "ap_series_history_copy_failed",
+      "value": "复制失败；所选系列未改变，请查看真实调用记录",
+      "description": "应用性能显示文案：复制失败；所选系列未改变，请查看真实调用记录"
+    },
+    {
+      "name": "ap_series_history_copy_selected",
+      "value": "复制所选系列历史（{0}）",
+      "description": "应用性能显示文案：复制所选系列历史（参数）"
+    },
+    {
+      "name": "report_verdict_same",
+      "value": "同条件",
+      "description": "应用性能显示文案：同条件"
+    },
+    {
+      "name": "report_verdict_partial",
+      "value": "部分不同",
+      "description": "应用性能显示文案：部分不同"
+    },
+    {
+      "name": "report_verdict_incomparable",
+      "value": "不可比",
+      "description": "应用性能显示文案：不可比"
+    },
+    {
+      "name": "report_sampling_protocol",
+      "value": "ledger-v1 · 6 阶段 · 单次运行 · 同资源重读",
+      "description": "应用性能显示文案：ledger-v1 · 6 阶段 · 单次运行 · 同资源重读"
+    },
+    {
+      "name": "report_field_device",
+      "value": "设备型号",
+      "description": "应用性能显示文案：设备型号"
+    },
+    {
+      "name": "report_field_os",
+      "value": "系统版本",
+      "description": "应用性能显示文案：系统版本"
+    },
+    {
+      "name": "report_field_app",
+      "value": "应用版本",
+      "description": "应用性能显示文案：应用版本"
+    },
+    {
+      "name": "report_field_workload",
+      "value": "负载标识",
+      "description": "应用性能显示文案：负载标识"
+    },
+    {
+      "name": "report_field_mode",
+      "value": "回收模式",
+      "description": "应用性能显示文案：回收模式"
+    },
+    {
+      "name": "report_field_size",
+      "value": "资源大小",
+      "description": "应用性能显示文案：资源大小"
+    },
+    {
+      "name": "report_field_digest",
+      "value": "资源摘要",
+      "description": "应用性能显示文案：资源摘要"
+    },
+    {
+      "name": "report_field_targets",
+      "value": "目标集合",
+      "description": "应用性能显示文案：目标集合"
+    },
+    {
+      "name": "report_field_protocol",
+      "value": "采样协议",
+      "description": "应用性能显示文案：采样协议"
+    },
+    {
+      "name": "report_field_foreground",
+      "value": "前后台",
+      "description": "应用性能显示文案：前后台"
+    },
+    {
+      "name": "report_field_scope",
+      "value": "安装/回收目标清单",
+      "description": "应用性能显示文案：安装/回收目标清单"
+    },
+    {
+      "name": "report_field_fingerprint",
+      "value": "条件指纹",
+      "description": "应用性能显示文案：条件指纹"
+    },
+    {
+      "name": "report_mode_files",
+      "value": "文件回收",
+      "description": "应用性能显示文案：文件回收"
+    },
+    {
+      "name": "report_mode_modules",
+      "value": "模块回收",
+      "description": "应用性能显示文案：模块回收"
+    },
+    {
+      "name": "report_mode_control",
+      "value": "对照组",
+      "description": "应用性能显示文案：对照组"
+    },
+    {
+      "name": "report_mode_unrecorded",
+      "value": "模式未记录",
+      "description": "应用性能显示文案：模式未记录"
+    },
+    {
+      "name": "report_bytes",
+      "value": "{0} 字节",
+      "description": "应用性能显示文案：参数 字节"
+    },
+    {
+      "name": "report_items",
+      "value": "{0} 项",
+      "description": "应用性能显示文案：参数 项"
+    },
+    {
+      "name": "report_size_unrecorded",
+      "value": "大小未记录",
+      "description": "应用性能显示文案：大小未记录"
+    },
+    {
+      "name": "report_count_unrecorded",
+      "value": "个数未记录",
+      "description": "应用性能显示文案：个数未记录"
+    },
+    {
+      "name": "report_unrecorded",
+      "value": "未记录",
+      "description": "应用性能显示文案：未记录"
+    },
+    {
+      "name": "report_size_digest",
+      "value": "{0} / 摘要 {1}",
+      "description": "应用性能显示文案：参数 / 摘要 参数"
+    },
+    {
+      "name": "report_condition_diff",
+      "value": "{0}（{1} → {2}）",
+      "description": "应用性能显示文案：参数（参数 → 参数）"
+    },
+    {
+      "name": "report_list_separator",
+      "value": "；",
+      "description": "应用性能显示文案：；"
+    },
+    {
+      "name": "report_field_separator",
+      "value": "、",
+      "description": "应用性能显示文案：、"
+    },
+    {
+      "name": "report_comparison_incomparable",
+      "value": "不可比：{0}",
+      "description": "应用性能显示文案：不可比：参数"
+    },
+    {
+      "name": "report_key_fields_missing",
+      "value": "关键字段缺失",
+      "description": "应用性能显示文案：关键字段缺失"
+    },
+    {
+      "name": "report_comparison_same",
+      "value": "同条件（指纹 {0}）",
+      "description": "应用性能显示文案：同条件（指纹 参数）"
+    },
+    {
+      "name": "report_comparison_partial",
+      "value": "部分不同（指纹 {0}）：{1}",
+      "description": "应用性能显示文案：部分不同（指纹 参数）：参数"
+    },
+    {
+      "name": "report_field_values_differ",
+      "value": "字段值不同",
+      "description": "应用性能显示文案：字段值不同"
+    },
+    {
+      "name": "report_device_unrecorded",
+      "value": "设备未记录",
+      "description": "应用性能显示文案：设备未记录"
+    },
+    {
+      "name": "report_os_unrecorded",
+      "value": "系统未记录",
+      "description": "应用性能显示文案：系统未记录"
+    },
+    {
+      "name": "report_version_unrecorded",
+      "value": "版本未记录",
+      "description": "应用性能显示文案：版本未记录"
+    },
+    {
+      "name": "report_workload_unrecorded",
+      "value": "负载未记录",
+      "description": "应用性能显示文案：负载未记录"
+    },
+    {
+      "name": "report_protocol_unrecorded",
+      "value": "协议未记录",
+      "description": "应用性能显示文案：协议未记录"
+    },
+    {
+      "name": "report_workload_named",
+      "value": "{0}（{1}）",
+      "description": "应用性能显示文案：参数（参数）"
+    },
+    {
+      "name": "report_foreground",
+      "value": "前台",
+      "description": "应用性能显示文案：前台"
+    },
+    {
+      "name": "report_background",
+      "value": "后台",
+      "description": "应用性能显示文案：后台"
+    },
+    {
+      "name": "report_foreground_suffix",
+      "value": " · {0}",
+      "description": "应用性能显示文案： · 参数"
+    },
+    {
+      "name": "report_condition_description",
+      "value": "{0} · {1} · APP {2}｜{3} · {4}｜样本 {5} · 摘要 {6}｜目标 {7} · 摘要 {8}｜协议 {9}{10}",
+      "description": "应用性能显示文案：参数 · 参数 · APP 参数｜参数 · 参数｜样本 参数 · 摘要 参数｜目标 参数 · 摘要 参数｜协议 参数参数"
+    },
+    {
+      "name": "report_left_missing",
+      "value": "左侧缺少{0}",
+      "description": "应用性能显示文案：左侧缺少参数"
+    },
+    {
+      "name": "report_right_missing",
+      "value": "右侧缺少{0}",
+      "description": "应用性能显示文案：右侧缺少参数"
+    },
+    {
+      "name": "report_samples",
+      "value": "样本量",
+      "description": "应用性能显示文案：样本量"
+    },
+    {
+      "name": "report_p50",
+      "value": "P50",
+      "description": "应用性能显示文案：P50"
+    },
+    {
+      "name": "report_p90",
+      "value": "P90",
+      "description": "应用性能显示文案：P90"
+    },
+    {
+      "name": "report_mean",
+      "value": "均值",
+      "description": "应用性能显示文案：均值"
+    },
+    {
+      "name": "report_failed_count",
+      "value": "失败/缺失数",
+      "description": "应用性能显示文案：失败/缺失数"
+    },
+    {
+      "name": "report_workload",
+      "value": "负载",
+      "description": "应用性能显示文案：负载"
+    },
+    {
+      "name": "report_all_workloads",
+      "value": "全部负载",
+      "description": "应用性能显示文案：全部负载"
+    },
+    {
+      "name": "report_all_modes",
+      "value": "全部模式",
+      "description": "应用性能显示文案：全部模式"
+    },
+    {
+      "name": "report_evaluable_only",
+      "value": "仅可评估",
+      "description": "应用性能显示文案：仅可评估"
+    },
+    {
+      "name": "report_include_unevaluable",
+      "value": "含不可评估",
+      "description": "应用性能显示文案：含不可评估"
+    },
+    {
+      "name": "report_filter",
+      "value": "{0}｜{1}｜{2}",
+      "description": "应用性能显示文案：参数｜参数｜参数"
+    },
+    {
+      "name": "report_unevaluable",
+      "value": "不可评估",
+      "description": "应用性能显示文案：不可评估"
+    },
+    {
+      "name": "report_milliseconds",
+      "value": "{0} ms",
+      "description": "应用性能显示文案：参数 ms"
+    },
+    {
+      "name": "report_stage_row",
+      "value": "{0}｜样本 {1}｜P50 {2}｜均值 {3}{4}",
+      "description": "应用性能显示文案：参数｜样本 参数｜P50 参数｜均值 参数参数"
+    },
+    {
+      "name": "report_unevaluable_suffix",
+      "value": "｜不可评估",
+      "description": "应用性能显示文案：｜不可评估"
+    },
+    {
+      "name": "report_group_label",
+      "value": "条件组{0}",
+      "description": "应用性能显示文案：条件组参数"
+    },
+    {
+      "name": "report_status_suffix",
+      "value": "｜{0}",
+      "description": "应用性能显示文案：｜参数"
+    },
+    {
+      "name": "report_group_row",
+      "value": "{0}｜{1}｜{2}｜样本 {3}（有效 {4}）｜失败/缺失 {5}｜P50 {6}｜P90 {7}｜均值 {8}{9}",
+      "description": "应用性能显示文案：参数｜参数｜参数｜样本 参数（有效 参数）｜失败/缺失 参数｜P50 参数｜P90 参数｜均值 参数参数"
+    },
+    {
+      "name": "report_skipped_records",
+      "value": "{0} 条记录未正常结束或缺条件，不计入 P50/P90/均值",
+      "description": "应用性能显示文案：参数 条记录未正常结束或缺条件，不计入 P50/P90/均值"
+    },
+    {
+      "name": "report_no_valid_samples",
+      "value": "无有效样本：P50/P90/均值不可评估（不能用 0 代替）",
+      "description": "应用性能显示文案：无有效样本：P50/P90/均值不可评估（不能用 0 代替）"
+    },
+    {
+      "name": "report_missing_fields",
+      "value": "不可比：缺少 {0}",
+      "description": "应用性能显示文案：不可比：缺少 参数"
+    },
+    {
+      "name": "report_empty_table",
+      "value": "没有条件组：账本为空或全部被当前筛选条件排除",
+      "description": "应用性能显示文案：没有条件组：账本为空或全部被当前筛选条件排除"
+    },
+    {
+      "name": "report_table_header",
+      "value": "条件组\t负载\t模式\t样本\t有效\t失败/缺失\tP50\tP90\t均值\t可比性",
+      "description": "应用性能显示文案：条件组 负载 模式 样本 有效 失败/缺失 P50 P90 均值 可比性"
+    },
+    {
+      "name": "report_table_row",
+      "value": "{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}",
+      "description": "应用性能显示文案：参数 参数 参数 参数 参数 参数 参数 参数 参数 参数"
+    },
+    {
+      "name": "report_can_aggregate",
+      "value": "可统计",
+      "description": "应用性能显示文案：可统计"
+    },
+    {
+      "name": "report_format_csv",
+      "value": "CSV",
+      "description": "应用性能显示文案：CSV"
+    },
+    {
+      "name": "report_format_markdown",
+      "value": "Markdown",
+      "description": "应用性能显示文案：Markdown"
+    },
+    {
+      "name": "report_title",
+      "value": "应用性能实验报告",
+      "description": "应用性能显示文案：应用性能实验报告"
+    },
+    {
+      "name": "report_check_passed",
+      "value": "必填段落齐全，未发现敏感信息残留",
+      "description": "应用性能显示文案：必填段落齐全，未发现敏感信息残留"
+    },
+    {
+      "name": "report_section_conditions",
+      "value": "条件描述",
+      "description": "应用性能显示文案：条件描述"
+    },
+    {
+      "name": "report_section_stats",
+      "value": "分组统计",
+      "description": "应用性能显示文案：分组统计"
+    },
+    {
+      "name": "report_section_stages",
+      "value": "阶段耗时",
+      "description": "应用性能显示文案：阶段耗时"
+    },
+    {
+      "name": "report_section_gaps",
+      "value": "缺口说明",
+      "description": "应用性能显示文案：缺口说明"
+    },
+    {
+      "name": "report_section_time",
+      "value": "生成时间",
+      "description": "应用性能显示文案：生成时间"
+    },
+    {
+      "name": "report_section_comparison",
+      "value": "条件间比较",
+      "description": "应用性能显示文案：条件间比较"
+    },
+    {
+      "name": "report_redacted_path",
+      "value": "[路径已脱敏]",
+      "description": "应用性能显示文案：[路径已脱敏]"
+    },
+    {
+      "name": "report_redacted_credentials",
+      "value": "[凭据已脱敏]",
+      "description": "应用性能显示文案：[凭据已脱敏]"
+    },
+    {
+      "name": "report_redacted_digits",
+      "value": "[长数字已脱敏]",
+      "description": "应用性能显示文案：[长数字已脱敏]"
+    },
+    {
+      "name": "report_clipped",
+      "value": "{0}…（截断，原 {1} 字符）",
+      "description": "应用性能显示文案：参数…（截断，原 参数 字符）"
+    },
+    {
+      "name": "report_truncated",
+      "value": "（报告超过 {0} 字符已截断，原 {1} 字符）",
+      "description": "应用性能显示文案：（报告超过 参数 字符已截断，原 参数 字符）"
+    },
+    {
+      "name": "report_truncation",
+      "value": "截断说明",
+      "description": "应用性能显示文案：截断说明"
+    },
+    {
+      "name": "report_redaction_notice",
+      "value": "本报告由本地实验账本生成并已脱敏：不含文件路径、文件正文、凭据与设备序列号；缺失样本标记为「不可评估」，不以 0 代替。",
+      "description": "应用性能显示文案：本报告由本地实验账本生成并已脱敏：不含文件路径、文件正文、凭据与设备序列号；缺失样本标记为「不可评估」，不以 0 代替。"
+    },
+    {
+      "name": "report_counts",
+      "value": "条件组：{0} 组；记录：{1} 条",
+      "description": "应用性能显示文案：条件组：参数 组；记录：参数 条"
+    },
+    {
+      "name": "report_filter_line",
+      "value": "筛选：{0}",
+      "description": "应用性能显示文案：筛选：参数"
+    },
+    {
+      "name": "report_note_line",
+      "value": "备注：{0}",
+      "description": "应用性能显示文案：备注：参数"
+    },
+    {
+      "name": "report_no_groups",
+      "value": "没有条件组：账本为空或全部被筛选条件排除。",
+      "description": "应用性能显示文案：没有条件组：账本为空或全部被筛选条件排除。"
+    },
+    {
+      "name": "report_fingerprint_line",
+      "value": "指纹：{0}",
+      "description": "应用性能显示文案：指纹：参数"
+    },
+    {
+      "name": "report_fingerprint_missing",
+      "value": "不可用（关键字段缺失）",
+      "description": "应用性能显示文案：不可用（关键字段缺失）"
+    },
+    {
+      "name": "report_workload_line",
+      "value": "负载：{0}",
+      "description": "应用性能显示文案：负载：参数"
+    },
+    {
+      "name": "report_mode_line",
+      "value": "回收模式：{0}",
+      "description": "应用性能显示文案：回收模式：参数"
+    },
+    {
+      "name": "report_condition_line",
+      "value": "条件描述：{0}",
+      "description": "应用性能显示文案：条件描述：参数"
+    },
+    {
+      "name": "report_comparability_line",
+      "value": "可比性：{0}",
+      "description": "应用性能显示文案：可比性：参数"
+    },
+    {
+      "name": "report_comparable_baseline",
+      "value": "关键字段齐全，可作为同条件比较基线",
+      "description": "应用性能显示文案：关键字段齐全，可作为同条件比较基线"
+    },
+    {
+      "name": "report_single_group",
+      "value": "只有一个条件组，未进行跨组比较。",
+      "description": "应用性能显示文案：只有一个条件组，未进行跨组比较。"
+    },
+    {
+      "name": "report_compare_groups",
+      "value": "以 {0} 为基准，{1}：{2}",
+      "description": "应用性能显示文案：以 参数 为基准，参数：参数"
+    },
+    {
+      "name": "report_markdown_stats_header",
+      "value": "| 序号 | 条件组 | 负载 | 模式 | 样本 | 有效 | 失败/缺失 | P50 | P90 | 均值 |",
+      "description": "应用性能显示文案：| 序号 | 条件组 | 负载 | 模式 | 样本 | 有效 | 失败/缺失 | P50 | P90 | 均值 |"
+    },
+    {
+      "name": "report_stats_notice",
+      "value": "P50/P90/均值均为阶段耗时合计；「不可评估」表示没有有效样本，不是 0。",
+      "description": "应用性能显示文案：P50/P90/均值均为阶段耗时合计；「不可评估」表示没有有效样本，不是 0。"
+    },
+    {
+      "name": "report_markdown_stages_header",
+      "value": "| 条件组 | 阶段 | 样本 | P50 | 均值 |",
+      "description": "应用性能显示文案：| 条件组 | 阶段 | 样本 | P50 | 均值 |"
+    },
+    {
+      "name": "report_stages_notice",
+      "value": "阶段耗时只统计正常结束的有效样本；阶段级 P90 不在报告内重算（既有 P90 只按条件组提供，避免在新代码里复制分位数实现）。",
+      "description": "应用性能显示文案：阶段耗时只统计正常结束的有效样本；阶段级 P90 不在报告内重算（既有 P90 只按条件组提供，避免在新代码里复制分位数实现）。"
+    },
+    {
+      "name": "report_no_gaps_line",
+      "value": "未登记缺口：所有样本正常结束且条件字段齐全。",
+      "description": "应用性能显示文案：未登记缺口：所有样本正常结束且条件字段齐全。"
+    },
+    {
+      "name": "report_source_notice",
+      "value": "数据来源：本地实验账本（有界保留），不包含已被淘汰的历史记录；驻留页变化不可观测，回收效果不量化。",
+      "description": "应用性能显示文案：数据来源：本地实验账本（有界保留），不包含已被淘汰的历史记录；驻留页变化不可观测，回收效果不量化。"
+    },
+    {
+      "name": "report_generated_line",
+      "value": "生成时间：{0}（本机时间）",
+      "description": "应用性能显示文案：生成时间：参数（本机时间）"
+    },
+    {
+      "name": "report_version_line",
+      "value": "报告版本：{0}",
+      "description": "应用性能显示文案：报告版本：参数"
+    },
+    {
+      "name": "report_environment_line",
+      "value": "设备：{0}｜系统：{1}｜应用版本：{2}",
+      "description": "应用性能显示文案：设备：参数｜系统：参数｜应用版本：参数"
+    },
+    {
+      "name": "report_protocol_line",
+      "value": "采样协议：{0}",
+      "description": "应用性能显示文案：采样协议：参数"
+    },
+    {
+      "name": "report_format_line",
+      "value": "导出格式：{0}",
+      "description": "应用性能显示文案：导出格式：参数"
+    },
+    {
+      "name": "report_column_section",
+      "value": "章节",
+      "description": "应用性能显示文案：章节"
+    },
+    {
+      "name": "report_group",
+      "value": "条件组",
+      "description": "应用性能显示文案：条件组"
+    },
+    {
+      "name": "report_column_item",
+      "value": "项目",
+      "description": "应用性能显示文案：项目"
+    },
+    {
+      "name": "report_column_value",
+      "value": "值",
+      "description": "应用性能显示文案：值"
+    },
+    {
+      "name": "report_note",
+      "value": "备注",
+      "description": "应用性能显示文案：备注"
+    },
+    {
+      "name": "report_report",
+      "value": "报告",
+      "description": "应用性能显示文案：报告"
+    },
+    {
+      "name": "report_all",
+      "value": "全部",
+      "description": "应用性能显示文案：全部"
+    },
+    {
+      "name": "report_local_time",
+      "value": "本机时间",
+      "description": "应用性能显示文案：本机时间"
+    },
+    {
+      "name": "report_version",
+      "value": "报告版本",
+      "description": "应用性能显示文案：报告版本"
+    },
+    {
+      "name": "report_record_count",
+      "value": "记录数",
+      "description": "应用性能显示文案：记录数"
+    },
+    {
+      "name": "report_filter_label",
+      "value": "筛选",
+      "description": "应用性能显示文案：筛选"
+    },
+    {
+      "name": "report_comparable_stats",
+      "value": "关键字段齐全，可统计",
+      "description": "应用性能显示文案：关键字段齐全，可统计"
+    },
+    {
+      "name": "report_unavailable",
+      "value": "不可用",
+      "description": "应用性能显示文案：不可用"
+    },
+    {
+      "name": "report_no_fingerprint_notice",
+      "value": "关键字段缺失时不生成指纹",
+      "description": "应用性能显示文案：关键字段缺失时不生成指纹"
+    },
+    {
+      "name": "report_comparability",
+      "value": "可比性",
+      "description": "应用性能显示文案：可比性"
+    },
+    {
+      "name": "report_compare_with",
+      "value": "与{0}比较",
+      "description": "应用性能显示文案：与参数比较"
+    },
+    {
+      "name": "report_valid_samples",
+      "value": "有效样本",
+      "description": "应用性能显示文案：有效样本"
+    },
+    {
+      "name": "report_failed",
+      "value": "失败/缺失",
+      "description": "应用性能显示文案：失败/缺失"
+    },
+    {
+      "name": "report_stage_total",
+      "value": "阶段耗时合计",
+      "description": "应用性能显示文案：阶段耗时合计"
+    },
+    {
+      "name": "report_p50_value",
+      "value": "P50 {0}",
+      "description": "应用性能显示文案：P50 参数"
+    },
+    {
+      "name": "report_stage_stats",
+      "value": "样本 {0} · 均值 {1}",
+      "description": "应用性能显示文案：样本 参数 · 均值 参数"
+    },
+    {
+      "name": "report_gap_number",
+      "value": "缺口{0}",
+      "description": "应用性能显示文案：缺口参数"
+    },
+    {
+      "name": "report_no_gaps",
+      "value": "未登记缺口",
+      "description": "应用性能显示文案：未登记缺口"
+    },
+    {
+      "name": "report_all_samples_complete",
+      "value": "所有样本正常结束且条件字段齐全",
+      "description": "应用性能显示文案：所有样本正常结束且条件字段齐全"
+    },
+    {
+      "name": "report_source",
+      "value": "数据来源",
+      "description": "应用性能显示文案：数据来源"
+    },
+    {
+      "name": "report_local_ledger",
+      "value": "本地实验账本（有界保留）",
+      "description": "应用性能显示文案：本地实验账本（有界保留）"
+    },
+    {
+      "name": "report_reclaim_unobservable",
+      "value": "驻留页变化不可观测，回收效果不量化",
+      "description": "应用性能显示文案：驻留页变化不可观测，回收效果不量化"
+    },
+    {
+      "name": "report_sensitive_path",
+      "value": "疑似文件路径",
+      "description": "应用性能显示文案：疑似文件路径"
+    },
+    {
+      "name": "report_sensitive_credentials",
+      "value": "疑似凭据或序列号字段",
+      "description": "应用性能显示文案：疑似凭据或序列号字段"
+    },
+    {
+      "name": "report_sensitive_digits",
+      "value": "疑似长数字序列（可能是序列号）",
+      "description": "应用性能显示文案：疑似长数字序列（可能是序列号）"
+    },
+    {
+      "name": "report_check_empty_title",
+      "value": "报告标题为空",
+      "description": "应用性能显示文案：报告标题为空"
+    },
+    {
+      "name": "report_check_invalid_time",
+      "value": "生成时间非法",
+      "description": "应用性能显示文案：生成时间非法"
+    },
+    {
+      "name": "report_check_no_records",
+      "value": "没有任何实验记录，无法生成条件描述与分组统计",
+      "description": "应用性能显示文案：没有任何实验记录，无法生成条件描述与分组统计"
+    },
+    {
+      "name": "report_check_no_stats",
+      "value": "缺少分组统计行",
+      "description": "应用性能显示文案：缺少分组统计行"
+    },
+    {
+      "name": "report_check_no_condition",
+      "value": "{0} 缺少条件描述",
+      "description": "应用性能显示文案：参数 缺少条件描述"
+    },
+    {
+      "name": "report_check_no_stages",
+      "value": "{0} 缺少阶段耗时行",
+      "description": "应用性能显示文案：参数 缺少阶段耗时行"
+    },
+    {
+      "name": "report_check_missing_section",
+      "value": "{0} 缺少必填段落：{1}",
+      "description": "应用性能显示文案：参数 缺少必填段落：参数"
+    },
+    {
+      "name": "report_check_no_comparison",
+      "value": "Markdown 缺少条件间比较段",
+      "description": "应用性能显示文案：Markdown 缺少条件间比较段"
+    },
+    {
+      "name": "report_check_empty_render",
+      "value": "渲染结果为空",
+      "description": "应用性能显示文案：渲染结果为空"
+    },
+    {
+      "name": "report_check_sensitive",
+      "value": "{0} 残留敏感信息：{1}",
+      "description": "应用性能显示文案：参数 残留敏感信息：参数"
+    },
+    {
+      "name": "ap_resource_unavailable",
+      "value": "资源暂不可用",
+      "description": "应用性能显示文案：资源暂不可用"
+    },
+    {
+      "name": "ap_resource_preview",
+      "value": "{0} 字节 · {1}",
+      "description": "应用性能显示文案：参数 字节 · 参数"
+    },
+    {
+      "name": "ap_request_not_requested",
+      "value": "未下发请求",
+      "description": "应用性能显示文案：未下发请求"
+    },
+    {
+      "name": "ap_request_not_dispatched",
+      "value": "未下发",
+      "description": "应用性能显示文案：未下发"
+    },
+    {
+      "name": "ap_request_rejected",
+      "value": "请求被拒绝",
+      "description": "应用性能显示文案：请求被拒绝"
+    },
+    {
+      "name": "ap_request_not_observed",
+      "value": "未观测",
+      "description": "应用性能显示文案：未观测"
+    }
   ]
 }
