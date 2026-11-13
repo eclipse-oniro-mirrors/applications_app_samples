@@ -14,7 +14,8 @@
  */
 
 import { afterEach, beforeEach, describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import { AutoStartupService } from '../../../main/ets/autostart/AutoStartupService';
 import { HistoryStorage, serializeHistory } from '../../../main/ets/autostart/AutoStartupHistory';
 import { QueryOutcome, QueryRecord, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
@@ -99,6 +100,7 @@ function row(id: number, time: number, source: RefreshSource, outcome: QueryOutc
 }
 
 export default function serviceFlowsTest(): void {
+  configureTestText();
   describe('AutoStartupProductionFlows', (): void => {
     let fixtures: FlowFixture[] = [];
     const create = (): FlowFixture => {
@@ -107,6 +109,7 @@ export default function serviceFlowsTest(): void {
       return fixture;
     };
     beforeEach((): void => {
+      configureTestText();
       fixtures = [];
     });
     afterEach(async (): Promise<void> => {
@@ -130,22 +133,23 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0001', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); const id = await f.arm();
       const beforeId = f.service.revisitSnapshot().before?.id;
       const off = f.service.subscribe((): void => {}); off();
       f.service.onForeground();
-      expect(f.service.revisitSnapshot().stage).assertEqual(RevisitStage.GUIDED);
-      expect(f.api.queryCalls).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0001|assertEqual|actual', f.service.revisitSnapshot().stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0001|assertEqual|expected', RevisitStage.GUIDED));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0002|assertEqual|actual', f.api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0002|assertEqual|expected', 1));
       f.service.onBackground(); f.clock.advance(10); f.service.onForeground();
       f.service.retryRevisitQuery(); f.service.refresh(RefreshSource.SETTINGS); f.service.onForeground();
-      expect(f.api.queryCalls).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0003|assertEqual|actual', f.api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0003|assertEqual|expected', 2));
       const bound = f.service.revisitSnapshot().expectedQueryId;
       f.api.resolveNext(true); await flushMicrotasks();
       const done = f.service.revisitSnapshot();
-      expect(done.sessionId).assertEqual(id); expect(done.before?.id).assertEqual(beforeId);
-      expect(done.after?.id).assertEqual(bound); expect(done.after?.source).assertEqual(RefreshSource.SETTINGS);
-      expect(done.stage).assertEqual(RevisitStage.RECHECKED); expect(f.service.revisitArchive().length).assertEqual(1);
-      f.service.refresh(RefreshSource.SETTINGS); expect(f.api.queryCalls).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0004|assertEqual|actual', done.sessionId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0004|assertEqual|expected', id)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0005|assertEqual|actual', done.before?.id)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0005|assertEqual|expected', beforeId));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0006|assertEqual|actual', done.after?.id)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0006|assertEqual|expected', bound)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0007|assertEqual|actual', done.after?.source)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0007|assertEqual|expected', RefreshSource.SETTINGS));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0008|assertEqual|actual', done.stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0008|assertEqual|expected', RevisitStage.RECHECKED)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0009|assertEqual|actual', f.service.revisitArchive().length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0009|assertEqual|expected', 1));
+      f.service.refresh(RefreshSource.SETTINGS); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0010|assertEqual|actual', f.api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0001|ServiceFlows.test.ets|assert0010|assertEqual|expected', 2));
     });
 
     /**
@@ -159,15 +163,16 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0002', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); const id = await f.arm();
       f.service.onBackground(); f.service.onForeground(); f.service.cancelRevisit();
       f.api.resolveNext(true); await flushMicrotasks();
       const cancelled = f.service.revisitArchive()[0];
-      expect(cancelled.sessionId).assertEqual(id); expect(cancelled.stage).assertEqual(RevisitStage.CANCELLED);
-      expect(cancelled.after).assertEqual(undefined); expect(cancelled.attempts.length).assertEqual(0);
-      expect(f.service.beginRevisit()).assertTrue();
-      expect(f.service.revisitSnapshot().sessionId === id).assertFalse();
-      expect(f.service.revisitSnapshot().after).assertEqual(undefined);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0011|assertEqual|actual', cancelled.sessionId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0011|assertEqual|expected', id)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0012|assertEqual|actual', cancelled.stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0012|assertEqual|expected', RevisitStage.CANCELLED));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0013|assertEqual|actual', cancelled.after)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0013|assertEqual|expected', undefined)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0014|assertEqual|actual', cancelled.attempts.length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0014|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0015|assertTrue|actual|expected=true', f.service.beginRevisit())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0016|assertFalse|actual|expected=false', f.service.revisitSnapshot().sessionId === id)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0017|assertEqual|actual', f.service.revisitSnapshot().after)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0002|ServiceFlows.test.ets|assert0017|assertEqual|expected', undefined));
     });
 
     /**
@@ -181,18 +186,19 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0003', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.arm(); f.service.onBackground(); f.service.onForeground();
       f.clock.advance(5000); const timed = f.service.revisitSnapshot();
-      expect(timed.after?.outcome).assertEqual(QueryOutcome.TIMEOUT);
-      f.service.retryRevisitQuery(); expect(f.api.queryCalls).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0018|assertEqual|actual', timed.after?.outcome)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0018|assertEqual|expected', QueryOutcome.TIMEOUT));
+      f.service.retryRevisitQuery(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0019|assertEqual|actual', f.api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0019|assertEqual|expected', 2));
       f.api.resolveNext(true); await flushMicrotasks();
-      expect(f.service.revisitSnapshot().after?.id).assertEqual(timed.after?.id);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0020|assertEqual|actual', f.service.revisitSnapshot().after?.id)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0020|assertEqual|expected', timed.after?.id));
       f.service.retryRevisitQuery(); f.api.resolveNext(true); await flushMicrotasks();
       const done = f.service.revisitSnapshot();
-      expect(done.attempts.length).assertEqual(2); expect(done.attempts[0].outcome).assertEqual(QueryOutcome.TIMEOUT);
-      expect(done.attempts[1].outcome).assertEqual(QueryOutcome.SUCCESS);
-      expect(done.after?.id === timed.after?.id).assertFalse();
-      expect(f.service.revisitArchive().length).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0021|assertEqual|actual', done.attempts.length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0021|assertEqual|expected', 2)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0022|assertEqual|actual', done.attempts[0].outcome)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0022|assertEqual|expected', QueryOutcome.TIMEOUT));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0023|assertEqual|actual', done.attempts[1].outcome)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0023|assertEqual|expected', QueryOutcome.SUCCESS));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0024|assertFalse|actual|expected=false', done.after?.id === timed.after?.id)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0025|assertEqual|actual', f.service.revisitArchive().length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0003|ServiceFlows.test.ets|assert0025|assertEqual|expected', 1));
     });
 
     /**
@@ -206,15 +212,16 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0004', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.arm(); f.service.onBackground(); await f.save();
       const old = f.service.revisitSnapshot(); const next = create();
       next.clock.advance(f.clock.now() - next.clock.now());
       next.revisit.value = f.revisit.value; next.service.attachRevisit(next.revisit);
       next.service.onForeground(); next.api.resolveNext(true); await flushMicrotasks();
       const done = next.service.revisitSnapshot();
-      expect(done.sessionId).assertEqual(old.sessionId); expect(done.before?.id).assertEqual(old.before?.id);
-      expect((done.after?.id || 0) > (done.before?.id || 0)).assertTrue();
-      expect(done.after?.source).assertEqual(RefreshSource.SETTINGS);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0004|ServiceFlows.test.ets|assert0026|assertEqual|actual', done.sessionId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0004|ServiceFlows.test.ets|assert0026|assertEqual|expected', old.sessionId)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0004|ServiceFlows.test.ets|assert0027|assertEqual|actual', done.before?.id)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0004|ServiceFlows.test.ets|assert0027|assertEqual|expected', old.before?.id));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0004|ServiceFlows.test.ets|assert0028|assertTrue|actual|expected=true', (done.after?.id || 0) > (done.before?.id || 0))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0004|ServiceFlows.test.ets|assert0029|assertEqual|actual', done.after?.source)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0004|ServiceFlows.test.ets|assert0029|assertEqual|expected', RefreshSource.SETTINGS));
     });
 
     /**
@@ -228,16 +235,17 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0005', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.arm(); f.service.onBackground(); f.service.onForeground(); await f.save();
       const oldId = f.service.revisitSnapshot().expectedQueryId;
       const next = create(); next.clock.advance(f.clock.now() - next.clock.now());
       next.revisit.value = f.revisit.value; next.service.attachRevisit(next.revisit);
-      expect(next.service.revisitSnapshot().expectedQueryId).assertEqual(0);
-      next.service.onForeground(); expect(next.service.revisitSnapshot().expectedQueryId > oldId).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0005|ServiceFlows.test.ets|assert0030|assertEqual|actual', next.service.revisitSnapshot().expectedQueryId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0005|ServiceFlows.test.ets|assert0030|assertEqual|expected', 0));
+      next.service.onForeground(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0005|ServiceFlows.test.ets|assert0031|assertTrue|actual|expected=true', next.service.revisitSnapshot().expectedQueryId > oldId)).assertTrue();
       next.api.resolveNext(false); await flushMicrotasks();
-      expect(next.service.revisitSnapshot().after?.id === oldId).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0005|ServiceFlows.test.ets|assert0032|assertFalse|actual|expected=false', next.service.revisitSnapshot().after?.id === oldId)).assertFalse();
       f.api.resolveNext(true); await flushMicrotasks();
-      expect(next.service.revisitSnapshot().after?.result).assertEqual('未开启');
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0005|ServiceFlows.test.ets|assert0033|assertEqual|actual', next.service.revisitSnapshot().after?.result)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0005|ServiceFlows.test.ets|assert0033|assertEqual|expected', '未开启'));
     });
 
     /**
@@ -251,17 +259,18 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0006', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.arm(); f.service.onBackground(); await f.save();
       const next = create();
       next.clock.advance(REVISIT_TIMEOUT_MS + f.clock.now() - next.clock.now());
       next.revisit.value = f.revisit.value;
       next.service.attachRevisit(next.revisit);
-      expect(next.service.revisitSnapshot().stage).assertEqual(RevisitStage.EXPIRED);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0006|ServiceFlows.test.ets|assert0034|assertEqual|actual', next.service.revisitSnapshot().stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0006|ServiceFlows.test.ets|assert0034|assertEqual|expected', RevisitStage.EXPIRED));
       next.service.onForeground(); next.api.resolveNext(true); await flushMicrotasks();
       const archived = next.service.revisitArchive()[0];
-      expect(archived.stage).assertEqual(RevisitStage.EXPIRED); expect(archived.after).assertEqual(undefined);
-      expect(next.service.records()[0].source === RefreshSource.SETTINGS).assertFalse();
-      expect(revisitDetails(archived).join('\n').indexOf('不证明') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0006|ServiceFlows.test.ets|assert0035|assertEqual|actual', archived.stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0006|ServiceFlows.test.ets|assert0035|assertEqual|expected', RevisitStage.EXPIRED)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0006|ServiceFlows.test.ets|assert0036|assertEqual|actual', archived.after)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0006|ServiceFlows.test.ets|assert0036|assertEqual|expected', undefined));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0006|ServiceFlows.test.ets|assert0037|assertFalse|actual|expected=false', next.service.records()[0].source === RefreshSource.SETTINGS)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0006|ServiceFlows.test.ets|assert0038|assertTrue|actual|expected=true', revisitDetails(archived).join('\n').indexOf('不证明') >= 0)).assertTrue();
     });
 
     /**
@@ -275,15 +284,16 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0007', 0, async (): Promise<void> => {
+      configureTestText();
       const saved = create(); await saved.arm(); saved.service.onBackground(); await saved.save();
       const f = create(); f.revisit.value = saved.revisit.value; f.revisit.failRead = true;
       f.service.attachRevisit(f.revisit); await f.sample(true, RefreshSource.INITIAL);
-      expect(f.service.beginRevisit()).assertFalse(); f.service.cancelRevisit(); f.service.retryPersistence();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0007|ServiceFlows.test.ets|assert0039|assertFalse|actual|expected=false', f.service.beginRevisit())).assertFalse(); f.service.cancelRevisit(); f.service.retryPersistence();
       f.service.onBackground(); f.service.onForeground(); f.service.dispose(); await f.save();
-      expect(f.revisit.writes).assertEqual(0); expect(f.revisit.value).assertEqual(saved.revisit.value);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0007|ServiceFlows.test.ets|assert0040|assertEqual|actual', f.revisit.writes)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0007|ServiceFlows.test.ets|assert0040|assertEqual|expected', 0)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0007|ServiceFlows.test.ets|assert0041|assertEqual|actual', f.revisit.value)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0007|ServiceFlows.test.ets|assert0041|assertEqual|expected', saved.revisit.value));
       f.revisit.failRead = false; f.service.retryRevisitRead();
-      expect(f.service.revisitReadBlocked()).assertFalse();
-      expect(f.service.revisitSnapshot().sessionId).assertEqual(saved.service.revisitSnapshot().sessionId);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0007|ServiceFlows.test.ets|assert0042|assertFalse|actual|expected=false', f.service.revisitReadBlocked())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0007|ServiceFlows.test.ets|assert0043|assertEqual|actual', f.service.revisitSnapshot().sessionId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0007|ServiceFlows.test.ets|assert0043|assertEqual|expected', saved.service.revisitSnapshot().sessionId));
     });
 
     /**
@@ -297,12 +307,13 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0008', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.revisit.value = '{broken'; f.service.attachRevisit(f.revisit);
-      f.service.retryPersistence(); await f.save(); expect(f.revisit.value).assertEqual('{broken');
-      expect(f.service.revisitReadBlocked()).assertTrue(); f.service.discardUnreadRevisit(); await f.save();
-      expect(f.service.revisitReadBlocked()).assertFalse();
+      f.service.retryPersistence(); await f.save(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0008|ServiceFlows.test.ets|assert0044|assertEqual|actual', f.revisit.value)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0008|ServiceFlows.test.ets|assert0044|assertEqual|expected', '{broken'));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0008|ServiceFlows.test.ets|assert0045|assertTrue|actual|expected=true', f.service.revisitReadBlocked())).assertTrue(); f.service.discardUnreadRevisit(); await f.save();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0008|ServiceFlows.test.ets|assert0046|assertFalse|actual|expected=false', f.service.revisitReadBlocked())).assertFalse();
       const decoded = new RevisitTracker(); decoded.restore(f.revisit.value, f.clock.now());
-      expect(decoded.snapshot().stage).assertEqual(RevisitStage.IDLE);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0008|ServiceFlows.test.ets|assert0047|assertEqual|actual', decoded.snapshot().stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0008|ServiceFlows.test.ets|assert0047|assertEqual|expected', RevisitStage.IDLE));
     });
 
     /**
@@ -316,13 +327,14 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0009', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.revisit.failWrite = true; await f.arm(); f.service.cancelRevisit(); await f.save();
-      expect(f.service.revisitNotice().indexOf('保存失败') >= 0).assertTrue();
-      expect(f.service.revisitArchive()[0].stage).assertEqual(RevisitStage.CANCELLED);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0009|ServiceFlows.test.ets|assert0048|assertTrue|actual|expected=true', f.service.revisitNotice().indexOf('保存失败') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0009|ServiceFlows.test.ets|assert0049|assertEqual|actual', f.service.revisitArchive()[0].stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0009|ServiceFlows.test.ets|assert0049|assertEqual|expected', RevisitStage.CANCELLED));
       f.revisit.failWrite = false; f.service.retryPersistence(); await f.save();
       const decoded = new RevisitTracker(); decoded.restore(f.revisit.value, f.clock.now());
-      expect(decoded.archived()[0].stage).assertEqual(RevisitStage.CANCELLED);
-      expect(f.service.revisitNotice().indexOf('保存失败') >= 0).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0009|ServiceFlows.test.ets|assert0050|assertEqual|actual', decoded.archived()[0].stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0009|ServiceFlows.test.ets|assert0050|assertEqual|expected', RevisitStage.CANCELLED));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0009|ServiceFlows.test.ets|assert0051|assertFalse|actual|expected=false', f.service.revisitNotice().indexOf('保存失败') >= 0)).assertFalse();
     });
 
     /**
@@ -336,23 +348,24 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0010', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.sample(false, RefreshSource.INITIAL);
       const ids: string[] = [];
       for (let index = 0; index < REVISIT_ARCHIVE_LIMIT + 2; index++) {
-        expect(f.service.beginRevisit()).assertTrue(); ids.push(f.service.revisitSnapshot().sessionId);
+        expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0052|assertTrue|actual|expected=true', f.service.beginRevisit())).assertTrue(); ids.push(f.service.revisitSnapshot().sessionId);
         f.service.cancelRevisit(); f.clock.advance(1);
       }
       await f.save(); const archive = f.service.revisitArchive();
-      expect(archive.length).assertEqual(REVISIT_ARCHIVE_LIMIT);
-      expect(archive[0].sessionId).assertEqual(ids[ids.length - 1]);
-      expect(archive.find((item: RevisitSession): boolean => item.sessionId === ids[0])).assertEqual(undefined);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0053|assertEqual|actual', archive.length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0053|assertEqual|expected', REVISIT_ARCHIVE_LIMIT));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0054|assertEqual|actual', archive[0].sessionId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0054|assertEqual|expected', ids[ids.length - 1]));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0055|assertEqual|actual', archive.find((item: RevisitSession): boolean => item.sessionId === ids[0]))).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0055|assertEqual|expected', undefined));
       if (archive[0].before !== undefined) {
         archive[0].before.result = 'mutated';
       }
-      expect(f.service.revisitArchive()[0].before?.result).assertEqual('未开启');
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0056|assertEqual|actual', f.service.revisitArchive()[0].before?.result)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0056|assertEqual|expected', '未开启'));
       const decoded = new RevisitTracker(); decoded.restore(f.revisit.value, f.clock.now());
-      expect(decoded.archived().length).assertEqual(REVISIT_ARCHIVE_LIMIT);
-      expect(decoded.begin(undefined, 2, f.clock.now()).sessionId === archive[0].sessionId).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0057|assertEqual|actual', decoded.archived().length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0057|assertEqual|expected', REVISIT_ARCHIVE_LIMIT));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0010|ServiceFlows.test.ets|assert0058|assertFalse|actual|expected=false', decoded.begin(undefined, 2, f.clock.now()).sessionId === archive[0].sessionId)).assertFalse();
     });
 
     /**
@@ -366,16 +379,17 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0011', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.sample(false, RefreshSource.INITIAL); f.service.beginRevisit();
       f.revisit.failRead = true; f.service.attachRevisit(f.revisit); await f.save();
-      expect(f.service.revisitReadBlocked()).assertTrue(); expect(f.revisit.writes).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0059|assertTrue|actual|expected=true', f.service.revisitReadBlocked())).assertTrue(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0060|assertEqual|actual', f.revisit.writes)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0060|assertEqual|expected', 0));
       const external = new RevisitTracker();
       external.begin(undefined, 2, f.clock.now() - 1);
       external.cancel(f.clock.now());
       f.revisit.value = external.serialize(); const actual = f.revisit.value;
       f.revisit.failRead = false; f.service.retryRevisitRead(); await f.save();
-      expect(f.revisit.value).assertEqual(actual); expect(f.revisit.writes).assertEqual(0);
-      expect(f.service.revisitSnapshot().sessionId).assertEqual(external.snapshot().sessionId);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0061|assertEqual|actual', f.revisit.value)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0061|assertEqual|expected', actual)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0062|assertEqual|actual', f.revisit.writes)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0062|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0063|assertEqual|actual', f.service.revisitSnapshot().sessionId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0011|ServiceFlows.test.ets|assert0063|assertEqual|expected', external.snapshot().sessionId));
     });
 
     /**
@@ -389,15 +403,16 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0012', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.revisit.hold = true; await f.arm(); await flushMicrotasks();
-      expect(f.revisit.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0064|assertEqual|actual', f.revisit.writes)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0064|assertEqual|expected', 1));
       f.service.cancelRevisit(); f.service.attachRevisit(f.revisit);
-      expect(f.service.revisitReadBlocked()).assertTrue(); expect(f.revisit.reads).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0065|assertTrue|actual|expected=true', f.service.revisitReadBlocked())).assertTrue(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0066|assertEqual|actual', f.revisit.reads)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0066|assertEqual|expected', 1));
       f.revisit.release(); await f.save();
-      expect(f.revisit.writes).assertEqual(1); expect(f.revisit.reads).assertEqual(2);
-      expect(f.service.revisitReadBlocked()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0067|assertEqual|actual', f.revisit.writes)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0067|assertEqual|expected', 1)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0068|assertEqual|actual', f.revisit.reads)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0068|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0069|assertFalse|actual|expected=false', f.service.revisitReadBlocked())).assertFalse();
       const actual = new RevisitTracker(); actual.restore(f.revisit.value, f.clock.now());
-      expect(f.service.revisitSnapshot().stage).assertEqual(actual.snapshot().stage);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0070|assertEqual|actual', f.service.revisitSnapshot().stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0012|ServiceFlows.test.ets|assert0070|assertEqual|expected', actual.snapshot().stage));
     });
 
     /**
@@ -411,6 +426,7 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0013', 0, (): void => {
+      configureTestText();
       const f = create(); const now = f.clock.now();
       f.history.value = serializeHistory([row(4, now - 5, RefreshSource.MANUAL, QueryOutcome.SUCCESS),
         row(3, now - 10, RefreshSource.SETTINGS, QueryOutcome.FAILURE),
@@ -418,12 +434,12 @@ export default function serviceFlowsTest(): void {
         row(1, now - 7200000, RefreshSource.MANUAL, QueryOutcome.SUCCESS)], now);
       f.service.attachHistory(f.history);
       const scope = f.service.historyScope(new HistoryFilter('success', RefreshSource.MANUAL, RangePreset.HOUR));
-      expect(scope.records.length).assertEqual(2); expect(scope.summary.total).assertEqual(2);
-      expect(scope.summary.failure).assertEqual(0); expect(scope.latestValid?.id).assertEqual(4);
-      expect(scope.comparison.beforeId).assertEqual(2); expect(scope.comparison.afterId).assertEqual(4);
-      expect(scope.exportText.indexOf('#1 |')).assertEqual(-1);
-      expect(scope.exportText.indexOf('#3 |')).assertEqual(-1);
-      scope.records[0].result = 'mutated'; expect(f.service.records()[0].result).assertEqual('已开启');
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0071|assertEqual|actual', scope.records.length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0071|assertEqual|expected', 2)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0072|assertEqual|actual', scope.summary.total)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0072|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0073|assertEqual|actual', scope.summary.failure)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0073|assertEqual|expected', 0)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0074|assertEqual|actual', scope.latestValid?.id)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0074|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0075|assertEqual|actual', scope.comparison.beforeId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0075|assertEqual|expected', 2)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0076|assertEqual|actual', scope.comparison.afterId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0076|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0077|assertEqual|actual', scope.exportText.indexOf('#1 |'))).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0077|assertEqual|expected', -1));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0078|assertEqual|actual', scope.exportText.indexOf('#3 |'))).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0078|assertEqual|expected', -1));
+      scope.records[0].result = 'mutated'; expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0079|assertEqual|actual', f.service.records()[0].result)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0013|ServiceFlows.test.ets|assert0079|assertEqual|expected', '已开启'));
     });
 
     /**
@@ -437,12 +453,13 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0014', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.sample(true, RefreshSource.INITIAL);
       const scope = f.service.historyScope(new HistoryFilter('failure', RefreshSource.SETTINGS, RangePreset.HOUR));
-      expect(scope.records.length).assertEqual(0); expect(scope.summary.total).assertEqual(0);
-      expect(scope.latestValid).assertEqual(undefined); expect(scope.comparison.afterId).assertEqual(-1);
-      expect(scope.exportText.indexOf('记录数：0') >= 0).assertTrue();
-      expect(scope.exportText.indexOf('#1 |')).assertEqual(-1);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0080|assertEqual|actual', scope.records.length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0080|assertEqual|expected', 0)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0081|assertEqual|actual', scope.summary.total)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0081|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0082|assertEqual|actual', scope.latestValid)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0082|assertEqual|expected', undefined)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0083|assertEqual|actual', scope.comparison.afterId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0083|assertEqual|expected', -1));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0084|assertTrue|actual|expected=true', scope.exportText.indexOf('记录数：0') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0085|assertEqual|actual', scope.exportText.indexOf('#1 |'))).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0014|ServiceFlows.test.ets|assert0085|assertEqual|expected', -1));
     });
 
     /**
@@ -456,22 +473,23 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0015', 0, (): void => {
+      configureTestText();
       const f = create(); const now = f.clock.now();
       f.history.value = serializeHistory([row(3, now, RefreshSource.MANUAL, QueryOutcome.FAILURE),
         row(2, now - 1, RefreshSource.SETTINGS, QueryOutcome.SUCCESS),
         row(1, now - 2, RefreshSource.MANUAL, QueryOutcome.SUCCESS)], now);
       f.service.attachHistory(f.history);
       const scope = f.service.historyScope(new HistoryFilter(), 1, 3);
-      expect(scope.comparison.beforeId).assertEqual(1); expect(scope.comparison.afterId).assertEqual(3);
-      expect(scope.comparisonText.join('\n').indexOf('无法比较') >= 0).assertTrue();
-      expect(scope.comparisonText.join('\n').indexOf('状态已变化')).assertEqual(-1);
-      expect(scope.exportText.indexOf('person@example.com')).assertEqual(-1);
-      expect(detailLines(scope.records[0]).join('\n').indexOf('本机错误说明') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0086|assertEqual|actual', scope.comparison.beforeId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0086|assertEqual|expected', 1)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0087|assertEqual|actual', scope.comparison.afterId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0087|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0088|assertTrue|actual|expected=true', scope.comparisonText.join('\n').indexOf('无法比较') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0089|assertEqual|actual', scope.comparisonText.join('\n').indexOf('状态已变化'))).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0089|assertEqual|expected', -1));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0090|assertEqual|actual', scope.exportText.indexOf('person@example.com'))).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0090|assertEqual|expected', -1));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0091|assertTrue|actual|expected=true', detailLines(scope.records[0]).join('\n').indexOf('本机错误说明') >= 0)).assertTrue();
       const hidden = f.service.historyScope(new HistoryFilter('', RefreshSource.SETTINGS), 1, 3);
-      expect(hidden.comparisonText[0].indexOf('不在当前范围') >= 0).assertTrue();
-      expect(hidden.comparison.afterId).assertEqual(-1);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0092|assertTrue|actual|expected=true', hidden.comparisonText[0].indexOf('不在当前范围') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0093|assertEqual|actual', hidden.comparison.afterId)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0093|assertEqual|expected', -1));
       const same = f.service.historyScope(new HistoryFilter(), 1, 1);
-      expect(same.comparisonText[0].indexOf('不同记录') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0015|ServiceFlows.test.ets|assert0094|assertTrue|actual|expected=true', same.comparisonText[0].indexOf('不同记录') >= 0)).assertTrue();
     });
 
     /**
@@ -485,15 +503,16 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0016', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.arm(); f.service.onBackground(); f.service.onForeground();
       const old = f.service.revisitSnapshot().expectedQueryId;
-      f.service.dispose(); f.service.onForeground(); expect(f.api.queryCalls).assertEqual(2);
+      f.service.dispose(); f.service.onForeground(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0095|assertEqual|actual', f.api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0095|assertEqual|expected', 2));
       f.api.resolveNext(true); await flushMicrotasks();
-      expect(f.api.queryCalls).assertEqual(3); expect(f.service.revisitSnapshot().expectedQueryId > old).assertTrue();
-      expect(f.service.revisitSnapshot().after).assertEqual(undefined);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0096|assertEqual|actual', f.api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0096|assertEqual|expected', 3)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0097|assertTrue|actual|expected=true', f.service.revisitSnapshot().expectedQueryId > old)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0098|assertEqual|actual', f.service.revisitSnapshot().after)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0098|assertEqual|expected', undefined));
       f.api.resolveNext(false); await flushMicrotasks();
-      expect(f.service.revisitSnapshot().after?.result).assertEqual('未开启');
-      expect(f.service.records().find((record: QueryRecord): boolean => record.id === old)).assertEqual(undefined);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0099|assertEqual|actual', f.service.revisitSnapshot().after?.result)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0099|assertEqual|expected', '未开启'));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0100|assertEqual|actual', f.service.records().find((record: QueryRecord): boolean => record.id === old))).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0016|ServiceFlows.test.ets|assert0100|assertEqual|expected', undefined));
     });
 
     /**
@@ -507,6 +526,7 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0017', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.arm(); f.service.onBackground(); f.service.onForeground();
       for (let index = 0; index < REVISIT_ATTEMPT_LIMIT + 1; index++) {
         f.api.rejectNext(new TestBusinessError(16000050, 'controlled'));
@@ -515,14 +535,14 @@ export default function serviceFlowsTest(): void {
           f.service.retryRevisitQuery();
         }
       }
-      expect(f.service.revisitSnapshot().attempts.length).assertEqual(REVISIT_ATTEMPT_LIMIT);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0101|assertEqual|actual', f.service.revisitSnapshot().attempts.length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0101|assertEqual|expected', REVISIT_ATTEMPT_LIMIT));
       const calls = f.api.queryCalls;
       f.clock.advance(REVISIT_TIMEOUT_MS); f.service.retryRevisitQuery();
-      expect(f.api.queryCalls).assertEqual(calls);
-      expect(f.service.revisitArchive()[0].stage).assertEqual(RevisitStage.EXPIRED);
-      expect(f.service.revisitArchive()[0].conclusion.indexOf('未完成') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0102|assertEqual|actual', f.api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0102|assertEqual|expected', calls));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0103|assertEqual|actual', f.service.revisitArchive()[0].stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0103|assertEqual|expected', RevisitStage.EXPIRED));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0104|assertTrue|actual|expected=true', f.service.revisitArchive()[0].conclusion.indexOf('未完成') >= 0)).assertTrue();
       await f.save(); const restored = new RevisitTracker(); restored.restore(f.revisit.value, f.clock.now());
-      expect(restored.archived()[0].attempts.length).assertEqual(REVISIT_ATTEMPT_LIMIT);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0105|assertEqual|actual', restored.archived()[0].attempts.length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0017|ServiceFlows.test.ets|assert0105|assertEqual|expected', REVISIT_ATTEMPT_LIMIT));
     });
 
     /**
@@ -536,15 +556,16 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0018', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.arm(); f.service.onBackground();
       const legacy = JSON.stringify({ schema: 1, session: f.service.revisitSnapshot() })
         .replace(/,"lastQueryId":\d+/, '').replace(/,"attempts":\[\]/, '');
       const next = create(); next.clock.advance(f.clock.now() - next.clock.now());
       next.revisit.value = legacy; next.service.attachRevisit(next.revisit);
-      expect(next.service.revisitReadBlocked()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0018|ServiceFlows.test.ets|assert0106|assertFalse|actual|expected=false', next.service.revisitReadBlocked())).assertFalse();
       next.service.onForeground(); next.api.resolveNext(true); await flushMicrotasks();
-      expect(next.service.revisitSnapshot().stage).assertEqual(RevisitStage.RECHECKED);
-      expect(next.service.revisitArchive()[0].after?.source).assertEqual(RefreshSource.SETTINGS);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0018|ServiceFlows.test.ets|assert0107|assertEqual|actual', next.service.revisitSnapshot().stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0018|ServiceFlows.test.ets|assert0107|assertEqual|expected', RevisitStage.RECHECKED));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0018|ServiceFlows.test.ets|assert0108|assertEqual|actual', next.service.revisitArchive()[0].after?.source)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0018|ServiceFlows.test.ets|assert0108|assertEqual|expected', RefreshSource.SETTINGS));
     });
 
     /**
@@ -558,14 +579,23 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0019', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.arm(); f.service.onBackground(); f.service.onForeground();
       f.api.resolveNext(true); await flushMicrotasks(); await f.save();
       const next = create(); next.clock.advance(f.clock.now() - next.clock.now());
-      next.revisit.value = f.revisit.value.replace('"source":"设置后查询"', '"source":"手动刷新"');
+      const validStored: string = f.revisit.value;
+      const settingsSource: string = `"source":"${RefreshSource.SETTINGS}"`;
+      if (validStored.indexOf(settingsSource) < 0) {
+        throw new Error('Expected canonical settings source in the persisted revisit fixture');
+      }
+      next.revisit.value = validStored.replace(settingsSource, `"source":"${RefreshSource.MANUAL}"`);
+      if (next.revisit.value === validStored) {
+        throw new Error('The invalid-source fixture did not change the stored document');
+      }
       const damaged = next.revisit.value; next.service.attachRevisit(next.revisit);
-      expect(next.service.revisitReadBlocked()).assertTrue();
-      next.service.retryPersistence(); await next.save(); expect(next.revisit.value).assertEqual(damaged);
-      expect(next.service.revisitArchive().length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0019|ServiceFlows.test.ets|assert0109|assertTrue|actual|expected=true', next.service.revisitReadBlocked())).assertTrue();
+      next.service.retryPersistence(); await next.save(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0019|ServiceFlows.test.ets|assert0110|assertEqual|actual', next.revisit.value)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0019|ServiceFlows.test.ets|assert0110|assertEqual|expected', damaged));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0019|ServiceFlows.test.ets|assert0111|assertEqual|actual', next.service.revisitArchive().length)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0019|ServiceFlows.test.ets|assert0111|assertEqual|expected', 0));
     });
 
     /**
@@ -579,16 +609,17 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0020', 0, async (): Promise<void> => {
+      configureTestText();
       const api = new ControlledAutoStartupApi(); const clock = new ManualQueryClock();
       const diagnostic = new CapabilityDiagnostic(new RuntimeProbePort(api), (): number => clock.now(), 3000, clock);
       const request = diagnostic.runStatusProbe(); clock.advance(3000);
-      expect((await request).stage).assertEqual(ProbeStage.TIMEOUT);
-      await diagnostic.runStatusProbe(); expect(api.queryCalls).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0112|assertEqual|actual', (await request).stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0112|assertEqual|expected', ProbeStage.TIMEOUT));
+      await diagnostic.runStatusProbe(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0113|assertEqual|actual', api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0113|assertEqual|expected', 1));
       diagnostic.dispose(); api.resolveNext(true); await flushMicrotasks();
-      expect(diagnostic.reportSnapshot().status.stage).assertEqual(ProbeStage.IDLE);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0114|assertEqual|actual', diagnostic.reportSnapshot().status.stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0114|assertEqual|expected', ProbeStage.IDLE));
       const retry = diagnostic.runStatusProbe(); api.resolveNext(false);
-      expect((await retry).value).assertFalse(); expect(api.queryCalls).assertEqual(2);
-      diagnostic.dispose(); expect(clock.pendingCount()).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0115|assertFalse|actual|expected=false', (await retry).value)).assertFalse(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0116|assertEqual|actual', api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0116|assertEqual|expected', 2));
+      diagnostic.dispose(); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0117|assertEqual|actual', clock.pendingCount())).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0020|ServiceFlows.test.ets|assert0117|assertEqual|expected', 0));
     });
 
     /**
@@ -602,12 +633,13 @@ export default function serviceFlowsTest(): void {
 
 
     it('testAutoStartupProductionFlows0021', 0, async (): Promise<void> => {
+      configureTestText();
       const api = new ControlledAutoStartupApi(); api.supported = false; const clock = new ManualQueryClock();
       const diagnostic = new CapabilityDiagnostic(new RuntimeProbePort(api), (): number => clock.now(), 3000, clock);
-      expect((await diagnostic.runAbilityProbe()).stage).assertEqual(ProbeStage.UNSUPPORTED);
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0021|ServiceFlows.test.ets|assert0118|assertEqual|actual', (await diagnostic.runAbilityProbe()).stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0021|ServiceFlows.test.ets|assert0118|assertEqual|expected', ProbeStage.UNSUPPORTED));
       const status = diagnostic.runStatusProbe(); api.rejectNext(new TestBusinessError(16000050, 'controlled'));
-      expect((await status).stage).assertEqual(ProbeStage.FAILED);
-      expect(api.probeCalls).assertEqual(1); expect(api.queryCalls).assertEqual(1); diagnostic.dispose();
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0021|ServiceFlows.test.ets|assert0119|assertEqual|actual', (await status).stage)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0021|ServiceFlows.test.ets|assert0119|assertEqual|expected', ProbeStage.FAILED));
+      expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0021|ServiceFlows.test.ets|assert0120|assertEqual|actual', api.probeCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0021|ServiceFlows.test.ets|assert0120|assertEqual|expected', 1)); expect(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0021|ServiceFlows.test.ets|assert0121|assertEqual|actual', api.queryCalls)).assertEqual(traceParameter('com.samples.appstartupauto_AutoStartupProductionFlows_0021|ServiceFlows.test.ets|assert0121|assertEqual|expected', 1)); diagnostic.dispose();
     });
   });
 }

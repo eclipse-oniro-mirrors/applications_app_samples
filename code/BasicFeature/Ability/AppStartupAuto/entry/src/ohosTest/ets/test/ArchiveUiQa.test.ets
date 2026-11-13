@@ -13,20 +13,15 @@
  * limitations under the License.
  */
 
-// 待集中验证：当前仅静态对齐正式组件/SDK，未执行本套件或任何中间门禁。
-import { afterEach, describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
-import { ON } from '@kit.TestKit';
+import { describe, expect } from '@ohos/hypium';
+import { runtimeCaseName, traceParameter } from '../support/TestLog';
+import { ON, uiCase, UiTestSession } from '../support/UiTestRuntime';
 import { QueryOutcome, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
 import { archiveQaClick, archiveQaExpected, archiveQaInput, archiveQaNode, archiveQaText,
-  currentArchiveUiQa, finishArchiveUiQa, launchArchiveUiQa } from '../support/ArchiveUiQaSupport';
+  currentArchiveUiQa, launchArchiveUiQa } from '../support/ArchiveUiQaSupport';
 
 export default function archiveUiQaTests(): void {
   describe('ArchiveUiQa', (): void => {
-    afterEach(async (): Promise<void> => {
-      await finishArchiveUiQa();
-    });
-
     /**
      * @tc.number SUB_STARTUP_ARCHIVEUIQA_0100
      * @tc.name testArchiveUiQa0001
@@ -35,15 +30,15 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0001', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('empty');
-      expect(await archiveQaText(driver, 'archive-empty')).assertEqual('当前范围没有已保存归档');
-      expect(await (await archiveQaNode(driver, 'archive-save')).isEnabled()).assertFalse();
-      expect(await (await archiveQaNode(driver, 'archive-copy')).isEnabled()).assertFalse();
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
-        archiveQaExpected('startup_format_78064061fa94', ['0', '0', '0']) +
-          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
-      expect(currentArchiveUiQa().storage.writes).assertEqual(0);
+    uiCase(runtimeCaseName('testArchiveUiQa0001'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'empty');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0001|ArchiveUiQa.test.ets|assert0001|assertEqual|actual', await archiveQaText(driver, 'archive-empty'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0001|ArchiveUiQa.test.ets|assert0001|assertEqual|expected', archiveQaExpected('startup_text_0824')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0001|ArchiveUiQa.test.ets|assert0002|assertFalse|actual|expected=false', await (await archiveQaNode(driver, 'archive-save')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0001|ArchiveUiQa.test.ets|assert0003|assertFalse|actual|expected=false', await (await archiveQaNode(driver, 'archive-copy')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0001|ArchiveUiQa.test.ets|assert0004|assertEqual|actual', await archiveQaText(driver, 'archive-summary'))).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveUiQa_0001|ArchiveUiQa.test.ets|assert0004|assertEqual|expected', archiveQaExpected('startup_format_78064061fa94', ['0', '0', '0']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0'])));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0001|ArchiveUiQa.test.ets|assert0005|assertEqual|actual', currentArchiveUiQa(session).storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0001|ArchiveUiQa.test.ets|assert0005|assertEqual|expected', 0));
     });
 
     /**
@@ -54,20 +49,20 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0002', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('pending');
+    uiCase(runtimeCaseName('testArchiveUiQa0002'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'pending');
       await archiveQaClick(driver, 'archive-save');
-      const fixture = currentArchiveUiQa();
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('正在处理，尚未确认保存');
-      expect(await (await archiveQaNode(driver, 'archive-auto')).isEnabled()).assertFalse();
-      expect(fixture.repository.snapshot().rows.length).assertEqual(0);
+      const fixture = currentArchiveUiQa(session);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0006|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0006|assertEqual|expected', archiveQaExpected('startup_text_0784')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0007|assertFalse|actual|expected=false', await (await archiveQaNode(driver, 'archive-auto')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0008|assertEqual|actual', fixture.repository.snapshot().rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0008|assertEqual|expected', 0));
       fixture.release();
-      await fixture.repository.whenIdle();
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
-        archiveQaExpected('startup_format_78064061fa94', ['2', '1', '1']) +
-          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
-      expect(fixture.storage.document.rows[1].record.errorMessage).assertEqual('');
-      expect(fixture.liveRecords[1].errorMessage).assertEqual('qa-private-error-detail');
+      await session.guard(fixture.repository.whenIdle());
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0009|assertEqual|actual', await archiveQaText(driver, 'archive-summary'))).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0009|assertEqual|expected', archiveQaExpected('startup_format_78064061fa94', ['2', '1', '1']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0'])));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0010|assertEqual|actual', fixture.storage.document.rows[1].record.errorMessage)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0010|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0011|assertEqual|actual', fixture.liveRecords[1].errorMessage)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0002|ArchiveUiQa.test.ets|assert0011|assertEqual|expected', 'qa-private-error-detail'));
     });
 
     /**
@@ -79,18 +74,18 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0003', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('writeFailure');
+    uiCase(runtimeCaseName('testArchiveUiQa0003'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'writeFailure');
       await archiveQaClick(driver, 'archive-save');
-      const fixture = currentArchiveUiQa();
-      await fixture.repository.whenIdle();
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('保存失败，原归档未改变，待保存证据保留');
-      expect(fixture.storage.document.rows.length).assertEqual(0);
-      expect(await (await archiveQaNode(driver, 'archive-save')).isEnabled()).assertTrue();
+      const fixture = currentArchiveUiQa(session);
+      await session.guard(fixture.repository.whenIdle());
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0012|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0012|assertEqual|expected', archiveQaExpected('startup_text_0166')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0013|assertEqual|actual', fixture.storage.document.rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0013|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0014|assertTrue|actual|expected=true', await (await archiveQaNode(driver, 'archive-save')).isEnabled())).assertTrue();
       await archiveQaClick(driver, 'archive-save');
-      await fixture.repository.whenIdle();
-      expect(fixture.repository.snapshot().rows.length).assertEqual(2);
-      expect(fixture.storage.writes).assertEqual(2);
+      await session.guard(fixture.repository.whenIdle());
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0015|assertEqual|actual', fixture.repository.snapshot().rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0015|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0016|assertEqual|actual', fixture.storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0003|ArchiveUiQa.test.ets|assert0016|assertEqual|expected', 2));
     });
 
     /**
@@ -102,23 +97,23 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0004', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('seeded');
-      const fixture = currentArchiveUiQa();
+    uiCase(runtimeCaseName('testArchiveUiQa0004'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'seeded');
+      const fixture = currentArchiveUiQa(session);
       const failure = fixture.repository.snapshot().rows.find(
         (row): boolean => row.record.outcome === QueryOutcome.FAILURE);
       if (failure === undefined) {
         throw new Error('Production archive did not contain the seeded failure');
       }
       await archiveQaClick(driver, `archive-row-${failure.archiveId}`);
-      expect((await archiveQaText(driver, 'archive-details')).indexOf('16000050') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0017|assertTrue|actual|expected=true', (await archiveQaText(driver, 'archive-details')).indexOf('16000050') >= 0)).assertTrue();
       await archiveQaClick(driver, 'archive-source-manual');
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
-        archiveQaExpected('startup_format_78064061fa94', ['1', '1', '0']) +
-          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
-      expect(await archiveQaText(driver, 'archive-details')).assertEqual('请选择已保存归档查看详情');
-      expect(fixture.storage.document.rows.length).assertEqual(2);
-      expect(fixture.storage.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0018|assertEqual|actual', await archiveQaText(driver, 'archive-summary'))).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0018|assertEqual|expected', archiveQaExpected('startup_format_78064061fa94', ['1', '1', '0']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0'])));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0019|assertEqual|actual', await archiveQaText(driver, 'archive-details'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0019|assertEqual|expected', archiveQaExpected('startup_text_0780')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0020|assertEqual|actual', fixture.storage.document.rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0020|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0021|assertEqual|actual', fixture.storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0004|ArchiveUiQa.test.ets|assert0021|assertEqual|expected', 1));
     });
 
     /**
@@ -130,17 +125,17 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0005', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('seeded');
+    uiCase(runtimeCaseName('testArchiveUiQa0005'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'seeded');
       await archiveQaInput(driver, 'archive-search', '16000050');
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
-        archiveQaExpected('startup_format_78064061fa94', ['1', '0', '1']) +
-          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0022|assertEqual|actual', await archiveQaText(driver, 'archive-summary'))).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0022|assertEqual|expected', archiveQaExpected('startup_format_78064061fa94', ['1', '0', '1']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0'])));
       await archiveQaInput(driver, 'archive-search', 'no-match');
-      expect(await archiveQaText(driver, 'archive-empty')).assertEqual('当前范围没有已保存归档');
-      expect(await (await archiveQaNode(driver, 'archive-copy')).isEnabled()).assertFalse();
-      expect(currentArchiveUiQa().storage.document.rows.length).assertEqual(2);
-      expect(currentArchiveUiQa().clipboard.texts.length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0023|assertEqual|actual', await archiveQaText(driver, 'archive-empty'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0023|assertEqual|expected', archiveQaExpected('startup_text_0824')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0024|assertFalse|actual|expected=false', await (await archiveQaNode(driver, 'archive-copy')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0025|assertEqual|actual', currentArchiveUiQa(session).storage.document.rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0025|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0026|assertEqual|actual', currentArchiveUiQa(session).clipboard.texts.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0005|ArchiveUiQa.test.ets|assert0026|assertEqual|expected', 0));
     });
 
     /**
@@ -152,23 +147,23 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0006', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('manual');
-      const fixture = currentArchiveUiQa();
+    uiCase(runtimeCaseName('testArchiveUiQa0006'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'manual');
+      const fixture = currentArchiveUiQa(session);
       await archiveQaClick(driver, 'archive-auto');
       await archiveQaClick(driver, 'archive-cancel');
-      expect(fixture.storage.writes).assertEqual(0);
-      expect(fixture.repository.snapshot().automatic).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0006|ArchiveUiQa.test.ets|assert0027|assertEqual|actual', fixture.storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0006|ArchiveUiQa.test.ets|assert0027|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0006|ArchiveUiQa.test.ets|assert0028|assertFalse|actual|expected=false', fixture.repository.snapshot().automatic)).assertFalse();
       await archiveQaClick(driver, 'archive-auto');
       await archiveQaClick(driver, 'archive-auto-confirm');
-      await fixture.repository.whenIdle();
+      await session.guard(fixture.repository.whenIdle());
       fixture.repository.capture(fixture.record(301, QueryOutcome.UNSUPPORTED, RefreshSource.SETTINGS));
-      await fixture.repository.whenIdle();
-      expect(await archiveQaText(driver, 'archive-auto')).assertEqual('停用自动归档');
-      expect(fixture.storage.document.automatic).assertTrue();
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
-        archiveQaExpected('startup_format_78064061fa94', ['3', '1', '1']) +
-          archiveQaExpected('startup_format_f6b100802a6e', ['1', '0', '0']));
+      await session.guard(fixture.repository.whenIdle());
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0006|ArchiveUiQa.test.ets|assert0029|assertEqual|actual', await archiveQaText(driver, 'archive-auto'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0006|ArchiveUiQa.test.ets|assert0029|assertEqual|expected', archiveQaExpected('startup_text_0814')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0006|ArchiveUiQa.test.ets|assert0030|assertTrue|actual|expected=true', fixture.storage.document.automatic)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0006|ArchiveUiQa.test.ets|assert0031|assertEqual|actual', await archiveQaText(driver, 'archive-summary'))).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveUiQa_0006|ArchiveUiQa.test.ets|assert0031|assertEqual|expected', archiveQaExpected('startup_format_78064061fa94', ['3', '1', '1']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['1', '0', '0'])));
     });
 
     /**
@@ -179,27 +174,17 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0007', 0, async (): Promise<void> => {
-      console.info('[SA_UI7] before launch cleanup');
-      const driver = await launchArchiveUiQa('cleanup');
-      console.info('[SA_UI7] after launch cleanup');
-      const fixture = currentArchiveUiQa();
+    uiCase(runtimeCaseName('testArchiveUiQa0007'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'cleanup');
+      const fixture = currentArchiveUiQa(session);
       const revision = fixture.repository.snapshot().revision;
-      console.info('[SA_UI7] before click archive-clean-preview');
       await archiveQaClick(driver, 'archive-clean-preview');
-      console.info('[SA_UI7] after click archive-clean-preview');
-      console.info('[SA_UI7] before enabled archive-clean-confirm');
-      expect(await (await archiveQaNode(driver, 'archive-clean-confirm')).isEnabled()).assertTrue();
-      console.info('[SA_UI7] after enabled archive-clean-confirm');
-      console.info('[SA_UI7] before click archive-cancel');
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0032|assertTrue|actual|expected=true', await (await archiveQaNode(driver, 'archive-clean-confirm')).isEnabled())).assertTrue();
       await archiveQaClick(driver, 'archive-cancel');
-      console.info('[SA_UI7] after click archive-cancel');
-      console.info('[SA_UI7] before text archive-notice');
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('已取消，归档未改变');
-      console.info('[SA_UI7] after text archive-notice');
-      expect(fixture.storage.document.rows.length).assertEqual(2);
-      expect(fixture.repository.snapshot().revision).assertEqual(revision);
-      expect(fixture.storage.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0033|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0033|assertEqual|expected', archiveQaExpected('startup_text_0817')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0034|assertEqual|actual', fixture.storage.document.rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0034|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0035|assertEqual|actual', fixture.repository.snapshot().revision)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0035|assertEqual|expected', revision));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0036|assertEqual|actual', fixture.storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0007|ArchiveUiQa.test.ets|assert0036|assertEqual|expected', 1));
     });
 
     /**
@@ -211,20 +196,20 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0008', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('cleanup');
-      const fixture = currentArchiveUiQa();
+    uiCase(runtimeCaseName('testArchiveUiQa0008'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'cleanup');
+      const fixture = currentArchiveUiQa(session);
       await archiveQaClick(driver, 'archive-clean-preview');
       await archiveQaClick(driver, 'archive-clean-confirm');
-      await fixture.repository.whenIdle();
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual(
-        archiveQaExpected('startup_format_f7ccf2ca0b28', ['1']));
-      expect(fixture.storage.document.rows[0].record.id).assertEqual(101);
-      expect(fixture.liveRecords.length).assertEqual(2);
-      expect(fixture.storage.writes).assertEqual(2);
-      expect(await archiveQaText(driver, 'archive-summary')).assertEqual(
-        archiveQaExpected('startup_format_78064061fa94', ['1', '1', '0']) +
-          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0']));
+      await session.guard(fixture.repository.whenIdle());
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0037|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0037|assertEqual|expected', archiveQaExpected('startup_format_f7ccf2ca0b28', ['1'])));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0038|assertEqual|actual', fixture.storage.document.rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0038|assertEqual|expected', 101));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0039|assertEqual|actual', fixture.liveRecords.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0039|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0040|assertEqual|actual', fixture.storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0040|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0041|assertEqual|actual', await archiveQaText(driver, 'archive-summary'))).assertEqual(
+        traceParameter('com.samples.appstartupauto_ArchiveUiQa_0008|ArchiveUiQa.test.ets|assert0041|assertEqual|expected', archiveQaExpected('startup_format_78064061fa94', ['1', '1', '0']) +
+          archiveQaExpected('startup_format_f6b100802a6e', ['0', '0', '0'])));
     });
 
     /**
@@ -236,18 +221,18 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0009', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('staleCleanup');
-      const fixture = currentArchiveUiQa();
+    uiCase(runtimeCaseName('testArchiveUiQa0009'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'staleCleanup');
+      const fixture = currentArchiveUiQa(session);
       await archiveQaClick(driver, 'archive-clean-preview');
-      await fixture.repository.save([fixture.record(401, QueryOutcome.TIMEOUT, RefreshSource.FOREGROUND)]);
+      await session.guard(fixture.repository.save([fixture.record(401, QueryOutcome.TIMEOUT, RefreshSource.FOREGROUND)]));
       const revision = fixture.repository.snapshot().revision;
       await archiveQaClick(driver, 'archive-clean-confirm');
-      await fixture.repository.whenIdle();
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('记录已更新，请重新预览或确认');
-      expect(fixture.storage.document.rows.length).assertEqual(3);
-      expect(fixture.repository.snapshot().revision).assertEqual(revision);
-      expect(fixture.storage.writes).assertEqual(2);
+      await session.guard(fixture.repository.whenIdle());
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0009|ArchiveUiQa.test.ets|assert0042|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0009|ArchiveUiQa.test.ets|assert0042|assertEqual|expected', archiveQaExpected('startup_text_0162')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0009|ArchiveUiQa.test.ets|assert0043|assertEqual|actual', fixture.storage.document.rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0009|ArchiveUiQa.test.ets|assert0043|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0009|ArchiveUiQa.test.ets|assert0044|assertEqual|actual', fixture.repository.snapshot().revision)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0009|ArchiveUiQa.test.ets|assert0044|assertEqual|expected', revision));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0009|ArchiveUiQa.test.ets|assert0045|assertEqual|actual', fixture.storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0009|ArchiveUiQa.test.ets|assert0045|assertEqual|expected', 2));
     });
 
     /**
@@ -259,17 +244,17 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0010', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('seeded');
-      const fixture = currentArchiveUiQa();
+    uiCase(runtimeCaseName('testArchiveUiQa0010'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'seeded');
+      const fixture = currentArchiveUiQa(session);
       await archiveQaClick(driver, 'archive-clear');
       await archiveQaClick(driver, 'archive-clear-confirm');
-      await fixture.repository.whenIdle();
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('已清空已保存归档；live历史未改变');
-      expect(fixture.storage.document.rows.length).assertEqual(0);
-      expect(fixture.liveRecords.length).assertEqual(2);
-      expect(await (await archiveQaNode(driver, 'archive-copy')).isEnabled()).assertFalse();
-      expect(await (await archiveQaNode(driver, 'archive-save')).isEnabled()).assertTrue();
+      await session.guard(fixture.repository.whenIdle());
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0010|ArchiveUiQa.test.ets|assert0046|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0010|ArchiveUiQa.test.ets|assert0046|assertEqual|expected', archiveQaExpected('startup_text_0142')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0010|ArchiveUiQa.test.ets|assert0047|assertEqual|actual', fixture.storage.document.rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0010|ArchiveUiQa.test.ets|assert0047|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0010|ArchiveUiQa.test.ets|assert0048|assertEqual|actual', fixture.liveRecords.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0010|ArchiveUiQa.test.ets|assert0048|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0010|ArchiveUiQa.test.ets|assert0049|assertFalse|actual|expected=false', await (await archiveQaNode(driver, 'archive-copy')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0010|ArchiveUiQa.test.ets|assert0050|assertTrue|actual|expected=true', await (await archiveQaNode(driver, 'archive-save')).isEnabled())).assertTrue();
     });
 
     /**
@@ -281,21 +266,21 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0011', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('copyPending');
-      const fixture = currentArchiveUiQa();
+    uiCase(runtimeCaseName('testArchiveUiQa0011'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'copyPending');
+      const fixture = currentArchiveUiQa(session);
       await archiveQaClick(driver, 'archive-outcome-failure');
       await archiveQaClick(driver, 'archive-copy');
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('正在处理，尚未确认保存');
-      expect(await (await archiveQaNode(driver, 'archive-copy')).isEnabled()).assertFalse();
-      expect(fixture.clipboard.texts[0].indexOf('qa-private-error-detail')).assertEqual(-1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0051|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0051|assertEqual|expected', archiveQaExpected('startup_text_0784')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0052|assertFalse|actual|expected=false', await (await archiveQaNode(driver, 'archive-copy')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0053|assertEqual|actual', fixture.clipboard.texts[0].indexOf('qa-private-error-detail'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0053|assertEqual|expected', -1));
       fixture.release();
-      const notice = await driver.waitForComponent(ON.text('脱敏归档已复制'), 3000);
+      const notice = await driver.waitForComponent(ON.text(archiveQaExpected('startup_text_0153')), 3000);
       if (notice === undefined || notice === null) {
         throw new Error('Copy acknowledgment was not rendered');
       }
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('脱敏归档已复制');
-      expect(fixture.storage.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0054|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0054|assertEqual|expected', archiveQaExpected('startup_text_0153')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0055|assertEqual|actual', fixture.storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0011|ArchiveUiQa.test.ets|assert0055|assertEqual|expected', 1));
     });
 
     /**
@@ -307,17 +292,17 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0012', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('copyFailure');
+    uiCase(runtimeCaseName('testArchiveUiQa0012'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'copyFailure');
       await archiveQaClick(driver, 'archive-copy');
-      const notice = await driver.waitForComponent(ON.text('复制失败，请重试'), 3000);
+      const notice = await driver.waitForComponent(ON.text(archiveQaExpected('startup_text_0154')), 3000);
       if (notice === undefined || notice === null) {
         throw new Error('Rejected clipboard status was not rendered');
       }
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('复制失败，请重试');
-      expect(await (await archiveQaNode(driver, 'archive-copy')).isEnabled()).assertTrue();
-      expect(currentArchiveUiQa().storage.writes).assertEqual(1);
-      expect(currentArchiveUiQa().storage.document.rows.length).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0012|ArchiveUiQa.test.ets|assert0056|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0012|ArchiveUiQa.test.ets|assert0056|assertEqual|expected', archiveQaExpected('startup_text_0154')));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0012|ArchiveUiQa.test.ets|assert0057|assertTrue|actual|expected=true', await (await archiveQaNode(driver, 'archive-copy')).isEnabled())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0012|ArchiveUiQa.test.ets|assert0058|assertEqual|actual', currentArchiveUiQa(session).storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0012|ArchiveUiQa.test.ets|assert0058|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0012|ArchiveUiQa.test.ets|assert0059|assertEqual|actual', currentArchiveUiQa(session).storage.document.rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0012|ArchiveUiQa.test.ets|assert0059|assertEqual|expected', 2));
     });
 
     /**
@@ -329,17 +314,17 @@ export default function archiveUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testArchiveUiQa0013', 0, async (): Promise<void> => {
-      const driver = await launchArchiveUiQa('readFailure');
-      const fixture = currentArchiveUiQa();
-      expect(await (await archiveQaNode(driver, 'archive-auto')).isEnabled()).assertFalse();
-      expect(await (await archiveQaNode(driver, 'archive-clean-preview')).isEnabled()).assertFalse();
-      expect(await archiveQaText(driver, 'archive-notice')).assertEqual('归档读取失败或版本无效；暂停写入，请重试读取，原库不覆盖');
+    uiCase(runtimeCaseName('testArchiveUiQa0013'), 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchArchiveUiQa(session, 'readFailure');
+      const fixture = currentArchiveUiQa(session);
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0013|ArchiveUiQa.test.ets|assert0060|assertFalse|actual|expected=false', await (await archiveQaNode(driver, 'archive-auto')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0013|ArchiveUiQa.test.ets|assert0061|assertFalse|actual|expected=false', await (await archiveQaNode(driver, 'archive-clean-preview')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0013|ArchiveUiQa.test.ets|assert0062|assertEqual|actual', await archiveQaText(driver, 'archive-notice'))).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0013|ArchiveUiQa.test.ets|assert0062|assertEqual|expected', archiveQaExpected('startup_text_0128')));
       fixture.storage.failLoad = false;
       await archiveQaClick(driver, 'archive-retry');
-      await fixture.repository.whenIdle();
-      expect(await (await archiveQaNode(driver, 'archive-auto')).isEnabled()).assertTrue();
-      expect(fixture.storage.writes).assertEqual(0);
+      await session.guard(fixture.repository.whenIdle());
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0013|ArchiveUiQa.test.ets|assert0063|assertTrue|actual|expected=true', await (await archiveQaNode(driver, 'archive-auto')).isEnabled())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0013|ArchiveUiQa.test.ets|assert0064|assertEqual|actual', fixture.storage.writes)).assertEqual(traceParameter('com.samples.appstartupauto_ArchiveUiQa_0013|ArchiveUiQa.test.ets|assert0064|assertEqual|expected', 0));
     });
   });
 }

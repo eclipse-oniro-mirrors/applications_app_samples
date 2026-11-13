@@ -14,7 +14,8 @@
  */
 
 import { afterEach, describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import {
   ArchiveActionCode, ArchiveClipboardPort, ArchiveQuery, ArchiveStage, ARCHIVE_MAX_ENTRIES
 } from '../../../main/ets/autostart/archive/StartupArchive';
@@ -43,6 +44,7 @@ class ArchiveClipboardCapture implements ArchiveClipboardPort {
 }
 
 export default function startupArchiveRepositoryTests(): void {
+  configureTestText();
   describe('StartupArchiveRepository', (): void => {
     const fixtures: StartupArchiveFixture[] = [];
     const create = async (): Promise<StartupArchiveFixture> => {
@@ -67,13 +69,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0001', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const row = archiveSample(22, f.clock.now()); row.errorMessage = 'private error';
       const result = await f.repository.save([row]);
-      expect(result.added).assertEqual(1);
-      expect(f.store.data.value.rows[0].record.id).assertEqual(22);
-      expect(f.repository.snapshot().rows[0].record.errorMessage).assertEqual('');
-      expect(row.errorMessage).assertEqual('private error');
-      expect(f.store.data.value.revision).assertEqual(result.revision);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0001|assertEqual|actual', result.added)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0001|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0002|assertEqual|actual', f.store.data.value.rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0002|assertEqual|expected', 22));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0003|assertEqual|actual', f.repository.snapshot().rows[0].record.errorMessage)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0003|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0004|assertEqual|actual', row.errorMessage)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0004|assertEqual|expected', 'private error'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0005|assertEqual|actual', f.store.data.value.revision)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0001|StartupArchiveRepository.test.ets|assert0005|assertEqual|expected', result.revision));
     });
 
     /**
@@ -85,13 +88,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0002', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const row = archiveSample(1, f.clock.now());
       await f.repository.save([row]); const revision = f.repository.snapshot().revision;
       const repeated = await f.repository.save([row.clone(), row.clone()]);
-      expect(repeated.duplicates).assertEqual(2);
-      expect(repeated.code).assertEqual(ArchiveActionCode.UNCHANGED);
-      expect(f.store.writes).assertEqual(1);
-      expect(f.repository.snapshot().revision).assertEqual(revision);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0002|StartupArchiveRepository.test.ets|assert0006|assertEqual|actual', repeated.duplicates)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0002|StartupArchiveRepository.test.ets|assert0006|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0002|StartupArchiveRepository.test.ets|assert0007|assertEqual|actual', repeated.code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0002|StartupArchiveRepository.test.ets|assert0007|assertEqual|expected', ArchiveActionCode.UNCHANGED));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0002|StartupArchiveRepository.test.ets|assert0008|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0002|StartupArchiveRepository.test.ets|assert0008|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0002|StartupArchiveRepository.test.ets|assert0009|assertEqual|actual', f.repository.snapshot().revision)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0002|StartupArchiveRepository.test.ets|assert0009|assertEqual|expected', revision));
     });
 
     /**
@@ -103,13 +107,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0003', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const invalid = archiveSample(2, f.clock.now());
       invalid.source = 'invalid' as RefreshSource;
       const result = await f.repository.save([archiveSample(1, f.clock.now()), invalid]);
-      expect(result.code).assertEqual(ArchiveActionCode.INVALID);
-      expect(f.store.writes).assertEqual(0);
-      expect(f.repository.view().total).assertEqual(0);
-      expect(f.store.data.value.nextId).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0003|StartupArchiveRepository.test.ets|assert0010|assertEqual|actual', result.code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0003|StartupArchiveRepository.test.ets|assert0010|assertEqual|expected', ArchiveActionCode.INVALID));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0003|StartupArchiveRepository.test.ets|assert0011|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0003|StartupArchiveRepository.test.ets|assert0011|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0003|StartupArchiveRepository.test.ets|assert0012|assertEqual|actual', f.repository.view().total)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0003|StartupArchiveRepository.test.ets|assert0012|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0003|StartupArchiveRepository.test.ets|assert0013|assertEqual|actual', f.store.data.value.nextId)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0003|StartupArchiveRepository.test.ets|assert0013|assertEqual|expected', 1));
     });
 
     /**
@@ -121,13 +126,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0004', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); await f.repository.save([archiveSample(9, f.clock.now())]);
       const next = archiveSample(9, f.clock.now() + 1, QueryOutcome.SUCCESS, '未开启'); next.statusResult = 'false';
       await f.repository.save([next]); const rows = f.repository.view().rows;
-      expect(rows.map((row): number => row.archiveId).join(',')).assertEqual('2,1');
-      expect(rows.map((row): number => row.record.id).join(',')).assertEqual('9,9');
-      expect(rows[0].record.result).assertEqual('未开启');
-      expect(rows[1].record.result).assertEqual('已开启');
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0004|StartupArchiveRepository.test.ets|assert0014|assertEqual|actual', rows.map((row): number => row.archiveId).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0004|StartupArchiveRepository.test.ets|assert0014|assertEqual|expected', '2,1'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0004|StartupArchiveRepository.test.ets|assert0015|assertEqual|actual', rows.map((row): number => row.record.id).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0004|StartupArchiveRepository.test.ets|assert0015|assertEqual|expected', '9,9'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0004|StartupArchiveRepository.test.ets|assert0016|assertEqual|actual', rows[0].record.result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0004|StartupArchiveRepository.test.ets|assert0016|assertEqual|expected', '未开启'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0004|StartupArchiveRepository.test.ets|assert0017|assertEqual|actual', rows[1].record.result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0004|StartupArchiveRepository.test.ets|assert0017|assertEqual|expected', '已开启'));
     });
 
     /**
@@ -139,13 +145,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0005', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); await f.repository.save([archiveSample(3, f.clock.now())]);
       const snapshot = f.repository.snapshot(); snapshot.rows[0].record.result = 'mutated'; snapshot.rows = [];
       const view = f.repository.view(); view.rows[0].archiveId = 900;
-      expect(f.repository.snapshot().rows[0].record.result).assertEqual('已开启');
-      expect(f.repository.view().rows[0].archiveId).assertEqual(1);
-      expect(f.store.data.value.rows[0].record.id).assertEqual(3);
-      expect(f.store.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0005|StartupArchiveRepository.test.ets|assert0018|assertEqual|actual', f.repository.snapshot().rows[0].record.result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0005|StartupArchiveRepository.test.ets|assert0018|assertEqual|expected', '已开启'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0005|StartupArchiveRepository.test.ets|assert0019|assertEqual|actual', f.repository.view().rows[0].archiveId)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0005|StartupArchiveRepository.test.ets|assert0019|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0005|StartupArchiveRepository.test.ets|assert0020|assertEqual|actual', f.store.data.value.rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0005|StartupArchiveRepository.test.ets|assert0020|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0005|StartupArchiveRepository.test.ets|assert0021|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0005|StartupArchiveRepository.test.ets|assert0021|assertEqual|expected', 1));
     });
 
     /**
@@ -157,15 +164,16 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0006', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); await f.repository.save([archiveSample(1, f.clock.now()),
         archiveSample(2, f.clock.now() + 1, QueryOutcome.FAILURE, '查询失败', RefreshSource.SETTINGS)]);
       const query = new ArchiveQuery(); query.source = RefreshSource.MANUAL; query.outcome = QueryOutcome.FAILURE;
-      expect(f.repository.view(query).matchedTotal).assertEqual(0);
-      expect(f.repository.view(query).dayLines.join(',')).assertEqual('');
-      expect(archiveFailureCode((): void => {
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0006|StartupArchiveRepository.test.ets|assert0022|assertEqual|actual', f.repository.view(query).matchedTotal)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0006|StartupArchiveRepository.test.ets|assert0022|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0006|StartupArchiveRepository.test.ets|assert0023|assertEqual|actual', f.repository.view(query).dayLines.join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0006|StartupArchiveRepository.test.ets|assert0023|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0006|StartupArchiveRepository.test.ets|assert0024|assertEqual|actual', archiveFailureCode((): void => {
         f.repository.exportText(query);
-      })).assertEqual('EMPTY');
-      expect(f.repository.snapshot().rows[1].record.source).assertEqual(RefreshSource.SETTINGS);
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0006|StartupArchiveRepository.test.ets|assert0024|assertEqual|expected', 'EMPTY'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0006|StartupArchiveRepository.test.ets|assert0025|assertEqual|actual', f.repository.snapshot().rows[1].record.source)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0006|StartupArchiveRepository.test.ets|assert0025|assertEqual|expected', RefreshSource.SETTINGS));
     });
 
     /**
@@ -177,13 +185,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0007', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const first = archiveSample(88, f.clock.now()); first.errorCode = '801';
       const second = archiveSample(1, f.clock.now() + 1); second.errorCode = '16000050';
       await f.repository.save([first, second]); const query = new ArchiveQuery(); query.needle = '801';
-      expect(f.repository.view(query).rows[0].record.id).assertEqual(88);
-      query.needle = '#2'; expect(f.repository.view(query).rows[0].record.errorCode).assertEqual('16000050');
-      query.needle = '#88'; expect(f.repository.view(query).matchedTotal).assertEqual(0);
-      query.needle = '160'; expect(f.repository.view(query).matchedTotal).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0007|StartupArchiveRepository.test.ets|assert0026|assertEqual|actual', f.repository.view(query).rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0007|StartupArchiveRepository.test.ets|assert0026|assertEqual|expected', 88));
+      query.needle = '#2'; expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0007|StartupArchiveRepository.test.ets|assert0027|assertEqual|actual', f.repository.view(query).rows[0].record.errorCode)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0007|StartupArchiveRepository.test.ets|assert0027|assertEqual|expected', '16000050'));
+      query.needle = '#88'; expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0007|StartupArchiveRepository.test.ets|assert0028|assertEqual|actual', f.repository.view(query).matchedTotal)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0007|StartupArchiveRepository.test.ets|assert0028|assertEqual|expected', 0));
+      query.needle = '160'; expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0007|StartupArchiveRepository.test.ets|assert0029|assertEqual|actual', f.repository.view(query).matchedTotal)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0007|StartupArchiveRepository.test.ets|assert0029|assertEqual|expected', 0));
     });
 
     /**
@@ -195,16 +204,17 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0008', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const midnight = new Date(2026, 10, 7, 0, 0, 0).getTime();
       f.clock.advance(midnight + 3600000 - f.clock.now());
       await f.repository.save([
         archiveSample(1, midnight - 1), archiveSample(2, midnight), archiveSample(3, midnight + 1)]);
       const query = new ArchiveQuery(); query.day = dayKeyOf(midnight, localOffsetMinutes(f.clock.now()));
       const view = f.repository.view(query);
-      expect(view.rows.map((row): number => row.record.id).join(',')).assertEqual('3,2');
-      expect(view.dayLines.join(',')).assertEqual(`${query.day}：2 条`);
-      expect(f.repository.exportText(query).indexOf('#1 |')).assertEqual(-1);
-      expect(f.repository.snapshot().rows[0].record.timestamp).assertEqual(midnight - 1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0008|StartupArchiveRepository.test.ets|assert0030|assertEqual|actual', view.rows.map((row): number => row.record.id).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0008|StartupArchiveRepository.test.ets|assert0030|assertEqual|expected', '3,2'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0008|StartupArchiveRepository.test.ets|assert0031|assertEqual|actual', view.dayLines.join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0008|StartupArchiveRepository.test.ets|assert0031|assertEqual|expected', `${query.day}：2 条`));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0008|StartupArchiveRepository.test.ets|assert0032|assertEqual|actual', f.repository.exportText(query).indexOf('#1 |'))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0008|StartupArchiveRepository.test.ets|assert0032|assertEqual|expected', -1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0008|StartupArchiveRepository.test.ets|assert0033|assertEqual|actual', f.repository.snapshot().rows[0].record.timestamp)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0008|StartupArchiveRepository.test.ets|assert0033|assertEqual|expected', midnight - 1));
     });
 
     /**
@@ -216,17 +226,18 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0009', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const records: QueryRecord[] = [];
       for (let index = 1; index <= 51; index++) {
         records.push(archiveSample(index, f.clock.now() - index));
       }
       await f.repository.save(records); const query = new ArchiveQuery(); query.page = 1;
       const view = f.repository.view(query);
-      expect(view.rows[0].archiveId).assertEqual(51);
-      expect(view.matchedTotal).assertEqual(51);
-      expect(view.pageCount).assertEqual(2);
-      expect(f.repository.exportText(query).indexOf('#51 |') >= 0).assertTrue();
-      expect(view.dayLines[0].endsWith('：51 条')).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0009|StartupArchiveRepository.test.ets|assert0034|assertEqual|actual', view.rows[0].archiveId)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0009|StartupArchiveRepository.test.ets|assert0034|assertEqual|expected', 51));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0009|StartupArchiveRepository.test.ets|assert0035|assertEqual|actual', view.matchedTotal)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0009|StartupArchiveRepository.test.ets|assert0035|assertEqual|expected', 51));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0009|StartupArchiveRepository.test.ets|assert0036|assertEqual|actual', view.pageCount)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0009|StartupArchiveRepository.test.ets|assert0036|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0009|StartupArchiveRepository.test.ets|assert0037|assertTrue|actual|expected=true', f.repository.exportText(query).indexOf('#51 |') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0009|StartupArchiveRepository.test.ets|assert0038|assertTrue|actual|expected=true', view.dayLines[0].endsWith('：51 条'))).assertTrue();
     });
 
     /**
@@ -238,17 +249,18 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0010', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const records: QueryRecord[] = [];
       for (let index = 1; index <= ARCHIVE_MAX_ENTRIES; index++) {
         records.push(archiveSample(index, f.clock.now() - index));
       }
       const initial = await f.repository.save(records);
       const rejected = await f.repository.save([archiveSample(999, f.clock.now())]);
-      expect(initial.added).assertEqual(ARCHIVE_MAX_ENTRIES);
-      expect(rejected.code).assertEqual(ArchiveActionCode.CAPACITY);
-      expect(f.store.writes).assertEqual(1);
-      expect(f.store.data.value.rows[ARCHIVE_MAX_ENTRIES - 1].record.id).assertEqual(ARCHIVE_MAX_ENTRIES);
-      expect(f.repository.snapshot().revision).assertEqual(initial.revision);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0039|assertEqual|actual', initial.added)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0039|assertEqual|expected', ARCHIVE_MAX_ENTRIES));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0040|assertEqual|actual', rejected.code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0040|assertEqual|expected', ArchiveActionCode.CAPACITY));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0041|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0041|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0042|assertEqual|actual', f.store.data.value.rows[ARCHIVE_MAX_ENTRIES - 1].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0042|assertEqual|expected', ARCHIVE_MAX_ENTRIES));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0043|assertEqual|actual', f.repository.snapshot().revision)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0010|StartupArchiveRepository.test.ets|assert0043|assertEqual|expected', initial.revision));
     });
 
     /**
@@ -260,12 +272,13 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0011', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); await f.repository.save([archiveSample(1, f.clock.now())]);
       f.store.failBefore = true; const result = await f.repository.save([archiveSample(2, f.clock.now() + 1)]);
-      expect(result.code).assertEqual(ArchiveActionCode.FAILED);
-      expect(f.repository.snapshot().rows.map((row): number => row.record.id).join(',')).assertEqual('1');
-      expect(f.store.data.value.revision).assertEqual(1);
-      expect(f.repository.snapshot().stage).assertEqual(ArchiveStage.READY);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0011|StartupArchiveRepository.test.ets|assert0044|assertEqual|actual', result.code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0011|StartupArchiveRepository.test.ets|assert0044|assertEqual|expected', ArchiveActionCode.FAILED));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0011|StartupArchiveRepository.test.ets|assert0045|assertEqual|actual', f.repository.snapshot().rows.map((row): number => row.record.id).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0011|StartupArchiveRepository.test.ets|assert0045|assertEqual|expected', '1'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0011|StartupArchiveRepository.test.ets|assert0046|assertEqual|actual', f.store.data.value.revision)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0011|StartupArchiveRepository.test.ets|assert0046|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0011|StartupArchiveRepository.test.ets|assert0047|assertEqual|actual', f.repository.snapshot().stage)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0011|StartupArchiveRepository.test.ets|assert0047|assertEqual|expected', ArchiveStage.READY));
     });
 
     /**
@@ -277,13 +290,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0012', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); f.store.failAfter = true;
       const result = await f.repository.save([archiveSample(7, f.clock.now())]);
-      expect(result.success).assertTrue();
-      expect(f.repository.snapshot().rows[0].record.id).assertEqual(7);
-      expect(f.store.writes).assertEqual(1);
-      expect(f.store.reads).assertEqual(2);
-      expect(f.repository.snapshot().stage).assertEqual(ArchiveStage.READY);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0048|assertTrue|actual|expected=true', result.success)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0049|assertEqual|actual', f.repository.snapshot().rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0049|assertEqual|expected', 7));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0050|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0050|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0051|assertEqual|actual', f.store.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0051|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0052|assertEqual|actual', f.repository.snapshot().stage)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0012|StartupArchiveRepository.test.ets|assert0052|assertEqual|expected', ArchiveStage.READY));
     });
 
     /**
@@ -295,18 +309,19 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0013', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const row = archiveSample(1, f.clock.now());
       f.store.failAfter = true; f.store.failConfirmation = true;
       const result = await f.repository.save([row]);
-      expect(result.code).assertEqual(ArchiveActionCode.BLOCKED);
-      expect(f.repository.snapshot().rows.length).assertEqual(0);
-      expect(f.store.data.value.rows[0].record.id).assertEqual(1);
-      expect((await f.repository.save([archiveSample(2, f.clock.now() + 1)])).code)
-        .assertEqual(ArchiveActionCode.BLOCKED);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0053|assertEqual|actual', result.code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0053|assertEqual|expected', ArchiveActionCode.BLOCKED));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0054|assertEqual|actual', f.repository.snapshot().rows.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0054|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0055|assertEqual|actual', f.store.data.value.rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0055|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0056|assertEqual|actual', (await f.repository.save([archiveSample(2, f.clock.now() + 1)])).code))
+        .assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0056|assertEqual|expected', ArchiveActionCode.BLOCKED));
       f.store.failRead = false; f.store.failAfter = false;
       await f.repository.reload(); const repeated = await f.repository.save([row]);
-      expect(repeated.duplicates).assertEqual(1);
-      expect(f.store.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0057|assertEqual|actual', repeated.duplicates)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0057|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0058|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0013|StartupArchiveRepository.test.ets|assert0058|assertEqual|expected', 1));
     });
 
     /**
@@ -318,15 +333,16 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0014', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); await f.repository.save([archiveSample(1, f.clock.now())]);
       const external = f.store.data.value.clone(); external.revision++; external.operationId = 'external-change';
       external.rows[0].record.result = '未开启'; f.store.data.value = external;
       const result = await f.repository.save([archiveSample(2, f.clock.now() + 1)]);
-      expect(result.code).assertEqual(ArchiveActionCode.BLOCKED);
-      expect(f.store.data.value.operationId).assertEqual('external-change');
-      expect(f.repository.snapshot().rows[0].record.result).assertEqual('已开启');
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0014|StartupArchiveRepository.test.ets|assert0059|assertEqual|actual', result.code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0014|StartupArchiveRepository.test.ets|assert0059|assertEqual|expected', ArchiveActionCode.BLOCKED));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0014|StartupArchiveRepository.test.ets|assert0060|assertEqual|actual', f.store.data.value.operationId)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0014|StartupArchiveRepository.test.ets|assert0060|assertEqual|expected', 'external-change'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0014|StartupArchiveRepository.test.ets|assert0061|assertEqual|actual', f.repository.snapshot().rows[0].record.result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0014|StartupArchiveRepository.test.ets|assert0061|assertEqual|expected', '已开启'));
       await f.repository.reload();
-      expect(f.repository.snapshot().rows[0].record.result).assertEqual('未开启');
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0014|StartupArchiveRepository.test.ets|assert0062|assertEqual|actual', f.repository.snapshot().rows[0].record.result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0014|StartupArchiveRepository.test.ets|assert0062|assertEqual|expected', '未开启'));
     });
 
     /**
@@ -338,13 +354,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0015', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); await f.repository.save([archiveSample(6, f.clock.now())]);
       f.store.data.value.schema = 99;
-      expect(await f.repository.reload()).assertFalse();
-      expect(f.repository.snapshot().rows[0].record.id).assertEqual(6);
-      expect((await f.repository.clear(1)).code).assertEqual(ArchiveActionCode.BLOCKED);
-      expect(f.store.data.value.schema).assertEqual(99);
-      expect(f.store.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0063|assertFalse|actual|expected=false', await f.repository.reload())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0064|assertEqual|actual', f.repository.snapshot().rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0064|assertEqual|expected', 6));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0065|assertEqual|actual', (await f.repository.clear(1)).code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0065|assertEqual|expected', ArchiveActionCode.BLOCKED));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0066|assertEqual|actual', f.store.data.value.schema)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0066|assertEqual|expected', 99));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0067|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0015|StartupArchiveRepository.test.ets|assert0067|assertEqual|expected', 1));
     });
 
     /**
@@ -356,15 +373,16 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0016', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const age = (defaultRetentionPolicy().maxDays + 3) * DAY_MS;
       await f.repository.save([archiveSample(1, f.clock.now()),
         archiveSample(2, f.clock.now() - age, QueryOutcome.TIMEOUT, '等待超时')]);
       const plan = f.repository.previewCleanup(); await f.repository.save([archiveSample(3, f.clock.now() + 1)]);
       const result = await f.repository.applyCleanup(plan);
-      expect(result.code).assertEqual(ArchiveActionCode.STALE);
-      expect(f.store.writes).assertEqual(2);
-      expect(f.repository.view().rows.map((row): number => row.record.id).join(',')).assertEqual('3,1,2');
-      expect(f.store.data.value.rows[1].record.outcome).assertEqual(QueryOutcome.TIMEOUT);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0016|StartupArchiveRepository.test.ets|assert0068|assertEqual|actual', result.code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0016|StartupArchiveRepository.test.ets|assert0068|assertEqual|expected', ArchiveActionCode.STALE));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0016|StartupArchiveRepository.test.ets|assert0069|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0016|StartupArchiveRepository.test.ets|assert0069|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0016|StartupArchiveRepository.test.ets|assert0070|assertEqual|actual', f.repository.view().rows.map((row): number => row.record.id).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0016|StartupArchiveRepository.test.ets|assert0070|assertEqual|expected', '3,1,2'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0016|StartupArchiveRepository.test.ets|assert0071|assertEqual|actual', f.store.data.value.rows[1].record.outcome)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0016|StartupArchiveRepository.test.ets|assert0071|assertEqual|expected', QueryOutcome.TIMEOUT));
     });
 
     /**
@@ -376,17 +394,18 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0017', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const age = (defaultRetentionPolicy().maxDays + 3) * DAY_MS;
       await f.repository.save([archiveSample(1, f.clock.now()),
         archiveSample(2, f.clock.now() - age, QueryOutcome.FAILURE, '查询失败'),
         archiveSample(3, f.clock.now() - age - 1, QueryOutcome.TIMEOUT, '等待超时')]);
       const plan = f.repository.previewCleanup();
-      expect(plan.preview.deleteCount).assertEqual(2);
-      expect(f.store.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0072|assertEqual|actual', plan.preview.deleteCount)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0072|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0073|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0073|assertEqual|expected', 1));
       const result = await f.repository.applyCleanup(plan);
-      expect(result.removed).assertEqual(2);
-      expect(f.repository.snapshot().rows.map((row): number => row.record.id).join(',')).assertEqual('1');
-      expect(f.store.data.value.revision).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0074|assertEqual|actual', result.removed)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0074|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0075|assertEqual|actual', f.repository.snapshot().rows.map((row): number => row.record.id).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0075|assertEqual|expected', '1'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0076|assertEqual|actual', f.store.data.value.revision)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0017|StartupArchiveRepository.test.ets|assert0076|assertEqual|expected', 2));
     });
 
     /**
@@ -398,13 +417,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0018', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); await f.repository.save([archiveSample(1, f.clock.now())]);
-      expect((await f.repository.clear(0)).code).assertEqual(ArchiveActionCode.STALE);
-      expect(f.store.writes).assertEqual(1);
-      expect((await f.repository.clear(1)).removed).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0077|assertEqual|actual', (await f.repository.clear(0)).code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0077|assertEqual|expected', ArchiveActionCode.STALE));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0078|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0078|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0079|assertEqual|actual', (await f.repository.clear(1)).removed)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0079|assertEqual|expected', 1));
       await f.repository.save([archiveSample(99, f.clock.now() + 1)]);
-      expect(f.repository.view().rows[0].archiveId).assertEqual(2);
-      expect(f.repository.view().rows[0].record.id).assertEqual(99);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0080|assertEqual|actual', f.repository.view().rows[0].archiveId)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0080|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0081|assertEqual|actual', f.repository.view().rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0018|StartupArchiveRepository.test.ets|assert0081|assertEqual|expected', 99));
     });
 
     /**
@@ -416,13 +436,14 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0019', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); const clipboard = new ArchiveClipboardCapture();
-      expect((await f.repository.copy(new ArchiveQuery(), clipboard)).code).assertEqual(ArchiveActionCode.INVALID);
-      expect(clipboard.texts.length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0082|assertEqual|actual', (await f.repository.copy(new ArchiveQuery(), clipboard)).code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0082|assertEqual|expected', ArchiveActionCode.INVALID));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0083|assertEqual|actual', clipboard.texts.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0083|assertEqual|expected', 0));
       await f.repository.save([archiveSample(1, f.clock.now())]); clipboard.fail = true;
-      expect((await f.repository.copy(new ArchiveQuery(), clipboard)).success).assertFalse();
-      expect(f.repository.snapshot().notice).assertEqual('复制失败，请重试');
-      expect(f.store.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0084|assertFalse|actual|expected=false', (await f.repository.copy(new ArchiveQuery(), clipboard)).success)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0085|assertEqual|actual', f.repository.snapshot().notice)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0085|assertEqual|expected', '复制失败，请重试'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0086|assertEqual|actual', f.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0019|StartupArchiveRepository.test.ets|assert0086|assertEqual|expected', 1));
     });
 
     /**
@@ -434,15 +455,16 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0020', 0, async (): Promise<void> => {
+      configureTestText();
       const f = await create(); await f.repository.save([archiveSample(1, f.clock.now())]);
       const old = new ArchiveClipboardCapture(); old.hold = true;
       const first = f.repository.copy(new ArchiveQuery(), old); await flushMicrotasks();
       const fresh = new ArchiveClipboardCapture(); fresh.fail = true;
       await f.repository.copy(new ArchiveQuery(), fresh); old.releases[0](); await first;
-      expect(f.repository.snapshot().notice).assertEqual('复制失败，请重试');
-      expect(old.texts[0].indexOf('不证明实际开机拉起') >= 0).assertTrue();
-      expect(fresh.texts[0].indexOf('记录数：1') >= 0).assertTrue();
-      expect(f.repository.snapshot().rows[0].record.id).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0020|StartupArchiveRepository.test.ets|assert0087|assertEqual|actual', f.repository.snapshot().notice)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0020|StartupArchiveRepository.test.ets|assert0087|assertEqual|expected', '复制失败，请重试'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0020|StartupArchiveRepository.test.ets|assert0088|assertTrue|actual|expected=true', old.texts[0].indexOf('不证明实际开机拉起') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0020|StartupArchiveRepository.test.ets|assert0089|assertTrue|actual|expected=true', fresh.texts[0].indexOf('记录数：1') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0020|StartupArchiveRepository.test.ets|assert0090|assertEqual|actual', f.repository.snapshot().rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0020|StartupArchiveRepository.test.ets|assert0090|assertEqual|expected', 1));
     });
 
     /**
@@ -454,16 +476,17 @@ export default function startupArchiveRepositoryTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveRepositoryWaveThree0021', 0, async (): Promise<void> => {
+      configureTestText();
       const first = await create(); const selected = await create();
       await selected.repository.save([archiveSample(50, selected.clock.now())]);
       first.store.holdWrites = true; const write = first.repository.save([archiveSample(1, first.clock.now())]);
       await flushMicrotasks(); const attach = first.repository.attach(selected.store);
       first.store.release(); const obsolete = await write; await attach;
-      expect(obsolete.code).assertEqual(ArchiveActionCode.STALE);
-      expect(first.repository.snapshot().rows[0].record.id).assertEqual(50);
-      expect(first.repository.snapshot().notice.indexOf('已读取 1 条') === 0).assertTrue();
-      expect(first.store.data.value.rows[0].record.id).assertEqual(1);
-      expect(selected.store.writes).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0091|assertEqual|actual', obsolete.code)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0091|assertEqual|expected', ArchiveActionCode.STALE));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0092|assertEqual|actual', first.repository.snapshot().rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0092|assertEqual|expected', 50));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0093|assertTrue|actual|expected=true', first.repository.snapshot().notice.indexOf('已读取 1 条') === 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0094|assertEqual|actual', first.store.data.value.rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0094|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0095|assertEqual|actual', selected.store.writes)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveRepositoryWaveThree_0021|StartupArchiveRepository.test.ets|assert0095|assertEqual|expected', 1));
     });
   });
 }

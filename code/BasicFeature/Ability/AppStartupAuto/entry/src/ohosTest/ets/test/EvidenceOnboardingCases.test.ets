@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import {
   CHAIN_RULES, Conclusion, EVIDENCE_CATALOG, EvidenceKind, auditChains, bestChain, chainIds,
   chainLines, chainsOf, conclusionLabel, evaluateChain, evidenceIds, evidenceLines, evidenceOf,
@@ -27,6 +28,7 @@ import {
 } from '../../../main/ets/autostart/guide/OnboardingFlow';
 
 export default function evidenceOnboardingCasesTest(): void {
+  configureTestText();
   describe('EvidenceChainCases', (): void => {
     /**
      * @tc.number    SUB_STARTUP_EVIDENCECHAINCASES_0100
@@ -38,22 +40,23 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testEvidenceChainCases0001', 0, (): void => {
-      expect(EVIDENCE_CATALOG.length).assertEqual(20);
-      expect(CHAIN_RULES.length).assertEqual(18);
-      expect(evidenceIds().length).assertEqual(20);
-      expect(chainIds().length).assertEqual(18);
-      expect(evidenceLines().length).assertEqual(20);
-      expect(chainLines().length).assertEqual(18);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0001|assertEqual|actual', EVIDENCE_CATALOG.length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0001|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0002|assertEqual|actual', CHAIN_RULES.length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0002|assertEqual|expected', 18));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0003|assertEqual|actual', evidenceIds().length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0003|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0004|assertEqual|actual', chainIds().length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0004|assertEqual|expected', 18));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0005|assertEqual|actual', evidenceLines().length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0005|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0006|assertEqual|actual', chainLines().length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0006|assertEqual|expected', 18));
       const audit = auditChains();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.ok).assertTrue();
-      expect(audit.summary()).assertEqual('证据链自洽');
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0007|assertEqual|actual', audit.findings.length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0007|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0008|assertTrue|actual|expected=true', audit.ok)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0009|assertEqual|actual', audit.summary())).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0009|assertEqual|expected', '证据链自洽'));
       EVIDENCE_CATALOG.forEach((item): void => {
-        expect(item.label.length > 0).assertTrue();
-        expect(item.weight > 0).assertTrue();
-        expect(item.text().indexOf(item.evidenceId) === 0).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0010|assertTrue|actual|expected=true', item.label.length > 0)).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0011|assertTrue|actual|expected=true', item.weight > 0)).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0012|assertTrue|actual|expected=true', item.text().indexOf(item.evidenceId) === 0)).assertTrue();
       });
-      expect(evidenceOf('EV-99')).assertEqual(undefined);
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0013|assertEqual|actual', evidenceOf('EV-99'))).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0001|EvidenceOnboardingCases.test.ets|assert0013|assertEqual|expected', undefined));
     });
 
     /**
@@ -66,19 +69,20 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testEvidenceChainCases0002', 0, (): void => {
-      expect(evidencesOfKind(EvidenceKind.CAPABILITY_RULE).length).assertEqual(3);
-      expect(evidencesOfKind(EvidenceKind.ERROR_CODE).length).assertEqual(4);
-      expect(evidencesOfKind(EvidenceKind.HISTORY_SAMPLE).length).assertEqual(3);
-      expect(evidencesOfKind(EvidenceKind.DEVICE_INFO).length).assertEqual(3);
-      expect(evidencesOfKind(EvidenceKind.SCHEMA_AUDIT).length).assertEqual(2);
-      expect(evidencesOfKind(EvidenceKind.SLO_RESULT).length).assertEqual(2);
-      expect(evidencesOfKind(EvidenceKind.USER_ACTION).length).assertEqual(3);
-      expect(kindLines().length).assertEqual(7);
-      expect(kindLabel(EvidenceKind.ERROR_CODE)).assertEqual('错误码');
-      expect(conclusionLabel(Conclusion.NEED_PERMISSION)).assertEqual('需要授权');
-      expect(chainsOf(Conclusion.SUPPORTED).length).assertEqual(4);
-      expect(chainsOf(Conclusion.UNSUPPORTED).length).assertEqual(4);
-      expect(chainsOf(Conclusion.TIMEOUT).length).assertEqual(1);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0014|assertEqual|actual', evidencesOfKind(EvidenceKind.CAPABILITY_RULE).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0014|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0015|assertEqual|actual', evidencesOfKind(EvidenceKind.ERROR_CODE).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0015|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0016|assertEqual|actual', evidencesOfKind(EvidenceKind.HISTORY_SAMPLE).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0016|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0017|assertEqual|actual', evidencesOfKind(EvidenceKind.DEVICE_INFO).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0017|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0018|assertEqual|actual', evidencesOfKind(EvidenceKind.SCHEMA_AUDIT).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0018|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0019|assertEqual|actual', evidencesOfKind(EvidenceKind.SLO_RESULT).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0019|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0020|assertEqual|actual', evidencesOfKind(EvidenceKind.USER_ACTION).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0020|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0021|assertEqual|actual', kindLines().length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0021|assertEqual|expected', 7));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0022|assertEqual|actual', kindLabel(EvidenceKind.ERROR_CODE))).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0022|assertEqual|expected', '错误码'));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0023|assertEqual|actual', conclusionLabel(Conclusion.NEED_PERMISSION))).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0023|assertEqual|expected', '需要授权'));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0024|assertEqual|actual', chainsOf(Conclusion.SUPPORTED).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0024|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0025|assertEqual|actual', chainsOf(Conclusion.UNSUPPORTED).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0025|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0026|assertEqual|actual', chainsOf(Conclusion.TIMEOUT).length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0002|EvidenceOnboardingCases.test.ets|assert0026|assertEqual|expected', 1));
     });
 
     /**
@@ -91,21 +95,22 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testEvidenceChainCases0003', 0, (): void => {
+      configureTestText();
       const rule = CHAIN_RULES[0];
       const complete = evaluateChain(rule, ['EV-01', 'EV-10', 'EV-11', 'EV-07']);
-      expect(complete.established()).assertTrue();
-      expect(complete.missing.length).assertEqual(0);
-      expect(complete.optionalHits.length).assertEqual(1);
-      expect(complete.confidence).assertEqual(100);
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0027|assertTrue|actual|expected=true', complete.established())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0028|assertEqual|actual', complete.missing.length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0028|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0029|assertEqual|actual', complete.optionalHits.length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0029|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0030|assertEqual|actual', complete.confidence)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0030|assertEqual|expected', 100));
       const partial = evaluateChain(rule, ['EV-01', 'EV-10']);
-      expect(partial.established()).assertFalse();
-      expect(partial.missing.length).assertEqual(1);
-      expect(partial.missing[0]).assertEqual('EV-11');
-      expect(partial.confidence).assertEqual(0);
-      expect(partial.text().indexOf('缺少') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0031|assertFalse|actual|expected=false', partial.established())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0032|assertEqual|actual', partial.missing.length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0032|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0033|assertEqual|actual', partial.missing[0])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0033|assertEqual|expected', 'EV-11'));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0034|assertEqual|actual', partial.confidence)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0034|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0035|assertTrue|actual|expected=true', partial.text().indexOf('缺少') > 0)).assertTrue();
       const withoutOptional = evaluateChain(rule, ['EV-01', 'EV-10', 'EV-11']);
-      expect(withoutOptional.established()).assertTrue();
-      expect(withoutOptional.confidence).assertEqual(95);
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0036|assertTrue|actual|expected=true', withoutOptional.established())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0037|assertEqual|actual', withoutOptional.confidence)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0003|EvidenceOnboardingCases.test.ets|assert0037|assertEqual|expected', 95));
     });
 
     /**
@@ -118,25 +123,26 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testEvidenceChainCases0004', 0, (): void => {
+      configureTestText();
       const best = bestChain(Conclusion.SUPPORTED, ['EV-01', 'EV-10', 'EV-11', 'EV-07']);
-      expect(best !== undefined).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0038|assertTrue|actual|expected=true', best !== undefined)).assertTrue();
       if (best !== undefined) {
-        expect(best.ruleId).assertEqual('EC-01');
-        expect(best.confidence).assertEqual(100);
-        expect(best.text().indexOf('成立') > 0).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0039|assertEqual|actual', best.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0039|assertEqual|expected', 'EC-01'));
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0040|assertEqual|actual', best.confidence)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0040|assertEqual|expected', 100));
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0041|assertTrue|actual|expected=true', best.text().indexOf('成立') > 0)).assertTrue();
       }
       const unsupported = bestChain(Conclusion.UNSUPPORTED, ['EV-02', 'EV-03', 'EV-04']);
-      expect(unsupported !== undefined).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0042|assertTrue|actual|expected=true', unsupported !== undefined)).assertTrue();
       if (unsupported !== undefined) {
-        expect(unsupported.ruleId).assertEqual('EC-05');
-        expect(unsupported.confidence).assertEqual(100);
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0043|assertEqual|actual', unsupported.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0043|assertEqual|expected', 'EC-05'));
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0044|assertEqual|actual', unsupported.confidence)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0044|assertEqual|expected', 100));
       }
       const minimal = bestChain(Conclusion.UNSUPPORTED, ['EV-02']);
-      expect(minimal !== undefined).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0045|assertTrue|actual|expected=true', minimal !== undefined)).assertTrue();
       if (minimal !== undefined) {
-        expect(minimal.confidence).assertEqual(90);
+        expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0046|assertEqual|actual', minimal.confidence)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0046|assertEqual|expected', 90));
       }
-      expect(bestChain(Conclusion.TIMEOUT, [])).assertEqual(undefined);
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0047|assertEqual|actual', bestChain(Conclusion.TIMEOUT, []))).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0004|EvidenceOnboardingCases.test.ets|assert0047|assertEqual|expected', undefined));
     });
 
     /**
@@ -149,18 +155,19 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testEvidenceChainCases0005', 0, (): void => {
+      configureTestText();
       const all: string[] = evidenceIds();
       const counts = feasibleCounts(all);
-      expect(counts.length).assertEqual(6);
-      expect(counts[0]).assertEqual(4);
-      expect(counts[1]).assertEqual(3);
-      expect(counts[2]).assertEqual(4);
-      expect(counts[3]).assertEqual(3);
-      expect(counts[4]).assertEqual(3);
-      expect(counts[5]).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0048|assertEqual|actual', counts.length)).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0048|assertEqual|expected', 6));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0049|assertEqual|actual', counts[0])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0049|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0050|assertEqual|actual', counts[1])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0050|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0051|assertEqual|actual', counts[2])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0051|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0052|assertEqual|actual', counts[3])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0052|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0053|assertEqual|actual', counts[4])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0053|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0054|assertEqual|actual', counts[5])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0054|assertEqual|expected', 1));
       const none = feasibleCounts([]);
-      expect(none[0]).assertEqual(0);
-      expect(none[5]).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0055|assertEqual|actual', none[0])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0055|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0056|assertEqual|actual', none[5])).assertEqual(traceParameter('com.samples.appstartupauto_EvidenceChainCases_0005|EvidenceOnboardingCases.test.ets|assert0056|assertEqual|expected', 0));
     });
   });
 
@@ -175,20 +182,21 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testOnboardingFlowCases0001', 0, (): void => {
-      expect(ONBOARDING_STEPS.length).assertEqual(20);
-      expect(stepIds().length).assertEqual(20);
-      expect(stepLines().length).assertEqual(20);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0057|assertEqual|actual', ONBOARDING_STEPS.length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0057|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0058|assertEqual|actual', stepIds().length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0058|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0059|assertEqual|actual', stepLines().length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0059|assertEqual|expected', 20));
       const audit = auditOnboarding();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.ok).assertTrue();
-      expect(audit.summary()).assertEqual('引导步骤表自洽');
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0060|assertEqual|actual', audit.findings.length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0060|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0061|assertTrue|actual|expected=true', audit.ok)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0062|assertEqual|actual', audit.summary())).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0062|assertEqual|expected', '引导步骤表自洽'));
       ONBOARDING_STEPS.forEach((step): void => {
-        expect(step.title.length > 0).assertTrue();
-        expect(step.detail.length > 0).assertTrue();
-        expect(step.text().indexOf(step.stepId) === 0).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0063|assertTrue|actual|expected=true', step.title.length > 0)).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0064|assertTrue|actual|expected=true', step.detail.length > 0)).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0065|assertTrue|actual|expected=true', step.text().indexOf(step.stepId) === 0)).assertTrue();
       });
-      expect(stepOf('OB-99')).assertEqual(undefined);
-      expect(totalSeconds()).assertEqual(500);
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0066|assertEqual|actual', stepOf('OB-99'))).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0066|assertEqual|expected', undefined));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0067|assertEqual|actual', totalSeconds())).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0001|EvidenceOnboardingCases.test.ets|assert0067|assertEqual|expected', 500));
     });
 
     /**
@@ -201,17 +209,18 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testOnboardingFlowCases0002', 0, (): void => {
-      expect(mandatorySteps().length).assertEqual(10);
-      expect(skippableSteps().length).assertEqual(10);
-      expect(stepsOfGroup(OnboardingGroup.INTRO).length).assertEqual(6);
-      expect(stepsOfGroup(OnboardingGroup.PERMISSION).length).assertEqual(3);
-      expect(stepsOfGroup(OnboardingGroup.CAPABILITY).length).assertEqual(4);
-      expect(stepsOfGroup(OnboardingGroup.PRACTICE).length).assertEqual(4);
-      expect(stepsOfGroup(OnboardingGroup.CLOSING).length).assertEqual(3);
-      expect(groupLabel(OnboardingGroup.PRACTICE)).assertEqual('实际操作');
-      expect(statusLabel(StepStatus.SKIPPED)).assertEqual('已跳过');
-      expect(settled(StepStatus.DONE)).assertTrue();
-      expect(settled(StepStatus.PENDING)).assertFalse();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0068|assertEqual|actual', mandatorySteps().length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0068|assertEqual|expected', 10));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0069|assertEqual|actual', skippableSteps().length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0069|assertEqual|expected', 10));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0070|assertEqual|actual', stepsOfGroup(OnboardingGroup.INTRO).length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0070|assertEqual|expected', 6));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0071|assertEqual|actual', stepsOfGroup(OnboardingGroup.PERMISSION).length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0071|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0072|assertEqual|actual', stepsOfGroup(OnboardingGroup.CAPABILITY).length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0072|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0073|assertEqual|actual', stepsOfGroup(OnboardingGroup.PRACTICE).length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0073|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0074|assertEqual|actual', stepsOfGroup(OnboardingGroup.CLOSING).length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0074|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0075|assertEqual|actual', groupLabel(OnboardingGroup.PRACTICE))).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0075|assertEqual|expected', '实际操作'));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0076|assertEqual|actual', statusLabel(StepStatus.SKIPPED))).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0076|assertEqual|expected', '已跳过'));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0077|assertTrue|actual|expected=true', settled(StepStatus.DONE))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0002|EvidenceOnboardingCases.test.ets|assert0078|assertFalse|actual|expected=false', settled(StepStatus.PENDING))).assertFalse();
     });
 
     /**
@@ -224,17 +233,18 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testOnboardingFlowCases0003', 0, (): void => {
+      configureTestText();
       const flow = new OnboardingFlow();
-      expect(flow.statusOf('OB-01')).assertEqual(StepStatus.PENDING);
-      expect(flow.complete('OB-08')).assertFalse();
-      expect(flow.complete('OB-01')).assertTrue();
-      expect(flow.statusOf('OB-01')).assertEqual(StepStatus.DONE);
-      expect(flow.complete('OB-02')).assertTrue();
-      expect(flow.complete('OB-03')).assertTrue();
-      expect(flow.complete('OB-08')).assertFalse();
-      expect(flow.doneCount()).assertEqual(3);
-      expect(flow.progress()).assertEqual(15);
-      expect(flow.complete('OB-99')).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0079|assertEqual|actual', flow.statusOf('OB-01'))).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0079|assertEqual|expected', StepStatus.PENDING));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0080|assertFalse|actual|expected=false', flow.complete('OB-08'))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0081|assertTrue|actual|expected=true', flow.complete('OB-01'))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0082|assertEqual|actual', flow.statusOf('OB-01'))).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0082|assertEqual|expected', StepStatus.DONE));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0083|assertTrue|actual|expected=true', flow.complete('OB-02'))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0084|assertTrue|actual|expected=true', flow.complete('OB-03'))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0085|assertFalse|actual|expected=false', flow.complete('OB-08'))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0086|assertEqual|actual', flow.doneCount())).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0086|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0087|assertEqual|actual', flow.progress())).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0087|assertEqual|expected', 15));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0003|EvidenceOnboardingCases.test.ets|assert0088|assertFalse|actual|expected=false', flow.complete('OB-99'))).assertFalse();
     });
 
     /**
@@ -247,16 +257,17 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testOnboardingFlowCases0004', 0, (): void => {
+      configureTestText();
       const flow = new OnboardingFlow();
-      expect(flow.skip('OB-01')).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0089|assertFalse|actual|expected=false', flow.skip('OB-01'))).assertFalse();
       flow.complete('OB-01');
-      expect(flow.skip('OB-02')).assertFalse();
-      expect(flow.complete('OB-03')).assertTrue();
-      expect(flow.skip('OB-19')).assertTrue();
-      expect(flow.statusOf('OB-19')).assertEqual(StepStatus.SKIPPED);
-      expect(flow.skippedCount()).assertEqual(1);
-      expect(flow.progress()).assertEqual(15);
-      expect(flow.skip('OB-99')).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0090|assertFalse|actual|expected=false', flow.skip('OB-02'))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0091|assertTrue|actual|expected=true', flow.complete('OB-03'))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0092|assertTrue|actual|expected=true', flow.skip('OB-19'))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0093|assertEqual|actual', flow.statusOf('OB-19'))).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0093|assertEqual|expected', StepStatus.SKIPPED));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0094|assertEqual|actual', flow.skippedCount())).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0094|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0095|assertEqual|actual', flow.progress())).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0095|assertEqual|expected', 15));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0004|EvidenceOnboardingCases.test.ets|assert0096|assertFalse|actual|expected=false', flow.skip('OB-99'))).assertFalse();
     });
 
     /**
@@ -269,19 +280,20 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testOnboardingFlowCases0005', 0, (): void => {
+      configureTestText();
       const flow = new OnboardingFlow();
-      expect(flow.current()?.stepId).assertEqual('OB-01');
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0097|assertEqual|actual', flow.current()?.stepId)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0097|assertEqual|expected', 'OB-01'));
       flow.complete('OB-01');
-      expect(flow.current()?.stepId).assertEqual('OB-02');
-      expect(flow.blocked().length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0098|assertEqual|actual', flow.current()?.stepId)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0098|assertEqual|expected', 'OB-02'));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0099|assertTrue|actual|expected=true', flow.blocked().length > 0)).assertTrue();
       flow.complete('OB-02');
       flow.complete('OB-03');
       flow.complete('OB-04');
-      expect(flow.current()?.stepId).assertEqual('OB-05');
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0100|assertEqual|actual', flow.current()?.stepId)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0100|assertEqual|expected', 'OB-05'));
       const lines: string[] = groupProgressLines(flow);
-      expect(lines.length).assertEqual(5);
-      expect(lines[0].indexOf('认识功能') === 0).assertTrue();
-      expect(flow.text().indexOf('进度') === 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0101|assertEqual|actual', lines.length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0101|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0102|assertTrue|actual|expected=true', lines[0].indexOf('认识功能') === 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0005|EvidenceOnboardingCases.test.ets|assert0103|assertTrue|actual|expected=true', flow.text().indexOf('进度') === 0)).assertTrue();
     });
 
     /**
@@ -294,6 +306,7 @@ export default function evidenceOnboardingCasesTest(): void {
      */
 
     it('testOnboardingFlowCases0006', 0, (): void => {
+      configureTestText();
       const flow = new OnboardingFlow();
       flow.complete('OB-01');
       flow.complete('OB-02');
@@ -304,16 +317,16 @@ export default function evidenceOnboardingCasesTest(): void {
       flow.complete('OB-07');
       flow.complete('OB-08');
       flow.complete('OB-09');
-      expect(flow.mandatoryDone()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0104|assertFalse|actual|expected=false', flow.mandatoryDone())).assertFalse();
       ['OB-10', 'OB-11', 'OB-12', 'OB-13', 'OB-14', 'OB-15', 'OB-16', 'OB-17'].forEach(
         (id: string): void => {
           flow.skip(id);
         });
-      expect(flow.complete('OB-18')).assertTrue();
-      expect(flow.mandatoryDone()).assertTrue();
-      expect(flow.current()?.stepId).assertEqual('OB-19');
-      expect(flow.progress()).assertEqual(90);
-      expect(flow.blocked().length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0105|assertTrue|actual|expected=true', flow.complete('OB-18'))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0106|assertTrue|actual|expected=true', flow.mandatoryDone())).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0107|assertEqual|actual', flow.current()?.stepId)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0107|assertEqual|expected', 'OB-19'));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0108|assertEqual|actual', flow.progress())).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0108|assertEqual|expected', 90));
+      expect(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0109|assertEqual|actual', flow.blocked().length)).assertEqual(traceParameter('com.samples.appstartupauto_OnboardingFlowCases_0006|EvidenceOnboardingCases.test.ets|assert0109|assertEqual|expected', 0));
     });
   });
 }
