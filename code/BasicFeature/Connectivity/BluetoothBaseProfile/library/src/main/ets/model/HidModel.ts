@@ -67,6 +67,21 @@ export interface HidData {
 }
 
 /**
+ * @interface HidModelJson
+ * @description Shape returned by HidModel.toJSON().
+ */
+export interface HidModelJson {
+  state: HidState;
+  deviceId: string;
+  lastUpdateTime: number;
+  data: HidData | null;
+  retryCount: number;
+  errorMessage: string;
+  errorCode: number;
+  connectionDuration: number;
+  operationCount: number;
+}
+/**
  * HID person machine exchange mutual number data model type.
  * wrap package HidProfile number data and state state info info.
  */
@@ -277,7 +292,7 @@ export class HidModel {
    * serialize to JSON.
    * @returns {object} JSON against object
    */
-  toJSON(): object {
+  toJSON(): HidModelJson {
     return {
       state: this.state,
       deviceId: this.deviceId,

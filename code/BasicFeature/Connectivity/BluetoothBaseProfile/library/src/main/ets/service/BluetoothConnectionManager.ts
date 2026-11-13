@@ -27,15 +27,15 @@
  * - Connection state tracking and notification
  * - Automatic retry with exponential backoff
  * - Connection history and statistics
- * - Event integration with hiAppEvent
+ * - Connection event logging via hilog
  * - Performance tracing with hiTraceMeter
  *
  * @module BluetoothConnectionManager
  * @version 1.0.0
- * @since API 12
+ * @since 26.0.0
  */
 
-import { hilog, hiTraceMeter, hiAppEvent } from '@kit.PerformanceAnalysisKit';
+import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { BluetoothDeviceModel } from '../model/BluetoothDeviceModel';
 
@@ -174,7 +174,7 @@ interface StatisticsAccumulator {
  * - Records all connection events for history and statistics
  * - Notifies registered callbacks of connection state changes
  * - Integrates with hiTraceMeter for performance monitoring
- * - Integrates with hiAppEvent for application event reporting
+ * - Logs connection events via hilog for observability
  *
  * Usage:
  * ```typescript
@@ -259,7 +259,7 @@ export class BluetoothConnectionManager {
    * 3. Attempts the connection with retry logic
    * 4. Records the connection event
    * 5. Notifies registered callbacks
-   * 6. Reports the event via hiAppEvent
+   * 6. Logs the event via hilog for observability
    *
    * @param {BluetoothDeviceModel} device - The device to connect
    * @param {BluetoothProfileType} profile - The profile to use
@@ -778,7 +778,7 @@ export class BluetoothConnectionManager {
   }
 
   /**
-   * Trigger an application event via hiAppEvent.
+   * Log a connection event via hilog for observability.
    * @param {string} deviceId - Device ID
    * @param {BluetoothProfileType} profile - Profile type
    * @param {string} action - Action description

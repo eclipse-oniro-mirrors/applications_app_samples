@@ -78,6 +78,21 @@ export interface HfpData {
 }
 
 /**
+ * @interface HfpModelJson
+ * @description Shape returned by HfpModel.toJSON().
+ */
+export interface HfpModelJson {
+  state: HfpState;
+  deviceId: string;
+  lastUpdateTime: number;
+  data: HfpData | null;
+  retryCount: number;
+  errorMessage: string;
+  errorCode: number;
+  connectionDuration: number;
+  operationCount: number;
+}
+/**
  * HFP free provide number data model type.
  * wrap package HfpProfile number data and state state info info.
  */
@@ -296,7 +311,7 @@ export class HfpModel {
    * serialize to JSON.
    * @returns {object} JSON against object
    */
-  toJSON(): object {
+  toJSON(): HfpModelJson {
     return {
       state: this.state,
       deviceId: this.deviceId,

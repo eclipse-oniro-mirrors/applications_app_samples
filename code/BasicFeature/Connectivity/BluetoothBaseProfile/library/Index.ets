@@ -50,8 +50,19 @@ export { HidModel, HidState } from './src/main/ets/model/HidModel';
 export { PanModel, PanState } from './src/main/ets/model/PanModel';
 export { PbapModel, PbapState } from './src/main/ets/model/PbapModel';
 export { MapModel, MapState } from './src/main/ets/model/MapModel';
+export type { MapMessage } from './src/main/ets/model/MapModel';
+export type { MapData } from './src/main/ets/model/MapModel';
 export { AvrcpModel, AvrcpState } from './src/main/ets/model/AvrcpModel';
 export { HdpModel, HdpState } from './src/main/ets/model/HdpModel';
+export type { PbapContact } from './src/main/ets/model/PbapModel';
+export type { A2dpData, A2dpModelJson } from './src/main/ets/model/A2dpModel';
+export type { AvrcpData, AvrcpModelJson } from './src/main/ets/model/AvrcpModel';
+export type { HdpData, HdpModelJson } from './src/main/ets/model/HdpModel';
+export type { HfpData, HfpModelJson } from './src/main/ets/model/HfpModel';
+export type { HidData, HidModelJson } from './src/main/ets/model/HidModel';
+export type { PanData, PanModelJson } from './src/main/ets/model/PanModel';
+export type { PbapData, PbapModelJson } from './src/main/ets/model/PbapModel';
+export type { MapModelJson } from './src/main/ets/model/MapModel';
 
 // ========================================
 // Services
@@ -66,6 +77,14 @@ export { AvrcpService } from './src/main/ets/service/AvrcpService';
 export { HdpService } from './src/main/ets/service/HdpService';
 export { BluetoothScanService } from './src/main/ets/service/BluetoothScanService';
 export { BluetoothConnectionManager } from './src/main/ets/service/BluetoothConnectionManager';
+export type { A2dpAudioCodecInfo, A2dpPlaybackInfo, A2dpQualityMetrics, A2dpServiceStatistics } from './src/main/ets/service/A2dpService';
+export type { HfpCallInfo, HfpNetworkInfo, HfpAudioConfig, HfpBatteryInfo, HfpServiceStatistics } from './src/main/ets/service/HfpService';
+export type { AvrcpServiceStatistics } from './src/main/ets/service/AvrcpService';
+export type { HdpServiceStatistics } from './src/main/ets/service/HdpService';
+export type { HidServiceStatistics } from './src/main/ets/service/HidService';
+export type { MapServiceStatistics } from './src/main/ets/service/MapService';
+export type { PanServiceStatistics } from './src/main/ets/service/PanService';
+export type { PbapServiceStatistics } from './src/main/ets/service/PbapService';
 
 // ========================================
 // Bluetooth Profile Managers
@@ -132,6 +151,7 @@ export type {
   ManagerFilterCriteria,
   OperationHistoryEntry
 } from './src/main/ets/types/ProfileTypes';
+export type { ServiceCallbackCounts } from './src/main/ets/types/ServiceCallbackCounts';
 export type { A2dpManagerStatistics, A2dpOperationRecord } from './src/main/ets/bluetooth/A2dpProfileManager';
 export type { AvrcpManagerStatistics, AvrcpOperationRecord } from './src/main/ets/bluetooth/AvrcpProfileManager';
 export type { HdpManagerStatistics, HdpOperationRecord } from './src/main/ets/bluetooth/HdpProfileManager';

@@ -15,7 +15,7 @@
 
 import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { PbapService } from '../service/PbapService';
-import { PbapModel } from '../model/PbapModel';
+import { PbapModel, PbapContact } from '../model/PbapModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
 import { ManagerHealthStatus } from '../types/ProfileTypes';
@@ -985,9 +985,9 @@ export class PbapProfileManager {
    * @method searchContacts
    * @description Searches contacts by keyword.
    * @param {string} keyword - Search keyword.
-   * @returns {Array<object>} Array of matching contacts.
+   * @returns {PbapContact[]} Array of matching contacts.
    */
-  searchContacts(keyword: string): Array<object> {
+  searchContacts(keyword: string): PbapContact[] {
     if (!this.isReady) {
       return [];
     }

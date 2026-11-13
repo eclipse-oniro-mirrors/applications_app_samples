@@ -22,6 +22,7 @@ import {
   BluetoothProfileType
 } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
+import { ServiceCallbackCounts } from '../types/ServiceCallbackCounts';
 
 /**
  * @interface A2dpAudioCodecInfo
@@ -210,6 +211,47 @@ export interface A2dpQualityMetrics {
   jitterMs: number;
   /** Signal-to-noise ratio in dB */
   snrDb: number;
+}
+
+/**
+ * @interface A2dpServiceStatistics
+ * @description Comprehensive statistics snapshot returned by A2dpService.getStatistics().
+ */
+export interface A2dpServiceStatistics {
+  /** Service name identifier */
+  serviceName: string;
+  /** Whether the service has been initialized */
+  isInitialized: boolean;
+  /** Current connection state of the A2DP profile */
+  connectionState: BluetoothConnectionState;
+  /** Current A2DP-specific connection state */
+  a2dpState: A2dpConnectionState;
+  /** Number of connected devices */
+  connectedDeviceCount: number;
+  /** Connected device identifiers */
+  connectedDevices: string[];
+  /** Whether audio is currently playing */
+  isPlaying: boolean;
+  /** Current volume level (0-100) */
+  currentVolume: number;
+  /** Current codec identifier of the model */
+  currentCodec: number;
+  /** Human readable name of the active codec */
+  activeCodec: string;
+  /** Number of supported codecs */
+  supportedCodecCount: number;
+  /** Whether the audio stream is active */
+  isStreamActive: boolean;
+  /** Current session duration in milliseconds */
+  sessionDurationMs: number;
+  /** Total bytes transferred in current session */
+  totalBytesTransferred: number;
+  /** Codec switch count */
+  codecSwitchCount: number;
+  /** Operation history entry count */
+  operationHistoryCount: number;
+  /** Registered callback counters */
+  callbackCounts: ServiceCallbackCounts;
 }
 
 /**
@@ -1264,9 +1306,9 @@ export class A2dpService {
   /**
    * @method getStatistics
    * @description Returns comprehensive statistics about the A2DP service operation.
-   * @returns {object} Statistics object with connection, playback, and quality data.
+   * @returns {A2dpServiceStatistics} Statistics object with connection, playback, and quality data.
    */
-  getStatistics(): object {
+  getStatistics(): A2dpServiceStatistics {
     return {
       serviceName: this.serviceName,
       isInitialized: this.isInitialized,

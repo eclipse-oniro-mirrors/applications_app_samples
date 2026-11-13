@@ -69,6 +69,21 @@ export interface AvrcpData {
 }
 
 /**
+ * @interface AvrcpModelJson
+ * @description Shape returned by AvrcpModel.toJSON().
+ */
+export interface AvrcpModelJson {
+  state: AvrcpState;
+  deviceId: string;
+  lastUpdateTime: number;
+  data: AvrcpData | null;
+  retryCount: number;
+  errorMessage: string;
+  errorCode: number;
+  connectionDuration: number;
+  operationCount: number;
+}
+/**
  * AVRCP sound view frequency remote control number data model type.
  * wrap package AvrcpProfile number data and state state info info.
  */
@@ -291,7 +306,7 @@ export class AvrcpModel {
    * serialize to JSON.
    * @returns {object} JSON against object
    */
-  toJSON(): object {
+  toJSON(): AvrcpModelJson {
     return {
       state: this.state,
       deviceId: this.deviceId,

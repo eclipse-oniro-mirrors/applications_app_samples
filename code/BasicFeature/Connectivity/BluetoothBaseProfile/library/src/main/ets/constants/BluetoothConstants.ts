@@ -30,7 +30,7 @@
  *
  * @module BluetoothConstants
  * @version 1.0.0
- * @since API 12
+ * @since 26.0.0
  */
 
 /**

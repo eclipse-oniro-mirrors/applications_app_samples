@@ -71,6 +71,21 @@ export interface PanData {
 }
 
 /**
+ * @interface PanModelJson
+ * @description Shape returned by PanModel.toJSON().
+ */
+export interface PanModelJson {
+  state: PanState;
+  deviceId: string;
+  lastUpdateTime: number;
+  data: PanData | null;
+  retryCount: number;
+  errorMessage: string;
+  errorCode: number;
+  connectionDuration: number;
+  operationCount: number;
+}
+/**
  * PAN person local domain network number data model type.
  * wrap package PanProfile number data and state state info info.
  */
@@ -295,7 +310,7 @@ export class PanModel {
    * serialize to JSON.
    * @returns {object} JSON against object
    */
-  toJSON(): object {
+  toJSON(): PanModelJson {
     return {
       state: this.state,
       deviceId: this.deviceId,

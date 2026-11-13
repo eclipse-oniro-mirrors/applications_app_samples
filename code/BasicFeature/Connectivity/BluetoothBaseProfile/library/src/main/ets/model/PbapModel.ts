@@ -45,6 +45,16 @@ export enum PbapState {
 }
 
 /**
+ * PBAP single phonebook entry pulled from the PSE server.
+ */
+export interface PbapContact {
+  /** contact display name */
+  name: string;
+  /** contact phone number */
+  number: string;
+}
+
+/**
  * PBAP electric talk this data interface.
  */
 export interface PbapData {
@@ -65,9 +75,24 @@ export interface PbapData {
   /** search index relate key character */
   searchKeyword: string;
   /** contact list */
-  contacts: object[];
+  contacts: PbapContact[];
 }
 
+/**
+ * @interface PbapModelJson
+ * @description Shape returned by PbapModel.toJSON().
+ */
+export interface PbapModelJson {
+  state: PbapState;
+  deviceId: string;
+  lastUpdateTime: number;
+  data: PbapData | null;
+  retryCount: number;
+  errorMessage: string;
+  errorCode: number;
+  connectionDuration: number;
+  operationCount: number;
+}
 /**
  * PBAP electric talk this number data model type.
  * wrap package PbapProfile number data and state state info info.
@@ -102,7 +127,7 @@ export class PbapModel {
   /** operation count */
   operationCount: number = 0;
   /** Contacts list */
-  contacts: object[] = [];
+  contacts: PbapContact[] = [];
   /** Is syncing */
   isSyncing: boolean = false;
   /** Last sync time */
@@ -291,7 +316,7 @@ export class PbapModel {
    * serialize to JSON.
    * @returns {object} JSON against object
    */
-  toJSON(): object {
+  toJSON(): PbapModelJson {
     return {
       state: this.state,
       deviceId: this.deviceId,

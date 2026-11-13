@@ -14,6 +14,7 @@
  */
 
 import { describe, it, expect } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { RandomUtils, TypeUtils, ValidationUtils } from 'library';
 
 /**
@@ -33,6 +34,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0001', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0001', 'begin');
       let lengthHits: number = 0;
       let groupHits: number = 0;
       let validHits: number = 0;
@@ -48,10 +50,23 @@ export default function randomUtilsTest(): void {
           validHits = validHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0001',
+        '#1 ' + "lengthHits" + ' = ' + JSON.stringify(lengthHits));
       expect(lengthHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0001',
+        '#2 ' + "groupHits" + ' = ' + JSON.stringify(groupHits));
       expect(groupHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0001',
+        '#3 ' + "validHits" + ' = ' + JSON.stringify(validHits));
       expect(validHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0001',
+        '#4 assert ' + "expect(RandomUtils.randomMacAddress().indexOf(':') > 0).assertTrue()");
       expect(RandomUtils.randomMacAddress().indexOf(':') > 0).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0001', 'end');
     });
 
     /*
@@ -63,6 +78,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0002', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0002', 'begin');
       const seen: string[] = [];
       let upperHits: number = 0;
       for (let i: number = 0; i < 40; i++) {
@@ -74,10 +90,23 @@ export default function randomUtilsTest(): void {
           seen.push(mac);
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0002',
+        '#1 ' + "upperHits" + ' = ' + JSON.stringify(upperHits));
       expect(upperHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0002',
+        '#2 ' + "seen.length > 1" + ' = ' + JSON.stringify(seen.length > 1));
       expect(seen.length > 1).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0002',
+        '#3 ' + "seen.length <= 40" + ' = ' + JSON.stringify(seen.length <= 40));
       expect(seen.length <= 40).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0002',
+        '#4 ' + "seen[0].length" + ' = ' + JSON.stringify(seen[0].length));
       expect(seen[0].length).assertEqual(17);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0002', 'end');
     });
 
     /*
@@ -89,6 +118,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0003', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0003', 'begin');
       let lengthHits: number = 0;
       let groupHits: number = 0;
       let validHits: number = 0;
@@ -104,11 +134,24 @@ export default function randomUtilsTest(): void {
           validHits = validHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0003',
+        '#1 ' + "lengthHits" + ' = ' + JSON.stringify(lengthHits));
       expect(lengthHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0003',
+        '#2 ' + "groupHits" + ' = ' + JSON.stringify(groupHits));
       expect(groupHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0003',
+        '#3 ' + "validHits" + ' = ' + JSON.stringify(validHits));
       expect(validHits).assertEqual(30);
       const single: string = RandomUtils.randomUuid();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0003',
+        '#4 ' + "single" + ' = ' + JSON.stringify(single));
       expect(single).assertEqual(single.toLowerCase());
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0003', 'end');
     });
 
     /*
@@ -120,6 +163,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0004', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0004', 'begin');
       const seen: string[] = [];
       let dashHits: number = 0;
       for (let i: number = 0; i < 30; i++) {
@@ -132,10 +176,23 @@ export default function randomUtilsTest(): void {
           seen.push(uuid);
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0004',
+        '#1 ' + "dashHits" + ' = ' + JSON.stringify(dashHits));
       expect(dashHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0004',
+        '#2 ' + "seen.length" + ' = ' + JSON.stringify(seen.length));
       expect(seen.length).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0004',
+        '#3 assert ' + "expect(seen[0].substring(12, 16).length).assertEqual(4)");
       expect(seen[0].substring(12, 16).length).assertEqual(4);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0004',
+        '#4 ' + "seen[0].length" + ' = ' + JSON.stringify(seen[0].length));
       expect(seen[0].length).assertEqual(36);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0004', 'end');
     });
 
     // ==================== device name and control build vendor (3 cases) ====================
@@ -149,6 +206,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0005', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0005', 'begin');
       let headHits: number = 0;
       let tailHits: number = 0;
       let validHits: number = 0;
@@ -166,9 +224,19 @@ export default function randomUtilsTest(): void {
           validHits = validHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0005',
+        '#1 ' + "headHits" + ' = ' + JSON.stringify(headHits));
       expect(headHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0005',
+        '#2 ' + "tailHits" + ' = ' + JSON.stringify(tailHits));
       expect(tailHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0005',
+        '#3 ' + "validHits" + ' = ' + JSON.stringify(validHits));
       expect(validHits).assertEqual(40);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0005', 'end');
     });
 
     /*
@@ -180,6 +248,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0006', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0006', 'begin');
       const heads: string[] = [];
       let reuse: number = 0;
       for (let i: number = 0; i < 60; i++) {
@@ -191,10 +260,23 @@ export default function randomUtilsTest(): void {
           reuse = reuse + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0006',
+        '#1 ' + "heads.length > 1" + ' = ' + JSON.stringify(heads.length > 1));
       expect(heads.length > 1).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0006',
+        '#2 ' + "heads.length <= 10" + ' = ' + JSON.stringify(heads.length <= 10));
       expect(heads.length <= 10).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0006',
+        '#3 ' + "reuse >= 50" + ' = ' + JSON.stringify(reuse >= 50));
       expect(reuse >= 50).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0006',
+        '#4 assert ' + "expect(RandomUtils.randomDeviceName().substring(0, 3)).assertEqual('BT-')");
       expect(RandomUtils.randomDeviceName().substring(0, 3)).assertEqual('BT-');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0006', 'end');
     });
 
     /*
@@ -206,6 +288,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0007', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0007', 'begin');
       const seen: string[] = [];
       let reuse: number = 0;
       let cleanHits: number = 0;
@@ -220,10 +303,23 @@ export default function randomUtilsTest(): void {
           reuse = reuse + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0007',
+        '#1 ' + "cleanHits" + ' = ' + JSON.stringify(cleanHits));
       expect(cleanHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0007',
+        '#2 ' + "seen.length <= 10" + ' = ' + JSON.stringify(seen.length <= 10));
       expect(seen.length <= 10).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0007',
+        '#3 ' + "reuse >= 30" + ' = ' + JSON.stringify(reuse >= 30));
       expect(reuse >= 30).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0007',
+        '#4 assert ' + "expect(ValidationUtils.validateDeviceName(seen[0]).isValid).assertTrue()");
       expect(ValidationUtils.validateDeviceName(seen[0]).isValid).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0007', 'end');
     });
 
     // ==================== signal and device identifier (5 cases) ====================
@@ -237,6 +333,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0008', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0008', 'begin');
       let windowHits: number = 0;
       let integerHits: number = 0;
       let validHits: number = 0;
@@ -252,10 +349,23 @@ export default function randomUtilsTest(): void {
           validHits = validHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0008',
+        '#1 ' + "windowHits" + ' = ' + JSON.stringify(windowHits));
       expect(windowHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0008',
+        '#2 ' + "integerHits" + ' = ' + JSON.stringify(integerHits));
       expect(integerHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0008',
+        '#3 ' + "validHits" + ' = ' + JSON.stringify(validHits));
       expect(validHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0008',
+        '#4 assert ' + "expect(RandomUtils.randomRssi() <= -30).assertTrue()");
       expect(RandomUtils.randomRssi() <= -30).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0008', 'end');
     });
 
     /*
@@ -267,6 +377,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0009', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0009', 'begin');
       let rangeHits: number = 0;
       let integerHits: number = 0;
       for (let i: number = 0; i < 40; i++) {
@@ -278,10 +389,23 @@ export default function randomUtilsTest(): void {
           integerHits = integerHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0009',
+        '#1 ' + "rangeHits" + ' = ' + JSON.stringify(rangeHits));
       expect(rangeHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0009',
+        '#2 ' + "integerHits" + ' = ' + JSON.stringify(integerHits));
       expect(integerHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0009',
+        '#3 assert ' + "expect(RandomUtils.randomRssi(5, 5)).assertEqual(5)");
       expect(RandomUtils.randomRssi(5, 5)).assertEqual(5);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0009',
+        '#4 assert ' + "expect(RandomUtils.randomRssi(-40, -40)).assertEqual(-40)");
       expect(RandomUtils.randomRssi(-40, -40)).assertEqual(-40);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0009', 'end');
     });
 
     /*
@@ -293,6 +417,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0010', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0010', 'begin');
       let upperHits: number = 0;
       let lowerHits: number = 0;
       let integerHits: number = 0;
@@ -308,10 +433,23 @@ export default function randomUtilsTest(): void {
           integerHits = integerHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0010',
+        '#1 ' + "upperHits" + ' = ' + JSON.stringify(upperHits));
       expect(upperHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0010',
+        '#2 ' + "lowerHits" + ' = ' + JSON.stringify(lowerHits));
       expect(lowerHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0010',
+        '#3 ' + "integerHits" + ' = ' + JSON.stringify(integerHits));
       expect(integerHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0010',
+        '#4 assert ' + "expect(ValidationUtils.validateRssi(RandomUtils.randomRssi(-30, -100)).isValid).assertTrue()");
       expect(ValidationUtils.validateRssi(RandomUtils.randomRssi(-30, -100)).isValid).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0010', 'end');
     });
 
     /*
@@ -323,13 +461,30 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0011', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0011', 'begin');
       const id: string = RandomUtils.randomDeviceId();
       const parts: string[] = id.split('_');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0011',
+        '#1 ' + "parts[0]" + ' = ' + JSON.stringify(parts[0]));
       expect(parts[0]).assertEqual('dev');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0011',
+        '#2 ' + "parts.length" + ' = ' + JSON.stringify(parts.length));
       expect(parts.length).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0011',
+        '#3 assert ' + "expect(id.indexOf(' ') === -1).assertTrue()");
       expect(id.indexOf(' ') === -1).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0011',
+        '#4 ' + "parts[1].length > 0" + ' = ' + JSON.stringify(parts[1].length > 0));
       expect(parts[1].length > 0).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0011',
+        '#5 ' + "parts[2].length > 0" + ' = ' + JSON.stringify(parts[2].length > 0));
       expect(parts[2].length > 0).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0011', 'end');
     });
 
     /*
@@ -341,12 +496,26 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0012', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0012', 'begin');
       const first: string = RandomUtils.randomDeviceId();
       const second: string = RandomUtils.randomDeviceId();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0012',
+        '#1 ' + "first === second" + ' = ' + JSON.stringify(first === second));
       expect(first === second).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0012',
+        '#2 ' + "first.length > 8" + ' = ' + JSON.stringify(first.length > 8));
       expect(first.length > 8).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0012',
+        '#3 assert ' + "expect(second.split('_').length).assertEqual(3)");
       expect(second.split('_').length).assertEqual(3);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0012',
+        '#4 assert ' + "expect(Number.isNaN(Number.parseInt(second.split('_')[1], 36))).assertFalse()");
       expect(Number.isNaN(Number.parseInt(second.split('_')[1], 36))).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0012', 'end');
     });
 
     // ==================== number and link system person (2 cases) ====================
@@ -360,6 +529,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0013', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0013', 'begin');
       let lengthHits: number = 0;
       let digitHits: number = 0;
       let validHits: number = 0;
@@ -380,10 +550,23 @@ export default function randomUtilsTest(): void {
           prefixHits = prefixHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0013',
+        '#1 ' + "lengthHits" + ' = ' + JSON.stringify(lengthHits));
       expect(lengthHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0013',
+        '#2 ' + "digitHits" + ' = ' + JSON.stringify(digitHits));
       expect(digitHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0013',
+        '#3 ' + "validHits" + ' = ' + JSON.stringify(validHits));
       expect(validHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0013',
+        '#4 ' + "prefixHits" + ' = ' + JSON.stringify(prefixHits));
       expect(prefixHits).assertEqual(40);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0013', 'end');
     });
 
     /*
@@ -395,6 +578,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0014', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0014', 'begin');
       let pairHits: number = 0;
       let capitalHits: number = 0;
       let trimHits: number = 0;
@@ -411,10 +595,23 @@ export default function randomUtilsTest(): void {
           trimHits = trimHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0014',
+        '#1 ' + "pairHits" + ' = ' + JSON.stringify(pairHits));
       expect(pairHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0014',
+        '#2 ' + "capitalHits" + ' = ' + JSON.stringify(capitalHits));
       expect(capitalHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0014',
+        '#3 ' + "trimHits" + ' = ' + JSON.stringify(trimHits));
       expect(trimHits).assertEqual(30);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0014',
+        '#4 assert ' + "expect(RandomUtils.randomContactName().indexOf(' ') > 0).assertTrue()");
       expect(RandomUtils.randomContactName().indexOf(' ') > 0).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0014', 'end');
     });
 
     // ==================== health values (3 cases) ====================
@@ -428,6 +625,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0015', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0015', 'begin');
       let heartHits: number = 0;
       let oxygenHits: number = 0;
       let integerHits: number = 0;
@@ -444,9 +642,19 @@ export default function randomUtilsTest(): void {
           integerHits = integerHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0015',
+        '#1 ' + "heartHits" + ' = ' + JSON.stringify(heartHits));
       expect(heartHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0015',
+        '#2 ' + "oxygenHits" + ' = ' + JSON.stringify(oxygenHits));
       expect(oxygenHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0015',
+        '#3 ' + "integerHits" + ' = ' + JSON.stringify(integerHits));
       expect(integerHits).assertEqual(40);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0015', 'end');
     });
 
     /*
@@ -458,11 +666,12 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0016', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0016', 'begin');
       let systolicHits: number = 0;
       let diastolicHits: number = 0;
       let orderHits: number = 0;
       for (let i: number = 0; i < 40; i++) {
-        const pressure: ESObject = RandomUtils.randomBloodPressure();
+        const pressure = RandomUtils.randomBloodPressure();
         if (pressure.systolic >= 100 && pressure.systolic <= 139) {
           systolicHits = systolicHits + 1;
         }
@@ -474,9 +683,19 @@ export default function randomUtilsTest(): void {
           orderHits = orderHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0016',
+        '#1 ' + "systolicHits" + ' = ' + JSON.stringify(systolicHits));
       expect(systolicHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0016',
+        '#2 ' + "diastolicHits" + ' = ' + JSON.stringify(diastolicHits));
       expect(diastolicHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0016',
+        '#3 ' + "orderHits" + ' = ' + JSON.stringify(orderHits));
       expect(orderHits).assertEqual(40);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0016', 'end');
     });
 
     /*
@@ -488,6 +707,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0017', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0017', 'begin');
       let temperatureHits: number = 0;
       let weightHits: number = 0;
       let decimalHits: number = 0;
@@ -504,10 +724,23 @@ export default function randomUtilsTest(): void {
           decimalHits = decimalHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0017',
+        '#1 ' + "temperatureHits" + ' = ' + JSON.stringify(temperatureHits));
       expect(temperatureHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0017',
+        '#2 ' + "weightHits" + ' = ' + JSON.stringify(weightHits));
       expect(weightHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0017',
+        '#3 ' + "decimalHits" + ' = ' + JSON.stringify(decimalHits));
       expect(decimalHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0017',
+        '#4 assert ' + "expect(RandomUtils.randomTemperature() >= 36).assertTrue()");
       expect(RandomUtils.randomTemperature() >= 36).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0017', 'end');
     });
 
     // ==================== general extract (5 cases) ====================
@@ -521,6 +754,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0018', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0018', 'begin');
       const pool: string[] = ['A2DP', 'HFP', 'HID', 'PAN'];
       let inPoolHits: number = 0;
       for (let i: number = 0; i < 40; i++) {
@@ -528,11 +762,24 @@ export default function randomUtilsTest(): void {
           inPoolHits = inPoolHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0018',
+        '#1 ' + "inPoolHits" + ' = ' + JSON.stringify(inPoolHits));
       expect(inPoolHits).assertEqual(40);
       const numbers: number[] = [7];
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0018',
+        '#2 assert ' + "expect(RandomUtils.randomChoice<number>(numbers)).assertEqual(7)");
       expect(RandomUtils.randomChoice<number>(numbers)).assertEqual(7);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0018',
+        '#3 ' + "pool.length" + ' = ' + JSON.stringify(pool.length));
       expect(pool.length).assertEqual(4);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0018',
+        '#4 assert ' + "expect(pool.indexOf(RandomUtils.randomChoice<string>(pool)) !== -1).assertTrue()");
       expect(pool.indexOf(RandomUtils.randomChoice<string>(pool)) !== -1).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0018', 'end');
     });
 
     /*
@@ -544,12 +791,28 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0019', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0019', 'begin');
       const emptyText: string[] = [];
       const emptyNumber: number[] = [];
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0019',
+        '#1 assert ' + "expect(TypeUtils.isNullOrUndefined(RandomUtils.randomChoice<string>(emptyText))).assertTrue()");
       expect(TypeUtils.isNullOrUndefined(RandomUtils.randomChoice<string>(emptyText))).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0019',
+        '#2 assert ' + "expect(TypeUtils.isEmpty(RandomUtils.randomChoice<string>(emptyText))).assertTrue()");
       expect(TypeUtils.isEmpty(RandomUtils.randomChoice<string>(emptyText))).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0019',
+        '#3 assert ' +
+        "expect(TypeUtils.isNullOrUndefined(RandomUtils.randomChoice<number>(emptyNumber))).assertTrue()");
       expect(TypeUtils.isNullOrUndefined(RandomUtils.randomChoice<number>(emptyNumber))).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0019',
+        '#4 assert ' +
+        "expect(TypeUtils.getTypeName(RandomUtils.randomChoice<string>(emptyText))).assertEqual('undefined')");
       expect(TypeUtils.getTypeName(RandomUtils.randomChoice<string>(emptyText))).assertEqual('undefined');
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0019', 'end');
     });
 
     /*
@@ -561,6 +824,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0020', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0020', 'begin');
       let booleanHits: number = 0;
       let trueHits: number = 0;
       for (let i: number = 0; i < 50; i++) {
@@ -571,10 +835,23 @@ export default function randomUtilsTest(): void {
           trueHits = trueHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0020',
+        '#1 ' + "booleanHits" + ' = ' + JSON.stringify(booleanHits));
       expect(booleanHits).assertEqual(50);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0020',
+        '#2 ' + "trueHits" + ' = ' + JSON.stringify(trueHits));
       expect(trueHits).assertEqual(50);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0020',
+        '#3 assert ' + "expect(RandomUtils.randomBoolean(0)).assertFalse()");
       expect(RandomUtils.randomBoolean(0)).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0020',
+        '#4 assert ' + "expect(TypeUtils.isBoolean(RandomUtils.randomBoolean())).assertTrue()");
       expect(TypeUtils.isBoolean(RandomUtils.randomBoolean())).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0020', 'end');
     });
 
     /*
@@ -586,6 +863,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 0
      */
     it('testRandomUtils0021', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0021', 'begin');
       let groupHits: number = 0;
       let edgeHits: number = 0;
       let validHits: number = 0;
@@ -604,9 +882,19 @@ export default function randomUtilsTest(): void {
           validHits = validHits + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0021',
+        '#1 ' + "groupHits" + ' = ' + JSON.stringify(groupHits));
       expect(groupHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0021',
+        '#2 ' + "edgeHits" + ' = ' + JSON.stringify(edgeHits));
       expect(edgeHits).assertEqual(40);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0021',
+        '#3 ' + "validHits" + ' = ' + JSON.stringify(validHits));
       expect(validHits).assertEqual(40);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0021', 'end');
     });
 
     /*
@@ -618,6 +906,7 @@ export default function randomUtilsTest(): void {
      * @tc.level Level 1
      */
     it('testRandomUtils0022', 0, () => {
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0022', 'begin');
       let spanHits: number = 0;
       let lowSeen: number = 0;
       let highSeen: number = 0;
@@ -635,10 +924,23 @@ export default function randomUtilsTest(): void {
           highSeen = highSeen + 1;
         }
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0022',
+        '#1 ' + "spanHits" + ' = ' + JSON.stringify(spanHits));
       expect(spanHits).assertEqual(250);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0022',
+        '#2 ' + "lowSeen > 0" + ' = ' + JSON.stringify(lowSeen > 0));
       expect(lowSeen > 0).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0022',
+        '#3 ' + "highSeen > 0" + ' = ' + JSON.stringify(highSeen > 0));
       expect(highSeen > 0).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testRandomUtils0022',
+        '#4 assert ' + "expect(RandomUtils.randomIpAddress().split('.').length).assertEqual(4)");
       expect(RandomUtils.randomIpAddress().split('.').length).assertEqual(4);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testRandomUtils0022', 'end');
     });
   });
 }

@@ -69,6 +69,21 @@ export interface HdpData {
 }
 
 /**
+ * @interface HdpModelJson
+ * @description Shape returned by HdpModel.toJSON().
+ */
+export interface HdpModelJson {
+  state: HdpState;
+  deviceId: string;
+  lastUpdateTime: number;
+  data: HdpData | null;
+  retryCount: number;
+  errorMessage: string;
+  errorCode: number;
+  connectionDuration: number;
+  operationCount: number;
+}
+/**
  * HDP health device number data model type.
  * wrap package HdpProfile number data and state state info info.
  */
@@ -291,7 +306,7 @@ export class HdpModel {
    * serialize to JSON.
    * @returns {object} JSON against object
    */
-  toJSON(): object {
+  toJSON(): HdpModelJson {
     return {
       state: this.state,
       deviceId: this.deviceId,

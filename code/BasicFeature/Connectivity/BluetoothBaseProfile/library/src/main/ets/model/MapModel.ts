@@ -45,6 +45,24 @@ export enum MapState {
 }
 
 /**
+ * MAP single message entry transferred between the MAS server and the client.
+ */
+export interface MapMessage {
+  /** sender address or contact name */
+  sender: string;
+  /** message subject */
+  subject: string;
+  /** message body text */
+  body: string;
+  /** message timestamp in milliseconds since epoch */
+  timestamp: number;
+  /** whether the message has already been read */
+  isRead: boolean;
+  /** message channel type (sms / email ...) */
+  type: string;
+}
+
+/**
  * MAP consume info access question data interface.
  */
 export interface MapData {
@@ -63,9 +81,24 @@ export interface MapData {
   /** folder list */
   folders: string[];
   /** message list */
-  messages: object[];
+  messages: MapMessage[];
 }
 
+/**
+ * @interface MapModelJson
+ * @description Shape returned by MapModel.toJSON().
+ */
+export interface MapModelJson {
+  state: MapState;
+  deviceId: string;
+  lastUpdateTime: number;
+  data: MapData | null;
+  retryCount: number;
+  errorMessage: string;
+  errorCode: number;
+  connectionDuration: number;
+  operationCount: number;
+}
 /**
  * MAP consume info access question number data model type.
  * wrap package MapProfile number data and state state info info.
@@ -108,7 +141,7 @@ export class MapModel {
   /** Message type */
   messageType: string = 'sms';
   /** Messages list */
-  messages: object[] = [];
+  messages: MapMessage[] = [];
   /** Sync progress */
   syncProgress: number = 0;
   /** Total messages */
@@ -287,7 +320,7 @@ export class MapModel {
    * serialize to JSON.
    * @returns {object} JSON against object
    */
-  toJSON(): object {
+  toJSON(): MapModelJson {
     return {
       state: this.state,
       deviceId: this.deviceId,

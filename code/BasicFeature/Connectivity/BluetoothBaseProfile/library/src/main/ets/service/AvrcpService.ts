@@ -17,6 +17,7 @@ import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { AvrcpModel, AvrcpJson } from '../model/AvrcpModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
+import { ServiceCallbackCounts } from '../types/ServiceCallbackCounts';
 
 /**
  * @interface AvrcpOperationRecord
@@ -112,6 +113,41 @@ export interface AvrcpConnectionConfig {
   enablePerformanceTracing: boolean;
   /** Custom parameters for profile-specific configuration */
   customParameters: Map<string, string>;
+}
+
+/**
+ * @interface AvrcpServiceStatistics
+ * @description Comprehensive statistics snapshot returned by AvrcpService.getStatistics().
+ */
+export interface AvrcpServiceStatistics {
+  /** Service name */
+  serviceName: string;
+  /** Whether the service is initialized */
+  isInitialized: boolean;
+  /** Current connection state */
+  connectionState: BluetoothConnectionState;
+  /** Number of connected devices */
+  connectedDeviceCount: number;
+  /** Connected device identifiers */
+  connectedDevices: string[];
+  /** Whether an operation is in progress */
+  isProcessing: boolean;
+  /** Pending operation queue size */
+  queueSize: number;
+  /** Current retry count */
+  currentRetryCount: number;
+  /** Last error message */
+  lastError: string;
+  /** Recorded state transition count */
+  stateTransitionCount: number;
+  /** Performance metrics snapshot */
+  performanceMetrics: AvrcpPerformanceMetrics;
+  /** Operation history entry count */
+  operationHistoryCount: number;
+  /** Operation record count */
+  operationRecordCount: number;
+  /** Callback counters */
+  callbackCounts: ServiceCallbackCounts;
 }
 
 /**
@@ -696,9 +732,9 @@ export class AvrcpService {
   /**
    * @method getStatistics
    * @description Returns comprehensive service statistics.
-   * @returns {object} Statistics object with connection, operation, and performance data.
+   * @returns {AvrcpServiceStatistics} Statistics object with connection, operation, and performance data.
    */
-  getStatistics(): object {
+  getStatistics(): AvrcpServiceStatistics {
     const metrics: AvrcpPerformanceMetrics = this.getPerformanceMetrics();
     return {
       serviceName: this.serviceName,

@@ -14,7 +14,13 @@
  */
 
 import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
-import { HfpService } from '../service/HfpService';
+import {
+  HfpService,
+  HfpCallInfo,
+  HfpNetworkInfo,
+  HfpAudioConfig,
+  HfpBatteryInfo
+} from '../service/HfpService';
 import { HfpModel } from '../model/HfpModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
@@ -1049,9 +1055,9 @@ export class HfpProfileManager {
   /**
    * @method getCurrentCall
    * @description Returns current call information.
-   * @returns {object | null} Call info or null.
+   * @returns {HfpCallInfo | null} Call info or null.
    */
-  getCurrentCall(): object | null {
+  getCurrentCall(): HfpCallInfo | null {
     if (!this.isReady) {
       return null;
     }
@@ -1061,9 +1067,9 @@ export class HfpProfileManager {
   /**
    * @method getCallHistory
    * @description Returns call history records.
-   * @returns {Array<object>} Array of call records.
+   * @returns {HfpCallInfo[]} Array of call records.
    */
-  getCallHistory(): Array<object> {
+  getCallHistory(): HfpCallInfo[] {
     if (!this.isReady) {
       return [];
     }
@@ -1073,9 +1079,9 @@ export class HfpProfileManager {
   /**
    * @method getNetworkInfo
    * @description Returns network information.
-   * @returns {object | null} Network info or null.
+   * @returns {HfpNetworkInfo | null} Network info or null.
    */
-  getNetworkInfo(): object | null {
+  getNetworkInfo(): HfpNetworkInfo | null {
     if (!this.isReady) {
       return null;
     }
@@ -1085,9 +1091,9 @@ export class HfpProfileManager {
   /**
    * @method getAudioConfig
    * @description Returns audio configuration.
-   * @returns {object | null} Audio config or null.
+   * @returns {HfpAudioConfig | null} Audio config or null.
    */
-  getAudioConfig(): object | null {
+  getAudioConfig(): HfpAudioConfig | null {
     if (!this.isReady) {
       return null;
     }
@@ -1097,9 +1103,9 @@ export class HfpProfileManager {
   /**
    * @method getBatteryInfo
    * @description Returns battery information.
-   * @returns {object | null} Battery info or null.
+   * @returns {HfpBatteryInfo | null} Battery info or null.
    */
-  getBatteryInfo(): object | null {
+  getBatteryInfo(): HfpBatteryInfo | null {
     if (!this.isReady) {
       return null;
     }

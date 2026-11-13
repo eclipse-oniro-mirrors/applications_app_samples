@@ -15,7 +15,7 @@
 
 import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
 import { MapService } from '../service/MapService';
-import { MapModel } from '../model/MapModel';
+import { MapModel, MapMessage } from '../model/MapModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
 import { ManagerHealthStatus } from '../types/ProfileTypes';
@@ -1008,9 +1008,9 @@ export class MapProfileManager {
   /**
    * @method getMessages
    * @description Returns the list of messages.
-   * @returns {Array<object>} Array of message objects.
+   * @returns {MapMessage[]} Array of message objects.
    */
-  getMessages(): Array<object> {
+  getMessages(): MapMessage[] {
     if (!this.isReady) {
       return [];
     }

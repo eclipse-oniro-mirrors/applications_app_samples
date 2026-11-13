@@ -14,7 +14,7 @@
  */
 
 import { hilog, hiTraceMeter } from '@kit.PerformanceAnalysisKit';
-import { A2dpService } from '../service/A2dpService';
+import { A2dpService, A2dpAudioCodecInfo, A2dpPlaybackInfo, A2dpQualityMetrics } from '../service/A2dpService';
 import { A2dpModel } from '../model/A2dpModel';
 import { BluetoothConstants, BluetoothConnectionState, BluetoothProfileType } from '../constants/BluetoothConstants';
 import { Logger } from '../utils/basic/Logger';
@@ -206,9 +206,6 @@ export class A2dpProfileManager {
   /** List of managed device IDs */
   private managedDeviceIds: string[] = [];
 
-  /** Queue of pending operations */
-  private operationQueue: Array<() => Promise<boolean>> = [];
-
   /** Maximum queue size */
   private maxQueueSize: number = 50;
 
@@ -230,23 +227,27 @@ export class A2dpProfileManager {
   /** Operation ID counter */
   private operationIdCounter: number = 0;
 
-  /** Whether currently processing an operation */
-  private isProcessing: boolean = false;
-
   /** Current retry count */
   private currentRetryCount: number = 0;
 
   /** Last error message */
   private lastError: string = '';
 
-  /** Connection state callbacks */
+  /**
+   * Connection state callbacks.
+   * Reserved interface: this list backs the public addStateCallback()/removeStateCallback()
+   * registration API used by the UI, but the service-to-manager notification wiring is not
+   * implemented yet, so registered callbacks are not invoked. Kept as an extension point.
+   */
   private stateCallbacks: Array<(state: BluetoothConnectionState) => void> = [];
 
-  /** Data change callbacks */
+  /**
+   * Data change callbacks.
+   * Reserved interface: this list backs the public addDataCallback()/removeDataCallback()
+   * registration API used by the UI, but the service-to-manager notification wiring is not
+   * implemented yet, so registered callbacks are not invoked. Kept as an extension point.
+   */
   private dataCallbacks: Array<(model: A2dpModel) => void> = [];
-
-  /** Health check timer ID */
-  private healthCheckTimerId: number = -1;
 
   /** Auto-reconnect state per device */
   private autoReconnectState: Map<string, { attempts: number; lastAttempt: number; enabled: boolean }> = new Map();
@@ -318,7 +319,6 @@ export class A2dpProfileManager {
    *   <li>Initialize the underlying A2dpService service</li>
    *   <li>Reset all statistics and operation records</li>
    *   <li>Set up connection and data callbacks from the service</li>
-   *   <li>Start the health check timer if configured</li>
    *   <li>Record the manager start time</li>
    *   <li>Log the initialization event</li>
    *   <li>Trace via hiTraceMeter for performance monitoring</li>
@@ -442,10 +442,8 @@ export class A2dpProfileManager {
    */
   private resetRuntimeState(): void {
     this.managedDeviceIds = [];
-    this.operationQueue = [];
     this.operationRecords = [];
     this.operationIdCounter = 0;
-    this.isProcessing = false;
     this.currentRetryCount = 0;
     this.lastError = '';
     this.managerStartTime = Date.now();
@@ -752,9 +750,7 @@ export class A2dpProfileManager {
       }
 
       this.managedDeviceIds = [];
-      this.operationQueue = [];
       this.operationRecords = [];
-      this.isProcessing = false;
       this.currentRetryCount = 0;
       this.lastError = '';
       this.autoReconnectState = new Map();
@@ -823,10 +819,8 @@ export class A2dpProfileManager {
       this.statistics.operationsPerMinute = this.statistics.totalOperations / (uptime / 60000);
     }
 
-    this.statistics.queuedOperationCount = this.operationQueue.length;
-
     // Calculate health score
-    let healthScore = 100;
+    let healthScore: number = 100;
     if (this.statistics.errorRate > 10) {
       healthScore -= 20;
     }
@@ -838,9 +832,6 @@ export class A2dpProfileManager {
     }
     if (this.statistics.connectionSuccessRate < 50) {
       healthScore -= 20;
-    }
-    if (this.operationQueue.length > this.config.maxQueueSize * 0.8) {
-      healthScore -= 10;
     }
     if (this.lastError) {
       healthScore -= 10;
@@ -979,9 +970,9 @@ export class A2dpProfileManager {
   /**
    * @method getSupportedCodecs
    * @description Returns the list of supported audio codecs.
-   * @returns {Array<object>} Array of codec information.
+   * @returns {A2dpAudioCodecInfo[]} Array of codec information.
    */
-  getSupportedCodecs(): Array<object> {
+  getSupportedCodecs(): A2dpAudioCodecInfo[] {
     if (!this.isReady) {
       return [];
     }
@@ -991,9 +982,9 @@ export class A2dpProfileManager {
   /**
    * @method getActiveCodec
    * @description Returns the currently active audio codec.
-   * @returns {object | null} Active codec info or null.
+   * @returns {A2dpAudioCodecInfo | null} Active codec info or null.
    */
-  getActiveCodec(): object | null {
+  getActiveCodec(): A2dpAudioCodecInfo | null {
     if (!this.isReady) {
       return null;
     }
@@ -1003,9 +994,9 @@ export class A2dpProfileManager {
   /**
    * @method getPlaybackInfo
    * @description Returns current playback information.
-   * @returns {object | null} Playback info or null.
+   * @returns {A2dpPlaybackInfo | null} Playback info or null.
    */
-  getPlaybackInfo(): object | null {
+  getPlaybackInfo(): A2dpPlaybackInfo | null {
     if (!this.isReady) {
       return null;
     }
@@ -1015,9 +1006,9 @@ export class A2dpProfileManager {
   /**
    * @method getQualityMetrics
    * @description Returns audio quality metrics.
-   * @returns {object | null} Quality metrics or null.
+   * @returns {A2dpQualityMetrics | null} Quality metrics or null.
    */
-  getQualityMetrics(): object | null {
+  getQualityMetrics(): A2dpQualityMetrics | null {
     if (!this.isReady) {
       return null;
     }

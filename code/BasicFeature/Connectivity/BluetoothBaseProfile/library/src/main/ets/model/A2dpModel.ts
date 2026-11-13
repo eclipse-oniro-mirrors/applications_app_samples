@@ -74,6 +74,21 @@ export interface A2dpData {
 }
 
 /**
+ * @interface A2dpModelJson
+ * @description Shape returned by A2dpModel.toJSON().
+ */
+export interface A2dpModelJson {
+  state: A2dpState;
+  deviceId: string;
+  lastUpdateTime: number;
+  data: A2dpData | null;
+  retryCount: number;
+  errorMessage: string;
+  errorCode: number;
+  connectionDuration: number;
+  operationCount: number;
+}
+/**
  * A2DP audio divide send number data model type.
  * wrap package A2dpProfile number data and state state info info.
  */
@@ -288,7 +303,7 @@ export class A2dpModel {
    * serialize to JSON.
    * @returns {object} JSON against object
    */
-  toJSON(): object {
+  toJSON(): A2dpModelJson {
     return {
       state: this.state,
       deviceId: this.deviceId,
