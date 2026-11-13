@@ -91,7 +91,7 @@ int32_t AudioDecoder::SetDecryptionConfig()
         "Create media key session failed, ret: %{public}d", ret);
     
     // 获取许可证请求、设置许可证响应等。
-    // 设置解密配置，即将解密会话、安全通路标志(当前音频解密不支持安全通路，应设置为false)设置到解码器中。
+    // 设置解密配置，即将解密会话、安全通路标志（当前音频解密不支持安全通路，应设置为false）设置到解码器中。
     bool secureAudio = false;
     ret = OH_AudioCodec_SetDecryptionConfig(decoder_, session, secureAudio);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
