@@ -16,7 +16,8 @@
 import { common } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { logInfo, logWarning } from '../../../main/ets/services/Logger';
+import { logInfo } from '../../../main/ets/services/Logger';
+import { runWithCleanup } from './CaseLifecycle';
 import { BusinessStore, NoteItem, StoredData, decodeBusinessDocument } from '../../../main/ets/business/BusinessStore';
 import {
   BusinessStorage, BusinessWriteError, PreferencesBusinessStorage
@@ -67,19 +68,21 @@ export class NativeCommitAcknowledgementFault implements BusinessStorage {
 export class RecycleNativeQaFixture {
   public readonly context: common.ApplicationContext;
   public readonly namespace: string;
+  private readonly caseName: string;
   public time: number = 1800000000000;
   private stores: BusinessStore[] = [];
   private startedAt: number;
 
-  constructor(context: common.ApplicationContext, namespace: string, startedAt: number = Date.now()) {
+  constructor(context: common.ApplicationContext, namespace: string, caseName: string, startedAt: number = Date.now()) {
     assertRecycleNativeQaNamespace(namespace);
     this.context = context;
     this.namespace = namespace;
+    this.caseName = caseName;
     this.startedAt = startedAt;
   }
 
   mark(phase: string): void {
-    logInfo(`native QA phase=${phase} elapsedMs=${Date.now() - this.startedAt}`);
+    logInfo(`${this.caseName} native QA phase=${phase} elapsedMs=${Date.now() - this.startedAt}`);
   }
 
   async open(): Promise<BusinessStore> {
@@ -119,18 +122,24 @@ export class RecycleNativeQaFixture {
   }
 
   async releaseStores(): Promise<void> {
+    const stores: BusinessStore[] = this.stores;
+    this.stores = [];
+    let failed: boolean = false;
     let failure: Error | undefined = undefined;
-    for (const store of this.stores) {
+    for (let index: number = stores.length - 1; index >= 0; index--) {
+      const store: BusinessStore = stores[index];
       try {
         await store.whenStorageIdle();
       } catch (error) {
-        failure = error as Error;
-      } finally {
+        if (!failed) { failed = true; failure = error as Error; }
+      }
+      try {
         store.dispose();
+      } catch (error) {
+        if (!failed) { failed = true; failure = error as Error; }
       }
     }
-    this.stores = [];
-    if (failure !== undefined) { throw failure; }
+    if (failed) { throw failure as Error; }
   }
 
   async reopen(): Promise<BusinessStore> {
@@ -173,41 +182,27 @@ export class RecycleNativeQaFixture {
   }
 
   async close(): Promise<void> {
-    this.mark('cleanup-start');
-    try {
+    await runWithCleanup(`${this.caseName} native-private-cleanup`, async (): Promise<void> => {
       await this.releaseStores();
       this.mark('stores-settled');
-    } finally {
-      // deletePreferences deletes this test instance from both cache and persistent storage.
+    }, [async (): Promise<void> => {
+      // Delete only this independently validated QA namespace, even if settling a store failed.
       await preferences.deletePreferences(this.context, this.namespace);
       this.mark('private-preferences-deleted');
-    }
+    }]);
   }
 }
 
-export async function withRecycleNativeQa(
+export async function withRecycleNativeQa(caseName: string,
   body: (fixture: RecycleNativeQaFixture) => Promise<void>): Promise<void> {
   const startedAt: number = Date.now();
   const context: common.ApplicationContext = abilityDelegatorRegistry.getAbilityDelegator()
     .getAppContext().getApplicationContext();
   recycleNamespaceSequence++;
   const namespace: string = `sc_recycle_native_qa_${Date.now()}_${recycleNamespaceSequence}`;
-  const fixture: RecycleNativeQaFixture = new RecycleNativeQaFixture(context, namespace, startedAt);
-  fixture.mark('begin');
-  try {
+  const fixture: RecycleNativeQaFixture = new RecycleNativeQaFixture(context, namespace, caseName, startedAt);
+  await runWithCleanup(caseName, async (): Promise<void> => {
     await body(fixture);
     fixture.mark('body-complete');
-  } catch (error) {
-    logWarning('Native QA failure');
-    throw error;
-  } finally {
-    try {
-      await fixture.close();
-    } catch (error) {
-      logWarning('Native QA cleanup failure');
-      throw error;
-    } finally {
-      fixture.mark('end');
-    }
-  }
+  }, [async (): Promise<void> => { await fixture.close(); }]);
 }

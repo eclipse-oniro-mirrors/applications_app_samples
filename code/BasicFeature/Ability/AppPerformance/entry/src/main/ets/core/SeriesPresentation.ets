@@ -16,6 +16,7 @@
 import { ExperimentRecord, digestLedger } from './ExperimentLedger';
 import { ExperimentSeriesState, SeriesPhase, SERIES_DEFAULT_REPETITIONS,
   SERIES_MIN_REPETITIONS, SERIES_MAX_REPETITIONS, seriesActive, validSeriesCount } from './ExperimentSeries';
+import { message, localize } from './TextMessages';
 
 export class SeriesPanelView {
   public repetitions: number = SERIES_DEFAULT_REPETITIONS;
@@ -25,11 +26,13 @@ export class SeriesPanelView {
   public canStopAfterCurrent: boolean = false;
   public canCancelNow: boolean = false;
   public canCopyReport: boolean = false;
-  public scopeText: string = '负载与模式由上方选择；默认重复3次';
-  public progressText: string = '尚未开始系列';
-  public phaseText: string = '未开始';
-  public saveText: string = '尚无系列存档';
-  public referenceText: string = '可用 0 / 0 条，缺失 0 条';
+  public scopeText: string = message('ap_series_default_scope', [SERIES_DEFAULT_REPETITIONS]);
+  public progressText: string = message('ap_series_not_started');
+  public phaseText: string = message('ap_series_phase_not_started');
+  public phaseFailed: boolean = false;
+  public saveText: string = message('ap_series_no_archive');
+  public saveFailed: boolean = false;
+  public referenceText: string = message('ap_series_references', [0, 0, 0]);
   public isolationText: string = '';
   public message: string = '';
   public statistics: string[] = [];
@@ -37,17 +40,17 @@ export class SeriesPanelView {
 
 export function seriesPhaseLabel(phase: SeriesPhase): string {
   switch (phase) {
-    case SeriesPhase.PREPARING: return '准备中';
-    case SeriesPhase.RUNNING: return '运行中';
-    case SeriesPhase.STOPPING: return '等待本次完成后停止';
-    case SeriesPhase.CANCELLING: return '正在取消本地等待';
-    case SeriesPhase.COMPLETED: return '已完成';
-    case SeriesPhase.STOPPED: return '已停止';
-    case SeriesPhase.CANCELLED: return '已取消';
-    case SeriesPhase.CONDITION_CHANGED: return '条件变化，已停止';
-    case SeriesPhase.SAVE_FAILED: return '保存失败，已停止';
-    case SeriesPhase.INTERRUPTED: return '进程结束，系列中断';
-    default: return '实验失败，已停止';
+    case SeriesPhase.PREPARING: return message('ap_series_phase_preparing');
+    case SeriesPhase.RUNNING: return message('ap_series_phase_running');
+    case SeriesPhase.STOPPING: return message('ap_series_phase_stopping');
+    case SeriesPhase.CANCELLING: return message('ap_series_phase_cancelling');
+    case SeriesPhase.COMPLETED: return message('ap_series_phase_completed');
+    case SeriesPhase.STOPPED: return message('ap_series_phase_stopped');
+    case SeriesPhase.CANCELLED: return message('ap_series_phase_cancelled');
+    case SeriesPhase.CONDITION_CHANGED: return message('ap_series_phase_condition_changed');
+    case SeriesPhase.SAVE_FAILED: return message('ap_series_phase_save_failed');
+    case SeriesPhase.INTERRUPTED: return message('ap_series_phase_interrupted');
+    default: return message('ap_series_phase_failed');
   }
 }
 
@@ -61,9 +64,9 @@ export function buildSeriesPanelView(series: ExperimentSeriesState | undefined,
   view.canStart = configurable && validSeriesCount(view.repetitions);
   view.canDecrease = configurable && view.repetitions > SERIES_MIN_REPETITIONS;
   view.canIncrease = configurable && view.repetitions < SERIES_MAX_REPETITIONS;
-  view.message = notice;
+  view.message = localize(notice);
   if (series === undefined) {
-    view.isolationText = quarantined ? 'SDK尚未settle，继续隔离；不会自动重发' : '';
+    view.isolationText = quarantined ? message('ap_series_sdk_isolated') : '';
     return view;
   }
   const actual = records.filter((record: ExperimentRecord): boolean => series.recordIds.indexOf(record.id) >= 0 &&
@@ -72,20 +75,23 @@ export function buildSeriesPanelView(series: ExperimentSeriesState | undefined,
   const missing: number = series.recordIds.filter((id: string): boolean =>
     !actual.some((record: ExperimentRecord): boolean => record.id === id)).length;
   const remaining: number = Math.max(0, series.repetitions - series.startedCount);
-  const current: string = series.activeIteration > 0 ? `第 ${series.activeIteration} / ${series.repetitions} 次；` : '';
-  view.progressText = `${current}已开始 ${series.startedCount}；已结束 ${series.recordIds.length}；` +
-    `有效 ${valid}；失败/缺失 ${actual.length - valid + missing}；未执行 ${remaining}`;
-  view.scopeText = `结果来源：${series.workloadId} / ${series.mode}；计划 ${series.repetitions} 次`;
+  const current: string = series.activeIteration > 0 ?
+    message('ap_series_current_iteration', [series.activeIteration, series.repetitions]) : '';
+  view.progressText = message('ap_series_progress', [current, series.startedCount, series.recordIds.length,
+    valid, actual.length - valid + missing, remaining]);
+  view.scopeText = message('ap_series_scope', [series.workloadId, localize(series.mode), series.repetitions]);
   view.phaseText = seriesPhaseLabel(series.phase);
-  view.saveText = series.saveState === 'saved' ? '已保存' :
-    series.saveState === 'failed' ? '保存失败，当前结果仅在内存保留' : '保存中，尚未确认落盘';
-  view.referenceText = `可用 ${actual.length} / ${series.recordIds.length} 条，缺失 ${missing} 条`;
-  view.isolationText = quarantined || series.waitingForSdk ? 'SDK尚未settle，继续隔离；不会自动重发' : '';
-  view.message = series.message || notice;
+  view.phaseFailed = series.phase === SeriesPhase.FAILED || series.phase === SeriesPhase.SAVE_FAILED;
+  view.saveFailed = series.saveState === 'failed';
+  view.saveText = series.saveState === 'saved' ? message('ap_series_saved') :
+    view.saveFailed ? message('ap_series_save_failed') : message('ap_series_saving');
+  view.referenceText = message('ap_series_references', [actual.length, series.recordIds.length, missing]);
+  view.isolationText = quarantined || series.waitingForSdk ? message('ap_series_sdk_isolated') : '';
+  view.message = localize(series.message || notice);
   const active: boolean = held && seriesActive(series.phase);
   view.canStopAfterCurrent = active && !series.stopRequested && !series.cancelRequested;
   view.canCancelNow = active && !series.cancelRequested && !quarantined;
   view.canCopyReport = actual.length > 0;
-  view.statistics = digestLedger(actual).map((digest): string => digest.text());
+  view.statistics = digestLedger(actual).map((digest): string => localize(digest.text()));
   return view;
 }

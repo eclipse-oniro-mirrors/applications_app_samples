@@ -32,6 +32,7 @@
 
 import { ExperimentRecord, ExperimentStage, WorkloadDigest, digestLedger, medianOf } from '../ExperimentLedger';
 import { FLOW_KEYS } from '../FlowMetrics';
+import { message, localize } from '../TextMessages';
 import { ConditionFields, ConditionSource, describeCondition, fieldsOfRecord, fingerprintOf,
   missingFieldsOf } from './ConditionFingerprint';
 
@@ -49,17 +50,17 @@ export enum ReportSort {
 export function reportSortLabel(key: ReportSort): string {
   switch (key) {
     case ReportSort.SAMPLES:
-      return '样本量';
+      return message('report_samples');
     case ReportSort.P50:
-      return 'P50';
+      return message('report_p50');
     case ReportSort.P90:
-      return 'P90';
+      return message('report_p90');
     case ReportSort.MEAN:
-      return '均值';
+      return message('report_mean');
     case ReportSort.FAILED:
-      return '失败/缺失数';
+      return message('report_failed_count');
     default:
-      return '负载';
+      return message('report_workload');
   }
 }
 
@@ -87,9 +88,13 @@ export class ReportFilter {
   }
 
   text(): string {
-    const workload: string = this.workloadId.length > 0 ? this.workloadId : '全部负载';
-    const mode: string = this.mode.length > 0 ? this.mode : '全部模式';
-    return `${workload}｜${mode}｜${this.evaluableOnly ? '仅可评估' : '含不可评估'}`;
+    const workload: string = this.workloadId.length > 0 ? this.workloadId : message('report_all_workloads');
+    const mode: string = this.mode.length === 0 ? message('report_all_modes') :
+      (this.mode === 'files' ? message('report_mode_files') :
+        (this.mode === 'modules' ? message('report_mode_modules') :
+          (this.mode === 'control' ? message('report_mode_control') : localize(this.mode))));
+    return message('report_filter', [workload, mode,
+      message(this.evaluableOnly ? 'report_evaluable_only' : 'report_include_unevaluable')]);
   }
 }
 
@@ -115,16 +120,16 @@ export class StageTimingRow {
   }
 
   p50Text(): string {
-    return this.p50Ms < 0 ? '不可评估' : `${this.p50Ms} ms`;
+    return this.p50Ms < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.p50Ms]);
   }
 
   meanText(): string {
-    return this.meanMs < 0 ? '不可评估' : `${this.meanMs} ms`;
+    return this.meanMs < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.meanMs]);
   }
 
   text(): string {
-    return `${this.label}｜样本 ${this.samples}｜P50 ${this.p50Text()}｜均值 ${this.meanText()}` +
-      `${this.evaluable ? '' : '｜不可评估'}`;
+    return message('report_stage_row', [localize(this.label), this.samples, this.p50Text(), this.meanText(),
+      this.evaluable ? '' : message('report_unevaluable_suffix')]);
   }
 }
 
@@ -161,35 +166,42 @@ export class ConditionGroup {
     this.mode = mode;
   }
 
+  /** Translate the display label without changing the historical sorting key. */
+  labelText(): string {
+    const match: RegExpMatchArray | null = this.label.match(/^条件组([0-9]+)$/);
+    return match === null ? localize(this.label) : message('report_group_label', [match[1]]);
+  }
+
   modeLabel(): string {
     if (this.mode === 'files') {
-      return '文件回收';
+      return message('report_mode_files');
     }
     if (this.mode === 'modules') {
-      return '模块回收';
+      return message('report_mode_modules');
     }
-    return this.mode === 'control' ? '对照组' : '模式未记录';
+    return message(this.mode === 'control' ? 'report_mode_control' : 'report_mode_unrecorded');
   }
 
   p50Text(): string {
-    return this.p50Ms < 0 ? '不可评估' : `${this.p50Ms} ms`;
+    return this.p50Ms < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.p50Ms]);
   }
 
   p90Text(): string {
-    return this.p90Ms < 0 ? '不可评估' : `${this.p90Ms} ms`;
+    return this.p90Ms < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.p90Ms]);
   }
 
   meanText(): string {
-    return this.meanMs < 0 ? '不可评估' : `${this.meanMs} ms`;
+    return this.meanMs < 0 ? message('report_unevaluable') : message('report_milliseconds', [this.meanMs]);
   }
 
   /** 表格行文本：可直接复制进工单或 Markdown 代码块。 */
   rowText(): string {
     const workload: string = this.workloadLabel.length > 0 ?
-      `${this.workloadLabel}（${this.workloadId}）` : this.workloadId;
-    const flag: string = this.unavailable.length > 0 ? `｜${this.unavailable}` : '';
-    return `${this.label}｜${workload}｜${this.modeLabel()}｜样本 ${this.samples}（有效 ${this.validSamples}）｜` +
-      `失败/缺失 ${this.failed}｜P50 ${this.p50Text()}｜P90 ${this.p90Text()}｜均值 ${this.meanText()}${flag}`;
+      message('report_workload_named', [localize(this.workloadLabel), this.workloadId]) : this.workloadId;
+    const flag: string = this.unavailable.length > 0 ?
+      message('report_status_suffix', [localize(this.unavailable)]) : '';
+    return message('report_group_row', [this.labelText(), workload, this.modeLabel(), this.samples,
+      this.validSamples, this.failed, this.p50Text(), this.p90Text(), this.meanText(), flag]);
   }
 }
 
@@ -261,15 +273,15 @@ function gapsOf(records: ExperimentRecord[], valid: ExperimentRecord[], group: C
   });
   const skipped: number = records.length - valid.length;
   if (skipped > 0) {
-    gaps.push(`${skipped} 条记录未正常结束或缺条件，不计入 P50/P90/均值`);
+    gaps.push(message('report_skipped_records', [skipped]));
   }
   if (!group.evaluable) {
-    gaps.push('无有效样本：P50/P90/均值不可评估（不能用 0 代替）');
+    gaps.push(message('report_no_valid_samples'));
   }
   if (group.unavailable.length > 0) {
     gaps.push(group.unavailable);
   }
-  return gaps;
+  return gaps.map((text: string): string => localize(text));
 }
 
 /** 构造一个条件组。 */
@@ -284,7 +296,8 @@ function groupOf(same: ExperimentRecord[], label: string,
   group.fingerprint = fingerprintOf(group.fields);
   group.conditionText = describeCondition(group.fields);
   const missing: string[] = missingFieldsOf(group.fields);
-  group.unavailable = missing.length > 0 ? `不可比：缺少 ${missing.join('、')}` : '';
+  group.unavailable = missing.length > 0 ?
+    message('report_missing_fields', [missing.join(message('report_field_separator'))]) : '';
 
   // 分组键与 digestLedger 一致，因此这里恰好得到一个汇总项。
   const digests: WorkloadDigest[] = digestLedger(same);
@@ -369,15 +382,13 @@ export class ReportTable {
   /** 表头 + 逐行文本，可直接复制。 */
   text(): string {
     if (this.rows.length === 0) {
-      return '没有条件组：账本为空或全部被当前筛选条件排除';
+      return message('report_empty_table');
     }
-    const lines: string[] = [
-      '条件组\t负载\t模式\t样本\t有效\t失败/缺失\tP50\tP90\t均值\t可比性'
-    ];
+    const lines: string[] = [message('report_table_header')];
     this.rows.forEach((group: ConditionGroup): void => {
-      lines.push(`${group.label}\t${group.workloadId}\t${group.modeLabel()}\t${group.samples}\t` +
-        `${group.validSamples}\t${group.failed}\t${group.p50Text()}\t${group.p90Text()}\t` +
-        `${group.meanText()}\t${group.unavailable.length > 0 ? group.unavailable : '可统计'}`);
+      lines.push(message('report_table_row', [group.labelText(), group.workloadId, group.modeLabel(),
+        group.samples, group.validSamples, group.failed, group.p50Text(), group.p90Text(), group.meanText(),
+        group.unavailable.length > 0 ? localize(group.unavailable) : message('report_can_aggregate')]));
     });
     return lines.join('\n');
   }

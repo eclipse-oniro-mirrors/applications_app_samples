@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { BusinessStore, TodoItem } from '../../../main/ets/business/BusinessStore';
 import { CaseScope, runCase } from '../support/CaseScope';
 import { FixedBusinessClock } from '../support/BusinessFixture';
@@ -29,20 +30,20 @@ export default function shortcutTodoWaveTwoTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutTodoWaveTwo0001', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutTodoWaveTwo', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutTodoWaveTwo', '0001'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
         const before: TodoItem = store.snapshot().todos[0];
-        expect(await store.updateTodo(before.id, ' \n ')).assertFalse();
-        expect(store.errorText()).assertEqual('请输入待办内容');
-        expect(await store.updateTodo(before.id, '长'.repeat(61))).assertFalse();
-        expect(store.errorText()).assertEqual('待办最多 60 个字符');
-        expect(io.writes).assertEqual(0);
-        expect(store.snapshot().todos[0].title).assertEqual(before.title);
-        expect(await store.updateTodo(before.id, '  ' + '界'.repeat(60) + ' ')).assertTrue();
-        expect(store.snapshot().todos[0].title).assertEqual('界'.repeat(60));
-        expect(store.snapshot().todos[0].done).assertFalse();
+        expect(await store.updateTodo(before.id, ' \n '), caseName('ShortcutTodoWaveTwo', '0001')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutTodoWaveTwo', '0001')).assertEqual('请输入待办内容');
+        expect(await store.updateTodo(before.id, '长'.repeat(61)), caseName('ShortcutTodoWaveTwo', '0001')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutTodoWaveTwo', '0001')).assertEqual('待办最多 60 个字符');
+        expect(io.writes, caseName('ShortcutTodoWaveTwo', '0001')).assertEqual(0);
+        expect(store.snapshot().todos[0].title, caseName('ShortcutTodoWaveTwo', '0001')).assertEqual(before.title);
+        expect(await store.updateTodo(before.id, '  ' + '界'.repeat(60) + ' '), caseName('ShortcutTodoWaveTwo', '0001')).assertTrue();
+        expect(store.snapshot().todos[0].title, caseName('ShortcutTodoWaveTwo', '0001')).assertEqual('界'.repeat(60));
+        expect(store.snapshot().todos[0].done, caseName('ShortcutTodoWaveTwo', '0001')).assertFalse();
       });
     });
 
@@ -54,19 +55,19 @@ export default function shortcutTodoWaveTwoTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutTodoWaveTwo0002', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutTodoWaveTwo', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutTodoWaveTwo', '0002'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
         const item: TodoItem = store.snapshot().todos[0];
         await store.setTodoDone(item.id, true);
         const writes: number = io.writes;
         const committed: string = io.value;
-        expect(await store.updateTodo(item.id, `  ${item.title}\n`)).assertTrue();
-        expect(store.snapshot().message).assertEqual('内容未变化');
-        expect(store.snapshot().todos[0].done).assertTrue();
-        expect(io.writes).assertEqual(writes);
-        expect(io.value).assertEqual(committed);
+        expect(await store.updateTodo(item.id, `  ${item.title}\n`), caseName('ShortcutTodoWaveTwo', '0002')).assertTrue();
+        expect(store.snapshot().message, caseName('ShortcutTodoWaveTwo', '0002')).assertEqual('内容未变化');
+        expect(store.snapshot().todos[0].done, caseName('ShortcutTodoWaveTwo', '0002')).assertTrue();
+        expect(io.writes, caseName('ShortcutTodoWaveTwo', '0002')).assertEqual(writes);
+        expect(io.value, caseName('ShortcutTodoWaveTwo', '0002')).assertEqual(committed);
       });
     });
 
@@ -78,8 +79,8 @@ export default function shortcutTodoWaveTwoTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutTodoWaveTwo0003', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutTodoWaveTwo', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutTodoWaveTwo', '0003'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const store: BusinessStore = await loadBusiness(scope, io, clock.now);
@@ -88,14 +89,14 @@ export default function shortcutTodoWaveTwoTests(): void {
         await store.refreshTodos();
         const committed: string = io.value;
         const writes: number = io.writes;
-        expect(await store.updateTodo('no-such-task', '新内容')).assertFalse();
-        expect(await store.updateTodo(past.id, '改写昨天')).assertFalse();
-        expect(store.errorText()).assertEqual('待办已更新，请刷新');
-        expect(store.snapshot().todoDate).assertEqual('2026-11-03');
-        expect(io.writes).assertEqual(writes);
-        expect(io.value).assertEqual(committed);
+        expect(await store.updateTodo('no-such-task', '新内容'), caseName('ShortcutTodoWaveTwo', '0003')).assertFalse();
+        expect(await store.updateTodo(past.id, '改写昨天'), caseName('ShortcutTodoWaveTwo', '0003')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutTodoWaveTwo', '0003')).assertEqual('待办已更新，请刷新');
+        expect(store.snapshot().todoDate, caseName('ShortcutTodoWaveTwo', '0003')).assertEqual('2026-11-03');
+        expect(io.writes, caseName('ShortcutTodoWaveTwo', '0003')).assertEqual(writes);
+        expect(io.value, caseName('ShortcutTodoWaveTwo', '0003')).assertEqual(committed);
         store.selectTodoDate('2026-11-02');
-        expect(store.snapshot().todos[0].title).assertEqual(past.title);
+        expect(store.snapshot().todos[0].title, caseName('ShortcutTodoWaveTwo', '0003')).assertEqual(past.title);
       });
     });
 
@@ -107,8 +108,8 @@ export default function shortcutTodoWaveTwoTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutTodoWaveTwo0004', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutTodoWaveTwo', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutTodoWaveTwo', '0004'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const store: BusinessStore = await loadBusiness(scope, io, clock.now);
@@ -116,16 +117,16 @@ export default function shortcutTodoWaveTwoTests(): void {
         await store.setTodoDone(item.id, true);
         const committed: string = io.value;
         io.failWrite = true;
-        expect(await store.updateTodo(item.id, '失败后续改标题')).assertFalse();
-        expect(store.snapshot().todos[0].title).assertEqual(item.title);
-        expect(store.snapshot().todos[0].done).assertTrue();
-        expect(io.value).assertEqual(committed);
+        expect(await store.updateTodo(item.id, '失败后续改标题'), caseName('ShortcutTodoWaveTwo', '0004')).assertFalse();
+        expect(store.snapshot().todos[0].title, caseName('ShortcutTodoWaveTwo', '0004')).assertEqual(item.title);
+        expect(store.snapshot().todos[0].done, caseName('ShortcutTodoWaveTwo', '0004')).assertTrue();
+        expect(io.value, caseName('ShortcutTodoWaveTwo', '0004')).assertEqual(committed);
         io.failWrite = false;
-        expect(await store.updateTodo(item.id, '失败后续改标题')).assertTrue();
+        expect(await store.updateTodo(item.id, '失败后续改标题'), caseName('ShortcutTodoWaveTwo', '0004')).assertTrue();
         store.dispose();
         const reopened: BusinessStore = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().todos[0].title).assertEqual('失败后续改标题');
-        expect(reopened.snapshot().todos[0].done).assertTrue();
+        expect(reopened.snapshot().todos[0].title, caseName('ShortcutTodoWaveTwo', '0004')).assertEqual('失败后续改标题');
+        expect(reopened.snapshot().todos[0].done, caseName('ShortcutTodoWaveTwo', '0004')).assertTrue();
       });
     });
 
@@ -137,8 +138,8 @@ export default function shortcutTodoWaveTwoTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutTodoWaveTwo0005', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutTodoWaveTwo', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutTodoWaveTwo', '0005'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const store: BusinessStore = await loadBusiness(scope, io, clock.now);
@@ -147,18 +148,18 @@ export default function shortcutTodoWaveTwoTests(): void {
         }
         const committed: string = io.value;
         const writes: number = io.writes;
-        expect(await store.addTodo('第二十一项')).assertFalse();
-        expect(store.errorText()).assertEqual('当日待办已满，请先删除');
-        expect(io.value).assertEqual(committed);
-        expect(io.writes).assertEqual(writes);
+        expect(await store.addTodo('第二十一项'), caseName('ShortcutTodoWaveTwo', '0005')).assertFalse();
+        expect(store.errorText(), caseName('ShortcutTodoWaveTwo', '0005')).assertEqual('当日待办已满，请先删除');
+        expect(io.value, caseName('ShortcutTodoWaveTwo', '0005')).assertEqual(committed);
+        expect(io.writes, caseName('ShortcutTodoWaveTwo', '0005')).assertEqual(writes);
         const removed: string = store.snapshot().todos[3].id;
         await store.deleteTodo(removed);
-        expect(await store.addTodo('释放名额后的待办')).assertTrue();
+        expect(await store.addTodo('释放名额后的待办'), caseName('ShortcutTodoWaveTwo', '0005')).assertTrue();
         store.dispose();
         const reopened: BusinessStore = await loadBusiness(scope, io, clock.now);
-        expect(reopened.snapshot().todos.length).assertEqual(20);
-        expect(reopened.snapshot().todos.some((todo: TodoItem): boolean => todo.id === removed)).assertFalse();
-        expect(reopened.snapshot().todos[19].title).assertEqual('释放名额后的待办');
+        expect(reopened.snapshot().todos.length, caseName('ShortcutTodoWaveTwo', '0005')).assertEqual(20);
+        expect(reopened.snapshot().todos.some((todo: TodoItem): boolean => todo.id === removed), caseName('ShortcutTodoWaveTwo', '0005')).assertFalse();
+        expect(reopened.snapshot().todos[19].title, caseName('ShortcutTodoWaveTwo', '0005')).assertEqual('释放名额后的待办');
       });
     });
   });

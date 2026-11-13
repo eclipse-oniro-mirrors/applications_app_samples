@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { ExperimentRecord } from '../../../main/ets/core/ExperimentLedger';
 import { ConditionSource, ConditionVerdict, compareConditions, fieldsOfRecord, fingerprintOf,
   missingFieldsOf } from '../../../main/ets/core/report/ConditionFingerprint';
@@ -43,14 +45,14 @@ export default function performanceConditionWaveTwoTests(): void {
     it('testPerformanceConditionWaveTwo0001', 0, (): void => {
       const broken = waveRecord('broken'); broken.condition = '{bad-json';
       const absent = fieldsOfRecord(broken);
-      expect(missingFieldsOf(absent).join('|')).assertEqual('设备型号|系统版本|应用版本');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:46 assertEqual actual', missingFieldsOf(absent).join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:46 assertEqual expected', '设备型号|系统版本|应用版本'));
       const supplied = fieldsOfRecord(broken, ConditionSource.of('KnownModel', 'KnownOS', '2.0'));
-      expect(supplied.foreground).assertEqual('');
-      expect(supplied.assetBytes).assertEqual(32);
-      expect(missingFieldsOf(supplied).length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:48 assertEqual actual', supplied.foreground)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:48 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:49 assertEqual actual', supplied.assetBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:49 assertEqual expected', 32));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:50 assertEqual actual', missingFieldsOf(supplied).length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:50 assertEqual expected', 0));
       const object = waveRecord('object'); object.condition = '{"device":"not-a-tuple"}';
-      expect(fieldsOfRecord(object).device).assertEqual('');
-      expect(fieldsOfRecord(object).appVersion).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:52 assertEqual actual', fieldsOfRecord(object).device)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:52 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:53 assertEqual actual', fieldsOfRecord(object).appVersion)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0001 PerformanceConditionWaveTwo.test:53 assertEqual expected', ''));
     });
 
     /**
@@ -64,16 +66,16 @@ export default function performanceConditionWaveTwoTests(): void {
     it('testPerformanceConditionWaveTwo0002', 0, (): void => {
       const malformed = waveRecord('malformed'); malformed.condition = '[23,false," 后台 "]';
       const fields = fieldsOfRecord(malformed);
-      expect(fields.device).assertEqual('');
-      expect(fields.appVersion).assertEqual('');
-      expect(fields.foreground).assertEqual('后台');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:67 assertEqual actual', fields.device)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:67 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:68 assertEqual actual', fields.appVersion)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:68 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:69 assertEqual actual', fields.foreground)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:69 assertEqual expected', '后台'));
       const foreground = waveRecord('foreground');
       foreground.condition = '["fixture-board · fixture-os","1.0.fixture"," 前台 "]';
-      expect(fieldsOfRecord(foreground).foreground).assertEqual('前台');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:72 assertEqual actual', fieldsOfRecord(foreground).foreground)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:72 assertEqual expected', '前台'));
       foreground.condition = '["fixture-board · fixture-os","1.0.fixture",9]';
-      expect(fieldsOfRecord(foreground).foreground).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:74 assertEqual actual', fieldsOfRecord(foreground).foreground)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:74 assertEqual expected', ''));
       foreground.condition = '["fixture-board · fixture-os","1.0.fixture","unknown"]';
-      expect(fieldsOfRecord(foreground).foreground).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:76 assertEqual actual', fieldsOfRecord(foreground).foreground)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0002 PerformanceConditionWaveTwo.test:76 assertEqual expected', ''));
     });
 
     /**
@@ -89,10 +91,10 @@ export default function performanceConditionWaveTwoTests(): void {
       const changedFiles = fieldsOfRecord(tupleRecord('files-changed', 'modules', [],
         ['entry', 'feature'], ['other.hap']));
       const changedModules = fieldsOfRecord(tupleRecord('modules-changed', 'modules', [], ['entry'], ['entry.hap']));
-      expect(original.targetCount).assertEqual(2);
-      expect(changedFiles.targetDigest).assertEqual(original.targetDigest);
-      expect(changedModules.targetDigest === original.targetDigest).assertFalse();
-      expect(missingFieldsOf(original).length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0003 PerformanceConditionWaveTwo.test:92 assertEqual actual', original.targetCount)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0003 PerformanceConditionWaveTwo.test:92 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0003 PerformanceConditionWaveTwo.test:93 assertEqual actual', changedFiles.targetDigest)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0003 PerformanceConditionWaveTwo.test:93 assertEqual expected', original.targetDigest));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0003 PerformanceConditionWaveTwo.test:94 assertFalse actual', changedModules.targetDigest === original.targetDigest)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0003 PerformanceConditionWaveTwo.test:95 assertEqual actual', missingFieldsOf(original).length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0003 PerformanceConditionWaveTwo.test:95 assertEqual expected', 0));
     });
 
     /**
@@ -107,10 +109,10 @@ export default function performanceConditionWaveTwoTests(): void {
       const noisy = fieldsOfRecord(tupleRecord('noisy', 'files', [], [], [' b.so ', 'a.so', 'b.so', '  ']));
       const canonical = fieldsOfRecord(tupleRecord('canonical', 'files', [], [], ['a.so', 'b.so']));
       const reduced = fieldsOfRecord(tupleRecord('reduced', 'files', [], [], ['a.so']));
-      expect(noisy.targetCount).assertEqual(2);
-      expect(noisy.targetDigest).assertEqual(canonical.targetDigest);
-      expect(reduced.targetDigest === canonical.targetDigest).assertFalse();
-      expect(noisy.scopeDigest).assertEqual(canonical.scopeDigest);
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0004 PerformanceConditionWaveTwo.test:110 assertEqual actual', noisy.targetCount)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0004 PerformanceConditionWaveTwo.test:110 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0004 PerformanceConditionWaveTwo.test:111 assertEqual actual', noisy.targetDigest)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0004 PerformanceConditionWaveTwo.test:111 assertEqual expected', canonical.targetDigest));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0004 PerformanceConditionWaveTwo.test:112 assertFalse actual', reduced.targetDigest === canonical.targetDigest)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0004 PerformanceConditionWaveTwo.test:113 assertEqual actual', noisy.scopeDigest)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0004 PerformanceConditionWaveTwo.test:113 assertEqual expected', canonical.scopeDigest));
     });
 
     /**
@@ -124,16 +126,16 @@ export default function performanceConditionWaveTwoTests(): void {
     it('testPerformanceConditionWaveTwo0005', 0, (): void => {
       const nonArray = waveRecord('non-array'); nonArray.mode = 'files';
       nonArray.condition = '["fixture-board · fixture-os","1.0.fixture",true,"W-TEXT","sample.txt",[],[],"entry.hap"]';
-      expect(missingFieldsOf(fieldsOfRecord(nonArray)).join('|')).assertEqual('目标集合');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0005 PerformanceConditionWaveTwo.test:127 assertEqual actual', missingFieldsOf(fieldsOfRecord(nonArray)).join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0005 PerformanceConditionWaveTwo.test:127 assertEqual expected', '目标集合'));
       const mixed = waveRecord('mixed'); mixed.mode = 'files';
       mixed.condition = '["fixture-board · fixture-os","1.0.fixture",true,"W-TEXT","sample.txt",[],[],' +
         '["libentry.so",null,7,false,"  "," libentry.so ","entry.hap"]]';
-      expect(fieldsOfRecord(mixed).targetCount).assertEqual(2);
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0005 PerformanceConditionWaveTwo.test:131 assertEqual actual', fieldsOfRecord(mixed).targetCount)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0005 PerformanceConditionWaveTwo.test:131 assertEqual expected', 2));
       const empty = waveRecord('empty'); empty.mode = 'files';
       empty.condition = '["fixture-board · fixture-os","1.0.fixture",true,"W-TEXT","sample.txt",[],[],' +
         '[null,false,7,"  "]]';
-      expect(fieldsOfRecord(empty).targetDigest).assertEqual('');
-      expect(fieldsOfRecord(nonArray).scopeDigest).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0005 PerformanceConditionWaveTwo.test:135 assertEqual actual', fieldsOfRecord(empty).targetDigest)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0005 PerformanceConditionWaveTwo.test:135 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0005 PerformanceConditionWaveTwo.test:136 assertEqual actual', fieldsOfRecord(nonArray).scopeDigest)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0005 PerformanceConditionWaveTwo.test:136 assertEqual expected', ''));
     });
 
     /**
@@ -148,13 +150,13 @@ export default function performanceConditionWaveTwoTests(): void {
       const left = tupleRecord('left', 'files', ['entry.hap'], ['entry'], ['entry.hap']);
       const right = tupleRecord('right', 'files', ['entry.hap', 'private-feature.hap'], ['entry'], ['entry.hap']);
       const first = fieldsOfRecord(left); const second = fieldsOfRecord(right);
-      expect(fingerprintOf(first)).assertEqual(fingerprintOf(second));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:151 assertEqual actual', fingerprintOf(first))).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:151 assertEqual expected', fingerprintOf(second)));
       const comparison = compareConditions(first, second);
-      expect(comparison.verdict).assertEqual(ConditionVerdict.PARTIAL);
-      expect(comparison.diffs.map((diff): string => diff.label).join('|')).assertEqual('安装/回收目标清单');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:153 assertEqual actual', comparison.verdict)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:153 assertEqual expected', ConditionVerdict.PARTIAL));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:154 assertEqual actual', comparison.diffs.map((diff): string => diff.label).join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:154 assertEqual expected', '安装/回收目标清单'));
       const outcome = exportReport([left, right], new ReportMeta('条件变化', 1700000001000), ReportFormat.MARKDOWN);
-      expect(outcome.ok).assertTrue();
-      expect(outcome.text.indexOf('private-feature.hap')).assertEqual(-1);
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:156 assertTrue actual', outcome.ok)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:157 assertEqual actual', outcome.text.indexOf('private-feature.hap'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0006 PerformanceConditionWaveTwo.test:157 assertEqual expected', -1));
     });
 
     /**
@@ -172,15 +174,15 @@ export default function performanceConditionWaveTwoTests(): void {
       changed.beforeBytes = 64; changed.digestBefore = '12345678';
       const other = fieldsOfRecord(changed, ConditionSource.of('fixture-board', 'next-os', '2.0', 'next-protocol'));
       const comparison = compareConditions(base, other);
-      expect(comparison.diffs.map((diff): string => diff.label).join('|')).assertEqual(
-        '系统版本|应用版本|负载标识|回收模式|资源大小|资源摘要|目标集合|采样协议|安装/回收目标清单');
-      expect(comparison.diffs[0].left + '→' + comparison.diffs[0].right).assertEqual('fixture-os→next-os');
-      expect(comparison.diffs[1].left + '→' + comparison.diffs[1].right).assertEqual('1.0.fixture→2.0');
-      expect(comparison.diffs[2].right).assertEqual('业务列表（W-NOTES）');
-      expect(comparison.diffs[3].left + '→' + comparison.diffs[3].right).assertEqual('对照组→模块回收');
-      expect(comparison.diffs[4].left + '→' + comparison.diffs[4].right).assertEqual('32→64');
-      expect(comparison.diffs[5].left + '→' + comparison.diffs[5].right).assertEqual('abcdef12→12345678');
-      expect(comparison.diffs[7].right).assertEqual('next-protocol');
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:175 assertEqual actual', comparison.diffs.map((diff): string => diff.label).join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:175 assertEqual expected', 
+        '系统版本|应用版本|负载标识|回收模式|资源大小|资源摘要|目标集合|采样协议|安装/回收目标清单'));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:177 assertEqual actual', comparison.diffs[0].left + '→' + comparison.diffs[0].right)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:177 assertEqual expected', 'fixture-os→next-os'));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:178 assertEqual actual', comparison.diffs[1].left + '→' + comparison.diffs[1].right)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:178 assertEqual expected', '1.0.fixture→2.0'));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:179 assertEqual actual', comparison.diffs[2].right)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:179 assertEqual expected', '业务列表（W-NOTES）'));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:180 assertEqual actual', comparison.diffs[3].left + '→' + comparison.diffs[3].right)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:180 assertEqual expected', '对照组→模块回收'));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:181 assertEqual actual', comparison.diffs[4].left + '→' + comparison.diffs[4].right)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:181 assertEqual expected', '32→64'));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:182 assertEqual actual', comparison.diffs[5].left + '→' + comparison.diffs[5].right)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:182 assertEqual expected', 'abcdef12→12345678'));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:183 assertEqual actual', comparison.diffs[7].right)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0007 PerformanceConditionWaveTwo.test:183 assertEqual expected', 'next-protocol'));
     });
 
     /**
@@ -195,9 +197,9 @@ export default function performanceConditionWaveTwoTests(): void {
       const left = fieldsOfRecord(waveRecord('left')); left.device = '';
       const right = fieldsOfRecord(waveRecord('right')); right.appVersion = ''; right.assetDigest = '';
       const comparison = compareConditions(left, right);
-      expect(comparison.missing.join('|')).assertEqual('左侧缺少设备型号|右侧缺少应用版本|右侧缺少资源摘要');
-      expect(comparison.fingerprint).assertEqual('');
-      expect(comparison.diffs.length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0008 PerformanceConditionWaveTwo.test:198 assertEqual actual', comparison.missing.join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0008 PerformanceConditionWaveTwo.test:198 assertEqual expected', '左侧缺少设备型号|右侧缺少应用版本|右侧缺少资源摘要'));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0008 PerformanceConditionWaveTwo.test:199 assertEqual actual', comparison.fingerprint)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0008 PerformanceConditionWaveTwo.test:199 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0008 PerformanceConditionWaveTwo.test:200 assertEqual actual', comparison.diffs.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceConditionWaveTwo_0008 PerformanceConditionWaveTwo.test:200 assertEqual expected', 0));
     });
   });
 }

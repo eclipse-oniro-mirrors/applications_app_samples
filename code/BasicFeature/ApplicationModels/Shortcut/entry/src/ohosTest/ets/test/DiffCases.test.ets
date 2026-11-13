@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   DiffKind, diffBadge, diffCharacters, diffLines, sideBySide
 } from '../../../main/ets/business/TextDiff';
@@ -30,14 +31,14 @@ export default function diffCases(): void {
      */
 
 
-    it('testTextDiff0001', 0, (): void => {
+    it(caseName('TextDiff', '0001'), 0, (): void => {
       const result = diffLines('第一行\n第二行', '第一行\n第二行');
-      expect(result.summary.identical).assertTrue();
-      expect(result.summary.added).assertEqual(0);
-      expect(result.summary.removed).assertEqual(0);
-      expect(result.summary.equal).assertEqual(2);
-      expect(result.lines.length).assertEqual(2);
-      expect(result.changeLines()[0]).assertEqual('内容完全相同');
+      expect(result.summary.identical, caseName('TextDiff', '0001')).assertTrue();
+      expect(result.summary.added, caseName('TextDiff', '0001')).assertEqual(0);
+      expect(result.summary.removed, caseName('TextDiff', '0001')).assertEqual(0);
+      expect(result.summary.equal, caseName('TextDiff', '0001')).assertEqual(2);
+      expect(result.lines.length, caseName('TextDiff', '0001')).assertEqual(2);
+      expect(result.changeLines()[0], caseName('TextDiff', '0001')).assertEqual('内容完全相同');
     });
 
     /**
@@ -50,17 +51,17 @@ export default function diffCases(): void {
      */
 
 
-    it('testTextDiff0002', 0, (): void => {
+    it(caseName('TextDiff', '0002'), 0, (): void => {
       const result = diffLines('标题\n正文A\n结尾', '标题\n正文B\n结尾');
-      expect(result.summary.removed).assertEqual(1);
-      expect(result.summary.added).assertEqual(1);
+      expect(result.summary.removed, caseName('TextDiff', '0002')).assertEqual(1);
+      expect(result.summary.added, caseName('TextDiff', '0002')).assertEqual(1);
       const removed = result.lines.filter((line) => line.kind === DiffKind.REMOVED)[0];
       const added = result.lines.filter((line) => line.kind === DiffKind.ADDED)[0];
-      expect(removed.text).assertEqual('正文A');
-      expect(removed.oldLine).assertEqual(2);
-      expect(added.text).assertEqual('正文B');
-      expect(added.newLine).assertEqual(2);
-      expect(diffBadge(result.summary)).assertEqual('+1 / -1');
+      expect(removed.text, caseName('TextDiff', '0002')).assertEqual('正文A');
+      expect(removed.oldLine, caseName('TextDiff', '0002')).assertEqual(2);
+      expect(added.text, caseName('TextDiff', '0002')).assertEqual('正文B');
+      expect(added.newLine, caseName('TextDiff', '0002')).assertEqual(2);
+      expect(diffBadge(result.summary), caseName('TextDiff', '0002')).assertEqual('+1 / -1');
     });
 
     /**
@@ -73,15 +74,15 @@ export default function diffCases(): void {
      */
 
 
-    it('testTextDiff0003', 0, (): void => {
+    it(caseName('TextDiff', '0003'), 0, (): void => {
       const result = diffLines('A\nC', 'A\nB\nC');
-      expect(result.summary.added).assertEqual(1);
-      expect(result.summary.removed).assertEqual(0);
-      expect(result.summary.equal).assertEqual(2);
+      expect(result.summary.added, caseName('TextDiff', '0003')).assertEqual(1);
+      expect(result.summary.removed, caseName('TextDiff', '0003')).assertEqual(0);
+      expect(result.summary.equal, caseName('TextDiff', '0003')).assertEqual(2);
       const rows = sideBySide(result);
-      expect(rows.length).assertEqual(3);
-      expect(rows[1].right).assertEqual('B');
-      expect(rows[1].left).assertEqual('');
+      expect(rows.length, caseName('TextDiff', '0003')).assertEqual(3);
+      expect(rows[1].right, caseName('TextDiff', '0003')).assertEqual('B');
+      expect(rows[1].left, caseName('TextDiff', '0003')).assertEqual('');
     });
 
     /**
@@ -94,12 +95,12 @@ export default function diffCases(): void {
      */
 
 
-    it('testTextDiff0004', 0, (): void => {
+    it(caseName('TextDiff', '0004'), 0, (): void => {
       const lines = diffCharacters('今日待办清单', '今日待办列表');
-      expect(lines.indexOf('相同前缀：今日待办') >= 0).assertTrue();
-      expect(lines.indexOf('删除：清单') >= 0).assertTrue();
-      expect(lines.indexOf('新增：列表') >= 0).assertTrue();
-      expect(diffCharacters('相同', '相同')[0]).assertEqual('完全相同');
+      expect(lines.indexOf('相同前缀：今日待办') >= 0, caseName('TextDiff', '0004')).assertTrue();
+      expect(lines.indexOf('删除：清单') >= 0, caseName('TextDiff', '0004')).assertTrue();
+      expect(lines.indexOf('新增：列表') >= 0, caseName('TextDiff', '0004')).assertTrue();
+      expect(diffCharacters('相同', '相同')[0], caseName('TextDiff', '0004')).assertEqual('完全相同');
     });
 
     /**
@@ -112,13 +113,13 @@ export default function diffCases(): void {
      */
 
 
-    it('testTextDiff0005', 0, (): void => {
+    it(caseName('TextDiff', '0005'), 0, (): void => {
       const oldText: string = 'x'.repeat(20001);
       const result = diffLines(oldText, 'y');
-      expect(result.summary.truncated).assertTrue();
-      expect(result.summary.changed()).assertFalse();
-      expect(diffBadge(result.summary)).assertEqual('超限，未逐行比较');
-      expect(result.summary.text().indexOf('上限') >= 0).assertTrue();
+      expect(result.summary.truncated, caseName('TextDiff', '0005')).assertTrue();
+      expect(result.summary.changed(), caseName('TextDiff', '0005')).assertFalse();
+      expect(diffBadge(result.summary), caseName('TextDiff', '0005')).assertEqual('超限，未逐行比较');
+      expect(result.summary.text().indexOf('上限') >= 0, caseName('TextDiff', '0005')).assertTrue();
     });
   });
 }

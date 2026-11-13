@@ -15,6 +15,7 @@
 
 import { businessLabel } from '../i18n/BusinessLabels';
 import { uiText, resourceText } from '../i18n/Strings';
+
 /**
  * 待办的状态机与优先级排序。
  *
@@ -35,15 +36,15 @@ export enum TodoState {
 export function todoStateLabel(state: TodoState): string {
   switch (state) {
     case TodoState.OPEN:
-      return uiText("shortcut_text_0203");
+      return uiText('shortcut_text_0203');
     case TodoState.DOING:
-      return uiText("shortcut_text_0345");
+      return uiText('shortcut_text_0345');
     case TodoState.DONE:
-      return uiText("shortcut_text_0679");
+      return uiText('shortcut_text_0679');
     case TodoState.DROPPED:
-      return uiText("shortcut_text_0652");
+      return uiText('shortcut_text_0652');
     default:
-      return uiText("shortcut_text_0678");
+      return uiText('shortcut_text_0678');
   }
 }
 
@@ -66,17 +67,17 @@ export enum TodoEvent {
 export function todoEventLabel(event: TodoEvent): string {
   switch (event) {
     case TodoEvent.START:
-      return uiText("shortcut_text_0352");
+      return uiText('shortcut_text_0352');
     case TodoEvent.FINISH:
-      return uiText("shortcut_text_0566");
+      return uiText('shortcut_text_0566');
     case TodoEvent.DROP:
-      return uiText("shortcut_text_0235");
+      return uiText('shortcut_text_0235');
     case TodoEvent.DEFER:
-      return uiText("shortcut_text_0562");
+      return uiText('shortcut_text_0562');
     case TodoEvent.REOPEN:
-      return uiText("shortcut_text_0775");
+      return uiText('shortcut_text_0775');
     default:
-      return uiText("shortcut_text_0258");
+      return uiText('shortcut_text_0258');
   }
 }
 
@@ -107,21 +108,21 @@ export class TodoTransition {
 
 /** 迁移表。顺序即优先级。 */
 export const TODO_TRANSITIONS: TodoTransition[] = [
-  new TodoTransition('TT-01', TodoState.OPEN, TodoEvent.START, TodoState.DOING, "@string/shortcut_text_0353"),
-  new TodoTransition('TT-02', TodoState.OPEN, TodoEvent.FINISH, TodoState.DONE, "@string/shortcut_text_0751"),
-  new TodoTransition('TT-03', TodoState.OPEN, TodoEvent.DROP, TodoState.DROPPED, "@string/shortcut_text_0135"),
-  new TodoTransition('TT-04', TodoState.OPEN, TodoEvent.DEFER, TodoState.DEFERRED, "@string/shortcut_text_0564"),
-  new TodoTransition('TT-05', TodoState.DOING, TodoEvent.FINISH, TodoState.DONE, "@string/shortcut_text_0166"),
-  new TodoTransition('TT-06', TodoState.DOING, TodoEvent.DROP, TodoState.DROPPED, "@string/shortcut_text_0168"),
-  new TodoTransition('TT-07', TodoState.DOING, TodoEvent.DEFER, TodoState.DEFERRED, "@string/shortcut_text_0169"),
-  new TodoTransition('TT-08', TodoState.DEFERRED, TodoEvent.REOPEN, TodoState.OPEN, "@string/shortcut_text_0287"),
-  new TodoTransition('TT-09', TodoState.DEFERRED, TodoEvent.START, TodoState.DOING, "@string/shortcut_text_0750"),
+  new TodoTransition('TT-01', TodoState.OPEN, TodoEvent.START, TodoState.DOING, '@string/shortcut_text_0353'),
+  new TodoTransition('TT-02', TodoState.OPEN, TodoEvent.FINISH, TodoState.DONE, '@string/shortcut_text_0751'),
+  new TodoTransition('TT-03', TodoState.OPEN, TodoEvent.DROP, TodoState.DROPPED, '@string/shortcut_text_0135'),
+  new TodoTransition('TT-04', TodoState.OPEN, TodoEvent.DEFER, TodoState.DEFERRED, '@string/shortcut_text_0564'),
+  new TodoTransition('TT-05', TodoState.DOING, TodoEvent.FINISH, TodoState.DONE, '@string/shortcut_text_0166'),
+  new TodoTransition('TT-06', TodoState.DOING, TodoEvent.DROP, TodoState.DROPPED, '@string/shortcut_text_0168'),
+  new TodoTransition('TT-07', TodoState.DOING, TodoEvent.DEFER, TodoState.DEFERRED, '@string/shortcut_text_0169'),
+  new TodoTransition('TT-08', TodoState.DEFERRED, TodoEvent.REOPEN, TodoState.OPEN, '@string/shortcut_text_0287'),
+  new TodoTransition('TT-09', TodoState.DEFERRED, TodoEvent.START, TodoState.DOING, '@string/shortcut_text_0750'),
   new TodoTransition('TT-10', TodoState.DEFERRED, TodoEvent.EXPIRE, TodoState.DROPPED,
-    "@string/shortcut_text_0563"),
-  new TodoTransition('TT-11', TodoState.DONE, TodoEvent.REOPEN, TodoState.OPEN, "@string/shortcut_text_0568"),
-  new TodoTransition('TT-12', TodoState.DROPPED, TodoEvent.REOPEN, TodoState.OPEN, "@string/shortcut_text_0781"),
-  new TodoTransition('TT-13', TodoState.OPEN, TodoEvent.EXPIRE, TodoState.DROPPED, "@string/shortcut_text_0260"),
-  new TodoTransition('TT-14', TodoState.DOING, TodoEvent.EXPIRE, TodoState.DROPPED, "@string/shortcut_text_0163")
+    '@string/shortcut_text_0563'),
+  new TodoTransition('TT-11', TodoState.DONE, TodoEvent.REOPEN, TodoState.OPEN, '@string/shortcut_text_0568'),
+  new TodoTransition('TT-12', TodoState.DROPPED, TodoEvent.REOPEN, TodoState.OPEN, '@string/shortcut_text_0781'),
+  new TodoTransition('TT-13', TodoState.OPEN, TodoEvent.EXPIRE, TodoState.DROPPED, '@string/shortcut_text_0260'),
+  new TodoTransition('TT-14', TodoState.DOING, TodoEvent.EXPIRE, TodoState.DROPPED, '@string/shortcut_text_0163')
 ];
 
 /** 迁移结果。 */
@@ -133,9 +134,9 @@ export class TodoTransitionResult {
 
   text(): string {
     if (!this.applied) {
-      return uiText("shortcut_text_0063", [String(this.reason)]);
+      return uiText('shortcut_text_0063', [String(this.reason)]);
     }
-    return this.rule === undefined ? uiText("shortcut_text_0343", [String(todoStateLabel(this.to))]) : this.rule.note;
+    return this.rule === undefined ? uiText('shortcut_text_0343', [String(todoStateLabel(this.to))]) : this.rule.note;
   }
 }
 
@@ -151,7 +152,7 @@ export function nextTodoState(from: TodoState, event: TodoEvent): TodoTransition
     }
   }
   result.to = from;
-  result.reason = uiText("shortcut_text_0010", [String(todoStateLabel(from)), String(todoEventLabel(event))]);
+  result.reason = uiText('shortcut_text_0010', [String(todoStateLabel(from)), String(todoEventLabel(event))]);
   return result;
 }
 
@@ -290,17 +291,17 @@ export function openTodos(items: TodoItem[]): TodoItem[] {
 /** 统计摘要行。 */
 export function summarizeTodos(items: TodoItem[], now: number): string[] {
   const buckets: string[] = ['已逾期', '今天', '明天', '本周', '以后', '无截止'];
-  const lines: string[] = [uiText("shortcut_text_0251", [String(items.length), String(openTodos(items).length)])];
+  const lines: string[] = [uiText('shortcut_text_0251', [String(items.length), String(openTodos(items).length)])];
   buckets.forEach((bucket: string): void => {
     const count: number = items.filter((item: TodoItem): boolean =>
       !item.closed() && dueBucket(item, now) === bucket).length;
-    lines.push(uiText("shortcut_text_0017", [businessLabel(bucket), String(count)]));
+    lines.push(uiText('shortcut_text_0017', [businessLabel(bucket), String(count)]));
   });
   const states: TodoState[] = [TodoState.OPEN, TodoState.DOING, TodoState.DEFERRED,
     TodoState.DONE, TodoState.DROPPED];
   states.forEach((state: TodoState): void => {
     const count: number = items.filter((item: TodoItem): boolean => item.state === state).length;
-    lines.push(uiText("shortcut_text_0017", [String(todoStateLabel(state)), String(count)]));
+    lines.push(uiText('shortcut_text_0017', [String(todoStateLabel(state)), String(count)]));
   });
   return lines;
 }
@@ -311,7 +312,7 @@ export class TodoAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? uiText("shortcut_text_0194") : this.findings.join('；');
+    return this.ok ? uiText('shortcut_text_0194') : this.findings.join('；');
   }
 }
 
@@ -321,21 +322,21 @@ export function auditTodoRules(): TodoAudit {
   const seen: string[] = [];
   TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
     if (seen.indexOf(rule.ruleId) >= 0) {
-      audit.findings.push(uiText("shortcut_text_0433", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0433', [String(rule.ruleId)]));
     }
     seen.push(rule.ruleId);
     if (rule.note.length === 0) {
-      audit.findings.push(uiText("shortcut_text_0473", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0473', [String(rule.ruleId)]));
     }
     if (rule.from === rule.to) {
-      audit.findings.push(uiText("shortcut_text_0434", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0434', [String(rule.ruleId)]));
     }
   });
   const states: TodoState[] = [TodoState.OPEN, TodoState.DOING, TodoState.DEFERRED,
     TodoState.DONE, TodoState.DROPPED];
   states.forEach((state: TodoState): void => {
     if (todoEventsOf(state).length === 0) {
-      audit.findings.push(uiText("shortcut_text_0785", [String(todoStateLabel(state))]));
+      audit.findings.push(uiText('shortcut_text_0785', [String(todoStateLabel(state))]));
     }
   });
   audit.ok = audit.findings.length === 0;

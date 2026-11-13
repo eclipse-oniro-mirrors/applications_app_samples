@@ -14,6 +14,7 @@
  */
 
 import { uiText, resourceText } from '../i18n/Strings';
+
 /**
  * 快捷入口到页面的声明式路由表。
  *
@@ -79,7 +80,7 @@ export class RouteParam {
   }
 
   text(): string {
-    return `${this.name}(${this.kind as string})${this.required ? uiText("shortcut_text_0072") : uiText("shortcut_text_0632")}`;
+    return `${this.name}(${this.kind as string})${this.required ? uiText('shortcut_text_0072') : uiText('shortcut_text_0632')}`;
   }
 }
 
@@ -112,10 +113,10 @@ export class RouteEntry {
   }
 
   text(): string {
-    const names: string = this.params.length === 0 ? uiText("shortcut_text_0596") :
+    const names: string = this.params.length === 0 ? uiText('shortcut_text_0596') :
       this.params.map((param: RouteParam): string => param.name).join(',');
     return `${this.routeId} -> ${this.page as string}｜${names}｜` +
-      `${this.requiresLogin ? uiText("shortcut_text_0626") : uiText("shortcut_text_0401")}`;
+      `${this.requiresLogin ? uiText('shortcut_text_0626') : uiText('shortcut_text_0401')}`;
   }
 }
 
@@ -123,25 +124,25 @@ export class RouteEntry {
 export const ROUTE_TABLE: RouteEntry[] = [
   new RouteEntry('sc.note.new', RoutePage.NOTE,
     [new RouteParam('draftId', ParamKind.ID, false, ''), new RouteParam('focus', ParamKind.BOOLEAN,
-      false, 'true')], false, 0, "@string/shortcut_text_0181"),
+      false, 'true')], false, 0, '@string/shortcut_text_0181'),
   new RouteEntry('sc.todo.today', RoutePage.TODO,
     [new RouteParam('date', ParamKind.TEXT, false, 'today'),
-      new RouteParam('filter', ParamKind.TEXT, false, 'all')], false, 0, "@string/shortcut_text_0186"),
+      new RouteParam('filter', ParamKind.TEXT, false, 'all')], false, 0, '@string/shortcut_text_0186'),
   new RouteEntry('sc.collection.saved', RoutePage.COLLECTION,
     [new RouteParam('tag', ParamKind.TEXT, false, ''), new RouteParam('sort', ParamKind.TEXT, false,
-      'recent')], false, 0, "@string/shortcut_text_0187"),
+      'recent')], false, 0, '@string/shortcut_text_0187'),
   new RouteEntry('sc.detail', RoutePage.DETAIL,
-    [new RouteParam('noteId', ParamKind.ID, true, '')], true, 0, "@string/shortcut_text_0188"),
+    [new RouteParam('noteId', ParamKind.ID, true, '')], true, 0, '@string/shortcut_text_0188'),
   new RouteEntry('sc.calls', RoutePage.CALL_LOG,
-    [new RouteParam('range', ParamKind.TEXT, false, 'week')], false, 0, "@string/shortcut_text_0183"),
-  new RouteEntry('sc.rule.center', RoutePage.RULE_CENTER, [], false, 0, "@string/shortcut_text_0185"),
+    [new RouteParam('range', ParamKind.TEXT, false, 'week')], false, 0, '@string/shortcut_text_0183'),
+  new RouteEntry('sc.rule.center', RoutePage.RULE_CENTER, [], false, 0, '@string/shortcut_text_0185'),
   new RouteEntry('sc.note.resume', RoutePage.NOTE,
     [new RouteParam('draftId', ParamKind.ID, true, '')], false, 600000,
-    "@string/shortcut_text_0283"),
+    '@string/shortcut_text_0283'),
   new RouteEntry('sc.todo.detail', RoutePage.DETAIL,
     [new RouteParam('todoId', ParamKind.ID, true, ''),
       new RouteParam('from', ParamKind.TEXT, false, 'shortcut')], true, 1800000,
-    "@string/shortcut_text_0182")
+    '@string/shortcut_text_0182')
 ];
 
 /** 路由 id 列表。 */
@@ -219,10 +220,10 @@ export class RouteResolution {
 
   text(): string {
     if (!this.ok) {
-      return uiText("shortcut_text_0577", [String(this.issues.join('；'))]);
+      return uiText('shortcut_text_0577', [String(this.issues.join('；'))]);
     }
-    return uiText("shortcut_text_0005", [String(this.page as string), String(this.keys.length)]) +
-      `${this.expired ? uiText("shortcut_text_0654") : uiText("shortcut_text_0704")}`;
+    return uiText('shortcut_text_0005', [String(this.page as string), String(this.keys.length)]) +
+      `${this.expired ? uiText('shortcut_text_0654') : uiText('shortcut_text_0704')}`;
   }
 }
 
@@ -231,14 +232,14 @@ export function resolveRoute(request: RouteRequest): RouteResolution {
   const result: RouteResolution = new RouteResolution();
   const entry: RouteEntry | undefined = routeOf(request.routeId);
   if (entry === undefined) {
-    result.issues.push(uiText("shortcut_text_0587", [String(request.routeId)]));
+    result.issues.push(uiText('shortcut_text_0587', [String(request.routeId)]));
     result.page = RoutePage.HOME;
     return result;
   }
   result.entry = entry;
   result.page = entry.page;
   if (entry.requiresLogin && !request.loggedIn) {
-    result.issues.push(uiText("shortcut_text_0628"));
+    result.issues.push(uiText('shortcut_text_0628'));
     return result;
   }
   if (entry.maxAgeMs > 0 && request.at > 0) {
@@ -249,12 +250,12 @@ export function resolveRoute(request: RouteRequest): RouteResolution {
     const raw: string = request.get(param.name);
     if (raw.length === 0 && param.required) {
       result.missing.push(param.name);
-      result.issues.push(uiText("shortcut_text_0469", [String(param.name)]));
+      result.issues.push(uiText('shortcut_text_0469', [String(param.name)]));
       return;
     }
     const value: string = param.coerce(raw);
     if (raw.length > 0 && value !== raw) {
-      result.issues.push(uiText("shortcut_text_0140", [String(param.name)]));
+      result.issues.push(uiText('shortcut_text_0140', [String(param.name)]));
     }
     result.keys.push(param.name);
     result.values.push(value);
@@ -276,7 +277,7 @@ export class RouteAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? uiText("shortcut_text_0386") : this.findings.join('；');
+    return this.ok ? uiText('shortcut_text_0386') : this.findings.join('；');
   }
 }
 
@@ -286,24 +287,24 @@ export function auditRoutes(): RouteAudit {
   const seen: string[] = [];
   ROUTE_TABLE.forEach((entry: RouteEntry): void => {
     if (seen.indexOf(entry.routeId) >= 0) {
-      audit.findings.push(uiText("shortcut_text_0387", [String(entry.routeId)]));
+      audit.findings.push(uiText('shortcut_text_0387', [String(entry.routeId)]));
     }
     seen.push(entry.routeId);
     if (entry.page === RoutePage.UNKNOWN) {
-      audit.findings.push(uiText("shortcut_text_0412", [String(entry.routeId)]));
+      audit.findings.push(uiText('shortcut_text_0412', [String(entry.routeId)]));
     }
     if (entry.description.length === 0) {
-      audit.findings.push(uiText("shortcut_text_0473", [String(entry.routeId)]));
+      audit.findings.push(uiText('shortcut_text_0473', [String(entry.routeId)]));
     }
     if (entry.maxAgeMs < 0) {
-      audit.findings.push(uiText("shortcut_text_0705", [String(entry.routeId)]));
+      audit.findings.push(uiText('shortcut_text_0705', [String(entry.routeId)]));
     }
     entry.params.forEach((param: RouteParam): void => {
       if (param.name.length === 0) {
-        audit.findings.push(uiText("shortcut_text_0139", [String(entry.routeId)]));
+        audit.findings.push(uiText('shortcut_text_0139', [String(entry.routeId)]));
       }
       if (param.required && param.fallback.length > 0 && param.accepts(param.fallback)) {
-        audit.findings.push(uiText("shortcut_text_0073", [String(entry.routeId), String(param.name)]));
+        audit.findings.push(uiText('shortcut_text_0073', [String(entry.routeId), String(param.name)]));
       }
     });
   });

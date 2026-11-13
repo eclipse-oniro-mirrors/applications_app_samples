@@ -14,6 +14,7 @@
  */
 
 import { uiText, resourceText } from '../i18n/Strings';
+
 /**
  * 入口意图解析。
  *
@@ -36,17 +37,17 @@ export enum EntrySource {
 export function sourceLabel(source: EntrySource): string {
   switch (source) {
     case EntrySource.SHORTCUT:
-      return uiText("shortcut_text_0787");
+      return uiText('shortcut_text_0787');
     case EntrySource.DEEPLINK:
-      return uiText("shortcut_text_0505");
+      return uiText('shortcut_text_0505');
     case EntrySource.NOTIFICATION:
-      return uiText("shortcut_text_0550");
+      return uiText('shortcut_text_0550');
     case EntrySource.WIDGET:
-      return uiText("shortcut_text_0611");
+      return uiText('shortcut_text_0611');
     case EntrySource.RESUME:
-      return uiText("shortcut_text_0342");
+      return uiText('shortcut_text_0342');
     default:
-      return uiText("shortcut_text_0584");
+      return uiText('shortcut_text_0584');
   }
 }
 
@@ -91,52 +92,52 @@ export class EntryRule {
 
   text(): string {
     return `${this.ruleId} ${sourceLabel(this.source)}｜${this.prefix.length > 0 ? this.prefix : '*'}` +
-      uiText("shortcut_text_0001", [String(this.routeId), String(this.priority)]);
+      uiText('shortcut_text_0001', [String(this.routeId), String(this.priority)]);
   }
 }
 
 /** 规则表。 */
 export const ENTRY_RULES: EntryRule[] = [
   new EntryRule('IN-01', EntrySource.SHORTCUT, 'shortcut://note/new', 'sc.note.new', [],
-    90, false, "@string/shortcut_text_0087"),
+    90, false, '@string/shortcut_text_0087'),
   new EntryRule('IN-02', EntrySource.SHORTCUT, 'shortcut://todo/today', 'sc.todo.today', [],
-    90, false, "@string/shortcut_text_0336"),
+    90, false, '@string/shortcut_text_0336'),
   new EntryRule('IN-03', EntrySource.SHORTCUT, 'shortcut://collection/saved', 'sc.collection.saved',
-    [], 90, false, "@string/shortcut_text_0519"),
+    [], 90, false, '@string/shortcut_text_0519'),
   new EntryRule('IN-04', EntrySource.SHORTCUT, 'shortcut://detail', 'sc.detail', ['noteId'],
-    90, true, "@string/shortcut_text_0609"),
+    90, true, '@string/shortcut_text_0609'),
   new EntryRule('IN-05', EntrySource.DEEPLINK, 'app://note', 'sc.note.new', [], 80, false,
-    "@string/shortcut_text_0506"),
+    '@string/shortcut_text_0506'),
   new EntryRule('IN-06', EntrySource.DEEPLINK, 'app://todo', 'sc.todo.today', [], 80, false,
-    "@string/shortcut_text_0507"),
+    '@string/shortcut_text_0507'),
   new EntryRule('IN-07', EntrySource.DEEPLINK, 'app://detail', 'sc.detail', ['noteId'], 80, true,
-    "@string/shortcut_text_0510"),
+    '@string/shortcut_text_0510'),
   new EntryRule('IN-08', EntrySource.DEEPLINK, 'app://calls', 'sc.calls', [], 80, false,
-    "@string/shortcut_text_0508"),
+    '@string/shortcut_text_0508'),
   new EntryRule('IN-09', EntrySource.DEEPLINK, 'app://rule', 'sc.rule.center', [], 80, false,
-    "@string/shortcut_text_0509"),
+    '@string/shortcut_text_0509'),
   new EntryRule('IN-10', EntrySource.NOTIFICATION, 'notify://todo', 'sc.todo.detail', ['todoId'],
-    70, true, "@string/shortcut_text_0553"),
+    70, true, '@string/shortcut_text_0553'),
   new EntryRule('IN-11', EntrySource.NOTIFICATION, 'notify://calls', 'sc.calls', [], 70,
-    false, "@string/shortcut_text_0551"),
+    false, '@string/shortcut_text_0551'),
   new EntryRule('IN-12', EntrySource.NOTIFICATION, 'notify://collection', 'sc.collection.saved',
-    [], 70, false, "@string/shortcut_text_0552"),
+    [], 70, false, '@string/shortcut_text_0552'),
   new EntryRule('IN-13', EntrySource.WIDGET, 'widget://note', 'sc.note.new', [], 60, false,
-    "@string/shortcut_text_0614"),
+    '@string/shortcut_text_0614'),
   new EntryRule('IN-14', EntrySource.WIDGET, 'widget://todo', 'sc.todo.today', [], 60, false,
-    "@string/shortcut_text_0612"),
+    '@string/shortcut_text_0612'),
   new EntryRule('IN-15', EntrySource.WIDGET, 'widget://collection', 'sc.collection.saved', [], 60,
-    false, "@string/shortcut_text_0613"),
+    false, '@string/shortcut_text_0613'),
   new EntryRule('IN-16', EntrySource.RESUME, 'resume://note', 'sc.note.resume', ['draftId'], 50,
-    false, "@string/shortcut_text_0284"),
+    false, '@string/shortcut_text_0284'),
   new EntryRule('IN-17', EntrySource.RESUME, 'resume://detail', 'sc.detail', ['noteId'], 50, true,
-    "@string/shortcut_text_0288"),
+    '@string/shortcut_text_0288'),
   new EntryRule('IN-18', EntrySource.SHORTCUT, '', 'sc.rule.center', [], 10, false,
-    "@string/shortcut_text_0578"),
+    '@string/shortcut_text_0578'),
   new EntryRule('IN-19', EntrySource.DEEPLINK, '', 'sc.calls', [], 10, false,
-    "@string/shortcut_text_0579"),
+    '@string/shortcut_text_0579'),
   new EntryRule('IN-20', EntrySource.UNKNOWN, '', 'sc.rule.center', [], 0, false,
-    "@string/shortcut_text_0586")
+    '@string/shortcut_text_0586')
 ];
 
 /** 规则编号列表。 */
@@ -231,11 +232,11 @@ export class EntryPlan {
 
   text(): string {
     if (this.routeId.length === 0) {
-      return uiText("shortcut_text_0577", [String(this.issues.join('；'))]);
+      return uiText('shortcut_text_0577', [String(this.issues.join('；'))]);
     }
-    const state: string = this.ok() ? uiText("shortcut_text_0359") : uiText("shortcut_text_0625");
-    return uiText("shortcut_text_0028", [String(this.routeId), String(state), String(this.matchedRuleId)]) +
-      `${this.fallback ? uiText("shortcut_text_0220") : uiText("shortcut_text_0346")}`;
+    const state: string = this.ok() ? uiText('shortcut_text_0359') : uiText('shortcut_text_0625');
+    return uiText('shortcut_text_0028', [String(this.routeId), String(state), String(this.matchedRuleId)]) +
+      `${this.fallback ? uiText('shortcut_text_0220') : uiText('shortcut_text_0346')}`;
   }
 }
 
@@ -260,20 +261,20 @@ export function resolveEntry(request: EntryRequest): EntryPlan {
     }
   }
   if (matched === undefined) {
-    plan.issues.push(uiText("shortcut_text_0373", [String(sourceLabel(request.source))]));
+    plan.issues.push(uiText('shortcut_text_0373', [String(sourceLabel(request.source))]));
     return plan;
   }
   plan.routeId = matched.routeId;
   plan.matchedRuleId = matched.ruleId;
   plan.fallback = matched.priority <= 10;
   if (matched.requiresLogin && !request.loggedIn) {
-    plan.issues.push(uiText("shortcut_text_0628"));
+    plan.issues.push(uiText('shortcut_text_0628'));
   }
   matched.requiredKeys.forEach((key: string): void => {
     const value: string = request.get(key);
     if (value.length === 0) {
       plan.missing.push(key);
-      plan.issues.push(uiText("shortcut_text_0471", [String(key)]));
+      plan.issues.push(uiText('shortcut_text_0471', [String(key)]));
     }
   });
   request.keys.forEach((key: string): void => {
@@ -281,7 +282,7 @@ export function resolveEntry(request: EntryRequest): EntryPlan {
       return;
     }
     if (key.length > 0 && matched !== undefined && matched.requiredKeys.length === 0) {
-      plan.issues.push(uiText("shortcut_text_0272", [String(key)]));
+      plan.issues.push(uiText('shortcut_text_0272', [String(key)]));
     }
   });
   return plan;
@@ -300,7 +301,7 @@ export class EntryAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? uiText("shortcut_text_0488") : this.findings.join('；');
+    return this.ok ? uiText('shortcut_text_0488') : this.findings.join('；');
   }
 }
 
@@ -310,26 +311,26 @@ export function auditEntry(): EntryAudit {
   ENTRY_RULES.forEach((rule: EntryRule, index: number): void => {
     const expected: string = `IN-${(index + 1).toString().padStart(2, '0')}`;
     if (rule.ruleId !== expected) {
-      audit.findings.push(uiText("shortcut_text_0075", [String(expected), String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0075', [String(expected), String(rule.ruleId)]));
     }
     if (rule.routeId.length === 0) {
-      audit.findings.push(uiText("shortcut_text_0472", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0472', [String(rule.ruleId)]));
     }
     if (rule.priority < 0) {
-      audit.findings.push(uiText("shortcut_text_0702", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0702', [String(rule.ruleId)]));
     }
     if (rule.description.length === 0) {
-      audit.findings.push(uiText("shortcut_text_0473", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0473', [String(rule.ruleId)]));
     }
     if (rule.requiredKeys.length > 0 && rule.priority <= 10) {
-      audit.findings.push(uiText("shortcut_text_0221", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0221', [String(rule.ruleId)]));
     }
   });
   const sources: EntrySource[] = [EntrySource.SHORTCUT, EntrySource.DEEPLINK,
     EntrySource.NOTIFICATION, EntrySource.WIDGET, EntrySource.RESUME, EntrySource.UNKNOWN];
   sources.forEach((source: EntrySource): void => {
     if (rulesOf(source).length === 0) {
-      audit.findings.push(uiText("shortcut_text_0375", [String(sourceLabel(source))]));
+      audit.findings.push(uiText('shortcut_text_0375', [String(sourceLabel(source))]));
     }
   });
   audit.ok = audit.findings.length === 0;
@@ -346,5 +347,5 @@ export function sourceLines(): string[] {
   const sources: EntrySource[] = [EntrySource.SHORTCUT, EntrySource.DEEPLINK,
     EntrySource.NOTIFICATION, EntrySource.WIDGET, EntrySource.RESUME, EntrySource.UNKNOWN];
   return sources.map((source: EntrySource): string =>
-    uiText("shortcut_text_0018", [String(sourceLabel(source)), String(rulesOf(source).length)]));
+    uiText('shortcut_text_0018', [String(sourceLabel(source)), String(rulesOf(source).length)]));
 }

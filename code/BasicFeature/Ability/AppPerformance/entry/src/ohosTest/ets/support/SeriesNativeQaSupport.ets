@@ -22,6 +22,8 @@ import { AppService, StoredState } from '../../../main/ets/core/AppService';
 import { AppStateStore, NativeStateStore } from '../../../main/ets/core/AppPlatform';
 import { ExperimentSeriesState } from '../../../main/ets/core/ExperimentSeries';
 import { FakePlatform } from './FakePlatform';
+import { parameterSummary } from './TestLog';
+import { logWarn } from '../../../main/ets/core/Logger';
 
 let seriesNativeNamespaceSerial: number = 0;
 
@@ -151,7 +153,25 @@ export class SeriesNativeQaFixture {
   }
 
   async close(): Promise<void> {
-    try { await this.release(); } finally { await preferences.deletePreferences(this.context, this.namespace); }
+    let failed: boolean = false;
+    let failure: Error | undefined = undefined;
+    try {
+      await this.release();
+    } catch (error) {
+      failed = true;
+      failure = error as Error;
+    }
+    try {
+      await preferences.deletePreferences(this.context, this.namespace);
+    } catch (error) {
+      if (failed) {
+        logWarn(`SeriesNativeQa secondary namespace cleanup: ${parameterSummary(error)}`);
+      } else {
+        failed = true;
+        failure = error as Error;
+      }
+    }
+    if (failed) { throw failure as Error; }
   }
 }
 
@@ -160,5 +180,25 @@ export async function withSeriesNativeQa(body: (fixture: SeriesNativeQaFixture) 
     .getAppContext().getApplicationContext();
   const fixture: SeriesNativeQaFixture = new SeriesNativeQaFixture(context,
     `ap_series_native_qa_${Date.now()}_${++seriesNativeNamespaceSerial}`);
-  try { await body(fixture); } finally { await fixture.close(); }
+  let bodyFailed: boolean = false;
+  let bodyError: Error | undefined = undefined;
+  let cleanupFailed: boolean = false;
+  let cleanupError: Error | undefined = undefined;
+  try {
+    await body(fixture);
+  } catch (error) {
+    bodyFailed = true;
+    bodyError = error as Error;
+  }
+  try {
+    await fixture.close();
+  } catch (error) {
+    cleanupFailed = true;
+    cleanupError = error as Error;
+  }
+  if (bodyFailed) {
+    if (cleanupFailed) { logWarn(`SeriesNativeQa secondary cleanup: ${parameterSummary(cleanupError)}`); }
+    throw bodyError as Error;
+  }
+  if (cleanupFailed) { throw cleanupError as Error; }
 }

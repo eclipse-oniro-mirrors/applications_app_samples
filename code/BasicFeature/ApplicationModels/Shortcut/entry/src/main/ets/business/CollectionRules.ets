@@ -14,6 +14,7 @@
  */
 
 import { uiText, resourceText } from '../i18n/Strings';
+
 /**
  * 收藏治理规则。
  *
@@ -37,19 +38,19 @@ export enum CollectionAction {
 export function actionLabel(action: CollectionAction): string {
   switch (action) {
     case CollectionAction.KEEP:
-      return uiText("shortcut_text_0056");
+      return uiText('shortcut_text_0056');
     case CollectionAction.MERGE:
-      return uiText("shortcut_text_0264");
+      return uiText('shortcut_text_0264');
     case CollectionAction.DROP:
-      return uiText("shortcut_text_0439");
+      return uiText('shortcut_text_0439');
     case CollectionAction.PIN:
-      return uiText("shortcut_text_0759");
+      return uiText('shortcut_text_0759');
     case CollectionAction.UNPIN:
-      return uiText("shortcut_text_0456");
+      return uiText('shortcut_text_0456');
     case CollectionAction.RETAG:
-      return uiText("shortcut_text_0769");
+      return uiText('shortcut_text_0769');
     default:
-      return uiText("shortcut_text_0338");
+      return uiText('shortcut_text_0338');
   }
 }
 
@@ -101,8 +102,8 @@ export class CollectionItem {
   }
 
   text(): string {
-    return uiText("shortcut_text_0026", [String(this.title), String(this.source), String(this.tags.length)]) +
-      `${this.pinned ? uiText("shortcut_text_0689") : uiText("shortcut_text_0590")}`;
+    return uiText('shortcut_text_0026', [String(this.title), String(this.source), String(this.tags.length)]) +
+      `${this.pinned ? uiText('shortcut_text_0689') : uiText('shortcut_text_0590')}`;
   }
 }
 
@@ -156,45 +157,45 @@ const DAY: number = 86400000;
 /** 规则表。 */
 export const COLLECTION_RULES: CollectionRule[] = [
   new CollectionRule('CL-01', CollectionRuleKind.VALIDITY, CollectionAction.DROP,
-    CollectionLevel.ERROR, 0, "@string/shortcut_text_0118"),
+    CollectionLevel.ERROR, 0, '@string/shortcut_text_0118'),
   new CollectionRule('CL-02', CollectionRuleKind.VALIDITY, CollectionAction.DROP,
-    CollectionLevel.ERROR, 0, "@string/shortcut_text_0125"),
+    CollectionLevel.ERROR, 0, '@string/shortcut_text_0125'),
   new CollectionRule('CL-03', CollectionRuleKind.VALIDITY, CollectionAction.KEEP,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0726"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0726'),
   new CollectionRule('CL-04', CollectionRuleKind.VALIDITY, CollectionAction.RETAG,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0374"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0374'),
   new CollectionRule('CL-05', CollectionRuleKind.DUPLICATE, CollectionAction.MERGE,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0555"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0555'),
   new CollectionRule('CL-06', CollectionRuleKind.DUPLICATE, CollectionAction.DROP,
-    CollectionLevel.ERROR, 0, "@string/shortcut_text_0116"),
+    CollectionLevel.ERROR, 0, '@string/shortcut_text_0116'),
   new CollectionRule('CL-07', CollectionRuleKind.TAG, CollectionAction.RETAG,
-    CollectionLevel.WARN, 5, "@string/shortcut_text_0096"),
+    CollectionLevel.WARN, 5, '@string/shortcut_text_0096'),
   new CollectionRule('CL-08', CollectionRuleKind.TAG, CollectionAction.RETAG,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0098"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0098'),
   new CollectionRule('CL-09', CollectionRuleKind.TAG, CollectionAction.RETAG,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0113"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0113'),
   new CollectionRule('CL-10', CollectionRuleKind.PIN, CollectionAction.PIN,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0527"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0527'),
   new CollectionRule('CL-11', CollectionRuleKind.PIN, CollectionAction.UNPIN,
-    CollectionLevel.WARN, 3, "@string/shortcut_text_0761"),
+    CollectionLevel.WARN, 3, '@string/shortcut_text_0761'),
   new CollectionRule('CL-12', CollectionRuleKind.PIN, CollectionAction.UNPIN,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0762"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0762'),
   new CollectionRule('CL-13', CollectionRuleKind.AGE, CollectionAction.DROP,
-    CollectionLevel.WARN, 365, "@string/shortcut_text_0156"),
+    CollectionLevel.WARN, 365, '@string/shortcut_text_0156'),
   new CollectionRule('CL-14', CollectionRuleKind.AGE, CollectionAction.WARN_ONLY,
-    CollectionLevel.WARN, 180, "@string/shortcut_text_0155"),
+    CollectionLevel.WARN, 180, '@string/shortcut_text_0155'),
   new CollectionRule('CL-15', CollectionRuleKind.AGE, CollectionAction.KEEP,
-    CollectionLevel.WARN, 30, "@string/shortcut_text_0643"),
+    CollectionLevel.WARN, 30, '@string/shortcut_text_0643'),
   new CollectionRule('CL-16', CollectionRuleKind.TIME, CollectionAction.KEEP,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0051"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0051'),
   new CollectionRule('CL-17', CollectionRuleKind.TIME, CollectionAction.KEEP,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0050"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0050'),
   new CollectionRule('CL-18', CollectionRuleKind.DUPLICATE, CollectionAction.MERGE,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0554"),
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0554'),
   new CollectionRule('CL-19', CollectionRuleKind.TAG, CollectionAction.KEEP,
-    CollectionLevel.WARN, 1, "@string/shortcut_text_0339"),
+    CollectionLevel.WARN, 1, '@string/shortcut_text_0339'),
   new CollectionRule('CL-20', CollectionRuleKind.VALIDITY, CollectionAction.KEEP,
-    CollectionLevel.WARN, 0, "@string/shortcut_text_0431")
+    CollectionLevel.WARN, 0, '@string/shortcut_text_0431')
 ];
 
 /** 规则编号列表。 */
@@ -243,42 +244,42 @@ export class GovernanceVerdict {
 export function judgeItem(item: CollectionItem, now: number,
   existingKeys: string[]): GovernanceVerdict {
   if (item.id.length === 0) {
-    return new GovernanceVerdict('', CollectionAction.DROP, 'CL-01', uiText("shortcut_text_0117"), CollectionLevel.ERROR);
+    return new GovernanceVerdict('', CollectionAction.DROP, 'CL-01', uiText('shortcut_text_0117'), CollectionLevel.ERROR);
   }
   if (item.title.trim().length === 0) {
-    return new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-02', uiText("shortcut_text_0124"),
+    return new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-02', uiText('shortcut_text_0124'),
       CollectionLevel.ERROR);
   }
   if (existingKeys.indexOf(item.mergeKey()) >= 0) {
-    return new GovernanceVerdict(item.id, CollectionAction.MERGE, 'CL-05', uiText("shortcut_text_0556"),
+    return new GovernanceVerdict(item.id, CollectionAction.MERGE, 'CL-05', uiText('shortcut_text_0556'),
       CollectionLevel.WARN);
   }
   if (item.tags.length > 5 || item.tagCount() !== item.tags.length) {
-    return new GovernanceVerdict(item.id, CollectionAction.RETAG, 'CL-07', uiText("shortcut_text_0104"),
+    return new GovernanceVerdict(item.id, CollectionAction.RETAG, 'CL-07', uiText('shortcut_text_0104'),
       CollectionLevel.WARN);
   }
   if (item.savedAt <= 0) {
-    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-16', uiText("shortcut_text_0052"),
+    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-16', uiText('shortcut_text_0052'),
       CollectionLevel.WARN);
   }
   if (item.savedAt > now + DAY) {
-    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-17', uiText("shortcut_text_0053"),
+    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-17', uiText('shortcut_text_0053'),
       CollectionLevel.WARN);
   }
   const ageDays: number = Math.floor(Math.max(0, now - item.savedAt) / DAY);
   if (ageDays > 365 && !item.pinned) {
-    return new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-13', uiText("shortcut_text_0154", [String(ageDays)]),
+    return new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-13', uiText('shortcut_text_0154', [String(ageDays)]),
       CollectionLevel.WARN);
   }
   if (ageDays > 180) {
     return new GovernanceVerdict(item.id, CollectionAction.WARN_ONLY, 'CL-14',
-      uiText("shortcut_text_0153", [String(ageDays)]), CollectionLevel.WARN);
+      uiText('shortcut_text_0153', [String(ageDays)]), CollectionLevel.WARN);
   }
   if (item.summary.trim().length === 0) {
-    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-03', uiText("shortcut_text_0725"),
+    return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-03', uiText('shortcut_text_0725'),
       CollectionLevel.WARN);
   }
-  return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-20', uiText("shortcut_text_0602"),
+  return new GovernanceVerdict(item.id, CollectionAction.KEEP, 'CL-20', uiText('shortcut_text_0602'),
     CollectionLevel.WARN);
 }
 
@@ -305,9 +306,9 @@ export class GovernancePlan {
 
   /** 摘要文本。 */
   text(): string {
-    return uiText("shortcut_text_0252", [String(this.verdicts.length), String(this.countOf(CollectionAction.KEEP))]) +
-      uiText("shortcut_text_0265", [String(this.countOf(CollectionAction.MERGE)), String(this.countOf(CollectionAction.DROP))]) +
-      uiText("shortcut_text_0770", [String(this.countOf(CollectionAction.RETAG)), String(this.confirmCount())]);
+    return uiText('shortcut_text_0252', [String(this.verdicts.length), String(this.countOf(CollectionAction.KEEP))]) +
+      uiText('shortcut_text_0265', [String(this.countOf(CollectionAction.MERGE)), String(this.countOf(CollectionAction.DROP))]) +
+      uiText('shortcut_text_0770', [String(this.countOf(CollectionAction.RETAG)), String(this.confirmCount())]);
   }
 
   /** 逐行文本。 */
@@ -331,7 +332,7 @@ export function govern(items: CollectionItem[], now: number): GovernancePlan {
   sorted.forEach((item: CollectionItem): void => {
     if (ids.indexOf(item.id) >= 0) {
       plan.verdicts.push(new GovernanceVerdict(item.id, CollectionAction.DROP, 'CL-06',
-        uiText("shortcut_text_0119"), CollectionLevel.ERROR));
+        uiText('shortcut_text_0119'), CollectionLevel.ERROR));
       return;
     }
     ids.push(item.id);
@@ -362,7 +363,7 @@ export class CollectionAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? uiText("shortcut_text_0518") : this.findings.join('；');
+    return this.ok ? uiText('shortcut_text_0518') : this.findings.join('；');
   }
 }
 
@@ -372,18 +373,18 @@ export function auditCollectionRules(): CollectionAudit {
   const seen: string[] = [];
   COLLECTION_RULES.forEach((rule: CollectionRule, index: number): void => {
     if (seen.indexOf(rule.ruleId) >= 0) {
-      audit.findings.push(uiText("shortcut_text_0256", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0256', [String(rule.ruleId)]));
     }
     seen.push(rule.ruleId);
     const expected: string = `CL-${(index + 1).toString().padStart(2, '0')}`;
     if (rule.ruleId !== expected) {
-      audit.findings.push(uiText("shortcut_text_0075", [String(expected), String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0075', [String(expected), String(rule.ruleId)]));
     }
     if (rule.description.length === 0) {
-      audit.findings.push(uiText("shortcut_text_0473", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0473', [String(rule.ruleId)]));
     }
     if (rule.threshold < 0) {
-      audit.findings.push(uiText("shortcut_text_0712", [String(rule.ruleId)]));
+      audit.findings.push(uiText('shortcut_text_0712', [String(rule.ruleId)]));
     }
   });
   const kinds: CollectionRuleKind[] = [CollectionRuleKind.VALIDITY, CollectionRuleKind.DUPLICATE,
@@ -391,7 +392,7 @@ export function auditCollectionRules(): CollectionAudit {
     CollectionRuleKind.TIME];
   kinds.forEach((kind: CollectionRuleKind): void => {
     if (rulesOfKind(kind).length === 0) {
-      audit.findings.push(uiText("shortcut_text_0376", [String(kind as string)]));
+      audit.findings.push(uiText('shortcut_text_0376', [String(kind as string)]));
     }
   });
   audit.ok = audit.findings.length === 0;

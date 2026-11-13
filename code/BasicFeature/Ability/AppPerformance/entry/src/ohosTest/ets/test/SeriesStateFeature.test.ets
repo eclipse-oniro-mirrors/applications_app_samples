@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { AppService } from '../../../main/ets/core/AppService';
 import { SeriesPhase } from '../../../main/ets/core/ExperimentSeries';
 import { buildSeriesPanelView } from '../../../main/ets/core/SeriesPresentation';
@@ -41,13 +43,13 @@ export default function seriesStateFeatureTests(): void {
         external.recordIds.push('foreign'); external.startedCount = 100;
         external.phase = SeriesPhase.COMPLETED; external.mode = 'files'; external.cancelRequested = true;
         const fresh = requiredSeries(service);
-        expect(fresh.recordIds.length).assertEqual(0);
-        expect(fresh.startedCount).assertEqual(1);
-        expect(fresh.mode).assertEqual('control');
-        expect(fresh.phase).assertEqual(SeriesPhase.RUNNING);
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:44 assertEqual actual', fresh.recordIds.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:44 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:45 assertEqual actual', fresh.startedCount)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:45 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:46 assertEqual actual', fresh.mode)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:46 assertEqual expected', 'control'));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:47 assertEqual actual', fresh.phase)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:47 assertEqual expected', SeriesPhase.RUNNING));
         platform.releaseRead(); await service.whenSeriesFinished(start.ownerId);
-        expect(requiredSeries(service).recordIds.length).assertEqual(3);
-        expect(platform.fileCalls.length).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:49 assertEqual actual', requiredSeries(service).recordIds.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:49 assertEqual expected', 3));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:50 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0001 SeriesStateFeature.test:50 assertEqual expected', 0));
       } finally { await finishSeriesFixture(service, platform, start.ownerId); }
     });
 
@@ -67,10 +69,10 @@ export default function seriesStateFeatureTests(): void {
         const external = service.seriesRecords(start.ownerId)[0];
         external.stages[0].status = '失败'; external.beforeBytes = 900; external.missing.push('outside-only');
         const actual = service.seriesRecords(start.ownerId)[0];
-        expect(actual.complete()).assertTrue();
-        expect(actual.beforeBytes).assertEqual(3);
-        expect(actual.missing.indexOf('outside-only')).assertEqual(-1);
-        expect(service.ledgerRecords()[0].stages[0].status).assertEqual('成功');
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:70 assertTrue actual', actual.complete())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:71 assertEqual actual', actual.beforeBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:71 assertEqual expected', 3));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:72 assertEqual actual', actual.missing.indexOf('outside-only'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:72 assertEqual expected', -1));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:73 assertEqual actual', service.ledgerRecords()[0].stages[0].status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:73 assertEqual expected', '成功'));
       } finally { await finishSeriesFixture(service, platform, start.ownerId); }
     });
 
@@ -89,11 +91,11 @@ export default function seriesStateFeatureTests(): void {
       try {
         await service.whenSeriesFinished(start.ownerId);
         const view = buildSeriesPanelView(service.seriesState(), service.ledgerRecords(), 2, false, false);
-        expect(view.referenceText).assertEqual('可用 2 / 2 条，缺失 0 条');
-        expect(view.statistics[0].indexOf('｜2 次｜有效 2｜失败/缺失 0') >= 0).assertTrue();
-        expect(view.scopeText).assertEqual('结果来源：W-TEXT / control；计划 2 次');
-        expect(view.canCopyReport).assertTrue();
-        expect(service.ledgerRecords().length).assertEqual(3);
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0003 SeriesStateFeature.test:92 assertEqual actual', view.referenceText)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0003 SeriesStateFeature.test:92 assertEqual expected', '可用 2 / 2 条，缺失 0 条'));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0003 SeriesStateFeature.test:93 assertTrue actual', view.statistics[0].indexOf('｜2 次｜有效 2｜失败/缺失 0') >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0003 SeriesStateFeature.test:94 assertEqual actual', view.scopeText)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0003 SeriesStateFeature.test:94 assertEqual expected', '结果来源：W-TEXT / 对照组；计划 2 次'));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0003 SeriesStateFeature.test:95 assertTrue actual', view.canCopyReport)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0003 SeriesStateFeature.test:96 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0003 SeriesStateFeature.test:96 assertEqual expected', 3));
       } finally { await finishSeriesFixture(service, platform, start.ownerId); }
     });
 
@@ -111,10 +113,10 @@ export default function seriesStateFeatureTests(): void {
       try {
         await service.whenSeriesFinished(start.ownerId); service.clearLedger();
         const view = buildSeriesPanelView(service.seriesState(), service.seriesRecords(start.ownerId));
-        expect(view.statistics.length).assertEqual(0);
-        expect(view.referenceText).assertEqual('可用 0 / 3 条，缺失 3 条');
-        expect(view.canCopyReport).assertFalse();
-        expect(view.phaseText).assertEqual('已完成');
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0004 SeriesStateFeature.test:114 assertEqual actual', view.statistics.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0004 SeriesStateFeature.test:114 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0004 SeriesStateFeature.test:115 assertEqual actual', view.referenceText)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0004 SeriesStateFeature.test:115 assertEqual expected', '可用 0 / 3 条，缺失 3 条'));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0004 SeriesStateFeature.test:116 assertFalse actual', view.canCopyReport)).assertFalse();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0004 SeriesStateFeature.test:117 assertEqual actual', view.phaseText)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0004 SeriesStateFeature.test:117 assertEqual expected', '已完成'));
       } finally { await finishSeriesFixture(service, platform, start.ownerId); }
     });
 
@@ -135,11 +137,11 @@ export default function seriesStateFeatureTests(): void {
       const copied = new MemoryStore(); copied.value = JSON.stringify(raw);
       const nextPlatform = new SeriesIoPlatform(copied); const reopened = AppService.fromPlatform(nextPlatform);
       try {
-        expect(reopened.seriesState()).assertUndefined();
-        expect(reopened.ledgerRecords()[0].workloadId).assertEqual('W-TEXT');
-        expect(await reopened.copySeriesAnalysisReport(start.ownerId)).assertFalse();
-        expect(nextPlatform.copiedTexts.length).assertEqual(0);
-        expect(nextPlatform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0005 SeriesStateFeature.test:138 assertUndefined actual', reopened.seriesState())).assertUndefined();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0005 SeriesStateFeature.test:139 assertEqual actual', reopened.ledgerRecords()[0].workloadId)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0005 SeriesStateFeature.test:139 assertEqual expected', 'W-TEXT'));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0005 SeriesStateFeature.test:140 assertFalse actual', await reopened.copySeriesAnalysisReport(start.ownerId))).assertFalse();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0005 SeriesStateFeature.test:141 assertEqual actual', nextPlatform.copiedTexts.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0005 SeriesStateFeature.test:141 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0005 SeriesStateFeature.test:142 assertEqual actual', nextPlatform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0005 SeriesStateFeature.test:142 assertEqual expected', 0));
       } finally { reopened.dispose(); }
     });
 
@@ -163,10 +165,10 @@ export default function seriesStateFeatureTests(): void {
       const copied = new MemoryStore(); copied.value = JSON.stringify(raw);
       const nextPlatform = new SeriesIoPlatform(copied); const reopened = AppService.fromPlatform(nextPlatform);
       try {
-        expect(reopened.seriesState()).assertUndefined();
-        expect(reopened.ledgerRecords()[0].complete()).assertTrue();
-        expect(nextPlatform.resourceCalls).assertEqual(0);
-        expect(buildSeriesPanelView(reopened.seriesState(), reopened.ledgerRecords()).phaseText).assertEqual('未开始');
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0006 SeriesStateFeature.test:166 assertUndefined actual', reopened.seriesState())).assertUndefined();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0006 SeriesStateFeature.test:167 assertTrue actual', reopened.ledgerRecords()[0].complete())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0006 SeriesStateFeature.test:168 assertEqual actual', nextPlatform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0006 SeriesStateFeature.test:168 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0006 SeriesStateFeature.test:169 assertEqual actual', buildSeriesPanelView(reopened.seriesState(), reopened.ledgerRecords()).phaseText)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0006 SeriesStateFeature.test:169 assertEqual expected', '未开始'));
       } finally { reopened.dispose(); }
     });
 
@@ -182,14 +184,14 @@ export default function seriesStateFeatureTests(): void {
       const platform = new SeriesIoPlatform(); platform.pauseReadAt = 1;
       const service = AppService.fromPlatform(platform); const reading = service.readResource();
       try {
-        expect(service.startExperimentSeries('W-TEXT', 'control').accepted).assertFalse();
-        expect(service.seriesState()).assertUndefined();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0007 SeriesStateFeature.test:185 assertFalse actual', service.startExperimentSeries('W-TEXT', 'control').accepted)).assertFalse();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0007 SeriesStateFeature.test:186 assertUndefined actual', service.seriesState())).assertUndefined();
         platform.releaseRead(); await reading;
-        expect(service.getState().resourceText).assertEqual('3 字节 · ABC');
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0007 SeriesStateFeature.test:188 assertEqual actual', service.getState().resourceText)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0007 SeriesStateFeature.test:188 assertEqual expected', '3 字节 · ABC'));
         const start = service.startExperimentSeries('W-TEXT', 'control', 1);
         await service.whenSeriesFinished(start.ownerId);
-        expect(requiredSeries(service).phase).assertEqual(SeriesPhase.COMPLETED);
-        expect(platform.resourceCalls).assertEqual(3);
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0007 SeriesStateFeature.test:191 assertEqual actual', requiredSeries(service).phase)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0007 SeriesStateFeature.test:191 assertEqual expected', SeriesPhase.COMPLETED));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0007 SeriesStateFeature.test:192 assertEqual actual', platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0007 SeriesStateFeature.test:192 assertEqual expected', 3));
       } finally { platform.releaseRead(); await reading; service.dispose(); }
     });
 
@@ -212,12 +214,12 @@ export default function seriesStateFeatureTests(): void {
       const start = service.startExperimentSeries('W-NOTES', 'modules', 2);
       try {
         await service.whenSeriesFinished(start.ownerId);
-        expect(requiredSeries(service).phase).assertEqual(SeriesPhase.COMPLETED);
-        expect(platform.resourceNames.every((name: string): boolean => name === spec.rawFile)).assertTrue();
-        expect(platform.moduleCalls.length).assertEqual(2);
-        expect(platform.fileCalls.length).assertEqual(0);
-        expect(service.seriesRecords(start.ownerId).every((record): boolean =>
-          record.workloadId === 'W-NOTES' && record.mode === 'modules')).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0008 SeriesStateFeature.test:215 assertEqual actual', requiredSeries(service).phase)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0008 SeriesStateFeature.test:215 assertEqual expected', SeriesPhase.COMPLETED));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0008 SeriesStateFeature.test:216 assertTrue actual', platform.resourceNames.every((name: string): boolean => name === spec.rawFile))).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0008 SeriesStateFeature.test:217 assertEqual actual', platform.moduleCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0008 SeriesStateFeature.test:217 assertEqual expected', 2));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0008 SeriesStateFeature.test:218 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0008 SeriesStateFeature.test:218 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0008 SeriesStateFeature.test:219 assertTrue actual', service.seriesRecords(start.ownerId).every((record): boolean =>
+          record.workloadId === 'W-NOTES' && record.mode === 'modules'))).assertTrue();
       } finally { await finishSeriesFixture(service, platform, start.ownerId); }
     });
 
@@ -234,18 +236,18 @@ export default function seriesStateFeatureTests(): void {
       const first = AppService.fromPlatform(absent); const notSent = first.startExperimentSeries('W-TEXT', 'modules');
       try {
         await first.whenSeriesFinished(notSent.ownerId);
-        expect(absent.moduleCalls.length).assertEqual(0);
-        expect(first.getState().latestMemory?.kind).assertEqual('blocked');
-        expect(requiredSeries(first).startedCount).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:237 assertEqual actual', absent.moduleCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:237 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:238 assertEqual actual', first.getState().latestMemory?.kind)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:238 assertEqual expected', 'blocked'));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:239 assertEqual actual', requiredSeries(first).startedCount)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:239 assertEqual expected', 1));
       } finally { await finishSeriesFixture(first, absent, notSent.ownerId); }
       const rejected = new SeriesIoPlatform(); rejected.moduleErrorCode = 182303;
       const second = AppService.fromPlatform(rejected); const sent = second.startExperimentSeries('W-TEXT', 'modules');
       try {
         await second.whenSeriesFinished(sent.ownerId);
-        expect(rejected.moduleCalls.length).assertEqual(1);
-        expect(second.getState().latestMemory?.code).assertEqual(182303);
-        expect(rejected.resourceCalls).assertEqual(1);
-        expect(requiredSeries(second).phase).assertEqual(SeriesPhase.FAILED);
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:245 assertEqual actual', rejected.moduleCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:245 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:246 assertEqual actual', second.getState().latestMemory?.code)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:246 assertEqual expected', 182303));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:247 assertEqual actual', rejected.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:247 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:248 assertEqual actual', requiredSeries(second).phase)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0009 SeriesStateFeature.test:248 assertEqual expected', SeriesPhase.FAILED));
       } finally { await finishSeriesFixture(second, rejected, sent.ownerId); }
     });
   });

@@ -18,6 +18,8 @@ import { appMemoryOptimizer } from '@kit.AbilityKit';
 import { fileIo } from '@kit.CoreFileKit';
 import { BusinessError, deviceInfo, systemDateTime } from '@kit.BasicServicesKit';
 import { hiTraceMeter } from '@kit.PerformanceAnalysisKit';
+import { logInfo, logWarn } from '../../../main/ets/core/Logger';
+import { BUNDLE, parameterSummary, runRunner } from '../support/TestLog';
 import { PageProbe, PageCalibration, MappedProbe, sampleFile, calibratePrivateFile,
   beginMappedFile, sampleMappedFile, rereadMappedFile, releaseMappedFile } from 'libpageprobe.so';
 
@@ -179,12 +181,34 @@ function trace(leg: MeasurementLeg, action: string, suffix: string = ''): boolea
 
 async function measure(round: number, mode: string, path: string,
   calibrationPassed: boolean): Promise<MeasurementLeg> {
+  logInfo(`${BUNDLE} FilePageRunner leg begin; round=${round}, mode=${mode}, calibrated=${calibrationPassed}`);
   const mapping = beginMappedFile(path);
+  let result: MeasurementLeg | undefined = undefined;
+  let bodyFailed: boolean = false;
+  let bodyError: Error | undefined = undefined;
+  let cleanupFailed: boolean = false;
+  let cleanupError: Error | undefined = undefined;
   try {
-    return await measureHeld(round, mode, calibrationPassed, mapping);
-  } finally {
-    releaseMappedFile(mapping.handle);
+    result = await measureHeld(round, mode, calibrationPassed, mapping);
+  } catch (error) {
+    bodyFailed = true;
+    bodyError = error as Error;
   }
+  try {
+    if (!releaseMappedFile(mapping.handle)) {
+      throw new Error('Held mapping release failed; stop diagnostics and inspect native cleanup state');
+    }
+  } catch (error) {
+    cleanupFailed = true;
+    cleanupError = error as Error;
+  }
+  if (bodyFailed) {
+    if (cleanupFailed) { logWarn(`FilePageRunner secondary mapping cleanup: ${parameterSummary(cleanupError)}`); }
+    throw bodyError as Error;
+  }
+  if (cleanupFailed) { throw cleanupError as Error; }
+  if (result === undefined) { throw new Error('No mapping observation was produced'); }
+  return result;
 }
 
 async function measureHeld(round: number, mode: string,
@@ -241,8 +265,9 @@ async function measureHeld(round: number, mode: string,
         trace(leg, 'point', 'RESOLVE');
       } catch (error) {
         const detail = error as BusinessError;
-        leg.apiCode = typeof detail.code === 'number' ? detail.code : -1;
-        leg.apiMessage = typeof detail.message === 'string' ? detail.message : String(error);
+        leg.apiCode = detail !== null && detail !== undefined && typeof detail.code === 'number' ? detail.code : -1;
+        leg.apiMessage = detail !== null && detail !== undefined && typeof detail.message === 'string' ?
+          detail.message : String(error);
         leg.apiStatus = leg.apiCode === -1 ? 'timeout-or-local-error' : 'rejected';
         trace(leg, 'point', leg.apiStatus === 'rejected' ? 'REJECT' : 'TIMEOUT_OR_LOCAL_ERROR');
       } finally {
@@ -305,9 +330,13 @@ async function measureHeld(round: number, mode: string,
 
 /** Diagnostic completion is NOT a quantity of global filecache returned. */
 export default class FilePageRunner implements TestRunner {
-  onPrepare(): void {}
+  onPrepare(): void { logInfo(`${BUNDLE} FilePageRunner prepare`); }
 
   async onRun(): Promise<void> {
+    await runRunner('FilePageRunner', (): Promise<void> => this.run());
+  }
+
+  private async run(): Promise<void> {
     const delegator = abilityDelegatorRegistry.getAbilityDelegator();
     const context = delegator.getAppContext();
     const report: MeasurementReport = {
@@ -350,7 +379,8 @@ export default class FilePageRunner implements TestRunner {
       phase = 'calibratePrivateFile(context.cacheDir), ONLY newly created private file';
       const calibration = calibratePrivateFile(context.cacheDir);
       report.calibration = calibration;
-      await delegator.print(`[FILE_PAGE_CALIBRATION] ${JSON.stringify(calibration)}`);
+      await delegator.print(`[FILE_PAGE_CALIBRATION] ok=${calibration.ok}, passed=${calibration.passed}, ` +
+        `code=${calibration.errorCode}, removed=${calibration.removed}, cleanupCode=${calibration.cleanupErrorCode}`);
       const calibrationPassed = calibration.ok && calibration.passed;
       // Installed HAP parent may deny listing. Probe exact self paths without directory enumeration.
       phase = 'resolve self installed HAP path (no directory listing)';
@@ -364,7 +394,8 @@ export default class FilePageRunner implements TestRunner {
         const probe = sampleFile(path);
         const candidate: ProbeCandidate = { path: path, probe: probe };
         report.candidates.push(candidate);
-        await delegator.print(`[FILE_PAGE_PATH] ${JSON.stringify(candidate)}`);
+        await delegator.print(`[FILE_PAGE_PATH] target=${parameterSummary(path)}, ok=${probe.ok}, ` +
+          `code=${probe.errorCode}, trusted=${probe.residencyTrusted}`);
         if (probe.ok) { report.path = path; break; }
       }
       if (report.path.length === 0) {
@@ -391,7 +422,10 @@ export default class FilePageRunner implements TestRunner {
             }
           }
           report.legs.push(leg);
-          await delegator.print(`[FILE_PAGE_MEASURE] ${JSON.stringify(leg)}`);
+          logInfo(`${BUNDLE} FilePageRunner leg end; round=${round + 1}, mode=${mode}, ` +
+            `status=${leg.apiStatus}, code=${leg.apiCode}, identical=${leg.identicalFileAndWorkload}`);
+          await delegator.print(`[FILE_PAGE_MEASURE] round=${round + 1}, mode=${mode}, ` +
+            `status=${leg.apiStatus}, code=${leg.apiCode}, identical=${leg.identicalFileAndWorkload}`);
           if (!leg.identicalFileAndWorkload || leg.after.some((row: ResidentSample): boolean => !row.mapping.ok)) {
             throw new Error('Invalid file sample or workload; raw native errors retained. ' +
               'Unknown residency is not zero.');
@@ -404,10 +438,11 @@ export default class FilePageRunner implements TestRunner {
     } catch (error) {
       const detail = error as BusinessError;
       report.failurePhase = phase;
-      report.failureCode = typeof detail.code === 'number' ? detail.code : -1;
-      report.failureMessage = typeof detail.message === 'string' ? detail.message : String(error);
+      report.failureCode = detail !== null && detail !== undefined && typeof detail.code === 'number' ? detail.code : -1;
+      report.failureMessage = detail !== null && detail !== undefined && typeof detail.message === 'string' ?
+        detail.message : String(error);
       failure = `${phase}: code=${report.failureCode} ${report.failureMessage}`;
-      await delegator.print(`[FILE_PAGE_ERROR] ${failure}`);
+      await delegator.print(`[FILE_PAGE_ERROR] code=${report.failureCode}, detail=${parameterSummary(failure)}`);
     }
     report.completedAt = Date.now();
     const serialized = JSON.stringify(report, null, 2);
@@ -416,12 +451,13 @@ export default class FilePageRunner implements TestRunner {
       const file = fileIo.openSync(reportPath,
         fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC);
       try { fileIo.writeSync(file.fd, serialized); } finally { fileIo.closeSync(file); }
-      await delegator.print(`[FILE_PAGE_REPORT] ${reportPath}`);
+      await delegator.print('[FILE_PAGE_REPORT] saved app-performance-file-pages.json in app-private storage');
     } catch (error) {
       failure = `Report write failed: ${(error as Error).message}`;
     }
-    await delegator.print(`[FILE_PAGE_SUMMARY] ${serialized}`);
-    await delegator.finishTest(failure.length > 0 ? failure :
+    await delegator.print(`[FILE_PAGE_SUMMARY] legs=${report.legs.length}, failed=${failure.length > 0}; ` +
+      'raw diagnostics remain in app-private storage');
+    await delegator.finishTest(failure.length > 0 ? 'File-page diagnostics failed; inspect the app-private report' :
       `Diagnostics captured: ${report.legs.length} legs. ` +
         'Mapping PRESENT loss/refault is not global-cache returned; null is unobserved.',
       failure.length > 0 ? 1 : 0);

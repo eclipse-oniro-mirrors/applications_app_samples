@@ -16,10 +16,12 @@
 import { shortcutManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { preferences } from '@kit.ArkData';
-import { describe, expect, it } from '@ohos/hypium';
-import { PreferencesBusinessStorage } from '../../../main/ets/business/BusinessStorage';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
+import { BusinessWriteError, PreferencesBusinessStorage } from '../../../main/ets/business/BusinessStorage';
 import { PlatformShortcutApi } from '../../../main/ets/services/ShortcutApi';
 import { getTestContext, runCase } from '../support/CaseScope';
+import { runWithCleanup } from '../support/CaseLifecycle';
 
 /** Real SDK integration on the target phone; no shortcut visibility or user business data is modified. */
 export default function nativeCoverageTests(): void {
@@ -33,21 +35,21 @@ export default function nativeCoverageTests(): void {
      * @tc.level     Level 1
      */
 
-    it('testShortcutNativeCoverage0001', 0, async () => {
-      await runCase(async () => {
+    it(caseName('ShortcutNativeCoverage', '0001'), 0, async () => {
+      await runCase(caseName('ShortcutNativeCoverage', '0001'), async () => {
         const api = new PlatformShortcutApi();
-        expect(api.isShortcutSupported()).assertTrue();
+        expect(api.isShortcutSupported(), caseName('ShortcutNativeCoverage', '0001')).assertTrue();
         const infos = await api.getAllShortcutInfoForSelf();
         const expected = ['sc.note.new', 'sc.todo.today', 'sc.collection.saved'];
         for (const id of expected) {
           const info = infos.find((item: shortcutManager.ShortcutInfo) => item.id === id);
-          expect(info !== undefined).assertTrue();
+          expect(info !== undefined, caseName('ShortcutNativeCoverage', '0001')).assertTrue();
           if (info === undefined) { throw new Error(`Installed shortcut missing: ${id}`); }
-          expect(info.bundleName).assertEqual('com.example.shortcut');
-          expect(info.moduleName).assertEqual('entry');
-          expect((info.wants ?? []).length).assertEqual(1);
-          expect((info.wants ?? [])[0].targetAbility).assertEqual('EntryAbility');
-          expect((info.wants ?? [])[0].targetBundle).assertEqual('com.example.shortcut');
+          expect(info.bundleName, caseName('ShortcutNativeCoverage', '0001')).assertEqual('com.samples.shortcut');
+          expect(info.moduleName, caseName('ShortcutNativeCoverage', '0001')).assertEqual('entry');
+          expect((info.wants ?? []).length, caseName('ShortcutNativeCoverage', '0001')).assertEqual(1);
+          expect((info.wants ?? [])[0].targetAbility, caseName('ShortcutNativeCoverage', '0001')).assertEqual('EntryAbility');
+          expect((info.wants ?? [])[0].targetBundle, caseName('ShortcutNativeCoverage', '0001')).assertEqual('com.samples.shortcut');
         }
       });
     });
@@ -60,25 +62,25 @@ export default function nativeCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutNativeCoverage0002', 0, async () => {
-      await runCase(async () => {
+    it(caseName('ShortcutNativeCoverage', '0002'), 0, async () => {
+      await runCase(caseName('ShortcutNativeCoverage', '0002'), async () => {
         const api = new PlatformShortcutApi();
         const before = await api.getAllShortcutInfoForSelf();
         const marker = `coverage.missing.${Date.now()}`;
-        expect(before.some((item: shortcutManager.ShortcutInfo) => item.id === marker)).assertFalse();
+        expect(before.some((item: shortcutManager.ShortcutInfo) => item.id === marker), caseName('ShortcutNativeCoverage', '0002')).assertFalse();
         let code = 0;
         try {
           await api.setShortcutVisibleForSelf(marker, false);
         } catch (error) {
           code = (error as BusinessError).code;
         }
-        expect(code).assertEqual(17700070);
+        expect(code, caseName('ShortcutNativeCoverage', '0002')).assertEqual(17700070);
         const after = await api.getAllShortcutInfoForSelf();
-        expect(after.length).assertEqual(before.length);
+        expect(after.length, caseName('ShortcutNativeCoverage', '0002')).assertEqual(before.length);
         for (const item of before) {
           const current = after.find((entry: shortcutManager.ShortcutInfo) => entry.id === item.id);
-          expect(current !== undefined).assertTrue();
-          expect(current?.visible).assertEqual(item.visible);
+          expect(current !== undefined, caseName('ShortcutNativeCoverage', '0002')).assertTrue();
+          expect(current?.visible, caseName('ShortcutNativeCoverage', '0002')).assertEqual(item.visible);
         }
       });
     });
@@ -91,18 +93,22 @@ export default function nativeCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutNativeCoverage0003', 0, async () => {
-      await runCase(async () => {
+    it(caseName('ShortcutNativeCoverage', '0003'), 0, async () => {
+      await runCase(caseName('ShortcutNativeCoverage', '0003'), async () => {
         const storage = new PreferencesBusinessStorage();
         let message = '';
+        let failure: Error | undefined = undefined;
         try {
           await storage.write('must-not-be-written');
         } catch (error) {
+          failure = error as Error;
           message = (error as Error).message;
         }
-        expect(message).assertEqual('存储尚未初始化');
-        expect(message.length).assertEqual(7);
-        expect(message.indexOf('尚未初始化') > 0).assertTrue();
+        expect(message, caseName('ShortcutNativeCoverage', '0003')).assertEqual('Storage has not been initialized');
+        expect(message.length, caseName('ShortcutNativeCoverage', '0003')).assertEqual(32);
+        expect(message.indexOf('not been initialized') > 0, caseName('ShortcutNativeCoverage', '0003')).assertTrue();
+        expect(failure instanceof BusinessWriteError, caseName('ShortcutNativeCoverage', '0003')).assertTrue();
+        expect((failure as BusinessWriteError).uncertain, caseName('ShortcutNativeCoverage', '0003')).assertFalse();
       });
     });
     /**
@@ -114,11 +120,11 @@ export default function nativeCoverageTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testShortcutNativeCoverage0004', 0, async () => {
-      await runCase(async () => {
+    it(caseName('ShortcutNativeCoverage', '0004'), 0, async () => {
+      await runCase(caseName('ShortcutNativeCoverage', '0004'), async () => {
         const context = getTestContext();
         const name = `shortcut_coverage_${Date.now()}`;
-        try {
+        await runWithCleanup(`${caseName('ShortcutNativeCoverage', '0004')} preferences-cleanup`, async (): Promise<void> => {
           const first = await preferences.getPreferences(context, { name: name });
           await first.put('unicode', '中文\nline2 😀');
           await first.put('flag', false);
@@ -126,13 +132,13 @@ export default function nativeCoverageTests(): void {
           await first.flush();
           await preferences.removePreferencesFromCache(context, name);
           const second = await preferences.getPreferences(context, { name: name });
-          expect(await second.get('unicode', '')).assertEqual('中文\nline2 😀');
-          expect(await second.get('flag', true)).assertFalse();
-          expect(await second.get('zero', 1)).assertEqual(0);
-          expect(await second.has('missing')).assertFalse();
-        } finally {
+          expect(await second.get('unicode', ''), caseName('ShortcutNativeCoverage', '0004')).assertEqual('中文\nline2 😀');
+          expect(await second.get('flag', true), caseName('ShortcutNativeCoverage', '0004')).assertFalse();
+          expect(await second.get('zero', 1), caseName('ShortcutNativeCoverage', '0004')).assertEqual(0);
+          expect(await second.has('missing'), caseName('ShortcutNativeCoverage', '0004')).assertFalse();
+        }, [async (): Promise<void> => {
           await preferences.deletePreferences(context, name);
-        }
+        }]);
       });
     });
   });

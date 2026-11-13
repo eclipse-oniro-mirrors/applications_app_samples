@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { AppService } from '../../../main/ets/core/AppService';
 import { FakePlatform } from '../support/FakePlatform';
 import { WaveResourcePlatform, waveDrain, waveRecord, waveRequired } from '../support/PerformanceWaveOneFixtures';
@@ -32,13 +34,13 @@ export default function performanceServiceWaveOneTests(): void {
       const platform = new FakePlatform();
       const service = AppService.fromPlatform(platform);
       try {
-        expect(await service.runExperiment('W-UNKNOWN', 'files')).assertUndefined();
-        expect(await service.runExperiment('W-TEXT', 'unknown')).assertUndefined();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:35 assertUndefined actual', await service.runExperiment('W-UNKNOWN', 'files'))).assertUndefined();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:36 assertUndefined actual', await service.runExperiment('W-TEXT', 'unknown'))).assertUndefined();
         service.dispose();
-        expect(await service.runExperiment('W-TEXT', 'files')).assertUndefined();
-        expect(service.ledgerRecords().length).assertEqual(0);
-        expect(platform.resourceCalls).assertEqual(0);
-        expect(service.getState().logs.length).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:38 assertUndefined actual', await service.runExperiment('W-TEXT', 'files'))).assertUndefined();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:39 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:39 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:40 assertEqual actual', platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:40 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:41 assertEqual actual', service.getState().logs.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0001 PerformanceServiceWaveOne.test:41 assertEqual expected', 0));
       } finally { service.dispose(); }
     });
 
@@ -57,15 +59,15 @@ export default function performanceServiceWaveOneTests(): void {
         const running = service.runExperiment('W-TEXT', 'files'); await waveDrain();
         service.cancelExperiment();
         const record = waveRequired(await running);
-        expect(record.stage('warm')?.status).assertEqual('已取消');
-        expect(record.skipped()).assertEqual(3);
-        expect(platform.fileCalls.length).assertEqual(0);
-        expect(service.isQuarantined()).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:60 assertEqual actual', record.stage('warm')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:60 assertEqual expected', '已取消'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:61 assertEqual actual', record.skipped())).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:61 assertEqual expected', 3));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:62 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:62 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:63 assertTrue actual', service.isQuarantined())).assertTrue();
         const terminal = JSON.stringify(service.ledgerRecords());
         platform.reply.resolve(new Uint8Array([65, 66, 67])); await waveDrain();
-        expect(JSON.stringify(service.ledgerRecords())).assertEqual(terminal);
-        expect(platform.resourceCalls).assertEqual(1);
-        expect(service.isExperimentBusy()).assertFalse();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:66 assertEqual actual', JSON.stringify(service.ledgerRecords()))).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:66 assertEqual expected', terminal));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:67 assertEqual actual', platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:67 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:68 assertFalse actual', service.isExperimentBusy())).assertFalse();
       } finally { platform.reply.resolve(new Uint8Array()); service.dispose(); }
     });
 
@@ -82,17 +84,17 @@ export default function performanceServiceWaveOneTests(): void {
       const service = AppService.fromPlatform(platform);
       try {
         const running = service.runExperiment('W-TEXT', 'files'); await waveDrain();
-        expect(platform.resourceCalls).assertEqual(2);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:85 assertEqual actual', platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:85 assertEqual expected', 2));
         platform.advance(10000);
         const record = waveRequired(await running);
-        expect(record.stage('reread')?.status).assertEqual('超时');
-        expect(record.beforeBytes).assertEqual(3);
-        expect(record.afterBytes).assertEqual(0);
-        expect(record.stage('configAgain')?.status).assertEqual('跳过');
-        expect(platform.configCalls).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:88 assertEqual actual', record.stage('reread')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:88 assertEqual expected', '超时'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:89 assertEqual actual', record.beforeBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:89 assertEqual expected', 3));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:90 assertEqual actual', record.afterBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:90 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:91 assertEqual actual', record.stage('configAgain')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:91 assertEqual expected', '跳过'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:92 assertEqual actual', platform.configCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:92 assertEqual expected', 1));
         platform.reply.resolve(new Uint8Array([65, 66, 67])); await waveDrain();
-        expect(service.ledgerRecords()[0].digestAfter).assertEqual('');
-        expect(service.isQuarantined()).assertFalse();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:94 assertEqual actual', service.ledgerRecords()[0].digestAfter)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:94 assertEqual expected', ''));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:95 assertFalse actual', service.isQuarantined())).assertFalse();
       } finally { platform.reply.resolve(new Uint8Array()); service.dispose(); }
     });
 
@@ -111,16 +113,16 @@ export default function performanceServiceWaveOneTests(): void {
       service.subscribe((): void => { notifications++; });
       try {
         const running = service.runExperiment('W-TEXT', 'files'); await waveDrain();
-        expect(platform.resourceCalls).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:114 assertEqual actual', platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:114 assertEqual expected', 1));
         service.dispose();
         const afterDispose = notifications;
         const record = waveRequired(await running);
-        expect(record.stage('warm')?.status).assertEqual('已取消');
-        expect(platform.pendingTimers()).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:118 assertEqual actual', record.stage('warm')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:118 assertEqual expected', '已取消'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:119 assertEqual actual', platform.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:119 assertEqual expected', 0));
         platform.reply.reject(new Error('late resource rejection')); await waveDrain();
-        expect(notifications).assertEqual(afterDispose);
-        expect(service.isExperimentBusy()).assertFalse();
-        expect(service.ledgerRecords().length).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:121 assertEqual actual', notifications)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:121 assertEqual expected', afterDispose));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:122 assertFalse actual', service.isExperimentBusy())).assertFalse();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:123 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:123 assertEqual expected', 1));
       } finally { platform.reply.resolve(new Uint8Array()); service.dispose(); }
     });
 
@@ -139,16 +141,16 @@ export default function performanceServiceWaveOneTests(): void {
       try {
         const running = service.runExperiment('W-TEXT', 'control'); await waveDrain();
         service.clearLedger();
-        expect(service.ledgerRecords()[0].id).assertEqual('retained');
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:142 assertEqual actual', service.ledgerRecords()[0].id)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:142 assertEqual expected', 'retained'));
         service.cancelExperiment(); await running;
         service.clearLedger();
-        expect(service.ledgerRecords().length).assertEqual(2);
-        expect(service.getState().notice).assertEqual('实验或系统请求在途，不能清空账本');
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:145 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:145 assertEqual expected', 2));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:146 assertEqual actual', service.getState().notice)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:146 assertEqual expected', '实验或系统请求在途，不能清空账本'));
         platform.reply.resolve(new Uint8Array([65, 66, 67])); await waveDrain();
         service.clearLedger();
-        expect(service.ledgerRecords().length).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:149 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:149 assertEqual expected', 0));
         await service.whenSaved();
-        expect(platform.store.value.indexOf('retained')).assertEqual(-1);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:151 assertEqual actual', platform.store.value.indexOf('retained'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0005 PerformanceServiceWaveOne.test:151 assertEqual expected', -1));
       } finally { platform.reply.resolve(new Uint8Array()); service.dispose(); }
     });
 
@@ -167,13 +169,13 @@ export default function performanceServiceWaveOneTests(): void {
       try {
         const running = service.readResource();
         service.clearLedger();
-        expect(service.ledgerRecords().length).assertEqual(1);
-        expect(service.getState().notice).assertEqual('实验或系统请求在途，不能清空账本');
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:170 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:170 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:171 assertEqual actual', service.getState().notice)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:171 assertEqual expected', '实验或系统请求在途，不能清空账本'));
         platform.reply.resolve(new Uint8Array([65, 66, 67])); await running;
-        expect(service.getState().resourceText).assertEqual('3 字节 · ABC');
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:173 assertEqual actual', service.getState().resourceText)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:173 assertEqual expected', '3 字节 · ABC'));
         service.clearLedger(); await service.whenSaved();
-        expect(service.ledgerRecords().length).assertEqual(0);
-        expect(service.getState().logs[0].kind).assertEqual('success');
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:175 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:175 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:176 assertEqual actual', service.getState().logs[0].kind)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0006 PerformanceServiceWaveOne.test:176 assertEqual expected', 'success'));
       } finally { platform.reply.resolve(new Uint8Array()); service.dispose(); }
     });
 
@@ -192,20 +194,20 @@ export default function performanceServiceWaveOneTests(): void {
         const record = waveRequired(await fileService.runExperiment('W-TEXT', 'files'));
         const configStage = record.stage('config');
         if (configStage === undefined) { throw new Error('Missing config stage'); }
-        expect(configStage.detail.indexOf('配置目标未在安装目录证实') >= 0).assertTrue();
-        expect(files.resourceCalls).assertEqual(0);
-        expect(files.fileCalls.length).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:195 assertTrue actual', configStage.detail.indexOf('配置目标未在安装目录证实') >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:196 assertEqual actual', files.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:196 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:197 assertEqual actual', files.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:197 assertEqual expected', 0));
       } finally { fileService.dispose(); }
       const control = new FakePlatform(); control.config = files.config;
       const controlService = AppService.fromPlatform(control);
       try {
-        expect(waveRequired(await controlService.runExperiment('W-TEXT', 'control')).complete()).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:202 assertTrue actual', waveRequired(await controlService.runExperiment('W-TEXT', 'control')).complete())).assertTrue();
       } finally { controlService.dispose(); }
       const modules = new FakePlatform(); modules.config = files.config;
       const moduleService = AppService.fromPlatform(modules);
       try {
-        expect(waveRequired(await moduleService.runExperiment('W-TEXT', 'modules')).complete()).assertTrue();
-        expect(modules.moduleCalls.length).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:207 assertTrue actual', waveRequired(await moduleService.runExperiment('W-TEXT', 'modules')).complete())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:208 assertEqual actual', modules.moduleCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0007 PerformanceServiceWaveOne.test:208 assertEqual expected', 1));
       } finally { moduleService.dispose(); }
     });
 
@@ -222,12 +224,12 @@ export default function performanceServiceWaveOneTests(): void {
       const service = AppService.fromPlatform(platform);
       try {
         const record = waveRequired(await service.runExperiment('W-TEXT', 'files'));
-        expect(record.integrity).assertEqual('一致');
-        expect(record.stage('configAgain')?.status).assertEqual('失败');
-        expect(record.stage('configAgain')?.detail).assertEqual('回读失败：171002');
-        expect(record.failed()).assertEqual(1);
-        expect(platform.fileCalls.length).assertEqual(1);
-        expect(record.complete()).assertFalse();
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:225 assertEqual actual', record.integrity)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:225 assertEqual expected', '一致'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:226 assertEqual actual', record.stage('configAgain')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:226 assertEqual expected', '失败'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:227 assertEqual actual', record.stage('configAgain')?.detail)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:227 assertEqual expected', '回读失败：171002'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:228 assertEqual actual', record.failed())).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:228 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:229 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:229 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:230 assertFalse actual', record.complete())).assertFalse();
       } finally { service.dispose(); }
     });
 
@@ -244,13 +246,13 @@ export default function performanceServiceWaveOneTests(): void {
       const service = AppService.fromPlatform(platform);
       try {
         const record = waveRequired(await service.runExperiment('W-TEXT', 'files'));
-        expect(record.stage('reread')?.detail).assertEqual('重读失败：171001');
-        expect(record.stage('configAgain')?.status).assertEqual('成功');
-        expect(record.beforeBytes).assertEqual(3);
-        expect(record.afterBytes).assertEqual(0);
-        expect(platform.fileCalls.length).assertEqual(1);
-        expect(platform.configCalls).assertEqual(2);
-        expect(record.integrity).assertEqual('不一致');
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:247 assertEqual actual', record.stage('reread')?.detail)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:247 assertEqual expected', '重读失败：171001'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:248 assertEqual actual', record.stage('configAgain')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:248 assertEqual expected', '成功'));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:249 assertEqual actual', record.beforeBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:249 assertEqual expected', 3));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:250 assertEqual actual', record.afterBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:250 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:251 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:251 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:252 assertEqual actual', platform.configCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:252 assertEqual expected', 2));
+        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:253 assertEqual actual', record.integrity)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:253 assertEqual expected', '不一致'));
       } finally { service.dispose(); }
     });
   });

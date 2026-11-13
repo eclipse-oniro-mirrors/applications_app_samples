@@ -16,69 +16,84 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { logError } from '../../../main/ets/core/Logger';
-import { attachUiTestAbility, detachUiTestAbility, UiTestAbilitySession } from '../support/UiTestSupport';
+import { claimUiTestSession, UiTestSession } from '../support/UiTestRuntime';
+import { releaseSeriesUiQa } from '../support/SeriesUiQaSupport';
 
-/** Test-module routing only. The original ReactiveUi launch remains the default. */
+/** Test-module routing and exact Want/session ownership; no production Ability is replaced. */
 export default class TestAbility extends UIAbility {
   private page: string = 'testability/pages/ReactivePage';
   private scenario: string = 'empty';
   private stage: window.WindowStage | undefined = undefined;
-  private session: UiTestAbilitySession | undefined = undefined;
+  private session: UiTestSession | undefined = undefined;
+  private loadGeneration: number = 0;
 
   onCreate(want: Want, _launchParam: AbilityConstant.LaunchParam): void {
-    this.selectPage(want);
-  }
-
-  onNewWant(want: Want, _launchParam: AbilityConstant.LaunchParam): void {
-    this.selectPage(want);
-    const stage = this.stage;
-    if (stage !== undefined) {
-      this.loadPage(stage);
+    if (!this.selectPage(want) && this.session === undefined) {
+      this.context.terminateSelf().catch((): void => { logError('Obsolete test Ability could not terminate'); });
     }
   }
 
-  private selectPage(want: Want): void {
-    // Never load an arbitrary route supplied by a Want.
+  onNewWant(want: Want, _launchParam: AbilityConstant.LaunchParam): void {
+    // An obsolete nonce delivered to a valid later instance must not destroy or reset that instance.
+    if (this.session !== undefined) {
+      const claimed = claimUiTestSession(want, this.context);
+      if (claimed !== this.session) { return; }
+      return; // Duplicate Want for this exact lease is not a new launch or route change.
+    }
+    if (this.selectPage(want) && this.stage !== undefined) { this.loadPage(this.stage); }
+  }
+
+  private selectPage(want: Want): boolean {
+    const session = claimUiTestSession(want, this.context);
+    if (session === undefined) { return false; }
+    this.session = session;
+    try { session.requireLive(); } catch (error) {
+      session.failInitialization('obsolete-onCreate');
+      session.close().catch((): void => { logError('Late owned test Ability cleanup failed'); });
+      return false;
+    }
     const requested = want.parameters === undefined ? undefined : want.parameters['testPage'];
     this.page = requested === 'SeriesUiQa' ? 'testpages/SeriesUiQaHarness' : 'testability/pages/ReactivePage';
     const scenario = want.parameters === undefined ? undefined : want.parameters['qaScenario'];
     this.scenario = typeof scenario === 'string' ? scenario : 'empty';
-    if (this.session === undefined) {
-      this.session = attachUiTestAbility(this.context);
-    }
+    return true;
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     this.stage = windowStage;
     this.loadPage(windowStage);
   }
-
-  onWindowStageDestroy(): void {
-    this.stage = undefined;
-  }
+  onWindowStageDestroy(): void { this.stage = undefined; }
 
   onDestroy(): void {
-    const session = this.session;
-    this.session = undefined;
-    if (session !== undefined) { detachUiTestAbility(session); }
+    const session = this.session; this.session = undefined; this.loadGeneration++;
+    if (session === undefined) { return; }
+    try { releaseSeriesUiQa(session); } catch (error) { session.failCleanup('series-fixture-release'); }
+    finally {
+      // Restores this session's saved provider before the final destruction acknowledgement.
+      session.markDestroyed(this.context);
+    }
   }
 
   private loadPage(stage: window.WindowStage): void {
-    const storage = new LocalStorage();
-    storage.setOrCreate('qaScenario', this.scenario);
-    const page = this.page;
     const session = this.session;
-    const generation = session === undefined ? 0 : session.beginLoad(page);
+    if (session === undefined) { return; }
     try {
-      stage.loadContent(page, storage, (error): void => {
-        const failure = error !== undefined && error.code ? `${error.code} ${error.message}` : '';
-        if (session !== undefined) { session.finishLoad(generation, page, failure); }
-        if (failure.length > 0) { logError(`Test page load failed: ${failure}`); }
+      session.requireLive();
+      const storage = new LocalStorage();
+      storage.setOrCreate('qaScenario', this.scenario);
+      storage.setOrCreate('uiSessionId', session.id);
+      const generation = ++this.loadGeneration;
+      stage.loadContent(this.page, storage, (error): void => {
+        if (this.session !== session || generation !== this.loadGeneration) { return; }
+        if (error !== undefined && error.code) {
+          session.failInitialization('loadContent', error.code);
+          logError('Owned test page load failed');
+        }
       });
     } catch (error) {
-      const failure = (error as Error).message;
-      if (session !== undefined) { session.finishLoad(generation, page, failure); }
-      logError(`Test page load failed: ${failure}`);
+      session.failInitialization('loadContent-dispatch');
+      logError('Owned test page load dispatch failed');
     }
   }
 }

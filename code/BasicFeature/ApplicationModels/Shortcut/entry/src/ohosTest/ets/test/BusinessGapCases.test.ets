@@ -13,20 +13,10 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { TodoItem, TodoState } from '../../../main/ets/business/TodoRules';
-import {
-  BatchItem,
-  BatchJournal,
-  BatchPlan,
-  BatchPreview,
-  BatchPreviewItem,
-  BatchResult,
-  batchResultText,
-  copyBatch,
-  copyJournal,
-  copyPreview
-} from '../../../main/ets/services/VisibilityBatch';
+import { BatchItem, BatchJournal, BatchPlan, BatchPreview, BatchPreviewItem, BatchResult, batchResultText, copyBatch, copyJournal, copyPreview } from '../../../main/ets/services/VisibilityBatch';
 
 function todoOf(id: string, title: string, priority: number, state: TodoState, dueAt: number): TodoItem {
   const item: TodoItem = new TodoItem(id, title, priority);
@@ -84,16 +74,16 @@ export default function businessGapCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testBatchCopyCases0001', 0, (): void => {
+    it(caseName('BatchCopyCases', '0001'), 0, (): void => {
       const item: BatchItem = new BatchItem();
-      expect(item.id).assertEqual('');
-      expect(item.attempt).assertEqual(0);
-      expect(item.result).assertEqual('not-run');
-      expect(item.restoreResult).assertEqual('not-run');
-      expect(item.retryBlocked).assertFalse();
-      expect(item.originalKnown).assertFalse();
-      expect(item.target).assertFalse();
-      expect(item.lastVisible).assertFalse();
+      expect(item.id, caseName('BatchCopyCases', '0001')).assertEqual('');
+      expect(item.attempt, caseName('BatchCopyCases', '0001')).assertEqual(0);
+      expect(item.result, caseName('BatchCopyCases', '0001')).assertEqual('not-run');
+      expect(item.restoreResult, caseName('BatchCopyCases', '0001')).assertEqual('not-run');
+      expect(item.retryBlocked, caseName('BatchCopyCases', '0001')).assertFalse();
+      expect(item.originalKnown, caseName('BatchCopyCases', '0001')).assertFalse();
+      expect(item.target, caseName('BatchCopyCases', '0001')).assertFalse();
+      expect(item.lastVisible, caseName('BatchCopyCases', '0001')).assertFalse();
     });
 
     /**
@@ -105,11 +95,11 @@ export default function businessGapCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testBatchCopyCases0002', 0, (): void => {
+    it(caseName('BatchCopyCases', '0002'), 0, (): void => {
       const journal: BatchJournal = new BatchJournal();
-      expect(journal.version).assertEqual(1);
-      expect(journal.sequence).assertEqual(0);
-      expect(journal.batches.length).assertEqual(0);
+      expect(journal.version, caseName('BatchCopyCases', '0002')).assertEqual(1);
+      expect(journal.sequence, caseName('BatchCopyCases', '0002')).assertEqual(0);
+      expect(journal.batches.length, caseName('BatchCopyCases', '0002')).assertEqual(0);
     });
 
     /**
@@ -121,14 +111,14 @@ export default function businessGapCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testBatchCopyCases0003', 0, (): void => {
+    it(caseName('BatchCopyCases', '0003'), 0, (): void => {
       const item: BatchPreviewItem = new BatchPreviewItem();
-      expect(item.id).assertEqual('');
-      expect(item.eligible).assertTrue();
-      expect(item.externalChange).assertFalse();
-      expect(item.reason).assertEqual('');
-      expect(item.target).assertFalse();
-      expect(item.currentVisible).assertFalse();
+      expect(item.id, caseName('BatchCopyCases', '0003')).assertEqual('');
+      expect(item.eligible, caseName('BatchCopyCases', '0003')).assertTrue();
+      expect(item.externalChange, caseName('BatchCopyCases', '0003')).assertFalse();
+      expect(item.reason, caseName('BatchCopyCases', '0003')).assertEqual('');
+      expect(item.target, caseName('BatchCopyCases', '0003')).assertFalse();
+      expect(item.currentVisible, caseName('BatchCopyCases', '0003')).assertFalse();
     });
 
     /**
@@ -140,11 +130,11 @@ export default function businessGapCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testBatchCopyCases0004', 0, (): void => {
-      expect(batchResultText('confirmed')).assertEqual('已确认');
-      expect(batchResultText('failed')).assertEqual('失败（已核对未达目标）');
-      expect(batchResultText('unknown')).assertEqual('未知（须先核对）');
-      expect(batchResultText('not-run')).assertEqual('未执行');
+    it(caseName('BatchCopyCases', '0004'), 0, (): void => {
+      expect(batchResultText('confirmed'), caseName('BatchCopyCases', '0004')).assertEqual('已确认');
+      expect(batchResultText('failed'), caseName('BatchCopyCases', '0004')).assertEqual('失败（已核对未达目标）');
+      expect(batchResultText('unknown'), caseName('BatchCopyCases', '0004')).assertEqual('未知（须先核对）');
+      expect(batchResultText('not-run'), caseName('BatchCopyCases', '0004')).assertEqual('未执行');
     });
 
     /**
@@ -156,20 +146,20 @@ export default function businessGapCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBatchCopyCases0005', 0, (): void => {
+    it(caseName('BatchCopyCases', '0005'), 0, (): void => {
       const source: BatchPlan = batchPlanOf([batchItemOf('a', 'confirmed')]);
       const copy: BatchPlan = copyBatch(source);
-      expect(copy.batchId).assertEqual('batch-7');
-      expect(copy.createdAt).assertEqual(1700);
-      expect(copy.interrupted).assertTrue();
-      expect(copy.items.length).assertEqual(1);
-      expect(copy.items[0].restoreResult).assertEqual('failed');
-      expect(copy.items[0].retryBlocked).assertTrue();
+      expect(copy.batchId, caseName('BatchCopyCases', '0005')).assertEqual('batch-7');
+      expect(copy.createdAt, caseName('BatchCopyCases', '0005')).assertEqual(1700);
+      expect(copy.interrupted, caseName('BatchCopyCases', '0005')).assertTrue();
+      expect(copy.items.length, caseName('BatchCopyCases', '0005')).assertEqual(1);
+      expect(copy.items[0].restoreResult, caseName('BatchCopyCases', '0005')).assertEqual('failed');
+      expect(copy.items[0].retryBlocked, caseName('BatchCopyCases', '0005')).assertTrue();
       source.items[0].id = 'changed';
       source.items[0].attempt = 99;
-      expect(copy.items[0].id).assertEqual('a');
-      expect(copy.items[0].attempt).assertEqual(2);
-      expect(copy.items.length).assertEqual(1);
+      expect(copy.items[0].id, caseName('BatchCopyCases', '0005')).assertEqual('a');
+      expect(copy.items[0].attempt, caseName('BatchCopyCases', '0005')).assertEqual(2);
+      expect(copy.items.length, caseName('BatchCopyCases', '0005')).assertEqual(1);
     });
 
     /**
@@ -181,13 +171,13 @@ export default function businessGapCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBatchCopyCases0006', 0, (): void => {
+    it(caseName('BatchCopyCases', '0006'), 0, (): void => {
       const source: BatchPlan = batchPlanOf([]);
       const copy: BatchPlan = copyBatch(source);
-      expect(copy.items.length).assertEqual(0);
-      expect(copy.batchId).assertEqual('batch-7');
+      expect(copy.items.length, caseName('BatchCopyCases', '0006')).assertEqual(0);
+      expect(copy.batchId, caseName('BatchCopyCases', '0006')).assertEqual('batch-7');
       source.items.push(batchItemOf('late', 'failed'));
-      expect(copy.items.length).assertEqual(0);
+      expect(copy.items.length, caseName('BatchCopyCases', '0006')).assertEqual(0);
     });
 
     /**
@@ -199,17 +189,17 @@ export default function businessGapCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBatchCopyCases0007', 0, (): void => {
+    it(caseName('BatchCopyCases', '0007'), 0, (): void => {
       const journal: BatchJournal = new BatchJournal();
       journal.sequence = 9;
       journal.batches = [batchPlanOf([batchItemOf('a', 'confirmed')])];
       const copy: BatchJournal = copyJournal(journal);
-      expect(copy.version).assertEqual(1);
-      expect(copy.sequence).assertEqual(9);
-      expect(copy.batches.length).assertEqual(1);
-      expect(copy.batches[0].items.length).assertEqual(1);
+      expect(copy.version, caseName('BatchCopyCases', '0007')).assertEqual(1);
+      expect(copy.sequence, caseName('BatchCopyCases', '0007')).assertEqual(9);
+      expect(copy.batches.length, caseName('BatchCopyCases', '0007')).assertEqual(1);
+      expect(copy.batches[0].items.length, caseName('BatchCopyCases', '0007')).assertEqual(1);
       journal.batches[0].items[0].target = false;
-      expect(copy.batches[0].items[0].target).assertTrue();
+      expect(copy.batches[0].items[0].target, caseName('BatchCopyCases', '0007')).assertTrue();
     });
 
     /**
@@ -221,21 +211,21 @@ export default function businessGapCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBatchCopyCases0008', 0, (): void => {
+    it(caseName('BatchCopyCases', '0008'), 0, (): void => {
       const item: BatchPreviewItem = new BatchPreviewItem();
       item.id = 'a';
       item.eligible = false;
       item.reason = '外部已变';
       const preview: BatchPreview = previewOf([item]);
       const copy: BatchPreview = copyPreview(preview);
-      expect(copy.token).assertEqual(11);
-      expect(copy.batchId).assertEqual('batch-3');
-      expect(copy.mode).assertEqual('retry');
-      expect(copy.items.length).assertEqual(1);
-      expect(copy.items[0].eligible).assertFalse();
-      expect(copy.items[0].reason).assertEqual('外部已变');
+      expect(copy.token, caseName('BatchCopyCases', '0008')).assertEqual(11);
+      expect(copy.batchId, caseName('BatchCopyCases', '0008')).assertEqual('batch-3');
+      expect(copy.mode, caseName('BatchCopyCases', '0008')).assertEqual('retry');
+      expect(copy.items.length, caseName('BatchCopyCases', '0008')).assertEqual(1);
+      expect(copy.items[0].eligible, caseName('BatchCopyCases', '0008')).assertFalse();
+      expect(copy.items[0].reason, caseName('BatchCopyCases', '0008')).assertEqual('外部已变');
       item.reason = 'changed';
-      expect(copy.items[0].reason).assertEqual('外部已变');
+      expect(copy.items[0].reason, caseName('BatchCopyCases', '0008')).assertEqual('外部已变');
     });
   });
 }

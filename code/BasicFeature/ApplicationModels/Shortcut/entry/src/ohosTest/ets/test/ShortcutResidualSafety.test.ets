@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { BusinessStore } from '../../../main/ets/business/BusinessStore';
 import { ShortcutService } from '../../../main/ets/services/ShortcutService';
 import { CaseScope, getTestContext, runCase } from '../support/CaseScope';
@@ -36,8 +37,8 @@ export default function shortcutResidualSafetyTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutResidualSafety0001', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutResidualSafety', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutResidualSafety', '0001'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         io.value = waveTwoArchive().replace('"title":"早期标题","body":"早期正文"',
           '"title":"正式标题","body":"正式正文"');
@@ -47,12 +48,12 @@ export default function shortcutResidualSafetyTests(): void {
         await store.keepEditDraft();
         const before: string = io.value;
         const writes: number = io.writes;
-        expect(await store.restoreRevision('a', 'ar')).assertTrue();
-        expect(store.snapshot().message).assertEqual('已是该历史版本');
-        expect(store.snapshot().draftBody).assertEqual('用户已保留、未覆盖正式正文的编辑');
-        expect(store.snapshot().editDraftPersisted).assertTrue();
-        expect(io.value).assertEqual(before);
-        expect(io.writes).assertEqual(writes);
+        expect(await store.restoreRevision('a', 'ar'), caseName('ShortcutResidualSafety', '0001')).assertTrue();
+        expect(store.snapshot().message, caseName('ShortcutResidualSafety', '0001')).assertEqual('已是该历史版本');
+        expect(store.snapshot().draftBody, caseName('ShortcutResidualSafety', '0001')).assertEqual('用户已保留、未覆盖正式正文的编辑');
+        expect(store.snapshot().editDraftPersisted, caseName('ShortcutResidualSafety', '0001')).assertTrue();
+        expect(io.value, caseName('ShortcutResidualSafety', '0001')).assertEqual(before);
+        expect(io.writes, caseName('ShortcutResidualSafety', '0001')).assertEqual(writes);
       });
     });
 
@@ -64,8 +65,8 @@ export default function shortcutResidualSafetyTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutResidualSafety0002', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutResidualSafety', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutResidualSafety', '0002'), async (scope: CaseScope): Promise<void> => {
         for (const normalized of [false, true]) {
           const io: ControlledBusinessStorage = new ControlledBusinessStorage();
           io.value = waveTwoArchive();
@@ -78,17 +79,17 @@ export default function shortcutResidualSafetyTests(): void {
           const before: string = io.value;
           io.failWrite = true;
           const failed: boolean = normalized ? await store.saveNote() : await store.keepEditDraft();
-          expect(failed).assertFalse();
-          expect(store.snapshot().editDraftPersisted).assertTrue();
-          expect(io.value).assertEqual(before);
-          expect(store.snapshot().draftBody).assertEqual(normalized ? ' 正式正文 ' : '正式正文');
+          expect(failed, caseName('ShortcutResidualSafety', '0002')).assertFalse();
+          expect(store.snapshot().editDraftPersisted, caseName('ShortcutResidualSafety', '0002')).assertTrue();
+          expect(io.value, caseName('ShortcutResidualSafety', '0002')).assertEqual(before);
+          expect(store.snapshot().draftBody, caseName('ShortcutResidualSafety', '0002')).assertEqual(normalized ? ' 正式正文 ' : '正式正文');
           io.failWrite = false;
           const retried: boolean = normalized ? await store.saveNote() : await store.keepEditDraft();
-          expect(retried).assertTrue();
+          expect(retried, caseName('ShortcutResidualSafety', '0002')).assertTrue();
           store.dispose();
           const reopened: BusinessStore = await loadBusiness(scope, io, clock.now);
-          expect(reopened.snapshot().draftBody).assertEqual('独立新正文');
-          expect(reopened.snapshot().notes[0].body).assertEqual('正式正文');
+          expect(reopened.snapshot().draftBody, caseName('ShortcutResidualSafety', '0002')).assertEqual('独立新正文');
+          expect(reopened.snapshot().notes[0].body, caseName('ShortcutResidualSafety', '0002')).assertEqual('正式正文');
         }
       });
     });
@@ -101,8 +102,8 @@ export default function shortcutResidualSafetyTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutResidualSafety0003', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutResidualSafety', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutResidualSafety', '0003'), async (scope: CaseScope): Promise<void> => {
         const io: WaveTwoJournalPort = new WaveTwoJournalPort();
         io.value = JSON.stringify(waveJournal());
         const original: string = io.value;
@@ -116,17 +117,17 @@ export default function shortcutResidualSafetyTests(): void {
         await waveSettle();
         service.dispose();
         service.initialize(getTestContext());
-        expect(io.reads).assertEqual(1);
+        expect(io.reads, caseName('ShortcutResidualSafety', '0003')).assertEqual(1);
         io.writeGate.resolve(undefined);
         await writing;
         await readyWaveTwoService(scope, service);
-        expect(service.snapshot().batchReady).assertTrue();
-        expect(service.snapshot().batches[0].batchId).assertEqual('batch-1');
-        expect(io.value).assertEqual(original);
-        expect(api.writes.length).assertEqual(0);
+        expect(service.snapshot().batchReady, caseName('ShortcutResidualSafety', '0003')).assertTrue();
+        expect(service.snapshot().batches[0].batchId, caseName('ShortcutResidualSafety', '0003')).assertEqual('batch-1');
+        expect(io.value, caseName('ShortcutResidualSafety', '0003')).assertEqual(original);
+        expect(api.writes.length, caseName('ShortcutResidualSafety', '0003')).assertEqual(0);
         io.failWrite = false;
         await service.previewBatch(['b'], true);
-        expect(service.snapshot().batches[0].batchId).assertEqual('batch-2');
+        expect(service.snapshot().batches[0].batchId, caseName('ShortcutResidualSafety', '0003')).assertEqual('batch-2');
       });
     });
   });
