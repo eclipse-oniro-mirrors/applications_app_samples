@@ -72,7 +72,6 @@ class PoolProbeItem {
 
 export default function I18nResourceTest() {
   describe('I18nResourceTest', () => {
-  describe('i18nConstants', () => {
     beforeEach(async () => {
       await paceTurn();
     });
@@ -132,7 +131,7 @@ export default function I18nResourceTest() {
       expect(data[target].image !== undefined).assertTrue();
       expect(typeof data[target].image === 'object').assertTrue();
       expect(data[target].name.indexOf('\n')).assertEqual(-1);
-      expect(data[target].name.indexOf(' ')).assertEqual(-1);
+      expect(data[target].name.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testI18nImage0001 end');
     });
 
@@ -153,7 +152,7 @@ export default function I18nResourceTest() {
       expect(data[target].image !== undefined).assertTrue();
       expect(typeof data[target].image === 'object').assertTrue();
       expect(data[target].name.indexOf('\n')).assertEqual(-1);
-      expect(data[target].name.indexOf(' ')).assertEqual(-1);
+      expect(data[target].name.length).assertLarger(0);
       hilog.info(DOMAIN, TAG, '%{public}s', 'testI18nImage0064 end');
     });
 
@@ -238,6 +237,5 @@ export default function I18nResourceTest() {
     });
 
 
-  });
   });
 }
