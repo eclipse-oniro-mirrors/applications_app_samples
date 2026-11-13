@@ -13,16 +13,16 @@
  * limitations under the License.
  */
 
-import { resolveText, displayValue } from '../core/UiText';
 import { router } from '@kit.ArkUI';
+import { resolveText, displayValue, displayResourcePreview } from '../core/UiText';
 import { logWarn } from '../core/Logger';
 import { AppService, getAppService } from '../core/AppService';
-import { flowMetricSamples, evaluateFlowThresholds, evaluateFlowGate, flowThresholds,
-  flowGateRules } from '../core/FlowMetrics';
+import {
+  flowMetricSamples, evaluateFlowThresholds, evaluateFlowGate, flowThresholds, flowGateRules
+} from '../core/FlowMetrics';
 import {
   AppState, CallRecord, LaunchSample, MaintenanceFlow, MaintenanceStep, emptyCallRecord, formatTime
 } from '../core/Types';
-import { InfoField, ChoiceButton, ActionButton, MemoryResultCard, CallRecordCard } from '../components/ReactiveCards';
 import {
   PlanRun, StepOutcome, evaluateRun
 } from '../core/MaintenancePlan';
@@ -40,6 +40,7 @@ import {
   auditGate, evaluateGate, gateMetrics, GateVerdict, levelLines as gateLevelLines, ruleLines as gateRuleLines,
   verdictLabel as gateVerdictLabel
 } from '../core/RegressionGate';
+import { InfoField, ChoiceButton, ActionButton, MemoryResultCard, CallRecordCard } from '../components/ReactiveCards';
 
 @Entry
 @Component
@@ -234,7 +235,8 @@ struct Index {
       message: this.text($r('app.string.ap_ui_rebuild_the_application_s_hypersnap_data')),
       primaryButton: {
         value: this.text($r('app.string.ap_ui_cancel')),
-        action: (): void => {}
+        action: (): void => {
+        }
       },
       secondaryButton: {
         value: this.text($r('app.string.ap_ui_confirm_rebuild')),
@@ -278,7 +280,8 @@ struct Index {
       message: this.text($r('app.string.ap_ui_clear_all_call_records')),
       primaryButton: {
         value: this.text($r('app.string.ap_ui_cancel')),
-        action: (): void => {}
+        action: (): void => {
+        }
       },
       secondaryButton: {
         value: this.text($r('app.string.ap_ui_clear')),
@@ -324,7 +327,8 @@ struct Index {
       message: this.text($r('app.string.ap_ui_clear_all_content_loading_samples')),
       primaryButton: {
         value: this.text($r('app.string.ap_ui_cancel')),
-        action: (): void => {}
+        action: (): void => {
+        }
       },
       secondaryButton: {
         value: this.text($r('app.string.ap_ui_clear')),
@@ -373,8 +377,20 @@ struct Index {
 
     Column({ space: 14 }) {
       Row({ space: 4 }) {
-        ChoiceButton({ label: this.text($r('app.string.ap_ui_files')), selected: this.memoryMode === 0, onSelect: (): void => { this.memoryMode = 0; } })
-        ChoiceButton({ label: this.text($r('app.string.ap_ui_modules')), selected: this.memoryMode === 1, onSelect: (): void => { this.memoryMode = 1; } })
+        ChoiceButton({
+          label: this.text($r('app.string.ap_ui_files')),
+          selected: this.memoryMode === 0,
+          onSelect: (): void => {
+            this.memoryMode = 0;
+          }
+        })
+        ChoiceButton({
+          label: this.text($r('app.string.ap_ui_modules')),
+          selected: this.memoryMode === 1,
+          onSelect: (): void => {
+            this.memoryMode = 1;
+          }
+        })
       }
       .padding(4)
       .borderRadius(14)
@@ -387,20 +403,26 @@ struct Index {
             Row({ space: 8 }) {
               Checkbox({ name: file, group: 'files' })
                 .width(24)
-                .height(24).responseRegion({ x: -10, y: -10, width: 44, height: 44 })
+                .height(24)
+                .responseRegion({ x: -10, y: -10, width: 44, height: 44 })
                 .margin(0)
                 .selectedColor('#246BFD')
                 .select(this.selectedFiles.indexOf(file) >= 0)
                 .enabled(!this.memoryBusy)
-                .onChange((checked: boolean): void => { this.selectFile(file, checked); })
+                .onChange((checked: boolean): void => {
+                  this.selectFile(file, checked);
+                })
               Text(file)
                 .layoutWeight(1)
                 .fontSize(14)
                 .fontColor('#182238')
             }
             .width('100%')
-            .padding({ top: 5, bottom: 5 }).constraintSize({ minHeight: 44 })
-          }, (file: string): string => file)
+            .padding({ top: 5, bottom: 5 })
+            .constraintSize({ minHeight: 44 })
+          }, (file: string): string => {
+            return file;
+          })
         }
         .width('100%')
         .alignItems(HorizontalAlign.Start)
@@ -410,7 +432,9 @@ struct Index {
           .height(44)
           .borderRadius(12)
           .backgroundColor('#F5F7FA')
-          .onChange((value: string): void => { this.extraFiles = value; })
+          .onChange((value: string): void => {
+            this.extraFiles = value;
+          })
         if (this.selectedFiles.length === 0 && this.manualFiles().length === 0) {
           Text(this.text($r('app.string.ap_ui_select_files_or_enter_other_file_names')))
             .fontSize(12)
@@ -428,20 +452,26 @@ struct Index {
               Row({ space: 8 }) {
                 Checkbox({ name: module, group: 'modules' })
                   .width(24)
-                  .height(24).responseRegion({ x: -10, y: -10, width: 44, height: 44 })
+                  .height(24)
+                  .responseRegion({ x: -10, y: -10, width: 44, height: 44 })
                   .margin(0)
                   .selectedColor('#246BFD')
                   .select(this.selectedModules.indexOf(module) >= 0)
                   .enabled(!this.memoryBusy)
-                  .onChange((checked: boolean): void => { this.selectModule(module, checked); })
+                  .onChange((checked: boolean): void => {
+                    this.selectModule(module, checked);
+                  })
                 Text(module)
                   .layoutWeight(1)
                   .fontSize(14)
                   .fontColor('#182238')
               }
               .width('100%')
-              .padding({ top: 5, bottom: 5 }).constraintSize({ minHeight: 44 })
-            }, (module: string): string => module)
+              .padding({ top: 5, bottom: 5 })
+              .constraintSize({ minHeight: 44 })
+            }, (module: string): string => {
+              return module;
+            })
           }
           .width('100%')
           .alignItems(HorizontalAlign.Start)
@@ -449,7 +479,7 @@ struct Index {
       }
 
       if (this.targetMessage.length > 0) {
-        Text(this.targetMessage)
+        Text(this.display(this.targetMessage))
           .fontSize(12)
           .fontColor('#667085')
       }
@@ -458,13 +488,19 @@ struct Index {
           label: this.text($r('app.string.ap_ui_refresh_targets')),
           primary: false,
           isEnabled: !this.memoryBusy,
-          onAction: (): void => { this.refreshTargets(); }
+          onAction: (): void => {
+            this.refreshTargets();
+          }
         })
         ActionButton({
-          label: this.memoryBusy ? this.text($r('app.string.ap_ui_calling')) : (this.memoryMode === 0 ? this.text($r('app.string.ap_ui_evict_file_pages')) : this.text($r('app.string.ap_ui_evict_module_pages'))),
+          label: this.memoryBusy ? this.text($r('app.string.ap_ui_calling')) :
+            (this.memoryMode === 0 ? this.text($r('app.string.ap_ui_evict_file_pages')) :
+              this.text($r('app.string.ap_ui_evict_module_pages'))),
           primary: true,
           isEnabled: !this.memoryDisabled(),
-          onAction: (): void => { this.evictMemory(); }
+          onAction: (): void => {
+            this.evictMemory();
+          }
         })
       }
       .width('100%')
@@ -489,16 +525,25 @@ struct Index {
         primary: false,
         isEnabled: true,
         onAction: (): void => {
-          router.pushUrl({ url: 'pages/WorkloadLabPage' }).catch((error: Error): void => {
+          router.pushUrl({ url: 'workload/pages/WorkloadLabPage' }).catch((error: Error): void => {
             logWarn(`Workload laboratory navigation failed: ${error.message}`);
           });
         }
       })
-    }.width('100%')
-    Button(this.advancedToolsOpen ? this.text($r('app.string.ap_ui_hide_more_tools')) : this.text($r('app.string.ap_ui_more_tools'))).id('apAdvancedToolsToggle')
-      .type(ButtonType.Normal).width('100%').height(44).fontSize(14)
-      .fontColor('#667085').backgroundColor('#FFFFFF').borderRadius(12)
-      .onClick((): void => { this.advancedToolsOpen = !this.advancedToolsOpen; })
+    }
+    .width('100%')
+    Button(this.advancedToolsOpen ? this.text($r('app.string.ap_ui_hide_more_tools')) :
+      this.text($r('app.string.ap_ui_more_tools')))
+      .id('apAdvancedToolsToggle')
+      .type(ButtonType.Normal)
+      .width('100%').height(44)
+      .fontSize(14)
+      .fontColor('#667085')
+      .backgroundColor('#FFFFFF')
+      .borderRadius(12)
+      .onClick((): void => {
+        this.advancedToolsOpen = !this.advancedToolsOpen;
+      })
     if (this.advancedToolsOpen) {
       this.configCard()
       this.maintenanceCard()
@@ -522,7 +567,9 @@ struct Index {
           .backgroundColor('#EEF2F6')
           .borderRadius(9)
           .height(44)
-          .onClick((): void => { this.configOpen = !this.configOpen; })
+          .onClick((): void => {
+            this.configOpen = !this.configOpen;
+          })
       }
       .width('100%')
       if (this.configOpen) {
@@ -536,7 +583,9 @@ struct Index {
             label: this.text($r('app.string.ap_ui_check_configuration')),
             primary: false,
             isEnabled: true,
-            onAction: (): void => { this.checkConfig(); }
+            onAction: (): void => {
+              this.checkConfig();
+            }
           })
         }
         .width('100%')
@@ -574,44 +623,79 @@ struct Index {
         .fontColor('#667085')
         .width('100%')
       Row({ space: 8 }) {
-        ChoiceButton({ label: this.text($r('app.string.ap_ui_file_eviction')), selected: this.maintenanceMode === 0,
-          onSelect: (): void => { this.maintenanceMode = 0; } })
-        ChoiceButton({ label: this.text($r('app.string.ap_ui_no_eviction_control')), selected: this.maintenanceMode === 1,
-          onSelect: (): void => { this.maintenanceMode = 1; } })
-        ChoiceButton({ label: this.text($r('app.string.ap_ui_module_eviction')), selected: this.maintenanceMode === 2,
-          onSelect: (): void => { this.maintenanceMode = 2; } })
+        ChoiceButton({
+          label: this.text($r('app.string.ap_ui_file_eviction')),
+          selected: this.maintenanceMode === 0,
+          onSelect: (): void => {
+            this.maintenanceMode = 0;
+          }
+        })
+        ChoiceButton({
+          label: this.text($r('app.string.ap_ui_no_eviction_control')),
+          selected: this.maintenanceMode === 1,
+          onSelect: (): void => {
+            this.maintenanceMode = 1;
+          }
+        })
+        ChoiceButton({
+          label: this.text($r('app.string.ap_ui_module_eviction')),
+          selected: this.maintenanceMode === 2,
+          onSelect: (): void => {
+            this.maintenanceMode = 2;
+          }
+        })
       }
       .width('100%')
       if (this.maintenance !== undefined) {
         ForEach(this.maintenance.steps, (step: MaintenanceStep) => {
           Column({ space: 4 }) {
             Row() {
-              Text(step.label).fontSize(14).fontColor('#182238').layoutWeight(1)
-              Text(this.display(step.status)).fontSize(12)
+              Text(this.display(step.label))
+                .fontSize(14)
+                .fontColor('#182238')
+                .layoutWeight(1)
+              Text(this.display(step.status))
+                .fontSize(12)
                 .fontColor(step.status === '成功' ? '#11845B' : step.status === '失败' ? '#C23F4A' : '#667085')
             }
             .width('100%')
             if (step.detail.length > 0) {
-              Text(step.detail).fontSize(12).fontColor('#667085').width('100%')
+              Text(this.display(step.detail))
+                .fontSize(12)
+                .fontColor('#667085')
+                .width('100%')
             }
             if (step.elapsed > 0) {
-              Text(this.text($r('app.string.ap_ui_format_061daad6b9'), [step.elapsed])).fontSize(12).fontColor('#667085').width('100%')
+              Text(this.text($r('app.string.ap_ui_format_061daad6b9'), [step.elapsed]))
+                .fontSize(12)
+                .fontColor('#667085')
+                .width('100%')
             }
           }
           .width('100%')
           .padding({ top: 6, bottom: 6 })
-        }, (step: MaintenanceStep): string => step.key)
+        }, (step: MaintenanceStep): string => {
+          return step.key;
+        })
         if (this.maintenance.notice.length > 0) {
-          Text(this.maintenance.notice).fontSize(12).fontColor('#667085').width('100%')
+          Text(this.display(this.maintenance.notice))
+            .fontSize(12)
+            .fontColor('#667085')
+            .width('100%')
         }
-        Text(this.text($r('app.string.ap_ui_format_d3ed71152f'), [this.display(this.maintenance.integrity), this.maintenance.beforeBytes, this.maintenance.afterBytes]))
-          .fontSize(12).fontColor('#667085').width('100%')
+        Text(this.text($r('app.string.ap_ui_format_d3ed71152f'),
+          [this.display(this.maintenance.integrity), this.maintenance.beforeBytes, this.maintenance.afterBytes]))
+          .fontSize(12)
+          .fontColor('#667085')
+          .width('100%')
       }
       ActionButton({
         label: this.maintenanceBusy ? this.text($r('app.string.ap_ui_flow_running')) : this.text($r('app.string.ap_ui_run_maintenance_flow')),
         primary: true,
         isEnabled: !this.maintenanceBusy && !this.memoryBusy,
-        onAction: (): void => { this.runMaintenance(); }
+        onAction: (): void => {
+          this.runMaintenance();
+        }
       })
     }
     .width('100%')
@@ -628,7 +712,7 @@ struct Index {
         .fontSize(16)
         .fontWeight(FontWeight.Medium)
         .fontColor('#182238')
-      Text(this.display(this.resourceText))
+      Text(displayResourcePreview(this.getUIContext().getHostContext(), this.resourceText))
         .fontSize(12)
         .fontColor('#667085')
         .width('100%')
@@ -637,13 +721,17 @@ struct Index {
           label: this.text($r('app.string.ap_ui_read_resource')),
           primary: false,
           isEnabled: !this.resourceBusy,
-          onAction: (): void => { this.readResource(false); }
+          onAction: (): void => {
+            this.readResource(false);
+          }
         })
         ActionButton({
           label: this.text($r('app.string.ap_ui_read_and_verify')),
           primary: true,
           isEnabled: !this.resourceBusy,
-          onAction: (): void => { this.readResource(true); }
+          onAction: (): void => {
+            this.readResource(true);
+          }
         })
       }
       .width('100%')
@@ -670,13 +758,17 @@ struct Index {
           label: this.text($r('app.string.ap_ui_enabled')),
           primary: true,
           isEnabled: true,
-          onAction: (): void => { this.setSnapEnabled(true); }
+          onAction: (): void => {
+            this.setSnapEnabled(true);
+          }
         })
         ActionButton({
           label: this.text($r('app.string.ap_ui_disabled')),
           primary: false,
           isEnabled: true,
-          onAction: (): void => { this.setSnapEnabled(false); }
+          onAction: (): void => {
+            this.setSnapEnabled(false);
+          }
         })
       }
       .width('100%')
@@ -698,7 +790,9 @@ struct Index {
         .maxLength(80)
         .borderRadius(12)
         .backgroundColor('#F5F7FA')
-        .onChange((value: string): void => { this.reasonText = value; })
+        .onChange((value: string): void => {
+          this.reasonText = value;
+        })
       InfoField({ label: this.text($r('app.string.ap_ui_latest_time')), value: formatTime(this.rebuildAt) })
       InfoField({ label: this.text($r('app.string.ap_ui_cooldown')), value: this.text($r('app.string.ap_ui_format_b28ea52b8c'), [this.rebuildWaitSeconds]) })
       Row() {
@@ -706,7 +800,9 @@ struct Index {
           label: this.text($r('app.string.ap_ui_request_rebuild')),
           primary: true,
           isEnabled: this.rebuildWaitSeconds <= 0,
-          onAction: (): void => { this.confirmRebuild(); }
+          onAction: (): void => {
+            this.confirmRebuild();
+          }
         })
       }
       .width('100%')
@@ -722,8 +818,20 @@ struct Index {
   recordsPage(): void {
     this.heading(this.text($r('app.string.ap_ui_call_records')), this.text($r('app.string.ap_ui_view_request_results_and_content_loading_durations')))
     Row({ space: 4 }) {
-      ChoiceButton({ label: this.text($r('app.string.ap_ui_call_records')), selected: this.recordPane === 0, onSelect: (): void => { this.recordPane = 0; } })
-      ChoiceButton({ label: this.text($r('app.string.ap_ui_content_loading')), selected: this.recordPane === 1, onSelect: (): void => { this.recordPane = 1; } })
+      ChoiceButton({
+        label: this.text($r('app.string.ap_ui_call_records')),
+        selected: this.recordPane === 0,
+        onSelect: (): void => {
+          this.recordPane = 0;
+        }
+      })
+      ChoiceButton({
+        label: this.text($r('app.string.ap_ui_content_loading')),
+        selected: this.recordPane === 1,
+        onSelect: (): void => {
+          this.recordPane = 1;
+        }
+      })
     }
     .width('100%')
     .padding(4)
@@ -740,9 +848,27 @@ struct Index {
   logsPane(): void {
     Column({ space: 12 }) {
       Row({ space: 4 }) {
-        ChoiceButton({ label: this.text($r('app.string.ap_ui_all')), selected: this.logFilter === 0, onSelect: (): void => { this.logFilter = 0; } })
-        ChoiceButton({ label: this.text($r('app.string.ap_ui_memory')), selected: this.logFilter === 1, onSelect: (): void => { this.logFilter = 1; } })
-        ChoiceButton({ label: this.text($r('app.string.ap_ui_hypersnap_a50897')), selected: this.logFilter === 2, onSelect: (): void => { this.logFilter = 2; } })
+        ChoiceButton({
+          label: this.text($r('app.string.ap_ui_all')),
+          selected: this.logFilter === 0,
+          onSelect: (): void => {
+            this.logFilter = 0;
+          }
+        })
+        ChoiceButton({
+          label: this.text($r('app.string.ap_ui_memory')),
+          selected: this.logFilter === 1,
+          onSelect: (): void => {
+            this.logFilter = 1;
+          }
+        })
+        ChoiceButton({
+          label: this.text($r('app.string.ap_ui_hypersnap_a50897')),
+          selected: this.logFilter === 2,
+          onSelect: (): void => {
+            this.logFilter = 2;
+          }
+        })
       }
       .width('100%')
       .padding(4)
@@ -756,13 +882,17 @@ struct Index {
           label: this.text($r('app.string.ap_ui_copy_records')),
           primary: false,
           isEnabled: this.filteredLogs().length > 0,
-          onAction: (): void => { this.copyLogs(); }
+          onAction: (): void => {
+            this.copyLogs();
+          }
         })
         ActionButton({
           label: this.text($r('app.string.ap_ui_clear_records')),
           primary: false,
           isEnabled: this.logs.length > 0,
-          onAction: (): void => { this.confirmClearLogs(); }
+          onAction: (): void => {
+            this.confirmClearLogs();
+          }
         })
       }
       .width('100%')
@@ -791,7 +921,9 @@ struct Index {
             this.expandedRecordId = this.expandedRecordId === recordId ? -1 : recordId;
           }
         })
-      }, (id: number): string => id.toString())
+      }, (id: number): string => {
+        return id.toString();
+      })
     }
   }
 
@@ -824,26 +956,42 @@ struct Index {
       this.sampleSummary('启用', this.text($r('app.string.ap_ui_enabled')))
       this.sampleSummary('禁用', this.text($r('app.string.ap_ui_disabled')))
       this.sampleSummary('初始', this.text($r('app.string.ap_ui_initial')))
-      Button(this.metricDetailsOpen ? this.text($r('app.string.ap_ui_hide_sampling_notes')) : this.text($r('app.string.ap_ui_sampling_notes'))).id('apMetricDetailsToggle')
-        .type(ButtonType.Normal).height(44).fontSize(14).fontColor('#667085')
-        .backgroundColor('#F5F7FA').borderRadius(12).width('100%')
-        .onClick((): void => { this.metricDetailsOpen = !this.metricDetailsOpen; })
+      Button(this.metricDetailsOpen ? this.text($r('app.string.ap_ui_hide_sampling_notes')) :
+        this.text($r('app.string.ap_ui_sampling_notes')))
+        .id('apMetricDetailsToggle')
+        .type(ButtonType.Normal)
+        .height(44)
+        .fontSize(14)
+        .fontColor('#667085')
+        .backgroundColor('#F5F7FA')
+        .borderRadius(12)
+        .width('100%')
+        .onClick((): void => {
+          this.metricDetailsOpen = !this.metricDetailsOpen;
+        })
       if (this.metricDetailsOpen) {
         Text(this.text($r('app.string.ap_ui_measures_page_creation_to_content_loaded_grouped_by_the_latest_hypersnap')))
-          .fontSize(14).fontColor('#667085').lineHeight(22).width('100%')
+          .fontSize(14)
+          .fontColor('#667085')
+          .lineHeight(22)
+          .width('100%')
       }
       Row({ space: 10 }) {
         ActionButton({
           label: this.text($r('app.string.ap_ui_copy_samples')),
           primary: false,
           isEnabled: this.launches.length > 0,
-          onAction: (): void => { this.copyLaunches(); }
+          onAction: (): void => {
+            this.copyLaunches();
+          }
         })
         ActionButton({
           label: this.text($r('app.string.ap_ui_clear_samples')),
           primary: false,
           isEnabled: this.launches.length > 0,
-          onAction: (): void => { this.confirmClearLaunches(); }
+          onAction: (): void => {
+            this.confirmClearLaunches();
+          }
         })
       }
       .width('100%')
@@ -875,39 +1023,94 @@ struct Index {
         .alignItems(HorizontalAlign.Start)
         .backgroundColor('#FFFFFF')
         .borderRadius(16)
-      }, (sample: LaunchSample): string => sample.id)
+      }, (sample: LaunchSample): string => {
+        return sample.id;
+      })
     }
   }
 
   @Builder
   planPage(): void {
-    this.heading(this.text($r('app.string.ap_ui_maintenance_plan')), this.text($r('app.string.ap_ui_current_flow_and_content_loading_budgets')))
+    this.heading(this.text($r('app.string.ap_ui_maintenance_plan')),
+      this.text($r('app.string.ap_ui_current_flow_and_content_loading_budgets')))
     Column({ space: 14 }) {
-      Text(this.maintenance === undefined ? this.text($r('app.string.ap_ui_no_maintenance_flow_has_run')) : this.maintenance.status)
-        .fontSize(18).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
-      Text(this.text($r('app.string.ap_ui_content_loading_budgets'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
-      Text(this.contentBudgetHeadline(evaluateBudgets(this.launches, CONTENT_LOAD_GROUPS)))
-        .fontSize(14).fontColor('#667085').width('100%')
-      Button(this.planDetailsOpen ? this.text($r('app.string.ap_ui_hide_plan_details')) : this.text($r('app.string.ap_ui_plan_details'))).id('apPlanDetailsToggle')
-        .type(ButtonType.Normal).height(44).width('100%').fontSize(14)
-        .fontColor('#246BFD').backgroundColor('#EEF4FF').borderRadius(12)
-        .onClick((): void => { this.planDetailsOpen = !this.planDetailsOpen; })
+      Text(this.maintenance === undefined ? this.text($r('app.string.ap_ui_no_maintenance_flow_has_run')) :
+        this.display(this.maintenance.status))
+        .fontSize(18)
+        .fontWeight(FontWeight.Medium)
+        .fontColor('#182238')
+        .width('100%')
+      Text(this.text($r('app.string.ap_ui_content_loading_budgets')))
+        .fontSize(16)
+        .fontWeight(FontWeight.Medium)
+        .fontColor('#182238')
+        .width('100%')
+      Text(this.display(this.contentBudgetHeadline(evaluateBudgets(this.launches, CONTENT_LOAD_GROUPS))))
+        .fontSize(14)
+        .fontColor('#667085')
+        .width('100%')
+      Button(this.planDetailsOpen ? this.text($r('app.string.ap_ui_hide_plan_details')) :
+        this.text($r('app.string.ap_ui_plan_details')))
+        .id('apPlanDetailsToggle')
+        .type(ButtonType.Normal)
+        .height(44).width('100%')
+        .fontSize(14)
+        .fontColor('#246BFD')
+        .backgroundColor('#EEF4FF')
+        .borderRadius(12)
+        .onClick((): void => {
+          this.planDetailsOpen = !this.planDetailsOpen;
+        })
       if (this.planDetailsOpen) {
-        Text(this.planHeadline()).fontSize(14).fontColor('#667085').width('100%')
-        Text(this.text($r('app.string.ap_ui_stage_results'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+        Text(this.display(this.planHeadline()))
+          .fontSize(14)
+          .fontColor('#667085')
+          .width('100%')
+        Text(this.text($r('app.string.ap_ui_stage_results')))
+          .fontSize(16)
+          .fontWeight(FontWeight.Medium)
+          .fontColor('#182238')
+          .width('100%')
         ForEach(this.planStepLines(), (line: string) => {
-          Text(line).fontSize(14).fontColor('#667085').width('100%')
-        }, (line: string) => line)
-        Text(this.text($r('app.string.ap_ui_workload_profile'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+          Text(this.display(line))
+            .fontSize(14)
+            .fontColor('#667085')
+            .width('100%')
+        }, (line: string) => {
+          return line;
+        })
+        Text(this.text($r('app.string.ap_ui_workload_profile')))
+          .fontSize(16)
+          .fontWeight(FontWeight.Medium)
+          .fontColor('#182238')
+          .width('100%')
         ForEach(this.loadProfileLines(), (line: string) => {
-          Text(line).fontSize(14).fontColor('#667085').width('100%')
-        }, (line: string) => line)
-        Text(this.text($r('app.string.ap_ui_budget_details'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
+          Text(this.display(line))
+            .fontSize(14)
+            .fontColor('#667085')
+            .width('100%')
+        }, (line: string) => {
+          return line;
+        })
+        Text(this.text($r('app.string.ap_ui_budget_details')))
+          .fontSize(16)
+          .fontWeight(FontWeight.Medium)
+          .fontColor('#182238')
+          .width('100%')
         ForEach(this.launchBudgetLines(), (line: string) => {
-          Text(line).fontSize(14).fontColor('#667085').width('100%')
-        }, (line: string) => line)
+          Text(this.display(line))
+            .fontSize(14)
+            .fontColor('#667085')
+            .width('100%')
+        }, (line: string) => {
+          return line;
+        })
       }
-    }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(16)
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(16)
   }
 
   private planRun(): PlanRun {
@@ -933,7 +1136,9 @@ struct Index {
 
   private planStepLines(): string[] {
     const lines: string[] = [this.text($r('app.string.ap_ui_stages_discover_targets_validate_configuration_read_workload_control_evi'))];
-    if (this.maintenance === undefined) { return lines.concat(this.text($r('app.string.ap_ui_no_stage_results_yet'))); }
+    if (this.maintenance === undefined) {
+      return lines.concat(this.text($r('app.string.ap_ui_no_stage_results_yet')));
+    }
     this.planRun().outcomes.forEach((item: StepOutcome): void => {
       lines.push(item.text());
     });
@@ -985,29 +1190,71 @@ struct Index {
 
   @Builder
   matrixPage(): void {
-    this.heading(this.text($r('app.string.ap_ui_check_results')), this.text($r('app.string.ap_ui_evaluate_the_current_maintenance_results')))
+    this.heading(this.text($r('app.string.ap_ui_check_results')),
+      this.text($r('app.string.ap_ui_evaluate_the_current_maintenance_results')))
     Column({ space: 14 }) {
-      Text(evaluateFlowThresholds(this.maintenance).headline()).fontSize(18)
-        .fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
-      Text(this.checkHeadline()).fontSize(14)
-        .fontColor('#667085').width('100%')
-      Button(this.ruleDetailsOpen ? this.text($r('app.string.ap_ui_hide_check_details')) : this.text($r('app.string.ap_ui_check_details'))).id('apRulesDetailsToggle')
-        .type(ButtonType.Normal).height(44).width('100%').fontSize(14)
-        .fontColor('#246BFD').backgroundColor('#EEF4FF').borderRadius(12)
-        .onClick((): void => { this.ruleDetailsOpen = !this.ruleDetailsOpen; })
+      Text(this.display(evaluateFlowThresholds(this.maintenance).headline()))
+        .fontSize(18)
+        .fontWeight(FontWeight.Medium)
+        .fontColor('#182238')
+        .width('100%')
+      Text(this.checkHeadline())
+        .fontSize(14)
+        .fontColor('#667085')
+        .width('100%')
+      Button(this.ruleDetailsOpen ? this.text($r('app.string.ap_ui_hide_check_details')) :
+        this.text($r('app.string.ap_ui_check_details')))
+        .id('apRulesDetailsToggle')
+        .type(ButtonType.Normal)
+        .height(44).width('100%')
+        .fontSize(14)
+        .fontColor('#246BFD')
+        .backgroundColor('#EEF4FF')
+        .borderRadius(12)
+        .onClick((): void => {
+          this.ruleDetailsOpen = !this.ruleDetailsOpen;
+        })
       if (this.ruleDetailsOpen) {
-        Text(this.text($r('app.string.ap_ui_threshold_evaluation'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
-        Text(this.thresholdHeadline()).fontSize(14).fontColor('#667085').width('100%')
+        Text(this.text($r('app.string.ap_ui_threshold_evaluation')))
+          .fontSize(16)
+          .fontWeight(FontWeight.Medium)
+          .fontColor('#182238')
+          .width('100%')
+        Text(this.thresholdHeadline())
+          .fontSize(14)
+          .fontColor('#667085')
+          .width('100%')
         ForEach(this.thresholdLinesState(), (line: string) => {
-          Text(line).fontSize(14).fontColor('#667085').width('100%')
-        }, (line: string) => line)
-        Text(this.text($r('app.string.ap_ui_regression_gate'))).fontSize(16).fontWeight(FontWeight.Medium).fontColor('#182238').width('100%')
-        Text(this.gateHeadline()).fontSize(14).fontColor('#667085').width('100%')
+          Text(this.display(line))
+            .fontSize(14)
+            .fontColor('#667085')
+            .width('100%')
+        }, (line: string) => {
+          return line;
+        })
+        Text(this.text($r('app.string.ap_ui_regression_gate')))
+          .fontSize(16)
+          .fontWeight(FontWeight.Medium)
+          .fontColor('#182238')
+          .width('100%')
+        Text(this.gateHeadline())
+          .fontSize(14)
+          .fontColor('#667085')
+          .width('100%')
         ForEach(this.gateLinesState(), (line: string) => {
-          Text(line).fontSize(14).fontColor('#667085').width('100%')
-        }, (line: string) => line)
+          Text(this.display(line))
+            .fontSize(14)
+            .fontColor('#667085')
+            .width('100%')
+        }, (line: string) => {
+          return line;
+        })
       }
-    }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(16)
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(16)
   }
 
   private thresholdSamplesOfRun(): MetricSample[] {
@@ -1068,7 +1315,9 @@ struct Index {
     .padding({ left: 4, right: 4 })
     .borderRadius(12)
     .backgroundColor(this.selectedTab === tab ? '#EAF1FF' : '#FFFFFF')
-    .onClick((): void => { this.selectedTab = tab; })
+    .onClick((): void => {
+      this.selectedTab = tab;
+    })
   }
 
   build(): void {

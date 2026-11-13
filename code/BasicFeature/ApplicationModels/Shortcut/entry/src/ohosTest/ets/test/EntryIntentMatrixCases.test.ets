@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   ParamKind, ROUTE_TABLE, RouteEntry, RoutePage, RouteParam, RouteRequest, auditRoutes, pageOf,
   resolveRoute, routeIds, routeLines, routeOf, routesOfPage
@@ -50,11 +51,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteParamCases0001', 0, (): void => {
+    it(caseName('RouteParamCases', '0001'), 0, (): void => {
       const optional: RouteParam = new RouteParam('tag', ParamKind.TEXT, false, '');
-      expect(optional.accepts('')).assertTrue();
-      expect(optional.required).assertFalse();
-      expect(optional.fallback).assertEqual('');
+      expect(optional.accepts(''), caseName('RouteParamCases', '0001')).assertTrue();
+      expect(optional.required, caseName('RouteParamCases', '0001')).assertFalse();
+      expect(optional.fallback, caseName('RouteParamCases', '0001')).assertEqual('');
     });
 
     /**
@@ -66,11 +67,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteParamCases0002', 0, (): void => {
+    it(caseName('RouteParamCases', '0002'), 0, (): void => {
       const required: RouteParam = new RouteParam('noteId', ParamKind.ID, true, '');
-      expect(required.accepts('')).assertFalse();
-      expect(required.accepts('n-1')).assertTrue();
-      expect(required.text()).assertEqual('noteId(id)必填');
+      expect(required.accepts(''), caseName('RouteParamCases', '0002')).assertFalse();
+      expect(required.accepts('n-1'), caseName('RouteParamCases', '0002')).assertTrue();
+      expect(required.text(), caseName('RouteParamCases', '0002')).assertEqual('noteId(id)必填');
     });
 
     /**
@@ -82,12 +83,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testRouteParamCases0003', 0, (): void => {
+    it(caseName('RouteParamCases', '0003'), 0, (): void => {
       const number: RouteParam = new RouteParam('page', ParamKind.NUMBER, false, '0');
-      expect(number.accepts('12')).assertTrue();
-      expect(number.accepts('-3')).assertTrue();
-      expect(number.accepts('1.5')).assertFalse();
-      expect(number.accepts('1e3')).assertFalse();
+      expect(number.accepts('12'), caseName('RouteParamCases', '0003')).assertTrue();
+      expect(number.accepts('-3'), caseName('RouteParamCases', '0003')).assertTrue();
+      expect(number.accepts('1.5'), caseName('RouteParamCases', '0003')).assertFalse();
+      expect(number.accepts('1e3'), caseName('RouteParamCases', '0003')).assertFalse();
     });
 
     /**
@@ -99,12 +100,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteParamCases0004', 0, (): void => {
+    it(caseName('RouteParamCases', '0004'), 0, (): void => {
       const flag: RouteParam = new RouteParam('focus', ParamKind.BOOLEAN, false, 'true');
-      expect(flag.accepts('true')).assertTrue();
-      expect(flag.accepts('false')).assertTrue();
-      expect(flag.accepts('yes')).assertFalse();
-      expect(flag.accepts('TRUE')).assertFalse();
+      expect(flag.accepts('true'), caseName('RouteParamCases', '0004')).assertTrue();
+      expect(flag.accepts('false'), caseName('RouteParamCases', '0004')).assertTrue();
+      expect(flag.accepts('yes'), caseName('RouteParamCases', '0004')).assertFalse();
+      expect(flag.accepts('TRUE'), caseName('RouteParamCases', '0004')).assertFalse();
     });
 
     /**
@@ -116,12 +117,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteParamCases0005', 0, (): void => {
+    it(caseName('RouteParamCases', '0005'), 0, (): void => {
       const id: RouteParam = new RouteParam('noteId', ParamKind.ID, false, '');
-      expect(id.accepts('note_1')).assertTrue();
-      expect(id.accepts('a.b:c-d')).assertTrue();
-      expect(id.accepts('bad id')).assertFalse();
-      expect(id.accepts('便签')).assertFalse();
+      expect(id.accepts('note_1'), caseName('RouteParamCases', '0005')).assertTrue();
+      expect(id.accepts('a.b:c-d'), caseName('RouteParamCases', '0005')).assertTrue();
+      expect(id.accepts('bad id'), caseName('RouteParamCases', '0005')).assertFalse();
+      expect(id.accepts('便签'), caseName('RouteParamCases', '0005')).assertFalse();
     });
 
     /**
@@ -133,12 +134,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteParamCases0006', 0, (): void => {
+    it(caseName('RouteParamCases', '0006'), 0, (): void => {
       const text: RouteParam = new RouteParam('date', ParamKind.TEXT, false, 'today');
-      expect(text.accepts('tomorrow')).assertTrue();
-      expect(text.accepts('   ')).assertTrue();
-      expect(text.accepts('a=b')).assertTrue();
-      expect(text.kind).assertEqual(ParamKind.TEXT);
+      expect(text.accepts('tomorrow'), caseName('RouteParamCases', '0006')).assertTrue();
+      expect(text.accepts('   '), caseName('RouteParamCases', '0006')).assertTrue();
+      expect(text.accepts('a=b'), caseName('RouteParamCases', '0006')).assertTrue();
+      expect(text.kind, caseName('RouteParamCases', '0006')).assertEqual(ParamKind.TEXT);
     });
 
     /**
@@ -150,12 +151,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteParamCases0007', 0, (): void => {
+    it(caseName('RouteParamCases', '0007'), 0, (): void => {
       const kind: RouteParam = new RouteParam('sort', ParamKind.TEXT, false, 'recent');
-      expect(kind.coerce('oldest')).assertEqual('oldest');
-      expect(kind.coerce('oldest') === kind.fallback).assertFalse();
-      expect(kind.name).assertEqual('sort');
-      expect(kind.kind).assertEqual(ParamKind.TEXT);
+      expect(kind.coerce('oldest'), caseName('RouteParamCases', '0007')).assertEqual('oldest');
+      expect(kind.coerce('oldest') === kind.fallback, caseName('RouteParamCases', '0007')).assertFalse();
+      expect(kind.name, caseName('RouteParamCases', '0007')).assertEqual('sort');
+      expect(kind.kind, caseName('RouteParamCases', '0007')).assertEqual(ParamKind.TEXT);
     });
 
     /**
@@ -167,11 +168,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteParamCases0008', 0, (): void => {
+    it(caseName('RouteParamCases', '0008'), 0, (): void => {
       const flag: RouteParam = new RouteParam('focus', ParamKind.BOOLEAN, false, 'true');
-      expect(flag.coerce('yes')).assertEqual('true');
-      expect(flag.coerce('0')).assertEqual('true');
-      expect(flag.coerce('false')).assertEqual('false');
+      expect(flag.coerce('yes'), caseName('RouteParamCases', '0008')).assertEqual('true');
+      expect(flag.coerce('0'), caseName('RouteParamCases', '0008')).assertEqual('true');
+      expect(flag.coerce('false'), caseName('RouteParamCases', '0008')).assertEqual('false');
     });
 
     /**
@@ -183,12 +184,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteParamCases0009', 0, (): void => {
+    it(caseName('RouteParamCases', '0009'), 0, (): void => {
       const kind: RouteParam = new RouteParam('sort', ParamKind.TEXT, false, 'recent');
-      expect(kind.coerce('')).assertEqual('');
-      expect(kind.coerce('') === 'recent').assertFalse();
-      expect(kind.fallback).assertEqual('recent');
-      expect(kind.required).assertFalse();
+      expect(kind.coerce(''), caseName('RouteParamCases', '0009')).assertEqual('');
+      expect(kind.coerce('') === 'recent', caseName('RouteParamCases', '0009')).assertFalse();
+      expect(kind.fallback, caseName('RouteParamCases', '0009')).assertEqual('recent');
+      expect(kind.required, caseName('RouteParamCases', '0009')).assertFalse();
     });
 
     /**
@@ -200,12 +201,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testRouteParamCases0010', 0, (): void => {
+    it(caseName('RouteParamCases', '0010'), 0, (): void => {
       const optional: RouteParam = new RouteParam('draftId', ParamKind.ID, false, '');
       const required: RouteParam = new RouteParam('draftId', ParamKind.ID, true, '');
-      expect(optional.text()).assertEqual('draftId(id)选填');
-      expect(required.text()).assertEqual('draftId(id)必填');
-      expect(optional.text() === required.text()).assertFalse();
+      expect(optional.text(), caseName('RouteParamCases', '0010')).assertEqual('draftId(id)选填');
+      expect(required.text(), caseName('RouteParamCases', '0010')).assertEqual('draftId(id)必填');
+      expect(optional.text() === required.text(), caseName('RouteParamCases', '0010')).assertFalse();
     });
   });
 
@@ -219,13 +220,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteEntryCases0001', 0, (): void => {
+    it(caseName('RouteEntryCases', '0001'), 0, (): void => {
       const entry: RouteEntry | undefined = routeOf('sc.todo.today');
-      expect(entry !== undefined).assertTrue();
+      expect(entry !== undefined, caseName('RouteEntryCases', '0001')).assertTrue();
       const param: RouteParam | undefined = entry?.paramOf('filter');
-      expect(param !== undefined).assertTrue();
-      expect(param?.fallback).assertEqual('all');
-      expect(param?.kind).assertEqual(ParamKind.TEXT);
+      expect(param !== undefined, caseName('RouteEntryCases', '0001')).assertTrue();
+      expect(param?.fallback, caseName('RouteEntryCases', '0001')).assertEqual('all');
+      expect(param?.kind, caseName('RouteEntryCases', '0001')).assertEqual(ParamKind.TEXT);
     });
 
     /**
@@ -237,11 +238,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteEntryCases0002', 0, (): void => {
+    it(caseName('RouteEntryCases', '0002'), 0, (): void => {
       const entry: RouteEntry | undefined = routeOf('sc.rule.center');
-      expect(entry !== undefined).assertTrue();
-      expect(entry?.paramOf('anything') === undefined).assertTrue();
-      expect(entry?.params.length).assertEqual(0);
+      expect(entry !== undefined, caseName('RouteEntryCases', '0002')).assertTrue();
+      expect(entry?.paramOf('anything') === undefined, caseName('RouteEntryCases', '0002')).assertTrue();
+      expect(entry?.params.length, caseName('RouteEntryCases', '0002')).assertEqual(0);
     });
 
     /**
@@ -253,13 +254,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testRouteEntryCases0003', 0, (): void => {
+    it(caseName('RouteEntryCases', '0003'), 0, (): void => {
       const entry: RouteEntry = routeEntryOf('sc.note.new');
-      expect(entry.text()).assertEqual('sc.note.new -> note｜draftId,focus｜免登录');
-      expect(entry.text().indexOf('无参数')).assertEqual(-1);
-      expect(entry.routeId).assertEqual('sc.note.new');
-      expect(entry.params.length).assertEqual(2);
-      expect(entry.requiresLogin).assertFalse();
+      expect(entry.text(), caseName('RouteEntryCases', '0003')).assertEqual('sc.note.new -> note｜draftId,focus｜免登录');
+      expect(entry.text().indexOf('无参数'), caseName('RouteEntryCases', '0003')).assertEqual(-1);
+      expect(entry.routeId, caseName('RouteEntryCases', '0003')).assertEqual('sc.note.new');
+      expect(entry.params.length, caseName('RouteEntryCases', '0003')).assertEqual(2);
+      expect(entry.requiresLogin, caseName('RouteEntryCases', '0003')).assertFalse();
     });
 
     /**
@@ -271,12 +272,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testRouteEntryCases0004', 0, (): void => {
+    it(caseName('RouteEntryCases', '0004'), 0, (): void => {
       const entry: RouteEntry = routeEntryOf('sc.rule.center');
-      expect(entry.text()).assertEqual('sc.rule.center -> ruleCenter｜无参数｜免登录');
-      expect(entry.text().indexOf('无参数') >= 0).assertTrue();
-      expect(entry.params.length).assertEqual(0);
-      expect(entry.text().split('｜').length).assertEqual(3);
+      expect(entry.text(), caseName('RouteEntryCases', '0004')).assertEqual('sc.rule.center -> ruleCenter｜无参数｜免登录');
+      expect(entry.text().indexOf('无参数') >= 0, caseName('RouteEntryCases', '0004')).assertTrue();
+      expect(entry.params.length, caseName('RouteEntryCases', '0004')).assertEqual(0);
+      expect(entry.text().split('｜').length, caseName('RouteEntryCases', '0004')).assertEqual(3);
     });
 
     /**
@@ -288,11 +289,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testRouteEntryCases0005', 0, (): void => {
+    it(caseName('RouteEntryCases', '0005'), 0, (): void => {
       const entry: RouteEntry = routeEntryOf('sc.detail');
-      expect(entry.text()).assertEqual('sc.detail -> detail｜noteId｜需登录');
-      expect(entry.requiresLogin).assertTrue();
-      expect(entry.text().indexOf('需登录') >= 0).assertTrue();
+      expect(entry.text(), caseName('RouteEntryCases', '0005')).assertEqual('sc.detail -> detail｜noteId｜需登录');
+      expect(entry.requiresLogin, caseName('RouteEntryCases', '0005')).assertTrue();
+      expect(entry.text().indexOf('需登录') >= 0, caseName('RouteEntryCases', '0005')).assertTrue();
     });
 
     /**
@@ -304,13 +305,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteEntryCases0006', 0, (): void => {
+    it(caseName('RouteEntryCases', '0006'), 0, (): void => {
       const ids: string[] = routeIds();
-      expect(ids.length).assertEqual(8);
+      expect(ids.length, caseName('RouteEntryCases', '0006')).assertEqual(8);
       const unique: string[] = ids.filter((id: string, index: number): boolean =>
         ids.indexOf(id) === index);
-      expect(unique.length).assertEqual(8);
-      expect(ROUTE_TABLE.length).assertEqual(ids.length);
+      expect(unique.length, caseName('RouteEntryCases', '0006')).assertEqual(8);
+      expect(ROUTE_TABLE.length, caseName('RouteEntryCases', '0006')).assertEqual(ids.length);
     });
 
     /**
@@ -322,12 +323,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteEntryCases0007', 0, (): void => {
+    it(caseName('RouteEntryCases', '0007'), 0, (): void => {
       const ids: string[] = routeIds();
-      expect(ids.indexOf('sc.note.new') >= 0).assertTrue();
-      expect(ids.indexOf('sc.todo.detail') >= 0).assertTrue();
-      expect(ids.indexOf('sc.note.resume') >= 0).assertTrue();
-      expect(ids.indexOf('sc.missing') >= 0).assertFalse();
+      expect(ids.indexOf('sc.note.new') >= 0, caseName('RouteEntryCases', '0007')).assertTrue();
+      expect(ids.indexOf('sc.todo.detail') >= 0, caseName('RouteEntryCases', '0007')).assertTrue();
+      expect(ids.indexOf('sc.note.resume') >= 0, caseName('RouteEntryCases', '0007')).assertTrue();
+      expect(ids.indexOf('sc.missing') >= 0, caseName('RouteEntryCases', '0007')).assertFalse();
     });
 
     /**
@@ -339,11 +340,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteEntryCases0008', 0, (): void => {
-      expect(pageOf('sc.detail')).assertEqual(RoutePage.DETAIL);
-      expect(pageOf('sc.todo.detail')).assertEqual(RoutePage.DETAIL);
-      expect(pageOf('sc.unknown')).assertEqual(RoutePage.HOME);
-      expect(pageOf('')).assertEqual(RoutePage.HOME);
+    it(caseName('RouteEntryCases', '0008'), 0, (): void => {
+      expect(pageOf('sc.detail'), caseName('RouteEntryCases', '0008')).assertEqual(RoutePage.DETAIL);
+      expect(pageOf('sc.todo.detail'), caseName('RouteEntryCases', '0008')).assertEqual(RoutePage.DETAIL);
+      expect(pageOf('sc.unknown'), caseName('RouteEntryCases', '0008')).assertEqual(RoutePage.HOME);
+      expect(pageOf(''), caseName('RouteEntryCases', '0008')).assertEqual(RoutePage.HOME);
     });
 
     /**
@@ -355,12 +356,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteEntryCases0009', 0, (): void => {
+    it(caseName('RouteEntryCases', '0009'), 0, (): void => {
       const note: string[] = routesOfPage(RoutePage.NOTE);
-      expect(note.length).assertEqual(2);
-      expect(note.indexOf('sc.note.new') >= 0).assertTrue();
-      expect(note.indexOf('sc.note.resume') >= 0).assertTrue();
-      expect(routesOfPage(RoutePage.HOME).length).assertEqual(0);
+      expect(note.length, caseName('RouteEntryCases', '0009')).assertEqual(2);
+      expect(note.indexOf('sc.note.new') >= 0, caseName('RouteEntryCases', '0009')).assertTrue();
+      expect(note.indexOf('sc.note.resume') >= 0, caseName('RouteEntryCases', '0009')).assertTrue();
+      expect(routesOfPage(RoutePage.HOME).length, caseName('RouteEntryCases', '0009')).assertEqual(0);
     });
 
     /**
@@ -372,12 +373,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteEntryCases0010', 0, (): void => {
+    it(caseName('RouteEntryCases', '0010'), 0, (): void => {
       const detail: string[] = routesOfPage(RoutePage.DETAIL);
-      expect(detail.length).assertEqual(2);
-      expect(detail.indexOf('sc.detail') >= 0).assertTrue();
-      expect(detail.indexOf('sc.todo.detail') >= 0).assertTrue();
-      expect(routesOfPage(RoutePage.RULE_CENTER).length).assertEqual(1);
+      expect(detail.length, caseName('RouteEntryCases', '0010')).assertEqual(2);
+      expect(detail.indexOf('sc.detail') >= 0, caseName('RouteEntryCases', '0010')).assertTrue();
+      expect(detail.indexOf('sc.todo.detail') >= 0, caseName('RouteEntryCases', '0010')).assertTrue();
+      expect(routesOfPage(RoutePage.RULE_CENTER).length, caseName('RouteEntryCases', '0010')).assertEqual(1);
     });
   });
 
@@ -391,12 +392,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0001', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0001'), 0, (): void => {
       const result = resolveRoute(requestOf('sc.nope', 0));
-      expect(result.ok).assertFalse();
-      expect(result.page).assertEqual(RoutePage.HOME);
-      expect(result.issues[0].indexOf('未知路由') >= 0).assertTrue();
-      expect(result.entry === undefined).assertTrue();
+      expect(result.ok, caseName('ResolveRouteCases', '0001')).assertFalse();
+      expect(result.page, caseName('ResolveRouteCases', '0001')).assertEqual(RoutePage.HOME);
+      expect(result.issues[0].indexOf('未知路由') >= 0, caseName('ResolveRouteCases', '0001')).assertTrue();
+      expect(result.entry === undefined, caseName('ResolveRouteCases', '0001')).assertTrue();
     });
 
     /**
@@ -408,13 +409,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0002', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0002'), 0, (): void => {
       const result = resolveRoute(requestOf('sc.note.new', 0));
-      expect(result.ok).assertTrue();
-      expect(result.page).assertEqual(RoutePage.NOTE);
-      expect(result.keys.length).assertEqual(2);
-      expect(result.get('draftId')).assertEqual('');
-      expect(result.get('focus')).assertEqual('');
+      expect(result.ok, caseName('ResolveRouteCases', '0002')).assertTrue();
+      expect(result.page, caseName('ResolveRouteCases', '0002')).assertEqual(RoutePage.NOTE);
+      expect(result.keys.length, caseName('ResolveRouteCases', '0002')).assertEqual(2);
+      expect(result.get('draftId'), caseName('ResolveRouteCases', '0002')).assertEqual('');
+      expect(result.get('focus'), caseName('ResolveRouteCases', '0002')).assertEqual('');
     });
 
     /**
@@ -426,12 +427,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0003', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0003'), 0, (): void => {
       const result = resolveRoute(requestOf('sc.rule.center', 0));
-      expect(result.ok).assertTrue();
-      expect(result.page).assertEqual(RoutePage.RULE_CENTER);
-      expect(result.keys.length).assertEqual(0);
-      expect(result.issues.length).assertEqual(0);
+      expect(result.ok, caseName('ResolveRouteCases', '0003')).assertTrue();
+      expect(result.page, caseName('ResolveRouteCases', '0003')).assertEqual(RoutePage.RULE_CENTER);
+      expect(result.keys.length, caseName('ResolveRouteCases', '0003')).assertEqual(0);
+      expect(result.issues.length, caseName('ResolveRouteCases', '0003')).assertEqual(0);
     });
 
     /**
@@ -443,14 +444,14 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0004', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0004'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.detail', 0);
       request.loggedIn = true;
       const result = resolveRoute(request);
-      expect(result.ok).assertFalse();
-      expect(result.missing.length).assertEqual(1);
-      expect(result.missing[0]).assertEqual('noteId');
-      expect(result.issues[0].indexOf('缺少必填参数') >= 0).assertTrue();
+      expect(result.ok, caseName('ResolveRouteCases', '0004')).assertFalse();
+      expect(result.missing.length, caseName('ResolveRouteCases', '0004')).assertEqual(1);
+      expect(result.missing[0], caseName('ResolveRouteCases', '0004')).assertEqual('noteId');
+      expect(result.issues[0].indexOf('缺少必填参数') >= 0, caseName('ResolveRouteCases', '0004')).assertTrue();
     });
 
     /**
@@ -462,12 +463,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0005', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0005'), 0, (): void => {
       const result = resolveRoute(requestOf('sc.detail', 0));
-      expect(result.ok).assertFalse();
-      expect(result.issues[0]).assertEqual('需要登录后才能进入');
-      expect(result.keys.length).assertEqual(0);
-      expect(result.missing.length).assertEqual(0);
+      expect(result.ok, caseName('ResolveRouteCases', '0005')).assertFalse();
+      expect(result.issues[0], caseName('ResolveRouteCases', '0005')).assertEqual('需要登录后才能进入');
+      expect(result.keys.length, caseName('ResolveRouteCases', '0005')).assertEqual(0);
+      expect(result.missing.length, caseName('ResolveRouteCases', '0005')).assertEqual(0);
     });
 
     /**
@@ -479,15 +480,15 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0006', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0006'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.detail', 0);
       request.loggedIn = true;
       request.put('noteId', 'note-1');
       const result = resolveRoute(request);
-      expect(result.ok).assertTrue();
-      expect(result.get('noteId')).assertEqual('note-1');
-      expect(result.page).assertEqual(RoutePage.DETAIL);
-      expect(result.expired).assertFalse();
+      expect(result.ok, caseName('ResolveRouteCases', '0006')).assertTrue();
+      expect(result.get('noteId'), caseName('ResolveRouteCases', '0006')).assertEqual('note-1');
+      expect(result.page, caseName('ResolveRouteCases', '0006')).assertEqual(RoutePage.DETAIL);
+      expect(result.expired, caseName('ResolveRouteCases', '0006')).assertFalse();
     });
 
     /**
@@ -499,15 +500,15 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0007', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0007'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.detail', 0);
       request.loggedIn = true;
       request.put('noteId', 'bad id');
       const result = resolveRoute(request);
-      expect(result.ok).assertFalse();
+      expect(result.ok, caseName('ResolveRouteCases', '0007')).assertFalse();
       expect(result.issues.some((issue: string): boolean =>
-        issue.indexOf('参数取值非法：noteId') >= 0)).assertTrue();
-      expect(result.get('noteId')).assertEqual('');
+        issue.indexOf('参数取值非法：noteId') >= 0), caseName('ResolveRouteCases', '0007')).assertTrue();
+      expect(result.get('noteId'), caseName('ResolveRouteCases', '0007')).assertEqual('');
     });
 
     /**
@@ -519,14 +520,14 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0008', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0008'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.note.new', 0);
       request.put('focus', 'yes');
       const result = resolveRoute(request);
-      expect(result.get('focus')).assertEqual('true');
-      expect(result.ok).assertFalse();
+      expect(result.get('focus'), caseName('ResolveRouteCases', '0008')).assertEqual('true');
+      expect(result.ok, caseName('ResolveRouteCases', '0008')).assertFalse();
       expect(result.issues.some((issue: string): boolean =>
-        issue.indexOf('参数取值非法：focus') >= 0)).assertTrue();
+        issue.indexOf('参数取值非法：focus') >= 0), caseName('ResolveRouteCases', '0008')).assertTrue();
     });
 
     /**
@@ -538,14 +539,14 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0009', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0009'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.rule.center', 0);
       request.put('extra', '1');
       const result = resolveRoute(request);
-      expect(result.ok).assertTrue();
-      expect(result.issues.length).assertEqual(1);
-      expect(result.issues[0]).assertEqual('忽略未知参数：extra');
-      expect(result.keys.length).assertEqual(0);
+      expect(result.ok, caseName('ResolveRouteCases', '0009')).assertTrue();
+      expect(result.issues.length, caseName('ResolveRouteCases', '0009')).assertEqual(1);
+      expect(result.issues[0], caseName('ResolveRouteCases', '0009')).assertEqual('忽略未知参数：extra');
+      expect(result.keys.length, caseName('ResolveRouteCases', '0009')).assertEqual(0);
     });
 
     /**
@@ -557,14 +558,14 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0010', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0010'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.calls', 0);
       request.put('a', '1');
       request.put('b', '2');
       const result = resolveRoute(request);
-      expect(result.issues.length).assertEqual(2);
-      expect(result.ok).assertTrue();
-      expect(result.get('range')).assertEqual('');
+      expect(result.issues.length, caseName('ResolveRouteCases', '0010')).assertEqual(2);
+      expect(result.ok, caseName('ResolveRouteCases', '0010')).assertTrue();
+      expect(result.get('range'), caseName('ResolveRouteCases', '0010')).assertEqual('');
     });
 
     /**
@@ -576,12 +577,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testResolveRouteCases0011', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0011'), 0, (): void => {
       const result = resolveRoute(requestOf('sc.note.new', 0));
-      expect(result.text()).assertEqual('-> note｜2 个参数｜有效');
-      expect(result.text().indexOf('未解析')).assertEqual(-1);
-      expect(result.ok).assertTrue();
-      expect(result.issues.length).assertEqual(0);
+      expect(result.text(), caseName('ResolveRouteCases', '0011')).assertEqual('-> note｜2 个参数｜有效');
+      expect(result.text().indexOf('未解析'), caseName('ResolveRouteCases', '0011')).assertEqual(-1);
+      expect(result.ok, caseName('ResolveRouteCases', '0011')).assertTrue();
+      expect(result.issues.length, caseName('ResolveRouteCases', '0011')).assertEqual(0);
     });
 
     /**
@@ -593,11 +594,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testResolveRouteCases0012', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0012'), 0, (): void => {
       const result = resolveRoute(requestOf('sc.unknown', 0));
-      expect(result.text().indexOf('未解析：未知路由') >= 0).assertTrue();
-      expect(result.text().indexOf('sc.unknown') >= 0).assertTrue();
-      expect(result.text().indexOf('个参数')).assertEqual(-1);
+      expect(result.text().indexOf('未解析：未知路由') >= 0, caseName('ResolveRouteCases', '0012')).assertTrue();
+      expect(result.text().indexOf('sc.unknown') >= 0, caseName('ResolveRouteCases', '0012')).assertTrue();
+      expect(result.text().indexOf('个参数'), caseName('ResolveRouteCases', '0012')).assertEqual(-1);
     });
 
     /**
@@ -609,13 +610,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0013', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0013'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.note.resume', Date.now() - 700000);
       request.put('draftId', 'd-1');
       const result = resolveRoute(request);
-      expect(result.expired).assertTrue();
-      expect(result.ok).assertTrue();
-      expect(result.text().indexOf('已过期') >= 0).assertTrue();
+      expect(result.expired, caseName('ResolveRouteCases', '0013')).assertTrue();
+      expect(result.ok, caseName('ResolveRouteCases', '0013')).assertTrue();
+      expect(result.text().indexOf('已过期') >= 0, caseName('ResolveRouteCases', '0013')).assertTrue();
     });
 
     /**
@@ -627,13 +628,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0014', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0014'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.note.resume', Date.now() - 1000);
       request.put('draftId', 'd-1');
       const result = resolveRoute(request);
-      expect(result.expired).assertFalse();
-      expect(result.text().indexOf('有效') >= 0).assertTrue();
-      expect(result.ok).assertTrue();
+      expect(result.expired, caseName('ResolveRouteCases', '0014')).assertFalse();
+      expect(result.text().indexOf('有效') >= 0, caseName('ResolveRouteCases', '0014')).assertTrue();
+      expect(result.ok, caseName('ResolveRouteCases', '0014')).assertTrue();
     });
 
     /**
@@ -645,14 +646,14 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0015', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0015'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.note.resume', 0);
       request.put('draftId', 'd-1');
       const result = resolveRoute(request);
-      expect(result.expired).assertFalse();
-      expect(result.ok).assertTrue();
-      expect(request.get('draftId')).assertEqual('d-1');
-      expect(request.keys.length).assertEqual(1);
+      expect(result.expired, caseName('ResolveRouteCases', '0015')).assertFalse();
+      expect(result.ok, caseName('ResolveRouteCases', '0015')).assertTrue();
+      expect(request.get('draftId'), caseName('ResolveRouteCases', '0015')).assertEqual('d-1');
+      expect(request.keys.length, caseName('ResolveRouteCases', '0015')).assertEqual(1);
     });
 
     /**
@@ -664,13 +665,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveRouteCases0016', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0016'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.note.new', 0);
       request.put('focus', 'false');
       request.put('focus', 'true');
-      expect(request.keys.length).assertEqual(1);
-      expect(request.get('focus')).assertEqual('true');
-      expect(request.get('missing')).assertEqual('');
+      expect(request.keys.length, caseName('ResolveRouteCases', '0016')).assertEqual(1);
+      expect(request.get('focus'), caseName('ResolveRouteCases', '0016')).assertEqual('true');
+      expect(request.get('missing'), caseName('ResolveRouteCases', '0016')).assertEqual('');
     });
 
     /**
@@ -682,14 +683,14 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testResolveRouteCases0017', 0, (): void => {
+    it(caseName('ResolveRouteCases', '0017'), 0, (): void => {
       const request: RouteRequest = requestOf('sc.note.new', 0);
       request.put('draftId', 'd-1');
       request.put('focus', 'true');
-      expect(request.text()).assertEqual('sc.note.new?draftId=d-1&focus=true');
-      expect(requestOf('sc.rule.center', 0).text()).assertEqual('sc.rule.center?');
-      expect(request.keys.length).assertEqual(2);
-      expect(requestOf('sc.rule.center', 0).keys.length).assertEqual(0);
+      expect(request.text(), caseName('ResolveRouteCases', '0017')).assertEqual('sc.note.new?draftId=d-1&focus=true');
+      expect(requestOf('sc.rule.center', 0).text(), caseName('ResolveRouteCases', '0017')).assertEqual('sc.rule.center?');
+      expect(request.keys.length, caseName('ResolveRouteCases', '0017')).assertEqual(2);
+      expect(requestOf('sc.rule.center', 0).keys.length, caseName('ResolveRouteCases', '0017')).assertEqual(0);
     });
   });
 
@@ -703,11 +704,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testRouteAuditCases0001', 0, (): void => {
+    it(caseName('RouteAuditCases', '0001'), 0, (): void => {
       const audit = auditRoutes();
-      expect(audit.ok).assertTrue();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.summary()).assertEqual('路由表自洽');
+      expect(audit.ok, caseName('RouteAuditCases', '0001')).assertTrue();
+      expect(audit.findings.length, caseName('RouteAuditCases', '0001')).assertEqual(0);
+      expect(audit.summary(), caseName('RouteAuditCases', '0001')).assertEqual('路由表自洽');
     });
 
     /**
@@ -719,11 +720,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testRouteAuditCases0002', 0, (): void => {
+    it(caseName('RouteAuditCases', '0002'), 0, (): void => {
       const lines: string[] = routeLines();
-      expect(lines.length).assertEqual(ROUTE_TABLE.length);
-      expect(lines.every((line: string): boolean => line.indexOf('｜') > 0)).assertTrue();
-      expect(lines[0].indexOf('sc.note.new') >= 0).assertTrue();
+      expect(lines.length, caseName('RouteAuditCases', '0002')).assertEqual(ROUTE_TABLE.length);
+      expect(lines.every((line: string): boolean => line.indexOf('｜') > 0), caseName('RouteAuditCases', '0002')).assertTrue();
+      expect(lines[0].indexOf('sc.note.new') >= 0, caseName('RouteAuditCases', '0002')).assertTrue();
     });
 
     /**
@@ -735,13 +736,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteAuditCases0003', 0, (): void => {
+    it(caseName('RouteAuditCases', '0003'), 0, (): void => {
       expect(ROUTE_TABLE.every((entry: RouteEntry): boolean =>
-        entry.description.length > 0)).assertTrue();
+        entry.description.length > 0), caseName('RouteAuditCases', '0003')).assertTrue();
       expect(ROUTE_TABLE.every((entry: RouteEntry): boolean =>
-        entry.page !== RoutePage.UNKNOWN)).assertTrue();
+        entry.page !== RoutePage.UNKNOWN), caseName('RouteAuditCases', '0003')).assertTrue();
       expect(ROUTE_TABLE.every((entry: RouteEntry): boolean =>
-        entry.maxAgeMs >= 0)).assertTrue();
+        entry.maxAgeMs >= 0), caseName('RouteAuditCases', '0003')).assertTrue();
     });
 
     /**
@@ -753,7 +754,7 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testRouteAuditCases0004', 0, (): void => {
+    it(caseName('RouteAuditCases', '0004'), 0, (): void => {
       const offenders: string[] = [];
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
         entry.params.forEach((param: RouteParam): void => {
@@ -762,11 +763,11 @@ export default function entryMatrixCasesTest(): void {
           }
         });
       });
-      expect(offenders.length).assertEqual(0);
+      expect(offenders.length, caseName('RouteAuditCases', '0004')).assertEqual(0);
       expect(ROUTE_TABLE.some((entry: RouteEntry): boolean =>
-        entry.params.some((param: RouteParam): boolean => param.required))).assertTrue();
-      expect(ROUTE_TABLE.length > 0).assertTrue();
-      expect(ROUTE_TABLE[0].routeId.length > 0).assertTrue();
+        entry.params.some((param: RouteParam): boolean => param.required)), caseName('RouteAuditCases', '0004')).assertTrue();
+      expect(ROUTE_TABLE.length > 0, caseName('RouteAuditCases', '0004')).assertTrue();
+      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('RouteAuditCases', '0004')).assertTrue();
     });
   });
 
@@ -780,18 +781,18 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testEntryRuleCases0001', 0, (): void => {
+    it(caseName('EntryRuleCases', '0001'), 0, (): void => {
       const labels: string[] = [
         sourceLabel(EntrySource.SHORTCUT), sourceLabel(EntrySource.DEEPLINK),
         sourceLabel(EntrySource.NOTIFICATION), sourceLabel(EntrySource.WIDGET),
         sourceLabel(EntrySource.RESUME), sourceLabel(EntrySource.UNKNOWN)
       ];
-      expect(labels[0]).assertEqual('桌面快捷方式');
-      expect(labels[1]).assertEqual('深链');
-      expect(labels[2]).assertEqual('通知');
-      expect(labels[3]).assertEqual('小组件');
-      expect(labels[4]).assertEqual('进程恢复');
-      expect(labels[5]).assertEqual('未知来源');
+      expect(labels[0], caseName('EntryRuleCases', '0001')).assertEqual('桌面快捷方式');
+      expect(labels[1], caseName('EntryRuleCases', '0001')).assertEqual('深链');
+      expect(labels[2], caseName('EntryRuleCases', '0001')).assertEqual('通知');
+      expect(labels[3], caseName('EntryRuleCases', '0001')).assertEqual('小组件');
+      expect(labels[4], caseName('EntryRuleCases', '0001')).assertEqual('进程恢复');
+      expect(labels[5], caseName('EntryRuleCases', '0001')).assertEqual('未知来源');
     });
 
     /**
@@ -803,12 +804,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRuleCases0002', 0, (): void => {
+    it(caseName('EntryRuleCases', '0002'), 0, (): void => {
       const fallback: EntryRule | undefined = ruleOf('IN-18');
-      expect(fallback?.prefix).assertEqual('');
-      expect(fallback?.matchesUri('')).assertTrue();
-      expect(fallback?.matchesUri('shortcut://whatever')).assertTrue();
-      expect(fallback?.matchesUri('app://note')).assertTrue();
+      expect(fallback?.prefix, caseName('EntryRuleCases', '0002')).assertEqual('');
+      expect(fallback?.matchesUri(''), caseName('EntryRuleCases', '0002')).assertTrue();
+      expect(fallback?.matchesUri('shortcut://whatever'), caseName('EntryRuleCases', '0002')).assertTrue();
+      expect(fallback?.matchesUri('app://note'), caseName('EntryRuleCases', '0002')).assertTrue();
     });
 
     /**
@@ -820,12 +821,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRuleCases0003', 0, (): void => {
+    it(caseName('EntryRuleCases', '0003'), 0, (): void => {
       const rule: EntryRule | undefined = ruleOf('IN-01');
-      expect(rule?.matchesUri('shortcut://note/new')).assertTrue();
-      expect(rule?.matchesUri('shortcut://note/new?focus=true')).assertTrue();
-      expect(rule?.matchesUri('xshortcut://note/new')).assertFalse();
-      expect(rule?.matchesUri('shortcut://note/old')).assertFalse();
+      expect(rule?.matchesUri('shortcut://note/new'), caseName('EntryRuleCases', '0003')).assertTrue();
+      expect(rule?.matchesUri('shortcut://note/new?focus=true'), caseName('EntryRuleCases', '0003')).assertTrue();
+      expect(rule?.matchesUri('xshortcut://note/new'), caseName('EntryRuleCases', '0003')).assertFalse();
+      expect(rule?.matchesUri('shortcut://note/old'), caseName('EntryRuleCases', '0003')).assertFalse();
     });
 
     /**
@@ -837,13 +838,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testEntryRuleCases0004', 0, (): void => {
-      expect(ruleOf('IN-01')?.text()).assertEqual(
+    it(caseName('EntryRuleCases', '0004'), 0, (): void => {
+      expect(ruleOf('IN-01')?.text(), caseName('EntryRuleCases', '0004')).assertEqual(
         'IN-01 桌面快捷方式｜shortcut://note/new -> sc.note.new｜优先级 90');
-      expect(ruleOf('IN-18')?.text()).assertEqual(
+      expect(ruleOf('IN-18')?.text(), caseName('EntryRuleCases', '0004')).assertEqual(
         'IN-18 桌面快捷方式｜* -> sc.rule.center｜优先级 10');
-      expect(ruleOf('IN-01') === undefined).assertFalse();
-      expect(ruleOf('IN-18')?.priority).assertEqual(10);
+      expect(ruleOf('IN-01') === undefined, caseName('EntryRuleCases', '0004')).assertFalse();
+      expect(ruleOf('IN-18')?.priority, caseName('EntryRuleCases', '0004')).assertEqual(10);
     });
 
     /**
@@ -855,13 +856,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testEntryRuleCases0005', 0, (): void => {
+    it(caseName('EntryRuleCases', '0005'), 0, (): void => {
       const ids: string[] = ruleIds();
-      expect(ids.length).assertEqual(20);
-      expect(ids[0]).assertEqual('IN-01');
-      expect(ids[19]).assertEqual('IN-20');
+      expect(ids.length, caseName('EntryRuleCases', '0005')).assertEqual(20);
+      expect(ids[0], caseName('EntryRuleCases', '0005')).assertEqual('IN-01');
+      expect(ids[19], caseName('EntryRuleCases', '0005')).assertEqual('IN-20');
       expect(ids.every((id: string, index: number): boolean =>
-        id === `IN-${(index + 1).toString().padStart(2, '0')}`)).assertTrue();
+        id === `IN-${(index + 1).toString().padStart(2, '0')}`), caseName('EntryRuleCases', '0005')).assertTrue();
     });
 
     /**
@@ -873,10 +874,10 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRuleCases0006', 0, (): void => {
-      expect(ruleOf('IN-20')?.routeId).assertEqual('sc.rule.center');
-      expect(ruleOf('IN-99') === undefined).assertTrue();
-      expect(ruleOf('') === undefined).assertTrue();
+    it(caseName('EntryRuleCases', '0006'), 0, (): void => {
+      expect(ruleOf('IN-20')?.routeId, caseName('EntryRuleCases', '0006')).assertEqual('sc.rule.center');
+      expect(ruleOf('IN-99') === undefined, caseName('EntryRuleCases', '0006')).assertTrue();
+      expect(ruleOf('') === undefined, caseName('EntryRuleCases', '0006')).assertTrue();
     });
 
     /**
@@ -888,12 +889,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRuleCases0007', 0, (): void => {
+    it(caseName('EntryRuleCases', '0007'), 0, (): void => {
       const shortcut: EntryRule[] = rulesOf(EntrySource.SHORTCUT);
-      expect(shortcut.length).assertEqual(5);
+      expect(shortcut.length, caseName('EntryRuleCases', '0007')).assertEqual(5);
       expect(shortcut.every((rule: EntryRule): boolean =>
-        rule.source === EntrySource.SHORTCUT)).assertTrue();
-      expect(shortcut.some((rule: EntryRule): boolean => rule.ruleId === 'IN-18')).assertTrue();
+        rule.source === EntrySource.SHORTCUT), caseName('EntryRuleCases', '0007')).assertTrue();
+      expect(shortcut.some((rule: EntryRule): boolean => rule.ruleId === 'IN-18'), caseName('EntryRuleCases', '0007')).assertTrue();
     });
 
     /**
@@ -905,12 +906,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRuleCases0008', 0, (): void => {
+    it(caseName('EntryRuleCases', '0008'), 0, (): void => {
       const deeplink: EntryRule[] = rulesOf(EntrySource.DEEPLINK);
-      expect(deeplink.length).assertEqual(6);
+      expect(deeplink.length, caseName('EntryRuleCases', '0008')).assertEqual(6);
       expect(deeplink.filter((rule: EntryRule): boolean =>
-        rule.priority === 80).length).assertEqual(5);
-      expect(deeplink.some((rule: EntryRule): boolean => rule.ruleId === 'IN-19')).assertTrue();
+        rule.priority === 80).length, caseName('EntryRuleCases', '0008')).assertEqual(5);
+      expect(deeplink.some((rule: EntryRule): boolean => rule.ruleId === 'IN-19'), caseName('EntryRuleCases', '0008')).assertTrue();
     });
 
     /**
@@ -922,11 +923,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRuleCases0009', 0, (): void => {
-      expect(rulesOf(EntrySource.NOTIFICATION).length).assertEqual(3);
-      expect(rulesOf(EntrySource.WIDGET).length).assertEqual(3);
-      expect(rulesOf(EntrySource.RESUME).length).assertEqual(2);
-      expect(rulesOf(EntrySource.UNKNOWN).length).assertEqual(1);
+    it(caseName('EntryRuleCases', '0009'), 0, (): void => {
+      expect(rulesOf(EntrySource.NOTIFICATION).length, caseName('EntryRuleCases', '0009')).assertEqual(3);
+      expect(rulesOf(EntrySource.WIDGET).length, caseName('EntryRuleCases', '0009')).assertEqual(3);
+      expect(rulesOf(EntrySource.RESUME).length, caseName('EntryRuleCases', '0009')).assertEqual(2);
+      expect(rulesOf(EntrySource.UNKNOWN).length, caseName('EntryRuleCases', '0009')).assertEqual(1);
     });
 
     /**
@@ -938,11 +939,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testEntryRuleCases0010', 0, (): void => {
+    it(caseName('EntryRuleCases', '0010'), 0, (): void => {
       const lines: string[] = ruleLines();
-      expect(lines.length).assertEqual(ENTRY_RULES.length);
-      expect(lines.every((line: string): boolean => line.indexOf('优先级') > 0)).assertTrue();
-      expect(lines[0].indexOf('IN-01') === 0).assertTrue();
+      expect(lines.length, caseName('EntryRuleCases', '0010')).assertEqual(ENTRY_RULES.length);
+      expect(lines.every((line: string): boolean => line.indexOf('优先级') > 0), caseName('EntryRuleCases', '0010')).assertTrue();
+      expect(lines[0].indexOf('IN-01') === 0, caseName('EntryRuleCases', '0010')).assertTrue();
     });
 
     /**
@@ -954,13 +955,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRuleCases0011', 0, (): void => {
+    it(caseName('EntryRuleCases', '0011'), 0, (): void => {
       const counts: number[] = sourceCounts();
-      expect(counts.length).assertEqual(6);
-      expect(counts[0]).assertEqual(5);
-      expect(counts[1]).assertEqual(6);
-      expect(counts[5]).assertEqual(1);
-      expect(counts.reduce((sum: number, item: number): number => sum + item, 0))
+      expect(counts.length, caseName('EntryRuleCases', '0011')).assertEqual(6);
+      expect(counts[0], caseName('EntryRuleCases', '0011')).assertEqual(5);
+      expect(counts[1], caseName('EntryRuleCases', '0011')).assertEqual(6);
+      expect(counts[5], caseName('EntryRuleCases', '0011')).assertEqual(1);
+      expect(counts.reduce((sum: number, item: number): number => sum + item, 0), caseName('EntryRuleCases', '0011'))
         .assertEqual(ENTRY_RULES.length);
     });
   });
@@ -975,11 +976,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testParseUriCases0001', 0, (): void => {
+    it(caseName('ParseUriCases', '0001'), 0, (): void => {
       const request: EntryRequest = parseUri('shortcut://note/new');
-      expect(request.uri).assertEqual('shortcut://note/new');
-      expect(request.keys.length).assertEqual(0);
-      expect(request.source).assertEqual(EntrySource.UNKNOWN);
+      expect(request.uri, caseName('ParseUriCases', '0001')).assertEqual('shortcut://note/new');
+      expect(request.keys.length, caseName('ParseUriCases', '0001')).assertEqual(0);
+      expect(request.source, caseName('ParseUriCases', '0001')).assertEqual(EntrySource.UNKNOWN);
     });
 
     /**
@@ -991,12 +992,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testParseUriCases0002', 0, (): void => {
+    it(caseName('ParseUriCases', '0002'), 0, (): void => {
       const request: EntryRequest = parseUri('app://todo?date=today&filter=all');
-      expect(request.uri).assertEqual('app://todo');
-      expect(request.keys.length).assertEqual(2);
-      expect(request.get('date')).assertEqual('today');
-      expect(request.get('filter')).assertEqual('all');
+      expect(request.uri, caseName('ParseUriCases', '0002')).assertEqual('app://todo');
+      expect(request.keys.length, caseName('ParseUriCases', '0002')).assertEqual(2);
+      expect(request.get('date'), caseName('ParseUriCases', '0002')).assertEqual('today');
+      expect(request.get('filter'), caseName('ParseUriCases', '0002')).assertEqual('all');
     });
 
     /**
@@ -1008,11 +1009,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testParseUriCases0003', 0, (): void => {
+    it(caseName('ParseUriCases', '0003'), 0, (): void => {
       const request: EntryRequest = parseUri('app://todo?a=1&&b=2&');
-      expect(request.keys.length).assertEqual(2);
-      expect(request.get('a')).assertEqual('1');
-      expect(request.get('b')).assertEqual('2');
+      expect(request.keys.length, caseName('ParseUriCases', '0003')).assertEqual(2);
+      expect(request.get('a'), caseName('ParseUriCases', '0003')).assertEqual('1');
+      expect(request.get('b'), caseName('ParseUriCases', '0003')).assertEqual('2');
     });
 
     /**
@@ -1024,11 +1025,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testParseUriCases0004', 0, (): void => {
+    it(caseName('ParseUriCases', '0004'), 0, (): void => {
       const request: EntryRequest = parseUri('app://todo?novalue&=bare&ok=1');
-      expect(request.keys.length).assertEqual(1);
-      expect(request.keys[0]).assertEqual('ok');
-      expect(request.get('novalue')).assertEqual('');
+      expect(request.keys.length, caseName('ParseUriCases', '0004')).assertEqual(1);
+      expect(request.keys[0], caseName('ParseUriCases', '0004')).assertEqual('ok');
+      expect(request.get('novalue'), caseName('ParseUriCases', '0004')).assertEqual('');
     });
 
     /**
@@ -1040,12 +1041,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testParseUriCases0005', 0, (): void => {
+    it(caseName('ParseUriCases', '0005'), 0, (): void => {
       const request: EntryRequest = parseUri('app://note?tag=%E4%BE%BF%E7%AD%BE');
-      expect(request.get('tag')).assertEqual('便签');
-      expect(request.get('tag').length).assertEqual(2);
-      expect(request.keys.length).assertEqual(1);
-      expect(request.keys[0]).assertEqual('tag');
+      expect(request.get('tag'), caseName('ParseUriCases', '0005')).assertEqual('便签');
+      expect(request.get('tag').length, caseName('ParseUriCases', '0005')).assertEqual(2);
+      expect(request.keys.length, caseName('ParseUriCases', '0005')).assertEqual(1);
+      expect(request.keys[0], caseName('ParseUriCases', '0005')).assertEqual('tag');
     });
 
     /**
@@ -1057,11 +1058,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testParseUriCases0006', 0, (): void => {
+    it(caseName('ParseUriCases', '0006'), 0, (): void => {
       const request: EntryRequest = parseUri('app://note?expr=a=b=c');
-      expect(request.get('expr')).assertEqual('a=b=c');
-      expect(request.keys.length).assertEqual(1);
-      expect(request.get('expr').split('=').length).assertEqual(3);
+      expect(request.get('expr'), caseName('ParseUriCases', '0006')).assertEqual('a=b=c');
+      expect(request.keys.length, caseName('ParseUriCases', '0006')).assertEqual(1);
+      expect(request.get('expr').split('=').length, caseName('ParseUriCases', '0006')).assertEqual(3);
     });
 
     /**
@@ -1073,12 +1074,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testParseUriCases0007', 0, (): void => {
+    it(caseName('ParseUriCases', '0007'), 0, (): void => {
       const request: EntryRequest = entryOf(EntrySource.SHORTCUT, 'shortcut://note/new');
       request.put('focus', 'true');
-      expect(request.text()).assertEqual('shortcut:shortcut://note/new?focus=true');
-      expect(request.get('missing')).assertEqual('');
-      expect(entryOf(EntrySource.RESUME, 'resume://note').text()).assertEqual(
+      expect(request.text(), caseName('ParseUriCases', '0007')).assertEqual('shortcut:shortcut://note/new?focus=true');
+      expect(request.get('missing'), caseName('ParseUriCases', '0007')).assertEqual('');
+      expect(entryOf(EntrySource.RESUME, 'resume://note').text(), caseName('ParseUriCases', '0007')).assertEqual(
         'resume:resume://note?');
     });
   });
@@ -1093,12 +1094,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0001', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0001'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.SHORTCUT, 'shortcut://note/new'));
-      expect(plan.routeId).assertEqual('sc.note.new');
-      expect(plan.matchedRuleId).assertEqual('IN-01');
-      expect(plan.fallback).assertFalse();
-      expect(plan.ok()).assertTrue();
+      expect(plan.routeId, caseName('ResolveEntryCases', '0001')).assertEqual('sc.note.new');
+      expect(plan.matchedRuleId, caseName('ResolveEntryCases', '0001')).assertEqual('IN-01');
+      expect(plan.fallback, caseName('ResolveEntryCases', '0001')).assertFalse();
+      expect(plan.ok(), caseName('ResolveEntryCases', '0001')).assertTrue();
     });
 
     /**
@@ -1110,12 +1111,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0002', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0002'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.SHORTCUT, 'shortcut://other'));
-      expect(plan.routeId).assertEqual('sc.rule.center');
-      expect(plan.matchedRuleId).assertEqual('IN-18');
-      expect(plan.fallback).assertTrue();
-      expect(plan.ok()).assertTrue();
+      expect(plan.routeId, caseName('ResolveEntryCases', '0002')).assertEqual('sc.rule.center');
+      expect(plan.matchedRuleId, caseName('ResolveEntryCases', '0002')).assertEqual('IN-18');
+      expect(plan.fallback, caseName('ResolveEntryCases', '0002')).assertTrue();
+      expect(plan.ok(), caseName('ResolveEntryCases', '0002')).assertTrue();
     });
 
     /**
@@ -1127,11 +1128,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0003', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0003'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://todo'));
-      expect(plan.routeId).assertEqual('sc.todo.today');
-      expect(plan.matchedRuleId).assertEqual('IN-06');
-      expect(plan.fallback).assertFalse();
+      expect(plan.routeId, caseName('ResolveEntryCases', '0003')).assertEqual('sc.todo.today');
+      expect(plan.matchedRuleId, caseName('ResolveEntryCases', '0003')).assertEqual('IN-06');
+      expect(plan.fallback, caseName('ResolveEntryCases', '0003')).assertFalse();
     });
 
     /**
@@ -1143,11 +1144,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0004', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0004'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://nothing'));
-      expect(plan.routeId).assertEqual('sc.calls');
-      expect(plan.matchedRuleId).assertEqual('IN-19');
-      expect(plan.fallback).assertTrue();
+      expect(plan.routeId, caseName('ResolveEntryCases', '0004')).assertEqual('sc.calls');
+      expect(plan.matchedRuleId, caseName('ResolveEntryCases', '0004')).assertEqual('IN-19');
+      expect(plan.fallback, caseName('ResolveEntryCases', '0004')).assertTrue();
     });
 
     /**
@@ -1159,12 +1160,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0005', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0005'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.UNKNOWN, 'anything://at/all'));
-      expect(plan.routeId).assertEqual('sc.rule.center');
-      expect(plan.matchedRuleId).assertEqual('IN-20');
-      expect(plan.fallback).assertTrue();
-      expect(plan.ok()).assertTrue();
+      expect(plan.routeId, caseName('ResolveEntryCases', '0005')).assertEqual('sc.rule.center');
+      expect(plan.matchedRuleId, caseName('ResolveEntryCases', '0005')).assertEqual('IN-20');
+      expect(plan.fallback, caseName('ResolveEntryCases', '0005')).assertTrue();
+      expect(plan.ok(), caseName('ResolveEntryCases', '0005')).assertTrue();
     });
 
     /**
@@ -1176,11 +1177,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0006', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0006'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.WIDGET, 'widget://note'));
-      expect(plan.routeId).assertEqual('sc.note.new');
-      expect(plan.matchedRuleId).assertEqual('IN-13');
-      expect(plan.fallback).assertFalse();
+      expect(plan.routeId, caseName('ResolveEntryCases', '0006')).assertEqual('sc.note.new');
+      expect(plan.matchedRuleId, caseName('ResolveEntryCases', '0006')).assertEqual('IN-13');
+      expect(plan.fallback, caseName('ResolveEntryCases', '0006')).assertFalse();
     });
 
     /**
@@ -1192,12 +1193,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0007', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0007'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.RESUME, 'resume://note'));
-      expect(plan.routeId).assertEqual('sc.note.resume');
-      expect(plan.missing.length).assertEqual(1);
-      expect(plan.missing[0]).assertEqual('draftId');
-      expect(plan.ok()).assertFalse();
+      expect(plan.routeId, caseName('ResolveEntryCases', '0007')).assertEqual('sc.note.resume');
+      expect(plan.missing.length, caseName('ResolveEntryCases', '0007')).assertEqual(1);
+      expect(plan.missing[0], caseName('ResolveEntryCases', '0007')).assertEqual('draftId');
+      expect(plan.ok(), caseName('ResolveEntryCases', '0007')).assertFalse();
     });
 
     /**
@@ -1209,13 +1210,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0008', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0008'), 0, (): void => {
       const request: EntryRequest = entryOf(EntrySource.RESUME, 'resume://note');
       request.put('draftId', 'd-9');
       const plan = resolveEntry(request);
-      expect(plan.ok()).assertTrue();
-      expect(plan.issues.length).assertEqual(0);
-      expect(plan.matchedRuleId).assertEqual('IN-16');
+      expect(plan.ok(), caseName('ResolveEntryCases', '0008')).assertTrue();
+      expect(plan.issues.length, caseName('ResolveEntryCases', '0008')).assertEqual(0);
+      expect(plan.matchedRuleId, caseName('ResolveEntryCases', '0008')).assertEqual('IN-16');
     });
 
     /**
@@ -1227,14 +1228,14 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0009', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0009'), 0, (): void => {
       const request: EntryRequest = entryOf(EntrySource.NOTIFICATION, 'notify://todo');
       request.loggedIn = true;
       const plan = resolveEntry(request);
-      expect(plan.missing[0]).assertEqual('todoId');
+      expect(plan.missing[0], caseName('ResolveEntryCases', '0009')).assertEqual('todoId');
       expect(plan.issues.some((issue: string): boolean =>
-        issue.indexOf('缺少参数：todoId') >= 0)).assertTrue();
-      expect(plan.fallback).assertFalse();
+        issue.indexOf('缺少参数：todoId') >= 0), caseName('ResolveEntryCases', '0009')).assertTrue();
+      expect(plan.fallback, caseName('ResolveEntryCases', '0009')).assertFalse();
     });
 
     /**
@@ -1246,13 +1247,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0010', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0010'), 0, (): void => {
       const request: EntryRequest = entryOf(EntrySource.NOTIFICATION, 'notify://todo');
       request.put('todoId', 't-1');
       const plan = resolveEntry(request);
-      expect(plan.issues.indexOf('需要登录后才能进入') >= 0).assertTrue();
-      expect(plan.missing.length).assertEqual(0);
-      expect(plan.ok()).assertFalse();
+      expect(plan.issues.indexOf('需要登录后才能进入') >= 0, caseName('ResolveEntryCases', '0010')).assertTrue();
+      expect(plan.missing.length, caseName('ResolveEntryCases', '0010')).assertEqual(0);
+      expect(plan.ok(), caseName('ResolveEntryCases', '0010')).assertFalse();
     });
 
     /**
@@ -1264,14 +1265,14 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0011', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0011'), 0, (): void => {
       const request: EntryRequest = entryOf(EntrySource.NOTIFICATION, 'notify://todo');
       request.loggedIn = true;
       request.put('todoId', 't-1');
       const plan = resolveEntry(request);
-      expect(plan.ok()).assertTrue();
-      expect(plan.routeId).assertEqual('sc.todo.detail');
-      expect(plan.issues.length).assertEqual(0);
+      expect(plan.ok(), caseName('ResolveEntryCases', '0011')).assertTrue();
+      expect(plan.routeId, caseName('ResolveEntryCases', '0011')).assertEqual('sc.todo.detail');
+      expect(plan.issues.length, caseName('ResolveEntryCases', '0011')).assertEqual(0);
     });
 
     /**
@@ -1283,13 +1284,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0012', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0012'), 0, (): void => {
       const request: EntryRequest = entryOf(EntrySource.WIDGET, 'widget://note');
       request.put('unexpected', '1');
       const plan = resolveEntry(request);
-      expect(plan.issues.length).assertEqual(1);
-      expect(plan.issues[0]).assertEqual('忽略多余参数：unexpected');
-      expect(plan.ok()).assertFalse();
+      expect(plan.issues.length, caseName('ResolveEntryCases', '0012')).assertEqual(1);
+      expect(plan.issues[0], caseName('ResolveEntryCases', '0012')).assertEqual('忽略多余参数：unexpected');
+      expect(plan.ok(), caseName('ResolveEntryCases', '0012')).assertFalse();
     });
 
     /**
@@ -1301,15 +1302,15 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0013', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0013'), 0, (): void => {
       const request: EntryRequest = entryOf(EntrySource.SHORTCUT, 'shortcut://detail');
       request.loggedIn = true;
       request.put('noteId', 'n-1');
       request.put('extra', '2');
       const plan = resolveEntry(request);
-      expect(plan.issues.length).assertEqual(0);
-      expect(plan.ok()).assertTrue();
-      expect(plan.matchedRuleId).assertEqual('IN-04');
+      expect(plan.issues.length, caseName('ResolveEntryCases', '0013')).assertEqual(0);
+      expect(plan.ok(), caseName('ResolveEntryCases', '0013')).assertTrue();
+      expect(plan.matchedRuleId, caseName('ResolveEntryCases', '0013')).assertEqual('IN-04');
     });
 
     /**
@@ -1321,11 +1322,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0014', 0, (): void => {
-      expect(ruleOf('IN-01')?.priority).assertEqual(90);
-      expect(ruleOf('IN-19')?.priority).assertEqual(10);
-      expect(ruleOf('IN-20')?.priority).assertEqual(0);
-      expect(resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://rule')).fallback)
+    it(caseName('ResolveEntryCases', '0014'), 0, (): void => {
+      expect(ruleOf('IN-01')?.priority, caseName('ResolveEntryCases', '0014')).assertEqual(90);
+      expect(ruleOf('IN-19')?.priority, caseName('ResolveEntryCases', '0014')).assertEqual(10);
+      expect(ruleOf('IN-20')?.priority, caseName('ResolveEntryCases', '0014')).assertEqual(0);
+      expect(resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://rule')).fallback, caseName('ResolveEntryCases', '0014'))
         .assertFalse();
     });
 
@@ -1338,12 +1339,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testResolveEntryCases0015', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0015'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.SHORTCUT, 'shortcut://note/new'));
-      expect(plan.text()).assertEqual('sc.note.new｜可进入｜规则 IN-01｜精确');
-      expect(plan.text().indexOf('需处理')).assertEqual(-1);
-      expect(plan.ok()).assertTrue();
-      expect(plan.fallback).assertFalse();
+      expect(plan.text(), caseName('ResolveEntryCases', '0015')).assertEqual('sc.note.new｜可进入｜规则 IN-01｜精确');
+      expect(plan.text().indexOf('需处理'), caseName('ResolveEntryCases', '0015')).assertEqual(-1);
+      expect(plan.ok(), caseName('ResolveEntryCases', '0015')).assertTrue();
+      expect(plan.fallback, caseName('ResolveEntryCases', '0015')).assertFalse();
     });
 
     /**
@@ -1355,12 +1356,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testResolveEntryCases0016', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0016'), 0, (): void => {
       const plan = resolveEntry(entryOf(EntrySource.RESUME, 'resume://note'));
-      expect(plan.text()).assertEqual('sc.note.resume｜需处理｜规则 IN-16｜精确');
-      expect(plan.text().indexOf('可进入')).assertEqual(-1);
-      expect(plan.ok()).assertFalse();
-      expect(plan.missing.length > 0).assertTrue();
+      expect(plan.text(), caseName('ResolveEntryCases', '0016')).assertEqual('sc.note.resume｜需处理｜规则 IN-16｜精确');
+      expect(plan.text().indexOf('可进入'), caseName('ResolveEntryCases', '0016')).assertEqual(-1);
+      expect(plan.ok(), caseName('ResolveEntryCases', '0016')).assertFalse();
+      expect(plan.missing.length > 0, caseName('ResolveEntryCases', '0016')).assertTrue();
     });
 
     /**
@@ -1372,13 +1373,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testResolveEntryCases0017', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0017'), 0, (): void => {
       const plan = new EntryPlan();
       plan.issues.push('手工构造');
-      expect(plan.text()).assertEqual('未解析：手工构造');
-      expect(plan.ok()).assertFalse();
+      expect(plan.text(), caseName('ResolveEntryCases', '0017')).assertEqual('未解析：手工构造');
+      expect(plan.ok(), caseName('ResolveEntryCases', '0017')).assertFalse();
       plan.routeId = 'sc.detail';
-      expect(plan.text().indexOf('需处理') >= 0).assertTrue();
+      expect(plan.text().indexOf('需处理') >= 0, caseName('ResolveEntryCases', '0017')).assertTrue();
     });
 
     /**
@@ -1390,16 +1391,16 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0018', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0018'), 0, (): void => {
       const plan = new EntryPlan();
-      expect(plan.ok()).assertFalse();
+      expect(plan.ok(), caseName('ResolveEntryCases', '0018')).assertFalse();
       plan.routeId = 'sc.detail';
-      expect(plan.ok()).assertTrue();
+      expect(plan.ok(), caseName('ResolveEntryCases', '0018')).assertTrue();
       plan.missing.push('noteId');
-      expect(plan.ok()).assertFalse();
+      expect(plan.ok(), caseName('ResolveEntryCases', '0018')).assertFalse();
       plan.missing = [];
       plan.issues.push('需要登录后才能进入');
-      expect(plan.ok()).assertFalse();
+      expect(plan.ok(), caseName('ResolveEntryCases', '0018')).assertFalse();
     });
 
     /**
@@ -1411,12 +1412,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testResolveEntryCases0019', 0, (): void => {
+    it(caseName('ResolveEntryCases', '0019'), 0, (): void => {
       const first = resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://calls'));
       const second = resolveEntry(entryOf(EntrySource.DEEPLINK, 'app://calls'));
-      expect(first.matchedRuleId).assertEqual(second.matchedRuleId);
-      expect(first.routeId).assertEqual(second.routeId);
-      expect(first.matchedRuleId).assertEqual('IN-08');
+      expect(first.matchedRuleId, caseName('ResolveEntryCases', '0019')).assertEqual(second.matchedRuleId);
+      expect(first.routeId, caseName('ResolveEntryCases', '0019')).assertEqual(second.routeId);
+      expect(first.matchedRuleId, caseName('ResolveEntryCases', '0019')).assertEqual('IN-08');
     });
   });
 
@@ -1430,11 +1431,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testEntryAuditCases0001', 0, (): void => {
+    it(caseName('EntryAuditCases', '0001'), 0, (): void => {
       const audit = auditEntry();
-      expect(audit.ok).assertTrue();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.summary()).assertEqual('入口规则表自洽');
+      expect(audit.ok, caseName('EntryAuditCases', '0001')).assertTrue();
+      expect(audit.findings.length, caseName('EntryAuditCases', '0001')).assertEqual(0);
+      expect(audit.summary(), caseName('EntryAuditCases', '0001')).assertEqual('入口规则表自洽');
     });
 
     /**
@@ -1446,13 +1447,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryAuditCases0002', 0, (): void => {
+    it(caseName('EntryAuditCases', '0002'), 0, (): void => {
       expect(ENTRY_RULES.every((rule: EntryRule): boolean =>
-        rule.routeId.length > 0)).assertTrue();
+        rule.routeId.length > 0), caseName('EntryAuditCases', '0002')).assertTrue();
       expect(ENTRY_RULES.every((rule: EntryRule): boolean =>
-        rule.description.length > 0)).assertTrue();
+        rule.description.length > 0), caseName('EntryAuditCases', '0002')).assertTrue();
       expect(ENTRY_RULES.every((rule: EntryRule): boolean =>
-        rule.priority >= 0)).assertTrue();
+        rule.priority >= 0), caseName('EntryAuditCases', '0002')).assertTrue();
     });
 
     /**
@@ -1464,13 +1465,13 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryAuditCases0003', 0, (): void => {
+    it(caseName('EntryAuditCases', '0003'), 0, (): void => {
       const offenders: EntryRule[] = ENTRY_RULES.filter((rule: EntryRule): boolean =>
         rule.requiredKeys.length > 0 && rule.priority <= 10);
-      expect(offenders.length).assertEqual(0);
+      expect(offenders.length, caseName('EntryAuditCases', '0003')).assertEqual(0);
       expect(ENTRY_RULES.filter((rule: EntryRule): boolean =>
-        rule.requiredKeys.length > 0).length).assertEqual(5);
-      expect(ENTRY_RULES.length).assertEqual(20);
+        rule.requiredKeys.length > 0).length, caseName('EntryAuditCases', '0003')).assertEqual(5);
+      expect(ENTRY_RULES.length, caseName('EntryAuditCases', '0003')).assertEqual(20);
     });
 
     /**
@@ -1482,11 +1483,11 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryAuditCases0004', 0, (): void => {
+    it(caseName('EntryAuditCases', '0004'), 0, (): void => {
       const counts: number[] = sourceCounts();
-      expect(counts.every((count: number): boolean => count > 0)).assertTrue();
-      expect(counts.length).assertEqual(6);
-      expect(counts.every((count: number): boolean => Math.floor(count) === count)).assertTrue();
+      expect(counts.every((count: number): boolean => count > 0), caseName('EntryAuditCases', '0004')).assertTrue();
+      expect(counts.length, caseName('EntryAuditCases', '0004')).assertEqual(6);
+      expect(counts.every((count: number): boolean => Math.floor(count) === count), caseName('EntryAuditCases', '0004')).assertTrue();
     });
 
     /**
@@ -1498,12 +1499,12 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testEntryAuditCases0005', 0, (): void => {
+    it(caseName('EntryAuditCases', '0005'), 0, (): void => {
       const lines: string[] = sourceLines();
-      expect(lines.length).assertEqual(6);
-      expect(lines.every((line: string): boolean => line.indexOf('条规则') > 0)).assertTrue();
-      expect(lines[0]).assertEqual('桌面快捷方式：5 条规则');
-      expect(lines[5]).assertEqual('未知来源：1 条规则');
+      expect(lines.length, caseName('EntryAuditCases', '0005')).assertEqual(6);
+      expect(lines.every((line: string): boolean => line.indexOf('条规则') > 0), caseName('EntryAuditCases', '0005')).assertTrue();
+      expect(lines[0], caseName('EntryAuditCases', '0005')).assertEqual('桌面快捷方式：5 条规则');
+      expect(lines[5], caseName('EntryAuditCases', '0005')).assertEqual('未知来源：1 条规则');
     });
 
     /**
@@ -1515,15 +1516,15 @@ export default function entryMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryAuditCases0006', 0, (): void => {
+    it(caseName('EntryAuditCases', '0006'), 0, (): void => {
       const routeIdsInTable: string[] = routeIds();
       const dangling: string[] = ENTRY_RULES
         .filter((rule: EntryRule): boolean => routeIdsInTable.indexOf(rule.routeId) < 0)
         .map((rule: EntryRule): string => rule.ruleId);
-      expect(dangling.length).assertEqual(0);
-      expect(ENTRY_RULES.length).assertEqual(ruleIds().length);
-      expect(routeIdsInTable.length > 0).assertTrue();
-      expect(routeIdsInTable.indexOf(ENTRY_RULES[0].routeId) >= 0).assertTrue();
+      expect(dangling.length, caseName('EntryAuditCases', '0006')).assertEqual(0);
+      expect(ENTRY_RULES.length, caseName('EntryAuditCases', '0006')).assertEqual(ruleIds().length);
+      expect(routeIdsInTable.length > 0, caseName('EntryAuditCases', '0006')).assertTrue();
+      expect(routeIdsInTable.indexOf(ENTRY_RULES[0].routeId) >= 0, caseName('EntryAuditCases', '0006')).assertTrue();
     });
   });
 }
