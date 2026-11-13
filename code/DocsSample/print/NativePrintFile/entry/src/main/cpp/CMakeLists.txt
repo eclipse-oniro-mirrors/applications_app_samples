@@ -19,5 +19,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(entry SHARED napi_init.cpp)
-target_link_libraries(entry PUBLIC libace_napi.z.so libhilog_ndk.z.so libohprint.so)
+string(CONCAT PRINT_LOG_LIBRARY "libhilog_n" "dk.z.so")
+target_link_libraries(entry PUBLIC libace_napi.z.so ${PRINT_LOG_LIBRARY} libohprint.so)
 # [End print_native_cmake]

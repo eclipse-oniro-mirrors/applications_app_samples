@@ -140,8 +140,8 @@ export class PrintOptionModel implements nativePrint.PrintOption {
 }
 
 export class PrintPropertyModel implements nativePrint.PrintProperty {
-  key: string;
-  value: string;
+  public key: string;
+  public value: string;
 
   constructor(key: string, value: string) {
     this.key = key;
