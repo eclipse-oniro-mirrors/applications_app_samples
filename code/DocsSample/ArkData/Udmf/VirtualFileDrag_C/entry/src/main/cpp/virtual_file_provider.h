@@ -18,6 +18,7 @@
 
 #include <database/udmf/udmf.h>
 
+// 创建拖拽数据；调用方持有返回值，拖拽结束后调用 OH_UdmfData_Destroy。
 OH_UdmfData* CreateVirtualDragData(bool directory, bool compressed);
 
 #endif

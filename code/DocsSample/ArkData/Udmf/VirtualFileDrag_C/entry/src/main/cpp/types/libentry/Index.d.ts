@@ -13,8 +13,12 @@
  * limitations under the License.
  */
 
-import { NodeContent } from '@kit.ArkUI';
+import type { NodeContent } from '@kit.ArkUI';
 
-export const createNativeNode: (content: NodeContent, onReceive: (uris: string[]) => void) => void;
+// 创建原生拖起区和落入区，onReceive 接收 URI 列表，dropLabel 为本地化文字。
+export const createNativeNode:
+  (content: NodeContent, onReceive: (uris: string[]) => void, dropLabel: string) => void;
+// 释放当前页面创建的原生节点与业务回调引用。
 export const destroyNativeNode: () => void;
-export const configure: (directory: boolean, compressed: boolean) => void;
+// 设置导出场景与本地化的拖起区文字。
+export const configure: (directory: boolean, compressed: boolean, sourceLabel: string) => void;

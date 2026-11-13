@@ -21,11 +21,13 @@
 #include <arkui/native_interface.h>
 #include <arkui/native_node.h>
 #include <napi/native_api.h>
+#include <string>
 #include <vector>
 
 namespace {
-constexpr size_t CONFIG_ARGUMENT_COUNT = 2;
-constexpr size_t NODE_ARGUMENT_COUNT = 2;
+constexpr size_t CONFIG_ARGUMENT_COUNT = 3;
+constexpr size_t NODE_ARGUMENT_COUNT = 3;
+constexpr size_t MAX_LABEL_BYTES = 1024;
 constexpr float AREA_GAP = 20.0F;
 constexpr float DRAG_AREA_HEIGHT = 120.0F;
 constexpr float FULL_WIDTH_PERCENT = 1.0F;
@@ -40,6 +42,8 @@ napi_ref g_uriCallback = nullptr;
 OH_UdmfData* g_dragData = nullptr;
 bool g_directory = false;
 bool g_compressed = false;
+std::string g_sourceText;
+std::string g_dropText;
 
 void UpdateSourceText()
 {
@@ -47,8 +51,7 @@ void UpdateSourceText()
         return;
     }
     ArkUI_AttributeItem text {};
-    text.string = g_directory ? "嵌套目录：长按拖出" :
-        (g_compressed ? "解压文件：长按拖出" : "文档：长按拖出");
+    text.string = g_sourceText.c_str();
     g_nodeApi->setAttribute(g_source, NODE_TEXT_CONTENT, &text);
 }
 
@@ -150,7 +153,8 @@ void SetAreaLayout(ArkUI_NodeHandle node, uint32_t color)
 void ConfigureDropTarget()
 {
     ArkUI_AttributeItem text {};
-    text.string = "拖入文件以获取 URI";
+    // 本地化文字由 ArkTS 资源传入，原生节点不硬编码界面文字。
+    text.string = g_dropText.c_str();
     g_nodeApi->setAttribute(g_drop, NODE_TEXT_CONTENT, &text);
     SetAreaLayout(g_drop, 0xFFDCF2DF);
     const char* types[] = {"general.file-uri"};
@@ -190,6 +194,21 @@ bool CreateDragNodes()
     return OH_ArkUI_NodeContent_AddNode(g_content, g_root) == 0;
 }
 
+// 获取资源字符串，限制长度并为 UTF-8 终止符保留空间。
+bool GetLabel(napi_env env, napi_value value, std::string& label)
+{
+    size_t size = 0;
+    if (napi_get_value_string_utf8(env, value, nullptr, 0, &size) != napi_ok || size > MAX_LABEL_BYTES) {
+        return false;
+    }
+    std::vector<char> buffer(size + 1);
+    if (napi_get_value_string_utf8(env, value, buffer.data(), buffer.size(), &size) != napi_ok) {
+        return false;
+    }
+    label.assign(buffer.data(), size);
+    return true;
+}
+
 napi_value CreateNativeNode(napi_env env, napi_callback_info info)
 {
     if (g_root != nullptr) {
@@ -200,8 +219,9 @@ napi_value CreateNativeNode(napi_env env, napi_callback_info info)
     napi_valuetype callbackType = napi_undefined;
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != NODE_ARGUMENT_COUNT ||
         OH_ArkUI_GetNodeContentFromNapiValue(env, args[0], &g_content) != 0 || g_content == nullptr ||
-        napi_typeof(env, args[1], &callbackType) != napi_ok || callbackType != napi_function) {
-        napi_throw_type_error(env, nullptr, "createNativeNode expects NodeContent and URI callback");
+        napi_typeof(env, args[1], &callbackType) != napi_ok || callbackType != napi_function ||
+        !GetLabel(env, args[2], g_dropText)) {
+        napi_throw_type_error(env, nullptr, "createNativeNode expects NodeContent, URI callback and drop label");
         return nullptr;
     }
     OH_ArkUI_GetModuleInterface(ARKUI_NATIVE_NODE, ArkUI_NativeNodeAPI_1, g_nodeApi);
@@ -223,14 +243,17 @@ napi_value Configure(napi_env env, napi_callback_info info)
     napi_value args[CONFIG_ARGUMENT_COUNT] {};
     bool directory = false;
     bool compressed = false;
+    std::string sourceText;
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != CONFIG_ARGUMENT_COUNT ||
         napi_get_value_bool(env, args[0], &directory) != napi_ok ||
-        napi_get_value_bool(env, args[1], &compressed) != napi_ok) {
-        napi_throw_type_error(env, nullptr, "configure expects two booleans");
+        napi_get_value_bool(env, args[1], &compressed) != napi_ok ||
+        !GetLabel(env, args[2], sourceText)) {
+        napi_throw_type_error(env, nullptr, "configure expects two booleans and a source label");
         return nullptr;
     }
     g_directory = directory;
     g_compressed = compressed;
+    g_sourceText = sourceText;
     UpdateSourceText();
     return nullptr;
 }
@@ -272,6 +295,8 @@ napi_value DestroyNativeNode(napi_env env, napi_callback_info info)
     g_dragData = nullptr;
     g_uriCallback = nullptr;
     g_env = nullptr;
+    g_sourceText.clear();
+    g_dropText.clear();
     return nullptr;
 }
 

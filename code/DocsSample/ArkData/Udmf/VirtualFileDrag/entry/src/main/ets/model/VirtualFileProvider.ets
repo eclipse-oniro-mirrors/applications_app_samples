@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import uniformDataStruct from '@ohos.data.uniformDataStruct';
-import fs from '@ohos.file.fs';
-import util from '@ohos.util';
-import zlib from '@ohos.zlib';
-import { common } from '@kit.AbilityKit';
+import type { uniformDataStruct } from '@kit.ArkData';
+import { fileIo as fs } from '@kit.CoreFileKit';
+import { util } from '@kit.ArkTS';
+import { zlib } from '@kit.BasicServicesKit';
+import type { common } from '@kit.AbilityKit';
 
 const MAX_READ_LENGTH: number = 5 * 1024 * 1024;
 const DIRECTORY_FILE_COUNT: number = 3;
@@ -47,18 +47,19 @@ export class VirtualFileProvider {
   private rootItem?: uniformDataStruct.VirtualItemType;
 
   private getSourceFile(id: string): SourceFile {
-    const source = this.sources.get(id);
+    const source: SourceFile | undefined = this.sources.get(id);
     if (!source) {
-      throw new Error('文件标识不存在');
+      throw new Error('Unknown file ID');
     }
     return source;
   }
 
 // [Start virtual_drag_js_provider]
+  // 创建文件树及内容回调，供 FileUri.virtualEntry 使用。
   public createVirtualEntry(): uniformDataStruct.VirtualFileInfo {
-    const rootItem = this.rootItem;
+    const rootItem: uniformDataStruct.VirtualItemType | undefined = this.rootItem;
     if (!rootItem) {
-      throw new Error('请先准备文件');
+      throw new Error('Prepare a file before dragging');
     }
     return {
       // itemInfo 是根文件或根目录；目录通过 subItems 描述子节点。
@@ -67,12 +68,12 @@ export class VirtualFileProvider {
       onStat: async (id: string): Promise<uniformDataStruct.VirtualFileItem> => this.getSourceFile(id).metadata,
       // 必选：从 offset 开始提供最多 length 字节；失败时抛出异常。
       onRead: async (id: string, offset: number, length: number): Promise<Uint8Array> => {
-        const file = this.getSourceFile(id);
+        const file: SourceFile = this.getSourceFile(id);
         if (!Number.isSafeInteger(offset) || offset < 0 || !Number.isInteger(length) ||
           length <= 0 || length > MAX_READ_LENGTH) {
-          throw new Error('读取参数无效');
+          throw new Error('Invalid read parameters');
         }
-        const count = Math.min(length, Math.max(0, file.metadata.size - offset));
+        const count: number = Math.min(length, Math.max(0, file.metadata.size - offset));
         if (count === 0) {
           return new Uint8Array(0); // offset 已到文件末尾。
         }
@@ -90,15 +91,16 @@ export class VirtualFileProvider {
   }
 // [End virtual_drag_js_provider]
 
+  // 声明单个文件或嵌套目录，内容保存在示例内存数据源中。
   public prepareDocuments(directory: boolean): void {
     const files: uniformDataStruct.VirtualItemType[] = [];
-    const count = directory ? DIRECTORY_FILE_COUNT : 1;
-    for (let index = 0; index < count; index++) {
-      const id = `document-${index}`;
-      const content = util.TextEncoder.create('utf-8').encodeInto(
-        `OpenHarmony 虚拟文档 ${index + 1}\n此内容在目标应用读取时提供。\n`);
+    const count: number = directory ? DIRECTORY_FILE_COUNT : 1;
+    for (let index: number = 0; index < count; index++) {
+      const id: string = `document-${index}`;
+      const content: Uint8Array = util.TextEncoder.create('utf-8').encodeInto(
+        `OpenHarmony virtual document ${index + 1}\nContent is provided when the target reads this file.\n`);
       const metadata: uniformDataStruct.VirtualFileItem = {
-        name: `文档${index + 1}.txt`, type: 'file', id: id, size: content.length, modifyTime: Date.now()
+        name: `document-${index + 1}.txt`, type: 'file', id: id, size: content.length, modifyTime: Date.now()
       };
       this.sources.set(id, new SourceFile(metadata, content));
       files.push(metadata);
@@ -109,24 +111,25 @@ export class VirtualFileProvider {
     }
     // 目录本身不提供读取回调，目录内的每个文件通过 id 找到其数据源。
     const rootItem: uniformDataStruct.VirtualDirItem = {
-      name: '导出文档', type: 'dir', modifyTime: Date.now(),
-      subItems: [files[0], { name: '附件', type: 'dir', modifyTime: Date.now(), subItems: files.slice(1) }]
+      name: 'exported-documents', type: 'dir', modifyTime: Date.now(),
+      subItems: [files[0], { name: 'attachments', type: 'dir', modifyTime: Date.now(), subItems: files.slice(1) }]
     };
     this.rootItem = rootItem;
   }
 
+  // 复制自带 ZIP 并声明其中的文件，直到读取时才解压。
   public async prepareArchive(context: common.UIAbilityContext): Promise<void> {
-    const directory = `${context.filesDir}/archive-${Date.now()}`;
+    const directory: string = `${context.filesDir}/archive-${Date.now()}`;
     fs.mkdirSync(directory);
-    const resource = await context.resourceManager.getRawFileContent('documents.zip');
-    const archivePath = `${directory}/documents.zip`;
-    const file = fs.openSync(archivePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY);
+    const resource: Uint8Array = await context.resourceManager.getRawFileContent('documents.zip');
+    const archivePath: string = `${directory}/documents.zip`;
+    const file: fs.File = fs.openSync(archivePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY);
     try {
       fs.writeSync(file.fd, resource.buffer);
     } finally {
       fs.closeSync(file);
     }
-    const outputDir = `${directory}/extracted`;
+    const outputDir: string = `${directory}/extracted`;
     fs.mkdirSync(outputDir);
     const metadata: uniformDataStruct.VirtualFileItem = {
       name: ARCHIVE_FILE_NAME, type: 'file', id: 'archive-note', size: ARCHIVE_FILE_SIZE, modifyTime: Date.now()
@@ -141,10 +144,10 @@ export class VirtualFileProvider {
       file.extractionTask = zlib.decompressFile(file.archivePath, file.outputDir);
     }
     await file.extractionTask;
-    const handle = await fs.open(`${file.outputDir}/${ARCHIVE_FILE_NAME}`, fs.OpenMode.READ_ONLY);
+    const handle: fs.File = await fs.open(`${file.outputDir}/${ARCHIVE_FILE_NAME}`, fs.OpenMode.READ_ONLY);
     try {
-      const buffer = new ArrayBuffer(count);
-      const read = await fs.read(handle.fd, buffer, { offset: offset, length: count });
+      const buffer: ArrayBuffer = new ArrayBuffer(count);
+      const read: number = await fs.read(handle.fd, buffer, { offset: offset, length: count });
       return new Uint8Array(buffer, 0, read);
     } finally {
       await fs.close(handle);

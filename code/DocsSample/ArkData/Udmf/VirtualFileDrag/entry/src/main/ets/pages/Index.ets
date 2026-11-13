@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-import uniformDataStruct from '@ohos.data.uniformDataStruct';
-import unifiedDataChannel from '@ohos.data.unifiedDataChannel';
-import uniformTypeDescriptor from '@ohos.data.uniformTypeDescriptor';
-import { common } from '@kit.AbilityKit';
+import { unifiedDataChannel, uniformTypeDescriptor } from '@kit.ArkData';
+import type { uniformDataStruct } from '@kit.ArkData';
+import type { common } from '@kit.AbilityKit';
+import type { BusinessError } from '@kit.BasicServicesKit';
 import { VirtualFileProvider } from '../model/VirtualFileProvider';
 import { getDroppedFileUris } from '../model/DropReceiver';
 
@@ -31,7 +31,7 @@ enum ExportScenario {
 struct Index {
   @State private ready: boolean = false;
   @State private busy: boolean = false;
-  @State private fileName: string = '文档';
+  @State private sourceText: Resource = $r('app.string.source_document');
   private provider?: VirtualFileProvider;
 
   aboutToAppear(): void {
@@ -42,20 +42,20 @@ struct Index {
     this.ready = false;
     this.busy = true;
     try {
-      const provider = new VirtualFileProvider();
+      const provider: VirtualFileProvider = new VirtualFileProvider();
       if (scenario === ExportScenario.ARCHIVE) {
         await provider.prepareArchive(this.getUIContext().getHostContext() as common.UIAbilityContext);
-        this.fileName = '解压文件';
+        this.sourceText = $r('app.string.source_archive');
       } else {
-        const directory = scenario === ExportScenario.DIRECTORY;
+        const directory: boolean = scenario === ExportScenario.DIRECTORY;
         provider.prepareDocuments(directory);
-        this.fileName = directory ? '嵌套目录' : '文档';
+        this.sourceText = directory ? $r('app.string.source_directory') : $r('app.string.source_document');
       }
       this.provider = provider;
       this.ready = true;
     } catch (error) {
-      console.error(`Prepare virtual file failed: ${JSON.stringify(error)}`);
-      this.getUIContext().getPromptAction().showToast({ message: '文件准备失败，请重试' });
+      console.error(`Prepare virtual file failed, code: ${(error as BusinessError).code}`);
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.prepare_failed') });
     } finally {
       this.busy = false;
     }
@@ -64,9 +64,9 @@ struct Index {
 // [Start virtual_drag_js_data]
   private createDragData(): unifiedDataChannel.UnifiedData {
     if (!this.provider) {
-      throw new Error('请先准备文件');
+      throw new Error('Prepare a file before dragging');
     }
-    const entry = this.provider.createVirtualEntry();
+    const entry: uniformDataStruct.VirtualFileInfo = this.provider.createVirtualEntry();
     // oriUri 是非空占位 URI，不要求文件已存在；落入方使用实际获取的 URI。
     const fileUri: uniformDataStruct.FileUri = {
       uniformDataType: 'general.file-uri',
@@ -74,7 +74,7 @@ struct Index {
       fileType: entry.itemInfo.type === 'dir' ? 'general.directory' : 'general.file',
       virtualEntry: entry
     };
-    const record = new unifiedDataChannel.UnifiedRecord(
+    const record: unifiedDataChannel.UnifiedRecord = new unifiedDataChannel.UnifiedRecord(
       uniformTypeDescriptor.UniformDataType.FILE_URI, fileUri);
     return new unifiedDataChannel.UnifiedData(record);
   }
@@ -85,44 +85,55 @@ struct Index {
     try {
       this.handleUris(getDroppedFileUris(event));
     } catch (error) {
-      console.error(`Get dropped URIs failed: ${JSON.stringify(error)}`);
-      this.getUIContext().getPromptAction().showToast({ message: '未获取到文件 URI，请重试' });
+      console.error(`Get dropped URIs failed, code: ${(error as BusinessError).code}`);
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.receive_failed') });
     }
   }
 
   private handleUris(uris: string[]): void {
     // 业务可在此根据 URI 读取、复制或打开文件，示例仅提示已接收。
-    this.getUIContext().getPromptAction().showToast({ message: `已接收 ${uris.length} 个文件 URI` });
+    this.getUIContext().getPromptAction().showToast({ message: $r('app.string.uris_received', uris.length) });
   }
 // [End virtual_drag_js_drop_result]
 
   build() {
     Column({ space: 20 }) {
-      Text('虚拟文件拖拽').fontSize(24)
+      Text($r('app.string.drag_title'))
+        .fontSize(24)
       Row({ space: 8 }) {
-        Button('文档').onClick(() => { this.prepare(ExportScenario.DOCUMENT); }).enabled(!this.busy)
-        Button('目录').onClick(() => { this.prepare(ExportScenario.DIRECTORY); }).enabled(!this.busy)
-        Button('按需解压').onClick(() => { this.prepare(ExportScenario.ARCHIVE); }).enabled(!this.busy)
+        Button($r('app.string.document'))
+          .onClick(() => { this.prepare(ExportScenario.DOCUMENT); })
+          .enabled(!this.busy)
+        Button($r('app.string.directory'))
+          .onClick(() => { this.prepare(ExportScenario.DIRECTORY); })
+          .enabled(!this.busy)
+        Button($r('app.string.archive'))
+          .onClick(() => { this.prepare(ExportScenario.ARCHIVE); })
+          .enabled(!this.busy)
       }
-      Text(this.ready ? `${this.fileName}：长按拖出` : '正在准备文件…')
-        .width('100%').height(120).backgroundColor('#D9E8FF')
+      Text(this.ready ? this.sourceText : $r('app.string.preparing'))
+        .width('100%').height(120)
+        .backgroundColor($r('app.color.drag_source_background'))
         .draggable(this.ready)
 // [Start virtual_drag_js_start]
         .onDragStart((event: DragEvent) => {
           try {
             event.setData(this.createDragData());
           } catch (error) {
-            console.error(`Set drag data failed: ${JSON.stringify(error)}`);
-            this.getUIContext().getPromptAction().showToast({ message: '拖拽失败，请重试' });
+            console.error(`Set drag data failed, code: ${(error as BusinessError).code}`);
+            this.getUIContext().getPromptAction().showToast({ message: $r('app.string.drag_failed') });
           }
         })
 // [End virtual_drag_js_start]
 // [Start virtual_drag_js_drop_target]
-      Text('拖入文件以获取 URI')
-        .width('100%').height(120).backgroundColor('#DCF2DF')
+      Text($r('app.string.drop_hint'))
+        .width('100%').height(120)
+        .backgroundColor($r('app.color.drag_drop_background'))
         .allowDrop([uniformTypeDescriptor.UniformDataType.FILE_URI])
         .onDrop((event: DragEvent) => { this.receive(event); })
 // [End virtual_drag_js_drop_target]
-    }.padding(24).width('100%').height('100%')
+    }
+    .padding(24)
+    .width('100%').height('100%')
   }
 }

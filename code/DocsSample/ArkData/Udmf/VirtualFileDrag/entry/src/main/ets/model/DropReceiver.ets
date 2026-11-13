@@ -12,23 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import uniformDataStruct from '@ohos.data.uniformDataStruct';
-import uniformTypeDescriptor from '@ohos.data.uniformTypeDescriptor';
+import { uniformDataStruct, unifiedDataChannel, uniformTypeDescriptor } from '@kit.ArkData';
 
 // [Start virtual_drag_receive]
+// 获取落入数据中的文件 URI，不读取文件内容。
 export function getDroppedFileUris(event: DragEvent): string[] {
   const uris: string[] = [];
-  for (const record of event.getData().getRecords()) {
+  const records: unifiedDataChannel.UnifiedRecord[] = event.getData().getRecords();
+  for (const record of records) {
     if (!record.getTypes().includes(uniformTypeDescriptor.UniformDataType.FILE_URI)) {
       continue;
     }
-    const entry = record.getEntry(uniformTypeDescriptor.UniformDataType.FILE_URI) as uniformDataStruct.FileUri;
+    const entry: uniformDataStruct.FileUri =
+      record.getEntry(uniformTypeDescriptor.UniformDataType.FILE_URI) as uniformDataStruct.FileUri;
     if (entry.oriUri.length > 0) {
       uris.push(entry.oriUri);
     }
   }
   if (uris.length === 0) {
-    throw new Error('未获取到文件 URI');
+    throw new Error('No file URI received');
   }
   return uris;
 }

@@ -6,6 +6,12 @@
 
 对应指南：[拖拽事件：虚拟文件拖拽](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/ui/arkts-common-events-drag-event.md#虚拟文件拖拽)。
 
+应用包名：`com.samples.virtualfiledrag`。
+
+### 效果预览
+
+界面上方为三个场景按钮，下方蓝色区域用于拖出文件，绿色区域用于获取落入文件的 URI。
+
 ### 使用说明
 
 1. 使用支持 API 26.1.0 的 OpenHarmony SDK 和 Hvigor 6.0.0 的 DevEco Studio 打开本工程，同步依赖，配置开发签名后编译安装。本工程不携带个人签名材料。
@@ -15,6 +21,13 @@
 5. 绿色接收区只获取 URI 并交给业务回调，显示接收数量；读取、复制、保存或打开由业务决定。
 
 ### 工程目录
+
+```text
+AppScope/                 应用标识及矢量图标
+entry/src/main/           页面、数据提供方与资源
+entry/src/ohosTest/       场景切换测试及测试入口
+ohosTest.md               自动化与人工验证说明
+```
 
 - [app_icon.svg](AppScope/resources/base/media/app_icon.svg)：手绘矢量图标，供应用图标和启动图标共用。
 - [Index.ets](entry/src/main/ets/pages/Index.ets)：场景选择、拖起区和文件 URI 接收区。
@@ -69,3 +82,15 @@ prepareDocuments() 声明文件信息
 ### 资料同源
 
 指南直接引用本工程的 `[Start virtual_drag_...]` / `[End virtual_drag_...]` 标记段。调整调用时，应同步更新指南中对应 `@[标记名](源码链接)` 后的代码块，不能只修改文档副本。
+
+### 下载命令
+
+```shell
+git clone --filter=blob:none --sparse --branch master https://gitcode.com/openharmony/applications_app_samples.git
+cd applications_app_samples
+git sparse-checkout set code/DocsSample/ArkData/Udmf/VirtualFileDrag
+```
+
+### 自动化验证
+
+工程通过 Hypium 1.0.24 提供三个场景切换用例，可在 DevEco Studio 中运行 `entry/src/ohosTest/ets/test/Ability.test.ets`。跨应用保存、内容读取和重复拖拽仍按 [ohosTest.md](ohosTest.md) 人工验证。

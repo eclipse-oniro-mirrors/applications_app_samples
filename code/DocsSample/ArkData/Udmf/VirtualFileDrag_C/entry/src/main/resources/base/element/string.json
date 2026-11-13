@@ -11,6 +11,58 @@
     {
       "name": "EntryAbility_label",
       "value": "虚拟文件拖拽（C API）"
+    },
+    {
+      "name": "drag_title",
+      "value": "虚拟文件拖拽"
+    },
+    {
+      "name": "document",
+      "value": "文档"
+    },
+    {
+      "name": "directory",
+      "value": "目录"
+    },
+    {
+      "name": "archive",
+      "value": "按需解压"
+    },
+    {
+      "name": "source_document",
+      "value": "文档：长按拖出"
+    },
+    {
+      "name": "source_directory",
+      "value": "嵌套目录：长按拖出"
+    },
+    {
+      "name": "source_archive",
+      "value": "解压文件：长按拖出"
+    },
+    {
+      "name": "preparing",
+      "value": "正在准备文件…"
+    },
+    {
+      "name": "drop_hint",
+      "value": "拖入文件以获取 URI"
+    },
+    {
+      "name": "prepare_failed",
+      "value": "文件准备失败，请重试"
+    },
+    {
+      "name": "receive_failed",
+      "value": "未获取到文件 URI，请重试"
+    },
+    {
+      "name": "drag_failed",
+      "value": "拖拽失败，请重试"
+    },
+    {
+      "name": "uris_received",
+      "value": "已接收 %d 个文件 URI"
     }
   ]
 }

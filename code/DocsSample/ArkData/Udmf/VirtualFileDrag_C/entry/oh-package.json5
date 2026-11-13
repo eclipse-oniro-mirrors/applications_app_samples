@@ -16,10 +16,10 @@
 {
   "name": "entry",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "Virtual file drag entry module",
   "main": "",
   "author": "",
-  "license": "",
+  "license": "Apache-2.0",
   "dependencies": {
     "libentry.so": "file:./src/main/cpp/types/libentry"
   }
