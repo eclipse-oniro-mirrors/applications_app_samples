@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2023 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,52 +13,66 @@
  * limitations under the License.
  */
 
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import UIAbility from '@ohos.app.ability.UIAbility';
-import Want from '@ohos.app.ability.Want';
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Hypium } from '@ohos/hypium';
-import window from '@ohos.window';
-import { logger } from '../util/Logger';
 import testsuite from '../test/List.test';
 
+const DOMAIN: number = 0xFF00;
 const TAG: string = 'TestAbility';
-
-let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-
+const ON_DESTROY_ERROR: number = -2;
+/**
+ * 从前台回调返回后，还要等这么久才做用例注册。
+ *
+ * hypium 每注册一条用例都会同步写一行日志，几十个套件注册时主线程会被独占若干秒。
+ * AAFWK 从 ForegroundLifecycle 开始计时，5 s 内收不到前台完成就判 LIFECYCLE_TIMEOUT
+ * 并回收测试进程（报告里表现为 App died）。用 setTimeout 把注册排到前台完成之后执行，
+ * 前台计时已经结束，不再受这段长占用影响。
+ */
+const REGISTER_DELAY_MS: number = 1000;
 
 export default class TestAbility extends UIAbility {
+  private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
+  private registerScheduled: boolean = false;
+
+  constructor() {
+    super();
+    this.abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+  }
+
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    logger.info(TAG, `TestAbility onCreate, want param: ${JSON.stringify(want)},
-        launchParam: ${JSON.stringify(launchParam)}`);
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
-  }
-
-  onDestroy(): void {
-    logger.info(TAG, 'TestAbility onDestroy');
-  }
-
-  onWindowStageCreate(windowStage: window.WindowStage): void {
-    logger.info(TAG, 'TestAbility onWindowStageCreate');
-    windowStage.loadContent('testability/pages/Index', (err, data) => {
-      if (err.code) {
-        logger.error(TAG, `Failed to load the content. Cause: ${JSON.stringify(err)}`);
-        return;
-      }
-      logger.info(TAG, `Succeeded in loading the content. Data: ${JSON.stringify(data) ?? ''}`);
-    });
-  }
-
-  onWindowStageDestroy(): void {
-    logger.info(TAG, 'TestAbility onWindowStageDestroy');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onCreate');
+    try {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'want param:' + JSON.stringify(want));
+    } catch (error) {
+      hilog.warn(DOMAIN, TAG, '%{public}s', 'want param cannot be serialized');
+      hilog.warn(DOMAIN, TAG, '%{public}s', String(error));
+    }
   }
 
   onForeground(): void {
-    logger.info(TAG, 'TestAbility onForeground');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onForeground');
+    if (this.registerScheduled) {
+      return;
+    }
+    this.registerScheduled = true;
+    setTimeout(() => {
+      const abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs =
+        abilityDelegatorRegistry.getArguments();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'start run testcase!!!');
+      Hypium.hypiumTest(this.abilityDelegator, abilityDelegatorArguments, testsuite);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility register end');
+    }, REGISTER_DELAY_MS);
+  }
+
+  onDestroy(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onDestroy');
+    this.abilityDelegator.finishTest('TestAbility onDestroy unexpectedly!', ON_DESTROY_ERROR, () => {
+    });
   }
 
   onBackground(): void {
-    logger.info(TAG, 'TestAbility onBackground');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'TestAbility onBackground');
   }
 }
