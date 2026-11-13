@@ -14,6 +14,7 @@
  */
 
 import { describe, it, expect } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   BluetoothDeviceModel,
   BluetoothDeviceType,
@@ -51,14 +52,37 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 0
      */
     it('testBluetoothScan0001', 0, () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0001', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0001',
+        '#1 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.IDLE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.IDLE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0001',
+        '#2 assert ' + "expect(service.getIsScanning()).assertFalse()");
       expect(service.getIsScanning()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0001',
+        '#3 assert ' + "expect(service.getDeviceCount()).assertEqual(0)");
       expect(service.getDeviceCount()).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0001',
+        '#4 assert ' + "expect(service.getDiscoveredDevices().length).assertEqual(0)");
       expect(service.getDiscoveredDevices().length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0001',
+        '#5 assert ' + "expect(service.getDevicesSortedByRssi().length).assertEqual(0)");
       expect(service.getDevicesSortedByRssi().length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0001',
+        '#6 assert ' + "expect(service.filterDevicesByName('BT').length).assertEqual(0)");
       expect(service.filterDevicesByName('BT').length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0001',
+        '#7 assert ' + "expect(service.filterDevicesByType(BluetoothDeviceType.CLASSIC).length).assertEqual(0)");
       expect(service.filterDevicesByType(BluetoothDeviceType.CLASSIC).length).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0001', 'end');
     });
 
     /*
@@ -70,22 +94,59 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 0
      */
     it('testBluetoothScan0002', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0002', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
       const result: boolean = await service.startScan();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#1 ' + "result" + ' = ' + JSON.stringify(result));
       expect(result).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#2 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#3 assert ' + "expect(service.getIsScanning()).assertFalse()");
       expect(service.getIsScanning()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#4 assert ' + "expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT);
 
       const devices: BluetoothDeviceModel[] = service.getDiscoveredDevices();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#5 ' + "devices.length" + ' = ' + JSON.stringify(devices.length));
       expect(devices.length).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#6 ' + "devices[0].deviceName" + ' = ' + JSON.stringify(devices[0].deviceName));
       expect(devices[0].deviceName).assertEqual('BT-Speaker-Pro');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#7 ' + "devices[EXPECTED_DEVICE_COUNT - 1].deviceName" + ' = ' +
+        JSON.stringify(devices[EXPECTED_DEVICE_COUNT - 1].deviceName));
       expect(devices[EXPECTED_DEVICE_COUNT - 1].deviceName).assertEqual('BT-Gamepad-Pro');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#8 ' + "devices[0].macAddress.length" + ' = ' + JSON.stringify(devices[0].macAddress.length));
       expect(devices[0].macAddress.length).assertEqual(17);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#9 ' + "devices[0].rssi <= -30" + ' = ' + JSON.stringify(devices[0].rssi <= -30));
       expect(devices[0].rssi <= -30).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#10 ' + "devices[0].rssi >= -99" + ' = ' + JSON.stringify(devices[0].rssi >= -99));
       expect(devices[0].rssi >= -99).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0002',
+        '#11 ' + "devices[0].bondState === 0 || devices[0].bondState === 12" + ' = ' +
+        JSON.stringify(devices[0].bondState === 0 || devices[0].bondState === 12));
       expect(devices[0].bondState === 0 || devices[0].bondState === 12).assertTrue();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0002', 'end');
     });
 
     /*
@@ -97,17 +158,40 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 1
      */
     it('testBluetoothScan0003', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0003', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
       const runningScan: Promise<boolean> = service.startScan();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0003',
+        '#1 assert ' + "expect(service.getIsScanning()).assertTrue()");
       expect(service.getIsScanning()).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0003',
+        '#2 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCANNING)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCANNING);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0003',
+        '#3 assert ' + "expect(await service.startScan()).assertFalse()");
       expect(await service.startScan()).assertFalse();
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0003',
+        '#4 assert ' + "expect(await runningScan).assertTrue()");
       expect(await runningScan).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0003',
+        '#5 assert ' + "expect(service.getIsScanning()).assertFalse()");
       expect(service.getIsScanning()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0003',
+        '#6 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0003',
+        '#7 assert ' + "expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0003', 'end');
     });
 
     /*
@@ -119,7 +203,8 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 1
      */
     it('testBluetoothScan0004', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0004', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
       const foundDeviceIds: string[] = [];
       const foundDeviceNames: string[] = [];
       let completedDeviceCount: number = -1;
@@ -150,14 +235,39 @@ export default function bluetoothScanServiceTest(): void {
       });
 
       const result: boolean = await service.startScan();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0004',
+        '#1 ' + "result" + ' = ' + JSON.stringify(result));
       expect(result).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0004',
+        '#2 ' + "foundDeviceIds.length" + ' = ' + JSON.stringify(foundDeviceIds.length));
       expect(foundDeviceIds.length).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0004',
+        '#3 ' + "foundDeviceNames.length" + ' = ' + JSON.stringify(foundDeviceNames.length));
       expect(foundDeviceNames.length).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0004',
+        '#4 ' + "foundDeviceNames[0]" + ' = ' + JSON.stringify(foundDeviceNames[0]));
       expect(foundDeviceNames[0]).assertEqual('BT-Speaker-Pro');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0004',
+        '#5 ' + "completedDeviceCount" + ' = ' + JSON.stringify(completedDeviceCount));
       expect(completedDeviceCount).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0004',
+        '#6 ' + "failedMessage" + ' = ' + JSON.stringify(failedMessage));
       expect(failedMessage).assertEqual('');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0004',
+        '#7 assert ' + "expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0004',
+        '#8 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0004', 'end');
     });
 
     /*
@@ -169,21 +279,47 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 1
      */
     it('testBluetoothScan0005', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0005', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
       const runningScan: Promise<boolean> = service.startScan();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0005',
+        '#1 assert ' + "expect(service.getIsScanning()).assertTrue()");
       expect(service.getIsScanning()).assertTrue();
 
       service.stopScan();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0005',
+        '#2 assert ' + "expect(service.getIsScanning()).assertFalse()");
       expect(service.getIsScanning()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0005',
+        '#3 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE);
 
       service.stopScan();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0005',
+        '#4 assert ' + "expect(service.getIsScanning()).assertFalse()");
       expect(service.getIsScanning()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0005',
+        '#5 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE);
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0005',
+        '#6 assert ' + "expect(await runningScan).assertTrue()");
       expect(await runningScan).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0005',
+        '#7 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0005',
+        '#8 assert ' + "expect(service.getIsScanning()).assertFalse()");
       expect(service.getIsScanning()).assertFalse();
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0005', 'end');
     });
 
     /*
@@ -195,20 +331,46 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 0
      */
     it('testBluetoothScan0006', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0006', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0006',
+        '#1 assert ' + "expect((await scanDevices(service)).length).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect((await scanDevices(service)).length).assertEqual(EXPECTED_DEVICE_COUNT);
 
       const lowerCaseMatch: BluetoothDeviceModel[] = service.filterDevicesByName('speaker');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0006',
+        '#2 ' + "lowerCaseMatch.length" + ' = ' + JSON.stringify(lowerCaseMatch.length));
       expect(lowerCaseMatch.length).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0006',
+        '#3 ' + "lowerCaseMatch[0].deviceName" + ' = ' + JSON.stringify(lowerCaseMatch[0].deviceName));
       expect(lowerCaseMatch[0].deviceName).assertEqual('BT-Speaker-Pro');
 
       const upperCaseMatch: BluetoothDeviceModel[] = service.filterDevicesByName('SPEAKER');
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0006',
+        '#4 ' + "upperCaseMatch.length" + ' = ' + JSON.stringify(upperCaseMatch.length));
       expect(upperCaseMatch.length).assertEqual(1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0006',
+        '#5 ' + "upperCaseMatch[0].deviceName" + ' = ' + JSON.stringify(upperCaseMatch[0].deviceName));
       expect(upperCaseMatch[0].deviceName).assertEqual('BT-Speaker-Pro');
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0006',
+        '#6 assert ' + "expect(service.filterDevicesByName('').length).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect(service.filterDevicesByName('').length).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0006',
+        '#7 assert ' + "expect(service.filterDevicesByName('BT-').length).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect(service.filterDevicesByName('BT-').length).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0006',
+        '#8 assert ' + "expect(service.filterDevicesByName('zzz-none').length).assertEqual(0)");
       expect(service.filterDevicesByName('zzz-none').length).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0006', 'end');
     });
 
     /*
@@ -220,22 +382,53 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 0
      */
     it('testBluetoothScan0007', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0007', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0007',
+        '#1 assert ' + "expect((await scanDevices(service)).length).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect((await scanDevices(service)).length).assertEqual(EXPECTED_DEVICE_COUNT);
 
       const classicDevices: BluetoothDeviceModel[] = service.filterDevicesByType(BluetoothDeviceType.CLASSIC);
       const bleDevices: BluetoothDeviceModel[] = service.filterDevicesByType(BluetoothDeviceType.BLE);
       const dualModeDevices: BluetoothDeviceModel[] = service.filterDevicesByType(BluetoothDeviceType.DUAL_MODE);
 
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0007',
+        '#2 ' + "classicDevices.length" + ' = ' + JSON.stringify(classicDevices.length));
       expect(classicDevices.length).assertEqual(CLASSIC_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0007',
+        '#3 ' + "bleDevices.length" + ' = ' + JSON.stringify(bleDevices.length));
       expect(bleDevices.length).assertEqual(BLE_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0007',
+        '#4 ' + "dualModeDevices.length" + ' = ' + JSON.stringify(dualModeDevices.length));
       expect(dualModeDevices.length).assertEqual(DUAL_MODE_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0007',
+        '#5 ' + "classicDevices.length + bleDevices.length + dualModeDevices.length" + ' = ' +
+        JSON.stringify(classicDevices.length + bleDevices.length + dualModeDevices.length));
       expect(classicDevices.length + bleDevices.length + dualModeDevices.length).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0007',
+        '#6 assert ' +
+        "expect(classicDevices.every((device: BluetoothDeviceModel) => device.deviceType === BluetoothDeviceType.CLA" +
+        "SSIC)).assertTrue()");
       expect(classicDevices.every((device: BluetoothDeviceModel) =>
         device.deviceType === BluetoothDeviceType.CLASSIC)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0007',
+        '#7 assert ' +
+        "expect(bleDevices.every((device: BluetoothDeviceModel) => device.deviceType === BluetoothDeviceType.BLE)).a" +
+        "ssertTrue()");
       expect(bleDevices.every((device: BluetoothDeviceModel) =>
         device.deviceType === BluetoothDeviceType.BLE)).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0007',
+        '#8 assert ' + "expect(service.filterDevicesByType(BluetoothDeviceType.UNKNOWN).length).assertEqual(0)");
       expect(service.filterDevicesByType(BluetoothDeviceType.UNKNOWN).length).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0007', 'end');
     });
 
     /*
@@ -247,21 +440,46 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 1
      */
     it('testBluetoothScan0008', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0008', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0008',
+        '#1 assert ' + "expect((await scanDevices(service)).length).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect((await scanDevices(service)).length).assertEqual(EXPECTED_DEVICE_COUNT);
 
       const sortedDevices: BluetoothDeviceModel[] = service.getDevicesSortedByRssi();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0008',
+        '#2 ' + "sortedDevices.length" + ' = ' + JSON.stringify(sortedDevices.length));
       expect(sortedDevices.length).assertEqual(EXPECTED_DEVICE_COUNT);
       for (let i: number = 1; i < sortedDevices.length; i++) {
+        hilog.info(0xF811,
+          '[Sample_BluetoothBaseProfile] testBluetoothScan0008',
+          '#3 ' + "sortedDevices[i - 1].rssi >= sortedDevices[i].rssi" + ' = ' +
+          JSON.stringify(sortedDevices[i - 1].rssi >= sortedDevices[i].rssi));
         expect(sortedDevices[i - 1].rssi >= sortedDevices[i].rssi).assertTrue();
       }
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0008',
+        '#4 ' + "sortedDevices[0].rssi <= -30" + ' = ' + JSON.stringify(sortedDevices[0].rssi <= -30));
       expect(sortedDevices[0].rssi <= -30).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0008',
+        '#5 ' + "sortedDevices[sortedDevices.length - 1].rssi >= -99" + ' = ' +
+        JSON.stringify(sortedDevices[sortedDevices.length - 1].rssi >= -99));
       expect(sortedDevices[sortedDevices.length - 1].rssi >= -99).assertTrue();
 
       const snapshot: BluetoothDeviceModel[] = service.getDiscoveredDevices();
       snapshot.pop();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0008',
+        '#6 ' + "snapshot.length" + ' = ' + JSON.stringify(snapshot.length));
       expect(snapshot.length).assertEqual(EXPECTED_DEVICE_COUNT - 1);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0008',
+        '#7 assert ' + "expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0008', 'end');
     });
 
     /*
@@ -273,20 +491,49 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 1
      */
     it('testBluetoothScan0009', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0009', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#1 assert ' + "expect((await scanDevices(service)).length).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect((await scanDevices(service)).length).assertEqual(EXPECTED_DEVICE_COUNT);
 
       service.clearDevices();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#2 assert ' + "expect(service.getDeviceCount()).assertEqual(0)");
       expect(service.getDeviceCount()).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#3 assert ' + "expect(service.getDiscoveredDevices().length).assertEqual(0)");
       expect(service.getDiscoveredDevices().length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#4 assert ' + "expect(service.filterDevicesByName('BT').length).assertEqual(0)");
       expect(service.filterDevicesByName('BT').length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#5 assert ' + "expect(service.getDevicesSortedByRssi().length).assertEqual(0)");
       expect(service.getDevicesSortedByRssi().length).assertEqual(0);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#6 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE);
 
       service.reset();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#7 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.IDLE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.IDLE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#8 assert ' + "expect(service.getIsScanning()).assertFalse()");
       expect(service.getIsScanning()).assertFalse();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0009',
+        '#9 assert ' + "expect(service.getDeviceCount()).assertEqual(0)");
       expect(service.getDeviceCount()).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0009', 'end');
     });
 
     /*
@@ -298,7 +545,8 @@ export default function bluetoothScanServiceTest(): void {
      * @tc.level Level 1
      */
     it('testBluetoothScan0010', 0, async () => {
-      const service = new BluetoothScanService();
+      hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0010', 'begin');
+      const service: BluetoothScanService = new BluetoothScanService();
       let callbackCalls: number = 0;
 
       service.addCallback({
@@ -313,14 +561,33 @@ export default function bluetoothScanServiceTest(): void {
         }
       });
       service.reset();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0010',
+        '#1 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.IDLE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.IDLE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0010',
+        '#2 assert ' + "expect(service.getIsScanning()).assertFalse()");
       expect(service.getIsScanning()).assertFalse();
 
       const result: boolean = await service.startScan();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0010',
+        '#3 ' + "result" + ' = ' + JSON.stringify(result));
       expect(result).assertTrue();
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0010',
+        '#4 assert ' + "expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT)");
       expect(service.getDeviceCount()).assertEqual(EXPECTED_DEVICE_COUNT);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0010',
+        '#5 assert ' + "expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE)");
       expect(service.getScanState()).assertEqual(BluetoothScanState.SCAN_COMPLETE);
+      hilog.info(0xF811,
+        '[Sample_BluetoothBaseProfile] testBluetoothScan0010',
+        '#6 ' + "callbackCalls" + ' = ' + JSON.stringify(callbackCalls));
       expect(callbackCalls).assertEqual(0);
+    hilog.info(0xF811, '[Sample_BluetoothBaseProfile] testBluetoothScan0010', 'end');
     });
   });
 }
