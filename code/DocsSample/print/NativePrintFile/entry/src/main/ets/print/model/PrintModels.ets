@@ -30,10 +30,10 @@ export enum NativePrintEventType {
 }
 
 export class PageSizeModel implements nativePrint.PageSize {
-  id: string;
-  name: string;
-  width: number;
-  height: number;
+  public id: string;
+  public name: string;
+  public width: number;
+  public height: number;
 
   constructor(id: string, name: string, width: number, height: number) {
     this.id = id;
@@ -46,18 +46,18 @@ export class PageSizeModel implements nativePrint.PageSize {
     return new PageSizeModel(pageSize.id, pageSize.name, pageSize.width, pageSize.height);
   }
 
-  static readonly A4: PageSizeModel = new PageSizeModel('iso_a4_210x297mm', 'A4', 8268, 11693);
+  public static readonly A4: PageSizeModel = new PageSizeModel('iso_a4_210x297mm', 'A4', 8268, 11693);
 }
 
 export class PrinterInfoModel implements nativePrint.PrinterInfo {
-  printerId: string;
-  printerName: string;
-  printerUri: string;
-  printerState: number;
-  colorMode: number;
-  copySupported: number;
-  isOnline: boolean;
-  pageSizes: PageSizeModel[];
+  public printerId: string;
+  public printerName: string;
+  public printerUri: string;
+  public printerState: number;
+  public colorMode: number;
+  public copySupported: number;
+  public isOnline: boolean;
+  public pageSizes: PageSizeModel[];
 
   constructor(printerId: string, printerName: string, printerUri: string, printerState: number, colorMode: number,
     copySupported: number, isOnline: boolean, pageSizes: PageSizeModel[]) {
@@ -81,17 +81,17 @@ export class PrinterInfoModel implements nativePrint.PrinterInfo {
       printerInfo.printerState, printerInfo.colorMode, printerInfo.copySupported, printerInfo.isOnline, pageSizes);
   }
 
-  static readonly EMPTY: PrinterInfoModel = new PrinterInfoModel('', '', '', 0, 0, 0, false, []);
+  public static readonly EMPTY: PrinterInfoModel = new PrinterInfoModel('', '', '', 0, 0, 0, false, []);
 }
 
 export class PrintJobModel implements nativePrint.PrintJob {
-  fdList: number[];
-  dpi: number;
-  printerId: string;
-  copyNumber: number;
-  colorMode: number;
-  duplexMode: number;
-  orientationMode: number;
+  public fdList: number[];
+  public dpi: number;
+  public printerId: string;
+  public copyNumber: number;
+  public colorMode: number;
+  public duplexMode: number;
+  public orientationMode: number;
 
   constructor(fd: number, printerId: string, copyNumber: number, colorMode: number, duplexMode: number,
     orientationMode: number) {
@@ -106,10 +106,10 @@ export class PrintJobModel implements nativePrint.PrintJob {
 }
 
 export class MarginModel implements nativePrint.Margin {
-  leftMargin: number;
-  topMargin: number;
-  rightMargin: number;
-  bottomMargin: number;
+  public leftMargin: number;
+  public topMargin: number;
+  public rightMargin: number;
+  public bottomMargin: number;
 
   constructor(leftMargin: number, topMargin: number, rightMargin: number, bottomMargin: number) {
     this.leftMargin = leftMargin;
@@ -120,13 +120,13 @@ export class MarginModel implements nativePrint.Margin {
 }
 
 export class PrintOptionModel implements nativePrint.PrintOption {
-  jobName: string;
-  paperSource: string;
-  mediaType: string;
-  printQuality: number;
-  documentFormat: string;
-  borderless: boolean;
-  advancedOptions: string;
+  public jobName: string;
+  public paperSource: string;
+  public mediaType: string;
+  public printQuality: number;
+  public documentFormat: string;
+  public borderless: boolean;
+  public advancedOptions: string;
 
   constructor(documentFormat: string, printQuality: number, borderless: boolean, mediaType: string) {
     this.jobName = 'NativePrintFile';
