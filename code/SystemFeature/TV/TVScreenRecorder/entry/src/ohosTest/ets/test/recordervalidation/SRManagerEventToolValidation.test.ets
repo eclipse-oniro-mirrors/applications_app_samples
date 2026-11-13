@@ -150,37 +150,37 @@ class RecorderIconUtil {
 }
 
 // Builds and parses the fd sink url consumed by SRApi.startRecording.
-class SurfaceUrlBuilder {
+class FdUrlBuilder {
   public static readonly FD_PREFIX: string = 'fd://';
   public static readonly INVALID_FD: number = -1;
 
   public static build(fd: number): string {
-    return SurfaceUrlBuilder.FD_PREFIX + fd;
+    return FdUrlBuilder.FD_PREFIX + fd;
   }
 
   public static parseFd(url: string): number {
-    if (!url.startsWith(SurfaceUrlBuilder.FD_PREFIX)) {
-      return SurfaceUrlBuilder.INVALID_FD;
+    if (!url.startsWith(FdUrlBuilder.FD_PREFIX)) {
+      return FdUrlBuilder.INVALID_FD;
     }
-    const raw: string = url.slice(SurfaceUrlBuilder.FD_PREFIX.length);
+    const raw: string = url.slice(FdUrlBuilder.FD_PREFIX.length);
     if (raw.length === 0) {
-      return SurfaceUrlBuilder.INVALID_FD;
+      return FdUrlBuilder.INVALID_FD;
     }
     for (let i = 0; i < raw.length; i++) {
       const code: number = raw.charCodeAt(i);
       if (code < 48 || code > 57) {
-        return SurfaceUrlBuilder.INVALID_FD;
+        return FdUrlBuilder.INVALID_FD;
       }
     }
     return Number(raw);
   }
 
   public static isValid(url: string): boolean {
-    return SurfaceUrlBuilder.parseFd(url) >= 0;
+    return FdUrlBuilder.parseFd(url) >= 0;
   }
 
   public static isFdBased(url: string): boolean {
-    return url.startsWith(SurfaceUrlBuilder.FD_PREFIX);
+    return url.startsWith(FdUrlBuilder.FD_PREFIX);
   }
 }
 
@@ -565,7 +565,7 @@ export default function srManagerEventToolValidationTest(): void {
 
     // Aligns with Tools_ArrayToString: sink url bytes round trip.
     it('buffer_string_roundtrip_should_work', 0, async () => {
-      const original: string = SurfaceUrlBuilder.build(42);
+      const original: string = FdUrlBuilder.build(42);
       const restored: string = RecorderToolUtil.bufferToString(RecorderToolUtil.stringToBuffer(original));
       expect(restored).assertEqual('fd://42');
     });
@@ -621,29 +621,29 @@ export default function srManagerEventToolValidationTest(): void {
       };
       expect(descriptor.fileName).assertEqual('REC_20260115_102030.mp4');
       expect(descriptor.uri.startsWith('file://media')).assertTrue();
-      expect(SurfaceUrlBuilder.build(descriptor.fd)).assertEqual('fd://11');
+      expect(FdUrlBuilder.build(descriptor.fd)).assertEqual('fd://11');
       expect(descriptor.sizeBytes).assertLarger(0);
     });
 
-    // SurfaceUrlBuilder: fd sink url construction.
+    // FdUrlBuilder: fd sink url construction.
     it('sink_url_should_be_built_from_fd', 0, async () => {
-      expect(SurfaceUrlBuilder.build(12)).assertEqual('fd://12');
-      expect(SurfaceUrlBuilder.isFdBased('fd://12')).assertTrue();
-      expect(SurfaceUrlBuilder.isFdBased('/data/storage/el2/base/rec.mp4')).assertFalse();
+      expect(FdUrlBuilder.build(12)).assertEqual('fd://12');
+      expect(FdUrlBuilder.isFdBased('fd://12')).assertTrue();
+      expect(FdUrlBuilder.isFdBased('/data/storage/el2/base/rec.mp4')).assertFalse();
     });
 
-    // SurfaceUrlBuilder: parsing a valid fd sink url.
+    // FdUrlBuilder: parsing a valid fd sink url.
     it('sink_url_should_parse_valid_fd', 0, async () => {
-      expect(SurfaceUrlBuilder.parseFd('fd://7')).assertEqual(7);
-      expect(SurfaceUrlBuilder.isValid('fd://7')).assertTrue();
+      expect(FdUrlBuilder.parseFd('fd://7')).assertEqual(7);
+      expect(FdUrlBuilder.isValid('fd://7')).assertTrue();
     });
 
-    // SurfaceUrlBuilder: malformed sink urls are rejected.
+    // FdUrlBuilder: malformed sink urls are rejected.
     it('sink_url_should_reject_malformed_values', 0, async () => {
-      expect(SurfaceUrlBuilder.parseFd('fd://')).assertEqual(SurfaceUrlBuilder.INVALID_FD);
-      expect(SurfaceUrlBuilder.parseFd('file://7')).assertEqual(SurfaceUrlBuilder.INVALID_FD);
-      expect(SurfaceUrlBuilder.parseFd('fd://abc')).assertEqual(SurfaceUrlBuilder.INVALID_FD);
-      expect(SurfaceUrlBuilder.parseFd('fd://-1')).assertEqual(SurfaceUrlBuilder.INVALID_FD);
+      expect(FdUrlBuilder.parseFd('fd://')).assertEqual(FdUrlBuilder.INVALID_FD);
+      expect(FdUrlBuilder.parseFd('file://7')).assertEqual(FdUrlBuilder.INVALID_FD);
+      expect(FdUrlBuilder.parseFd('fd://abc')).assertEqual(FdUrlBuilder.INVALID_FD);
+      expect(FdUrlBuilder.parseFd('fd://-1')).assertEqual(FdUrlBuilder.INVALID_FD);
     });
 
     // FileNameBuilder: REC_yyyyMMdd_HHmmss.mp4 naming.

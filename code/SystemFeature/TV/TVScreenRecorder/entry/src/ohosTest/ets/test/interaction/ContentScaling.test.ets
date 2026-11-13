@@ -26,7 +26,7 @@ import {
   TOLERANCE_COMPONENT_COUNT
 } from '../shared/RecordingDriver';
 
-// The recorder pages are laid out against a 1920 x 1080 art board. Every length
+// The recorder pages are laid out against a 1920 x 1080 design canvas. Every length
 // written in the pages is a virtual pixel of that design, so the runtime value is
 // derived from the real display width by utils/SizeCalc.
 const DESIGN_WIDTH: number = 1920;

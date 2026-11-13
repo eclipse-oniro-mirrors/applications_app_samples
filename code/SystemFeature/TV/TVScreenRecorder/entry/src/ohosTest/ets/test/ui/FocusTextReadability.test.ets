@@ -27,12 +27,12 @@ import {
   assertNumberEqual,
   assertTrue
 } from '../foundation/TestAsserts';
-import { AccessibilityTreeHarness } from './AccessibilityLayoutHarness';
+import { FocusTraversalTreeHarness } from './FocusLayoutHarness';
 
-export default function accessibilityTextReadabilityTest(): void {
-  describe('AccessibilityTextReadabilityTest', () => {
-    it('AccessibilityText_TimerAndHintRemainReadable_001', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+export default function focusTextReadabilityTest(): void {
+  describe('FocusTextReadabilityTest', () => {
+    it('FocusTraversalText_TimerAndHintRemainReadable_001', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       harness.addNode('root', 'page', '录屏提示');
       harness.addNode('timer', 'text', '00:10', 'root');
       harness.addNode('hint', 'text', '录屏视频已存储到“照片”', 'root');
@@ -41,16 +41,16 @@ export default function accessibilityTextReadabilityTest(): void {
       assertContains(text, '录屏视频已存储到“照片”');
     });
 
-    it('AccessibilityText_BlankTextIsNotCountedAsReadable_002', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+    it('FocusTraversalText_BlankTextIsNotCountedAsReadable_002', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       harness.addNode('root', 'page', '录屏');
       harness.addNode('blank', 'text', '   ', 'root');
       assertNumberEqual(harness.getReadableCount(), 1);
       assertNotContains(harness.flattenReadableText(), '   ');
     });
 
-    it('AccessibilityText_DurationSamplesBuildDistinctReadableVariants_003', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+    it('FocusTraversalText_DurationSamplesBuildDistinctReadableVariants_003', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       const durations = buildFoundationDurations();
       const counter = new FoundationScenarioCounter();
       harness.addNode('root', 'page', '录屏');
@@ -63,12 +63,12 @@ export default function accessibilityTextReadabilityTest(): void {
       assertAtLeast(harness.flattenReadableText().length, durations.length * 4);
     });
 
-    it('AccessibilityText_AssetNamesReplayProducesStableFingerprint_004', 0, () => {
+    it('FocusTraversalText_AssetNamesReplayProducesStableFingerprint_004', 0, () => {
       const names = buildFoundationAssetNames('spoken', 22);
       const checksumA = new FoundationRollingChecksum();
       const checksumB = new FoundationRollingChecksum();
       for (let pass = 0; pass < 2; pass++) {
-        const harness = new AccessibilityTreeHarness();
+        const harness = new FocusTraversalTreeHarness();
         harness.addNode('root', 'page', '录屏');
         for (let index = 0; index < names.length; index++) {
           harness.addNode(`spoken_${index}`, 'text', names[index], 'root');
@@ -82,8 +82,8 @@ export default function accessibilityTextReadabilityTest(): void {
       assertNumberEqual(checksumA.getValue(), checksumB.getValue());
     });
 
-    it('AccessibilityText_LongReadTrailMaintainsHighReadableVolume_005', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+    it('FocusTraversalText_LongReadTrailMaintainsHighReadableVolume_005', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       harness.addNode('root', 'page', '录屏主页');
       for (let round = 0; round < 90; round++) {
         harness.addNode(`msg_${round}`, 'text', `朗读文本_${round}`, 'root');

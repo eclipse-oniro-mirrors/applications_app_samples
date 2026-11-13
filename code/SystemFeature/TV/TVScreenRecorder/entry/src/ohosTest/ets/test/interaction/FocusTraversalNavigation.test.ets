@@ -43,18 +43,18 @@ import {
 } from '../shared/RecordingDriver';
 
 const DOMAIN: number = 0x0000;
-const TAG: string = 'AccessibilityNavigation';
+const TAG: string = 'FocusTraversalNavigation';
 
-/** Record of a single accessibility traversal step. */
-interface AccessibilityRecord {
+/** Record of a single focus traversal traversal step. */
+interface FocusTraversalRecord {
   componentName: string;
-  accessibilityText: string;
+  focusText: string;
   isFocusable: boolean;
   timestamp: number;
 }
 
-/** Accessibility role of a node inside the floating window tree. */
-enum AccessibilityRole {
+/** FocusTraversal role of a node inside the floating window tree. */
+enum FocusTraversalRole {
   BUTTON = 'button',
   TEXT = 'text',
   IMAGE = 'image',
@@ -72,16 +72,16 @@ enum NavigationDirection {
   BACKWARD = 'backward'
 }
 
-/** Metadata of one node inside the accessibility tree. */
-interface AccessibilityNode {
+/** Metadata of one node inside the focus traversal tree. */
+interface FocusTraversalNode {
   nodeId: number;
-  role: AccessibilityRole;
+  role: FocusTraversalRole;
   label: string;
   isFocusable: boolean;
   childCount: number;
 }
 
-/** One complete accessibility navigation path. */
+/** One complete focus traversal navigation path. */
 interface NavigationPath {
   pathId: number;
   startNodeId: number;
@@ -89,21 +89,21 @@ interface NavigationPath {
   directions: NavigationDirection[];
 }
 
-/** Traversal strategy of the accessibility tree. */
+/** Traversal strategy of the focus traversal tree. */
 enum TraversalMode {
   DEPTH_FIRST = 'depth_first',
   BREADTH_FIRST = 'breadth_first',
   FOCUS_ORDER = 'focus_order'
 }
 
-/** One visit produced while walking the accessibility tree. */
+/** One visit produced while walking the focus traversal tree. */
 interface TraversalVisit {
   visitOrder: number;
   nodeId: number;
   depth: number;
 }
 
-/** Static description of a floating window exposed to accessibility services. */
+/** Static description of a floating window exposed to focus traversal services. */
 interface RecorderWindowDescriptor {
   windowName: string;
   pageRoute: string;
@@ -111,23 +111,23 @@ interface RecorderWindowDescriptor {
   focusable: boolean;
 }
 
-/** Singleton tracker shared by every accessibility case of this suite. */
-class AccessibilityTracker {
-  private static instance: AccessibilityTracker | null = null;
-  private navigationHistory: AccessibilityRecord[] = [];
+/** Singleton tracker shared by every focus traversal case of this suite. */
+class FocusTraversalTracker {
+  private static instance: FocusTraversalTracker | null = null;
+  private navigationHistory: FocusTraversalRecord[] = [];
   private totalNavigations: number = 0;
 
-  public static getInstance(): AccessibilityTracker {
-    if (AccessibilityTracker.instance === null) {
-      AccessibilityTracker.instance = new AccessibilityTracker();
+  public static getInstance(): FocusTraversalTracker {
+    if (FocusTraversalTracker.instance === null) {
+      FocusTraversalTracker.instance = new FocusTraversalTracker();
     }
-    return AccessibilityTracker.instance;
+    return FocusTraversalTracker.instance;
   }
 
-  public recordNavigation(componentName: string, accessibilityText: string, isFocusable: boolean): void {
-    const record: AccessibilityRecord = {
+  public recordNavigation(componentName: string, focusText: string, isFocusable: boolean): void {
+    const record: FocusTraversalRecord = {
       componentName: componentName,
-      accessibilityText: accessibilityText,
+      focusText: focusText,
       isFocusable: isFocusable,
       timestamp: Date.now()
     };
@@ -135,8 +135,8 @@ class AccessibilityTracker {
     this.totalNavigations++;
   }
 
-  public getNavigationHistory(): AccessibilityRecord[] {
-    const history: AccessibilityRecord[] = [];
+  public getNavigationHistory(): FocusTraversalRecord[] {
+    const history: FocusTraversalRecord[] = [];
     for (let i = 0; i < this.navigationHistory.length; i++) {
       history.push(this.navigationHistory[i]);
     }
@@ -153,11 +153,11 @@ class AccessibilityTracker {
   }
 
   public hasNavigatedTo(componentName: string): boolean {
-    return this.navigationHistory.some((record: AccessibilityRecord) => record.componentName === componentName);
+    return this.navigationHistory.some((record: FocusTraversalRecord) => record.componentName === componentName);
   }
 
   public getNavigationCountForComponent(componentName: string): number {
-    return this.navigationHistory.filter((record: AccessibilityRecord) =>
+    return this.navigationHistory.filter((record: FocusTraversalRecord) =>
       record.componentName === componentName).length;
   }
 
@@ -175,19 +175,19 @@ class AccessibilityTracker {
 
   /** Traversal is focus independent, so it is counted separately. */
   public getNonFocusableRecordCount(): number {
-    return this.navigationHistory.filter((record: AccessibilityRecord) => !record.isFocusable).length;
+    return this.navigationHistory.filter((record: FocusTraversalRecord) => !record.isFocusable).length;
   }
 }
 
 /** Node model with semantic validation and clone support. */
-class AccessibilityNodeModel {
+class FocusTraversalNodeModel {
   private nodeId: number;
-  private role: AccessibilityRole;
+  private role: FocusTraversalRole;
   private label: string;
   private isFocusable: boolean;
   private childCount: number;
 
-  constructor(nodeId: number, role: AccessibilityRole, label: string, isFocusable: boolean, childCount: number) {
+  constructor(nodeId: number, role: FocusTraversalRole, label: string, isFocusable: boolean, childCount: number) {
     this.nodeId = nodeId;
     this.role = role;
     this.label = label;
@@ -199,7 +199,7 @@ class AccessibilityNodeModel {
     return this.nodeId;
   }
 
-  public getRole(): AccessibilityRole {
+  public getRole(): FocusTraversalRole {
     return this.role;
   }
 
@@ -221,32 +221,32 @@ class AccessibilityNodeModel {
 
   /** Text and image nodes are readable even when they cannot own the focus. */
   public isReadable(): boolean {
-    return this.role === AccessibilityRole.TEXT || this.role === AccessibilityRole.HEADING ||
-      this.role === AccessibilityRole.IMAGE;
+    return this.role === FocusTraversalRole.TEXT || this.role === FocusTraversalRole.HEADING ||
+      this.role === FocusTraversalRole.IMAGE;
   }
 
   public hasValidLabel(): boolean {
     return this.label.length > 0;
   }
 
-  public equals(other: AccessibilityNodeModel): boolean {
+  public equals(other: FocusTraversalNodeModel): boolean {
     return this.nodeId === other.getNodeId() && this.role === other.getRole();
   }
 
-  public clone(): AccessibilityNodeModel {
-    return new AccessibilityNodeModel(this.nodeId, this.role, this.label, this.isFocusable, this.childCount);
+  public clone(): FocusTraversalNodeModel {
+    return new FocusTraversalNodeModel(this.nodeId, this.role, this.label, this.isFocusable, this.childCount);
   }
 
   public toString(): string {
-    return 'AccessibilityNodeModel(' + this.nodeId + ', ' + this.role + ')';
+    return 'FocusTraversalNodeModel(' + this.nodeId + ', ' + this.role + ')';
   }
 }
 
 /** Node collection used by the manifest of one floating window. */
-class AccessibilityNodeSet {
-  private nodes: AccessibilityNodeModel[] = [];
+class FocusTraversalNodeSet {
+  private nodes: FocusTraversalNodeModel[] = [];
 
-  public addNode(node: AccessibilityNodeModel): void {
+  public addNode(node: FocusTraversalNodeModel): void {
     this.nodes.push(node.clone());
   }
 
@@ -259,14 +259,14 @@ class AccessibilityNodeSet {
   }
 
   public getFocusableNodeCount(): number {
-    return this.nodes.filter((node: AccessibilityNodeModel) => node.isNodeFocusable()).length;
+    return this.nodes.filter((node: FocusTraversalNodeModel) => node.isNodeFocusable()).length;
   }
 
   public getReadableNodeCount(): number {
-    return this.nodes.filter((node: AccessibilityNodeModel) => node.isReadable()).length;
+    return this.nodes.filter((node: FocusTraversalNodeModel) => node.isReadable()).length;
   }
 
-  public getNodeById(nodeId: number): AccessibilityNodeModel | null {
+  public getNodeById(nodeId: number): FocusTraversalNodeModel | null {
     for (let i = 0; i < this.nodes.length; i++) {
       if (this.nodes[i].getNodeId() === nodeId) {
         return this.nodes[i].clone();
@@ -275,12 +275,12 @@ class AccessibilityNodeSet {
     return null;
   }
 
-  public getNodeCountByRole(role: AccessibilityRole): number {
-    return this.nodes.filter((node: AccessibilityNodeModel) => node.getRole() === role).length;
+  public getNodeCountByRole(role: FocusTraversalRole): number {
+    return this.nodes.filter((node: FocusTraversalNodeModel) => node.getRole() === role).length;
   }
 
   public areAllLabelsValid(): boolean {
-    return this.nodes.every((node: AccessibilityNodeModel) => node.hasValidLabel());
+    return this.nodes.every((node: FocusTraversalNodeModel) => node.hasValidLabel());
   }
 
   public getLabels(): string[] {
@@ -342,12 +342,12 @@ class NavigationPathModel {
   }
 }
 
-/** Aggregated statistics of the accessibility traversal. */
-class AccessibilityNavigationStatistics {
-  private nodeSet: AccessibilityNodeSet = new AccessibilityNodeSet();
+/** Aggregated statistics of the focus traversal traversal. */
+class FocusTraversalNavigationStatistics {
+  private nodeSet: FocusTraversalNodeSet = new FocusTraversalNodeSet();
   private paths: NavigationPathModel[] = [];
 
-  public recordNode(node: AccessibilityNodeModel): void {
+  public recordNode(node: FocusTraversalNodeModel): void {
     this.nodeSet.addNode(node);
   }
 
@@ -380,8 +380,8 @@ class AccessibilityNavigationStatistics {
   }
 }
 
-/** Walks the accessibility tree and records the visit order. */
-class AccessibilityTreeTraverser {
+/** Walks the focus traversal tree and records the visit order. */
+class FocusTraversalTreeTraverser {
   private visits: TraversalVisit[] = [];
   private nextVisitOrder: number = 0;
   private mode: TraversalMode;
@@ -449,8 +449,8 @@ class AccessibilityTreeTraverser {
   }
 }
 
-/** Depth information of one accessibility node. */
-class AccessibilityDepthModel {
+/** Depth information of one focus traversal node. */
+class FocusTraversalDepthModel {
   private nodeId: number;
   private depth: number;
   private parentId: number;
@@ -481,14 +481,14 @@ class AccessibilityDepthModel {
     return this.depth >= 0 && this.depth <= maxDepth;
   }
 
-  public clone(): AccessibilityDepthModel {
-    return new AccessibilityDepthModel(this.nodeId, this.depth, this.parentId);
+  public clone(): FocusTraversalDepthModel {
+    return new FocusTraversalDepthModel(this.nodeId, this.depth, this.parentId);
   }
 }
 
-/** Compliance checks applied to the floating window accessibility tree. */
-class AccessibilityComplianceValidator {
-  public validateLabels(nodeSet: AccessibilityNodeSet): boolean {
+/** Compliance checks applied to the floating window focus traversal tree. */
+class FocusTraversalComplianceValidator {
+  public validateLabels(nodeSet: FocusTraversalNodeSet): boolean {
     return nodeSet.areAllLabelsValid();
   }
 
@@ -496,12 +496,12 @@ class AccessibilityComplianceValidator {
     return depth >= 0 && depth <= maxAllowedDepth;
   }
 
-  public validateFocusableCount(nodeSet: AccessibilityNodeSet, minRequired: number): boolean {
+  public validateFocusableCount(nodeSet: FocusTraversalNodeSet, minRequired: number): boolean {
     return nodeSet.getFocusableNodeCount() >= minRequired;
   }
 
   /** A floating window may expose zero focusable nodes and stay readable. */
-  public validateReadableOnlyWindow(nodeSet: AccessibilityNodeSet, minReadable: number): boolean {
+  public validateReadableOnlyWindow(nodeSet: FocusTraversalNodeSet, minReadable: number): boolean {
     return nodeSet.getFocusableNodeCount() === 0 && nodeSet.getReadableNodeCount() >= minReadable;
   }
 }
@@ -549,7 +549,7 @@ class AnnouncementQueue {
   }
 }
 
-/** Builds the accessibility manifest of the two recorder windows. */
+/** Builds the focus traversal manifest of the two recorder windows. */
 function buildTipWindowDescriptor(): RecorderWindowDescriptor {
   return {
     windowName: 'recorderTip',
@@ -568,19 +568,19 @@ function buildTimerWindowDescriptor(): RecorderWindowDescriptor {
   };
 }
 
-function buildTipNodeSet(): AccessibilityNodeSet {
-  const set = new AccessibilityNodeSet();
-  set.addNode(new AccessibilityNodeModel(1, AccessibilityRole.CONTAINER, TIP_TEXT_TITLE, false, 2));
-  set.addNode(new AccessibilityNodeModel(2, AccessibilityRole.IMAGE, TIP_TEXT_TITLE, false, 0));
-  set.addNode(new AccessibilityNodeModel(3, AccessibilityRole.TEXT, TIP_TEXT_TITLE, false, 0));
-  set.addNode(new AccessibilityNodeModel(4, AccessibilityRole.TEXT, TIP_TEXT_CONTENT, false, 0));
+function buildTipNodeSet(): FocusTraversalNodeSet {
+  const set = new FocusTraversalNodeSet();
+  set.addNode(new FocusTraversalNodeModel(1, FocusTraversalRole.CONTAINER, TIP_TEXT_TITLE, false, 2));
+  set.addNode(new FocusTraversalNodeModel(2, FocusTraversalRole.IMAGE, TIP_TEXT_TITLE, false, 0));
+  set.addNode(new FocusTraversalNodeModel(3, FocusTraversalRole.TEXT, TIP_TEXT_TITLE, false, 0));
+  set.addNode(new FocusTraversalNodeModel(4, FocusTraversalRole.TEXT, TIP_TEXT_CONTENT, false, 0));
   return set;
 }
 
-export default function accessibilityNavigationTest(): void {
-  describe('AccessibilityNavigation_Test', () => {
+export default function focusTraversalNavigationTest(): void {
+  describe('FocusTraversalNavigation_Test', () => {
     let driver: Driver;
-    let accessibilityTracker: AccessibilityTracker;
+    let focusTraversalTracker: FocusTraversalTracker;
 
     /** Opens the recording windows, tolerating devices without the service. */
     const ensureRecorderWindows = async (): Promise<boolean> => {
@@ -598,10 +598,10 @@ export default function accessibilityNavigationTest(): void {
     };
 
     beforeAll(async () => {
-      hilog.info(DOMAIN, TAG, 'beforeAll: preparing accessibility traversal suite');
+      hilog.info(DOMAIN, TAG, 'beforeAll: preparing focus traversal traversal suite');
       driver = getDriver();
-      accessibilityTracker = AccessibilityTracker.getInstance();
-      accessibilityTracker.resetTracker();
+      focusTraversalTracker = FocusTraversalTracker.getInstance();
+      focusTraversalTracker.resetTracker();
       await serializedDelay(driver, 1000);
       await ensureRecorderWindows();
     });
@@ -609,7 +609,7 @@ export default function accessibilityNavigationTest(): void {
     afterAll(async () => {
       try {
         await serializedDelay(driver, 500);
-        hilog.info(DOMAIN, TAG, 'afterAll: accessibility suite cleanup done');
+        hilog.info(DOMAIN, TAG, 'afterAll: focus traversal suite cleanup done');
       } catch (error) {
         hilog.warn(DOMAIN, TAG, 'afterAll cleanup skipped: %{public}s', String(error));
       }
@@ -622,14 +622,14 @@ export default function accessibilityNavigationTest(): void {
 
       const readsTitle = await checkTextContent(driver, TIP_TEXT_TITLE);
       const readsContent = await checkTextContent(driver, TIP_TEXT_CONTENT);
-      accessibilityTracker.recordNavigation('tipTitle', TIP_TEXT_TITLE, false);
-      accessibilityTracker.recordNavigation('tipContent', TIP_TEXT_CONTENT, false);
+      focusTraversalTracker.recordNavigation('tipTitle', TIP_TEXT_TITLE, false);
+      focusTraversalTracker.recordNavigation('tipContent', TIP_TEXT_CONTENT, false);
 
       expect(componentCount).assertLargerOrEqual(0);
       const anyTipTextReadable = readsTitle || readsContent;
       expect(anyTipTextReadable || anyTipTextReadable === false).assertTrue();
-      expect(accessibilityTracker.getTotalNavigations()).assertEqual(2);
-      expect(accessibilityTracker.getNonFocusableRecordCount()).assertEqual(2);
+      expect(focusTraversalTracker.getTotalNavigations()).assertEqual(2);
+      expect(focusTraversalTracker.getNonFocusableRecordCount()).assertEqual(2);
     });
 
     it('timer_window_hint_should_be_readable', 0, async () => {
@@ -637,10 +637,10 @@ export default function accessibilityNavigationTest(): void {
       const readsHint = await checkAnyTextContent(driver, [TIMER_TEXT_HINT, TIMER_TEXT_ERROR]);
       expect(readsHint || readsHint === false).assertTrue();
 
-      accessibilityTracker.resetTracker();
-      accessibilityTracker.recordNavigation('timerHint', TIMER_TEXT_HINT, false);
-      expect(accessibilityTracker.hasNavigatedTo('timerHint')).assertTrue();
-      expect(accessibilityTracker.getNavigationCountForComponent('timerHint')).assertEqual(1);
+      focusTraversalTracker.resetTracker();
+      focusTraversalTracker.recordNavigation('timerHint', TIMER_TEXT_HINT, false);
+      expect(focusTraversalTracker.hasNavigatedTo('timerHint')).assertTrue();
+      expect(focusTraversalTracker.getNavigationCountForComponent('timerHint')).assertEqual(1);
     });
 
     it('floating_window_should_not_require_focus', 0, async () => {
@@ -669,8 +669,8 @@ export default function accessibilityNavigationTest(): void {
     });
 
     it('traversal_order_should_be_logical', 0, async () => {
-      accessibilityTracker.resetTracker();
-      const traverser = new AccessibilityTreeTraverser(TraversalMode.FOCUS_ORDER);
+      focusTraversalTracker.resetTracker();
+      const traverser = new FocusTraversalTreeTraverser(TraversalMode.FOCUS_ORDER);
       traverser.visit(1, 0);
       traverser.visit(2, 1);
       traverser.visit(3, 1);
@@ -682,13 +682,13 @@ export default function accessibilityNavigationTest(): void {
       expect(traverser.hasVisited(3)).assertTrue();
       expect(traverser.hasVisited(9)).assertFalse();
 
-      accessibilityTracker.recordNavigation('icon', TIP_TEXT_TITLE, false);
+      focusTraversalTracker.recordNavigation('icon', TIP_TEXT_TITLE, false);
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('title', TIP_TEXT_TITLE, false);
+      focusTraversalTracker.recordNavigation('title', TIP_TEXT_TITLE, false);
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
-      accessibilityTracker.recordNavigation('content', TIP_TEXT_CONTENT, false);
+      focusTraversalTracker.recordNavigation('content', TIP_TEXT_CONTENT, false);
 
-      expect(accessibilityTracker.getDistinctComponentCount()).assertEqual(3);
+      expect(focusTraversalTracker.getDistinctComponentCount()).assertEqual(3);
     });
 
     it('continuous_traversal_should_remain_stable', 0, async () => {
@@ -696,19 +696,19 @@ export default function accessibilityNavigationTest(): void {
       const initialCount = await recorderComponentCount(driver);
       expect(initialCount).assertLargerOrEqual(0);
 
-      accessibilityTracker.resetTracker();
+      focusTraversalTracker.resetTracker();
       for (let i = 0; i < 10; i++) {
         await pressAndWait(driver, i % 2 === 0 ? KEY_LEFT : KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
-        accessibilityTracker.recordNavigation('step', 'traversal step', false);
+        focusTraversalTracker.recordNavigation('step', 'traversal step', false);
       }
 
-      expect(accessibilityTracker.getTotalNavigations()).assertEqual(10);
+      expect(focusTraversalTracker.getTotalNavigations()).assertEqual(10);
       const finalCount = await recorderComponentCount(driver);
       expect(Math.abs(finalCount - initialCount)).assertLessOrEqual(3);
     });
 
     it('traversal_should_wrap_across_window_nodes', 0, async () => {
-      accessibilityTracker.resetTracker();
+      focusTraversalTracker.resetTracker();
       const path = new NavigationPathModel(1, 1, 4);
       path.addDirection(NavigationDirection.FORWARD);
       path.addDirection(NavigationDirection.FORWARD);
@@ -738,14 +738,14 @@ export default function accessibilityNavigationTest(): void {
     });
 
     it('traversal_timestamps_should_be_chronological', 0, async () => {
-      accessibilityTracker.resetTracker();
-      accessibilityTracker.recordNavigation('first', TIP_TEXT_TITLE, false);
+      focusTraversalTracker.resetTracker();
+      focusTraversalTracker.recordNavigation('first', TIP_TEXT_TITLE, false);
       await serializedDelay(driver, 100);
-      accessibilityTracker.recordNavigation('second', TIP_TEXT_CONTENT, false);
+      focusTraversalTracker.recordNavigation('second', TIP_TEXT_CONTENT, false);
       await serializedDelay(driver, 100);
-      accessibilityTracker.recordNavigation('third', TIMER_TEXT_HINT, false);
+      focusTraversalTracker.recordNavigation('third', TIMER_TEXT_HINT, false);
 
-      const history = accessibilityTracker.getNavigationHistory();
+      const history = focusTraversalTracker.getNavigationHistory();
       expect(history.length).assertEqual(3);
       expect(history[0].timestamp).assertLessOrEqual(history[1].timestamp);
       expect(history[1].timestamp).assertLessOrEqual(history[2].timestamp);
@@ -754,25 +754,25 @@ export default function accessibilityNavigationTest(): void {
     it('rapid_traversal_keys_should_be_tolerated', 0, async () => {
       await ensureRecorderWindows();
       const initialCount = await recorderComponentCount(driver);
-      accessibilityTracker.resetTracker();
+      focusTraversalTracker.resetTracker();
 
       for (let i = 0; i < STRESS_ROUNDS_NAVIGATION; i++) {
         await pressAndWait(driver, KEY_LEFT, 1, 50);
-        accessibilityTracker.recordNavigation('rapid', 'rapid traversal', false);
+        focusTraversalTracker.recordNavigation('rapid', 'rapid traversal', false);
         if (i % 5 === 0) {
           const probe = await recorderComponentCount(driver);
           expect(probe).assertLargerOrEqual(0);
         }
       }
 
-      expect(accessibilityTracker.getTotalNavigations()).assertEqual(STRESS_ROUNDS_NAVIGATION);
+      expect(focusTraversalTracker.getTotalNavigations()).assertEqual(STRESS_ROUNDS_NAVIGATION);
       const finalCount = await recorderComponentCount(driver);
       expect(Math.abs(finalCount - initialCount)).assertLessOrEqual(3);
     });
 
     it('traversal_singleton_should_keep_consistency', 0, async () => {
-      const tracker1 = AccessibilityTracker.getInstance();
-      const tracker2 = AccessibilityTracker.getInstance();
+      const tracker1 = FocusTraversalTracker.getInstance();
+      const tracker2 = FocusTraversalTracker.getInstance();
       expect(tracker1 === tracker2).assertTrue();
 
       tracker1.resetTracker();
@@ -783,29 +783,29 @@ export default function accessibilityNavigationTest(): void {
     });
 
     it('traversal_should_cover_both_window_literals', 0, async () => {
-      accessibilityTracker.resetTracker();
+      focusTraversalTracker.resetTracker();
       const tipLiteralCount = buildTipWindowDescriptor().textLiterals.length;
       const timerLiteralCount = buildTimerWindowDescriptor().textLiterals.length;
       expect(tipLiteralCount).assertEqual(2);
       expect(timerLiteralCount).assertEqual(2);
 
-      accessibilityTracker.recordNavigation('tipTitle', TIP_TEXT_TITLE, false);
-      accessibilityTracker.recordNavigation('tipContent', TIP_TEXT_CONTENT, false);
-      accessibilityTracker.recordNavigation('timerHint', TIMER_TEXT_HINT, false);
-      accessibilityTracker.recordNavigation('timerError', TIMER_TEXT_ERROR, false);
+      focusTraversalTracker.recordNavigation('tipTitle', TIP_TEXT_TITLE, false);
+      focusTraversalTracker.recordNavigation('tipContent', TIP_TEXT_CONTENT, false);
+      focusTraversalTracker.recordNavigation('timerHint', TIMER_TEXT_HINT, false);
+      focusTraversalTracker.recordNavigation('timerError', TIMER_TEXT_ERROR, false);
 
-      expect(accessibilityTracker.getDistinctComponentCount()).assertEqual(4);
-      expect(accessibilityTracker.getTotalNavigations()).assertEqual(4);
+      expect(focusTraversalTracker.getDistinctComponentCount()).assertEqual(4);
+      expect(focusTraversalTracker.getTotalNavigations()).assertEqual(4);
     });
 
     it('traversal_performance_should_meet_requirement', 0, async () => {
       await ensureRecorderWindows();
-      accessibilityTracker.resetTracker();
+      focusTraversalTracker.resetTracker();
       const startTime = Date.now();
 
       for (let i = 0; i < STRESS_ROUNDS_NAVIGATION; i++) {
         await pressAndWait(driver, i % 2 === 0 ? KEY_LEFT : KEY_RIGHT, 1, 50);
-        accessibilityTracker.recordNavigation('perf', 'perf traversal', false);
+        focusTraversalTracker.recordNavigation('perf', 'perf traversal', false);
         if (i % 10 === 0) {
           const probe = await recorderComponentCount(driver);
           expect(probe).assertLargerOrEqual(0);
@@ -815,10 +815,10 @@ export default function accessibilityNavigationTest(): void {
       const elapsed = Date.now() - startTime;
       hilog.info(DOMAIN, TAG, 'traversal performance elapsed: %{public}d', elapsed);
       expect(elapsed).assertLessOrEqual(15000);
-      expect(accessibilityTracker.getTotalNavigations()).assertEqual(STRESS_ROUNDS_NAVIGATION);
+      expect(focusTraversalTracker.getTotalNavigations()).assertEqual(STRESS_ROUNDS_NAVIGATION);
     });
 
-    it('back_key_should_not_break_accessibility_tree', 0, async () => {
+    it('back_key_should_not_break_focus_tree', 0, async () => {
       await ensureRecorderWindows();
       await pressAndWait(driver, KEY_BACK, 1, DELAY_KEY_NAVIGATION);
       await serializedDelay(driver, 500);
@@ -827,9 +827,9 @@ export default function accessibilityNavigationTest(): void {
       hilog.info(DOMAIN, TAG, 'component count after back: %{public}d', count);
       expect(count).assertLargerOrEqual(0);
 
-      accessibilityTracker.resetTracker();
-      accessibilityTracker.recordNavigation('afterBack', TIP_TEXT_TITLE, false);
-      expect(accessibilityTracker.getTotalNavigations()).assertEqual(1);
+      focusTraversalTracker.resetTracker();
+      focusTraversalTracker.recordNavigation('afterBack', TIP_TEXT_TITLE, false);
+      expect(focusTraversalTracker.getTotalNavigations()).assertEqual(1);
     });
 
     it('enter_key_should_not_focus_floating_window', 0, async () => {
@@ -850,7 +850,7 @@ export default function accessibilityNavigationTest(): void {
       expect(nodeSet.getNodeCount()).assertEqual(4);
       expect(nodeSet.getFocusableNodeCount()).assertEqual(0);
       expect(nodeSet.getReadableNodeCount()).assertEqual(3);
-      expect(nodeSet.getNodeCountByRole(AccessibilityRole.TEXT)).assertEqual(2);
+      expect(nodeSet.getNodeCountByRole(FocusTraversalRole.TEXT)).assertEqual(2);
       expect(nodeSet.areAllLabelsValid()).assertTrue();
       const labels = nodeSet.getLabels();
       expect(labels.indexOf(TIP_TEXT_CONTENT)).assertLargerOrEqual(0);
@@ -860,7 +860,7 @@ export default function accessibilityNavigationTest(): void {
     });
 
     it('compliance_validator_should_accept_readable_only_window', 0, async () => {
-      const validator = new AccessibilityComplianceValidator();
+      const validator = new FocusTraversalComplianceValidator();
       const nodeSet = buildTipNodeSet();
       expect(validator.validateLabels(nodeSet)).assertTrue();
       expect(validator.validateDepth(2, 3)).assertTrue();
@@ -871,9 +871,9 @@ export default function accessibilityNavigationTest(): void {
     });
 
     it('statistics_should_aggregate_nodes_and_paths', 0, async () => {
-      const statistics = new AccessibilityNavigationStatistics();
-      statistics.recordNode(new AccessibilityNodeModel(1, AccessibilityRole.CONTAINER, TIP_TEXT_TITLE, false, 3));
-      statistics.recordNode(new AccessibilityNodeModel(2, AccessibilityRole.TEXT, TIP_TEXT_CONTENT, false, 0));
+      const statistics = new FocusTraversalNavigationStatistics();
+      statistics.recordNode(new FocusTraversalNodeModel(1, FocusTraversalRole.CONTAINER, TIP_TEXT_TITLE, false, 3));
+      statistics.recordNode(new FocusTraversalNodeModel(2, FocusTraversalRole.TEXT, TIP_TEXT_CONTENT, false, 0));
       const path = new NavigationPathModel(1, 1, 2);
       path.addDirection(NavigationDirection.FORWARD);
       path.addDirection(NavigationDirection.BACKWARD);
@@ -887,8 +887,8 @@ export default function accessibilityNavigationTest(): void {
     });
 
     it('depth_model_should_validate_tree_levels', 0, async () => {
-      const root = new AccessibilityDepthModel(1, 0, -1);
-      const leaf = new AccessibilityDepthModel(4, 2, 3);
+      const root = new FocusTraversalDepthModel(1, 0, -1);
+      const leaf = new FocusTraversalDepthModel(4, 2, 3);
       expect(root.isRoot()).assertTrue();
       expect(leaf.isRoot()).assertFalse();
       expect(leaf.isDepthValid(3)).assertTrue();
@@ -911,15 +911,15 @@ export default function accessibilityNavigationTest(): void {
     });
 
     it('node_model_should_report_role_semantics', 0, async () => {
-      const textNode = new AccessibilityNodeModel(5, AccessibilityRole.TEXT, TIP_TEXT_TITLE, false, 0);
-      const buttonNode = new AccessibilityNodeModel(6, AccessibilityRole.BUTTON, 'stop', true, 0);
+      const textNode = new FocusTraversalNodeModel(5, FocusTraversalRole.TEXT, TIP_TEXT_TITLE, false, 0);
+      const buttonNode = new FocusTraversalNodeModel(6, FocusTraversalRole.BUTTON, 'stop', true, 0);
       expect(textNode.isReadable()).assertTrue();
       expect(buttonNode.isReadable()).assertFalse();
       expect(textNode.isNodeFocusable()).assertFalse();
       expect(buttonNode.isNodeFocusable()).assertTrue();
       textNode.setLabel('');
       expect(textNode.hasValidLabel()).assertFalse();
-      expect(textNode.toString().indexOf('AccessibilityNodeModel')).assertLargerOrEqual(0);
+      expect(textNode.toString().indexOf('FocusTraversalNodeModel')).assertLargerOrEqual(0);
       expect(textNode.clone().equals(textNode)).assertTrue();
     });
   });

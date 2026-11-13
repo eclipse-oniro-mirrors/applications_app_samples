@@ -1131,8 +1131,8 @@ export default function recordingOperationCatalogTest(): void {
       expect(OperationRiskLevel.RISK_MODERATE).assertLarger(OperationRiskLevel.RISK_SAFE);
     });
 
-    // UI: the catalog is consistent with the running sample surface.
-    it('catalog_should_match_running_surface', 0, async () => {
+    // UI: the catalog is consistent with the running sample state.
+    it('catalog_should_match_running_state', 0, async () => {
       const count: number = await recorderComponentCount(driver);
       expect(count).assertLargerOrEqual(0);
       const validator = new OperationCatalogValidator(RecordingOperationCatalog.getAll());

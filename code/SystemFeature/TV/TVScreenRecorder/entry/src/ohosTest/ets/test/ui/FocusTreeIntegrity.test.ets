@@ -26,12 +26,12 @@ import {
   assertNumberEqual,
   assertTrue
 } from '../foundation/TestAsserts';
-import { AccessibilityTreeHarness } from './AccessibilityLayoutHarness';
+import { FocusTraversalTreeHarness } from './FocusLayoutHarness';
 
-export default function accessibilityTreeIntegrityTest(): void {
-  describe('AccessibilityTreeIntegrityTest', () => {
-    it('AccessibilityTree_CorePageNodesBuildValidRootedTree_001', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+export default function focusTreeIntegrityTest(): void {
+  describe('FocusTreeIntegrityTest', () => {
+    it('FocusTraversalTree_CorePageNodesBuildValidRootedTree_001', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       harness.addNode('root', 'page', '录屏主页');
       harness.addNode('start', 'button', '开始录屏', 'root');
       harness.addNode('recent', 'list', '最近任务', 'root');
@@ -40,15 +40,15 @@ export default function accessibilityTreeIntegrityTest(): void {
       assertNumberEqual(harness.getNodeCount(), 4);
     });
 
-    it('AccessibilityTree_MissingParentFailsValidation_002', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+    it('FocusTraversalTree_MissingParentFailsValidation_002', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       harness.addNode('start', 'button', '开始录屏', 'root');
       assertNumberEqual(harness.validateTree(), -1);
       assertArrayLength(harness.getNodes(), 1);
     });
 
-    it('AccessibilityTree_UnreadableNodeReducesReadableCount_003', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+    it('FocusTraversalTree_UnreadableNodeReducesReadableCount_003', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       harness.addNode('root', 'page', '录屏主页');
       harness.addNode('timer', 'text', '00:01', 'root');
       harness.addNode('hint', 'text', '同时按下菜单键与音量减键，即可结束录屏', 'root');
@@ -58,8 +58,8 @@ export default function accessibilityTreeIntegrityTest(): void {
       assertContains(harness.flattenReadableText(), '00:01');
     });
 
-    it('AccessibilityTree_BulkNodeReplayBuildsDistinctRoleCoverage_004', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+    it('FocusTraversalTree_BulkNodeReplayBuildsDistinctRoleCoverage_004', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       const counter = new FoundationScenarioCounter();
       harness.addNode('root', 'page', '录屏');
       const roles = ['button', 'text', 'image', 'list', 'dialog'];
@@ -72,12 +72,12 @@ export default function accessibilityTreeIntegrityTest(): void {
       assertAtLeast(harness.getNodeCount(), 41);
     });
 
-    it('AccessibilityTree_DualPassFlattenFingerprintRemainsStable_005', 0, () => {
+    it('FocusTraversalTree_DualPassFlattenFingerprintRemainsStable_005', 0, () => {
       const names = buildFoundationAssetNames('a11y', 18);
       const checksumA = new FoundationRollingChecksum();
       const checksumB = new FoundationRollingChecksum();
       for (let pass = 0; pass < 2; pass++) {
-        const harness = new AccessibilityTreeHarness();
+        const harness = new FocusTraversalTreeHarness();
         harness.addNode('root', 'page', '录屏主页');
         for (let index = 0; index < names.length; index++) {
           harness.addNode(`asset_${index}`, 'text', names[index], 'root');
@@ -92,8 +92,8 @@ export default function accessibilityTreeIntegrityTest(): void {
       assertNumberEqual(checksumA.getValue(), checksumB.getValue());
     });
 
-    it('AccessibilityTree_LongRunAppendKeepsReadableTrailGrowing_006', 0, () => {
-      const harness = new AccessibilityTreeHarness();
+    it('FocusTraversalTree_LongRunAppendKeepsReadableTrailGrowing_006', 0, () => {
+      const harness = new FocusTraversalTreeHarness();
       harness.addNode('root', 'page', '录屏主页');
       for (let round = 0; round < 120; round++) {
         harness.addNode(`long_${round}`, 'text', `节点_${round}`, 'root');

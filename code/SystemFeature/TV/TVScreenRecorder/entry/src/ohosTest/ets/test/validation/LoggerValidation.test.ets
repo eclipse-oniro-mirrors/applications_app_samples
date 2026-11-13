@@ -85,7 +85,7 @@ const LOGGER_PREFIX: string = '[Sample_ScreenRecorder]';
 
 const LOGGER_FORMAT: string = '%{public}s, %{public}s';
 
-// Model of the project logger. It exposes the same API surface as
+// Model of the project logger. It exposes the same API contract as
 // `common/Logger.ets` (debug / info / warn / error / fatal / isLoggable) plus
 // the query helpers that the validation scenarios need.
 class RecorderLoggerModel {

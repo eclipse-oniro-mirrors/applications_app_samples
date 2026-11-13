@@ -487,7 +487,7 @@ export default function screenRecorderEndToEndTest(): void {
       await serializedDelay(driver, 300);
     });
 
-    // End-to-end: starting the service must surface the timer window.
+    // End-to-end: starting the service must display the timer window.
     it('service_start_should_render_recording_timer', 0, async () => {
       await triggerRecordingStart(driver);
       const visible: boolean = await waitForTimerWindowStable(driver, TIMEOUT_TIMER_RENDER);

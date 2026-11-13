@@ -14,10 +14,6 @@
  */
 
 // Aggregated entry of the TVScreenRecorder test suite.
-// Every module below validates one functional area of the screen recorder:
-// recording state machine, floating timer/tip windows, service extension
-// lifecycle, input stop combination, persistence and performance budgets.
-
 import abilityTest from './Ability.test';
 import abilityLifecycleTest from './ability/AbilityLifecycle.test';
 import abilityLifecycleConcurrencyDeepTest from './ability/AbilityLifecycleConcurrencyDeep.test';
@@ -48,7 +44,6 @@ import networkConnectivityTest from './integration/NetworkConnectivity.test';
 import recorderCompatibilityTest from './integration/RecorderCompatibility.test';
 import systemIntegrationTest from './integration/SystemIntegration.test';
 import userScenariosTest from './integration/UserScenarios.test';
-import accessibilityNavigationTest from './interaction/AccessibilityNavigation.test';
 import buttonInteractionTest from './interaction/ButtonInteraction.test';
 import contentScalingTest from './interaction/ContentScaling.test';
 import dataBindingTest from './interaction/DataBinding.test';
@@ -57,6 +52,7 @@ import eventHandlingTest from './interaction/EventHandling.test';
 import eventPropagationTest from './interaction/EventPropagation.test';
 import focusNavigationTest from './interaction/FocusNavigation.test';
 import focusRingBehaviorTest from './interaction/FocusRingBehavior.test';
+import focusTraversalNavigationTest from './interaction/FocusTraversalNavigation.test';
 import gestureRecognitionTest from './interaction/GestureRecognition.test';
 import themeVariationTest from './interaction/ThemeVariation.test';
 import touchInteractionTest from './interaction/TouchInteraction.test';
@@ -109,7 +105,7 @@ import recordingDataSourceValidationTest from './recordervalidation/RecordingDat
 import recordingSessionValidationTest from './recordervalidation/RecordingSessionValidation.test';
 import srManagerEventToolValidationTest from './recordervalidation/SRManagerEventToolValidation.test';
 import recorderSecurityTest from './security/RecorderSecurity.test';
-import securityAccessibilityTest from './security/SecurityAccessibility.test';
+import securityReadabilityTest from './security/SecurityReadability.test';
 import securityValidationTest from './security/SecurityValidation.test';
 import abilityCommandFlowTest from './service/AbilityCommandFlow.test';
 import inputShortcutDeepTest from './service/InputShortcutDeep.test';
@@ -121,10 +117,10 @@ import srManagerDomainTest from './srmanager/SRManagerDomain.test';
 import srManagerFaultAndRecoveryTest from './srmanager/SRManagerFaultAndRecovery.test';
 import srManagerPersistenceLifecycleTest from './srmanager/SRManagerPersistenceLifecycle.test';
 import srManagerStateMatrixDeepTest from './srmanager/SRManagerStateMatrixDeep.test';
-import accessibilityTextReadabilityTest from './ui/AccessibilityTextReadability.test';
-import accessibilityTreeIntegrityTest from './ui/AccessibilityTreeIntegrity.test';
 import desktopLayoutBoundaryRegressionTest from './ui/DesktopLayoutBoundaryRegression.test';
 import focusNavigationAndRenderMatrixTest from './ui/FocusNavigationAndRenderMatrix.test';
+import focusTextReadabilityTest from './ui/FocusTextReadability.test';
+import focusTreeIntegrityTest from './ui/FocusTreeIntegrity.test';
 import recentStatusBarJointRegressionTest from './ui/RecentStatusBarJointRegression.test';
 import uiDialogPresentationMatrixTest from './ui/UIDialogPresentationMatrix.test';
 import uiEditShortcutRegressionTest from './ui/UIEditShortcutRegression.test';
@@ -180,7 +176,6 @@ export default function testsuite(): void {
   recorderCompatibilityTest();
   systemIntegrationTest();
   userScenariosTest();
-  accessibilityNavigationTest();
   buttonInteractionTest();
   contentScalingTest();
   dataBindingTest();
@@ -189,6 +184,7 @@ export default function testsuite(): void {
   eventPropagationTest();
   focusNavigationTest();
   focusRingBehaviorTest();
+  focusTraversalNavigationTest();
   gestureRecognitionTest();
   themeVariationTest();
   touchInteractionTest();
@@ -241,7 +237,7 @@ export default function testsuite(): void {
   recordingSessionValidationTest();
   srManagerEventToolValidationTest();
   recorderSecurityTest();
-  securityAccessibilityTest();
+  securityReadabilityTest();
   securityValidationTest();
   abilityCommandFlowTest();
   inputShortcutDeepTest();
@@ -253,10 +249,10 @@ export default function testsuite(): void {
   srManagerFaultAndRecoveryTest();
   srManagerPersistenceLifecycleTest();
   srManagerStateMatrixDeepTest();
-  accessibilityTextReadabilityTest();
-  accessibilityTreeIntegrityTest();
   desktopLayoutBoundaryRegressionTest();
   focusNavigationAndRenderMatrixTest();
+  focusTextReadabilityTest();
+  focusTreeIntegrityTest();
   recentStatusBarJointRegressionTest();
   uiDialogPresentationMatrixTest();
   uiEditShortcutRegressionTest();

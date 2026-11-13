@@ -1006,11 +1006,11 @@ export default function recorderNotificationTest(): void {
       expect(validator.collectViolations(good).length).assertEqual(0);
     });
 
-    // UI smoke check: the notification surface stays observable.
-    it('notification_surface_should_stay_observable', 0, async () => {
+    // UI smoke check: the notification state stays observable.
+    it('notification_state_should_stay_observable', 0, async () => {
       const count: number = await recorderComponentCount(driver);
       expect(count >= 0).assertEqual(true);
-      hilog.info(DOMAIN, TAG, 'recorder notification surface observed');
+      hilog.info(DOMAIN, TAG, 'recorder notification state observed');
     });
   });
 }

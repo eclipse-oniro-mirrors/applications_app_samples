@@ -15,7 +15,7 @@
 
 import { FoundationStorageEntity } from '../foundation/FoundationAdvancedFixtures';
 
-export interface AccessibilityNodeRecord {
+export interface FocusTraversalNodeRecord {
   id: string
   role: string
   text: string
@@ -50,7 +50,7 @@ export interface JointRecentRecord {
   state: string
 }
 
-class AccessibilityNodeRecordEntity implements AccessibilityNodeRecord {
+class FocusTraversalNodeRecordEntity implements FocusTraversalNodeRecord {
   id: string
   role: string
   text: string
@@ -66,15 +66,15 @@ class AccessibilityNodeRecordEntity implements AccessibilityNodeRecord {
   }
 }
 
-export class AccessibilityTreeHarness {
-  private nodes: Map<string, AccessibilityNodeRecord> = new Map()
+export class FocusTraversalTreeHarness {
+  private nodes: Map<string, FocusTraversalNodeRecord> = new Map()
   private order: string[] = []
 
   addNode(id: string, role: string, text: string, parentId: string = ''): number {
     if (id.length === 0 || role.length === 0) {
       return -1;
     }
-    const node = new AccessibilityNodeRecordEntity(id, role, text, parentId, text.trim().length > 0);
+    const node = new FocusTraversalNodeRecordEntity(id, role, text, parentId, text.trim().length > 0);
     this.nodes.set(id, node);
     this.order.push(id);
     return 0;
@@ -85,14 +85,14 @@ export class AccessibilityTreeHarness {
     if (node === undefined) {
       return;
     }
-    const updatedNode = new AccessibilityNodeRecordEntity(node.id, node.role, node.text, node.parentId, false);
+    const updatedNode = new FocusTraversalNodeRecordEntity(node.id, node.role, node.text, node.parentId, false);
     this.nodes.set(id, updatedNode);
   }
 
   validateTree(): number {
     let rootCount = 0;
     let valid = true;
-    this.nodes.forEach((node: AccessibilityNodeRecord) => {
+    this.nodes.forEach((node: FocusTraversalNodeRecord) => {
       if (node.parentId.length === 0) {
         rootCount += 1
       } else if (!this.nodes.has(node.parentId)) {
@@ -119,7 +119,7 @@ export class AccessibilityTreeHarness {
 
   getReadableCount(): number {
     let total = 0;
-    this.nodes.forEach((node: AccessibilityNodeRecord) => {
+    this.nodes.forEach((node: FocusTraversalNodeRecord) => {
       if (node.readable) {
         total += 1
       }
@@ -127,8 +127,8 @@ export class AccessibilityTreeHarness {
     return total;
   }
 
-  getNodes(): AccessibilityNodeRecord[] {
-    const records: AccessibilityNodeRecord[] = [];
+  getNodes(): FocusTraversalNodeRecord[] {
+    const records: FocusTraversalNodeRecord[] = [];
     for (let index = 0; index < this.order.length; index++) {
       const node = this.nodes.get(this.order[index]);
       if (node !== undefined) {

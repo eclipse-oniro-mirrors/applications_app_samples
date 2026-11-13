@@ -163,8 +163,8 @@ class RecorderParamTable {
 
   public static buildDefault(): RecorderParamTable {
     const table = new RecorderParamTable();
-    table.add('VIDEO_SOURCE_TYPE_SURFACE_YUV', 0, 0, 1, 'surface yuv source');
-    table.add('VIDEO_SOURCE_TYPE_SURFACE_ES', 1, 0, 1, 'surface es source');
+    table.add('VIDEO_SOURCE_TYPE_BUFFER_YUV', 0, 0, 1, 'yuv buffer source');
+    table.add('VIDEO_SOURCE_TYPE_BUFFER_ES', 1, 0, 1, 'es buffer source');
     table.add('AUDIO_SOURCE_MIC', 1, 0, 1, 'microphone source');
     table.add('TIME_LENGTH', 2, 1, 6, 'time field padding');
     table.add('RECORD_RESOLUTION_WIDTH', 1920, 320, 3840, 'output width');
@@ -436,7 +436,7 @@ export default function recorderMenuConfigurationTest(): void {
     it('param_table_should_contain_all_production_keys', 0, () => {
       expect(params.getCount()).assertEqual(7);
       expect(params.getOutOfRangeCount()).assertEqual(0);
-      const keys = ['VIDEO_SOURCE_TYPE_SURFACE_YUV', 'VIDEO_SOURCE_TYPE_SURFACE_ES', 'AUDIO_SOURCE_MIC',
+      const keys = ['VIDEO_SOURCE_TYPE_BUFFER_YUV', 'VIDEO_SOURCE_TYPE_BUFFER_ES', 'AUDIO_SOURCE_MIC',
         'TIME_LENGTH', 'RECORD_RESOLUTION_WIDTH', 'RECORD_RESOLUTION_HEIGHT', 'DEVICE_RATE'];
       for (let i = 0; i < keys.length; i++) {
         expect(params.find(keys[i]) !== undefined).assertEqual(true);

@@ -419,8 +419,8 @@ class SRManagerModel {
 
 // Static configuration of the recorder, aligned with Constants.ets.
 class RecorderConfigSpec {
-  public static readonly VIDEO_SOURCE_TYPE_SURFACE_YUV: number = 0;
-  public static readonly VIDEO_SOURCE_TYPE_SURFACE_ES: number = 1;
+  public static readonly VIDEO_SOURCE_TYPE_BUFFER_YUV: number = 0;
+  public static readonly VIDEO_SOURCE_TYPE_BUFFER_ES: number = 1;
   public static readonly AUDIO_SOURCE_MIC: number = 1;
   public static readonly FD_PREFIX: string = 'fd://';
   public static readonly VIRTUAL_SCREEN_NAME: string = 'screenRecorder';
@@ -757,8 +757,8 @@ export default function recordingModelDeepTest(): void {
       expect(RecorderConfigSpec.DEVICE_RATE).assertEqual(0.6);
       expect(RecorderConfigSpec.WIDTH).assertEqual(1920);
       expect(RecorderConfigSpec.HEIGHT).assertEqual(1080);
-      expect(RecorderConfigSpec.VIDEO_SOURCE_TYPE_SURFACE_YUV).assertEqual(0);
-      expect(RecorderConfigSpec.VIDEO_SOURCE_TYPE_SURFACE_ES).assertEqual(1);
+      expect(RecorderConfigSpec.VIDEO_SOURCE_TYPE_BUFFER_YUV).assertEqual(0);
+      expect(RecorderConfigSpec.VIDEO_SOURCE_TYPE_BUFFER_ES).assertEqual(1);
       expect(RecorderConfigSpec.AUDIO_SOURCE_MIC).assertEqual(1);
     });
 

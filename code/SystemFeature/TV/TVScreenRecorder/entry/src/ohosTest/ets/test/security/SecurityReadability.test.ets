@@ -16,14 +16,14 @@
 import { describe, it, expect } from '@ohos/hypium';
 
 /**
- * Accessibility checks of the recorder floating windows.
+ * FocusTraversal checks of the recorder floating windows.
  * The timer window and the tip window are rendered on top of the TV content,
  * therefore their text has to stay readable and their focus behavior must not
  * trap the remote control focus.
  */
 
-/** One accessibility node of a floating window. */
-interface AccessibilityNode {
+/** One focus traversal node of a floating window. */
+interface FocusTraversalNode {
   nodeId: string;
   text: string;
   description: string;
@@ -47,13 +47,13 @@ interface MarqueeCheck {
 }
 
 /**
- * Accessibility tree of one floating window.
+ * FocusTraversal tree of one floating window.
  * The tree keeps insertion order so that traversal assertions stay stable.
  */
-class RecorderAccessibilityTree {
-  private nodes: AccessibilityNode[] = [];
+class RecorderFocusTree {
+  private nodes: FocusTraversalNode[] = [];
 
-  public addNode(node: AccessibilityNode): void {
+  public addNode(node: FocusTraversalNode): void {
     this.nodes.push(node);
   }
 
@@ -81,7 +81,7 @@ class RecorderAccessibilityTree {
     return count;
   }
 
-  public findById(nodeId: string): AccessibilityNode | null {
+  public findById(nodeId: string): FocusTraversalNode | null {
     for (let index = 0; index < this.nodes.length; index++) {
       if (this.nodes[index].nodeId === nodeId) {
         return this.nodes[index];
@@ -371,11 +371,11 @@ class AnnouncementLog {
   }
 }
 
-export default function securityAccessibilityTest(): void {
-  describe('SecurityAccessibility_Test', () => {
+export default function securityReadabilityTest(): void {
+  describe('SecurityFocusTraversal_Test', () => {
     it('timer_hint_should_be_readable_by_screen_reader', 0, () => {
-      const tree = new RecorderAccessibilityTree();
-      const hint: AccessibilityNode = {
+      const tree = new RecorderFocusTree();
+      const hint: FocusTraversalNode = {
         nodeId: 'timer_hint',
         text: '同时按下菜单键与音量减键，即可结束录屏',
         description: '',
@@ -389,8 +389,8 @@ export default function securityAccessibilityTest(): void {
     });
 
     it('timer_label_should_be_announced_with_description', 0, () => {
-      const tree = new RecorderAccessibilityTree();
-      const label: AccessibilityNode = {
+      const tree = new RecorderFocusTree();
+      const label: FocusTraversalNode = {
         nodeId: 'timer_label',
         text: '',
         description: '录屏时长 00:00:05',
@@ -403,18 +403,18 @@ export default function securityAccessibilityTest(): void {
     });
 
     it('unknown_node_should_have_empty_label', 0, () => {
-      const tree = new RecorderAccessibilityTree();
+      const tree = new RecorderFocusTree();
       expect(tree.findById('missing')).assertNull();
       expect(tree.readableLabel('missing')).assertEqual('');
       expect(tree.hasLabel('missing')).assertFalse();
     });
 
     it('tip_window_should_expose_two_labels', 0, () => {
-      const tree = new RecorderAccessibilityTree();
-      const title: AccessibilityNode = {
+      const tree = new RecorderFocusTree();
+      const title: FocusTraversalNode = {
         nodeId: 'tip_title', text: '录屏', description: '', focusable: false, visible: true
       };
-      const content: AccessibilityNode = {
+      const content: FocusTraversalNode = {
         nodeId: 'tip_content', text: '录屏视频已存储到"照片"', description: '', focusable: false, visible: true
       };
       tree.addNode(title);
@@ -426,8 +426,8 @@ export default function securityAccessibilityTest(): void {
     });
 
     it('invisible_nodes_should_be_tracked', 0, () => {
-      const tree = new RecorderAccessibilityTree();
-      const hidden: AccessibilityNode = {
+      const tree = new RecorderFocusTree();
+      const hidden: FocusTraversalNode = {
         nodeId: 'hidden_tip', text: '录屏', description: '', focusable: false, visible: false
       };
       tree.addNode(hidden);
@@ -437,8 +437,8 @@ export default function securityAccessibilityTest(): void {
     });
 
     it('debug_overlay_should_not_add_focusable_nodes', 0, () => {
-      const tree = new RecorderAccessibilityTree();
-      const timer: AccessibilityNode = {
+      const tree = new RecorderFocusTree();
+      const timer: FocusTraversalNode = {
         nodeId: 'timer_root', text: '', description: '录屏计时', focusable: false, visible: true
       };
       tree.addNode(timer);
@@ -593,9 +593,9 @@ export default function securityAccessibilityTest(): void {
       expect(log.countByPrefix('announce')).assertEqual(0);
     });
 
-    it('accessibility_scenario_should_keep_labels_and_contrast', 0, () => {
-      const tree = new RecorderAccessibilityTree();
-      const hint: AccessibilityNode = {
+    it('focus_scenario_should_keep_labels_and_contrast', 0, () => {
+      const tree = new RecorderFocusTree();
+      const hint: FocusTraversalNode = {
         nodeId: 'hint', text: '同时按下菜单键与音量减键，即可结束录屏', description: '',
         focusable: false, visible: true
       };

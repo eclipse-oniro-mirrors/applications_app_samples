@@ -129,7 +129,7 @@ export default function windowCompatibilityMatrixDeepTest(): void {
       assertNumberEqual(harness.getMetrics().shown, 20);
     });
 
-    it('WindowCompatibility_ProfileCrossProductCreatesEnoughSurfaceWork_007', 0, () => {
+    it('WindowCompatibility_ProfileCrossProductCreatesEnoughRenderWork_007', 0, () => {
       const profiles = buildFoundationCompatibilityProfiles();
       const durations = buildFoundationDurations();
       const buckets = buildFoundationCanaryBuckets();
