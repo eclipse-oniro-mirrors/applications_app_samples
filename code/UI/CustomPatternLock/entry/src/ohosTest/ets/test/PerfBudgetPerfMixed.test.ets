@@ -27,7 +27,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_PatternLock_PerfBudget]';
 
 export default function PerfBudgetPerfMixedTest() {
-  describe('PerfBudget_perfMixed', () => {
+  describe('PerfBudgetPerfMixed', () => {
     beforeEach(async () => {
       await paceTurn();
     });

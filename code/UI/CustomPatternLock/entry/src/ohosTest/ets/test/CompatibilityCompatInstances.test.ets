@@ -27,7 +27,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_PatternLock_Compatibility]';
 
 export default function CompatibilityCompatInstancesTest() {
-  describe('Compatibility_compatInstances', () => {
+  describe('CompatibilityCompatInstances', () => {
     beforeEach(async () => {
       await paceTurn();
     });

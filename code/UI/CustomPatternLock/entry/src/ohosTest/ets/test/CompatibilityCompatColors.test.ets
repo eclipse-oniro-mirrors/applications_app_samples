@@ -27,7 +27,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_PatternLock_Compatibility]';
 
 export default function CompatibilityCompatColorsTest() {
-  describe('Compatibility_compatColors', () => {
+  describe('CompatibilityCompatColors', () => {
     beforeEach(async () => {
       await paceTurn();
     });

@@ -27,7 +27,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_PatternLock_InputBoundary]';
 
 export default function InputBoundaryBoundaryOptionsTest() {
-  describe('InputBoundary_boundaryOptions', () => {
+  describe('InputBoundaryBoundaryOptions', () => {
     beforeEach(async () => {
       await paceTurn();
     });

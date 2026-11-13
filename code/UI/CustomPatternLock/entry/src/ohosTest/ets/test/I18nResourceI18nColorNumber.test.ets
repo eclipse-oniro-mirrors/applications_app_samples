@@ -27,7 +27,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_PatternLock_I18nResource]';
 
 export default function I18nResourceI18nColorNumberTest() {
-  describe('I18nResource_i18nColorNumber', () => {
+  describe('I18nResourceI18nColorNumber', () => {
     beforeEach(async () => {
       await paceTurn();
     });

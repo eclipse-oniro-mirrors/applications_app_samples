@@ -27,7 +27,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_PatternLock_RecoveryIsolation]';
 
 export default function RecoveryIsolationRecoverReplaceTest() {
-  describe('RecoveryIsolation_recoverReplace', () => {
+  describe('RecoveryIsolationRecoverReplace', () => {
     beforeEach(async () => {
       await paceTurn();
     });
