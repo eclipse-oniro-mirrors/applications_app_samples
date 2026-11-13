@@ -83,7 +83,230 @@ export default function selectMapConsistencyCoreTest(): void {
       }
     });
 
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_0200
+     * @tc.name      testSelectMapConsistency0002
+     * @tc.desc      Verify selectMapConsistencyCore case 1.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 1;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[1].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[1].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[1].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[1].value as string] !== undefined).assertTrue();
+      }
+    });
 
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_0300
+     * @tc.name      testSelectMapConsistency0003
+     * @tc.desc      Verify selectMapConsistencyCore case 2.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 2;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[2].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[0].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[2].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[2].value as string] !== undefined).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_0400
+     * @tc.name      testSelectMapConsistency0004
+     * @tc.desc      Verify selectMapConsistencyCore case 3.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 3;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[3].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[1].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[3].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[3].value as string] !== undefined).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_0500
+     * @tc.name      testSelectMapConsistency0005
+     * @tc.desc      Verify selectMapConsistencyCore case 4.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 0;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[4].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[0].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[4].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[4].value as string] !== undefined).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_0600
+     * @tc.name      testSelectMapConsistency0006
+     * @tc.desc      Verify selectMapConsistencyCore case 5.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 1;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[5].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[1].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[5].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[0].value as string] !== undefined).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_0700
+     * @tc.name      testSelectMapConsistency0007
+     * @tc.desc      Verify selectMapConsistencyCore case 6.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 2;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[6].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[0].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[6].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[1].value as string] !== undefined).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_0800
+     * @tc.name      testSelectMapConsistency0008
+     * @tc.desc      Verify selectMapConsistencyCore case 7.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 3;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[7].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[1].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[7].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[2].value as string] !== undefined).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_0900
+     * @tc.name      testSelectMapConsistency0009
+     * @tc.desc      Verify selectMapConsistencyCore case 8.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 0;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[8].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[0].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[0].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[3].value as string] !== undefined).assertTrue();
+      }
+    });
+
+    /**
+     * @tc.number    SUB_CAPTURER_CONSISTENCY_1000
+     * @tc.name      testSelectMapConsistency0010
+     * @tc.desc      Verify selectMapConsistencyCore case 9.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testSelectMapConsistency0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      const variant: number = 1;
+      if (variant === 0) {
+        expect(Object.keys(SAMPLING_RATE_KEY_MAP).length).assertEqual(SAMPLING_RATE_OPTIONS.length);
+        expect(SAMPLING_RATE_KEY_MAP[SAMPLING_RATE_OPTIONS[0].value as string] !== undefined).assertTrue();
+      } else if (variant === 1) {
+        expect(Object.keys(CHANNEL_KEY_MAP).length).assertEqual(CHANNEL_OPTIONS.length);
+        expect(CHANNEL_KEY_MAP[CHANNEL_OPTIONS[1].value as string] !== undefined).assertTrue();
+      } else if (variant === 2) {
+        expect(Object.keys(SOURCE_TYPE_KEY_MAP).length).assertEqual(SOURCE_TYPE_OPTIONS.length);
+        expect(SOURCE_TYPE_KEY_MAP[SOURCE_TYPE_OPTIONS[1].value as string] !== undefined).assertTrue();
+      } else {
+        expect(Object.keys(SAMPLE_FORMAT_KEY_MAP).length).assertEqual(SAMPLE_FORMAT_OPTIONS.length);
+        expect(SAMPLE_FORMAT_KEY_MAP[SAMPLE_FORMAT_OPTIONS[4].value as string] !== undefined).assertTrue();
+      }
+    });
 
     /**
      * @tc.number    SUB_CAPTURER_CONSISTENCY_1100
