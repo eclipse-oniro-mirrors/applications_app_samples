@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   SAVE_RULES, SaveDecision, SaveInput, SaveOutcome, SaveRule, TRASH_RETENTION_DAYS, TrashBin,
   TrashEntry, TrashState, decideSave, saveAdvice, saveLines, trashLines
@@ -42,13 +43,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testSaveRuleCases0001', 0, (): void => {
-      expect(SAVE_RULES.length).assertEqual(10);
+    it(caseName('SaveRuleCases', '0001'), 0, (): void => {
+      expect(SAVE_RULES.length, caseName('SaveRuleCases', '0001')).assertEqual(10);
       const codes: string[] = SAVE_RULES.map((rule: SaveRule): string => rule.code);
-      expect(codes[0]).assertEqual('SV-01');
-      expect(codes[9]).assertEqual('SV-10');
+      expect(codes[0], caseName('SaveRuleCases', '0001')).assertEqual('SV-01');
+      expect(codes[9], caseName('SaveRuleCases', '0001')).assertEqual('SV-10');
       expect(codes.filter((code: string, index: number): boolean =>
-        codes.indexOf(code) === index).length).assertEqual(10);
+        codes.indexOf(code) === index).length, caseName('SaveRuleCases', '0001')).assertEqual(10);
     });
 
     /**
@@ -60,15 +61,15 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveRuleCases0002', 0, (): void => {
+    it(caseName('SaveRuleCases', '0002'), 0, (): void => {
       const rule: SaveRule | undefined = SAVE_RULES.find((item: SaveRule): boolean =>
         item.code === 'SV-05');
-      expect(rule?.describe()).assertEqual(
+      expect(rule?.describe(), caseName('SaveRuleCases', '0002')).assertEqual(
         'SV-05｜双方都前进且修订号不同 → 另存为新分支｜另存为新分支，两侧都保留');
-      expect(rule?.describe().split('｜').length).assertEqual(3);
-      expect(rule === undefined).assertFalse();
-      expect(rule?.outcome).assertEqual(SaveOutcome.BRANCH);
-      expect(rule?.describe().indexOf('SV-05') === 0).assertTrue();
+      expect(rule?.describe().split('｜').length, caseName('SaveRuleCases', '0002')).assertEqual(3);
+      expect(rule === undefined, caseName('SaveRuleCases', '0002')).assertFalse();
+      expect(rule?.outcome, caseName('SaveRuleCases', '0002')).assertEqual(SaveOutcome.BRANCH);
+      expect(rule?.describe().indexOf('SV-05') === 0, caseName('SaveRuleCases', '0002')).assertTrue();
     });
 
     /**
@@ -80,11 +81,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveRuleCases0003', 0, (): void => {
-      expect(SaveOutcome.SAFE).assertEqual('可直接保存');
-      expect(SaveOutcome.BRANCH).assertEqual('另存为新分支');
-      expect(SaveOutcome.CONFIRM).assertEqual('需用户确认');
-      expect(SaveOutcome.BLOCKED).assertEqual('保存被阻止');
+    it(caseName('SaveRuleCases', '0003'), 0, (): void => {
+      expect(SaveOutcome.SAFE, caseName('SaveRuleCases', '0003')).assertEqual('可直接保存');
+      expect(SaveOutcome.BRANCH, caseName('SaveRuleCases', '0003')).assertEqual('另存为新分支');
+      expect(SaveOutcome.CONFIRM, caseName('SaveRuleCases', '0003')).assertEqual('需用户确认');
+      expect(SaveOutcome.BLOCKED, caseName('SaveRuleCases', '0003')).assertEqual('保存被阻止');
     });
 
     /**
@@ -96,12 +97,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveRuleCases0004', 0, (): void => {
-      expect(SAVE_RULES.every((rule: SaveRule): boolean => rule.note.length > 0)).assertTrue();
+    it(caseName('SaveRuleCases', '0004'), 0, (): void => {
+      expect(SAVE_RULES.every((rule: SaveRule): boolean => rule.note.length > 0), caseName('SaveRuleCases', '0004')).assertTrue();
       expect(SAVE_RULES.every((rule: SaveRule): boolean =>
-        rule.condition.length > 0)).assertTrue();
-      expect(SAVE_RULES.length > 0).assertTrue();
-      expect(SAVE_RULES.every((rule: SaveRule): boolean => rule.code.length > 0)).assertTrue();
+        rule.condition.length > 0), caseName('SaveRuleCases', '0004')).assertTrue();
+      expect(SAVE_RULES.length > 0, caseName('SaveRuleCases', '0004')).assertTrue();
+      expect(SAVE_RULES.every((rule: SaveRule): boolean => rule.code.length > 0), caseName('SaveRuleCases', '0004')).assertTrue();
     });
 
     /**
@@ -113,15 +114,15 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveRuleCases0005', 0, (): void => {
+    it(caseName('SaveRuleCases', '0005'), 0, (): void => {
       const blocked: SaveRule[] = SAVE_RULES.filter((rule: SaveRule): boolean =>
         rule.outcome === SaveOutcome.BLOCKED);
-      expect(blocked.length).assertEqual(3);
-      expect(blocked.map((rule: SaveRule): string => rule.code).join(',')).assertEqual(
+      expect(blocked.length, caseName('SaveRuleCases', '0005')).assertEqual(3);
+      expect(blocked.map((rule: SaveRule): string => rule.code).join(','), caseName('SaveRuleCases', '0005')).assertEqual(
         'SV-07,SV-08,SV-09');
       expect(blocked.filter((rule: SaveRule, index: number): boolean =>
-        blocked.indexOf(rule) === index).length).assertEqual(3);
-      expect(blocked.length < SAVE_RULES.length).assertTrue();
+        blocked.indexOf(rule) === index).length, caseName('SaveRuleCases', '0005')).assertEqual(3);
+      expect(blocked.length < SAVE_RULES.length, caseName('SaveRuleCases', '0005')).assertTrue();
     });
 
     /**
@@ -133,17 +134,17 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveRuleCases0006', 0, (): void => {
+    it(caseName('SaveRuleCases', '0006'), 0, (): void => {
       const safe: number = SAVE_RULES.filter((rule: SaveRule): boolean =>
         rule.outcome === SaveOutcome.SAFE).length;
       const confirm: number = SAVE_RULES.filter((rule: SaveRule): boolean =>
         rule.outcome === SaveOutcome.CONFIRM).length;
       const branch: number = SAVE_RULES.filter((rule: SaveRule): boolean =>
         rule.outcome === SaveOutcome.BRANCH).length;
-      expect(safe).assertEqual(3);
-      expect(confirm).assertEqual(3);
-      expect(branch).assertEqual(1);
-      expect(safe + confirm + branch + 3).assertEqual(SAVE_RULES.length);
+      expect(safe, caseName('SaveRuleCases', '0006')).assertEqual(3);
+      expect(confirm, caseName('SaveRuleCases', '0006')).assertEqual(3);
+      expect(branch, caseName('SaveRuleCases', '0006')).assertEqual(1);
+      expect(safe + confirm + branch + 3, caseName('SaveRuleCases', '0006')).assertEqual(SAVE_RULES.length);
     });
 
     /**
@@ -155,11 +156,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testSaveRuleCases0007', 0, (): void => {
+    it(caseName('SaveRuleCases', '0007'), 0, (): void => {
       const lines: string[] = saveLines();
-      expect(lines.length).assertEqual(SAVE_RULES.length);
-      expect(lines.every((line: string): boolean => line.indexOf('→') > 0)).assertTrue();
-      expect(lines[0].indexOf('SV-01') === 0).assertTrue();
+      expect(lines.length, caseName('SaveRuleCases', '0007')).assertEqual(SAVE_RULES.length);
+      expect(lines.every((line: string): boolean => line.indexOf('→') > 0), caseName('SaveRuleCases', '0007')).assertTrue();
+      expect(lines[0].indexOf('SV-01') === 0, caseName('SaveRuleCases', '0007')).assertTrue();
     });
 
     /**
@@ -171,14 +172,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testSaveRuleCases0008', 0, (): void => {
+    it(caseName('SaveRuleCases', '0008'), 0, (): void => {
       const input: SaveInput = new SaveInput();
-      expect(input.baselineRevision).assertEqual(0);
-      expect(input.localRevision).assertEqual(0);
-      expect(input.remoteRevision).assertEqual(0);
-      expect(input.recoveryActive).assertFalse();
-      expect(input.trashed).assertFalse();
-      expect(input.writeUncertain).assertFalse();
+      expect(input.baselineRevision, caseName('SaveRuleCases', '0008')).assertEqual(0);
+      expect(input.localRevision, caseName('SaveRuleCases', '0008')).assertEqual(0);
+      expect(input.remoteRevision, caseName('SaveRuleCases', '0008')).assertEqual(0);
+      expect(input.recoveryActive, caseName('SaveRuleCases', '0008')).assertFalse();
+      expect(input.trashed, caseName('SaveRuleCases', '0008')).assertFalse();
+      expect(input.writeUncertain, caseName('SaveRuleCases', '0008')).assertFalse();
     });
   });
 
@@ -192,12 +193,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testSaveDecisionCases0001', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0001'), 0, (): void => {
       const decision: SaveDecision = new SaveDecision();
-      expect(decision.outcome).assertEqual(SaveOutcome.SAFE);
-      expect(decision.code).assertEqual('');
-      expect(decision.message).assertEqual('');
-      expect(decision.writable()).assertTrue();
+      expect(decision.outcome, caseName('SaveDecisionCases', '0001')).assertEqual(SaveOutcome.SAFE);
+      expect(decision.code, caseName('SaveDecisionCases', '0001')).assertEqual('');
+      expect(decision.message, caseName('SaveDecisionCases', '0001')).assertEqual('');
+      expect(decision.writable(), caseName('SaveDecisionCases', '0001')).assertTrue();
     });
 
     /**
@@ -209,11 +210,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0002', 0, (): void => {
-      expect(new SaveDecision('a', SaveOutcome.SAFE, '').writable()).assertTrue();
-      expect(new SaveDecision('a', SaveOutcome.BRANCH, '').writable()).assertFalse();
-      expect(new SaveDecision('a', SaveOutcome.CONFIRM, '').writable()).assertFalse();
-      expect(new SaveDecision('a', SaveOutcome.BLOCKED, '').writable()).assertFalse();
+    it(caseName('SaveDecisionCases', '0002'), 0, (): void => {
+      expect(new SaveDecision('a', SaveOutcome.SAFE, '').writable(), caseName('SaveDecisionCases', '0002')).assertTrue();
+      expect(new SaveDecision('a', SaveOutcome.BRANCH, '').writable(), caseName('SaveDecisionCases', '0002')).assertFalse();
+      expect(new SaveDecision('a', SaveOutcome.CONFIRM, '').writable(), caseName('SaveDecisionCases', '0002')).assertFalse();
+      expect(new SaveDecision('a', SaveOutcome.BLOCKED, '').writable(), caseName('SaveDecisionCases', '0002')).assertFalse();
     });
 
     /**
@@ -225,13 +226,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0003', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0003'), 0, (): void => {
       const decision: SaveDecision = new SaveDecision('SV-05', SaveOutcome.BRANCH, '另存分支');
-      expect(decision.describe()).assertEqual('SV-05｜另存为新分支｜另存分支');
-      expect(decision.describe().split('｜').length).assertEqual(3);
-      expect(decision.code).assertEqual('SV-05');
-      expect(decision.outcome).assertEqual(SaveOutcome.BRANCH);
-      expect(decision.message).assertEqual('另存分支');
+      expect(decision.describe(), caseName('SaveDecisionCases', '0003')).assertEqual('SV-05｜另存为新分支｜另存分支');
+      expect(decision.describe().split('｜').length, caseName('SaveDecisionCases', '0003')).assertEqual(3);
+      expect(decision.code, caseName('SaveDecisionCases', '0003')).assertEqual('SV-05');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0003')).assertEqual(SaveOutcome.BRANCH);
+      expect(decision.message, caseName('SaveDecisionCases', '0003')).assertEqual('另存分支');
     });
 
     /**
@@ -243,12 +244,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0004', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0004'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(3, 3, 3));
-      expect(decision.code).assertEqual('SV-01');
-      expect(decision.outcome).assertEqual(SaveOutcome.SAFE);
-      expect(decision.writable()).assertTrue();
-      expect(decision.message).assertEqual('没有新变化，保存不改变内容');
+      expect(decision.code, caseName('SaveDecisionCases', '0004')).assertEqual('SV-01');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0004')).assertEqual(SaveOutcome.SAFE);
+      expect(decision.writable(), caseName('SaveDecisionCases', '0004')).assertTrue();
+      expect(decision.message, caseName('SaveDecisionCases', '0004')).assertEqual('没有新变化，保存不改变内容');
     });
 
     /**
@@ -260,12 +261,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0005', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0005'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(2, 5, 2));
-      expect(decision.code).assertEqual('SV-02');
-      expect(decision.outcome).assertEqual(SaveOutcome.SAFE);
-      expect(saveAdvice(decision)).assertEqual('可以保存');
-      expect(decision.message).assertEqual('常规保存');
+      expect(decision.code, caseName('SaveDecisionCases', '0005')).assertEqual('SV-02');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0005')).assertEqual(SaveOutcome.SAFE);
+      expect(saveAdvice(decision), caseName('SaveDecisionCases', '0005')).assertEqual('可以保存');
+      expect(decision.message, caseName('SaveDecisionCases', '0005')).assertEqual('常规保存');
     });
 
     /**
@@ -277,12 +278,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0006', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0006'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(2, 2, 5));
-      expect(decision.code).assertEqual('SV-03');
-      expect(decision.outcome).assertEqual(SaveOutcome.CONFIRM);
-      expect(decision.writable()).assertFalse();
-      expect(decision.message).assertEqual('本机内容已过期，保存会覆盖对端');
+      expect(decision.code, caseName('SaveDecisionCases', '0006')).assertEqual('SV-03');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0006')).assertEqual(SaveOutcome.CONFIRM);
+      expect(decision.writable(), caseName('SaveDecisionCases', '0006')).assertFalse();
+      expect(decision.message, caseName('SaveDecisionCases', '0006')).assertEqual('本机内容已过期，保存会覆盖对端');
     });
 
     /**
@@ -294,11 +295,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0007', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0007'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(2, 6, 6));
-      expect(decision.code).assertEqual('SV-04');
-      expect(decision.outcome).assertEqual(SaveOutcome.SAFE);
-      expect(decision.message).assertEqual('收敛到同一版本');
+      expect(decision.code, caseName('SaveDecisionCases', '0007')).assertEqual('SV-04');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0007')).assertEqual(SaveOutcome.SAFE);
+      expect(decision.message, caseName('SaveDecisionCases', '0007')).assertEqual('收敛到同一版本');
     });
 
     /**
@@ -310,12 +311,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0008', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0008'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(2, 5, 7));
-      expect(decision.code).assertEqual('SV-05');
-      expect(decision.outcome).assertEqual(SaveOutcome.BRANCH);
-      expect(decision.writable()).assertFalse();
-      expect(decision.message).assertEqual('另存为新分支，两侧都保留');
+      expect(decision.code, caseName('SaveDecisionCases', '0008')).assertEqual('SV-05');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0008')).assertEqual(SaveOutcome.BRANCH);
+      expect(decision.writable(), caseName('SaveDecisionCases', '0008')).assertFalse();
+      expect(decision.message, caseName('SaveDecisionCases', '0008')).assertEqual('另存为新分支，两侧都保留');
     });
 
     /**
@@ -327,11 +328,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0009', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0009'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(5, 5, 3));
-      expect(decision.code).assertEqual('SV-06');
-      expect(decision.outcome).assertEqual(SaveOutcome.CONFIRM);
-      expect(decision.message).assertEqual('对端可能回滚过，保存前需确认');
+      expect(decision.code, caseName('SaveDecisionCases', '0009')).assertEqual('SV-06');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0009')).assertEqual(SaveOutcome.CONFIRM);
+      expect(decision.message, caseName('SaveDecisionCases', '0009')).assertEqual('对端可能回滚过，保存前需确认');
     });
 
     /**
@@ -343,13 +344,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0010', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0010'), 0, (): void => {
       const zero: SaveDecision = decideSave(inputOf(3, 0, 3));
-      expect(zero.code).assertEqual('SV-07');
-      expect(zero.outcome).assertEqual(SaveOutcome.BLOCKED);
-      expect(zero.message).assertEqual('缺少本机修订号，不允许写入');
+      expect(zero.code, caseName('SaveDecisionCases', '0010')).assertEqual('SV-07');
+      expect(zero.outcome, caseName('SaveDecisionCases', '0010')).assertEqual(SaveOutcome.BLOCKED);
+      expect(zero.message, caseName('SaveDecisionCases', '0010')).assertEqual('缺少本机修订号，不允许写入');
       const negative: SaveDecision = decideSave(inputOf(3, -2, 3));
-      expect(negative.code).assertEqual('SV-07');
+      expect(negative.code, caseName('SaveDecisionCases', '0010')).assertEqual('SV-07');
     });
 
     /**
@@ -361,13 +362,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0011', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0011'), 0, (): void => {
       const input: SaveInput = inputOf(1, 2, 1);
       input.recoveryActive = true;
       const decision: SaveDecision = decideSave(input);
-      expect(decision.code).assertEqual('SV-08');
-      expect(decision.outcome).assertEqual(SaveOutcome.BLOCKED);
-      expect(decision.message).assertEqual('恢复在途时写入会产生不确定结果');
+      expect(decision.code, caseName('SaveDecisionCases', '0011')).assertEqual('SV-08');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0011')).assertEqual(SaveOutcome.BLOCKED);
+      expect(decision.message, caseName('SaveDecisionCases', '0011')).assertEqual('恢复在途时写入会产生不确定结果');
     });
 
     /**
@@ -379,13 +380,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0012', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0012'), 0, (): void => {
       const input: SaveInput = inputOf(1, 2, 1);
       input.trashed = true;
       const decision: SaveDecision = decideSave(input);
-      expect(decision.code).assertEqual('SV-09');
-      expect(decision.outcome).assertEqual(SaveOutcome.BLOCKED);
-      expect(decision.message).assertEqual('回收站内笔记不可直接保存');
+      expect(decision.code, caseName('SaveDecisionCases', '0012')).assertEqual('SV-09');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0012')).assertEqual(SaveOutcome.BLOCKED);
+      expect(decision.message, caseName('SaveDecisionCases', '0012')).assertEqual('回收站内笔记不可直接保存');
     });
 
     /**
@@ -397,13 +398,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0013', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0013'), 0, (): void => {
       const input: SaveInput = inputOf(1, 2, 1);
       input.writeUncertain = true;
       const decision: SaveDecision = decideSave(input);
-      expect(decision.code).assertEqual('SV-10');
-      expect(decision.outcome).assertEqual(SaveOutcome.CONFIRM);
-      expect(decision.message).assertEqual('需先读回磁盘再决定');
+      expect(decision.code, caseName('SaveDecisionCases', '0013')).assertEqual('SV-10');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0013')).assertEqual(SaveOutcome.CONFIRM);
+      expect(decision.message, caseName('SaveDecisionCases', '0013')).assertEqual('需先读回磁盘再决定');
     });
 
     /**
@@ -415,14 +416,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0014', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0014'), 0, (): void => {
       const input: SaveInput = inputOf(1, 0, 1);
       input.recoveryActive = true;
       input.trashed = true;
       input.writeUncertain = true;
-      expect(decideSave(input).code).assertEqual('SV-08');
-      expect(decideSave(input).outcome).assertEqual(SaveOutcome.BLOCKED);
-      expect(saveAdvice(decideSave(input))).assertEqual(decideSave(input).message);
+      expect(decideSave(input).code, caseName('SaveDecisionCases', '0014')).assertEqual('SV-08');
+      expect(decideSave(input).outcome, caseName('SaveDecisionCases', '0014')).assertEqual(SaveOutcome.BLOCKED);
+      expect(saveAdvice(decideSave(input)), caseName('SaveDecisionCases', '0014')).assertEqual(decideSave(input).message);
     });
 
     /**
@@ -434,13 +435,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0015', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0015'), 0, (): void => {
       const input: SaveInput = inputOf(1, 0, 1);
       input.trashed = true;
       input.writeUncertain = true;
-      expect(decideSave(input).code).assertEqual('SV-09');
-      expect(decideSave(input).outcome).assertEqual(SaveOutcome.BLOCKED);
-      expect(decideSave(input).code === 'SV-08').assertFalse();
+      expect(decideSave(input).code, caseName('SaveDecisionCases', '0015')).assertEqual('SV-09');
+      expect(decideSave(input).outcome, caseName('SaveDecisionCases', '0015')).assertEqual(SaveOutcome.BLOCKED);
+      expect(decideSave(input).code === 'SV-08', caseName('SaveDecisionCases', '0015')).assertFalse();
     });
 
     /**
@@ -452,12 +453,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0016', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0016'), 0, (): void => {
       const input: SaveInput = inputOf(1, 0, 1);
       input.writeUncertain = true;
-      expect(decideSave(input).code).assertEqual('SV-07');
-      expect(decideSave(input).outcome).assertEqual(SaveOutcome.BLOCKED);
-      expect(decideSave(input).code === 'SV-09').assertFalse();
+      expect(decideSave(input).code, caseName('SaveDecisionCases', '0016')).assertEqual('SV-07');
+      expect(decideSave(input).outcome, caseName('SaveDecisionCases', '0016')).assertEqual(SaveOutcome.BLOCKED);
+      expect(decideSave(input).code === 'SV-09', caseName('SaveDecisionCases', '0016')).assertFalse();
     });
 
     /**
@@ -469,14 +470,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0017', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0017'), 0, (): void => {
       const input: SaveInput = inputOf(2, 5, 7);
       input.writeUncertain = true;
       const decision: SaveDecision = decideSave(input);
-      expect(decision.code).assertEqual('SV-10');
-      expect(decision.code === 'SV-05').assertFalse();
-      expect(decision.code === 'SV-07').assertFalse();
-      expect(decision.message.length > 0).assertTrue();
+      expect(decision.code, caseName('SaveDecisionCases', '0017')).assertEqual('SV-10');
+      expect(decision.code === 'SV-05', caseName('SaveDecisionCases', '0017')).assertFalse();
+      expect(decision.code === 'SV-07', caseName('SaveDecisionCases', '0017')).assertFalse();
+      expect(decision.message.length > 0, caseName('SaveDecisionCases', '0017')).assertTrue();
     });
 
     /**
@@ -488,11 +489,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0018', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0018'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(4, 4, 2));
-      expect(decision.code).assertEqual('SV-06');
-      expect(decision.code === 'SV-01').assertFalse();
-      expect(decision.message.length > 0).assertTrue();
+      expect(decision.code, caseName('SaveDecisionCases', '0018')).assertEqual('SV-06');
+      expect(decision.code === 'SV-01', caseName('SaveDecisionCases', '0018')).assertFalse();
+      expect(decision.message.length > 0, caseName('SaveDecisionCases', '0018')).assertTrue();
     });
 
     /**
@@ -504,11 +505,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0019', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0019'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(6, 9, 5));
-      expect(decision.code).assertEqual('SV-06');
-      expect(decision.outcome).assertEqual(SaveOutcome.CONFIRM);
-      expect(decision.code === 'SV-05').assertFalse();
+      expect(decision.code, caseName('SaveDecisionCases', '0019')).assertEqual('SV-06');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0019')).assertEqual(SaveOutcome.CONFIRM);
+      expect(decision.code === 'SV-05', caseName('SaveDecisionCases', '0019')).assertFalse();
     });
 
     /**
@@ -520,11 +521,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0020', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0020'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(5, 3, 5));
-      expect(decision.code).assertEqual('SV-01');
-      expect(decision.outcome).assertEqual(SaveOutcome.SAFE);
-      expect(decision.code === 'SV-06').assertFalse();
+      expect(decision.code, caseName('SaveDecisionCases', '0020')).assertEqual('SV-01');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0020')).assertEqual(SaveOutcome.SAFE);
+      expect(decision.code === 'SV-06', caseName('SaveDecisionCases', '0020')).assertFalse();
     });
 
     /**
@@ -536,11 +537,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0021', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0021'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(0, 1, 0));
-      expect(decision.code).assertEqual('SV-02');
-      expect(decision.outcome).assertEqual(SaveOutcome.SAFE);
-      expect(saveAdvice(decision).length > 0).assertTrue();
+      expect(decision.code, caseName('SaveDecisionCases', '0021')).assertEqual('SV-02');
+      expect(decision.outcome, caseName('SaveDecisionCases', '0021')).assertEqual(SaveOutcome.SAFE);
+      expect(saveAdvice(decision).length > 0, caseName('SaveDecisionCases', '0021')).assertTrue();
     });
 
     /**
@@ -552,11 +553,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0022', 0, (): void => {
-      expect(decideSave(inputOf(0, 0, 1)).code).assertEqual('SV-07');
-      expect(decideSave(inputOf(0, 1, 0)).code).assertEqual('SV-02');
-      expect(decideSave(inputOf(0, 0, 0)).code).assertEqual('SV-07');
-      expect(decideSave(inputOf(0, 0, 1)).outcome).assertEqual(SaveOutcome.BLOCKED);
+    it(caseName('SaveDecisionCases', '0022'), 0, (): void => {
+      expect(decideSave(inputOf(0, 0, 1)).code, caseName('SaveDecisionCases', '0022')).assertEqual('SV-07');
+      expect(decideSave(inputOf(0, 1, 0)).code, caseName('SaveDecisionCases', '0022')).assertEqual('SV-02');
+      expect(decideSave(inputOf(0, 0, 0)).code, caseName('SaveDecisionCases', '0022')).assertEqual('SV-07');
+      expect(decideSave(inputOf(0, 0, 1)).outcome, caseName('SaveDecisionCases', '0022')).assertEqual(SaveOutcome.BLOCKED);
     });
 
     /**
@@ -568,12 +569,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0023', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0023'), 0, (): void => {
       const first: SaveDecision = decideSave(inputOf(2, 5, 2));
       const second: SaveDecision = decideSave(inputOf(2, 5, 2));
-      expect(first.code).assertEqual(second.code);
-      expect(first.message).assertEqual(second.message);
-      expect(first.outcome).assertEqual(second.outcome);
+      expect(first.code, caseName('SaveDecisionCases', '0023')).assertEqual(second.code);
+      expect(first.message, caseName('SaveDecisionCases', '0023')).assertEqual(second.message);
+      expect(first.outcome, caseName('SaveDecisionCases', '0023')).assertEqual(second.outcome);
     });
 
     /**
@@ -585,11 +586,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0024', 0, (): void => {
-      expect(saveAdvice(decideSave(inputOf(3, 3, 3)))).assertEqual('可以保存');
-      expect(saveAdvice(new SaveDecision('x', SaveOutcome.SAFE, '任意'))).assertEqual('可以保存');
-      expect(saveAdvice(new SaveDecision('x', SaveOutcome.SAFE, '任意')).length).assertEqual(4);
-      expect(saveAdvice(new SaveDecision('x', SaveOutcome.SAFE, '完全不同的提示')))
+    it(caseName('SaveDecisionCases', '0024'), 0, (): void => {
+      expect(saveAdvice(decideSave(inputOf(3, 3, 3))), caseName('SaveDecisionCases', '0024')).assertEqual('可以保存');
+      expect(saveAdvice(new SaveDecision('x', SaveOutcome.SAFE, '任意')), caseName('SaveDecisionCases', '0024')).assertEqual('可以保存');
+      expect(saveAdvice(new SaveDecision('x', SaveOutcome.SAFE, '任意')).length, caseName('SaveDecisionCases', '0024')).assertEqual(4);
+      expect(saveAdvice(new SaveDecision('x', SaveOutcome.SAFE, '完全不同的提示')), caseName('SaveDecisionCases', '0024'))
         .assertEqual('可以保存');
     });
 
@@ -602,11 +603,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0025', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0025'), 0, (): void => {
       const advice: string = saveAdvice(decideSave(inputOf(2, 5, 7)));
-      expect(advice).assertEqual('建议另存为新分支，保留两侧内容');
-      expect(advice.indexOf('两侧') > 0).assertTrue();
-      expect(advice === '可以保存').assertFalse();
+      expect(advice, caseName('SaveDecisionCases', '0025')).assertEqual('建议另存为新分支，保留两侧内容');
+      expect(advice.indexOf('两侧') > 0, caseName('SaveDecisionCases', '0025')).assertTrue();
+      expect(advice === '可以保存', caseName('SaveDecisionCases', '0025')).assertFalse();
     });
 
     /**
@@ -618,11 +619,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0026', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0026'), 0, (): void => {
       const decision: SaveDecision = decideSave(inputOf(2, 2, 5));
-      expect(saveAdvice(decision)).assertEqual(decision.message);
-      expect(saveAdvice(decision).indexOf('覆盖对端') > 0).assertTrue();
-      expect(decision.code.length).assertEqual(5);
+      expect(saveAdvice(decision), caseName('SaveDecisionCases', '0026')).assertEqual(decision.message);
+      expect(saveAdvice(decision).indexOf('覆盖对端') > 0, caseName('SaveDecisionCases', '0026')).assertTrue();
+      expect(decision.code.length, caseName('SaveDecisionCases', '0026')).assertEqual(5);
     });
 
     /**
@@ -634,13 +635,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0027', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0027'), 0, (): void => {
       const input: SaveInput = inputOf(1, 2, 1);
       input.recoveryActive = true;
       const decision: SaveDecision = decideSave(input);
-      expect(saveAdvice(decision)).assertEqual('恢复在途时写入会产生不确定结果');
-      expect(saveAdvice(decision).indexOf('可以保存')).assertEqual(-1);
-      expect(decision.code).assertEqual('SV-08');
+      expect(saveAdvice(decision), caseName('SaveDecisionCases', '0027')).assertEqual('恢复在途时写入会产生不确定结果');
+      expect(saveAdvice(decision).indexOf('可以保存'), caseName('SaveDecisionCases', '0027')).assertEqual(-1);
+      expect(decision.code, caseName('SaveDecisionCases', '0027')).assertEqual('SV-08');
     });
 
     /**
@@ -652,14 +653,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testSaveDecisionCases0028', 0, (): void => {
+    it(caseName('SaveDecisionCases', '0028'), 0, (): void => {
       const cases: SaveInput[] = [inputOf(3, 3, 3), inputOf(2, 5, 2), inputOf(2, 2, 5),
         inputOf(2, 5, 7), inputOf(5, 5, 3), inputOf(3, 0, 3)];
       expect(cases.every((input: SaveInput): boolean =>
-        saveAdvice(decideSave(input)).length > 0)).assertTrue();
-      expect(cases.length).assertEqual(6);
+        saveAdvice(decideSave(input)).length > 0), caseName('SaveDecisionCases', '0028')).assertTrue();
+      expect(cases.length, caseName('SaveDecisionCases', '0028')).assertEqual(6);
       expect(cases.every((input: SaveInput): boolean =>
-        decideSave(input).code.length === 5)).assertTrue();
+        decideSave(input).code.length === 5), caseName('SaveDecisionCases', '0028')).assertTrue();
     });
   });
 
@@ -673,14 +674,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testTrashEntryCases0001', 0, (): void => {
+    it(caseName('TrashEntryCases', '0001'), 0, (): void => {
       const entry: TrashEntry = new TrashEntry('n1', '标题');
-      expect(entry.noteId).assertEqual('n1');
-      expect(entry.title).assertEqual('标题');
-      expect(entry.state).assertEqual(TrashState.TRASHED);
-      expect(entry.revision).assertEqual(0);
-      expect(entry.trashedAt).assertEqual(0);
-      expect(entry.origin).assertEqual('');
+      expect(entry.noteId, caseName('TrashEntryCases', '0001')).assertEqual('n1');
+      expect(entry.title, caseName('TrashEntryCases', '0001')).assertEqual('标题');
+      expect(entry.state, caseName('TrashEntryCases', '0001')).assertEqual(TrashState.TRASHED);
+      expect(entry.revision, caseName('TrashEntryCases', '0001')).assertEqual(0);
+      expect(entry.trashedAt, caseName('TrashEntryCases', '0001')).assertEqual(0);
+      expect(entry.origin, caseName('TrashEntryCases', '0001')).assertEqual('');
     });
 
     /**
@@ -692,14 +693,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashEntryCases0002', 0, (): void => {
+    it(caseName('TrashEntryCases', '0002'), 0, (): void => {
       const entry: TrashEntry = new TrashEntry('n1', '周报');
       entry.revision = 4;
-      expect(entry.describe()).assertEqual('周报｜回收站｜修订 4｜来源 未记录');
-      expect(entry.describe().indexOf('未记录') > 0).assertTrue();
-      expect(entry.noteId).assertEqual('n1');
-      expect(entry.title).assertEqual('周报');
-      expect(entry.revision).assertEqual(4);
+      expect(entry.describe(), caseName('TrashEntryCases', '0002')).assertEqual('周报｜回收站｜修订 4｜来源 未记录');
+      expect(entry.describe().indexOf('未记录') > 0, caseName('TrashEntryCases', '0002')).assertTrue();
+      expect(entry.noteId, caseName('TrashEntryCases', '0002')).assertEqual('n1');
+      expect(entry.title, caseName('TrashEntryCases', '0002')).assertEqual('周报');
+      expect(entry.revision, caseName('TrashEntryCases', '0002')).assertEqual(4);
     });
 
     /**
@@ -711,14 +712,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashEntryCases0003', 0, (): void => {
+    it(caseName('TrashEntryCases', '0003'), 0, (): void => {
       const entry: TrashEntry = new TrashEntry('n1', '周报');
       entry.revision = 2;
       entry.origin = '手动删除';
-      expect(entry.describe()).assertEqual('周报｜回收站｜修订 2｜来源 手动删除');
-      expect(entry.describe().split('｜').length).assertEqual(4);
-      expect(entry.origin).assertEqual('手动删除');
-      expect(entry.state).assertEqual(TrashState.TRASHED);
+      expect(entry.describe(), caseName('TrashEntryCases', '0003')).assertEqual('周报｜回收站｜修订 2｜来源 手动删除');
+      expect(entry.describe().split('｜').length, caseName('TrashEntryCases', '0003')).assertEqual(4);
+      expect(entry.origin, caseName('TrashEntryCases', '0003')).assertEqual('手动删除');
+      expect(entry.state, caseName('TrashEntryCases', '0003')).assertEqual(TrashState.TRASHED);
     });
 
     /**
@@ -730,13 +731,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashEntryCases0004', 0, (): void => {
+    it(caseName('TrashEntryCases', '0004'), 0, (): void => {
       const entry: TrashEntry = new TrashEntry('n1', 'a');
       entry.trashedAt = 1000;
-      expect(entry.restorable(1000, 10 * DAY)).assertTrue();
-      expect(entry.restorable(1000 + 10 * DAY, 10 * DAY)).assertTrue();
-      expect(entry.state).assertEqual(TrashState.TRASHED);
-      expect(entry.trashedAt).assertEqual(1000);
+      expect(entry.restorable(1000, 10 * DAY), caseName('TrashEntryCases', '0004')).assertTrue();
+      expect(entry.restorable(1000 + 10 * DAY, 10 * DAY), caseName('TrashEntryCases', '0004')).assertTrue();
+      expect(entry.state, caseName('TrashEntryCases', '0004')).assertEqual(TrashState.TRASHED);
+      expect(entry.trashedAt, caseName('TrashEntryCases', '0004')).assertEqual(1000);
     });
 
     /**
@@ -748,12 +749,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashEntryCases0005', 0, (): void => {
+    it(caseName('TrashEntryCases', '0005'), 0, (): void => {
       const entry: TrashEntry = new TrashEntry('n1', 'a');
       entry.trashedAt = 1000;
-      expect(entry.restorable(1001 + 10 * DAY, 10 * DAY)).assertFalse();
-      expect(entry.state).assertEqual(TrashState.TRASHED);
-      expect(entry.restorable(1000 + 40 * DAY, 10 * DAY)).assertFalse();
+      expect(entry.restorable(1001 + 10 * DAY, 10 * DAY), caseName('TrashEntryCases', '0005')).assertFalse();
+      expect(entry.state, caseName('TrashEntryCases', '0005')).assertEqual(TrashState.TRASHED);
+      expect(entry.restorable(1000 + 40 * DAY, 10 * DAY), caseName('TrashEntryCases', '0005')).assertFalse();
     });
 
     /**
@@ -765,14 +766,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashEntryCases0006', 0, (): void => {
+    it(caseName('TrashEntryCases', '0006'), 0, (): void => {
       const entry: TrashEntry = new TrashEntry('n1', 'a');
       entry.state = TrashState.ACTIVE;
-      expect(entry.restorable(1000, 10 * DAY)).assertFalse();
+      expect(entry.restorable(1000, 10 * DAY), caseName('TrashEntryCases', '0006')).assertFalse();
       entry.state = TrashState.PURGED;
-      expect(entry.restorable(1000, 10 * DAY)).assertFalse();
-      expect(entry.state).assertEqual(TrashState.PURGED);
-      expect(entry.title).assertEqual('a');
+      expect(entry.restorable(1000, 10 * DAY), caseName('TrashEntryCases', '0006')).assertFalse();
+      expect(entry.state, caseName('TrashEntryCases', '0006')).assertEqual(TrashState.PURGED);
+      expect(entry.title, caseName('TrashEntryCases', '0006')).assertEqual('a');
     });
 
     /**
@@ -784,10 +785,10 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashEntryCases0007', 0, (): void => {
-      expect(TrashState.ACTIVE).assertEqual('正常');
-      expect(TrashState.TRASHED).assertEqual('回收站');
-      expect(TrashState.PURGED).assertEqual('已清除');
+    it(caseName('TrashEntryCases', '0007'), 0, (): void => {
+      expect(TrashState.ACTIVE, caseName('TrashEntryCases', '0007')).assertEqual('正常');
+      expect(TrashState.TRASHED, caseName('TrashEntryCases', '0007')).assertEqual('回收站');
+      expect(TrashState.PURGED, caseName('TrashEntryCases', '0007')).assertEqual('已清除');
     });
 
     /**
@@ -799,11 +800,11 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashEntryCases0008', 0, (): void => {
-      expect(TRASH_RETENTION_DAYS).assertEqual(30);
-      expect(TRASH_RETENTION_DAYS * DAY).assertEqual(2592000000);
-      expect(TRASH_RETENTION_DAYS > 0).assertTrue();
-      expect(TRASH_RETENTION_DAYS * DAY > 0).assertTrue();
+    it(caseName('TrashEntryCases', '0008'), 0, (): void => {
+      expect(TRASH_RETENTION_DAYS, caseName('TrashEntryCases', '0008')).assertEqual(30);
+      expect(TRASH_RETENTION_DAYS * DAY, caseName('TrashEntryCases', '0008')).assertEqual(2592000000);
+      expect(TRASH_RETENTION_DAYS > 0, caseName('TrashEntryCases', '0008')).assertTrue();
+      expect(TRASH_RETENTION_DAYS * DAY > 0, caseName('TrashEntryCases', '0008')).assertTrue();
     });
   });
 
@@ -817,12 +818,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0001', 0, (): void => {
+    it(caseName('TrashBinCases', '0001'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
-      expect(bin.trash('n1', '周报', 3, 1000, '手动删除')).assertTrue();
-      expect(bin.size()).assertEqual(1);
-      expect(bin.inTrash('n1')).assertTrue();
-      expect(bin.trashed().length).assertEqual(1);
+      expect(bin.trash('n1', '周报', 3, 1000, '手动删除'), caseName('TrashBinCases', '0001')).assertTrue();
+      expect(bin.size(), caseName('TrashBinCases', '0001')).assertEqual(1);
+      expect(bin.inTrash('n1'), caseName('TrashBinCases', '0001')).assertTrue();
+      expect(bin.trashed().length, caseName('TrashBinCases', '0001')).assertEqual(1);
     });
 
     /**
@@ -834,12 +835,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0002', 0, (): void => {
+    it(caseName('TrashBinCases', '0002'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
-      expect(bin.trash('', '无编号', 1, 1000, '')).assertFalse();
-      expect(bin.size()).assertEqual(0);
-      expect(bin.trash('n1', 'x', 1, 1000, '')).assertTrue();
-      expect(bin.size()).assertEqual(1);
+      expect(bin.trash('', '无编号', 1, 1000, ''), caseName('TrashBinCases', '0002')).assertFalse();
+      expect(bin.size(), caseName('TrashBinCases', '0002')).assertEqual(0);
+      expect(bin.trash('n1', 'x', 1, 1000, ''), caseName('TrashBinCases', '0002')).assertTrue();
+      expect(bin.size(), caseName('TrashBinCases', '0002')).assertEqual(1);
     });
 
     /**
@@ -851,15 +852,15 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0003', 0, (): void => {
+    it(caseName('TrashBinCases', '0003'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', '旧标题', 1, 1000, '手动删除');
-      expect(bin.trash('n1', '新标题', 5, 2000, '批量删除')).assertTrue();
-      expect(bin.size()).assertEqual(1);
-      expect(bin.entryOf('n1')?.revision).assertEqual(5);
-      expect(bin.entryOf('n1')?.origin).assertEqual('批量删除');
-      expect(bin.entryOf('n1')?.trashedAt).assertEqual(2000);
-      expect(bin.entryOf('n1')?.title).assertEqual('旧标题');
+      expect(bin.trash('n1', '新标题', 5, 2000, '批量删除'), caseName('TrashBinCases', '0003')).assertTrue();
+      expect(bin.size(), caseName('TrashBinCases', '0003')).assertEqual(1);
+      expect(bin.entryOf('n1')?.revision, caseName('TrashBinCases', '0003')).assertEqual(5);
+      expect(bin.entryOf('n1')?.origin, caseName('TrashBinCases', '0003')).assertEqual('批量删除');
+      expect(bin.entryOf('n1')?.trashedAt, caseName('TrashBinCases', '0003')).assertEqual(2000);
+      expect(bin.entryOf('n1')?.title, caseName('TrashBinCases', '0003')).assertEqual('旧标题');
     });
 
     /**
@@ -871,12 +872,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0004', 0, (): void => {
+    it(caseName('TrashBinCases', '0004'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
-      expect(bin.entryOf('n1') !== undefined).assertTrue();
-      expect(bin.entryOf('n2') === undefined).assertTrue();
-      expect(bin.inTrash('n2')).assertFalse();
+      expect(bin.entryOf('n1') !== undefined, caseName('TrashBinCases', '0004')).assertTrue();
+      expect(bin.entryOf('n2') === undefined, caseName('TrashBinCases', '0004')).assertTrue();
+      expect(bin.inTrash('n2'), caseName('TrashBinCases', '0004')).assertFalse();
     });
 
     /**
@@ -888,15 +889,15 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0005', 0, (): void => {
+    it(caseName('TrashBinCases', '0005'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
       bin.trash('n2', 'b', 1, 1000, '');
       bin.restore('n1', 2000);
       const items: TrashEntry[] = bin.trashed();
-      expect(items.length).assertEqual(1);
-      expect(items[0].noteId).assertEqual('n2');
-      expect(bin.size()).assertEqual(2);
+      expect(items.length, caseName('TrashBinCases', '0005')).assertEqual(1);
+      expect(items[0].noteId, caseName('TrashBinCases', '0005')).assertEqual('n2');
+      expect(bin.size(), caseName('TrashBinCases', '0005')).assertEqual(2);
     });
 
     /**
@@ -908,13 +909,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0006', 0, (): void => {
+    it(caseName('TrashBinCases', '0006'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
-      expect(bin.restore('n1', 1000 + 30 * DAY)).assertTrue();
-      expect(bin.inTrash('n1')).assertFalse();
-      expect(bin.entryOf('n1')?.state).assertEqual(TrashState.ACTIVE);
-      expect(bin.trashed().length).assertEqual(0);
+      expect(bin.restore('n1', 1000 + 30 * DAY), caseName('TrashBinCases', '0006')).assertTrue();
+      expect(bin.inTrash('n1'), caseName('TrashBinCases', '0006')).assertFalse();
+      expect(bin.entryOf('n1')?.state, caseName('TrashBinCases', '0006')).assertEqual(TrashState.ACTIVE);
+      expect(bin.trashed().length, caseName('TrashBinCases', '0006')).assertEqual(0);
     });
 
     /**
@@ -926,12 +927,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0007', 0, (): void => {
+    it(caseName('TrashBinCases', '0007'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
-      expect(bin.restore('n1', 1001 + 30 * DAY)).assertFalse();
-      expect(bin.inTrash('n1')).assertTrue();
-      expect(bin.entryOf('n1')?.state).assertEqual(TrashState.TRASHED);
+      expect(bin.restore('n1', 1001 + 30 * DAY), caseName('TrashBinCases', '0007')).assertFalse();
+      expect(bin.inTrash('n1'), caseName('TrashBinCases', '0007')).assertTrue();
+      expect(bin.entryOf('n1')?.state, caseName('TrashBinCases', '0007')).assertEqual(TrashState.TRASHED);
     });
 
     /**
@@ -943,12 +944,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0008', 0, (): void => {
+    it(caseName('TrashBinCases', '0008'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
-      expect(bin.restore('missing', 1000)).assertFalse();
-      expect(bin.size()).assertEqual(0);
-      expect(bin.restore('', 1000)).assertFalse();
-      expect(bin.trashed().length).assertEqual(0);
+      expect(bin.restore('missing', 1000), caseName('TrashBinCases', '0008')).assertFalse();
+      expect(bin.size(), caseName('TrashBinCases', '0008')).assertEqual(0);
+      expect(bin.restore('', 1000), caseName('TrashBinCases', '0008')).assertFalse();
+      expect(bin.trashed().length, caseName('TrashBinCases', '0008')).assertEqual(0);
     });
 
     /**
@@ -960,14 +961,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0009', 0, (): void => {
+    it(caseName('TrashBinCases', '0009'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
       bin.restore('n1', 2000);
-      expect(bin.restore('n1', 3000)).assertFalse();
-      expect(bin.entryOf('n1')?.state).assertEqual(TrashState.ACTIVE);
-      expect(bin.entryOf('n1') === undefined).assertFalse();
-      expect(bin.trashed().length).assertEqual(0);
+      expect(bin.restore('n1', 3000), caseName('TrashBinCases', '0009')).assertFalse();
+      expect(bin.entryOf('n1')?.state, caseName('TrashBinCases', '0009')).assertEqual(TrashState.ACTIVE);
+      expect(bin.entryOf('n1') === undefined, caseName('TrashBinCases', '0009')).assertFalse();
+      expect(bin.trashed().length, caseName('TrashBinCases', '0009')).assertEqual(0);
     });
 
     /**
@@ -979,15 +980,15 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0010', 0, (): void => {
+    it(caseName('TrashBinCases', '0010'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('old', '旧', 1, 1000, '');
       bin.trash('fresh', '新', 1, 1000 + 20 * DAY, '');
       const removed: TrashEntry[] = bin.purge(1001 + 30 * DAY);
-      expect(removed.length).assertEqual(1);
-      expect(removed[0].noteId).assertEqual('old');
-      expect(bin.entryOf('old')?.state).assertEqual(TrashState.PURGED);
-      expect(bin.entryOf('fresh')?.state).assertEqual(TrashState.TRASHED);
+      expect(removed.length, caseName('TrashBinCases', '0010')).assertEqual(1);
+      expect(removed[0].noteId, caseName('TrashBinCases', '0010')).assertEqual('old');
+      expect(bin.entryOf('old')?.state, caseName('TrashBinCases', '0010')).assertEqual(TrashState.PURGED);
+      expect(bin.entryOf('fresh')?.state, caseName('TrashBinCases', '0010')).assertEqual(TrashState.TRASHED);
     });
 
     /**
@@ -999,12 +1000,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0011', 0, (): void => {
+    it(caseName('TrashBinCases', '0011'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
-      expect(bin.purge(1000 + 30 * DAY).length).assertEqual(0);
-      expect(bin.entryOf('n1')?.state).assertEqual(TrashState.TRASHED);
-      expect(bin.purge(1001 + 30 * DAY).length).assertEqual(1);
+      expect(bin.purge(1000 + 30 * DAY).length, caseName('TrashBinCases', '0011')).assertEqual(0);
+      expect(bin.entryOf('n1')?.state, caseName('TrashBinCases', '0011')).assertEqual(TrashState.TRASHED);
+      expect(bin.purge(1001 + 30 * DAY).length, caseName('TrashBinCases', '0011')).assertEqual(1);
     });
 
     /**
@@ -1016,14 +1017,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0012', 0, (): void => {
+    it(caseName('TrashBinCases', '0012'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
       bin.restore('n1', 2000);
-      expect(bin.purge(1001 + 40 * DAY).length).assertEqual(0);
-      expect(bin.entryOf('n1')?.state).assertEqual(TrashState.ACTIVE);
-      expect(bin.size()).assertEqual(1);
-      expect(bin.trashed().length).assertEqual(0);
+      expect(bin.purge(1001 + 40 * DAY).length, caseName('TrashBinCases', '0012')).assertEqual(0);
+      expect(bin.entryOf('n1')?.state, caseName('TrashBinCases', '0012')).assertEqual(TrashState.ACTIVE);
+      expect(bin.size(), caseName('TrashBinCases', '0012')).assertEqual(1);
+      expect(bin.trashed().length, caseName('TrashBinCases', '0012')).assertEqual(0);
     });
 
     /**
@@ -1035,13 +1036,13 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0013', 0, (): void => {
+    it(caseName('TrashBinCases', '0013'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
       bin.purge(1001 + 30 * DAY);
-      expect(bin.restore('n1', 1002 + 30 * DAY)).assertFalse();
-      expect(bin.inTrash('n1')).assertFalse();
-      expect(bin.entryOf('n1')?.state).assertEqual(TrashState.PURGED);
+      expect(bin.restore('n1', 1002 + 30 * DAY), caseName('TrashBinCases', '0013')).assertFalse();
+      expect(bin.inTrash('n1'), caseName('TrashBinCases', '0013')).assertFalse();
+      expect(bin.entryOf('n1')?.state, caseName('TrashBinCases', '0013')).assertEqual(TrashState.PURGED);
     });
 
     /**
@@ -1053,15 +1054,15 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0014', 0, (): void => {
+    it(caseName('TrashBinCases', '0014'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('a', 'a', 1, 1000, '');
       bin.trash('b', 'b', 1, 1000, '');
       bin.purge(1001 + 30 * DAY);
-      expect(bin.size()).assertEqual(2);
-      expect(bin.trashed().length).assertEqual(0);
-      expect(bin.entryOf('a')?.state).assertEqual(TrashState.PURGED);
-      expect(bin.trash('c', 'c', 1, 1000, '')).assertTrue();
+      expect(bin.size(), caseName('TrashBinCases', '0014')).assertEqual(2);
+      expect(bin.trashed().length, caseName('TrashBinCases', '0014')).assertEqual(0);
+      expect(bin.entryOf('a')?.state, caseName('TrashBinCases', '0014')).assertEqual(TrashState.PURGED);
+      expect(bin.trash('c', 'c', 1, 1000, ''), caseName('TrashBinCases', '0014')).assertTrue();
     });
 
     /**
@@ -1073,14 +1074,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0015', 0, (): void => {
+    it(caseName('TrashBinCases', '0015'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
       bin.restore('n1', 2000);
-      expect(bin.trash('n1', 'a', 2, 3000, '再次删除')).assertTrue();
-      expect(bin.inTrash('n1')).assertTrue();
-      expect(bin.entryOf('n1')?.trashedAt).assertEqual(3000);
-      expect(bin.size()).assertEqual(1);
+      expect(bin.trash('n1', 'a', 2, 3000, '再次删除'), caseName('TrashBinCases', '0015')).assertTrue();
+      expect(bin.inTrash('n1'), caseName('TrashBinCases', '0015')).assertTrue();
+      expect(bin.entryOf('n1')?.trashedAt, caseName('TrashBinCases', '0015')).assertEqual(3000);
+      expect(bin.size(), caseName('TrashBinCases', '0015')).assertEqual(1);
     });
 
     /**
@@ -1092,12 +1093,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashBinCases0016', 0, (): void => {
+    it(caseName('TrashBinCases', '0016'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
-      expect(bin.size()).assertEqual(0);
-      expect(bin.trashed().length).assertEqual(0);
-      expect(bin.purge(1000).length).assertEqual(0);
-      expect(bin.inTrash('any')).assertFalse();
+      expect(bin.size(), caseName('TrashBinCases', '0016')).assertEqual(0);
+      expect(bin.trashed().length, caseName('TrashBinCases', '0016')).assertEqual(0);
+      expect(bin.purge(1000).length, caseName('TrashBinCases', '0016')).assertEqual(0);
+      expect(bin.inTrash('any'), caseName('TrashBinCases', '0016')).assertFalse();
     });
   });
 
@@ -1111,12 +1112,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashLinesCases0001', 0, (): void => {
+    it(caseName('TrashLinesCases', '0001'), 0, (): void => {
       const lines: string[] = trashLines(new TrashBin(), 1000);
-      expect(lines.length).assertEqual(1);
-      expect(lines[0]).assertEqual('回收站为空');
-      expect(lines[0].length).assertEqual(5);
-      expect(lines[0].indexOf('为空') > 0).assertTrue();
+      expect(lines.length, caseName('TrashLinesCases', '0001')).assertEqual(1);
+      expect(lines[0], caseName('TrashLinesCases', '0001')).assertEqual('回收站为空');
+      expect(lines[0].length, caseName('TrashLinesCases', '0001')).assertEqual(5);
+      expect(lines[0].indexOf('为空') > 0, caseName('TrashLinesCases', '0001')).assertTrue();
     });
 
     /**
@@ -1128,15 +1129,15 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashLinesCases0002', 0, (): void => {
+    it(caseName('TrashLinesCases', '0002'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
       bin.trash('n2', 'b', 1, 1000, '');
       const lines: string[] = trashLines(bin, 1000);
-      expect(lines[0]).assertEqual('回收站 2 项｜保留 30 天');
-      expect(lines.length).assertEqual(3);
-      expect(lines[0].indexOf('保留 30 天') > 0).assertTrue();
-      expect(lines[0].split('｜').length).assertEqual(2);
+      expect(lines[0], caseName('TrashLinesCases', '0002')).assertEqual('回收站 2 项｜保留 30 天');
+      expect(lines.length, caseName('TrashLinesCases', '0002')).assertEqual(3);
+      expect(lines[0].indexOf('保留 30 天') > 0, caseName('TrashLinesCases', '0002')).assertTrue();
+      expect(lines[0].split('｜').length, caseName('TrashLinesCases', '0002')).assertEqual(2);
     });
 
     /**
@@ -1148,14 +1149,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashLinesCases0003', 0, (): void => {
+    it(caseName('TrashLinesCases', '0003'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', '周报', 3, 1000, '手动删除');
       const lines: string[] = trashLines(bin, 1000 + 2 * DAY);
-      expect(lines[1]).assertEqual('周报｜回收站｜修订 3｜来源 手动删除｜可恢复（已存 2 天）');
-      expect(lines[1].indexOf('可恢复') > 0).assertTrue();
-      expect(lines[1].indexOf('已存 2 天') > 0).assertTrue();
-      expect(lines[1].split('｜').length).assertEqual(5);
+      expect(lines[1], caseName('TrashLinesCases', '0003')).assertEqual('周报｜回收站｜修订 3｜来源 手动删除｜可恢复（已存 2 天）');
+      expect(lines[1].indexOf('可恢复') > 0, caseName('TrashLinesCases', '0003')).assertTrue();
+      expect(lines[1].indexOf('已存 2 天') > 0, caseName('TrashLinesCases', '0003')).assertTrue();
+      expect(lines[1].split('｜').length, caseName('TrashLinesCases', '0003')).assertEqual(5);
     });
 
     /**
@@ -1167,14 +1168,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashLinesCases0004', 0, (): void => {
+    it(caseName('TrashLinesCases', '0004'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', '周报', 1, 1000, '');
       const lines: string[] = trashLines(bin, 1000 + 40 * DAY);
-      expect(lines[1].indexOf('已过期') > 0).assertTrue();
-      expect(lines[1].indexOf('可恢复')).assertEqual(-1);
-      expect(lines.length).assertEqual(2);
-      expect(lines[1].substring(lines[1].length - 3)).assertEqual('已过期');
+      expect(lines[1].indexOf('已过期') > 0, caseName('TrashLinesCases', '0004')).assertTrue();
+      expect(lines[1].indexOf('可恢复'), caseName('TrashLinesCases', '0004')).assertEqual(-1);
+      expect(lines.length, caseName('TrashLinesCases', '0004')).assertEqual(2);
+      expect(lines[1].substring(lines[1].length - 3), caseName('TrashLinesCases', '0004')).assertEqual('已过期');
     });
 
     /**
@@ -1186,12 +1187,12 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashLinesCases0005', 0, (): void => {
+    it(caseName('TrashLinesCases', '0005'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 0, '');
-      expect(trashLines(bin, DAY - 1)[1].indexOf('已存 0 天') > 0).assertTrue();
-      expect(trashLines(bin, 3 * DAY + 5)[1].indexOf('已存 3 天') > 0).assertTrue();
-      expect(trashLines(bin, 0)[1].indexOf('已存 0 天') > 0).assertTrue();
+      expect(trashLines(bin, DAY - 1)[1].indexOf('已存 0 天') > 0, caseName('TrashLinesCases', '0005')).assertTrue();
+      expect(trashLines(bin, 3 * DAY + 5)[1].indexOf('已存 3 天') > 0, caseName('TrashLinesCases', '0005')).assertTrue();
+      expect(trashLines(bin, 0)[1].indexOf('已存 0 天') > 0, caseName('TrashLinesCases', '0005')).assertTrue();
     });
 
     /**
@@ -1203,15 +1204,15 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashLinesCases0006', 0, (): void => {
+    it(caseName('TrashLinesCases', '0006'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
       bin.trash('n2', 'b', 1, 1000, '');
       bin.restore('n1', 2000);
       const lines: string[] = trashLines(bin, 2000);
-      expect(lines[0]).assertEqual('回收站 1 项｜保留 30 天');
-      expect(lines.length).assertEqual(2);
-      expect(lines[1].indexOf('b｜') === 0).assertTrue();
+      expect(lines[0], caseName('TrashLinesCases', '0006')).assertEqual('回收站 1 项｜保留 30 天');
+      expect(lines.length, caseName('TrashLinesCases', '0006')).assertEqual(2);
+      expect(lines[1].indexOf('b｜') === 0, caseName('TrashLinesCases', '0006')).assertTrue();
     });
 
     /**
@@ -1223,14 +1224,14 @@ export default function noteSaveTrashCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTrashLinesCases0007', 0, (): void => {
+    it(caseName('TrashLinesCases', '0007'), 0, (): void => {
       const bin: TrashBin = new TrashBin();
       bin.trash('n1', 'a', 1, 1000, '');
       bin.purge(1001 + 30 * DAY);
       const lines: string[] = trashLines(bin, 1002 + 30 * DAY);
-      expect(lines.length).assertEqual(1);
-      expect(lines[0]).assertEqual('回收站为空');
-      expect(bin.size()).assertEqual(1);
+      expect(lines.length, caseName('TrashLinesCases', '0007')).assertEqual(1);
+      expect(lines[0], caseName('TrashLinesCases', '0007')).assertEqual('回收站为空');
+      expect(bin.size(), caseName('TrashLinesCases', '0007')).assertEqual(1);
     });
   });
 }
