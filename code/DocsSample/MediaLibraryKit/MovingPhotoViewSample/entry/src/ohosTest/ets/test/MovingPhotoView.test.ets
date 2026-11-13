@@ -18,7 +18,7 @@ import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect, TestT
 import { Driver, ON, Component, abilityDelegatorRegistry } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
 
-const DOMAIN = 0x0000;
+const DOMAIN = 0xF811;
 const TAG = 'MovingPhotoViewTest';
 const DELAY_TIME_1S = 1000;
 const DELAY_TIME_3S = 3000;

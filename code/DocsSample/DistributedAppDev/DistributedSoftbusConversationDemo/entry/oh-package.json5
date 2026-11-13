@@ -16,9 +16,9 @@
 {
   "name": "entry",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "Entry module for the distributed softbus conversation sample.",
   "main": "",
-  "author": "",
-  "license": "",
+  "author": "example",
+  "license": "Apache-2.0",
   "dependencies": {}
 }

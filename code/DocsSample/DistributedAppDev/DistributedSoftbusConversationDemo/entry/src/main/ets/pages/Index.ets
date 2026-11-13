@@ -21,7 +21,7 @@ import { conversation } from '@kit.DistributedServiceKit'
 import { hilog } from '@kit.PerformanceAnalysisKit'
 
 const TAG = '[ConversationTestPage]';
-const DOMAIN = 0x0000;
+const DOMAIN = 0xF811;
 const messageToSend = 'Hello from ConversationTest!';
 const bundleName = 'com.example.demo';
 const abilityName = 'EntryAbility';
@@ -45,7 +45,7 @@ let messageCallback: conversation.DataCallback = (deviceId: string, msg: ArrayBu
 @Component
 struct Index {
   // 权限申请
-  requesPermission(): void {
+  requestPermission(): void {
     let permissions: Permissions[] = [
       'ohos.permission.DISTRIBUTED_DATASYNC',
       'ohos.permission.sec.ACCESS_UDID'
@@ -69,7 +69,7 @@ struct Index {
 
   aboutToAppear(): void {
     hilog.info(DOMAIN, TAG, 'aboutToAppear');
-    this.requesPermission();
+    this.requestPermission();
   }
 
   // [Start get_trusted_devices]
@@ -78,11 +78,11 @@ struct Index {
     hilog.info(DOMAIN, TAG, 'getTrustedDevices called');
     try {
       let devices = conversation.getTrustedDevices() as conversation.DeviceNodeInfo[];
-      if (devices && devices.length > 0) {
-        hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
-      } else {
-        hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
+      if (!devices || devices.length === 0) {
+        hilog.info(DOMAIN, TAG, 'No trusted devices found');
+        return;
       }
+      hilog.info(DOMAIN, TAG, 'Found %{public}d devices', devices.length);
     } catch (err) {
       let error = err as BusinessError;
       hilog.error(DOMAIN, TAG, 'getTrustedDevices error: %{public}s - %{public}s', error.code, error.message);

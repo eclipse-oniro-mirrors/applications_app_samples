@@ -43,7 +43,6 @@ entry/src/main/ets/
 
 - 允许不同设备间的数据交换：[ohos.permission.DISTRIBUTED_DATASYNC](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-all-user.md#ohospermissiondistributed_datasync)
 
-E:\lihongyi\docs\zh-cn\application-dev\
 - 允许获取设备 UDID：[ohos.permission.sec.ACCESS_UDID](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/permissions-for-enterprise-apps.md#ohospermissionsecaccess_udid)
 
 ### 约束与限制
