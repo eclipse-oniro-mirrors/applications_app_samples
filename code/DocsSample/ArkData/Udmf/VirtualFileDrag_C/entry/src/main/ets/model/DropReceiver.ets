@@ -64,31 +64,27 @@ async function copyEntry(source: string, destination: string, depth: number = 0)
 }
 
 // [Start virtual_drag_receive]
-export async function copyDroppedFiles(event: DragEvent, context: common.UIAbilityContext,
-  log: (text: string) => void): Promise<void> {
-  try {
-    const records = event.getData().getRecords();
-    const directory = `${context.filesDir}/received-${Date.now()}`;
-    await fs.mkdir(directory);
-    let count = 0;
-    for (const record of records) {
-      if (!record.getTypes().includes(uniformTypeDescriptor.UniformDataType.FILE_URI)) {
-        continue;
-      }
-      const entry = record.getEntry(uniformTypeDescriptor.UniformDataType.FILE_URI) as uniformDataStruct.FileUri;
-      const source = new fileUri.FileUri(entry.oriUri).path;
-      const name = source.substring(source.lastIndexOf('/') + 1);
-      if (name.length === 0 || name === '.' || name === '..') {
-        throw new Error('文件名无效');
-      }
-      log(`开始复制：${name}`);
-      // 普通文件 API 即可读取虚拟文件，无须使用提供方回调。
-      await copyEntry(source, `${directory}/${count}-${name}`);
-      count++;
+export async function copyDroppedFiles(event: DragEvent, context: common.UIAbilityContext): Promise<void> {
+  const records = event.getData().getRecords();
+  const directory = `${context.filesDir}/received-${Date.now()}`;
+  await fs.mkdir(directory);
+  let count = 0;
+  for (const record of records) {
+    if (!record.getTypes().includes(uniformTypeDescriptor.UniformDataType.FILE_URI)) {
+      continue;
     }
-    log(count > 0 ? `复制成功：${count} 个根节点，保存到 ${directory}` : '未收到文件数据');
-  } catch (error) {
-    log(`复制失败：${JSON.stringify(error)}`);
+    const entry = record.getEntry(uniformTypeDescriptor.UniformDataType.FILE_URI) as uniformDataStruct.FileUri;
+    const source = new fileUri.FileUri(entry.oriUri).path;
+    const name = source.substring(source.lastIndexOf('/') + 1);
+    if (name.length === 0 || name === '.' || name === '..') {
+      throw new Error('文件名无效');
+    }
+    // 普通文件 API 即可读取虚拟文件，无须使用提供方回调。
+    await copyEntry(source, `${directory}/${count}-${name}`);
+    count++;
+  }
+  if (count === 0) {
+    throw new Error('未收到文件数据');
   }
 }
 // [End virtual_drag_receive]

@@ -21,7 +21,6 @@
 #include <zlib.h>
 #include <algorithm>
 #include <chrono>
-#include <cstring>
 #include <map>
 #include <memory>
 #include <mutex>
@@ -30,6 +29,7 @@
 
 namespace {
 constexpr uint32_t MAX_READ = 5 * 1024 * 1024;
+constexpr int DIRECTORY_FILE_COUNT = 3;
 constexpr uint32_t SAMPLE_LOG_DOMAIN = 0xD004101;
 constexpr char SAMPLE_LOG_TAG[] = "VirtualFileDragC";
 
@@ -103,7 +103,7 @@ int OnRead(void* opaque, const char* id, int64_t offset, uint32_t length,
         return UDMF_ERR;
     }
     // data 由 UDMF 提供，本回调只填充数据，不释放、不保存该地址。
-    std::memcpy(data, file.content.data() + offset, count);
+    std::copy_n(file.content.data() + offset, count, data);
     *bytesRead = count;
     OH_LOG_Print(LOG_APP, LOG_INFO, SAMPLE_LOG_DOMAIN, SAMPLE_LOG_TAG,
         "onRead id=%{public}s offset=%{public}lld bytes=%{public}u", id,
@@ -189,7 +189,7 @@ OH_UDMF_VirtualItem* CreateRoot(const ProviderContext& context, bool directory)
 OH_UdmfData* CreateVirtualDragData(bool directory, bool compressed)
 {
     auto context = std::make_unique<ProviderContext>();
-    for (int index = 0; index < (directory ? 3 : 1); ++index) {
+    for (int index = 0; index < (directory ? DIRECTORY_FILE_COUNT : 1); ++index) {
         if (!AddFile(*context, index, compressed)) {
             return nullptr;
         }

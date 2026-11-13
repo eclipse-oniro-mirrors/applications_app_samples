@@ -23,12 +23,26 @@
 #include <napi/native_api.h>
 
 namespace {
+constexpr size_t CONFIG_ARGUMENT_COUNT = 2;
+constexpr float DRAG_AREA_HEIGHT = 120.0F;
+constexpr float FULL_WIDTH_PERCENT = 1.0F;
 ArkUI_NativeNodeAPI_1* g_nodeApi = nullptr;
 ArkUI_NodeContentHandle g_content = nullptr;
 ArkUI_NodeHandle g_source = nullptr;
 OH_UdmfData* g_dragData = nullptr;
 bool g_directory = false;
 bool g_compressed = false;
+
+void UpdateSourceText()
+{
+    if (g_nodeApi == nullptr || g_source == nullptr) {
+        return;
+    }
+    ArkUI_AttributeItem text {};
+    text.string = g_directory ? "嵌套目录：长按拖出" :
+        (g_compressed ? "解压文件：长按拖出" : "文档：长按拖出");
+    g_nodeApi->setAttribute(g_source, NODE_TEXT_CONTENT, &text);
+}
 
 // [Start virtual_drag_c_start]
 void OnNodeEvent(ArkUI_NodeEvent* event)
@@ -79,18 +93,19 @@ napi_value CreateNativeNode(napi_env env, napi_callback_info info)
         return nullptr;
     }
     g_source = g_nodeApi->createNode(ARKUI_NODE_TEXT);
-    ArkUI_AttributeItem text {};
-    text.string = "长按这里拖出文件（C API）";
-    g_nodeApi->setAttribute(g_source, NODE_TEXT_CONTENT, &text);
-    ArkUI_NumberValue width[] = {{.f32 = 320}};
+    UpdateSourceText();
+    ArkUI_NumberValue width[] = {{.f32 = FULL_WIDTH_PERCENT}};
     ArkUI_AttributeItem widthItem {width, 1};
-    g_nodeApi->setAttribute(g_source, NODE_WIDTH, &widthItem);
-    ArkUI_NumberValue height[] = {{.f32 = 100}};
+    g_nodeApi->setAttribute(g_source, NODE_WIDTH_PERCENT, &widthItem);
+    ArkUI_NumberValue height[] = {{.f32 = DRAG_AREA_HEIGHT}};
     ArkUI_AttributeItem heightItem {height, 1};
     g_nodeApi->setAttribute(g_source, NODE_HEIGHT, &heightItem);
     ArkUI_NumberValue color[] = {{.u32 = 0xFFD9E8FF}};
     ArkUI_AttributeItem background {color, 1};
     g_nodeApi->setAttribute(g_source, NODE_BACKGROUND_COLOR, &background);
+    ArkUI_NumberValue alignment[] = {{.i32 = ARKUI_TEXT_ALIGNMENT_CENTER}};
+    ArkUI_AttributeItem alignmentItem {alignment, 1};
+    g_nodeApi->setAttribute(g_source, NODE_TEXT_ALIGN, &alignmentItem);
     g_nodeApi->registerNodeEvent(g_source, NODE_ON_DRAG_START, 1, nullptr);
     g_nodeApi->registerNodeEvent(g_source, NODE_ON_DRAG_END, 1, nullptr);
     g_nodeApi->addNodeEventReceiver(g_source, OnNodeEvent);
@@ -101,11 +116,11 @@ napi_value CreateNativeNode(napi_env env, napi_callback_info info)
 
 napi_value Configure(napi_env env, napi_callback_info info)
 {
-    size_t count = 2;
-    napi_value args[2] {};
+    size_t count = CONFIG_ARGUMENT_COUNT;
+    napi_value args[CONFIG_ARGUMENT_COUNT] {};
     bool directory = false;
     bool compressed = false;
-    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != 2 ||
+    if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != CONFIG_ARGUMENT_COUNT ||
         napi_get_value_bool(env, args[0], &directory) != napi_ok ||
         napi_get_value_bool(env, args[1], &compressed) != napi_ok) {
         napi_throw_type_error(env, nullptr, "configure expects two booleans");
@@ -113,6 +128,7 @@ napi_value Configure(napi_env env, napi_callback_info info)
     }
     g_directory = directory;
     g_compressed = compressed;
+    UpdateSourceText();
     return nullptr;
 }
 

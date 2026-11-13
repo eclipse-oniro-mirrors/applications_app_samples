@@ -10,16 +10,14 @@
 
 1. 使用支持 API 26.1.0 的 OpenHarmony SDK 和 Hvigor 6.0.0 的 DevEco Studio 打开本工程，同步依赖，配置开发签名后编译安装。本工程不携带个人签名材料。
 2. 设备 ROM 必须已支持 UDMF 虚拟文件拖拽及沙箱配置；仅补充 SDK 声明不能使旧 ROM 具备此能力。建议使用支持鼠标拖拽的 PC 形态或可分屏设备。
-3. 选择“文档”“嵌套目录”或“ZIP 内文件”，等候元数据准备完成。ZIP 来自工程自带的 documents.zip，只有首次读取时才解压。
-4. 网络场景：填写支持 HTTPS Range 的地址及准确字节数，再点击“准备网络文件”。准备时只探测首字节，落入读取时按需下载。服务器须返回正确的 206 和 Content-Range，文件内容在读取期间应保持不变。
-5. 将蓝色区域拖到文件管理器或支持接收文件的桌面位置，保存后打开核对内容。也可分别安装两个示例，分屏后互相拖入绿色接收区。
-6. 接收区显示复制结果及应用私有 filesDir 下的保存位置。失败时显示原因，可能保留部分复制内容供排查。
-7. 页面及 hilog 中的 VirtualFileDrag 日志可观察准备、onRead、onCancel 及复制过程。
+3. 默认选择文档，可切换“文档”“目录”或“按需解压”，等候元数据准备完成。ZIP 来自工程自带的 documents.zip，只有第一次读取时才解压。
+4. 将蓝色区域拖到文件管理器或支持接收文件的桌面位置，保存后打开核对内容。也可分别安装两个示例，分屏后互相拖入绿色接收区。
+5. 接收区仅以简短提示反馈保存成功或失败，不显示日志。文件保存在应用私有 filesDir 下的 received-<时间戳> 目录。
 
 ### 工程目录
 
 - [Index.ets](entry/src/main/ets/pages/Index.ets)：场景选择、拖起区和普通文件接收区。
-- [VirtualFileProvider.ets](entry/src/main/ets/model/VirtualFileProvider.ets)：文件树、stat/read/cancel 回调、Range 下载和延迟解压。
+- [VirtualFileProvider.ets](entry/src/main/ets/model/VirtualFileProvider.ets)：文件树、stat/read/cancel 回调和延迟解压。
 - [documents.zip](entry/src/main/resources/rawfile/documents.zip)：内含 106 字节的 archive-note.txt，用于按需解压验证。
 - [DropReceiver.ets](entry/src/main/ets/model/DropReceiver.ets)：使用异步普通文件 API 遍历、读取、复制拖入的文件。
 - [ohosTest.md](ohosTest.md)：人工验证步骤和预期现象。
@@ -29,14 +27,14 @@
 - size 必须准确、非负，空文件为 0；modifyTime 使用毫秒时间戳。不同内容使用不同 id，同一文件各次读取使用同一个 id。
 - onRead 从 offset 开始提供不超过 length 的字节；length 不是已读取长度。成功到达末尾才返回空数据，失败不能用空数据伪装 EOF。
 - onStat 返回文件元数据；声明准确大小后，普通 stat 不保证每次都调用 onStat，不能据此判断失败。
-- onCancel 取消当前待处理任务，应允许重复通知，不能永久禁止同一 id 的后续读取；用户中止拖拽不保证一定触发该回调。网络示例销毁对应 id 当前的 HTTP 请求。
+- onCancel 取消当前待处理任务，应允许重复通知，不能永久禁止同一 id 的后续读取；用户中止拖拽不保证一定触发该回调。本地读取没有额外的可取消任务，示例保留该回调的用法。
 - 通过 FileUri.virtualEntry 附加节点和回调，在 onDragStart 设置 UnifiedData，无须先调用 insertData。拖拽结束不代表目标读取完成，不在 onDragEnd 中取消读取。
 - 示例未申请后台保活能力。实际应用应根据后台运行条件保障提供数据期间的可用性；提供方退出或回调失败会导致目标读取失败。
-- 网络示例不包含账号登录、鉴权和资源更新处理。ZIP 场景使用受控资源及已知大小；演示缓存位于应用私有目录，测试结束可清除应用数据。
+- ZIP 场景使用受控资源及已知大小；演示缓存位于应用私有目录，测试结束可清除应用数据。
 
 ### 权限与依赖
 
-ohos.permission.INTERNET 用于网络文件读取。使用 SDK 提供的 UDMF、HTTP、文件和 zlib 接口，无第三方依赖。采用 Stage 模型和动态 ArkTS，不包含 ArkTS 1.2 静态接口。
+不涉及额外权限。使用 SDK 提供的 UDMF、文件和 zlib 接口，无第三方依赖。采用 Stage 模型和动态 ArkTS，不包含 ArkTS 1.2 静态接口。
 
 ### 资料同源
 

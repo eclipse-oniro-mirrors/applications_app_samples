@@ -20,38 +20,42 @@ import { common } from '@kit.AbilityKit';
 import { VirtualFileProvider } from '../model/VirtualFileProvider';
 import { copyDroppedFiles } from '../model/DropReceiver';
 
+enum ExportScenario {
+  DOCUMENT,
+  DIRECTORY,
+  ARCHIVE
+}
+
 @Entry
 @Component
 struct Index {
-  @State private status: string = '选择场景并准备文件，随后长按蓝色区域拖出。';
   @State private ready: boolean = false;
   @State private busy: boolean = false;
-  @State private url: string = '';
-  @State private fileSize: string = '';
+  @State private fileName: string = '文档';
   private provider?: VirtualFileProvider;
 
-  private log(message: string): void {
-    console.info(`[VirtualFileDrag] ${message}`);
-    this.status = `${message}\n${this.status}`.slice(0, 5000);
+  aboutToAppear(): void {
+    this.prepare(ExportScenario.DOCUMENT);
   }
 
-  private async prepare(scenario: number): Promise<void> {
+  private async prepare(scenario: ExportScenario): Promise<void> {
     this.ready = false;
     this.busy = true;
     try {
-      const provider = new VirtualFileProvider((message: string) => this.log(message));
-      if (scenario === 2) {
-        await provider.prepareNetwork(this.url, Number(this.fileSize));
-      } else if (scenario === 3) {
+      const provider = new VirtualFileProvider();
+      if (scenario === ExportScenario.ARCHIVE) {
         await provider.prepareArchive(this.getUIContext().getHostContext() as common.UIAbilityContext);
+        this.fileName = '解压文件';
       } else {
-        provider.prepareDocuments(scenario === 1);
+        const directory = scenario === ExportScenario.DIRECTORY;
+        provider.prepareDocuments(directory);
+        this.fileName = directory ? '嵌套目录' : '文档';
       }
       this.provider = provider;
       this.ready = true;
-      this.log('文件元数据已就绪，可拖到文件管理器、桌面或另一示例的接收区');
     } catch (error) {
-      this.log(`准备失败：${JSON.stringify(error)}`);
+      console.error(`Prepare virtual file failed: ${JSON.stringify(error)}`);
+      this.getUIContext().getPromptAction().showToast({ message: '文件准备失败，请重试' });
     } finally {
       this.busy = false;
     }
@@ -75,43 +79,41 @@ struct Index {
   }
 // [End virtual_drag_js_data]
 
+  private async receive(event: DragEvent): Promise<void> {
+    try {
+      await copyDroppedFiles(event, this.getUIContext().getHostContext() as common.UIAbilityContext);
+      this.getUIContext().getPromptAction().showToast({ message: '文件已保存' });
+    } catch (error) {
+      console.error(`Copy dropped files failed: ${JSON.stringify(error)}`);
+      this.getUIContext().getPromptAction().showToast({ message: '文件保存失败，请重试' });
+    }
+  }
+
   build() {
-    Scroll() {
-      Column({ space: 12 }) {
-        Text('虚拟文件拖拽 · ArkTS').fontSize(24)
-        Row({ space: 8 }) {
-          Button('文档').onClick(() => { this.prepare(0); }).enabled(!this.busy)
-          Button('嵌套目录').onClick(() => { this.prepare(1); }).enabled(!this.busy)
-          Button('ZIP 内文件').onClick(() => { this.prepare(3); }).enabled(!this.busy)
-        }
-        TextInput({ placeholder: '支持 Range 的 HTTPS 文件地址', text: this.url })
-          .onChange((value: string) => { this.url = value; })
-        TextInput({ placeholder: '网络文件准确大小（字节）', text: this.fileSize })
-          .type(InputType.Number).onChange((value: string) => { this.fileSize = value; })
-        Button('准备网络文件').onClick(() => { this.prepare(2); }).enabled(!this.busy)
-        Text(this.ready ? '长按这里拖出文件' : '请先准备文件')
-          .width('100%').height(100).backgroundColor('#D9E8FF')
-          .draggable(this.ready)
+    Column({ space: 20 }) {
+      Text('虚拟文件拖拽').fontSize(24)
+      Row({ space: 8 }) {
+        Button('文档').onClick(() => { this.prepare(ExportScenario.DOCUMENT); }).enabled(!this.busy)
+        Button('目录').onClick(() => { this.prepare(ExportScenario.DIRECTORY); }).enabled(!this.busy)
+        Button('按需解压').onClick(() => { this.prepare(ExportScenario.ARCHIVE); }).enabled(!this.busy)
+      }
+      Text(this.ready ? `${this.fileName}：长按拖出` : '正在准备文件…')
+        .width('100%').height(120).backgroundColor('#D9E8FF')
+        .draggable(this.ready)
 // [Start virtual_drag_js_start]
-          .onDragStart((event: DragEvent) => {
-            try {
-              event.setData(this.createDragData());
-              this.log('已设置拖拽数据，等候目标应用读取');
-            } catch (error) {
-              this.log(`设置拖拽数据失败：${JSON.stringify(error)}`);
-            }
-          })
+        .onDragStart((event: DragEvent) => {
+          try {
+            event.setData(this.createDragData());
+          } catch (error) {
+            console.error(`Set drag data failed: ${JSON.stringify(error)}`);
+            this.getUIContext().getPromptAction().showToast({ message: '拖拽失败，请重试' });
+          }
+        })
 // [End virtual_drag_js_start]
-          .onDragEnd(() => { this.log('拖拽结束；不在此处取消目标应用的读取'); })
-        Text('将另一示例的文件拖入这里，复制到当前应用沙箱')
-          .width('100%').height(100).backgroundColor('#DCF2DF')
-          .allowDrop([uniformTypeDescriptor.UniformDataType.FILE_URI])
-          .onDrop((event: DragEvent) => {
-            copyDroppedFiles(event, this.getUIContext().getHostContext() as common.UIAbilityContext,
-              (message: string) => this.log(message));
-          })
-        Text(this.status).width('100%').fontSize(14).copyOption(CopyOptions.InApp)
-      }.padding(16).width('100%')
-    }.height('100%')
+      Text('拖入文件以保存')
+        .width('100%').height(120).backgroundColor('#DCF2DF')
+        .allowDrop([uniformTypeDescriptor.UniformDataType.FILE_URI])
+        .onDrop((event: DragEvent) => { this.receive(event); })
+    }.padding(24).width('100%').height('100%')
   }
 }

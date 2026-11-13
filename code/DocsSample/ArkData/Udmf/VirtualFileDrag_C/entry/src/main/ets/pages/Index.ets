@@ -19,61 +19,62 @@ import { common } from '@kit.AbilityKit';
 import uniformTypeDescriptor from '@ohos.data.uniformTypeDescriptor';
 import { copyDroppedFiles } from '../model/DropReceiver';
 
+enum ExportScenario {
+  DOCUMENT,
+  DIRECTORY,
+  ARCHIVE
+}
+
 @Entry
 @Component
 struct Index {
+  private scenario: ExportScenario = ExportScenario.DOCUMENT;
   private content: NodeContent = new NodeContent();
 
   aboutToAppear(): void {
     nativeEntry.createNativeNode(this.content);
-    nativeEntry.configure(this.directory, this.compressed);
+    this.prepare(this.scenario);
   }
 
   aboutToDisappear(): void {
     nativeEntry.destroyNativeNode();
   }
 
-  @State private status: string = '默认导出一个文档；选择场景后从蓝色区域拖出。';
-  @State private directory: boolean = false;
-  @State private compressed: boolean = false;
+  private prepare(scenario: ExportScenario): void {
+    try {
+      nativeEntry.configure(scenario === ExportScenario.DIRECTORY, scenario === ExportScenario.ARCHIVE);
+      this.scenario = scenario;
+    } catch (error) {
+      console.error(`Prepare virtual file failed: ${JSON.stringify(error)}`);
+      this.getUIContext().getPromptAction().showToast({ message: '文件准备失败，请重试' });
+    }
+  }
 
-  private configure(): void {
-    nativeEntry.configure(this.directory, this.compressed);
-    this.status = `场景：${this.directory ? '嵌套目录' : '单个文件'}，${this.compressed ? '按需解压' : '文档导出'}`;
+  private async receive(event: DragEvent): Promise<void> {
+    try {
+      await copyDroppedFiles(event, this.getUIContext().getHostContext() as common.UIAbilityContext);
+      this.getUIContext().getPromptAction().showToast({ message: '文件已保存' });
+    } catch (error) {
+      console.error(`Copy dropped files failed: ${JSON.stringify(error)}`);
+      this.getUIContext().getPromptAction().showToast({ message: '文件保存失败，请重试' });
+    }
   }
 
   build() {
-    Scroll() {
-      Column({ space: 16 }) {
-        Text('虚拟文件拖拽 · C API').fontSize(24)
-        Row({ space: 8 }) {
-          Text('嵌套目录')
-          Toggle({ type: ToggleType.Switch, isOn: this.directory }).onChange((value: boolean) => {
-            this.directory = value;
-            this.configure();
-          })
-        }
-        Row({ space: 8 }) {
-          Text('首次读取时解压内容')
-          Toggle({ type: ToggleType.Switch, isOn: this.compressed }).onChange((value: boolean) => {
-            this.compressed = value;
-            this.configure();
-          })
-        }
-        Row() {
-          ContentSlot(this.content)
-        }.width('100%').height(120)
-        Text('将另一示例的文件拖入这里，复制到当前应用沙箱')
-          .width('100%').height(120).backgroundColor('#DCF2DF')
-          .allowDrop([uniformTypeDescriptor.UniformDataType.FILE_URI])
-          .onDrop((event: DragEvent) => {
-            copyDroppedFiles(event, this.getUIContext().getHostContext() as common.UIAbilityContext, (message: string) => {
-              this.status = `${message}\n${this.status}`.slice(0, 5000);
-            });
-          })
-        Text(this.status).fontSize(14).width('100%').copyOption(CopyOptions.InApp)
-        Text('提供方回调日志：hilog 中搜索 VirtualFileDragC').fontSize(14)
-      }.padding(16).width('100%')
-    }.height('100%')
+    Column({ space: 20 }) {
+      Text('虚拟文件拖拽').fontSize(24)
+      Row({ space: 8 }) {
+        Button('文档').onClick(() => { this.prepare(ExportScenario.DOCUMENT); })
+        Button('目录').onClick(() => { this.prepare(ExportScenario.DIRECTORY); })
+        Button('按需解压').onClick(() => { this.prepare(ExportScenario.ARCHIVE); })
+      }
+      Row() {
+        ContentSlot(this.content)
+      }.width('100%').height(120).backgroundColor('#D9E8FF')
+      Text('拖入文件以保存')
+        .width('100%').height(120).backgroundColor('#DCF2DF')
+        .allowDrop([uniformTypeDescriptor.UniformDataType.FILE_URI])
+        .onDrop((event: DragEvent) => { this.receive(event); })
+    }.padding(24).width('100%').height('100%')
   }
 }
