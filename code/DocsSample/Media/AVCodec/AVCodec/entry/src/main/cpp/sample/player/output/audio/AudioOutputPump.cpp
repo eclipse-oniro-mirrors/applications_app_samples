@@ -49,7 +49,7 @@ bool AudioOutputPump::ReleaseOutputBuffer(const CodecBufferInfo &bufferInfo, con
         return true;
     }
     // 输出Buffer一旦交给解码器复用，不能再读取buffer指针或属性。
-    const int32_t ret = decoder_.FreeOutputBuffer(bufferInfo.bufferIndex, false);
+    const int32_t ret = decoder_.FreeOutputBuffer(bufferInfo);
     if (ret == AVCODEC_SAMPLE_ERR_OK) {
         return true;
     }
@@ -145,19 +145,24 @@ bool AudioOutputPump::ProcessSyncOutput()
 {
     CHECK_AND_RETURN_RET_LOG(running_, false, "Audio decoder output sync thread out");
     CodecBufferInfo bufferInfo;
-    int32_t errCode = decoder_.GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
-    if (errCode == AVCODEC_SAMPLE_ERR_END) {
-        // 同步解码器已在GetOutputBuffer() 内归还EOS索引，此处不能重复释放。
-        AVCODEC_SAMPLE_LOGI("Audio decoder reached EOS");
+    const int32_t ret = decoder_.GetOutputBuffer(bufferInfo, CODEC_BUFFER_TIMEOUT_US);
+    if (!running_) {
+        if (ret == AVCODEC_SAMPLE_ERR_OK) {
+            (void)ReleaseOutputBuffer(bufferInfo, "audio output worker stopped");
+        }
         return false;
     }
-    if (errCode == AVCODEC_SAMPLE_ERR_ERROR) {
+    if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
+        return true;
+    }
+    if (ret != AVCODEC_SAMPLE_ERR_OK) {
         MarkPlaybackFailed("Audio decoder output failed");
         return false;
     }
-    if (errCode != AVCODEC_SAMPLE_ERR_OK) {
-        AVCODEC_SAMPLE_LOGI("No audio output buffer available, continue");
-        return true;
+    if (bufferInfo.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+        (void)ReleaseOutputBuffer(bufferInfo, "audio output EOS");
+        AVCODEC_SAMPLE_LOGI("Catch EOS, audio output thread out");
+        return false;
     }
     return HandleOutputBuffer(bufferInfo, false);
 }

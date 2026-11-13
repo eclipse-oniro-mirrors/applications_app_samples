@@ -154,6 +154,7 @@ export struct Player {
   @State cameraData: CameraDataModel = new CameraDataModel();
   private selectFilePath: string | null = null;
   private subtitles: PlaybackSubtitleController = new PlaybackSubtitleController();
+  private subtitleSourcePath: string = '';
   private volumeBeforeMute: number = 100;
   private playbackHistory: PlaybackHistoryModel = new PlaybackHistoryModel();
   @State playbackQueue: PlaybackQueueController = new PlaybackQueueController();
@@ -397,9 +398,7 @@ export struct Player {
     this.stopPlaybackInfoUpdates();
     this.resetPlaybackProgress();
     this.playbackViewModel.isHdrVividConfirmed = false;
-    this.subtitles.clear();
-    this.subtitleText = '';
-    this.subtitleFileName = '';
+    this.clearSubtitle();
     this.resetAbLoop();
   }
 
@@ -653,16 +652,20 @@ export struct Player {
   }
 
   async selectSubtitleFile(): Promise<void> {
+    const sourcePath: string | null = this.selectFilePath;
+    if (sourcePath === null) {
+      this.showNoMediaSelectedPrompt();
+      return;
+    }
     try {
-      const options = new picker.DocumentSelectOptions();
-      options.fileSuffixFilters = ['SRT|.srt', 'WebVTT|.vtt'];
-      const result = await new picker.DocumentViewPicker().select(options);
-      if (result.length === 0) {
+      const subtitleName: string = await this.subtitles.selectAndLoad();
+      if (subtitleName.length === 0) { return; }
+      if (!this.pageActive || this.selectFilePath !== sourcePath) {
+        this.subtitles.clear();
         return;
       }
-      const subtitleName: string = await this.subtitles.load(result[0]);
-      if (subtitleName.length === 0 || !this.pageActive) { return; }
       this.subtitleFileName = subtitleName;
+      this.subtitleSourcePath = sourcePath;
       this.updateSubtitle(this.playbackViewModel.positionUs);
       this.getUIContext().getPromptAction().showToast({
         message: $r('app.string.playback_subtitle_loaded'),
@@ -670,6 +673,7 @@ export struct Player {
         bottom: Const.BOTTOM
       });
     } catch (error) {
+      if (this.selectFilePath !== sourcePath) { return; }
       Logger.error(TAG, 'Load SRT subtitle failed: ' + JSON.stringify(error));
       this.getUIContext().getPromptAction().showToast({
         message: $r('app.string.playback_subtitle_failed'), duration: Const.DURATION, bottom: Const.BOTTOM
@@ -681,6 +685,7 @@ export struct Player {
     this.subtitles.clear();
     this.subtitleText = '';
     this.subtitleFileName = '';
+    this.subtitleSourcePath = '';
   }
 
   private selectSubtitleDelay(): void {
@@ -1055,6 +1060,9 @@ export struct Player {
 
     this.playbackFailureText = '';
     const playbackPath = this.selectFilePath;
+    if (this.subtitleSourcePath.length > 0 && this.subtitleSourcePath !== playbackPath) {
+      this.clearSubtitle();
+    }
     if (recoverySnapshot === undefined) {
       this.recovery.reset();
       this.playbackViewModel.clearRecoveryDiagnostics();

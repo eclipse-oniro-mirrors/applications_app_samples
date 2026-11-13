@@ -16,8 +16,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
-#include "../../entry/src/main/cpp/sample/recorder/RecorderStreamMetrics.h"
-#include "../../entry/src/main/cpp/sample/recorder/RecorderAudioStats.h"
+#include "../../entry/src/main/cpp/sample/recorder/diagnostics/RecorderStreamMetrics.h"
+#include "../../entry/src/main/cpp/sample/recorder/diagnostics/RecorderAudioStats.h"
 
 namespace {
 constexpr int64_t STEREO_CHANNELS = 2;

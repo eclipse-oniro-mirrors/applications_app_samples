@@ -339,9 +339,11 @@ Output is first written to `filesDir/transcodes/transcoded_<timestamp>.mp4.part`
 
 Metadata or sample-decode differences produce a warning rather than deleting a structurally valid file. The result card, TXT and session reports retain the details. Missing source metadata is not invented; unavailable track-start data does not imply synchronization. Sampling checks only three positions; it does not decode the full result, prove every frame is present or establish end-to-end A/V synchronization. Cancellation and failure remove incomplete files. Export copies the completed file to a URI authorized by the system dialog without broad media-write permission. Failed export retains the private copy for retry.
 
-PQ/HLG, HDR10, HDR Vivid and HEVC Main 10 re-encoding are rejected. The current pipeline cannot verify 10-bit Surface negotiation or guarantee color and HDR metadata preservation; codec profile support alone is not enough to establish a safe path. Preview does not simulate HDR color processing. HEVC profiles that cannot be identified are also rejected rather than treated as SDR. Other SDR inputs are checked against their color description and device capabilities. Full-file remux has the separate limits described above. Codec and Surface support still depends on the device; native `Configure()` is the final check.
+PQ/HLG, HDR10, HDR Vivid, BT.2020 10/12-bit transfer characteristics and HEVC Main 10 re-encoding are rejected. The current pipeline cannot verify high-bit-depth Surface negotiation or guarantee color and HDR metadata preservation; codec profile support alone is not enough to establish a safe path. Preview does not simulate HDR color processing. HEVC profiles that cannot be identified are also rejected rather than treated as SDR. Other SDR inputs are checked against their color description and device capabilities. Full-file remux has the separate limits described above. Codec and Surface support still depends on the device; native `Configure()` is the final check.
 
 `tests/native/TranscodeFrameProcessorTest.cpp` covers fit sizing, independent stride/slice padding, chroma order, grayscale, short buffers and the same-size fast path. `TranscodeDiagnosticsTest.cpp` checks bounded sampling and wait spans. `TranscodeAudioPipelineTest.cpp` uses fake codecs to check PCM framing, backpressure, format events, the first packet, padded tail, EOS and failure cleanup. `TranscodeCodecCallbacksTest.cpp` checks four isolated channels, format/EOS ordering, borrowed buffers, queue limits, error origin, cancellation and late callbacks. `tests/host/TranscodeModels.test.cjs` checks inspection races, task exclusion, cancellation, cleanup, reports, legacy queue compatibility and scheduling restoration. These checks do not replace real-device codec scheduling, output playback, Files or Gallery export verification.
+
+The AAC pipeline test also checks declared 5.1 side/rear channel order, downmix coefficients and rejection when a six-channel layout is unspecified.
 
 <a id="transcode-diagnostics"></a>
 
@@ -372,7 +374,7 @@ The report distinguishes video payload bytes, audio output bytes, actual file si
 
 Normal re-encoding copies the first audio track by default, or one selected track. Remux can copy the first, one selected or all audio tracks. Entries show container track number, MIME, channels and sample rate. No-audio mode creates no audio codec and adds no audio muxer track. Subtitle tracks are reported when found, but are not written to MP4 because the documented native muxer API accepts audio/video tracks only.
 
-Passthrough remuxes compressed samples. AAC conversion uses separate audio decoder/encoder instances in the selected synchronous or asynchronous mode and requests interleaved S16LE PCM. Output rate follows the source or uses 44.1/48 kHz; channels follow the source or use mono/stereo. Bitrate choices are 64, 128 and 192 kbps. Defaults retain the source layout and 128 kbps. Capability inspection uses the selected output values. Unsupported capability or an unexpected decoded PCM layout fails explicitly.
+Passthrough remuxes compressed samples. AAC conversion uses separate audio decoder/encoder instances in the selected synchronous or asynchronous mode and requests interleaved S16LE PCM. Output rate follows the source or uses 44.1/48 kHz; output channels follow the source where supported or use mono/stereo. Six-channel input defaults to stereo output and requires the user to declare 5.1 side or 5.1 rear channel order. The source format does not expose a reliable layout through the SDK key used for encoder configuration, so channel count alone is not treated as proof of speaker order. The selection is an explicit assumption and does not verify decoded order; missing or unsupported layouts fail before codec startup. Bitrate choices are 64, 128 and 192 kbps. Capability inspection uses the selected output values. Unsupported capability or an unexpected decoded PCM format fails explicitly.
 
 **Codec scheduling** controls video and AAC together. Audio owns a separate `TranscodeCodecCallbacks` instance, so its events do not share the video queues. Callbacks enqueue borrowed Buffers and their indices; the transcode worker performs media processing.
 
@@ -385,7 +387,7 @@ Passthrough remuxes compressed samples. AAC conversion uses separate audio decod
 
 Both modes share PCM framing, resampling, timestamps, first-packet retention and muxing, while Buffer acquisition stays visible in separate methods. Format markers retain queue order. Callback errors identify the decoder or encoder. Failure/cancellation closes event queues before codec Stop/Destroy and keeps callback contexts alive until Destroy returns, rejecting late callbacks. Frame preview stays synchronous; passthrough remuxing creates no codecs.
 
-Decoder PCM buffers need not match AAC frame lengths. `TranscodePcmConverter.h` supports fast linear interpolation and optional [low-pass downsampling](#transcode-sampling), retaining state across Buffers. Stereo-to-mono averages channels; mono-to-stereo duplicates samples. The converter accepts interleaved mono/stereo S16LE and does not mix arbitrary multichannel layouts.
+Decoder PCM buffers need not match AAC frame lengths. `TranscodePcmConverter.h` supports fast linear interpolation and optional [low-pass downsampling](#transcode-sampling), retaining state across Buffers. Mono-to-stereo duplicates samples; stereo-to-mono averages channels. For user-declared 5.1 PCM, front-center and the two surround channels are mixed into left/right at -3 dB, LFE is omitted, and the result is clamped to S16LE before resampling. The selected source layout is saved with queue settings, reset when the source or track changes, and shown in the session configuration. The converter accepts interleaved S16LE mono, stereo and either standard 5.1 order; it does not mix arbitrary multichannel layouts.
 
 `TranscodeAudioPipeline` retains one borrowed decoded output and one 1024-sample-per-channel AAC-LC assembly frame. Output PTS uses the first retained PCM timestamp and an integer output-sample clock. Source timestamp discontinuities greater than the larger of 2 ms and two source sample intervals fail explicitly instead of silently closing gaps. EOS flushes the fractional resampling tail by holding the last source sample, then zero-pads a short final AAC frame. Tail silence remains shorter than one AAC frame; an empty EOS follows separately and encoded output drains to EOS.
 
@@ -504,18 +506,22 @@ Playback and recording Dumps default to a per-file limit of 256 MiB or 30 second
 - `SeekPreviewController` handles throttling, request generations, and PixelMap release;
 - `PlaybackQueueController` owns queue paths, current index, and repeat/random selection;
 - `RecorderLaunchController` owns media asset creation, primary/secondary descriptors, native initialization, route transition, and failure cleanup;
-- `RecorderVideoSession.cpp` groups encoder, preprocessing, dual-output Muxer, and Dump setup.
+- `recorder/core/RecorderVideoSession.cpp` groups encoder, preprocessing, dual-output Muxer, and Dump setup.
 - `PlaybackSubtitleController` owns subtitle loading and cue lookup; `PlaybackControlsController` owns the auto-hide timer;
 - `PlaybackWindowController` owns fullscreen orientation and system-bar changes; `PlaybackAudioController` owns track selection and mute state;
 - `PlaybackAbLoopController` owns A-B markers, its monitor timer, and seek generation checks;
 - `PlayerViewport` owns the stable XComponent surface, status overlay, HDR/subtitle overlay, and diagnostics overlay; `PlayerPage` owns the gesture layer composition;
 - `TranscodeHistoryController` owns history pagination, usage totals and request invalidation; `TranscodeModel` keeps task and cleanup decisions;
 - `TranscodeHistoryPanel` observes the history controller through `@ObjectLink`, so asynchronous pagination updates the displayed rows directly;
-- `RecorderAudio.cpp` groups audio encoder creation, PCM input and AAC output; sync queries and async callback consumption remain separate methods.
+- `recorder/output/audio/RecorderAudio.cpp` groups audio encoder creation, PCM input and AAC output; sync queries and async callback consumption remain separate methods.
+- `recorder/output/video/RecorderVideoOutput.cpp` handles primary video output and PTS conversion; `recorder/output/video/RecorderSecondaryOutput.cpp` keeps the secondary sync/async acquisition loops separate. `recorder/diagnostics/RecorderDiagnostics.cpp` reads the normalized timestamps and updates statistics without changing media data.
+- `recorder/core/RecorderRelease.cpp` owns EOS submission, drain waits and teardown. `recorder/core/RecorderWorker.h` catches encoding-worker creation failures and joins each worker after its exit condition has been signalled.
+
+Native modules use the same responsibility-based layout as the player: `core/` coordinates sessions, `napi/` handles the ArkTS boundary, and `diagnostics/` holds measurements. Recording separates camera Buffer input in `input/video/`, audio workers in `output/audio/`, video output in `output/video/`, and bitstream saving in `output/dump/`. Transcoding keeps codec acquisition and callbacks in `codec/`, audio/video processing in `process/`, and finalized-file checks in `output/`. Synchronous and asynchronous examples remain separate entry points.
 
 `SettingsDraftModels.ets` now owns playback and recording drafts. Two `@Observed` models load, validate, and apply settings; Index keeps two `@State` draft objects rather than dozens of separate fields. Pickers update object properties, child components receive the matching `@Prop` values, and draft changes invalidate the old capability result. Only Apply writes the applied models. Preset restoration and cancellation reuse the same draft-loading methods.
 
-Persistence, capability explanations, Dump file operations, and runtime recording controls live in `ConfigurationStore`, `ConfigurationFeedback`, `DumpFilesModel`, and `RecorderLiveParameters`. Page builders remain responsible for composition rather than Preferences or deletion logic, and UI components never receive live codec pointers. The playback page keeps the `XComponentController` in `Index.ets` and passes it to `PlayerViewport`; changing tabs or opening a sheet therefore does not create a second surface controller.
+Persistence, capability explanations, Dump file operations, and runtime recording controls live in `ConfigurationStore`, `ConfigurationFeedback`, `DumpFilesModel`, and `RecorderLiveParameters`. Page builders compose the UI. Models handle Preferences and file deletion; UI components do not hold live codec pointers. The playback page keeps the `XComponentController` in `Index.ets` and passes it to `PlayerViewport`; changing tabs or opening a sheet therefore does not create a second surface controller.
 
 Playback uses `PlayOptions`; recording start returns a success flag that the page checks. Descriptor ownership moves to the recording session only after routing succeeds; failed initialization or routing closes descriptors in the launch controller. `Recorder.ets` displays state and coordinates camera, diagnostics and segment controllers. `RecordingSessionController` owns pause/finalization ordering, descriptor closure and history saving. Encoder and Muxer setup belongs to the Native session file.
 
@@ -583,9 +589,13 @@ Automated tests are located in `entry/src/ohosTest/ets/test` and use Hypium to c
 - playback state, speed, track, time, and seek-boundary formatting;
 - source, audio/video track, decoder, and raw Format panel formatting;
 - playback, recording, container, dump, and NativeWindow transform configuration;
-- playback modes, bounded recovery, seek-request merging, subtitle styles, and system audio/background recovery policies.
+- playback modes, bounded recovery policies, seek-request merging, and subtitle styles.
 
-In DevEco Studio, select the `entry > ohosTest` target and run the test suite. Demuxing, hardware/software codecs, SurfaceMode/BufferMode output, audio sync/async output, permission dialogs, and camera recording depend on real-device capabilities and are covered by the manual test document: [AVCodecSample Manual Test Cases](./ohosTest.md).
+In DevEco Studio, select the `entry > ohosTest` target and run the test suite. Its entry point registers 13 suites with 49 test cases.
+
+The two Node.js scripts in `tests/host` use the SDK TypeScript loader and system API mocks to check recording and transcoding models: configuration storage, file writes and exports, storage protection, queues, and recovery. The 12 C++ test entry points in `tests/native` check codec-wrapper error handling, Buffer layouts, geometry, frame processing, PCM conversion, callback queues, and statistics. Some Native tests replace system APIs with test doubles. Host tests do not replace an ArkTS build, and Native test doubles do not verify device codecs or graphics drivers.
+
+Demuxing, hardware/software codecs, all four output paths, system audio interruptions, permissions, camera recording, transcoded files, and file providers still require device checks. The [test guide](./ohosTest.md) lists automated test entry points and run instructions, plus 244 manual cases covering Buffer recording, preprocessing, dual outputs, recording segments, all three transcoding paths, sampled output decoding, Dump management, and queue recovery. All 244 manual cases have passed; results and category totals are recorded in the test guide. Future runs should update the results for the tested device and code revision.
 
 The test HAPs can also be built and run from the command line:
 
@@ -667,22 +677,57 @@ AVCodec/
     │   │   │   │       ├── PlayerNapiParser.cpp/.h
     │   │   │   │       └── PlayerNapiSerializer.cpp/.h
     │   │   │   ├── transcoder/
-    │   │   │   │   ├── TranscoderNative.cpp # Request validation, fd duplication and async work
-    │   │   │   │   ├── TranscodeJob.cpp/.h  # Main loop, Buffer/Surface handoff and cleanup
-    │   │   │   │   ├── TranscodeCodecIO.cpp # Sync queries or async callback consumption
-    │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h # Bounded callback queues and shutdown
-    │   │   │   │   ├── TranscodeOperations.cpp # Rate cap, selected-frame preview and remux
-    │   │   │   │   ├── TranscodeFrameProcessor.cpp/.h # YUV layout, resizing, crop and grayscale
-    │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h # Audio decoding, AAC framing and encoding
-    │   │   │   │   ├── TranscodePcmConverter.h # Streaming resampling and mono/stereo conversion
-    │   │   │   │   ├── TranscodeInspection.cpp # Source and codec preflight
-    │   │   │   │   ├── TranscodeTimeRange.cpp # Range validation and output filtering
-    │   │   │   │   ├── TranscodeOutputValidation.cpp # Reopen and inspect finalized MP4
-    │   │   │   │   └── TranscodeDiagnostics.h # Call timings and cross-poll waits
+    │   │   │   │   ├── core/ # Session lifecycle and coordination
+    │   │   │   │   │   ├── TranscodeInspection.cpp
+    │   │   │   │   │   ├── TranscodeJob.cpp/.h
+    │   │   │   │   │   ├── TranscodeOperations.cpp
+    │   │   │   │   │   └── TranscodeTimeRange.cpp
+    │   │   │   │   ├── napi/ # ArkTS entry points and parsing
+    │   │   │   │   │   └── TranscoderNative.cpp
+    │   │   │   │   ├── codec/ # Sync acquisition and async callback queues
+    │   │   │   │   │   ├── TranscodeCodecCallbacks.cpp/.h
+    │   │   │   │   │   └── TranscodeCodecIO.cpp
+    │   │   │   │   ├── process/
+    │   │   │   │   │   ├── audio/ # Audio decoding, PCM conversion and AAC encoding
+    │   │   │   │   │   │   ├── TranscodeAudioPipeline.cpp/.h
+    │   │   │   │   │   │   ├── TranscodeLowPassResampler.h
+    │   │   │   │   │   │   └── TranscodePcmConverter.h
+    │   │   │   │   │   └── video/ # YUV layout, scaling, crop and grayscale
+    │   │   │   │   │       ├── gpu/ # NativeImage/OpenGL processing
+    │   │   │   │   │       │   └── TranscodeGpuProcessor.cpp/.h
+    │   │   │   │   │       └── TranscodeFrameProcessor.cpp/.h
+    │   │   │   │   ├── output/ # Finalized MP4 metadata and sampled decode checks
+    │   │   │   │   │   ├── TranscodeOutputValidation.cpp
+    │   │   │   │   │   └── TranscodeSampleValidator.cpp/.h
+    │   │   │   │   └── diagnostics/ # Statistics and timing
+    │   │   │   │       └── TranscodeDiagnostics.h
     │   │   │   └── recorder/
-    │   │   │       ├── Recorder.cpp         # Recording lifecycle and data flow
-    │   │   │       ├── RecorderAudio.cpp    # PCM input and AAC output, separate sync/async workers
-    │   │   │       └── RecorderNative.cpp   # Recording NAPI entry
+    │   │   │       ├── core/ # Session lifecycle and coordination
+    │   │   │       │   ├── Recorder.cpp/.h
+    │   │   │       │   ├── RecorderRelease.cpp
+    │   │   │       │   ├── RecorderVideoSession.cpp
+    │   │   │       │   └── RecorderWorker.h
+    │   │   │       ├── napi/ # ArkTS entry points and parsing
+    │   │   │       │   ├── RecorderNative.cpp/.h
+    │   │   │       │   └── RecorderOptionsParser.cpp/.h
+    │   │   │       ├── input/
+    │   │   │       │   └── video/ # Camera images and encoder Buffer input
+    │   │   │       │       ├── RecorderFrameCopy.cpp/.h
+    │   │   │       │       ├── RecorderFrameReceiver.cpp/.h
+    │   │   │       │       └── RecorderVideoInput.cpp
+    │   │   │       ├── output/
+    │   │   │       │   ├── audio/ # PCM input and AAC output workers
+    │   │   │       │   │   └── RecorderAudio.cpp
+    │   │   │       │   ├── dump/ # Encoded bitstream saving
+    │   │   │       │   │   └── RecorderDumpWriter.h
+    │   │   │       │   └── video/ # Primary and secondary video output
+    │   │   │       │       ├── RecorderSecondaryOutput.cpp
+    │   │   │       │       └── RecorderVideoOutput.cpp
+    │   │   │       └── diagnostics/ # Statistics and timing
+    │   │   │           ├── RecorderAudioStats.h
+    │   │   │           ├── RecorderDiagnostics.cpp
+    │   │   │           ├── RecorderOutputStats.h
+    │   │   │           └── RecorderStreamMetrics.h
     │   │   ├── types                        # ArkTS declarations for Native modules
     │   │   └── CMakeLists.txt               # Native build entry
     │   ├── ets                              # ArkTS UI and application logic
@@ -740,7 +785,7 @@ The following source entries complement the directory tree for transcoding and s
 |---|---|
 | [TranscodePage.ets](entry/src/main/ets/pages/TranscodePage.ets), [TranscodeModel.ets](entry/src/main/ets/model/TranscodeModel.ets) | UI, request construction, job execution, file completion and queue orchestration |
 | [TranscodePreviewController.ets](entry/src/main/ets/controller/TranscodePreviewController.ets), [TranscodeQueueRunner.ets](entry/src/main/ets/controller/TranscodeQueueRunner.ets), [TranscodeExportController.ets](entry/src/main/ets/controller/TranscodeExportController.ets) | Paired-image lifetime, sequential queue dispatch/failure policy and per-file export outcomes |
-| [TranscodeGpuProcessor.cpp](entry/src/main/cpp/sample/transcoder/TranscodeGpuProcessor.cpp), [EglWindowContext.cpp](entry/src/main/cpp/common/graphics/EglWindowContext.cpp) | Worker-owned NativeImage/OpenGL processing and encoder-window submission, independent of playback |
+| [TranscodeGpuProcessor.cpp](entry/src/main/cpp/sample/transcoder/process/video/gpu/TranscodeGpuProcessor.cpp), [EglWindowContext.cpp](entry/src/main/cpp/common/graphics/EglWindowContext.cpp) | Worker-owned NativeImage/OpenGL processing and encoder-window submission, independent of playback |
 | [RecorderSegmentController.ets](entry/src/main/ets/controller/RecorderSegmentController.ets), [RecorderOutputController.ets](entry/src/main/ets/controller/RecorderOutputController.ets), [RecorderSettingsController.ets](entry/src/main/ets/controller/RecorderSettingsController.ets) | Segment thresholds/results, asset and descriptor initialization, settings selection outside Index |
 | [TranscodeQualityModel.ets](entry/src/main/ets/model/TranscodeQualityModel.ets), [TranscodeQueueModel.ets](entry/src/main/ets/model/TranscodeQueueModel.ets) | Quality snapshots, queue state and restore validation |
 | [TranscodeSourcePicker.ets](entry/src/main/ets/model/TranscodeSourcePicker.ets), [TranscodeFilesModel.ets](entry/src/main/ets/model/TranscodeFilesModel.ets) | Source selection, export, history and private files |
@@ -758,7 +803,7 @@ An operation follows this path: **the UI selects a scenario -> ArkTS prepares op
 | Scenario | UI entry | Native entry | Main modules | Destination |
 |---|---|---|---|---|
 | Playback | Play controls and XComponent in `Index.ets` | `PlayerNative.cpp`, `Player.cpp` | `Demuxer`, `VideoDecoder`, `AudioDecoder`, `AudioOutputPump`, `BufferRenderer`, `PluginRender` | Video to XComponent/NativeWindow; PCM to AudioRenderer |
-| Recording | Record controls in `Index.ets`; preview in `Recorder.ets` | `RecorderNative.cpp`, `Recorder.cpp` | `VideoEncoder`, `AudioCapturer`, `AudioEncoder`, `Muxer` | Camera video and microphone audio to MP4/FLV |
+| Recording | Record controls in `Index.ets`; preview in `Recorder.ets` | `recorder/napi/RecorderNative.cpp`, `recorder/core/Recorder.cpp` | `VideoEncoder`, `AudioCapturer`, `AudioEncoder`, `Muxer` | Camera video and microphone audio to MP4/FLV |
 | Transcoding and remuxing | `TranscodePage.ets`, `TranscodeModel.ets` | `TranscoderNative.cpp`, `TranscodeJob.cpp`, `TranscodeOperations.cpp` | `OH_AVDemuxer`, video decoder/encoder, `TranscodeFrames`, `TranscodeAudioPipeline`, `OH_AVMuxer` | An MP4 in the app sandbox, then optional export to Gallery or File Manager |
 | Graphics output | XComponents on playback/recording pages | `PluginManager`, `PluginRender`, `BufferRenderer` | Native XComponent, NativeWindow, NativeBuffer | Direct codec output in SurfaceMode; application copy in BufferMode |
 | Demuxing | Selected source file | `Demuxer.cpp` | `OH_AVSource`, `OH_AVDemuxer` | Track metadata and compressed samples to decoders |
@@ -800,7 +845,7 @@ The later sections describe individual modules and APIs. This section follows on
 
 Initialization prepares the pipeline but does not read frames. `Start()` first seeks the Demuxer to zero, starts each decoder that exists, creates its input/output workers, starts the AudioRenderer when audio is present, and enters `PLAYING` only after startup succeeds. A video-only file has no audio renderer or audio workers; an audio-only file has no video decoder or video workers. If starting one side fails after the other side has started, startup rollback stops the active workers and delegates cleanup to the same release path used by Stop.
 
-At playback start, the audio output clock may not yet have a valid hardware timestamp. Video then follows its nominal frame interval until the AudioRenderer timestamp and consumed-frame position stabilize; it does not interpret a zero timestamp as permission to drop a run of frames. Once valid, the audio clock drives video wait/drop decisions. For video-only media, successful video presentation PTS advances the visible position. This is why decoder output count and progress are separate observations: decoded PCM is not yet played until the AudioRenderer consumes it.
+At playback start, the audio output clock may not yet have a valid hardware timestamp. Video then follows its nominal frame interval until the AudioRenderer timestamp and consumed-frame position stabilize; it does not interpret a zero timestamp as permission to drop a run of frames. Once valid, the audio clock drives video wait/drop decisions. For video-only media, successful video presentation PTS advances the visible position. Decoder output count and playback position are tracked separately; audio progress follows PCM consumed by AudioRenderer.
 
 ```text
 File selection -> fd + PlayOptions -> Init / demux / validation -> READY
@@ -1115,7 +1160,7 @@ The output path validates `offset`, `size`, and buffer capacity before reading P
 
 When a file contains multiple audio tracks, `Demuxer` selects the first audio track by default and accepts an explicit container track index through `PlayOptions.audioTrackIndex`. The media-information snapshot includes each track's MIME, sample rate, channel count, and bitrate, so the **Audio track** picker provides an identifiable label. Before replacing an active audio pipeline, the player reads candidate metadata without changing the demuxer selection and creates a temporary `AudioDecoder` for a real `Create + Configure` check. An unsupported candidate is rejected without pausing the current renderer or disturbing video, audio clock, or position. Only a validated candidate rebuilds the audio decoder, `AudioRenderer`, and audio workers; video decoding, presentation, and the current playback position continue without restarting the video. The new track first discards audio frames older than the current playback position and resumes A/V synchronization after its clock catches up, preventing the video scheduler from dropping a long run of frames while the replacement audio starts. Single-track files produce an explanatory toast. **Mute/Unmute** calls `OH_AudioRenderer_SetVolume()` immediately; unmute restores the volume saved in playback settings.
 
-The important part of a track switch is preserving the failure path. The old decoder, renderer, and demuxer selection remain live while the candidate is probed. Only after the temporary decoder has completed creation and configuration does the player stop the old audio workers, select the new track, clear stale PCM, and build the replacement renderer. The new track is read near the current media position; audio before that point never reaches the renderer. Once usable PCM establishes a new audio clock, video resumes audio-master scheduling. A MIME, codec-config, or configuration failure therefore leaves the original sound and Seek path usable.
+Track switching keeps the current audio pipeline active until the candidate passes validation. The old decoder, renderer, and demuxer selection remain live while the candidate is probed. Only after the temporary decoder has completed creation and configuration does the player stop the old audio workers, select the new track, clear stale PCM, and build the replacement renderer. The new track is read near the current media position; audio before that point never reaches the renderer. Once usable PCM establishes a new audio clock, video resumes audio-master scheduling. A MIME, codec-config, or configuration failure therefore leaves the original sound and Seek path usable.
 
 <a id="audio-interruption"></a>
 
@@ -1180,7 +1225,7 @@ ArkTS uses a separate file descriptor and `AVImageGenerator.fetchFrameByTime()` 
 
 Codec seek itself is not run synchronously on the ArkTS thread. `seekToAsync()` uses NAPI async work to invoke the existing precise-seek routine on a Native worker. `SeekRequestController` holds one running request and one pending target. Further slider releases, track taps, rewind/forward actions, or A-B-loop requests replace the pending target with the newest position; the replaced Promise resolves as `superseded`, so a burst does not execute every obsolete target. Stop, media change, and page disappearance invalidate pending work, then wait for the active seek operation to finish before releasing the player. This keeps callback contexts valid during teardown.
 
-Rapid requests first pass through a short convergence window, and execution still retains only the newest pending position. Slider releases, double-tap seeks, frame steps, and A-B return therefore share one path rather than maintaining separate UI-only positions or starting overlapping timeline changes. Cancellation removes only work that has not begun; an active seek completes its Flush/audio-path recovery and state restoration before Stop or the next request takes over. Codec callbacks, workers, and old output buffers must all leave the current timeline before the player can switch to another target.
+When idle, the controller starts a seek immediately. While it runs, only the newest pending position is retained. Slider releases, double-tap seeks, frame steps, and A-B return share this entry point, with Native timeline changes executed in order. Cancellation removes work that has not begun; an active seek completes its Flush/audio-path recovery and state restoration before Stop or the next request takes over. Codec callbacks, workers, and old output buffers must all leave the current timeline before the player can switch to another target.
 
 The playback controls provide pause/resume, 15-second rewind, 15-second forward, and replay. A single playback-window tap uses the same pause/resume operation, but only when the player is `PLAYING` or `PAUSED` and no seek or stop is active. A double tap on the left or right half of the video window reuses the same precise seek as the rewind/forward buttons; it gives a short direction prompt and clamps the target to `[0, durationUs]`. Single tap, double tap, and press-and-hold speed are in one exclusive gesture group, so a double tap does not pause playback and a hold changes speed without also pausing it. Pause moves Native playback to `PAUSED`; worker loops wait without destroying decoders while `AudioRenderer` is paused. Resume restarts the renderer and wakes the workers. Replay keeps the selected file and starts a new playback task from 0.
 
@@ -1619,7 +1664,7 @@ This ownership rule has three consequences: the Buffer cannot be returned after 
 
 Initialization can fail after only part of a session exists, for example after the primary muxer is created or after Primary is prepared but Secondary configuration fails. Recorder handles these cases through one cleanup path: stop new input, cancel queue waits, join any started output workers, then release resources in ownership order, `Muxer -> Secondary -> Primary -> AudioEncoder -> AudioCapturer -> CodecUserData`. ArkTS closes the primary and secondary fds only after Native cleanup completes.
 
-For device testing, keep single-output and dual-output results separate. Check that both files play, that each video track has the effective output size, that audio starts at the same time, and that another recording can start after Stop. Cover Async and Sync modes, MP4 and FLV, H.264 and H.265, 30 and 60 fps, HDR Vivid, and systems below API 26. This separates an unsupported codec feature from a file-finalization or fd-lifetime problem.
+Record single-output and dual-output device results separately. Check that both files play, that each video track has the effective output size, that audio starts at the same time, and that another recording can start after Stop. Cover Async and Sync modes, MP4 and FLV, H.264 and H.265, 30 and 60 fps, HDR Vivid, and systems below API 26. This separates an unsupported codec feature from a file-finalization or fd-lifetime problem.
 
 <a id="recording-stop"></a>
 
@@ -1668,7 +1713,13 @@ Microphone --> Existing PCM / AAC pipeline --------^
 | `Recorder::SendBufferVideoEndOfStream()` | Joins the input worker after camera stop, then submits an empty EOS Buffer while output workers continue draining |
 | `Recorder::SendBufferVideoEndOfStreamSync()` / `SendBufferVideoEndOfStreamAsync()` | Acquire the EOS Buffer by active query or input callback queue respectively, then set empty EOS attributes and submit it |
 
-`StartVideoInputThread()` selects one input worker at startup. Buffer acquisition is visible in each worker rather than hidden behind a mode-switching helper. The independent example tags are `recorder_video_buffer_input_sync` and `recorder_video_buffer_input_async`; EOS examples use `recorder_video_buffer_eos_sync` and `recorder_video_buffer_eos_async`. Both workers share camera image retrieval, pixel copying and PTS calculation. Video output acquisition remains separate in `VideoEncOutputSyncThread()` and `VideoEncOutputAsyncThread()`.
+`StartVideoInputThread()` selects one input worker at startup. Buffer acquisition is visible in each worker in separate sync and async functions. The independent example tags are `recorder_video_buffer_input_sync` and `recorder_video_buffer_input_async`; EOS examples use `recorder_video_buffer_eos_sync` and `recorder_video_buffer_eos_async`. Both workers share camera image retrieval, pixel copying and PTS calculation. Video output acquisition remains separate in `VideoEncOutputSyncThread()` and `VideoEncOutputAsyncThread()`.
+
+Synchronous encoder and decoder acquisition use the same contract. `GetInputBuffer(info, timeoutUs)` and `GetOutputBuffer(info, timeoutUs)` return an `int32_t` status and store the Buffer, index and attributes in `CodecBufferInfo`. `AVCODEC_SAMPLE_ERR_OK` means success; `AVCODEC_SAMPLE_ERR_AGAIN` means the worker should check its running state and retry. Other errors terminate recording. Repeated output format changes also return `AGAIN`, keeping retries bounded within the wrapper. During stop, output workers keep draining until each stream receives EOS or finalization times out.
+
+Input layout initialization corresponds to decoder first-frame initialization. The synchronous worker calls `InitSyncVideoInputContext()` after acquiring its first Buffer; the asynchronous path reads `OH_VideoEncoder_GetInputDescription()` in the first `OnNeedInputBuffer` callback. Both read the actual `VIDEO_STRIDE`, `VIDEO_SLICE_HEIGHT` and `PIXEL_FORMAT` instead of inferring strides from resolution. `CodecUserData` stores these in `inputWidthStride`, `inputHeightStride` and `inputPixelFormat`, separately from output format fields so output callbacks cannot overwrite copy parameters. Later frames reuse this layout and validate NV12, dimensions and capacities before copying.
+
+The four primary video input/output workers are parameterless member functions, matching the player decoder workers. Dual-output secondary workers live in `recorder/output/video/RecorderSecondaryOutput.cpp`: `SecondaryVideoEncOutputSyncThread()` and `SecondaryVideoEncOutputAsyncThread()` use their own encoder and callback queue. Both streams share muxing, Dump and Buffer release rules while tracking EOS separately. `VideoEncoder::Stop()` only calls the system Stop API; `Flush()` remains an independent operation.
 
 Buffer recording requires API 23+, 8-bit SDR, 1280x720 or 1920x1080, and 30fps. Selecting it resets incompatible draft settings and disables HDR, platform encoder preprocessing, target frame dropping and dual output. Switch back to Surface to configure those features. Input mode is persisted with recording settings; older snapshots default to Surface.
 
@@ -1754,6 +1805,14 @@ Audio input, output and EOS acquisition also have separate entry points:
 | Asynchronous | `AudioEncInputAsyncThread()` dequeues input callback Buffers | `AudioEncOutputAsyncThread()` dequeues output callback Buffers | `SendAudioEndOfStreamAsync()` dequeues an input callback Buffer |
 
 `SubmitAudioInputFrame()` fills and submits an already acquired Buffer without a scheduling flag. At stop, `SendAudioEndOfStream()` joins the audio input worker before dispatching to the matching EOS implementation. Each implementation acquires its own Buffer and passes it to `AudioEncoder::NotifyEndOfStream(bufferInfo)` to set and submit EOS, while output workers continue draining. AAC is written to the primary muxer and, when enabled, the secondary muxer before its original output index is returned.
+
+`AudioEncoder` and `AudioDecoder` follow the video wrapper contract: both synchronous acquisition methods return `int32_t` status codes and put the borrowed Buffer and index in `CodecBufferInfo`. Only a query timeout returns `AVCODEC_SAMPLE_ERR_AGAIN`; query, Get or attribute-read failures return an error. EOS returns `OK` with its flags intact, so the output worker identifies and returns it exactly once. `PushInputBuffer(info)` submits input and `FreeOutputBuffer(info)` returns output by the same index. The player audio workers use this contract as well.
+
+Capturer initialization checks builder creation, parameter configuration and capturer generation before recording can start. Failure releases partially created capture resources and makes `Recorder::Init()` roll back the session. Audio Configure owns its temporary Format through RAII, including early returns. Worker creation failures also enter the common release path: cancel waits, join workers already started, destroy muxers and codecs, then release callback contexts. Recorder owns these contexts with `unique_ptr`; SDK callbacks only borrow them until Destroy completes.
+
+Input-stop, output-worker completion and output EOS are separate states. Stopping input leaves output workers running; a completed output worker is considered drained only if it has successfully returned its EOS Buffer. A timeout, missing EOS, muxer failure or Buffer-return failure makes finalization fail instead of reporting a complete file. A worker interrupted immediately after acquisition first returns that output index, and a return failure is preserved in the result. Successful PCM submissions and consumed outputs are counted at the same points in sync and async modes.
+
+`AudioEncoder::Stop()` and `AudioDecoder::Stop()` only call the system Stop API. Flush remains explicit, and Release calls Destroy without an implicit Flush or Stop. Muxer release also calls only Destroy; file descriptors remain open until native teardown finishes. Destruction errors propagate to the finalization result.
 
 <a id="muxing"></a>
 
@@ -1883,7 +1942,7 @@ The UI always sends an explicit target speed. Smart-fluency ADAPTIVE mode decide
 
 The previous sections describe the modules separately. The notes below collect the boundaries that are most useful when reading the code or comparing behavior across devices. They describe the sample's current behavior; they are not extra runtime requirements.
 
-#### How playback initialization avoids half-created objects
+#### Playback initialization and failure cleanup
 
 After a file is selected, the page does not pass the URI directly to a decoder. `Index.ets` opens the file and obtains its fd, offset, and size. The structured NAPI call passes those values to `PlayerNative::Play()`, which builds the task in this order:
 
@@ -1998,7 +2057,7 @@ User drags: 10s → 20s → 35s → 52s
                               └─ one rebuild at 52s
 ```
 
-The 100 ms convergence window only lets a gesture settle; it is not a substitute for Native lifetime protection. An active rebuild is allowed to finish. Stop or a media change cancels pending work, waits for the active request, and then enters the common release path. Double-tap skip, previous/next frame, and A-B return use the same entry point, so progress, subtitles, resume history, and diagnostics observe one actual timeline.
+An idle Seek controller executes immediately; a busy controller replaces its pending target with the newest request. The 100 ms throttle applies to thumbnail previews, not Native Seek. An active rebuild finishes before resource release. Stop or a media change cancels pending work, waits for the active request, and then enters the common release path. Double-tap skip, previous/next frame, and A-B return use the same entry point, so progress, subtitles, resume history, and diagnostics observe one actual timeline.
 
 Frame stepping while paused does not start audio. The video worker is temporarily allowed to decode once, returns all output before the target, presents the target frame, and waits again. The diagnostic output count therefore changes for a real submitted frame. If the container has no usable frame rate, the UI uses 30 fps only to calculate the step interval; it never rewrites the media timestamps.
 
@@ -2190,7 +2249,7 @@ Playback/recording sheets edit drafts and apply them to their models. Transcodin
 | Size and filtering | `sizeIndex` → `longEdge`, `resizeMode`, `quality.filter` → `scalingFilter` | Size calculation and `TranscodeFrames::Process()` or GPU `PlanGeometry()` | Buffer nearest/bilinear/area; GPU nearest/bilinear; direct Surface retains source size |
 | Frame-rate cap | `quality.frameRate` → `frameRateLimit`: 0/24/30/60/120 | PTS buckets in `DropFrame()`; encoder request uses `OutputFrameRate()` | 0 follows source; no interpolation; distinguish requested rate from output counts |
 | Bitrate and keyframes | `bitrateIndex` → bit/s, `bitrateMode` → VBR/CBR, keyframe choice → ms | `OH_MD_KEY_BITRATE`, `OH_MD_KEY_VIDEO_ENCODE_BITRATE_MODE`, `OH_MD_KEY_I_FRAME_INTERVAL` | Inspection and Configure are checked; a target bitrate is not a promise for each short window |
-| AAC output layout | `quality.audioRate/audioChannels/audioBitrate` → Hz, channels and bit/s | `TranscodeAudioPipeline::Configure()` and streaming PCM conversion | AAC conversion only; rate/channel 0 follows source; conversion currently supports mono/stereo S16LE |
+| AAC output layout | `quality.audioRate/audioChannels/audioBitrate/audioSourceLayout` → Hz, output channels, bit/s and an explicit six-channel input order | `TranscodeAudioPipeline::Configure()` and streaming PCM conversion | AAC conversion only; rate/channel 0 follows source where supported; six-channel input requires a declared 5.1 order, output remains mono/stereo |
 | Selected range | Page seconds → `startTimeMs/endTimeMs` → Native microseconds | Previous-sync seek, decoded-frame filtering, true EOS draining and PTS rebasing | Buffer/GPU only; remux processes the full file |
 
 <a id="diagnostic-definitions"></a>
@@ -2296,7 +2355,7 @@ When playback fails, first confirm the active mode and tracks, then inspect the 
 | Seek fails or the picture takes a long time to move | Whether the request was `superseded`, timeline-recovery time, first target-frame time, and nearby sync frames | Separate a request merged by a newer drag position, an unusable sync-frame index, slow Flush/audio-path recovery, and a late target frame after recovery. Long-GOP media must decode preroll from a sync frame; do not display preroll or treat the UI slider as Native completion. |
 | OpenGL/Vulkan output is black, green, or incorrectly scaled | Sink type in logs, `UsesSurfaceDecoder()`, whether the decoder received the NativeImage producer Surface, and presentation failures/duration | Confirm the run did not fall back to Buffer output. Check NativeBuffer acquire and fences, external-image import, window extent, crop/stride matrix, and rotation. If the problem remains after Stop or switching media, verify the previous sink was quiesced, old Buffers returned, and the window lease refreshed. |
 | HDR Vivid watermark is absent | Separately inspect the container declaration, output Buffer HDR type, dynamic-metadata read, and confirmed UI state | The container declaration is only shown as media information; the app watermark indicates output-metadata confirmation. Surface/GPU paths may not expose the decoder output Buffer, so “unconfirmed” does not prove the system is not displaying HDR. The BT.709 conversion result must be checked separately. |
-| Recording file exists but cannot be opened | Camera frame-end, audio/video EOS, Muxer Stop/Destroy, and fd-close order | Ensure both encoder output workers consume EOS before stopping the muxer, and close the fd only after container finalization. Destroying the muxer while audio is still being captured or encoded can leave an incomplete container. |
+| Recording file exists but cannot be opened | Camera frame-end, audio/video EOS, Muxer Destroy, and fd-close order | Return audio and video EOS Buffers and join all workers before destroying the muxer. Close the fd only after container finalization. Destroying the muxer while audio is still being captured or encoded can leave an incomplete container. |
 
 When collecting logs, include device and system versions, container and track information, decoder/output/sync modes, speed or HDR options, and whether the issue occurred on first play, track switch, Seek, or Stop. Start the reproduction from a fresh app launch and change one setting at a time. If several files and modes were switched in sequence, record their order and timestamps so a retained frame or diagnostic count from the previous task is not mistaken for current output.
 

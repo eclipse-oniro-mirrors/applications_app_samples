@@ -22,6 +22,7 @@ export enum TranscodeAudioMode {
 export interface TranscodeQualitySnapshot {
   operation: number; filter: number; frameRate: number; bitrateMode: number; keyFrame: number;
   audioRate: number; audioChannels: number; audioBitrate: number;
+  audioSourceLayout?: number;
   codecMode?: number;
   audioResampler?: number;
   deepValidation?: boolean;
@@ -38,6 +39,7 @@ export class TranscodeQualityModel {
   public audioRate: number = 0;
   public audioChannels: number = 0;
   public audioBitrate: number = 1;
+  public audioSourceLayout: number = 0;
   public codecMode: number = 0;
   public audioResampler: number = 0;
   public deepValidation: boolean = false;
@@ -54,6 +56,8 @@ export class TranscodeQualityModel {
     if (snapshot.remuxAllAudioTracks !== undefined && typeof snapshot.remuxAllAudioTracks !== 'boolean') {
       return false;
     }
+    if (snapshot.audioSourceLayout !== undefined && (!Number.isInteger(snapshot.audioSourceLayout) ||
+      snapshot.audioSourceLayout < 0 || snapshot.audioSourceLayout > 2)) { return false; }
     const values: number[] = [snapshot.operation, snapshot.filter, snapshot.frameRate, snapshot.bitrateMode,
       snapshot.keyFrame, snapshot.audioRate, snapshot.audioChannels, snapshot.audioBitrate];
     const limits: number[] = [1, 2, 4, 1, 3, 2, 2, 2];
@@ -65,6 +69,7 @@ export class TranscodeQualityModel {
     return { operation: this.operation, filter: this.filter, frameRate: this.frameRate,
       bitrateMode: this.bitrateMode, keyFrame: this.keyFrame, audioRate: this.audioRate,
       audioChannels: this.audioChannels, audioBitrate: this.audioBitrate, codecMode: this.codecMode,
+      audioSourceLayout: this.audioSourceLayout,
       audioResampler: this.audioResampler,
       deepValidation: this.deepValidation,
       remuxAllAudioTracks: this.remuxAllAudioTracks };
@@ -75,6 +80,7 @@ export class TranscodeQualityModel {
     this.frameRate = snapshot?.frameRate ?? 0; this.bitrateMode = snapshot?.bitrateMode ?? 0;
     this.keyFrame = snapshot?.keyFrame ?? 1; this.audioRate = snapshot?.audioRate ?? 0;
     this.audioChannels = snapshot?.audioChannels ?? 0; this.audioBitrate = snapshot?.audioBitrate ?? 1;
+    this.audioSourceLayout = snapshot?.audioSourceLayout ?? 0;
     this.codecMode = snapshot?.codecMode ?? 0;
     this.audioResampler = snapshot?.audioResampler ?? 0;
     this.deepValidation = snapshot?.deepValidation ?? false;

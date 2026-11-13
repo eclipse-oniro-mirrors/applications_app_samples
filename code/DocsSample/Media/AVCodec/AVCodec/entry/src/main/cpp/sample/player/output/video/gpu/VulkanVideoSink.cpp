@@ -947,9 +947,8 @@ bool VulkanVideoSink::UpdateExternalTransform()
         AVCODEC_SAMPLE_LOGW("Vulkan NativeBuffer is unavailable for transform");
         return false;
     }
-    // Vulkan使用AcquireLatestNativeWindowBuffer消费NativeImage。该接口不能与
-    // UpdateSurfaceImage/GetBufferMatrix混用，因此裁剪信息从当前acquired Buffer的
-    // 配置计算，而不是读取可能属于另一帧的last-flushed矩阵。
+    // Vulkan通过AcquireLatestNativeWindowBuffer消费NativeImage，不能混用
+    // UpdateSurfaceImage/GetBufferMatrix；裁剪矩阵按当前取得的Buffer配置计算。
     OH_NativeBuffer_Config config{};
     OH_NativeBuffer_GetConfig(currentNativeBuffer_, &config);
     const int32_t bufferWidth = config.width > 0 ? config.width : externalVideoWidth_;

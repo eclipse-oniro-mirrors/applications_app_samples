@@ -20,7 +20,6 @@ include_directories(${NATIVERENDER_ROOT_PATH}
                     ${NATIVERENDER_ROOT_PATH}/sample/player/core
                     ${NATIVERENDER_ROOT_PATH}/sample/player/sync
                     ${NATIVERENDER_ROOT_PATH}/sample/player/napi
-                    ${NATIVERENDER_ROOT_PATH}/sample/recorder
 )
 
 set(BASE_LIBRARY
@@ -84,14 +83,18 @@ add_library(player SHARED sample/player/napi/PlayerNative.cpp
                           common/sample_callback.cpp
 )
 
-add_library(recorder SHARED sample/recorder/RecorderNative.cpp
-                            sample/recorder/RecorderOptionsParser.cpp
-                            sample/recorder/Recorder.cpp
-                            sample/recorder/RecorderAudio.cpp
-                            sample/recorder/RecorderVideoSession.cpp
-                            sample/recorder/RecorderVideoInput.cpp
-                            sample/recorder/RecorderFrameReceiver.cpp
-                            sample/recorder/RecorderFrameCopy.cpp
+add_library(recorder SHARED sample/recorder/napi/RecorderNative.cpp
+                            sample/recorder/napi/RecorderOptionsParser.cpp
+                            sample/recorder/core/Recorder.cpp
+                            sample/recorder/core/RecorderRelease.cpp
+                            sample/recorder/core/RecorderVideoSession.cpp
+                            sample/recorder/input/video/RecorderVideoInput.cpp
+                            sample/recorder/input/video/RecorderFrameReceiver.cpp
+                            sample/recorder/input/video/RecorderFrameCopy.cpp
+                            sample/recorder/output/audio/RecorderAudio.cpp
+                            sample/recorder/output/video/RecorderVideoOutput.cpp
+                            sample/recorder/output/video/RecorderSecondaryOutput.cpp
+                            sample/recorder/diagnostics/RecorderDiagnostics.cpp
                             capabilities/muxer.cpp
                             capabilities/codec_capability.cpp
                             capabilities/video_encoder.cpp
@@ -112,17 +115,17 @@ endif()
 target_link_libraries(player PUBLIC ${BASE_LIBRARY})
 target_link_libraries(recorder PUBLIC ${BASE_LIBRARY} libimage_receiver.so libohimage.so)
 
-add_library(transcoder SHARED sample/transcoder/TranscoderNative.cpp
-                              sample/transcoder/TranscodeAudioPipeline.cpp
-                              sample/transcoder/TranscodeJob.cpp
-                              sample/transcoder/TranscodeCodecCallbacks.cpp
-                              sample/transcoder/TranscodeCodecIO.cpp
-                              sample/transcoder/TranscodeInspection.cpp
-                              sample/transcoder/TranscodeOutputValidation.cpp
-                              sample/transcoder/TranscodeSampleValidator.cpp
-                              sample/transcoder/TranscodeTimeRange.cpp
-                              sample/transcoder/TranscodeOperations.cpp
-                              sample/transcoder/TranscodeGpuProcessor.cpp
-                              common/graphics/EglWindowContext.cpp
-                              sample/transcoder/TranscodeFrameProcessor.cpp)
+add_library(transcoder SHARED sample/transcoder/napi/TranscoderNative.cpp
+                              sample/transcoder/core/TranscodeJob.cpp
+                              sample/transcoder/core/TranscodeInspection.cpp
+                              sample/transcoder/core/TranscodeTimeRange.cpp
+                              sample/transcoder/core/TranscodeOperations.cpp
+                              sample/transcoder/codec/TranscodeCodecCallbacks.cpp
+                              sample/transcoder/codec/TranscodeCodecIO.cpp
+                              sample/transcoder/process/audio/TranscodeAudioPipeline.cpp
+                              sample/transcoder/process/video/TranscodeFrameProcessor.cpp
+                              sample/transcoder/process/video/gpu/TranscodeGpuProcessor.cpp
+                              sample/transcoder/output/TranscodeOutputValidation.cpp
+                              sample/transcoder/output/TranscodeSampleValidator.cpp
+                              common/graphics/EglWindowContext.cpp)
 target_link_libraries(transcoder PUBLIC ${BASE_LIBRARY})

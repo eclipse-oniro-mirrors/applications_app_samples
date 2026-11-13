@@ -18,7 +18,7 @@
 #include <iostream>
 #include <iterator>
 #include <limits>
-#include "../../entry/src/main/cpp/sample/recorder/RecorderFrameCopy.h"
+#include "../../entry/src/main/cpp/sample/recorder/input/video/RecorderFrameCopy.h"
 
 namespace {
 using RecorderFrames::CopyNv12;

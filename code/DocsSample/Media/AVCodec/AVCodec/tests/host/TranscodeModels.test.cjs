@@ -631,10 +631,14 @@ async function testQualityProfiles() {
   assert.equal(model.request(1, 2).codecMode, 0, 'Synchronous remains the default');
   const legacyQuality = model.quality.snapshot();
   delete legacyQuality.codecMode;
+  delete legacyQuality.audioSourceLayout;
   model.quality.codecMode = 1;
+  model.quality.audioSourceLayout = 2;
   model.quality.restore(legacyQuality);
   assert.equal(model.quality.codecMode, 0, 'Old snapshots restore synchronous mode');
+  assert.equal(model.quality.audioSourceLayout, 0, 'Old snapshots default to an unspecified source layout');
   model.quality.codecMode = 1;
+  model.quality.audioSourceLayout = 2;
   model.quality.filter = 1; model.quality.frameRate = 2; model.quality.bitrateMode = 1;
   model.quality.keyFrame = 3; model.quality.audioRate = 2; model.quality.audioChannels = 1;
   model.quality.audioBitrate = 2;
@@ -645,17 +649,23 @@ async function testQualityProfiles() {
   assert.equal(request.bitrateMode, 1); assert.equal(request.keyFrameIntervalMs, 5000);
   assert.equal(request.audioSampleRate, 48000); assert.equal(request.audioChannels, 1);
   assert.equal(request.audioBitrate, 192000);
+  assert.equal(request.audioSourceLayout, 2, 'Pass the selected 5.1 layout to Native');
+  assert.equal(model.quality.snapshot().audioSourceLayout, 2, 'Persist the selected source layout');
   const queue = new TranscodeQueueModel();
   queue.add(model.sourceUri, model.sourceTitle, [0, 0, 0, 2, 0, 1, 0, 0], false, 0, 0, model.quality.snapshot());
   model.quality.filter = 0;
   model.quality.codecMode = 0;
+  model.quality.audioSourceLayout = 1;
   assert.equal(queue.items[0].quality.codecMode, 1, 'Queue retains its codec scheduling');
   assert.equal(queue.items[0].quality.filter, 1, 'Queue must retain independent quality settings');
+  assert.equal(queue.items[0].quality.audioSourceLayout, 2, 'Queue keeps the selected source layout');
   queue.update(queue.items[0].id, 'failed', 10);
   queue.reassociate(queue.items[0].id, '/private/new.mp4', 'new.mp4');
   assert.equal(queue.items[0].quality.audioChannels, 1);
   const invalid = JSON.parse(JSON.stringify(queue.items[0])); invalid.quality.audioRate = 9;
   assert.equal(TranscodeQueueModel.validated([invalid]).length, 0);
+  const invalidLayout = JSON.parse(JSON.stringify(queue.items[0])); invalidLayout.quality.audioSourceLayout = 3;
+  assert.equal(TranscodeQueueModel.validated([invalidLayout]).length, 0, 'Reject invalid source layouts');
   for (const codecMode of [-1, 2, 0.5, null, '1']) {
     const invalidMode = JSON.parse(JSON.stringify(queue.items[0])); invalidMode.quality.codecMode = codecMode;
     assert.equal(TranscodeQueueModel.validated([invalidMode]).length, 0, 'Reject invalid scheduling');
