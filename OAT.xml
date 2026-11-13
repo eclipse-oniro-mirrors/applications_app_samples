@@ -109,6 +109,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/foreground.png" desc="Provided by InfraredAndGesture"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/startIcon.png" desc="Provided by InfraredAndGesture"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/screenshots/main_page.png" desc="Provided by InfraredAndGesture screenshots"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/background.png" desc="Provided by NetworkSecurity"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/foreground.png" desc="Provided by NetworkSecurity"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/background.png" desc="Provided by NetworkSecurity"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/foreground.png" desc="Provided by NetworkSecurity"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/startIcon.png" desc="Provided by NetworkSecurity"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/screenshots/main_page.png" desc="Provided by NetworkSecurity screenshots"/>
                 <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/AppScope/resources/base/media/background.png" desc="Provided by FontAndResource"/>
                 <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/AppScope/resources/base/media/foreground.png" desc="Provided by FontAndResource"/>
                 <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/entry/src/main/resources/base/media/background.png" desc="Provided by FontAndResource"/>
@@ -2619,6 +2625,12 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/BasicFeature/Telephony/VCard/screenshots/main_page.png" desc="Provided by code/BasicFeature/Telephony/VCard"/>
 			</filefilter>
             <filefilter name="defaultPolicyFilter" desc="License文件头校验策略的过滤条件" >
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/screenshots/main_page.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filename" name="oh-package.json5" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
                 <filteritem type="filename" name="hvigorw" desc="OpenHarmony工程编译入口脚本，无需添加License头"/>
                 <filteritem type="filename" name="hvigorw.bat" desc="OpenHarmony工程编译配置文件，无需添加License头"/>
@@ -2704,6 +2716,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/screenshots/main_page.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/screenshots/main_page.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/International/FontAndResource/Library/src/main/resources/base/media/demo_picture.png" desc="二进制文件，无需添加版权头"/>

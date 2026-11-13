@@ -70,6 +70,7 @@ function idleTranscodeStatus(): TranscodeStatus {
     sourceMime: '',
     audioTracks: [],
     audioTrackIds: [],
+    selectedAudioChannels: 0,
     subtitleTracks: [],
     minBitrate: 0,
     maxBitrate: 0,
@@ -272,6 +273,7 @@ export class TranscodeModel {
         this.sourceTitle = getPlaybackTitle(uri);
         this.notice = '';
         this.audioTrack = 0;
+        this.quality.audioSourceLayout = 0;
         this.rangeEnabled = false;
         this.rangeStart = '0';
         this.rangeEnd = '';
@@ -491,6 +493,7 @@ export class TranscodeModel {
       keyFrameIntervalMs: [1000, 2000, 3000, 5000][this.quality.keyFrame] ?? 2000,
       audioSampleRate: [0, 44100, 48000][this.quality.audioRate] ?? 0,
       audioChannels: this.quality.audioChannels,
+      audioSourceLayout: this.quality.audioSourceLayout,
       audioResampler: this.quality.audioResampler,
       audioBitrate: [64000, 128000, 192000][this.quality.audioBitrate] ?? 128000,
       startTimeMs: this.rangeEnabled ? Math.round(Number(this.rangeStart) * 1000) : 0,
@@ -518,6 +521,7 @@ export class TranscodeModel {
       ' · keyFrameMs=' + [1000, 2000, 3000, 5000][this.quality.keyFrame] +
       ' · audioRate=' + [0, 44100, 48000][this.quality.audioRate] +
       ' · audioChannels=' + this.quality.audioChannels +
+      ' · audioSourceLayout=' + ['unspecified', '5.1-side', '5.1-back'][this.quality.audioSourceLayout] +
       ' · resampler=' + ['linear', 'low-pass'][this.quality.audioResampler] +
       ' · audioBitrate=' + [64000, 128000, 192000][this.quality.audioBitrate] +
       (this.rangeEnabled ? ' · range=' + this.rangeStart + '..' + (this.rangeEnd || 'end') + ' s' : '');

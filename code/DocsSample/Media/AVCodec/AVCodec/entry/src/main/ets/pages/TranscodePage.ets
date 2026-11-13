@@ -226,6 +226,7 @@ export struct TranscodePage {
             .enabled(this.model.audioMode !== TranscodeAudioMode.NONE && !this.quality.remuxAllAudioTracks)
             .onSelect((index: number): void => {
               this.model.audioTrack = index === 0 ? 0 : this.model.analysis.audioTrackIds[index - 1];
+              this.quality.audioSourceLayout = 0;
               void this.model.inspect(this.getUIContext());
             })
         }
@@ -430,6 +431,7 @@ export struct TranscodePage {
           TranscodeQualityPanel({ quality: this.quality, allowFilter: this.model.modeIndex !== 1,
             allowArea: this.model.modeIndex === 0,
             allowAudio: this.model.audioMode === 1,
+            sourceChannels: this.model.analysis.selectedAudioChannels,
             allowEditing: !this.model.busy && !this.model.queueRunning && !this.model.picking && !this.model.exporting,
             onChanged: (): void => {
               this.model.clearPreview(); void this.model.inspect(this.getUIContext());
