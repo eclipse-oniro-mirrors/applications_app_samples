@@ -28,14 +28,29 @@
 | `GridLayoutMatrixExtended.test.ets` | 30 |
 | `LauncherAbilityFinal.test.ets` | 50 |
 | `LauncherAbilityModelMatrix.test.ets` | 40 |
+| `LauncherAppInfoDeep.test.ets` | 40 |
+| `LauncherBundleDeep2.test.ets` | 50 |
+| `LauncherLaunchContract.test.ets` | 40 |
+| `LauncherModuleDeep.test.ets` | 40 |
+| `LauncherPermissionDeep2.test.ets` | 50 |
+| `LauncherPermissionModelMatrix.test.ets` | 30 |
+| `LauncherPlusBeanDeep.test.ets` | 45 |
 | `LauncherPlusBeans.test.ets` | 45 |
+| `LauncherPlusBundle.test.ets` | 60 |
+| `LauncherPlusBundleDeep.test.ets` | 60 |
+| `LauncherPlusCheckDeep.test.ets` | 60 |
 | `LauncherPlusConstants.test.ets` | 60 |
+| `LauncherPlusConstantsDeep.test.ets` | 60 |
+| `LauncherPlusEmpty.test.ets` | 60 |
 | `LauncherPlusEvents.test.ets` | 60 |
+| `LauncherPlusGrid.test.ets` | 45 |
+| `LauncherPlusGridDeep.test.ets` | 45 |
+| `LauncherServiceExtensionDeep.test.ets` | 40 |
 | `RdbContract.test.ets` | 5 |
 | `ResourceManagerAsync.test.ets` | 12 |
 | `ResourceManagerCache.test.ets` | 16 |
 
-合计：**23 个测试套件，457 条用例**。
+合计：**38 个测试套件，1182 条用例**。
 
 > 以上用例数与 `List.test.ets` 中实际注册的套件和用例数一致。
 
