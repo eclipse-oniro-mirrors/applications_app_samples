@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,10 +14,14 @@
  */
 
 import { afterAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { common } from '@kit.AbilityKit';
 import { resourceManager } from '@kit.LocalizationKit';
 import CharacterOperation from '../../../main/ets/characteroperation/CharacterOperation';
 import { getAppColorMode, getAppLocale, getConfiguration, getStringByName, loadEntryContext, sleep } from './TestHelper';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 const CONFIG_SETTLE_MS: number = 800;
 
@@ -58,17 +62,27 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL1
      */
     it('testSetChineseLanguage0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSetChineseLanguage0001 begin');
       const op: CharacterOperation | undefined = await freshOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSetChineseLanguage0001 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       op.setZHCNLanguage();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getAppLocale().length > 0).assertTrue();
-      expect(getStringByName('Set_Dark_Mode')).assertEqual('设置深色模式');
-      expect(getStringByName('CreateStorageData')).assertEqual('创建数据');
+      const actual2: boolean = getAppLocale().length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSetChineseLanguage0001 assert2 getAppLocale=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: string = getStringByName('Set_Dark_Mode');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSetChineseLanguage0001 assert3 getStringByName=${actual3}`);
+      expect(actual3).assertEqual('设置深色模式');
+      const actual4: string = getStringByName('CreateStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSetChineseLanguage0001 assert4 getStringByName=${actual4}`);
+      expect(actual4).assertEqual('创建数据');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSetChineseLanguage0001 end');
       done();
     })
 
@@ -81,17 +95,27 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL1
      */
     it('testSetEnglishLanguage0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSetEnglishLanguage0002 begin');
       const op: CharacterOperation | undefined = await freshOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSetEnglishLanguage0002 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       op.setENUSLanguage();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getAppLocale().length > 0).assertTrue();
-      expect(getStringByName('Set_Dark_Mode')).assertEqual('Set Dark Mode');
-      expect(getStringByName('CreateStorageData')).assertEqual('Create Storage Data');
+      const actual2: boolean = getAppLocale().length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSetEnglishLanguage0002 assert2 getAppLocale=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: string = getStringByName('Set_Dark_Mode');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSetEnglishLanguage0002 assert3 getStringByName=${actual3}`);
+      expect(actual3).assertEqual('Set Dark Mode');
+      const actual4: string = getStringByName('CreateStorageData');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSetEnglishLanguage0002 assert4 getStringByName=${actual4}`);
+      expect(actual4).assertEqual('Create Storage Data');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSetEnglishLanguage0002 end');
       done();
     })
 
@@ -104,8 +128,11 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL1
      */
     it('testLanguageRoundTrip0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testLanguageRoundTrip0003 begin');
       const op: CharacterOperation | undefined = await freshOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageRoundTrip0003 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
@@ -116,9 +143,15 @@ export default function abilityConfigTest() {
       op.setZHCNLanguage();
       await sleep(CONFIG_SETTLE_MS);
       const chineseText: string = getStringByName('CreateStorageData');
-      expect(englishText.length > 0).assertTrue();
-      expect(englishText !== chineseText).assertTrue();
+      const actual2: boolean = englishText.length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageRoundTrip0003 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = englishText !== chineseText;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageRoundTrip0003 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageRoundTrip0003 assert4 chineseText=${chineseText}`);
       expect(chineseText).assertEqual('创建数据');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testLanguageRoundTrip0003 end');
       done();
     })
 
@@ -131,17 +164,27 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL1
      */
     it('testSwitchDarkColorMode0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSwitchDarkColorMode0004 begin');
       const op: CharacterOperation | undefined = await freshOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSwitchDarkColorMode0004 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       op.setDarkColorMode();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getAppColorMode()).assertEqual(resourceManager.ColorMode.DARK);
-      expect(getConfiguration().colorMode === 0).assertTrue();
-      expect(getConfiguration().colorMode !== resourceManager.ColorMode.LIGHT).assertTrue();
+      const actual2: number = getAppColorMode();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSwitchDarkColorMode0004 assert2 getAppColorMode=${actual2}`);
+      expect(actual2).assertEqual(resourceManager.ColorMode.DARK);
+      const actual3: boolean = getConfiguration().colorMode === 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSwitchDarkColorMode0004 assert3 getConfiguration=${actual3}`);
+      expect(actual3).assertTrue();
+      const actual4: boolean = getConfiguration().colorMode !== resourceManager.ColorMode.LIGHT;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSwitchDarkColorMode0004 assert4 getConfiguration=${actual4}`);
+      expect(actual4).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSwitchDarkColorMode0004 end');
       done();
     })
 
@@ -154,17 +197,27 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL1
      */
     it('testSwitchLightColorMode0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSwitchLightColorMode0005 begin');
       const op: CharacterOperation | undefined = await freshOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSwitchLightColorMode0005 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       op.setLightColorMode();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getAppColorMode()).assertEqual(resourceManager.ColorMode.LIGHT);
-      expect(getConfiguration().colorMode === 1).assertTrue();
-      expect(getConfiguration().colorMode !== resourceManager.ColorMode.DARK).assertTrue();
+      const actual2: number = getAppColorMode();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSwitchLightColorMode0005 assert2 getAppColorMode=${actual2}`);
+      expect(actual2).assertEqual(resourceManager.ColorMode.LIGHT);
+      const actual3: boolean = getConfiguration().colorMode === 1;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSwitchLightColorMode0005 assert3 getConfiguration=${actual3}`);
+      expect(actual3).assertTrue();
+      const actual4: boolean = getConfiguration().colorMode !== resourceManager.ColorMode.DARK;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testSwitchLightColorMode0005 assert4 getConfiguration=${actual4}`);
+      expect(actual4).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testSwitchLightColorMode0005 end');
       done();
     })
 
@@ -177,19 +230,29 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL1
      */
     it('testColorModeRoundTrip0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testColorModeRoundTrip0006 begin');
       const op: CharacterOperation | undefined = await freshOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeRoundTrip0006 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       op.setDarkColorMode();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getAppColorMode()).assertEqual(resourceManager.ColorMode.DARK);
+      const actual2: number = getAppColorMode();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeRoundTrip0006 assert2 getAppColorMode=${actual2}`);
+      expect(actual2).assertEqual(resourceManager.ColorMode.DARK);
       op.setLightColorMode();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getAppColorMode()).assertEqual(resourceManager.ColorMode.LIGHT);
-      expect(getAppColorMode() === resourceManager.ColorMode.DARK).assertFalse();
+      const actual3: number = getAppColorMode();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeRoundTrip0006 assert3 getAppColorMode=${actual3}`);
+      expect(actual3).assertEqual(resourceManager.ColorMode.LIGHT);
+      const actual4: boolean = getAppColorMode() === resourceManager.ColorMode.DARK;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeRoundTrip0006 assert4 getAppColorMode=${actual4}`);
+      expect(actual4).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testColorModeRoundTrip0006 end');
       done();
     })
 
@@ -202,19 +265,29 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL1
      */
     it('testResourceStringFollowsLocale0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceStringFollowsLocale0007 begin');
       const op: CharacterOperation | undefined = await freshOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceStringFollowsLocale0007 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       op.setENUSLanguage();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getStringByName('Set_Chinese_language')).assertEqual('Set Chinese language');
+      const actual2: string = getStringByName('Set_Chinese_language');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceStringFollowsLocale0007 assert2 getStringByName=${actual2}`);
+      expect(actual2).assertEqual('Set Chinese language');
       op.setZHCNLanguage();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getStringByName('Set_Chinese_language')).assertEqual('设置中文语言');
-      expect(getStringByName('Set_Chinese_language') !== 'Set Chinese language').assertTrue();
+      const actual3: string = getStringByName('Set_Chinese_language');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceStringFollowsLocale0007 assert3 getStringByName=${actual3}`);
+      expect(actual3).assertEqual('设置中文语言');
+      const actual4: boolean = getStringByName('Set_Chinese_language') !== 'Set Chinese language';
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResourceStringFollowsLocale0007 assert4 getStringByName=${actual4}`);
+      expect(actual4).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testResourceStringFollowsLocale0007 end');
       done();
     })
 
@@ -227,13 +300,21 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL2
      */
     it('testConfigurationIsReadable0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testConfigurationIsReadable0008 begin');
       const first: resourceManager.Configuration = getConfiguration();
       const second: resourceManager.Configuration = getConfiguration();
-      expect(first !== undefined).assertTrue();
-      expect(second.locale.length > 0).assertTrue();
-      expect(second.colorMode === resourceManager.ColorMode.DARK ||
-        second.colorMode === resourceManager.ColorMode.LIGHT).assertTrue();
+      const actual1: boolean = first !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testConfigurationIsReadable0008 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: boolean = second.locale.length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testConfigurationIsReadable0008 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = second.colorMode === resourceManager.ColorMode.DARK || second.colorMode === resourceManager.ColorMode.LIGHT;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testConfigurationIsReadable0008 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testConfigurationIsReadable0008 assert4 first.locale.length=${first.locale.length}`);
       expect(first.locale.length).assertEqual(second.locale.length);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testConfigurationIsReadable0008 end');
     })
 
     /**
@@ -245,8 +326,11 @@ export default function abilityConfigTest() {
      * @tc.level     LEVEL2
      */
     it('testRestoreDefaultConfiguration0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRestoreDefaultConfiguration0009 begin');
       const op: CharacterOperation | undefined = await freshOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRestoreDefaultConfiguration0009 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
@@ -254,9 +338,16 @@ export default function abilityConfigTest() {
       op.setZHCNLanguage();
       op.setLightColorMode();
       await sleep(CONFIG_SETTLE_MS);
-      expect(getAppLocale().length > 0).assertTrue();
-      expect(getAppColorMode()).assertEqual(resourceManager.ColorMode.LIGHT);
-      expect(getStringByName('close')).assertEqual('关闭');
+      const actual2: boolean = getAppLocale().length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRestoreDefaultConfiguration0009 assert2 getAppLocale=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: number = getAppColorMode();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRestoreDefaultConfiguration0009 assert3 getAppColorMode=${actual3}`);
+      expect(actual3).assertEqual(resourceManager.ColorMode.LIGHT);
+      const actual4: string = getStringByName('close');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRestoreDefaultConfiguration0009 assert4 getStringByName=${actual4}`);
+      expect(actual4).assertEqual('关闭');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRestoreDefaultConfiguration0009 end');
       done();
     })
   })

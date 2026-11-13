@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 
 import { afterAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { common, StartOptions, UIAbility } from '@kit.AbilityKit';
 import { buildNewAbilityWant, buildStartOptions, formatStartOptions } from '../../../main/ets/model/LaunchIntent';
 import { NEW_ABILITY_NAME } from '../../../main/ets/common/AppConstants';
@@ -27,6 +28,8 @@ import {
   waitForTopAbility
 } from './TestHelper';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 async function startNewAbility(withAnimation: boolean): Promise<void> {
   const context: common.UIAbilityContext = await loadEntryContext();
@@ -54,11 +57,19 @@ export default function startOptionsTest() {
      * @tc.level     LEVEL1
      */
     it('testStartNewAbilityWithoutAnimation0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartNewAbilityWithoutAnimation0001 begin');
       await startNewAbility(false);
       const top: UIAbility | undefined = await waitForTopAbility(NEW_ABILITY, 6000);
-      expect(getAbilityName(top)).assertEqual(NEW_ABILITY);
-      expect(getAbilityName(top)).assertEqual(NEW_ABILITY_NAME);
-      expect(top !== undefined).assertTrue();
+      const actual1: string = getAbilityName(top);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartNewAbilityWithoutAnimation0001 assert1 getAbilityName=${actual1}`);
+      expect(actual1).assertEqual(NEW_ABILITY);
+      const actual2: string = getAbilityName(top);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartNewAbilityWithoutAnimation0001 assert2 getAbilityName=${actual2}`);
+      expect(actual2).assertEqual(NEW_ABILITY_NAME);
+      const actual3: boolean = top !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartNewAbilityWithoutAnimation0001 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartNewAbilityWithoutAnimation0001 end');
       done();
     })
 
@@ -71,11 +82,19 @@ export default function startOptionsTest() {
      * @tc.level     LEVEL1
      */
     it('testStartNewAbilityWithAnimation0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartNewAbilityWithAnimation0002 begin');
       await startNewAbility(true);
       const top: UIAbility | undefined = await waitForTopAbility(NEW_ABILITY, 6000);
-      expect(getAbilityName(top)).assertEqual(NEW_ABILITY);
-      expect(buildStartOptions(true).withAnimation).assertTrue();
-      expect(buildStartOptions(false).withAnimation).assertFalse();
+      const actual1: string = getAbilityName(top);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartNewAbilityWithAnimation0002 assert1 getAbilityName=${actual1}`);
+      expect(actual1).assertEqual(NEW_ABILITY);
+      const actual2: boolean | undefined = buildStartOptions(true).withAnimation;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartNewAbilityWithAnimation0002 assert2 withAnimation=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean | undefined = buildStartOptions(false).withAnimation;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartNewAbilityWithAnimation0002 assert3 withAnimation=${actual3}`);
+      expect(actual3).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartNewAbilityWithAnimation0002 end');
       done();
     })
 
@@ -88,13 +107,19 @@ export default function startOptionsTest() {
      * @tc.level     LEVEL1
      */
     it('testTopAbilityInfoOfNewAbility0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testTopAbilityInfoOfNewAbility0003 begin');
       await startNewAbility(false);
       const top: UIAbility | undefined = await waitForTopAbility(NEW_ABILITY, 6000);
-      expect(getAbilityName(top)).assertEqual(NEW_ABILITY);
+      const actual1: string = getAbilityName(top);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testTopAbilityInfoOfNewAbility0003 assert1 getAbilityName=${actual1}`);
+      expect(actual1).assertEqual(NEW_ABILITY);
       if (top !== undefined) {
+        hilog.info(DOMAIN, TAG, '%{public}s', `testTopAbilityInfoOfNewAbility0003 assert2 top.context.abilityInfo.bundleName=${top.context.abilityInfo.bundleName}`);
         expect(top.context.abilityInfo.bundleName).assertEqual(getBundleName());
+        hilog.info(DOMAIN, TAG, '%{public}s', `testTopAbilityInfoOfNewAbility0003 assert3 top.context.abilityInfo.moduleName=${top.context.abilityInfo.moduleName}`);
         expect(top.context.abilityInfo.moduleName).assertEqual('entry');
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testTopAbilityInfoOfNewAbility0003 end');
       done();
     })
 
@@ -107,15 +132,23 @@ export default function startOptionsTest() {
      * @tc.level     LEVEL1
      */
     it('testTerminateNewAbility0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testTerminateNewAbility0004 begin');
       await startNewAbility(false);
       const top: UIAbility | undefined = await waitForTopAbility(NEW_ABILITY, 6000);
-      expect(getAbilityName(top)).assertEqual(NEW_ABILITY);
+      const actual1: string = getAbilityName(top);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testTerminateNewAbility0004 assert1 getAbilityName=${actual1}`);
+      expect(actual1).assertEqual(NEW_ABILITY);
       if (top !== undefined) {
         await top.context.terminateSelf();
       }
       const entry: UIAbility | undefined = await waitForTopAbility(ENTRY_ABILITY, 6000);
-      expect(getAbilityName(entry)).assertEqual(ENTRY_ABILITY);
-      expect(getAbilityName(entry) === NEW_ABILITY).assertFalse();
+      const actual2: string = getAbilityName(entry);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testTerminateNewAbility0004 assert2 getAbilityName=${actual2}`);
+      expect(actual2).assertEqual(ENTRY_ABILITY);
+      const actual3: boolean = getAbilityName(entry) === NEW_ABILITY;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testTerminateNewAbility0004 assert3 getAbilityName=${actual3}`);
+      expect(actual3).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testTerminateNewAbility0004 end');
       done();
     })
 
@@ -128,12 +161,20 @@ export default function startOptionsTest() {
      * @tc.level     LEVEL2
      */
     it('testRepeatedStartNewAbility0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatedStartNewAbility0005 begin');
       await startNewAbility(false);
-      expect(getAbilityName(await waitForTopAbility(NEW_ABILITY, 6000))).assertEqual(NEW_ABILITY);
+      const actual1: string = getAbilityName(await waitForTopAbility(NEW_ABILITY, 6000));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRepeatedStartNewAbility0005 assert1 getAbilityName=${actual1}`);
+      expect(actual1).assertEqual(NEW_ABILITY);
       await startNewAbility(true);
       const top: UIAbility | undefined = await waitForTopAbility(NEW_ABILITY, 6000);
-      expect(getAbilityName(top)).assertEqual(NEW_ABILITY);
-      expect(top !== undefined).assertTrue();
+      const actual2: string = getAbilityName(top);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRepeatedStartNewAbility0005 assert2 getAbilityName=${actual2}`);
+      expect(actual2).assertEqual(NEW_ABILITY);
+      const actual3: boolean = top !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRepeatedStartNewAbility0005 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatedStartNewAbility0005 end');
       done();
     })
 
@@ -146,15 +187,23 @@ export default function startOptionsTest() {
      * @tc.level     LEVEL2
      */
     it('testStartAfterReturnToEntry0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartAfterReturnToEntry0006 begin');
       await startNewAbility(false);
       const first: UIAbility | undefined = await waitForTopAbility(NEW_ABILITY, 6000);
-      expect(getAbilityName(first)).assertEqual(NEW_ABILITY);
+      const actual1: string = getAbilityName(first);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartAfterReturnToEntry0006 assert1 getAbilityName=${actual1}`);
+      expect(actual1).assertEqual(NEW_ABILITY);
       if (first !== undefined) {
         await first.context.terminateSelf();
       }
-      expect(getAbilityName(await waitForTopAbility(ENTRY_ABILITY, 6000))).assertEqual(ENTRY_ABILITY);
+      const actual2: string = getAbilityName(await waitForTopAbility(ENTRY_ABILITY, 6000));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartAfterReturnToEntry0006 assert2 getAbilityName=${actual2}`);
+      expect(actual2).assertEqual(ENTRY_ABILITY);
       await startNewAbility(true);
-      expect(getAbilityName(await waitForTopAbility(NEW_ABILITY, 6000))).assertEqual(NEW_ABILITY);
+      const actual3: string = getAbilityName(await waitForTopAbility(NEW_ABILITY, 6000));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartAfterReturnToEntry0006 assert3 getAbilityName=${actual3}`);
+      expect(actual3).assertEqual(NEW_ABILITY);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartAfterReturnToEntry0006 end');
       done();
     })
 
@@ -167,13 +216,22 @@ export default function startOptionsTest() {
      * @tc.level     LEVEL2
      */
     it('testStartOptionsFieldsBeforeLaunch0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFieldsBeforeLaunch0007 begin');
       const options: StartOptions = buildStartOptions(true);
       const text: string = formatStartOptions(options);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFieldsBeforeLaunch0007 assert1 options.displayId=${options.displayId}`);
       expect(options.displayId).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFieldsBeforeLaunch0007 assert2 options.windowWidth=${options.windowWidth}`);
       expect(options.windowWidth).assertEqual(300);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFieldsBeforeLaunch0007 assert3 options.windowHeight=${options.windowHeight}`);
       expect(options.windowHeight).assertEqual(400);
-      expect(text.includes('withAnimation=true')).assertTrue();
-      expect(text.endsWith('height=400')).assertTrue();
+      const actual4: boolean = text.includes('withAnimation=true');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFieldsBeforeLaunch0007 assert4 text.includes=${actual4}`);
+      expect(actual4).assertTrue();
+      const actual5: boolean = text.endsWith('height=400');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsFieldsBeforeLaunch0007 assert5 text.endsWith=${actual5}`);
+      expect(actual5).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsFieldsBeforeLaunch0007 end');
     })
 
     /**
@@ -185,10 +243,18 @@ export default function startOptionsTest() {
      * @tc.level     LEVEL1
      */
     it('testNewAbilityWantMatchesBundle0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testNewAbilityWantMatchesBundle0008 begin');
       const bundleName: string = getBundleName();
-      expect(bundleName.length > 0).assertTrue();
-      expect(buildNewAbilityWant(bundleName).bundleName).assertEqual(bundleName);
-      expect(buildNewAbilityWant(bundleName).abilityName).assertEqual(NEW_ABILITY);
+      const actual1: boolean = bundleName.length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWantMatchesBundle0008 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: string | undefined = buildNewAbilityWant(bundleName).bundleName;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWantMatchesBundle0008 assert2 bundleName=${actual2}`);
+      expect(actual2).assertEqual(bundleName);
+      const actual3: string | undefined = buildNewAbilityWant(bundleName).abilityName;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWantMatchesBundle0008 assert3 abilityName=${actual3}`);
+      expect(actual3).assertEqual(NEW_ABILITY);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testNewAbilityWantMatchesBundle0008 end');
     })
   })
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 
 import { beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { buildImplicitViewWant, hasStartWithoutTipsFlag } from '../../../main/ets/model/LaunchIntent';
@@ -27,6 +28,9 @@ import {
   startEntryAbility,
   waitForTopAbility
 } from './TestHelper';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 const NO_MATCHING_ABILITY: number = 16000019;
 const ABILITY_NOT_EXIST: number = 16000001;
@@ -69,10 +73,18 @@ export default function implicitLaunchTest() {
      * @tc.level     LEVEL1
      */
     it('testImplicitWantCarriesFlag0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantCarriesFlag0001 begin');
       const want: Want = buildImplicitViewWant(true);
-      expect(hasStartWithoutTipsFlag(want)).assertTrue();
-      expect(want.action !== undefined).assertTrue();
-      expect(want.bundleName === undefined).assertTrue();
+      const actual1: boolean = hasStartWithoutTipsFlag(want);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantCarriesFlag0001 assert1 hasStartWithoutTipsFlag=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: boolean = want.action !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantCarriesFlag0001 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = want.bundleName === undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantCarriesFlag0001 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantCarriesFlag0001 end');
     })
 
     /**
@@ -84,10 +96,17 @@ export default function implicitLaunchTest() {
      * @tc.level     LEVEL1
      */
     it('testImplicitLaunchFailsSilently0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitLaunchFailsSilently0002 begin');
       const failure: StartFailure = await startAndCapture(buildImplicitViewWant(true));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitLaunchFailsSilently0002 assert1 failure.code=${failure.code}`);
       expect(failure.code).assertEqual(NO_MATCHING_ABILITY);
-      expect(failure.code !== 0).assertTrue();
-      expect(failure.message.length > 0).assertTrue();
+      const actual2: boolean = failure.code !== 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitLaunchFailsSilently0002 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = failure.message.length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitLaunchFailsSilently0002 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitLaunchFailsSilently0002 end');
       done();
     })
 
@@ -100,11 +119,19 @@ export default function implicitLaunchTest() {
      * @tc.level     LEVEL1
      */
     it('testTopAbilityUnchangedAfterImplicit0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testTopAbilityUnchangedAfterImplicit0003 begin');
       await startAndCapture(buildImplicitViewWant(true));
       const top = await waitForTopAbility(ENTRY_ABILITY, 3000);
-      expect(getAbilityName(top)).assertEqual(ENTRY_ABILITY);
-      expect(getAbilityName(top) === 'NewAbility').assertFalse();
-      expect(top !== undefined).assertTrue();
+      const actual1: string = getAbilityName(top);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testTopAbilityUnchangedAfterImplicit0003 assert1 getAbilityName=${actual1}`);
+      expect(actual1).assertEqual(ENTRY_ABILITY);
+      const actual2: boolean = getAbilityName(top) === 'NewAbility';
+      hilog.info(DOMAIN, TAG, '%{public}s', `testTopAbilityUnchangedAfterImplicit0003 assert2 getAbilityName=${actual2}`);
+      expect(actual2).assertFalse();
+      const actual3: boolean = top !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testTopAbilityUnchangedAfterImplicit0003 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testTopAbilityUnchangedAfterImplicit0003 end');
       done();
     })
 
@@ -117,14 +144,21 @@ export default function implicitLaunchTest() {
      * @tc.level     LEVEL1
      */
     it('testInvalidAbilityNameRejects0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInvalidAbilityNameRejects0004 begin');
       const want: Want = {
         bundleName: getBundleName(),
         abilityName: 'NoSuchAbilityForTest'
       };
       const failure: StartFailure = await startAndCapture(want);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testInvalidAbilityNameRejects0004 assert1 failure.code=${failure.code}`);
       expect(failure.code).assertEqual(ABILITY_NOT_EXIST);
-      expect(failure.message.length > 0).assertTrue();
-      expect(failure.code !== NO_MATCHING_ABILITY).assertTrue();
+      const actual2: boolean = failure.message.length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testInvalidAbilityNameRejects0004 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = failure.code !== NO_MATCHING_ABILITY;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testInvalidAbilityNameRejects0004 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInvalidAbilityNameRejects0004 end');
       done();
     })
 
@@ -137,14 +171,21 @@ export default function implicitLaunchTest() {
      * @tc.level     LEVEL1
      */
     it('testInvalidBundleNameRejects0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInvalidBundleNameRejects0005 begin');
       const want: Want = {
         bundleName: 'com.samples.abilityFeature.nonexistent',
         abilityName: ENTRY_ABILITY
       };
       const failure: StartFailure = await startAndCapture(want);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testInvalidBundleNameRejects0005 assert1 failure.code=${failure.code}`);
       expect(failure.code).assertEqual(ABILITY_NOT_EXIST);
-      expect(failure.code > 0).assertTrue();
-      expect(failure.message.length > 0).assertTrue();
+      const actual2: boolean = failure.code > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testInvalidBundleNameRejects0005 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = failure.message.length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testInvalidBundleNameRejects0005 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testInvalidBundleNameRejects0005 end');
       done();
     })
 
@@ -157,11 +198,17 @@ export default function implicitLaunchTest() {
      * @tc.level     LEVEL2
      */
     it('testImplicitFailureIsRepeatable0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitFailureIsRepeatable0006 begin');
       const first: StartFailure = await startAndCapture(buildImplicitViewWant(true));
       const second: StartFailure = await startAndCapture(buildImplicitViewWant(true));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitFailureIsRepeatable0006 assert1 first.code=${first.code}`);
       expect(first.code).assertEqual(second.code);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitFailureIsRepeatable0006 assert2 second.code=${second.code}`);
       expect(second.code).assertEqual(NO_MATCHING_ABILITY);
-      expect(first.message.length > 0 && second.message.length > 0).assertTrue();
+      const actual3: boolean = first.message.length > 0 && second.message.length > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitFailureIsRepeatable0006 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitFailureIsRepeatable0006 end');
       done();
     })
 
@@ -174,14 +221,21 @@ export default function implicitLaunchTest() {
      * @tc.level     LEVEL1
      */
     it('testExplicitStartEntryAbility0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testExplicitStartEntryAbility0007 begin');
       const failure: StartFailure = await startAndCapture({
         bundleName: getBundleName(),
         abilityName: ENTRY_ABILITY
       });
+      hilog.info(DOMAIN, TAG, '%{public}s', `testExplicitStartEntryAbility0007 assert1 failure.code=${failure.code}`);
       expect(failure.code).assertEqual(0);
       const top = await waitForTopAbility(ENTRY_ABILITY, 5000);
-      expect(getAbilityName(top)).assertEqual(ENTRY_ABILITY);
-      expect(getAbilityName(await getTopAbility())).assertEqual(ENTRY_ABILITY);
+      const actual2: string = getAbilityName(top);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testExplicitStartEntryAbility0007 assert2 getAbilityName=${actual2}`);
+      expect(actual2).assertEqual(ENTRY_ABILITY);
+      const actual3: string = getAbilityName(await getTopAbility());
+      hilog.info(DOMAIN, TAG, '%{public}s', `testExplicitStartEntryAbility0007 assert3 getAbilityName=${actual3}`);
+      expect(actual3).assertEqual(ENTRY_ABILITY);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testExplicitStartEntryAbility0007 end');
       done();
     })
 
@@ -194,6 +248,7 @@ export default function implicitLaunchTest() {
      * @tc.level     LEVEL2
      */
     it('testExplicitStartIsIdempotent0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testExplicitStartIsIdempotent0008 begin');
       // 上一条用例刚拉起过首页，Ability 还在启动流程中时紧接着 startAbility，真机返回 16000017；
       // 先等栈顶稳定，测的才是“重复启动”本身的语义。
       await waitForTopAbility(ENTRY_ABILITY, 5000);
@@ -207,9 +262,14 @@ export default function implicitLaunchTest() {
         bundleName: getBundleName(),
         abilityName: ENTRY_ABILITY
       });
+      hilog.info(DOMAIN, TAG, '%{public}s', `testExplicitStartIsIdempotent0008 assert1 first.code=${first.code}`);
       expect(first.code).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testExplicitStartIsIdempotent0008 assert2 second.code=${second.code}`);
       expect(second.code).assertEqual(0);
-      expect(getAbilityName(await waitForTopAbility(ENTRY_ABILITY, 5000))).assertEqual(ENTRY_ABILITY);
+      const actual3: string = getAbilityName(await waitForTopAbility(ENTRY_ABILITY, 5000));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testExplicitStartIsIdempotent0008 assert3 getAbilityName=${actual3}`);
+      expect(actual3).assertEqual(ENTRY_ABILITY);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testExplicitStartIsIdempotent0008 end');
       done();
     })
   })

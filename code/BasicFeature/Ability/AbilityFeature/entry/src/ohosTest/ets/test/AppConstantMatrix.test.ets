@@ -56,8 +56,8 @@ import {
 } from '../../../main/ets/model/LaunchIntent';
 import { joinStoragePath } from '../../../main/ets/model/StoragePath';
 
-const DOMAIN: number = 0xFF00;
-const TAG: string = '[Sample_AbilityFeature_Constant]';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 const ALL_IDS: string[] = [
   MENU_ID_LANGUAGE_ZH,
@@ -87,6 +87,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0001 begin');
       const want: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0001 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com.samples.abilityFeature');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -106,6 +107,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0002 begin');
       const want: Want = buildNewAbilityWant('com.example.a');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0002 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com.example.a');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -125,6 +127,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0003 begin');
       const want: Want = buildNewAbilityWant('');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0003 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -144,6 +147,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0004 begin');
       const want: Want = buildNewAbilityWant('a');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0004 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('a');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -163,6 +167,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0005 begin');
       const want: Want = buildNewAbilityWant('com.x.y.z.w');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0005 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com.x.y.z.w');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -182,6 +187,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0006 begin');
       const want: Want = buildNewAbilityWant('COM.UPPER.CASE');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0006 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('COM.UPPER.CASE');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -201,6 +207,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0007 begin');
       const want: Want = buildNewAbilityWant('com.digits123');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0007 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com.digits123');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -220,6 +227,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0008 begin');
       const want: Want = buildNewAbilityWant('com.under_score');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0008 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com.under_score');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -239,6 +247,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0009 begin');
       const want: Want = buildNewAbilityWant('com.dash-name');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0009 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com.dash-name');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -258,6 +267,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0010 begin');
       const want: Want = buildNewAbilityWant('中文包名');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0010 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('中文包名');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -277,6 +287,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0011 begin');
       const want: Want = buildNewAbilityWant('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0011 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -296,6 +307,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0012 begin');
       const want: Want = buildNewAbilityWant(' com.space ');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0012 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual(' com.space ');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -315,6 +327,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0013 begin');
       const want: Want = buildNewAbilityWant('com.samples.abilityFeature.extra');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0013 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com.samples.abilityFeature.extra');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -334,6 +347,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0014 begin');
       const want: Want = buildNewAbilityWant('com.samples.abilityfeature');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0014 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com.samples.abilityfeature');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -353,6 +367,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0015 begin');
       const want: Want = buildNewAbilityWant('ohos.samples.demo');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0015 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('ohos.samples.demo');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -372,6 +387,7 @@ export default function appConstantMatrixTest(): void {
     it('testAppConstantMatrix0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0016 begin');
       const want: Want = buildNewAbilityWant('com..double.dot');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0016 params: want=${JSON.stringify(want)}`);
       expect(want.bundleName).assertEqual('com..double.dot');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
@@ -390,6 +406,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0017 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0017 params: MENU_ID_LANGUAGE_ZH=${MENU_ID_LANGUAGE_ZH}`);
       expect(MENU_ID_LANGUAGE_ZH).assertEqual('menu_language_zh');
       expect(MENU_ID_LANGUAGE_ZH.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_LANGUAGE_ZH)).assertTrue();
@@ -407,6 +424,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0018 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0018 params: MENU_ID_LANGUAGE_EN=${MENU_ID_LANGUAGE_EN}`);
       expect(MENU_ID_LANGUAGE_EN).assertEqual('menu_language_en');
       expect(MENU_ID_LANGUAGE_EN.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_LANGUAGE_EN)).assertTrue();
@@ -424,6 +442,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0019 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0019 params: MENU_ID_MODE_LIGHT=${MENU_ID_MODE_LIGHT}`);
       expect(MENU_ID_MODE_LIGHT).assertEqual('menu_mode_light');
       expect(MENU_ID_MODE_LIGHT.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_MODE_LIGHT)).assertTrue();
@@ -441,6 +460,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0020 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0020 params: MENU_ID_MODE_DARK=${MENU_ID_MODE_DARK}`);
       expect(MENU_ID_MODE_DARK).assertEqual('menu_mode_dark');
       expect(MENU_ID_MODE_DARK.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_MODE_DARK)).assertTrue();
@@ -458,6 +478,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0021 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0021 params: MENU_ID_IMPLICIT_POPUP=${MENU_ID_IMPLICIT_POPUP}`);
       expect(MENU_ID_IMPLICIT_POPUP).assertEqual('menu_implicit_popup');
       expect(MENU_ID_IMPLICIT_POPUP.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_IMPLICIT_POPUP)).assertTrue();
@@ -475,6 +496,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0022 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0022 params: MENU_ID_IMPLICIT_NO_POPUP=${MENU_ID_IMPLICIT_NO_POPUP}`);
       expect(MENU_ID_IMPLICIT_NO_POPUP).assertEqual('menu_implicit_no_popup');
       expect(MENU_ID_IMPLICIT_NO_POPUP.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_IMPLICIT_NO_POPUP)).assertTrue();
@@ -492,6 +514,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0023 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0023 params: MENU_ID_STORAGE_CREATE=${MENU_ID_STORAGE_CREATE}`);
       expect(MENU_ID_STORAGE_CREATE).assertEqual('menu_storage_create');
       expect(MENU_ID_STORAGE_CREATE.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_STORAGE_CREATE)).assertTrue();
@@ -509,6 +532,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0024 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0024 params: MENU_ID_STORAGE_CHECK=${MENU_ID_STORAGE_CHECK}`);
       expect(MENU_ID_STORAGE_CHECK).assertEqual('menu_storage_check');
       expect(MENU_ID_STORAGE_CHECK.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_STORAGE_CHECK)).assertTrue();
@@ -526,6 +550,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0025 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0025 params: MENU_ID_STORAGE_CLEAR=${MENU_ID_STORAGE_CLEAR}`);
       expect(MENU_ID_STORAGE_CLEAR).assertEqual('menu_storage_clear');
       expect(MENU_ID_STORAGE_CLEAR.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_STORAGE_CLEAR)).assertTrue();
@@ -543,6 +568,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0026 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0026 params: MENU_ID_START_OPTIONS=${MENU_ID_START_OPTIONS}`);
       expect(MENU_ID_START_OPTIONS).assertEqual('menu_start_options');
       expect(MENU_ID_START_OPTIONS.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_START_OPTIONS)).assertTrue();
@@ -560,6 +586,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0027 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0027 params: MENU_ID_ANIMATION_TOGGLE=${MENU_ID_ANIMATION_TOGGLE}`);
       expect(MENU_ID_ANIMATION_TOGGLE).assertEqual('menu_animation_toggle');
       expect(MENU_ID_ANIMATION_TOGGLE.startsWith('menu_')).assertTrue();
       expect(/^[a-z_]+$/.test(MENU_ID_ANIMATION_TOGGLE)).assertTrue();
@@ -577,6 +604,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0028 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0028 params: PAGE_ID_NEW_BACK=${PAGE_ID_NEW_BACK}`);
       expect(PAGE_ID_NEW_BACK).assertEqual('new_page_back');
       expect(PAGE_ID_NEW_BACK.startsWith('new_page_')).assertTrue();
       expect(/^[a-z_]+$/.test(PAGE_ID_NEW_BACK)).assertTrue();
@@ -587,14 +615,15 @@ export default function appConstantMatrixTest(): void {
     /**
      * @tc.number    SUB_ABILITY_FEATURE_CONSTANT_0029
      * @tc.name      testAppConstantMatrix0029
-     * @tc.desc      LOG_DOMAIN 为 0xFF00，落在 hilog 允许的 0~0xFFFF 区间
+     * @tc.desc      LOG_DOMAIN 为 0xF811，落在 hilog 允许的 0~0xFFFF 区间
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
     it('testAppConstantMatrix0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0029 begin');
-      expect(LOG_DOMAIN).assertEqual(0xFF00);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0029 params: LOG_DOMAIN=${LOG_DOMAIN}`);
+      expect(LOG_DOMAIN).assertEqual(0xF811);
       expect(LOG_DOMAIN <= 0xFFFF).assertTrue();
       expect(Number.isInteger(LOG_DOMAIN)).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0029 end');
@@ -603,15 +632,16 @@ export default function appConstantMatrixTest(): void {
     /**
      * @tc.number    SUB_ABILITY_FEATURE_CONSTANT_0030
      * @tc.name      testAppConstantMatrix0030
-     * @tc.desc      LOG_PREFIX 为 AbilityFeature，不含空白
+     * @tc.desc      LOG_PREFIX 为 [Sample_AbilityFeature]，不含空白
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
     it('testAppConstantMatrix0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0030 begin');
-      expect(LOG_PREFIX).assertEqual('AbilityFeature');
-      expect(LOG_PREFIX.length).assertEqual(14);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0030 params: LOG_PREFIX=${LOG_PREFIX}`);
+      expect(LOG_PREFIX).assertEqual('[Sample_AbilityFeature]');
+      expect(LOG_PREFIX.length).assertEqual(23);
       expect(LOG_PREFIX.includes(' ')).assertFalse();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0030 end');
     })
@@ -626,6 +656,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0031 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0031 params: ENTRY_ABILITY_NAME=${ENTRY_ABILITY_NAME}`);
       expect(ENTRY_ABILITY_NAME).assertEqual('EntryAbility');
       expect(ENTRY_ABILITY_NAME === NEW_ABILITY_NAME).assertFalse();
       expect(ENTRY_ABILITY_NAME.endsWith('Ability')).assertTrue();
@@ -642,6 +673,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0032 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0032 params: NEW_ABILITY_NAME=${NEW_ABILITY_NAME}`);
       expect(NEW_ABILITY_NAME).assertEqual('NewAbility');
       expect(buildNewAbilityWant('com.samples.abilityFeature').abilityName).assertEqual(NEW_ABILITY_NAME);
       expect(NEW_ABILITY_NAME.endsWith('Ability')).assertTrue();
@@ -658,6 +690,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0033 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0033 params: TOAST_DURATION=${TOAST_DURATION}`);
       expect(TOAST_DURATION).assertEqual(3000);
       expect(TOAST_DURATION >= 1500).assertTrue();
       expect(TOAST_DURATION <= 10000).assertTrue();
@@ -674,6 +707,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0034 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0034 params: SAMPLE_FILE_NAME=${SAMPLE_FILE_NAME}`);
       expect(SAMPLE_FILE_NAME).assertEqual('/test.txt');
       expect(SAMPLE_FILE_NAME.startsWith('/')).assertTrue();
       expect(joinStoragePath('/d', SAMPLE_FILE_NAME)).assertEqual('/d/test.txt');
@@ -690,6 +724,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0035 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0035 params: LANGUAGE_ZH_CN=${LANGUAGE_ZH_CN}`);
       expect(LANGUAGE_ZH_CN).assertEqual('zh-cn');
       expect(LANGUAGE_ZH_CN.split('-').length).assertEqual(2);
       expect(LANGUAGE_ZH_CN === LANGUAGE_EN_US).assertFalse();
@@ -706,6 +741,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0036 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0036 params: LANGUAGE_EN_US=${LANGUAGE_EN_US}`);
       expect(LANGUAGE_EN_US).assertEqual('en-us');
       expect(LANGUAGE_EN_US.split('-')[0]).assertEqual('en');
       expect(LANGUAGE_EN_US.split('-')[1]).assertEqual('us');
@@ -722,6 +758,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0037 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0037 params: VIEW_DATA_ACTION=${VIEW_DATA_ACTION}`);
       expect(VIEW_DATA_ACTION).assertEqual('ohos.want.action.viewData');
       expect(VIEW_DATA_ACTION.startsWith('ohos.want.action.')).assertTrue();
       expect(buildImplicitViewWant(true).action).assertEqual(VIEW_DATA_ACTION);
@@ -738,6 +775,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0038 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0038 params: TEXT_PLAIN_TYPE=${TEXT_PLAIN_TYPE}`);
       expect(TEXT_PLAIN_TYPE).assertEqual('text/plain');
       expect(TEXT_PLAIN_TYPE.split('/').length).assertEqual(2);
       expect(buildImplicitViewWant(false).type).assertEqual(TEXT_PLAIN_TYPE);
@@ -754,6 +792,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0039 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0039 params: ZERO_MATCH_URI=${ZERO_MATCH_URI}`);
       expect(ZERO_MATCH_URI).assertEqual('filePath');
       expect(JSON.stringify(buildImplicitViewWant(true).parameters)).assertEqual('{"uri":"filePath"}');
       expect(ZERO_MATCH_URI.includes('/')).assertFalse();
@@ -770,6 +809,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0040 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0040 params: START_OPTIONS_DISPLAY_ID=${START_OPTIONS_DISPLAY_ID}`);
       expect(START_OPTIONS_DISPLAY_ID).assertEqual(0);
       expect(buildStartOptions(true).displayId).assertEqual(START_OPTIONS_DISPLAY_ID);
       expect(Number.isInteger(START_OPTIONS_DISPLAY_ID)).assertTrue();
@@ -786,6 +826,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0041 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0041 params: START_OPTIONS_WINDOW_LEFT=${START_OPTIONS_WINDOW_LEFT}`);
       expect(START_OPTIONS_WINDOW_LEFT).assertEqual(50);
       expect(buildStartOptions(false).windowLeft).assertEqual(START_OPTIONS_WINDOW_LEFT);
       expect(START_OPTIONS_WINDOW_LEFT < START_OPTIONS_WINDOW_WIDTH).assertTrue();
@@ -802,6 +843,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0042 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0042 params: START_OPTIONS_WINDOW_TOP=${START_OPTIONS_WINDOW_TOP}`);
       expect(START_OPTIONS_WINDOW_TOP).assertEqual(100);
       expect(buildStartOptions(false).windowTop).assertEqual(START_OPTIONS_WINDOW_TOP);
       expect(START_OPTIONS_WINDOW_TOP < START_OPTIONS_WINDOW_HEIGHT).assertTrue();
@@ -818,6 +860,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0043 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0043 params: START_OPTIONS_WINDOW_WIDTH=${START_OPTIONS_WINDOW_WIDTH}`);
       expect(START_OPTIONS_WINDOW_WIDTH).assertEqual(300);
       expect(buildStartOptions(true).windowWidth).assertEqual(START_OPTIONS_WINDOW_WIDTH);
       expect(START_OPTIONS_WINDOW_WIDTH < START_OPTIONS_WINDOW_HEIGHT).assertTrue();
@@ -834,6 +877,7 @@ export default function appConstantMatrixTest(): void {
      */
     it('testAppConstantMatrix0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0044 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0044 params: START_OPTIONS_WINDOW_HEIGHT=${START_OPTIONS_WINDOW_HEIGHT}`);
       expect(START_OPTIONS_WINDOW_HEIGHT).assertEqual(400);
       expect(buildStartOptions(true).windowHeight).assertEqual(START_OPTIONS_WINDOW_HEIGHT);
       expect(START_OPTIONS_WINDOW_HEIGHT - START_OPTIONS_WINDOW_TOP).assertEqual(300);

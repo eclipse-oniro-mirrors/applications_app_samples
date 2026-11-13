@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Component, Driver, ON } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
 import { resourceManager } from '@kit.LocalizationKit';
@@ -41,6 +42,9 @@ import {
   sleep,
   startEntryAbility
 } from './TestHelper';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 /** 首页渲染与页面切换的稳定时间，取值参考真机实测 */
 const LAUNCH_WAIT_MS: number = 800;
@@ -137,14 +141,24 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testHomeMenuIdsPresent0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHomeMenuIdsPresent0001 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHomeMenuIdsPresent0001 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
-        expect(await hasId(active, MENU_ID_LANGUAGE_ZH)).assertTrue();
-        expect(await hasId(active, MENU_ID_LANGUAGE_EN)).assertTrue();
-        expect(await hasId(active, MENU_ID_ANIMATION_TOGGLE)).assertTrue();
+        const actual2: boolean = await hasId(active, MENU_ID_LANGUAGE_ZH);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeMenuIdsPresent0001 assert2 hasId=${actual2}`);
+        expect(actual2).assertTrue();
+        const actual3: boolean = await hasId(active, MENU_ID_LANGUAGE_EN);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeMenuIdsPresent0001 assert3 hasId=${actual3}`);
+        expect(actual3).assertTrue();
+        const actual4: boolean = await hasId(active, MENU_ID_ANIMATION_TOGGLE);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeMenuIdsPresent0001 assert4 hasId=${actual4}`);
+        expect(actual4).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHomeMenuIdsPresent0001 end');
       done();
     })
 
@@ -157,14 +171,24 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testHomeStorageMenuIdsPresent0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHomeStorageMenuIdsPresent0002 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHomeStorageMenuIdsPresent0002 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
-        expect(await hasId(active, MENU_ID_STORAGE_CREATE)).assertTrue();
-        expect(await hasId(active, MENU_ID_STORAGE_CHECK)).assertTrue();
-        expect(await hasId(active, MENU_ID_START_OPTIONS)).assertTrue();
+        const actual2: boolean = await hasId(active, MENU_ID_STORAGE_CREATE);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeStorageMenuIdsPresent0002 assert2 hasId=${actual2}`);
+        expect(actual2).assertTrue();
+        const actual3: boolean = await hasId(active, MENU_ID_STORAGE_CHECK);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeStorageMenuIdsPresent0002 assert3 hasId=${actual3}`);
+        expect(actual3).assertTrue();
+        const actual4: boolean = await hasId(active, MENU_ID_START_OPTIONS);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeStorageMenuIdsPresent0002 assert4 hasId=${actual4}`);
+        expect(actual4).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHomeStorageMenuIdsPresent0002 end');
       done();
     })
 
@@ -177,14 +201,24 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testHomeTitleVisible0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHomeTitleVisible0003 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHomeTitleVisible0003 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
-        expect(await hasText(active, getStringByName('system_BasicCharacter_Demo'))).assertTrue();
-        expect(await hasText(active, getStringByName('Set_Chinese_language'))).assertTrue();
-        expect(await hasId(active, MENU_ID_LANGUAGE_ZH)).assertTrue();
+        const actual2: boolean = await hasText(active, getStringByName('system_BasicCharacter_Demo'));
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeTitleVisible0003 assert2 hasText=${actual2}`);
+        expect(actual2).assertTrue();
+        const actual3: boolean = await hasText(active, getStringByName('Set_Chinese_language'));
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeTitleVisible0003 assert3 hasText=${actual3}`);
+        expect(actual3).assertTrue();
+        const actual4: boolean = await hasId(active, MENU_ID_LANGUAGE_ZH);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testHomeTitleVisible0003 assert4 hasId=${actual4}`);
+        expect(actual4).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHomeTitleVisible0003 end');
       done();
     })
 
@@ -197,16 +231,30 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testAnimationToggleSwitches0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAnimationToggleSwitches0004 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testAnimationToggleSwitches0004 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
-        expect(await hasId(active, MENU_ID_ANIMATION_TOGGLE)).assertTrue();
-        expect(await clickText(active, getStringByName('open'))).assertTrue();
-        expect(await hasText(active, getStringByName('close'))).assertTrue();
-        expect(await clickText(active, getStringByName('close'))).assertTrue();
-        expect(await hasText(active, getStringByName('open'))).assertTrue();
+        const actual2: boolean = await hasId(active, MENU_ID_ANIMATION_TOGGLE);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testAnimationToggleSwitches0004 assert2 hasId=${actual2}`);
+        expect(actual2).assertTrue();
+        const actual3: boolean = await clickText(active, getStringByName('open'));
+        hilog.info(DOMAIN, TAG, '%{public}s', `testAnimationToggleSwitches0004 assert3 clickText=${actual3}`);
+        expect(actual3).assertTrue();
+        const actual4: boolean = await hasText(active, getStringByName('close'));
+        hilog.info(DOMAIN, TAG, '%{public}s', `testAnimationToggleSwitches0004 assert4 hasText=${actual4}`);
+        expect(actual4).assertTrue();
+        const actual5: boolean = await clickText(active, getStringByName('close'));
+        hilog.info(DOMAIN, TAG, '%{public}s', `testAnimationToggleSwitches0004 assert5 clickText=${actual5}`);
+        expect(actual5).assertTrue();
+        const actual6: boolean = await hasText(active, getStringByName('open'));
+        hilog.info(DOMAIN, TAG, '%{public}s', `testAnimationToggleSwitches0004 assert6 hasText=${actual6}`);
+        expect(actual6).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testAnimationToggleSwitches0004 end');
       done();
     })
 
@@ -219,17 +267,29 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testLanguageSwitchUpdatesText0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testLanguageSwitchUpdatesText0005 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageSwitchUpdatesText0005 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
-        expect(await clickId(active, MENU_ID_LANGUAGE_EN)).assertTrue();
+        const actual2: boolean = await clickId(active, MENU_ID_LANGUAGE_EN);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageSwitchUpdatesText0005 assert2 clickId=${actual2}`);
+        expect(actual2).assertTrue();
         await sleep(LAUNCH_WAIT_MS);
-        expect(await hasText(active, 'Set Chinese language')).assertTrue();
-        expect(await clickId(active, MENU_ID_LANGUAGE_ZH)).assertTrue();
+        const actual3: boolean = await hasText(active, 'Set Chinese language');
+        hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageSwitchUpdatesText0005 assert3 hasText=${actual3}`);
+        expect(actual3).assertTrue();
+        const actual4: boolean = await clickId(active, MENU_ID_LANGUAGE_ZH);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageSwitchUpdatesText0005 assert4 clickId=${actual4}`);
+        expect(actual4).assertTrue();
         await sleep(LAUNCH_WAIT_MS);
-        expect(await hasText(active, '设置中文语言')).assertTrue();
+        const actual5: boolean = await hasText(active, '设置中文语言');
+        hilog.info(DOMAIN, TAG, '%{public}s', `testLanguageSwitchUpdatesText0005 assert5 hasText=${actual5}`);
+        expect(actual5).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testLanguageSwitchUpdatesText0005 end');
       done();
     })
 
@@ -242,17 +302,29 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testColorModeSwitchApplies0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testColorModeSwitchApplies0006 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeSwitchApplies0006 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
-        expect(await clickId(active, MENU_ID_MODE_DARK)).assertTrue();
+        const actual2: boolean = await clickId(active, MENU_ID_MODE_DARK);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeSwitchApplies0006 assert2 clickId=${actual2}`);
+        expect(actual2).assertTrue();
         await sleep(LAUNCH_WAIT_MS);
-        expect(getAppColorMode()).assertEqual(resourceManager.ColorMode.DARK);
-        expect(await clickId(active, MENU_ID_MODE_LIGHT)).assertTrue();
+        const actual3: number = getAppColorMode();
+        hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeSwitchApplies0006 assert3 getAppColorMode=${actual3}`);
+        expect(actual3).assertEqual(resourceManager.ColorMode.DARK);
+        const actual4: boolean = await clickId(active, MENU_ID_MODE_LIGHT);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeSwitchApplies0006 assert4 clickId=${actual4}`);
+        expect(actual4).assertTrue();
         await sleep(LAUNCH_WAIT_MS);
-        expect(getAppColorMode()).assertEqual(resourceManager.ColorMode.LIGHT);
+        const actual5: number = getAppColorMode();
+        hilog.info(DOMAIN, TAG, '%{public}s', `testColorModeSwitchApplies0006 assert5 getAppColorMode=${actual5}`);
+        expect(actual5).assertEqual(resourceManager.ColorMode.LIGHT);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testColorModeSwitchApplies0006 end');
       done();
     })
 
@@ -265,19 +337,31 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testCreateStorageFromUi0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCreateStorageFromUi0007 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageFromUi0007 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
         const context: common.Context | undefined = await entrySandboxContext();
-        expect(context !== undefined).assertTrue();
+        const actual2: boolean = context !== undefined;
+        hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageFromUi0007 assert2 value=${actual2}`);
+        expect(actual2).assertTrue();
         if (context !== undefined) {
           removeStorageFiles(context);
-          expect(await clickId(active, MENU_ID_STORAGE_CREATE)).assertTrue();
-          expect(await hasText(active, getStringByName('create_File_Success'), TOAST_WAIT_MS)).assertTrue();
-          expect(countExisting(context)).assertEqual(5);
+          const actual3: boolean = await clickId(active, MENU_ID_STORAGE_CREATE);
+          hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageFromUi0007 assert3 clickId=${actual3}`);
+          expect(actual3).assertTrue();
+          const actual4: boolean = await hasText(active, getStringByName('create_File_Success'), TOAST_WAIT_MS);
+          hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageFromUi0007 assert4 hasText=${actual4}`);
+          expect(actual4).assertTrue();
+          const actual5: number = countExisting(context);
+          hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageFromUi0007 assert5 countExisting=${actual5}`);
+          expect(actual5).assertEqual(5);
         }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCreateStorageFromUi0007 end');
       done();
     })
 
@@ -290,20 +374,34 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testCheckStorageFromUi0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCheckStorageFromUi0008 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageFromUi0008 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
         const context: common.Context | undefined = await entrySandboxContext();
-        expect(context !== undefined).assertTrue();
+        const actual2: boolean = context !== undefined;
+        hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageFromUi0008 assert2 value=${actual2}`);
+        expect(actual2).assertTrue();
         if (context !== undefined) {
-          expect(await clickId(active, MENU_ID_STORAGE_CREATE)).assertTrue();
+          const actual3: boolean = await clickId(active, MENU_ID_STORAGE_CREATE);
+          hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageFromUi0008 assert3 clickId=${actual3}`);
+          expect(actual3).assertTrue();
           await sleep(TOAST_WAIT_MS);
-          expect(await clickId(active, MENU_ID_STORAGE_CHECK)).assertTrue();
-          expect(await hasText(active, getStringByName('search_File_Success'), TOAST_WAIT_MS)).assertTrue();
-          expect(countMissing(context).length).assertEqual(0);
+          const actual4: boolean = await clickId(active, MENU_ID_STORAGE_CHECK);
+          hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageFromUi0008 assert4 clickId=${actual4}`);
+          expect(actual4).assertTrue();
+          const actual5: boolean = await hasText(active, getStringByName('search_File_Success'), TOAST_WAIT_MS);
+          hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageFromUi0008 assert5 hasText=${actual5}`);
+          expect(actual5).assertTrue();
+          const actual6: number = countMissing(context).length;
+          hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageFromUi0008 assert6 countMissing.length=${actual6}`);
+          expect(actual6).assertEqual(0);
         }
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCheckStorageFromUi0008 end');
       done();
     })
 
@@ -316,17 +414,29 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testOpenNewAbilityPage0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testOpenNewAbilityPage0009 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testOpenNewAbilityPage0009 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
         await sleep(PAGE_SWITCH_MS);
-        expect(await clickId(active, MENU_ID_START_OPTIONS)).assertTrue();
+        const actual2: boolean = await clickId(active, MENU_ID_START_OPTIONS);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testOpenNewAbilityPage0009 assert2 clickId=${actual2}`);
+        expect(actual2).assertTrue();
         await sleep(PAGE_SWITCH_MS);
-        expect(await hasText(active, getStringByName('NewAbility_label'), TOAST_WAIT_MS)).assertTrue();
-        expect(await hasId(active, PAGE_ID_NEW_BACK)).assertTrue();
-        expect(getAbilityName(await getTopAbility())).assertEqual(NEW_ABILITY);
+        const actual3: boolean = await hasText(active, getStringByName('NewAbility_label'), TOAST_WAIT_MS);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testOpenNewAbilityPage0009 assert3 hasText=${actual3}`);
+        expect(actual3).assertTrue();
+        const actual4: boolean = await hasId(active, PAGE_ID_NEW_BACK);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testOpenNewAbilityPage0009 assert4 hasId=${actual4}`);
+        expect(actual4).assertTrue();
+        const actual5: string = getAbilityName(await getTopAbility());
+        hilog.info(DOMAIN, TAG, '%{public}s', `testOpenNewAbilityPage0009 assert5 getAbilityName=${actual5}`);
+        expect(actual5).assertEqual(NEW_ABILITY);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testOpenNewAbilityPage0009 end');
       done();
     })
 
@@ -339,18 +449,30 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL1
      */
     it('testNewPageBackReturnsHome0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testNewPageBackReturnsHome0010 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewPageBackReturnsHome0010 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
         await sleep(PAGE_SWITCH_MS);
-        expect(await clickId(active, MENU_ID_START_OPTIONS)).assertTrue();
+        const actual2: boolean = await clickId(active, MENU_ID_START_OPTIONS);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testNewPageBackReturnsHome0010 assert2 clickId=${actual2}`);
+        expect(actual2).assertTrue();
         await sleep(PAGE_SWITCH_MS);
-        expect(await clickId(active, PAGE_ID_NEW_BACK)).assertTrue();
+        const actual3: boolean = await clickId(active, PAGE_ID_NEW_BACK);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testNewPageBackReturnsHome0010 assert3 clickId=${actual3}`);
+        expect(actual3).assertTrue();
         await sleep(PAGE_SWITCH_MS);
-        expect(await hasId(active, MENU_ID_LANGUAGE_ZH)).assertTrue();
-        expect(getAbilityName(await getTopAbility())).assertEqual(ENTRY_ABILITY);
+        const actual4: boolean = await hasId(active, MENU_ID_LANGUAGE_ZH);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testNewPageBackReturnsHome0010 assert4 hasId=${actual4}`);
+        expect(actual4).assertTrue();
+        const actual5: string = getAbilityName(await getTopAbility());
+        hilog.info(DOMAIN, TAG, '%{public}s', `testNewPageBackReturnsHome0010 assert5 getAbilityName=${actual5}`);
+        expect(actual5).assertEqual(ENTRY_ABILITY);
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testNewPageBackReturnsHome0010 end');
       done();
     })
 
@@ -363,19 +485,33 @@ export default function abilityUiSmokeTest() {
      * @tc.level     LEVEL2
      */
     it('testImplicitNoPopupStaysOnHome0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitNoPopupStaysOnHome0011 begin');
       await ensureHome();
       const active: Driver | undefined = await openDriver();
-      expect(active !== undefined).assertTrue();
+      const actual1: boolean = active !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitNoPopupStaysOnHome0011 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (active !== undefined) {
-        expect(await clickId(active, MENU_ID_IMPLICIT_NO_POPUP)).assertTrue();
+        const actual2: boolean = await clickId(active, MENU_ID_IMPLICIT_NO_POPUP);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitNoPopupStaysOnHome0011 assert2 clickId=${actual2}`);
+        expect(actual2).assertTrue();
         await sleep(LAUNCH_WAIT_MS);
         // 真机实测：hilog 里隐式启动返回 16000019，但 Driver 仍能查到已销毁 New 页面的节点，
         // 所以不用“返回按钮不存在”判定，改用首页内容仍在 + 栈顶仍是首页来证明页面没被顶掉。
-        expect(await hasId(active, MENU_ID_LANGUAGE_ZH)).assertTrue();
-        expect(await hasId(active, MENU_ID_STORAGE_CREATE)).assertTrue();
-        expect(getAbilityName(await getTopAbility())).assertEqual(ENTRY_ABILITY);
-        expect(getAbilityName(await getTopAbility()) !== NEW_ABILITY).assertTrue();
+        const actual3: boolean = await hasId(active, MENU_ID_LANGUAGE_ZH);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitNoPopupStaysOnHome0011 assert3 hasId=${actual3}`);
+        expect(actual3).assertTrue();
+        const actual4: boolean = await hasId(active, MENU_ID_STORAGE_CREATE);
+        hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitNoPopupStaysOnHome0011 assert4 hasId=${actual4}`);
+        expect(actual4).assertTrue();
+        const actual5: string = getAbilityName(await getTopAbility());
+        hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitNoPopupStaysOnHome0011 assert5 getAbilityName=${actual5}`);
+        expect(actual5).assertEqual(ENTRY_ABILITY);
+        const actual6: boolean = getAbilityName(await getTopAbility()) !== NEW_ABILITY;
+        hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitNoPopupStaysOnHome0011 assert6 getAbilityName=${actual6}`);
+        expect(actual6).assertTrue();
       }
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitNoPopupStaysOnHome0011 end');
       done();
     })
   })

@@ -19,8 +19,8 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 
-const DOMAIN: number = 0xFF00;
-const TAG: string = 'TestAbility';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 const ON_DESTROY_ERROR: number = -2;
 /**
  * 从前台回调返回后，还要等这么久才做用例注册。

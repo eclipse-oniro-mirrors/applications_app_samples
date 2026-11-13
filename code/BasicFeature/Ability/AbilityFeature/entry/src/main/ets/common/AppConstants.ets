@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,8 +17,8 @@
  * 示例工程对外可见的常量。页面、能力封装与测试都从这里取值，
  * 避免同一个字面量在多处各写一份后互相漂移。
  */
-export const LOG_DOMAIN: number = 0xFF00;
-export const LOG_PREFIX: string = 'AbilityFeature';
+export const LOG_DOMAIN: number = 0xF811;
+export const LOG_PREFIX: string = '[Sample_AbilityFeature]';
 
 /** 首页 Ability 的名称，隐式启动无匹配时弹窗里展示的就是它所在应用的名称。 */
 export const ENTRY_ABILITY_NAME: string = 'EntryAbility';

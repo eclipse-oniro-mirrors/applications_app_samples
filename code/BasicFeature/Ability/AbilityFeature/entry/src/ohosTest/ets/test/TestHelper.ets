@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -35,7 +35,7 @@ export function getBundleName(): string {
 }
 
 export function sleep(timeMs: number): Promise<void> {
-  return new Promise<void>((resolve: Function) => setTimeout(resolve, timeMs));
+  return new Promise<void>((resolve: () => void) => setTimeout(resolve, timeMs));
 }
 
 export async function getTopAbility(): Promise<UIAbility | undefined> {

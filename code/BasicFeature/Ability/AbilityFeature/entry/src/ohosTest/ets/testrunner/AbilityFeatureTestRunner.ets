@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,8 +17,8 @@ import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const DOMAIN: number = 0xFF00;
-const TAG: string = 'AbilityFeatureTestRunner';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 const TEST_ABILITY_NAME: string = 'TestAbility';
 /** 开发者模式未解锁屏幕时 aa start 必然失败，用例无从跑起，直接结束测试并带上错误码。 */
 const UNLOCK_ERROR: number = -3;

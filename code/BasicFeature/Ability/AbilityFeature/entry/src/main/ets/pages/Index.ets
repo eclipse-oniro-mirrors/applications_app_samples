@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { common, Want } from '@kit.AbilityKit';
+import { common, StartOptions, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import {
   MENU_ID_ANIMATION_TOGGLE,
@@ -195,7 +195,7 @@ struct Index {
   private launchNewAbility(): void {
     const bundleName: string = this.getHostContext().abilityInfo.bundleName;
     const want: Want = buildNewAbilityWant(bundleName);
-    const options = buildStartOptions(this.isAnimation);
+    const options: StartOptions = buildStartOptions(this.isAnimation);
     logger.info(`${TAG} start NewAbility with ${formatStartOptions(options)}`);
     this.getHostContext().startAbility(want, options, (err: BusinessError) => {
       if (err && err.code !== 0) {

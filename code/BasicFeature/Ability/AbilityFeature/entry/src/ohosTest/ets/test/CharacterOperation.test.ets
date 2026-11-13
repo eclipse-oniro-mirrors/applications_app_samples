@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 
 import { afterAll, beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { common } from '@kit.AbilityKit';
 import CharacterOperation from '../../../main/ets/characteroperation/CharacterOperation';
 import {
@@ -27,6 +28,8 @@ import {
 import { SAMPLE_FILE_NAME } from '../../../main/ets/common/AppConstants';
 import { fileExists, getAppContext, loadEntryContext, sleep } from './TestHelper';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 let operation: CharacterOperation | undefined = undefined;
 /** 与 operation 配套的 UIAbilityContext，文件就落在它的沙箱目录里 */
@@ -84,17 +87,28 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL1
      */
     it('testGenerateStorageFilesCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGenerateStorageFilesCount0001 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCount0001 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       const paths: string[] = op.generateStorageFiles();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCount0001 assert2 paths.length=${paths.length}`);
       expect(paths.length).assertEqual(5);
-      expect(paths.every((path: string) => path.startsWith('/'))).assertTrue();
-      expect(paths.every((path: string) => path.endsWith(SAMPLE_FILE_NAME))).assertTrue();
-      expect(paths.filter((path: string, index: number) => paths.indexOf(path) === index).length).assertEqual(5);
+      const actual3: boolean = paths.every((path: string) => path.startsWith('/'));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCount0001 assert3 paths.every=${actual3}`);
+      expect(actual3).assertTrue();
+      const actual4: boolean = paths.every((path: string) => path.endsWith(SAMPLE_FILE_NAME));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCount0001 assert4 paths.every=${actual4}`);
+      expect(actual4).assertTrue();
+      const actual5: number = paths.filter((path: string, index: number) => paths.indexOf(path) === index).length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCount0001 assert5 paths.filter.length=${actual5}`);
+      expect(actual5).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGenerateStorageFilesCount0001 end');
       done();
     })
 
@@ -107,16 +121,25 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL1
      */
     it('testGenerateStorageFilesCustomName0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGenerateStorageFilesCustomName0002 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCustomName0002 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       const paths: string[] = op.generateStorageFiles('/op_probe.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCustomName0002 assert2 paths.length=${paths.length}`);
       expect(paths.length).assertEqual(5);
-      expect(paths.every((path: string) => path.endsWith('/op_probe.txt'))).assertTrue();
-      expect(paths.filter((path: string) => path.includes('//')).length).assertEqual(0);
+      const actual3: boolean = paths.every((path: string) => path.endsWith('/op_probe.txt'));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCustomName0002 assert3 paths.every=${actual3}`);
+      expect(actual3).assertTrue();
+      const actual4: number = paths.filter((path: string) => path.includes('//')).length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGenerateStorageFilesCustomName0002 assert4 paths.filter.length=${actual4}`);
+      expect(actual4).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGenerateStorageFilesCustomName0002 end');
       done();
     })
 
@@ -129,8 +152,11 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL1
      */
     it('testCreateStorageDataSuccess0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCreateStorageDataSuccess0003 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageDataSuccess0003 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
@@ -138,10 +164,16 @@ export default function characterOperationTest() {
       const context: common.Context = sandboxContext();
       removeStorageFiles(context);
       const result: StorageOperationResult = op.createStorageData();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageDataSuccess0003 assert2 result.success=${result.success}`);
       expect(result.success).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageDataSuccess0003 assert3 result.createdCount=${result.createdCount}`);
       expect(result.createdCount).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageDataSuccess0003 assert4 result.missing.length=${result.missing.length}`);
       expect(result.missing.length).assertEqual(0);
-      expect(countExisting(context)).assertEqual(5);
+      const actual5: number = countExisting(context);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateStorageDataSuccess0003 assert5 countExisting=${actual5}`);
+      expect(actual5).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCreateStorageDataSuccess0003 end');
       done();
     })
 
@@ -154,8 +186,11 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL1
      */
     it('testCheckStorageDataTrue0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCheckStorageDataTrue0004 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageDataTrue0004 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
@@ -163,9 +198,16 @@ export default function characterOperationTest() {
       const context: common.Context = sandboxContext();
       removeStorageFiles(context);
       op.createStorageData();
-      expect(op.checkStorageData()).assertTrue();
-      expect(countExisting(context)).assertEqual(5);
-      expect(countMissing(context).length).assertEqual(0);
+      const actual2: boolean = op.checkStorageData();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageDataTrue0004 assert2 op.checkStorageData=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: number = countExisting(context);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageDataTrue0004 assert3 countExisting=${actual3}`);
+      expect(actual3).assertEqual(5);
+      const actual4: number = countMissing(context).length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageDataTrue0004 assert4 countMissing.length=${actual4}`);
+      expect(actual4).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCheckStorageDataTrue0004 end');
       done();
     })
 
@@ -178,17 +220,27 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL1
      */
     it('testCheckStorageDataFalse0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCheckStorageDataFalse0005 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageDataFalse0005 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       const context: common.Context = sandboxContext();
       removeStorageFiles(context);
-      expect(op.checkStorageData()).assertFalse();
-      expect(countExisting(context)).assertEqual(0);
-      expect(countMissing(context).length).assertEqual(5);
+      const actual2: boolean = op.checkStorageData();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageDataFalse0005 assert2 op.checkStorageData=${actual2}`);
+      expect(actual2).assertFalse();
+      const actual3: number = countExisting(context);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageDataFalse0005 assert3 countExisting=${actual3}`);
+      expect(actual3).assertEqual(0);
+      const actual4: number = countMissing(context).length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCheckStorageDataFalse0005 assert4 countMissing.length=${actual4}`);
+      expect(actual4).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCheckStorageDataFalse0005 end');
       done();
     })
 
@@ -201,17 +253,27 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL1
      */
     it('testClearStorageDataGuard0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testClearStorageDataGuard0006 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testClearStorageDataGuard0006 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       const context: common.Context = sandboxContext();
       removeStorageFiles(context);
-      expect(op.clearStorageData()).assertFalse();
-      expect(countExisting(context)).assertEqual(0);
-      expect(removeStorageFiles(context)).assertEqual(0);
+      const actual2: boolean = op.clearStorageData();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testClearStorageDataGuard0006 assert2 op.clearStorageData=${actual2}`);
+      expect(actual2).assertFalse();
+      const actual3: number = countExisting(context);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testClearStorageDataGuard0006 assert3 countExisting=${actual3}`);
+      expect(actual3).assertEqual(0);
+      const actual4: number = removeStorageFiles(context);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testClearStorageDataGuard0006 assert4 removeStorageFiles=${actual4}`);
+      expect(actual4).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testClearStorageDataGuard0006 end');
       done();
     })
 
@@ -224,8 +286,11 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL1
      */
     it('testCreateAndCheckCustomName0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCreateAndCheckCustomName0007 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateAndCheckCustomName0007 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
@@ -233,10 +298,16 @@ export default function characterOperationTest() {
       const context: common.Context = sandboxContext();
       removeStorageFiles(context, '/op_custom.txt');
       const result: StorageOperationResult = op.createStorageData('/op_custom.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateAndCheckCustomName0007 assert2 result.success=${result.success}`);
       expect(result.success).assertTrue();
-      expect(op.checkStorageData('/op_custom.txt')).assertTrue();
+      const actual3: boolean = op.checkStorageData('/op_custom.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateAndCheckCustomName0007 assert3 op.checkStorageData=${actual3}`);
+      expect(actual3).assertTrue();
       removeStorageFiles(context, '/op_custom.txt');
-      expect(op.checkStorageData('/op_custom.txt')).assertFalse();
+      const actual4: boolean = op.checkStorageData('/op_custom.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCreateAndCheckCustomName0007 assert4 op.checkStorageData=${actual4}`);
+      expect(actual4).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCreateAndCheckCustomName0007 end');
       done();
     })
 
@@ -249,8 +320,11 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL2
      */
     it('testRepeatedCreateStorageData0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatedCreateStorageData0008 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRepeatedCreateStorageData0008 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
@@ -259,10 +333,16 @@ export default function characterOperationTest() {
       removeStorageFiles(context);
       const first: StorageOperationResult = op.createStorageData();
       const second: StorageOperationResult = op.createStorageData();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRepeatedCreateStorageData0008 assert2 first.success=${first.success}`);
       expect(first.success).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRepeatedCreateStorageData0008 assert3 second.success=${second.success}`);
       expect(second.success).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRepeatedCreateStorageData0008 assert4 second.createdCount=${second.createdCount}`);
       expect(second.createdCount).assertEqual(5);
-      expect(countExisting(context)).assertEqual(5);
+      const actual5: number = countExisting(context);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRepeatedCreateStorageData0008 assert5 countExisting=${actual5}`);
+      expect(actual5).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRepeatedCreateStorageData0008 end');
       done();
     })
 
@@ -275,8 +355,11 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL1
      */
     it('testGeneratedPathsExistAfterCreate0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGeneratedPathsExistAfterCreate0009 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGeneratedPathsExistAfterCreate0009 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
@@ -284,8 +367,13 @@ export default function characterOperationTest() {
       removeStorageFiles(sandboxContext());
       op.createStorageData();
       const paths: string[] = op.generateStorageFiles();
-      expect(paths.every((path: string) => fileExists(path))).assertTrue();
-      expect(paths.filter((path: string) => fileExists(path)).length).assertEqual(5);
+      const actual2: boolean = paths.every((path: string) => fileExists(path));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGeneratedPathsExistAfterCreate0009 assert2 paths.every=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: number = paths.filter((path: string) => fileExists(path)).length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGeneratedPathsExistAfterCreate0009 assert3 paths.filter.length=${actual3}`);
+      expect(actual3).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGeneratedPathsExistAfterCreate0009 end');
       done();
     })
 
@@ -298,19 +386,26 @@ export default function characterOperationTest() {
      * @tc.level     LEVEL2
      */
     it('testGeneratedPathsMatchModel0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGeneratedPathsMatchModel0010 begin');
       const op: CharacterOperation | undefined = await obtainOperation();
-      expect(op !== undefined).assertTrue();
+      const actual1: boolean = op !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGeneratedPathsMatchModel0010 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
       if (op === undefined) {
         done();
         return;
       }
       const records: StoragePathRecord[] = listStoragePaths(sandboxContext());
       const paths: string[] = op.generateStorageFiles();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGeneratedPathsMatchModel0010 assert2 paths.length=${paths.length}`);
       expect(paths.length).assertEqual(records.length);
       paths.forEach((path: string, index: number) => {
+        hilog.info(DOMAIN, TAG, '%{public}s', `testGeneratedPathsMatchModel0010 assert3 path=${path}`);
         expect(path).assertEqual(records[index].filePath);
       });
+      hilog.info(DOMAIN, TAG, '%{public}s', `testGeneratedPathsMatchModel0010 assert4 paths.length=${paths.length}`);
       expect(paths.length).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testGeneratedPathsMatchModel0010 end');
       done();
     })
   })

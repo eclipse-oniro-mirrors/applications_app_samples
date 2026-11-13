@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { StartOptions, Want, wantConstant } from '@kit.AbilityKit';
 import {
   buildImplicitViewWant,
@@ -34,6 +35,9 @@ import {
   ZERO_MATCH_URI
 } from '../../../main/ets/common/AppConstants';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
+
 const START_WITHOUT_TIPS: number = wantConstant.Flags.FLAG_START_WITHOUT_TIPS;
 
 export default function launchIntentTest() {
@@ -47,10 +51,16 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL1
      */
     it('testImplicitWantBaseFields0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantBaseFields0001 begin');
       const want: Want = buildImplicitViewWant(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantBaseFields0001 assert1 want.action=${want.action}`);
       expect(want.action).assertEqual(VIEW_DATA_ACTION);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantBaseFields0001 assert2 want.type=${want.type}`);
       expect(want.type).assertEqual(TEXT_PLAIN_TYPE);
-      expect(want.parameters !== undefined).assertTrue();
+      const actual3: boolean = want.parameters !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantBaseFields0001 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantBaseFields0001 end');
     })
 
     /**
@@ -62,10 +72,18 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL1
      */
     it('testImplicitWantUriParameter0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantUriParameter0002 begin');
       const serialized: string = JSON.stringify(buildImplicitViewWant(false).parameters);
-      expect(serialized.includes('"uri"')).assertTrue();
-      expect(serialized.includes(ZERO_MATCH_URI)).assertTrue();
-      expect(serialized.startsWith('{')).assertTrue();
+      const actual1: boolean = serialized.includes('"uri"');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantUriParameter0002 assert1 serialized.includes=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: boolean = serialized.includes(ZERO_MATCH_URI);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantUriParameter0002 assert2 serialized.includes=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = serialized.startsWith('{');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantUriParameter0002 assert3 serialized.startsWith=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantUriParameter0002 end');
     })
 
     /**
@@ -77,10 +95,18 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL1
      */
     it('testImplicitWantWithoutTipsFlag0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantWithoutTipsFlag0003 begin');
       const want: Want = buildImplicitViewWant(false);
-      expect(want.flags === undefined).assertTrue();
-      expect(hasStartWithoutTipsFlag(want)).assertFalse();
-      expect(want.bundleName === undefined).assertTrue();
+      const actual1: boolean = want.flags === undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantWithoutTipsFlag0003 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: boolean = hasStartWithoutTipsFlag(want);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantWithoutTipsFlag0003 assert2 hasStartWithoutTipsFlag=${actual2}`);
+      expect(actual2).assertFalse();
+      const actual3: boolean = want.bundleName === undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantWithoutTipsFlag0003 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantWithoutTipsFlag0003 end');
     })
 
     /**
@@ -92,10 +118,17 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL1
      */
     it('testImplicitWantWithTipsFlag0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantWithTipsFlag0004 begin');
       const want: Want = buildImplicitViewWant(true);
-      expect(want.flags !== undefined).assertTrue();
+      const actual1: boolean = want.flags !== undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantWithTipsFlag0004 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantWithTipsFlag0004 assert2 want.flags=${want.flags}`);
       expect(want.flags).assertEqual(START_WITHOUT_TIPS);
-      expect(hasStartWithoutTipsFlag(want)).assertTrue();
+      const actual3: boolean = hasStartWithoutTipsFlag(want);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testImplicitWantWithTipsFlag0004 assert3 hasStartWithoutTipsFlag=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testImplicitWantWithTipsFlag0004 end');
     })
 
     /**
@@ -107,9 +140,16 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL2
      */
     it('testStartWithoutTipsFlagValue0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartWithoutTipsFlagValue0005 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartWithoutTipsFlagValue0005 assert1 START_WITHOUT_TIPS=${START_WITHOUT_TIPS}`);
       expect(START_WITHOUT_TIPS).assertEqual(0x40000000);
-      expect(START_WITHOUT_TIPS > 0).assertTrue();
-      expect(START_WITHOUT_TIPS & (START_WITHOUT_TIPS - 1)).assertEqual(0);
+      const actual2: boolean = START_WITHOUT_TIPS > 0;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartWithoutTipsFlagValue0005 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: number = START_WITHOUT_TIPS & (START_WITHOUT_TIPS - 1);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartWithoutTipsFlagValue0005 assert3 value=${actual3}`);
+      expect(actual3).assertEqual(0);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartWithoutTipsFlagValue0005 end');
     })
 
     /**
@@ -121,12 +161,20 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL1
      */
     it('testHasFlagWithArbitraryWant0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHasFlagWithArbitraryWant0006 begin');
       const empty: Want = { flags: 0 };
       const tipped: Want = { flags: START_WITHOUT_TIPS };
       const other: Want = { flags: 0x2 };
-      expect(hasStartWithoutTipsFlag(empty)).assertFalse();
-      expect(hasStartWithoutTipsFlag(tipped)).assertTrue();
-      expect(hasStartWithoutTipsFlag(other)).assertFalse();
+      const actual1: boolean = hasStartWithoutTipsFlag(empty);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithArbitraryWant0006 assert1 hasStartWithoutTipsFlag=${actual1}`);
+      expect(actual1).assertFalse();
+      const actual2: boolean = hasStartWithoutTipsFlag(tipped);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithArbitraryWant0006 assert2 hasStartWithoutTipsFlag=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = hasStartWithoutTipsFlag(other);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithArbitraryWant0006 assert3 hasStartWithoutTipsFlag=${actual3}`);
+      expect(actual3).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHasFlagWithArbitraryWant0006 end');
     })
 
     /**
@@ -138,11 +186,19 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL2
      */
     it('testHasFlagWithCombinedFlags0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHasFlagWithCombinedFlags0007 begin');
       const combined: Want = { flags: (START_WITHOUT_TIPS | 0x2) };
       const flags: number = combined.flags === undefined ? 0 : combined.flags;
-      expect(hasStartWithoutTipsFlag(combined)).assertTrue();
-      expect(flags & 0x2).assertEqual(2);
-      expect(flags & START_WITHOUT_TIPS).assertEqual(START_WITHOUT_TIPS);
+      const actual1: boolean = hasStartWithoutTipsFlag(combined);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithCombinedFlags0007 assert1 hasStartWithoutTipsFlag=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: number = flags & 0x2;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithCombinedFlags0007 assert2 value=${actual2}`);
+      expect(actual2).assertEqual(2);
+      const actual3: number = flags & START_WITHOUT_TIPS;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithCombinedFlags0007 assert3 value=${actual3}`);
+      expect(actual3).assertEqual(START_WITHOUT_TIPS);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHasFlagWithCombinedFlags0007 end');
     })
 
     /**
@@ -154,10 +210,18 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL2
      */
     it('testHasFlagWithoutFlagsField0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHasFlagWithoutFlagsField0008 begin');
       const empty: Want = {};
-      expect(hasStartWithoutTipsFlag(empty)).assertFalse();
-      expect(empty.flags === undefined).assertTrue();
-      expect(empty.action === undefined).assertTrue();
+      const actual1: boolean = hasStartWithoutTipsFlag(empty);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithoutFlagsField0008 assert1 hasStartWithoutTipsFlag=${actual1}`);
+      expect(actual1).assertFalse();
+      const actual2: boolean = empty.flags === undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithoutFlagsField0008 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = empty.action === undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testHasFlagWithoutFlagsField0008 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testHasFlagWithoutFlagsField0008 end');
     })
 
     /**
@@ -169,10 +233,16 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL1
      */
     it('testNewAbilityWant0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testNewAbilityWant0009 begin');
       const want: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWant0009 assert1 want.bundleName=${want.bundleName}`);
       expect(want.bundleName).assertEqual('com.samples.abilityFeature');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWant0009 assert2 want.abilityName=${want.abilityName}`);
       expect(want.abilityName).assertEqual(NEW_ABILITY_NAME);
-      expect(want.action === undefined).assertTrue();
+      const actual3: boolean = want.action === undefined;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWant0009 assert3 value=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testNewAbilityWant0009 end');
     })
 
     /**
@@ -184,9 +254,17 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL2
      */
     it('testNewAbilityWantWithEmptyBundle0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
-      expect(buildNewAbilityWant('').bundleName).assertEqual('');
-      expect(buildNewAbilityWant('').abilityName).assertEqual('NewAbility');
-      expect(buildNewAbilityWant('abc').bundleName).assertEqual('abc');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testNewAbilityWantWithEmptyBundle0010 begin');
+      const actual1: string | undefined = buildNewAbilityWant('').bundleName;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWantWithEmptyBundle0010 assert1 bundleName=${actual1}`);
+      expect(actual1).assertEqual('');
+      const actual2: string | undefined = buildNewAbilityWant('').abilityName;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWantWithEmptyBundle0010 assert2 abilityName=${actual2}`);
+      expect(actual2).assertEqual('NewAbility');
+      const actual3: string | undefined = buildNewAbilityWant('abc').bundleName;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWantWithEmptyBundle0010 assert3 bundleName=${actual3}`);
+      expect(actual3).assertEqual('abc');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testNewAbilityWantWithEmptyBundle0010 end');
     })
 
     /**
@@ -198,13 +276,21 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL1
      */
     it('testStartOptionsDefaultValues0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsDefaultValues0011 begin');
       const options: StartOptions = buildStartOptions(false);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsDefaultValues0011 assert1 options.withAnimation=${options.withAnimation}`);
       expect(options.withAnimation).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsDefaultValues0011 assert2 options.displayId=${options.displayId}`);
       expect(options.displayId).assertEqual(START_OPTIONS_DISPLAY_ID);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsDefaultValues0011 assert3 options.windowLeft=${options.windowLeft}`);
       expect(options.windowLeft).assertEqual(START_OPTIONS_WINDOW_LEFT);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsDefaultValues0011 assert4 options.windowTop=${options.windowTop}`);
       expect(options.windowTop).assertEqual(START_OPTIONS_WINDOW_TOP);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsDefaultValues0011 assert5 options.windowWidth=${options.windowWidth}`);
       expect(options.windowWidth).assertEqual(START_OPTIONS_WINDOW_WIDTH);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsDefaultValues0011 assert6 options.windowHeight=${options.windowHeight}`);
       expect(options.windowHeight).assertEqual(START_OPTIONS_WINDOW_HEIGHT);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsDefaultValues0011 end');
     })
 
     /**
@@ -216,12 +302,18 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL1
      */
     it('testStartOptionsWithAnimation0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsWithAnimation0012 begin');
       const off: StartOptions = buildStartOptions(false);
       const on: StartOptions = buildStartOptions(true);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsWithAnimation0012 assert1 on.withAnimation=${on.withAnimation}`);
       expect(on.withAnimation).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsWithAnimation0012 assert2 off.withAnimation=${off.withAnimation}`);
       expect(off.withAnimation).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsWithAnimation0012 assert3 on.windowWidth=${on.windowWidth}`);
       expect(on.windowWidth).assertEqual(off.windowWidth);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStartOptionsWithAnimation0012 assert4 on.displayId=${on.displayId}`);
       expect(on.displayId).assertEqual(off.displayId);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStartOptionsWithAnimation0012 end');
     })
 
     /**
@@ -233,13 +325,27 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL2
      */
     it('testFormatStartOptionsWithAnimation0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFormatStartOptionsWithAnimation0013 begin');
       const text: string = formatStartOptions(buildStartOptions(true));
-      expect(text.startsWith('displayId=0')).assertTrue();
-      expect(text.includes('withAnimation=true')).assertTrue();
-      expect(text.includes('left=50')).assertTrue();
-      expect(text.includes('top=100')).assertTrue();
-      expect(text.includes('width=300')).assertTrue();
-      expect(text.endsWith('height=400')).assertTrue();
+      const actual1: boolean = text.startsWith('displayId=0');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithAnimation0013 assert1 text.startsWith=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: boolean = text.includes('withAnimation=true');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithAnimation0013 assert2 text.includes=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = text.includes('left=50');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithAnimation0013 assert3 text.includes=${actual3}`);
+      expect(actual3).assertTrue();
+      const actual4: boolean = text.includes('top=100');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithAnimation0013 assert4 text.includes=${actual4}`);
+      expect(actual4).assertTrue();
+      const actual5: boolean = text.includes('width=300');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithAnimation0013 assert5 text.includes=${actual5}`);
+      expect(actual5).assertTrue();
+      const actual6: boolean = text.endsWith('height=400');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithAnimation0013 assert6 text.endsWith=${actual6}`);
+      expect(actual6).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFormatStartOptionsWithAnimation0013 end');
     })
 
     /**
@@ -251,10 +357,18 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL2
      */
     it('testFormatStartOptionsWithoutAnimation0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFormatStartOptionsWithoutAnimation0014 begin');
       const text: string = formatStartOptions(buildStartOptions(false));
-      expect(text.includes('withAnimation=false')).assertTrue();
-      expect(text.includes('height=400')).assertTrue();
-      expect(text.startsWith('displayId')).assertTrue();
+      const actual1: boolean = text.includes('withAnimation=false');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithoutAnimation0014 assert1 text.includes=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: boolean = text.includes('height=400');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithoutAnimation0014 assert2 text.includes=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = text.startsWith('displayId');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testFormatStartOptionsWithoutAnimation0014 assert3 text.startsWith=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testFormatStartOptionsWithoutAnimation0014 end');
     })
 
     /**
@@ -266,12 +380,20 @@ export default function launchIntentTest() {
      * @tc.level     LEVEL2
      */
     it('testWantsAreIndependent0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testWantsAreIndependent0015 begin');
       const first: Want = buildImplicitViewWant(true);
       const second: Want = buildImplicitViewWant(true);
-      expect(first === second).assertFalse();
+      const actual1: boolean = first === second;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testWantsAreIndependent0015 assert1 value=${actual1}`);
+      expect(actual1).assertFalse();
       first.flags = 0;
-      expect(hasStartWithoutTipsFlag(first)).assertFalse();
-      expect(hasStartWithoutTipsFlag(second)).assertTrue();
+      const actual2: boolean = hasStartWithoutTipsFlag(first);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testWantsAreIndependent0015 assert2 hasStartWithoutTipsFlag=${actual2}`);
+      expect(actual2).assertFalse();
+      const actual3: boolean = hasStartWithoutTipsFlag(second);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testWantsAreIndependent0015 assert3 hasStartWithoutTipsFlag=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testWantsAreIndependent0015 end');
     })
   })
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 
 import { describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { common } from '@kit.AbilityKit';
 import {
   countExisting,
@@ -29,6 +30,8 @@ import {
 import { SAMPLE_FILE_NAME } from '../../../main/ets/common/AppConstants';
 import { getAppContext } from './TestHelper';
 
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AbilityFeature]';
 
 export default function storagePathTest() {
   describe('AbilityFeatureStoragePathTest', () => {
@@ -41,11 +44,17 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testJoinStoragePathEmptyName0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathEmptyName0001 begin');
       const dir: string = '/data/app/cache';
       const joined: string = joinStoragePath(dir, '');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathEmptyName0001 assert1 joined=${joined}`);
       expect(joined).assertEqual(dir);
-      expect(joined.endsWith('/')).assertFalse();
+      const actual2: boolean = joined.endsWith('/');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathEmptyName0001 assert2 joined.endsWith=${actual2}`);
+      expect(actual2).assertFalse();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathEmptyName0001 assert3 joined.length=${joined.length}`);
       expect(joined.length).assertEqual(dir.length);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathEmptyName0001 end');
     })
 
     /**
@@ -57,9 +66,17 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testJoinStoragePathLeadingSlash0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
-      expect(joinStoragePath('/data/app/files', '/test.txt')).assertEqual('/data/app/files/test.txt');
-      expect(joinStoragePath('/data/app/files', '///test.txt')).assertEqual('/data/app/files/test.txt');
-      expect(joinStoragePath('/data/app/files', 'test.txt')).assertEqual('/data/app/files/test.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathLeadingSlash0002 begin');
+      const actual1: string = joinStoragePath('/data/app/files', '/test.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathLeadingSlash0002 assert1 joinStoragePath=${actual1}`);
+      expect(actual1).assertEqual('/data/app/files/test.txt');
+      const actual2: string = joinStoragePath('/data/app/files', '///test.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathLeadingSlash0002 assert2 joinStoragePath=${actual2}`);
+      expect(actual2).assertEqual('/data/app/files/test.txt');
+      const actual3: string = joinStoragePath('/data/app/files', 'test.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathLeadingSlash0002 assert3 joinStoragePath=${actual3}`);
+      expect(actual3).assertEqual('/data/app/files/test.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathLeadingSlash0002 end');
     })
 
     /**
@@ -71,10 +88,17 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testJoinStoragePathInnerSlash0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathInnerSlash0003 begin');
       const joined: string = joinStoragePath('/a/b', 'x/y.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathInnerSlash0003 assert1 joined=${joined}`);
       expect(joined).assertEqual('/a/b/x/y.txt');
-      expect(joined.includes('/x/y.txt')).assertTrue();
-      expect(joined.startsWith('/a/b/')).assertTrue();
+      const actual2: boolean = joined.includes('/x/y.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathInnerSlash0003 assert2 joined.includes=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = joined.startsWith('/a/b/');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathInnerSlash0003 assert3 joined.startsWith=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathInnerSlash0003 end');
     })
 
     /**
@@ -86,9 +110,17 @@ export default function storagePathTest() {
      * @tc.level     LEVEL2
      */
     it('testJoinStoragePathEmptyDir0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
-      expect(joinStoragePath('', '')).assertEqual('');
-      expect(joinStoragePath('', 'a.txt')).assertEqual('/a.txt');
-      expect(joinStoragePath('', '/a.txt')).assertEqual('/a.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathEmptyDir0004 begin');
+      const actual1: string = joinStoragePath('', '');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathEmptyDir0004 assert1 joinStoragePath=${actual1}`);
+      expect(actual1).assertEqual('');
+      const actual2: string = joinStoragePath('', 'a.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathEmptyDir0004 assert2 joinStoragePath=${actual2}`);
+      expect(actual2).assertEqual('/a.txt');
+      const actual3: string = joinStoragePath('', '/a.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathEmptyDir0004 assert3 joinStoragePath=${actual3}`);
+      expect(actual3).assertEqual('/a.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathEmptyDir0004 end');
     })
 
     /**
@@ -100,11 +132,17 @@ export default function storagePathTest() {
      * @tc.level     LEVEL2
      */
     it('testJoinStoragePathKeepsSpaces0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathKeepsSpaces0005 begin');
       const name: string = ' name.txt ';
       const joined: string = joinStoragePath('/d', name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathKeepsSpaces0005 assert1 joined=${joined}`);
       expect(joined).assertEqual('/d/ name.txt ');
-      expect(joined.endsWith(' ')).assertTrue();
+      const actual2: boolean = joined.endsWith(' ');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathKeepsSpaces0005 assert2 joined.endsWith=${actual2}`);
+      expect(actual2).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testJoinStoragePathKeepsSpaces0005 assert3 joined.length=${joined.length}`);
       expect(joined.length).assertEqual(3 + name.length);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testJoinStoragePathKeepsSpaces0005 end');
     })
 
     /**
@@ -116,12 +154,24 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testResolveStorageDirMapping0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testResolveStorageDirMapping0006 begin');
       const context: common.Context = getAppContext();
-      expect(resolveStorageDir(context, StorageArea.CACHE)).assertEqual(context.cacheDir);
-      expect(resolveStorageDir(context, StorageArea.FILES)).assertEqual(context.filesDir);
-      expect(resolveStorageDir(context, StorageArea.PREFERENCES)).assertEqual(context.preferencesDir);
-      expect(resolveStorageDir(context, StorageArea.TEMP)).assertEqual(context.tempDir);
-      expect(resolveStorageDir(context, StorageArea.DATABASE)).assertEqual(context.databaseDir);
+      const actual1: string = resolveStorageDir(context, StorageArea.CACHE);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirMapping0006 assert1 resolveStorageDir=${actual1}`);
+      expect(actual1).assertEqual(context.cacheDir);
+      const actual2: string = resolveStorageDir(context, StorageArea.FILES);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirMapping0006 assert2 resolveStorageDir=${actual2}`);
+      expect(actual2).assertEqual(context.filesDir);
+      const actual3: string = resolveStorageDir(context, StorageArea.PREFERENCES);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirMapping0006 assert3 resolveStorageDir=${actual3}`);
+      expect(actual3).assertEqual(context.preferencesDir);
+      const actual4: string = resolveStorageDir(context, StorageArea.TEMP);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirMapping0006 assert4 resolveStorageDir=${actual4}`);
+      expect(actual4).assertEqual(context.tempDir);
+      const actual5: string = resolveStorageDir(context, StorageArea.DATABASE);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirMapping0006 assert5 resolveStorageDir=${actual5}`);
+      expect(actual5).assertEqual(context.databaseDir);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testResolveStorageDirMapping0006 end');
     })
 
     /**
@@ -133,14 +183,23 @@ export default function storagePathTest() {
      * @tc.level     LEVEL2
      */
     it('testResolveStorageDirDistinct0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testResolveStorageDirDistinct0007 begin');
       const context: common.Context = getAppContext();
       const dirs: string[] = STORAGE_AREAS.map((area: StorageArea) => resolveStorageDir(context, area));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirDistinct0007 assert1 dirs.length=${dirs.length}`);
       expect(dirs.length).assertEqual(5);
-      expect(dirs.filter((dir: string, index: number) => dirs.indexOf(dir) === index).length).assertEqual(5);
+      const actual2: number = dirs.filter((dir: string, index: number) => dirs.indexOf(dir) === index).length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirDistinct0007 assert2 dirs.filter.length=${actual2}`);
+      expect(actual2).assertEqual(5);
       dirs.forEach((dir: string) => {
-        expect(dir.startsWith('/')).assertTrue();
-        expect(dir.endsWith('/')).assertFalse();
+        const actual3: boolean = dir.startsWith('/');
+        hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirDistinct0007 assert3 dir.startsWith=${actual3}`);
+        expect(actual3).assertTrue();
+        const actual4: boolean = dir.endsWith('/');
+        hilog.info(DOMAIN, TAG, '%{public}s', `testResolveStorageDirDistinct0007 assert4 dir.endsWith=${actual4}`);
+        expect(actual4).assertFalse();
       });
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testResolveStorageDirDistinct0007 end');
     })
 
     /**
@@ -152,12 +211,19 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testRecordStoragePathShape0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRecordStoragePathShape0008 begin');
       const context: common.Context = getAppContext();
       const record: StoragePathRecord = recordStoragePath(context, StorageArea.CACHE, '/shape_probe.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRecordStoragePathShape0008 assert1 record.area=${record.area}`);
       expect(record.area).assertEqual(StorageArea.CACHE);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRecordStoragePathShape0008 assert2 record.dir=${record.dir}`);
       expect(record.dir).assertEqual(context.cacheDir);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRecordStoragePathShape0008 assert3 record.filePath=${record.filePath}`);
       expect(record.filePath).assertEqual(`${context.cacheDir}/shape_probe.txt`);
-      expect(record.exists === true || record.exists === false).assertTrue();
+      const actual4: boolean = record.exists === true || record.exists === false;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRecordStoragePathShape0008 assert4 value=${actual4}`);
+      expect(actual4).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRecordStoragePathShape0008 end');
     })
 
     /**
@@ -169,12 +235,19 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testRecordStoragePathMissingFile0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRecordStoragePathMissingFile0009 begin');
       const context: common.Context = getAppContext();
       const name: string = '/never_created_probe_9f3.txt';
       const record: StoragePathRecord = recordStoragePath(context, StorageArea.FILES, name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRecordStoragePathMissingFile0009 assert1 record.exists=${record.exists}`);
       expect(record.exists).assertFalse();
-      expect(record.filePath.endsWith(name)).assertTrue();
-      expect(record.filePath.startsWith(context.filesDir)).assertTrue();
+      const actual2: boolean = record.filePath.endsWith(name);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRecordStoragePathMissingFile0009 assert2 record.filePath.endsWith=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: boolean = record.filePath.startsWith(context.filesDir);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testRecordStoragePathMissingFile0009 assert3 record.filePath.startsWith=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testRecordStoragePathMissingFile0009 end');
     })
 
     /**
@@ -186,13 +259,19 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testListStoragePathsDefaultName0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testListStoragePathsDefaultName0010 begin');
       const context: common.Context = getAppContext();
       const records: StoragePathRecord[] = listStoragePaths(context);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testListStoragePathsDefaultName0010 assert1 records.length=${records.length}`);
       expect(records.length).assertEqual(STORAGE_AREAS.length);
       records.forEach((record: StoragePathRecord, index: number) => {
+        hilog.info(DOMAIN, TAG, '%{public}s', `testListStoragePathsDefaultName0010 assert2 record.area=${record.area}`);
         expect(record.area).assertEqual(STORAGE_AREAS[index]);
       });
-      expect(records.every((record: StoragePathRecord) => record.filePath.endsWith(SAMPLE_FILE_NAME))).assertTrue();
+      const actual3: boolean = records.every((record: StoragePathRecord) => record.filePath.endsWith(SAMPLE_FILE_NAME));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testListStoragePathsDefaultName0010 assert3 records.every=${actual3}`);
+      expect(actual3).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testListStoragePathsDefaultName0010 end');
     })
 
     /**
@@ -204,11 +283,18 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testListStoragePathsCustomName0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testListStoragePathsCustomName0011 begin');
       const context: common.Context = getAppContext();
       const records: StoragePathRecord[] = listStoragePaths(context, '/custom_probe.txt');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testListStoragePathsCustomName0011 assert1 records.length=${records.length}`);
       expect(records.length).assertEqual(5);
-      expect(records.every((record: StoragePathRecord) => record.filePath.endsWith('/custom_probe.txt'))).assertTrue();
-      expect(records.filter((record: StoragePathRecord) => record.dir.length > 0).length).assertEqual(5);
+      const actual2: boolean = records.every((record: StoragePathRecord) => record.filePath.endsWith('/custom_probe.txt'));
+      hilog.info(DOMAIN, TAG, '%{public}s', `testListStoragePathsCustomName0011 assert2 records.every=${actual2}`);
+      expect(actual2).assertTrue();
+      const actual3: number = records.filter((record: StoragePathRecord) => record.dir.length > 0).length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testListStoragePathsCustomName0011 assert3 records.filter.length=${actual3}`);
+      expect(actual3).assertEqual(5);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testListStoragePathsCustomName0011 end');
     })
 
     /**
@@ -220,13 +306,20 @@ export default function storagePathTest() {
      * @tc.level     LEVEL1
      */
     it('testCountExistingPlusMissing0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCountExistingPlusMissing0012 begin');
       const context: common.Context = getAppContext();
       const name: string = '/count_probe.txt';
       const existing: number = countExisting(context, name);
       const missing: StorageArea[] = countMissing(context, name);
-      expect(existing + missing.length).assertEqual(5);
-      expect(existing >= 0 && existing <= 5).assertTrue();
+      const actual1: number = existing + missing.length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCountExistingPlusMissing0012 assert1 value.length=${actual1}`);
+      expect(actual1).assertEqual(5);
+      const actual2: boolean = existing >= 0 && existing <= 5;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCountExistingPlusMissing0012 assert2 value=${actual2}`);
+      expect(actual2).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCountExistingPlusMissing0012 assert3 missing.length=${missing.length}`);
       expect(missing.length).assertEqual(5 - existing);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCountExistingPlusMissing0012 end');
     })
 
     /**
@@ -238,14 +331,21 @@ export default function storagePathTest() {
      * @tc.level     LEVEL2
      */
     it('testCountMissingNoDuplicate0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCountMissingNoDuplicate0013 begin');
       const context: common.Context = getAppContext();
       const missing: StorageArea[] = countMissing(context, '/missing_probe.txt');
-      expect(missing.length <= 5).assertTrue();
-      expect(missing.filter((area: StorageArea, index: number) => missing.indexOf(area) === index).length)
-        .assertEqual(missing.length);
+      const actual1: boolean = missing.length <= 5;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCountMissingNoDuplicate0013 assert1 value=${actual1}`);
+      expect(actual1).assertTrue();
+      const actual2: number = missing.filter((area: StorageArea, index: number) => missing.indexOf(area) === index).length;
+      hilog.info(DOMAIN, TAG, '%{public}s', `testCountMissingNoDuplicate0013 assert2 missing.filter.length=${actual2}`);
+      expect(actual2).assertEqual(missing.length);
       missing.forEach((area: StorageArea) => {
-        expect(STORAGE_AREAS.indexOf(area) >= 0).assertTrue();
+        const actual3: boolean = STORAGE_AREAS.indexOf(area) >= 0;
+        hilog.info(DOMAIN, TAG, '%{public}s', `testCountMissingNoDuplicate0013 assert3 STORAGE_AREAS.indexOf=${actual3}`);
+        expect(actual3).assertTrue();
       });
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testCountMissingNoDuplicate0013 end');
     })
 
     /**
@@ -257,10 +357,19 @@ export default function storagePathTest() {
      * @tc.level     LEVEL2
      */
     it('testStorageAreasConstant0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStorageAreasConstant0014 begin');
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreasConstant0014 assert1 STORAGE_AREAS.length=${STORAGE_AREAS.length}`);
       expect(STORAGE_AREAS.length).assertEqual(5);
-      expect(STORAGE_AREAS.indexOf(StorageArea.CACHE)).assertEqual(0);
-      expect(STORAGE_AREAS.indexOf(StorageArea.TEMP)).assertEqual(3);
-      expect(STORAGE_AREAS.indexOf(StorageArea.DATABASE)).assertEqual(4);
+      const actual2: number = STORAGE_AREAS.indexOf(StorageArea.CACHE);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreasConstant0014 assert2 STORAGE_AREAS.indexOf=${actual2}`);
+      expect(actual2).assertEqual(0);
+      const actual3: number = STORAGE_AREAS.indexOf(StorageArea.TEMP);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreasConstant0014 assert3 STORAGE_AREAS.indexOf=${actual3}`);
+      expect(actual3).assertEqual(3);
+      const actual4: number = STORAGE_AREAS.indexOf(StorageArea.DATABASE);
+      hilog.info(DOMAIN, TAG, '%{public}s', `testStorageAreasConstant0014 assert4 STORAGE_AREAS.indexOf=${actual4}`);
+      expect(actual4).assertEqual(4);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testStorageAreasConstant0014 end');
     })
   })
 }

@@ -7,7 +7,9 @@
 用例写法与元数据对齐 applications_app_samples PR 11983：
 
 - `@tc.number SUB_ABILITY_FEATURE_<主题>_NNNN`、`@tc.name testXxxNNNN`、`@tc.desc`、`@tc.type FUNCTION`、`@tc.size SMALLTEST|MEDIUMTEST`、`@tc.level LEVEL0~2`；
-- `it(name, TestType.FUNCTION | Size.XXX | Level.LEVELn, fn)`，每条生成用例首尾各打一行 `hilog` begin/end；
+- `it(name, TestType.FUNCTION | Size.XXX | Level.LEVELn, fn)`，每条用例首尾各打一行 `hilog` begin/end；
+- 断言前打印参数：存量场景套件每个 `expect` 前打一行待校验的实际值（`<用例名> assertN <字段>=<值>`），矩阵套件在首个 `expect` 前打一行本条用例的入参（`<用例名> params: ...`）；
+- 日志统一使用 `DOMAIN = 0xF811`、`TAG = '[Sample_AbilityFeature]'`，可用 `hilog -x -D 0xF811` 过滤；
 - 单文件不超过 2000 行，大主题按 Core / Extended / Advanced / Tail 拆分；
 - 矩阵类用例期望值全部写成字面量，每条至少 3 个断言，直接调用 `entry/src/main` 的真实代码。
 
