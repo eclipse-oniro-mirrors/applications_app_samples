@@ -18,6 +18,7 @@ import { fileIo as fs } from '@kit.CoreFileKit';
 import { util } from '@kit.ArkTS';
 import { zlib } from '@kit.BasicServicesKit';
 import type { common } from '@kit.AbilityKit';
+import { logSampleError } from './SampleError';
 
 const MAX_READ_LENGTH: number = 5 * 1024 * 1024;
 const DIRECTORY_FILE_COUNT: number = 3;
@@ -43,6 +44,7 @@ class SourceFile {
 }
 
 export class VirtualFileProvider {
+  private static archiveTask?: Promise<SourceFile>;
   private sources: Map<string, SourceFile> = new Map();
   private rootItem?: uniformDataStruct.VirtualItemType;
 
@@ -117,25 +119,54 @@ export class VirtualFileProvider {
     this.rootItem = rootItem;
   }
 
-  // 复制自带 ZIP 并声明其中的文件，直到读取时才解压。
+  // 复用自带 ZIP 的受控数据源，直到目标第一次读取时才解压。
   public async prepareArchive(context: common.UIAbilityContext): Promise<void> {
-    const directory: string = `${context.filesDir}/archive-${Date.now()}`;
-    fs.mkdirSync(directory);
-    const resource: Uint8Array = await context.resourceManager.getRawFileContent('documents.zip');
-    const archivePath: string = `${directory}/documents.zip`;
-    const file: fs.File = fs.openSync(archivePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY);
-    try {
-      fs.writeSync(file.fd, resource.buffer);
-    } finally {
-      fs.closeSync(file);
+    if (!VirtualFileProvider.archiveTask) {
+      VirtualFileProvider.archiveTask = VirtualFileProvider.prepareArchiveSource(context);
     }
-    const outputDir: string = `${directory}/extracted`;
-    fs.mkdirSync(outputDir);
-    const metadata: uniformDataStruct.VirtualFileItem = {
-      name: ARCHIVE_FILE_NAME, type: 'file', id: 'archive-note', size: ARCHIVE_FILE_SIZE, modifyTime: Date.now()
-    };
-    this.sources.set(metadata.id, new SourceFile(metadata, new Uint8Array(0), archivePath, outputDir));
-    this.rootItem = metadata;
+    const task: Promise<SourceFile> = VirtualFileProvider.archiveTask;
+    try {
+      const source: SourceFile = await task;
+      this.sources.set(source.metadata.id, source);
+      this.rootItem = source.metadata;
+    } catch (error) {
+      if (VirtualFileProvider.archiveTask === task) {
+        VirtualFileProvider.archiveTask = undefined;
+      }
+      throw error as Error;
+    }
+  }
+
+  private static async prepareArchiveSource(context: common.UIAbilityContext): Promise<SourceFile> {
+    const directory: string = `${context.filesDir}/virtual-file-drag-archive`;
+    // 仅首次准备或尚未发布数据源的失败重试可进入此处，不影响活跃 Provider。
+    if (fs.accessSync(directory)) {
+      fs.rmdirSync(directory);
+    }
+    fs.mkdirSync(directory);
+    try {
+      const resource: Uint8Array = await context.resourceManager.getRawFileContent('documents.zip');
+      const archivePath: string = `${directory}/documents.zip`;
+      const file: fs.File = fs.openSync(archivePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY);
+      try {
+        fs.writeSync(file.fd, resource.buffer);
+      } finally {
+        fs.closeSync(file);
+      }
+      const outputDir: string = `${directory}/extracted`;
+      fs.mkdirSync(outputDir);
+      const metadata: uniformDataStruct.VirtualFileItem = {
+        name: ARCHIVE_FILE_NAME, type: 'file', id: 'archive-note', size: ARCHIVE_FILE_SIZE, modifyTime: Date.now()
+      };
+      return new SourceFile(metadata, new Uint8Array(0), archivePath, outputDir);
+    } catch (error) {
+      try {
+        fs.rmdirSync(directory);
+      } catch (cleanupError) {
+        logSampleError('Remove incomplete archive fixture', cleanupError as Error);
+      }
+      throw error as Error;
+    }
   }
 
   private async readArchive(file: SourceFile, offset: number, count: number): Promise<Uint8Array> {

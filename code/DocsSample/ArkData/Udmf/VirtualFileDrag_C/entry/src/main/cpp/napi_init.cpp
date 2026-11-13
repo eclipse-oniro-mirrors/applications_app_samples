@@ -45,14 +45,14 @@ bool g_compressed = false;
 std::string g_sourceText;
 std::string g_dropText;
 
-void UpdateSourceText()
+int32_t UpdateSourceText()
 {
     if (g_nodeApi == nullptr || g_source == nullptr) {
-        return;
+        return 0;
     }
     ArkUI_AttributeItem text {};
     text.string = g_sourceText.c_str();
-    g_nodeApi->setAttribute(g_source, NODE_TEXT_CONTENT, &text);
+    return g_nodeApi->setAttribute(g_source, NODE_TEXT_CONTENT, &text);
 }
 
 bool NotifyUris(const std::vector<std::string>& uris)
@@ -149,49 +149,68 @@ void SetAreaLayout(ArkUI_NodeHandle node, uint32_t color)
     g_nodeApi->setAttribute(node, NODE_TEXT_ALIGN, &alignmentItem);
 }
 
+// 仅检查决定拖拽可用性的关键步骤，保留失败操作和原始返回码。
+bool CheckNodeResult(int32_t result, const char* operation, std::string& error)
+{
+    if (result == 0) {
+        return true;
+    }
+    error = std::string(operation) + " failed, code: " + std::to_string(result);
+    return false;
+}
+
 // [Start virtual_drag_c_drop_target]
-void ConfigureDropTarget()
+bool ConfigureDropTarget(std::string& error)
 {
     ArkUI_AttributeItem text {};
     // 本地化文字由 ArkTS 资源传入，原生节点不硬编码界面文字。
     text.string = g_dropText.c_str();
-    g_nodeApi->setAttribute(g_drop, NODE_TEXT_CONTENT, &text);
+    if (!CheckNodeResult(g_nodeApi->setAttribute(g_drop, NODE_TEXT_CONTENT, &text), "Set drop text", error)) {
+        return false;
+    }
     SetAreaLayout(g_drop, 0xFFDCF2DF);
     const char* types[] = {"general.file-uri"};
-    OH_ArkUI_SetNodeAllowedDropDataTypes(g_drop, types, 1);
-    g_nodeApi->registerNodeEvent(g_drop, NODE_ON_DROP, 1, nullptr);
-    g_nodeApi->addNodeEventReceiver(g_drop, OnNodeEvent);
+    return CheckNodeResult(OH_ArkUI_SetNodeAllowedDropDataTypes(g_drop, types, 1), "Set drop types", error) &&
+        CheckNodeResult(g_nodeApi->registerNodeEvent(g_drop, NODE_ON_DROP, 1, nullptr), "Register drop", error) &&
+        CheckNodeResult(g_nodeApi->addNodeEventReceiver(g_drop, OnNodeEvent), "Add drop receiver", error);
 }
 // [End virtual_drag_c_drop_target]
 
 napi_value DestroyNativeNode(napi_env env, napi_callback_info info);
 
-bool CreateDragNodes()
+bool CreateDragNodes(std::string& error)
 {
     g_root = g_nodeApi->createNode(ARKUI_NODE_COLUMN);
     g_source = g_nodeApi->createNode(ARKUI_NODE_TEXT);
     g_drop = g_nodeApi->createNode(ARKUI_NODE_TEXT);
     g_spacer = g_nodeApi->createNode(ARKUI_NODE_COLUMN);
     if (g_root == nullptr || g_source == nullptr || g_drop == nullptr || g_spacer == nullptr) {
+        error = "Create drag nodes failed";
         return false;
     }
-    UpdateSourceText();
+    if (!CheckNodeResult(UpdateSourceText(), "Set source text", error)) {
+        return false;
+    }
     SetAreaLayout(g_source, 0xFFD9E8FF);
-    g_nodeApi->registerNodeEvent(g_source, NODE_ON_DRAG_START, 1, nullptr);
-    g_nodeApi->registerNodeEvent(g_source, NODE_ON_DRAG_END, 1, nullptr);
-    g_nodeApi->addNodeEventReceiver(g_source, OnNodeEvent);
-    OH_ArkUI_SetNodeDraggable(g_source, true);
-    ConfigureDropTarget();
+    if (!CheckNodeResult(g_nodeApi->registerNodeEvent(g_source, NODE_ON_DRAG_START, 1, nullptr),
+        "Register drag start", error) ||
+        !CheckNodeResult(g_nodeApi->registerNodeEvent(g_source, NODE_ON_DRAG_END, 1, nullptr),
+        "Register drag end", error) ||
+        !CheckNodeResult(g_nodeApi->addNodeEventReceiver(g_source, OnNodeEvent), "Add source receiver", error) ||
+        !CheckNodeResult(OH_ArkUI_SetNodeDraggable(g_source, true), "Enable drag", error) ||
+        !ConfigureDropTarget(error)) {
+        return false;
+    }
     ArkUI_NumberValue gap[] = {{.f32 = AREA_GAP}};
     ArkUI_AttributeItem gapItem {gap, 1};
     g_nodeApi->setAttribute(g_spacer, NODE_HEIGHT, &gapItem);
     ArkUI_NumberValue width[] = {{.f32 = FULL_WIDTH_PERCENT}};
     ArkUI_AttributeItem widthItem {width, 1};
     g_nodeApi->setAttribute(g_root, NODE_WIDTH_PERCENT, &widthItem);
-    g_nodeApi->addChild(g_root, g_source);
-    g_nodeApi->addChild(g_root, g_spacer);
-    g_nodeApi->addChild(g_root, g_drop);
-    return OH_ArkUI_NodeContent_AddNode(g_content, g_root) == 0;
+    return CheckNodeResult(g_nodeApi->addChild(g_root, g_source), "Attach source", error) &&
+        CheckNodeResult(g_nodeApi->addChild(g_root, g_spacer), "Attach spacer", error) &&
+        CheckNodeResult(g_nodeApi->addChild(g_root, g_drop), "Attach drop", error) &&
+        CheckNodeResult(OH_ArkUI_NodeContent_AddNode(g_content, g_root), "Attach content", error);
 }
 
 // 获取资源字符串，限制长度并为 UTF-8 终止符保留空间。
@@ -230,9 +249,10 @@ napi_value CreateNativeNode(napi_env env, napi_callback_info info)
         return nullptr;
     }
     g_env = env;
-    if (!CreateDragNodes()) {
+    std::string error;
+    if (!CreateDragNodes(error)) {
         DestroyNativeNode(env, nullptr);
-        napi_throw_error(env, nullptr, "Cannot create native drag nodes");
+        napi_throw_error(env, nullptr, error.c_str());
     }
     return nullptr;
 }
@@ -254,7 +274,10 @@ napi_value Configure(napi_env env, napi_callback_info info)
     g_directory = directory;
     g_compressed = compressed;
     g_sourceText = sourceText;
-    UpdateSourceText();
+    std::string error;
+    if (!CheckNodeResult(UpdateSourceText(), "Update source text", error)) {
+        napi_throw_error(env, nullptr, error.c_str());
+    }
     return nullptr;
 }
 

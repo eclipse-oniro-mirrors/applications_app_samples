@@ -39,7 +39,7 @@ ohosTest.md               自动化与人工验证说明
 
 ### 具体实现
 
-建议先选择默认的“文档”场景，按以下顺序阅读。虚拟文件接口集中在`virtual_file_provider.cpp`，URI 获取集中在`virtual_file_receiver.cpp`；Native ArkUI 布局和 NAPI 参数转换位于`napi_init.cpp`。
+建议先选择默认的“文档”场景，按以下顺序阅读。虚拟文件接口集中在`virtual_file_provider.cpp`，URI 获取集中在`virtual_file_receiver.cpp`；Native ArkUI 布局和 NAPI 参数转换位于`napi_init.cpp`。关键事件注册和节点挂接失败时回收已创建节点，并将操作及错误码抛回 ArkTS。
 
 ```text
 NODE_ON_DRAG_START

@@ -16,7 +16,7 @@
 import { unifiedDataChannel, uniformTypeDescriptor } from '@kit.ArkData';
 import type { uniformDataStruct } from '@kit.ArkData';
 import type { common } from '@kit.AbilityKit';
-import type { BusinessError } from '@kit.BasicServicesKit';
+import { logSampleError } from '../model/SampleError';
 import { VirtualFileProvider } from '../model/VirtualFileProvider';
 import { getDroppedFileUris } from '../model/DropReceiver';
 
@@ -34,6 +34,7 @@ struct Index {
   @State private sourceText: Resource = $r('app.string.source_document');
   private provider?: VirtualFileProvider;
 
+  // 准备默认文档，使页面首次显示时即可拖起。
   aboutToAppear(): void {
     this.prepare(ExportScenario.DOCUMENT);
   }
@@ -54,7 +55,7 @@ struct Index {
       this.provider = provider;
       this.ready = true;
     } catch (error) {
-      console.error(`Prepare virtual file failed, code: ${(error as BusinessError).code}`);
+      logSampleError('Prepare virtual file', error as Error);
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.prepare_failed') });
     } finally {
       this.busy = false;
@@ -84,8 +85,10 @@ struct Index {
   private receive(event: DragEvent): void {
     try {
       this.handleUris(getDroppedFileUris(event));
+      event.setResult(DragResult.DRAG_SUCCESSFUL);
     } catch (error) {
-      console.error(`Get dropped URIs failed, code: ${(error as BusinessError).code}`);
+      event.setResult(DragResult.DRAG_FAILED);
+      logSampleError('Get dropped URIs', error as Error);
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.receive_failed') });
     }
   }
@@ -120,7 +123,7 @@ struct Index {
           try {
             event.setData(this.createDragData());
           } catch (error) {
-            console.error(`Set drag data failed, code: ${(error as BusinessError).code}`);
+            logSampleError('Set drag data', error as Error);
             this.getUIContext().getPromptAction().showToast({ message: $r('app.string.drag_failed') });
           }
         })

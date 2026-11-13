@@ -15,8 +15,8 @@
 
 import { NodeContent } from '@kit.ArkUI';
 import type { common } from '@kit.AbilityKit';
-import type { BusinessError } from '@kit.BasicServicesKit';
 import nativeEntry from 'libentry.so';
+import { logSampleError } from '../model/SampleError';
 
 enum ExportScenario {
   DOCUMENT,
@@ -30,12 +30,19 @@ struct Index {
   private scenario: ExportScenario = ExportScenario.DOCUMENT;
   private content: NodeContent = new NodeContent();
 
+  // 准备当前场景并创建原生拖拽区域。
   aboutToAppear(): void {
     this.prepare(this.scenario);
-    nativeEntry.createNativeNode(this.content, (uris: string[]) => { this.handleUris(uris); },
-      this.getText('drop_hint'));
+    try {
+      nativeEntry.createNativeNode(this.content, (uris: string[]) => { this.handleUris(uris); },
+        this.getText('drop_hint'));
+    } catch (error) {
+      logSampleError('Create native drag nodes', error as Error);
+      this.getUIContext().getPromptAction().showToast({ message: $r('app.string.prepare_failed') });
+    }
   }
 
+  // 释放页面创建的原生节点及接收回调引用。
   aboutToDisappear(): void {
     nativeEntry.destroyNativeNode();
   }
@@ -53,7 +60,7 @@ struct Index {
         this.getText(label));
       this.scenario = scenario;
     } catch (error) {
-      console.error(`Prepare virtual file failed, code: ${(error as BusinessError).code}`);
+      logSampleError('Prepare virtual file', error as Error);
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.prepare_failed') });
     }
   }

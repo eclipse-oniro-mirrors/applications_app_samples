@@ -35,6 +35,7 @@ async function checkScenario(buttonName: string, sourceName: string): Promise<vo
   expect(actual).assertEqual(sourceText);
 }
 
+// 注册三个导出场景的界面验证用例。
 export default function abilityTest(): void {
   describe('VirtualFileDragSample', () => {
     beforeAll(async (): Promise<void> => {
@@ -47,16 +48,34 @@ export default function abilityTest(): void {
       await driver.waitForComponent(ON.text(label), WAIT_TIMEOUT_MS);
     });
 
-    it('testDocumentScenario001', 0, async (): Promise<void> => {
-      await checkScenario('document', 'source_document');
+    // 选择单文档后显示可拖起提示。
+    it('VirtualFileDragC_Document_001', 0, async (): Promise<void> => {
+      console.info('VirtualFileDragC_Document_001 begin');
+      try {
+        await checkScenario('document', 'source_document');
+      } finally {
+        console.info('VirtualFileDragC_Document_001 end');
+      }
     });
 
-    it('testDirectoryScenario002', 0, async (): Promise<void> => {
-      await checkScenario('directory', 'source_directory');
+    // 选择嵌套目录后显示可拖起提示。
+    it('VirtualFileDragC_Directory_002', 0, async (): Promise<void> => {
+      console.info('VirtualFileDragC_Directory_002 begin');
+      try {
+        await checkScenario('directory', 'source_directory');
+      } finally {
+        console.info('VirtualFileDragC_Directory_002 end');
+      }
     });
 
-    it('testArchiveScenario003', 0, async (): Promise<void> => {
-      await checkScenario('archive', 'source_archive');
+    // 选择按需解压后完成元数据准备。
+    it('VirtualFileDragC_Archive_003', 0, async (): Promise<void> => {
+      console.info('VirtualFileDragC_Archive_003 begin');
+      try {
+        await checkScenario('archive', 'source_archive');
+      } finally {
+        console.info('VirtualFileDragC_Archive_003 end');
+      }
     });
   });
 }

@@ -12,7 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { uniformDataStruct, unifiedDataChannel, uniformTypeDescriptor } from '@kit.ArkData';
+import { uniformTypeDescriptor } from '@kit.ArkData';
+import type { uniformDataStruct, unifiedDataChannel } from '@kit.ArkData';
 
 // [Start virtual_drag_receive]
 // 获取落入数据中的文件 URI，不读取文件内容。

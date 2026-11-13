@@ -14,7 +14,7 @@
  */
 
 import { UIAbility } from '@kit.AbilityKit';
-import { window } from '@kit.ArkUI';
+import type { window } from '@kit.ArkUI';
 
 export default class EntryAbility extends UIAbility {
   // 加载文件拖拽示例页面，失败时仅记录错误码。

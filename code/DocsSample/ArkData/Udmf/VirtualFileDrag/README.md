@@ -22,11 +22,11 @@ The three buttons select a document, a nested directory, or archive extraction o
 ```text
 AppScope/                 Application metadata and vector icon
 entry/src/main/           Page, provider, receiver and resources
-entry/src/ohosTest/       Scenario-selection UI tests
+entry/src/ohosTest/       UI and Provider callback tests
 ohosTest.md               Manual and automated test instructions
 ```
 
-Start with [Index.ets](entry/src/main/ets/pages/Index.ets). See [implementation and API usage](README_zh.md#具体实现) for callback setup, data attachment, drag events and resource lifetimes. See [test instructions](ohosTest.md) for manual cross-application verification. No device execution result is implied by test expectations.
+Start with [Index.ets](entry/src/main/ets/pages/Index.ets). See [implementation and API usage](README_zh.md#具体实现) for callback setup, data attachment, drag events and resource lifetimes. See [test instructions](ohosTest.md) for manual cross-application verification. Provider tests also check metadata, nested entries, ranged reads, EOF and rejection. The archive fixture uses one shared preparation task per process; active reads are never cleaned up on drag end. No device execution result is implied by test expectations.
 
 ## Download
 

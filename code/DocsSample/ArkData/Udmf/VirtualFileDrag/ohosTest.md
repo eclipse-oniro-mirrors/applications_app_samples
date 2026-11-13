@@ -10,11 +10,17 @@
 
 | 用例编号/名称 | 步骤 | 预期现象 | 设备执行结果 |
 | --- | --- | --- | --- |
-| testDocumentScenario001 | 启动应用，选择文档 | 显示文档的拖起提示 | 待执行 |
-| testDirectoryScenario002 | 选择目录 | 显示嵌套目录的拖起提示 | 待执行 |
-| testArchiveScenario003 | 选择按需解压 | 显示解压文件的拖起提示 | 待执行 |
+| VirtualFileDrag_Document_001 | 启动应用，选择文档 | 显示文档的拖起提示 | 待执行 |
+| VirtualFileDrag_Directory_002 | 选择目录 | 显示嵌套目录的拖起提示 | 待执行 |
+| VirtualFileDrag_Archive_003 | 选择按需解压 | 显示解压文件的拖起提示 | 待执行 |
 
-以上仅验证场景切换，不等价于跨应用 FUSE 读取通过。
+场景切换用例仅验证界面。`Provider.test.ets` 直接调用示例提供方，额外覆盖以下合同；两类测试均不等价于跨应用 FUSE 读取通过。
+
+| 用例编号/名称 | 步骤 | 预期现象 | 设备执行结果 |
+| --- | --- | --- | --- |
+| VirtualFileDrag_ReadRange_004 | 创建文档，查询信息并分段读取，再读取末尾 | 大小与实际字节一致，重组内容完整，末尾返回空数组 | 待执行 |
+| VirtualFileDrag_DirectoryContent_005 | 创建嵌套目录，读取三份文件 | 子目录完整、id 可定位数据源，大小与声明一致 | 待执行 |
+| VirtualFileDrag_InvalidRead_006 | 请求未知 id、负偏移和超长数据 | 回调拒绝请求，不伪装为文件结束 | 待执行 |
 
 ## 人工场景
 

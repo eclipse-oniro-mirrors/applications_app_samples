@@ -73,7 +73,7 @@ prepareDocuments() 声明文件信息
 - onCancel 取消当前待处理任务，应允许重复通知，不能永久禁止同一 id 的后续读取；用户中止拖拽不保证一定触发该回调。本地读取没有额外的可取消任务，示例保留该回调的用法。
 - 通过 FileUri.virtualEntry 附加节点和回调，在 onDragStart 设置 UnifiedData，无须先调用 insertData。拖拽结束不代表目标读取完成，不在 onDragEnd 中取消读取。
 - 示例未申请后台保活能力。实际应用应根据后台运行条件保障提供数据期间的可用性；提供方退出或回调失败会导致目标读取失败。
-- ZIP 场景使用受控资源及已知大小；演示缓存位于应用私有目录，测试结束可清除应用数据。
+- ZIP 场景使用受控资源及已知大小；同一进程内只准备一份固定的 ZIP 数据源并复用解压任务，重复切换不增加目录；进程首次准备时清理固定目录的历史内容，准备失败时清理未发布的数据。已发布数据不在场景切换或拖拽结束时删除，以免影响仍在读取的目标。
 
 ### 权限与依赖
 
@@ -93,4 +93,4 @@ git sparse-checkout set code/DocsSample/ArkData/Udmf/VirtualFileDrag
 
 ### 自动化验证
 
-工程通过 Hypium 1.0.24 提供三个场景切换用例，可在 DevEco Studio 中运行 `entry/src/ohosTest/ets/test/Ability.test.ets`。跨应用保存、内容读取和重复拖拽仍按 [ohosTest.md](ohosTest.md) 人工验证。
+工程通过 Hypium 1.0.24 提供三个场景切换用例和三个 Provider 合同验证用例，可在 DevEco Studio 中运行 `entry/src/ohosTest/ets/test/List.test.ets`。跨应用保存、内容读取和重复拖拽仍按 [ohosTest.md](ohosTest.md) 人工验证。

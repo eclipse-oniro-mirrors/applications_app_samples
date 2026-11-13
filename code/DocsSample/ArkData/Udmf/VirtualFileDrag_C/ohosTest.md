@@ -10,9 +10,9 @@
 
 | 用例编号/名称 | 步骤 | 预期现象 | 设备执行结果 |
 | --- | --- | --- | --- |
-| testDocumentScenario001 | 启动应用，选择文档 | 显示文档的拖起提示 | 待执行 |
-| testDirectoryScenario002 | 选择目录 | 显示嵌套目录的拖起提示 | 待执行 |
-| testArchiveScenario003 | 选择按需解压 | 显示解压文件的拖起提示 | 待执行 |
+| VirtualFileDragC_Document_001 | 启动应用，选择文档 | 显示文档的拖起提示 | 待执行 |
+| VirtualFileDragC_Directory_002 | 选择目录 | 显示嵌套目录的拖起提示 | 待执行 |
+| VirtualFileDragC_Archive_003 | 选择按需解压 | 显示解压文件的拖起提示 | 待执行 |
 
 以上仅验证场景切换，不等价于跨应用 FUSE 读取通过。
 

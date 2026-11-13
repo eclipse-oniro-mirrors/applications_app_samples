@@ -13,15 +13,18 @@
  * limitations under the License.
  */
 
-import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import type { TestRunner } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 
 export default class OpenHarmonyTestRunner implements TestRunner {
+  // 记录测试准备状态，便于识别当前测试包。
   onPrepare(): void {
     console.info('Virtual file drag tests prepared');
   }
 
+  // 交由 Hypium 执行本工程注册的用例集。
   onRun(): void {
     Hypium.hypiumTest(abilityDelegatorRegistry.getAbilityDelegator(),
       abilityDelegatorRegistry.getArguments(), testsuite);
