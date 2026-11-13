@@ -15,9 +15,8 @@
 
 import image from '@ohos.multimedia.image';
 import CommonEvent from '@ohos.commonEvent';
-import MissionInfo from '../../../../../../base/src/main/ets/default/bean/MisssionInfo';
 import MissionModel from '../model/MissionModel';
-import { EventConstants, LauncherAbilityManager, Logger, ResourceManager } from '@ohos/base';
+import { EventConstants, LauncherAbilityManager, Logger, MissionInfo, ResourceManager } from '@ohos/base';
 
 
 const TAG: string = 'MissionItem'
