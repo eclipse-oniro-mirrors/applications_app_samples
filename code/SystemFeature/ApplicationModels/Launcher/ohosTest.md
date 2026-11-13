@@ -54,8 +54,8 @@
 
 > 以上用例数与 `List.test.ets` 中实际注册的套件和用例数一致。
 
-## 运行方式
+## 运行入口
 
-```bash
-aa test -b ohos.samples.launcher -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 900000
-```
+- 测试模块：`entry_test`
+- 测试运行器：`OpenHarmonyTestRunner`
+- 命令参数请参考 OpenHarmony 测试框架文档，按工程实际 bundleName 执行。

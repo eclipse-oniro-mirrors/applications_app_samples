@@ -69,11 +69,7 @@ git pull origin master
 
 ## Testing
 
-Run the automated test suite:
-
-```bash
-aa test -b com.example.distributedsoftbusconversationdemo -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s timeout 900000
-```
-
-See `ohosTest.md` for the registered suites and case counts.
+The automated tests are packaged as `entry_test` and run with
+`OpenHarmonyTestRunner`. See `ohosTest.md` for the registered suites and case
+counts, and refer to the OpenHarmony test framework documentation for the
+execution command.
