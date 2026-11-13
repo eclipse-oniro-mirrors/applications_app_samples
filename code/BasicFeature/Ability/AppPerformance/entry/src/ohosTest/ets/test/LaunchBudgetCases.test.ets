@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import {
   BudgetAudit, BudgetReport, BudgetResult, GroupStats, LAUNCH_GROUPS, LaunchGroup, RegressionReport,
   RegressionResult, RegressionVerdict, allStats, auditBudgets, budgetLines, compareLaunches,
@@ -53,10 +55,10 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchGroupCatalogCases0001', 0, (): void => {
-      expect(LAUNCH_GROUPS.length).assertEqual(5);
-      expect(groupKeys().join(',')).assertEqual('cold,warm,hot,firstFrame,interactive');
-      expect(LAUNCH_GROUPS[0].key).assertEqual('cold');
-      expect(LAUNCH_GROUPS[4].key).assertEqual('interactive');
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0001 LaunchBudgetCases.test:56 assertEqual actual', LAUNCH_GROUPS.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0001 LaunchBudgetCases.test:56 assertEqual expected', 5));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0001 LaunchBudgetCases.test:57 assertEqual actual', groupKeys().join(','))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0001 LaunchBudgetCases.test:57 assertEqual expected', 'cold,warm,hot,firstFrame,interactive'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0001 LaunchBudgetCases.test:58 assertEqual actual', LAUNCH_GROUPS[0].key)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0001 LaunchBudgetCases.test:58 assertEqual expected', 'cold'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0001 LaunchBudgetCases.test:59 assertEqual actual', LAUNCH_GROUPS[4].key)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0001 LaunchBudgetCases.test:59 assertEqual expected', 'interactive'));
     });
 
     /**
@@ -70,9 +72,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchGroupCatalogCases0002', 0, (): void => {
       LAUNCH_GROUPS.forEach((group: LaunchGroup): void => {
-        expect(group.key.length > 0).assertTrue();
-        expect(group.label.length > 0).assertTrue();
-        expect(group.key.indexOf(' ')).assertEqual(-1);
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0002 LaunchBudgetCases.test:73 assertTrue actual', group.key.length > 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0002 LaunchBudgetCases.test:74 assertTrue actual', group.label.length > 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0002 LaunchBudgetCases.test:75 assertEqual actual', group.key.indexOf(' '))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0002 LaunchBudgetCases.test:75 assertEqual expected', -1));
       });
     });
 
@@ -87,10 +89,10 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchGroupCatalogCases0003', 0, (): void => {
       LAUNCH_GROUPS.forEach((group: LaunchGroup): void => {
-        expect(group.budgetMs > 0).assertTrue();
-        expect(Number.isInteger(group.budgetMs)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0003 LaunchBudgetCases.test:90 assertTrue actual', group.budgetMs > 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0003 LaunchBudgetCases.test:91 assertTrue actual', Number.isInteger(group.budgetMs))).assertTrue();
       });
-      expect(LAUNCH_GROUPS.length).assertEqual(5);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0003 LaunchBudgetCases.test:93 assertEqual actual', LAUNCH_GROUPS.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0003 LaunchBudgetCases.test:93 assertEqual expected', 5));
     });
 
     /**
@@ -104,11 +106,11 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchGroupCatalogCases0004', 0, (): void => {
       const keys: string[] = groupKeys();
-      expect(keys.length).assertEqual(LAUNCH_GROUPS.length);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0004 LaunchBudgetCases.test:107 assertEqual actual', keys.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0004 LaunchBudgetCases.test:107 assertEqual expected', LAUNCH_GROUPS.length));
       keys.forEach((key: string, index: number): void => {
-        expect(key).assertEqual(LAUNCH_GROUPS[index].key);
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0004 LaunchBudgetCases.test:109 assertEqual actual', key)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0004 LaunchBudgetCases.test:109 assertEqual expected', LAUNCH_GROUPS[index].key));
       });
-      expect(groupKeys()[0]).assertEqual(LAUNCH_GROUPS[0].key);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0004 LaunchBudgetCases.test:111 assertEqual actual', groupKeys()[0])).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0004 LaunchBudgetCases.test:111 assertEqual expected', LAUNCH_GROUPS[0].key));
     });
 
     /**
@@ -122,9 +124,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchGroupCatalogCases0005', 0, (): void => {
       const cold: LaunchGroup | undefined = groupOf('cold');
-      expect(cold !== undefined).assertTrue();
-      expect(cold?.label).assertEqual('冷启动');
-      expect(cold?.budgetMs).assertEqual(1200);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0005 LaunchBudgetCases.test:125 assertTrue actual', cold !== undefined)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0005 LaunchBudgetCases.test:126 assertEqual actual', cold?.label)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0005 LaunchBudgetCases.test:126 assertEqual expected', '冷启动'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0005 LaunchBudgetCases.test:127 assertEqual actual', cold?.budgetMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0005 LaunchBudgetCases.test:127 assertEqual expected', 1200));
     });
 
     /**
@@ -137,9 +139,9 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchGroupCatalogCases0006', 0, (): void => {
-      expect(groupOf('unknown')).assertUndefined();
-      expect(groupOf('')).assertUndefined();
-      expect(groupOf('Cold')).assertUndefined();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0006 LaunchBudgetCases.test:140 assertUndefined actual', groupOf('unknown'))).assertUndefined();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0006 LaunchBudgetCases.test:141 assertUndefined actual', groupOf(''))).assertUndefined();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0006 LaunchBudgetCases.test:142 assertUndefined actual', groupOf('Cold'))).assertUndefined();
     });
 
     /**
@@ -152,9 +154,9 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchGroupCatalogCases0007', 0, (): void => {
-      expect(groupLabel('hot')).assertEqual('热启动');
-      expect(groupLabel('custom')).assertEqual('custom');
-      expect(groupLabel('')).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0007 LaunchBudgetCases.test:155 assertEqual actual', groupLabel('hot'))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0007 LaunchBudgetCases.test:155 assertEqual expected', '热启动'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0007 LaunchBudgetCases.test:156 assertEqual actual', groupLabel('custom'))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0007 LaunchBudgetCases.test:156 assertEqual expected', 'custom'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0007 LaunchBudgetCases.test:157 assertEqual actual', groupLabel(''))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0007 LaunchBudgetCases.test:157 assertEqual expected', ''));
     });
 
     /**
@@ -169,9 +171,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchGroupCatalogCases0008', 0, (): void => {
       LAUNCH_GROUPS.forEach((group: LaunchGroup): void => {
         const text: string = group.text();
-        expect(text.indexOf(group.key) >= 0).assertTrue();
-        expect(text.indexOf(group.label) >= 0).assertTrue();
-        expect(text.indexOf(`${group.budgetMs}`) >= 0).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0008 LaunchBudgetCases.test:172 assertTrue actual', text.indexOf(group.key) >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0008 LaunchBudgetCases.test:173 assertTrue actual', text.indexOf(group.label) >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0008 LaunchBudgetCases.test:174 assertTrue actual', text.indexOf(`${group.budgetMs}`) >= 0)).assertTrue();
       });
     });
 
@@ -190,9 +192,9 @@ export default function launchBudgetCasesTest(): void {
         Math.min(peak, value), Number.MAX_SAFE_INTEGER);
       const maxBudget: number = budgets.reduce((peak: number, value: number): number =>
         Math.max(peak, value), 0);
-      expect(groupOf('hot')?.budgetMs).assertEqual(minBudget);
-      expect(groupOf('interactive')?.budgetMs).assertEqual(maxBudget);
-      expect(minBudget < maxBudget).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0009 LaunchBudgetCases.test:193 assertEqual actual', groupOf('hot')?.budgetMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0009 LaunchBudgetCases.test:193 assertEqual expected', minBudget));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0009 LaunchBudgetCases.test:194 assertEqual actual', groupOf('interactive')?.budgetMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0009 LaunchBudgetCases.test:194 assertEqual expected', maxBudget));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0009 LaunchBudgetCases.test:195 assertTrue actual', minBudget < maxBudget)).assertTrue();
     });
 
     /**
@@ -208,9 +210,9 @@ export default function launchBudgetCasesTest(): void {
       const cold: number = groupOf('cold')?.budgetMs ?? 0;
       const warm: number = groupOf('warm')?.budgetMs ?? 0;
       const hot: number = groupOf('hot')?.budgetMs ?? 0;
-      expect(cold > warm).assertTrue();
-      expect(warm > hot).assertTrue();
-      expect(cold > hot).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0010 LaunchBudgetCases.test:211 assertTrue actual', cold > warm)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0010 LaunchBudgetCases.test:212 assertTrue actual', warm > hot)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0010 LaunchBudgetCases.test:213 assertTrue actual', cold > hot)).assertTrue();
     });
 
     /**
@@ -224,9 +226,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchGroupCatalogCases0011', 0, (): void => {
       const audit: BudgetAudit = auditBudgets();
-      expect(audit.ok).assertTrue();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.summary().indexOf('自洽') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0011 LaunchBudgetCases.test:227 assertTrue actual', audit.ok)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0011 LaunchBudgetCases.test:228 assertEqual actual', audit.findings.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0011 LaunchBudgetCases.test:228 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0011 LaunchBudgetCases.test:229 assertTrue actual', audit.summary().indexOf('自洽') >= 0)).assertTrue();
     });
 
     /**
@@ -240,10 +242,10 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchGroupCatalogCases0012', 0, (): void => {
       const lines: string[] = budgetLines();
-      expect(lines.length).assertEqual(LAUNCH_GROUPS.length);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0012 LaunchBudgetCases.test:243 assertEqual actual', lines.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0012 LaunchBudgetCases.test:243 assertEqual expected', LAUNCH_GROUPS.length));
       lines.forEach((line: string, index: number): void => {
-        expect(line.indexOf(LAUNCH_GROUPS[index].key) >= 0).assertTrue();
-        expect(line.length > 0).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0012 LaunchBudgetCases.test:245 assertTrue actual', line.indexOf(LAUNCH_GROUPS[index].key) >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_LaunchGroupCatalogCases_0012 LaunchBudgetCases.test:246 assertTrue actual', line.length > 0)).assertTrue();
       });
     });
   });
@@ -260,10 +262,10 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchSampleFactoryCases0001', 0, (): void => {
       const sample: LaunchSample = sampleOf('s1', 'cold', 1700000000000, 850);
-      expect(sample.id).assertEqual('s1');
-      expect(sample.group).assertEqual('cold');
-      expect(sample.at).assertEqual(1700000000000);
-      expect(sample.contentMs).assertEqual(850);
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0001 LaunchBudgetCases.test:263 assertEqual actual', sample.id)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0001 LaunchBudgetCases.test:263 assertEqual expected', 's1'));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0001 LaunchBudgetCases.test:264 assertEqual actual', sample.group)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0001 LaunchBudgetCases.test:264 assertEqual expected', 'cold'));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0001 LaunchBudgetCases.test:265 assertEqual actual', sample.at)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0001 LaunchBudgetCases.test:265 assertEqual expected', 1700000000000));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0001 LaunchBudgetCases.test:266 assertEqual actual', sample.contentMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0001 LaunchBudgetCases.test:266 assertEqual expected', 850));
     });
 
     /**
@@ -277,9 +279,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchSampleFactoryCases0002', 0, (): void => {
       const sample: LaunchSample = sampleOf('s2', 'warm', 1, 10);
-      expect(sample.device.length > 0).assertTrue();
-      expect(sample.appVersion.length > 0).assertTrue();
-      expect(sample.id).assertEqual('s2');
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0002 LaunchBudgetCases.test:280 assertTrue actual', sample.device.length > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0002 LaunchBudgetCases.test:281 assertTrue actual', sample.appVersion.length > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0002 LaunchBudgetCases.test:282 assertEqual actual', sample.id)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0002 LaunchBudgetCases.test:282 assertEqual expected', 's2'));
     });
 
     /**
@@ -293,9 +295,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchSampleFactoryCases0003', 0, (): void => {
       const sample: LaunchSample = sampleOf('s3', 'hot', 1, -50);
-      expect(sample.contentMs).assertEqual(0);
-      expect(sample.contentMs >= 0).assertTrue();
-      expect(sample.group).assertEqual('hot');
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0003 LaunchBudgetCases.test:296 assertEqual actual', sample.contentMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0003 LaunchBudgetCases.test:296 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0003 LaunchBudgetCases.test:297 assertTrue actual', sample.contentMs >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0003 LaunchBudgetCases.test:298 assertEqual actual', sample.group)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0003 LaunchBudgetCases.test:298 assertEqual expected', 'hot'));
     });
 
     /**
@@ -310,9 +312,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchSampleFactoryCases0004', 0, (): void => {
       const up: LaunchSample = sampleOf('s4', 'hot', 1, 12.6);
       const down: LaunchSample = sampleOf('s5', 'hot', 1, 12.4);
-      expect(up.contentMs).assertEqual(13);
-      expect(down.contentMs).assertEqual(12);
-      expect(Number.isInteger(up.contentMs)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0004 LaunchBudgetCases.test:313 assertEqual actual', up.contentMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0004 LaunchBudgetCases.test:313 assertEqual expected', 13));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0004 LaunchBudgetCases.test:314 assertEqual actual', down.contentMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0004 LaunchBudgetCases.test:314 assertEqual expected', 12));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0004 LaunchBudgetCases.test:315 assertTrue actual', Number.isInteger(up.contentMs))).assertTrue();
     });
 
     /**
@@ -326,9 +328,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchSampleFactoryCases0005', 0, (): void => {
       const sample: LaunchSample = sampleOf('s6', 'brand-new', 1, 5);
-      expect(sample.group).assertEqual('brand-new');
-      expect(groupOf(sample.group)).assertUndefined();
-      expect(groupLabel(sample.group)).assertEqual('brand-new');
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0005 LaunchBudgetCases.test:329 assertEqual actual', sample.group)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0005 LaunchBudgetCases.test:329 assertEqual expected', 'brand-new'));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0005 LaunchBudgetCases.test:330 assertUndefined actual', groupOf(sample.group))).assertUndefined();
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0005 LaunchBudgetCases.test:331 assertEqual actual', groupLabel(sample.group))).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0005 LaunchBudgetCases.test:331 assertEqual expected', 'brand-new'));
     });
 
     /**
@@ -342,9 +344,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchSampleFactoryCases0006', 0, (): void => {
       const sample: LaunchSample = sampleOf('s7', 'cold', 0, 0);
-      expect(sample.at).assertEqual(0);
-      expect(sample.contentMs).assertEqual(0);
-      expect(sample.id).assertEqual('s7');
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0006 LaunchBudgetCases.test:345 assertEqual actual', sample.at)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0006 LaunchBudgetCases.test:345 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0006 LaunchBudgetCases.test:346 assertEqual actual', sample.contentMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0006 LaunchBudgetCases.test:346 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0006 LaunchBudgetCases.test:347 assertEqual actual', sample.id)).assertEqual(traceParameter('com.samples.appperformance_LaunchSampleFactoryCases_0006 LaunchBudgetCases.test:347 assertEqual expected', 's7'));
     });
   });
 
@@ -359,9 +361,9 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchQuantileCases0001', 0, (): void => {
-      expect(quantileOf([], 50)).assertEqual(0);
-      expect(quantileOf([], 0)).assertEqual(0);
-      expect(quantileOf([], 100)).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0001 LaunchBudgetCases.test:362 assertEqual actual', quantileOf([], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0001 LaunchBudgetCases.test:362 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0001 LaunchBudgetCases.test:363 assertEqual actual', quantileOf([], 0))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0001 LaunchBudgetCases.test:363 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0001 LaunchBudgetCases.test:364 assertEqual actual', quantileOf([], 100))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0001 LaunchBudgetCases.test:364 assertEqual expected', 0));
     });
 
     /**
@@ -374,9 +376,9 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchQuantileCases0002', 0, (): void => {
-      expect(quantileOf([42], 0)).assertEqual(42);
-      expect(quantileOf([42], 50)).assertEqual(42);
-      expect(quantileOf([42], 100)).assertEqual(42);
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0002 LaunchBudgetCases.test:377 assertEqual actual', quantileOf([42], 0))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0002 LaunchBudgetCases.test:377 assertEqual expected', 42));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0002 LaunchBudgetCases.test:378 assertEqual actual', quantileOf([42], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0002 LaunchBudgetCases.test:378 assertEqual expected', 42));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0002 LaunchBudgetCases.test:379 assertEqual actual', quantileOf([42], 100))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0002 LaunchBudgetCases.test:379 assertEqual expected', 42));
     });
 
     /**
@@ -390,10 +392,10 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchQuantileCases0003', 0, (): void => {
       const values: number[] = [900, 120, 640, 300];
-      expect(quantileOf(values, 0)).assertEqual(120);
-      expect(quantileOf(values, 0)).assertEqual(
-        values.reduce((peak: number, value: number): number => Math.min(peak, value), 10000));
-      expect(quantileOf(values, 0) < quantileOf(values, 50)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0003 LaunchBudgetCases.test:393 assertEqual actual', quantileOf(values, 0))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0003 LaunchBudgetCases.test:393 assertEqual expected', 120));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0003 LaunchBudgetCases.test:394 assertEqual actual', quantileOf(values, 0))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0003 LaunchBudgetCases.test:394 assertEqual expected', 
+        values.reduce((peak: number, value: number): number => Math.min(peak, value), 10000)));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0003 LaunchBudgetCases.test:396 assertTrue actual', quantileOf(values, 0) < quantileOf(values, 50))).assertTrue();
     });
 
     /**
@@ -407,10 +409,10 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchQuantileCases0004', 0, (): void => {
       const values: number[] = [900, 120, 640, 300];
-      expect(quantileOf(values, 100)).assertEqual(900);
-      expect(quantileOf(values, 100)).assertEqual(
-        values.reduce((peak: number, value: number): number => Math.max(peak, value), 0));
-      expect(quantileOf(values, 100) > quantileOf(values, 50)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0004 LaunchBudgetCases.test:410 assertEqual actual', quantileOf(values, 100))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0004 LaunchBudgetCases.test:410 assertEqual expected', 900));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0004 LaunchBudgetCases.test:411 assertEqual actual', quantileOf(values, 100))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0004 LaunchBudgetCases.test:411 assertEqual expected', 
+        values.reduce((peak: number, value: number): number => Math.max(peak, value), 0)));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0004 LaunchBudgetCases.test:413 assertTrue actual', quantileOf(values, 100) > quantileOf(values, 50))).assertTrue();
     });
 
     /**
@@ -423,9 +425,9 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchQuantileCases0005', 0, (): void => {
-      expect(quantileOf([10, 20, 30], 50)).assertEqual(20);
-      expect(quantileOf([30, 10, 20], 50)).assertEqual(20);
-      expect(quantileOf([1, 2, 3, 4, 5], 50)).assertEqual(3);
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0005 LaunchBudgetCases.test:426 assertEqual actual', quantileOf([10, 20, 30], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0005 LaunchBudgetCases.test:426 assertEqual expected', 20));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0005 LaunchBudgetCases.test:427 assertEqual actual', quantileOf([30, 10, 20], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0005 LaunchBudgetCases.test:427 assertEqual expected', 20));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0005 LaunchBudgetCases.test:428 assertEqual actual', quantileOf([1, 2, 3, 4, 5], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0005 LaunchBudgetCases.test:428 assertEqual expected', 3));
     });
 
     /**
@@ -438,9 +440,9 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchQuantileCases0006', 0, (): void => {
-      expect(quantileOf([10, 20], 50)).assertEqual(15);
-      expect(quantileOf([10, 20, 30, 40], 50)).assertEqual(25);
-      expect(quantileOf([0, 100], 50)).assertEqual(50);
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0006 LaunchBudgetCases.test:441 assertEqual actual', quantileOf([10, 20], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0006 LaunchBudgetCases.test:441 assertEqual expected', 15));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0006 LaunchBudgetCases.test:442 assertEqual actual', quantileOf([10, 20, 30, 40], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0006 LaunchBudgetCases.test:442 assertEqual expected', 25));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0006 LaunchBudgetCases.test:443 assertEqual actual', quantileOf([0, 100], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0006 LaunchBudgetCases.test:443 assertEqual expected', 50));
     });
 
     /**
@@ -454,9 +456,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchQuantileCases0007', 0, (): void => {
       const values: number[] = [5, 15, 25];
-      expect(quantileOf(values, -40)).assertEqual(5);
-      expect(quantileOf(values, 240)).assertEqual(25);
-      expect(quantileOf(values, -1)).assertEqual(quantileOf(values, 0));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0007 LaunchBudgetCases.test:457 assertEqual actual', quantileOf(values, -40))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0007 LaunchBudgetCases.test:457 assertEqual expected', 5));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0007 LaunchBudgetCases.test:458 assertEqual actual', quantileOf(values, 240))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0007 LaunchBudgetCases.test:458 assertEqual expected', 25));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0007 LaunchBudgetCases.test:459 assertEqual actual', quantileOf(values, -1))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0007 LaunchBudgetCases.test:459 assertEqual expected', quantileOf(values, 0)));
     });
 
     /**
@@ -472,9 +474,9 @@ export default function launchBudgetCasesTest(): void {
       const values: number[] = [300, 100, 200];
       const snapshot: string = values.join(',');
       quantileOf(values, 90);
-      expect(values.join(',')).assertEqual(snapshot);
-      expect(values[0]).assertEqual(300);
-      expect(values.length).assertEqual(3);
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0008 LaunchBudgetCases.test:475 assertEqual actual', values.join(','))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0008 LaunchBudgetCases.test:475 assertEqual expected', snapshot));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0008 LaunchBudgetCases.test:476 assertEqual actual', values[0])).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0008 LaunchBudgetCases.test:476 assertEqual expected', 300));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0008 LaunchBudgetCases.test:477 assertEqual actual', values.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0008 LaunchBudgetCases.test:477 assertEqual expected', 3));
     });
 
     /**
@@ -491,9 +493,9 @@ export default function launchBudgetCasesTest(): void {
       const p10: number = quantileOf(values, 10);
       const p50: number = quantileOf(values, 50);
       const p90: number = quantileOf(values, 90);
-      expect(p10 >= values[0]).assertTrue();
-      expect(p10 < p50).assertTrue();
-      expect(p50 <= p90 && p90 <= values[4]).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0009 LaunchBudgetCases.test:494 assertTrue actual', p10 >= values[0])).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0009 LaunchBudgetCases.test:495 assertTrue actual', p10 < p50)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0009 LaunchBudgetCases.test:496 assertTrue actual', p50 <= p90 && p90 <= values[4])).assertTrue();
     });
 
     /**
@@ -506,9 +508,9 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchQuantileCases0010', 0, (): void => {
-      expect(quantileOf([0, 100], 25)).assertEqual(25);
-      expect(quantileOf([0, 100], 75)).assertEqual(75);
-      expect(quantileOf([0, 100], 90)).assertEqual(90);
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0010 LaunchBudgetCases.test:509 assertEqual actual', quantileOf([0, 100], 25))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0010 LaunchBudgetCases.test:509 assertEqual expected', 25));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0010 LaunchBudgetCases.test:510 assertEqual actual', quantileOf([0, 100], 75))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0010 LaunchBudgetCases.test:510 assertEqual expected', 75));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0010 LaunchBudgetCases.test:511 assertEqual actual', quantileOf([0, 100], 90))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0010 LaunchBudgetCases.test:511 assertEqual expected', 90));
     });
 
     /**
@@ -523,9 +525,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchQuantileCases0011', 0, (): void => {
       const ascending: number[] = [100, 200, 300, 400];
       const descending: number[] = [400, 300, 200, 100];
-      expect(quantileOf(ascending, 50)).assertEqual(quantileOf(descending, 50));
-      expect(quantileOf(ascending, 90)).assertEqual(quantileOf(descending, 90));
-      expect(quantileOf(ascending, 0)).assertEqual(100);
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0011 LaunchBudgetCases.test:526 assertEqual actual', quantileOf(ascending, 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0011 LaunchBudgetCases.test:526 assertEqual expected', quantileOf(descending, 50)));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0011 LaunchBudgetCases.test:527 assertEqual actual', quantileOf(ascending, 90))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0011 LaunchBudgetCases.test:527 assertEqual expected', quantileOf(descending, 90)));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0011 LaunchBudgetCases.test:528 assertEqual actual', quantileOf(ascending, 0))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0011 LaunchBudgetCases.test:528 assertEqual expected', 100));
     });
 
     /**
@@ -539,9 +541,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchQuantileCases0012', 0, (): void => {
       const values: number[] = [200, 200, 200, 400];
-      expect(quantileOf(values, 0)).assertEqual(200);
-      expect(quantileOf(values, 50)).assertEqual(200);
-      expect(quantileOf(values, 100)).assertEqual(400);
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0012 LaunchBudgetCases.test:542 assertEqual actual', quantileOf(values, 0))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0012 LaunchBudgetCases.test:542 assertEqual expected', 200));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0012 LaunchBudgetCases.test:543 assertEqual actual', quantileOf(values, 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0012 LaunchBudgetCases.test:543 assertEqual expected', 200));
+      expect(traceParameter('com.samples.appperformance_LaunchQuantileCases_0012 LaunchBudgetCases.test:544 assertEqual actual', quantileOf(values, 100))).assertEqual(traceParameter('com.samples.appperformance_LaunchQuantileCases_0012 LaunchBudgetCases.test:544 assertEqual expected', 400));
     });
   });
 
@@ -557,12 +559,12 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchGroupStatsCases0001', 0, (): void => {
       const stats: GroupStats = statsFor([], 'cold');
-      expect(stats.key).assertEqual('cold');
-      expect(stats.count).assertEqual(0);
-      expect(stats.p50).assertEqual(0);
-      expect(stats.p90).assertEqual(0);
-      expect(stats.worst).assertEqual(0);
-      expect(stats.mean).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:560 assertEqual actual', stats.key)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:560 assertEqual expected', 'cold'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:561 assertEqual actual', stats.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:561 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:562 assertEqual actual', stats.p50)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:562 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:563 assertEqual actual', stats.p90)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:563 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:564 assertEqual actual', stats.worst)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:564 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:565 assertEqual actual', stats.mean)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0001 LaunchBudgetCases.test:565 assertEqual expected', 0));
     });
 
     /**
@@ -579,9 +581,9 @@ export default function launchBudgetCasesTest(): void {
         samplesOf('cold', 3, 100, 10),
         samplesOf('hot', 4, 50, 5)
       ]);
-      expect(statsFor(samples, 'cold').count).assertEqual(3);
-      expect(statsFor(samples, 'hot').count).assertEqual(4);
-      expect(statsFor(samples, 'warm').count).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0002 LaunchBudgetCases.test:582 assertEqual actual', statsFor(samples, 'cold').count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0002 LaunchBudgetCases.test:582 assertEqual expected', 3));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0002 LaunchBudgetCases.test:583 assertEqual actual', statsFor(samples, 'hot').count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0002 LaunchBudgetCases.test:583 assertEqual expected', 4));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0002 LaunchBudgetCases.test:584 assertEqual actual', statsFor(samples, 'warm').count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0002 LaunchBudgetCases.test:584 assertEqual expected', 0));
     });
 
     /**
@@ -596,9 +598,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchGroupStatsCases0003', 0, (): void => {
       const samples: LaunchSample[] = mergeSamples([samplesOf('cold', 5, 100, 100)]);
       const stats: GroupStats = statsFor(samples, 'cold');
-      expect(stats.p50).assertEqual(300);
-      expect(stats.p90).assertEqual(460);
-      expect(stats.p90 >= stats.p50).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0003 LaunchBudgetCases.test:599 assertEqual actual', stats.p50)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0003 LaunchBudgetCases.test:599 assertEqual expected', 300));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0003 LaunchBudgetCases.test:600 assertEqual actual', stats.p90)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0003 LaunchBudgetCases.test:600 assertEqual expected', 460));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0003 LaunchBudgetCases.test:601 assertTrue actual', stats.p90 >= stats.p50)).assertTrue();
     });
 
     /**
@@ -613,9 +615,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchGroupStatsCases0004', 0, (): void => {
       const samples: LaunchSample[] = mergeSamples([samplesOf('warm', 4, 400, -80)]);
       const stats: GroupStats = statsFor(samples, 'warm');
-      expect(stats.worst).assertEqual(400);
-      expect(stats.worst >= stats.p90).assertTrue();
-      expect(stats.count).assertEqual(4);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0004 LaunchBudgetCases.test:616 assertEqual actual', stats.worst)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0004 LaunchBudgetCases.test:616 assertEqual expected', 400));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0004 LaunchBudgetCases.test:617 assertTrue actual', stats.worst >= stats.p90)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0004 LaunchBudgetCases.test:618 assertEqual actual', stats.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0004 LaunchBudgetCases.test:618 assertEqual expected', 4));
     });
 
     /**
@@ -633,9 +635,9 @@ export default function launchBudgetCasesTest(): void {
         sampleOf('b', 'hot', 1, 101)
       ];
       const stats: GroupStats = statsFor(samples, 'hot');
-      expect(stats.mean).assertEqual(101);
-      expect(Number.isInteger(stats.mean)).assertTrue();
-      expect(stats.count).assertEqual(2);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0005 LaunchBudgetCases.test:636 assertEqual actual', stats.mean)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0005 LaunchBudgetCases.test:636 assertEqual expected', 101));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0005 LaunchBudgetCases.test:637 assertTrue actual', Number.isInteger(stats.mean))).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0005 LaunchBudgetCases.test:638 assertEqual actual', stats.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0005 LaunchBudgetCases.test:638 assertEqual expected', 2));
     });
 
     /**
@@ -650,9 +652,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchGroupStatsCases0006', 0, (): void => {
       const samples: LaunchSample[] = mergeSamples([samplesOf('firstFrame', 2, 700, 100)]);
       const text: string = statsFor(samples, 'firstFrame').text();
-      expect(text.indexOf('首帧') >= 0).assertTrue();
-      expect(text.indexOf('2 条') >= 0).assertTrue();
-      expect(text.indexOf('P90') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0006 LaunchBudgetCases.test:653 assertTrue actual', text.indexOf('首帧') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0006 LaunchBudgetCases.test:654 assertTrue actual', text.indexOf('2 条') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0006 LaunchBudgetCases.test:655 assertTrue actual', text.indexOf('P90') >= 0)).assertTrue();
     });
 
     /**
@@ -666,11 +668,11 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchGroupStatsCases0007', 0, (): void => {
       const stats: GroupStats[] = allStats([]);
-      expect(stats.length).assertEqual(LAUNCH_GROUPS.length);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0007 LaunchBudgetCases.test:669 assertEqual actual', stats.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0007 LaunchBudgetCases.test:669 assertEqual expected', LAUNCH_GROUPS.length));
       stats.forEach((item: GroupStats, index: number): void => {
-        expect(item.key).assertEqual(LAUNCH_GROUPS[index].key);
+        expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0007 LaunchBudgetCases.test:671 assertEqual actual', item.key)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0007 LaunchBudgetCases.test:671 assertEqual expected', LAUNCH_GROUPS[index].key));
       });
-      expect(allStats([]).every((item: GroupStats): boolean => item.count === 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0007 LaunchBudgetCases.test:673 assertTrue actual', allStats([]).every((item: GroupStats): boolean => item.count === 0))).assertTrue();
     });
 
     /**
@@ -692,9 +694,9 @@ export default function launchBudgetCasesTest(): void {
       allStats(samples).forEach((item: GroupStats): void => {
         total += item.count;
       });
-      expect(total).assertEqual(samples.length);
-      expect(total).assertEqual(10);
-      expect(samples.length).assertEqual(10);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0008 LaunchBudgetCases.test:695 assertEqual actual', total)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0008 LaunchBudgetCases.test:695 assertEqual expected', samples.length));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0008 LaunchBudgetCases.test:696 assertEqual actual', total)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0008 LaunchBudgetCases.test:696 assertEqual expected', 10));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0008 LaunchBudgetCases.test:697 assertEqual actual', samples.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0008 LaunchBudgetCases.test:697 assertEqual expected', 10));
     });
 
     /**
@@ -715,9 +717,9 @@ export default function launchBudgetCasesTest(): void {
       allStats(samples).forEach((item: GroupStats): void => {
         total += item.count;
       });
-      expect(total).assertEqual(2);
-      expect(samples.length).assertEqual(3);
-      expect(samples.length).assertEqual(3);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0009 LaunchBudgetCases.test:718 assertEqual actual', total)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0009 LaunchBudgetCases.test:718 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0009 LaunchBudgetCases.test:719 assertEqual actual', samples.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0009 LaunchBudgetCases.test:719 assertEqual expected', 3));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0009 LaunchBudgetCases.test:720 assertEqual actual', samples.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0009 LaunchBudgetCases.test:720 assertEqual expected', 3));
     });
 
     /**
@@ -732,9 +734,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchGroupStatsCases0010', 0, (): void => {
       const samples: LaunchSample[] = mergeSamples([samplesOf('interactive', 6, 200, 37)]);
       const stats: GroupStats = statsFor(samples, 'interactive');
-      expect(stats.p90 >= stats.p50).assertTrue();
-      expect(stats.worst >= stats.p90).assertTrue();
-      expect(stats.mean >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0010 LaunchBudgetCases.test:735 assertTrue actual', stats.p90 >= stats.p50)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0010 LaunchBudgetCases.test:736 assertTrue actual', stats.worst >= stats.p90)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0010 LaunchBudgetCases.test:737 assertTrue actual', stats.mean >= 0)).assertTrue();
     });
 
     /**
@@ -749,9 +751,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchGroupStatsCases0011', 0, (): void => {
       const samples: LaunchSample[] = mergeSamples([samplesOf('cold', 2, 100, 10)]);
       const stats: GroupStats = statsFor(samples, '');
-      expect(stats.count).assertEqual(0);
-      expect(stats.key).assertEqual('');
-      expect(stats.key === 'cold').assertFalse();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0011 LaunchBudgetCases.test:752 assertEqual actual', stats.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0011 LaunchBudgetCases.test:752 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0011 LaunchBudgetCases.test:753 assertEqual actual', stats.key)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0011 LaunchBudgetCases.test:753 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0011 LaunchBudgetCases.test:754 assertFalse actual', stats.key === 'cold')).assertFalse();
     });
 
     /**
@@ -766,11 +768,11 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchGroupStatsCases0012', 0, (): void => {
       const samples: LaunchSample[] = [sampleOf('only', 'hot', 0, 320)];
       const stats: GroupStats = statsFor(samples, 'hot');
-      expect(stats.count).assertEqual(1);
-      expect(stats.p50).assertEqual(320);
-      expect(stats.p90).assertEqual(320);
-      expect(stats.worst).assertEqual(320);
-      expect(stats.mean).assertEqual(320);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:769 assertEqual actual', stats.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:769 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:770 assertEqual actual', stats.p50)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:770 assertEqual expected', 320));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:771 assertEqual actual', stats.p90)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:771 assertEqual expected', 320));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:772 assertEqual actual', stats.worst)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:772 assertEqual expected', 320));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:773 assertEqual actual', stats.mean)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupStatsCases_0012 LaunchBudgetCases.test:773 assertEqual expected', 320));
     });
   });
 
@@ -786,11 +788,11 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchBudgetEvaluationCases0001', 0, (): void => {
       const report: BudgetReport = evaluateBudgets([]);
-      expect(report.results.length).assertEqual(LAUNCH_GROUPS.length);
-      expect(report.measured()).assertEqual(0);
-      expect(report.passed()).assertEqual(0);
-      expect(report.failed()).assertEqual(0);
-      expect(report.passRate()).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:789 assertEqual actual', report.results.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:789 assertEqual expected', LAUNCH_GROUPS.length));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:790 assertEqual actual', report.measured())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:790 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:791 assertEqual actual', report.passed())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:791 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:792 assertEqual actual', report.failed())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:792 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:793 assertEqual actual', report.passRate())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0001 LaunchBudgetCases.test:793 assertEqual expected', 0));
     });
 
     /**
@@ -804,9 +806,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchBudgetEvaluationCases0002', 0, (): void => {
       const report: BudgetReport = evaluateBudgets([]);
-      expect(report.headline()).assertEqual('暂无启动样本');
-      expect(report.text().indexOf('暂无启动样本') >= 0).assertTrue();
-      expect(report.failures().length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0002 LaunchBudgetCases.test:807 assertEqual actual', report.headline())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0002 LaunchBudgetCases.test:807 assertEqual expected', '暂无启动样本'));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0002 LaunchBudgetCases.test:808 assertTrue actual', report.text().indexOf('暂无启动样本') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0002 LaunchBudgetCases.test:809 assertEqual actual', report.failures().length)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0002 LaunchBudgetCases.test:809 assertEqual expected', 0));
     });
 
     /**
@@ -825,10 +827,10 @@ export default function launchBudgetCasesTest(): void {
         item.key === 'cold');
       const warm: BudgetResult | undefined = report.results.find((item: BudgetResult): boolean =>
         item.key === 'warm');
-      expect(cold?.passed).assertTrue();
-      expect(warm?.passed).assertTrue();
-      expect(warm?.count).assertEqual(0);
-      expect(report.measured()).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0003 LaunchBudgetCases.test:828 assertTrue actual', cold?.passed)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0003 LaunchBudgetCases.test:829 assertTrue actual', warm?.passed)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0003 LaunchBudgetCases.test:830 assertEqual actual', warm?.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0003 LaunchBudgetCases.test:830 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0003 LaunchBudgetCases.test:831 assertEqual actual', report.measured())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0003 LaunchBudgetCases.test:831 assertEqual expected', 1));
     });
 
     /**
@@ -845,11 +847,11 @@ export default function launchBudgetCasesTest(): void {
       const report: BudgetReport = evaluateBudgets(samples);
       const hot: BudgetResult | undefined = report.results.find((item: BudgetResult): boolean =>
         item.key === 'hot');
-      expect(hot?.passed).assertFalse();
-      expect(hot?.overshoot()).assertEqual(118);
-      expect(hot?.overshoot()).assertEqual((hot?.p90 ?? 0) - 400);
-      expect(report.failed()).assertEqual(1);
-      expect(report.headline()).assertEqual('1 组超出预算');
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:848 assertFalse actual', hot?.passed)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:849 assertEqual actual', hot?.overshoot())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:849 assertEqual expected', 118));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:850 assertEqual actual', hot?.overshoot())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:850 assertEqual expected', (hot?.p90 ?? 0) - 400));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:851 assertEqual actual', report.failed())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:851 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:852 assertEqual actual', report.headline())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0004 LaunchBudgetCases.test:852 assertEqual expected', '1 组超出预算'));
     });
 
     /**
@@ -866,9 +868,9 @@ export default function launchBudgetCasesTest(): void {
       const overBudget: LaunchSample[] = [sampleOf('edge', 'hot', 0, 401)];
       const passReport: BudgetReport = evaluateBudgets(atBudget);
       const failReport: BudgetReport = evaluateBudgets(overBudget);
-      expect(passReport.failed()).assertEqual(0);
-      expect(failReport.failed()).assertEqual(1);
-      expect(passReport.passRate()).assertEqual(100);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0005 LaunchBudgetCases.test:869 assertEqual actual', passReport.failed())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0005 LaunchBudgetCases.test:869 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0005 LaunchBudgetCases.test:870 assertEqual actual', failReport.failed())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0005 LaunchBudgetCases.test:870 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0005 LaunchBudgetCases.test:871 assertEqual actual', passReport.passRate())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0005 LaunchBudgetCases.test:871 assertEqual expected', 100));
     });
 
     /**
@@ -884,9 +886,9 @@ export default function launchBudgetCasesTest(): void {
       const report: BudgetReport = evaluateBudgets([sampleOf('ok', 'cold', 0, 600)]);
       const cold: BudgetResult | undefined = report.results.find((item: BudgetResult): boolean =>
         item.key === 'cold');
-      expect(cold?.passed).assertTrue();
-      expect(cold?.overshoot()).assertEqual(0);
-      expect(cold?.count).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0006 LaunchBudgetCases.test:887 assertTrue actual', cold?.passed)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0006 LaunchBudgetCases.test:888 assertEqual actual', cold?.overshoot())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0006 LaunchBudgetCases.test:888 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0006 LaunchBudgetCases.test:889 assertEqual actual', cold?.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0006 LaunchBudgetCases.test:889 assertEqual expected', 1));
     });
 
     /**
@@ -902,9 +904,9 @@ export default function launchBudgetCasesTest(): void {
       const result: BudgetResult = new BudgetResult();
       result.key = 'warm';
       result.label = '温启动';
-      expect(result.text()).assertEqual('温启动：暂无样本');
-      expect(result.count).assertEqual(0);
-      expect(result.overshoot()).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0007 LaunchBudgetCases.test:905 assertEqual actual', result.text())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0007 LaunchBudgetCases.test:905 assertEqual expected', '温启动：暂无样本'));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0007 LaunchBudgetCases.test:906 assertEqual actual', result.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0007 LaunchBudgetCases.test:906 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0007 LaunchBudgetCases.test:907 assertEqual actual', result.overshoot())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0007 LaunchBudgetCases.test:907 assertEqual expected', 0));
     });
 
     /**
@@ -923,9 +925,9 @@ export default function launchBudgetCasesTest(): void {
       result.p90 = 300;
       result.budgetMs = 400;
       result.passed = true;
-      expect(result.text().indexOf('达标') >= 0).assertTrue();
-      expect(result.text().indexOf('300') >= 0).assertTrue();
-      expect(result.text().indexOf('超出')).assertEqual(-1);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0008 LaunchBudgetCases.test:926 assertTrue actual', result.text().indexOf('达标') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0008 LaunchBudgetCases.test:927 assertTrue actual', result.text().indexOf('300') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0008 LaunchBudgetCases.test:928 assertEqual actual', result.text().indexOf('超出'))).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0008 LaunchBudgetCases.test:928 assertEqual expected', -1));
     });
 
     /**
@@ -944,9 +946,9 @@ export default function launchBudgetCasesTest(): void {
       result.p90 = 1500;
       result.budgetMs = 1200;
       result.passed = false;
-      expect(result.text().indexOf('超出 300 ms') >= 0).assertTrue();
-      expect(result.overshoot()).assertEqual(300);
-      expect(result.text().indexOf('达标')).assertEqual(-1);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0009 LaunchBudgetCases.test:947 assertTrue actual', result.text().indexOf('超出 300 ms') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0009 LaunchBudgetCases.test:948 assertEqual actual', result.overshoot())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0009 LaunchBudgetCases.test:948 assertEqual expected', 300));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0009 LaunchBudgetCases.test:949 assertEqual actual', result.text().indexOf('达标'))).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0009 LaunchBudgetCases.test:949 assertEqual expected', -1));
     });
 
     /**
@@ -961,9 +963,9 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchBudgetEvaluationCases0010', 0, (): void => {
       const report: BudgetReport = evaluateBudgets([sampleOf('ok', 'hot', 0, 100)]);
       const lines: string[] = report.text().split('\n');
-      expect(lines.length).assertEqual(LAUNCH_GROUPS.length + 1);
-      expect(lines[0].indexOf('启动预算') >= 0).assertTrue();
-      expect(lines[0].indexOf('通过率') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0010 LaunchBudgetCases.test:964 assertEqual actual', lines.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0010 LaunchBudgetCases.test:964 assertEqual expected', LAUNCH_GROUPS.length + 1));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0010 LaunchBudgetCases.test:965 assertTrue actual', lines[0].indexOf('启动预算') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0010 LaunchBudgetCases.test:966 assertTrue actual', lines[0].indexOf('通过率') >= 0)).assertTrue();
     });
 
     /**
@@ -981,10 +983,10 @@ export default function launchBudgetCasesTest(): void {
         samplesOf('hot', 2, 900, 10)
       ]);
       const report: BudgetReport = evaluateBudgets(samples);
-      expect(report.measured()).assertEqual(2);
-      expect(report.passed()).assertEqual(1);
-      expect(report.failed()).assertEqual(1);
-      expect(report.passRate()).assertEqual(50);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0011 LaunchBudgetCases.test:984 assertEqual actual', report.measured())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0011 LaunchBudgetCases.test:984 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0011 LaunchBudgetCases.test:985 assertEqual actual', report.passed())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0011 LaunchBudgetCases.test:985 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0011 LaunchBudgetCases.test:986 assertEqual actual', report.failed())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0011 LaunchBudgetCases.test:986 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0011 LaunchBudgetCases.test:987 assertEqual actual', report.passRate())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0011 LaunchBudgetCases.test:987 assertEqual expected', 50));
     });
 
     /**
@@ -999,10 +1001,10 @@ export default function launchBudgetCasesTest(): void {
     it('testLaunchBudgetEvaluationCases0012', 0, (): void => {
       const report: BudgetReport = evaluateBudgets([sampleOf('slow', 'warm', 0, 2000)]);
       const failures: BudgetResult[] = report.failures();
-      expect(failures.length).assertEqual(1);
-      expect(failures[0].key).assertEqual('warm');
-      expect(failures[0].count > 0).assertTrue();
-      expect(report.results.length).assertEqual(5);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0012 LaunchBudgetCases.test:1002 assertEqual actual', failures.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0012 LaunchBudgetCases.test:1002 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0012 LaunchBudgetCases.test:1003 assertEqual actual', failures[0].key)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0012 LaunchBudgetCases.test:1003 assertEqual expected', 'warm'));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0012 LaunchBudgetCases.test:1004 assertTrue actual', failures[0].count > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0012 LaunchBudgetCases.test:1005 assertEqual actual', report.results.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0012 LaunchBudgetCases.test:1005 assertEqual expected', 5));
     });
 
     /**
@@ -1021,9 +1023,9 @@ export default function launchBudgetCasesTest(): void {
         samplesOf('hot', 2, 200, 10)
       ]);
       const report: BudgetReport = evaluateBudgets(samples);
-      expect(report.headline()).assertEqual('全部达标');
-      expect(report.failed()).assertEqual(0);
-      expect(report.passRate()).assertEqual(100);
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0013 LaunchBudgetCases.test:1024 assertEqual actual', report.headline())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0013 LaunchBudgetCases.test:1024 assertEqual expected', '全部达标'));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0013 LaunchBudgetCases.test:1025 assertEqual actual', report.failed())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0013 LaunchBudgetCases.test:1025 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0013 LaunchBudgetCases.test:1026 assertEqual actual', report.passRate())).assertEqual(traceParameter('com.samples.appperformance_LaunchBudgetEvaluationCases_0013 LaunchBudgetCases.test:1026 assertEqual expected', 100));
     });
   });
 
@@ -1043,9 +1045,9 @@ export default function launchBudgetCasesTest(): void {
       const report: RegressionReport = compareLaunches(before, after);
       const cold: RegressionResult | undefined = report.results.find((item: RegressionResult): boolean =>
         item.key === 'cold');
-      expect(cold?.verdict).assertEqual(RegressionVerdict.UNKNOWN);
-      expect(cold?.beforeP90).assertEqual(509);
-      expect(cold?.afterP90).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0001 LaunchBudgetCases.test:1046 assertEqual actual', cold?.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0001 LaunchBudgetCases.test:1046 assertEqual expected', RegressionVerdict.UNKNOWN));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0001 LaunchBudgetCases.test:1047 assertEqual actual', cold?.beforeP90)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0001 LaunchBudgetCases.test:1047 assertEqual expected', 509));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0001 LaunchBudgetCases.test:1048 assertEqual actual', cold?.afterP90)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0001 LaunchBudgetCases.test:1048 assertEqual expected', 0));
     });
 
     /**
@@ -1059,11 +1061,11 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchRegressionCases0002', 0, (): void => {
       const report: RegressionReport = compareLaunches([], []);
-      expect(report.results.length).assertEqual(LAUNCH_GROUPS.length);
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0002 LaunchBudgetCases.test:1062 assertEqual actual', report.results.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0002 LaunchBudgetCases.test:1062 assertEqual expected', LAUNCH_GROUPS.length));
       report.results.forEach((item: RegressionResult): void => {
-        expect(item.verdict).assertEqual(RegressionVerdict.UNKNOWN);
+        expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0002 LaunchBudgetCases.test:1064 assertEqual actual', item.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0002 LaunchBudgetCases.test:1064 assertEqual expected', RegressionVerdict.UNKNOWN));
       });
-      expect(report.regressed().length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0002 LaunchBudgetCases.test:1066 assertEqual actual', report.regressed().length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0002 LaunchBudgetCases.test:1066 assertEqual expected', 0));
     });
 
     /**
@@ -1080,9 +1082,9 @@ export default function launchBudgetCasesTest(): void {
       const report: RegressionReport = compareLaunches(samples, samples);
       const cold: RegressionResult | undefined = report.results.find((item: RegressionResult): boolean =>
         item.key === 'cold');
-      expect(cold?.verdict).assertEqual(RegressionVerdict.STABLE);
-      expect(cold?.changePercent()).assertEqual(0);
-      expect(report.headline()).assertEqual('没有回归');
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0003 LaunchBudgetCases.test:1083 assertEqual actual', cold?.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0003 LaunchBudgetCases.test:1083 assertEqual expected', RegressionVerdict.STABLE));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0003 LaunchBudgetCases.test:1084 assertEqual actual', cold?.changePercent())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0003 LaunchBudgetCases.test:1084 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0003 LaunchBudgetCases.test:1085 assertEqual actual', report.headline())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0003 LaunchBudgetCases.test:1085 assertEqual expected', '没有回归'));
     });
 
     /**
@@ -1100,9 +1102,9 @@ export default function launchBudgetCasesTest(): void {
       const report: RegressionReport = compareLaunches(before, after);
       const hot: RegressionResult | undefined = report.results.find((item: RegressionResult): boolean =>
         item.key === 'hot');
-      expect(hot?.verdict).assertEqual(RegressionVerdict.REGRESSED);
-      expect(hot?.changePercent()).assertEqual(20);
-      expect(report.regressed().length).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0004 LaunchBudgetCases.test:1103 assertEqual actual', hot?.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0004 LaunchBudgetCases.test:1103 assertEqual expected', RegressionVerdict.REGRESSED));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0004 LaunchBudgetCases.test:1104 assertEqual actual', hot?.changePercent())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0004 LaunchBudgetCases.test:1104 assertEqual expected', 20));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0004 LaunchBudgetCases.test:1105 assertEqual actual', report.regressed().length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0004 LaunchBudgetCases.test:1105 assertEqual expected', 1));
     });
 
     /**
@@ -1120,9 +1122,9 @@ export default function launchBudgetCasesTest(): void {
       const report: RegressionReport = compareLaunches(before, after);
       const hot: RegressionResult | undefined = report.results.find((item: RegressionResult): boolean =>
         item.key === 'hot');
-      expect(hot?.verdict).assertEqual(RegressionVerdict.IMPROVED);
-      expect(hot?.changePercent()).assertEqual(-15);
-      expect(report.headline()).assertEqual('没有回归');
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0005 LaunchBudgetCases.test:1123 assertEqual actual', hot?.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0005 LaunchBudgetCases.test:1123 assertEqual expected', RegressionVerdict.IMPROVED));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0005 LaunchBudgetCases.test:1124 assertEqual actual', hot?.changePercent())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0005 LaunchBudgetCases.test:1124 assertEqual expected', -15));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0005 LaunchBudgetCases.test:1125 assertEqual actual', report.headline())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0005 LaunchBudgetCases.test:1125 assertEqual expected', '没有回归'));
     });
 
     /**
@@ -1140,9 +1142,9 @@ export default function launchBudgetCasesTest(): void {
       const report: RegressionReport = compareLaunches(before, after);
       const warm: RegressionResult | undefined = report.results.find((item: RegressionResult): boolean =>
         item.key === 'warm');
-      expect(warm?.verdict).assertEqual(RegressionVerdict.STABLE);
-      expect(warm?.changePercent()).assertEqual(5);
-      expect(warm?.beforeP90).assertEqual(1000);
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0006 LaunchBudgetCases.test:1143 assertEqual actual', warm?.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0006 LaunchBudgetCases.test:1143 assertEqual expected', RegressionVerdict.STABLE));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0006 LaunchBudgetCases.test:1144 assertEqual actual', warm?.changePercent())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0006 LaunchBudgetCases.test:1144 assertEqual expected', 5));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0006 LaunchBudgetCases.test:1145 assertEqual actual', warm?.beforeP90)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0006 LaunchBudgetCases.test:1145 assertEqual expected', 1000));
     });
 
     /**
@@ -1163,9 +1165,9 @@ export default function launchBudgetCasesTest(): void {
         item.key === 'cold');
       const looseCold: RegressionResult | undefined = loose.results.find((item: RegressionResult): boolean =>
         item.key === 'cold');
-      expect(strictCold?.verdict).assertEqual(RegressionVerdict.REGRESSED);
-      expect(looseCold?.verdict).assertEqual(RegressionVerdict.STABLE);
-      expect(strict.results.length > 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0007 LaunchBudgetCases.test:1166 assertEqual actual', strictCold?.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0007 LaunchBudgetCases.test:1166 assertEqual expected', RegressionVerdict.REGRESSED));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0007 LaunchBudgetCases.test:1167 assertEqual actual', looseCold?.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0007 LaunchBudgetCases.test:1167 assertEqual expected', RegressionVerdict.STABLE));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0007 LaunchBudgetCases.test:1168 assertTrue actual', strict.results.length > 0)).assertTrue();
     });
 
     /**
@@ -1184,9 +1186,9 @@ export default function launchBudgetCasesTest(): void {
       const grown: RegressionResult = new RegressionResult();
       grown.beforeP90 = 0;
       grown.afterP90 = 240;
-      expect(zero.changePercent()).assertEqual(0);
-      expect(grown.changePercent()).assertEqual(100);
-      expect(grown.changePercent() > 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0008 LaunchBudgetCases.test:1187 assertEqual actual', zero.changePercent())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0008 LaunchBudgetCases.test:1187 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0008 LaunchBudgetCases.test:1188 assertEqual actual', grown.changePercent())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0008 LaunchBudgetCases.test:1188 assertEqual expected', 100));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0008 LaunchBudgetCases.test:1189 assertTrue actual', grown.changePercent() > 0)).assertTrue();
     });
 
     /**
@@ -1199,10 +1201,10 @@ export default function launchBudgetCasesTest(): void {
      */
 
     it('testLaunchRegressionCases0009', 0, (): void => {
-      expect(regressionLabel(RegressionVerdict.IMPROVED)).assertEqual('变快');
-      expect(regressionLabel(RegressionVerdict.STABLE)).assertEqual('持平');
-      expect(regressionLabel(RegressionVerdict.REGRESSED)).assertEqual('变慢');
-      expect(regressionLabel(RegressionVerdict.UNKNOWN)).assertEqual('无法比较');
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0009 LaunchBudgetCases.test:1202 assertEqual actual', regressionLabel(RegressionVerdict.IMPROVED))).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0009 LaunchBudgetCases.test:1202 assertEqual expected', '变快'));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0009 LaunchBudgetCases.test:1203 assertEqual actual', regressionLabel(RegressionVerdict.STABLE))).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0009 LaunchBudgetCases.test:1203 assertEqual expected', '持平'));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0009 LaunchBudgetCases.test:1204 assertEqual actual', regressionLabel(RegressionVerdict.REGRESSED))).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0009 LaunchBudgetCases.test:1204 assertEqual expected', '变慢'));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0009 LaunchBudgetCases.test:1205 assertEqual actual', regressionLabel(RegressionVerdict.UNKNOWN))).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0009 LaunchBudgetCases.test:1205 assertEqual expected', '无法比较'));
     });
 
     /**
@@ -1221,10 +1223,10 @@ export default function launchBudgetCasesTest(): void {
         regressionLabel(RegressionVerdict.REGRESSED),
         regressionLabel(RegressionVerdict.UNKNOWN)
       ];
-      expect(labels.filter((label: string, index: number): boolean =>
-        labels.indexOf(label) !== index).length).assertEqual(0);
-      expect(labels.every((label: string): boolean => label.length > 0)).assertTrue();
-      expect(labels.length).assertEqual(4);
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0010 LaunchBudgetCases.test:1224 assertEqual actual', labels.filter((label: string, index: number): boolean =>
+        labels.indexOf(label) !== index).length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0010 LaunchBudgetCases.test:1224 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0010 LaunchBudgetCases.test:1226 assertTrue actual', labels.every((label: string): boolean => label.length > 0))).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0010 LaunchBudgetCases.test:1227 assertEqual actual', labels.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0010 LaunchBudgetCases.test:1227 assertEqual expected', 4));
     });
 
     /**
@@ -1249,9 +1251,9 @@ export default function launchBudgetCasesTest(): void {
       ]);
       const report: RegressionReport = compareLaunches(before, after);
       const worse: RegressionResult[] = report.regressed();
-      expect(worse.length).assertEqual(1);
-      expect(worse[0].key).assertEqual('cold');
-      expect(report.headline()).assertEqual('1 组出现回归');
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0011 LaunchBudgetCases.test:1252 assertEqual actual', worse.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0011 LaunchBudgetCases.test:1252 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0011 LaunchBudgetCases.test:1253 assertEqual actual', worse[0].key)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0011 LaunchBudgetCases.test:1253 assertEqual expected', 'cold'));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0011 LaunchBudgetCases.test:1254 assertEqual actual', report.headline())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0011 LaunchBudgetCases.test:1254 assertEqual expected', '1 组出现回归'));
     });
 
     /**
@@ -1267,9 +1269,9 @@ export default function launchBudgetCasesTest(): void {
       const report: RegressionReport = compareLaunches(
         [sampleOf('b', 'cold', 0, 700)], [sampleOf('a', 'cold', 0, 800)]);
       const lines: string[] = report.text().split('\n');
-      expect(lines.length).assertEqual(LAUNCH_GROUPS.length + 1);
-      expect(lines[0].indexOf('回归检测') >= 0).assertTrue();
-      expect(report.text().indexOf('冷启动') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0012 LaunchBudgetCases.test:1270 assertEqual actual', lines.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0012 LaunchBudgetCases.test:1270 assertEqual expected', LAUNCH_GROUPS.length + 1));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0012 LaunchBudgetCases.test:1271 assertTrue actual', lines[0].indexOf('回归检测') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0012 LaunchBudgetCases.test:1272 assertTrue actual', report.text().indexOf('冷启动') >= 0)).assertTrue();
     });
 
     /**
@@ -1283,9 +1285,9 @@ export default function launchBudgetCasesTest(): void {
 
     it('testLaunchRegressionCases0013', 0, (): void => {
       const report: RegressionReport = new RegressionReport();
-      expect(report.headline()).assertEqual('没有可比样本');
-      expect(report.regressed().length).assertEqual(0);
-      expect(report.results.length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0013 LaunchBudgetCases.test:1286 assertEqual actual', report.headline())).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0013 LaunchBudgetCases.test:1286 assertEqual expected', '没有可比样本'));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0013 LaunchBudgetCases.test:1287 assertEqual actual', report.regressed().length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0013 LaunchBudgetCases.test:1287 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0013 LaunchBudgetCases.test:1288 assertEqual actual', report.results.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0013 LaunchBudgetCases.test:1288 assertEqual expected', 0));
     });
 
     /**
@@ -1304,9 +1306,9 @@ export default function launchBudgetCasesTest(): void {
       result.afterP90 = 1000;
       result.verdict = RegressionVerdict.REGRESSED;
       const text: string = result.text();
-      expect(text.indexOf('800 -> 1000') >= 0).assertTrue();
-      expect(text.indexOf('变慢') >= 0).assertTrue();
-      expect(text.indexOf('25%') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0014 LaunchBudgetCases.test:1307 assertTrue actual', text.indexOf('800 -> 1000') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0014 LaunchBudgetCases.test:1308 assertTrue actual', text.indexOf('变慢') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0014 LaunchBudgetCases.test:1309 assertTrue actual', text.indexOf('25%') >= 0)).assertTrue();
     });
 
     /**
@@ -1324,9 +1326,9 @@ export default function launchBudgetCasesTest(): void {
       const report: RegressionReport = compareLaunches(before, after);
       const hot: RegressionResult | undefined = report.results.find((item: RegressionResult): boolean =>
         item.key === 'hot');
-      expect(hot?.beforeP90).assertEqual(136);
-      expect(hot?.afterP90).assertEqual(136);
-      expect(hot?.verdict).assertEqual(RegressionVerdict.STABLE);
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0015 LaunchBudgetCases.test:1327 assertEqual actual', hot?.beforeP90)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0015 LaunchBudgetCases.test:1327 assertEqual expected', 136));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0015 LaunchBudgetCases.test:1328 assertEqual actual', hot?.afterP90)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0015 LaunchBudgetCases.test:1328 assertEqual expected', 136));
+      expect(traceParameter('com.samples.appperformance_LaunchRegressionCases_0015 LaunchBudgetCases.test:1329 assertEqual actual', hot?.verdict)).assertEqual(traceParameter('com.samples.appperformance_LaunchRegressionCases_0015 LaunchBudgetCases.test:1329 assertEqual expected', RegressionVerdict.STABLE));
     });
   });
 }

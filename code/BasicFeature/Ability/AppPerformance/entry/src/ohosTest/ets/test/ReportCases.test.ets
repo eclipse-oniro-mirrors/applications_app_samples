@@ -13,7 +13,10 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
+import { withTestMessages } from '../support/TestMessageResolver';
 import { ExperimentRecord, ExperimentStage } from '../../../main/ets/core/ExperimentLedger';
 import { FLOW_KEYS } from '../../../main/ets/core/FlowMetrics';
 import {
@@ -97,10 +100,10 @@ export default function reportCasesTest(): void {
      */
 
     it('testFingerprintBasicsCases0001', 0, (): void => {
-      expect(conditionVerdictLabel(ConditionVerdict.SAME)).assertEqual('同条件');
-      expect(conditionVerdictLabel(ConditionVerdict.PARTIAL)).assertEqual('部分不同');
-      expect(conditionVerdictLabel(ConditionVerdict.INCOMPARABLE)).assertEqual('不可比');
-      expect(ConditionVerdict.SAME).assertEqual('same');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0001 ReportCases.test:100 assertEqual actual', conditionVerdictLabel(ConditionVerdict.SAME))).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0001 ReportCases.test:100 assertEqual expected', '同条件'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0001 ReportCases.test:101 assertEqual actual', conditionVerdictLabel(ConditionVerdict.PARTIAL))).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0001 ReportCases.test:101 assertEqual expected', '部分不同'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0001 ReportCases.test:102 assertEqual actual', conditionVerdictLabel(ConditionVerdict.INCOMPARABLE))).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0001 ReportCases.test:102 assertEqual expected', '不可比'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0001 ReportCases.test:103 assertEqual actual', ConditionVerdict.SAME)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0001 ReportCases.test:103 assertEqual expected', 'same'));
     });
 
     /**
@@ -113,9 +116,9 @@ export default function reportCasesTest(): void {
      */
 
     it('testFingerprintBasicsCases0002', 0, (): void => {
-      expect(SAMPLING_PROTOCOL).assertEqual('ledger-v1 · 6 阶段 · 单次运行 · 同资源重读');
-      expect(SAMPLING_PROTOCOL.length > 0).assertTrue();
-      expect(SAMPLING_PROTOCOL.indexOf('|') < 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0002 ReportCases.test:116 assertEqual actual', SAMPLING_PROTOCOL)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0002 ReportCases.test:116 assertEqual expected', 'ledger-v1 · 6 阶段 · 单次运行 · 同资源重读'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0002 ReportCases.test:117 assertTrue actual', SAMPLING_PROTOCOL.length > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0002 ReportCases.test:118 assertTrue actual', SAMPLING_PROTOCOL.indexOf('|') < 0)).assertTrue();
     });
 
     /**
@@ -130,13 +133,13 @@ export default function reportCasesTest(): void {
     it('testFingerprintBasicsCases0003', 0, (): void => {
       const fields: ConditionFields = new ConditionFields();
       fields.mode = 'files';
-      expect(fields.modeLabel()).assertEqual('文件回收');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0003 ReportCases.test:133 assertEqual actual', fields.modeLabel())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0003 ReportCases.test:133 assertEqual expected', '文件回收'));
       fields.mode = 'modules';
-      expect(fields.modeLabel()).assertEqual('模块回收');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0003 ReportCases.test:135 assertEqual actual', fields.modeLabel())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0003 ReportCases.test:135 assertEqual expected', '模块回收'));
       fields.mode = 'control';
-      expect(fields.modeLabel()).assertEqual('对照组');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0003 ReportCases.test:137 assertEqual actual', fields.modeLabel())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0003 ReportCases.test:137 assertEqual expected', '对照组'));
       fields.mode = 'unknown';
-      expect(fields.modeLabel()).assertEqual('模式未记录');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0003 ReportCases.test:139 assertEqual actual', fields.modeLabel())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0003 ReportCases.test:139 assertEqual expected', '模式未记录'));
     });
 
     /**
@@ -150,11 +153,11 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintBasicsCases0004', 0, (): void => {
       const fields: ConditionFields = fieldsOf();
-      expect(fields.assetText()).assertEqual('1024 字节 / 摘要 abcdef12');
-      expect(fields.targetText()).assertEqual('0 项 / 摘要 tg-811c9dc5');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0004 ReportCases.test:153 assertEqual actual', fields.assetText())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0004 ReportCases.test:153 assertEqual expected', '1024 字节 / 摘要 abcdef12'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0004 ReportCases.test:154 assertEqual actual', fields.targetText())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0004 ReportCases.test:154 assertEqual expected', '0 项 / 摘要 tg-811c9dc5'));
       const empty: ConditionFields = new ConditionFields();
-      expect(empty.assetText()).assertEqual('大小未记录 / 摘要 未记录');
-      expect(empty.targetText()).assertEqual('个数未记录 / 摘要 未记录');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0004 ReportCases.test:156 assertEqual actual', empty.assetText())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0004 ReportCases.test:156 assertEqual expected', '大小未记录 / 摘要 未记录'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0004 ReportCases.test:157 assertEqual actual', empty.targetText())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0004 ReportCases.test:157 assertEqual expected', '个数未记录 / 摘要 未记录'));
     });
 
     /**
@@ -168,13 +171,13 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintBasicsCases0005', 0, (): void => {
       const source: ConditionSource = ConditionSource.fromEnvironment('Pixel 8 · SampleOS 14', ' 2.0 ');
-      expect(source.device).assertEqual('Pixel 8');
-      expect(source.osVersion).assertEqual('SampleOS 14');
-      expect(source.appVersion).assertEqual('2.0');
-      expect(source.protocol).assertEqual(SAMPLING_PROTOCOL);
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:171 assertEqual actual', source.device)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:171 assertEqual expected', 'Pixel 8'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:172 assertEqual actual', source.osVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:172 assertEqual expected', 'SampleOS 14'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:173 assertEqual actual', source.appVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:173 assertEqual expected', '2.0'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:174 assertEqual actual', source.protocol)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:174 assertEqual expected', SAMPLING_PROTOCOL));
       const single: ConditionSource = ConditionSource.fromEnvironment('OnlyModel', '1.0');
-      expect(single.device).assertEqual('OnlyModel');
-      expect(single.osVersion).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:176 assertEqual actual', single.device)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:176 assertEqual expected', 'OnlyModel'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:177 assertEqual actual', single.osVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0005 ReportCases.test:177 assertEqual expected', ''));
     });
 
     /**
@@ -188,11 +191,11 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintBasicsCases0006', 0, (): void => {
       const source: ConditionSource = ConditionSource.of('M', 'O', 'A');
-      expect(source.device).assertEqual('M');
-      expect(source.osVersion).assertEqual('O');
-      expect(source.appVersion).assertEqual('A');
-      expect(source.protocol).assertEqual(SAMPLING_PROTOCOL);
-      expect(ConditionSource.of('M', 'O', 'A', 'p2').protocol).assertEqual('p2');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:191 assertEqual actual', source.device)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:191 assertEqual expected', 'M'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:192 assertEqual actual', source.osVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:192 assertEqual expected', 'O'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:193 assertEqual actual', source.appVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:193 assertEqual expected', 'A'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:194 assertEqual actual', source.protocol)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:194 assertEqual expected', SAMPLING_PROTOCOL));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:195 assertEqual actual', ConditionSource.of('M', 'O', 'A', 'p2').protocol)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0006 ReportCases.test:195 assertEqual expected', 'p2'));
     });
 
     /**
@@ -206,9 +209,9 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintBasicsCases0007', 0, (): void => {
       const diff: ConditionDiff = new ConditionDiff('设备型号', 'A', 'B');
-      expect(diff.text()).assertEqual('设备型号（A → B）');
-      expect(new ConditionDiff().text()).assertEqual('（ → ）');
-      expect(diff.label).assertEqual('设备型号');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0007 ReportCases.test:209 assertEqual actual', diff.text())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0007 ReportCases.test:209 assertEqual expected', '设备型号（A → B）'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0007 ReportCases.test:210 assertEqual actual', new ConditionDiff().text())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0007 ReportCases.test:210 assertEqual expected', '（ → ）'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0007 ReportCases.test:211 assertEqual actual', diff.label)).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0007 ReportCases.test:211 assertEqual expected', '设备型号'));
     });
 
     /**
@@ -222,17 +225,17 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintBasicsCases0008', 0, (): void => {
       const incomparable: ConditionComparison = new ConditionComparison();
-      expect(incomparable.text()).assertEqual('不可比：关键字段缺失');
-      expect(incomparable.comparable()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:225 assertEqual actual', incomparable.text())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:225 assertEqual expected', '不可比：关键字段缺失'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:226 assertFalse actual', incomparable.comparable())).assertFalse();
       incomparable.missing = ['左侧缺少设备型号', '右侧缺少系统版本'];
-      expect(incomparable.text()).assertEqual('不可比：左侧缺少设备型号；右侧缺少系统版本');
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:228 assertEqual actual', incomparable.text())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:228 assertEqual expected', '不可比：左侧缺少设备型号；右侧缺少系统版本'));
       const same: ConditionComparison = new ConditionComparison(ConditionVerdict.SAME, 'cf-1');
-      expect(same.text()).assertEqual('同条件（指纹 cf-1）');
-      expect(same.same()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:230 assertEqual actual', same.text())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:230 assertEqual expected', '同条件（指纹 cf-1）'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:231 assertTrue actual', same.same())).assertTrue();
       const partial: ConditionComparison = new ConditionComparison(ConditionVerdict.PARTIAL, 'cf-2',
         [new ConditionDiff('设备型号', 'A', 'B')]);
-      expect(partial.text()).assertEqual('部分不同（指纹 cf-2）：设备型号（A → B）');
-      expect(partial.comparable()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:234 assertEqual actual', partial.text())).assertEqual(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:234 assertEqual expected', '部分不同（指纹 cf-2）：设备型号（A → B）'));
+      expect(traceParameter('com.samples.appperformance_FingerprintBasicsCases_0008 ReportCases.test:235 assertFalse actual', partial.comparable())).assertFalse();
     });
   });
 
@@ -247,10 +250,10 @@ export default function reportCasesTest(): void {
      */
 
     it('testFingerprintRuleCases0001', 0, (): void => {
-      expect(missingFieldsOf(fieldsOf()).length).assertEqual(0);
-      expect(fingerprintOf(fieldsOf()).indexOf('cf-')).assertEqual(0);
-      expect(fingerprintOf(fieldsOf()).length).assertEqual(11);
-      expect(fingerprintOf(fieldsOf())).assertEqual(fingerprintOf(fieldsOf()));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0001 ReportCases.test:250 assertEqual actual', missingFieldsOf(fieldsOf()).length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0001 ReportCases.test:250 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0001 ReportCases.test:251 assertEqual actual', fingerprintOf(fieldsOf()).indexOf('cf-'))).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0001 ReportCases.test:251 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0001 ReportCases.test:252 assertEqual actual', fingerprintOf(fieldsOf()).length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0001 ReportCases.test:252 assertEqual expected', 11));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0001 ReportCases.test:253 assertEqual actual', fingerprintOf(fieldsOf()))).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0001 ReportCases.test:253 assertEqual expected', fingerprintOf(fieldsOf())));
     });
 
     /**
@@ -265,13 +268,13 @@ export default function reportCasesTest(): void {
     it('testFingerprintRuleCases0002', 0, (): void => {
       const blank: ConditionFields = new ConditionFields();
       const missing: string[] = missingFieldsOf(blank);
-      expect(missing.join(',')).assertEqual('设备型号,系统版本,应用版本,负载标识,回收模式,资源大小,资源摘要,目标集合,采样协议');
-      expect(missingFieldsOf(blank).length).assertEqual(9);
-      expect(fingerprintOf(blank)).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:268 assertEqual actual', missing.join(','))).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:268 assertEqual expected', '设备型号,系统版本,应用版本,负载标识,回收模式,资源大小,资源摘要,目标集合,采样协议'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:269 assertEqual actual', missingFieldsOf(blank).length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:269 assertEqual expected', 9));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:270 assertEqual actual', fingerprintOf(blank))).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:270 assertEqual expected', ''));
       const badDigest: ConditionFields = fieldsOf();
       badDigest.assetDigest = 'XYZ';
-      expect(missingFieldsOf(badDigest).join(',')).assertEqual('资源摘要');
-      expect(missingFieldsOf(badDigest).length).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:273 assertEqual actual', missingFieldsOf(badDigest).join(','))).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:273 assertEqual expected', '资源摘要'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:274 assertEqual actual', missingFieldsOf(badDigest).length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0002 ReportCases.test:274 assertEqual expected', 1));
     });
 
     /**
@@ -285,13 +288,13 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintRuleCases0003', 0, (): void => {
       const control: ConditionFields = fieldsOf();
-      expect(missingFieldsOf(control).length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0003 ReportCases.test:288 assertEqual actual', missingFieldsOf(control).length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0003 ReportCases.test:288 assertEqual expected', 0));
       const files: ConditionFields = fieldsOf();
       files.mode = 'files';
-      expect(missingFieldsOf(files).join(',')).assertEqual('目标集合');
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0003 ReportCases.test:291 assertEqual actual', missingFieldsOf(files).join(','))).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0003 ReportCases.test:291 assertEqual expected', '目标集合'));
       files.targetCount = 2;
       files.targetDigest = 'tg-0000';
-      expect(missingFieldsOf(files).length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0003 ReportCases.test:294 assertEqual actual', missingFieldsOf(files).length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0003 ReportCases.test:294 assertEqual expected', 0));
     });
 
     /**
@@ -306,12 +309,12 @@ export default function reportCasesTest(): void {
     it('testFingerprintRuleCases0004', 0, (): void => {
       const fields: ConditionFields = fieldsOf();
       fields.foreground = '前台';
-      expect(describeCondition(fields))
-        .assertEqual('Pixel 8 · SampleOS 14 · APP 1.0.0｜w1 · 对照组｜样本 1024 字节 · 摘要 abcdef12｜' +
-          '目标 0 项 · 摘要 tg-811c9dc5｜协议 ledger-v1 · 6 阶段 · 单次运行 · 同资源重读 · 前台');
-      expect(describeCondition(new ConditionFields()).indexOf('设备未记录 · 系统未记录 · APP 版本未记录') === 0)
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0004 ReportCases.test:309 assertEqual actual', describeCondition(fields)))
+        .assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0004 ReportCases.test:309 assertEqual expected', 'Pixel 8 · SampleOS 14 · APP 1.0.0｜w1 · 对照组｜样本 1024 字节 · 摘要 abcdef12｜' +
+          '目标 0 项 · 摘要 tg-811c9dc5｜协议 ledger-v1 · 6 阶段 · 单次运行 · 同资源重读 · 前台'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0004 ReportCases.test:312 assertTrue actual', describeCondition(new ConditionFields()).indexOf('设备未记录 · 系统未记录 · APP 版本未记录') === 0))
         .assertTrue();
-      expect(describeCondition(fields).indexOf('前台') > 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0004 ReportCases.test:314 assertTrue actual', describeCondition(fields).indexOf('前台') > 0)).assertTrue();
     });
 
     /**
@@ -325,14 +328,14 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintRuleCases0005', 0, (): void => {
       const fields: ConditionFields = fieldsOfRecord(recordOf('r1'));
-      expect(fields.device).assertEqual('Pixel 8');
-      expect(fields.osVersion).assertEqual('SampleOS 14');
-      expect(fields.appVersion).assertEqual('1.0.0');
-      expect(fields.foreground).assertEqual('前台');
-      expect(fields.targetCount).assertEqual(0);
-      expect(fields.targetDigest).assertEqual('tg-811c9dc5');
-      expect(fields.workloadId).assertEqual('w1');
-      expect(missingFieldsOf(fields).length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:328 assertEqual actual', fields.device)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:328 assertEqual expected', 'Pixel 8'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:329 assertEqual actual', fields.osVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:329 assertEqual expected', 'SampleOS 14'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:330 assertEqual actual', fields.appVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:330 assertEqual expected', '1.0.0'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:331 assertEqual actual', fields.foreground)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:331 assertEqual expected', '前台'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:332 assertEqual actual', fields.targetCount)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:332 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:333 assertEqual actual', fields.targetDigest)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:333 assertEqual expected', 'tg-811c9dc5'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:334 assertEqual actual', fields.workloadId)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:334 assertEqual expected', 'w1'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:335 assertEqual actual', missingFieldsOf(fields).length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0005 ReportCases.test:335 assertEqual expected', 0));
     });
 
     /**
@@ -347,11 +350,11 @@ export default function reportCasesTest(): void {
     it('testFingerprintRuleCases0006', 0, (): void => {
       const source: ConditionSource = ConditionSource.of('Forced', 'ForcedOS', '9.9', 'p-x');
       const fields: ConditionFields = fieldsOfRecord(recordOf('r1'), source);
-      expect(fields.device).assertEqual('Forced');
-      expect(fields.osVersion).assertEqual('ForcedOS');
-      expect(fields.appVersion).assertEqual('9.9');
-      expect(fields.protocol).assertEqual('p-x');
-      expect(fields.workloadId).assertEqual('w1');
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:350 assertEqual actual', fields.device)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:350 assertEqual expected', 'Forced'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:351 assertEqual actual', fields.osVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:351 assertEqual expected', 'ForcedOS'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:352 assertEqual actual', fields.appVersion)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:352 assertEqual expected', '9.9'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:353 assertEqual actual', fields.protocol)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:353 assertEqual expected', 'p-x'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:354 assertEqual actual', fields.workloadId)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0006 ReportCases.test:354 assertEqual expected', 'w1'));
     });
 
     /**
@@ -369,11 +372,11 @@ export default function reportCasesTest(): void {
       record.condition = JSON.stringify([ENV, '1.0.0', false, '', '', [],
         ['mod.b', 'mod.a'], ['b.so', 'a.so', 'a.so']]);
       const fields: ConditionFields = fieldsOfRecord(record);
-      expect(fields.targetCount).assertEqual(2);
-      expect(fields.foreground).assertEqual('后台');
-      expect(fields.scopeDigest.indexOf('sc-')).assertEqual(0);
-      expect(fields.targetDigest).assertEqual(fieldsOfRecord(record).targetDigest);
-      expect(fields.targetDigest.length).assertEqual(11);
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:372 assertEqual actual', fields.targetCount)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:372 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:373 assertEqual actual', fields.foreground)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:373 assertEqual expected', '后台'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:374 assertEqual actual', fields.scopeDigest.indexOf('sc-'))).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:374 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:375 assertEqual actual', fields.targetDigest)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:375 assertEqual expected', fieldsOfRecord(record).targetDigest));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:376 assertEqual actual', fields.targetDigest.length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0007 ReportCases.test:376 assertEqual expected', 11));
     });
 
     /**
@@ -387,10 +390,10 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintRuleCases0008', 0, (): void => {
       const comparison: ConditionComparison = compareConditions(fieldsOf(), fieldsOf());
-      expect(comparison.verdict).assertEqual(ConditionVerdict.SAME);
-      expect(comparison.diffs.length).assertEqual(0);
-      expect(comparison.missing.length).assertEqual(0);
-      expect(comparison.fingerprint).assertEqual(fingerprintOf(fieldsOf()));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0008 ReportCases.test:390 assertEqual actual', comparison.verdict)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0008 ReportCases.test:390 assertEqual expected', ConditionVerdict.SAME));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0008 ReportCases.test:391 assertEqual actual', comparison.diffs.length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0008 ReportCases.test:391 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0008 ReportCases.test:392 assertEqual actual', comparison.missing.length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0008 ReportCases.test:392 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0008 ReportCases.test:393 assertEqual actual', comparison.fingerprint)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0008 ReportCases.test:393 assertEqual expected', fingerprintOf(fieldsOf())));
     });
 
     /**
@@ -405,11 +408,11 @@ export default function reportCasesTest(): void {
     it('testFingerprintRuleCases0009', 0, (): void => {
       const comparison: ConditionComparison =
         compareConditions(fieldsOf(), fieldsOf('Pixel 9 · SampleOS 14'));
-      expect(comparison.verdict).assertEqual(ConditionVerdict.PARTIAL);
-      expect(comparison.diffs.length).assertEqual(1);
-      expect(comparison.diffs[0].label).assertEqual('设备型号');
-      expect(comparison.diffs[0].left).assertEqual('Pixel 8');
-      expect(comparison.fingerprint.length).assertEqual(11);
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:408 assertEqual actual', comparison.verdict)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:408 assertEqual expected', ConditionVerdict.PARTIAL));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:409 assertEqual actual', comparison.diffs.length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:409 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:410 assertEqual actual', comparison.diffs[0].label)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:410 assertEqual expected', '设备型号'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:411 assertEqual actual', comparison.diffs[0].left)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:411 assertEqual expected', 'Pixel 8'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:412 assertEqual actual', comparison.fingerprint.length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0009 ReportCases.test:412 assertEqual expected', 11));
     });
 
     /**
@@ -427,10 +430,10 @@ export default function reportCasesTest(): void {
       const right: ConditionFields = fieldsOf();
       right.foreground = '后台';
       const comparison: ConditionComparison = compareConditions(left, right);
-      expect(comparison.verdict).assertEqual(ConditionVerdict.PARTIAL);
-      expect(comparison.diffs.length).assertEqual(1);
-      expect(comparison.diffs[0].label).assertEqual('前后台');
-      expect(comparison.fingerprint).assertEqual(fingerprintOf(right));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0010 ReportCases.test:430 assertEqual actual', comparison.verdict)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0010 ReportCases.test:430 assertEqual expected', ConditionVerdict.PARTIAL));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0010 ReportCases.test:431 assertEqual actual', comparison.diffs.length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0010 ReportCases.test:431 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0010 ReportCases.test:432 assertEqual actual', comparison.diffs[0].label)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0010 ReportCases.test:432 assertEqual expected', '前后台'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0010 ReportCases.test:433 assertEqual actual', comparison.fingerprint)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0010 ReportCases.test:433 assertEqual expected', fingerprintOf(right)));
     });
 
     /**
@@ -444,11 +447,11 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintRuleCases0011', 0, (): void => {
       const comparison: ConditionComparison = compareConditions(new ConditionFields(), fieldsOf());
-      expect(comparison.verdict).assertEqual(ConditionVerdict.INCOMPARABLE);
-      expect(comparison.fingerprint).assertEqual('');
-      expect(comparison.missing.length).assertEqual(9);
-      expect(comparison.missing[0]).assertEqual('左侧缺少设备型号');
-      expect(comparison.diffs.length).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:447 assertEqual actual', comparison.verdict)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:447 assertEqual expected', ConditionVerdict.INCOMPARABLE));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:448 assertEqual actual', comparison.fingerprint)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:448 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:449 assertEqual actual', comparison.missing.length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:449 assertEqual expected', 9));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:450 assertEqual actual', comparison.missing[0])).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:450 assertEqual expected', '左侧缺少设备型号'));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:451 assertEqual actual', comparison.diffs.length)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0011 ReportCases.test:451 assertEqual expected', 0));
     });
 
     /**
@@ -462,11 +465,11 @@ export default function reportCasesTest(): void {
 
     it('testFingerprintRuleCases0012', 0, (): void => {
       const same: ConditionComparison = compareRecordConditions(recordOf('a'), recordOf('b'));
-      expect(same.verdict).assertEqual(ConditionVerdict.SAME);
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0012 ReportCases.test:465 assertEqual actual', same.verdict)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0012 ReportCases.test:465 assertEqual expected', ConditionVerdict.SAME));
       const other: ConditionComparison =
         compareRecordConditions(recordOf('a'), recordOf('b', 'w1', 'Pixel 9 · SampleOS 14'));
-      expect(other.verdict).assertEqual(ConditionVerdict.PARTIAL);
-      expect(other.diffs[0].right).assertEqual('Pixel 9');
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0012 ReportCases.test:468 assertEqual actual', other.verdict)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0012 ReportCases.test:468 assertEqual expected', ConditionVerdict.PARTIAL));
+      expect(traceParameter('com.samples.appperformance_FingerprintRuleCases_0012 ReportCases.test:469 assertEqual actual', other.diffs[0].right)).assertEqual(traceParameter('com.samples.appperformance_FingerprintRuleCases_0012 ReportCases.test:469 assertEqual expected', 'Pixel 9'));
     });
   });
 
@@ -481,12 +484,12 @@ export default function reportCasesTest(): void {
      */
 
     it('testReportTableCases0001', 0, (): void => {
-      expect(reportSortLabel(ReportSort.SAMPLES)).assertEqual('样本量');
-      expect(reportSortLabel(ReportSort.P50)).assertEqual('P50');
-      expect(reportSortLabel(ReportSort.P90)).assertEqual('P90');
-      expect(reportSortLabel(ReportSort.MEAN)).assertEqual('均值');
-      expect(reportSortLabel(ReportSort.FAILED)).assertEqual('失败/缺失数');
-      expect(reportSortLabel(ReportSort.WORKLOAD)).assertEqual('负载');
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:484 assertEqual actual', reportSortLabel(ReportSort.SAMPLES))).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:484 assertEqual expected', '样本量'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:485 assertEqual actual', reportSortLabel(ReportSort.P50))).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:485 assertEqual expected', 'P50'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:486 assertEqual actual', reportSortLabel(ReportSort.P90))).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:486 assertEqual expected', 'P90'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:487 assertEqual actual', reportSortLabel(ReportSort.MEAN))).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:487 assertEqual expected', '均值'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:488 assertEqual actual', reportSortLabel(ReportSort.FAILED))).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:488 assertEqual expected', '失败/缺失数'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:489 assertEqual actual', reportSortLabel(ReportSort.WORKLOAD))).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0001 ReportCases.test:489 assertEqual expected', '负载'));
     });
 
     /**
@@ -499,14 +502,29 @@ export default function reportCasesTest(): void {
      */
 
     it('testReportTableCases0002', 0, (): void => {
-      const table: ReportTable = ReportTable.build([recordOf('r1')]);
-      const group: ConditionGroup = table.rows[0];
-      expect(new ReportFilter().matches(group)).assertTrue();
-      expect(new ReportFilter('w1', 'control', true).matches(group)).assertTrue();
-      expect(new ReportFilter('w2').matches(group)).assertFalse();
-      expect(new ReportFilter('', 'files').matches(group)).assertFalse();
-      expect(new ReportFilter().text()).assertEqual('全部负载｜全部模式｜含不可评估');
-      expect(new ReportFilter('w1', 'files', true).text()).assertEqual('w1｜files｜仅可评估');
+      withTestMessages('zh_CN', (): void => {
+        const table: ReportTable = ReportTable.build([recordOf('r1')]);
+        const group: ConditionGroup = table.rows[0];
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 ReportCases.test:504 assertTrue actual', new ReportFilter().matches(group))).assertTrue();
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 ReportCases.test:505 assertTrue actual', new ReportFilter('w1', 'control', true).matches(group))).assertTrue();
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 ReportCases.test:506 assertFalse actual', new ReportFilter('w2').matches(group))).assertFalse();
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 ReportCases.test:507 assertFalse actual', new ReportFilter('', 'files').matches(group))).assertFalse();
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 ReportCases.test:508 assertEqual actual', new ReportFilter().text())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0002 ReportCases.test:508 assertEqual expected', '全部负载｜全部模式｜含不可评估'));
+        // text() is a localized display contract; the filter still carries the canonical mode token.
+        const files = new ReportFilter('w1', 'files', true);
+        const canonical = JSON.stringify([files.workloadId, files.mode, files.evaluableOnly]);
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 ReportCases.test:509 assertEqual actual', files.text())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0002 ReportCases.test:509 assertEqual expected', 'w1｜文件回收｜仅可评估'));
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 canonicalMode', files.mode))
+          .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0002 rawMode', 'files'));
+        const english = withTestMessages('en', (): string => files.text());
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 englishDisplay', english))
+          .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0002 englishExpected', 'w1｜File reclaim｜Evaluable only'));
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 nestedScopeRestored', files.text()))
+          .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0002 chineseExpected', 'w1｜文件回收｜仅可评估'));
+        expect(traceParameter('com.samples.appperformance_ReportTableCases_0002 canonicalUnchanged',
+          JSON.stringify([files.workloadId, files.mode, files.evaluableOnly])))
+          .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0002 originalCanonical', canonical));
+      });
     });
 
     /**
@@ -520,11 +538,11 @@ export default function reportCasesTest(): void {
 
     it('testReportTableCases0003', 0, (): void => {
       const row: StageTimingRow = new StageTimingRow('scan', '扫描', 3, true, 40, 44);
-      expect(row.text()).assertEqual('扫描｜样本 3｜P50 40 ms｜均值 44 ms');
-      expect(row.p50Text()).assertEqual('40 ms');
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0003 ReportCases.test:523 assertEqual actual', row.text())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0003 ReportCases.test:523 assertEqual expected', '扫描｜样本 3｜P50 40 ms｜均值 44 ms'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0003 ReportCases.test:524 assertEqual actual', row.p50Text())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0003 ReportCases.test:524 assertEqual expected', '40 ms'));
       const missing: StageTimingRow = new StageTimingRow('k', 'K', 0, false);
-      expect(missing.text()).assertEqual('K｜样本 0｜P50 不可评估｜均值 不可评估｜不可评估');
-      expect(missing.meanText()).assertEqual('不可评估');
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0003 ReportCases.test:526 assertEqual actual', missing.text())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0003 ReportCases.test:526 assertEqual expected', 'K｜样本 0｜P50 不可评估｜均值 不可评估｜不可评估'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0003 ReportCases.test:527 assertEqual actual', missing.meanText())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0003 ReportCases.test:527 assertEqual expected', '不可评估'));
     });
 
     /**
@@ -545,12 +563,12 @@ export default function reportCasesTest(): void {
       group.p90Ms = 300;
       group.meanMs = 215;
       group.unavailable = '不可比：缺少设备型号';
-      expect(group.rowText())
-        .assertEqual('条件组1｜负载甲（w1）｜文件回收｜样本 5（有效 4）｜失败/缺失 1｜P50 210 ms｜' +
-          'P90 300 ms｜均值 215 ms｜不可比：缺少设备型号');
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:548 assertEqual actual', group.rowText()))
+        .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:548 assertEqual expected', '条件组1｜负载甲（w1）｜文件回收｜样本 5（有效 4）｜失败/缺失 1｜P50 210 ms｜' +
+          'P90 300 ms｜均值 215 ms｜不可比：缺少设备型号'));
       const bare: ConditionGroup = new ConditionGroup('条件组2', '', '', 'w2', '', '');
-      expect(bare.modeLabel()).assertEqual('模式未记录');
-      expect(bare.rowText().indexOf('条件组2｜w2｜模式未记录') === 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:552 assertEqual actual', bare.modeLabel())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:552 assertEqual expected', '模式未记录'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:553 assertTrue actual', bare.rowText().indexOf('条件组2｜w2｜模式未记录') === 0)).assertTrue();
     });
 
     /**
@@ -564,12 +582,12 @@ export default function reportCasesTest(): void {
 
     it('testReportTableCases0005', 0, (): void => {
       const key: string = conditionGroupKey(recordOf('r1'));
-      expect(key.indexOf('["w1","control"') === 0).assertTrue();
-      expect(key).assertEqual(conditionGroupKey(recordOf('r2')));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0005 ReportCases.test:567 assertTrue actual', key.indexOf('["w1","control"') === 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0005 ReportCases.test:568 assertEqual actual', key)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0005 ReportCases.test:568 assertEqual expected', conditionGroupKey(recordOf('r2'))));
       const other: ExperimentRecord = recordOf('r3');
       other.beforeBytes = 2048;
-      expect(conditionGroupKey(other) === key).assertFalse();
-      expect(key.indexOf('abcdef12') > 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0005 ReportCases.test:571 assertFalse actual', conditionGroupKey(other) === key)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0005 ReportCases.test:572 assertTrue actual', key.indexOf('abcdef12') > 0)).assertTrue();
     });
 
     /**
@@ -586,12 +604,12 @@ export default function reportCasesTest(): void {
         recordOf('r1'), recordOf('r2'),
         recordOf('r3', 'w1', 'Pixel 9 · SampleOS 14')
       ]);
-      expect(table.size()).assertEqual(2);
-      expect(table.rows[0].label).assertEqual('条件组1');
-      expect(table.rows[1].label).assertEqual('条件组2');
-      expect(table.rows[0].samples).assertEqual(2);
-      expect(table.rows[0].validSamples).assertEqual(2);
-      expect(table.rows[1].samples).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:589 assertEqual actual', table.size())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:589 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:590 assertEqual actual', table.rows[0].label)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:590 assertEqual expected', '条件组1'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:591 assertEqual actual', table.rows[1].label)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:591 assertEqual expected', '条件组2'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:592 assertEqual actual', table.rows[0].samples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:592 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:593 assertEqual actual', table.rows[0].validSamples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:593 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:594 assertEqual actual', table.rows[1].samples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:594 assertEqual expected', 1));
     });
 
     /**
@@ -606,13 +624,13 @@ export default function reportCasesTest(): void {
     it('testReportTableCases0007', 0, (): void => {
       const table: ReportTable = ReportTable.build([recordOf('r1')]);
       const group: ConditionGroup = table.rows[0];
-      expect(group.evaluable).assertTrue();
-      expect(group.p50Ms).assertEqual(210);
-      expect(group.p90Ms).assertEqual(210);
-      expect(group.meanMs).assertEqual(210);
-      expect(group.failed).assertEqual(0);
-      expect(group.unavailable).assertEqual('');
-      expect(group.p50Text()).assertEqual('210 ms');
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:609 assertTrue actual', group.evaluable)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:610 assertEqual actual', group.p50Ms)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:610 assertEqual expected', 210));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:611 assertEqual actual', group.p90Ms)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:611 assertEqual expected', 210));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:612 assertEqual actual', group.meanMs)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:612 assertEqual expected', 210));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:613 assertEqual actual', group.failed)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:613 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:614 assertEqual actual', group.unavailable)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:614 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:615 assertEqual actual', group.p50Text())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0007 ReportCases.test:615 assertEqual expected', '210 ms'));
     });
 
     /**
@@ -630,12 +648,12 @@ export default function reportCasesTest(): void {
       record.integrity = '不一致';
       const table: ReportTable = ReportTable.build([record]);
       const group: ConditionGroup = table.rows[0];
-      expect(group.validSamples).assertEqual(0);
-      expect(group.evaluable).assertFalse();
-      expect(group.p50Ms).assertEqual(-1);
-      expect(group.meanMs).assertEqual(-1);
-      expect(group.p50Text()).assertEqual('不可评估');
-      expect(group.gaps.indexOf('无有效样本：P50/P90/均值不可评估（不能用 0 代替）') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:633 assertEqual actual', group.validSamples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:633 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:634 assertFalse actual', group.evaluable)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:635 assertEqual actual', group.p50Ms)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:635 assertEqual expected', -1));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:636 assertEqual actual', group.meanMs)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:636 assertEqual expected', -1));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:637 assertEqual actual', group.p50Text())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:637 assertEqual expected', '不可评估'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:638 assertTrue actual', group.gaps.indexOf('无有效样本：P50/P90/均值不可评估（不能用 0 代替）') >= 0)).assertTrue();
     });
 
     /**
@@ -650,11 +668,11 @@ export default function reportCasesTest(): void {
     it('testReportTableCases0009', 0, (): void => {
       const table: ReportTable = ReportTable.build([recordOf('r1')]);
       const rows: StageTimingRow[] = table.rows[0].stageRows;
-      expect(rows.length).assertEqual(6);
-      expect(rows[0].stageKey).assertEqual('discover');
-      expect(rows[0].label).assertEqual('阶段0');
-      expect(rows[5].p50Ms).assertEqual(60);
-      expect(rows[0].samples).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:653 assertEqual actual', rows.length)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:653 assertEqual expected', 6));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:654 assertEqual actual', rows[0].stageKey)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:654 assertEqual expected', 'discover'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:655 assertEqual actual', rows[0].label)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:655 assertEqual expected', '阶段0'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:656 assertEqual actual', rows[5].p50Ms)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:656 assertEqual expected', 60));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:657 assertEqual actual', rows[0].samples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0009 ReportCases.test:657 assertEqual expected', 1));
     });
 
     /**
@@ -670,16 +688,16 @@ export default function reportCasesTest(): void {
       const table: ReportTable = ReportTable.build([
         recordOf('r1'), recordOf('r2', 'w2'), recordOf('r3', 'w3')
       ]);
-      expect(table.size()).assertEqual(3);
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:673 assertEqual actual', table.size())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:673 assertEqual expected', 3));
       const filtered: ReportTable = table.filter(new ReportFilter('w2'));
-      expect(filtered.size()).assertEqual(1);
-      expect(table.size()).assertEqual(3);
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:675 assertEqual actual', filtered.size())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:675 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:676 assertEqual actual', table.size())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:676 assertEqual expected', 3));
       const sorted: ReportTable = table.sortBy(ReportSort.SAMPLES, true);
-      expect(sorted.rows[0].samples).assertEqual(1);
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:678 assertEqual actual', sorted.rows[0].samples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:678 assertEqual expected', 1));
       // 三组样本量相等时按 label 升序兄底，不受 descending 影响。
-      expect(sorted.rows[0].workloadId).assertEqual('w1');
-      expect(sorted.rows[2].workloadId).assertEqual('w3');
-      expect(table.rows[0].workloadId).assertEqual('w1');
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:680 assertEqual actual', sorted.rows[0].workloadId)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:680 assertEqual expected', 'w1'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:681 assertEqual actual', sorted.rows[2].workloadId)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:681 assertEqual expected', 'w3'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:682 assertEqual actual', table.rows[0].workloadId)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0010 ReportCases.test:682 assertEqual expected', 'w1'));
     });
 
     /**
@@ -697,11 +715,11 @@ export default function reportCasesTest(): void {
       broken.integrity = '不一致';
       const table: ReportTable = ReportTable.build([broken, recordOf('r1')]);
       const sorted: ReportTable = table.sortBy(ReportSort.P50, false);
-      expect(sorted.rows.length).assertEqual(2);
-      expect(sorted.rows[1].workloadId).assertEqual('w9');
-      expect(sorted.rows[1].p50Ms).assertEqual(-1);
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:700 assertEqual actual', sorted.rows.length)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:700 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:701 assertEqual actual', sorted.rows[1].workloadId)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:701 assertEqual expected', 'w9'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:702 assertEqual actual', sorted.rows[1].p50Ms)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:702 assertEqual expected', -1));
       const byWorkload: ReportTable = table.sortBy(ReportSort.WORKLOAD, false);
-      expect(byWorkload.rows[0].workloadId).assertEqual('w1');
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:704 assertEqual actual', byWorkload.rows[0].workloadId)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:704 assertEqual expected', 'w1'));
     });
 
     /**
@@ -716,10 +734,10 @@ export default function reportCasesTest(): void {
     it('testReportTableCases0012', 0, (): void => {
       const table: ReportTable = ReportTable.build([recordOf('r1')]);
       const lines: string[] = table.text().split('\n');
-      expect(lines.length).assertEqual(2);
-      expect(lines[0]).assertEqual('条件组\t负载\t模式\t样本\t有效\t失败/缺失\tP50\tP90\t均值\t可比性');
-      expect(lines[1]).assertEqual('条件组1\tw1\t对照组\t1\t1\t0\t210 ms\t210 ms\t210 ms\t可统计');
-      expect(ReportTable.build([]).text()).assertEqual('没有条件组：账本为空或全部被当前筛选条件排除');
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0012 ReportCases.test:719 assertEqual actual', lines.length)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0012 ReportCases.test:719 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0012 ReportCases.test:720 assertEqual actual', lines[0])).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0012 ReportCases.test:720 assertEqual expected', '条件组\t负载\t模式\t样本\t有效\t失败/缺失\tP50\tP90\t均值\t可比性'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0012 ReportCases.test:721 assertEqual actual', lines[1])).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0012 ReportCases.test:721 assertEqual expected', '条件组1\tw1\t对照组\t1\t1\t0\t210 ms\t210 ms\t210 ms\t可统计'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0012 ReportCases.test:722 assertEqual actual', ReportTable.build([]).text())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0012 ReportCases.test:722 assertEqual expected', '没有条件组：账本为空或全部被当前筛选条件排除'));
     });
   });
 
@@ -734,14 +752,14 @@ export default function reportCasesTest(): void {
      */
 
     it('testReportExportCases0001', 0, (): void => {
-      expect(formatLabel(ReportFormat.CSV)).assertEqual('CSV');
-      expect(formatLabel(ReportFormat.MARKDOWN)).assertEqual('Markdown');
-      expect(CSV_BOM).assertEqual('\uFEFF');
-      expect(SECTION_CONDITIONS).assertEqual('条件描述');
-      expect(SECTION_STATS).assertEqual('分组统计');
-      expect(SECTION_STAGES).assertEqual('阶段耗时');
-      expect(SECTION_GAPS).assertEqual('缺口说明');
-      expect(SECTION_TIME).assertEqual('生成时间');
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:737 assertEqual actual', formatLabel(ReportFormat.CSV))).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:737 assertEqual expected', 'CSV'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:738 assertEqual actual', formatLabel(ReportFormat.MARKDOWN))).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:738 assertEqual expected', 'Markdown'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:739 assertEqual actual', CSV_BOM)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:739 assertEqual expected', '\uFEFF'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:740 assertEqual actual', SECTION_CONDITIONS)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:740 assertEqual expected', 'conditions'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:741 assertEqual actual', SECTION_STATS)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:741 assertEqual expected', 'statistics'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:742 assertEqual actual', SECTION_STAGES)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:742 assertEqual expected', 'stages'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:743 assertEqual actual', SECTION_GAPS)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:743 assertEqual expected', 'gaps'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:744 assertEqual actual', SECTION_TIME)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0001 ReportCases.test:744 assertEqual expected', 'generated_at'));
     });
 
     /**
@@ -755,12 +773,12 @@ export default function reportCasesTest(): void {
 
     it('testReportExportCases0002', 0, (): void => {
       const check: ReportCheck = new ReportCheck();
-      expect(check.summary()).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0002 ReportCases.test:758 assertEqual actual', check.summary())).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0002 ReportCases.test:758 assertEqual expected', ''));
       check.ok = true;
-      expect(check.summary()).assertEqual('必填段落齐全，未发现敏感信息残留');
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0002 ReportCases.test:760 assertEqual actual', check.summary())).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0002 ReportCases.test:760 assertEqual expected', '必填段落齐全，未发现敏感信息残留'));
       check.ok = false;
       check.findings = ['报告标题为空', '缺少分组统计行'];
-      expect(check.summary()).assertEqual('报告标题为空；缺少分组统计行');
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0002 ReportCases.test:763 assertEqual actual', check.summary())).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0002 ReportCases.test:763 assertEqual expected', '报告标题为空；缺少分组统计行'));
     });
 
     /**
@@ -775,13 +793,13 @@ export default function reportCasesTest(): void {
     it('testReportExportCases0003', 0, (): void => {
       const meta: ReportMeta = new ReportMeta('报告', 1700000000000);
       const text: string = buildMarkdown(ReportTable.build([recordOf('r1')]), meta);
-      expect(text.indexOf('# 报告') === 0).assertTrue();
-      expect(text.indexOf('## 1. 条件描述') > 0).assertTrue();
-      expect(text.indexOf('## 2. 分组统计') > 0).assertTrue();
-      expect(text.indexOf('## 3. 阶段耗时') > 0).assertTrue();
-      expect(text.indexOf('## 4. 缺口说明') > 0).assertTrue();
-      expect(text.indexOf('## 5. 生成时间') > 0).assertTrue();
-      expect(text.indexOf('只有一个条件组，未进行跨组比较。') > 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0003 ReportCases.test:778 assertTrue actual', text.indexOf('# 报告') === 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0003 ReportCases.test:779 assertTrue actual', text.indexOf('## 1. 条件描述') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0003 ReportCases.test:780 assertTrue actual', text.indexOf('## 2. 分组统计') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0003 ReportCases.test:781 assertTrue actual', text.indexOf('## 3. 阶段耗时') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0003 ReportCases.test:782 assertTrue actual', text.indexOf('## 4. 缺口说明') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0003 ReportCases.test:783 assertTrue actual', text.indexOf('## 5. 生成时间') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0003 ReportCases.test:784 assertTrue actual', text.indexOf('只有一个条件组，未进行跨组比较。') > 0)).assertTrue();
     });
 
     /**
@@ -799,9 +817,9 @@ export default function reportCasesTest(): void {
         recordOf('r1'), recordOf('r2', 'w1', 'Pixel 9 · SampleOS 14')
       ]);
       const text: string = buildMarkdown(table, meta);
-      expect(text.indexOf('以 条件组1 为基准，条件组2：') > 0).assertTrue();
-      expect(text.indexOf('部分不同（指纹 cf-') > 0).assertTrue();
-      expect(text.indexOf('设备型号（Pixel 8 → Pixel 9）') > 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0004 ReportCases.test:802 assertTrue actual', text.indexOf('以 条件组1 为基准，条件组2：') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0004 ReportCases.test:803 assertTrue actual', text.indexOf('部分不同（指纹 cf-') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0004 ReportCases.test:804 assertTrue actual', text.indexOf('设备型号（Pixel 8 → Pixel 9）') > 0)).assertTrue();
     });
 
     /**
@@ -815,9 +833,9 @@ export default function reportCasesTest(): void {
 
     it('testReportExportCases0005', 0, (): void => {
       const text: string = buildMarkdown(ReportTable.build([]), new ReportMeta('空', 1700000000000));
-      expect(text.indexOf('- 没有条件组：账本为空或全部被筛选条件排除。') > 0).assertTrue();
-      expect(text.indexOf('- 未登记缺口：所有样本正常结束且条件字段齐全。') > 0).assertTrue();
-      expect(text.indexOf('- 设备：未记录｜系统：未记录｜应用版本：未记录') > 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0005 ReportCases.test:818 assertTrue actual', text.indexOf('- 没有条件组：账本为空或全部被筛选条件排除。') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0005 ReportCases.test:819 assertTrue actual', text.indexOf('- 未登记缺口：所有样本正常结束且条件字段齐全。') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0005 ReportCases.test:820 assertTrue actual', text.indexOf('- 设备：未记录｜系统：未记录｜应用版本：未记录') > 0)).assertTrue();
     });
 
     /**
@@ -830,15 +848,34 @@ export default function reportCasesTest(): void {
      */
 
     it('testReportExportCases0006', 0, (): void => {
-      const text: string = buildCsv(ReportTable.build([recordOf('r1')]),
-        new ReportMeta('报告', 1700000000000));
-      expect(text.indexOf(CSV_BOM) === 0).assertTrue();
-      const lines: string[] = text.split('\n');
-      expect(lines[0].indexOf('章节,条件组,项目,值,备注') > 0).assertTrue();
-      expect(lines[1].indexOf('报告,全部,生成时间') === 0).assertTrue();
-      expect(text.indexOf('报告,全部,报告版本,report-v1,') > 0).assertTrue();
-      expect(text.indexOf('条件描述,条件组1,指纹,cf-') > 0).assertTrue();
-      expect(text.indexOf('分组统计,条件组1,P50,210 ms,阶段耗时合计') > 0).assertTrue();
+      withTestMessages('zh_CN', (): void => {
+        const record = recordOf('r1');
+        const canonical = JSON.stringify(record);
+        const expectedFingerprint = fingerprintOf(fieldsOfRecord(record));
+        const text: string = buildCsv(ReportTable.build([record]), new ReportMeta('报告', 1700000000000));
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 ReportCases.test:835 assertTrue actual', text.indexOf(CSV_BOM) === 0)).assertTrue();
+        const lines: string[] = text.split('\n');
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 ReportCases.test:837 assertTrue actual', lines[0].indexOf('章节,条件组,项目,值,备注') > 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 ReportCases.test:838 assertTrue actual', lines[1].indexOf('报告,全部,生成时间') === 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 ReportCases.test:839 assertTrue actual', text.indexOf('报告,全部,报告版本,report-v1,') > 0)).assertTrue();
+        // The item label is localized; its raw fingerprint and the five-column schema are not.
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 ReportCases.test:840 assertTrue actual', text.indexOf('条件描述,条件组1,条件指纹,cf-') > 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 ReportCases.test:841 assertTrue actual', text.indexOf('分组统计,条件组1,P50,210 ms,阶段耗时合计') > 0)).assertTrue();
+        const fingerprintRow = lines.find((line: string): boolean => line.startsWith('条件描述,条件组1,条件指纹,'));
+        if (fingerprintRow === undefined) { throw new Error('Expected the named fingerprint CSV row'); }
+        // This fixed fixture row contains no comma/quote/newline payload cells.
+        const cells: string[] = fingerprintRow.split(',');
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 exactColumns', cells.length))
+          .assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0006 expectedColumns', 5));
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 exactFingerprint', cells[3]))
+          .assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0006 rawFingerprint', expectedFingerprint));
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 nonemptyFingerprint',
+          expectedFingerprint.startsWith('cf-'))).assertTrue();
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 rawMode', record.mode))
+          .assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0006 expectedMode', 'control'));
+        expect(traceParameter('com.samples.appperformance_ReportExportCases_0006 canonicalRecord', JSON.stringify(record)))
+          .assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0006 originalRecord', canonical));
+      });
     });
 
     /**
@@ -853,9 +890,9 @@ export default function reportCasesTest(): void {
     it('testReportExportCases0007', 0, (): void => {
       const text: string = buildCsv(ReportTable.build([recordOf('r1')]),
         new ReportMeta('报告', 1700000000000, '', '含,逗号与"引号"'));
-      expect(text.indexOf('"含,逗号与""引号"""') > 0).assertTrue();
-      expect(text.split('\n').length > 10).assertTrue();
-      expect(text.indexOf('报告') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0007 ReportCases.test:856 assertTrue actual', text.indexOf('"含,逗号与""引号"""') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0007 ReportCases.test:857 assertTrue actual', text.split('\n').length > 10)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0007 ReportCases.test:858 assertTrue actual', text.indexOf('报告') >= 0)).assertTrue();
     });
 
     /**
@@ -868,11 +905,11 @@ export default function reportCasesTest(): void {
      */
 
     it('testReportExportCases0008', 0, (): void => {
-      expect(residualSensitive('干净文本').length).assertEqual(0);
-      expect(residualSensitive('C:\\temp\\a.txt')[0]).assertEqual('疑似文件路径');
-      expect(residualSensitive('token=abc123')[0]).assertEqual('疑似凭据或序列号字段');
-      expect(residualSensitive('138001380001234567')[0]).assertEqual('疑似长数字序列（可能是序列号）');
-      expect(residualSensitive('/data/app/x/Y.png')[0]).assertEqual('疑似文件路径');
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:871 assertEqual actual', residualSensitive('干净文本').length)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:871 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:872 assertEqual actual', residualSensitive('C:\\temp\\a.txt')[0])).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:872 assertEqual expected', '疑似文件路径'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:873 assertEqual actual', residualSensitive('token=abc123')[0])).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:873 assertEqual expected', '疑似凭据或序列号字段'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:874 assertEqual actual', residualSensitive('138001380001234567')[0])).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:874 assertEqual expected', '疑似长数字序列（可能是序列号）'));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:875 assertEqual actual', residualSensitive('/data/app/x/Y.png')[0])).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0008 ReportCases.test:875 assertEqual expected', '疑似文件路径'));
     });
 
     /**
@@ -887,9 +924,9 @@ export default function reportCasesTest(): void {
     it('testReportExportCases0009', 0, (): void => {
       const meta: ReportMeta = new ReportMeta('报告', 1700000000000, '', 'C:\\secret\\a.txt');
       const text: string = buildMarkdown(ReportTable.build([recordOf('r1')]), meta);
-      expect(text.indexOf('secret') < 0).assertTrue();
-      expect(text.indexOf('[路径已脱敏]') > 0).assertTrue();
-      expect(residualSensitive(text).join('|')).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0009 ReportCases.test:890 assertTrue actual', text.indexOf('secret') < 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0009 ReportCases.test:891 assertTrue actual', text.indexOf('[路径已脱敏]') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0009 ReportCases.test:892 assertEqual actual', residualSensitive(text).join('|'))).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0009 ReportCases.test:892 assertEqual expected', ''));
     });
 
     /**
@@ -903,12 +940,12 @@ export default function reportCasesTest(): void {
 
     it('testReportExportCases0010', 0, (): void => {
       const blankTitle: ReportCheck = checkReport([recordOf('r1')], new ReportMeta(''));
-      expect(blankTitle.ok).assertFalse();
-      expect(blankTitle.findings[0]).assertEqual('报告标题为空');
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0010 ReportCases.test:906 assertFalse actual', blankTitle.ok)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0010 ReportCases.test:907 assertEqual actual', blankTitle.findings[0])).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0010 ReportCases.test:907 assertEqual expected', '报告标题为空'));
       const noRecords: ReportCheck = checkReport([], new ReportMeta('报告'));
-      expect(noRecords.ok).assertFalse();
-      expect(noRecords.findings.indexOf('没有任何实验记录，无法生成条件描述与分组统计') >= 0).assertTrue();
-      expect(checkReport([recordOf('r1')], new ReportMeta('报告')).findings.join('|')).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0010 ReportCases.test:909 assertFalse actual', noRecords.ok)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0010 ReportCases.test:910 assertTrue actual', noRecords.findings.indexOf('没有任何实验记录，无法生成条件描述与分组统计') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0010 ReportCases.test:911 assertEqual actual', checkReport([recordOf('r1')], new ReportMeta('报告')).findings.join('|'))).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0010 ReportCases.test:911 assertEqual expected', ''));
     });
 
     /**
@@ -923,14 +960,14 @@ export default function reportCasesTest(): void {
     it('testReportExportCases0011', 0, (): void => {
       const meta: ReportMeta = new ReportMeta('报告', 1700000000000);
       const markdown: ExportOutcome = exportReport([recordOf('r1')], meta, ReportFormat.MARKDOWN);
-      expect(markdown.check.findings.join('|')).assertEqual('');
-      expect(markdown.ok).assertTrue();
-      expect(markdown.text.indexOf('# 报告') === 0).assertTrue();
-      expect(markdown.check.ok).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:926 assertEqual actual', markdown.check.findings.join('|'))).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:926 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:927 assertTrue actual', markdown.ok)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:928 assertTrue actual', markdown.text.indexOf('# 报告') === 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:929 assertTrue actual', markdown.check.ok)).assertTrue();
       const csv: ExportOutcome = exportReport([recordOf('r1')], meta, ReportFormat.CSV);
-      expect(csv.ok).assertTrue();
-      expect(csv.text.indexOf(CSV_BOM) === 0).assertTrue();
-      expect(csv.format).assertEqual(ReportFormat.CSV);
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:931 assertTrue actual', csv.ok)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:932 assertTrue actual', csv.text.indexOf(CSV_BOM) === 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:933 assertEqual actual', csv.format)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0011 ReportCases.test:933 assertEqual expected', ReportFormat.CSV));
     });
 
     /**
@@ -945,10 +982,10 @@ export default function reportCasesTest(): void {
     it('testReportExportCases0012', 0, (): void => {
       const outcome: ExportOutcome =
         exportReport([], new ReportMeta('报告'), ReportFormat.MARKDOWN);
-      expect(outcome.ok).assertFalse();
-      expect(outcome.text).assertEqual('');
-      expect(outcome.check.ok).assertFalse();
-      expect(outcome.check.summary().indexOf('没有任何实验记录') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0012 ReportCases.test:948 assertFalse actual', outcome.ok)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0012 ReportCases.test:949 assertEqual actual', outcome.text)).assertEqual(traceParameter('com.samples.appperformance_ReportExportCases_0012 ReportCases.test:949 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0012 ReportCases.test:950 assertFalse actual', outcome.check.ok)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0012 ReportCases.test:951 assertTrue actual', outcome.check.summary().indexOf('没有任何实验记录') >= 0)).assertTrue();
     });
 
     /**
@@ -963,9 +1000,9 @@ export default function reportCasesTest(): void {
     it('testReportExportCases0013', 0, (): void => {
       const meta: ReportMeta = new ReportMeta('报告', 1700000000000, '', 'x'.repeat(400));
       const text: string = buildMarkdown(ReportTable.build([recordOf('r1')]), meta);
-      expect(text.indexOf('…（截断，原 400 字符）') > 0).assertTrue();
-      expect(text.indexOf('x'.repeat(201)) < 0).assertTrue();
-      expect(text.length > 100).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0013 ReportCases.test:966 assertTrue actual', text.indexOf('…（截断，原 400 字符）') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0013 ReportCases.test:967 assertTrue actual', text.indexOf('x'.repeat(201)) < 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_ReportExportCases_0013 ReportCases.test:968 assertTrue actual', text.length > 100)).assertTrue();
     });
   });
 }

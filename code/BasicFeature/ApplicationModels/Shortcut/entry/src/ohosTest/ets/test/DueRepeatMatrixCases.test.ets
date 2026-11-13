@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   DUE_RULES, DUE_SOON_MS, DueBuckets, DueRule, DueState, Priority, RepeatKind, TodoDue, bucketize,
   dateKeyOf, defer, dueLines, dueStateOf, dueSummary, nextOccurrence, overdueDays, priorityWeight,
@@ -42,13 +43,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testDueRuleCases0001', 0, (): void => {
-      expect(DUE_RULES.length).assertEqual(10);
+    it(caseName('DueRuleCases', '0001'), 0, (): void => {
+      expect(DUE_RULES.length, caseName('DueRuleCases', '0001')).assertEqual(10);
       const codes: string[] = DUE_RULES.map((rule: DueRule): string => rule.code);
-      expect(codes[0]).assertEqual('DU-01');
-      expect(codes[9]).assertEqual('DU-10');
+      expect(codes[0], caseName('DueRuleCases', '0001')).assertEqual('DU-01');
+      expect(codes[9], caseName('DueRuleCases', '0001')).assertEqual('DU-10');
       expect(codes.every((code: string, index: number): boolean =>
-        code === `DU-${(index + 1).toString().padStart(2, '0')}`)).assertTrue();
+        code === `DU-${(index + 1).toString().padStart(2, '0')}`), caseName('DueRuleCases', '0001')).assertTrue();
     });
 
     /**
@@ -60,12 +61,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueRuleCases0002', 0, (): void => {
+    it(caseName('DueRuleCases', '0002'), 0, (): void => {
       const rule: DueRule = DUE_RULES[3];
-      expect(rule.code).assertEqual('DU-04');
-      expect(rule.describe()).assertEqual(
+      expect(rule.code, caseName('DueRuleCases', '0002')).assertEqual('DU-04');
+      expect(rule.describe(), caseName('DueRuleCases', '0002')).assertEqual(
         'DU-04｜截止时间在 24 小时内 → 即将到期｜进入即将到期分组');
-      expect(rule.describe().split('｜').length).assertEqual(3);
+      expect(rule.describe().split('｜').length, caseName('DueRuleCases', '0002')).assertEqual(3);
     });
 
     /**
@@ -77,12 +78,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueRuleCases0003', 0, (): void => {
-      expect(DueState.NO_DUE).assertEqual('无截止');
-      expect(DueState.FUTURE).assertEqual('未到期');
-      expect(DueState.DUE_SOON).assertEqual('即将到期');
-      expect(DueState.OVERDUE).assertEqual('已逾期');
-      expect(DueState.DONE).assertEqual('已完成');
+    it(caseName('DueRuleCases', '0003'), 0, (): void => {
+      expect(DueState.NO_DUE, caseName('DueRuleCases', '0003')).assertEqual('无截止');
+      expect(DueState.FUTURE, caseName('DueRuleCases', '0003')).assertEqual('未到期');
+      expect(DueState.DUE_SOON, caseName('DueRuleCases', '0003')).assertEqual('即将到期');
+      expect(DueState.OVERDUE, caseName('DueRuleCases', '0003')).assertEqual('已逾期');
+      expect(DueState.DONE, caseName('DueRuleCases', '0003')).assertEqual('已完成');
     });
 
     /**
@@ -94,11 +95,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueRuleCases0004', 0, (): void => {
-      expect(Priority.HIGH).assertEqual('高');
-      expect(Priority.NORMAL).assertEqual('普通');
-      expect(Priority.LOW).assertEqual('低');
-      expect((Priority.HIGH as string) === (Priority.LOW as string)).assertFalse();
+    it(caseName('DueRuleCases', '0004'), 0, (): void => {
+      expect(Priority.HIGH, caseName('DueRuleCases', '0004')).assertEqual('高');
+      expect(Priority.NORMAL, caseName('DueRuleCases', '0004')).assertEqual('普通');
+      expect(Priority.LOW, caseName('DueRuleCases', '0004')).assertEqual('低');
+      expect((Priority.HIGH as string) === (Priority.LOW as string), caseName('DueRuleCases', '0004')).assertFalse();
     });
 
     /**
@@ -110,12 +111,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueRuleCases0005', 0, (): void => {
-      expect(RepeatKind.NONE).assertEqual('不重复');
-      expect(RepeatKind.DAILY).assertEqual('每天');
-      expect(RepeatKind.WEEKDAY).assertEqual('工作日');
-      expect(RepeatKind.WEEKLY).assertEqual('每周');
-      expect(RepeatKind.MONTHLY).assertEqual('每月');
+    it(caseName('DueRuleCases', '0005'), 0, (): void => {
+      expect(RepeatKind.NONE, caseName('DueRuleCases', '0005')).assertEqual('不重复');
+      expect(RepeatKind.DAILY, caseName('DueRuleCases', '0005')).assertEqual('每天');
+      expect(RepeatKind.WEEKDAY, caseName('DueRuleCases', '0005')).assertEqual('工作日');
+      expect(RepeatKind.WEEKLY, caseName('DueRuleCases', '0005')).assertEqual('每周');
+      expect(RepeatKind.MONTHLY, caseName('DueRuleCases', '0005')).assertEqual('每月');
     });
 
     /**
@@ -127,11 +128,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueRuleCases0006', 0, (): void => {
-      expect(DUE_SOON_MS).assertEqual(DAY);
-      expect(DUE_SOON_MS).assertEqual(24 * 60 * 60 * 1000);
-      expect(DUE_SOON_MS).assertEqual(86400000);
-      expect(DUE_SOON_MS > 0).assertTrue();
+    it(caseName('DueRuleCases', '0006'), 0, (): void => {
+      expect(DUE_SOON_MS, caseName('DueRuleCases', '0006')).assertEqual(DAY);
+      expect(DUE_SOON_MS, caseName('DueRuleCases', '0006')).assertEqual(24 * 60 * 60 * 1000);
+      expect(DUE_SOON_MS, caseName('DueRuleCases', '0006')).assertEqual(86400000);
+      expect(DUE_SOON_MS > 0, caseName('DueRuleCases', '0006')).assertTrue();
     });
 
     /**
@@ -143,11 +144,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testDueRuleCases0007', 0, (): void => {
+    it(caseName('DueRuleCases', '0007'), 0, (): void => {
       const lines: string[] = dueLines();
-      expect(lines.length).assertEqual(DUE_RULES.length);
-      expect(lines.every((line: string): boolean => line.indexOf('→') > 0)).assertTrue();
-      expect(lines[0].indexOf('DU-01') === 0).assertTrue();
+      expect(lines.length, caseName('DueRuleCases', '0007')).assertEqual(DUE_RULES.length);
+      expect(lines.every((line: string): boolean => line.indexOf('→') > 0), caseName('DueRuleCases', '0007')).assertTrue();
+      expect(lines[0].indexOf('DU-01') === 0, caseName('DueRuleCases', '0007')).assertTrue();
     });
 
     /**
@@ -159,12 +160,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueRuleCases0008', 0, (): void => {
-      expect(DUE_RULES.every((rule: DueRule): boolean => rule.note.length > 0)).assertTrue();
+    it(caseName('DueRuleCases', '0008'), 0, (): void => {
+      expect(DUE_RULES.every((rule: DueRule): boolean => rule.note.length > 0), caseName('DueRuleCases', '0008')).assertTrue();
       expect(DUE_RULES.every((rule: DueRule): boolean =>
-        rule.condition.length > 0)).assertTrue();
+        rule.condition.length > 0), caseName('DueRuleCases', '0008')).assertTrue();
       expect(DUE_RULES.filter((rule: DueRule): boolean =>
-        rule.state === DueState.OVERDUE).length).assertEqual(2);
+        rule.state === DueState.OVERDUE).length, caseName('DueRuleCases', '0008')).assertEqual(2);
     });
   });
 
@@ -178,15 +179,15 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testTodoDueCases0001', 0, (): void => {
+    it(caseName('TodoDueCases', '0001'), 0, (): void => {
       const due: TodoDue = new TodoDue();
-      expect(due.dueAt).assertEqual(0);
-      expect(due.priority).assertEqual(Priority.NORMAL);
-      expect(due.done).assertFalse();
-      expect(due.repeat).assertEqual(RepeatKind.NONE);
-      expect(due.deferredAt).assertEqual(0);
-      expect(due.exceptions.length).assertEqual(0);
-      expect(due.undated()).assertTrue();
+      expect(due.dueAt, caseName('TodoDueCases', '0001')).assertEqual(0);
+      expect(due.priority, caseName('TodoDueCases', '0001')).assertEqual(Priority.NORMAL);
+      expect(due.done, caseName('TodoDueCases', '0001')).assertFalse();
+      expect(due.repeat, caseName('TodoDueCases', '0001')).assertEqual(RepeatKind.NONE);
+      expect(due.deferredAt, caseName('TodoDueCases', '0001')).assertEqual(0);
+      expect(due.exceptions.length, caseName('TodoDueCases', '0001')).assertEqual(0);
+      expect(due.undated(), caseName('TodoDueCases', '0001')).assertTrue();
     });
 
     /**
@@ -198,10 +199,10 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoDueCases0002', 0, (): void => {
-      expect(dueAtOf(0, Priority.HIGH).undated()).assertTrue();
-      expect(dueAtOf(-1, Priority.HIGH).undated()).assertTrue();
-      expect(dueAtOf(1, Priority.HIGH).undated()).assertFalse();
+    it(caseName('TodoDueCases', '0002'), 0, (): void => {
+      expect(dueAtOf(0, Priority.HIGH).undated(), caseName('TodoDueCases', '0002')).assertTrue();
+      expect(dueAtOf(-1, Priority.HIGH).undated(), caseName('TodoDueCases', '0002')).assertTrue();
+      expect(dueAtOf(1, Priority.HIGH).undated(), caseName('TodoDueCases', '0002')).assertFalse();
     });
 
     /**
@@ -213,10 +214,10 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoDueCases0003', 0, (): void => {
-      expect(dateKeyOf(new Date(2024, 0, 5, 10, 0, 0, 0).getTime())).assertEqual('2024-01-05');
-      expect(dateKeyOf(new Date(2024, 11, 31, 23, 59, 0, 0).getTime())).assertEqual('2024-12-31');
-      expect(dateKeyOf(new Date(2024, 4, 1, 0, 0, 0, 0).getTime())).assertEqual('2024-05-01');
+    it(caseName('TodoDueCases', '0003'), 0, (): void => {
+      expect(dateKeyOf(new Date(2024, 0, 5, 10, 0, 0, 0).getTime()), caseName('TodoDueCases', '0003')).assertEqual('2024-01-05');
+      expect(dateKeyOf(new Date(2024, 11, 31, 23, 59, 0, 0).getTime()), caseName('TodoDueCases', '0003')).assertEqual('2024-12-31');
+      expect(dateKeyOf(new Date(2024, 4, 1, 0, 0, 0, 0).getTime()), caseName('TodoDueCases', '0003')).assertEqual('2024-05-01');
     });
 
     /**
@@ -228,13 +229,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoDueCases0004', 0, (): void => {
+    it(caseName('TodoDueCases', '0004'), 0, (): void => {
       const morning: number = new Date(2024, 4, 1, 0, 0, 0, 0).getTime();
       const evening: number = new Date(2024, 4, 1, 23, 0, 0, 0).getTime();
-      expect(dateKeyOf(morning)).assertEqual(dateKeyOf(evening));
-      expect(dateKeyOf(morning).length).assertEqual(10);
-      expect(dateKeyOf(morning)).assertEqual('2024-05-01');
-      expect(dateKeyOf(evening)).assertEqual('2024-05-01');
+      expect(dateKeyOf(morning), caseName('TodoDueCases', '0004')).assertEqual(dateKeyOf(evening));
+      expect(dateKeyOf(morning).length, caseName('TodoDueCases', '0004')).assertEqual(10);
+      expect(dateKeyOf(morning), caseName('TodoDueCases', '0004')).assertEqual('2024-05-01');
+      expect(dateKeyOf(evening), caseName('TodoDueCases', '0004')).assertEqual('2024-05-01');
     });
 
     /**
@@ -246,13 +247,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoDueCases0005', 0, (): void => {
+    it(caseName('TodoDueCases', '0005'), 0, (): void => {
       const first: string = dateKeyOf(new Date(2024, 4, 1, 10, 0, 0, 0).getTime());
       const second: string = dateKeyOf(new Date(2024, 4, 2, 10, 0, 0, 0).getTime());
-      expect(first === second).assertFalse();
-      expect(first < second).assertTrue();
-      expect(first).assertEqual('2024-05-01');
-      expect(second).assertEqual('2024-05-02');
+      expect(first === second, caseName('TodoDueCases', '0005')).assertFalse();
+      expect(first < second, caseName('TodoDueCases', '0005')).assertTrue();
+      expect(first, caseName('TodoDueCases', '0005')).assertEqual('2024-05-01');
+      expect(second, caseName('TodoDueCases', '0005')).assertEqual('2024-05-02');
     });
 
     /**
@@ -264,12 +265,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoDueCases0006', 0, (): void => {
+    it(caseName('TodoDueCases', '0006'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.HIGH);
       due.done = true;
-      expect(dueStateOf(due, 1000000)).assertEqual(DueState.DONE);
-      expect(dueStateOf(due, 1000)).assertEqual(DueState.DONE);
-      expect(overdueDays(due, 1000000)).assertEqual(0);
+      expect(dueStateOf(due, 1000000), caseName('TodoDueCases', '0006')).assertEqual(DueState.DONE);
+      expect(dueStateOf(due, 1000), caseName('TodoDueCases', '0006')).assertEqual(DueState.DONE);
+      expect(overdueDays(due, 1000000), caseName('TodoDueCases', '0006')).assertEqual(0);
     });
 
     /**
@@ -281,12 +282,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoDueCases0007', 0, (): void => {
+    it(caseName('TodoDueCases', '0007'), 0, (): void => {
       const due: TodoDue = new TodoDue();
-      expect(dueStateOf(due, 1000000)).assertEqual(DueState.NO_DUE);
-      expect(overdueDays(due, 1000000)).assertEqual(0);
-      expect(due.dueAt).assertEqual(0);
-      expect(due.undated()).assertTrue();
+      expect(dueStateOf(due, 1000000), caseName('TodoDueCases', '0007')).assertEqual(DueState.NO_DUE);
+      expect(overdueDays(due, 1000000), caseName('TodoDueCases', '0007')).assertEqual(0);
+      expect(due.dueAt, caseName('TodoDueCases', '0007')).assertEqual(0);
+      expect(due.undated(), caseName('TodoDueCases', '0007')).assertTrue();
     });
 
     /**
@@ -298,13 +299,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoDueCases0008', 0, (): void => {
+    it(caseName('TodoDueCases', '0008'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.NORMAL);
       due.exceptions.push('2024-05-01');
-      expect(due.exceptions.length).assertEqual(1);
-      expect(due.exceptions[0]).assertEqual('2024-05-01');
-      expect(due.dueAt).assertEqual(1000);
-      expect(due.repeat).assertEqual(RepeatKind.NONE);
+      expect(due.exceptions.length, caseName('TodoDueCases', '0008')).assertEqual(1);
+      expect(due.exceptions[0], caseName('TodoDueCases', '0008')).assertEqual('2024-05-01');
+      expect(due.dueAt, caseName('TodoDueCases', '0008')).assertEqual(1000);
+      expect(due.repeat, caseName('TodoDueCases', '0008')).assertEqual(RepeatKind.NONE);
     });
   });
 
@@ -318,12 +319,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueStateCases0001', 0, (): void => {
+    it(caseName('DueStateCases', '0001'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000 + 2 * DAY, Priority.NORMAL);
-      expect(dueStateOf(due, 1000)).assertEqual(DueState.FUTURE);
-      expect(overdueDays(due, 1000)).assertEqual(0);
-      expect(dueStateOf(due, 1000 + 2 * DAY)).assertEqual(DueState.DUE_SOON);
-      expect(due.dueAt).assertEqual(1000 + 2 * DAY);
+      expect(dueStateOf(due, 1000), caseName('DueStateCases', '0001')).assertEqual(DueState.FUTURE);
+      expect(overdueDays(due, 1000), caseName('DueStateCases', '0001')).assertEqual(0);
+      expect(dueStateOf(due, 1000 + 2 * DAY), caseName('DueStateCases', '0001')).assertEqual(DueState.DUE_SOON);
+      expect(due.dueAt, caseName('DueStateCases', '0001')).assertEqual(1000 + 2 * DAY);
     });
 
     /**
@@ -335,12 +336,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueStateCases0002', 0, (): void => {
+    it(caseName('DueStateCases', '0002'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000 + DUE_SOON_MS, Priority.NORMAL);
-      expect(dueStateOf(due, 1000)).assertEqual(DueState.DUE_SOON);
+      expect(dueStateOf(due, 1000), caseName('DueStateCases', '0002')).assertEqual(DueState.DUE_SOON);
       const later: TodoDue = dueAtOf(1000 + DUE_SOON_MS + 1, Priority.NORMAL);
-      expect(dueStateOf(later, 1000)).assertEqual(DueState.FUTURE);
-      expect(overdueDays(later, 1000)).assertEqual(0);
+      expect(dueStateOf(later, 1000), caseName('DueStateCases', '0002')).assertEqual(DueState.FUTURE);
+      expect(overdueDays(later, 1000), caseName('DueStateCases', '0002')).assertEqual(0);
     });
 
     /**
@@ -352,11 +353,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueStateCases0003', 0, (): void => {
+    it(caseName('DueStateCases', '0003'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.NORMAL);
-      expect(dueStateOf(due, 1000)).assertEqual(DueState.DUE_SOON);
-      expect(dueStateOf(dueAtOf(1001, Priority.NORMAL), 1000)).assertEqual(DueState.DUE_SOON);
-      expect(dueStateOf(due, 1001)).assertEqual(DueState.OVERDUE);
+      expect(dueStateOf(due, 1000), caseName('DueStateCases', '0003')).assertEqual(DueState.DUE_SOON);
+      expect(dueStateOf(dueAtOf(1001, Priority.NORMAL), 1000), caseName('DueStateCases', '0003')).assertEqual(DueState.DUE_SOON);
+      expect(dueStateOf(due, 1001), caseName('DueStateCases', '0003')).assertEqual(DueState.OVERDUE);
     });
 
     /**
@@ -368,12 +369,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueStateCases0004', 0, (): void => {
+    it(caseName('DueStateCases', '0004'), 0, (): void => {
       const due: TodoDue = dueAtOf(999, Priority.NORMAL);
-      expect(dueStateOf(due, 1000)).assertEqual(DueState.OVERDUE);
-      expect((DueState.OVERDUE as string) === (DueState.DUE_SOON as string)).assertFalse();
-      expect(overdueDays(due, 1000)).assertEqual(0);
-      expect(overdueDays(due, 1000 + DAY)).assertEqual(1);
+      expect(dueStateOf(due, 1000), caseName('DueStateCases', '0004')).assertEqual(DueState.OVERDUE);
+      expect((DueState.OVERDUE as string) === (DueState.DUE_SOON as string), caseName('DueStateCases', '0004')).assertFalse();
+      expect(overdueDays(due, 1000), caseName('DueStateCases', '0004')).assertEqual(0);
+      expect(overdueDays(due, 1000 + DAY), caseName('DueStateCases', '0004')).assertEqual(1);
     });
 
     /**
@@ -385,11 +386,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueStateCases0005', 0, (): void => {
+    it(caseName('DueStateCases', '0005'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.NORMAL);
-      expect(overdueDays(due, 1000 + DAY + 5)).assertEqual(1);
-      expect(overdueDays(due, 1000 + 3 * DAY + DAY - 1)).assertEqual(3);
-      expect(overdueDays(due, 1000 + DAY - 1)).assertEqual(0);
+      expect(overdueDays(due, 1000 + DAY + 5), caseName('DueStateCases', '0005')).assertEqual(1);
+      expect(overdueDays(due, 1000 + 3 * DAY + DAY - 1), caseName('DueStateCases', '0005')).assertEqual(3);
+      expect(overdueDays(due, 1000 + DAY - 1), caseName('DueStateCases', '0005')).assertEqual(0);
     });
 
     /**
@@ -401,12 +402,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueStateCases0006', 0, (): void => {
-      expect(overdueDays(dueAtOf(1000, Priority.NORMAL), 500)).assertEqual(0);
-      expect(overdueDays(dueAtOf(1000, Priority.NORMAL), 1000)).assertEqual(0);
+    it(caseName('DueStateCases', '0006'), 0, (): void => {
+      expect(overdueDays(dueAtOf(1000, Priority.NORMAL), 500), caseName('DueStateCases', '0006')).assertEqual(0);
+      expect(overdueDays(dueAtOf(1000, Priority.NORMAL), 1000), caseName('DueStateCases', '0006')).assertEqual(0);
       const done: TodoDue = dueAtOf(1000, Priority.NORMAL);
       done.done = true;
-      expect(overdueDays(done, 1000 + 5 * DAY)).assertEqual(0);
+      expect(overdueDays(done, 1000 + 5 * DAY), caseName('DueStateCases', '0006')).assertEqual(0);
     });
 
     /**
@@ -418,13 +419,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDueStateCases0007', 0, (): void => {
+    it(caseName('DueStateCases', '0007'), 0, (): void => {
       const high: TodoDue = dueAtOf(500, Priority.HIGH);
       const low: TodoDue = dueAtOf(500, Priority.LOW);
-      expect(dueStateOf(high, 1000)).assertEqual(dueStateOf(low, 1000));
-      expect(dueStateOf(high, 1000)).assertEqual(DueState.OVERDUE);
-      expect(overdueDays(high, 1000)).assertEqual(0);
-      expect(priorityWeight(high.priority)).assertEqual(0);
+      expect(dueStateOf(high, 1000), caseName('DueStateCases', '0007')).assertEqual(dueStateOf(low, 1000));
+      expect(dueStateOf(high, 1000), caseName('DueStateCases', '0007')).assertEqual(DueState.OVERDUE);
+      expect(overdueDays(high, 1000), caseName('DueStateCases', '0007')).assertEqual(0);
+      expect(priorityWeight(high.priority), caseName('DueStateCases', '0007')).assertEqual(0);
     });
   });
 
@@ -438,11 +439,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDeferCases0001', 0, (): void => {
+    it(caseName('DeferCases', '0001'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.NORMAL);
-      expect(defer(due, 2, 500)).assertTrue();
-      expect(due.dueAt).assertEqual(1000 + 2 * DAY);
-      expect(due.deferredAt).assertEqual(500);
+      expect(defer(due, 2, 500), caseName('DeferCases', '0001')).assertTrue();
+      expect(due.dueAt, caseName('DeferCases', '0001')).assertEqual(1000 + 2 * DAY);
+      expect(due.deferredAt, caseName('DeferCases', '0001')).assertEqual(500);
     });
 
     /**
@@ -454,12 +455,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDeferCases0002', 0, (): void => {
+    it(caseName('DeferCases', '0002'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.NORMAL);
-      expect(defer(due, 0, 500)).assertFalse();
-      expect(defer(due, -3, 500)).assertFalse();
-      expect(due.dueAt).assertEqual(1000);
-      expect(due.deferredAt).assertEqual(0);
+      expect(defer(due, 0, 500), caseName('DeferCases', '0002')).assertFalse();
+      expect(defer(due, -3, 500), caseName('DeferCases', '0002')).assertFalse();
+      expect(due.dueAt, caseName('DeferCases', '0002')).assertEqual(1000);
+      expect(due.deferredAt, caseName('DeferCases', '0002')).assertEqual(0);
     });
 
     /**
@@ -471,11 +472,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDeferCases0003', 0, (): void => {
+    it(caseName('DeferCases', '0003'), 0, (): void => {
       const due: TodoDue = new TodoDue();
-      expect(defer(due, 3, 500)).assertFalse();
-      expect(due.dueAt).assertEqual(0);
-      expect(due.undated()).assertTrue();
+      expect(defer(due, 3, 500), caseName('DeferCases', '0003')).assertFalse();
+      expect(due.dueAt, caseName('DeferCases', '0003')).assertEqual(0);
+      expect(due.undated(), caseName('DeferCases', '0003')).assertTrue();
     });
 
     /**
@@ -487,13 +488,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDeferCases0004', 0, (): void => {
+    it(caseName('DeferCases', '0004'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.HIGH);
       defer(due, 1, 500);
-      expect(due.priority).assertEqual(Priority.HIGH);
-      expect(due.done).assertFalse();
-      expect(due.dueAt).assertEqual(1000 + DAY);
-      expect(due.deferredAt).assertEqual(500);
+      expect(due.priority, caseName('DeferCases', '0004')).assertEqual(Priority.HIGH);
+      expect(due.done, caseName('DeferCases', '0004')).assertFalse();
+      expect(due.dueAt, caseName('DeferCases', '0004')).assertEqual(1000 + DAY);
+      expect(due.deferredAt, caseName('DeferCases', '0004')).assertEqual(500);
     });
 
     /**
@@ -505,12 +506,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDeferCases0005', 0, (): void => {
+    it(caseName('DeferCases', '0005'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.NORMAL);
       defer(due, 1, 1000 + 10 * DAY);
-      expect(dueStateOf(due, 1000 + 10 * DAY)).assertEqual(DueState.OVERDUE);
-      expect(overdueDays(due, 1000 + 10 * DAY)).assertEqual(9);
-      expect(due.deferredAt).assertEqual(1000 + 10 * DAY);
+      expect(dueStateOf(due, 1000 + 10 * DAY), caseName('DeferCases', '0005')).assertEqual(DueState.OVERDUE);
+      expect(overdueDays(due, 1000 + 10 * DAY), caseName('DeferCases', '0005')).assertEqual(9);
+      expect(due.deferredAt, caseName('DeferCases', '0005')).assertEqual(1000 + 10 * DAY);
     });
 
     /**
@@ -522,13 +523,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDeferCases0006', 0, (): void => {
+    it(caseName('DeferCases', '0006'), 0, (): void => {
       const now: number = 1000 + 3 * DAY;
       const due: TodoDue = dueAtOf(1000, Priority.NORMAL);
       defer(due, 10, now);
-      expect(dueStateOf(due, now)).assertEqual(DueState.FUTURE);
-      expect(due.deferredAt).assertEqual(now);
-      expect(due.dueAt).assertEqual(1000 + 10 * DAY);
+      expect(dueStateOf(due, now), caseName('DeferCases', '0006')).assertEqual(DueState.FUTURE);
+      expect(due.deferredAt, caseName('DeferCases', '0006')).assertEqual(now);
+      expect(due.dueAt, caseName('DeferCases', '0006')).assertEqual(1000 + 10 * DAY);
     });
 
     /**
@@ -540,13 +541,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testDeferCases0007', 0, (): void => {
+    it(caseName('DeferCases', '0007'), 0, (): void => {
       const due: TodoDue = dueAtOf(1000, Priority.NORMAL);
       defer(due, 1, 500);
       defer(due, 1, 600);
-      expect(due.dueAt).assertEqual(1000 + 2 * DAY);
-      expect(due.deferredAt).assertEqual(600);
-      expect(due.priority).assertEqual(Priority.NORMAL);
+      expect(due.dueAt, caseName('DeferCases', '0007')).assertEqual(1000 + 2 * DAY);
+      expect(due.deferredAt, caseName('DeferCases', '0007')).assertEqual(600);
+      expect(due.priority, caseName('DeferCases', '0007')).assertEqual(Priority.NORMAL);
     });
   });
 
@@ -562,15 +563,15 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testPriorityCases0002', 0, (): void => {
+    it(caseName('PriorityCases', '0002'), 0, (): void => {
       const weights: number[] = [priorityWeight(Priority.HIGH), priorityWeight(Priority.NORMAL),
         priorityWeight(Priority.LOW)];
       expect(weights.filter((weight: number, index: number): boolean =>
-        weights.indexOf(weight) === index).length).assertEqual(3);
-      expect(Math.max(weights[0], weights[2])).assertEqual(2);
-      expect(weights[0]).assertEqual(0);
-      expect(weights[1]).assertEqual(1);
-      expect(weights[2]).assertEqual(2);
+        weights.indexOf(weight) === index).length, caseName('PriorityCases', '0002')).assertEqual(3);
+      expect(Math.max(weights[0], weights[2]), caseName('PriorityCases', '0002')).assertEqual(2);
+      expect(weights[0], caseName('PriorityCases', '0002')).assertEqual(0);
+      expect(weights[1], caseName('PriorityCases', '0002')).assertEqual(1);
+      expect(weights[2], caseName('PriorityCases', '0002')).assertEqual(2);
     });
 
     /**
@@ -582,15 +583,15 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testPriorityCases0003', 0, (): void => {
+    it(caseName('PriorityCases', '0003'), 0, (): void => {
       const items: TodoDue[] = [dueAtOf(1000, Priority.HIGH), dueAtOf(2000, Priority.LOW),
         dueAtOf(3000, Priority.NORMAL)];
       expect(items.every((item: TodoDue): boolean =>
-        priorityWeight(item.priority) >= 0 && priorityWeight(item.priority) <= 2)).assertTrue();
-      expect(items.length).assertEqual(3);
-      expect(priorityWeight(Priority.HIGH)).assertEqual(0);
-      expect(priorityWeight(Priority.LOW)).assertEqual(2);
-      expect(priorityWeight(Priority.HIGH) < priorityWeight(Priority.LOW)).assertTrue();
+        priorityWeight(item.priority) >= 0 && priorityWeight(item.priority) <= 2), caseName('PriorityCases', '0003')).assertTrue();
+      expect(items.length, caseName('PriorityCases', '0003')).assertEqual(3);
+      expect(priorityWeight(Priority.HIGH), caseName('PriorityCases', '0003')).assertEqual(0);
+      expect(priorityWeight(Priority.LOW), caseName('PriorityCases', '0003')).assertEqual(2);
+      expect(priorityWeight(Priority.HIGH) < priorityWeight(Priority.LOW), caseName('PriorityCases', '0003')).assertTrue();
     });
   });
 
@@ -604,12 +605,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0001', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0001'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
-      expect(nextOccurrence(due, FRIDAY)).assertEqual(0);
-      expect(due.repeat).assertEqual(RepeatKind.NONE);
-      expect(nextOccurrence(due, FRIDAY + DAY)).assertEqual(0);
-      expect(due.dueAt).assertEqual(FRIDAY);
+      expect(nextOccurrence(due, FRIDAY), caseName('NextOccurrenceCases', '0001')).assertEqual(0);
+      expect(due.repeat, caseName('NextOccurrenceCases', '0001')).assertEqual(RepeatKind.NONE);
+      expect(nextOccurrence(due, FRIDAY + DAY), caseName('NextOccurrenceCases', '0001')).assertEqual(0);
+      expect(due.dueAt, caseName('NextOccurrenceCases', '0001')).assertEqual(FRIDAY);
     });
 
     /**
@@ -621,14 +622,14 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0002', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0002'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.DAILY;
       const next: number = nextOccurrence(due, FRIDAY);
-      expect(next).assertEqual(FRIDAY + DAY);
-      expect(dateKeyOf(next)).assertEqual('2024-01-20');
-      expect(nextOccurrence(due, next)).assertEqual(FRIDAY + 2 * DAY);
-      expect(due.repeat).assertEqual(RepeatKind.DAILY);
+      expect(next, caseName('NextOccurrenceCases', '0002')).assertEqual(FRIDAY + DAY);
+      expect(dateKeyOf(next), caseName('NextOccurrenceCases', '0002')).assertEqual('2024-01-20');
+      expect(nextOccurrence(due, next), caseName('NextOccurrenceCases', '0002')).assertEqual(FRIDAY + 2 * DAY);
+      expect(due.repeat, caseName('NextOccurrenceCases', '0002')).assertEqual(RepeatKind.DAILY);
     });
 
     /**
@@ -640,12 +641,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0003', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0003'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.WEEKLY;
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY))).assertEqual('2024-01-26');
-      expect(nextOccurrence(due, FRIDAY)).assertEqual(FRIDAY + 7 * DAY);
-      expect(due.repeat).assertEqual(RepeatKind.WEEKLY);
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)), caseName('NextOccurrenceCases', '0003')).assertEqual('2024-01-26');
+      expect(nextOccurrence(due, FRIDAY), caseName('NextOccurrenceCases', '0003')).assertEqual(FRIDAY + 7 * DAY);
+      expect(due.repeat, caseName('NextOccurrenceCases', '0003')).assertEqual(RepeatKind.WEEKLY);
     });
 
     /**
@@ -657,12 +658,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0004', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0004'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.MONTHLY;
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY))).assertEqual('2024-02-19');
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY)).indexOf('2024-02') === 0).assertTrue();
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY)).length).assertEqual(10);
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)), caseName('NextOccurrenceCases', '0004')).assertEqual('2024-02-19');
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)).indexOf('2024-02') === 0, caseName('NextOccurrenceCases', '0004')).assertTrue();
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)).length, caseName('NextOccurrenceCases', '0004')).assertEqual(10);
     });
 
     /**
@@ -674,13 +675,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0005', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0005'), 0, (): void => {
       const endOfMonth: number = new Date(2024, 0, 31, 9, 0, 0, 0).getTime();
       const due: TodoDue = dueAtOf(endOfMonth, Priority.NORMAL);
       due.repeat = RepeatKind.MONTHLY;
-      expect(dateKeyOf(nextOccurrence(due, endOfMonth))).assertEqual('2024-03-02');
-      expect(dateKeyOf(nextOccurrence(due, endOfMonth)).indexOf('2024-03') === 0).assertTrue();
-      expect(dateKeyOf(nextOccurrence(due, endOfMonth)).length).assertEqual(10);
+      expect(dateKeyOf(nextOccurrence(due, endOfMonth)), caseName('NextOccurrenceCases', '0005')).assertEqual('2024-03-02');
+      expect(dateKeyOf(nextOccurrence(due, endOfMonth)).indexOf('2024-03') === 0, caseName('NextOccurrenceCases', '0005')).assertTrue();
+      expect(dateKeyOf(nextOccurrence(due, endOfMonth)).length, caseName('NextOccurrenceCases', '0005')).assertEqual(10);
     });
 
     /**
@@ -692,12 +693,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0006', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0006'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.WEEKDAY;
-      expect(new Date(FRIDAY).getDay()).assertEqual(5);
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY))).assertEqual('2024-01-22');
-      expect(new Date(nextOccurrence(due, FRIDAY)).getDay()).assertEqual(1);
+      expect(new Date(FRIDAY).getDay(), caseName('NextOccurrenceCases', '0006')).assertEqual(5);
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)), caseName('NextOccurrenceCases', '0006')).assertEqual('2024-01-22');
+      expect(new Date(nextOccurrence(due, FRIDAY)).getDay(), caseName('NextOccurrenceCases', '0006')).assertEqual(1);
     });
 
     /**
@@ -709,13 +710,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0007', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0007'), 0, (): void => {
       const monday: number = new Date(2024, 0, 22, 9, 0, 0, 0).getTime();
       const due: TodoDue = dueAtOf(monday, Priority.NORMAL);
       due.repeat = RepeatKind.WEEKDAY;
-      expect(dateKeyOf(nextOccurrence(due, monday))).assertEqual('2024-01-23');
-      expect(new Date(nextOccurrence(due, monday)).getDay()).assertEqual(2);
-      expect(dateKeyOf(nextOccurrence(due, monday)).indexOf('2024-01') === 0).assertTrue();
+      expect(dateKeyOf(nextOccurrence(due, monday)), caseName('NextOccurrenceCases', '0007')).assertEqual('2024-01-23');
+      expect(new Date(nextOccurrence(due, monday)).getDay(), caseName('NextOccurrenceCases', '0007')).assertEqual(2);
+      expect(dateKeyOf(nextOccurrence(due, monday)).indexOf('2024-01') === 0, caseName('NextOccurrenceCases', '0007')).assertTrue();
     });
 
     /**
@@ -727,13 +728,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0008', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0008'), 0, (): void => {
       const saturday: number = new Date(2024, 0, 20, 9, 0, 0, 0).getTime();
       const due: TodoDue = dueAtOf(saturday, Priority.NORMAL);
       due.repeat = RepeatKind.WEEKDAY;
-      expect(new Date(saturday).getDay()).assertEqual(6);
-      expect(dateKeyOf(nextOccurrence(due, saturday))).assertEqual('2024-01-22');
-      expect(new Date(nextOccurrence(due, saturday)).getDay()).assertEqual(1);
+      expect(new Date(saturday).getDay(), caseName('NextOccurrenceCases', '0008')).assertEqual(6);
+      expect(dateKeyOf(nextOccurrence(due, saturday)), caseName('NextOccurrenceCases', '0008')).assertEqual('2024-01-22');
+      expect(new Date(nextOccurrence(due, saturday)).getDay(), caseName('NextOccurrenceCases', '0008')).assertEqual(1);
     });
 
     /**
@@ -745,13 +746,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0009', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0009'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.DAILY;
       due.exceptions.push('2024-01-20');
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY))).assertEqual('2024-01-21');
-      expect(due.exceptions.length).assertEqual(1);
-      expect(due.exceptions[0]).assertEqual('2024-01-20');
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)), caseName('NextOccurrenceCases', '0009')).assertEqual('2024-01-21');
+      expect(due.exceptions.length, caseName('NextOccurrenceCases', '0009')).assertEqual(1);
+      expect(due.exceptions[0], caseName('NextOccurrenceCases', '0009')).assertEqual('2024-01-20');
     });
 
     /**
@@ -763,15 +764,15 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0010', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0010'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.DAILY;
       due.exceptions.push('2024-01-20');
       due.exceptions.push('2024-01-21');
       due.exceptions.push('2024-01-22');
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY))).assertEqual('2024-01-23');
-      expect(new Date(nextOccurrence(due, FRIDAY)).getDay()).assertEqual(2);
-      expect(due.exceptions.length).assertEqual(3);
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)), caseName('NextOccurrenceCases', '0010')).assertEqual('2024-01-23');
+      expect(new Date(nextOccurrence(due, FRIDAY)).getDay(), caseName('NextOccurrenceCases', '0010')).assertEqual(2);
+      expect(due.exceptions.length, caseName('NextOccurrenceCases', '0010')).assertEqual(3);
     });
 
     /**
@@ -783,13 +784,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0011', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0011'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.DAILY;
       due.exceptions.push('2024-05-01');
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY))).assertEqual('2024-01-20');
-      expect(nextOccurrence(due, FRIDAY)).assertEqual(FRIDAY + DAY);
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY)) === '2024-05-01').assertFalse();
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)), caseName('NextOccurrenceCases', '0011')).assertEqual('2024-01-20');
+      expect(nextOccurrence(due, FRIDAY), caseName('NextOccurrenceCases', '0011')).assertEqual(FRIDAY + DAY);
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)) === '2024-05-01', caseName('NextOccurrenceCases', '0011')).assertFalse();
     });
 
     /**
@@ -801,13 +802,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0012', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0012'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.WEEKDAY;
       due.exceptions.push('2024-01-22');
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY))).assertEqual('2024-01-23');
-      expect(due.exceptions.length).assertEqual(1);
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY)) === '2024-01-22').assertFalse();
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)), caseName('NextOccurrenceCases', '0012')).assertEqual('2024-01-23');
+      expect(due.exceptions.length, caseName('NextOccurrenceCases', '0012')).assertEqual(1);
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)) === '2024-01-22', caseName('NextOccurrenceCases', '0012')).assertFalse();
     });
 
     /**
@@ -819,15 +820,15 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0013', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0013'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.DAILY;
       for (let index = 1; index <= 400; index++) {
         due.exceptions.push(dateKeyOf(FRIDAY + index * DAY));
       }
-      expect(due.exceptions.length).assertEqual(400);
-      expect(nextOccurrence(due, FRIDAY)).assertEqual(0);
-      expect(due.repeat).assertEqual(RepeatKind.DAILY);
+      expect(due.exceptions.length, caseName('NextOccurrenceCases', '0013')).assertEqual(400);
+      expect(nextOccurrence(due, FRIDAY), caseName('NextOccurrenceCases', '0013')).assertEqual(0);
+      expect(due.repeat, caseName('NextOccurrenceCases', '0013')).assertEqual(RepeatKind.DAILY);
     });
 
     /**
@@ -839,13 +840,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0014', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0014'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.DAILY;
       const later: number = FRIDAY + 5 * DAY;
-      expect(dateKeyOf(nextOccurrence(due, later))).assertEqual('2024-01-25');
-      expect(dateKeyOf(nextOccurrence(due, FRIDAY))).assertEqual('2024-01-20');
-      expect(nextOccurrence(due, later)).assertEqual(later + DAY);
+      expect(dateKeyOf(nextOccurrence(due, later)), caseName('NextOccurrenceCases', '0014')).assertEqual('2024-01-25');
+      expect(dateKeyOf(nextOccurrence(due, FRIDAY)), caseName('NextOccurrenceCases', '0014')).assertEqual('2024-01-20');
+      expect(nextOccurrence(due, later), caseName('NextOccurrenceCases', '0014')).assertEqual(later + DAY);
     });
 
     /**
@@ -857,13 +858,13 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testNextOccurrenceCases0015', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0015'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.WEEKLY;
       nextOccurrence(due, FRIDAY);
-      expect(due.dueAt).assertEqual(FRIDAY);
-      expect(due.repeat).assertEqual(RepeatKind.WEEKLY);
-      expect(nextOccurrence(due, FRIDAY)).assertEqual(FRIDAY + 7 * DAY);
+      expect(due.dueAt, caseName('NextOccurrenceCases', '0015')).assertEqual(FRIDAY);
+      expect(due.repeat, caseName('NextOccurrenceCases', '0015')).assertEqual(RepeatKind.WEEKLY);
+      expect(nextOccurrence(due, FRIDAY), caseName('NextOccurrenceCases', '0015')).assertEqual(FRIDAY + 7 * DAY);
     });
 
     /**
@@ -875,11 +876,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testNextOccurrenceCases0016', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0016'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
-      expect(repeatText(RepeatKind.NONE, due, FRIDAY)).assertEqual('不重复');
-      expect(repeatText(RepeatKind.NONE, due, FRIDAY)).assertEqual(repeatText(RepeatKind.NONE, due, FRIDAY));
-      expect(repeatText(RepeatKind.NONE, due, FRIDAY).length).assertEqual(3);
+      expect(repeatText(RepeatKind.NONE, due, FRIDAY), caseName('NextOccurrenceCases', '0016')).assertEqual('不重复');
+      expect(repeatText(RepeatKind.NONE, due, FRIDAY), caseName('NextOccurrenceCases', '0016')).assertEqual(repeatText(RepeatKind.NONE, due, FRIDAY));
+      expect(repeatText(RepeatKind.NONE, due, FRIDAY).length, caseName('NextOccurrenceCases', '0016')).assertEqual(3);
     });
 
     /**
@@ -891,12 +892,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testNextOccurrenceCases0017', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0017'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.DAILY;
-      expect(repeatText(RepeatKind.DAILY, due, FRIDAY)).assertEqual('每天（下次 2024-01-20）');
-      expect(repeatText(RepeatKind.DAILY, due, FRIDAY).indexOf('下次') > 0).assertTrue();
-      expect(repeatText(RepeatKind.DAILY, due, FRIDAY).indexOf('每天') === 0).assertTrue();
+      expect(repeatText(RepeatKind.DAILY, due, FRIDAY), caseName('NextOccurrenceCases', '0017')).assertEqual('每天（下次 2024-01-20）');
+      expect(repeatText(RepeatKind.DAILY, due, FRIDAY).indexOf('下次') > 0, caseName('NextOccurrenceCases', '0017')).assertTrue();
+      expect(repeatText(RepeatKind.DAILY, due, FRIDAY).indexOf('每天') === 0, caseName('NextOccurrenceCases', '0017')).assertTrue();
     });
 
     /**
@@ -908,11 +909,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testNextOccurrenceCases0018', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0018'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
-      expect(repeatText(RepeatKind.DAILY, due, FRIDAY)).assertEqual('每天（下次未定）');
-      expect(repeatText(RepeatKind.DAILY, due, FRIDAY).indexOf('未定') > 0).assertTrue();
-      expect(repeatText(RepeatKind.DAILY, due, FRIDAY).indexOf('每天') === 0).assertTrue();
+      expect(repeatText(RepeatKind.DAILY, due, FRIDAY), caseName('NextOccurrenceCases', '0018')).assertEqual('每天（下次未定）');
+      expect(repeatText(RepeatKind.DAILY, due, FRIDAY).indexOf('未定') > 0, caseName('NextOccurrenceCases', '0018')).assertTrue();
+      expect(repeatText(RepeatKind.DAILY, due, FRIDAY).indexOf('每天') === 0, caseName('NextOccurrenceCases', '0018')).assertTrue();
     });
 
     /**
@@ -924,12 +925,12 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testNextOccurrenceCases0019', 0, (): void => {
+    it(caseName('NextOccurrenceCases', '0019'), 0, (): void => {
       const due: TodoDue = dueAtOf(FRIDAY, Priority.NORMAL);
       due.repeat = RepeatKind.WEEKLY;
-      expect(repeatText(RepeatKind.WEEKLY, due, FRIDAY)).assertEqual('每周（下次 2024-01-26）');
-      expect(repeatText(RepeatKind.WEEKLY, due, FRIDAY).indexOf('每周') === 0).assertTrue();
-      expect(due.repeat).assertEqual(RepeatKind.WEEKLY);
+      expect(repeatText(RepeatKind.WEEKLY, due, FRIDAY), caseName('NextOccurrenceCases', '0019')).assertEqual('每周（下次 2024-01-26）');
+      expect(repeatText(RepeatKind.WEEKLY, due, FRIDAY).indexOf('每周') === 0, caseName('NextOccurrenceCases', '0019')).assertTrue();
+      expect(due.repeat, caseName('NextOccurrenceCases', '0019')).assertEqual(RepeatKind.WEEKLY);
     });
   });
 
@@ -943,11 +944,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0001', 0, (): void => {
+    it(caseName('BucketCases', '0001'), 0, (): void => {
       const buckets: DueBuckets = bucketize([], 1000);
-      expect(buckets.size()).assertEqual(0);
-      expect(buckets.overdue.length).assertEqual(0);
-      expect(buckets.describe()).assertEqual('逾期 0｜即将到期 0｜未到期 0｜无截止 0｜已完成 0');
+      expect(buckets.size(), caseName('BucketCases', '0001')).assertEqual(0);
+      expect(buckets.overdue.length, caseName('BucketCases', '0001')).assertEqual(0);
+      expect(buckets.describe(), caseName('BucketCases', '0001')).assertEqual('逾期 0｜即将到期 0｜未到期 0｜无截止 0｜已完成 0');
     });
 
     /**
@@ -959,7 +960,7 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0002', 0, (): void => {
+    it(caseName('BucketCases', '0002'), 0, (): void => {
       const now: number = 10 * DAY;
       const items: TodoDue[] = [
         dueAtOf(now - DAY, Priority.NORMAL),
@@ -970,12 +971,12 @@ export default function dueRepeatMatrixCasesTest(): void {
       ];
       items[4].done = true;
       const buckets: DueBuckets = bucketize(items, now);
-      expect(buckets.overdue.length).assertEqual(1);
-      expect(buckets.soon.length).assertEqual(1);
-      expect(buckets.future.length).assertEqual(1);
-      expect(buckets.undated.length).assertEqual(1);
-      expect(buckets.done.length).assertEqual(1);
-      expect(buckets.size()).assertEqual(5);
+      expect(buckets.overdue.length, caseName('BucketCases', '0002')).assertEqual(1);
+      expect(buckets.soon.length, caseName('BucketCases', '0002')).assertEqual(1);
+      expect(buckets.future.length, caseName('BucketCases', '0002')).assertEqual(1);
+      expect(buckets.undated.length, caseName('BucketCases', '0002')).assertEqual(1);
+      expect(buckets.done.length, caseName('BucketCases', '0002')).assertEqual(1);
+      expect(buckets.size(), caseName('BucketCases', '0002')).assertEqual(5);
     });
 
     /**
@@ -987,14 +988,14 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0003', 0, (): void => {
+    it(caseName('BucketCases', '0003'), 0, (): void => {
       const now: number = 10 * DAY;
       const items: TodoDue[] = [dueAtOf(now - DAY, Priority.NORMAL),
         dueAtOf(now - 2 * DAY, Priority.NORMAL), new TodoDue()];
-      expect(bucketize(items, now).describe())
+      expect(bucketize(items, now).describe(), caseName('BucketCases', '0003'))
         .assertEqual('逾期 2｜即将到期 0｜未到期 0｜无截止 1｜已完成 0');
-      expect(bucketize(items, now).overdue.length).assertEqual(2);
-      expect(bucketize(items, now).undated.length).assertEqual(1);
+      expect(bucketize(items, now).overdue.length, caseName('BucketCases', '0003')).assertEqual(2);
+      expect(bucketize(items, now).undated.length, caseName('BucketCases', '0003')).assertEqual(1);
     });
 
     /**
@@ -1006,14 +1007,14 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0004', 0, (): void => {
+    it(caseName('BucketCases', '0004'), 0, (): void => {
       const now: number = 10 * DAY;
       const done: TodoDue = dueAtOf(now - 5 * DAY, Priority.HIGH);
       done.done = true;
       const buckets: DueBuckets = bucketize([done], now);
-      expect(buckets.done.length).assertEqual(1);
-      expect(buckets.overdue.length).assertEqual(0);
-      expect(buckets.size()).assertEqual(1);
+      expect(buckets.done.length, caseName('BucketCases', '0004')).assertEqual(1);
+      expect(buckets.overdue.length, caseName('BucketCases', '0004')).assertEqual(0);
+      expect(buckets.size(), caseName('BucketCases', '0004')).assertEqual(1);
     });
 
     /**
@@ -1025,11 +1026,11 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0005', 0, (): void => {
+    it(caseName('BucketCases', '0005'), 0, (): void => {
       const buckets: DueBuckets = bucketize([new TodoDue(), new TodoDue()], 1000);
-      expect(buckets.undated.length).assertEqual(2);
-      expect(buckets.overdue.length).assertEqual(0);
-      expect(buckets.size()).assertEqual(2);
+      expect(buckets.undated.length, caseName('BucketCases', '0005')).assertEqual(2);
+      expect(buckets.overdue.length, caseName('BucketCases', '0005')).assertEqual(0);
+      expect(buckets.size(), caseName('BucketCases', '0005')).assertEqual(2);
     });
 
     /**
@@ -1041,14 +1042,14 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0006', 0, (): void => {
+    it(caseName('BucketCases', '0006'), 0, (): void => {
       const now: number = 10 * DAY;
       const first: TodoDue = dueAtOf(now - 3 * DAY, Priority.NORMAL);
       const second: TodoDue = dueAtOf(now - DAY, Priority.NORMAL);
       const buckets: DueBuckets = bucketize([first, second], now);
-      expect(buckets.overdue.length).assertEqual(2);
-      expect(buckets.overdue[0].dueAt).assertEqual(now - 3 * DAY);
-      expect(buckets.overdue[1].dueAt).assertEqual(now - DAY);
+      expect(buckets.overdue.length, caseName('BucketCases', '0006')).assertEqual(2);
+      expect(buckets.overdue[0].dueAt, caseName('BucketCases', '0006')).assertEqual(now - 3 * DAY);
+      expect(buckets.overdue[1].dueAt, caseName('BucketCases', '0006')).assertEqual(now - DAY);
     });
 
     /**
@@ -1060,10 +1061,10 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0007', 0, (): void => {
-      expect(dueSummary([], 1000)).assertEqual('暂无待办');
-      expect(dueSummary([], 1000).indexOf('暂无') === 0).assertTrue();
-      expect(dueSummary([], 1000).length).assertEqual(4);
+    it(caseName('BucketCases', '0007'), 0, (): void => {
+      expect(dueSummary([], 1000), caseName('BucketCases', '0007')).assertEqual('暂无待办');
+      expect(dueSummary([], 1000).indexOf('暂无') === 0, caseName('BucketCases', '0007')).assertTrue();
+      expect(dueSummary([], 1000).length, caseName('BucketCases', '0007')).assertEqual(4);
     });
 
     /**
@@ -1075,14 +1076,14 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0008', 0, (): void => {
+    it(caseName('BucketCases', '0008'), 0, (): void => {
       const now: number = 10 * DAY;
       const items: TodoDue[] = [dueAtOf(now - DAY, Priority.NORMAL), dueAtOf(now + 5 * DAY,
         Priority.NORMAL)];
-      expect(dueSummary(items, now)).assertEqual(bucketize(items, now).describe());
-      expect(dueSummary(items, now).indexOf('逾期 1') === 0).assertTrue();
-      expect(bucketize(items, now).future.length).assertEqual(1);
-      expect(bucketize(items, now).overdue.length).assertEqual(1);
+      expect(dueSummary(items, now), caseName('BucketCases', '0008')).assertEqual(bucketize(items, now).describe());
+      expect(dueSummary(items, now).indexOf('逾期 1') === 0, caseName('BucketCases', '0008')).assertTrue();
+      expect(bucketize(items, now).future.length, caseName('BucketCases', '0008')).assertEqual(1);
+      expect(bucketize(items, now).overdue.length, caseName('BucketCases', '0008')).assertEqual(1);
     });
 
     /**
@@ -1094,15 +1095,15 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0009', 0, (): void => {
+    it(caseName('BucketCases', '0009'), 0, (): void => {
       const now: number = 10 * DAY;
       const high: TodoDue = dueAtOf(now - DAY, Priority.HIGH);
       const low: TodoDue = dueAtOf(now - DAY, Priority.LOW);
       const buckets: DueBuckets = bucketize([high, low], now);
-      expect(buckets.overdue.length).assertEqual(2);
-      expect(buckets.future.length).assertEqual(0);
-      expect(buckets.describe().indexOf('逾期 2') === 0).assertTrue();
-      expect(buckets.soon.length).assertEqual(0);
+      expect(buckets.overdue.length, caseName('BucketCases', '0009')).assertEqual(2);
+      expect(buckets.future.length, caseName('BucketCases', '0009')).assertEqual(0);
+      expect(buckets.describe().indexOf('逾期 2') === 0, caseName('BucketCases', '0009')).assertTrue();
+      expect(buckets.soon.length, caseName('BucketCases', '0009')).assertEqual(0);
     });
 
     /**
@@ -1114,15 +1115,15 @@ export default function dueRepeatMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testBucketCases0010', 0, (): void => {
+    it(caseName('BucketCases', '0010'), 0, (): void => {
       const now: number = 10 * DAY;
       const due: TodoDue = dueAtOf(now - DAY, Priority.NORMAL);
-      expect(bucketize([due], now).overdue.length).assertEqual(1);
+      expect(bucketize([due], now).overdue.length, caseName('BucketCases', '0010')).assertEqual(1);
       defer(due, 5, now);
       const after: DueBuckets = bucketize([due], now);
-      expect(after.overdue.length).assertEqual(0);
-      expect(after.future.length).assertEqual(1);
-      expect(after.size()).assertEqual(1);
+      expect(after.overdue.length, caseName('BucketCases', '0010')).assertEqual(0);
+      expect(after.future.length, caseName('BucketCases', '0010')).assertEqual(1);
+      expect(after.size(), caseName('BucketCases', '0010')).assertEqual(1);
     });
   });
 }
