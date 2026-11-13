@@ -41,6 +41,8 @@ class RecorderFrameReceiver {
               int32_t &size) const;
 
   private:
+    bool LoadImageApis();
+    bool CreateReceiver(int32_t width, int32_t height);
     void ReceiveImages();
     static void OnImageArrive(OH_ImageReceiverNative *receiver, void *userData);
     bool ReadImageData(OH_ImageNative *image, OH_ImageBufferData &data) const;

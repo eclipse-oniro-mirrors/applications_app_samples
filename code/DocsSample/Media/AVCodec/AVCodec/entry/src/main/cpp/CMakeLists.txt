@@ -89,6 +89,7 @@ add_library(recorder SHARED sample/recorder/napi/RecorderNative.cpp
                             sample/recorder/input/video/RecorderVideoInput.cpp
                             sample/recorder/input/video/RecorderFrameReceiver.cpp
                             sample/recorder/input/video/RecorderFrameCopy.cpp
+                            sample/recorder/input/video/RecorderFrameEffects.cpp
                             sample/recorder/output/audio/RecorderAudio.cpp
                             sample/recorder/output/video/RecorderVideoOutput.cpp
                             sample/recorder/output/video/RecorderSecondaryOutput.cpp

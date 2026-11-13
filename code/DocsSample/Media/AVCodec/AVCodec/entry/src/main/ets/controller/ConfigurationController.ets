@@ -32,8 +32,11 @@ export class ConfigurationController {
       const snapshot: ConfigurationSnapshot = await ConfigurationStore.load();
       if (!this.touched && allowed()) { apply(snapshot); }
       return '';
-    } catch (_error) { return LocalizedText.get($r('app.string.configuration_load_default')); }
-    finally { this.ready = true; }
+    } catch (_error) {
+      return LocalizedText.get($r('app.string.configuration_load_default'));
+    } finally {
+      this.ready = true;
+    }
   }
 
   async save(context: common.Context, settings: PlayerSettingsModel, data: CameraDataModel,
@@ -45,7 +48,9 @@ export class ConfigurationController {
       await ConfigurationStore.save(snapshot, custom);
       return LocalizedText.get(custom ? $r('app.string.configuration_custom_saved') :
         $r('app.string.configuration_saved'));
-    } catch (_error) { return LocalizedText.get($r('app.string.configuration_save_failed')); }
+    } catch (_error) {
+      return LocalizedText.get($r('app.string.configuration_save_failed'));
+    }
   }
 
   async select(index: number): Promise<ConfigurationSnapshot> {

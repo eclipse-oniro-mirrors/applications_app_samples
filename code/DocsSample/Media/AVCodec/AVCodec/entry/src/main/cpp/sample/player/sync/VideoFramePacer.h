@@ -27,7 +27,10 @@ public:
     void Reset() { initialized_ = false; }
     void SetRevision(uint64_t revision)
     {
-        if (revision != revision_) { Reset(); revision_ = revision; }
+        if (revision != revision_) {
+            Reset();
+            revision_ = revision;
+        }
     }
 
     Clock::time_point Deadline(int64_t ptsUs, double speed, Clock::time_point now = Clock::now())

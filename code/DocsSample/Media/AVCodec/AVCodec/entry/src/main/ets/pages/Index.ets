@@ -277,7 +277,8 @@ export struct Player {
     this.configurationController.touched = true;
     const context = this.getUIContext().getHostContext();
     if (context === undefined) { return; }
-    this.configurationNotice = await this.configurationController.save(context, this.playerSettings, this.cameraData, custom);
+    this.configurationNotice = await this.configurationController.save(context, this.playerSettings,
+      this.cameraData, custom);
   }
 
   private async selectConfiguration(index: number): Promise<void> {
@@ -1166,7 +1167,9 @@ export struct Player {
       if (!launch.nativeOwnsLease) { this.playbackLease = undefined; }
       const message: Resource = launch.error === 'busy' ? $r('app.string.playback_cleanup_busy') :
         (launch.error === 'empty' ? $r('app.string.media_file_empty') : $r('app.string.media_file_open_failed'));
-      this.getUIContext().getPromptAction().showToast({ message: message, duration: Const.DURATION, bottom: Const.BOTTOM });
+      this.getUIContext().getPromptAction().showToast({
+        message: message, duration: Const.DURATION, bottom: Const.BOTTOM
+      });
       this.buttonEnabled = !launch.nativeOwnsLease;
       if (recoverySnapshot !== undefined) { this.playbackViewModel.markRecoveryFailed(); }
       return;
@@ -1264,7 +1267,9 @@ export struct Player {
     if (context === undefined) { return; }
     try {
       const message: Resource = await RecorderCapabilityController.check(context, this.cameraData);
-      this.getUIContext().getPromptAction().showToast({ message: message, duration: Const.DURATION, bottom: Const.BOTTOM });
+      this.getUIContext().getPromptAction().showToast({
+        message: message, duration: Const.DURATION, bottom: Const.BOTTOM
+      });
     } catch (error) {
       Logger.error(TAG, 'Check recording capabilities failed: ' + String(error));
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.alert1') });
@@ -1647,8 +1652,11 @@ export struct Player {
 
   @Builder
   TranscodeHomePage() {
-    TranscodePage({ model: this.transcodeModel, quality: this.transcodeModel.quality,
-      onPlayResult: (uri: string): void => this.playbackSources.playRecording(uri) })
+    TranscodePage({
+      model: this.transcodeModel,
+      quality: this.transcodeModel.quality,
+      onPlayResult: (uri: string): void => this.playbackSources.playRecording(uri)
+    })
   }
 
   @Builder
@@ -1823,20 +1831,22 @@ export struct Player {
             this.setPlaybackSpeed(1);
             this.getUIContext().getPromptAction().showToast({ message: 'X1' });
             break;
-          case Const.PLAYBACK_SPEED[1]: {
-            this.setPlaybackSpeed(2);
-            const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
-              $r('app.string.smart_fluency_x2') : 'X2';
-            this.getUIContext().getPromptAction().showToast({ message: message });
-            break;
-          }
-          case Const.PLAYBACK_SPEED[2]: {
-            this.setPlaybackSpeed(3);
-            const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
-              $r('app.string.smart_fluency_x3') : 'X3';
-            this.getUIContext().getPromptAction().showToast({ message: message });
-            break;
-          }
+          case Const.PLAYBACK_SPEED[1]:
+            {
+              this.setPlaybackSpeed(2);
+              const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
+                $r('app.string.smart_fluency_x2') : 'X2';
+              this.getUIContext().getPromptAction().showToast({ message: message });
+              break;
+            }
+          case Const.PLAYBACK_SPEED[2]:
+            {
+              this.setPlaybackSpeed(3);
+              const message: Resource | string = this.playbackViewModel.isSmartFluencyAvailable ?
+                $r('app.string.smart_fluency_x3') : 'X3';
+              this.getUIContext().getPromptAction().showToast({ message: message });
+              break;
+            }
           default:
             break;
         }

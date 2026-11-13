@@ -41,8 +41,12 @@ export class PlaybackStartupController {
     let closed: boolean = false;
     const closeInput = (): void => {
       if (input === undefined || closed) { return; }
-      try { fileIo.closeSync(input); closed = true; }
-      catch (error) { Logger.error('PlaybackStartup', 'Close input failed: ' + String(error)); }
+      try {
+        fileIo.closeSync(input);
+        closed = true;
+      } catch (error) {
+        Logger.error('PlaybackStartup', 'Close input failed: ' + String(error));
+      }
     };
     try {
       if (context !== undefined) {
@@ -53,8 +57,12 @@ export class PlaybackStartupController {
       const size: number = fileIo.statSync(input.fd).size;
       if (size <= 0) { result.error = 'empty'; return result; }
       prepare(lease);
-      result.started = player.play(settings.createPlayOptions({ inputFileFd: input.fd, inputFileOffset: 0,
-        inputFileSize: size, isSmartFluencySupported: smartFluency }), (completion: PlaybackResult): void => {
+      result.started = player.play(settings.createPlayOptions({
+        inputFileFd: input.fd,
+        inputFileOffset: 0,
+        inputFileSize: size,
+        isSmartFluencySupported: smartFluency
+      }), (completion: PlaybackResult): void => {
         closeInput();
         try {
           if (context !== undefined && MediaTaskCoordinator.owns(lease)) {
@@ -62,14 +70,20 @@ export class PlaybackStartupController {
               MediaReports.playback(lease.id, player.getCompletedPlaybackInfo(), completion.reason))
               .catch((error: Error): void => Logger.warn('PlaybackStartup', error.message));
           }
-        } catch (error) { Logger.warn('PlaybackStartup', 'Session report: ' + String(error)); }
-        finally { MediaTaskCoordinator.release(lease); }
+        } catch (error) {
+          Logger.warn('PlaybackStartup', 'Session report: ' + String(error));
+        } finally {
+          MediaTaskCoordinator.release(lease);
+        }
         completed(completion);
       });
       // 初始化失败也可能仍在异步释放；完成回调到达前保留fd和任务租约。
       result.nativeOwnsLease = result.started || player.getState() !== player.PlayerState.IDLE;
-      if (result.started) { MediaTaskCoordinator.running(lease); }
-      else if (result.nativeOwnsLease) { MediaTaskCoordinator.cancelling(lease); }
+      if (result.started) {
+        MediaTaskCoordinator.running(lease);
+      } else if (result.nativeOwnsLease) {
+        MediaTaskCoordinator.cancelling(lease);
+      }
       return result;
     } catch (error) {
       result.error = 'open';

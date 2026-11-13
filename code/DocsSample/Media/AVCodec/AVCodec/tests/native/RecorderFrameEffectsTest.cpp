@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -23,20 +24,27 @@ constexpr int32_t WIDTH = 160;
 constexpr int32_t HEIGHT = 64;
 constexpr int32_t STRIDE = 176;
 constexpr int32_t SLICE_HEIGHT = 80;
+constexpr int32_t CHROMA_SUBSAMPLING = RecorderFrames::CHROMA_SUBSAMPLING;
 constexpr size_t LUMA_BYTES = STRIDE * SLICE_HEIGHT;
-constexpr size_t FRAME_BYTES = LUMA_BYTES * 3 / 2;
+constexpr size_t FRAME_BYTES = LUMA_BYTES + LUMA_BYTES / CHROMA_SUBSAMPLING;
+constexpr int32_t TINY_DIMENSION = CHROMA_SUBSAMPLING;
+constexpr size_t TINY_LUMA_BYTES = TINY_DIMENSION * TINY_DIMENSION;
+constexpr size_t TINY_FRAME_BYTES = TINY_LUMA_BYTES + TINY_LUMA_BYTES / CHROMA_SUBSAMPLING;
 constexpr uint8_t SENTINEL = 91;
 
 void CheckEffects(bool passed)
 {
-    if (!passed) { std::cerr << "Recorder effect changed unexpected pixels" << std::endl; std::exit(EXIT_FAILURE); }
+    if (!passed) {
+        std::cerr << "Recorder effect changed unexpected pixels" << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
 }
 }
 
 int main()
 {
     std::vector<uint8_t> frame(FRAME_BYTES + 1, SENTINEL);
-    auto apply = [&](size_t capacity, bool gray, bool mark) {
+    auto apply = [&frame](size_t capacity, bool gray, bool mark) {
         return RecorderFrames::ApplyEffects(frame.data(), capacity, WIDTH, HEIGHT, STRIDE, SLICE_HEIGHT, gray, mark);
     };
     CheckEffects(!apply(FRAME_BYTES - 1, true, true));
@@ -44,7 +52,7 @@ int main()
     CheckEffects(apply(FRAME_BYTES, true, false));
     for (size_t offset = 0; offset < frame.size(); ++offset) {
         const size_t chromaOffset = offset >= LUMA_BYTES ? offset - LUMA_BYTES : FRAME_BYTES;
-        const bool activeChroma = offset >= LUMA_BYTES && chromaOffset / STRIDE < HEIGHT / 2 &&
+        const bool activeChroma = offset >= LUMA_BYTES && chromaOffset / STRIDE < HEIGHT / CHROMA_SUBSAMPLING &&
             chromaOffset % STRIDE < WIDTH;
         CheckEffects(frame[offset] == (activeChroma ? RecorderFrames::NEUTRAL_CHROMA : SENTINEL));
     }
@@ -65,8 +73,9 @@ int main()
     CheckEffects(litPixels > 0);
     CheckEffects(!RecorderFrames::ApplyEffects(frame.data(), FRAME_BYTES, WIDTH - 1, HEIGHT,
         STRIDE, SLICE_HEIGHT, true, false));
-    std::vector<uint8_t> tiny(6, SENTINEL);
-    CheckEffects(RecorderFrames::ApplyEffects(tiny.data(), tiny.size(), 2, 2, 2, 2, false, true));
+    std::vector<uint8_t> tiny(TINY_FRAME_BYTES, SENTINEL);
+    CheckEffects(RecorderFrames::ApplyEffects(tiny.data(), tiny.size(), TINY_DIMENSION, TINY_DIMENSION,
+        TINY_DIMENSION, TINY_DIMENSION, false, true));
     CheckEffects(std::all_of(tiny.begin(), tiny.end(), [](uint8_t byte) { return byte == SENTINEL; }));
     std::cout << "Recorder frame effects passed" << std::endl;
 }

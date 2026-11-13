@@ -507,7 +507,7 @@ PQ/HLG、HDR10、HDR Vivid、BT.2020 10/12-bit 传递特性和 HEVC Main 10 重�
 
 `TranscodeJob.cpp`保留任务推进和快照；`TranscodeInitialization.cpp`负责源文件、轨道和codec初始化，`TranscodeFramePipeline.cpp`负责解码、像素处理、编码和音频复制，`TranscodeFinalization.cpp`负责成品检查与资源释放。同步查询和异步回调的独立接口仍在codec层保留。
 
-其他控制器的职责：
+控制器职责如下：
 
 - `SeekPreviewController` 管理拖动预览的节流、请求代次和 PixelMap 释放；
 - `PlaybackQueueController` 管理队列路径、当前索引、循环/随机计算；
@@ -599,7 +599,7 @@ Native目录沿用播放器按职责分层的方式。录制和转码的`core/`�
 
 `tests/host` 下的两个 Node.js 脚本使用 SDK 的 TypeScript 加载器和系统接口替身，检查录制、转码模型中的配置保存、文件写入与导出、存储保护、队列和恢复逻辑。`tests/native` 下的 14 个 C++ 测试入口检查编解码封装的错误分支、Buffer 布局、几何变换、帧处理、PCM 转换、回调队列和统计计算；其中部分系统接口由测试替身实现。Host 测试通过不能代替 ArkTS 构建，Native 替身也不验证设备 codec 和驱动的内部行为。
 
-音视频解封装、软硬件编解码、送显、权限、相机流和文件提供方需要结合目标设备验证。[测试指南](./ohosTest.md)记录了256条通过的手工用例，其中包括12条播放、时钟、录制与成品校验回归。结果适用于本轮测试环境，其他设备和系统版本仍需验证。
+音视频解封装、软硬件编解码、送显、权限、相机流和文件提供方需要结合目标设备验证。[测试指南](./ohosTest.md)记录了256条通过的手工用例，其中包括12条播放、时钟、录制与成品校验回归。结果适用于本轮测试环境，跨设备和跨系统版本的兼容性仍需分别验证。
 
 也可以连接设备后通过命令行构建并执行：
 
