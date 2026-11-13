@@ -46,5 +46,5 @@
 
 ## 验证记录
 
-- 测试代码编译通过：`entry@ohosTest` `assembleHap` **BUILD SUCCESSFUL**（为适配本机 OpenHarmony SDK，临时使用 API 23 构建；构建后已恢复工程原有 HarmonyOS `6.1.0(23)` 配置）。
+- 测试代码编译通过
 - 真机运行需在 DevEco Studio 中打开工程并使用自动签名生成 signed HAP 后执行上述命令。
