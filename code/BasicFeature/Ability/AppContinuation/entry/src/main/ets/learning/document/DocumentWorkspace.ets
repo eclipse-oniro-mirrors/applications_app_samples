@@ -103,7 +103,7 @@ export class DocRule {
  * 所以离开必须保留草稿，且同类对象允许多份（不同表单实例互不干扰）。
  * 阅读进度允许覆盖，因为它本来就只表达"读到哪了"。
  */
-function createDOC_RULES(): DocRule[] {
+function createDocRules(): DocRule[] {
   return [
   new DocRule('DC-01', DocKind.NOTE, true, true, true, localize('ac_documentworkspace_013')),
   new DocRule('DC-02', DocKind.NOTE, true, true, true, localize('ac_documentworkspace_014')),
@@ -120,10 +120,10 @@ function createDOC_RULES(): DocRule[] {
 ];
 }
 
-export const DOC_RULES: DocRule[] = createDOC_RULES();
+export const DOC_RULES: DocRule[] = createDocRules();
 registerLocaleCatalog((): void => {
   DOC_RULES.splice(0, DOC_RULES.length);
-  createDOC_RULES().forEach((item: DocRule): void => { DOC_RULES.push(item); });
+  createDocRules().forEach((item: DocRule): void => { DOC_RULES.push(item); });
 });
 
 function ruleOf(kind: DocKind): DocRule | undefined {

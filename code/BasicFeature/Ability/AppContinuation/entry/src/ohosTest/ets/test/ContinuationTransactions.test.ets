@@ -14,9 +14,10 @@
  */
 
 /** Production transaction regressions; controlled stores do not constitute device restart evidence. */
-import { describe, expect } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { loggedExpect } from '../support/LoggedExpect';
 import { LearningFixture, inboundWant, payloadBag, rawPayload, withLearning } from '../support/LearningFixtures';
-import { scenario } from '../support/BoundedCase';
+import { BUNDLE, scenario } from '../support/BoundedCase';
 
 function v2(id: string, revision: number, text: string, tag: string): string {
   const bag = payloadBag(text, tag, 0, text.length);
@@ -30,7 +31,7 @@ export default function continuationTransactions(): void {
   describe('ContinuationTransactions', (): void => {
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0100
-     * @tc.name      testContinuationTransactions0001
+     * @tc.name      com.samples.appcontinuation_ContinuationTransactions_0001
      * @tc.desc      Verify tX 001 legacy identity atomic
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -38,25 +39,25 @@ export default function continuationTransactions(): void {
      */
 
 
-    scenario('testContinuationTransactions0001', (): void => {
+    scenario(BUNDLE + '_ContinuationTransactions_0001', (): void => {
       withLearning((f: LearningFixture): void => {
         f.controller.markWindowReady();
         f.controller.handleLaunch(inboundWant(rawPayload('旧版来文', 'legacy', 0, 4)), 3);
         const after = f.controller.snapshot();
-        expect(after.committed).assertTrue();
-        expect(after.documentId).assertEqual('');
-        expect(after.revision).assertEqual(0);
+        loggedExpect(after.committed, 'ContinuationTransactions.test.ets:A0001', BUNDLE + '_ContinuationTransactions_0001').assertTrue();
+        loggedExpect(after.documentId, 'ContinuationTransactions.test.ets:A0002', BUNDLE + '_ContinuationTransactions_0001').assertEqual('');
+        loggedExpect(after.revision, 'ContinuationTransactions.test.ets:A0003', BUNDLE + '_ContinuationTransactions_0001').assertEqual(0);
         withLearning((reopened: LearningFixture): void => {
-          expect(reopened.controller.snapshot().text).assertEqual(after.text);
-          expect(reopened.controller.snapshot().documentId).assertEqual(after.documentId);
-          expect(reopened.controller.snapshot().revision).assertEqual(after.revision);
+          loggedExpect(reopened.controller.snapshot().text, 'ContinuationTransactions.test.ets:A0004', BUNDLE + '_ContinuationTransactions_0001').assertEqual(after.text);
+          loggedExpect(reopened.controller.snapshot().documentId, 'ContinuationTransactions.test.ets:A0005', BUNDLE + '_ContinuationTransactions_0001').assertEqual(after.documentId);
+          loggedExpect(reopened.controller.snapshot().revision, 'ContinuationTransactions.test.ets:A0006', BUNDLE + '_ContinuationTransactions_0001').assertEqual(after.revision);
         }, f.store.stored());
       }, v2('doc-existing', 55, '已保存', 'seed'));
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0200
-     * @tc.name      testContinuationTransactions0002
+     * @tc.name      com.samples.appcontinuation_ContinuationTransactions_0002
      * @tc.desc      Verify tX 002 dirty always requires choice
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -64,26 +65,26 @@ export default function continuationTransactions(): void {
      */
 
 
-    scenario('testContinuationTransactions0002', (): void => {
+    scenario(BUNDLE + '_ContinuationTransactions_0002', (): void => {
       [v2('doc-a', 900, '较新远端', 'higher'), rawPayload('旧端来文', 'v1-dirty', 0, 4)].forEach((raw: string): void => {
         withLearning((f: LearningFixture): void => {
           f.controller.updateText('未保存的编辑');
           f.controller.markWindowReady();
           f.controller.handleLaunch(inboundWant(raw), 3);
-          expect(f.controller.snapshot().conflictPending).assertTrue();
-          expect(f.controller.snapshot().committed).assertFalse();
-          expect(f.store.putCalls).assertEqual(0);
+          loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationTransactions.test.ets:A0007', BUNDLE + '_ContinuationTransactions_0002').assertTrue();
+          loggedExpect(f.controller.snapshot().committed, 'ContinuationTransactions.test.ets:A0008', BUNDLE + '_ContinuationTransactions_0002').assertFalse();
+          loggedExpect(f.store.putCalls, 'ContinuationTransactions.test.ets:A0009', BUNDLE + '_ContinuationTransactions_0002').assertEqual(0);
           f.controller.rejectConflict();
-          expect(f.controller.snapshot().text).assertEqual('未保存的编辑');
-          expect(f.controller.snapshot().revision).assertEqual(2);
-          expect(f.store.putCalls).assertEqual(0);
+          loggedExpect(f.controller.snapshot().text, 'ContinuationTransactions.test.ets:A0010', BUNDLE + '_ContinuationTransactions_0002').assertEqual('未保存的编辑');
+          loggedExpect(f.controller.snapshot().revision, 'ContinuationTransactions.test.ets:A0011', BUNDLE + '_ContinuationTransactions_0002').assertEqual(2);
+          loggedExpect(f.store.putCalls, 'ContinuationTransactions.test.ets:A0012', BUNDLE + '_ContinuationTransactions_0002').assertEqual(0);
         }, v2('doc-a', 2, '已保存', 'seed'));
       });
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0300
-     * @tc.name      testContinuationTransactions0003
+     * @tc.name      com.samples.appcontinuation_ContinuationTransactions_0003
      * @tc.desc      Verify tX 003 unrelated revision isolation
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -91,24 +92,24 @@ export default function continuationTransactions(): void {
      */
 
 
-    scenario('testContinuationTransactions0003', (): void => {
+    scenario(BUNDLE + '_ContinuationTransactions_0003', (): void => {
       withLearning((f: LearningFixture): void => {
         f.controller.updateText('A未保存');
         f.controller.markWindowReady();
         f.controller.handleLaunch(inboundWant(v2('doc-b', 3, 'B正文', 'switch')), 3);
-        expect(f.controller.snapshot().conflictPending).assertTrue();
+        loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationTransactions.test.ets:A0013', BUNDLE + '_ContinuationTransactions_0003').assertTrue();
         f.controller.acceptConflict();
-        expect(f.controller.snapshot().committed).assertTrue();
-        expect(f.controller.snapshot().documentId).assertEqual('doc-b');
-        expect(f.controller.snapshot().revision).assertEqual(4);
+        loggedExpect(f.controller.snapshot().committed, 'ContinuationTransactions.test.ets:A0014', BUNDLE + '_ContinuationTransactions_0003').assertTrue();
+        loggedExpect(f.controller.snapshot().documentId, 'ContinuationTransactions.test.ets:A0015', BUNDLE + '_ContinuationTransactions_0003').assertEqual('doc-b');
+        loggedExpect(f.controller.snapshot().revision, 'ContinuationTransactions.test.ets:A0016', BUNDLE + '_ContinuationTransactions_0003').assertEqual(4);
         const disk = JSON.parse(f.store.stored() as string) as Record<string, Object>;
-        expect(disk['revision']).assertEqual(4);
+        loggedExpect(disk['revision'], 'ContinuationTransactions.test.ets:A0017', BUNDLE + '_ContinuationTransactions_0003').assertEqual(4);
       }, v2('doc-limit', 1000000000, 'A正文', 'seed'));
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0400
-     * @tc.name      testContinuationTransactions0004
+     * @tc.name      com.samples.appcontinuation_ContinuationTransactions_0004
      * @tc.desc      Verify tX 005 accepted final snapshot
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -116,7 +117,7 @@ export default function continuationTransactions(): void {
      */
 
 
-    scenario('testContinuationTransactions0004', (): void => {
+    scenario(BUNDLE + '_ContinuationTransactions_0004', (): void => {
       [5, 1000000000].forEach((revision: number): void => {
         withLearning((f: LearningFixture): void => {
           let lastActive: boolean = true;
@@ -128,13 +129,13 @@ export default function continuationTransactions(): void {
           f.controller.markWindowReady();
           f.controller.handleLaunch(inboundWant(v2('doc-a', 1, '远端旧版', 'accept-final')), 3);
           f.controller.acceptConflict();
-          expect(lastActive).assertFalse();
-          expect(lastEditable).assertTrue();
-          expect(f.controller.snapshot().sessionActive).assertFalse();
-          expect(f.controller.snapshot().canEdit).assertTrue();
-          expect(f.controller.snapshot().committed).assertEqual(revision < 1000000000);
+          loggedExpect(lastActive, 'ContinuationTransactions.test.ets:A0018', BUNDLE + '_ContinuationTransactions_0004').assertFalse();
+          loggedExpect(lastEditable, 'ContinuationTransactions.test.ets:A0019', BUNDLE + '_ContinuationTransactions_0004').assertTrue();
+          loggedExpect(f.controller.snapshot().sessionActive, 'ContinuationTransactions.test.ets:A0020', BUNDLE + '_ContinuationTransactions_0004').assertFalse();
+          loggedExpect(f.controller.snapshot().canEdit, 'ContinuationTransactions.test.ets:A0021', BUNDLE + '_ContinuationTransactions_0004').assertTrue();
+          loggedExpect(f.controller.snapshot().committed, 'ContinuationTransactions.test.ets:A0022', BUNDLE + '_ContinuationTransactions_0004').assertEqual(revision < 1000000000);
           f.controller.newDocument();
-          expect(f.controller.snapshot().revision).assertEqual(1);
+          loggedExpect(f.controller.snapshot().revision, 'ContinuationTransactions.test.ets:A0023', BUNDLE + '_ContinuationTransactions_0004').assertEqual(1);
           unsubscribe();
         }, v2('doc-a', revision, '本机已保存', 'seed'));
       });
@@ -142,7 +143,7 @@ export default function continuationTransactions(): void {
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0500
-     * @tc.name      testContinuationTransactions0005
+     * @tc.name      com.samples.appcontinuation_ContinuationTransactions_0005
      * @tc.desc      Verify tX 006 dirty identity switch same content
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -150,29 +151,29 @@ export default function continuationTransactions(): void {
      */
 
 
-    scenario('testContinuationTransactions0005', (): void => {
+    scenario(BUNDLE + '_ContinuationTransactions_0005', (): void => {
       withLearning((f: LearningFixture): void => {
         f.controller.updateText('相同正文');
         f.controller.updateSelection(0, 4);
         f.controller.markWindowReady();
         f.controller.handleLaunch(inboundWant(v2('doc-b', 3, '相同正文', 'same-content')), 3);
-        expect(f.controller.snapshot().conflictPending).assertTrue();
-        expect(f.controller.snapshot().conflictKind).assertEqual('document');
-        expect(f.store.putCalls).assertEqual(0);
+        loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationTransactions.test.ets:A0024', BUNDLE + '_ContinuationTransactions_0005').assertTrue();
+        loggedExpect(f.controller.snapshot().conflictKind, 'ContinuationTransactions.test.ets:A0025', BUNDLE + '_ContinuationTransactions_0005').assertEqual('document');
+        loggedExpect(f.store.putCalls, 'ContinuationTransactions.test.ets:A0026', BUNDLE + '_ContinuationTransactions_0005').assertEqual(0);
         f.controller.rejectConflict();
-        expect(f.controller.snapshot().documentId).assertEqual('doc-a');
-        expect(f.controller.snapshot().revision).assertEqual(2);
-        expect(f.controller.snapshot().text).assertEqual('相同正文');
-        expect(f.store.putCalls).assertEqual(0);
+        loggedExpect(f.controller.snapshot().documentId, 'ContinuationTransactions.test.ets:A0027', BUNDLE + '_ContinuationTransactions_0005').assertEqual('doc-a');
+        loggedExpect(f.controller.snapshot().revision, 'ContinuationTransactions.test.ets:A0028', BUNDLE + '_ContinuationTransactions_0005').assertEqual(2);
+        loggedExpect(f.controller.snapshot().text, 'ContinuationTransactions.test.ets:A0029', BUNDLE + '_ContinuationTransactions_0005').assertEqual('相同正文');
+        loggedExpect(f.store.putCalls, 'ContinuationTransactions.test.ets:A0030', BUNDLE + '_ContinuationTransactions_0005').assertEqual(0);
         // 拒绝后 dirty 也应保留，同文档更高版本仍需选择。
         f.controller.handleLaunch(inboundWant(v2('doc-a', 9, '其他正文', 'still-dirty')), 3);
-        expect(f.controller.snapshot().conflictPending).assertTrue();
+        loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationTransactions.test.ets:A0031', BUNDLE + '_ContinuationTransactions_0005').assertTrue();
       }, v2('doc-a', 2, '已保存正文', 'seed'));
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONTRANSACTIONS_0600
-     * @tc.name      testContinuationTransactions0006
+     * @tc.name      com.samples.appcontinuation_ContinuationTransactions_0006
      * @tc.desc      Verify tX 004 new document transaction
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -180,24 +181,24 @@ export default function continuationTransactions(): void {
      */
 
 
-    scenario('testContinuationTransactions0006', (): void => {
+    scenario(BUNDLE + '_ContinuationTransactions_0006', (): void => {
       withLearning((f: LearningFixture): void => {
         f.controller.updateText('上限后的编辑🌱');
         const before = f.controller.snapshot();
         f.store.failFlushCalls = [1];
         f.controller.newDocument();
-        expect(f.controller.snapshot().documentId).assertEqual(before.documentId);
-        expect(f.controller.snapshot().revision).assertEqual(1000000000);
-        expect(f.controller.snapshot().text).assertEqual(before.text);
+        loggedExpect(f.controller.snapshot().documentId, 'ContinuationTransactions.test.ets:A0032', BUNDLE + '_ContinuationTransactions_0006').assertEqual(before.documentId);
+        loggedExpect(f.controller.snapshot().revision, 'ContinuationTransactions.test.ets:A0033', BUNDLE + '_ContinuationTransactions_0006').assertEqual(1000000000);
+        loggedExpect(f.controller.snapshot().text, 'ContinuationTransactions.test.ets:A0034', BUNDLE + '_ContinuationTransactions_0006').assertEqual(before.text);
         f.controller.newDocument();
         const after = f.controller.snapshot();
-        expect(after.documentId !== before.documentId).assertTrue();
-        expect(after.revision).assertEqual(1);
-        expect(after.text).assertEqual(before.text);
-        expect(after.selectionEnd).assertEqual(before.selectionEnd);
+        loggedExpect(after.documentId !== before.documentId, 'ContinuationTransactions.test.ets:A0035', BUNDLE + '_ContinuationTransactions_0006').assertTrue();
+        loggedExpect(after.revision, 'ContinuationTransactions.test.ets:A0036', BUNDLE + '_ContinuationTransactions_0006').assertEqual(1);
+        loggedExpect(after.text, 'ContinuationTransactions.test.ets:A0037', BUNDLE + '_ContinuationTransactions_0006').assertEqual(before.text);
+        loggedExpect(after.selectionEnd, 'ContinuationTransactions.test.ets:A0038', BUNDLE + '_ContinuationTransactions_0006').assertEqual(before.selectionEnd);
         withLearning((reopened: LearningFixture): void => {
-          expect(reopened.controller.snapshot().documentId).assertEqual(after.documentId);
-          expect(reopened.controller.snapshot().text).assertEqual(after.text);
+          loggedExpect(reopened.controller.snapshot().documentId, 'ContinuationTransactions.test.ets:A0039', BUNDLE + '_ContinuationTransactions_0006').assertEqual(after.documentId);
+          loggedExpect(reopened.controller.snapshot().text, 'ContinuationTransactions.test.ets:A0040', BUNDLE + '_ContinuationTransactions_0006').assertEqual(after.text);
         }, f.store.stored());
       }, v2('doc-limit', 1000000000, '原文', 'seed'));
     });

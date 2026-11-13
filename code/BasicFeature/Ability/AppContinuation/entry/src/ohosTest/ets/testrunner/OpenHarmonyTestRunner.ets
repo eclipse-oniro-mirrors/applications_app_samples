@@ -15,6 +15,7 @@
 
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
+import { testError } from '../support/TestLog';
 
 export default class OpenHarmonyTestRunner implements TestRunner {
   public onPrepare(): void {}
@@ -28,8 +29,8 @@ export default class OpenHarmonyTestRunner implements TestRunner {
       const suite = await import('../test/List.test');
       Hypium.hypiumTest(delegator, args, suite.default);
     } catch (error) {
-      const message = `Test initialization failed: ${(error as Error).message}`;
-      console.error(message);
+      const message: string = 'Test initialization failed; error details withheld.';
+      testError(message);
       await delegator.finishTest(message, 1);
     }
   }

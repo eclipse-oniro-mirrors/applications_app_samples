@@ -14,34 +14,51 @@
  */
 
 import { SceneWorkspaceBackup } from '../../../main/ets/components/SceneWorkspaceBackup';
-import { WorkspaceBackupUiQaFixture, mountWorkspaceBackupUiQa } from '../support/WorkspaceBackupUiQaSupport';
+import {
+  WorkspaceBackupUiQaFixture, currentWorkspaceBackupUiQa, failWorkspaceBackupUiQaInitialization
+} from '../support/WorkspaceBackupUiQaSupport';
 
 @Entry({ useSharedStorage: true })
 @Component
 struct WorkspaceBackupUiQaHarness {
   @LocalStorageProp('qaScenario') scenario: string = 'empty';
+  @LocalStorageProp('uiSessionId') sessionId: string = '';
   @State ready: boolean = false;
   private fixture: WorkspaceBackupUiQaFixture | undefined = undefined;
+  private readonly scroller: Scroller = new Scroller();
+  private readonly scrollOffsetProbe: () => number = (): number => this.scroller.currentOffset().yOffset;
 
   aboutToAppear(): void {
-    this.fixture = mountWorkspaceBackupUiQa(this.scenario);
-    this.ready = true;
+    try {
+      const fixture = currentWorkspaceBackupUiQa(this.sessionId);
+      if (fixture.scenario !== this.scenario) { throw new Error('Backup harness selection mismatch'); }
+      this.fixture = fixture;
+      fixture.attachScrollOffsetProbe(this.scrollOffsetProbe);
+      this.ready = true;
+    } catch (error) {
+      this.ready = false;
+      failWorkspaceBackupUiQaInitialization(this.sessionId, 'backup.harness');
+    }
   }
 
   aboutToDisappear(): void {
-    const fixture = this.fixture;
-    if (fixture !== undefined) { fixture.release(); }
+    this.ready = false;
+    this.fixture?.detachScrollOffsetProbe(this.scrollOffsetProbe);
     this.fixture = undefined;
   }
 
   build(): void {
-    Scroll() {
-      Column({ space: 8 }) {
-        if (this.ready && this.fixture !== undefined) {
-          Text('本地工作区隔离入口已就绪').id('backup-qa-ready').fontSize(12)
-          SceneWorkspaceBackup({ controller: this.fixture.controller })
-        }
-      }.width('100%').padding(8)
-    }.id('backup-qa-scroll').width('100%').height('100%')
+    Column() {
+      if (this.ready && this.fixture !== undefined) {
+        Text('本地工作区隔离入口已就绪').id(`backup-qa-ready-${this.sessionId}`).fontSize(12)
+      }
+      Scroll(this.scroller) {
+        Column({ space: 8 }) {
+          if (this.ready && this.fixture !== undefined) {
+            SceneWorkspaceBackup({ controller: this.fixture.controller })
+          }
+        }.width('100%').padding(8)
+      }.id(`backup-qa-scroll-${this.sessionId}`).width('100%').layoutWeight(1)
+    }.width('100%').height('100%')
   }
 }

@@ -68,7 +68,7 @@ export class ErrorEntry {
 }
 
 /** OpenHarmony 通用错误码。本示例不编造自启专属错误码。 */
-function createERROR_CATALOG(): ErrorEntry[] {
+function createErrorCatalog(): ErrorEntry[] {
   return [
   new ErrorEntry('0', 'OK', localText('startup_text_0685'), ErrorOwner.APP, RetryAdvice.NO_RETRY, false, false,
     localText('startup_text_0686')),
@@ -119,10 +119,10 @@ function createERROR_CATALOG(): ErrorEntry[] {
     localText('startup_text_0716'))
 ];
 }
-export const ERROR_CATALOG: ErrorEntry[] = createERROR_CATALOG();
+export const ERROR_CATALOG: ErrorEntry[] = createErrorCatalog();
 registerTextRefresh((): void => {
   ERROR_CATALOG.splice(0, ERROR_CATALOG.length);
-  createERROR_CATALOG().forEach((item: ErrorEntry): void => { ERROR_CATALOG.push(item); });
+  createErrorCatalog().forEach((item: ErrorEntry): void => { ERROR_CATALOG.push(item); });
 });
 
 /** 查表；未知码返回 UNKNOWN 条目而不是抛错。 */
@@ -169,7 +169,7 @@ export function userMessageOf(code: string): string {
 /** 面向日志的单行描述。 */
 export function logLineOf(code: string, detail: string): string {
   const entry: ErrorEntry = describeError(code);
-  const suffix: string = detail.trim().length === 0 ? '' : `｜${detail.trim()}`;
+  const suffix: string = detail.trim().length === 0 ? '' : formatResource('startup_detail_suffix', [detail.trim()]);
   return `${entry.code}/${entry.name}/${entry.owner as string}${suffix}`;
 }
 

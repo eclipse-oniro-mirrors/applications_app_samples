@@ -101,13 +101,13 @@ export class OnboardingStep {
   }
 
   text(): string {
-    return `${this.stepId} ${this.title}｜${groupLabel(this.group)}｜${this.seconds} s｜` +
-      `${this.skippable ? localText('startup_text_0417') : localText('startup_text_0418')}`;
+    return formatResource('startup_onboarding_step_summary', [this.stepId, this.title, groupLabel(this.group),
+      String(this.seconds), this.skippable ? localText('startup_text_0417') : localText('startup_text_0418')]);
   }
 }
 
 /** 步骤表。 */
-function createONBOARDING_STEPS(): OnboardingStep[] {
+function createOnboardingSteps(): OnboardingStep[] {
   return [
   new OnboardingStep('OB-01', localText('startup_text_0419'), localText('startup_text_0420'),
     OnboardingGroup.INTRO, [], false, 20),
@@ -151,10 +151,10 @@ function createONBOARDING_STEPS(): OnboardingStep[] {
     OnboardingGroup.INTRO, ['OB-02'], true, 20)
 ];
 }
-export const ONBOARDING_STEPS: OnboardingStep[] = createONBOARDING_STEPS();
+export const ONBOARDING_STEPS: OnboardingStep[] = createOnboardingSteps();
 registerTextRefresh((): void => {
   ONBOARDING_STEPS.splice(0, ONBOARDING_STEPS.length);
-  createONBOARDING_STEPS().forEach((item: OnboardingStep): void => { ONBOARDING_STEPS.push(item); });
+  createOnboardingSteps().forEach((item: OnboardingStep): void => { ONBOARDING_STEPS.push(item); });
 });
 
 /** 编号列表。 */
@@ -315,7 +315,7 @@ export function groupProgressLines(flow: OnboardingFlow): string[] {
     const steps: OnboardingStep[] = stepsOfGroup(group);
     const handled: number = steps.filter((step: OnboardingStep): boolean =>
       settled(flow.statusOf(step.stepId))).length;
-    return `${groupLabel(group)}：${handled}/${steps.length}`;
+    return formatResource('startup_onboarding_group_progress', [groupLabel(group), String(handled), String(steps.length)]);
   });
 }
 
@@ -325,7 +325,7 @@ export class OnboardingAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? localText('startup_text_0464') : this.findings.join('；');
+    return this.ok ? localText('startup_text_0464') : this.findings.join(localText('startup_audit_separator'));
   }
 }
 

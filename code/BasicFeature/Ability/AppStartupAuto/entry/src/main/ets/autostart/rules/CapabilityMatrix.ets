@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { localText, registerTextRefresh } from '../text/LocalizedText';
+import { formatResource, localText, registerTextRefresh } from '../text/LocalizedText';
 
 /**
  * 开机自启能力矩阵。
@@ -127,7 +127,7 @@ export class CapabilityRule {
       this.forms.map((form: DeviceForm): string => form as string).join('/');
     const flavorText: string = this.flavors.length === 0 ? localText('startup_text_0653') :
       this.flavors.map((flavor: SystemFlavor): string => flavor as string).join('/');
-    return `${this.ruleId}：API ${this.minApi}~${this.maxApi}，${formText}，${flavorText}`;
+    return formatResource('startup_capability_rule_summary', [this.ruleId, String(this.minApi), String(this.maxApi), formText, flavorText]);
   }
 }
 
@@ -143,7 +143,7 @@ const PHONE_TABLET: DeviceForm[] = [DeviceForm.PHONE, DeviceForm.TABLET];
  * 规则顺序即优先级：先命中先返回。低版本、排除形态和未知系统的规则必须排在
  * 通用规则之前，否则会被通用规则吞掉。
  */
-function createCAPABILITY_RULES(): CapabilityRule[] {
+function createCapabilityRules(): CapabilityRule[] {
   return [
   new CapabilityRule('CM-0001', 0, 8, ALL_FORMS, ALL_FLAVORS,
     CapabilityVerdict.NEED_SYSTEM_UPDATE,
@@ -219,10 +219,10 @@ function createCAPABILITY_RULES(): CapabilityRule[] {
     localText('startup_text_0682'), false)
 ];
 }
-export const CAPABILITY_RULES: CapabilityRule[] = createCAPABILITY_RULES();
+export const CAPABILITY_RULES: CapabilityRule[] = createCapabilityRules();
 registerTextRefresh((): void => {
   CAPABILITY_RULES.splice(0, CAPABILITY_RULES.length);
-  createCAPABILITY_RULES().forEach((item: CapabilityRule): void => { CAPABILITY_RULES.push(item); });
+  createCapabilityRules().forEach((item: CapabilityRule): void => { CAPABILITY_RULES.push(item); });
 });
 
 /** 判定结果。带命中的规则，便于诊断页展示依据。 */
@@ -237,7 +237,7 @@ export class CapabilityEvaluation {
 
   summary(): string {
     const ruleId: string = this.rule === undefined ? localText('startup_text_0683') : this.rule.ruleId;
-    return `${this.verdict as string}（${ruleId}）`;
+    return formatResource('startup_capability_verdict_summary', [this.verdict as string, ruleId]);
   }
 
   developerHint(): string {

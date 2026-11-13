@@ -76,7 +76,7 @@ export class Evidence {
 }
 
 /** 证据目录。 */
-function createEVIDENCE_CATALOG(): Evidence[] {
+function createEvidenceCatalog(): Evidence[] {
   return [
   new Evidence('EV-01', EvidenceKind.CAPABILITY_RULE, localText('startup_text_0237'), 20),
   new Evidence('EV-02', EvidenceKind.CAPABILITY_RULE, localText('startup_text_0238'), 20),
@@ -100,10 +100,10 @@ function createEVIDENCE_CATALOG(): Evidence[] {
   new Evidence('EV-20', EvidenceKind.CAPABILITY_RULE, localText('startup_text_0256'), 10)
 ];
 }
-export const EVIDENCE_CATALOG: Evidence[] = createEVIDENCE_CATALOG();
+export const EVIDENCE_CATALOG: Evidence[] = createEvidenceCatalog();
 registerTextRefresh((): void => {
   EVIDENCE_CATALOG.splice(0, EVIDENCE_CATALOG.length);
-  createEVIDENCE_CATALOG().forEach((item: Evidence): void => { EVIDENCE_CATALOG.push(item); });
+  createEvidenceCatalog().forEach((item: Evidence): void => { EVIDENCE_CATALOG.push(item); });
 });
 
 /** 证据编号列表。 */
@@ -173,7 +173,7 @@ export class ChainRule {
 }
 
 /** 链规则表。 */
-function createCHAIN_RULES(): ChainRule[] {
+function createChainRules(): ChainRule[] {
   return [
   new ChainRule('EC-01', Conclusion.SUPPORTED, ['EV-01', 'EV-10', 'EV-11'], ['EV-07'],
     localText('startup_text_0262')),
@@ -213,10 +213,10 @@ function createCHAIN_RULES(): ChainRule[] {
     localText('startup_text_0279'))
 ];
 }
-export const CHAIN_RULES: ChainRule[] = createCHAIN_RULES();
+export const CHAIN_RULES: ChainRule[] = createChainRules();
 registerTextRefresh((): void => {
   CHAIN_RULES.splice(0, CHAIN_RULES.length);
-  createCHAIN_RULES().forEach((item: ChainRule): void => { CHAIN_RULES.push(item); });
+  createChainRules().forEach((item: ChainRule): void => { CHAIN_RULES.push(item); });
 });
 
 /** 链规则编号。 */
@@ -310,7 +310,7 @@ export class ChainAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? localText('startup_text_0283') : this.findings.join('；');
+    return this.ok ? localText('startup_text_0283') : this.findings.join(localText('startup_audit_separator'));
   }
 }
 

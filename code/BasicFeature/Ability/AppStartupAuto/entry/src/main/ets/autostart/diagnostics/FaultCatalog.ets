@@ -138,8 +138,8 @@ export class FaultEntry {
 
   /** 单行文本。 */
   text(): string {
-    return `${this.faultId}｜${this.symptom}｜${layerLabel(this.layer)}｜` +
-      `${severityLabel(this.severity)}`;
+    return formatResource('startup_fault_entry_summary', [this.faultId, this.symptom, layerLabel(this.layer),
+      severityLabel(this.severity)]);
   }
 
   /** 详情文本，用于展开区。 */
@@ -153,7 +153,7 @@ export class FaultEntry {
  *
  * 顺序即页面展示顺序；编号连续，便于按段提交与引用。
  */
-function createFAULT_CATALOG(): FaultEntry[] {
+function createFaultCatalog(): FaultEntry[] {
   return [
   new FaultEntry('FT-01', localText('startup_text_0308'), localText('startup_text_0309'),
     CheckLayer.QUERY, FaultOwner.APP, FaultSeverity.MAJOR,
@@ -224,10 +224,10 @@ function createFAULT_CATALOG(): FaultEntry[] {
     localText('startup_text_0394'), localText('startup_text_0395'), true)
 ];
 }
-export const FAULT_CATALOG: FaultEntry[] = createFAULT_CATALOG();
+export const FAULT_CATALOG: FaultEntry[] = createFaultCatalog();
 registerTextRefresh((): void => {
   FAULT_CATALOG.splice(0, FAULT_CATALOG.length);
-  createFAULT_CATALOG().forEach((item: FaultEntry): void => { FAULT_CATALOG.push(item); });
+  createFaultCatalog().forEach((item: FaultEntry): void => { FAULT_CATALOG.push(item); });
 });
 
 /** 编号列表。 */
@@ -360,7 +360,7 @@ export class FaultAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? localText('startup_text_0401') : this.findings.join('；');
+    return this.ok ? localText('startup_text_0401') : this.findings.join(localText('startup_audit_separator'));
   }
 }
 

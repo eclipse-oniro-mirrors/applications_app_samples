@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import {
   PERMISSION_RULES, PermissionContext, PermissionDecision, PermissionRule, PermissionState,
   RequestPolicy, afterAsk, afterDontAskAgain, auditPermissionRules, permissionLabel, permissionLines,
@@ -26,6 +27,7 @@ function contextOf(api: number, asked: number, state: PermissionState): Permissi
 }
 
 export default function onboardingCasesTest(): void {
+  configureTestText();
 
   describe('PermissionPlanCases', (): void => {
     /**
@@ -38,17 +40,18 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0001', 0, (): void => {
+      configureTestText();
       const granted: PermissionDecision = planPermission(
         contextOf(18, 0, PermissionState.GRANTED));
-      expect(granted.policy).assertEqual(RequestPolicy.NO_REQUEST);
-      expect(granted.canAsk).assertFalse();
-      expect(granted.needsSettings).assertFalse();
-      expect(granted.ruleId).assertEqual('PM-GRANTED');
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0001|assertEqual|actual', granted.policy)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0001|assertEqual|expected', RequestPolicy.NO_REQUEST));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0002|assertFalse|actual|expected=false', granted.canAsk)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0003|assertFalse|actual|expected=false', granted.needsSettings)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0004|assertEqual|actual', granted.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0004|assertEqual|expected', 'PM-GRANTED'));
       const notRequired: PermissionDecision = planPermission(
         contextOf(18, 0, PermissionState.NOT_REQUIRED));
-      expect(notRequired.ruleId).assertEqual('PM-NOT-REQUIRED');
-      expect(notRequired.state).assertEqual(PermissionState.NOT_REQUIRED);
-      expect(permissionLabel(PermissionState.GRANTED)).assertEqual('已授权');
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0005|assertEqual|actual', notRequired.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0005|assertEqual|expected', 'PM-NOT-REQUIRED'));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0006|assertEqual|actual', notRequired.state)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0006|assertEqual|expected', PermissionState.NOT_REQUIRED));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0007|assertEqual|actual', permissionLabel(PermissionState.GRANTED))).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0001|OnboardingCases.test.ets|assert0007|assertEqual|expected', '已授权'));
     });
 
     /**
@@ -61,12 +64,13 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0002', 0, (): void => {
+      configureTestText();
       const decision: PermissionDecision = planPermission(contextOf(8, 0, PermissionState.DENIED));
-      expect(decision.ruleId).assertEqual('PM-0001');
-      expect(decision.policy).assertEqual(RequestPolicy.NO_REQUEST);
-      expect(decision.canAsk).assertFalse();
-      expect(decision.needsSettings).assertFalse();
-      expect(decision.message.indexOf('不支持') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0002|OnboardingCases.test.ets|assert0008|assertEqual|actual', decision.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0002|OnboardingCases.test.ets|assert0008|assertEqual|expected', 'PM-0001'));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0002|OnboardingCases.test.ets|assert0009|assertEqual|actual', decision.policy)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0002|OnboardingCases.test.ets|assert0009|assertEqual|expected', RequestPolicy.NO_REQUEST));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0002|OnboardingCases.test.ets|assert0010|assertFalse|actual|expected=false', decision.canAsk)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0002|OnboardingCases.test.ets|assert0011|assertFalse|actual|expected=false', decision.needsSettings)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0002|OnboardingCases.test.ets|assert0012|assertTrue|actual|expected=true', decision.message.indexOf('不支持') >= 0)).assertTrue();
     });
 
     /**
@@ -79,16 +83,17 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0003', 0, (): void => {
+      configureTestText();
       const first: PermissionDecision = planPermission(contextOf(10, 0, PermissionState.DENIED));
-      expect(first.ruleId).assertEqual('PM-0002');
-      expect(first.canAsk).assertTrue();
-      expect(first.needsSettings).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0003|OnboardingCases.test.ets|assert0013|assertEqual|actual', first.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0003|OnboardingCases.test.ets|assert0013|assertEqual|expected', 'PM-0002'));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0003|OnboardingCases.test.ets|assert0014|assertTrue|actual|expected=true', first.canAsk)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0003|OnboardingCases.test.ets|assert0015|assertFalse|actual|expected=false', first.needsSettings)).assertFalse();
       const asked: PermissionContext = contextOf(10, 1, PermissionState.DENIED);
       asked.askedThisSession = true;
       const second: PermissionDecision = planPermission(asked);
-      expect(second.canAsk).assertFalse();
-      expect(second.needsSettings).assertTrue();
-      expect(second.message.indexOf('系统设置') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0003|OnboardingCases.test.ets|assert0016|assertFalse|actual|expected=false', second.canAsk)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0003|OnboardingCases.test.ets|assert0017|assertTrue|actual|expected=true', second.needsSettings)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0003|OnboardingCases.test.ets|assert0018|assertTrue|actual|expected=true', second.message.indexOf('系统设置') >= 0)).assertTrue();
     });
 
     /**
@@ -101,12 +106,13 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0004', 0, (): void => {
-      expect(planPermission(contextOf(12, 0, PermissionState.DENIED)).ruleId).assertEqual('PM-0003');
-      expect(planPermission(contextOf(14, 1, PermissionState.DENIED)).canAsk).assertTrue();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0004|OnboardingCases.test.ets|assert0019|assertEqual|actual', planPermission(contextOf(12, 0, PermissionState.DENIED)).ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0004|OnboardingCases.test.ets|assert0019|assertEqual|expected', 'PM-0003'));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0004|OnboardingCases.test.ets|assert0020|assertTrue|actual|expected=true', planPermission(contextOf(14, 1, PermissionState.DENIED)).canAsk)).assertTrue();
       const used: PermissionDecision = planPermission(contextOf(17, 2, PermissionState.DENIED));
-      expect(used.canAsk).assertFalse();
-      expect(used.needsSettings).assertTrue();
-      expect(used.message.indexOf('已申请 2 次') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0004|OnboardingCases.test.ets|assert0021|assertFalse|actual|expected=false', used.canAsk)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0004|OnboardingCases.test.ets|assert0022|assertTrue|actual|expected=true', used.needsSettings)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0004|OnboardingCases.test.ets|assert0023|assertTrue|actual|expected=true', used.message.indexOf('已申请 2 次') >= 0)).assertTrue();
     });
 
     /**
@@ -119,13 +125,14 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0005', 0, (): void => {
-      expect(planPermission(contextOf(18, 0, PermissionState.DENIED)).ruleId).assertEqual('PM-0004');
-      expect(planPermission(contextOf(26, 2, PermissionState.DENIED)).canAsk).assertTrue();
-      expect(planPermission(contextOf(26, 3, PermissionState.DENIED)).canAsk).assertFalse();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0005|OnboardingCases.test.ets|assert0024|assertEqual|actual', planPermission(contextOf(18, 0, PermissionState.DENIED)).ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0005|OnboardingCases.test.ets|assert0024|assertEqual|expected', 'PM-0004'));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0005|OnboardingCases.test.ets|assert0025|assertTrue|actual|expected=true', planPermission(contextOf(26, 2, PermissionState.DENIED)).canAsk)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0005|OnboardingCases.test.ets|assert0026|assertFalse|actual|expected=false', planPermission(contextOf(26, 3, PermissionState.DENIED)).canAsk)).assertFalse();
       const series: string[] = policySeries();
-      expect(series.length).assertEqual(21);
-      expect(series[0].indexOf('noRequest') > 0).assertTrue();
-      expect(series[series.length - 1].indexOf('settingsOnly') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0005|OnboardingCases.test.ets|assert0027|assertEqual|actual', series.length)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0005|OnboardingCases.test.ets|assert0027|assertEqual|expected', 21));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0005|OnboardingCases.test.ets|assert0028|assertTrue|actual|expected=true', series[0].indexOf('noRequest') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0005|OnboardingCases.test.ets|assert0029|assertTrue|actual|expected=true', series[series.length - 1].indexOf('settingsOnly') > 0)).assertTrue();
     });
 
     /**
@@ -138,12 +145,13 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0006', 0, (): void => {
+      configureTestText();
       const decision: PermissionDecision = planPermission(
         contextOf(18, 1, PermissionState.DENIED_PERMANENTLY));
-      expect(decision.canAsk).assertFalse();
-      expect(decision.needsSettings).assertTrue();
-      expect(decision.state).assertEqual(PermissionState.DENIED_PERMANENTLY);
-      expect(permissionLabel(PermissionState.DENIED_PERMANENTLY)).assertEqual('已永久拒绝');
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0006|OnboardingCases.test.ets|assert0030|assertFalse|actual|expected=false', decision.canAsk)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0006|OnboardingCases.test.ets|assert0031|assertTrue|actual|expected=true', decision.needsSettings)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0006|OnboardingCases.test.ets|assert0032|assertEqual|actual', decision.state)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0006|OnboardingCases.test.ets|assert0032|assertEqual|expected', PermissionState.DENIED_PERMANENTLY));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0006|OnboardingCases.test.ets|assert0033|assertEqual|actual', permissionLabel(PermissionState.DENIED_PERMANENTLY))).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0006|OnboardingCases.test.ets|assert0033|assertEqual|expected', '已永久拒绝'));
     });
 
     /**
@@ -156,12 +164,13 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0007', 0, (): void => {
+      configureTestText();
       const context: PermissionContext = contextOf(20, 0, PermissionState.DENIED);
       context.systemDialogAvailable = false;
       const decision: PermissionDecision = planPermission(context);
-      expect(decision.canAsk).assertFalse();
-      expect(decision.needsSettings).assertTrue();
-      expect(decision.hint.indexOf('systemDialogAvailable') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0007|OnboardingCases.test.ets|assert0034|assertFalse|actual|expected=false', decision.canAsk)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0007|OnboardingCases.test.ets|assert0035|assertTrue|actual|expected=true', decision.needsSettings)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0007|OnboardingCases.test.ets|assert0036|assertTrue|actual|expected=true', decision.hint.indexOf('systemDialogAvailable') >= 0)).assertTrue();
     });
 
     /**
@@ -174,11 +183,12 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0008', 0, (): void => {
+      configureTestText();
       const decision: PermissionDecision = planPermission(contextOf(28, 0, PermissionState.DENIED));
-      expect(decision.ruleId).assertEqual('PM-0005');
-      expect(decision.policy).assertEqual(RequestPolicy.SETTINGS_ONLY);
-      expect(decision.needsSettings).assertTrue();
-      expect(decision.canAsk).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0008|OnboardingCases.test.ets|assert0037|assertEqual|actual', decision.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0008|OnboardingCases.test.ets|assert0037|assertEqual|expected', 'PM-0005'));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0008|OnboardingCases.test.ets|assert0038|assertEqual|actual', decision.policy)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0008|OnboardingCases.test.ets|assert0038|assertEqual|expected', RequestPolicy.SETTINGS_ONLY));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0008|OnboardingCases.test.ets|assert0039|assertTrue|actual|expected=true', decision.needsSettings)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0008|OnboardingCases.test.ets|assert0040|assertFalse|actual|expected=false', decision.canAsk)).assertFalse();
     });
 
     /**
@@ -191,17 +201,18 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0009', 0, (): void => {
+      configureTestText();
       const base: PermissionContext = contextOf(18, 0, PermissionState.DENIED);
       const granted: PermissionContext = afterAsk(base, true);
-      expect(granted.state).assertEqual(PermissionState.GRANTED);
-      expect(granted.askedTimes).assertEqual(1);
-      expect(granted.askedThisSession).assertTrue();
-      expect(base.askedTimes).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0041|assertEqual|actual', granted.state)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0041|assertEqual|expected', PermissionState.GRANTED));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0042|assertEqual|actual', granted.askedTimes)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0042|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0043|assertTrue|actual|expected=true', granted.askedThisSession)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0044|assertEqual|actual', base.askedTimes)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0044|assertEqual|expected', 0));
       const denied: PermissionContext = afterAsk(base, false);
-      expect(denied.state).assertEqual(PermissionState.DENIED);
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0045|assertEqual|actual', denied.state)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0045|assertEqual|expected', PermissionState.DENIED));
       const forever: PermissionContext = afterDontAskAgain(base);
-      expect(forever.state).assertEqual(PermissionState.DENIED_PERMANENTLY);
-      expect(planPermission(forever).needsSettings).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0046|assertEqual|actual', forever.state)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0046|assertEqual|expected', PermissionState.DENIED_PERMANENTLY));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0009|OnboardingCases.test.ets|assert0047|assertTrue|actual|expected=true', planPermission(forever).needsSettings)).assertTrue();
     });
 
     /**
@@ -214,16 +225,17 @@ export default function onboardingCasesTest(): void {
      */
 
     it('testPermissionPlanCases0010', 0, (): void => {
-      expect(PERMISSION_RULES.length).assertEqual(5);
-      expect(permissionLines().length).assertEqual(5);
-      expect(auditPermissionRules().ok).assertTrue();
-      expect(auditPermissionRules().summary()).assertEqual('权限规则表自洽');
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0048|assertEqual|actual', PERMISSION_RULES.length)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0048|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0049|assertEqual|actual', permissionLines().length)).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0049|assertEqual|expected', 5));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0050|assertTrue|actual|expected=true', auditPermissionRules().ok)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0051|assertEqual|actual', auditPermissionRules().summary())).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0051|assertEqual|expected', '权限规则表自洽'));
       PERMISSION_RULES.forEach((rule: PermissionRule): void => {
-        expect(rule.text().indexOf(rule.ruleId) === 0).assertTrue();
-        expect(rule.maxApi >= rule.minApi).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0052|assertTrue|actual|expected=true', rule.text().indexOf(rule.ruleId) === 0)).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0053|assertTrue|actual|expected=true', rule.maxApi >= rule.minApi)).assertTrue();
       });
-      expect(permissionLabel(PermissionState.UNKNOWN)).assertEqual('未知');
-      expect(permissionLabel(PermissionState.NOT_REQUIRED)).assertEqual('无需授权');
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0054|assertEqual|actual', permissionLabel(PermissionState.UNKNOWN))).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0054|assertEqual|expected', '未知'));
+      expect(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0055|assertEqual|actual', permissionLabel(PermissionState.NOT_REQUIRED))).assertEqual(traceParameter('com.samples.appstartupauto_PermissionPlanCases_0010|OnboardingCases.test.ets|assert0055|assertEqual|expected', '无需授权'));
     });
   });
 }

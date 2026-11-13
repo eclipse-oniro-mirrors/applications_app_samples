@@ -15,7 +15,6 @@
 
 import startupArchiveCodecTests from './StartupArchiveCodec.test';
 import refreshSourceCompatibilityTests from './RefreshSourceCompatibility.test';
-import { configureTestText } from '../support/TestTextResources';
 import startupArchiveRepositoryTests from './StartupArchiveRepository.test';
 import startupArchiveCaptureTests from './StartupArchiveCapture.test';
 import startupArchiveServiceIntegrationTests from './StartupArchiveServiceIntegration.test';
@@ -44,8 +43,6 @@ import faultArchiveCasesTest from './FaultArchiveCases.test';
 import evidenceOnboardingCasesTest from './EvidenceOnboardingCases.test';
 
 export default function testsuite(): void {
-  // Pin the existing text assertions to the reviewed Chinese fixture instead of the device language.
-  configureTestText();
   refreshSourceCompatibilityTests();
   startupArchiveCodecTests();
   startupArchiveRepositoryTests();

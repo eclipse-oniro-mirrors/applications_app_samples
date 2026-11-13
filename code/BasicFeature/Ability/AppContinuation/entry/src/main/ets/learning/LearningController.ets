@@ -16,10 +16,10 @@
 import { localize } from '../common/LocaleStrings';
 import {
   CommitPlan, decodePayload, hasPayload, MAX_REVISION, readContinuation,
-  SceneLearningStoreAdapter, selectionBoundary, TextPayload, validUnicode
+  PayloadRead, SceneLearningStoreAdapter, selectionBoundary, TextPayload, validUnicode
 } from './LearningPayload';
 /** 独立、Ability-scoped 的单文本接续学习运行时。 */
-import { AbilityConstant, common, Want } from '@kit.AbilityKit';
+import { AbilityConstant, common, Want, wantConstant } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { LearningDependencies, LearningStore, platformLearningDependencies } from './LearningPorts';
 import {
@@ -30,7 +30,7 @@ import {
   ContinueClient, ContinueObservation, redactPlatformText, safeErrorCode, safeErrorMessage
 } from './ContinueClient';
 import { decodeScene, emptyScene, encodeScene, SCENE_PAYLOAD_KEY, SceneDocument } from './scene/SceneModel';
-import { PreferencesSceneStore, SceneSnapshot, SceneWorkbench } from './scene/SceneWorkbench';
+import { PreferencesSceneStore, SceneSnapshot, SceneStorePort, SceneWorkbench } from './scene/SceneWorkbench';
 import {
   SceneBackupCode, SceneBackupExport, SceneBackupPreview, SceneBackupRestoreResult
 } from './scene/SceneWorkspaceBackupModel';
@@ -42,6 +42,47 @@ const PROBE_LIMIT_MS: number = 15000;
 const MAX_RECORDS: number = 40;
 const MAX_EVENTS: number = 120;
 const MAX_RECORD_EVENTS: number = 24;
+
+interface RestoreSession {
+  generation: number;
+  recordId: string;
+  quickRequired: boolean;
+  quickSeen: boolean;
+  quickOk: boolean;
+  candidate: TextPayload | undefined;
+  active: boolean;
+  waitingPhase: string;
+  positionOk: boolean;
+}
+
+interface WriteOutcome {
+  ok: boolean;
+  code: string;
+  detail: string;
+}
+
+export interface ScenePositionTarget {
+  request: number;
+  document: SceneDocument;
+}
+
+/** Diagnostic records contain only serializable value objects and must not escape by reference. */
+function copyRecord(record: OperationRecord): OperationRecord {
+  return JSON.parse(JSON.stringify(record)) as OperationRecord;
+}
+
+/** Copy diagnostic rows so later environment refreshes cannot mutate an existing record. */
+function copyEnvironment(items: EnvironmentItem[]): EnvironmentItem[] {
+  return items.map((item: EnvironmentItem): EnvironmentItem => {
+    return {
+      key: item.key,
+      label: item.label,
+      value: item.value,
+      status: item.status,
+      detail: item.detail
+    };
+  });
+}
 
 export class LearningController {
   private readonly dependencies: LearningDependencies;
@@ -897,14 +938,16 @@ export class LearningController {
       return;
     }
     this.value.launchReasonCode = numericReason;
-    this.value.launchReason = numericReason === 10 ? localize('ac_learningcontroller_210') :
-      numericReason === 3 ? localize('ac_learningcontroller_211') : localize('ac_learningcontroller_212', [numericReason]);
-    if (numericReason !== 10 && numericReason !== 3) {
+    this.value.launchReason = numericReason === AbilityConstant.LaunchReason.PREPARE_CONTINUATION ?
+      localize('ac_learningcontroller_210') : numericReason === AbilityConstant.LaunchReason.CONTINUATION ?
+      localize('ac_learningcontroller_211') : localize('ac_learningcontroller_212', [numericReason]);
+    if (numericReason !== AbilityConstant.LaunchReason.PREPARE_CONTINUATION &&
+      numericReason !== AbilityConstant.LaunchReason.CONTINUATION) {
       this.value.notice = '';
       this.publish();
       return;
     }
-    if (numericReason === 10) {
+    if (numericReason === AbilityConstant.LaunchReason.PREPARE_CONTINUATION) {
       if (this.session !== undefined && this.session.active) {
         const record = this.findRecord(this.session.recordId);
         if (record !== undefined) {
@@ -977,7 +1020,7 @@ export class LearningController {
     };
     this.session = session;
     this.sceneWorkbench.setLocked(true);
-    this.value.targetPage = 'pages/ProcessPage';
+    this.value.targetPage = 'continuation/pages/ProcessPage';
     this.value.positionRequest = ++this.positionSerial;
     this.value.businessPositionState = localize('ac_learningcontroller_226');
     this.value.sessionRecordId = record.id;
@@ -1336,7 +1379,7 @@ export class LearningController {
     this.value.conflictKind = '';
     this.value.conflictSummary = '';
     this.conflictAccepted = false;
-    this.value.targetPage = 'pages/ProcessPage';
+    this.value.targetPage = 'continuation/pages/ProcessPage';
     this.value.positionRequest = ++this.positionSerial;
     this.value.sessionState = localize('ac_learningcontroller_317');
     this.value.notice = localize('ac_learningcontroller_318');
@@ -1386,7 +1429,7 @@ export class LearningController {
       this.rememberTag(candidate.transferId);
     }
     this.terminalAwaitingData = session.quickRequired && candidate === undefined;
-    this.value.targetPage = 'pages/ProcessPage';
+    this.value.targetPage = 'continuation/pages/ProcessPage';
     this.value.positionRequest = ++this.positionSerial;
     this.value.sessionState = localize('ac_learningcontroller_322', [stage]);
     this.value.committed = false;
@@ -1413,8 +1456,8 @@ export class LearningController {
   }
 
   private scenePage(kind: string): string {
-    return kind === 'note' ? 'pages/NoteScenePage' : kind === 'reading' ? 'pages/ReadingScenePage' :
-      kind === 'form' ? 'pages/FormScenePage' : 'pages/ProcessPage';
+    return kind === 'note' ? 'continuation/pages/NoteScenePage' : kind === 'reading' ? 'continuation/pages/ReadingScenePage' :
+      kind === 'form' ? 'continuation/pages/FormScenePage' : 'continuation/pages/ProcessPage';
   }
 
   private localBackupAvailable(): boolean {
@@ -1534,7 +1577,7 @@ export class LearningController {
     if (session.positionOk) {
       this.advanceSession();
     } else {
-      this.value.targetPage = 'pages/ProcessPage';
+      this.value.targetPage = 'continuation/pages/ProcessPage';
       this.value.positionRequest = ++this.positionSerial;
     }
     this.publish();
@@ -1546,7 +1589,7 @@ export class LearningController {
     if (session === undefined || target === undefined || target.request !== request) { return; }
     session.positionOk = false;
     this.value.positionRequest = ++this.positionSerial;
-    this.value.targetPage = 'pages/ProcessPage';
+    this.value.targetPage = 'continuation/pages/ProcessPage';
     this.value.businessPositionState = localize('ac_learningcontroller_333');
     this.advanceSession();
     this.publish();

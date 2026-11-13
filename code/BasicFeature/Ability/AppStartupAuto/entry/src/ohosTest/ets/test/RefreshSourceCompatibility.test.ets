@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import { QueryOutcome, QueryRecord, RefreshSource, parseRefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
 import { normalizeRecord, parseHistory, serializeHistory } from '../../../main/ets/autostart/AutoStartupHistory';
 import { ArchiveDocument, ArchivedQuery, decodeArchive, encodeArchive } from '../../../main/ets/autostart/archive/StartupArchive';
@@ -38,35 +39,38 @@ function legacyRecord(source: string): QueryRecord {
 }
 
 export default function refreshSourceCompatibilityTests(): void {
+  configureTestText();
   describe('RefreshSourceCompatibility', (): void => {
     /** @tc.number SUB_STARTUP_REFRESH_SOURCE_0100
      * @tc.name testRefreshSourceCompatibility0001
      * @tc.desc Accept all historical sources and retain stable English source IDs. */
     it('testRefreshSourceCompatibility0001', 0, (): void => {
+      configureTestText();
       LEGACY.forEach((value: string, index: number): void => {
-        expect(parseRefreshSource(value)).assertEqual(SOURCES[index]);
-        expect(parseRefreshSource(SOURCES[index])).assertEqual(SOURCES[index]);
-        expect(normalizeRecord(legacyRecord(value))?.source).assertEqual(SOURCES[index]);
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0001|RefreshSourceCompatibility.test.ets|assert0001|assertEqual|actual', parseRefreshSource(value))).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0001|RefreshSourceCompatibility.test.ets|assert0001|assertEqual|expected', SOURCES[index]));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0001|RefreshSourceCompatibility.test.ets|assert0002|assertEqual|actual', parseRefreshSource(SOURCES[index]))).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0001|RefreshSourceCompatibility.test.ets|assert0002|assertEqual|expected', SOURCES[index]));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0001|RefreshSourceCompatibility.test.ets|assert0003|assertEqual|actual', normalizeRecord(legacyRecord(value))?.source)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0001|RefreshSourceCompatibility.test.ets|assert0003|assertEqual|expected', SOURCES[index]));
       });
-      expect(parseRefreshSource('invalid') === undefined).assertTrue();
-      expect(normalizeRecord(legacyRecord('invalid')) === undefined).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0001|RefreshSourceCompatibility.test.ets|assert0004|assertTrue|actual|expected=true', parseRefreshSource('invalid') === undefined)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0001|RefreshSourceCompatibility.test.ets|assert0005|assertTrue|actual|expected=true', normalizeRecord(legacyRecord('invalid')) === undefined)).assertTrue();
     });
 
     /** @tc.number SUB_STARTUP_REFRESH_SOURCE_0200
      * @tc.name testRefreshSourceCompatibility0002
      * @tc.desc Read legacy arrays and schema-1 histories; new writes use stable IDs. */
     it('testRefreshSourceCompatibility0002', 0, (): void => {
+      configureTestText();
       LEGACY.forEach((value: string, index: number): void => {
         const legacy = legacyRecord(value);
         const array = parseHistory(JSON.stringify([legacy]), NOW);
         const schema = parseHistory(JSON.stringify({ schema: 1, savedAt: NOW, records: [legacy] }), NOW);
-        expect(array.records.length).assertEqual(1);
-        expect(schema.records.length).assertEqual(1);
-        expect(array.records[0].source).assertEqual(SOURCES[index]);
-        expect(schema.records[0].source).assertEqual(SOURCES[index]);
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0006|assertEqual|actual', array.records.length)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0006|assertEqual|expected', 1));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0007|assertEqual|actual', schema.records.length)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0007|assertEqual|expected', 1));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0008|assertEqual|actual', array.records[0].source)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0008|assertEqual|expected', SOURCES[index]));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0009|assertEqual|actual', schema.records[0].source)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0009|assertEqual|expected', SOURCES[index]));
         const encoded = serializeHistory([legacy], NOW);
-        expect(encoded.includes(`"source":"${SOURCES[index]}"`)).assertTrue();
-        expect(encoded.includes(value)).assertFalse();
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0010|assertTrue|actual|expected=true', encoded.includes(`"source":"${SOURCES[index]}"`))).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0002|RefreshSourceCompatibility.test.ets|assert0011|assertFalse|actual|expected=false', encoded.includes(value))).assertFalse();
       });
     });
 
@@ -74,6 +78,7 @@ export default function refreshSourceCompatibilityTests(): void {
      * @tc.name testRefreshSourceCompatibility0003
      * @tc.desc Normalize historical RDB document payloads without changing IDs or schema. */
     it('testRefreshSourceCompatibility0003', 0, (): void => {
+      configureTestText();
       LEGACY.forEach((value: string, index: number): void => {
         const document = new ArchiveDocument();
         document.revision = 7;
@@ -81,11 +86,11 @@ export default function refreshSourceCompatibilityTests(): void {
         document.operationId = 'legacy-source';
         document.rows = [new ArchivedQuery(1, legacyRecord(value), NOW)];
         const restored = decodeArchive(JSON.stringify(document));
-        expect(restored.schema).assertEqual(1);
-        expect(restored.revision).assertEqual(7);
-        expect(restored.rows[0].archiveId).assertEqual(1);
-        expect(restored.rows[0].record.source).assertEqual(SOURCES[index]);
-        expect(encodeArchive(restored).includes(value)).assertFalse();
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0012|assertEqual|actual', restored.schema)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0012|assertEqual|expected', 1));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0013|assertEqual|actual', restored.revision)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0013|assertEqual|expected', 7));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0014|assertEqual|actual', restored.rows[0].archiveId)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0014|assertEqual|expected', 1));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0015|assertEqual|actual', restored.rows[0].record.source)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0015|assertEqual|expected', SOURCES[index]));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0003|RefreshSourceCompatibility.test.ets|assert0016|assertFalse|actual|expected=false', encodeArchive(restored).includes(value))).assertFalse();
       });
     });
 
@@ -93,14 +98,15 @@ export default function refreshSourceCompatibilityTests(): void {
      * @tc.name testRefreshSourceCompatibility0004
      * @tc.desc Restore nested revisit evidence with a historical source value. */
     it('testRefreshSourceCompatibility0004', 0, (): void => {
+      configureTestText();
       LEGACY.forEach((value: string, index: number): void => {
         const original = new RevisitTracker();
         original.begin(legacyRecord(value), 2, NOW);
         const restored = new RevisitTracker();
         restored.restore(original.serialize(), NOW);
-        expect(restored.snapshot().before?.source).assertEqual(SOURCES[index]);
-        expect(restored.snapshot().sessionId).assertEqual(original.snapshot().sessionId);
-        expect(restored.serialize().includes(`"source":"${value}"`)).assertFalse();
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0004|RefreshSourceCompatibility.test.ets|assert0017|assertEqual|actual', restored.snapshot().before?.source)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0004|RefreshSourceCompatibility.test.ets|assert0017|assertEqual|expected', SOURCES[index]));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0004|RefreshSourceCompatibility.test.ets|assert0018|assertEqual|actual', restored.snapshot().sessionId)).assertEqual(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0004|RefreshSourceCompatibility.test.ets|assert0018|assertEqual|expected', original.snapshot().sessionId));
+        expect(traceParameter('com.samples.appstartupauto_RefreshSourceCompatibility_0004|RefreshSourceCompatibility.test.ets|assert0019|assertFalse|actual|expected=false', restored.serialize().includes(`"source":"${value}"`))).assertFalse();
       });
     });
   });

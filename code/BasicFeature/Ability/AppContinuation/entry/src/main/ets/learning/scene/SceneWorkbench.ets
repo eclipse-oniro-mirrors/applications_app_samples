@@ -15,7 +15,7 @@
 
 /** Ability-owned business workspace. No SDK continuation listener or system-result shortcut lives here. */
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { preferences } from '@kit.ArkData';
+import { PlatformLearningStore } from '../LearningPorts';
 import { common } from '@kit.AbilityKit';
 import {
   FORM_STEPS, FormDraft, ReadingBookmark, READING_CHAPTERS, REVISION_LIMIT, SCENE_STORE_KEY,
@@ -36,16 +36,10 @@ export interface SceneStorePort {
   flushSync(): void;
 }
 
-export class PreferencesSceneStore implements SceneStorePort {
-  private readonly store: preferences.Preferences;
+export class PreferencesSceneStore extends PlatformLearningStore implements SceneStorePort {
   constructor(context: common.Context, namespace: string = 'continuation_scene_workspace_v1') {
-    if (!/^[A-Za-z0-9_-]{1,80}$/.test(namespace)) { throw new Error('Invalid scene Preferences namespace'); }
-    this.store = preferences.getPreferencesSync(context, { name: namespace });
+    super(context, namespace);
   }
-  public getSync(key: string, defaultValue: string): Object { return this.store.getSync(key, defaultValue); }
-  public putSync(key: string, value: string): void { this.store.putSync(key, value); }
-  public deleteSync(key: string): void { this.store.deleteSync(key); }
-  public flushSync(): void { this.store.flushSync(); }
 }
 
 export class SceneSnapshot {

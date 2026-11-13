@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import {
   ArchiveDocument, ArchivedQuery, ARCHIVE_MAX_BYTES, ARCHIVE_MAX_ENTRIES,
   archiveRecord, archiveUtf8Bytes, decodeArchive, encodeArchive
@@ -32,6 +33,7 @@ function codecDocument(): ArchiveDocument {
 }
 
 export default function startupArchiveCodecTests(): void {
+  configureTestText();
   describe('StartupArchiveCodec', (): void => {
     /**
      * @tc.number SUB_STARTUP_ARCHIVECODEC_0100
@@ -42,13 +44,14 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0001', 0, (): void => {
+      configureTestText();
       const source = archiveSample(17, 1700000000000, QueryOutcome.FAILURE, '查询失败');
       source.errorCode = '16000050'; source.errorMessage = 'private user@example.com';
       const saved = archiveRecord(source);
-      expect(saved.errorMessage).assertEqual('');
-      expect(saved.errorCode).assertEqual('16000050');
-      expect(saved.outcome).assertEqual(QueryOutcome.FAILURE);
-      expect(source.errorMessage).assertEqual('private user@example.com');
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0001|StartupArchiveCodec.test.ets|assert0001|assertEqual|actual', saved.errorMessage)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0001|StartupArchiveCodec.test.ets|assert0001|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0001|StartupArchiveCodec.test.ets|assert0002|assertEqual|actual', saved.errorCode)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0001|StartupArchiveCodec.test.ets|assert0002|assertEqual|expected', '16000050'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0001|StartupArchiveCodec.test.ets|assert0003|assertEqual|actual', saved.outcome)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0001|StartupArchiveCodec.test.ets|assert0003|assertEqual|expected', QueryOutcome.FAILURE));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0001|StartupArchiveCodec.test.ets|assert0004|assertEqual|actual', source.errorMessage)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0001|StartupArchiveCodec.test.ets|assert0004|assertEqual|expected', 'private user@example.com'));
     });
 
     /**
@@ -60,13 +63,14 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0002', 0, (): void => {
+      configureTestText();
       const decoded = decodeArchive(encodeArchive(codecDocument()));
-      expect(decoded.rows[0].archiveId).assertEqual(7);
-      expect(decoded.rows[0].record.id).assertEqual(91);
-      expect(decoded.rows[0].viewRecord().id).assertEqual(7);
-      expect(decoded.rows[0].record.source).assertEqual(RefreshSource.SETTINGS);
-      expect(decoded.revision).assertEqual(4);
-      expect(decoded.operationId).assertEqual('codec-save');
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0005|assertEqual|actual', decoded.rows[0].archiveId)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0005|assertEqual|expected', 7));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0006|assertEqual|actual', decoded.rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0006|assertEqual|expected', 91));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0007|assertEqual|actual', decoded.rows[0].viewRecord().id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0007|assertEqual|expected', 7));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0008|assertEqual|actual', decoded.rows[0].record.source)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0008|assertEqual|expected', RefreshSource.SETTINGS));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0009|assertEqual|actual', decoded.revision)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0009|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0010|assertEqual|actual', decoded.operationId)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0002|StartupArchiveCodec.test.ets|assert0010|assertEqual|expected', 'codec-save'));
     });
 
     /**
@@ -78,13 +82,14 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0003', 0, (): void => {
+      configureTestText();
       const document = decodeArchive(encodeArchive(codecDocument()));
       const clone = document.clone(); clone.rows[0].record.result = 'changed'; clone.rows = [];
       const display = document.rows[0].viewRecord(); display.errorCode = 'changed';
-      expect(document.rows[0].record.result).assertEqual('查询失败');
-      expect(document.rows[0].record.errorCode).assertEqual('16000050');
-      expect(document.rows[0].record.id).assertEqual(91);
-      expect(document.rows[0].savedAt).assertEqual(1700000000003);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0003|StartupArchiveCodec.test.ets|assert0011|assertEqual|actual', document.rows[0].record.result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0003|StartupArchiveCodec.test.ets|assert0011|assertEqual|expected', '查询失败'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0003|StartupArchiveCodec.test.ets|assert0012|assertEqual|actual', document.rows[0].record.errorCode)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0003|StartupArchiveCodec.test.ets|assert0012|assertEqual|expected', '16000050'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0003|StartupArchiveCodec.test.ets|assert0013|assertEqual|actual', document.rows[0].record.id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0003|StartupArchiveCodec.test.ets|assert0013|assertEqual|expected', 91));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0003|StartupArchiveCodec.test.ets|assert0014|assertEqual|actual', document.rows[0].savedAt)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0003|StartupArchiveCodec.test.ets|assert0014|assertEqual|expected', 1700000000003));
     });
 
     /**
@@ -96,15 +101,16 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0004', 0, (): void => {
-      expect(archiveFailureCode((): void => {
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0004|StartupArchiveCodec.test.ets|assert0015|assertEqual|actual', archiveFailureCode((): void => {
         decodeArchive('{broken');
-      })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0004|StartupArchiveCodec.test.ets|assert0015|assertEqual|expected', 'INVALID'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0004|StartupArchiveCodec.test.ets|assert0016|assertEqual|actual', archiveFailureCode((): void => {
         decodeArchive('null');
-      })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0004|StartupArchiveCodec.test.ets|assert0016|assertEqual|expected', 'INVALID'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0004|StartupArchiveCodec.test.ets|assert0017|assertEqual|actual', archiveFailureCode((): void => {
         decodeArchive('[]');
-      })).assertEqual('SCHEMA');
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0004|StartupArchiveCodec.test.ets|assert0017|assertEqual|expected', 'SCHEMA'));
     });
 
     /**
@@ -116,17 +122,18 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0005', 0, (): void => {
+      configureTestText();
       const future = codecDocument(); future.schema = 2;
       const obsolete = codecDocument(); obsolete.schema = 0;
-      expect(archiveFailureCode((): void => {
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0005|StartupArchiveCodec.test.ets|assert0018|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(future);
-      })).assertEqual('SCHEMA');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0005|StartupArchiveCodec.test.ets|assert0018|assertEqual|expected', 'SCHEMA'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0005|StartupArchiveCodec.test.ets|assert0019|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(obsolete);
-      })).assertEqual('SCHEMA');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0005|StartupArchiveCodec.test.ets|assert0019|assertEqual|expected', 'SCHEMA'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0005|StartupArchiveCodec.test.ets|assert0020|assertEqual|actual', archiveFailureCode((): void => {
         decodeArchive('{"schema":1}');
-      })).assertEqual('INVALID');
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0005|StartupArchiveCodec.test.ets|assert0020|assertEqual|expected', 'INVALID'));
     });
 
     /**
@@ -138,20 +145,21 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0006', 0, (): void => {
+      configureTestText();
       const duplicateId = codecDocument();
       duplicateId.rows.push(new ArchivedQuery(7, archiveSample(92, 1700000000001), 1700000000004));
       const duplicateEvidence = codecDocument(); duplicateEvidence.nextId = 9;
       duplicateEvidence.rows.push(new ArchivedQuery(8, duplicateEvidence.rows[0].record.clone(), 1700000000004));
       const sequence = codecDocument(); sequence.nextId = 7;
-      expect(archiveFailureCode((): void => {
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0006|StartupArchiveCodec.test.ets|assert0021|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(duplicateId);
-      })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0006|StartupArchiveCodec.test.ets|assert0021|assertEqual|expected', 'INVALID'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0006|StartupArchiveCodec.test.ets|assert0022|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(duplicateEvidence);
-      })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0006|StartupArchiveCodec.test.ets|assert0022|assertEqual|expected', 'INVALID'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0006|StartupArchiveCodec.test.ets|assert0023|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(sequence);
-      })).assertEqual('INVALID');
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0006|StartupArchiveCodec.test.ets|assert0023|assertEqual|expected', 'INVALID'));
     });
 
     /**
@@ -163,18 +171,19 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0007', 0, (): void => {
+      configureTestText();
       const privateData = codecDocument(); privateData.rows[0].record.errorMessage = 'raw private error';
       const badSource = codecDocument(); badSource.rows[0].record.source = 'invalid' as RefreshSource;
       const unknownTime = codecDocument(); unknownTime.rows[0].record.timestamp = 0;
-      expect(archiveFailureCode((): void => {
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0007|StartupArchiveCodec.test.ets|assert0024|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(privateData);
-      })).assertEqual('PRIVACY');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0007|StartupArchiveCodec.test.ets|assert0024|assertEqual|expected', 'PRIVACY'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0007|StartupArchiveCodec.test.ets|assert0025|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(badSource);
-      })).assertEqual('INVALID');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0007|StartupArchiveCodec.test.ets|assert0025|assertEqual|expected', 'INVALID'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0007|StartupArchiveCodec.test.ets|assert0026|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(unknownTime);
-      })).assertEqual('INVALID');
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0007|StartupArchiveCodec.test.ets|assert0026|assertEqual|expected', 'INVALID'));
     });
 
     /**
@@ -186,11 +195,12 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0008', 0, (): void => {
-      expect(archiveUtf8Bytes('abc')).assertEqual(3);
-      expect(archiveUtf8Bytes('证据')).assertEqual(6);
-      expect(archiveUtf8Bytes('😀')).assertEqual(4);
-      expect(archiveUtf8Bytes('A证😀')).assertEqual(8);
-      expect(archiveUtf8Bytes('\uD800')).assertEqual(3);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0027|assertEqual|actual', archiveUtf8Bytes('abc'))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0027|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0028|assertEqual|actual', archiveUtf8Bytes('证据'))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0028|assertEqual|expected', 6));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0029|assertEqual|actual', archiveUtf8Bytes('😀'))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0029|assertEqual|expected', 4));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0030|assertEqual|actual', archiveUtf8Bytes('A证😀'))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0030|assertEqual|expected', 8));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0031|assertEqual|actual', archiveUtf8Bytes('\uD800'))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0008|StartupArchiveCodec.test.ets|assert0031|assertEqual|expected', 3));
     });
 
     /**
@@ -202,18 +212,19 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0009', 0, (): void => {
+      configureTestText();
       const document = new ArchiveDocument(); document.nextId = ARCHIVE_MAX_ENTRIES + 1;
       for (let index = 1; index <= ARCHIVE_MAX_ENTRIES; index++) {
         document.rows.push(new ArchivedQuery(index, archiveSample(index, 1700000000000 + index), 1700000001000));
       }
       const decoded = decodeArchive(encodeArchive(document));
-      expect(decoded.rows[0].record.timestamp).assertEqual(1700000000001);
-      expect(decoded.rows[ARCHIVE_MAX_ENTRIES - 1].archiveId).assertEqual(ARCHIVE_MAX_ENTRIES);
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0009|StartupArchiveCodec.test.ets|assert0032|assertEqual|actual', decoded.rows[0].record.timestamp)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0009|StartupArchiveCodec.test.ets|assert0032|assertEqual|expected', 1700000000001));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0009|StartupArchiveCodec.test.ets|assert0033|assertEqual|actual', decoded.rows[ARCHIVE_MAX_ENTRIES - 1].archiveId)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0009|StartupArchiveCodec.test.ets|assert0033|assertEqual|expected', ARCHIVE_MAX_ENTRIES));
       document.nextId++;
       document.rows.push(new ArchivedQuery(ARCHIVE_MAX_ENTRIES + 1, archiveSample(999, 1700000009999), 1700000010000));
-      expect(archiveFailureCode((): void => {
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0009|StartupArchiveCodec.test.ets|assert0034|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(document);
-      })).assertEqual('CAPACITY');
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0009|StartupArchiveCodec.test.ets|assert0034|assertEqual|expected', 'CAPACITY'));
     });
 
     /**
@@ -225,6 +236,7 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0010', 0, (): void => {
+      configureTestText();
       const document = new ArchiveDocument(); document.nextId = ARCHIVE_MAX_ENTRIES + 1;
       for (let index = 1; index <= ARCHIVE_MAX_ENTRIES; index++) {
         const record = archiveSample(index, 1700000000000 + index);
@@ -232,13 +244,13 @@ export default function startupArchiveCodecTests(): void {
         record.statusResult = '录'.repeat(200); record.errorCode = '码'.repeat(64);
         document.rows.push(new ArchivedQuery(index, record, 1700000001000));
       }
-      expect(archiveFailureCode((): void => {
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0010|StartupArchiveCodec.test.ets|assert0035|assertEqual|actual', archiveFailureCode((): void => {
         encodeArchive(document);
-      })).assertEqual('CAPACITY');
-      expect(archiveFailureCode((): void => {
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0010|StartupArchiveCodec.test.ets|assert0035|assertEqual|expected', 'CAPACITY'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0010|StartupArchiveCodec.test.ets|assert0036|assertEqual|actual', archiveFailureCode((): void => {
         decodeArchive('证'.repeat(ARCHIVE_MAX_BYTES));
-      })).assertEqual('CAPACITY');
-      expect(decodeArchive(encodeArchive(codecDocument())).rows[0].record.errorCode).assertEqual('16000050');
+      }))).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0010|StartupArchiveCodec.test.ets|assert0036|assertEqual|expected', 'CAPACITY'));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0010|StartupArchiveCodec.test.ets|assert0037|assertEqual|actual', decodeArchive(encodeArchive(codecDocument())).rows[0].record.errorCode)).assertEqual(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0010|StartupArchiveCodec.test.ets|assert0037|assertEqual|expected', '16000050'));
     });
 
     /**
@@ -250,16 +262,17 @@ export default function startupArchiveCodecTests(): void {
      * @tc.level Level 2
      */
     it('testStartupArchiveCodecWaveThree0011', 0, (): void => {
+      configureTestText();
       const first = archiveSample(1, 1700000000000); first.errorMessage = 'first private';
       const repeated = first.clone(); repeated.errorMessage = 'second private';
       const later = first.clone(); later.timestamp++;
       const changed = first.clone(); changed.result = '未开启'; changed.statusResult = 'false';
       const saved = new ArchivedQuery(1, archiveRecord(first), 1700000001000);
-      expect(saved.evidenceKey()).assertEqual(
-        new ArchivedQuery(2, archiveRecord(repeated), 1700000001001).evidenceKey());
-      expect(saved.evidenceKey() === new ArchivedQuery(3, archiveRecord(later), 1700000001002).evidenceKey())
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0011|StartupArchiveCodec.test.ets|assert0038|assertEqual|actual', saved.evidenceKey())).assertEqual(
+        traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0011|StartupArchiveCodec.test.ets|assert0038|assertEqual|expected', new ArchivedQuery(2, archiveRecord(repeated), 1700000001001).evidenceKey()));
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0011|StartupArchiveCodec.test.ets|assert0039|assertFalse|actual|expected=false', saved.evidenceKey() === new ArchivedQuery(3, archiveRecord(later), 1700000001002).evidenceKey()))
         .assertFalse();
-      expect(saved.evidenceKey() === new ArchivedQuery(4, archiveRecord(changed), 1700000001003).evidenceKey())
+      expect(traceParameter('com.samples.appstartupauto_StartupArchiveCodecWaveThree_0011|StartupArchiveCodec.test.ets|assert0040|assertFalse|actual|expected=false', saved.evidenceKey() === new ArchivedQuery(4, archiveRecord(changed), 1700000001003).evidenceKey()))
         .assertFalse();
     });
   });

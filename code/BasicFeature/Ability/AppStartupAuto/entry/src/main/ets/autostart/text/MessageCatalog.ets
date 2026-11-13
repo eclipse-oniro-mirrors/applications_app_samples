@@ -20,7 +20,7 @@ import { formatResource, localText, registerTextRefresh } from './LocalizedText'
  *
  * 页面上的提示语集中在两张表里：一是固定文案，二是带占位符的模板。
  * 集中管理的好处是同一个概念只有一种说法，长度也能被统一约束。
- * 这不是完整的多语言方案，只解决"同一句提示不要在三处写法不同"。
+ * 固定文案和模板都从当前资源提供器读取，并在语言绑定变化时原地刷新。
  */
 
 /** 文案键。 */
@@ -74,34 +74,35 @@ export class MessageEntry {
   }
 
   describe(): string {
-    return `${this.key as string}（${this.text.length}/${this.maxLength}）：${this.clipped()}`;
+    return formatResource('startup_message_entry_summary', [String(this.key as string),
+      String(this.text.length), String(this.maxLength), this.clipped()]);
   }
 }
 
 /** 固定文案表。 */
-function createMESSAGES(): MessageEntry[] {
+function createMessages(): MessageEntry[] {
   return [
-  new MessageEntry(MessageKey.APP_TITLE, localText('startup_text_0718'), 16),
-  new MessageEntry(MessageKey.STATUS_ON, localText('startup_text_0719'), 24),
-  new MessageEntry(MessageKey.STATUS_OFF, localText('startup_text_0720'), 24),
-  new MessageEntry(MessageKey.STATUS_UNKNOWN, localText('startup_text_0721'), 32),
-  new MessageEntry(MessageKey.QUERY_FAILED, localText('startup_text_0722'), 32),
-  new MessageEntry(MessageKey.UNSUPPORTED, localText('startup_text_0723'), 40),
-  new MessageEntry(MessageKey.NEED_SETTINGS, localText('startup_text_0724'), 32),
-  new MessageEntry(MessageKey.NEED_PERMISSION, localText('startup_text_0725'), 32),
-  new MessageEntry(MessageKey.EXPORT_EMPTY, localText('startup_text_0726'), 24),
-  new MessageEntry(MessageKey.EXPORT_DONE, localText('startup_text_0727'), 24),
-  new MessageEntry(MessageKey.HISTORY_EMPTY, localText('startup_text_0728'), 24),
-  new MessageEntry(MessageKey.SELF_CHECK_DONE, localText('startup_text_0729'), 24),
-  new MessageEntry(MessageKey.GUIDANCE_TITLE, localText('startup_text_0730'), 16),
-  new MessageEntry(MessageKey.ONBOARDING_TITLE, localText('startup_text_0731'), 16),
-  new MessageEntry(MessageKey.REMINDER_TITLE, localText('startup_text_0732'), 16)
-];
+    new MessageEntry(MessageKey.APP_TITLE, localText('startup_text_0718'), 16),
+    new MessageEntry(MessageKey.STATUS_ON, localText('startup_text_0719'), 24),
+    new MessageEntry(MessageKey.STATUS_OFF, localText('startup_text_0720'), 24),
+    new MessageEntry(MessageKey.STATUS_UNKNOWN, localText('startup_text_0721'), 32),
+    new MessageEntry(MessageKey.QUERY_FAILED, localText('startup_text_0722'), 32),
+    new MessageEntry(MessageKey.UNSUPPORTED, localText('startup_text_0723'), 40),
+    new MessageEntry(MessageKey.NEED_SETTINGS, localText('startup_text_0724'), 32),
+    new MessageEntry(MessageKey.NEED_PERMISSION, localText('startup_text_0725'), 32),
+    new MessageEntry(MessageKey.EXPORT_EMPTY, localText('startup_text_0726'), 24),
+    new MessageEntry(MessageKey.EXPORT_DONE, localText('startup_text_0727'), 24),
+    new MessageEntry(MessageKey.HISTORY_EMPTY, localText('startup_text_0728'), 24),
+    new MessageEntry(MessageKey.SELF_CHECK_DONE, localText('startup_text_0729'), 24),
+    new MessageEntry(MessageKey.GUIDANCE_TITLE, localText('startup_text_0730'), 16),
+    new MessageEntry(MessageKey.ONBOARDING_TITLE, localText('startup_text_0731'), 16),
+    new MessageEntry(MessageKey.REMINDER_TITLE, localText('startup_text_0732'), 16)
+  ];
 }
-export const MESSAGES: MessageEntry[] = createMESSAGES();
+export const MESSAGES: MessageEntry[] = createMessages();
 registerTextRefresh((): void => {
   MESSAGES.splice(0, MESSAGES.length);
-  createMESSAGES().forEach((item: MessageEntry): void => { MESSAGES.push(item); });
+  createMessages().forEach((item: MessageEntry): void => { MESSAGES.push(item); });
 });
 
 /** 模板文案：用 {name} 占位。 */
@@ -159,21 +160,21 @@ export function extractPlaceholders(template: string): string[] {
 }
 
 /** 模板表。 */
-function createTEMPLATES(): TemplateEntry[] {
+function createTemplates(): TemplateEntry[] {
   return [
-  new TemplateEntry('historyCount', localText('startup_text_0733')),
-  new TemplateEntry('capabilitySummary', '{verdict}（API {api}，{form}）'),
-  new TemplateEntry('permissionAsk', localText('startup_text_0734')),
-  new TemplateEntry('reminderWait', localText('startup_text_0735')),
-  new TemplateEntry('exportSummary', localText('startup_text_0736')),
-  new TemplateEntry('onboardingProgress', localText('startup_text_0737')),
-  new TemplateEntry('checkResult', localText('startup_text_0738'))
-];
+    new TemplateEntry('historyCount', localText('startup_text_0733')),
+    new TemplateEntry('capabilitySummary', localText('startup_capability_summary_template')),
+    new TemplateEntry('permissionAsk', localText('startup_text_0734')),
+    new TemplateEntry('reminderWait', localText('startup_text_0735')),
+    new TemplateEntry('exportSummary', localText('startup_text_0736')),
+    new TemplateEntry('onboardingProgress', localText('startup_text_0737')),
+    new TemplateEntry('checkResult', localText('startup_text_0738'))
+  ];
 }
-export const TEMPLATES: TemplateEntry[] = createTEMPLATES();
+export const TEMPLATES: TemplateEntry[] = createTemplates();
 registerTextRefresh((): void => {
   TEMPLATES.splice(0, TEMPLATES.length);
-  createTEMPLATES().forEach((item: TemplateEntry): void => { TEMPLATES.push(item); });
+  createTemplates().forEach((item: TemplateEntry): void => { TEMPLATES.push(item); });
 });
 
 /** 取固定文案；未知键返回空条目而不是抛错。 */
@@ -226,7 +227,7 @@ export class MessageAudit {
     if (this.ok) {
       return localText('startup_text_0739');
     }
-    return this.findings.join('；');
+    return this.findings.join(localText('startup_audit_separator'));
   }
 }
 

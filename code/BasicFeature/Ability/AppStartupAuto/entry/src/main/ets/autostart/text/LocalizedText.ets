@@ -23,6 +23,11 @@ let resolver: TextResolver | undefined = undefined;
 const refreshers: (() => void)[] = [];
 const reportedKeys: Set<string> = new Set<string>();
 
+/** Scoped Ability bindings can restore the exact resolver they replaced. */
+export function getTextResolver(): TextResolver | undefined {
+  return resolver;
+}
+
 /** String-based model/UI APIs share the same resource lookup and deterministic English bootstrap. */
 export function localText(key: string): string {
   if (resolver !== undefined) {

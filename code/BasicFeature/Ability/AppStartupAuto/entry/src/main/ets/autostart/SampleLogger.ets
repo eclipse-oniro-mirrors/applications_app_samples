@@ -18,12 +18,11 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 export const DOMAIN: number = 0xF811;
 export const TAG: string = '[Sample_AppStartupAuto]';
 
-/** Fixed English diagnostics only: do not log private records or native error payloads. */
+/** Only controlled operation names, never raw native errors or private payloads. */
 export function reportFailure(operation: string): void {
   try {
     hilog.warn(DOMAIN, TAG, '%{public}s failed', operation);
   } catch (_) {
-    // A collector failure must not replace the original business outcome.
-    console.error(`${TAG} Diagnostic logging unavailable: ${operation}`);
+    // Logging is best-effort and cannot alter a business result or trigger another logger.
   }
 }

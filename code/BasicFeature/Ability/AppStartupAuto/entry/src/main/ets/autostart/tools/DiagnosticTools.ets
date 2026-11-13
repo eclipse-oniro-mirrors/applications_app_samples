@@ -22,7 +22,7 @@ import { formatResource, localText, recordValueLabel, registerTextRefresh } from
  * 堆一套"没人用"的通用库。
  */
 
-import { QueryOutcome, QueryRecord, RefreshSource } from '../AutoStartupTypes';
+import { parseRefreshSource, QueryOutcome, QueryRecord, RefreshSource } from '../AutoStartupTypes';
 
 /** 明细文本上限：错误信息写盘前必须截断，避免二次失败。 */
 export const DETAIL_LIMIT: number = 512;
@@ -234,10 +234,9 @@ export function isKnownOutcome(value: string): boolean {
     value === QueryOutcome.UNKNOWN;
 }
 
-/** 校验来源成员。 */
+/** Accept canonical source IDs and the exact historical aliases at the data boundary. */
 export function isKnownSource(value: string): boolean {
-  return value === RefreshSource.INITIAL || value === RefreshSource.MANUAL ||
-    value === RefreshSource.FOREGROUND || value === RefreshSource.SETTINGS;
+  return parseRefreshSource(value) !== undefined;
 }
 
 /** 单调时钟差值；负值归零，避免时间回拨导致负数耗时。 */

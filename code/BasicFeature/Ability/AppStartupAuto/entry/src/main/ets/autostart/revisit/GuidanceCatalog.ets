@@ -89,7 +89,7 @@ export function needsJump(entry: GuidanceEntry): boolean { return false; }
 export function stepTexts(entry: GuidanceEntry): string[] {
   return entry.steps.slice().sort((a: GuidanceStep, b: GuidanceStep): number => a.order - b.order)
     .map((step: GuidanceStep): string => `${step.order}. ${step.label}` +
-      (step.detail.length === 0 ? '' : `（${step.detail}）`) + (step.required ? '' : localText('startup_text_0614')));
+      (step.detail.length === 0 ? '' : formatResource('startup_guidance_step_detail', [step.detail])) + (step.required ? '' : localText('startup_text_0614')));
 }
 export function guidanceCaption(entry: GuidanceEntry): string {
   return formatResource('startup_format_96ba822bb5e5', [String(entry.title), String(entry.stepCount()), String(entry.requiredCount())]);

@@ -99,7 +99,7 @@ export interface LearningSnapshot {
 export type LearningListener = (snapshot: LearningSnapshot) => void;
 
 export function offContractNote(): string { return localize('ac_types_off_contract'); }
-export const TEXT_PAYLOAD_KEY: string = 'com.example.appcontinuation.learning.text.v1';
+export const TEXT_PAYLOAD_KEY: string = 'com.samples.appcontinuation.learning.text.v1';
 export const MAX_TEXT_LENGTH: number = 4096;
 
 export function emptyLearningSnapshot(): LearningSnapshot {
@@ -131,7 +131,7 @@ export function emptyLearningSnapshot(): LearningSnapshot {
     scene: emptyScene(),
     businessPositionState: localize('ac_types_position_pending'),
     positionRequest: 0,
-    targetPage: 'pages/ProcessPage',
+    targetPage: 'continuation/pages/ProcessPage',
     savedTextStatus: localize('ac_types_save_none'),
     restoredSummary: '',
     latestRecord: undefined,

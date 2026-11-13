@@ -1,11 +1,11 @@
 {
   "src": [
     "pages/Index",
-    "pages/CallDetailPage",
-    "pages/ProcessPage",
-    "pages/ScenarioPage",
-    "pages/NoteScenePage",
-    "pages/ReadingScenePage",
-    "pages/FormScenePage"
+    "continuation/pages/CallDetailPage",
+    "continuation/pages/ProcessPage",
+    "continuation/pages/ScenarioPage",
+    "continuation/pages/NoteScenePage",
+    "continuation/pages/ReadingScenePage",
+    "continuation/pages/FormScenePage"
   ]
 }

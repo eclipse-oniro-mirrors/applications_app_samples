@@ -472,7 +472,7 @@ export class ArchiveDayDetail {
 
   text(): string {
     if (!this.found) {
-      return `${this.dayKey}：${this.notice}`;
+      return formatResource('startup_archive_day_notice', [this.dayKey, this.notice]);
     }
     const tail: string = this.truncated > 0 ? formatResource('startup_format_5becf8ede620', [String(this.truncated)]) : '';
     return formatResource('startup_format_f23e7dd3feb5', [String(this.dayKey), String(this.total), String(this.samples.length), String(tail)]);

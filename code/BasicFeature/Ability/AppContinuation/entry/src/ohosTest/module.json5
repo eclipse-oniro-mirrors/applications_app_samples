@@ -30,6 +30,13 @@
         "startWindowIcon": "$media:app_icon_continuation",
         "startWindowBackground": "$color:test_window_background",
         "exported": true
+      },
+      {
+        "name": "FormalSceneUiQaAbility",
+        "srcEntry": "./ets/testability/FormalSceneUiQaAbility.ets",
+        "startWindowIcon": "$media:app_icon_continuation",
+        "startWindowBackground": "$color:test_window_background",
+        "exported": true
       }
     ]
   }

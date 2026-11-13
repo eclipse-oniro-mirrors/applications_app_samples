@@ -110,7 +110,7 @@ export class FieldDoc {
 }
 
 /** 字段字典。派生字段不参与编码，只用于展示与统计。 */
-function createFIELD_DOCS(): FieldDoc[] {
+function createFieldDocs(): FieldDoc[] {
   return [
   new FieldDoc('doc', localize('ac_fielddictionary_013'), FieldRole.IDENTITY, FieldUnit.NONE, true, 64,
     localize('ac_fielddictionary_014')),
@@ -155,10 +155,10 @@ function createFIELD_DOCS(): FieldDoc[] {
 ];
 }
 
-export const FIELD_DOCS: FieldDoc[] = createFIELD_DOCS();
+export const FIELD_DOCS: FieldDoc[] = createFieldDocs();
 registerLocaleCatalog((): void => {
   FIELD_DOCS.splice(0, FIELD_DOCS.length);
-  createFIELD_DOCS().forEach((item: FieldDoc): void => { FIELD_DOCS.push(item); });
+  createFieldDocs().forEach((item: FieldDoc): void => { FIELD_DOCS.push(item); });
 });
 
 /** 字段键列表。 */

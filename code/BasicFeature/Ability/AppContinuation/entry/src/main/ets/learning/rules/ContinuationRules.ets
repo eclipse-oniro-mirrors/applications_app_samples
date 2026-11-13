@@ -150,7 +150,7 @@ const SCREEN_DEVICES: DeviceClass[] = [DeviceClass.PHONE, DeviceClass.TABLET, De
  *
  * 顺序即优先级：低版本与排除形态必须排在通用规则之前。
  */
-function createREADINESS_RULES(): ReadinessRule[] {
+function createReadinessRules(): ReadinessRule[] {
   return [
   new ReadinessRule('CR-01', 0, 8, ALL_DEVICES, false, 0, Readiness.NEED_UPGRADE,
     localize('ac_continuationrules_009')),
@@ -179,10 +179,10 @@ function createREADINESS_RULES(): ReadinessRule[] {
 ];
 }
 
-export const READINESS_RULES: ReadinessRule[] = createREADINESS_RULES();
+export const READINESS_RULES: ReadinessRule[] = createReadinessRules();
 registerLocaleCatalog((): void => {
   READINESS_RULES.splice(0, READINESS_RULES.length);
-  createREADINESS_RULES().forEach((item: ReadinessRule): void => { READINESS_RULES.push(item); });
+  createReadinessRules().forEach((item: ReadinessRule): void => { READINESS_RULES.push(item); });
 });
 
 /** 判定结果。 */

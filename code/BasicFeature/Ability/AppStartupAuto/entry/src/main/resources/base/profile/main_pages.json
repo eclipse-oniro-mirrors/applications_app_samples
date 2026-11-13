@@ -1,9 +1,9 @@
 {
   "src": [
     "pages/Index",
-    "pages/GuidancePage",
-    "pages/DiagnosticPage",
-    "pages/FaultPage",
-    "pages/HistoryPage"
+    "startup/pages/GuidancePage",
+    "startup/pages/DiagnosticPage",
+    "startup/pages/FaultPage",
+    "startup/pages/HistoryPage"
   ]
 }

@@ -131,7 +131,7 @@ export class ScenarioEntry {
 }
 
 /** 场景目录。 */
-function createSCENARIO_CATALOG(): ScenarioEntry[] {
+function createScenarioCatalog(): ScenarioEntry[] {
   return [
   new ScenarioEntry('SN-01', localize('ac_scenariocatalog_010'), PayloadShape.NOTE,
     DeviceClass.PHONE, DeviceClass.TABLET, [localize('ac_scenariocatalog_011'), localize('ac_scenariocatalog_012')],
@@ -208,10 +208,10 @@ function createSCENARIO_CATALOG(): ScenarioEntry[] {
 ];
 }
 
-export const SCENARIO_CATALOG: ScenarioEntry[] = createSCENARIO_CATALOG();
+export const SCENARIO_CATALOG: ScenarioEntry[] = createScenarioCatalog();
 registerLocaleCatalog((): void => {
   SCENARIO_CATALOG.splice(0, SCENARIO_CATALOG.length);
-  createSCENARIO_CATALOG().forEach((item: ScenarioEntry): void => { SCENARIO_CATALOG.push(item); });
+  createScenarioCatalog().forEach((item: ScenarioEntry): void => { SCENARIO_CATALOG.push(item); });
 });
 
 /** 编号列表。 */

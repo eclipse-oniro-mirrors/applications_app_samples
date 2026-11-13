@@ -56,7 +56,7 @@
         // two-launch quick-start flow (PREPARE_CONTINUATION, then CONTINUATION).
         "continuable": true,
         "continueType": [
-          "com.example.appcontinuation_ContinueQuickStart"
+          "com.samples.appcontinuation_ContinueQuickStart"
         ],
         "skills": [
           {

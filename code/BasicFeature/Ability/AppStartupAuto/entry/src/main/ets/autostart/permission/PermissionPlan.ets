@@ -99,7 +99,7 @@ export class PermissionDecision {
   public ruleId: string = '';
 
   text(): string {
-    return `${permissionLabel(this.state)}｜${this.policy as string}｜${this.message}`;
+    return formatResource('startup_permission_decision_summary', [permissionLabel(this.state), this.policy as string, this.message]);
   }
 }
 
@@ -136,7 +136,7 @@ export class PermissionRule {
 }
 
 /** 规则表：低版本只弹一次，高版本允许在应用内申请。 */
-function createPERMISSION_RULES(): PermissionRule[] {
+function createPermissionRules(): PermissionRule[] {
   return [
   new PermissionRule('PM-0001', 0, 8, 0, RequestPolicy.NO_REQUEST,
     localText('startup_text_0580'), localText('startup_text_0581')),
@@ -150,10 +150,10 @@ function createPERMISSION_RULES(): PermissionRule[] {
     localText('startup_text_0588'), localText('startup_text_0589'))
 ];
 }
-export const PERMISSION_RULES: PermissionRule[] = createPERMISSION_RULES();
+export const PERMISSION_RULES: PermissionRule[] = createPermissionRules();
 registerTextRefresh((): void => {
   PERMISSION_RULES.splice(0, PERMISSION_RULES.length);
-  createPERMISSION_RULES().forEach((item: PermissionRule): void => { PERMISSION_RULES.push(item); });
+  createPermissionRules().forEach((item: PermissionRule): void => { PERMISSION_RULES.push(item); });
 });
 
 /** 按当前上下文给出申请结论。 */
@@ -257,7 +257,7 @@ export class PermissionAudit {
     if (this.ok) {
       return localText('startup_text_0600');
     }
-    return this.findings.join('；');
+    return this.findings.join(localText('startup_audit_separator'));
   }
 }
 

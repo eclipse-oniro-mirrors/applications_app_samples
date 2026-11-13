@@ -40,6 +40,7 @@ import sceneBackupLifecycleCases from './SceneBackupLifecycleCases.test';
 import sceneBackupClipboardCases from './SceneBackupClipboardCases.test';
 import workspaceBackupUiQaTests from './WorkspaceBackupUiQa.test';
 import workspaceBackupNativeQaTests from './WorkspaceBackupNativeQa.test';
+import formalSceneUiSmokeTests from './FormalSceneUiSmoke.test';
 
 export default function testsuite(): void {
   // Isolated model cases assert the reviewed zh_CN text.
@@ -70,4 +71,5 @@ export default function testsuite(): void {
   sceneBackupClipboardCases();
   workspaceBackupUiQaTests();
   workspaceBackupNativeQaTests();
+  formalSceneUiSmokeTests();
 }

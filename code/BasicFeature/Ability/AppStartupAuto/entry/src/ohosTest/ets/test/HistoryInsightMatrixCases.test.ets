@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import {
   RETENTION_RULES, RetentionRule, RetentionTier, ruleIds, ruleOf, rulesOfTier, tierLabel, tierOrder
 } from '../../../main/ets/autostart/history/ArchivePolicy';
@@ -44,6 +45,7 @@ function sampleRecords(): QueryRecord[] {
 }
 
 export default function historyInsightMatrixCasesTest(): void {
+  configureTestText();
 
   describe('ArchivePolicyMatrixCases', (): void => {
     /**
@@ -56,11 +58,12 @@ export default function historyInsightMatrixCasesTest(): void {
      */
 
     it('testArchivePolicyMatrixCases0001', 0, (): void => {
-      expect(RETENTION_RULES.length > 0).assertTrue();
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0001|HistoryInsightMatrixCases.test.ets|assert0001|assertTrue|actual|expected=true', RETENTION_RULES.length > 0)).assertTrue();
       const ids: string[] = ruleIds();
-      expect(ids.length).assertEqual(RETENTION_RULES.length);
-      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length)
-        .assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0001|HistoryInsightMatrixCases.test.ets|assert0002|assertEqual|actual', ids.length)).assertEqual(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0001|HistoryInsightMatrixCases.test.ets|assert0002|assertEqual|expected', RETENTION_RULES.length));
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0001|HistoryInsightMatrixCases.test.ets|assert0003|assertEqual|actual', ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length))
+        .assertEqual(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0001|HistoryInsightMatrixCases.test.ets|assert0003|assertEqual|expected', 0));
     });
 
     /**
@@ -73,6 +76,7 @@ export default function historyInsightMatrixCasesTest(): void {
      */
 
     it('testArchivePolicyMatrixCases0002', 0, (): void => {
+      configureTestText();
       let found: number = 0;
       ruleIds().forEach((id: string): void => {
         const rule = ruleOf(id);
@@ -80,9 +84,9 @@ export default function historyInsightMatrixCasesTest(): void {
           found++;
         }
       });
-      expect(found).assertEqual(RETENTION_RULES.length);
-      expect(ruleOf('XX-99') === undefined).assertTrue();
-      expect(found > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0002|HistoryInsightMatrixCases.test.ets|assert0004|assertEqual|actual', found)).assertEqual(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0002|HistoryInsightMatrixCases.test.ets|assert0004|assertEqual|expected', RETENTION_RULES.length));
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0002|HistoryInsightMatrixCases.test.ets|assert0005|assertTrue|actual|expected=true', ruleOf('XX-99') === undefined)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0002|HistoryInsightMatrixCases.test.ets|assert0006|assertTrue|actual|expected=true', found > 0)).assertTrue();
     });
 
     /**
@@ -95,16 +99,17 @@ export default function historyInsightMatrixCasesTest(): void {
      */
 
     it('testArchivePolicyMatrixCases0003', 0, (): void => {
+      configureTestText();
       const tiers: RetentionTier[] = [];
       RETENTION_RULES.forEach((rule: RetentionRule): void => {
         if (tiers.indexOf(rule.tier) < 0) {
           tiers.push(rule.tier);
         }
       });
-      expect(tiers.length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0003|HistoryInsightMatrixCases.test.ets|assert0007|assertTrue|actual|expected=true', tiers.length > 0)).assertTrue();
       tiers.forEach((tier: RetentionTier): void => {
-        expect(tierOrder(tier) >= 0).assertTrue();
-        expect(tierLabel(tier).length > 0).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0003|HistoryInsightMatrixCases.test.ets|assert0008|assertTrue|actual|expected=true', tierOrder(tier) >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0003|HistoryInsightMatrixCases.test.ets|assert0009|assertTrue|actual|expected=true', tierLabel(tier).length > 0)).assertTrue();
       });
     });
 
@@ -118,17 +123,18 @@ export default function historyInsightMatrixCasesTest(): void {
      */
 
     it('testArchivePolicyMatrixCases0004', 0, (): void => {
+      configureTestText();
       const tiers: RetentionTier[] = [];
       RETENTION_RULES.forEach((rule: RetentionRule): void => {
         if (tiers.indexOf(rule.tier) < 0) {
           tiers.push(rule.tier);
         }
       });
-      expect(tiers.length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0004|HistoryInsightMatrixCases.test.ets|assert0010|assertTrue|actual|expected=true', tiers.length > 0)).assertTrue();
       tiers.forEach((tier: RetentionTier): void => {
-        expect(tierLabel(tier).length > 0).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0004|HistoryInsightMatrixCases.test.ets|assert0011|assertTrue|actual|expected=true', tierLabel(tier).length > 0)).assertTrue();
       });
-      expect(tierLabel(tiers[0]).length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0004|HistoryInsightMatrixCases.test.ets|assert0012|assertTrue|actual|expected=true', tierLabel(tiers[0]).length > 0)).assertTrue();
     });
 
     /**
@@ -141,6 +147,7 @@ export default function historyInsightMatrixCasesTest(): void {
      */
 
     it('testArchivePolicyMatrixCases0005', 0, (): void => {
+      configureTestText();
       const tiers: RetentionTier[] = [];
       RETENTION_RULES.forEach((rule: RetentionRule): void => {
         if (tiers.indexOf(rule.tier) < 0) {
@@ -154,9 +161,9 @@ export default function historyInsightMatrixCasesTest(): void {
           covered++;
         }
       });
-      expect(covered).assertEqual(tiers.length);
-      expect(tiers.length > 0).assertTrue();
-      expect(tiers.length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0005|HistoryInsightMatrixCases.test.ets|assert0013|assertEqual|actual', covered)).assertEqual(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0005|HistoryInsightMatrixCases.test.ets|assert0013|assertEqual|expected', tiers.length));
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0005|HistoryInsightMatrixCases.test.ets|assert0014|assertTrue|actual|expected=true', tiers.length > 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0005|HistoryInsightMatrixCases.test.ets|assert0015|assertTrue|actual|expected=true', tiers.length > 0)).assertTrue();
     });
 
     /**
@@ -169,11 +176,12 @@ export default function historyInsightMatrixCasesTest(): void {
      */
 
     it('testArchivePolicyMatrixCases0006', 0, (): void => {
+      configureTestText();
       RETENTION_RULES.forEach((rule: RetentionRule): void => {
-        expect(rule.maxAgeMs >= 0).assertTrue();
-        expect(rule.description.length > 0).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0006|HistoryInsightMatrixCases.test.ets|assert0016|assertTrue|actual|expected=true', rule.maxAgeMs >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0006|HistoryInsightMatrixCases.test.ets|assert0017|assertTrue|actual|expected=true', rule.description.length > 0)).assertTrue();
       });
-      expect(RETENTION_RULES.length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_ArchivePolicyMatrixCases_0006|HistoryInsightMatrixCases.test.ets|assert0018|assertTrue|actual|expected=true', RETENTION_RULES.length > 0)).assertTrue();
     });
   });
 }

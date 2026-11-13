@@ -15,7 +15,7 @@
 
 /** Pure payload decoding helpers shared by the learning runtime. No controller state lives here. */
 import { Want } from '@kit.AbilityKit';
-import { localize } from '../../common/LocaleStrings';
+import { localize } from '../common/LocaleStrings';
 import { LearningStore } from './LearningPorts';
 import { MAX_TEXT_LENGTH, TEXT_PAYLOAD_KEY } from './LearningTypes';
 import { decodeScene, SCENE_PAYLOAD_KEY, SceneDocument } from './scene/SceneModel';

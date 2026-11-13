@@ -187,7 +187,7 @@ export class ConflictRule {
  *
  * 顺序即优先级：先命中先返回。脏标记组合比版本号更可信，因此排在前面。
  */
-function createCONFLICT_RULES(): ConflictRule[] {
+function createConflictRules(): ConflictRule[] {
   return [
   new ConflictRule('CF-01', ConflictKind.NONE, false, false, Resolution.KEEP_LOCAL,
     localize('ac_conflictpolicy_021')),
@@ -248,10 +248,10 @@ function createCONFLICT_RULES(): ConflictRule[] {
 ];
 }
 
-export const CONFLICT_RULES: ConflictRule[] = createCONFLICT_RULES();
+export const CONFLICT_RULES: ConflictRule[] = createConflictRules();
 registerLocaleCatalog((): void => {
   CONFLICT_RULES.splice(0, CONFLICT_RULES.length);
-  createCONFLICT_RULES().forEach((item: ConflictRule): void => { CONFLICT_RULES.push(item); });
+  createConflictRules().forEach((item: ConflictRule): void => { CONFLICT_RULES.push(item); });
 });
 
 /** 决策结果。 */

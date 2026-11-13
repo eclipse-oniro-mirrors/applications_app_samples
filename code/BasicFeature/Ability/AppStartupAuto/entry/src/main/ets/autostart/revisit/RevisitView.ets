@@ -21,7 +21,8 @@ import { dateTimeText } from '../tools/DiagnosticTools';
 
 function sample(record: QueryRecord | undefined): string {
   return record === undefined ? localText('startup_text_0524') :
-    `query #${record.id}｜${recordSourceLabel(record.source)}｜${record.outcome}｜${recordValueLabel(record.result)}｜${dateTimeText(record.timestamp)}`;
+    formatResource('startup_revisit_sample_summary', [String(record.id), recordSourceLabel(record.source),
+      record.outcome as string, recordValueLabel(record.result), dateTimeText(record.timestamp)]);
 }
 
 /** Local terminal facts, never inferred system-setting visits or boot-start evidence. */

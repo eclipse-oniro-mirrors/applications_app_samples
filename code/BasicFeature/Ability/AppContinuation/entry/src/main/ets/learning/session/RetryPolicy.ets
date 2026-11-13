@@ -118,7 +118,7 @@ export class RetryRule {
 }
 
 /** 规则表。 */
-function createRETRY_RULES(): RetryRule[] {
+function createRetryRules(): RetryRule[] {
   return [
   new RetryRule('RR-01', RetryReason.NETWORK, Backoff.EXPONENTIAL, 200, 4, 4000, false,
     localize('ac_retrypolicy_014')),
@@ -163,10 +163,10 @@ function createRETRY_RULES(): RetryRule[] {
 ];
 }
 
-export const RETRY_RULES: RetryRule[] = createRETRY_RULES();
+export const RETRY_RULES: RetryRule[] = createRetryRules();
 registerLocaleCatalog((): void => {
   RETRY_RULES.splice(0, RETRY_RULES.length);
-  createRETRY_RULES().forEach((item: RetryRule): void => { RETRY_RULES.push(item); });
+  createRetryRules().forEach((item: RetryRule): void => { RETRY_RULES.push(item); });
 });
 
 /** 规则编号。 */

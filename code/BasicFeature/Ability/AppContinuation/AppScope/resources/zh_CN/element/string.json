@@ -2,7 +2,8 @@
   "string": [
     {
       "name": "app_name",
-      "value": "接续接口指南"
+      "value": "接续接口指南",
+      "description": "应用显示名称。"
     }
   ]
 }

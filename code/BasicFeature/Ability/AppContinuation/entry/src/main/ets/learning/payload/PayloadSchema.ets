@@ -132,7 +132,7 @@ export class PayloadField {
 const CONFLICT_KINDS: string[] = ['none', 'remoteNewer', 'localNewer', 'bothChanged', 'unknown'];
 
 /** 字段目录。顺序即编码顺序。 */
-function createPAYLOAD_FIELDS(): PayloadField[] {
+function createPayloadFields(): PayloadField[] {
   return [
   new PayloadField('v', localize('ac_fielddictionary_035'), PayloadKind.INTEGER, true, 1, 4, '1'),
   new PayloadField('doc', localize('ac_fielddictionary_013'), PayloadKind.IDENTIFIER, true, 1, 64, ''),
@@ -149,10 +149,10 @@ function createPAYLOAD_FIELDS(): PayloadField[] {
 ];
 }
 
-export const PAYLOAD_FIELDS: PayloadField[] = createPAYLOAD_FIELDS();
+export const PAYLOAD_FIELDS: PayloadField[] = createPayloadFields();
 registerLocaleCatalog((): void => {
   PAYLOAD_FIELDS.splice(0, PAYLOAD_FIELDS.length);
-  createPAYLOAD_FIELDS().forEach((item: PayloadField): void => { PAYLOAD_FIELDS.push(item); });
+  createPayloadFields().forEach((item: PayloadField): void => { PAYLOAD_FIELDS.push(item); });
 });
 
 /** 字段名列表。 */
@@ -208,17 +208,17 @@ export class PayloadMigration {
 }
 
 /** 版本迁移链。 */
-function createPAYLOAD_MIGRATIONS(): PayloadMigration[] {
+function createPayloadMigrations(): PayloadMigration[] {
   return [
   new PayloadMigration(1, 2, localize('ac_payloadschema_016')),
   new PayloadMigration(2, 3, localize('ac_payloadschema_017'))
 ];
 }
 
-export const PAYLOAD_MIGRATIONS: PayloadMigration[] = createPAYLOAD_MIGRATIONS();
+export const PAYLOAD_MIGRATIONS: PayloadMigration[] = createPayloadMigrations();
 registerLocaleCatalog((): void => {
   PAYLOAD_MIGRATIONS.splice(0, PAYLOAD_MIGRATIONS.length);
-  createPAYLOAD_MIGRATIONS().forEach((item: PayloadMigration): void => { PAYLOAD_MIGRATIONS.push(item); });
+  createPayloadMigrations().forEach((item: PayloadMigration): void => { PAYLOAD_MIGRATIONS.push(item); });
 });
 
 /** 从指定版本升到当前版本需要几步。 */

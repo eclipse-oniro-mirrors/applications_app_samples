@@ -99,13 +99,13 @@ export class RetentionRule {
   text(): string {
     const age: string = this.maxAgeMs <= 0 ? localText('startup_text_0476') : formatResource('startup_format_2a1d9519d00a', [String(Math.round(this.maxAgeMs / HOUR))]);
     const count: string = this.maxCount <= 0 ? localText('startup_text_0476') : formatResource('startup_format_376dc4cad94c', [String(this.maxCount)]);
-    return `${this.ruleId} ${tierLabel(this.tier)}｜≤${age}｜≤${count}｜` +
-      `${this.exportable ? localText('startup_text_0478') : localText('startup_text_0479')}`;
+    return formatResource('startup_archive_rule_summary', [this.ruleId, tierLabel(this.tier), age, count,
+      this.exportable ? localText('startup_text_0478') : localText('startup_text_0479')]);
   }
 }
 
 /** 保留规则表，按年龄升序。 */
-function createRETENTION_RULES(): RetentionRule[] {
+function createRetentionRules(): RetentionRule[] {
   return [
   new RetentionRule('RT-01', RetentionTier.RECENT, HOUR, 20, true, true,
     localText('startup_text_0480')),
@@ -131,10 +131,10 @@ function createRETENTION_RULES(): RetentionRule[] {
     localText('startup_text_0490'))
 ];
 }
-export const RETENTION_RULES: RetentionRule[] = createRETENTION_RULES();
+export const RETENTION_RULES: RetentionRule[] = createRetentionRules();
 registerTextRefresh((): void => {
   RETENTION_RULES.splice(0, RETENTION_RULES.length);
-  createRETENTION_RULES().forEach((item: RetentionRule): void => { RETENTION_RULES.push(item); });
+  createRetentionRules().forEach((item: RetentionRule): void => { RETENTION_RULES.push(item); });
 });
 
 /** 规则编号列表。 */
@@ -381,7 +381,7 @@ export class RetentionAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? localText('startup_text_0088') : this.findings.join('；');
+    return this.ok ? localText('startup_text_0088') : this.findings.join(localText('startup_audit_separator'));
   }
 }
 

@@ -15,8 +15,8 @@
 
 {
   "app": {
-    "bundleName": "com.example.appstartupauto",
-    "vendor": "example",
+    "bundleName": "com.samples.appstartupauto",
+    "vendor": "samples",
     "versionCode": 1000000,
     "versionName": "1.0.0",
     "buildVersion": "1",

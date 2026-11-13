@@ -2,7 +2,8 @@
   "string": [
     {
       "name": "app_name",
-      "value": "Continuation API Guide"
+      "value": "Continuation API Guide",
+      "description": "Application display name."
     }
   ]
 }

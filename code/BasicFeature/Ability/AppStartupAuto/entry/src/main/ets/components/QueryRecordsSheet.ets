@@ -89,7 +89,8 @@ export struct QueryRecordsSheet {
       })
 
       if (this.expandedRecordId === record.id) {
-        Divider().color($r('app.color.line_color'))
+        Divider()
+          .color($r('app.color.line_color'))
         ApiCallDetails({
           supportResult: record.supportResult,
           statusResult: record.statusResult,
@@ -121,7 +122,8 @@ export struct QueryRecordsSheet {
           .fontSize(14)
           .fontColor($r('app.color.accent_color'))
           .backgroundColor($r('app.color.accent_soft'))
-          .height(44).borderRadius(12)
+          .height(44)
+            .borderRadius(12)
           .padding({ left: 16, right: 16, top: 12, bottom: 12 })
           .onClick(() => this.onClose())
       }
@@ -131,7 +133,8 @@ export struct QueryRecordsSheet {
         .fontSize(14)
         .fontColor($r('app.color.text_secondary'))
         .backgroundColor($r('app.color.page_background'))
-        .constraintSize({ minHeight: 44 }).padding({ top: 8, bottom: 8, left: 0, right: 12 })
+        .constraintSize({ minHeight: 44 })
+          .padding({ top: 8, bottom: 8, left: 0, right: 12 })
         .enabled(this.records.length > 0)
         .opacity(this.records.length > 0 ? 1 : 0.45)
         .alignSelf(ItemAlign.Start)

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { localize } from '../common/LocaleStrings';
+import { continuationText as localize } from '../common/ContinuationText';
 /** 本学习运行时的独立 SDK 调用边界。 */
 import { continueManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';

@@ -16,14 +16,15 @@
 /** String-only API adapter. Static ArkUI labels use $r directly. */
 import { resourceManager } from '@kit.LocalizationKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { setContinuationTextResolver } from './ContinuationText';
 import { DEFAULT_STRINGS, LEGACY_DISPLAY_KEYS } from './LocaleDefaults';
 
-const catalogRefreshers: Array<() => void> = [];
+const catalogRefreshers: (() => void)[] = [];
 
 export function registerLocaleCatalog(refresh: () => void): void { catalogRefreshers.push(refresh); }
 
 /** Test-only injection point; production always binds a real ResourceManager. */
-export type LocaleResolver = (key: string) => string;
+export type LocaleResolver = (key: string) => string | undefined;
 
 let injected: LocaleResolver | undefined = undefined;
 
@@ -45,8 +46,12 @@ export function bindLocaleStrings(manager: resourceManager.ResourceManager): voi
   resolved.clear();
   let missing: number = 0;
   DEFAULT_STRINGS.forEach((fallback: string, key: string): void => {
-    try { resolved.set(key, manager.getStringByNameSync(key)); }
-    catch (error) { resolved.set(key, fallback); missing++; }
+    try {
+      resolved.set(key, manager.getStringByNameSync(key));
+    } catch (error) {
+      resolved.set(key, fallback);
+      missing++;
+    }
   });
   catalogRefreshers.forEach((refresh: () => void): void => { refresh(); });
   if (missing > 0) {
@@ -67,12 +72,12 @@ export function legacyLabel(value: string): string {
   return key === undefined ? value : localize(key);
 }
 
-export function localize(key: string, values: Array<string | number | boolean> = []): string {
+export function localize(key: string, values: (string | number | boolean)[] = []): string {
   let template: string = resolved.get(key) ?? DEFAULT_STRINGS.get(key) ?? key;
   const override = injected;
   if (override !== undefined) {
     try {
-      template = override(key);
+      template = override(key) ?? template;
     } catch (error) {
       template = DEFAULT_STRINGS.get(key) ?? key;
     }
@@ -82,3 +87,6 @@ export function localize(key: string, values: Array<string | number | boolean> =
     return value === undefined ? token : String(value);
   });
 }
+
+// The reusable client resolves text through this context-backed, string-only adapter.
+setContinuationTextResolver(localize);

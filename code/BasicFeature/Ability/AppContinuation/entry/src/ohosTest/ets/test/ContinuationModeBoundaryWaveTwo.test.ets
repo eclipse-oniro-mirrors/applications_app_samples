@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { loggedExpect } from '../support/LoggedExpect';
+import { BUNDLE, loggedCase as it } from '../support/BoundedCase';
 import { AbilityConstant } from '@kit.AbilityKit';
 import { TEXT_PAYLOAD_KEY } from '../../../main/ets/learning/LearningTypes';
 import {
@@ -30,13 +32,13 @@ export default function continuationModeBoundaryWaveTwo(): void {
   describe('ContinuationModeBoundaryWaveTwo', (): void => {
     /**
      * @tc.number SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0100
-     * @tc.name testContinuationModeBoundaryWaveTwo0001
+     * @tc.name com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0001
      * @tc.desc 返回文本工作台后源端命名空间切换回文本而保留业务草稿和两份存档
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testContinuationModeBoundaryWaveTwo0001', 0, (): void => {
+    it(BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001', 0, (): void => {
       const f = new WaveSceneFixture();
       try {
         f.controller.updateText('文本保存基线');
@@ -48,28 +50,28 @@ export default function continuationModeBoundaryWaveTwo(): void {
         const sceneDisk = f.store.stored();
         f.controller.sceneWorkbench.editNote('业务草稿题', '未保存业务正文', 1, 3);
         const parameters: Record<string, Object> = {}; parameters['unrelated'] = '保留外部参数';
-        expect(f.controller.buildContinuation(parameters)).assertEqual(AbilityConstant.OnContinueResult.AGREE);
+        loggedExpect(f.controller.buildContinuation(parameters), 'ContinuationModeBoundaryWaveTwo.test.ets:A0001', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual(AbilityConstant.OnContinueResult.AGREE);
         const business = decodeScene(parameters[SCENE_PAYLOAD_KEY]).value as SceneDocument;
-        expect(business.state.note.body).assertEqual('未保存业务正文');
+        loggedExpect(business.state.note.body, 'ContinuationModeBoundaryWaveTwo.test.ets:A0002', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual('未保存业务正文');
         f.controller.activateText();
-        expect(f.controller.buildContinuation(parameters)).assertEqual(AbilityConstant.OnContinueResult.AGREE);
+        loggedExpect(f.controller.buildContinuation(parameters), 'ContinuationModeBoundaryWaveTwo.test.ets:A0003', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual(AbilityConstant.OnContinueResult.AGREE);
         const text = JSON.parse(parameters[TEXT_PAYLOAD_KEY] as string) as Record<string, Object>;
-        expect(text['text']).assertEqual('文本保存基线'); expect(text['documentId']).assertEqual(textIdentity);
-        expect(parameters[SCENE_PAYLOAD_KEY]).assertEqual(''); expect(parameters['unrelated']).assertEqual('保留外部参数');
-        expect(f.controller.sceneWorkbench.snapshot().noteDirty).assertTrue();
-        expect(f.store.stored()).assertEqual(sceneDisk); expect(f.store.getSync(STORE_KEY, '')).assertEqual(textDisk);
+        loggedExpect(text['text'], 'ContinuationModeBoundaryWaveTwo.test.ets:A0004', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual('文本保存基线'); loggedExpect(text['documentId'], 'ContinuationModeBoundaryWaveTwo.test.ets:A0005', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual(textIdentity);
+        loggedExpect(parameters[SCENE_PAYLOAD_KEY], 'ContinuationModeBoundaryWaveTwo.test.ets:A0006', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual(''); loggedExpect(parameters['unrelated'], 'ContinuationModeBoundaryWaveTwo.test.ets:A0007', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual('保留外部参数');
+        loggedExpect(f.controller.sceneWorkbench.snapshot().noteDirty, 'ContinuationModeBoundaryWaveTwo.test.ets:A0008', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertTrue();
+        loggedExpect(f.store.stored(), 'ContinuationModeBoundaryWaveTwo.test.ets:A0009', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual(sceneDisk); loggedExpect(f.store.getSync(STORE_KEY, ''), 'ContinuationModeBoundaryWaveTwo.test.ets:A0010', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0001').assertEqual(textDisk);
       } finally { f.release(); }
     });
 
     /**
      * @tc.number SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0200
-     * @tc.name testContinuationModeBoundaryWaveTwo0002
+     * @tc.name com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0002
      * @tc.desc 本机原文本未保存时接到阅读候选仍需选择，保留本机不得落盘业务候选
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testContinuationModeBoundaryWaveTwo0002', 0, (): void => {
+    it(BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002', 0, (): void => {
       const f = new WaveSceneFixture();
       try {
         f.controller.updateText('原文本已保存'); f.controller.saveText(); const raw = f.store.getSync(STORE_KEY, '');
@@ -77,26 +79,26 @@ export default function continuationModeBoundaryWaveTwo(): void {
         f.controller.handleLaunch(waveWant(encodeScene(waveReading('cross-mode-reading', 4, 1, 2))), 3);
         const target = waveTarget(f);
         f.controller.reportScenePosition(target.request, 'reading', target.document.documentId, 4, 1, 2, true);
-        expect(f.controller.snapshot().conflictPending).assertTrue();
-        expect(f.controller.snapshot().committed).assertFalse();
-        expect(f.controller.snapshot().conflictSummary).assertEqual('原文本有未保存内容；切换业务前需明确选择。');
+        loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationModeBoundaryWaveTwo.test.ets:A0011', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertTrue();
+        loggedExpect(f.controller.snapshot().committed, 'ContinuationModeBoundaryWaveTwo.test.ets:A0012', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertFalse();
+        loggedExpect(f.controller.snapshot().conflictSummary, 'ContinuationModeBoundaryWaveTwo.test.ets:A0013', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertEqual('原文本有未保存内容；切换业务前需明确选择。');
         f.controller.rejectConflict();
-        expect(f.controller.snapshot().text).assertEqual('原文本未保存编辑');
-        expect(f.controller.snapshot().sessionActive).assertFalse();
-        expect(f.controller.sceneWorkbench.document('reading').state.reading.chapter).assertEqual(0);
-        expect(f.store.stored()).assertEqual(''); expect(f.store.getSync(STORE_KEY, '')).assertEqual(raw);
+        loggedExpect(f.controller.snapshot().text, 'ContinuationModeBoundaryWaveTwo.test.ets:A0014', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertEqual('原文本未保存编辑');
+        loggedExpect(f.controller.snapshot().sessionActive, 'ContinuationModeBoundaryWaveTwo.test.ets:A0015', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertFalse();
+        loggedExpect(f.controller.sceneWorkbench.document('reading').state.reading.chapter, 'ContinuationModeBoundaryWaveTwo.test.ets:A0016', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertEqual(0);
+        loggedExpect(f.store.stored(), 'ContinuationModeBoundaryWaveTwo.test.ets:A0017', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertEqual(''); loggedExpect(f.store.getSync(STORE_KEY, ''), 'ContinuationModeBoundaryWaveTwo.test.ets:A0018', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0002').assertEqual(raw);
       } finally { f.release(); }
     });
 
     /**
      * @tc.number SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0300
-     * @tc.name testContinuationModeBoundaryWaveTwo0003
+     * @tc.name com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0003
      * @tc.desc 业务草稿未保存时接受原文本候选只写文本存储，重新进入业务页仍可继续草稿
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testContinuationModeBoundaryWaveTwo0003', 0, (): void => {
+    it(BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003', 0, (): void => {
       const f = new WaveSceneFixture();
       try {
         f.controller.openScene('note'); f.controller.sceneWorkbench.editNote('保存题', '业务保存正文', 0, 2);
@@ -107,27 +109,27 @@ export default function continuationModeBoundaryWaveTwo(): void {
         bag['documentId'] = 'incoming-text-doc';
         bag['revision'] = 5;
         f.controller.markWindowReady(); f.controller.handleLaunch(inboundWant(JSON.stringify(bag)), 3);
-        expect(f.controller.snapshot().conflictPending).assertTrue();
-        expect(f.store.getSync(STORE_KEY, '')).assertEqual('');
+        loggedExpect(f.controller.snapshot().conflictPending, 'ContinuationModeBoundaryWaveTwo.test.ets:A0019', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertTrue();
+        loggedExpect(f.store.getSync(STORE_KEY, ''), 'ContinuationModeBoundaryWaveTwo.test.ets:A0020', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertEqual('');
         f.controller.acceptConflict();
         const text = JSON.parse(f.store.getSync(STORE_KEY, '') as string) as Record<string, Object>;
-        expect(f.controller.snapshot().committed).assertTrue(); expect(text['text']).assertEqual('接续原文本');
-        expect(text['documentId']).assertEqual('incoming-text-doc'); expect(text['revision']).assertEqual(6);
-        expect(f.store.stored()).assertEqual(raw); expect(f.controller.openScene('note')).assertTrue();
-        expect(f.controller.sceneSnapshot('note').noteBody).assertEqual('业务未保存正文');
-        expect(f.controller.sceneSnapshot('note').noteSavedBody).assertEqual('业务保存正文');
+        loggedExpect(f.controller.snapshot().committed, 'ContinuationModeBoundaryWaveTwo.test.ets:A0021', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertTrue(); loggedExpect(text['text'], 'ContinuationModeBoundaryWaveTwo.test.ets:A0022', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertEqual('接续原文本');
+        loggedExpect(text['documentId'], 'ContinuationModeBoundaryWaveTwo.test.ets:A0023', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertEqual('incoming-text-doc'); loggedExpect(text['revision'], 'ContinuationModeBoundaryWaveTwo.test.ets:A0024', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertEqual(6);
+        loggedExpect(f.store.stored(), 'ContinuationModeBoundaryWaveTwo.test.ets:A0025', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertEqual(raw); loggedExpect(f.controller.openScene('note'), 'ContinuationModeBoundaryWaveTwo.test.ets:A0026', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertTrue();
+        loggedExpect(f.controller.sceneSnapshot('note').noteBody, 'ContinuationModeBoundaryWaveTwo.test.ets:A0027', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertEqual('业务未保存正文');
+        loggedExpect(f.controller.sceneSnapshot('note').noteSavedBody, 'ContinuationModeBoundaryWaveTwo.test.ets:A0028', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0003').assertEqual('业务保存正文');
       } finally { f.release(); }
     });
 
     /**
      * @tc.number SUB_CONTINUATION_MODEBOUNDARYWAVETWO_0400
-     * @tc.name testContinuationModeBoundaryWaveTwo0004
+     * @tc.name com.samples.appcontinuation_ContinuationModeBoundaryWaveTwo_0004
      * @tc.desc 表单定位必须匹配步骤，旧请求失效后新步骤回执不依赖第二坐标
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testContinuationModeBoundaryWaveTwo0004', 0, (): void => {
+    it(BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004', 0, (): void => {
       const f = new WaveSceneFixture();
       const source = new SceneWorkbench(new WaveSceneStore());
       const page = new ScenePageSession('form');
@@ -137,17 +139,17 @@ export default function continuationModeBoundaryWaveTwo(): void {
         f.controller.markWindowReady();
         page.bind(f.controller, (): void => {});
         const old = waveTarget(f); page.receipt(old, 0, 0, true);
-        expect(f.controller.snapshot().committed).assertFalse();
-        expect(waveTarget(f).request !== old.request).assertTrue();
-        page.receipt(old, 1, 0, true); expect(f.store.putCalls).assertEqual(0);
+        loggedExpect(f.controller.snapshot().committed, 'ContinuationModeBoundaryWaveTwo.test.ets:A0029', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004').assertFalse();
+        loggedExpect(waveTarget(f).request !== old.request, 'ContinuationModeBoundaryWaveTwo.test.ets:A0030', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004').assertTrue();
+        page.receipt(old, 1, 0, true); loggedExpect(f.store.putCalls, 'ContinuationModeBoundaryWaveTwo.test.ets:A0031', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004').assertEqual(0);
         f.controller.retryBusinessPosition();
         page.bind(f.controller, (): void => {});
         page.receipt(waveTarget(f), 1, 999, true);
-        expect(f.controller.snapshot().committed).assertTrue();
-        expect(f.controller.sceneWorkbench.document('form').revision).assertEqual(4);
+        loggedExpect(f.controller.snapshot().committed, 'ContinuationModeBoundaryWaveTwo.test.ets:A0032', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004').assertTrue();
+        loggedExpect(f.controller.sceneWorkbench.document('form').revision, 'ContinuationModeBoundaryWaveTwo.test.ets:A0033', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004').assertEqual(4);
         const reopened = new SceneWorkbench(new WaveSceneStore(f.store.stored()));
-        expect(reopened.snapshot().formStep).assertEqual(1); expect(reopened.snapshot().formName).assertEqual('接续用户');
-        expect(reopened.snapshot().formConfirmed).assertFalse(); reopened.dispose();
+        loggedExpect(reopened.snapshot().formStep, 'ContinuationModeBoundaryWaveTwo.test.ets:A0034', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004').assertEqual(1); loggedExpect(reopened.snapshot().formName, 'ContinuationModeBoundaryWaveTwo.test.ets:A0035', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004').assertEqual('接续用户');
+        loggedExpect(reopened.snapshot().formConfirmed, 'ContinuationModeBoundaryWaveTwo.test.ets:A0036', BUNDLE + '_ContinuationModeBoundaryWaveTwo_0004').assertFalse(); reopened.dispose();
       } finally { page.detach(); source.dispose(); f.release(); }
     });
   });

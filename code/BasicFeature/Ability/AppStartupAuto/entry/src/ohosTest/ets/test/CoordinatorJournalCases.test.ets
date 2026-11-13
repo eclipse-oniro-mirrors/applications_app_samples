@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import { QueryClock } from '../../../main/ets/autostart/AutoStartupRuntime';
 import { QueryOutcome, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
 import {
@@ -119,6 +120,7 @@ class ThrowingTelemetry implements StartupTelemetry {
 }
 
 export default function coordinatorJournalCasesTest(): void {
+  configureTestText();
 
   describe('TelemetryCases', (): void => {
     /**
@@ -131,15 +133,16 @@ export default function coordinatorJournalCasesTest(): void {
      */
 
     it('testTelemetryCases0001', 0, (): void => {
+      configureTestText();
       const sink: RecordingTelemetry = new RecordingTelemetry();
       safeBegin(sink, 'query', 1);
       safeEnd(sink, 'query', 1, 'success');
       safeEvent(sink, 'query', 1, 'failure');
-      expect(sink.beginCount).assertEqual(1);
-      expect(sink.endCount).assertEqual(1);
-      expect(sink.eventCount).assertEqual(1);
-      expect(sink.lastOperation).assertEqual('query');
-      expect(sink.lastOutcome).assertEqual('failure');
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0001|assertEqual|actual', sink.beginCount)).assertEqual(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0001|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0002|assertEqual|actual', sink.endCount)).assertEqual(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0002|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0003|assertEqual|actual', sink.eventCount)).assertEqual(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0003|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0004|assertEqual|actual', sink.lastOperation)).assertEqual(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0004|assertEqual|expected', 'query'));
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0005|assertEqual|actual', sink.lastOutcome)).assertEqual(traceParameter('com.samples.appstartupauto_TelemetryCases_0001|CoordinatorJournalCases.test.ets|assert0005|assertEqual|expected', 'failure'));
     });
 
     /**
@@ -152,6 +155,7 @@ export default function coordinatorJournalCasesTest(): void {
      */
 
     it('testTelemetryCases0002', 0, (): void => {
+      configureTestText();
       const sink: ThrowingTelemetry = new ThrowingTelemetry();
       let leaked: boolean = false;
       try {
@@ -161,9 +165,9 @@ export default function coordinatorJournalCasesTest(): void {
       } catch (_) {
         leaked = true;
       }
-      expect(leaked).assertFalse();
-      expect(sink.calls).assertEqual(3);
-      expect(sink instanceof ThrowingTelemetry).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0002|CoordinatorJournalCases.test.ets|assert0006|assertFalse|actual|expected=false', leaked)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0002|CoordinatorJournalCases.test.ets|assert0007|assertEqual|actual', sink.calls)).assertEqual(traceParameter('com.samples.appstartupauto_TelemetryCases_0002|CoordinatorJournalCases.test.ets|assert0007|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0002|CoordinatorJournalCases.test.ets|assert0008|assertTrue|actual|expected=true', sink instanceof ThrowingTelemetry)).assertTrue();
     });
 
     /**
@@ -176,6 +180,7 @@ export default function coordinatorJournalCasesTest(): void {
      */
 
     it('testTelemetryCases0003', 0, (): void => {
+      configureTestText();
       const sink: SystemStartupTelemetry = new SystemStartupTelemetry();
       let leaked: boolean = false;
       try {
@@ -185,11 +190,11 @@ export default function coordinatorJournalCasesTest(): void {
       } catch (_) {
         leaked = true;
       }
-      expect(leaked).assertFalse();
-      expect(sink instanceof SystemStartupTelemetry).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0003|CoordinatorJournalCases.test.ets|assert0009|assertFalse|actual|expected=false', leaked)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0003|CoordinatorJournalCases.test.ets|assert0010|assertTrue|actual|expected=true', sink instanceof SystemStartupTelemetry)).assertTrue();
       const repeated: SystemStartupTelemetry = new SystemStartupTelemetry();
       safeBegin(repeated, 'query', 9);
-      expect(repeated instanceof SystemStartupTelemetry).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_TelemetryCases_0003|CoordinatorJournalCases.test.ets|assert0011|assertTrue|actual|expected=true', repeated instanceof SystemStartupTelemetry)).assertTrue();
     });
   });
 }

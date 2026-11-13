@@ -15,7 +15,7 @@
 
 import { localize, registerLocaleCatalog } from '../../common/LocaleStrings';
 /** Production business adapters. This protocol is separate from legacy text and the v3 learning preview. */
-export const SCENE_PAYLOAD_KEY: string = 'com.example.appcontinuation.scene.v1';
+export const SCENE_PAYLOAD_KEY: string = 'com.samples.appcontinuation.scene.v1';
 export const SCENE_STORE_KEY: string = 'scene_workspace_v1';
 export const SCENE_LIMIT: number = 26000;
 export const SCENE_WORKSPACE_LIMIT: number = 250000;
@@ -27,7 +27,7 @@ export interface ReadingChapter {
 }
 
 /** Local bundled reading material, not a transferred file or a fabricated remote URI. */
-function createREADING_CHAPTERS(): ReadingChapter[] {
+function createReadingChapters(): ReadingChapter[] {
   return [
   { title: localize('ac_scenemodel_001'), paragraphs: [
     localize('ac_scenemodel_002'),
@@ -47,10 +47,10 @@ function createREADING_CHAPTERS(): ReadingChapter[] {
 ];
 }
 
-export const READING_CHAPTERS: ReadingChapter[] = createREADING_CHAPTERS();
+export const READING_CHAPTERS: ReadingChapter[] = createReadingChapters();
 registerLocaleCatalog((): void => {
   READING_CHAPTERS.splice(0, READING_CHAPTERS.length);
-  createREADING_CHAPTERS().forEach((item: ReadingChapter): void => { READING_CHAPTERS.push(item); });
+  createReadingChapters().forEach((item: ReadingChapter): void => { READING_CHAPTERS.push(item); });
 });
 
 export interface NoteDraft {
@@ -249,14 +249,14 @@ class ReadingAdapter implements SceneAdapter {
 }
 
 /** 表单步骤标签。 */
-function createFORM_STEPS(): string[] {
+function createFormSteps(): string[] {
   return [localize('ac_scenemodel_013'), localize('ac_scenemodel_014'), localize('ac_scenemodel_015')];
 }
 
-export const FORM_STEPS: string[] = createFORM_STEPS();
+export const FORM_STEPS: string[] = createFormSteps();
 registerLocaleCatalog((): void => {
   FORM_STEPS.splice(0, FORM_STEPS.length);
-  createFORM_STEPS().forEach((item: string): void => { FORM_STEPS.push(item); });
+  createFormSteps().forEach((item: string): void => { FORM_STEPS.push(item); });
 });
 
 export function validFormStep(step: number): boolean {

@@ -16,6 +16,7 @@
 import { autoStartupManager } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
+import { testInfo } from '../support/TestLog';
 
 class ApiProbeResult {
   public api: string;
@@ -52,7 +53,7 @@ export default class Mate80ApiProbeRunner implements TestRunner {
       const cause = error as BusinessError;
       this.print(new ApiProbeResult('isAutoStartupSupported()', false, null,
         cause.code === undefined ? 'UNKNOWN' : String(cause.code),
-        cause.message, Date.now() - startedAt));
+        '', Date.now() - startedAt));
     }
 
     startedAt = Date.now();
@@ -71,7 +72,7 @@ export default class Mate80ApiProbeRunner implements TestRunner {
       const code: string = cause.message === 'LOCAL_TIMEOUT:10000ms' ? 'LOCAL_TIMEOUT' :
         (cause.code === undefined ? 'UNKNOWN' : String(cause.code));
       this.print(new ApiProbeResult('getAutoStartupStatusForSelf()', false, null,
-        code, cause.message, Date.now() - startedAt));
+        code, '', Date.now() - startedAt));
     } finally {
       if (timer >= 0) {
         clearTimeout(timer);
@@ -81,7 +82,7 @@ export default class Mate80ApiProbeRunner implements TestRunner {
   }
 
   private print(result: ApiProbeResult): void {
-    abilityDelegatorRegistry.getAbilityDelegator()
-      .printSync(`MATE80_API_RESULT ${JSON.stringify(result)}\n`);
+    testInfo(`API probe api=${result.api} success=${result.success} value=${result.value} ` +
+      `codeLength=${result.code.length} durationMillis=${result.durationMillis} details=redacted`);
   }
 }

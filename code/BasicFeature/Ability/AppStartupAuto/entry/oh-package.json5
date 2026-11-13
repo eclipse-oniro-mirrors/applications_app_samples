@@ -16,10 +16,9 @@
 {
   "name": "entry",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "Auto-startup query sample scenarios",
   "main": "",
   "author": "",
-  "license": "",
+  "license": "Apache-2.0",
   "dependencies": {}
 }
-

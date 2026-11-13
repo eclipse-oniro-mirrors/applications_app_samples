@@ -19,10 +19,9 @@ import { LegacyHistoryFilter, RecordValue } from './RecordValues';
 /** Query-history codec, filtering and redacted export kept free of platform APIs. */
 import { parseRefreshSource, QueryOutcome, QueryRecord, RefreshSource } from './AutoStartupTypes';
 
-export interface HistoryStorage {
-  read(): string;
-  write(value: string): Promise<void>;
-}
+import { TextHistoryStorage as HistoryStorage } from './StoragePorts';
+
+export { TextHistoryStorage as HistoryStorage } from './StoragePorts';
 
 export class HistoryLoadResult {
   public records: QueryRecord[] = [];

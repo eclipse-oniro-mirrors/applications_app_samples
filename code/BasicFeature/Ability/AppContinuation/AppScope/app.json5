@@ -15,8 +15,8 @@
 
 {
   "app": {
-    "bundleName": "com.example.appcontinuation",
-    "vendor": "example",
+    "bundleName": "com.samples.appcontinuation",
+    "vendor": "samples",
     "versionCode": 1000000,
     "versionName": "1.0.0",
     "buildVersion": "1",

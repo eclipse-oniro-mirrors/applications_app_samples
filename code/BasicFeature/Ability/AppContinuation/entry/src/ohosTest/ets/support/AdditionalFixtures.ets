@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-import { expect } from '@ohos/hypium';
+
 import { LearningController } from '../../../main/ets/learning/LearningController';
+import { loggedExpect } from './LoggedExpect';
 import { LearningDependencies, LearningStore } from '../../../main/ets/learning/LearningPorts';
 import {
   ClientFixture, FakeContinueNative, FakeLearningEnvironment, LearningFixture,
@@ -30,7 +31,7 @@ export function checkedLearning(body: (fixture: LearningFixture) => void,
   } finally {
     try {
       fixture.controller.dispose();
-      expect(fixture.clock.pendingCount()).assertEqual(0);
+      loggedExpect(fixture.clock.pendingCount(), 'AdditionalFixtures.ets:A0001').assertEqual(0);
     } finally {
       fixture.release();
     }
@@ -44,7 +45,7 @@ export function checkedClient(body: (fixture: ClientFixture) => void): void {
   } finally {
     try {
       fixture.client.dispose();
-      expect(fixture.clock.pendingCount()).assertEqual(0);
+      loggedExpect(fixture.clock.pendingCount(), 'AdditionalFixtures.ets:A0002').assertEqual(0);
     } finally {
       fixture.release();
     }
@@ -83,7 +84,7 @@ export class ObservedLearningFixture implements LearningDependencies {
   public release(): void {
     try {
       this.controller.dispose();
-      expect(this.clock.pendingCount()).assertEqual(0);
+      loggedExpect(this.clock.pendingCount(), 'AdditionalFixtures.ets:A0003').assertEqual(0);
     } finally {
       this.store.beforeFlush = undefined;
       this.clock.clearAll();

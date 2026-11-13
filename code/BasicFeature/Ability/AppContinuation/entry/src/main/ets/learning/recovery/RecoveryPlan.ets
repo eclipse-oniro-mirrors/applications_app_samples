@@ -79,7 +79,7 @@ export class RecoveryRule {
  *
  * 原则：凡是"可能已经写进去了"的情况，一律先读回再决定，不允许直接重试写入。
  */
-function createRECOVERY_RULES(): RecoveryRule[] {
+function createRecoveryRules(): RecoveryRule[] {
   return [
   new RecoveryRule('RC-01', RecoveryCase.TARGET_MISSING, RecoveryAction.ROLLBACK, false, false,
     localize('ac_recoveryplan_015')),
@@ -107,10 +107,10 @@ function createRECOVERY_RULES(): RecoveryRule[] {
 ];
 }
 
-export const RECOVERY_RULES: RecoveryRule[] = createRECOVERY_RULES();
+export const RECOVERY_RULES: RecoveryRule[] = createRecoveryRules();
 registerLocaleCatalog((): void => {
   RECOVERY_RULES.splice(0, RECOVERY_RULES.length);
-  createRECOVERY_RULES().forEach((item: RecoveryRule): void => { RECOVERY_RULES.push(item); });
+  createRecoveryRules().forEach((item: RecoveryRule): void => { RECOVERY_RULES.push(item); });
 });
 
 function rulesOf(failure: RecoveryCase): RecoveryRule[] {

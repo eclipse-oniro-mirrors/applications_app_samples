@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { loggedExpect } from '../support/LoggedExpect';
+import { BUNDLE, loggedCase as it } from '../support/BoundedCase';
 import { AbilityConstant } from '@kit.AbilityKit';
 import {
   SCENE_PAYLOAD_KEY, SceneDocument, SceneWorkspace, decodeScene, emptyWorkspace, encodeWorkspace, stageScene
@@ -34,43 +36,43 @@ export default function continuationHistoryScopeWaveTwo(): void {
   describe('ContinuationHistoryScopeWaveTwo', (): void => {
     /**
      * @tc.number SUB_CONTINUATION_HISTORYSCOPEWAVETWO_0100
-     * @tc.name testContinuationHistoryScopeWaveTwo0001
+     * @tc.name com.samples.appcontinuation_ContinuationHistoryScopeWaveTwo_0001
      * @tc.desc 笔记历史列表只展示笔记版本而全工作区历史仍保留阅读版本
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testContinuationHistoryScopeWaveTwo0001', 0, (): void => {
+    it(BUNDLE + '_ContinuationHistoryScopeWaveTwo_0001', 0, (): void => {
       const store = new WaveSceneStore(encodeWorkspace(interleavedHistory())); const work = new SceneWorkbench(store);
       const lines = work.historyLines('note'); const documents = work.historyDocuments('note');
-      expect(lines.length).assertEqual(1); expect(lines[0]).assertEqual('note r1｜history-note');
-      expect(documents[0].state.note.body).assertEqual('笔记旧正文'); expect(work.historyDocuments().length).assertEqual(2);
-      expect(work.historyDocuments()[0].state.reading.chapter).assertEqual(0);
-      expect(store.putCalls).assertEqual(0);
+      loggedExpect(lines.length, 'ContinuationHistoryScopeWaveTwo.test.ets:A0001', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0001').assertEqual(1); loggedExpect(lines[0], 'ContinuationHistoryScopeWaveTwo.test.ets:A0002', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0001').assertEqual('note r1｜history-note');
+      loggedExpect(documents[0].state.note.body, 'ContinuationHistoryScopeWaveTwo.test.ets:A0003', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0001').assertEqual('笔记旧正文'); loggedExpect(work.historyDocuments().length, 'ContinuationHistoryScopeWaveTwo.test.ets:A0004', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0001').assertEqual(2);
+      loggedExpect(work.historyDocuments()[0].state.reading.chapter, 'ContinuationHistoryScopeWaveTwo.test.ets:A0005', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0001').assertEqual(0);
+      loggedExpect(store.putCalls, 'ContinuationHistoryScopeWaveTwo.test.ets:A0006', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0001').assertEqual(0);
       work.dispose();
     });
 
     /**
      * @tc.number SUB_CONTINUATION_HISTORYSCOPEWAVETWO_0200
-     * @tc.name testContinuationHistoryScopeWaveTwo0002
+     * @tc.name com.samples.appcontinuation_ContinuationHistoryScopeWaveTwo_0002
      * @tc.desc 笔记页第零项恢复必须对应笔记而非全局第零项阅读版本，下一次接续发送所选笔记
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testContinuationHistoryScopeWaveTwo0002', 0, (): void => {
+    it(BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002', 0, (): void => {
       const f = new WaveSceneFixture(encodeWorkspace(interleavedHistory())); const page = new ScenePageSession('note');
       try {
         page.bind(f.controller, (): void => {}); const restored = f.controller.sceneWorkbench.restoreHistory(0, 'note');
-        expect(restored).assertTrue(); expect(f.controller.sceneWorkbench.document('reading').revision).assertEqual(2);
-        expect(page.snapshot().noteBody).assertEqual('笔记旧正文'); expect(page.snapshot().revision).assertEqual(3);
+        loggedExpect(restored, 'ContinuationHistoryScopeWaveTwo.test.ets:A0007', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertTrue(); loggedExpect(f.controller.sceneWorkbench.document('reading').revision, 'ContinuationHistoryScopeWaveTwo.test.ets:A0008', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertEqual(2);
+        loggedExpect(page.snapshot().noteBody, 'ContinuationHistoryScopeWaveTwo.test.ets:A0009', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertEqual('笔记旧正文'); loggedExpect(page.snapshot().revision, 'ContinuationHistoryScopeWaveTwo.test.ets:A0010', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertEqual(3);
         const parameters: Record<string, Object> = {};
-        expect(f.controller.buildContinuation(parameters)).assertEqual(AbilityConstant.OnContinueResult.AGREE);
+        loggedExpect(f.controller.buildContinuation(parameters), 'ContinuationHistoryScopeWaveTwo.test.ets:A0011', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertEqual(AbilityConstant.OnContinueResult.AGREE);
         const outgoing = decodeScene(parameters[SCENE_PAYLOAD_KEY]).value as SceneDocument;
-        expect(outgoing.state.note.body).assertEqual('笔记旧正文'); expect(outgoing.documentId).assertEqual('history-note');
+        loggedExpect(outgoing.state.note.body, 'ContinuationHistoryScopeWaveTwo.test.ets:A0012', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertEqual('笔记旧正文'); loggedExpect(outgoing.documentId, 'ContinuationHistoryScopeWaveTwo.test.ets:A0013', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertEqual('history-note');
         const reopened = new SceneWorkbench(new WaveSceneStore(f.store.stored()));
-        expect(reopened.document('reading').state.reading.chapter).assertEqual(2);
-        expect(reopened.historyDocuments('note')[1].state.note.body).assertEqual('笔记新正文');
+        loggedExpect(reopened.document('reading').state.reading.chapter, 'ContinuationHistoryScopeWaveTwo.test.ets:A0014', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertEqual(2);
+        loggedExpect(reopened.historyDocuments('note')[1].state.note.body, 'ContinuationHistoryScopeWaveTwo.test.ets:A0015', BUNDLE + '_ContinuationHistoryScopeWaveTwo_0002').assertEqual('笔记新正文');
         reopened.dispose();
       } finally { page.detach(); f.release(); }
     });

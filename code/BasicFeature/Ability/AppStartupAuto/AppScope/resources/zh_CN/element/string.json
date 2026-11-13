@@ -2,7 +2,8 @@
   "string": [
     {
       "name": "app_name",
-      "value": "开机自启"
+      "value": "开机自启",
+      "description": "应用显示名称"
     }
   ]
 }

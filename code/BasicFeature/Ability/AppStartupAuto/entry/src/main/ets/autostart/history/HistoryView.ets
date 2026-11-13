@@ -36,7 +36,7 @@ export class OutcomeOption {
   }
 }
 
-function createOUTCOME_OPTIONS(): OutcomeOption[] {
+function createOutcomeOptions(): OutcomeOption[] {
   return [
   new OutcomeOption('', localText('startup_text_0509')),
   new OutcomeOption('success', localText('startup_text_0001')),
@@ -46,10 +46,10 @@ function createOUTCOME_OPTIONS(): OutcomeOption[] {
   new OutcomeOption('unknown', localText('startup_text_0005'))
 ];
 }
-export const OUTCOME_OPTIONS: OutcomeOption[] = createOUTCOME_OPTIONS();
+export const OUTCOME_OPTIONS: OutcomeOption[] = createOutcomeOptions();
 registerTextRefresh((): void => {
   OUTCOME_OPTIONS.splice(0, OUTCOME_OPTIONS.length);
-  createOUTCOME_OPTIONS().forEach((item: OutcomeOption): void => { OUTCOME_OPTIONS.push(item); });
+  createOutcomeOptions().forEach((item: OutcomeOption): void => { OUTCOME_OPTIONS.push(item); });
 });
 
 /** 来源筛选项：空串表示不限。 */
@@ -63,7 +63,7 @@ export class SourceOption {
   }
 }
 
-function createSOURCE_OPTIONS(): SourceOption[] {
+function createSourceOptions(): SourceOption[] {
   return [
   new SourceOption('', localText('startup_text_0510')),
   new SourceOption(RefreshSource.INITIAL as string, localText('startup_text_0006')),
@@ -72,10 +72,10 @@ function createSOURCE_OPTIONS(): SourceOption[] {
   new SourceOption(RefreshSource.SETTINGS as string, localText('startup_text_0009'))
 ];
 }
-export const SOURCE_OPTIONS: SourceOption[] = createSOURCE_OPTIONS();
+export const SOURCE_OPTIONS: SourceOption[] = createSourceOptions();
 registerTextRefresh((): void => {
   SOURCE_OPTIONS.splice(0, SOURCE_OPTIONS.length);
-  createSOURCE_OPTIONS().forEach((item: SourceOption): void => { SOURCE_OPTIONS.push(item); });
+  createSourceOptions().forEach((item: SourceOption): void => { SOURCE_OPTIONS.push(item); });
 });
 
 /** 时间范围预设。 */
@@ -96,7 +96,7 @@ export class RangeOption {
   }
 }
 
-function createRANGE_OPTIONS(): RangeOption[] {
+function createRangeOptions(): RangeOption[] {
   return [
   new RangeOption(RangePreset.ALL, localText('startup_text_0512')),
   new RangeOption(RangePreset.HOUR, localText('startup_text_0513')),
@@ -104,10 +104,10 @@ function createRANGE_OPTIONS(): RangeOption[] {
   new RangeOption(RangePreset.WEEK, localText('startup_text_0515'))
 ];
 }
-export const RANGE_OPTIONS: RangeOption[] = createRANGE_OPTIONS();
+export const RANGE_OPTIONS: RangeOption[] = createRangeOptions();
 registerTextRefresh((): void => {
   RANGE_OPTIONS.splice(0, RANGE_OPTIONS.length);
-  createRANGE_OPTIONS().forEach((item: RangeOption): void => { RANGE_OPTIONS.push(item); });
+  createRangeOptions().forEach((item: RangeOption): void => { RANGE_OPTIONS.push(item); });
 });
 
 /** 时间范围。 */
@@ -167,7 +167,7 @@ export class HistoryFilter {
     const source: string = this.source.length === 0 ? localText('startup_text_0510') :
       sourceLabel(this.source as RefreshSource);
     const range: TimeRange = rangeOf(this.preset, Date.now());
-    return `${outcome}｜${source}｜${range.text()}`;
+    return formatResource('startup_history_filter_summary', [outcome, source, range.text()]);
   }
 }
 
@@ -175,8 +175,8 @@ export class HistoryFilter {
 export function describeRecord(record: QueryRecord): string {
   const duration: string = record.durationMillis > 0 ? `${record.durationMillis} ms` : localText('startup_text_0517');
   const error: string = record.errorCode.length > 0 ? formatResource('startup_format_57eeec9dc80a', [String(record.errorCode)]) : '';
-  return `#${record.id}｜${sourceLabel(record.source)}｜${outcomeLabel(record.outcome)}｜` +
-    `${dateTimeText(record.timestamp)}｜${duration}${error}`;
+  return formatResource('startup_history_record_summary', [String(record.id), sourceLabel(record.source),
+    outcomeLabel(record.outcome), dateTimeText(record.timestamp), duration, error]);
 }
 
 /** 列表行，最新在前。 */

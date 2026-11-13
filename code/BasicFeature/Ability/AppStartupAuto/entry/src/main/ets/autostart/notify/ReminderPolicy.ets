@@ -102,7 +102,7 @@ export class ReminderDecision {
   }
 
   text(): string {
-    return `${this.verdict as string}｜${this.channel as string}｜${this.message}`;
+    return formatResource('startup_reminder_decision_summary', [this.verdict as string, this.channel as string, this.message]);
   }
 }
 
@@ -226,7 +226,7 @@ export class ReminderAudit {
     if (this.ok) {
       return localText('startup_text_0566');
     }
-    return this.findings.join('；');
+    return this.findings.join(localText('startup_audit_separator'));
   }
 }
 

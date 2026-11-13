@@ -159,7 +159,7 @@ export function describePolicy(policy: RetentionPolicy): string[] {
     formatResource('startup_format_15112b27191a', [String(safe.maxDays)])
   ];
   if (safe.failureBonusDays > 0) {
-    lines.push(formatResource('startup_format_dc5d80660073', [String(safe.failureBonusDays), String(safe.retentionDaysFor(QueryOutcome.FAILURE))]));
+    lines.push(formatResource('startup_retention_failure_bonus_summary', [String(safe.failureBonusDays), String(safe.retentionDaysFor(QueryOutcome.FAILURE))]));
   } else {
     lines.push(localText('startup_text_0076'));
   }
@@ -188,8 +188,10 @@ export class CleanupDecision {
 
   describe(): string {
     const action: string = this.keep ? localText('startup_text_0078') : localText('startup_text_0079');
-    const suffix: string = this.detail.length > 0 ? `｜${this.detail}` : '';
-    return `${action} #${this.entryId}｜${cleanupReasonLabel(this.reason)}${suffix}`;
+    const suffix: string = this.detail.length > 0 ?
+      formatResource('startup_detail_suffix', [this.detail]) : '';
+    return formatResource('startup_cleanup_decision_summary', [action, String(this.entryId),
+      cleanupReasonLabel(this.reason), suffix]);
   }
 }
 
@@ -272,7 +274,8 @@ export class RetentionAudit {
   public findings: string[] = [];
 
   report(): string {
-    return this.ok ? localText('startup_text_0088') : this.findings.join('；');
+    return this.ok ? localText('startup_text_0088') :
+      this.findings.join(localText('startup_audit_separator'));
   }
 }
 
@@ -471,11 +474,11 @@ export function previewCleanup(entries: ArchiveEntry[], now: number,
   preview.notes.push(formatResource('startup_format_e6bc0515c1ce', [String(safePolicy.maxEntries)]));
   if (preview.protectedId > 0) {
     preview.notes.push(preview.protectedRescued ?
-      formatResource('startup_format_ff117be8a6d8', [String(preview.protectedId)]) :
+      formatResource('startup_retention_latest_sample_exemption', [String(preview.protectedId)]) :
       formatResource('startup_format_de566cf45f13', [String(preview.protectedId)]));
   }
   if (preview.unknownTimeCount > 0) {
-    preview.notes.push(formatResource('startup_format_c7d82a01c26c', [String(preview.unknownTimeCount)]));
+    preview.notes.push(formatResource('startup_retention_unknown_time_summary', [String(preview.unknownTimeCount)]));
   }
   if (safeNow <= 0) {
     preview.notes.push(localText('startup_text_0115'));
