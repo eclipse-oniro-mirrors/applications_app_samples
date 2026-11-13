@@ -2605,6 +2605,11 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/entry/src/main/resources/base/media/foreground.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
 				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
 				<filteritem type="filepath" name="code/DocsSample/AutomaticSceneConfigurationKit/Assessment/screenshots/assessment_sample.png" desc="Provided by code/DocsSample/AutomaticSceneConfigurationKit/Assessment"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/entry/src/main/resources/rawfile/printSample.jpg" desc="Generated for code/DocsSample/print/NativePrintFile using OpenAI image generation"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/entry/src/main/resources/rawfile/printDemo.pdf" desc="Generated from printSample.jpg for code/DocsSample/print/NativePrintFile"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/screenshots/print-settings.png" desc="Device screenshot of NativePrintFile source running in the signed debug project"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/screenshots/printer-dialog.png" desc="Device screenshot of NativePrintFile source running in the signed debug project"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/screenshots/system-preview.png" desc="Device screenshot of the system PDF preview opened by NativePrintFile"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/App_takeovers_web_media/screenshots/webTakeOverMediaPlayback.jpeg" desc="Provided by code/DocsSample/ArkWeb/App_takeovers_web_media"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/App_takeovers_web_media/entry/src/main/resources/base/media/startIcon.png" desc="Provided by code/DocsSample/ArkWeb/App_takeovers_web_media"/>
 				<filteritem type="filepath" name="code/DocsSample/ArkWeb/App_takeovers_web_media/entry/src/main/resources/base/media/background.png" desc="Provided by code/DocsSample/ArkWeb/App_takeovers_web_media"/>
