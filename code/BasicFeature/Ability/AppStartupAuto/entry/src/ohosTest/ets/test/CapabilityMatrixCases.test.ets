@@ -14,7 +14,8 @@
  */
 
 import { describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import {
   CAPABILITY_RULES, CapabilityQuery, CapabilityVerdict, DeviceForm, SystemFlavor, canSetInApp,
   evaluateCapability, isDefinitelyUnsupported, needsSettingsGuidance, ruleSummaries, verdictSeries
@@ -26,6 +27,7 @@ function queryOf(api: number, form: DeviceForm, flavor: SystemFlavor, granted: b
 }
 
 export default function capabilityMatrixCasesTest(): void {
+  configureTestText();
   describe('CapabilityMatrixApiBoundaryCases', (): void => {
     /**
      * @tc.number    SUB_STARTUP_CAPABILITYMATRIXAPIBOUNDARYCASES_0100
@@ -37,17 +39,18 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0001', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(8, DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_SYSTEM_UPDATE);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0001');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertTrue();
-      expect(evaluation.downgradedByEntry).assertFalse();
-      expect(evaluation.downgradedByPermission).assertFalse();
-      expect(evaluation.summary().indexOf('CM-0001') > 0).assertTrue();
-      expect(evaluation.developerHint().length > 0).assertTrue();
-      expect(evaluation.userHint().length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0001|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0001|assertEqual|expected', CapabilityVerdict.NEED_SYSTEM_UPDATE));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0002|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0002|assertEqual|expected', 'CM-0001'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0003|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0004|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0005|assertTrue|actual|expected=true', isDefinitelyUnsupported(evaluation.verdict))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0006|assertFalse|actual|expected=false', evaluation.downgradedByEntry)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0007|assertFalse|actual|expected=false', evaluation.downgradedByPermission)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0008|assertTrue|actual|expected=true', evaluation.summary().indexOf('CM-0001') > 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0009|assertTrue|actual|expected=true', evaluation.developerHint().length > 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0001|CapabilityMatrixCases.test.ets|assert0010|assertTrue|actual|expected=true', evaluation.userHint().length > 0)).assertTrue();
     });
 
     /**
@@ -60,12 +63,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0002', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(0, DeviceForm.WEARABLE, SystemFlavor.COMMERCIAL));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_SYSTEM_UPDATE);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0001');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertTrue();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0002|CapabilityMatrixCases.test.ets|assert0011|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0002|CapabilityMatrixCases.test.ets|assert0011|assertEqual|expected', CapabilityVerdict.NEED_SYSTEM_UPDATE));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0002|CapabilityMatrixCases.test.ets|assert0012|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0002|CapabilityMatrixCases.test.ets|assert0012|assertEqual|expected', 'CM-0001'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0002|CapabilityMatrixCases.test.ets|assert0013|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0002|CapabilityMatrixCases.test.ets|assert0014|assertTrue|actual|expected=true', isDefinitelyUnsupported(evaluation.verdict))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0002|CapabilityMatrixCases.test.ets|assert0015|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
     });
 
     /**
@@ -78,12 +82,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0003', 0, (): void => {
+      configureTestText();
       const tv = evaluateCapability(queryOf(8, DeviceForm.TV, SystemFlavor.COMMERCIAL));
       const tablet = evaluateCapability(queryOf(8, DeviceForm.TABLET, SystemFlavor.UNKNOWN));
-      expect(tv.rule?.ruleId).assertEqual('CM-0001');
-      expect(tablet.rule?.ruleId).assertEqual('CM-0001');
-      expect(tv.verdict).assertEqual(CapabilityVerdict.NEED_SYSTEM_UPDATE);
-      expect(tablet.verdict).assertEqual(CapabilityVerdict.NEED_SYSTEM_UPDATE);
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0003|CapabilityMatrixCases.test.ets|assert0016|assertEqual|actual', tv.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0003|CapabilityMatrixCases.test.ets|assert0016|assertEqual|expected', 'CM-0001'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0003|CapabilityMatrixCases.test.ets|assert0017|assertEqual|actual', tablet.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0003|CapabilityMatrixCases.test.ets|assert0017|assertEqual|expected', 'CM-0001'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0003|CapabilityMatrixCases.test.ets|assert0018|assertEqual|actual', tv.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0003|CapabilityMatrixCases.test.ets|assert0018|assertEqual|expected', CapabilityVerdict.NEED_SYSTEM_UPDATE));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0003|CapabilityMatrixCases.test.ets|assert0019|assertEqual|actual', tablet.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0003|CapabilityMatrixCases.test.ets|assert0019|assertEqual|expected', CapabilityVerdict.NEED_SYSTEM_UPDATE));
     });
 
     /**
@@ -96,13 +101,14 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0004', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(9, DeviceForm.WEARABLE, SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0002');
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertTrue();
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
-      expect(evaluation.summary().indexOf('deviceExcluded') === 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0004|CapabilityMatrixCases.test.ets|assert0020|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0004|CapabilityMatrixCases.test.ets|assert0020|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0004|CapabilityMatrixCases.test.ets|assert0021|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0004|CapabilityMatrixCases.test.ets|assert0021|assertEqual|expected', 'CM-0002'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0004|CapabilityMatrixCases.test.ets|assert0022|assertTrue|actual|expected=true', isDefinitelyUnsupported(evaluation.verdict))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0004|CapabilityMatrixCases.test.ets|assert0023|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0004|CapabilityMatrixCases.test.ets|assert0024|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0004|CapabilityMatrixCases.test.ets|assert0025|assertTrue|actual|expected=true', evaluation.summary().indexOf('deviceExcluded') === 0)).assertTrue();
     });
 
     /**
@@ -115,12 +121,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0005', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(11, DeviceForm.WEARABLE,
         SystemFlavor.COMMERCIAL, false, false));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0002');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(evaluation.downgradedByPermission).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0005|CapabilityMatrixCases.test.ets|assert0026|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0005|CapabilityMatrixCases.test.ets|assert0026|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0005|CapabilityMatrixCases.test.ets|assert0027|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0005|CapabilityMatrixCases.test.ets|assert0027|assertEqual|expected', 'CM-0002'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0005|CapabilityMatrixCases.test.ets|assert0028|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0005|CapabilityMatrixCases.test.ets|assert0029|assertFalse|actual|expected=false', evaluation.downgradedByPermission)).assertFalse();
     });
 
     /**
@@ -133,11 +140,12 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0006', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(9, DeviceForm.TV, SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0003');
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertTrue();
-      expect(canSetInApp(evaluation)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0006|CapabilityMatrixCases.test.ets|assert0030|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0006|CapabilityMatrixCases.test.ets|assert0030|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0006|CapabilityMatrixCases.test.ets|assert0031|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0006|CapabilityMatrixCases.test.ets|assert0031|assertEqual|expected', 'CM-0003'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0006|CapabilityMatrixCases.test.ets|assert0032|assertTrue|actual|expected=true', isDefinitelyUnsupported(evaluation.verdict))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0006|CapabilityMatrixCases.test.ets|assert0033|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
     });
 
     /**
@@ -150,10 +158,11 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0007', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(11, DeviceForm.TV, SystemFlavor.COMMERCIAL));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0003');
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0007|CapabilityMatrixCases.test.ets|assert0034|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0007|CapabilityMatrixCases.test.ets|assert0034|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0007|CapabilityMatrixCases.test.ets|assert0035|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0007|CapabilityMatrixCases.test.ets|assert0035|assertEqual|expected', 'CM-0003'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0007|CapabilityMatrixCases.test.ets|assert0036|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
     });
 
     /**
@@ -166,14 +175,15 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0008', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(9, DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY,
         false, true));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0004');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
-      expect(evaluation.downgradedByEntry).assertFalse();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0008|CapabilityMatrixCases.test.ets|assert0037|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0008|CapabilityMatrixCases.test.ets|assert0037|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0008|CapabilityMatrixCases.test.ets|assert0038|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0008|CapabilityMatrixCases.test.ets|assert0038|assertEqual|expected', 'CM-0004'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0008|CapabilityMatrixCases.test.ets|assert0039|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0008|CapabilityMatrixCases.test.ets|assert0040|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0008|CapabilityMatrixCases.test.ets|assert0041|assertFalse|actual|expected=false', evaluation.downgradedByEntry)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0008|CapabilityMatrixCases.test.ets|assert0042|assertFalse|actual|expected=false', isDefinitelyUnsupported(evaluation.verdict))).assertFalse();
     });
 
     /**
@@ -186,13 +196,14 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0009', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(9, DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY,
         true, false));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(evaluation.downgradedByEntry).assertTrue();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0004');
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0009|CapabilityMatrixCases.test.ets|assert0043|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0009|CapabilityMatrixCases.test.ets|assert0043|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0009|CapabilityMatrixCases.test.ets|assert0044|assertTrue|actual|expected=true', evaluation.downgradedByEntry)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0009|CapabilityMatrixCases.test.ets|assert0045|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0009|CapabilityMatrixCases.test.ets|assert0046|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0009|CapabilityMatrixCases.test.ets|assert0047|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0009|CapabilityMatrixCases.test.ets|assert0047|assertEqual|expected', 'CM-0004'));
     });
 
     /**
@@ -205,12 +216,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0010', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(11, DeviceForm.TABLET,
         SystemFlavor.OPEN_HARMONY, false, true));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0004');
-      expect(evaluation.downgradedByEntry).assertFalse();
-      expect(canSetInApp(evaluation)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0010|CapabilityMatrixCases.test.ets|assert0048|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0010|CapabilityMatrixCases.test.ets|assert0048|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0010|CapabilityMatrixCases.test.ets|assert0049|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0010|CapabilityMatrixCases.test.ets|assert0049|assertEqual|expected', 'CM-0004'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0010|CapabilityMatrixCases.test.ets|assert0050|assertFalse|actual|expected=false', evaluation.downgradedByEntry)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0010|CapabilityMatrixCases.test.ets|assert0051|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
     });
 
     /**
@@ -223,14 +235,15 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0011', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(9, DeviceForm.PHONE, SystemFlavor.COMMERCIAL,
         false, true));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0005');
-      expect(evaluation.downgradedByPermission).assertTrue();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0011|CapabilityMatrixCases.test.ets|assert0052|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0011|CapabilityMatrixCases.test.ets|assert0052|assertEqual|expected', CapabilityVerdict.NEED_PERMISSION));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0011|CapabilityMatrixCases.test.ets|assert0053|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0011|CapabilityMatrixCases.test.ets|assert0053|assertEqual|expected', 'CM-0005'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0011|CapabilityMatrixCases.test.ets|assert0054|assertTrue|actual|expected=true', evaluation.downgradedByPermission)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0011|CapabilityMatrixCases.test.ets|assert0055|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0011|CapabilityMatrixCases.test.ets|assert0056|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0011|CapabilityMatrixCases.test.ets|assert0057|assertFalse|actual|expected=false', isDefinitelyUnsupported(evaluation.verdict))).assertFalse();
     });
 
     /**
@@ -243,13 +256,14 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0012', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(9, DeviceForm.PHONE, SystemFlavor.COMMERCIAL,
         true, true));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
-      expect(evaluation.downgradedByPermission).assertFalse();
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0005');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0012|CapabilityMatrixCases.test.ets|assert0058|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0012|CapabilityMatrixCases.test.ets|assert0058|assertEqual|expected', CapabilityVerdict.NEED_PERMISSION));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0012|CapabilityMatrixCases.test.ets|assert0059|assertFalse|actual|expected=false', evaluation.downgradedByPermission)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0012|CapabilityMatrixCases.test.ets|assert0060|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0012|CapabilityMatrixCases.test.ets|assert0060|assertEqual|expected', 'CM-0005'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0012|CapabilityMatrixCases.test.ets|assert0061|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0012|CapabilityMatrixCases.test.ets|assert0062|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
     });
 
     /**
@@ -262,12 +276,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0013', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(10, DeviceForm.PHONE, SystemFlavor.UNKNOWN));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.UNKNOWN);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0016');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0013|CapabilityMatrixCases.test.ets|assert0063|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0013|CapabilityMatrixCases.test.ets|assert0063|assertEqual|expected', CapabilityVerdict.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0013|CapabilityMatrixCases.test.ets|assert0064|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0013|CapabilityMatrixCases.test.ets|assert0064|assertEqual|expected', 'CM-0016'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0013|CapabilityMatrixCases.test.ets|assert0065|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0013|CapabilityMatrixCases.test.ets|assert0066|assertFalse|actual|expected=false', isDefinitelyUnsupported(evaluation.verdict))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0013|CapabilityMatrixCases.test.ets|assert0067|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
     });
 
     /**
@@ -280,12 +295,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0014', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(12, DeviceForm.WEARABLE,
         SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0006');
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertTrue();
-      expect(canSetInApp(evaluation)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0014|CapabilityMatrixCases.test.ets|assert0068|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0014|CapabilityMatrixCases.test.ets|assert0068|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0014|CapabilityMatrixCases.test.ets|assert0069|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0014|CapabilityMatrixCases.test.ets|assert0069|assertEqual|expected', 'CM-0006'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0014|CapabilityMatrixCases.test.ets|assert0070|assertTrue|actual|expected=true', isDefinitelyUnsupported(evaluation.verdict))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0014|CapabilityMatrixCases.test.ets|assert0071|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
     });
 
     /**
@@ -298,11 +314,12 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0015', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(13, DeviceForm.WEARABLE,
         SystemFlavor.COMMERCIAL, true, true));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0006');
-      expect(needsSettingsGuidance(evaluation)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0015|CapabilityMatrixCases.test.ets|assert0072|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0015|CapabilityMatrixCases.test.ets|assert0072|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0015|CapabilityMatrixCases.test.ets|assert0073|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0015|CapabilityMatrixCases.test.ets|assert0073|assertEqual|expected', 'CM-0006'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0015|CapabilityMatrixCases.test.ets|assert0074|assertFalse|actual|expected=false', needsSettingsGuidance(evaluation))).assertFalse();
     });
 
     /**
@@ -315,13 +332,14 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0016', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(12, DeviceForm.TV, SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0007');
-      expect(canSetInApp(evaluation)).assertTrue();
-      expect(needsSettingsGuidance(evaluation)).assertFalse();
-      expect(evaluation.downgradedByPermission).assertFalse();
-      expect(evaluation.downgradedByEntry).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0016|CapabilityMatrixCases.test.ets|assert0075|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0016|CapabilityMatrixCases.test.ets|assert0075|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0016|CapabilityMatrixCases.test.ets|assert0076|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0016|CapabilityMatrixCases.test.ets|assert0076|assertEqual|expected', 'CM-0007'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0016|CapabilityMatrixCases.test.ets|assert0077|assertTrue|actual|expected=true', canSetInApp(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0016|CapabilityMatrixCases.test.ets|assert0078|assertFalse|actual|expected=false', needsSettingsGuidance(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0016|CapabilityMatrixCases.test.ets|assert0079|assertFalse|actual|expected=false', evaluation.downgradedByPermission)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0016|CapabilityMatrixCases.test.ets|assert0080|assertFalse|actual|expected=false', evaluation.downgradedByEntry)).assertFalse();
     });
 
     /**
@@ -334,13 +352,14 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0017', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(12, DeviceForm.TV, SystemFlavor.COMMERCIAL,
         false, true));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0008');
-      expect(evaluation.downgradedByPermission).assertTrue();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
-      expect(canSetInApp(evaluation)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0017|CapabilityMatrixCases.test.ets|assert0081|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0017|CapabilityMatrixCases.test.ets|assert0081|assertEqual|expected', CapabilityVerdict.NEED_PERMISSION));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0017|CapabilityMatrixCases.test.ets|assert0082|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0017|CapabilityMatrixCases.test.ets|assert0082|assertEqual|expected', 'CM-0008'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0017|CapabilityMatrixCases.test.ets|assert0083|assertTrue|actual|expected=true', evaluation.downgradedByPermission)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0017|CapabilityMatrixCases.test.ets|assert0084|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0017|CapabilityMatrixCases.test.ets|assert0085|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
     });
 
     /**
@@ -353,12 +372,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0018', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(13, DeviceForm.PHONE,
         SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0009');
-      expect(canSetInApp(evaluation)).assertTrue();
-      expect(needsSettingsGuidance(evaluation)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0018|CapabilityMatrixCases.test.ets|assert0086|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0018|CapabilityMatrixCases.test.ets|assert0086|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0018|CapabilityMatrixCases.test.ets|assert0087|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0018|CapabilityMatrixCases.test.ets|assert0087|assertEqual|expected', 'CM-0009'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0018|CapabilityMatrixCases.test.ets|assert0088|assertTrue|actual|expected=true', canSetInApp(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0018|CapabilityMatrixCases.test.ets|assert0089|assertFalse|actual|expected=false', needsSettingsGuidance(evaluation))).assertFalse();
     });
 
     /**
@@ -371,13 +391,14 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0019', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(12, DeviceForm.TABLET, SystemFlavor.COMMERCIAL,
         true, true));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.NEED_PERMISSION);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0010');
-      expect(evaluation.downgradedByPermission).assertFalse();
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0019|CapabilityMatrixCases.test.ets|assert0090|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0019|CapabilityMatrixCases.test.ets|assert0090|assertEqual|expected', CapabilityVerdict.NEED_PERMISSION));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0019|CapabilityMatrixCases.test.ets|assert0091|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0019|CapabilityMatrixCases.test.ets|assert0091|assertEqual|expected', 'CM-0010'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0019|CapabilityMatrixCases.test.ets|assert0092|assertFalse|actual|expected=false', evaluation.downgradedByPermission)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0019|CapabilityMatrixCases.test.ets|assert0093|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0019|CapabilityMatrixCases.test.ets|assert0094|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
     });
 
     /**
@@ -390,11 +411,12 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0020', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(14, DeviceForm.WEARABLE,
         SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0011');
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0020|CapabilityMatrixCases.test.ets|assert0095|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0020|CapabilityMatrixCases.test.ets|assert0095|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0020|CapabilityMatrixCases.test.ets|assert0096|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0020|CapabilityMatrixCases.test.ets|assert0096|assertEqual|expected', 'CM-0011'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0020|CapabilityMatrixCases.test.ets|assert0097|assertTrue|actual|expected=true', isDefinitelyUnsupported(evaluation.verdict))).assertTrue();
     });
 
     /**
@@ -407,12 +429,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0021', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(17, DeviceForm.WEARABLE,
         SystemFlavor.COMMERCIAL, false, false));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0011');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0021|CapabilityMatrixCases.test.ets|assert0098|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0021|CapabilityMatrixCases.test.ets|assert0098|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0021|CapabilityMatrixCases.test.ets|assert0099|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0021|CapabilityMatrixCases.test.ets|assert0099|assertEqual|expected', 'CM-0011'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0021|CapabilityMatrixCases.test.ets|assert0100|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0021|CapabilityMatrixCases.test.ets|assert0101|assertFalse|actual|expected=false', needsSettingsGuidance(evaluation))).assertFalse();
     });
 
     /**
@@ -425,15 +448,16 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0022', 0, (): void => {
+      configureTestText();
       const openHarmony = evaluateCapability(queryOf(14, DeviceForm.TV,
         SystemFlavor.OPEN_HARMONY));
       const commercial = evaluateCapability(queryOf(14, DeviceForm.TV, SystemFlavor.COMMERCIAL));
-      expect(openHarmony.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(commercial.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(openHarmony.rule?.ruleId).assertEqual('CM-0012');
-      expect(commercial.rule?.ruleId).assertEqual('CM-0012');
-      expect(canSetInApp(openHarmony)).assertTrue();
-      expect(canSetInApp(commercial)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0102|assertEqual|actual', openHarmony.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0102|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0103|assertEqual|actual', commercial.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0103|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0104|assertEqual|actual', openHarmony.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0104|assertEqual|expected', 'CM-0012'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0105|assertEqual|actual', commercial.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0105|assertEqual|expected', 'CM-0012'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0106|assertTrue|actual|expected=true', canSetInApp(openHarmony))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0022|CapabilityMatrixCases.test.ets|assert0107|assertTrue|actual|expected=true', canSetInApp(commercial))).assertTrue();
     });
 
     /**
@@ -446,14 +470,15 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0023', 0, (): void => {
+      configureTestText();
       const openHarmony = evaluateCapability(queryOf(15, DeviceForm.PHONE,
         SystemFlavor.OPEN_HARMONY));
       const commercial = evaluateCapability(queryOf(15, DeviceForm.PHONE, SystemFlavor.COMMERCIAL));
-      expect(openHarmony.rule?.ruleId).assertEqual('CM-0013');
-      expect(commercial.rule?.ruleId).assertEqual('CM-0013');
-      expect(openHarmony.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(commercial.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(openHarmony.downgradedByEntry).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0108|assertEqual|actual', openHarmony.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0108|assertEqual|expected', 'CM-0013'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0109|assertEqual|actual', commercial.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0109|assertEqual|expected', 'CM-0013'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0110|assertEqual|actual', openHarmony.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0110|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0111|assertEqual|actual', commercial.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0111|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0023|CapabilityMatrixCases.test.ets|assert0112|assertFalse|actual|expected=false', openHarmony.downgradedByEntry)).assertFalse();
     });
 
     /**
@@ -466,13 +491,14 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0024', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(17, DeviceForm.TABLET,
         SystemFlavor.COMMERCIAL, false, false));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0013');
-      expect(canSetInApp(evaluation)).assertTrue();
-      expect(evaluation.downgradedByEntry).assertFalse();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0024|CapabilityMatrixCases.test.ets|assert0113|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0024|CapabilityMatrixCases.test.ets|assert0113|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0024|CapabilityMatrixCases.test.ets|assert0114|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0024|CapabilityMatrixCases.test.ets|assert0114|assertEqual|expected', 'CM-0013'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0024|CapabilityMatrixCases.test.ets|assert0115|assertTrue|actual|expected=true', canSetInApp(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0024|CapabilityMatrixCases.test.ets|assert0116|assertFalse|actual|expected=false', evaluation.downgradedByEntry)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0024|CapabilityMatrixCases.test.ets|assert0117|assertFalse|actual|expected=false', isDefinitelyUnsupported(evaluation.verdict))).assertFalse();
     });
 
     /**
@@ -485,15 +511,16 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0025', 0, (): void => {
+      configureTestText();
       const forms: DeviceForm[] = [DeviceForm.PHONE, DeviceForm.TABLET, DeviceForm.TV,
         DeviceForm.WEARABLE];
       forms.forEach((form: DeviceForm): void => {
         const evaluation = evaluateCapability(queryOf(18, form, SystemFlavor.OPEN_HARMONY));
-        expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-        expect(evaluation.rule?.ruleId).assertEqual('CM-0014');
-        expect(canSetInApp(evaluation)).assertTrue();
+        expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0025|CapabilityMatrixCases.test.ets|assert0118|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0025|CapabilityMatrixCases.test.ets|assert0118|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+        expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0025|CapabilityMatrixCases.test.ets|assert0119|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0025|CapabilityMatrixCases.test.ets|assert0119|assertEqual|expected', 'CM-0014'));
+        expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0025|CapabilityMatrixCases.test.ets|assert0120|assertTrue|actual|expected=true', canSetInApp(evaluation))).assertTrue();
       });
-      expect(forms.length).assertEqual(4);
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0025|CapabilityMatrixCases.test.ets|assert0121|assertEqual|actual', forms.length)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0025|CapabilityMatrixCases.test.ets|assert0121|assertEqual|expected', 4));
     });
 
     /**
@@ -506,12 +533,13 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0026', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(26, DeviceForm.WEARABLE,
         SystemFlavor.COMMERCIAL, false, false));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0014');
-      expect(canSetInApp(evaluation)).assertTrue();
-      expect(needsSettingsGuidance(evaluation)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0026|CapabilityMatrixCases.test.ets|assert0122|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0026|CapabilityMatrixCases.test.ets|assert0122|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0026|CapabilityMatrixCases.test.ets|assert0123|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0026|CapabilityMatrixCases.test.ets|assert0123|assertEqual|expected', 'CM-0014'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0026|CapabilityMatrixCases.test.ets|assert0124|assertTrue|actual|expected=true', canSetInApp(evaluation))).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0026|CapabilityMatrixCases.test.ets|assert0125|assertFalse|actual|expected=false', needsSettingsGuidance(evaluation))).assertFalse();
     });
 
     /**
@@ -524,14 +552,15 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0027', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(27, DeviceForm.PHONE,
         SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.UNKNOWN);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0015');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertFalse();
-      expect(evaluation.summary().indexOf('CM-0015') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0027|CapabilityMatrixCases.test.ets|assert0126|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0027|CapabilityMatrixCases.test.ets|assert0126|assertEqual|expected', CapabilityVerdict.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0027|CapabilityMatrixCases.test.ets|assert0127|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0027|CapabilityMatrixCases.test.ets|assert0127|assertEqual|expected', 'CM-0015'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0027|CapabilityMatrixCases.test.ets|assert0128|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0027|CapabilityMatrixCases.test.ets|assert0129|assertFalse|actual|expected=false', isDefinitelyUnsupported(evaluation.verdict))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0027|CapabilityMatrixCases.test.ets|assert0130|assertFalse|actual|expected=false', needsSettingsGuidance(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0027|CapabilityMatrixCases.test.ets|assert0131|assertTrue|actual|expected=true', evaluation.summary().indexOf('CM-0015') > 0)).assertTrue();
     });
 
     /**
@@ -544,11 +573,12 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0028', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(30, DeviceForm.TABLET,
         SystemFlavor.COMMERCIAL));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.UNKNOWN);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0015');
-      expect(evaluation.developerHint().indexOf('API 26') > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0028|CapabilityMatrixCases.test.ets|assert0132|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0028|CapabilityMatrixCases.test.ets|assert0132|assertEqual|expected', CapabilityVerdict.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0028|CapabilityMatrixCases.test.ets|assert0133|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0028|CapabilityMatrixCases.test.ets|assert0133|assertEqual|expected', 'CM-0015'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0028|CapabilityMatrixCases.test.ets|assert0134|assertTrue|actual|expected=true', evaluation.developerHint().indexOf('API 26') > 0)).assertTrue();
     });
 
     /**
@@ -561,11 +591,12 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0029', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(13, DeviceForm.PHONE, SystemFlavor.UNKNOWN));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.UNKNOWN);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0017');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0029|CapabilityMatrixCases.test.ets|assert0135|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0029|CapabilityMatrixCases.test.ets|assert0135|assertEqual|expected', CapabilityVerdict.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0029|CapabilityMatrixCases.test.ets|assert0136|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0029|CapabilityMatrixCases.test.ets|assert0136|assertEqual|expected', 'CM-0017'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0029|CapabilityMatrixCases.test.ets|assert0137|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0029|CapabilityMatrixCases.test.ets|assert0138|assertFalse|actual|expected=false', isDefinitelyUnsupported(evaluation.verdict))).assertFalse();
     });
 
     /**
@@ -578,10 +609,11 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0030', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(12, DeviceForm.TV, SystemFlavor.UNKNOWN));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.UNKNOWN);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0017');
-      expect(evaluation.userHint().length > 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0030|CapabilityMatrixCases.test.ets|assert0139|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0030|CapabilityMatrixCases.test.ets|assert0139|assertEqual|expected', CapabilityVerdict.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0030|CapabilityMatrixCases.test.ets|assert0140|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0030|CapabilityMatrixCases.test.ets|assert0140|assertEqual|expected', 'CM-0017'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0030|CapabilityMatrixCases.test.ets|assert0141|assertTrue|actual|expected=true', evaluation.userHint().length > 0)).assertTrue();
     });
 
     /**
@@ -594,13 +626,14 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0031', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(10, DeviceForm.UNKNOWN,
         SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.UNKNOWN);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0018');
-      expect(canSetInApp(evaluation)).assertFalse();
-      expect(isDefinitelyUnsupported(evaluation.verdict)).assertFalse();
-      expect(needsSettingsGuidance(evaluation)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0031|CapabilityMatrixCases.test.ets|assert0142|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0031|CapabilityMatrixCases.test.ets|assert0142|assertEqual|expected', CapabilityVerdict.UNKNOWN));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0031|CapabilityMatrixCases.test.ets|assert0143|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0031|CapabilityMatrixCases.test.ets|assert0143|assertEqual|expected', 'CM-0018'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0031|CapabilityMatrixCases.test.ets|assert0144|assertFalse|actual|expected=false', canSetInApp(evaluation))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0031|CapabilityMatrixCases.test.ets|assert0145|assertFalse|actual|expected=false', isDefinitelyUnsupported(evaluation.verdict))).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0031|CapabilityMatrixCases.test.ets|assert0146|assertTrue|actual|expected=true', needsSettingsGuidance(evaluation))).assertTrue();
     });
 
     /**
@@ -613,11 +646,12 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0032', 0, (): void => {
+      configureTestText();
       const evaluation = evaluateCapability(queryOf(20, DeviceForm.UNKNOWN,
         SystemFlavor.OPEN_HARMONY));
-      expect(evaluation.verdict).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(evaluation.rule?.ruleId).assertEqual('CM-0014');
-      expect(canSetInApp(evaluation)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0032|CapabilityMatrixCases.test.ets|assert0147|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0032|CapabilityMatrixCases.test.ets|assert0147|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0032|CapabilityMatrixCases.test.ets|assert0148|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0032|CapabilityMatrixCases.test.ets|assert0148|assertEqual|expected', 'CM-0014'));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0032|CapabilityMatrixCases.test.ets|assert0149|assertTrue|actual|expected=true', canSetInApp(evaluation))).assertTrue();
     });
 
     /**
@@ -630,7 +664,8 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0033', 0, (): void => {
-      expect(CAPABILITY_RULES.length).assertEqual(18);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0033|CapabilityMatrixCases.test.ets|assert0150|assertEqual|actual', CAPABILITY_RULES.length)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0033|CapabilityMatrixCases.test.ets|assert0150|assertEqual|expected', 18));
       const probes: CapabilityQuery[] = [
         queryOf(5, DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY),
         queryOf(10, DeviceForm.WEARABLE, SystemFlavor.OPEN_HARMONY),
@@ -651,11 +686,11 @@ export default function capabilityMatrixCasesTest(): void {
         queryOf(12, DeviceForm.TABLET, SystemFlavor.UNKNOWN),
         queryOf(10, DeviceForm.UNKNOWN, SystemFlavor.OPEN_HARMONY)
       ];
-      expect(probes.length).assertEqual(CAPABILITY_RULES.length);
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0033|CapabilityMatrixCases.test.ets|assert0151|assertEqual|actual', probes.length)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0033|CapabilityMatrixCases.test.ets|assert0151|assertEqual|expected', CAPABILITY_RULES.length));
       probes.forEach((probe: CapabilityQuery, index: number): void => {
         const evaluation = evaluateCapability(probe);
-        expect(evaluation.rule?.ruleId).assertEqual(CAPABILITY_RULES[index].ruleId);
-        expect(evaluation.verdict).assertEqual(CAPABILITY_RULES[index].verdict);
+        expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0033|CapabilityMatrixCases.test.ets|assert0152|assertEqual|actual', evaluation.rule?.ruleId)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0033|CapabilityMatrixCases.test.ets|assert0152|assertEqual|expected', CAPABILITY_RULES[index].ruleId));
+        expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0033|CapabilityMatrixCases.test.ets|assert0153|assertEqual|actual', evaluation.verdict)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0033|CapabilityMatrixCases.test.ets|assert0153|assertEqual|expected', CAPABILITY_RULES[index].verdict));
       });
     });
 
@@ -669,16 +704,17 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0034', 0, (): void => {
-      expect(ruleSummaries().length).assertEqual(18);
+      configureTestText();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0154|assertEqual|actual', ruleSummaries().length)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0154|assertEqual|expected', 18));
       const series = verdictSeries(DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY, true, true);
-      expect(series.length).assertEqual(21);
-      expect(series[0]).assertEqual(CapabilityVerdict.NEED_SYSTEM_UPDATE);
-      expect(series[1]).assertEqual(CapabilityVerdict.SUPPORTED);
-      expect(series[series.length - 1]).assertEqual(CapabilityVerdict.UNKNOWN);
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0155|assertEqual|actual', series.length)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0155|assertEqual|expected', 21));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0156|assertEqual|actual', series[0])).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0156|assertEqual|expected', CapabilityVerdict.NEED_SYSTEM_UPDATE));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0157|assertEqual|actual', series[1])).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0157|assertEqual|expected', CapabilityVerdict.SUPPORTED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0158|assertEqual|actual', series[series.length - 1])).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0158|assertEqual|expected', CapabilityVerdict.UNKNOWN));
       const wearable = verdictSeries(DeviceForm.WEARABLE, SystemFlavor.OPEN_HARMONY, true, true);
-      expect(wearable.length).assertEqual(21);
-      expect(wearable[1]).assertEqual(CapabilityVerdict.DEVICE_EXCLUDED);
-      expect(wearable[10]).assertEqual(CapabilityVerdict.SUPPORTED);
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0159|assertEqual|actual', wearable.length)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0159|assertEqual|expected', 21));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0160|assertEqual|actual', wearable[1])).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0160|assertEqual|expected', CapabilityVerdict.DEVICE_EXCLUDED));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0161|assertEqual|actual', wearable[10])).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0034|CapabilityMatrixCases.test.ets|assert0161|assertEqual|expected', CapabilityVerdict.SUPPORTED));
     });
 
     /**
@@ -691,26 +727,27 @@ export default function capabilityMatrixCasesTest(): void {
      */
 
     it('testCapabilityMatrixApiBoundaryCases0035', 0, (): void => {
+      configureTestText();
       const base: CapabilityQuery = queryOf(18, DeviceForm.PHONE, SystemFlavor.OPEN_HARMONY,
         true, true);
       const clone: CapabilityQuery = base.clone();
-      expect(clone.key()).assertEqual(base.key());
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0162|assertEqual|actual', clone.key())).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0162|assertEqual|expected', base.key()));
       clone.apiLevel = 19;
-      expect(clone.key() === base.key()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0163|assertFalse|actual|expected=false', clone.key() === base.key())).assertFalse();
       clone.apiLevel = 18;
       clone.deviceForm = DeviceForm.TABLET;
-      expect(clone.key() === base.key()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0164|assertFalse|actual|expected=false', clone.key() === base.key())).assertFalse();
       clone.deviceForm = DeviceForm.PHONE;
       clone.flavor = SystemFlavor.COMMERCIAL;
-      expect(clone.key() === base.key()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0165|assertFalse|actual|expected=false', clone.key() === base.key())).assertFalse();
       clone.flavor = SystemFlavor.OPEN_HARMONY;
       clone.permissionGranted = false;
-      expect(clone.key() === base.key()).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0166|assertFalse|actual|expected=false', clone.key() === base.key())).assertFalse();
       clone.permissionGranted = true;
       clone.settingsEntryAvailable = false;
-      expect(clone.key() === base.key()).assertFalse();
-      expect(base.apiLevel).assertEqual(18);
-      expect(base.settingsEntryAvailable).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0167|assertFalse|actual|expected=false', clone.key() === base.key())).assertFalse();
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0168|assertEqual|actual', base.apiLevel)).assertEqual(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0168|assertEqual|expected', 18));
+      expect(traceParameter('com.samples.appstartupauto_CapabilityMatrixApiBoundaryCases_0035|CapabilityMatrixCases.test.ets|assert0169|assertTrue|actual|expected=true', base.settingsEntryAvailable)).assertTrue();
     });
   });
 }
