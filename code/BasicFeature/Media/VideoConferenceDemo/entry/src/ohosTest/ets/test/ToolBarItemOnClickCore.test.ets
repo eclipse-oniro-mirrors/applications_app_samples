@@ -93,7 +93,411 @@ export default function toolBarItemOnClickCoreTest(): void {
       expect(captured).assertTrue();
     });
 
- 
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_0200
+     * @tc.name      testToolBarItemOnClick0002
+     * @tc.desc      Verify toolBarItemOnClickCore case 1.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_1', label: 'label_1',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_0300
+     * @tc.name      testToolBarItemOnClick0003
+     * @tc.desc      Verify toolBarItemOnClickCore case 2.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_2', label: 'label_2',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_0400
+     * @tc.name      testToolBarItemOnClick0004
+     * @tc.desc      Verify toolBarItemOnClickCore case 3.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_3', label: 'label_3',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_0500
+     * @tc.name      testToolBarItemOnClick0005
+     * @tc.desc      Verify toolBarItemOnClickCore case 4.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_4', label: 'label_4',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_0600
+     * @tc.name      testToolBarItemOnClick0006
+     * @tc.desc      Verify toolBarItemOnClickCore case 5.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_5', label: 'label_5',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_0700
+     * @tc.name      testToolBarItemOnClick0007
+     * @tc.desc      Verify toolBarItemOnClickCore case 6.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_6', label: 'label_6',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_0800
+     * @tc.name      testToolBarItemOnClick0008
+     * @tc.desc      Verify toolBarItemOnClickCore case 7.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_7', label: 'label_7',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_0900
+     * @tc.name      testToolBarItemOnClick0009
+     * @tc.desc      Verify toolBarItemOnClickCore case 8.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_8', label: 'label_8',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_1000
+     * @tc.name      testToolBarItemOnClick0010
+     * @tc.desc      Verify toolBarItemOnClickCore case 9.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_9', label: 'label_9',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_1100
+     * @tc.name      testToolBarItemOnClick0011
+     * @tc.desc      Verify toolBarItemOnClickCore case 10.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_10', label: 'label_10',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_1200
+     * @tc.name      testToolBarItemOnClick0012
+     * @tc.desc      Verify toolBarItemOnClickCore case 11.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_11', label: 'label_11',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_1300
+     * @tc.name      testToolBarItemOnClick0013
+     * @tc.desc      Verify toolBarItemOnClickCore case 12.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_12', label: 'label_12',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_1400
+     * @tc.name      testToolBarItemOnClick0014
+     * @tc.desc      Verify toolBarItemOnClickCore case 13.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_13', label: 'label_13',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_1500
+     * @tc.name      testToolBarItemOnClick0015
+     * @tc.desc      Verify toolBarItemOnClickCore case 14.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_14', label: 'label_14',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
+    /**
+     * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_1600
+     * @tc.name      testToolBarItemOnClick0016
+     * @tc.desc      Verify toolBarItemOnClickCore case 15.
+     * @tc.size      SMALLTEST
+     * @tc.type      FUNCTION
+     * @tc.level     LEVEL1
+     */
+    it('testToolBarItemOnClick0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+      let clicked: boolean = false;
+      let captured: boolean = false;
+      const item: ToolBarItem = new ToolBarItem({
+        id: 'id_15', label: 'label_15',
+        iconActive: $r('sys.symbol.mic_fill'),
+        iconActiveColors: [Color.White],
+        iconInActiveColors: [Color.White, Color.Red],
+        isActive: false,
+        onClick: (isActive: boolean) => {
+          clicked = true;
+          captured = isActive;
+        }
+      });
+      item.onClick(true);
+      expect(clicked).assertTrue();
+      expect(captured).assertTrue();
+    });
+
     /**
      * @tc.number    SUB_VIDEO_CONF_ITEM_CLICK_1700
      * @tc.name      testToolBarItemOnClick0017
