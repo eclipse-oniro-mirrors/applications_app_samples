@@ -501,7 +501,13 @@ PQ/HLG、HDR10、HDR Vivid、BT.2020 10/12-bit 传递特性和 HEVC Main 10 重�
 
 #### 页面与控制器拆分
 
-`Index.ets` 保留页面状态和 Builder，具体流程分到控制器：
+`Index.ets`保留页面状态和Builder。
+
+`PlaybackStartupController`负责只读输入fd、播放任务租约、Native启动和完成报告；初始化失败但Native仍在释放时，fd和租约一直保留到完成回调。`ConfigurationController`负责配置加载、保存和预设读取，页面在异步读取后检查是否仍允许应用。`RecorderCapabilityController`查询相机规格，回退规格时保留录制声音等选项。
+
+`TranscodeJob.cpp`保留任务推进和快照；`TranscodeInitialization.cpp`负责源文件、轨道和codec初始化，`TranscodeFramePipeline.cpp`负责解码、像素处理、编码和音频复制，`TranscodeFinalization.cpp`负责成品检查与资源释放。同步查询和异步回调的独立接口仍在codec层保留。
+
+其他控制器的职责：
 
 - `SeekPreviewController` 管理拖动预览的节流、请求代次和 PixelMap 释放；
 - `PlaybackQueueController` 管理队列路径、当前索引、循环/随机计算；
@@ -591,9 +597,9 @@ Native目录沿用播放器按职责分层的方式。录制和转码的`core/`�
 
 可在 DevEco Studio 中选择 `entry > ohosTest` 目标并执行测试。当前入口注册 13 个套件、49 个用例。
 
-`tests/host` 下的两个 Node.js 脚本使用 SDK 的 TypeScript 加载器和系统接口替身，检查录制、转码模型中的配置保存、文件写入与导出、存储保护、队列和恢复逻辑。`tests/native` 下的 12 个 C++ 测试入口检查编解码封装的错误分支、Buffer 布局、几何变换、帧处理、PCM 转换、回调队列和统计计算；其中部分系统接口由测试替身实现。Host 测试通过不能代替 ArkTS 构建，Native 替身也不验证设备 codec 和驱动的内部行为。
+`tests/host` 下的两个 Node.js 脚本使用 SDK 的 TypeScript 加载器和系统接口替身，检查录制、转码模型中的配置保存、文件写入与导出、存储保护、队列和恢复逻辑。`tests/native` 下的 14 个 C++ 测试入口检查编解码封装的错误分支、Buffer 布局、几何变换、帧处理、PCM 转换、回调队列和统计计算；其中部分系统接口由测试替身实现。Host 测试通过不能代替 ArkTS 构建，Native 替身也不验证设备 codec 和驱动的内部行为。
 
-音视频解封装、软硬件编解码、四种送显、系统音频中断、权限、相机录制、转码成品和文件提供方仍需真机验证。[测试指南](./ohosTest.md)提供自动化测试入口与运行方法，以及 244 条手工用例，覆盖 Buffer 录制、编码前处理、双路和分段录制、三种转码路径、结果抽样解码、Dump 管理和队列恢复。当前244条手工用例均已执行通过，结果与分组统计见测试指南；后续回归按设备和代码版本更新记录。
+音视频解封装、软硬件编解码、送显、权限、相机流和文件提供方需要结合目标设备验证。[测试指南](./ohosTest.md)记录了256条通过的手工用例，其中包括12条播放、时钟、录制与成品校验回归。结果适用于本轮测试环境，其他设备和系统版本仍需验证。
 
 也可以连接设备后通过命令行构建并执行：
 
@@ -682,6 +688,9 @@ AVCodec/
     │   │   │   │   ├── core/ # 会话生命周期与协调
     │   │   │   │   │   ├── TranscodeInspection.cpp
     │   │   │   │   │   ├── TranscodeJob.cpp/.h
+    │   │   │   │   │   ├── TranscodeInitialization.cpp
+    │   │   │   │   │   ├── TranscodeFramePipeline.cpp
+    │   │   │   │   │   ├── TranscodeFinalization.cpp
     │   │   │   │   │   ├── TranscodeOperations.cpp
     │   │   │   │   │   └── TranscodeTimeRange.cpp
     │   │   │   │   ├── napi/ # ArkTS接口入口与参数解析
@@ -1641,9 +1650,11 @@ API 26、相机或编码器能力缺失时，初始化返回不支持当前录�
 
 时间线最多 128 个阶段，重复阶段只保留第一次；动态参数记录沿用自己的 128 条上限。两者都不按帧追加，不保存图像或音频 Buffer。结束原因区分用户停止、空间保护、启动失败、输出写入失败和 EOS 超时。异常详情仍保留在 failure 与相应阶段里，避免只留一句“已结束”。
 
-时间线和详细指标只用于录制进行时的实时诊断；录制结束后不再生成或保存诊断 JSON/TXT，设备页的会话报告也不再拼入录制数据。最近录制只保存重新打开结果页所需的文件 URI、时间、时长和收尾状态，不影响已生成的录像及编码码流 Dump。
+时间线和详细指标只用于录制进行时的实时诊断；录制结束后不再生成或保存诊断 JSON/TXT，设备页的会话报告也不再拼入录制数据。最近录制保存文件URI、时间、时长、收尾状态和逐路成品校验结果，不影响已生成的录像及编码码流 Dump。
 
-结果页使用单独打开的只读 fd 查询成品尺寸、时长、容器类型、轨道数和音频采样率。查询完成后先释放元数据提取器，再关闭 fd，不借用已经交给编码器或播放器的句柄。没有查询到的字段显示未提供，也不会拿请求尺寸来补齐。容器元数据不证明视频带有有效的 HDR Vivid 动态元数据。API 26 的元数据查询有 3 秒超时；设备不提供提取能力或查询失败时，不影响录像和历史记录。
+Native释放Muxer并关闭输出fd后，`RecordingSessionController`为每段主、副路分别调用`RecordingMetadataReader`。提取器使用独立只读fd，读取尺寸、音轨存在性、时长和文件大小；先释放提取器，再关闭fd。`RecordingOutputValidation`比较请求输出尺寸、声音开关、排除暂停后的录制时长及Native最终文件大小。时长允许max(1.5s, 预期时长的10%)偏差，文件大小与最终统计值逐字节比较。
+
+收尾状态与校验结果分别保存：正常收尾不代表参数一致；校验区分一致、有差异和无法校验。缺少必需字段、能力不可用、关闭失败或提取失败会保留错误详情和文件关联，不删除成品，不以请求值填补实际值。检查结果随各段历史保存，旧历史可继续读取但没有过去的对照结果。API 26提取有3s超时，较早API使用普通异步接口。容器元数据不证明HDR Vivid码流或整段音画正确。
 
 <a id="recording-segments"></a>
 
@@ -1727,7 +1738,7 @@ API 26、相机或编码器能力缺失时，初始化返回不支持当前录�
 | 分组 | 内容 |
 |---|---|
 | `video` | MIME、codec name、相机源尺寸/帧率、码率、像素格式、HDR、同步模式和 `bufferInput`（`false` 为 Surface，`true` 为 Buffer） |
-| `audio` | 采样率、声道数、码率和采集延迟模式 |
+| `audio` | `enabled`声音开关、采样率、声道数、码率和采集延迟模式 |
 | `preprocess` | 前处理方式、降采样宽高、丢帧目标和裁剪坐标 |
 | `secondary` | 是否开启副路、副路 fd 和目标尺寸 |
 | `dump` | 是否保存码流、主副路路径、大小和时长上限 |
@@ -1797,6 +1808,16 @@ Destroy 两个 Muxer
 初始化阶段任何一步失败都可能只创建了部分资源，例如主 Muxer 已创建、副 Muxer 尚未加轨，或者 Primary 已准备而 Secondary 配置失败。Recorder统一唤醒收尾线程：停止新输入，取消队列等待，等待已经创建的输出线程退出，然后按 `Muxer -> Secondary -> Primary -> AudioEncoder -> AudioCapturer -> CodecUserData` 的拥有关系释放。ArkTS 只有在 Native 收尾完成后才关闭主、副 fd。
 
 真机验证时建议把单路和双路分开记录：检查主、副文件是否都能播放，视频轨宽高是否等于各自有效输出尺寸，两个文件的音频是否从同一时间点开始，停止后是否还能重新创建下一次录制。再分别覆盖 Async/Sync、MP4/FLV、H.264/H.265、30/60 fps、HDR Vivid 和 API 26 以下设备。这样可以区分“编码能力不支持”和“文件收尾或 fd 管理错误”。
+
+##### 录制声音与Buffer像素处理
+
+“录制声音”默认开启。关闭后只检查和请求相机权限，Native不创建音频采集器、AAC编码器和音频工作线程，主、副Muxer都不添加音轨；停止时也不发送或等待音频EOS。此选项对Surface、Buffer、双路和各段独立生效。旧配置没有该字段时仍默认录音。
+
+Buffer模式可开启灰度和AVCODEC水印。`SubmitVideoInputImage()`先按编码器stride/sliceHeight复制NV12，再调用`RecorderFrames::ApplyEffects()`，最后提交输入Buffer。灰度只将有效UV像素置为128；水印在左上角有效Y区域写入5×7点阵及黑色底框。处理前检查容量和偶数尺寸，不改写行尾或补齐行。相机Image和预览Surface保留原图。三个选项追加到29项录制快照；25/26项旧快照仍可读取。
+
+##### 播放与录制计时
+
+纯视频和音频时钟尚未可用时，`VideoFramePacer`以首帧PTS和`steady_clock`建立基准，按PTS间隔及倍速计算送显期限。暂停、恢复、Seek和倍速变化使基准失效；条件变量可被停止唤醒。有音频时间戳时继续以音频时钟同步，等待同样可被控制操作打断。`RecordingClock`用`getUptime(STARTUP)`计算录制经过时间，暂停期间不累计；分段阈值沿用这条时间线。文件名和`recordedAt`继续使用实际日期。
 
 <a id="recorder-buffer-input"></a>
 

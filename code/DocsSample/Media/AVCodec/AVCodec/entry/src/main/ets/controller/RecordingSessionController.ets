@@ -21,6 +21,9 @@ import { RecordingHistoryModel, RecordingSegmentInfo } from '../model/RecordingH
 import Logger from '../common/utils/Logger';
 import { MediaTaskCoordinator, MediaTaskLease } from '../model/MediaTaskCoordinator';
 import { MediaSessionStore } from '../model/MediaSessionStore';
+import { RecordingClock } from '../model/RecordingClock';
+import { RecordingMetadataReader } from './RecordingMetadataReader';
+import { RecordingOutputCheck } from '../model/RecordingOutputValidation';
 
 export interface RecordingResultInfo {
   sessionId: string;
@@ -30,6 +33,7 @@ export interface RecordingResultInfo {
   primaryUri: string;
   secondaryUri: string;
   complete: boolean;
+  validation?: RecordingOutputCheck[];
   segments?: RecordingSegmentInfo[];
 }
 
@@ -38,9 +42,7 @@ export enum RecordingPhase { PREPARING, READY, RECORDING, PAUSED, FINALIZING, FI
 export class RecordingSessionController {
   public phase: RecordingPhase = RecordingPhase.PREPARING;
   private sessionId: string = '';
-  private startedAt: number = 0;
-  private pausedAt: number = 0;
-  private pausedMs: number = 0;
+  private clock: RecordingClock = new RecordingClock();
   private pauseTask: Promise<boolean> | undefined = undefined;
   private finishTask: Promise<RecordingResultInfo | undefined> | undefined = undefined;
   private lease: MediaTaskLease | undefined = undefined;
@@ -55,7 +57,7 @@ export class RecordingSessionController {
   ready(): void { if (this.phase === RecordingPhase.PREPARING) { this.phase = RecordingPhase.READY; } }
   start(): boolean {
     if (this.phase !== RecordingPhase.READY || !recorder.startNative()) { return false; }
-    this.startedAt = Date.now();
+    this.clock.start();
     this.phase = RecordingPhase.RECORDING;
     if (this.lease !== undefined) { MediaTaskCoordinator.running(this.lease); }
     return true;
@@ -71,10 +73,7 @@ export class RecordingSessionController {
     return this.finishTask;
   }
 
-  elapsedSeconds(now: number = Date.now()): number {
-    return this.startedAt > 0 ? Math.max(0, ((this.pausedAt > 0 ? this.pausedAt : now) -
-      this.startedAt - this.pausedMs) / 1000) : 0;
-  }
+  elapsedSeconds(): number { return this.clock.seconds(); }
 
   setPaused(paused: boolean): Promise<boolean> {
     if (this.pauseTask !== undefined) { return this.pauseTask; }
@@ -90,9 +89,7 @@ export class RecordingSessionController {
     try {
       const response = await recorder.setPaused(this.sessionId, paused);
       if (response.code !== 0) { return false; }
-      const now: number = Date.now();
-      if (paused && this.pausedAt === 0) { this.pausedAt = now; }
-      if (!paused && this.pausedAt > 0) { this.pausedMs += now - this.pausedAt; this.pausedAt = 0; }
+      this.clock.pause(paused);
       if (this.phase !== RecordingPhase.FINALIZING) {
         this.phase = paused ? RecordingPhase.PAUSED : RecordingPhase.RECORDING;
       }
@@ -120,6 +117,8 @@ export class RecordingSessionController {
     const duration: number = this.elapsedSeconds();
     this.mark('stop.requested');
     let nativeReleased: boolean = false;
+    let primaryClosed: boolean = false;
+    let secondaryClosed: boolean = false;
     try {
       await stopCamera();
     } catch (_error) {
@@ -142,8 +141,8 @@ export class RecordingSessionController {
         finalSnapshot.timeline.some((event): boolean => event.stage === 'native.released');
       // fd仍可能被Native持有时不关闭，避免后台写入已复用的描述符。
       if (nativeReleased) {
-        const primaryClosed: boolean = await this.closeFile(data.outputfd);
-        const secondaryClosed: boolean = await this.closeFile(data.secondaryOutputfd);
+        primaryClosed = await this.closeFile(data.outputfd);
+        secondaryClosed = await this.closeFile(data.secondaryOutputfd);
         data.outputfd = -1;
         data.secondaryOutputfd = -1;
         if (primaryClosed && secondaryClosed) { this.mark('files.closed'); }
@@ -163,15 +162,27 @@ export class RecordingSessionController {
       title: data.outputTitle,
       primaryUri: diagnostics.primary.fileBytes > 0 && diagnostics.primary.frames > 0 ? data.outputUri : '',
       secondaryUri: diagnostics.secondary.fileBytes > 0 && diagnostics.secondary.frames > 0 ? data.secondaryOutputUri : '',
-      complete: diagnostics.failure.stage.length === 0 &&
+      complete: primaryClosed && secondaryClosed && diagnostics.primary.frames > 0 &&
+        (!data.enableDualOutput || diagnostics.secondary.frames > 0) &&
+        diagnostics.failure.stage.length === 0 &&
         (diagnostics.endReason.length === 0 || diagnostics.endReason === 'user_stop')
     };
+    result.validation = [await RecordingMetadataReader.validate(data.outputUri, false, {
+      width: diagnostics.primary.width, height: diagnostics.primary.height, hasAudio: data.recordAudio,
+      durationMs: duration * 1000, fileBytes: diagnostics.primary.fileBytes
+    }, primaryClosed)];
+    if (data.enableDualOutput) {
+      result.validation.push(await RecordingMetadataReader.validate(data.secondaryOutputUri, true, {
+        width: diagnostics.secondary.width, height: diagnostics.secondary.height, hasAudio: data.recordAudio,
+        durationMs: duration * 1000, fileBytes: diagnostics.secondary.fileBytes
+      }, secondaryClosed));
+    }
     this.phase = result.complete ? RecordingPhase.FINISHED : RecordingPhase.FAILED;
     try {
       const history = new RecordingHistoryModel();
       await history.load(context);
       await history.add(result.primaryUri, result.title, result.secondaryUri, result.recordedAt, duration,
-        result.sessionId, result.complete, data.recordingGroupId);
+        result.sessionId, result.complete, data.recordingGroupId, result.validation);
     } catch (error) { Logger.warn('RecordingSession', 'History persistence failed: ' + JSON.stringify(error)); }
     return result;
   }

@@ -108,7 +108,7 @@ void Player::StartAudioAfterVideoSeek()
 void Player::StopWorkersForSeek()
 {
     isStarted_ = false;
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
     // 唤醒可能正在等待首个视频帧的音频输出线程。
     audioStartPendingAfterVideoSeek_ = false;
     audioWorkerRunning_ = false;
@@ -375,7 +375,7 @@ int32_t Player::HandleSeekFailure()
     isStarted_ = false;
     paused_ = false;
     renderSingleFrameAfterSeek_ = false;
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
     audioStartPendingAfterVideoSeek_ = false;
     audioStartCond_.notify_all();
     stateMachine_.BeginStop();

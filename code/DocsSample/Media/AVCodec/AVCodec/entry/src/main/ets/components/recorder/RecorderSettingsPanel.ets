@@ -186,6 +186,18 @@ export struct RecorderSettingsPanel {
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.INPUT_MODE),
             available: true })
           if (this.draft.inputMode === 1) {
+            Row() {
+              Text($r('app.string.recorder_buffer_grayscale')).layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draft.bufferGrayscale })
+                .onChange((isOn: boolean): void => { this.draft.bufferGrayscale = isOn; })
+            }.width('100%').height(52)
+            Row() {
+              Text($r('app.string.recorder_buffer_watermark')).layoutWeight(1)
+              Toggle({ type: ToggleType.Switch, isOn: this.draft.bufferWatermark })
+                .onChange((isOn: boolean): void => { this.draft.bufferWatermark = isOn; })
+            }.width('100%').height(52)
+            Text($r('app.string.recorder_buffer_effect_preview')).fontSize(12).fontColor('#667085')
+              .width('100%')
             Text($r('app.string.recorder_buffer_requirements'))
               .fontSize(BUFFER_REQUIREMENTS_FONT_SIZE)
               .fontColor('#667085')
@@ -218,21 +230,26 @@ export struct RecorderSettingsPanel {
             available: true })
           Divider().color('#E5E7EB')
           this.GroupHeader($r('app.string.setting_group_audio'))
+          Row() {
+            Text($r('app.string.recorder_record_audio')).layoutWeight(1)
+            Toggle({ type: ToggleType.Switch, isOn: this.draft.recordAudio })
+              .onChange((isOn: boolean): void => { this.draft.recordAudio = isOn; })
+          }.width('100%').height(52)
           this.OptionRow({ title: $r('app.string.setting_audio_sample_rate'), selectedText: this.audioSampleRateText,
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.AUDIO_SAMPLE_RATE),
-            available: true })
+            available: this.draft.recordAudio })
           Divider().color('#E5E7EB')
           this.OptionRow({ title: $r('app.string.setting_audio_channel_count'), selectedText: this.audioChannelCountText,
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.AUDIO_CHANNEL_COUNT),
-            available: true })
+            available: this.draft.recordAudio })
           Divider().color('#E5E7EB')
           this.OptionRow({ title: $r('app.string.setting_audio_bitrate'), selectedText: this.audioBitrateText,
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.AUDIO_BITRATE),
-            available: true })
+            available: this.draft.recordAudio })
           Divider().color('#E5E7EB')
           this.OptionRow({ title: $r('app.string.setting_audio_capture_latency'), selectedText: this.audioCaptureLatencyText,
             onClick: (): void => this.onChooseOption(RecorderSettingsOption.AUDIO_CAPTURE_LATENCY),
-            available: true })
+            available: this.draft.recordAudio })
           Divider().color('#E5E7EB')
           this.GroupHeader($r('app.string.setting_group_control'))
           Row() {

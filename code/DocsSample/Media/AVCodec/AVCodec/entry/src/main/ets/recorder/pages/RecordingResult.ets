@@ -32,6 +32,10 @@ struct RecordingResult {
     const params = this.getUIContext().getRouter().getParams() as RecordingResultInfo;
     const context = this.getUIContext().getHostContext();
     this.result = params;
+    if (params.validation !== undefined) {
+      this.fileMetadata = RecordingMetadataReader.describe(params.validation);
+      return;
+    }
     if (context === undefined) { return; }
     const metadata: string[] = await Promise.all([
       RecordingMetadataReader.read(params.primaryUri, LocalizedText.get($r('app.string.recorder_primary'))),
@@ -71,6 +75,9 @@ struct RecordingResult {
                   Text(segment.title).fontSize(12).width('100%')
                   Text(segment.complete ? $r('app.string.rec_result_complete') :
                     $r('app.string.rec_result_partial')).fontSize(12)
+                  if (segment.validation !== undefined) {
+                    Text(RecordingMetadataReader.describe(segment.validation)).fontSize(12).width('100%')
+                  }
                   Row({ space: 8 }) {
                     Button($r('app.string.rec_result_primary')).fontSize(12).enabled(segment.uri.length > 0)
                       .onClick((): void => this.play(segment.uri))

@@ -32,6 +32,7 @@
 #include "output/video/renderer/BufferRenderer.h"
 #include "AvSyncController.h"
 #include "PlaybackClock.h"
+#include "VideoFramePacer.h"
 #include "PlaybackDiagnostics.h"
 #include "DumpSession.h"
 #include "SeekController.h"
@@ -197,18 +198,14 @@ private:
     void StartAudioAfterVideoSeek();
     AudioOutputPump CreateAudioOutputPump();
     void FinishAudioOutput(bool stopRenderer);
-    bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
-    bool ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
+    bool WaitForVideoPresentation(int64_t ptsUs, VideoFramePacer &pacer);
+    bool ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
+    bool ProcessVideoWithAudio(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
     bool GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& framePosition, int64_t& timestamp,
         int32_t& result);
-    bool ProcessVideoWithAudioWithoutTimestamp(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
-    bool ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
-    bool ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo,
-        std::chrono::time_point<std::chrono::system_clock>& lastPushTime);
+    bool ProcessVideoWithAudioWithoutTimestamp(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
+    bool ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
+    bool ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo, VideoFramePacer &pacer);
     void InitSyncVideoOutputContext();
     void FinishVideoOutput();
     void CancelWorkerWaits();
@@ -279,6 +276,8 @@ private:
     std::atomic<bool> audioTrackSwitching_ { false };
     std::mutex pauseMutex_;
     std::condition_variable pauseCond_;
+    std::atomic<uint64_t> videoTimingRevision_{0};
+    void NotifyPlaybackTimingChanged();
     std::mutex audioStartMutex_;
     std::condition_variable audioStartCond_;
     bool resumeAfterSeek_ = true;

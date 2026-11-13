@@ -59,9 +59,12 @@ export class RecorderOutputController {
           iFrameInterval: data.iFrameInterval,
           hdrVivid: data.isHDRVivid !== 0,
           synchronous: data.isSync !== 0,
-          bufferInput: data.bufferInput
+          bufferInput: data.bufferInput,
+          grayscale: data.bufferInput && data.bufferGrayscale,
+          watermark: data.bufferInput && data.bufferWatermark
         },
         audio: {
+          enabled: data.recordAudio,
           sampleRate: data.audioSampleRate, channelCount: data.audioChannelCount,
           bitrate: data.audioBitRate, latencyMode: data.audioCaptureLatencyMode
         },

@@ -71,6 +71,13 @@ bool Boolean(napi_env env, napi_value object, const char *key, bool &result)
     return true;
 }
 
+bool OptionalBoolean(napi_env env, napi_value object, const char *key, bool &result)
+{
+    bool present = false;
+    if (napi_has_named_property(env, object, key, &present) != napi_ok) { return false; }
+    return !present || Boolean(env, object, key, result);
+}
+
 bool String(napi_env env, napi_value object, const char *key, std::string &result)
 {
     napi_value item = nullptr;
@@ -111,7 +118,9 @@ bool Video(napi_env env, napi_value object, SampleInfo &info)
         Number(env, object, "bitrateMode", info.video.bitrateMode) &&
         Number(env, object, "iFrameInterval", info.video.iFrameInterval) &&
         Boolean(env, object, "hdrVivid", hdr) && Boolean(env, object, "synchronous", sync) &&
-        Boolean(env, object, "bufferInput", info.video.bufferInput);
+        Boolean(env, object, "bufferInput", info.video.bufferInput) &&
+        OptionalBoolean(env, object, "grayscale", info.video.grayscale) &&
+        OptionalBoolean(env, object, "watermark", info.video.watermark);
     info.video.pixelFormat = pixelFormat == CAMERA_RGBA_FORMAT ? AV_PIXEL_FORMAT_RGBA : AV_PIXEL_FORMAT_NV12;
     info.video.isHDRVivid = hdr ? 1 : 0;
     info.codec.codecSyncMode = sync ? 1 : 0;
@@ -121,7 +130,8 @@ bool Video(napi_env env, napi_value object, SampleInfo &info)
 
 bool Audio(napi_env env, napi_value object, SampleInfo &info)
 {
-    return Number(env, object, "sampleRate", info.audio.audioSampleRate) &&
+    return OptionalBoolean(env, object, "enabled", info.audio.enabled) &&
+        Number(env, object, "sampleRate", info.audio.audioSampleRate) &&
         Number(env, object, "channelCount", info.audio.audioChannelCount) &&
         Number(env, object, "bitrate", info.audio.audioBitRate) &&
         Number(env, object, "latencyMode", info.audio.audioLatencyMode);
@@ -168,6 +178,7 @@ constexpr int32_t FULL_HD_VIDEO_HEIGHT = 1080;
 bool ValidateMediaOptions(const SampleInfo &info)
 {
     const auto &video = info.video;
+    if (!video.bufferInput && (video.grayscale || video.watermark)) { return false; }
     const bool bufferResolution =
         (video.videoWidth == HD_VIDEO_WIDTH && video.videoHeight == HD_VIDEO_HEIGHT) ||
         (video.videoWidth == FULL_HD_VIDEO_WIDTH && video.videoHeight == FULL_HD_VIDEO_HEIGHT);
@@ -177,8 +188,8 @@ bool ValidateMediaOptions(const SampleInfo &info)
         return false;
     }
     return video.videoWidth > 0 && video.videoHeight > 0 && video.frameRate > 0 && video.bitrate > 0 &&
-        info.audio.audioSampleRate > 0 && info.audio.audioChannelCount >= 1 &&
-        info.audio.audioChannelCount <= MAX_AUDIO_CHANNELS && info.audio.audioBitRate > 0 &&
+        (!info.audio.enabled || (info.audio.audioSampleRate > 0 && info.audio.audioChannelCount >= 1 &&
+        info.audio.audioChannelCount <= MAX_AUDIO_CHANNELS && info.audio.audioBitRate > 0)) &&
         (video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_AVC ||
          video.videoCodecMime == OH_AVCODEC_MIMETYPE_VIDEO_HEVC);
 }
