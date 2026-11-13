@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   BODY_WEIGHT, RECENCY_BONUS, SAMPLE_QUERIES, SNIPPET_WIDTH, SearchAudit, SearchDoc, SearchHit,
   TAG_WEIGHT, TITLE_WEIGHT, auditDocs, countOccurrences, highlight, scoreDoc, search, snippetOf,
@@ -39,11 +40,11 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0001', 0, (): void => {
-      expect(tokenize('Hello World').length).assertEqual(2);
-      expect(tokenize('Hello World')[0]).assertEqual('hello');
-      expect(tokenize('a,b;c').join('/')).assertEqual('a/b/c');
-      expect(tokenize('foo-bar').join('/')).assertEqual('foo/bar');
+    it(caseName('SearchIndexDeep', '0001'), 0, (): void => {
+      expect(tokenize('Hello World').length, caseName('SearchIndexDeep', '0001')).assertEqual(2);
+      expect(tokenize('Hello World')[0], caseName('SearchIndexDeep', '0001')).assertEqual('hello');
+      expect(tokenize('a,b;c').join('/'), caseName('SearchIndexDeep', '0001')).assertEqual('a/b/c');
+      expect(tokenize('foo-bar').join('/'), caseName('SearchIndexDeep', '0001')).assertEqual('foo/bar');
     });
 
     /**
@@ -54,13 +55,13 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0002', 0, (): void => {
-      expect(tokenize('便签').join('/')).assertEqual('便/签');
+    it(caseName('SearchIndexDeep', '0002'), 0, (): void => {
+      expect(tokenize('便签').join('/'), caseName('SearchIndexDeep', '0002')).assertEqual('便/签');
       const mixed: string[] = tokenize('note 便签');
-      expect(mixed.length).assertEqual(3);
-      expect(mixed[0]).assertEqual('note');
-      expect(mixed[1]).assertEqual('便');
-      expect(tokenize('').length).assertEqual(0);
+      expect(mixed.length, caseName('SearchIndexDeep', '0002')).assertEqual(3);
+      expect(mixed[0], caseName('SearchIndexDeep', '0002')).assertEqual('note');
+      expect(mixed[1], caseName('SearchIndexDeep', '0002')).assertEqual('便');
+      expect(tokenize('').length, caseName('SearchIndexDeep', '0002')).assertEqual(0);
     });
 
     /**
@@ -71,12 +72,12 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0003', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0003'), 0, (): void => {
       const unique: string[] = uniqueTokens('todo todo 今天 todo 今天');
-      expect(unique.length).assertEqual(3);
-      expect(unique[0]).assertEqual('todo');
-      expect(unique[1]).assertEqual('今');
-      expect(unique[2]).assertEqual('天');
+      expect(unique.length, caseName('SearchIndexDeep', '0003')).assertEqual(3);
+      expect(unique[0], caseName('SearchIndexDeep', '0003')).assertEqual('todo');
+      expect(unique[1], caseName('SearchIndexDeep', '0003')).assertEqual('今');
+      expect(unique[2], caseName('SearchIndexDeep', '0003')).assertEqual('天');
     });
 
     /**
@@ -87,11 +88,11 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0004', 0, (): void => {
-      expect(countOccurrences('Note note NOTE', 'note')).assertEqual(3);
-      expect(countOccurrences('aaaa', 'aa')).assertEqual(2);
-      expect(countOccurrences('abc', 'zzz')).assertEqual(0);
-      expect(countOccurrences('abc', '')).assertEqual(0);
+    it(caseName('SearchIndexDeep', '0004'), 0, (): void => {
+      expect(countOccurrences('Note note NOTE', 'note'), caseName('SearchIndexDeep', '0004')).assertEqual(3);
+      expect(countOccurrences('aaaa', 'aa'), caseName('SearchIndexDeep', '0004')).assertEqual(2);
+      expect(countOccurrences('abc', 'zzz'), caseName('SearchIndexDeep', '0004')).assertEqual(0);
+      expect(countOccurrences('abc', ''), caseName('SearchIndexDeep', '0004')).assertEqual(0);
     });
 
     /**
@@ -102,15 +103,15 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0005', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0005'), 0, (): void => {
       const titleOnly: number = scoreDoc(docOf('a', 'note', ''), ['note'], 0);
       const tagOnly: number = scoreDoc(docOf('b', '', '', ['note']), ['note'], 0);
       const bodyOnly: number = scoreDoc(docOf('c', '', 'note'), ['note'], 0);
-      expect(titleOnly).assertEqual(TITLE_WEIGHT);
-      expect(tagOnly).assertEqual(TAG_WEIGHT);
-      expect(bodyOnly).assertEqual(BODY_WEIGHT);
-      expect(titleOnly > tagOnly).assertTrue();
-      expect(tagOnly > bodyOnly).assertTrue();
+      expect(titleOnly, caseName('SearchIndexDeep', '0005')).assertEqual(TITLE_WEIGHT);
+      expect(tagOnly, caseName('SearchIndexDeep', '0005')).assertEqual(TAG_WEIGHT);
+      expect(bodyOnly, caseName('SearchIndexDeep', '0005')).assertEqual(BODY_WEIGHT);
+      expect(titleOnly > tagOnly, caseName('SearchIndexDeep', '0005')).assertTrue();
+      expect(tagOnly > bodyOnly, caseName('SearchIndexDeep', '0005')).assertTrue();
     });
 
     /**
@@ -121,10 +122,10 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0006', 0, (): void => {
-      expect(scoreDoc(docOf('a', 'note', 'note'), [], 0)).assertEqual(0);
-      expect(scoreDoc(docOf('a', 'note', 'note'), ['absent'], 0)).assertEqual(0);
-      expect(scoreDoc(docOf('a', '', ''), ['note'], 0)).assertEqual(0);
+    it(caseName('SearchIndexDeep', '0006'), 0, (): void => {
+      expect(scoreDoc(docOf('a', 'note', 'note'), [], 0), caseName('SearchIndexDeep', '0006')).assertEqual(0);
+      expect(scoreDoc(docOf('a', 'note', 'note'), ['absent'], 0), caseName('SearchIndexDeep', '0006')).assertEqual(0);
+      expect(scoreDoc(docOf('a', '', ''), ['note'], 0), caseName('SearchIndexDeep', '0006')).assertEqual(0);
     });
 
     /**
@@ -135,14 +136,14 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0007', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0007'), 0, (): void => {
       const now: number = 1700000000000;
       const fresh: number = scoreDoc(docOf('a', 'note', '', [], now - 3600000), ['note'], now);
       const week: number = scoreDoc(docOf('b', 'note', '', [], now - 3 * DAY), ['note'], now);
       const old: number = scoreDoc(docOf('c', 'note', '', [], now - 30 * DAY), ['note'], now);
-      expect(fresh).assertEqual(TITLE_WEIGHT + RECENCY_BONUS);
-      expect(week).assertEqual(TITLE_WEIGHT + 2);
-      expect(old).assertEqual(TITLE_WEIGHT);
+      expect(fresh, caseName('SearchIndexDeep', '0007')).assertEqual(TITLE_WEIGHT + RECENCY_BONUS);
+      expect(week, caseName('SearchIndexDeep', '0007')).assertEqual(TITLE_WEIGHT + 2);
+      expect(old, caseName('SearchIndexDeep', '0007')).assertEqual(TITLE_WEIGHT);
     });
 
     /**
@@ -153,11 +154,11 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0008', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0008'), 0, (): void => {
       const now: number = 1700000000000;
-      expect(scoreDoc(docOf('a', 'note', '', [], 0), ['note'], now)).assertEqual(TITLE_WEIGHT);
-      expect(scoreDoc(docOf('b', 'note', '', [], now), ['note'], 0)).assertEqual(TITLE_WEIGHT);
-      expect(scoreDoc(docOf('c', 'note', '', [], now - 3600000), ['note'], now))
+      expect(scoreDoc(docOf('a', 'note', '', [], 0), ['note'], now), caseName('SearchIndexDeep', '0008')).assertEqual(TITLE_WEIGHT);
+      expect(scoreDoc(docOf('b', 'note', '', [], now), ['note'], 0), caseName('SearchIndexDeep', '0008')).assertEqual(TITLE_WEIGHT);
+      expect(scoreDoc(docOf('c', 'note', '', [], now - 3600000), ['note'], now), caseName('SearchIndexDeep', '0008'))
         .assertEqual(TITLE_WEIGHT + RECENCY_BONUS);
     });
 
@@ -169,13 +170,13 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0009', 0, (): void => {
-      expect(snippetOf('', ['note'])).assertEqual('');
+    it(caseName('SearchIndexDeep', '0009'), 0, (): void => {
+      expect(snippetOf('', ['note']), caseName('SearchIndexDeep', '0009')).assertEqual('');
       const long: string = 'x'.repeat(SNIPPET_WIDTH * 2);
       const plain: string = snippetOf(long, ['absent']);
-      expect(plain.length).assertEqual(SNIPPET_WIDTH + 1);
-      expect(plain.endsWith('…')).assertTrue();
-      expect(snippetOf('  alpha   beta  ', [])).assertEqual('alpha beta');
+      expect(plain.length, caseName('SearchIndexDeep', '0009')).assertEqual(SNIPPET_WIDTH + 1);
+      expect(plain.endsWith('…'), caseName('SearchIndexDeep', '0009')).assertTrue();
+      expect(snippetOf('  alpha   beta  ', []), caseName('SearchIndexDeep', '0009')).assertEqual('alpha beta');
     });
 
     /**
@@ -186,15 +187,15 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0010', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0010'), 0, (): void => {
       const body: string = `${'a'.repeat(60)}needle${'b'.repeat(60)}`;
       const snippet: string = snippetOf(body, ['needle'], 12);
-      expect(snippet.indexOf('needle') >= 0).assertTrue();
-      expect(snippet.startsWith('…')).assertTrue();
-      expect(snippet.endsWith('…')).assertTrue();
+      expect(snippet.indexOf('needle') >= 0, caseName('SearchIndexDeep', '0010')).assertTrue();
+      expect(snippet.startsWith('…'), caseName('SearchIndexDeep', '0010')).assertTrue();
+      expect(snippet.endsWith('…'), caseName('SearchIndexDeep', '0010')).assertTrue();
       const head: string = snippetOf(`needle${'b'.repeat(60)}`, ['needle'], 12);
-      expect(head.startsWith('…')).assertFalse();
-      expect(head.indexOf('needle')).assertEqual(0);
+      expect(head.startsWith('…'), caseName('SearchIndexDeep', '0010')).assertFalse();
+      expect(head.indexOf('needle'), caseName('SearchIndexDeep', '0010')).assertEqual(0);
     });
 
     /**
@@ -205,11 +206,11 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0011', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0011'), 0, (): void => {
       const snippet: string = snippetOf('0123456789abcdefghij', ['absent'], 2);
-      expect(snippet.length).assertEqual(9);
-      expect(snippet.endsWith('…')).assertTrue();
-      expect(snippetOf('abc', [], 2)).assertEqual('abc');
+      expect(snippet.length, caseName('SearchIndexDeep', '0011')).assertEqual(9);
+      expect(snippet.endsWith('…'), caseName('SearchIndexDeep', '0011')).assertTrue();
+      expect(snippetOf('abc', [], 2), caseName('SearchIndexDeep', '0011')).assertEqual('abc');
     });
 
     /**
@@ -220,11 +221,11 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0012', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0012'), 0, (): void => {
       const docs: SearchDoc[] = [docOf('a', 'note', 'body'), docOf('b', 'todo', 'body')];
-      expect(search(docs, '', 0).length).assertEqual(0);
-      expect(search(docs, '   ', 0).length).assertEqual(0);
-      expect(search(docs, ',,,', 0).length).assertEqual(0);
+      expect(search(docs, '', 0).length, caseName('SearchIndexDeep', '0012')).assertEqual(0);
+      expect(search(docs, '   ', 0).length, caseName('SearchIndexDeep', '0012')).assertEqual(0);
+      expect(search(docs, ',,,', 0).length, caseName('SearchIndexDeep', '0012')).assertEqual(0);
     });
 
     /**
@@ -235,7 +236,7 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0013', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0013'), 0, (): void => {
       const docs: SearchDoc[] = [
         docOf('b1', 'note', ''),
         docOf('a1', 'note', ''),
@@ -243,11 +244,11 @@ export default function searchIndexDeepTest(): void {
         docOf('d1', 'todo', 'todo')
       ];
       const hits: SearchHit[] = search(docs, 'note', 0);
-      expect(hits.length).assertEqual(3);
-      expect(hits[0].id).assertEqual('a1');
-      expect(hits[1].id).assertEqual('b1');
-      expect(hits[2].id).assertEqual('c1');
-      expect(hits[0].score > hits[2].score).assertTrue();
+      expect(hits.length, caseName('SearchIndexDeep', '0013')).assertEqual(3);
+      expect(hits[0].id, caseName('SearchIndexDeep', '0013')).assertEqual('a1');
+      expect(hits[1].id, caseName('SearchIndexDeep', '0013')).assertEqual('b1');
+      expect(hits[2].id, caseName('SearchIndexDeep', '0013')).assertEqual('c1');
+      expect(hits[0].score > hits[2].score, caseName('SearchIndexDeep', '0013')).assertTrue();
     });
 
     /**
@@ -258,13 +259,13 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0014', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0014'), 0, (): void => {
       const docs: SearchDoc[] = [
         docOf('a', 'note', ''), docOf('b', 'note', ''), docOf('c', 'note', '')
       ];
-      expect(search(docs, 'note', 0, 2).length).assertEqual(2);
-      expect(search(docs, 'note', 0, 0).length).assertEqual(3);
-      expect(search(docs, 'note', 0, 2)[1].id).assertEqual('b');
+      expect(search(docs, 'note', 0, 2).length, caseName('SearchIndexDeep', '0014')).assertEqual(2);
+      expect(search(docs, 'note', 0, 0).length, caseName('SearchIndexDeep', '0014')).assertEqual(3);
+      expect(search(docs, 'note', 0, 2)[1].id, caseName('SearchIndexDeep', '0014')).assertEqual('b');
     });
 
     /**
@@ -275,14 +276,14 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0015', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0015'), 0, (): void => {
       const docs: SearchDoc[] = [docOf('a', 'note title', `body ${'p'.repeat(80)} note`)];
       const hit: SearchHit = search(docs, 'note', 0)[0];
-      expect(hit.title).assertEqual('note title');
-      expect(hit.score >= TITLE_WEIGHT).assertTrue();
-      expect(hit.text().indexOf('note title') >= 0).assertTrue();
-      expect(hit.text().indexOf('｜') >= 0).assertTrue();
-      expect(hit.snippet.length > 0).assertTrue();
+      expect(hit.title, caseName('SearchIndexDeep', '0015')).assertEqual('note title');
+      expect(hit.score >= TITLE_WEIGHT, caseName('SearchIndexDeep', '0015')).assertTrue();
+      expect(hit.text().indexOf('note title') >= 0, caseName('SearchIndexDeep', '0015')).assertTrue();
+      expect(hit.text().indexOf('｜') >= 0, caseName('SearchIndexDeep', '0015')).assertTrue();
+      expect(hit.snippet.length > 0, caseName('SearchIndexDeep', '0015')).assertTrue();
     });
 
     /**
@@ -293,11 +294,11 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0016', 0, (): void => {
-      expect(highlight('Note note', ['note'])).assertEqual('[Note] [note]');
-      expect(highlight('abc', [])).assertEqual('abc');
-      expect(highlight('', ['abc'])).assertEqual('');
-      expect(highlight('便签检索', ['便'])).assertEqual('[便]签检索');
+    it(caseName('SearchIndexDeep', '0016'), 0, (): void => {
+      expect(highlight('Note note', ['note']), caseName('SearchIndexDeep', '0016')).assertEqual('[Note] [note]');
+      expect(highlight('abc', []), caseName('SearchIndexDeep', '0016')).assertEqual('abc');
+      expect(highlight('', ['abc']), caseName('SearchIndexDeep', '0016')).assertEqual('');
+      expect(highlight('便签检索', ['便']), caseName('SearchIndexDeep', '0016')).assertEqual('[便]签检索');
     });
 
     /**
@@ -308,10 +309,10 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0017', 0, (): void => {
-      expect(tokenSummary('')).assertEqual('没有可检索的词');
-      expect(tokenSummary('todo todo')).assertEqual('1 个词：todo');
-      expect(tokenSummary('便签 note').indexOf('3 个词') >= 0).assertTrue();
+    it(caseName('SearchIndexDeep', '0017'), 0, (): void => {
+      expect(tokenSummary(''), caseName('SearchIndexDeep', '0017')).assertEqual('没有可检索的词');
+      expect(tokenSummary('todo todo'), caseName('SearchIndexDeep', '0017')).assertEqual('1 个词：todo');
+      expect(tokenSummary('便签 note').indexOf('3 个词') >= 0, caseName('SearchIndexDeep', '0017')).assertTrue();
     });
 
     /**
@@ -322,14 +323,14 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0018', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0018'), 0, (): void => {
       const clean: SearchAudit = auditDocs([docOf('a', 'note', ''), docOf('b', 'todo', '')]);
-      expect(clean.ok).assertTrue();
-      expect(clean.summary()).assertEqual('检索数据自洽');
+      expect(clean.ok, caseName('SearchIndexDeep', '0018')).assertTrue();
+      expect(clean.summary(), caseName('SearchIndexDeep', '0018')).assertEqual('检索数据自洽');
       const broken: SearchAudit = auditDocs([docOf('', '', ''), docOf('x', 'note', ''), docOf('x', 'note', '')]);
-      expect(broken.ok).assertFalse();
-      expect(broken.findings.length).assertEqual(3);
-      expect(broken.summary().indexOf('文档 id 重复') >= 0).assertTrue();
+      expect(broken.ok, caseName('SearchIndexDeep', '0018')).assertFalse();
+      expect(broken.findings.length, caseName('SearchIndexDeep', '0018')).assertEqual(3);
+      expect(broken.summary().indexOf('文档 id 重复') >= 0, caseName('SearchIndexDeep', '0018')).assertTrue();
     });
 
     /**
@@ -340,11 +341,11 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0019', 0, (): void => {
-      expect(auditDocs([docOf('a', 'x'.repeat(64), '')]).ok).assertTrue();
+    it(caseName('SearchIndexDeep', '0019'), 0, (): void => {
+      expect(auditDocs([docOf('a', 'x'.repeat(64), '')]).ok, caseName('SearchIndexDeep', '0019')).assertTrue();
       const long: SearchAudit = auditDocs([docOf('a', 'x'.repeat(65), '')]);
-      expect(long.ok).assertFalse();
-      expect(long.findings[0]).assertEqual('标题过长：a');
+      expect(long.ok, caseName('SearchIndexDeep', '0019')).assertFalse();
+      expect(long.findings[0], caseName('SearchIndexDeep', '0019')).assertEqual('标题过长：a');
     });
 
     /**
@@ -355,13 +356,12 @@ export default function searchIndexDeepTest(): void {
      * @tc.type      Function
      * @tc.level     Level 2
      */
-    it('testSearchIndexDeep0020', 0, (): void => {
+    it(caseName('SearchIndexDeep', '0020'), 0, (): void => {
       const doc: SearchDoc = docOf('a', 'title', 'body', ['t1', 't2']);
-      expect(doc.text()).assertEqual('title｜t1/t2｜4 字');
-      expect(SAMPLE_QUERIES.length).assertEqual(5);
-      expect(SAMPLE_QUERIES.indexOf('便签') >= 0).assertTrue();
-      expect(SAMPLE_QUERIES.indexOf('missing')).assertEqual(-1);
+      expect(doc.text(), caseName('SearchIndexDeep', '0020')).assertEqual('title｜t1/t2｜4 字');
+      expect(SAMPLE_QUERIES.length, caseName('SearchIndexDeep', '0020')).assertEqual(5);
+      expect(SAMPLE_QUERIES.indexOf('便签') >= 0, caseName('SearchIndexDeep', '0020')).assertTrue();
+      expect(SAMPLE_QUERIES.indexOf('missing'), caseName('SearchIndexDeep', '0020')).assertEqual(-1);
     });
   });
 }
-

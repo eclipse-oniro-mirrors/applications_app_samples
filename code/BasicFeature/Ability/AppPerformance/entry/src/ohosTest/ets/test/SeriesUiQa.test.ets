@@ -13,18 +13,17 @@
  * limitations under the License.
  */
 
-// 待集中验证：当前仅静态对齐正式组件/SDK，未执行本套件或任何中间门禁。
+import { traceParameter } from '../support/TestLog';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { resolveText } from '../../../main/ets/core/UiText';
-import { afterEach, describe, expect, it } from '@ohos/hypium';
+import { contextMessage } from '../../../main/ets/core/TextMessages';
+import { describe, expect } from '@ohos/hypium';
+import { UiTestSession, uiCase } from '../support/UiTestRuntime';
 import { SERIES_MIN_REPETITIONS, SERIES_MAX_REPETITIONS } from '../../../main/ets/core/ExperimentSeries';
-import { uiTestCase } from '../support/UiTestSupport';
-import { currentSeriesUiQa, finishSeriesUiQa, launchSeriesUiQa, seriesQaClick,
+import { currentSeriesUiQa, launchSeriesUiQa, seriesQaClick,
   seriesQaNode, seriesQaText, seriesQaUntil } from '../support/SeriesUiQaSupport';
 
 export default function seriesUiQaTests(): void {
   describe('SeriesUiQa', (): void => {
-    afterEach(async (): Promise<void> => { await finishSeriesUiQa(); });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0100
@@ -34,14 +33,14 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0001', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('empty');
-      expect(await seriesQaText(driver, 'apSeriesProgress')).assertEqual('尚未开始系列');
-      expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertTrue();
-      expect(await (await seriesQaNode(driver, 'apSeriesStopAfter')).isEnabled()).assertFalse();
-      expect(await (await seriesQaNode(driver, 'apSeriesCopyReport')).isEnabled()).assertFalse();
-      expect(currentSeriesUiQa().platform.resourceCalls).assertEqual(0);
-    }, finishSeriesUiQa));
+    uiCase('testSeriesUiQa0001', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'empty');
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0001 SeriesUiQa.test:39 assertEqual actual', await seriesQaText(driver, 'apSeriesProgress'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0001 SeriesUiQa.test:39 assertEqual expected', '尚未开始系列'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0001 SeriesUiQa.test:40 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled())).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0001 SeriesUiQa.test:41 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesStopAfter')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0001 SeriesUiQa.test:42 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesCopyReport')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0001 SeriesUiQa.test:43 assertEqual actual', currentSeriesUiQa(session).platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0001 SeriesUiQa.test:43 assertEqual expected', 0));
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0200
@@ -51,22 +50,22 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0002', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('empty');
+    uiCase('testSeriesUiQa0002', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'empty');
       await seriesQaClick(driver, 'apSeriesCountMinus');
       await seriesQaClick(driver, 'apSeriesCountMinus');
-      expect(await seriesQaText(driver, 'apSeriesCountValue')).assertEqual(resolveText(abilityDelegatorRegistry.getAbilityDelegator().getAppContext(),
-        $r('app.string.ap_ui_format_8321d92a2b'), [SERIES_MIN_REPETITIONS]));
-      expect(await (await seriesQaNode(driver, 'apSeriesCountMinus')).isEnabled()).assertFalse();
-      expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:58 assertEqual actual', await seriesQaText(driver, 'apSeriesCountValue'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:58 assertEqual expected', contextMessage(abilityDelegatorRegistry.getAbilityDelegator().getAppContext(),
+        'ap_series_repetition_count', [SERIES_MIN_REPETITIONS])));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:60 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesCountMinus')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:61 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled())).assertTrue();
       for (let index: number = 0; index < SERIES_MAX_REPETITIONS - SERIES_MIN_REPETITIONS; index++) {
         await seriesQaClick(driver, 'apSeriesCountPlus');
       }
-      expect(await seriesQaText(driver, 'apSeriesCountValue')).assertEqual(resolveText(abilityDelegatorRegistry.getAbilityDelegator().getAppContext(),
-        $r('app.string.ap_ui_format_8321d92a2b'), [SERIES_MAX_REPETITIONS]));
-      expect(await (await seriesQaNode(driver, 'apSeriesCountPlus')).isEnabled()).assertFalse();
-      expect(currentSeriesUiQa().platform.resourceCalls).assertEqual(0);
-    }, finishSeriesUiQa));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:65 assertEqual actual', await seriesQaText(driver, 'apSeriesCountValue'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:65 assertEqual expected', contextMessage(abilityDelegatorRegistry.getAbilityDelegator().getAppContext(),
+        'ap_series_repetition_count', [SERIES_MAX_REPETITIONS])));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:67 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesCountPlus')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:68 assertEqual actual', currentSeriesUiQa(session).platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0002 SeriesUiQa.test:68 assertEqual expected', 0));
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0300
@@ -76,17 +75,17 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0003', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('pending');
+    uiCase('testSeriesUiQa0003', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'pending');
       await seriesQaClick(driver, 'apSeriesStart');
-      const fixture = currentSeriesUiQa();
-      expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertFalse();
-      expect(await (await seriesQaNode(driver, 'apSeriesCountPlus')).isEnabled()).assertFalse();
-      expect(await (await seriesQaNode(driver, 'apSeriesStopAfter')).isEnabled()).assertTrue();
-      expect(await (await seriesQaNode(driver, 'apSeriesCancelNow')).isEnabled()).assertTrue();
-      expect(fixture.platform.resourceCalls).assertEqual(1);
-      expect(fixture.service.seriesRecords(fixture.ownerId).length).assertEqual(0);
-    }, finishSeriesUiQa));
+      const fixture = currentSeriesUiQa(session);
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0003 SeriesUiQa.test:83 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0003 SeriesUiQa.test:84 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesCountPlus')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0003 SeriesUiQa.test:85 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesStopAfter')).isEnabled())).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0003 SeriesUiQa.test:86 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesCancelNow')).isEnabled())).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0003 SeriesUiQa.test:87 assertEqual actual', fixture.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0003 SeriesUiQa.test:87 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0003 SeriesUiQa.test:88 assertEqual actual', fixture.service.seriesRecords(fixture.ownerId).length)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0003 SeriesUiQa.test:88 assertEqual expected', 0));
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0400
@@ -96,20 +95,20 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0004', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('pending');
+    uiCase('testSeriesUiQa0004', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'pending');
       await seriesQaClick(driver, 'apSeriesStart');
       await seriesQaClick(driver, 'apSeriesStopAfter');
-      expect(await seriesQaText(driver, 'apSeriesPhase')).assertEqual('等待本次完成后停止');
-      expect(await (await seriesQaNode(driver, 'apSeriesStopAfter')).isEnabled()).assertFalse();
-      const fixture = currentSeriesUiQa();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:103 assertEqual actual', await seriesQaText(driver, 'apSeriesPhase'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:103 assertEqual expected', '等待本次完成后停止'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:104 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesStopAfter')).isEnabled())).assertFalse();
+      const fixture = currentSeriesUiQa(session);
       fixture.releaseRead();
-      await fixture.service.whenSeriesFinished(fixture.ownerId);
-      expect(await seriesQaText(driver, 'apSeriesPhase')).assertEqual('已停止');
-      expect(fixture.service.seriesRecords(fixture.ownerId).length).assertEqual(1);
-      expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertTrue();
-      expect((await seriesQaText(driver, 'apSeriesProgress')).indexOf('未执行 2') >= 0).assertTrue();
-    }, finishSeriesUiQa));
+      await session.guard(fixture.service.whenSeriesFinished(fixture.ownerId));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:108 assertEqual actual', await seriesQaText(driver, 'apSeriesPhase'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:108 assertEqual expected', '已停止'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:109 assertEqual actual', fixture.service.seriesRecords(fixture.ownerId).length)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:109 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:110 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled())).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0004 SeriesUiQa.test:111 assertTrue actual', (await seriesQaText(driver, 'apSeriesProgress')).indexOf('未执行 2') >= 0)).assertTrue();
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0500
@@ -119,18 +118,18 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0005', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('complete');
+    uiCase('testSeriesUiQa0005', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'complete');
       await seriesQaClick(driver, 'apSeriesStart');
-      const fixture = currentSeriesUiQa();
-      await fixture.service.whenSeriesFinished(fixture.ownerId);
-      await fixture.service.whenSaved();
-      expect(await seriesQaText(driver, 'apSeriesPhase')).assertEqual('已完成');
-      expect(await seriesQaText(driver, 'apSeriesSaveState')).assertEqual('已保存');
-      expect(await seriesQaText(driver, 'apSeriesReferences')).assertEqual('可用 3 / 3 条，缺失 0 条');
-      expect(fixture.service.seriesRecords(fixture.ownerId).every((record): boolean => record.complete())).assertTrue();
-      expect(await (await seriesQaNode(driver, 'apSeriesCopyReport')).isEnabled()).assertTrue();
-    }, finishSeriesUiQa));
+      const fixture = currentSeriesUiQa(session);
+      await session.guard(fixture.service.whenSeriesFinished(fixture.ownerId));
+      await session.guard(fixture.service.whenSaved());
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0005 SeriesUiQa.test:128 assertEqual actual', await seriesQaText(driver, 'apSeriesPhase'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0005 SeriesUiQa.test:128 assertEqual expected', '已完成'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0005 SeriesUiQa.test:129 assertEqual actual', await seriesQaText(driver, 'apSeriesSaveState'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0005 SeriesUiQa.test:129 assertEqual expected', '已保存'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0005 SeriesUiQa.test:130 assertEqual actual', await seriesQaText(driver, 'apSeriesReferences'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0005 SeriesUiQa.test:130 assertEqual expected', '可用 3 / 3 条，缺失 0 条'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0005 SeriesUiQa.test:131 assertTrue actual', fixture.service.seriesRecords(fixture.ownerId).every((record): boolean => record.complete()))).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0005 SeriesUiQa.test:132 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesCopyReport')).isEnabled())).assertTrue();
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0600
@@ -140,18 +139,18 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0006', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('resourceFailure');
+    uiCase('testSeriesUiQa0006', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'resourceFailure');
       await seriesQaClick(driver, 'apSeriesStart');
-      const fixture = currentSeriesUiQa();
-      await fixture.service.whenSeriesFinished(fixture.ownerId);
-      expect(await seriesQaText(driver, 'apSeriesPhase')).assertEqual('实验失败，已停止');
-      expect(fixture.platform.resourceCalls).assertEqual(1);
-      expect(fixture.service.seriesRecords(fixture.ownerId).filter((record): boolean => record.complete()).length)
-        .assertEqual(0);
-      expect(await (await seriesQaNode(driver, 'apSeriesCancelNow')).isEnabled()).assertFalse();
-      expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertTrue();
-    }, finishSeriesUiQa));
+      const fixture = currentSeriesUiQa(session);
+      await session.guard(fixture.service.whenSeriesFinished(fixture.ownerId));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0006 SeriesUiQa.test:148 assertEqual actual', await seriesQaText(driver, 'apSeriesPhase'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0006 SeriesUiQa.test:148 assertEqual expected', '实验失败，已停止'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0006 SeriesUiQa.test:149 assertEqual actual', fixture.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0006 SeriesUiQa.test:149 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0006 SeriesUiQa.test:150 assertEqual actual', fixture.service.seriesRecords(fixture.ownerId).filter((record): boolean => record.complete()).length))
+        .assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0006 SeriesUiQa.test:150 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0006 SeriesUiQa.test:152 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesCancelNow')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0006 SeriesUiQa.test:153 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled())).assertTrue();
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0700
@@ -162,22 +161,22 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0007', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('pending');
+    uiCase('testSeriesUiQa0007', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'pending');
       await seriesQaClick(driver, 'apSeriesStart');
       await seriesQaClick(driver, 'apSeriesCancelNow');
-      const fixture = currentSeriesUiQa();
-      await fixture.service.whenSeriesFinished(fixture.ownerId);
-      expect(await seriesQaText(driver, 'apSeriesPhase')).assertEqual('已取消');
-      expect(await seriesQaText(driver, 'apSeriesSdkIsolation')).assertEqual('SDK尚未settle，继续隔离；不会自动重发');
-      expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertFalse();
-      expect(fixture.platform.resourceCalls).assertEqual(1);
+      const fixture = currentSeriesUiQa(session);
+      await session.guard(fixture.service.whenSeriesFinished(fixture.ownerId));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:171 assertEqual actual', await seriesQaText(driver, 'apSeriesPhase'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:171 assertEqual expected', '已取消'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:172 assertEqual actual', await seriesQaText(driver, 'apSeriesSdkIsolation'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:172 assertEqual expected', 'SDK尚未settle，继续隔离；不会自动重发'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:173 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:174 assertEqual actual', fixture.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:174 assertEqual expected', 1));
       fixture.releaseRead();
       await seriesQaUntil(fixture, (): boolean => !fixture.service.isExperimentBusy());
-      expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertTrue();
-      expect(fixture.service.seriesRecords(fixture.ownerId).filter((record): boolean => record.complete()).length)
-        .assertEqual(0);
-    }, finishSeriesUiQa));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:177 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled())).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:178 assertEqual actual', fixture.service.seriesRecords(fixture.ownerId).filter((record): boolean => record.complete()).length))
+        .assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0007 SeriesUiQa.test:178 assertEqual expected', 0));
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0800
@@ -188,17 +187,17 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0008', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('saveFailure');
+    uiCase('testSeriesUiQa0008', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'saveFailure');
       await seriesQaClick(driver, 'apSeriesStart');
-      const fixture = currentSeriesUiQa();
-      await fixture.service.whenSeriesFinished(fixture.ownerId);
-      expect(await seriesQaText(driver, 'apSeriesPhase')).assertEqual('保存失败，已停止');
-      expect(await seriesQaText(driver, 'apSeriesSaveState')).assertEqual('保存失败，当前结果仅在内存保留');
-      expect(fixture.platform.resourceCalls).assertEqual(0);
-      expect(await (await seriesQaNode(driver, 'apSeriesCopyReport')).isEnabled()).assertFalse();
-      expect(await (await seriesQaNode(driver, 'apSeriesCancelNow')).isEnabled()).assertFalse();
-    }, finishSeriesUiQa));
+      const fixture = currentSeriesUiQa(session);
+      await session.guard(fixture.service.whenSeriesFinished(fixture.ownerId));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0008 SeriesUiQa.test:196 assertEqual actual', await seriesQaText(driver, 'apSeriesPhase'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0008 SeriesUiQa.test:196 assertEqual expected', '保存失败，已停止'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0008 SeriesUiQa.test:197 assertEqual actual', await seriesQaText(driver, 'apSeriesSaveState'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0008 SeriesUiQa.test:197 assertEqual expected', '保存失败，当前结果仅在内存保留'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0008 SeriesUiQa.test:198 assertEqual actual', fixture.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0008 SeriesUiQa.test:198 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0008 SeriesUiQa.test:199 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesCopyReport')).isEnabled())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0008 SeriesUiQa.test:200 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesCancelNow')).isEnabled())).assertFalse();
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_0900
@@ -209,20 +208,20 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0009', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('conditionChange');
+    uiCase('testSeriesUiQa0009', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'conditionChange');
       await seriesQaClick(driver, 'apSeriesStart');
-      const fixture = currentSeriesUiQa();
+      const fixture = currentSeriesUiQa(session);
       await seriesQaUntil(fixture, (): boolean => fixture.platform.resourceCalls === 3);
       fixture.platform.resource = new Uint8Array([68, 69, 70]);
       fixture.releaseRead();
-      await fixture.service.whenSeriesFinished(fixture.ownerId);
-      expect(await seriesQaText(driver, 'apSeriesPhase')).assertEqual('条件变化，已停止');
-      expect(fixture.service.seriesRecords(fixture.ownerId).length).assertEqual(2);
-      expect((await seriesQaText(driver, 'apSeriesProgress')).indexOf('未执行 1') >= 0).assertTrue();
-      expect(fixture.platform.resourceCalls).assertEqual(4);
-      expect(await (await seriesQaNode(driver, 'apSeriesStopAfter')).isEnabled()).assertFalse();
-    }, finishSeriesUiQa));
+      await session.guard(fixture.service.whenSeriesFinished(fixture.ownerId));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0009 SeriesUiQa.test:220 assertEqual actual', await seriesQaText(driver, 'apSeriesPhase'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0009 SeriesUiQa.test:220 assertEqual expected', '条件变化，已停止'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0009 SeriesUiQa.test:221 assertEqual actual', fixture.service.seriesRecords(fixture.ownerId).length)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0009 SeriesUiQa.test:221 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0009 SeriesUiQa.test:222 assertTrue actual', (await seriesQaText(driver, 'apSeriesProgress')).indexOf('未执行 1') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0009 SeriesUiQa.test:223 assertEqual actual', fixture.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0009 SeriesUiQa.test:223 assertEqual expected', 4));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0009 SeriesUiQa.test:224 assertFalse actual', await (await seriesQaNode(driver, 'apSeriesStopAfter')).isEnabled())).assertFalse();
+    });
 
     /**
      * @tc.number SUB_PERFORMANCE_SERIESUIQA_1000
@@ -233,20 +232,20 @@ export default function seriesUiQaTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testSeriesUiQa0010', 0, uiTestCase(async (): Promise<void> => {
-      const driver = await launchSeriesUiQa('complete');
+    uiCase('testSeriesUiQa0010', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchSeriesUiQa(session, 'complete');
       await seriesQaClick(driver, 'apSeriesStart');
-      const fixture = currentSeriesUiQa();
-      await fixture.service.whenSeriesFinished(fixture.ownerId);
+      const fixture = currentSeriesUiQa(session);
+      await session.guard(fixture.service.whenSeriesFinished(fixture.ownerId));
       const ids = fixture.service.seriesRecords(fixture.ownerId).map((record): string => record.id).join(',');
       await seriesQaClick(driver, 'apSeriesCopyReport');
       await seriesQaUntil(fixture, (): boolean => fixture.service.getState().notice === '已复制本系列分析报告（Markdown）');
-      expect(fixture.platform.copiedTexts.length).assertEqual(1);
-      expect(fixture.platform.copiedTexts[0].indexOf('真实重复实验系列报告') >= 0).assertTrue();
-      expect(fixture.service.seriesRecords(fixture.ownerId).map((record): string => record.id).join(','))
-        .assertEqual(ids);
-      expect(await seriesQaText(driver, 'apSeriesReferences')).assertEqual('可用 3 / 3 条，缺失 0 条');
-      expect(await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled()).assertTrue();
-    }, finishSeriesUiQa));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0010 SeriesUiQa.test:244 assertEqual actual', fixture.platform.copiedTexts.length)).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0010 SeriesUiQa.test:244 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0010 SeriesUiQa.test:245 assertTrue actual', fixture.platform.copiedTexts[0].indexOf('真实重复实验系列报告') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0010 SeriesUiQa.test:246 assertEqual actual', fixture.service.seriesRecords(fixture.ownerId).map((record): string => record.id).join(',')))
+        .assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0010 SeriesUiQa.test:246 assertEqual expected', ids));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0010 SeriesUiQa.test:248 assertEqual actual', await seriesQaText(driver, 'apSeriesReferences'))).assertEqual(traceParameter('com.samples.appperformance_SeriesUiQa_0010 SeriesUiQa.test:248 assertEqual expected', '可用 3 / 3 条，缺失 0 条'));
+      expect(traceParameter('com.samples.appperformance_SeriesUiQa_0010 SeriesUiQa.test:249 assertTrue actual', await (await seriesQaNode(driver, 'apSeriesStart')).isEnabled())).assertTrue();
+    });
   });
 }

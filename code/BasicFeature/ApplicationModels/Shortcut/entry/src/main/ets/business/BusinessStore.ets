@@ -425,13 +425,13 @@ function validRecycleData(value: StoredData, activeIds: string[]): boolean {
 
 /** Decode without writing. Legacy v1 may be read beyond the new write budget, never truncated. */
 export function decodeBusinessDocument(raw: string): StoredData {
-  if (typeof raw !== 'string') { throw new Error("Invalid storage format"); }
+  if (typeof raw !== 'string') { throw new Error('Invalid storage format'); }
   if (raw.length === 0) { return new StoredData(); }
   const parsed: StoredData = JSON.parse(raw) as StoredData;
-  if (!validData(parsed)) { throw new Error("Invalid storage format"); }
+  if (!validData(parsed)) { throw new Error('Invalid storage format'); }
   if (parsed.version === 2 && (raw.length > MAX_WORKSPACE_BYTES ||
     workspaceUtf8Bytes(raw) > MAX_WORKSPACE_BYTES)) {
-    throw new Error("Saved data exceeds the storage budget");
+    throw new Error('Saved data exceeds the storage budget');
   }
   return copyData(parsed);
 }
@@ -714,7 +714,7 @@ export class BusinessStore implements NavigationBusiness {
       return false;
     }
     if (!COLLECTIONS.some((item: CollectionItem): boolean => item.id === id)) {
-      return this.reject(uiText("shortcut_text_0520"));
+      return this.reject(uiText('shortcut_text_0520'));
     }
     const next: StoredData = copyData(this.data);
     const index: number = next.favorites.indexOf(id);
@@ -724,7 +724,7 @@ export class BusinessStore implements NavigationBusiness {
       next.favorites.push(id);
     }
     const added: boolean = index < 0;
-    return this.commit(next, added ? uiText("shortcut_text_0675") : uiText("shortcut_text_0671"), () => {});
+    return this.commit(next, added ? uiText('shortcut_text_0675') : uiText('shortcut_text_0671'), () => {});
   }
 
   historyFor(noteId: string): NoteRevision[] {
@@ -756,13 +756,13 @@ export class BusinessStore implements NavigationBusiness {
       return;
     }
     if (this.dirty) {
-      this.error = uiText("shortcut_text_0447");
+      this.error = uiText('shortcut_text_0447');
       this.notify();
       return;
     }
     const note: NoteItem | undefined = this.data.notes.find((item: NoteItem) => item.id === id);
     if (note === undefined) {
-      this.error = uiText("shortcut_text_0094");
+      this.error = uiText('shortcut_text_0094');
       this.notify();
       return;
     }
@@ -771,7 +771,7 @@ export class BusinessStore implements NavigationBusiness {
     this.draftTitle = note.title;
     this.draftBody = note.body;
     this.dirty = false;
-    this.message = uiText("shortcut_text_0742");
+    this.message = uiText('shortcut_text_0742');
     this.error = '';
     this.notify();
   }
@@ -785,9 +785,9 @@ export class BusinessStore implements NavigationBusiness {
 
   /** 保留编辑草稿：把正在编辑的便签、基线修订和编辑缓冲写入存档，重开后可继续。 */
   async keepEditDraft(): Promise<boolean> {
-    if (this.recoveryRequired) { return this.reject(uiText("shortcut_text_0448")); }
+    if (this.recoveryRequired) { return this.reject(uiText('shortcut_text_0448')); }
     if (this.editingNoteId.length === 0) {
-      return this.reject(uiText("shortcut_text_0207"));
+      return this.reject(uiText('shortcut_text_0207'));
     }
     if (!this.dirty) {
       const original: NoteItem | undefined = this.data.notes.find((item: NoteItem) => item.id === this.editingNoteId);
@@ -795,9 +795,9 @@ export class BusinessStore implements NavigationBusiness {
         this.draftTitle === original.title && this.draftBody === original.body) {
         const next: StoredData = copyData(this.data);
         clearStoredEdit(next);
-        return this.commit(next, uiText("shortcut_text_0395"), () => {});
+        return this.commit(next, uiText('shortcut_text_0395'), () => {});
       }
-      this.message = uiText("shortcut_text_0395");
+      this.message = uiText('shortcut_text_0395');
       this.notify();
       return true;
     }
@@ -806,7 +806,7 @@ export class BusinessStore implements NavigationBusiness {
     next.editBaseRevision = this.editBaseRevision;
     next.editTitle = this.draftTitle;
     next.editBody = this.draftBody;
-    return this.commit(next, uiText("shortcut_text_0078"), () => {
+    return this.commit(next, uiText('shortcut_text_0078'), () => {
       this.dirty = false;
     });
   }
@@ -815,7 +815,7 @@ export class BusinessStore implements NavigationBusiness {
     if (!this.ready || this.busy || this.recoveryRequired) {
       return;
     }
-    void this.discardEditing(uiText("shortcut_text_0669"));
+    void this.discardEditing(uiText('shortcut_text_0669'));
   }
 
   /** Clear durable and in-memory editing together; failed writes keep a retryable editor. */
@@ -849,7 +849,7 @@ export class BusinessStore implements NavigationBusiness {
    * Both paths return false on storage failure so navigation can stay on the page.
    */
   async persistForLeave(): Promise<boolean> {
-    if (this.recoveryRequired) { return this.reject(uiText("shortcut_text_0448")); }
+    if (this.recoveryRequired) { return this.reject(uiText('shortcut_text_0448')); }
     if (!this.dirty) {
       return true;
     }
@@ -865,7 +865,7 @@ export class BusinessStore implements NavigationBusiness {
       return false;
     }
     if (this.editingNoteId.length > 0) {
-      return this.discardEditing(uiText("shortcut_text_0653"));
+      return this.discardEditing(uiText('shortcut_text_0653'));
     }
     return this.discardDraft();
   }
@@ -887,9 +887,9 @@ export class BusinessStore implements NavigationBusiness {
   }
 
   async keepDraft(): Promise<boolean> {
-    if (this.recoveryRequired) { return this.reject(uiText("shortcut_text_0448")); }
+    if (this.recoveryRequired) { return this.reject(uiText('shortcut_text_0448')); }
     if (this.editingNoteId.length > 0) {
-      return this.reject(uiText("shortcut_text_0446"));
+      return this.reject(uiText('shortcut_text_0446'));
     }
     if (!this.dirty) {
       return true;
@@ -897,30 +897,30 @@ export class BusinessStore implements NavigationBusiness {
     const next: StoredData = copyData(this.data);
     next.draftTitle = this.draftTitle;
     next.draftBody = this.draftBody;
-    return this.commit(next, uiText("shortcut_text_0143"), () => {
+    return this.commit(next, uiText('shortcut_text_0143'), () => {
       this.dirty = false;
     });
   }
 
   async discardDraft(): Promise<boolean> {
-    if (this.recoveryRequired) { return this.reject(uiText("shortcut_text_0448")); }
+    if (this.recoveryRequired) { return this.reject(uiText('shortcut_text_0448')); }
     if (!this.ready) {
-      return this.reject(this.loading ? uiText("shortcut_text_0745") : uiText("shortcut_text_0171"));
+      return this.reject(this.loading ? uiText('shortcut_text_0745') : uiText('shortcut_text_0171'));
     }
-    if (this.busy) { return this.reject(uiText("shortcut_text_0741")); }
+    if (this.busy) { return this.reject(uiText('shortcut_text_0741')); }
     // 编辑既有便签时“清空”只改本次编辑缓冲，不得删除另行保留的新便签草稿或已保存正文。
     if (this.editingNoteId.length > 0) {
       this.draftTitle = '';
       this.draftBody = '';
       this.updateDraft();
-      this.message = uiText("shortcut_text_0667");
+      this.message = uiText('shortcut_text_0667');
       this.notify();
       return true;
     }
     const next: StoredData = copyData(this.data);
     next.draftTitle = '';
     next.draftBody = '';
-    return this.commit(next, uiText("shortcut_text_0144"), () => {
+    return this.commit(next, uiText('shortcut_text_0144'), () => {
       this.draftTitle = '';
       this.draftBody = '';
       this.dirty = false;
@@ -928,17 +928,17 @@ export class BusinessStore implements NavigationBusiness {
   }
 
   async saveNote(): Promise<boolean> {
-    if (this.recoveryRequired) { return this.reject(uiText("shortcut_text_0448")); }
+    if (this.recoveryRequired) { return this.reject(uiText('shortcut_text_0448')); }
     const title: string = this.draftTitle.trim();
     const body: string = this.draftBody.trim();
     if (title.length === 0 && body.length === 0) {
-      return this.reject(uiText("shortcut_text_0444"));
+      return this.reject(uiText('shortcut_text_0444'));
     }
     if (this.editingNoteId.length > 0) {
       return this.updateEditingNote(title, body);
     }
     if (this.data.notes.length >= MAX_ACTIVE_NOTES) {
-      return this.reject(uiText("shortcut_text_0092"));
+      return this.reject(uiText('shortcut_text_0092'));
     }
     const next: StoredData = copyData(this.data);
     const createdAt: number = this.now();
@@ -954,7 +954,7 @@ export class BusinessStore implements NavigationBusiness {
     this.pushRevision(next, note, 'create', createdAt);
     next.draftTitle = '';
     next.draftBody = '';
-    return this.commit(next, uiText("shortcut_text_0089"), () => {
+    return this.commit(next, uiText('shortcut_text_0089'), () => {
       this.draftTitle = '';
       this.draftBody = '';
       this.dirty = false;
@@ -966,7 +966,7 @@ export class BusinessStore implements NavigationBusiness {
     const id: string = this.editingNoteId;
     const index: number = this.data.notes.findIndex((item: NoteItem) => item.id === id);
     if (index < 0) {
-      return this.reject(uiText("shortcut_text_0094"));
+      return this.reject(uiText('shortcut_text_0094'));
     }
     const current: NoteItem = this.data.notes[index];
     if (current.title === title && current.body === body) {
@@ -978,10 +978,10 @@ export class BusinessStore implements NavigationBusiness {
       if (this.data.editNoteId === id) {
         const unchanged: StoredData = copyData(this.data);
         clearStoredEdit(unchanged);
-        return this.commit(unchanged, uiText("shortcut_text_0415"), applyUnchanged);
+        return this.commit(unchanged, uiText('shortcut_text_0415'), applyUnchanged);
       }
       applyUnchanged();
-      this.message = uiText("shortcut_text_0415");
+      this.message = uiText('shortcut_text_0415');
       this.notify();
       return true;
     }
@@ -991,7 +991,7 @@ export class BusinessStore implements NavigationBusiness {
     target.title = title.length > 0 ? title : body.split('\n')[0].slice(0, 24);
     target.body = body;
     clearStoredEdit(next);
-    return this.commit(next, uiText("shortcut_text_0090"), () => {
+    return this.commit(next, uiText('shortcut_text_0090'), () => {
       this.draftTitle = next.draftTitle;
       this.draftBody = next.draftBody;
       this.dirty = false;
@@ -1001,31 +1001,31 @@ export class BusinessStore implements NavigationBusiness {
   }
 
   async restoreRevision(noteId: string, revisionId: string): Promise<boolean> {
-    if (this.recoveryRequired) { return this.reject(uiText("shortcut_text_0448")); }
+    if (this.recoveryRequired) { return this.reject(uiText('shortcut_text_0448')); }
     const note: NoteItem | undefined = this.data.notes.find((item: NoteItem) => item.id === noteId);
     if (note === undefined) {
-      return this.reject(uiText("shortcut_text_0094"));
+      return this.reject(uiText('shortcut_text_0094'));
     }
     const revision: NoteRevision | undefined = this.data.noteHistory.find((item: NoteRevision): boolean =>
       item.noteId === noteId && item.revisionId === revisionId);
     if (revision === undefined) {
-      return this.reject(uiText("shortcut_text_0379"));
+      return this.reject(uiText('shortcut_text_0379'));
     }
     if (note.title === revision.title && note.body === revision.body) {
-      this.message = uiText("shortcut_text_0674");
+      this.message = uiText('shortcut_text_0674');
       this.notify();
       return true;
     }
     const next: StoredData = copyData(this.data);
     const target: NoteItem | undefined = next.notes.find((item: NoteItem) => item.id === noteId);
     if (target === undefined) {
-      return this.reject(uiText("shortcut_text_0094"));
+      return this.reject(uiText('shortcut_text_0094'));
     }
     this.pushRevision(next, target, 'restore', this.now());
     target.title = revision.title;
     target.body = revision.body;
     if (next.editNoteId === noteId) { clearStoredEdit(next); }
-    return this.commit(next, uiText("shortcut_text_0662"), () => {
+    return this.commit(next, uiText('shortcut_text_0662'), () => {
       if (this.editingNoteId === noteId) {
         this.draftTitle = revision.title;
         this.draftBody = revision.body;
@@ -1059,26 +1059,26 @@ export class BusinessStore implements NavigationBusiness {
   async moveNoteToTrash(id: string,
     decision: TrashEditDecision = TrashEditDecision.REQUIRE_DECISION): Promise<boolean> {
     if (!this.canWriteBusiness()) { return false; }
-    if (decision === TrashEditDecision.CANCEL) { return this.reject(uiText("shortcut_text_0672")); }
+    if (decision === TrashEditDecision.CANCEL) { return this.reject(uiText('shortcut_text_0672')); }
     const note: NoteItem | undefined = this.data.notes.find((item: NoteItem): boolean => item.id === id);
-    if (note === undefined) { return this.reject(uiText("shortcut_text_0094")); }
-    if (this.data.recycleBin.length >= MAX_RECYCLED_NOTES) { return this.reject(uiText("shortcut_text_0305")); }
-    if (this.data.recycleSequence >= Number.MAX_SAFE_INTEGER) { return this.reject(uiText("shortcut_text_0302")); }
+    if (note === undefined) { return this.reject(uiText('shortcut_text_0094')); }
+    if (this.data.recycleBin.length >= MAX_RECYCLED_NOTES) { return this.reject(uiText('shortcut_text_0305')); }
+    if (this.data.recycleSequence >= Number.MAX_SAFE_INTEGER) { return this.reject(uiText('shortcut_text_0302')); }
     if (decision !== TrashEditDecision.REQUIRE_DECISION && decision !== TrashEditDecision.KEEP_CHANGES &&
-      decision !== TrashEditDecision.DISCARD_CHANGES) { return this.reject(uiText("shortcut_text_0079")); }
+      decision !== TrashEditDecision.DISCARD_CHANGES) { return this.reject(uiText('shortcut_text_0079')); }
     const hasEditing: boolean = this.requiresTrashEditDecision(id);
     if (hasEditing && decision === TrashEditDecision.REQUIRE_DECISION) {
-      return this.reject(uiText("shortcut_text_0450"));
+      return this.reject(uiText('shortcut_text_0450'));
     }
     const deletedAt: number = this.now();
-    if (!Number.isFinite(deletedAt) || deletedAt < 0) { return this.reject(uiText("shortcut_text_0209")); }
+    if (!Number.isFinite(deletedAt) || deletedAt < 0) { return this.reject(uiText('shortcut_text_0209')); }
     const next: StoredData = copyData(this.data);
     const source: NoteItem | undefined = next.notes.find((item: NoteItem): boolean => item.id === id);
-    if (source === undefined) { return this.reject(uiText("shortcut_text_0094")); }
+    if (source === undefined) { return this.reject(uiText('shortcut_text_0094')); }
     if (hasEditing && decision === TrashEditDecision.KEEP_CHANGES) {
       const title: string = (this.editingNoteId === id ? this.draftTitle : next.editTitle).trim();
       const body: string = (this.editingNoteId === id ? this.draftBody : next.editBody).trim();
-      if (title.length === 0 && body.length === 0) { return this.reject(uiText("shortcut_text_0444")); }
+      if (title.length === 0 && body.length === 0) { return this.reject(uiText('shortcut_text_0444')); }
       const resolvedTitle: string = title.length > 0 ? title : body.split('\n')[0].slice(0, 24);
       if (source.title !== resolvedTitle || source.body !== body) {
         this.pushRevision(next, source, 'edit', deletedAt);
@@ -1096,7 +1096,7 @@ export class BusinessStore implements NavigationBusiness {
     next.notes = next.notes.filter((item: NoteItem): boolean => item.id !== id);
     next.noteHistory = next.noteHistory.filter((revision: NoteRevision): boolean => revision.noteId !== id);
     if (next.editNoteId === id) { clearStoredEdit(next); }
-    return this.commit(next, uiText("shortcut_text_0685"), () => {
+    return this.commit(next, uiText('shortcut_text_0685'), () => {
       if (this.editingNoteId === id) {
         this.editingNoteId = '';
         this.editBaseRevision = '';
@@ -1111,12 +1111,12 @@ export class BusinessStore implements NavigationBusiness {
     if (!this.canWriteBusiness()) { return false; }
     const entry: RecycledNote | undefined = this.data.recycleBin.find((item: RecycledNote): boolean =>
       item.trashId === trashId);
-    if (entry === undefined) { return this.reject(uiText("shortcut_text_0297")); }
-    if (!Number.isFinite(this.now())) { return this.reject(uiText("shortcut_text_0209")); }
-    if (isTrashExpired(entry.deletedAt, this.now())) { return this.reject(uiText("shortcut_text_0650")); }
-    if (this.data.notes.length >= MAX_ACTIVE_NOTES) { return this.reject(uiText("shortcut_text_0093")); }
+    if (entry === undefined) { return this.reject(uiText('shortcut_text_0297')); }
+    if (!Number.isFinite(this.now())) { return this.reject(uiText('shortcut_text_0209')); }
+    if (isTrashExpired(entry.deletedAt, this.now())) { return this.reject(uiText('shortcut_text_0650')); }
+    if (this.data.notes.length >= MAX_ACTIVE_NOTES) { return this.reject(uiText('shortcut_text_0093')); }
     if (this.data.notes.some((note: NoteItem): boolean => note.id === entry.note.id)) {
-      return this.reject(uiText("shortcut_text_0084"));
+      return this.reject(uiText('shortcut_text_0084'));
     }
     const next: StoredData = copyData(this.data);
     next.notes.unshift(copyNote(entry.note));
@@ -1124,37 +1124,37 @@ export class BusinessStore implements NavigationBusiness {
       revision.revisionId, revision.noteId, revision.title, revision.body, revision.savedAt, revision.action))
       .concat(next.noteHistory);
     next.recycleBin = next.recycleBin.filter((item: RecycledNote): boolean => item.trashId !== trashId);
-    return this.commit(next, uiText("shortcut_text_0091"), () => {});
+    return this.commit(next, uiText('shortcut_text_0091'), () => {});
   }
 
   async purgeTrashedNote(trashId: string): Promise<boolean> {
     if (!this.canWriteBusiness()) { return false; }
     if (!this.data.recycleBin.some((entry: RecycledNote): boolean => entry.trashId === trashId)) {
-      return this.reject(uiText("shortcut_text_0297"));
+      return this.reject(uiText('shortcut_text_0297'));
     }
     const next: StoredData = copyData(this.data);
     next.recycleBin = next.recycleBin.filter((entry: RecycledNote): boolean => entry.trashId !== trashId);
-    return this.commit(next, uiText("shortcut_text_0687"), () => {});
+    return this.commit(next, uiText('shortcut_text_0687'), () => {});
   }
 
   async purgeExpiredNotes(): Promise<TrashCleanupResult> {
     if (!this.canWriteBusiness()) { return new TrashCleanupResult(false, 0, this.error); }
     const now: number = this.now();
     if (!Number.isFinite(now) || now < 0) {
-      this.reject(uiText("shortcut_text_0209"));
+      this.reject(uiText('shortcut_text_0209'));
       return new TrashCleanupResult(false, 0, this.error);
     }
     const expired: RecycledNote[] = this.data.recycleBin.filter((entry: RecycledNote): boolean =>
       isTrashExpired(entry.deletedAt, now));
     if (expired.length === 0) {
-      this.message = uiText("shortcut_text_0396");
+      this.message = uiText('shortcut_text_0396');
       this.error = '';
       this.notify();
       return new TrashCleanupResult(true, 0, this.message);
     }
     const next: StoredData = copyData(this.data);
     next.recycleBin = next.recycleBin.filter((entry: RecycledNote): boolean => !isTrashExpired(entry.deletedAt, now));
-    const message: string = uiText("shortcut_text_0668", [String(expired.length)]);
+    const message: string = uiText('shortcut_text_0668', [String(expired.length)]);
     const success: boolean = await this.commit(next, message, () => {});
     return new TrashCleanupResult(success, success ? expired.length : 0, success ? message : this.error);
   }
@@ -1164,7 +1164,7 @@ export class BusinessStore implements NavigationBusiness {
     this.recyclePlan = undefined;
     const preview: RecycleBatchPreview = this.buildRecycleBatchPreview(ids, action);
     if (this.recyclePreviewSequence >= Number.MAX_SAFE_INTEGER) {
-      preview.errors.push(uiText("shortcut_text_0710"));
+      preview.errors.push(uiText('shortcut_text_0710'));
       preview.eligible = false;
       this.notify();
       return copyRecycleBatchPreview(preview);
@@ -1186,36 +1186,36 @@ export class BusinessStore implements NavigationBusiness {
     const plan: RecycleBatchPlan | undefined = this.recyclePlan;
     if (plan === undefined || plan.preview.token !== token) { return; }
     this.recyclePlan = undefined;
-    this.message = uiText("shortcut_text_0670");
+    this.message = uiText('shortcut_text_0670');
     this.notify();
   }
 
   async applyRecycleBatch(token: string): Promise<RecycleBatchResult> {
     const plan: RecycleBatchPlan | undefined = this.recyclePlan;
     if (plan === undefined || token.length === 0 || plan.preview.token !== token) {
-      return this.rejectRecycleBatch(token, RecycleBatchAction.RESTORE, uiText("shortcut_text_0711"));
+      return this.rejectRecycleBatch(token, RecycleBatchAction.RESTORE, uiText('shortcut_text_0711'));
     }
     this.recyclePlan = undefined; // Consume before any await, including a rejected attempt.
     if (!this.canWriteBusiness()) { return this.rejectRecycleBatch(token, plan.preview.action, this.error); }
     if (plan.preview.epoch !== this.generation || plan.preview.rootRevision !== this.rootRevision ||
       plan.canonical !== JSON.stringify(this.data)) {
-      return this.rejectRecycleBatch(token, plan.preview.action, uiText("shortcut_text_0531"));
+      return this.rejectRecycleBatch(token, plan.preview.action, uiText('shortcut_text_0531'));
     }
     const fresh: RecycleBatchPreview = this.buildRecycleBatchPreview(plan.ids, plan.preview.action);
     if (!plan.preview.eligible || !fresh.eligible) {
       const reasons: string[] = fresh.errors.length > 0 ? fresh.errors : plan.preview.errors;
-      const message: string = reasons.length > 0 ? reasons.join('；') : uiText("shortcut_text_0545");
+      const message: string = reasons.length > 0 ? reasons.join('；') : uiText('shortcut_text_0545');
       return this.rejectRecycleBatch(token, plan.preview.action, message);
     }
     const next: StoredData | undefined = this.makeRecycleBatchCandidate(plan.ids, plan.preview.action);
-    if (next === undefined) { return this.rejectRecycleBatch(token, plan.preview.action, uiText("shortcut_text_0547")); }
+    if (next === undefined) { return this.rejectRecycleBatch(token, plan.preview.action, uiText('shortcut_text_0547')); }
     const confirmed: RecycleBatchResult = new RecycleBatchResult();
     confirmed.token = token;
     confirmed.action = plan.preview.action;
     confirmed.success = true;
     confirmed.affected = plan.ids.length;
     confirmed.message = plan.preview.action === RecycleBatchAction.RESTORE ?
-      uiText("shortcut_text_0664", [String(plan.ids.length)]) : uiText("shortcut_text_0665", [String(plan.ids.length)]);
+      uiText('shortcut_text_0664', [String(plan.ids.length)]) : uiText('shortcut_text_0665', [String(plan.ids.length)]);
     const generation: number = this.generation;
     const success: boolean = await this.commit(next, confirmed.message, () => {
       this.lastRecycleBatchResult = copyRecycleBatchResult(confirmed);
@@ -1224,7 +1224,7 @@ export class BusinessStore implements NavigationBusiness {
       const stale: RecycleBatchResult = new RecycleBatchResult();
       stale.token = token;
       stale.action = plan.preview.action;
-      stale.message = uiText("shortcut_text_0306");
+      stale.message = uiText('shortcut_text_0306');
       return stale;
     }
     if (success) { return copyRecycleBatchResult(confirmed); }
@@ -1253,47 +1253,47 @@ export class BusinessStore implements NavigationBusiness {
     preview.resultingActiveCount = this.data.notes.length;
     preview.resultingTrashCount = this.data.recycleBin.length;
     preview.resultingHistoryCount = this.workspaceHistoryCount(this.data);
-    if (!this.ready) { preview.errors.push(uiText("shortcut_text_0175")); }
-    if (this.busy) { preview.errors.push(uiText("shortcut_text_0741")); }
-    if (this.recoveryRequired) { preview.errors.push(uiText("shortcut_text_0448")); }
-    if (!Number.isFinite(preview.observedAt) || preview.observedAt < 0) { preview.errors.push(uiText("shortcut_text_0209")); }
-    if (action !== RecycleBatchAction.RESTORE && action !== RecycleBatchAction.PURGE) { preview.errors.push(uiText("shortcut_text_0423")); }
-    if (ids.length === 0 || ids.length > MAX_RECYCLED_NOTES) { preview.errors.push(uiText("shortcut_text_0451")); }
+    if (!this.ready) { preview.errors.push(uiText('shortcut_text_0175')); }
+    if (this.busy) { preview.errors.push(uiText('shortcut_text_0741')); }
+    if (this.recoveryRequired) { preview.errors.push(uiText('shortcut_text_0448')); }
+    if (!Number.isFinite(preview.observedAt) || preview.observedAt < 0) { preview.errors.push(uiText('shortcut_text_0209')); }
+    if (action !== RecycleBatchAction.RESTORE && action !== RecycleBatchAction.PURGE) { preview.errors.push(uiText('shortcut_text_0423')); }
+    if (ids.length === 0 || ids.length > MAX_RECYCLED_NOTES) { preview.errors.push(uiText('shortcut_text_0451')); }
     const seen: string[] = [];
     for (const id of ids) {
       const row: RecycleBatchRow = new RecycleBatchRow();
       row.trashId = id;
-      if (seen.includes(id)) { preview.errors.push(uiText("shortcut_text_0633")); }
+      if (seen.includes(id)) { preview.errors.push(uiText('shortcut_text_0633')); }
       seen.push(id);
       const entry: RecycledNote | undefined = this.data.recycleBin.find((item: RecycledNote): boolean =>
         item.trashId === id);
-      if (entry === undefined) { row.reason = uiText("shortcut_text_0549"); } else {
+      if (entry === undefined) { row.reason = uiText('shortcut_text_0549'); } else {
         row.noteId = entry.note.id;
         row.title = entry.note.title;
         row.deletedAt = entry.deletedAt;
         row.historyCount = entry.history.length;
         if (action === RecycleBatchAction.RESTORE && isTrashExpired(entry.deletedAt, preview.observedAt)) {
-          row.reason = uiText("shortcut_text_0157");
+          row.reason = uiText('shortcut_text_0157');
         } else if (action === RecycleBatchAction.RESTORE &&
           this.data.notes.some((note: NoteItem): boolean => note.id === entry.note.id)) {
-          row.reason = uiText("shortcut_text_0083");
+          row.reason = uiText('shortcut_text_0083');
         } else { row.eligible = true; }
       }
       if (!row.eligible) { preview.errors.push(`${id}：${row.reason}`); }
       preview.rows.push(row);
     }
     if (action === RecycleBatchAction.RESTORE && ids.length > preview.availableSlots) {
-      preview.errors.push(uiText("shortcut_text_0309", [String(ids.length), String(preview.availableSlots)]));
+      preview.errors.push(uiText('shortcut_text_0309', [String(ids.length), String(preview.availableSlots)]));
     }
     if (preview.errors.length === 0) {
       const candidate: StoredData | undefined = this.makeRecycleBatchCandidate(ids, action);
-      if (candidate === undefined) { preview.errors.push(uiText("shortcut_text_0546")); } else {
+      if (candidate === undefined) { preview.errors.push(uiText('shortcut_text_0546')); } else {
         preview.resultingBytes = workspaceUtf8Bytes(JSON.stringify(candidate));
         preview.resultingActiveCount = candidate.notes.length;
         preview.resultingTrashCount = candidate.recycleBin.length;
         preview.resultingHistoryCount = this.workspaceHistoryCount(candidate);
-        if (!validData(candidate)) { preview.errors.push(uiText("shortcut_text_0269")); }
-        if (preview.resultingBytes > MAX_WORKSPACE_BYTES) { preview.errors.push(uiText("shortcut_text_0271")); }
+        if (!validData(candidate)) { preview.errors.push(uiText('shortcut_text_0269')); }
+        if (preview.resultingBytes > MAX_WORKSPACE_BYTES) { preview.errors.push(uiText('shortcut_text_0271')); }
       }
     }
     preview.eligible = preview.errors.length === 0;
@@ -1326,9 +1326,9 @@ export class BusinessStore implements NavigationBusiness {
   }
 
   private canWriteBusiness(): boolean {
-    if (!this.ready) { return this.reject(this.loading ? uiText("shortcut_text_0745") : uiText("shortcut_text_0171")); }
-    if (this.busy) { return this.reject(uiText("shortcut_text_0741")); }
-    if (this.recoveryRequired) { return this.reject(uiText("shortcut_text_0448")); }
+    if (!this.ready) { return this.reject(this.loading ? uiText('shortcut_text_0745') : uiText('shortcut_text_0171')); }
+    if (this.busy) { return this.reject(uiText('shortcut_text_0741')); }
+    if (this.recoveryRequired) { return this.reject(uiText('shortcut_text_0448')); }
     return true;
   }
 
@@ -1340,7 +1340,7 @@ export class BusinessStore implements NavigationBusiness {
     const date: string = localDateKey(this.now());
     const next: StoredData = copyData(this.data);
     ensureDay(next, date);
-    return this.commit(next, uiText("shortcut_text_0200"), () => {
+    return this.commit(next, uiText('shortcut_text_0200'), () => {
       this.todoDate = date;
       this.followToday = true;
     });
@@ -1376,11 +1376,11 @@ export class BusinessStore implements NavigationBusiness {
       return false;
     }
     if (!validDateKey(date) || date > localDateKey(this.now())) {
-      return this.reject(uiText("shortcut_text_0485"));
+      return this.reject(uiText('shortcut_text_0485'));
     }
     this.todoDate = date;
     this.followToday = date === localDateKey(this.now());
-    this.message = this.followToday ? uiText("shortcut_text_0663") : uiText("shortcut_text_0743", [String(date)]);
+    this.message = this.followToday ? uiText('shortcut_text_0663') : uiText('shortcut_text_0743', [String(date)]);
     this.error = '';
     this.notify();
     return true;
@@ -1411,19 +1411,19 @@ export class BusinessStore implements NavigationBusiness {
 
   async setTodoDone(id: string, done: boolean): Promise<boolean> {
     if (!await this.rolloverIfNeeded()) {
-      return this.reject(uiText("shortcut_text_0486"));
+      return this.reject(uiText('shortcut_text_0486'));
     }
     const next: StoredData = copyData(this.data);
     const day: TodoDay | undefined = next.todoDays.find((item: TodoDay) => item.date === this.todoDate);
     const todo: TodoItem | undefined = day?.items.find((item: TodoItem) => item.id === id);
     if (todo === undefined) {
-      return this.reject(uiText("shortcut_text_0198"));
+      return this.reject(uiText('shortcut_text_0198'));
     }
     if (todo.done === done) {
       return true;
     }
     todo.done = done;
-    return this.commit(next, done ? uiText("shortcut_text_0679") : uiText("shortcut_text_0660"), () => {});
+    return this.commit(next, done ? uiText('shortcut_text_0679') : uiText('shortcut_text_0660'), () => {});
   }
 
   setTodoFilter(filter: string): void {
@@ -1457,74 +1457,74 @@ export class BusinessStore implements NavigationBusiness {
   async addTodo(title: string): Promise<boolean> {
     const text: string = title.trim();
     if (text.length === 0) {
-      return this.reject(uiText("shortcut_text_0445"));
+      return this.reject(uiText('shortcut_text_0445'));
     }
     if (text.length > 60) {
-      return this.reject(uiText("shortcut_text_0202"));
+      return this.reject(uiText('shortcut_text_0202'));
     }
     if (!await this.rolloverIfNeeded()) {
-      return this.reject(uiText("shortcut_text_0486"));
+      return this.reject(uiText('shortcut_text_0486'));
     }
     const date: string = this.todoDate;
     const next: StoredData = copyData(this.data);
     const day: TodoDay = this.ensureTodoDay(next, date);
     if (day.items.length >= 20) {
-      return this.reject(uiText("shortcut_text_0212"));
+      return this.reject(uiText('shortcut_text_0212'));
     }
     day.items.push(new TodoItem(this.nextTodoId(next, date), text, false));
-    return this.commit(next, uiText("shortcut_text_0201"), () => {});
+    return this.commit(next, uiText('shortcut_text_0201'), () => {});
   }
 
   async updateTodo(id: string, title: string): Promise<boolean> {
     const text: string = title.trim();
     if (text.length === 0) {
-      return this.reject(uiText("shortcut_text_0445"));
+      return this.reject(uiText('shortcut_text_0445'));
     }
     if (text.length > 60) {
-      return this.reject(uiText("shortcut_text_0202"));
+      return this.reject(uiText('shortcut_text_0202'));
     }
     if (!await this.rolloverIfNeeded()) {
-      return this.reject(uiText("shortcut_text_0486"));
+      return this.reject(uiText('shortcut_text_0486'));
     }
     const next: StoredData = copyData(this.data);
     const day: TodoDay | undefined = next.todoDays.find((item: TodoDay) => item.date === this.todoDate);
     const todo: TodoItem | undefined = day?.items.find((item: TodoItem) => item.id === id);
     if (todo === undefined) {
-      return this.reject(uiText("shortcut_text_0198"));
+      return this.reject(uiText('shortcut_text_0198'));
     }
     if (todo.title === text) {
-      this.message = uiText("shortcut_text_0415");
+      this.message = uiText('shortcut_text_0415');
       this.notify();
       return true;
     }
     todo.title = text;
-    return this.commit(next, uiText("shortcut_text_0197"), () => {});
+    return this.commit(next, uiText('shortcut_text_0197'), () => {});
   }
 
   async deleteTodo(id: string): Promise<boolean> {
     if (!await this.rolloverIfNeeded()) {
-      return this.reject(uiText("shortcut_text_0486"));
+      return this.reject(uiText('shortcut_text_0486'));
     }
     const next: StoredData = copyData(this.data);
     const day: TodoDay | undefined = next.todoDays.find((item: TodoDay) => item.date === this.todoDate);
     const todo: TodoItem | undefined = day?.items.find((item: TodoItem) => item.id === id);
     if (day === undefined || todo === undefined) {
-      return this.reject(uiText("shortcut_text_0198"));
+      return this.reject(uiText('shortcut_text_0198'));
     }
     if (day.items.length <= 1) {
-      return this.reject(uiText("shortcut_text_0758"));
+      return this.reject(uiText('shortcut_text_0758'));
     }
     day.items = day.items.filter((item: TodoItem) => item.id !== id);
-    return this.commit(next, uiText("shortcut_text_0199"), () => {});
+    return this.commit(next, uiText('shortcut_text_0199'), () => {});
   }
 
   async resetToday(): Promise<boolean> {
-    if (!this.ready) { return this.reject(this.loading ? uiText("shortcut_text_0745") : uiText("shortcut_text_0171")); }
-    if (this.busy) { return this.reject(uiText("shortcut_text_0741")); }
+    if (!this.ready) { return this.reject(this.loading ? uiText('shortcut_text_0745') : uiText('shortcut_text_0171')); }
+    if (this.busy) { return this.reject(uiText('shortcut_text_0741')); }
     const next: StoredData = copyData(this.data);
     next.todoDays = next.todoDays.filter((item: TodoDay) => item.date !== this.todoDate);
     next.todoDays.push(new TodoDay(this.todoDate, dailySamples(this.todoDate)));
-    return this.commit(next, uiText("shortcut_text_0661"), () => {});
+    return this.commit(next, uiText('shortcut_text_0661'), () => {});
   }
 
   private async load(context: common.ApplicationContext): Promise<void> {
@@ -1566,7 +1566,7 @@ export class BusinessStore implements NavigationBusiness {
       this.error = '';
     } catch {
       if (generation === this.generation) {
-        this.error = uiText("shortcut_text_0224");
+        this.error = uiText('shortcut_text_0224');
       }
     } finally {
       if (generation === this.generation) {
@@ -1581,9 +1581,9 @@ export class BusinessStore implements NavigationBusiness {
     next.version = 2;
     const raw: string = JSON.stringify(next);
     if (raw.length > MAX_WORKSPACE_BYTES || workspaceUtf8Bytes(raw) > MAX_WORKSPACE_BYTES) {
-      return this.reject(uiText("shortcut_text_0176"));
+      return this.reject(uiText('shortcut_text_0176'));
     }
-    if (!validData(next)) { return this.reject(uiText("shortcut_text_0270")); }
+    if (!validData(next)) { return this.reject(uiText('shortcut_text_0270')); }
     const generation: number = this.generation;
     this.busy = true;
     this.error = '';
@@ -1604,7 +1604,7 @@ export class BusinessStore implements NavigationBusiness {
     } catch (error) {
       if (generation === this.generation) {
         const knownBeforeEffect: boolean = error instanceof BusinessWriteError && !error.uncertain;
-        this.error = knownBeforeEffect ? uiText("shortcut_text_0049") : uiText("shortcut_text_0617");
+        this.error = knownBeforeEffect ? uiText('shortcut_text_0049') : uiText('shortcut_text_0617');
         if (!knownBeforeEffect) {
           this.recoveryRequired = true;
           this.recyclePlan = undefined;
@@ -1648,7 +1648,7 @@ export class BusinessStore implements NavigationBusiness {
         if (apply !== undefined) { apply(); }
         this.clearPendingRecovery();
         this.error = '';
-        this.message = uiText("shortcut_text_0024", [String(message)]);
+        this.message = uiText('shortcut_text_0024', [String(message)]);
         return true;
       }
       if (canonical === this.pendingBefore) {
@@ -1656,17 +1656,17 @@ export class BusinessStore implements NavigationBusiness {
         this.durableCanonical = canonical;
         this.clearPendingRecovery();
         this.error = '';
-        this.message = uiText("shortcut_text_0497");
+        this.message = uiText('shortcut_text_0497');
         if (this.lastRecycleBatchResult.requiresRecovery) {
           this.lastRecycleBatchResult.requiresRecovery = false;
           this.lastRecycleBatchResult.message = this.message;
         }
         return true;
       }
-      this.error = uiText("shortcut_text_0172");
+      this.error = uiText('shortcut_text_0172');
       return false;
     } catch (_) {
-      if (generation === this.generation) { this.error = uiText("shortcut_text_0780"); }
+      if (generation === this.generation) { this.error = uiText('shortcut_text_0780'); }
       return false;
     } finally {
       if (generation === this.generation) { this.busy = false; this.notify(); }

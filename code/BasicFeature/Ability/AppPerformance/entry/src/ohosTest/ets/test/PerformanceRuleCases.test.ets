@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { traceParameter } from '../support/TestLog';
 import { describe, expect } from '@ohos/hypium';
 import { boundedIt as it } from '../support/BoundedCase';
 import {
@@ -68,12 +69,12 @@ export default function performanceRuleCasesTest(): void {
 
     it('testMaintenanceStepCases0001', 0, (): void => {
       const step = requireStep('scan-files');
-      expect(step.kind).assertEqual(StepKind.SCAN);
-      expect(step.dependsOn.length).assertEqual(0);
-      expect(step.weightMs).assertEqual(120);
-      expect(step.critical).assertTrue();
-      expect(step.retryable).assertTrue();
-      expect(stepIndex('scan-files')).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:71 assertEqual actual', step.kind)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:71 assertEqual expected', StepKind.SCAN));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:72 assertEqual actual', step.dependsOn.length)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:72 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:73 assertEqual actual', step.weightMs)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:73 assertEqual expected', 120));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:74 assertTrue actual', step.critical)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:75 assertTrue actual', step.retryable)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:76 assertEqual actual', stepIndex('scan-files'))).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0001 PerformanceRuleCases.test:76 assertEqual expected', 0));
     });
 
     /**
@@ -86,12 +87,12 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testMaintenanceStepCases0002', 0, (): void => {
-      expect(requireStep('scan-cache')?.weightMs).assertEqual(90);
-      expect(requireStep('scan-memory')?.critical).assertFalse();
-      expect(requireStep('scan-memory')?.weightMs).assertEqual(60);
-      expect(stepIndex('scan-cache')).assertEqual(1);
-      expect(stepIndex('scan-memory')).assertEqual(2);
-      expect(stepIndex('scan-memory') < stepIndex('validate-files')).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:89 assertEqual actual', requireStep('scan-cache')?.weightMs)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:89 assertEqual expected', 90));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:90 assertFalse actual', requireStep('scan-memory')?.critical)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:91 assertEqual actual', requireStep('scan-memory')?.weightMs)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:91 assertEqual expected', 60));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:92 assertEqual actual', stepIndex('scan-cache'))).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:92 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:93 assertEqual actual', stepIndex('scan-memory'))).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:93 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0002 PerformanceRuleCases.test:94 assertTrue actual', stepIndex('scan-memory') < stepIndex('validate-files'))).assertTrue();
     });
 
     /**
@@ -106,12 +107,12 @@ export default function performanceRuleCasesTest(): void {
     it('testMaintenanceStepCases0003', 0, (): void => {
       const files = requireStep('validate-files');
       const cache = requireStep('validate-cache');
-      expect(files?.kind).assertEqual(StepKind.VALIDATE);
-      expect(files?.dependsOn[0]).assertEqual('scan-files');
-      expect(cache?.dependsOn[0]).assertEqual('scan-cache');
-      expect(stepIndex('scan-files') < stepIndex('validate-files')).assertTrue();
-      expect(stepIndex('scan-cache') < stepIndex('validate-cache')).assertTrue();
-      expect(stepKindLabel(StepKind.VALIDATE)).assertEqual('校验');
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:109 assertEqual actual', files?.kind)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:109 assertEqual expected', StepKind.VALIDATE));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:110 assertEqual actual', files?.dependsOn[0])).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:110 assertEqual expected', 'scan-files'));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:111 assertEqual actual', cache?.dependsOn[0])).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:111 assertEqual expected', 'scan-cache'));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:112 assertTrue actual', stepIndex('scan-files') < stepIndex('validate-files'))).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:113 assertTrue actual', stepIndex('scan-cache') < stepIndex('validate-cache'))).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:114 assertEqual actual', stepKindLabel(StepKind.VALIDATE))).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0003 PerformanceRuleCases.test:114 assertEqual expected', '校验'));
     });
 
     /**
@@ -125,11 +126,11 @@ export default function performanceRuleCasesTest(): void {
 
     it('testMaintenanceStepCases0004', 0, (): void => {
       const prepare = requireStep('prepare-budget');
-      expect(prepare?.kind).assertEqual(StepKind.PREPARE);
-      expect(prepare?.dependsOn.length).assertEqual(2);
-      expect(prepare?.dependsOn.indexOf('validate-files') >= 0).assertTrue();
-      expect(prepare?.dependsOn.indexOf('validate-cache') >= 0).assertTrue();
-      expect(stepIndex('validate-files') < stepIndex('prepare-budget')).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0004 PerformanceRuleCases.test:128 assertEqual actual', prepare?.kind)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0004 PerformanceRuleCases.test:128 assertEqual expected', StepKind.PREPARE));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0004 PerformanceRuleCases.test:129 assertEqual actual', prepare?.dependsOn.length)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0004 PerformanceRuleCases.test:129 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0004 PerformanceRuleCases.test:130 assertTrue actual', prepare?.dependsOn.indexOf('validate-files') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0004 PerformanceRuleCases.test:131 assertTrue actual', prepare?.dependsOn.indexOf('validate-cache') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0004 PerformanceRuleCases.test:132 assertTrue actual', stepIndex('validate-files') < stepIndex('prepare-budget'))).assertTrue();
     });
 
     /**
@@ -142,12 +143,12 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testMaintenanceStepCases0005', 0, (): void => {
-      expect(requireStep('execute-files')?.weightMs).assertEqual(400);
-      expect(requireStep('execute-cache')?.weightMs).assertEqual(320);
-      expect(requireStep('execute-memory')?.critical).assertFalse();
-      expect(stepIndex('prepare-budget') < stepIndex('execute-files')).assertTrue();
-      expect(stepIndex('prepare-budget') < stepIndex('execute-cache')).assertTrue();
-      expect(stepsOfKind(StepKind.EXECUTE).length).assertEqual(3);
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:145 assertEqual actual', requireStep('execute-files')?.weightMs)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:145 assertEqual expected', 400));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:146 assertEqual actual', requireStep('execute-cache')?.weightMs)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:146 assertEqual expected', 320));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:147 assertFalse actual', requireStep('execute-memory')?.critical)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:148 assertTrue actual', stepIndex('prepare-budget') < stepIndex('execute-files'))).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:149 assertTrue actual', stepIndex('prepare-budget') < stepIndex('execute-cache'))).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:150 assertEqual actual', stepsOfKind(StepKind.EXECUTE).length)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0005 PerformanceRuleCases.test:150 assertEqual expected', 3));
     });
 
     /**
@@ -160,12 +161,12 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testMaintenanceStepCases0006', 0, (): void => {
-      expect(requireStep('verify-files')?.kind).assertEqual(StepKind.VERIFY);
-      expect(requireStep('verify-files')?.dependsOn[0]).assertEqual('execute-files');
-      expect(requireStep('verify-cache')?.dependsOn[0]).assertEqual('execute-cache');
-      expect(requireStep('verify-files')?.retryable).assertTrue();
-      expect(stepIndex('execute-files') < stepIndex('verify-files')).assertTrue();
-      expect(stepIndex('execute-cache') < stepIndex('verify-cache')).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:163 assertEqual actual', requireStep('verify-files')?.kind)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:163 assertEqual expected', StepKind.VERIFY));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:164 assertEqual actual', requireStep('verify-files')?.dependsOn[0])).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:164 assertEqual expected', 'execute-files'));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:165 assertEqual actual', requireStep('verify-cache')?.dependsOn[0])).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:165 assertEqual expected', 'execute-cache'));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:166 assertTrue actual', requireStep('verify-files')?.retryable)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:167 assertTrue actual', stepIndex('execute-files') < stepIndex('verify-files'))).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0006 PerformanceRuleCases.test:168 assertTrue actual', stepIndex('execute-cache') < stepIndex('verify-cache'))).assertTrue();
     });
 
     /**
@@ -179,11 +180,11 @@ export default function performanceRuleCasesTest(): void {
 
     it('testMaintenanceStepCases0007', 0, (): void => {
       const cleanup = requireStep('cleanup-report');
-      expect(cleanup?.kind).assertEqual(StepKind.CLEANUP);
-      expect(cleanup?.critical).assertFalse();
-      expect(cleanup?.weightMs).assertEqual(30);
-      expect(stepIndex('cleanup-report')).assertEqual(11);
-      expect(stepKeys().length).assertEqual(12);
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:182 assertEqual actual', cleanup?.kind)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:182 assertEqual expected', StepKind.CLEANUP));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:183 assertFalse actual', cleanup?.critical)).assertFalse();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:184 assertEqual actual', cleanup?.weightMs)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:184 assertEqual expected', 30));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:185 assertEqual actual', stepIndex('cleanup-report'))).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:185 assertEqual expected', 11));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:186 assertEqual actual', stepKeys().length)).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0007 PerformanceRuleCases.test:186 assertEqual expected', 12));
     });
 
     /**
@@ -199,14 +200,14 @@ export default function performanceRuleCasesTest(): void {
       const sequence: string[] = order();
       STEP_CATALOG.forEach((step): void => {
         const position: number = sequence.indexOf(step.key);
-        expect(position >= 0).assertTrue();
+        expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0008 PerformanceRuleCases.test:202 assertTrue actual', position >= 0)).assertTrue();
         step.dependsOn.forEach((dep: string): void => {
-          expect(sequence.indexOf(dep) < position).assertTrue();
+          expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0008 PerformanceRuleCases.test:204 assertTrue actual', sequence.indexOf(dep) < position)).assertTrue();
         });
       });
-      expect(auditPlan().ok).assertTrue();
-      expect(estimateDuration(sequence)).assertEqual(1550);
-      expect(criticalDuration(sequence)).assertEqual(1200);
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0008 PerformanceRuleCases.test:207 assertTrue actual', auditPlan().ok)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0008 PerformanceRuleCases.test:208 assertEqual actual', estimateDuration(sequence))).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0008 PerformanceRuleCases.test:208 assertEqual expected', 1550));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0008 PerformanceRuleCases.test:209 assertEqual actual', criticalDuration(sequence))).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0008 PerformanceRuleCases.test:209 assertEqual expected', 1200));
     });
 
     /**
@@ -220,19 +221,19 @@ export default function performanceRuleCasesTest(): void {
 
     it('testMaintenanceStepCases0009', 0, (): void => {
       const success = evaluateRun(order(), allSuccess());
-      expect(success.verdict()).assertEqual(PlanVerdict.PASS);
-      expect(success.totalElapsed()).assertEqual(60);
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:223 assertEqual actual', success.verdict())).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:223 assertEqual expected', PlanVerdict.PASS));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:224 assertEqual actual', success.totalElapsed())).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:224 assertEqual expected', 60));
       const partial = evaluateRun(order(), allSuccess().slice(0, 8));
-      expect(partial.verdict()).assertEqual(PlanVerdict.PARTIAL);
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:226 assertEqual actual', partial.verdict())).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:226 assertEqual expected', PlanVerdict.PARTIAL));
       const failedResults: StepOutcome[] = allSuccess();
       const execute = failedResults.find((item): boolean => item.key === 'execute-cache');
       if (execute !== undefined) {
         execute.status = '失败';
       }
       const failed = evaluateRun(order(), failedResults);
-      expect(failed.verdict()).assertEqual(PlanVerdict.FAILED);
-      expect(verdictLabel(failed.verdict())).assertEqual('存在关键失败');
-      expect(evaluateRun([], []).verdict()).assertEqual(PlanVerdict.BLOCKED);
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:233 assertEqual actual', failed.verdict())).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:233 assertEqual expected', PlanVerdict.FAILED));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:234 assertEqual actual', verdictLabel(failed.verdict()))).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:234 assertEqual expected', '存在关键失败'));
+      expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:235 assertEqual actual', evaluateRun([], []).verdict())).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:235 assertEqual expected', PlanVerdict.BLOCKED));
     });
   });
 
@@ -247,12 +248,12 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testLoadTierCases0001', 0, (): void => {
-      expect(classifyLoad(new Workload(0, 0, 0))).assertEqual(LoadTier.IDLE);
-      expect(recommendedBatch(LoadTier.IDLE)).assertEqual(0);
-      expect(recommendedConcurrency(LoadTier.IDLE)).assertEqual(1);
-      expect(recommendedTimeout(LoadTier.IDLE)).assertEqual(500);
-      expect(planBatches(new Workload(0, 0, 0)).batchCount).assertEqual(0);
-      expect(tierLabel(LoadTier.IDLE)).assertEqual('空载');
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:250 assertEqual actual', classifyLoad(new Workload(0, 0, 0)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:250 assertEqual expected', LoadTier.IDLE));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:251 assertEqual actual', recommendedBatch(LoadTier.IDLE))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:251 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:252 assertEqual actual', recommendedConcurrency(LoadTier.IDLE))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:252 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:253 assertEqual actual', recommendedTimeout(LoadTier.IDLE))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:253 assertEqual expected', 500));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:254 assertEqual actual', planBatches(new Workload(0, 0, 0)).batchCount)).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:254 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:255 assertEqual actual', tierLabel(LoadTier.IDLE))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0001 PerformanceRuleCases.test:255 assertEqual expected', '空载'));
     });
 
     /**
@@ -265,12 +266,12 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testLoadTierCases0002', 0, (): void => {
-      expect(classifyLoad(new Workload(1, 1, 1))).assertEqual(LoadTier.LIGHT);
-      expect(classifyLoad(new Workload(50, 1048576, 4))).assertEqual(LoadTier.LIGHT);
-      expect(classifyLoad(new Workload(51, 1048576, 4))).assertEqual(LoadTier.NORMAL);
-      expect(recommendedBatch(LoadTier.LIGHT)).assertEqual(16);
-      expect(recommendedConcurrency(LoadTier.LIGHT)).assertEqual(4);
-      expect(recommendedTimeout(LoadTier.LIGHT)).assertEqual(2000);
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:268 assertEqual actual', classifyLoad(new Workload(1, 1, 1)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:268 assertEqual expected', LoadTier.LIGHT));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:269 assertEqual actual', classifyLoad(new Workload(50, 1048576, 4)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:269 assertEqual expected', LoadTier.LIGHT));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:270 assertEqual actual', classifyLoad(new Workload(51, 1048576, 4)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:270 assertEqual expected', LoadTier.NORMAL));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:271 assertEqual actual', recommendedBatch(LoadTier.LIGHT))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:271 assertEqual expected', 16));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:272 assertEqual actual', recommendedConcurrency(LoadTier.LIGHT))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:272 assertEqual expected', 4));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:273 assertEqual actual', recommendedTimeout(LoadTier.LIGHT))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0002 PerformanceRuleCases.test:273 assertEqual expected', 2000));
     });
 
     /**
@@ -283,12 +284,12 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testLoadTierCases0003', 0, (): void => {
-      expect(classifyLoad(new Workload(500, 33554432, 12))).assertEqual(LoadTier.NORMAL);
-      expect(classifyLoad(new Workload(501, 33554432, 12))).assertEqual(LoadTier.HEAVY);
-      expect(recommendedBatch(LoadTier.NORMAL)).assertEqual(64);
-      expect(recommendedConcurrency(LoadTier.NORMAL)).assertEqual(6);
-      expect(recommendedTimeout(LoadTier.NORMAL)).assertEqual(5000);
-      expect(tierOrder(LoadTier.NORMAL) > tierOrder(LoadTier.LIGHT)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:286 assertEqual actual', classifyLoad(new Workload(500, 33554432, 12)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:286 assertEqual expected', LoadTier.NORMAL));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:287 assertEqual actual', classifyLoad(new Workload(501, 33554432, 12)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:287 assertEqual expected', LoadTier.HEAVY));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:288 assertEqual actual', recommendedBatch(LoadTier.NORMAL))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:288 assertEqual expected', 64));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:289 assertEqual actual', recommendedConcurrency(LoadTier.NORMAL))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:289 assertEqual expected', 6));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:290 assertEqual actual', recommendedTimeout(LoadTier.NORMAL))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:290 assertEqual expected', 5000));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0003 PerformanceRuleCases.test:291 assertTrue actual', tierOrder(LoadTier.NORMAL) > tierOrder(LoadTier.LIGHT))).assertTrue();
     });
 
     /**
@@ -301,11 +302,11 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testLoadTierCases0004', 0, (): void => {
-      expect(classifyLoad(new Workload(5000, 268435456, 32))).assertEqual(LoadTier.HEAVY);
-      expect(classifyLoad(new Workload(5001, 268435456, 32))).assertEqual(LoadTier.EXTREME);
-      expect(recommendedBatch(LoadTier.HEAVY)).assertEqual(128);
-      expect(recommendedConcurrency(LoadTier.HEAVY)).assertEqual(4);
-      expect(recommendedTimeout(LoadTier.HEAVY)).assertEqual(15000);
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:304 assertEqual actual', classifyLoad(new Workload(5000, 268435456, 32)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:304 assertEqual expected', LoadTier.HEAVY));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:305 assertEqual actual', classifyLoad(new Workload(5001, 268435456, 32)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:305 assertEqual expected', LoadTier.EXTREME));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:306 assertEqual actual', recommendedBatch(LoadTier.HEAVY))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:306 assertEqual expected', 128));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:307 assertEqual actual', recommendedConcurrency(LoadTier.HEAVY))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:307 assertEqual expected', 4));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:308 assertEqual actual', recommendedTimeout(LoadTier.HEAVY))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0004 PerformanceRuleCases.test:308 assertEqual expected', 15000));
     });
 
     /**
@@ -318,13 +319,13 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testLoadTierCases0005', 0, (): void => {
-      expect(classifyLoad(new Workload(100000, 1, 1))).assertEqual(LoadTier.EXTREME);
-      expect(recommendedBatch(LoadTier.EXTREME)).assertEqual(256);
-      expect(recommendedConcurrency(LoadTier.EXTREME)).assertEqual(2);
-      expect(recommendedTimeout(LoadTier.EXTREME)).assertEqual(30000);
-      expect(tierLabel(LoadTier.EXTREME)).assertEqual('超重载');
-      expect(auditProfile().ok).assertTrue();
-      expect(TIER_BOUNDS.length).assertEqual(5);
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:321 assertEqual actual', classifyLoad(new Workload(100000, 1, 1)))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:321 assertEqual expected', LoadTier.EXTREME));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:322 assertEqual actual', recommendedBatch(LoadTier.EXTREME))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:322 assertEqual expected', 256));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:323 assertEqual actual', recommendedConcurrency(LoadTier.EXTREME))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:323 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:324 assertEqual actual', recommendedTimeout(LoadTier.EXTREME))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:324 assertEqual expected', 30000));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:325 assertEqual actual', tierLabel(LoadTier.EXTREME))).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:325 assertEqual expected', '超重载'));
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:326 assertTrue actual', auditProfile().ok)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:327 assertEqual actual', TIER_BOUNDS.length)).assertEqual(traceParameter('com.samples.appperformance_LoadTierCases_0005 PerformanceRuleCases.test:327 assertEqual expected', 5));
     });
   });
 
@@ -339,10 +340,10 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testLaunchGroupCases0001', 0, (): void => {
-      expect(groupOf('cold')?.budgetMs).assertEqual(1200);
-      expect(groupLabel('cold')).assertEqual('冷启动');
-      expect(groupKeys()[0]).assertEqual('cold');
-      expect(auditBudgets().ok).assertTrue();
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0001 PerformanceRuleCases.test:342 assertEqual actual', groupOf('cold')?.budgetMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0001 PerformanceRuleCases.test:342 assertEqual expected', 1200));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0001 PerformanceRuleCases.test:343 assertEqual actual', groupLabel('cold'))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0001 PerformanceRuleCases.test:343 assertEqual expected', '冷启动'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0001 PerformanceRuleCases.test:344 assertEqual actual', groupKeys()[0])).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0001 PerformanceRuleCases.test:344 assertEqual expected', 'cold'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0001 PerformanceRuleCases.test:345 assertTrue actual', auditBudgets().ok)).assertTrue();
     });
 
     /**
@@ -355,11 +356,11 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testLaunchGroupCases0002', 0, (): void => {
-      expect(groupOf('warm')?.budgetMs).assertEqual(800);
-      expect(groupOf('hot')?.budgetMs).assertEqual(400);
-      expect(groupLabel('warm')).assertEqual('温启动');
-      expect(groupLabel('hot')).assertEqual('热启动');
-      expect(groupKeys().length).assertEqual(5);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:358 assertEqual actual', groupOf('warm')?.budgetMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:358 assertEqual expected', 800));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:359 assertEqual actual', groupOf('hot')?.budgetMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:359 assertEqual expected', 400));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:360 assertEqual actual', groupLabel('warm'))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:360 assertEqual expected', '温启动'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:361 assertEqual actual', groupLabel('hot'))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:361 assertEqual expected', '热启动'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:362 assertEqual actual', groupKeys().length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0002 PerformanceRuleCases.test:362 assertEqual expected', 5));
     });
 
     /**
@@ -372,11 +373,11 @@ export default function performanceRuleCasesTest(): void {
      */
 
     it('testLaunchGroupCases0003', 0, (): void => {
-      expect(groupOf('firstFrame')?.budgetMs).assertEqual(900);
-      expect(groupOf('interactive')?.budgetMs).assertEqual(1500);
-      expect(groupLabel('firstFrame')).assertEqual('首帧');
-      expect(groupLabel('interactive')).assertEqual('可交互');
-      expect(LAUNCH_GROUPS.length).assertEqual(5);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:375 assertEqual actual', groupOf('firstFrame')?.budgetMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:375 assertEqual expected', 900));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:376 assertEqual actual', groupOf('interactive')?.budgetMs)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:376 assertEqual expected', 1500));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:377 assertEqual actual', groupLabel('firstFrame'))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:377 assertEqual expected', '首帧'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:378 assertEqual actual', groupLabel('interactive'))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:378 assertEqual expected', '可交互'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:379 assertEqual actual', LAUNCH_GROUPS.length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0003 PerformanceRuleCases.test:379 assertEqual expected', 5));
     });
 
     /**
@@ -395,13 +396,13 @@ export default function performanceRuleCasesTest(): void {
         sampleOf('c', 'cold', 3000, 1400)
       ];
       const stats = statsFor(samples, 'cold');
-      expect(stats.count).assertEqual(3);
-      expect(stats.p50).assertEqual(1200);
-      expect(stats.p90).assertEqual(1360);
-      expect(stats.worst).assertEqual(1400);
-      expect(stats.mean).assertEqual(1200);
-      expect(quantileOf([], 50)).assertEqual(0);
-      expect(allStats(samples).length).assertEqual(5);
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:398 assertEqual actual', stats.count)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:398 assertEqual expected', 3));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:399 assertEqual actual', stats.p50)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:399 assertEqual expected', 1200));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:400 assertEqual actual', stats.p90)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:400 assertEqual expected', 1360));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:401 assertEqual actual', stats.worst)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:401 assertEqual expected', 1400));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:402 assertEqual actual', stats.mean)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:402 assertEqual expected', 1200));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:403 assertEqual actual', quantileOf([], 50))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:403 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:404 assertEqual actual', allStats(samples).length)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0004 PerformanceRuleCases.test:404 assertEqual expected', 5));
     });
 
     /**
@@ -421,13 +422,13 @@ export default function performanceRuleCasesTest(): void {
         sampleOf('d', 'hot', 4000, 600)
       ];
       const report = evaluateBudgets(samples);
-      expect(report.measured()).assertEqual(2);
-      expect(report.passed()).assertEqual(1);
-      expect(report.failed()).assertEqual(1);
-      expect(report.passRate()).assertEqual(50);
-      expect(report.failures()[0].key).assertEqual('hot');
-      expect(report.failures()[0].overshoot()).assertEqual(190);
-      expect(regressionLabel(RegressionVerdict.STABLE)).assertEqual('持平');
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:424 assertEqual actual', report.measured())).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:424 assertEqual expected', 2));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:425 assertEqual actual', report.passed())).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:425 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:426 assertEqual actual', report.failed())).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:426 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:427 assertEqual actual', report.passRate())).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:427 assertEqual expected', 50));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:428 assertEqual actual', report.failures()[0].key)).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:428 assertEqual expected', 'hot'));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:429 assertEqual actual', report.failures()[0].overshoot())).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:429 assertEqual expected', 190));
+      expect(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:430 assertEqual actual', regressionLabel(RegressionVerdict.STABLE))).assertEqual(traceParameter('com.samples.appperformance_LaunchGroupCases_0005 PerformanceRuleCases.test:430 assertEqual expected', '持平'));
     });
   });
 }

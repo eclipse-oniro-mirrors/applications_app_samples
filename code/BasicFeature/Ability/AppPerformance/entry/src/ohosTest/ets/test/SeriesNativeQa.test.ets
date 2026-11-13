@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
+import { traceParameter } from '../support/TestLog';
 import { preferences } from '@kit.ArkData';
-import { describe, expect, it } from '@ohos/hypium';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { StoredState } from '../../../main/ets/core/AppService';
 import { NativeStateStore } from '../../../main/ets/core/AppPlatform';
 import { LEDGER_LIMIT, ExperimentRecord } from '../../../main/ets/core/ExperimentLedger';
@@ -39,22 +41,22 @@ export default function seriesNativeQaTests(): void {
       await withSeriesNativeQa(async (f: SeriesNativeQaFixture): Promise<void> => {
         const source: SeriesNativeSession = f.open();
         const start: SeriesStartResult = source.service.startExperimentSeries('W-TEXT', 'control', 2);
-        expect(start.accepted).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:42 assertTrue actual', start.accepted)).assertTrue();
         await source.service.whenSeriesFinished(start.ownerId);
         await source.service.whenSaved();
         const ids: string = requiredNativeSeries(source.service).recordIds.join(',');
         const raw: string = f.raw();
         const reopened: SeriesNativeSession = await f.reopen();
-        expect(requiredNativeSeries(reopened.service).phase).assertEqual(SeriesPhase.COMPLETED);
-        expect(reopened.service.seriesRecords(start.ownerId)
-          .map((record: ExperimentRecord): string => record.id).join(',')).assertEqual(ids);
-        expect(reopened.service.seriesRecords(start.ownerId)
-          .every((record: ExperimentRecord): boolean => record.complete())).assertTrue();
-        expect(reopened.service.seriesRecords(start.ownerId)[0].beforeBytes > 0).assertTrue();
-        expect(reopened.platform.resourceCalls).assertEqual(0);
-        expect(reopened.store.writes).assertEqual(0);
-        expect(f.raw()).assertEqual(raw);
-        expect(reopened.service.isExperimentBusy()).assertFalse();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:48 assertEqual actual', requiredNativeSeries(reopened.service).phase)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:48 assertEqual expected', SeriesPhase.COMPLETED));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:49 assertEqual actual', reopened.service.seriesRecords(start.ownerId)
+          .map((record: ExperimentRecord): string => record.id).join(','))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:49 assertEqual expected', ids));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:51 assertTrue actual', reopened.service.seriesRecords(start.ownerId)
+          .every((record: ExperimentRecord): boolean => record.complete()))).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:53 assertTrue actual', reopened.service.seriesRecords(start.ownerId)[0].beforeBytes > 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:54 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:54 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:55 assertEqual actual', reopened.store.writes)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:55 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:56 assertEqual actual', f.raw())).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:56 assertEqual expected', raw));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0001 SeriesNativeQa.test:57 assertFalse actual', reopened.service.isExperimentBusy())).assertFalse();
       });
     });
 
@@ -83,7 +85,7 @@ export default function seriesNativeQaTests(): void {
             record.id === id && record.workloadId === series.workloadId &&
             record.mode === series.mode && record.stages.length === 6));
         });
-        expect(coherent).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:86 assertTrue actual', coherent)).assertTrue();
         const checkpoint: string | undefined = images.find((raw: string): boolean => {
           const series = seriesNativeDocument(raw).series;
           return series !== undefined && series.recordIds.length === 1 && series.phase === SeriesPhase.RUNNING;
@@ -91,12 +93,12 @@ export default function seriesNativeQaTests(): void {
         if (checkpoint === undefined) { throw new Error('No real flushed one-record checkpoint'); }
         await f.seed(checkpoint);
         const restored: SeriesNativeSession = f.open();
-        expect(requiredNativeSeries(restored.service).phase).assertEqual(SeriesPhase.INTERRUPTED);
-        expect(restored.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(','))
-          .assertEqual(firstRecordId);
-        expect(restored.service.seriesRecords(start.ownerId)[0].complete()).assertTrue();
-        expect(restored.platform.resourceCalls).assertEqual(0);
-        expect(f.raw()).assertEqual(checkpoint);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:94 assertEqual actual', requiredNativeSeries(restored.service).phase)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:94 assertEqual expected', SeriesPhase.INTERRUPTED));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:95 assertEqual actual', restored.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(',')))
+          .assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:95 assertEqual expected', firstRecordId));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:97 assertTrue actual', restored.service.seriesRecords(start.ownerId)[0].complete())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:98 assertEqual actual', restored.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:98 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:99 assertEqual actual', f.raw())).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0002 SeriesNativeQa.test:99 assertEqual expected', checkpoint));
       });
     });
 
@@ -130,13 +132,13 @@ export default function seriesNativeQaTests(): void {
         for (const checkpoint of [plan, inFlight]) {
           await f.seed(checkpoint);
           const restored: SeriesNativeSession = f.open();
-          expect(requiredNativeSeries(restored.service).phase).assertEqual(SeriesPhase.INTERRUPTED);
-          expect(restored.service.ledgerRecords().length).assertEqual(0);
-          expect(restored.platform.resourceCalls).assertEqual(0);
-          expect(restored.platform.fileCalls.length).assertEqual(0);
-          expect(requiredNativeSeries(restored.service).leaseHeld).assertFalse();
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:133 assertEqual actual', requiredNativeSeries(restored.service).phase)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:133 assertEqual expected', SeriesPhase.INTERRUPTED));
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:134 assertEqual actual', restored.service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:134 assertEqual expected', 0));
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:135 assertEqual actual', restored.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:135 assertEqual expected', 0));
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:136 assertEqual actual', restored.platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:136 assertEqual expected', 0));
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:137 assertFalse actual', requiredNativeSeries(restored.service).leaseHeld)).assertFalse();
           await restored.service.whenSaved();
-          expect(f.raw()).assertEqual(checkpoint);
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:139 assertEqual actual', f.raw())).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0003 SeriesNativeQa.test:139 assertEqual expected', checkpoint));
         }
       });
     });
@@ -156,23 +158,23 @@ export default function seriesNativeQaTests(): void {
         const start: SeriesStartResult = source.service.startExperimentSeries('W-TEXT', 'control', 3);
         await source.service.whenSeriesFinished(start.ownerId);
         await source.service.whenSaved();
-        expect(requiredNativeSeries(source.service).phase).assertEqual(SeriesPhase.SAVE_FAILED);
-        expect(source.platform.resourceCalls).assertEqual(2);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:159 assertEqual actual', requiredNativeSeries(source.service).phase)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:159 assertEqual expected', SeriesPhase.SAVE_FAILED));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:160 assertEqual actual', source.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:160 assertEqual expected', 2));
         const firstId: string = source.service.seriesRecords(start.ownerId)[0].id;
         const disk: StoredState = seriesNativeDocument(f.raw());
         if (disk.series === undefined) { throw new Error('Missing actual committed series'); }
-        expect(disk.series.recordIds.join(',')).assertEqual(firstId);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:164 assertEqual actual', disk.series.recordIds.join(','))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:164 assertEqual expected', firstId));
         const reopened: SeriesNativeSession = await f.reopen();
-        expect(requiredNativeSeries(reopened.service).phase).assertEqual(SeriesPhase.INTERRUPTED);
-        expect(reopened.service.seriesRecords(start.ownerId)[0].complete()).assertTrue();
-        expect(reopened.platform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:166 assertEqual actual', requiredNativeSeries(reopened.service).phase)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:166 assertEqual expected', SeriesPhase.INTERRUPTED));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:167 assertTrue actual', reopened.service.seriesRecords(start.ownerId)[0].complete())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:168 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:168 assertEqual expected', 0));
         const explicit: SeriesStartResult = reopened.service.startExperimentSeries('W-TEXT', 'control', 1);
         await reopened.service.whenSeriesFinished(explicit.ownerId);
         const nextId: string = requiredNativeSeries(reopened.service).recordIds[0];
-        expect(reopened.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(','))
-          .assertEqual(`${nextId},${firstId}`);
-        expect(reopened.platform.resourceCalls).assertEqual(2);
-        expect(reopened.service.seriesRecords(explicit.ownerId)[0].complete()).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:172 assertEqual actual', reopened.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(',')))
+          .assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:172 assertEqual expected', `${nextId},${firstId}`));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:174 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:174 assertEqual expected', 2));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0004 SeriesNativeQa.test:175 assertTrue actual', reopened.service.seriesRecords(explicit.ownerId)[0].complete())).assertTrue();
       });
     });
 
@@ -197,20 +199,20 @@ export default function seriesNativeQaTests(): void {
         const broken: string = JSON.stringify(document);
         await f.seed(broken);
         const restored: SeriesNativeSession = f.open();
-        expect(restored.service.seriesState() === undefined).assertTrue();
-        expect(restored.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(','))
-          .assertEqual(priorIds);
-        expect(restored.service.ledgerRecords().every((record: ExperimentRecord): boolean => record.complete()))
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:200 assertTrue actual', restored.service.seriesState() === undefined)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:201 assertEqual actual', restored.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(',')))
+          .assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:201 assertEqual expected', priorIds));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:203 assertTrue actual', restored.service.ledgerRecords().every((record: ExperimentRecord): boolean => record.complete())))
           .assertTrue();
-        expect(f.raw()).assertEqual(broken);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:205 assertEqual actual', f.raw())).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:205 assertEqual expected', broken));
         const next: SeriesStartResult = restored.service.startExperimentSeries('W-TEXT', 'control', 1);
         await restored.service.whenSeriesFinished(next.ownerId);
         const nextId: string = requiredNativeSeries(restored.service).recordIds[0];
         const cold: SeriesNativeSession = await f.reopen();
-        expect(cold.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(','))
-          .assertEqual(`${nextId},${priorIds}`);
-        expect(requiredNativeSeries(cold.service).recordIds.join(',')).assertEqual(nextId);
-        expect(cold.platform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:210 assertEqual actual', cold.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(',')))
+          .assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:210 assertEqual expected', `${nextId},${priorIds}`));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:212 assertEqual actual', requiredNativeSeries(cold.service).recordIds.join(','))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:212 assertEqual expected', nextId));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:213 assertEqual actual', cold.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0005 SeriesNativeQa.test:213 assertEqual expected', 0));
       });
     });
 
@@ -235,13 +237,13 @@ export default function seriesNativeQaTests(): void {
         source.service.clearLedger();
         await source.service.whenSaved();
         const reopened: SeriesNativeSession = await f.reopen();
-        expect(reopened.service.ledgerRecords().length).assertEqual(0);
-        expect(requiredNativeSeries(reopened.service).missingRecordIds.join(',')).assertEqual(priorIds);
-        expect(reopened.service.seriesRecords(start.ownerId).length).assertEqual(0);
-        expect(reopened.service.getState().launches.length).assertEqual(1);
-        expect(reopened.platform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:238 assertEqual actual', reopened.service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:238 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:239 assertEqual actual', requiredNativeSeries(reopened.service).missingRecordIds.join(','))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:239 assertEqual expected', priorIds));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:240 assertEqual actual', reopened.service.seriesRecords(start.ownerId).length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:240 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:241 assertEqual actual', reopened.service.getState().launches.length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:241 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:242 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:242 assertEqual expected', 0));
         const cold: preferences.Preferences = preferences.getPreferencesSync(f.context, { name: f.namespace });
-        expect(cold.getSync('qa-side-key', '')).assertEqual('不属于实验账本');
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:244 assertEqual actual', cold.getSync('qa-side-key', ''))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0006 SeriesNativeQa.test:244 assertEqual expected', '不属于实验账本'));
       });
     });
 
@@ -262,19 +264,19 @@ export default function seriesNativeQaTests(): void {
         const raw: string = left.raw();
         await withSeriesNativeQa(async (right: SeriesNativeQaFixture): Promise<void> => {
           const b: SeriesNativeSession = right.open();
-          expect(b.service.ledgerRecords().length).assertEqual(0);
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:265 assertEqual actual', b.service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:265 assertEqual expected', 0));
           const other: SeriesStartResult = b.service.startExperimentSeries('W-TEXT', 'control', 1);
           await b.service.whenSeriesFinished(other.ownerId);
-          expect(b.service.seriesRecords(other.ownerId)[0].complete()).assertTrue();
-          expect(other.ownerId === start.ownerId).assertFalse();
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:268 assertTrue actual', b.service.seriesRecords(other.ownerId)[0].complete())).assertTrue();
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:269 assertFalse actual', other.ownerId === start.ownerId)).assertFalse();
           b.service.clearLedger();
           await b.service.whenSaved();
-          expect(left.raw()).assertEqual(raw);
+          expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:272 assertEqual actual', left.raw())).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:272 assertEqual expected', raw));
         });
         const reopened: SeriesNativeSession = await left.reopen();
-        expect(reopened.service.seriesRecords(start.ownerId)[0].id).assertEqual(firstId);
-        expect(reopened.service.seriesRecords(start.ownerId)[0].complete()).assertTrue();
-        expect(left.raw()).assertEqual(raw);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:275 assertEqual actual', reopened.service.seriesRecords(start.ownerId)[0].id)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:275 assertEqual expected', firstId));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:276 assertTrue actual', reopened.service.seriesRecords(start.ownerId)[0].complete())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:277 assertEqual actual', left.raw())).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0007 SeriesNativeQa.test:277 assertEqual expected', raw));
       });
     });
 
@@ -303,12 +305,12 @@ export default function seriesNativeQaTests(): void {
         await new NativeStateStore(f.context, f.namespace).write(JSON.stringify(document));
         await preferences.removePreferencesFromCache(f.context, f.namespace);
         const reopened: SeriesNativeSession = f.open();
-        expect(reopened.service.getState().snapFlag).assertEqual('启用');
-        expect(reopened.service.seriesRecords(start.ownerId)[0].id).assertEqual(firstId);
-        expect(reopened.platform.snapCalls.length).assertEqual(0);
-        expect(reopened.platform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:306 assertEqual actual', reopened.service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:306 assertEqual expected', '启用'));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:307 assertEqual actual', reopened.service.seriesRecords(start.ownerId)[0].id)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:307 assertEqual expected', firstId));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:308 assertEqual actual', reopened.platform.snapCalls.length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:308 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:309 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:309 assertEqual expected', 0));
         const cold: preferences.Preferences = preferences.getPreferencesSync(f.context, { name: f.namespace });
-        expect(cold.getSync('qa-private-sentinel', '')).assertEqual('不随state替换');
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:311 assertEqual actual', cold.getSync('qa-private-sentinel', ''))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:311 assertEqual expected', '不随state替换'));
       });
     });
 
@@ -329,14 +331,14 @@ export default function seriesNativeQaTests(): void {
         const malformed: string = good.substring(0, good.length - 2);
         await f.seed(malformed);
         const rejected: SeriesNativeSession = f.open();
-        expect(rejected.service.getState().storageMessage).assertEqual('存储读取失败');
-        expect(rejected.store.writes).assertEqual(0);
-        expect(f.raw()).assertEqual(malformed);
-        expect(rejected.platform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:332 assertEqual actual', rejected.service.getState().storageMessage)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:332 assertEqual expected', '存储读取失败'));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:333 assertEqual actual', rejected.store.writes)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:333 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:334 assertEqual actual', f.raw())).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:334 assertEqual expected', malformed));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:335 assertEqual actual', rejected.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:335 assertEqual expected', 0));
         await f.seed(good);
         const repaired: SeriesNativeSession = f.open();
-        expect(repaired.service.seriesRecords(start.ownerId)[0].complete()).assertTrue();
-        expect(requiredNativeSeries(repaired.service).phase).assertEqual(SeriesPhase.COMPLETED);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:338 assertTrue actual', repaired.service.seriesRecords(start.ownerId)[0].complete())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:339 assertEqual actual', requiredNativeSeries(repaired.service).phase)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0009 SeriesNativeQa.test:339 assertEqual expected', SeriesPhase.COMPLETED));
       });
     });
 
@@ -361,15 +363,15 @@ export default function seriesNativeQaTests(): void {
         const start: SeriesStartResult = source.service.startExperimentSeries('W-TEXT', 'control', 3);
         await source.service.whenSeriesFinished(start.ownerId);
         await source.service.whenSaved();
-        expect(accepted[0]).assertTrue();
-        expect(source.platform.resourceCalls).assertEqual(2);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:364 assertTrue actual', accepted[0])).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:365 assertEqual actual', source.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:365 assertEqual expected', 2));
         const firstId: string = source.service.seriesRecords(start.ownerId)[0].id;
         const reopened: SeriesNativeSession = await f.reopen();
-        expect(requiredNativeSeries(reopened.service).phase).assertEqual(SeriesPhase.STOPPED);
-        expect(reopened.service.seriesRecords(start.ownerId)
-          .map((record: ExperimentRecord): string => record.id).join(',')).assertEqual(firstId);
-        expect(reopened.platform.resourceCalls).assertEqual(0);
-        expect(requiredNativeSeries(reopened.service).stopRequested).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:368 assertEqual actual', requiredNativeSeries(reopened.service).phase)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:368 assertEqual expected', SeriesPhase.STOPPED));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:369 assertEqual actual', reopened.service.seriesRecords(start.ownerId)
+          .map((record: ExperimentRecord): string => record.id).join(','))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:369 assertEqual expected', firstId));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:371 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:371 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0010 SeriesNativeQa.test:372 assertTrue actual', requiredNativeSeries(reopened.service).stopRequested)).assertTrue();
       });
     });
 
@@ -394,14 +396,14 @@ export default function seriesNativeQaTests(): void {
         const start: SeriesStartResult = source.service.startExperimentSeries('W-TEXT', 'control', 3);
         await source.service.whenSeriesFinished(start.ownerId);
         await source.service.whenSaved();
-        expect(cancelled[0]).assertTrue();
-        expect(source.platform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:397 assertTrue actual', cancelled[0])).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:398 assertEqual actual', source.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:398 assertEqual expected', 0));
         const reopened: SeriesNativeSession = await f.reopen();
-        expect(requiredNativeSeries(reopened.service).phase).assertEqual(SeriesPhase.CANCELLED);
-        expect(reopened.service.ledgerRecords().length).assertEqual(0);
-        expect(reopened.service.isExperimentBusy()).assertFalse();
-        expect(requiredNativeSeries(reopened.service).startedCount).assertEqual(0);
-        expect(reopened.store.writes).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:400 assertEqual actual', requiredNativeSeries(reopened.service).phase)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:400 assertEqual expected', SeriesPhase.CANCELLED));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:401 assertEqual actual', reopened.service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:401 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:402 assertFalse actual', reopened.service.isExperimentBusy())).assertFalse();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:403 assertEqual actual', requiredNativeSeries(reopened.service).startedCount)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:403 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:404 assertEqual actual', reopened.store.writes)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0011 SeriesNativeQa.test:404 assertEqual expected', 0));
       });
     });
 
@@ -423,16 +425,16 @@ export default function seriesNativeQaTests(): void {
         const next: SeriesNativeSession = await f.reopen();
         const current: SeriesStartResult = next.service.startExperimentSeries('W-TEXT', 'control', 1);
         await next.service.whenSeriesFinished(current.ownerId);
-        expect(current.ownerId === prior.ownerId).assertFalse();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:426 assertFalse actual', current.ownerId === prior.ownerId)).assertFalse();
         const currentId: string = requiredNativeSeries(next.service).recordIds[0];
         const reopened: SeriesNativeSession = await f.reopen();
-        expect(requiredNativeSeries(reopened.service).recordIds.join(',')).assertEqual(currentId);
-        expect(requiredNativeSeries(reopened.service).baselineRecordId).assertEqual(currentId);
-        expect(reopened.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(','))
-          .assertEqual(`${currentId},${priorIds}`);
-        expect(reopened.service.seriesRecords(prior.ownerId).length).assertEqual(0);
-        expect(reopened.service.seriesRecords(current.ownerId)[0].complete()).assertTrue();
-        expect(reopened.platform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:429 assertEqual actual', requiredNativeSeries(reopened.service).recordIds.join(','))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:429 assertEqual expected', currentId));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:430 assertEqual actual', requiredNativeSeries(reopened.service).baselineRecordId)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:430 assertEqual expected', currentId));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:431 assertEqual actual', reopened.service.ledgerRecords().map((record: ExperimentRecord): string => record.id).join(',')))
+          .assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:431 assertEqual expected', `${currentId},${priorIds}`));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:433 assertEqual actual', reopened.service.seriesRecords(prior.ownerId).length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:433 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:434 assertTrue actual', reopened.service.seriesRecords(current.ownerId)[0].complete())).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:435 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0012 SeriesNativeQa.test:435 assertEqual expected', 0));
       });
     });
 
@@ -465,16 +467,16 @@ export default function seriesNativeQaTests(): void {
           remaining -= repetitions;
         }
         await source.service.whenSaved();
-        expect(source.platform.resourceCalls).assertEqual((LEDGER_LIMIT + 1) * 2);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:468 assertEqual actual', source.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:468 assertEqual expected', (LEDGER_LIMIT + 1) * 2));
         const reopened: SeriesNativeSession = await f.reopen();
         const records: ExperimentRecord[] = reopened.service.ledgerRecords();
-        expect(records.length).assertEqual(LEDGER_LIMIT);
-        expect(records[0].id).assertEqual(actualIds[actualIds.length - 1]);
-        expect(records[records.length - 1].id).assertEqual(actualIds[1]);
-        expect(records.some((record: ExperimentRecord): boolean => record.id === actualIds[0])).assertFalse();
-        expect(requiredNativeSeries(reopened.service).recordIds.join(',')).assertEqual(lastSeriesIds);
-        expect(records.every((record: ExperimentRecord): boolean => record.complete())).assertTrue();
-        expect(reopened.platform.resourceCalls).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:471 assertEqual actual', records.length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:471 assertEqual expected', LEDGER_LIMIT));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:472 assertEqual actual', records[0].id)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:472 assertEqual expected', actualIds[actualIds.length - 1]));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:473 assertEqual actual', records[records.length - 1].id)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:473 assertEqual expected', actualIds[1]));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:474 assertFalse actual', records.some((record: ExperimentRecord): boolean => record.id === actualIds[0]))).assertFalse();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:475 assertEqual actual', requiredNativeSeries(reopened.service).recordIds.join(','))).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:475 assertEqual expected', lastSeriesIds));
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:476 assertTrue actual', records.every((record: ExperimentRecord): boolean => record.complete()))).assertTrue();
+        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:477 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0013 SeriesNativeQa.test:477 assertEqual expected', 0));
       });
     });
   });

@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   ParamKind, ROUTE_TABLE, RouteEntry, RoutePage, RouteParam, RouteRequest, RouteResolution,
   pageOf, resolveRoute, routeIds, routeOf
@@ -55,15 +56,15 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0001', 0, (): void => {
-      expect(ROUTE_TABLE.length > 0).assertTrue();
-      expect(ROUTE_TABLE[0].routeId.length > 0).assertTrue();
-      expect(ROUTE_TABLE.every((entry: RouteEntry): boolean => entry.routeId.length > 0)).assertTrue();
+    it(caseName('EntryRouteMatrixCases', '0001'), 0, (): void => {
+      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0001')).assertTrue();
+      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0001')).assertTrue();
+      expect(ROUTE_TABLE.every((entry: RouteEntry): boolean => entry.routeId.length > 0), caseName('EntryRouteMatrixCases', '0001')).assertTrue();
       const ids: string[] = routeIds();
-      expect(ids.length).assertEqual(ROUTE_TABLE.length);
-      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length)
+      expect(ids.length, caseName('EntryRouteMatrixCases', '0001')).assertEqual(ROUTE_TABLE.length);
+      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length, caseName('EntryRouteMatrixCases', '0001'))
         .assertEqual(0);
-      expect(ids.every((id: string): boolean => id.length > 0)).assertTrue();
+      expect(ids.every((id: string): boolean => id.length > 0), caseName('EntryRouteMatrixCases', '0001')).assertTrue();
     });
 
     /**
@@ -75,7 +76,7 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0002', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0002'), 0, (): void => {
       let found: number = 0;
       routeIds().forEach((id: string): void => {
         const entry = routeOf(id);
@@ -83,10 +84,10 @@ export default function routeTodoMatrixCasesTest(): void {
           found++;
         }
       });
-      expect(found).assertEqual(ROUTE_TABLE.length);
-      expect(routeOf('no-such-route') === undefined).assertTrue();
-      expect(routeIds().length).assertEqual(ROUTE_TABLE.length);
-      expect(routeOf(routeIds()[0]) === undefined).assertFalse();
+      expect(found, caseName('EntryRouteMatrixCases', '0002')).assertEqual(ROUTE_TABLE.length);
+      expect(routeOf('no-such-route') === undefined, caseName('EntryRouteMatrixCases', '0002')).assertTrue();
+      expect(routeIds().length, caseName('EntryRouteMatrixCases', '0002')).assertEqual(ROUTE_TABLE.length);
+      expect(routeOf(routeIds()[0]) === undefined, caseName('EntryRouteMatrixCases', '0002')).assertFalse();
     });
 
     /**
@@ -98,14 +99,14 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0003', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0003'), 0, (): void => {
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
         const page: RoutePage = pageOf(entry.routeId);
-        expect(page === undefined).assertFalse();
-        expect(entry.page !== undefined).assertTrue();
+        expect(page === undefined, caseName('EntryRouteMatrixCases', '0003')).assertFalse();
+        expect(entry.page !== undefined, caseName('EntryRouteMatrixCases', '0003')).assertTrue();
       });
-      expect(ROUTE_TABLE.length > 0).assertTrue();
-      expect(ROUTE_TABLE[0].routeId.length > 0).assertTrue();
+      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0003')).assertTrue();
+      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0003')).assertTrue();
     });
 
     /**
@@ -117,11 +118,11 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0004', 0, (): void => {
-      expect(routeOf('') === undefined).assertTrue();
-      expect(routeOf('no-such-route') === undefined).assertTrue();
-      expect(pageOf('no-such-route') !== undefined).assertTrue();
-      expect(routeIds().indexOf('no-such-route') < 0).assertTrue();
+    it(caseName('EntryRouteMatrixCases', '0004'), 0, (): void => {
+      expect(routeOf('') === undefined, caseName('EntryRouteMatrixCases', '0004')).assertTrue();
+      expect(routeOf('no-such-route') === undefined, caseName('EntryRouteMatrixCases', '0004')).assertTrue();
+      expect(pageOf('no-such-route') !== undefined, caseName('EntryRouteMatrixCases', '0004')).assertTrue();
+      expect(routeIds().indexOf('no-such-route') < 0, caseName('EntryRouteMatrixCases', '0004')).assertTrue();
     });
 
     /**
@@ -133,14 +134,14 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0005', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0005'), 0, (): void => {
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
         const names: string[] = entry.params.map((param: RouteParam): string => param.name);
         expect(names.filter((name: string, index: number): boolean =>
-          names.indexOf(name) !== index).length).assertEqual(0);
+          names.indexOf(name) !== index).length, caseName('EntryRouteMatrixCases', '0005')).assertEqual(0);
       });
-      expect(ROUTE_TABLE.length > 0).assertTrue();
-      expect(ROUTE_TABLE[0].routeId.length > 0).assertTrue();
+      expect(ROUTE_TABLE.length > 0, caseName('EntryRouteMatrixCases', '0005')).assertTrue();
+      expect(ROUTE_TABLE[0].routeId.length > 0, caseName('EntryRouteMatrixCases', '0005')).assertTrue();
     });
 
     /**
@@ -152,14 +153,14 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0006', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0006'), 0, (): void => {
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
         requiredParams(entry).forEach((param: RouteParam): void => {
-          expect(param.required).assertTrue();
-          expect(param.name.length > 0).assertTrue();
+          expect(param.required, caseName('EntryRouteMatrixCases', '0006')).assertTrue();
+          expect(param.name.length > 0, caseName('EntryRouteMatrixCases', '0006')).assertTrue();
         });
       });
-      expect(ROUTE_TABLE.some((entry: RouteEntry): boolean => requiredParams(entry).length > 0))
+      expect(ROUTE_TABLE.some((entry: RouteEntry): boolean => requiredParams(entry).length > 0), caseName('EntryRouteMatrixCases', '0006'))
         .assertTrue();
     });
 
@@ -172,7 +173,7 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0007', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0007'), 0, (): void => {
       let resolved: number = 0;
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
         const result: RouteResolution = resolveRoute(requestFor(entry.routeId, true));
@@ -180,9 +181,9 @@ export default function routeTodoMatrixCasesTest(): void {
           resolved++;
         }
       });
-      expect(resolved).assertEqual(ROUTE_TABLE.length);
-      expect(resolved > 0).assertTrue();
-      expect(resolveRoute(requestFor(ROUTE_TABLE[0].routeId, true)).ok).assertTrue();
+      expect(resolved, caseName('EntryRouteMatrixCases', '0007')).assertEqual(ROUTE_TABLE.length);
+      expect(resolved > 0, caseName('EntryRouteMatrixCases', '0007')).assertTrue();
+      expect(resolveRoute(requestFor(ROUTE_TABLE[0].routeId, true)).ok, caseName('EntryRouteMatrixCases', '0007')).assertTrue();
     });
 
     /**
@@ -194,16 +195,16 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0008', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0008'), 0, (): void => {
       const request: RouteRequest = new RouteRequest();
       request.routeId = 'no-such-route';
       request.loggedIn = true;
       request.at = 1000;
       const result: RouteResolution = resolveRoute(request);
-      expect(result.ok).assertFalse();
-      expect(result.issues.length > 0).assertTrue();
-      expect(request.loggedIn).assertTrue();
-      expect(result.issues[0].length > 0).assertTrue();
+      expect(result.ok, caseName('EntryRouteMatrixCases', '0008')).assertFalse();
+      expect(result.issues.length > 0, caseName('EntryRouteMatrixCases', '0008')).assertTrue();
+      expect(request.loggedIn, caseName('EntryRouteMatrixCases', '0008')).assertTrue();
+      expect(result.issues[0].length > 0, caseName('EntryRouteMatrixCases', '0008')).assertTrue();
     });
 
     /**
@@ -215,18 +216,18 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0009', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0009'), 0, (): void => {
       const guarded: RouteEntry[] = ROUTE_TABLE.filter((entry: RouteEntry): boolean =>
         requiredParams(entry).length > 0);
-      expect(guarded.length > 0).assertTrue();
+      expect(guarded.length > 0, caseName('EntryRouteMatrixCases', '0009')).assertTrue();
       const entry: RouteEntry = guarded[0];
       const request: RouteRequest = new RouteRequest();
       request.routeId = entry.routeId;
       request.loggedIn = true;
       request.at = 1000;
       const result: RouteResolution = resolveRoute(request);
-      expect(result.ok).assertFalse();
-      expect(result.missing.length > 0).assertTrue();
+      expect(result.ok, caseName('EntryRouteMatrixCases', '0009')).assertFalse();
+      expect(result.missing.length > 0, caseName('EntryRouteMatrixCases', '0009')).assertTrue();
     });
 
     /**
@@ -238,15 +239,15 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0010', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0010'), 0, (): void => {
       const guarded: RouteEntry[] = ROUTE_TABLE.filter((entry: RouteEntry): boolean =>
         entry.requiresLogin);
-      expect(guarded.length > 0).assertTrue();
+      expect(guarded.length > 0, caseName('EntryRouteMatrixCases', '0010')).assertTrue();
       guarded.forEach((entry: RouteEntry): void => {
         const anonymous: RouteResolution = resolveRoute(requestFor(entry.routeId, false));
-        expect(anonymous.ok).assertFalse();
+        expect(anonymous.ok, caseName('EntryRouteMatrixCases', '0010')).assertFalse();
         const authenticated: RouteResolution = resolveRoute(requestFor(entry.routeId, true));
-        expect(authenticated.ok).assertTrue();
+        expect(authenticated.ok, caseName('EntryRouteMatrixCases', '0010')).assertTrue();
       });
     });
 
@@ -259,15 +260,15 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0011', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0011'), 0, (): void => {
       const open: RouteEntry[] = ROUTE_TABLE.filter((entry: RouteEntry): boolean =>
         !entry.requiresLogin);
-      expect(open.length > 0).assertTrue();
+      expect(open.length > 0, caseName('EntryRouteMatrixCases', '0011')).assertTrue();
       open.forEach((entry: RouteEntry): void => {
-        expect(resolveRoute(requestFor(entry.routeId, false)).ok).assertTrue();
+        expect(resolveRoute(requestFor(entry.routeId, false)).ok, caseName('EntryRouteMatrixCases', '0011')).assertTrue();
       });
-      expect(open.every((entry: RouteEntry): boolean => !entry.requiresLogin)).assertTrue();
-      expect(open.length <= ROUTE_TABLE.length).assertTrue();
+      expect(open.every((entry: RouteEntry): boolean => !entry.requiresLogin), caseName('EntryRouteMatrixCases', '0011')).assertTrue();
+      expect(open.length <= ROUTE_TABLE.length, caseName('EntryRouteMatrixCases', '0011')).assertTrue();
     });
 
     /**
@@ -279,12 +280,12 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testEntryRouteMatrixCases0012', 0, (): void => {
+    it(caseName('EntryRouteMatrixCases', '0012'), 0, (): void => {
       ROUTE_TABLE.forEach((entry: RouteEntry): void => {
-        expect(entry.description.length > 0).assertTrue();
+        expect(entry.description.length > 0, caseName('EntryRouteMatrixCases', '0012')).assertTrue();
       });
-      expect(ROUTE_TABLE[0].description.length > 0).assertTrue();
-      expect(ROUTE_TABLE.length).assertEqual(routeIds().length);
+      expect(ROUTE_TABLE[0].description.length > 0, caseName('EntryRouteMatrixCases', '0012')).assertTrue();
+      expect(ROUTE_TABLE.length, caseName('EntryRouteMatrixCases', '0012')).assertEqual(routeIds().length);
     });
   });
 
@@ -298,12 +299,12 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0001', 0, (): void => {
-      expect(TODO_TRANSITIONS.length > 0).assertTrue();
+    it(caseName('TodoRulesMatrixCases', '0001'), 0, (): void => {
+      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0001')).assertTrue();
       const ids: string[] = TODO_TRANSITIONS.map((rule: TodoTransition): string => rule.ruleId);
-      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length)
+      expect(ids.filter((id: string, index: number): boolean => ids.indexOf(id) !== index).length, caseName('TodoRulesMatrixCases', '0001'))
         .assertEqual(0);
-      expect(ids.every((id: string): boolean => id.length > 0)).assertTrue();
+      expect(ids.every((id: string): boolean => id.length > 0), caseName('TodoRulesMatrixCases', '0001')).assertTrue();
     });
 
     /**
@@ -315,13 +316,13 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0002', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0002'), 0, (): void => {
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
-        expect(rule.note.length > 0).assertTrue();
-        expect(todoStateLabel(rule.from).length > 0).assertTrue();
-        expect(todoEventLabel(rule.event).length > 0).assertTrue();
+        expect(rule.note.length > 0, caseName('TodoRulesMatrixCases', '0002')).assertTrue();
+        expect(todoStateLabel(rule.from).length > 0, caseName('TodoRulesMatrixCases', '0002')).assertTrue();
+        expect(todoEventLabel(rule.event).length > 0, caseName('TodoRulesMatrixCases', '0002')).assertTrue();
       });
-      expect(TODO_TRANSITIONS.length > 0).assertTrue();
+      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0002')).assertTrue();
     });
 
     /**
@@ -333,7 +334,7 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0003', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0003'), 0, (): void => {
       let applied: number = 0;
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
         const result: TodoTransitionResult = nextTodoState(rule.from, rule.event);
@@ -341,9 +342,9 @@ export default function routeTodoMatrixCasesTest(): void {
           applied++;
         }
       });
-      expect(applied).assertEqual(TODO_TRANSITIONS.length);
-      expect(applied > 0).assertTrue();
-      expect(TODO_TRANSITIONS.length > 0).assertTrue();
+      expect(applied, caseName('TodoRulesMatrixCases', '0003')).assertEqual(TODO_TRANSITIONS.length);
+      expect(applied > 0, caseName('TodoRulesMatrixCases', '0003')).assertTrue();
+      expect(TODO_TRANSITIONS.length > 0, caseName('TodoRulesMatrixCases', '0003')).assertTrue();
     });
 
     /**
@@ -355,15 +356,15 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0004', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0004'), 0, (): void => {
       const rule: TodoTransition = TODO_TRANSITIONS[0];
       const result: TodoTransitionResult = nextTodoState(rule.from, rule.event);
-      expect(result.applied).assertTrue();
-      expect(result.rule !== undefined).assertTrue();
+      expect(result.applied, caseName('TodoRulesMatrixCases', '0004')).assertTrue();
+      expect(result.rule !== undefined, caseName('TodoRulesMatrixCases', '0004')).assertTrue();
       if (result.rule !== undefined) {
-        expect(result.rule.ruleId).assertEqual(rule.ruleId);
+        expect(result.rule.ruleId, caseName('TodoRulesMatrixCases', '0004')).assertEqual(rule.ruleId);
       }
-      expect(result.reason.length).assertEqual(0);
+      expect(result.reason.length, caseName('TodoRulesMatrixCases', '0004')).assertEqual(0);
     });
 
 ;
@@ -377,19 +378,19 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0006', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0006'), 0, (): void => {
       const states: TodoState[] = [];
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
         if (states.indexOf(rule.from) < 0) {
           states.push(rule.from);
         }
       });
-      expect(states.length > 0).assertTrue();
+      expect(states.length > 0, caseName('TodoRulesMatrixCases', '0006')).assertTrue();
       states.forEach((state: TodoState): void => {
         const events: TodoEvent[] = todoEventsOf(state);
-        expect(events.length > 0).assertTrue();
+        expect(events.length > 0, caseName('TodoRulesMatrixCases', '0006')).assertTrue();
       });
-      expect(states.length <= 5).assertTrue();
+      expect(states.length <= 5, caseName('TodoRulesMatrixCases', '0006')).assertTrue();
     });
 
     /**
@@ -401,18 +402,18 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0007', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0007'), 0, (): void => {
       const closed: TodoState[] = [];
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
         if (isClosedState(rule.to) && closed.indexOf(rule.to) < 0) {
           closed.push(rule.to);
         }
       });
-      expect(closed.length > 0).assertTrue();
+      expect(closed.length > 0, caseName('TodoRulesMatrixCases', '0007')).assertTrue();
       closed.forEach((state: TodoState): void => {
-        expect(isClosedState(state)).assertTrue();
+        expect(isClosedState(state), caseName('TodoRulesMatrixCases', '0007')).assertTrue();
       });
-      expect(closed.indexOf(TodoState.DONE) >= 0).assertTrue();
+      expect(closed.indexOf(TodoState.DONE) >= 0, caseName('TodoRulesMatrixCases', '0007')).assertTrue();
     });
 
     /**
@@ -424,7 +425,7 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testTodoRulesMatrixCases0008', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0008'), 0, (): void => {
       const states: TodoState[] = [];
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
         if (states.indexOf(rule.from) < 0) {
@@ -436,10 +437,10 @@ export default function routeTodoMatrixCasesTest(): void {
       });
       const labels: string[] = states.map((state: TodoState): string => todoStateLabel(state));
       expect(labels.filter((label: string, index: number): boolean =>
-        labels.indexOf(label) !== index).length).assertEqual(0);
-      expect(labels.every((label: string): boolean => label.length > 0)).assertTrue();
-      expect(labels.length).assertEqual(states.length);
-      expect(labels.length > 0).assertTrue();
+        labels.indexOf(label) !== index).length, caseName('TodoRulesMatrixCases', '0008')).assertEqual(0);
+      expect(labels.every((label: string): boolean => label.length > 0), caseName('TodoRulesMatrixCases', '0008')).assertTrue();
+      expect(labels.length, caseName('TodoRulesMatrixCases', '0008')).assertEqual(states.length);
+      expect(labels.length > 0, caseName('TodoRulesMatrixCases', '0008')).assertTrue();
     });
 
     /**
@@ -451,7 +452,7 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 3
      */
 
-    it('testTodoRulesMatrixCases0009', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0009'), 0, (): void => {
       const events: TodoEvent[] = [];
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
         if (events.indexOf(rule.event) < 0) {
@@ -460,10 +461,10 @@ export default function routeTodoMatrixCasesTest(): void {
       });
       const labels: string[] = events.map((event: TodoEvent): string => todoEventLabel(event));
       expect(labels.filter((label: string, index: number): boolean =>
-        labels.indexOf(label) !== index).length).assertEqual(0);
-      expect(labels.every((label: string): boolean => label.length > 0)).assertTrue();
-      expect(labels.length).assertEqual(events.length);
-      expect(labels.length > 0).assertTrue();
+        labels.indexOf(label) !== index).length, caseName('TodoRulesMatrixCases', '0009')).assertEqual(0);
+      expect(labels.every((label: string): boolean => label.length > 0), caseName('TodoRulesMatrixCases', '0009')).assertTrue();
+      expect(labels.length, caseName('TodoRulesMatrixCases', '0009')).assertEqual(events.length);
+      expect(labels.length > 0, caseName('TodoRulesMatrixCases', '0009')).assertTrue();
     });
 
     /**
@@ -475,13 +476,13 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testTodoRulesMatrixCases0010', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0010'), 0, (): void => {
       const item: TodoItem = new TodoItem();
-      expect(item.id).assertEqual('');
-      expect(item.priority).assertEqual(1);
-      expect(item.state).assertEqual(TodoState.OPEN);
-      expect(item.dueAt).assertEqual(0);
-      expect(item.estimateMinutes).assertEqual(0);
+      expect(item.id, caseName('TodoRulesMatrixCases', '0010')).assertEqual('');
+      expect(item.priority, caseName('TodoRulesMatrixCases', '0010')).assertEqual(1);
+      expect(item.state, caseName('TodoRulesMatrixCases', '0010')).assertEqual(TodoState.OPEN);
+      expect(item.dueAt, caseName('TodoRulesMatrixCases', '0010')).assertEqual(0);
+      expect(item.estimateMinutes, caseName('TodoRulesMatrixCases', '0010')).assertEqual(0);
     });
 
     /**
@@ -493,20 +494,20 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0011', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0011'), 0, (): void => {
       const closedStates: TodoState[] = [];
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
         if (isClosedState(rule.from) && closedStates.indexOf(rule.from) < 0) {
           closedStates.push(rule.from);
         }
       });
-      expect(closedStates.length > 0).assertTrue();
+      expect(closedStates.length > 0, caseName('TodoRulesMatrixCases', '0011')).assertTrue();
       closedStates.forEach((state: TodoState): void => {
         const events: TodoEvent[] = todoEventsOf(state);
-        expect(events.every((event: TodoEvent): boolean => todoEventLabel(event).length > 0))
+        expect(events.every((event: TodoEvent): boolean => todoEventLabel(event).length > 0), caseName('TodoRulesMatrixCases', '0011'))
           .assertTrue();
       });
-      expect(closedStates.indexOf(TodoState.DONE) >= 0).assertTrue();
+      expect(closedStates.indexOf(TodoState.DONE) >= 0, caseName('TodoRulesMatrixCases', '0011')).assertTrue();
     });
 
     /**
@@ -518,7 +519,7 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0012', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0012'), 0, (): void => {
       const targets: TodoState[] = [];
       TODO_TRANSITIONS.forEach((rule: TodoTransition): void => {
         if (targets.indexOf(rule.to) < 0) {
@@ -533,9 +534,9 @@ export default function routeTodoMatrixCasesTest(): void {
           reachable++;
         }
       });
-      expect(reachable).assertEqual(targets.length);
-      expect(targets.length > 0).assertTrue();
-      expect(targets.indexOf(TodoState.OPEN) >= 0).assertTrue();
+      expect(reachable, caseName('TodoRulesMatrixCases', '0012')).assertEqual(targets.length);
+      expect(targets.length > 0, caseName('TodoRulesMatrixCases', '0012')).assertTrue();
+      expect(targets.indexOf(TodoState.OPEN) >= 0, caseName('TodoRulesMatrixCases', '0012')).assertTrue();
     });
 
     /**
@@ -547,13 +548,13 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0013', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0013'), 0, (): void => {
       const first: TodoEvent[] = todoEventsOf(TodoState.OPEN);
       const second: TodoEvent[] = todoEventsOf(TodoState.OPEN);
-      expect(first.length).assertEqual(second.length);
-      expect(first.every((event: TodoEvent, index: number): boolean => event === second[index]))
+      expect(first.length, caseName('TodoRulesMatrixCases', '0013')).assertEqual(second.length);
+      expect(first.every((event: TodoEvent, index: number): boolean => event === second[index]), caseName('TodoRulesMatrixCases', '0013'))
         .assertTrue();
-      expect(first.length > 0).assertTrue();
+      expect(first.length > 0, caseName('TodoRulesMatrixCases', '0013')).assertTrue();
     });
 
     /**
@@ -565,13 +566,13 @@ export default function routeTodoMatrixCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testTodoRulesMatrixCases0014', 0, (): void => {
+    it(caseName('TodoRulesMatrixCases', '0014'), 0, (): void => {
       const rule: TodoTransition = TODO_TRANSITIONS[0];
       const first: TodoTransitionResult = nextTodoState(rule.from, rule.event);
       const second: TodoTransitionResult = nextTodoState(rule.from, rule.event);
-      expect(first.applied).assertEqual(second.applied);
-      expect(first.to).assertEqual(second.to);
-      expect(first.reason).assertEqual(second.reason);
+      expect(first.applied, caseName('TodoRulesMatrixCases', '0014')).assertEqual(second.applied);
+      expect(first.to, caseName('TodoRulesMatrixCases', '0014')).assertEqual(second.to);
+      expect(first.reason, caseName('TodoRulesMatrixCases', '0014')).assertEqual(second.reason);
     });
   });
 }
