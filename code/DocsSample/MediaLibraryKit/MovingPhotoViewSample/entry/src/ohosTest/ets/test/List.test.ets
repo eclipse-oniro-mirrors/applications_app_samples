@@ -45,6 +45,11 @@ import movingPhotoPlusBundleTest from './MovingPhotoPlusBundle.test';
 import movingPhotoPlusConfigTest from './MovingPhotoPlusConfig.test';
 import movingPhotoPlusUiTest from './MovingPhotoPlusUi.test';
 import movingPhotoPlusLifecycleTest from './MovingPhotoPlusLifecycle.test';
+import movingPhotoPlusMediaDeepTest from './MovingPhotoPlusMediaDeep.test';
+import movingPhotoPlusBundleDeepTest from './MovingPhotoPlusBundleDeep.test';
+import movingPhotoPlusControllerDeepTest from './MovingPhotoPlusControllerDeep.test';
+import movingPhotoPlusConfigDeepTest from './MovingPhotoPlusConfigDeep.test';
+import movingPhotoPlusLifecycleDeepTest from './MovingPhotoPlusLifecycleDeep.test';
 export default function testsuite() {
   abilityTest();
   movingPhotoViewExtendedTest();
@@ -77,4 +82,9 @@ export default function testsuite() {
   movingPhotoPlusConfigTest();
   movingPhotoPlusUiTest();
   movingPhotoPlusLifecycleTest();
+  movingPhotoPlusMediaDeepTest();
+  movingPhotoPlusBundleDeepTest();
+  movingPhotoPlusControllerDeepTest();
+  movingPhotoPlusConfigDeepTest();
+  movingPhotoPlusLifecycleDeepTest();
 }
