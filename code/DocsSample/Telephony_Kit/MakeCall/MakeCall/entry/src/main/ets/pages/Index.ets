@@ -23,74 +23,73 @@ import { BusinessError } from '@kit.BasicServicesKit';
 @Entry
 @Component
 struct JumpCall {
-  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
-  startCallAbilityExplicit() {
+    private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+    startCallAbilityExplicit() {
     // [EndExclude MakeCall]
-    // 调用查询能力接口
-    let isSupport = call.hasVoiceCapability();
-    if (isSupport) {
-      // 如果设备支持呼叫能力，则继续跳转到拨号界面，并显示拨号的号码
-      // 从API15开始支持tel格式电话号码，如："tel:13xxxx"
-      call.makeCall('13xxxx', (err: BusinessError) => {
-        if (!err) {
-          console.info('make call success.');
-        } else {
-          console.error('make call fail, err is:' + JSON.stringify(err));
-        }
-      });
-      // 订阅通话业务状态变化（可选）
-      class SlotId {public slotId: number = 0}
-      class CallStateCallback {
-        public state: call.CallState = call.CallState.CALL_STATE_UNKNOWN;
-        public number: string = '';
+      // 调用查询能力接口
+      let isSupport = call.hasVoiceCapability();
+      if (isSupport) {
+          // 如果设备支持呼叫能力，则继续跳转到拨号界面，并显示拨号的号码
+          // 从API15开始支持tel格式电话号码，如："tel:13xxxx"
+          call.makeCall('13xxxx', (err: BusinessError) => {
+              if (!err) {
+                  console.info('make call success.');
+              } else {
+                  console.error('make call fail, err is:' + JSON.stringify(err));
+              }
+          });
+          // 订阅通话业务状态变化（可选）
+          class SlotId {public slotId: number = 0}
+          class CallStateCallback {
+              public state: call.CallState = call.CallState.CALL_STATE_UNKNOWN;
+              public number: string = '';
+          }
+          let slotId: SlotId = {slotId: 0}
+          observer.on('callStateChange', slotId, (data: CallStateCallback) => {
+              console.info('call state change, data is:' + JSON.stringify(data));
+          });
       }
-      let slotId: SlotId = {slotId: 0}
-      observer.on('callStateChange', slotId, (data: CallStateCallback) => {
-        console.info('call state change, data is:' + JSON.stringify(data));
-      });
-  }
-    // [End MakeCall]
-}
+      // [End MakeCall]
+    }
 
-  startCallAbilityExplicit1() {
+    startCalldialCall() {
     // [EndExclude DialCall]
     // 调用查询能力接口
     let isSupport = call.hasVoiceCapability();
     if (isSupport) {
-      // 如果设备支持呼叫能力，调用以下接口进行拨号
-      call.dialCall("13xxxx", (err: BusinessError) => {
-        console.error(`callback: dial call err->${JSON.stringify(err)}`);
-      })
-
-      // 订阅通话业务状态变化（可选）
-      class SlotId {slotId: number = 0}
-      class CallStateCallback {
-        state: call.CallState = call.CallState.CALL_STATE_UNKNOWN;
-        number: string = "";
-      }
-      let slotId: SlotId = {slotId: 0}
-      observer.on("callStateChange", slotId, (data: CallStateCallback) => {
-        console.info("call state change, data is:" + JSON.stringify(data));
-      });
-    }
-    // [End DialCall]
-  }
-
-build() {
-  Row() {
-    Column() {
-      Button('Make Call')
-        .onClick(() => {
-          this.startCallAbilityExplicit();
+        // 如果设备支持呼叫能力，调用以下接口进行拨号
+        call.dialCall("13xxxx", (err: BusinessError) => {
+            console.error(`callback: dial call err->${JSON.stringify(err)}`);
         })
 
-      Button('Dial Call1')
-        .onClick(() => {
-          this.startCallAbilityExplicit1();
-        })
+        // 订阅通话业务状态变化（可选）
+        class SlotId {slotId: number = 0}
+        class CallStateCallback {
+            state: call.CallState = call.CallState.CALL_STATE_UNKNOWN;
+            number: string = "";
+        }
+        let slotId: SlotId = {slotId: 0}
+        observer.on("callStateChange", slotId, (data: CallStateCallback) => {
+            console.info("call state change, data is:" + JSON.stringify(data));
+        });
     }
-    .width('100%')
+// [End DialCall]
   }
-  .height('100%')
-}
+
+    build() {
+        Row() {
+            Column() {
+                Button('Make Call')
+                  .onClick(() => {
+                      this.startCallAbilityExplicit();
+                  })
+                Button('Dial Call')
+                  .onClick(() => {
+                      this.startCalldialCall();
+                  })
+            }
+            .width('100%')
+        }
+        .height('100%')
+    }
 }
