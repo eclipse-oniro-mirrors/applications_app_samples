@@ -29,7 +29,20 @@
         }
       }
     ],
-    "signingConfigs": []
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/ISSUSER/.ohos/config/openharmony/default_BluetoothBaseProfile_sf9qPk3qJyHPJdsQLwh8Ik5DF4oRo5wIVYZa1QlqtUo=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B42C4BA1708757B1AE4A5EC1827F919324E9AF9DC8518680AE846399651D89C2DB11A3BCA91C8DE",
+          "profile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_BluetoothBaseProfile_sf9qPk3qJyHPJdsQLwh8Ik5DF4oRo5wIVYZa1QlqtUo=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_BluetoothBaseProfile_sf9qPk3qJyHPJdsQLwh8Ik5DF4oRo5wIVYZa1QlqtUo=.p12",
+          "storePassword": "0000001BEE50E65296971349EA1976C3EA51622BE9D05586CF3AD21D818637555223E95F8C40A516E1F1EB"
+        }
+      }
+    ]
   },
   "modules": [
     {

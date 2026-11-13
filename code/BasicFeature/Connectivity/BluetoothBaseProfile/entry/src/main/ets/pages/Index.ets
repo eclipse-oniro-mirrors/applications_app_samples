@@ -20,6 +20,29 @@ import { PageConstants, BluetoothConstants } from 'library';
 const TAG: string = BluetoothConstants.TAG;
 const DOMAIN: number = BluetoothConstants.DOMAIN;
 
+/** Leading icon glyph font size inside a navigation card. */
+const ICON_FONT_SIZE: number = 24;
+/** Trailing chevron indicator font size. */
+const CHEVRON_FONT_SIZE: number = 20;
+/** Width and height of the circular leading-icon container. */
+const ICON_BOX_SIZE: number = 48;
+/** Corner radius that turns the icon container into a circle (half of ICON_BOX_SIZE). */
+const ICON_BOX_RADIUS: number = 24;
+/** Vertical gap between stacked texts within a card. */
+const TEXT_LINE_GAP: number = 8;
+/** Tight vertical gap used around the icon and the description text. */
+const TIGHT_GAP: number = 4;
+/** Horizontal gap between the inline SDK and bundle hint texts. */
+const HINT_TEXT_GAP: number = 16;
+/** Horizontal gap between the icon container and the text column. */
+const ICON_TEXT_GAP: number = 12;
+/** Drop-shadow corner radius applied to the raised cards. */
+const CARD_SHADOW_RADIUS: number = 4;
+/** Vertical offset of the raised-card drop shadow. */
+const CARD_SHADOW_OFFSET_Y: number = 2;
+/** Shadow color used by the raised cards. */
+const CARD_SHADOW_COLOR: string = 'rgba(0,0,0,0.1)';
+
 /**
  * Navigation item data interface.
  */
@@ -89,7 +112,7 @@ struct Index {
           .fontSize(PageConstants.FONT_SIZE_SUBTITLE)
           .fontWeight(PageConstants.FONT_WEIGHT_BOLD)
           .fontColor(PageConstants.COLOR_TEXT_PRIMARY)
-          .margin({ bottom: 8 })
+          .margin({ bottom: TEXT_LINE_GAP })
         Text($r('app.string.index_subtitle'))
           .fontSize(PageConstants.FONT_SIZE_BODY)
           .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
@@ -98,12 +121,12 @@ struct Index {
           Text($r('app.string.index_sdk_info'))
             .fontSize(PageConstants.FONT_SIZE_SMALL)
             .fontColor(PageConstants.COLOR_TEXT_HINT)
-            .margin({ right: 16 })
+            .margin({ right: HINT_TEXT_GAP })
           Text($r('app.string.index_bundle_name'))
             .fontSize(PageConstants.FONT_SIZE_SMALL)
             .fontColor(PageConstants.COLOR_TEXT_HINT)
         }
-        .margin({ top: 8 })
+        .margin({ top: TEXT_LINE_GAP })
       }
       .width('100%')
       .padding(PageConstants.CARD_PADDING)
@@ -111,7 +134,7 @@ struct Index {
           top: PageConstants.SECTION_SPACING })
       .backgroundColor(PageConstants.COLOR_CARD)
       .borderRadius(PageConstants.CARD_BORDER_RADIUS)
-      .shadow({ radius: 4, color: 'rgba(0,0,0,0.1)', offsetX: 0, offsetY: 2 })
+      .shadow({ radius: CARD_SHADOW_RADIUS, color: CARD_SHADOW_COLOR, offsetX: 0, offsetY: CARD_SHADOW_OFFSET_Y })
       .alignItems(HorizontalAlign.Start)
 
       // Navigation list
@@ -137,17 +160,17 @@ struct Index {
     Row() {
       Column() {
         Text(item.icon)
-          .fontSize(24)
+          .fontSize(ICON_FONT_SIZE)
           .fontColor(PageConstants.COLOR_BLUETOOTH)
-          .margin({ bottom: 4 })
+          .margin({ bottom: TIGHT_GAP })
       }
-      .width(48)
-      .height(48)
+      .width(ICON_BOX_SIZE)
+      .height(ICON_BOX_SIZE)
       .justifyContent(FlexAlign.Center)
       .alignItems(HorizontalAlign.Center)
       .backgroundColor($r('app.color.color_light_blue'))
-      .borderRadius(24)
-      .margin({ right: 12 })
+      .borderRadius(ICON_BOX_RADIUS)
+      .margin({ right: ICON_TEXT_GAP })
 
       Column() {
         Text(item.title)
@@ -157,7 +180,7 @@ struct Index {
         Text(item.description)
           .fontSize(PageConstants.FONT_SIZE_SMALL)
           .fontColor(PageConstants.COLOR_TEXT_SECONDARY)
-          .margin({ top: 4 })
+          .margin({ top: TIGHT_GAP })
           .maxLines(2)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
       }
@@ -165,14 +188,14 @@ struct Index {
       .layoutWeight(1)
 
       Text('>')
-        .fontSize(20)
+        .fontSize(CHEVRON_FONT_SIZE)
         .fontColor(PageConstants.COLOR_TEXT_HINT)
     }
     .width('100%')
     .padding(PageConstants.CARD_PADDING)
     .backgroundColor(PageConstants.COLOR_CARD)
     .borderRadius(PageConstants.CARD_BORDER_RADIUS)
-    .shadow({ radius: 4, color: 'rgba(0,0,0,0.1)', offsetX: 0, offsetY: 2 })
+    .shadow({ radius: CARD_SHADOW_RADIUS, color: CARD_SHADOW_COLOR, offsetX: 0, offsetY: CARD_SHADOW_OFFSET_Y })
     .onClick(() => {
       hilog.info(DOMAIN, TAG, 'Index: navigating to %{public}s', item.targetPage);
       router.pushUrl({ url: item.targetPage });
