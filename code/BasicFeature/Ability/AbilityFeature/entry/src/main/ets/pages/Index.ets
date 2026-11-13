@@ -13,54 +13,71 @@
  * limitations under the License.
  */
 
-import common from '@ohos.app.ability.common';
-import prompt from '@ohos.promptAction';
-import StartOptions from '@ohos.app.ability.StartOptions';
-import Want from '@ohos.app.ability.Want';
-import wantConstant from '@ohos.app.ability.wantConstant';
+import { common, Want } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import {
+  MENU_ID_ANIMATION_TOGGLE,
+  MENU_ID_IMPLICIT_NO_POPUP,
+  MENU_ID_IMPLICIT_POPUP,
+  MENU_ID_LANGUAGE_EN,
+  MENU_ID_LANGUAGE_ZH,
+  MENU_ID_MODE_DARK,
+  MENU_ID_MODE_LIGHT,
+  MENU_ID_START_OPTIONS,
+  MENU_ID_STORAGE_CHECK,
+  MENU_ID_STORAGE_CLEAR,
+  MENU_ID_STORAGE_CREATE
+} from '../common/MenuIds';
 import CharacterOperation from '../characteroperation/CharacterOperation';
+import {
+  buildImplicitViewWant,
+  buildNewAbilityWant,
+  buildStartOptions,
+  formatStartOptions
+} from '../model/LaunchIntent';
 import { logger } from '../util/Logger';
 
 interface GroupModel {
-  title?: string;
+  title: string;
+  showToggle?: boolean;
   list: ListItemModel[];
 }
 
 export interface ListItemModel {
-  text: Resource,
-  rType?: string,
-  callback?: () => void,
+  id: string;
+  text: Resource;
+  rType?: string;
+  callback?: () => void;
 }
 
-const TAG: string = 'HomeAbility';
+const TAG: string = 'Index';
 
 @Entry
 @Component
 struct Index {
-  private context = getContext(this) as common.UIAbilityContext;
-  private want: (Want | undefined) = AppStorage.get<Want>('want') || undefined;
-  private operation: CharacterOperation = new CharacterOperation(getContext(this));
-  private isChinese: boolean = true;
-  private isLight: boolean = true;
+  @State isChinese: boolean = true;
+  @State isLight: boolean = true;
   @State isAnimation: boolean = false;
   @State list: GroupModel[] = [
     {
       title: '1',
       list: [
         {
+          id: MENU_ID_LANGUAGE_ZH,
           text: $r('app.string.Set_Chinese_language'),
           rType: 'right',
           callback: () => {
             this.isChinese = true;
-            this.operation.setZHCNLanguage();
+            this.createOperation().setZHCNLanguage();
           }
         },
         {
+          id: MENU_ID_LANGUAGE_EN,
           text: $r('app.string.Set_English_Language'),
           rType: 'right',
           callback: () => {
             this.isChinese = false;
-            this.operation.setENUSLanguage();
+            this.createOperation().setENUSLanguage();
           }
         }
       ]
@@ -69,115 +86,125 @@ struct Index {
       title: '2',
       list: [
         {
+          id: MENU_ID_MODE_LIGHT,
           text: $r('app.string.Set_Light_Mode'),
           rType: 'right',
           callback: () => {
             this.isLight = true;
-            this.operation.setLightColorMode();
+            this.createOperation().setLightColorMode();
           }
         },
         {
+          id: MENU_ID_MODE_DARK,
           text: $r('app.string.Set_Dark_Mode'),
           rType: 'right',
           callback: () => {
             this.isLight = false;
-            this.operation.setDarKColorMode();
+            this.createOperation().setDarkColorMode();
           }
-        },
+        }
       ]
     },
     {
       title: '3',
       list: [
         {
+          id: MENU_ID_IMPLICIT_POPUP,
           text: $r('app.string.Implicit_Launch_Popup'),
           rType: 'arrow',
           callback: () => {
-            this.context.startAbility({
-              action: "ohos.want.action.viewData",
-              type: "text/plain",
-              parameters: {
-                uri: "filePath"
-              }
-            }, (error, data) => {
-              logger.info(`${TAG} startAbility end: ${JSON.stringify(error)}, ${JSON.stringify(data)}`);
-            })
+            this.launchImplicit(false);
           }
         },
         {
+          id: MENU_ID_IMPLICIT_NO_POPUP,
           text: $r('app.string.Implicit_Launch_not_Popup'),
           rType: 'arrow',
           callback: () => {
-            this.context.startAbility({
-              action: "ohos.want.action.viewData",
-              type: "text/plain",
-              // 设置flags为FLAG_START_WITHOUT_TIPS 隐式启动未找到时不弹窗
-              flags: wantConstant.Flags.FLAG_START_WITHOUT_TIPS,
-              parameters: {
-                uri: "filePath"
-              }
-            }, (error, data) => {
-              logger.info(`${TAG} startAbility end ${JSON.stringify(error)}, ${JSON.stringify(data)}`);
-              prompt.showToast({ message: $r('app.string.Implicit_Launch_not_Popup'), duration: 3000 });
-            })
+            this.launchImplicit(true);
+          }
+        }
+      ]
+    },
+    {
+      title: '4',
+      list: [
+        {
+          id: MENU_ID_STORAGE_CREATE,
+          text: $r('app.string.CreateStorageData'),
+          rType: 'arrow',
+          callback: () => {
+            this.createOperation().createStorageData();
+          }
+        },
+        {
+          id: MENU_ID_STORAGE_CHECK,
+          text: $r('app.string.CheckStorageData'),
+          rType: 'arrow',
+          callback: () => {
+            this.createOperation().checkStorageData();
+          }
+        },
+        {
+          id: MENU_ID_STORAGE_CLEAR,
+          text: $r('app.string.ClearStorageData'),
+          rType: 'arrow',
+          callback: () => {
+            this.createOperation().clearStorageData();
           }
         }
       ]
     },
     {
       title: '5',
+      showToggle: true,
       list: [
         {
-          text: $r('app.string.CreateStorageData'),
-          rType: 'arrow',
-          callback: this.operation.createStorageData
-        },
-        {
-          text: $r('app.string.CheckStorageData'),
-          rType: 'arrow',
-          callback: this.operation.checkStorageData
-        },
-        {
-          text: $r('app.string.ClearStorageData'),
-          rType: 'arrow',
-          callback: this.operation.clearStorageData
-        }
-      ]
-    },
-    {
-      title: '8',
-      list: [
-        {
-          text: $r("app.string.setStartOptionsPage"),
+          id: MENU_ID_START_OPTIONS,
+          text: $r('app.string.setStartOptionsPage'),
           rType: '',
           callback: () => {
-            if (this.want === undefined) {
-              logger.error(`${TAG} want undefined`);
-              return;
-            }
-            let localWant: Want = this.want;
-            localWant.bundleName = 'com.samples.abilityFeature';
-            localWant.abilityName = 'NewAbility';
-            let startOptions: StartOptions = {
-              displayId: 0,
-              withAnimation: this.isAnimation,
-              windowLeft: 50,
-              windowTop: 100,
-              windowWidth: 300,
-              windowHeight: 400
-            };
-            this.context.startAbility(localWant, startOptions, (err, data) => {
-              if (err && err.code != 0) {
-                logger.error(`${TAG} startAbility failed, err: ${JSON.stringify(err)}`);
-              } else {
-                logger.info(`${TAG} startAbility success. ${JSON.stringify(data)}`);
-              }
-            })
+            this.launchNewAbility();
           }
         }
       ]
     }
   ]
+
+  private getHostContext(): common.UIAbilityContext {
+    return this.getUIContext().getHostContext() as common.UIAbilityContext;
+  }
+
+  private createOperation(): CharacterOperation {
+    return new CharacterOperation(this.getHostContext(), this.getUIContext());
+  }
+
+  /**
+   * 隐式启动：不带 flag 时由系统弹“未找到”提示框，带 FLAG_START_WITHOUT_TIPS 时直接返回失败。
+   */
+  private launchImplicit(withoutTips: boolean): void {
+    const want: Want = buildImplicitViewWant(withoutTips);
+    this.getHostContext().startAbility(want, (err: BusinessError) => {
+      logger.info(`${TAG} implicit start withoutTips=${withoutTips}, err=${JSON.stringify(err)}`);
+    });
+  }
+
+  /**
+   * 携带 StartOptions 显式启动 NewAbility，位置/大小/动效由 Toggle 状态决定。
+   */
+  private launchNewAbility(): void {
+    const bundleName: string = this.getHostContext().abilityInfo.bundleName;
+    const want: Want = buildNewAbilityWant(bundleName);
+    const options = buildStartOptions(this.isAnimation);
+    logger.info(`${TAG} start NewAbility with ${formatStartOptions(options)}`);
+    this.getHostContext().startAbility(want, options, (err: BusinessError) => {
+      if (err && err.code !== 0) {
+        logger.error(`${TAG} startAbility failed, err: ${JSON.stringify(err)}`);
+      } else {
+        logger.info(`${TAG} startAbility success`);
+      }
+    });
+  }
 
   build() {
     Column() {
@@ -191,7 +218,7 @@ struct Index {
       Column() {
         List({ space: 0, initialIndex: 0 }) {
           ForEach(this.list, (groupItem: GroupModel, groupIndex: number) => {
-            if (groupItem.title === '8') {
+            if (groupItem.showToggle === true) {
               ListItem() {
                 Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
                   Text($r('app.string.start_animation'))
@@ -202,49 +229,40 @@ struct Index {
                     .fontSize(14)
                     .onClick(() => {
                       this.isAnimation = !this.isAnimation;
-                    }).fontColor($r('sys.color.ohos_id_color_floating_button_bg_normal'))
-                }.width("100%")
-              }.width("100%").height(25).padding({ top: 10 })
+                    })
+                    .fontColor($r('sys.color.ohos_id_color_floating_button_bg_normal'))
+                }.width('100%')
+              }
+              .id(MENU_ID_ANIMATION_TOGGLE)
+              .width('100%')
+              .height(25)
+              .padding({ top: 10 })
             }
             ListItemGroup() {
               ForEach(groupItem.list, (item: ListItemModel, index: number) => {
                 ListItem() {
                   Column() {
                     Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
-                      Text(item.text) {
-                      }.fontSize(16)
-                      .height(48)
-                      .fontColor($r('sys.color.ohos_id_color_toolbar_sub_bg_dark'))
+                      Text(item.text)
+                        .fontSize(16)
+                        .height(48)
+                        .fontColor($r('sys.color.ohos_id_color_toolbar_sub_bg_dark'))
 
                       if (item.rType === 'arrow') {
                         Image($r('app.media.ic_arrow'))
                           .width(24).height(24).padding({ left: 12 })
-                      }
-                      else if (item.rType === 'right') {
+                      } else if (item.rType === 'right') {
                         if (groupIndex === 0) {
-                          if (this.isChinese) {
-                            if (index === 0) {
-                              Image($r('app.media.ic_check'))
-                                .width(24).height(24)
-                            }
-                          } else {
-                            if (index === 1) {
-                              Image($r('app.media.ic_check'))
-                                .width(24).height(24)
-                            }
+                          if (this.isChinese && index === 0) {
+                            Image($r('app.media.ic_check')).width(24).height(24)
+                          } else if (!this.isChinese && index === 1) {
+                            Image($r('app.media.ic_check')).width(24).height(24)
                           }
-                        }
-                        else if (groupIndex === 1) {
-                          if (this.isLight) {
-                            if (index === 0) {
-                              Image($r('app.media.ic_check'))
-                                .width(24).height(24)
-                            }
-                          } else {
-                            if (index === 1) {
-                              Image($r('app.media.ic_check'))
-                                .width(24).height(24)
-                            }
+                        } else if (groupIndex === 1) {
+                          if (this.isLight && index === 0) {
+                            Image($r('app.media.ic_check')).width(24).height(24)
+                          } else if (!this.isLight && index === 1) {
+                            Image($r('app.media.ic_check')).width(24).height(24)
                           }
                         }
                       }
@@ -255,6 +273,7 @@ struct Index {
                     }
                   }.width('100%')
                 }
+                .id(item.id)
                 .align(Alignment.Start)
                 .onClick(item.callback)
                 .width('100%')
