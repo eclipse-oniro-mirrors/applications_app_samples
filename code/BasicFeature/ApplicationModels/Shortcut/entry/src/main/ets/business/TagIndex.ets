@@ -15,6 +15,7 @@
 
 import { businessLabel } from '../i18n/BusinessLabels';
 import { uiText, resourceText } from '../i18n/Strings';
+
 /**
  * 标签索引与真实数据检索。
  *
@@ -62,16 +63,16 @@ export class TagRule {
 
 /** 标签规则表。 */
 export const TAG_RULES: TagRule[] = [
-  new TagRule('TG-01', "@string/shortcut_text_0102", "@string/shortcut_text_0458", "@string/shortcut_text_0136"),
-  new TagRule('TG-02', "@string/shortcut_text_0107", "@string/shortcut_text_0218", "@string/shortcut_text_0363"),
-  new TagRule('TG-03', "@string/shortcut_text_0112", "@string/shortcut_text_0328", "@string/shortcut_text_0709"),
-  new TagRule('TG-04', "@string/shortcut_text_0695", "@string/shortcut_text_0559", "@string/shortcut_text_0319"),
-  new TagRule('TG-05', "@string/shortcut_text_0557", "@string/shortcut_text_0752", "@string/shortcut_text_0460"),
-  new TagRule('TG-06', "@string/shortcut_text_0101", "@string/shortcut_text_0254", "@string/shortcut_text_0558"),
-  new TagRule('TG-07', "@string/shortcut_text_0109", "@string/shortcut_text_0457", "@string/shortcut_text_0729"),
-  new TagRule('TG-08', "@string/shortcut_text_0099", "@string/shortcut_text_0730", "@string/shortcut_text_0074"),
-  new TagRule('TG-09', "@string/shortcut_text_0106", "@string/shortcut_text_0062", "@string/shortcut_text_0128"),
-  new TagRule('TG-10', "@string/shortcut_text_0103", "@string/shortcut_text_0034", "@string/shortcut_text_0152")
+  new TagRule('TG-01', '@string/shortcut_text_0102', '@string/shortcut_text_0458', '@string/shortcut_text_0136'),
+  new TagRule('TG-02', '@string/shortcut_text_0107', '@string/shortcut_text_0218', '@string/shortcut_text_0363'),
+  new TagRule('TG-03', '@string/shortcut_text_0112', '@string/shortcut_text_0328', '@string/shortcut_text_0709'),
+  new TagRule('TG-04', '@string/shortcut_text_0695', '@string/shortcut_text_0559', '@string/shortcut_text_0319'),
+  new TagRule('TG-05', '@string/shortcut_text_0557', '@string/shortcut_text_0752', '@string/shortcut_text_0460'),
+  new TagRule('TG-06', '@string/shortcut_text_0101', '@string/shortcut_text_0254', '@string/shortcut_text_0558'),
+  new TagRule('TG-07', '@string/shortcut_text_0109', '@string/shortcut_text_0457', '@string/shortcut_text_0729'),
+  new TagRule('TG-08', '@string/shortcut_text_0099', '@string/shortcut_text_0730', '@string/shortcut_text_0074'),
+  new TagRule('TG-09', '@string/shortcut_text_0106', '@string/shortcut_text_0062', '@string/shortcut_text_0128'),
+  new TagRule('TG-10', '@string/shortcut_text_0103', '@string/shortcut_text_0034', '@string/shortcut_text_0152')
 ];
 
 /** 同义词归并表：左为标准词，右为被归并写法。 */
@@ -163,7 +164,7 @@ export class Hit {
   }
 
   describe(): string {
-    return uiText("shortcut_text_0025", [String(this.id), String(this.score), businessLabel(this.source as string), String(this.matched)]);
+    return uiText('shortcut_text_0025', [String(this.id), String(this.score), businessLabel(this.source as string), String(this.matched)]);
   }
 }
 
@@ -300,9 +301,9 @@ export function synonymLines(): string[] {
 /** 检索结果展示行。 */
 export function searchLines(hits: Hit[]): string[] {
   if (hits.length === 0) {
-    return [uiText("shortcut_text_0601")];
+    return [uiText('shortcut_text_0601')];
   }
-  const lines: string[] = [uiText("shortcut_text_0403", [String(hits.length)])];
+  const lines: string[] = [uiText('shortcut_text_0403', [String(hits.length)])];
   hits.forEach((hit: Hit): void => {
     lines.push(hit.describe());
   });

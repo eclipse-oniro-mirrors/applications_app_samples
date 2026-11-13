@@ -7,7 +7,7 @@
       "visible": true,
       "wants": [
         {
-          "bundleName": "com.example.shortcut",
+          "bundleName": "com.samples.shortcut",
           "moduleName": "entry",
           "abilityName": "EntryAbility",
           "parameters": {
@@ -24,7 +24,7 @@
       "visible": true,
       "wants": [
         {
-          "bundleName": "com.example.shortcut",
+          "bundleName": "com.samples.shortcut",
           "moduleName": "entry",
           "abilityName": "EntryAbility",
           "parameters": {
@@ -42,7 +42,7 @@
       "visible": true,
       "wants": [
         {
-          "bundleName": "com.example.shortcut",
+          "bundleName": "com.samples.shortcut",
           "moduleName": "entry",
           "abilityName": "EntryAbility",
           "parameters": {

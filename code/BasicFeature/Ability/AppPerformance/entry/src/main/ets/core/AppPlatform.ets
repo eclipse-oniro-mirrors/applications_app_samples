@@ -21,7 +21,10 @@ import { util } from '@kit.ArkTS';
 import { image } from '@kit.ImageKit';
 import { logWarn } from './Logger';
 
-export interface DecodedImage { width: number; height: number; }
+export interface DecodedImage {
+  width: number;
+  height: number;
+}
 
 export interface BundleSnapshot {
   versionName: string;

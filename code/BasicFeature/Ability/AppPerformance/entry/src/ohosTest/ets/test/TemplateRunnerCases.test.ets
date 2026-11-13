@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { AppService } from '../../../main/ets/core/AppService';
 import { AppPlatform, AppStateStore, BundleSnapshot } from '../../../main/ets/core/AppPlatform';
 
@@ -173,17 +175,17 @@ export default function templateRunnerCasesTest(): void {
 
     it('testTemplateRunnerCases0025', 0, (): void => {
       const platform: FakePlatform = new FakePlatform();
-      expect(platform.canEvictFiles()).assertFalse();
-      expect(platform.canEvictModules()).assertFalse();
-      expect(platform.listFiles().length).assertEqual(0);
-      expect(platform.snapEnabled()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:176 assertFalse actual', platform.canEvictFiles())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:177 assertFalse actual', platform.canEvictModules())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:178 assertEqual actual', platform.listFiles().length)).assertEqual(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:178 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:179 assertFalse actual', platform.snapEnabled())).assertFalse();
       platform.setSnapEnabled(true);
-      expect(platform.snapEnabled()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:181 assertTrue actual', platform.snapEnabled())).assertTrue();
       platform.rebuildSnap();
-      expect(platform.rebuildCount()).assertEqual(1);
-      expect(platform.randomId()).assertEqual('fake-1');
-      expect(platform.randomId()).assertEqual('fake-2');
-      expect(platform.copiedText()).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:183 assertEqual actual', platform.rebuildCount())).assertEqual(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:183 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:184 assertEqual actual', platform.randomId())).assertEqual(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:184 assertEqual expected', 'fake-1'));
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:185 assertEqual actual', platform.randomId())).assertEqual(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:185 assertEqual expected', 'fake-2'));
+      expect(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:186 assertEqual actual', platform.copiedText())).assertEqual(traceParameter('com.samples.appperformance_TemplateRunnerCases_0025 TemplateRunnerCases.test:186 assertEqual expected', ''));
     });
   });
 }

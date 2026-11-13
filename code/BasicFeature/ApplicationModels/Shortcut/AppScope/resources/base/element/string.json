@@ -2,6 +2,7 @@
   "string": [
     {
       "name": "app_name",
+      "description": "Application display name",
       "value": "Shortcuts"
     }
   ]

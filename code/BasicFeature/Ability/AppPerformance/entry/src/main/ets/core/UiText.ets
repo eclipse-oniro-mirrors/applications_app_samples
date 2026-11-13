@@ -15,24 +15,31 @@
 
 import { common } from '@kit.AbilityKit';
 import { logWarn } from './Logger';
+import { formatMessage, localize, message, setTextContext } from './TextMessages';
 
 /** Resolve at the current UI boundary, never while a model module is initialized. */
 export function resolveText(context: common.Context | undefined, resource: Resource,
   args: (string | number)[] = []): string {
   if (context === undefined) {
     logWarn('UI resource context is unavailable');
-    return 'Resource unavailable';
+    return message('ap_resource_unavailable');
   }
   try {
-    return context.resourceManager.getStringSync(resource.id, ...args.map((value: string | number): string => `${value}`));
+    setTextContext(context);
+    // A compiled entry_test ID is not an application-manager ID. Preserve the Resource's
+    // bundle/module/name metadata on this SDK-supported synchronous compatibility path.
+    const template: string = context.resourceManager.getStringSync(resource);
+    return formatMessage(template,
+      args.map((value: string | number): string => typeof value === 'string' ? localize(value) : `${value}`));
   } catch (error) {
     logWarn(`UI resource resolution failed: ${(error as Error).message}`);
-    return 'Resource unavailable';
+    return message('ap_resource_unavailable');
   }
 }
 
 /** Historical serialized status/group values are unchanged; translate only their display. */
 export function displayValue(context: common.Context | undefined, value: string): string {
+  setTextContext(context);
   switch (value) {
     case '启用': return resolveText(context, $r('app.string.ap_ui_enabled'));
     case '禁用': return resolveText(context, $r('app.string.ap_ui_disabled'));
@@ -54,8 +61,15 @@ export function displayValue(context: common.Context | undefined, value: string)
     case '调用中': return resolveText(context, $r('app.string.ap_ui_calling'));
     case '调用成功': return resolveText(context, $r('app.string.ap_ui_call_succeeded'));
     case '调用失败': return resolveText(context, $r('app.string.ap_ui_call_failed'));
-    default: return value;
+    default: return localize(value);
   }
+}
+
+/** A resource body remains opaque, even when it happens to resemble a known UI message. */
+export function displayResourcePreview(context: common.Context | undefined, value: string): string {
+  setTextContext(context);
+  const preview: RegExpExecArray | null = /^([0-9]+) 字节 · ([\s\S]*)$/.exec(value);
+  return preview === null ? localize(value) : message('ap_resource_preview', [preview[1], preview[2]]);
 }
 
 export function workloadTitle(context: common.Context | undefined, id: string, fallback: string): string {

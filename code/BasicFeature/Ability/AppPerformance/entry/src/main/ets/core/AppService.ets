@@ -15,6 +15,7 @@
 
 import { common } from '@kit.AbilityKit';
 import { util } from '@kit.ArkTS';
+import { localize, setTextContext } from './TextMessages';
 import { AppState, CallRecord, LaunchSample, MaintenanceFlow, MaintenanceStep, EvictionResult,
   emptyAppState } from './Types';
 import { WorkloadSpec, workloadOf, verifyWorkload } from './WorkloadCatalog';
@@ -212,6 +213,7 @@ export class AppService {
   }
 
   static initialize(context: common.UIAbilityContext): AppService {
+    setTextContext(context);
     if (singleton === undefined) {
       singleton = new AppService(new NativeAppPlatform(context));
     }
@@ -224,14 +226,16 @@ export class AppService {
       foreground: this.state.foreground,
       files: this.state.files.slice(),
       modules: this.state.modules.slice(),
-      targetMessage: this.state.targetMessage,
+      // Translate descriptive snapshot fields only; canonical state/persistence stays unchanged.
+      targetMessage: localize(this.state.targetMessage),
       configText: this.state.configText,
-      configStatus: this.state.configStatus,
+      configStatus: localize(this.state.configStatus),
       configTargets: this.state.configTargets.slice(),
       maintenance: this.state.maintenance === undefined ? undefined : this.state.maintenance.clone(),
       maintenanceBusy: this.state.maintenanceBusy,
       memoryBusy: this.state.memoryBusy,
       resourceBusy: this.state.resourceBusy,
+      // The UI formats this once; its trailing workload preview is opaque payload data.
       resourceText: this.state.resourceText,
       latestMemory: this.state.latestMemory === undefined ? undefined : cloneCall(this.state.latestMemory),
       snapFlag: this.state.snapFlag,
@@ -240,8 +244,8 @@ export class AppService {
       rebuildWaitSeconds: this.rebuildWaitSeconds(),
       logs: this.state.logs.map((value: CallRecord): CallRecord => cloneCall(value)),
       launches: this.state.launches.map((value: LaunchSample): LaunchSample => cloneLaunch(value)),
-      storageMessage: this.state.storageMessage,
-      notice: this.state.notice
+      storageMessage: localize(this.state.storageMessage),
+      notice: localize(this.state.notice)
     };
   }
 
@@ -1491,7 +1495,7 @@ export function createAppService(context: common.UIAbilityContext): AppService {
 
 export function getAppService(): AppService {
   if (singleton === undefined) {
-    throw new Error('AppService 尚未初始化');
+    throw new Error('AppService has not been initialized');
   }
   return singleton;
 }

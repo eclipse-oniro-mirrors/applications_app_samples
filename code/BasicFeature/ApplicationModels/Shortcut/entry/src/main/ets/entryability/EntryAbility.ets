@@ -15,10 +15,11 @@
 
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { logWarning } from '../services/Logger';
+import { shortcutService } from '../services/ShortcutService';
 import { window } from '@kit.ArkUI';
 import { businessStore } from '../business/BusinessStore';
 import { appNavigation } from '../navigation/AppNavigation';
-import { shortcutService } from '../services/ShortcutService';
+
 import { bindStrings } from '../i18n/Strings';
 
 export default class EntryAbility extends UIAbility {

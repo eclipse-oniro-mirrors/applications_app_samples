@@ -13,11 +13,12 @@
  * limitations under the License.
  */
 
+import { traceParameter } from '../support/TestLog';
 import { describe, expect } from '@ohos/hypium';
-import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { UiTestComponent as Component, UiTestDriver as Driver, UiTestSession, ON, uiCase } from '../support/UiTestRuntime';
 import { resolveText } from '../../../main/ets/core/UiText';
-import { scenario } from '../support/BoundedCase';
-import { finishUiTestAbility, launchUiTestAbility, uiTestCase, uiTestFailure } from '../support/UiTestSupport';
+import { launchUiTestAbility, uiTestFailure } from '../support/UiTestSupport';
 
 async function waitText(driver: Driver, text: string): Promise<Component> {
   const component = await driver.waitForComponent(ON.text(text), 3000);
@@ -54,16 +55,16 @@ export default function reactiveUiTests(): void {
      * @tc.level     Level 2
      */
 
-    scenario('testAppPerformanceUI0001', uiTestCase(async (): Promise<void> => {
-      const driver = await launchUiTestAbility();
+    uiCase('testAppPerformanceUI0001', 0, async (session: UiTestSession): Promise<void> => {
+      const driver = await launchUiTestAbility(session);
       if (!await driver.waitForIdle(100, 2000)) {
         throw await uiTestFailure(driver, 'Test page did not become idle after launch');
       }
       const initialButton = await waitText(driver, '等待更新');
-      expect(await initialButton.isEnabled()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceUI_0001 ReactiveUi.test:63 assertFalse actual', await initialButton.isEnabled())).assertFalse();
       await clickId(driver, 'ui-update');
       const updatedButton = await waitText(driver, '动作1');
-      expect(await updatedButton.isEnabled()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceUI_0001 ReactiveUi.test:66 assertTrue actual', await updatedButton.isEnabled())).assertTrue();
       await waitText(driver, '字段1');
 
       await clickId(driver, 'ui-show-memory');
@@ -79,7 +80,7 @@ export default function reactiveUiTests(): void {
         $r('app.string.ap_ui_call_succeeded')));
       await waitText(driver, '30 ms');
       const finalButton = await waitText(driver, '动作3');
-      expect(await finalButton.isEnabled()).assertTrue();
-    }, finishUiTestAbility));
+      expect(traceParameter('com.samples.appperformance_AppPerformanceUI_0001 ReactiveUi.test:82 assertTrue actual', await finalButton.isEnabled())).assertTrue();
+    });
   });
 }

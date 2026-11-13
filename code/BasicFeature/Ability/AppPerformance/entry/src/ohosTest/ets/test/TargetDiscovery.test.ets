@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import { traceParameter } from '../support/TestLog';
 import { describe, expect } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
@@ -36,10 +37,10 @@ export default function targetDiscoveryTests(): void {
       const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
       const platform = new NativeAppPlatform(context as common.UIAbilityContext);
       const files = platform.listFiles();
-      expect(files.indexOf('entry.hap') >= 0).assertTrue();
-      expect(files.length > 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceTargetDiscovery_0001 TargetDiscovery.test:39 assertTrue actual', files.indexOf('entry.hap') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_AppPerformanceTargetDiscovery_0001 TargetDiscovery.test:40 assertTrue actual', files.length > 0)).assertTrue();
       files.forEach((relative: string): void => {
-        expect(fileIo.statSync(`${context.bundleCodeDir}/${relative}`).isFile()).assertTrue();
+        expect(traceParameter('com.samples.appperformance_AppPerformanceTargetDiscovery_0001 TargetDiscovery.test:42 assertTrue actual', fileIo.statSync(`${context.bundleCodeDir}/${relative}`).isFile())).assertTrue();
       });
     });
   });

@@ -14,8 +14,9 @@
  */
 
 import { Want } from '@kit.AbilityKit';
-import { describe, expect, it } from '@ohos/hypium';
-import { PageKey } from '../../../main/ets/model/ShortcutModels';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
+import { PageKey } from '../../../main/ets/model/ShortcutScenes';
 import { LaunchRequest, parseLaunchRequest } from '../../../main/ets/navigation/LaunchRequest';
 import { runCase } from '../support/CaseScope';
 
@@ -34,24 +35,24 @@ export default function launchRequestTests(): void {
      * @tc.level     Level 2
      */
 
-    it('testLaunchRequest0001', 0, async (): Promise<void> => {
-      await runCase(async (): Promise<void> => {
+    it(caseName('LaunchRequest', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('LaunchRequest', '0001'), async (): Promise<void> => {
         const actions: string[] = ['note.new', 'todo.list', 'collection.list'];
         const filters: string[] = ['', 'todayOpen', 'saved'];
         const pages: PageKey[] = [PageKey.NOTE, PageKey.TODO, PageKey.COLLECTION];
         for (const cold of [true, false]) {
           for (let index = 0; index < actions.length; index++) {
             const request: LaunchRequest = parseLaunchRequest(wantFor(actions[index], filters[index]), cold);
-            expect(request.page).assertEqual(pages[index]);
-            expect(request.source).assertEqual(cold ? '冷启动' : '热启动');
-            expect(request.error).assertEqual('');
+            expect(request.page, caseName('LaunchRequest', '0001')).assertEqual(pages[index]);
+            expect(request.source, caseName('LaunchRequest', '0001')).assertEqual(cold ? '冷启动' : '热启动');
+            expect(request.error, caseName('LaunchRequest', '0001')).assertEqual('');
           }
         }
         const home: Want = {};
-        expect(parseLaunchRequest(home, true).page).assertEqual(PageKey.HOME);
-        expect(parseLaunchRequest(home, false).error).assertEqual('');
+        expect(parseLaunchRequest(home, true).page, caseName('LaunchRequest', '0001')).assertEqual(PageKey.HOME);
+        expect(parseLaunchRequest(home, false).error, caseName('LaunchRequest', '0001')).assertEqual('');
         const note: Want = { parameters: { 'sc.version': '1', 'sc.action': 'note.new' } };
-        expect(parseLaunchRequest(note, true).page).assertEqual(PageKey.NOTE);
+        expect(parseLaunchRequest(note, true).page, caseName('LaunchRequest', '0001')).assertEqual(PageKey.NOTE);
         const invalid: Want[] = [
           wantFor('note.new', '', '2'),
           wantFor('note.new', '', ''),
@@ -63,8 +64,8 @@ export default function launchRequestTests(): void {
         ];
         for (const want of invalid) {
           const request: LaunchRequest = parseLaunchRequest(want, true);
-          expect(request.error.length > 0).assertTrue();
-          expect(request.page).assertEqual(PageKey.HOME);
+          expect(request.error.length > 0, caseName('LaunchRequest', '0001')).assertTrue();
+          expect(request.page, caseName('LaunchRequest', '0001')).assertEqual(PageKey.HOME);
         }
       });
     });

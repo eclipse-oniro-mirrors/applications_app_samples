@@ -15,9 +15,10 @@
 
 import { common, shortcutManager } from '@kit.AbilityKit';
 import { BatchStorage } from '../../../main/ets/services/BatchStorage';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { ShortcutApi } from '../../../main/ets/services/ShortcutApi';
 import { ShortcutService } from '../../../main/ets/services/ShortcutService';
+import { BusinessError } from '@kit.BasicServicesKit';
+
 import { CaseScope, Cleanup, getTestContext } from './CaseScope';
 
 export class FixtureError extends Error implements BusinessError {
@@ -177,12 +178,12 @@ export function shortcutInfo(id: string, visible?: boolean): shortcutManager.Sho
   const page: shortcutManager.ParameterItem = { key: 'page', value: 'note' };
   const payload: shortcutManager.ParameterItem = { key: 'payload', value: 'p'.repeat(180) };
   const want: shortcutManager.ShortcutWant = {
-    targetBundle: 'com.example.shortcut', targetModule: 'entry', targetAbility: 'EntryAbility',
+    targetBundle: 'com.samples.shortcut', targetModule: 'entry', targetAbility: 'EntryAbility',
     parameters: [page, payload]
   };
   const info: shortcutManager.ShortcutInfo = {
     id: id,
-    bundleName: 'com.example.shortcut',
+    bundleName: 'com.samples.shortcut',
     moduleName: 'entry',
     hostAbility: 'EntryAbility',
     icon: '$media:shortcut_note',

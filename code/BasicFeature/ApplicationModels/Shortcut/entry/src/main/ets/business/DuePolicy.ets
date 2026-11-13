@@ -15,6 +15,7 @@
 
 import { businessLabel } from '../i18n/BusinessLabels';
 import { uiText, resourceText } from '../i18n/Strings';
+
 /**
  * 待办的截止、延期与重复规则。
  *
@@ -84,16 +85,16 @@ export const DUE_SOON_MS: number = 24 * 60 * 60 * 1000;
  * 顺序即判定顺序：已完成优先于一切，其余按剩余时间由近到远。
  */
 export const DUE_RULES: DueRule[] = [
-  new DueRule('DU-01', "@string/shortcut_text_0679", DueState.DONE, "@string/shortcut_text_0569"),
-  new DueRule('DU-02', "@string/shortcut_text_0388", DueState.NO_DUE, "@string/shortcut_text_0600"),
-  new DueRule('DU-03', "@string/shortcut_text_0331", DueState.OVERDUE, "@string/shortcut_text_0707"),
-  new DueRule('DU-04', "@string/shortcut_text_0330", DueState.DUE_SOON, "@string/shortcut_text_0344"),
-  new DueRule('DU-05', "@string/shortcut_text_0329", DueState.FUTURE, "@string/shortcut_text_0739"),
-  new DueRule('DU-06', "@string/shortcut_text_0638", DueState.FUTURE, "@string/shortcut_text_0640"),
-  new DueRule('DU-07', "@string/shortcut_text_0639", DueState.OVERDUE, "@string/shortcut_text_0637"),
-  new DueRule('DU-08', "@string/shortcut_text_0764", DueState.DONE, "@string/shortcut_text_0064"),
-  new DueRule('DU-09', "@string/shortcut_text_0765", DueState.NO_DUE, "@string/shortcut_text_0380"),
-  new DueRule('DU-10', "@string/shortcut_text_0681", DueState.FUTURE, "@string/shortcut_text_0776")
+  new DueRule('DU-01', '@string/shortcut_text_0679', DueState.DONE, '@string/shortcut_text_0569'),
+  new DueRule('DU-02', '@string/shortcut_text_0388', DueState.NO_DUE, '@string/shortcut_text_0600'),
+  new DueRule('DU-03', '@string/shortcut_text_0331', DueState.OVERDUE, '@string/shortcut_text_0707'),
+  new DueRule('DU-04', '@string/shortcut_text_0330', DueState.DUE_SOON, '@string/shortcut_text_0344'),
+  new DueRule('DU-05', '@string/shortcut_text_0329', DueState.FUTURE, '@string/shortcut_text_0739'),
+  new DueRule('DU-06', '@string/shortcut_text_0638', DueState.FUTURE, '@string/shortcut_text_0640'),
+  new DueRule('DU-07', '@string/shortcut_text_0639', DueState.OVERDUE, '@string/shortcut_text_0637'),
+  new DueRule('DU-08', '@string/shortcut_text_0764', DueState.DONE, '@string/shortcut_text_0064'),
+  new DueRule('DU-09', '@string/shortcut_text_0765', DueState.NO_DUE, '@string/shortcut_text_0380'),
+  new DueRule('DU-10', '@string/shortcut_text_0681', DueState.FUTURE, '@string/shortcut_text_0776')
 ];
 
 /** 一个待办的到期信息。 */
@@ -245,8 +246,8 @@ export class DueBuckets {
   }
 
   describe(): string {
-    return uiText("shortcut_text_0706", [String(this.overdue.length), String(this.soon.length), String(this.future.length)]) +
-      uiText("shortcut_text_0599", [String(this.undated.length), String(this.done.length)]);
+    return uiText('shortcut_text_0706', [String(this.overdue.length), String(this.soon.length), String(this.future.length)]) +
+      uiText('shortcut_text_0599', [String(this.undated.length), String(this.done.length)]);
   }
 }
 
@@ -278,7 +279,7 @@ export function dueLines(): string[] {
 /** 一句话摘要。 */
 export function dueSummary(items: TodoDue[], now: number): string {
   if (items.length === 0) {
-    return uiText("shortcut_text_0720");
+    return uiText('shortcut_text_0720');
   }
   return bucketize(items, now).describe();
 }
@@ -286,8 +287,8 @@ export function dueSummary(items: TodoDue[], now: number): string {
 /** 重复方式展示。 */
 export function repeatText(repeat: RepeatKind, due: TodoDue, now: number): string {
   if (repeat === RepeatKind.NONE) {
-    return uiText("shortcut_text_0134");
+    return uiText('shortcut_text_0134');
   }
   const next: number = nextOccurrence(due, now);
-  return next <= 0 ? uiText("shortcut_text_0023", [businessLabel(repeat as string)]) : uiText("shortcut_text_0022", [businessLabel(repeat as string), String(dateKeyOf(next))]);
+  return next <= 0 ? uiText('shortcut_text_0023', [businessLabel(repeat as string)]) : uiText('shortcut_text_0022', [businessLabel(repeat as string), String(dateKeyOf(next))]);
 }

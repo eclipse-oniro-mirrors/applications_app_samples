@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { setStringResolver, uiText } from '../../../main/ets/i18n/Strings';
-import { FEATURES } from '../../../main/ets/model/ShortcutModels';
+import { FEATURES } from '../../../main/ets/model/ShortcutScenes';
 import { runCase } from '../support/CaseScope';
 import { useModelBaselineStrings } from '../support/TestStrings';
 
@@ -29,11 +30,11 @@ export default function localizationTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutLocalization0001', 0, async (): Promise<void> => {
-      await runCase(async (): Promise<void> => {
+    it(caseName('ShortcutLocalization', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutLocalization', '0001'), async (): Promise<void> => {
         try {
           setStringResolver(undefined);
-          expect(uiText('shortcut_text_0619')).assertEqual('Create note');
+          expect(uiText('shortcut_text_0619'), caseName('ShortcutLocalization', '0001')).assertEqual('Create note');
         } finally {
           useModelBaselineStrings();
         }
@@ -48,11 +49,11 @@ export default function localizationTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutLocalization0002', 0, async (): Promise<void> => {
-      await runCase(async (): Promise<void> => {
+    it(caseName('ShortcutLocalization', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutLocalization', '0002'), async (): Promise<void> => {
         try {
           setStringResolver(undefined);
-          expect(uiText('shortcut_text_0016', ['%2$s'])).assertEqual('%2$s, view details');
+          expect(uiText('shortcut_text_0016', ['%2$s']), caseName('ShortcutLocalization', '0002')).assertEqual('%2$s, view details');
         } finally {
           useModelBaselineStrings();
         }
@@ -67,15 +68,15 @@ export default function localizationTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutLocalization0003', 0, async (): Promise<void> => {
-      await runCase(async (): Promise<void> => {
+    it(caseName('ShortcutLocalization', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutLocalization', '0003'), async (): Promise<void> => {
         const id: string = FEATURES[0].id;
         try {
           setStringResolver((_name: string): string => 'Localized title');
-          expect(FEATURES[0].title).assertEqual('Localized title');
+          expect(FEATURES[0].title, caseName('ShortcutLocalization', '0003')).assertEqual('Localized title');
           setStringResolver((_name: string): string => { throw new Error('Controlled resource failure'); });
-          expect(FEATURES[0].title).assertEqual('Create note');
-          expect(FEATURES[0].id).assertEqual(id);
+          expect(FEATURES[0].title, caseName('ShortcutLocalization', '0003')).assertEqual('Create note');
+          expect(FEATURES[0].id, caseName('ShortcutLocalization', '0003')).assertEqual(id);
         } finally {
           useModelBaselineStrings();
         }

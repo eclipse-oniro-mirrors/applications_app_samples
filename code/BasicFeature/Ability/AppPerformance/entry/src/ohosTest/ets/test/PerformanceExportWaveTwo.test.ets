@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { ReportTable } from '../../../main/ets/core/report/ReportTable';
 import {
   ReportFormat, ReportMeta, buildCsv, buildMarkdown, checkReport, exportReport
@@ -36,11 +38,11 @@ export default function performanceExportWaveTwoTests(): void {
       bad.condition = '["fixture-board · next-os","1.0.fixture",true]';
       bad.stages[4].detail = 'PRIVATE-BUSINESS-BODY';
       const text = buildCsv(ReportTable.build([ok, bad]), new ReportMeta('多组', 1700000001000));
-      expect(text.indexOf('系统版本（fixture-os → next-os）') >= 0).assertTrue();
-      expect(text.indexOf('分组统计,条件组1,P50,60 ms,阶段耗时合计') >= 0).assertTrue();
-      expect(text.indexOf('分组统计,条件组2,P50,不可评估,阶段耗时合计') >= 0).assertTrue();
-      expect(text.indexOf('阶段耗时,条件组2,reread,P50 不可评估,样本 0 · 均值 不可评估') >= 0).assertTrue();
-      expect(text.indexOf('PRIVATE-BUSINESS-BODY')).assertEqual(-1);
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0001 PerformanceExportWaveTwo.test:39 assertTrue actual', text.indexOf('系统版本（fixture-os → next-os）') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0001 PerformanceExportWaveTwo.test:40 assertTrue actual', text.indexOf('分组统计,条件组1,P50,60 ms,阶段耗时合计') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0001 PerformanceExportWaveTwo.test:41 assertTrue actual', text.indexOf('分组统计,条件组2,P50,不可评估,阶段耗时合计') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0001 PerformanceExportWaveTwo.test:42 assertTrue actual', text.indexOf('阶段耗时,条件组2,reread,P50 不可评估,样本 0 · 均值 不可评估') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0001 PerformanceExportWaveTwo.test:43 assertEqual actual', text.indexOf('PRIVATE-BUSINESS-BODY'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0001 PerformanceExportWaveTwo.test:43 assertEqual expected', -1));
     });
 
     /**
@@ -53,12 +55,12 @@ export default function performanceExportWaveTwoTests(): void {
      */
     it('testPerformanceExportWaveTwo0002', 0, (): void => {
       const records = [waveRecord('time')];
-      expect(checkReport(records, new ReportMeta('负数', -1)).findings.join('|')).assertEqual('生成时间非法');
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0002 PerformanceExportWaveTwo.test:56 assertEqual actual', checkReport(records, new ReportMeta('负数', -1)).findings.join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0002 PerformanceExportWaveTwo.test:56 assertEqual expected', '生成时间非法'));
       const nan = exportReport(records, new ReportMeta('非数字', Number.NaN), ReportFormat.MARKDOWN);
-      expect(nan.text).assertEqual('');
-      expect(checkReport(records, new ReportMeta('无穷', Number.POSITIVE_INFINITY)).findings.join('|'))
-        .assertEqual('生成时间非法');
-      expect(checkReport(records, new ReportMeta('当前时间', 0)).findings.join('|')).assertEqual('');
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0002 PerformanceExportWaveTwo.test:58 assertEqual actual', nan.text)).assertEqual(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0002 PerformanceExportWaveTwo.test:58 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0002 PerformanceExportWaveTwo.test:59 assertEqual actual', checkReport(records, new ReportMeta('无穷', Number.POSITIVE_INFINITY)).findings.join('|')))
+        .assertEqual(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0002 PerformanceExportWaveTwo.test:59 assertEqual expected', '生成时间非法'));
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0002 PerformanceExportWaveTwo.test:61 assertEqual actual', checkReport(records, new ReportMeta('当前时间', 0)).findings.join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0002 PerformanceExportWaveTwo.test:61 assertEqual expected', ''));
     });
 
     /**
@@ -75,15 +77,15 @@ export default function performanceExportWaveTwoTests(): void {
         '正常说明 token=fixture-sensitive-key 138001380001234567 ../private/cache.txt 保留结尾');
       const markdown = exportReport(records, meta, ReportFormat.MARKDOWN);
       const csv = exportReport(records, meta, ReportFormat.CSV);
-      expect(markdown.ok).assertTrue();
-      expect(csv.ok).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:78 assertTrue actual', markdown.ok)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:79 assertTrue actual', csv.ok)).assertTrue();
       [markdown.text, csv.text].forEach((text: string): void => {
-        expect(text.indexOf('fixture-sensitive-key')).assertEqual(-1);
-        expect(text.indexOf('138001380001234567')).assertEqual(-1);
-        expect(text.indexOf('../private/cache.txt')).assertEqual(-1);
-        expect(text.indexOf('[凭据已脱敏]') >= 0).assertTrue();
-        expect(text.indexOf('[长数字已脱敏]') >= 0).assertTrue();
-        expect(text.indexOf('保留结尾') >= 0).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:81 assertEqual actual', text.indexOf('fixture-sensitive-key'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:81 assertEqual expected', -1));
+        expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:82 assertEqual actual', text.indexOf('138001380001234567'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:82 assertEqual expected', -1));
+        expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:83 assertEqual actual', text.indexOf('../private/cache.txt'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:83 assertEqual expected', -1));
+        expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:84 assertTrue actual', text.indexOf('[凭据已脱敏]') >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:85 assertTrue actual', text.indexOf('[长数字已脱敏]') >= 0)).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0003 PerformanceExportWaveTwo.test:86 assertTrue actual', text.indexOf('保留结尾') >= 0)).assertTrue();
       });
     });
 
@@ -100,9 +102,9 @@ export default function performanceExportWaveTwoTests(): void {
       record.stages[0].label = '发现|目标';
       const text = buildMarkdown(ReportTable.build([record]),
         new ReportMeta('单元格', 1700000001000, '行一\r\n\t行二'));
-      expect(text.indexOf('文本\\|对照（W-TEXT）') >= 0).assertTrue();
-      expect(text.indexOf('| 发现\\|目标 | 1 | 10 ms | 10 ms |') >= 0).assertTrue();
-      expect(text.indexOf('- 筛选：行一 行二\n') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0004 PerformanceExportWaveTwo.test:103 assertTrue actual', text.indexOf('文本\\|对照（W-TEXT）') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0004 PerformanceExportWaveTwo.test:104 assertTrue actual', text.indexOf('| 发现\\|目标 | 1 | 10 ms | 10 ms |') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_PerformanceExportWaveTwo_0004 PerformanceExportWaveTwo.test:105 assertTrue actual', text.indexOf('- 筛选：行一 行二\n') >= 0)).assertTrue();
     });
   });
 }

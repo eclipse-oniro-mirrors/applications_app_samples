@@ -13,52 +13,9 @@
  * limitations under the License.
  */
 
-import { uiText, resourceText } from '../i18n/Strings';
+import { shortcutText as uiText } from '../i18n/Strings';
 import { shortcutManager } from '@kit.AbilityKit';
 import { BatchPlan, BatchPreview } from '../services/VisibilityBatch';
-
-export enum PageKey {
-  HOME = 'home',
-  NOTE = 'note',
-  TODO = 'todo',
-  COLLECTION = 'collection',
-  DETAIL = 'detail',
-  CALL_LOG = 'calls'
-}
-
-export class FeatureInfo {
-  public id: string;
-  public page: PageKey;
-  private titleValue: string = '';
-  get title(): string { return resourceText(this.titleValue); }
-  set title(value: string) { this.titleValue = value; }
-  private descriptionValue: string = '';
-  get description(): string { return resourceText(this.descriptionValue); }
-  set description(value: string) { this.descriptionValue = value; }
-  public icon: Resource;
-
-  constructor(id: string, page: PageKey, title: string, description: string, icon: Resource) {
-    this.id = id;
-    this.page = page;
-    this.title = title;
-    this.description = description;
-    this.icon = icon;
-  }
-}
-
-export const FEATURES: FeatureInfo[] = [
-  new FeatureInfo('sc.note.new', PageKey.NOTE, "@string/shortcut_text_0619", "@string/shortcut_text_0543", $r('app.media.shortcut_note')),
-  new FeatureInfo('sc.todo.today', PageKey.TODO, "@string/shortcut_text_0334", "@string/shortcut_text_0164", $r('app.media.shortcut_todo')),
-  new FeatureInfo('sc.collection.saved', PageKey.COLLECTION, "@string/shortcut_text_0523", "@string/shortcut_text_0148", $r('app.media.shortcut_collection'))
-];
-
-export function featureForId(id: string): FeatureInfo | undefined {
-  return FEATURES.find((item: FeatureInfo) => item.id === id);
-}
-
-export function featureForPage(page: PageKey): FeatureInfo | undefined {
-  return FEATURES.find((item: FeatureInfo) => item.page === page);
-}
 
 export function clockText(millis: number): string {
   const date: Date = new Date(millis);
@@ -106,7 +63,7 @@ export class CallRecord {
 }
 
 export class ShortcutView {
-  public support: string = uiText("shortcut_text_0498");
+  public support: string = uiText('shortcut_text_0498');
   public supportError: string = '';
   public supported: boolean = false;
   public checking: boolean = false;
@@ -127,9 +84,9 @@ export class ShortcutView {
 
 export function sourceText(value: number): string {
   switch (value) {
-    case 0: return uiText("shortcut_text_0790");
-    case 1: return uiText("shortcut_text_0347");
-    case 2: return uiText("shortcut_text_0219");
-    default: return uiText("shortcut_text_0372", [String(value)]);
+    case 0: return uiText('shortcut_text_0790');
+    case 1: return uiText('shortcut_text_0347');
+    case 2: return uiText('shortcut_text_0219');
+    default: return uiText('shortcut_text_0372', [String(value)]);
   }
 }

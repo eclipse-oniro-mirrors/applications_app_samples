@@ -17,8 +17,8 @@ import { it } from '@ohos/hypium';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { systemDateTime } from '@kit.BasicServicesKit';
 import { logInfo, logWarn, logError } from '../../../main/ets/core/Logger';
-
-export const BUNDLE: string = 'com.example.appperformance';
+import { testCaseName, parameterSummary } from './TestLog';
+export { BUNDLE } from './TestLog';
 
 export const CASE_TIMEOUT_MS: number = 10000;
 export const RUNNER_TIMEOUT_MS: number = 12000;
@@ -37,15 +37,17 @@ export function caseResults(): CaseResult[] {
   return results.slice();
 }
 
-export function boundedIt(name: string, _level: number, body: ScenarioBody): void {
-  scenario(name, body);
+export function boundedIt(name: string, level: number, body: ScenarioBody): void {
+  scenario(name, body, level);
 }
 
-export function scenario(name: string, body: ScenarioBody): void {
-  it(name, 0, async (): Promise<void> => {
-    logInfo(`${BUNDLE} ${name} begin`);
+export function scenario(legacyName: string, body: ScenarioBody, level: number = 0): void {
+  const name = testCaseName(legacyName);
+  it(name, level, async (): Promise<void> => {
+    logInfo(`${name} begin; legacy=${legacyName}`);
     const started = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
     let timer: number = -1;
+    let failed: boolean = false;
     let failure: Error | undefined = undefined;
     const deadline = new Promise<void>((_resolve, reject): void => {
       timer = setTimeout((): void => {
@@ -55,33 +57,36 @@ export function scenario(name: string, body: ScenarioBody): void {
     try {
       await Promise.race([Promise.resolve().then(body), deadline]);
     } catch (error) {
+      failed = true;
       failure = error as Error;
     } finally {
       clearTimeout(timer);
     }
     const duration = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false) - started;
-    if (duration > CASE_TIMEOUT_MS && failure === undefined) {
+    if (duration > CASE_TIMEOUT_MS && !failed) {
+      failed = true;
       failure = new Error(`Case exceeded ${CASE_TIMEOUT_MS} ms: ${name}`);
     }
     const result: CaseResult = {
       name: name,
-      status: failure === undefined ? 'passed' : 'failed',
+      // Hypium may record failed expectations without throwing. This is body telemetry only.
+      status: failed ? 'body-threw' : 'body-returned',
       durationMs: duration,
-      error: failure === undefined ? '' : failure.message
+      error: failed ? parameterSummary(failure) : ''
     };
     results.push(result);
     try {
       await abilityDelegatorRegistry.getAbilityDelegator().print(`[AP_CASE] ${JSON.stringify(result)}`);
     } catch (error) {
-      logWarn(`Case result output failed: ${(error as Error).message}`);
+      logWarn(`${name} result output failed: ${parameterSummary(error)}`);
       logInfo(`[AP_CASE] ${JSON.stringify(result)}`);
     }
-    if (failure !== undefined) {
-      logError(`${BUNDLE} ${name} failure: ${failure.message}`);
+    if (failed) {
+      logError(`${name} failure: ${parameterSummary(failure)}`);
     }
-    logInfo(`${BUNDLE} ${name} end: ${result.status}; ${duration} ms`);
-    if (failure !== undefined) {
-      throw failure;
+    logInfo(`${name} end: ${result.status}; ${duration} ms; verdict=Hypium`);
+    if (failed) {
+      throw failure as Error;
     }
   });
 }

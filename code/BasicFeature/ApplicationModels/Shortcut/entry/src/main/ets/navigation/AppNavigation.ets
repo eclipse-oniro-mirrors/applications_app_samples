@@ -15,11 +15,12 @@
 
 import { uiText } from '../i18n/Strings';
 import { logWarning } from '../services/Logger';
+import { shortcutService } from '../services/ShortcutService';
 import { Want } from '@kit.AbilityKit';
 import { promptAction, router } from '@kit.ArkUI';
 import { BusinessEntryContext, BusinessSnapshot, NavigationBusiness, businessStore } from '../business/BusinessStore';
-import { PageKey } from '../model/ShortcutModels';
-import { shortcutService } from '../services/ShortcutService';
+import { PageKey } from '../model/ShortcutScenes';
+
 import { LaunchRequest, parseLaunchRequest } from './LaunchRequest';
 
 export interface NavigationRouter {
@@ -54,12 +55,12 @@ class PlatformRouter implements NavigationRouter {
 class PlatformDialog implements NavigationDialog {
   async choose(editing: boolean): Promise<number> {
     const answer = await promptAction.showDialog({
-      title: editing ? uiText("shortcut_text_0047") : uiText("shortcut_text_0059"),
-      message: uiText("shortcut_text_0044"),
+      title: editing ? uiText('shortcut_text_0047') : uiText('shortcut_text_0059'),
+      message: uiText('shortcut_text_0044'),
       buttons: [
-        { text: uiText("shortcut_text_0043"), color: '#315CF5' },
-        { text: uiText("shortcut_text_0236"), color: '#C23F4A' },
-        { text: uiText("shortcut_text_0314"), color: '#667085' }
+        { text: uiText('shortcut_text_0043'), color: '#315CF5' },
+        { text: uiText('shortcut_text_0236'), color: '#C23F4A' },
+        { text: uiText('shortcut_text_0314'), color: '#667085' }
       ]
     });
     return answer.index;
@@ -135,7 +136,7 @@ export class AppNavigation {
     if (!this.alive) { return; }
     const request: LaunchRequest = parseLaunchRequest(want, cold);
     if (request.error.length > 0) {
-      this.safeRecord(uiText("shortcut_text_0432"), 'invalid-parameters', uiText("shortcut_text_0513"));
+      this.safeRecord(uiText('shortcut_text_0432'), 'invalid-parameters', uiText('shortcut_text_0513'));
       return;
     }
     // Coalesce delivery while in flight, not forever: a later desktop click reapplies its filter.
@@ -145,11 +146,11 @@ export class AppNavigation {
   }
 
   async open(page: PageKey): Promise<void> {
-    await this.navigate(new LaunchRequest(page, uiText("shortcut_text_0694")));
+    await this.navigate(new LaunchRequest(page, uiText('shortcut_text_0694')));
   }
 
   async openDetail(id: string): Promise<void> {
-    await this.navigate(new LaunchRequest(PageKey.DETAIL, uiText("shortcut_text_0694"), '', '', id));
+    await this.navigate(new LaunchRequest(PageKey.DETAIL, uiText('shortcut_text_0694'), '', '', id));
   }
 
   async back(): Promise<void> {
@@ -198,7 +199,7 @@ export class AppNavigation {
       } else {
         return false;
       }
-      if (!success) { this.safeToast(uiText("shortcut_text_0165")); }
+      if (!success) { this.safeToast(uiText('shortcut_text_0165')); }
       return success;
     } catch (_) {
       return false;
@@ -221,7 +222,7 @@ export class AppNavigation {
         // 旧会话的迟到对话框不得清掉重新初始化后的待跳转请求，也不得写入新会话日志。
         if (!this.isCurrent(generation)) { return; }
         this.pending = undefined;
-        this.safeRecord(request.page, request.source, uiText("shortcut_text_0452"));
+        this.safeRecord(request.page, request.source, uiText('shortcut_text_0452'));
         return;
       }
       if (!this.isCurrent(generation)) { return; }
@@ -245,7 +246,7 @@ export class AppNavigation {
           this.revisit = undefined;
         }
       }
-      if (this.isCurrent(generation)) { this.safeRecord(request.page, request.source, uiText("shortcut_text_0161")); }
+      if (this.isCurrent(generation)) { this.safeRecord(request.page, request.source, uiText('shortcut_text_0161')); }
     } catch (_) {
       if (this.isCurrent(generation)) {
         if (checkpoint !== undefined) { this.business.restoreEntryContext(checkpoint); }
@@ -271,11 +272,11 @@ export class AppNavigation {
 
   private target(page: PageKey): string {
     switch (page) {
-      case PageKey.NOTE: return 'pages/NotePage';
-      case PageKey.TODO: return 'pages/TodoPage';
-      case PageKey.COLLECTION: return 'pages/CollectionPage';
-      case PageKey.DETAIL: return 'pages/ShortcutDetailPage';
-      case PageKey.CALL_LOG: return 'pages/ActivityPage';
+      case PageKey.NOTE: return 'scenes/pages/NotePage';
+      case PageKey.TODO: return 'scenes/pages/TodoPage';
+      case PageKey.COLLECTION: return 'scenes/pages/CollectionPage';
+      case PageKey.DETAIL: return 'scenes/pages/ShortcutDetailPage';
+      case PageKey.CALL_LOG: return 'scenes/pages/ActivityPage';
       default: return 'pages/Index';
     }
   }
@@ -292,8 +293,8 @@ export class AppNavigation {
     }
   }
   private reportError(): void {
-    this.safeRecord(this.current, 'router-failed', uiText("shortcut_text_0513"));
-    this.safeToast(uiText("shortcut_text_0641"));
+    this.safeRecord(this.current, 'router-failed', uiText('shortcut_text_0513'));
+    this.safeToast(uiText('shortcut_text_0641'));
   }
 }
 

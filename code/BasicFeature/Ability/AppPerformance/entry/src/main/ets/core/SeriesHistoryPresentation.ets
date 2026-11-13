@@ -17,6 +17,7 @@ import { ExperimentSeriesState } from './ExperimentSeries';
 import { SeriesComparison } from './SeriesHistory';
 import { ReportFormat } from './report/ReportExport';
 import { seriesPhaseLabel } from './SeriesPresentation';
+import { message, localize } from './TextMessages';
 
 export class SeriesHistorySelection {
   public selectedOwnerId: string = '';
@@ -38,15 +39,15 @@ export class SeriesHistoryView {
   public rows: SeriesHistoryRow[] = [];
   public selectedOwnerId: string = '';
   public comparisonOwnerId: string = '';
-  public selectedText: string = '尚未选择系列历史';
-  public comparisonText: string = '尚未选择另一个对照系列';
-  public availabilityText: string = '没有所选系列引用';
+  public selectedText: string = message('ap_series_history_none_selected');
+  public comparisonText: string = message('ap_series_history_no_baseline');
+  public availabilityText: string = message('ap_series_history_no_references');
   public format: ReportFormat = ReportFormat.MARKDOWN;
-  public formatText: string = 'Markdown';
+  public formatText: string = message('ap_series_history_format_markdown');
   public status: string = '';
   public canCopy: boolean = false;
   public copying: boolean = false;
-  public comparisonLines: string[] = ['选择两个不同系列查看同条件比较'];
+  public comparisonLines: string[] = [message('ap_series_history_choose_comparison')];
 }
 
 export function buildSeriesHistoryView(history: ExperimentSeriesState[], selection: SeriesHistorySelection,
@@ -54,30 +55,34 @@ export function buildSeriesHistoryView(history: ExperimentSeriesState[], selecti
   const view = new SeriesHistoryView();
   view.selectedOwnerId = selection.selectedOwnerId; view.comparisonOwnerId = selection.comparisonOwnerId;
   view.format = selection.format;
-  view.formatText = selection.format === ReportFormat.CSV ? 'CSV' : 'Markdown';
-  view.status = selection.status; view.copying = selection.copying;
+  view.formatText = selection.format === ReportFormat.CSV ? message('ap_series_history_format_csv') :
+    message('ap_series_history_format_markdown');
+  view.status = localize(selection.status); view.copying = selection.copying;
   history.forEach((state: ExperimentSeriesState, index: number): void => {
     const row = new SeriesHistoryRow(); row.ownerId = state.ownerId;
-    row.title = `系列${index + 1}｜${state.workloadId} / ${state.mode}｜${seriesPhaseLabel(state.phase)}`;
-    row.detail = `计划 ${state.repetitions}；开始 ${state.startedCount}；记录 ${state.recordIds.length}；` +
-      `可用 ${state.recordIds.length - state.missingRecordIds.length}；缺失 ${state.missingRecordIds.length}`;
+    row.title = message('ap_series_history_row_title',
+      [index + 1, state.workloadId, localize(state.mode), seriesPhaseLabel(state.phase)]);
+    row.detail = message('ap_series_history_row_detail', [state.repetitions, state.startedCount,
+      state.recordIds.length, state.recordIds.length - state.missingRecordIds.length, state.missingRecordIds.length]);
     row.selected = state.ownerId === selection.selectedOwnerId;
     row.comparisonBase = state.ownerId === selection.comparisonOwnerId;
     if (row.selected) {
-      view.selectedText = `已选：${row.title}`;
+      view.selectedText = message('ap_series_history_selected', [row.title]);
       view.availabilityText = row.detail;
       view.canCopy = state.recordIds.length > state.missingRecordIds.length && !selection.copying;
     }
-    if (row.comparisonBase) { view.comparisonText = `对照：${row.title}`; }
+    if (row.comparisonBase) { view.comparisonText = message('ap_series_history_baseline', [row.title]); }
     view.rows.push(row);
   });
   if (selection.selectedOwnerId.length > 0 && !history.some((state: ExperimentSeriesState): boolean =>
     state.ownerId === selection.selectedOwnerId)) {
-    view.selectedText = '所选系列元信息已淘汰；请显式重新选择';
-    view.availabilityText = '不可用：不从其他系列借用记录';
+    view.selectedText = message('ap_series_history_selection_evicted');
+    view.availabilityText = message('ap_series_history_records_unavailable');
   }
   if (selection.comparisonOwnerId.length > 0 && !history.some((state: ExperimentSeriesState): boolean =>
-    state.ownerId === selection.comparisonOwnerId)) { view.comparisonText = '对照系列元信息已淘汰；请重新选择'; }
+    state.ownerId === selection.comparisonOwnerId)) {
+    view.comparisonText = message('ap_series_history_baseline_evicted');
+  }
   if (comparison !== undefined) { view.comparisonLines = comparison.lines(); }
   return view;
 }

@@ -16,6 +16,8 @@
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
 import { hyperSnapManager } from '@kit.AbilityKit';
 import { BusinessError, systemDateTime } from '@kit.BasicServicesKit';
+import { logInfo } from '../../../main/ets/core/Logger';
+import { BUNDLE, parameterSummary, runRunner } from '../support/TestLog';
 
 interface ControlResult {
   api: string;
@@ -36,6 +38,7 @@ function argument(name: string): string {
 }
 
 function control(api: string, value: string): ControlResult {
+  logInfo(`${BUNDLE} HyperSnapControlRunner ${api} begin; enabledArgument=${value}`);
   const started = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false);
   const row: ControlResult = {
     api: api,
@@ -68,21 +71,27 @@ function control(api: string, value: string): ControlResult {
   } catch (error) {
     const detail = error as BusinessError;
     row.status = 'rejected';
-    row.code = typeof detail.code === 'number' ? detail.code : -1;
-    row.message = typeof detail.message === 'string' ? detail.message : String(error);
+    row.code = detail !== null && detail !== undefined && typeof detail.code === 'number' ? detail.code : -1;
+    row.message = detail !== null && detail !== undefined && typeof detail.message === 'string' ?
+      detail.message : String(error);
   }
   row.requestElapsedMs = systemDateTime.getUptime(systemDateTime.TimeType.STARTUP, false) - started;
+  logInfo(`${BUNDLE} HyperSnapControlRunner ${api} end; status=${row.status}, code=${row.code}`);
   return row;
 }
 
 /** Test-only control of EXISTING APIs. Run once before a group, never inside measured launches. */
 export default class HyperSnapControlRunner implements TestRunner {
-  onPrepare(): void {}
+  onPrepare(): void { logInfo(`${BUNDLE} HyperSnapControlRunner prepare`); }
 
   async onRun(): Promise<void> {
+    await runRunner('HyperSnapControlRunner', (): Promise<void> => this.run());
+  }
+
+  private async run(): Promise<void> {
     const delegator = abilityDelegatorRegistry.getAbilityDelegator();
-    await delegator.print(
-      `[HYPERSNAP_CONTROL_ARGS] ${JSON.stringify(abilityDelegatorRegistry.getArguments().parameters)}`);
+    // Inspect only the documented controls; never dump arbitrary runner arguments or credentials.
+    logInfo(`${BUNDLE} HyperSnapControlRunner arguments received; validating enabled/rebuild`);
     const enabled = argument('enabled');
     const rebuildValue = argument('rebuild');
     const rebuild = rebuildValue.length === 0 ? 'false' : rebuildValue;
@@ -93,16 +102,20 @@ export default class HyperSnapControlRunner implements TestRunner {
       return;
     }
     const setting = control('hyperSnapManager.setHyperSnapEnabled', enabled);
-    await delegator.print(`[HYPERSNAP_CONTROL] ${JSON.stringify(setting)}`);
+    await delegator.print(`[HYPERSNAP_CONTROL] api=${setting.api}, status=${setting.status}, ` +
+      `code=${setting.code}, elapsedMs=${setting.requestElapsedMs}, message=${parameterSummary(setting.message)}`);
     if (setting.status !== 'returned') {
-      await delegator.finishTest(`${setting.api}: ${setting.status}, code=${setting.code}, ${setting.message}`, 1);
+      await delegator.finishTest(`${setting.api}: ${setting.status}, code=${setting.code}, ` +
+        `message=${parameterSummary(setting.message)}`, 1);
       return;
     }
     if (rebuild === 'true') {
       const request = control('hyperSnapManager.requestRebuildHyperSnap', '');
-      await delegator.print(`[HYPERSNAP_CONTROL] ${JSON.stringify(request)}`);
+      await delegator.print(`[HYPERSNAP_CONTROL] api=${request.api}, status=${request.status}, ` +
+        `code=${request.code}, elapsedMs=${request.requestElapsedMs}, message=${parameterSummary(request.message)}`);
       if (request.status !== 'returned') {
-        await delegator.finishTest(`${request.api}: ${request.status}, code=${request.code}, ${request.message}`, 1);
+        await delegator.finishTest(`${request.api}: ${request.status}, code=${request.code}, ` +
+          `message=${parameterSummary(request.message)}`, 1);
         return;
       }
     }

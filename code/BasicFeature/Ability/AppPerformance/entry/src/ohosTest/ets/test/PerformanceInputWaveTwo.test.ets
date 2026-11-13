@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { AppService } from '../../../main/ets/core/AppService';
 import { FakePlatform, MemoryStore, fixtureError } from '../support/FakePlatform';
 import { RejectionPlatform } from '../support/CoveragePlatform';
@@ -42,11 +44,11 @@ export default function performanceInputWaveTwoTests(): void {
       store.value = JSON.stringify(raw);
       const reopened = AppService.fromPlatform(new FakePlatform(store));
       try {
-        expect(reopened.getState().logs.map((record): number => record.id).join('|')).assertEqual(`${savedCall.id}`);
-        expect(reopened.getState().launches.map((sample): string => sample.id).join('|')).assertEqual(savedLaunch.id);
-        expect(reopened.getState().storageMessage).assertEqual('');
+        expect(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0001 PerformanceInputWaveTwo.test:45 assertEqual actual', reopened.getState().logs.map((record): number => record.id).join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0001 PerformanceInputWaveTwo.test:45 assertEqual expected', `${savedCall.id}`));
+        expect(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0001 PerformanceInputWaveTwo.test:46 assertEqual actual', reopened.getState().launches.map((sample): string => sample.id).join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0001 PerformanceInputWaveTwo.test:46 assertEqual expected', savedLaunch.id));
+        expect(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0001 PerformanceInputWaveTwo.test:47 assertEqual actual', reopened.getState().storageMessage)).assertEqual(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0001 PerformanceInputWaveTwo.test:47 assertEqual expected', ''));
         reopened.setSnapEnabled(false);
-        expect(reopened.getState().logs[0].id).assertEqual(savedCall.id + 1);
+        expect(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0001 PerformanceInputWaveTwo.test:49 assertEqual actual', reopened.getState().logs[0].id)).assertEqual(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0001 PerformanceInputWaveTwo.test:49 assertEqual expected', savedCall.id + 1));
         await reopened.whenSaved();
       } finally { reopened.dispose(); }
     });
@@ -66,10 +68,10 @@ export default function performanceInputWaveTwoTests(): void {
         const result = await service.evictFiles(['entry.hap']);
         const memory = service.getState().latestMemory;
         if (memory === undefined) { throw new Error('Missing real eviction result'); }
-        expect(result.status).assertEqual('rejected');
-        expect(result.code).assertEqual(0);
-        expect(memory.message).assertEqual('调用失败');
-        expect(service.isExperimentBusy()).assertFalse();
+        expect(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0002 PerformanceInputWaveTwo.test:69 assertEqual actual', result.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0002 PerformanceInputWaveTwo.test:69 assertEqual expected', 'rejected'));
+        expect(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0002 PerformanceInputWaveTwo.test:70 assertEqual actual', result.code)).assertEqual(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0002 PerformanceInputWaveTwo.test:70 assertEqual expected', 0));
+        expect(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0002 PerformanceInputWaveTwo.test:71 assertEqual actual', memory.message)).assertEqual(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0002 PerformanceInputWaveTwo.test:71 assertEqual expected', '调用失败'));
+        expect(traceParameter('com.samples.appperformance_PerformanceInputWaveTwo_0002 PerformanceInputWaveTwo.test:72 assertFalse actual', service.isExperimentBusy())).assertFalse();
       } finally { service.dispose(); }
     });
   });

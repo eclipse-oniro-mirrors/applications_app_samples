@@ -18,6 +18,7 @@ import { window } from '@kit.ArkUI';
 import { logWarn, logError } from '../core/Logger';
 import { AppService, createAppService } from '../core/AppService';
 import { logLaunchPhase } from '../core/LaunchEvidence';
+import { setTextContext } from '../core/TextMessages';
 
 export default class EntryAbility extends UIAbility {
   private service: AppService | undefined = undefined;
@@ -50,5 +51,10 @@ export default class EntryAbility extends UIAbility {
 
   onBackground(): void {
     this.service?.setForeground(false);
+  }
+
+  onDestroy(): void {
+    // Release the host-side resource adapter; the next Ability binds its own live context.
+    setTextContext(undefined);
   }
 }

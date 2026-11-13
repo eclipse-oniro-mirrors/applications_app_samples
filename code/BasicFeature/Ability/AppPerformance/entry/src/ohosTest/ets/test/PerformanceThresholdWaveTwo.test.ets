@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import { AppService } from '../../../main/ets/core/AppService';
 import { evaluateFlowThresholds, flowThresholds } from '../../../main/ets/core/FlowMetrics';
 import { ThresholdReport, ThresholdResult } from '../../../main/ets/core/ThresholdCatalog';
@@ -44,12 +46,12 @@ export default function performanceThresholdWaveTwoTests(): void {
         const budget = flowThresholds().find((entry): boolean => entry.key === 'stage.evict.ms');
         if (flow === undefined || budget === undefined) { throw new Error('Missing real flow or stage budget'); }
         flow.steps[3].elapsed = budget.value;
-        expect(evaluateFlowThresholds(flow).failed()).assertEqual(0);
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0001 PerformanceThresholdWaveTwo.test:47 assertEqual actual', evaluateFlowThresholds(flow).failed())).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0001 PerformanceThresholdWaveTwo.test:47 assertEqual expected', 0));
         flow.steps[3].elapsed++;
         const report = evaluateFlowThresholds(flow);
-        expect(report.criticalFailures()).assertEqual(1);
-        expect(report.failures()[0].key).assertEqual('stage.evict.ms');
-        expect(resultFor(report, 'success.ratio').observed).assertEqual(100);
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0001 PerformanceThresholdWaveTwo.test:50 assertEqual actual', report.criticalFailures())).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0001 PerformanceThresholdWaveTwo.test:50 assertEqual expected', 1));
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0001 PerformanceThresholdWaveTwo.test:51 assertEqual actual', report.failures()[0].key)).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0001 PerformanceThresholdWaveTwo.test:51 assertEqual expected', 'stage.evict.ms'));
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0001 PerformanceThresholdWaveTwo.test:52 assertEqual actual', resultFor(report, 'success.ratio').observed)).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0001 PerformanceThresholdWaveTwo.test:52 assertEqual expected', 100));
       } finally { service.dispose(); }
     });
 
@@ -69,16 +71,16 @@ export default function performanceThresholdWaveTwoTests(): void {
         const active = service.getState().maintenance;
         if (active === undefined) { throw new Error('Missing active production flow'); }
         const partial = evaluateFlowThresholds(active);
-        expect(partial.missing()).assertEqual(5);
-        expect(resultFor(partial, 'stage.config.ms').passed).assertTrue();
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:72 assertEqual actual', partial.missing())).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:72 assertEqual expected', 5));
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:73 assertTrue actual', resultFor(partial, 'stage.config.ms').passed)).assertTrue();
         platform.advance(17); service.cancelExperiment(); await running;
         const cancelled = service.getState().maintenance;
         if (cancelled === undefined) { throw new Error('Missing cancelled production flow'); }
         const terminal = evaluateFlowThresholds(cancelled);
-        expect(terminal.missing()).assertEqual(3);
-        expect(resultFor(terminal, 'stage.warm.ms').observed).assertEqual(17);
-        expect(resultFor(terminal, 'success.ratio').observed).assertEqual(33.3);
-        expect(terminal.failed()).assertEqual(1);
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:78 assertEqual actual', terminal.missing())).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:78 assertEqual expected', 3));
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:79 assertEqual actual', resultFor(terminal, 'stage.warm.ms').observed)).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:79 assertEqual expected', 17));
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:80 assertEqual actual', resultFor(terminal, 'success.ratio').observed)).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:80 assertEqual expected', 33.3));
+        expect(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:81 assertEqual actual', terminal.failed())).assertEqual(traceParameter('com.samples.appperformance_PerformanceThresholdWaveTwo_0002 PerformanceThresholdWaveTwo.test:81 assertEqual expected', 1));
       } finally {
         platform.reply.resolve(new Uint8Array([65, 66, 67])); await waveDrain(); service.dispose();
       }

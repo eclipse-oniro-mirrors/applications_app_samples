@@ -14,6 +14,7 @@
  */
 
 import { uiText } from '../i18n/Strings';
+
 /**
  * 文本差异：为版本比较提供行级 diff 与摘要。
  *
@@ -76,12 +77,12 @@ export class DiffSummary {
 
   text(): string {
     if (this.truncated) {
-      return uiText("shortcut_text_0592");
+      return uiText('shortcut_text_0592');
     }
     if (this.identical) {
-      return uiText("shortcut_text_0414");
+      return uiText('shortcut_text_0414');
     }
-    return uiText("shortcut_text_0621", [String(this.added), String(this.removed), String(this.equal)]);
+    return uiText('shortcut_text_0621', [String(this.added), String(this.removed), String(this.equal)]);
   }
 }
 
@@ -93,7 +94,7 @@ export class DiffResult {
   /** 逐行文本，供页面直接渲染。 */
   textLines(limit: number = 200): string[] {
     if (this.lines.length === 0) {
-      return [uiText("shortcut_text_0389")];
+      return [uiText('shortcut_text_0389')];
     }
     return this.lines.slice(0, limit).map((line: DiffLine): string => line.textOf());
   }
@@ -142,8 +143,8 @@ export function diffLines(oldText: string, newText: string): DiffResult {
   const after: string[] = splitLines(newText);
   if (before.length > LINE_LIMIT || after.length > LINE_LIMIT) {
     summary.truncated = true;
-    result.lines.push(new DiffLine(DiffKind.REMOVED, uiText("shortcut_text_0351", [String(before.length)]), 1, -1));
-    result.lines.push(new DiffLine(DiffKind.ADDED, uiText("shortcut_text_0620", [String(after.length)]), -1, 1));
+    result.lines.push(new DiffLine(DiffKind.REMOVED, uiText('shortcut_text_0351', [String(before.length)]), 1, -1));
+    result.lines.push(new DiffLine(DiffKind.ADDED, uiText('shortcut_text_0620', [String(after.length)]), -1, 1));
     return result;
   }
   // lcs[i][j] 表示 before[i..] 与 after[j..] 的最长公共子序列长度。
@@ -249,10 +250,10 @@ export function sideBySide(result: DiffResult): SideBySideLine[] {
 /** 字符级差异：用于短标题，超过上限直接判为不同。 */
 export function diffCharacters(oldText: string, newText: string): string[] {
   if (oldText === newText) {
-    return [uiText("shortcut_text_0571")];
+    return [uiText('shortcut_text_0571')];
   }
   if (oldText.length > 200 || newText.length > 200) {
-    return [uiText("shortcut_text_0591")];
+    return [uiText('shortcut_text_0591')];
   }
   const result: string[] = [];
   const limit: number = Math.min(oldText.length, newText.length);
@@ -268,16 +269,16 @@ export function diffCharacters(oldText: string, newText: string): string[] {
   const oldMiddle: string = oldText.slice(prefix, oldText.length - suffix);
   const newMiddle: string = newText.slice(prefix, newText.length - suffix);
   if (prefix > 0) {
-    result.push(uiText("shortcut_text_0608", [String(oldText.slice(0, prefix))]));
+    result.push(uiText('shortcut_text_0608', [String(oldText.slice(0, prefix))]));
   }
   if (oldMiddle.length > 0) {
-    result.push(uiText("shortcut_text_0495", [String(oldMiddle)]));
+    result.push(uiText('shortcut_text_0495', [String(oldMiddle)]));
   }
   if (newMiddle.length > 0) {
-    result.push(uiText("shortcut_text_0622", [String(newMiddle)]));
+    result.push(uiText('shortcut_text_0622', [String(newMiddle)]));
   }
   if (suffix > 0) {
-    result.push(uiText("shortcut_text_0607", [String(oldText.slice(oldText.length - suffix))]));
+    result.push(uiText('shortcut_text_0607', [String(oldText.slice(oldText.length - suffix))]));
   }
   return result;
 }
@@ -285,10 +286,10 @@ export function diffCharacters(oldText: string, newText: string): string[] {
 /** 摘要行：供版本列表直接展示每条的改动量。 */
 export function diffBadge(summary: DiffSummary): string {
   if (summary.identical) {
-    return uiText("shortcut_text_0597");
+    return uiText('shortcut_text_0597');
   }
   if (summary.truncated) {
-    return uiText("shortcut_text_0160");
+    return uiText('shortcut_text_0160');
   }
   return `+${summary.added} / -${summary.removed}`;
 }

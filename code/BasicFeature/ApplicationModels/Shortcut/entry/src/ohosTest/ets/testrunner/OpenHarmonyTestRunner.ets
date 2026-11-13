@@ -16,7 +16,9 @@
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
 import { useModelBaselineStrings } from '../support/TestStrings';
-import { logWarning } from '../../../main/ets/services/Logger';
+import { logInfo, logWarning } from '../../../main/ets/services/Logger';
+import { BUNDLE } from '../support/CaseScope';
+import { normalizeLegacyFilters } from '../support/LegacyCaseFilter';
 
 export default class OpenHarmonyTestRunner implements TestRunner {
   onPrepare(): void {}
@@ -25,15 +27,20 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     const delegator = abilityDelegatorRegistry.getAbilityDelegator();
     const args = abilityDelegatorRegistry.getArguments();
     // Register the delegator before importing suites that load the native UiTest exporter.
-    // Preserve timeout/class arguments supplied by DevEco or aa test.
+    // Preserve timeout/flags; map only exact known legacy leaves in class/testCaseNames.
+    const initializationName: string = `${BUNDLE}_SuiteInitialization_0000`;
+    logInfo(`${initializationName} begin`);
     try {
+      normalizeLegacyFilters(args);
       useModelBaselineStrings();
       const suite = await import('../test/List.test');
       Hypium.hypiumTest(delegator, args, suite.default);
-    } catch (error) {
-      const message = `Test initialization failed: ${(error as Error).message}`;
-      logWarning('Test initialization failed');
-      await delegator.finishTest(message, 1);
+    } catch (_) {
+      // Thrown values may be null/undefined; do not dereference or disclose their message/path.
+      logWarning(`${initializationName} failure stage=initialize`);
+      await delegator.finishTest('Shortcut test initialization failed; see named initialization stage logs.', 1);
+    } finally {
+      logInfo(`${initializationName} end`);
     }
   }
 }

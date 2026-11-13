@@ -14,10 +14,11 @@
  */
 
 import { Want } from '@kit.AbilityKit';
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { AppNavigation } from '../../../main/ets/navigation/AppNavigation';
 import { BusinessStore } from '../../../main/ets/business/BusinessStore';
-import { PageKey } from '../../../main/ets/model/ShortcutModels';
+import { PageKey } from '../../../main/ets/model/ShortcutScenes';
 import { CaseScope, runCase } from '../support/CaseScope';
 import { FixedBusinessClock } from '../support/BusinessFixture';
 import { ControlledBusinessStorage, loadBusiness } from '../support/CoverageFixture';
@@ -33,8 +34,8 @@ export default function shortcutNavigationWaveTwoTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutNavigationWaveTwo0001', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutNavigationWaveTwo', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutNavigationWaveTwo', '0001'), async (scope: CaseScope): Promise<void> => {
         const io: ControlledBusinessStorage = new ControlledBusinessStorage();
         const store: BusinessStore = await loadBusiness(scope, io, new FixedBusinessClock().now);
         const routes: WaveRouter = new WaveRouter();
@@ -48,14 +49,14 @@ export default function shortcutNavigationWaveTwoTests(): void {
         const want: Want = { parameters: { 'sc.version': '1', 'sc.action': 'todo.list', 'sc.filter': 'todayOpen' } };
         nav.receiveWant(want, false);
         await waveSettle();
-        expect(routes.calls.join(',')).assertEqual('back:true');
-        expect(reports.join(',')).assertEqual('home:应用内:成功');
-        expect(store.snapshot().todoFilter).assertEqual('全部');
+        expect(routes.calls.join(','), caseName('ShortcutNavigationWaveTwo', '0001')).assertEqual('back:true');
+        expect(reports.join(','), caseName('ShortcutNavigationWaveTwo', '0001')).assertEqual('home:应用内:成功');
+        expect(store.snapshot().todoFilter, caseName('ShortcutNavigationWaveTwo', '0001')).assertEqual('全部');
         nav.activate(PageKey.HOME, (): void => {});
         await waveSettle();
-        expect(routes.calls[1]).assertEqual('push:pages/TodoPage:');
-        expect(store.snapshot().todoFilter).assertEqual('未完成');
-        expect(io.writes).assertEqual(0);
+        expect(routes.calls[1], caseName('ShortcutNavigationWaveTwo', '0001')).assertEqual('push:scenes/pages/TodoPage:');
+        expect(store.snapshot().todoFilter, caseName('ShortcutNavigationWaveTwo', '0001')).assertEqual('未完成');
+        expect(io.writes, caseName('ShortcutNavigationWaveTwo', '0001')).assertEqual(0);
       });
     });
   });

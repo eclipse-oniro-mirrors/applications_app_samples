@@ -14,6 +14,7 @@
  */
 
 import { uiText } from '../i18n/Strings';
+
 /**
  * 本地检索：分词、打分、摘要与高亮。
  *
@@ -36,7 +37,7 @@ export class SearchDoc {
   }
 
   text(): string {
-    return uiText("shortcut_text_0027", [String(this.title), String(this.tags.join('/')), String(this.body.length)]);
+    return uiText('shortcut_text_0027', [String(this.title), String(this.tags.join('/')), String(this.body.length)]);
   }
 }
 
@@ -241,9 +242,9 @@ export function highlight(text: string, tokens: string[]): string {
 export function tokenSummary(query: string): string {
   const tokens: string[] = uniqueTokens(query);
   if (tokens.length === 0) {
-    return uiText("shortcut_text_0390");
+    return uiText('shortcut_text_0390');
   }
-  return uiText("shortcut_text_0012", [String(tokens.length), String(tokens.join(' '))]);
+  return uiText('shortcut_text_0012', [String(tokens.length), String(tokens.join(' '))]);
 }
 
 /** 检索自检：空文档、重复 id、超长标题。 */
@@ -252,7 +253,7 @@ export class SearchAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? uiText("shortcut_text_0320") : this.findings.join('；');
+    return this.ok ? uiText('shortcut_text_0320') : this.findings.join('；');
   }
 }
 
@@ -262,17 +263,17 @@ export function auditDocs(docs: SearchDoc[]): SearchAudit {
   const seen: string[] = [];
   docs.forEach((doc: SearchDoc): void => {
     if (doc.id.length === 0) {
-      audit.findings.push(uiText("shortcut_text_0179"));
+      audit.findings.push(uiText('shortcut_text_0179'));
     }
     if (seen.indexOf(doc.id) >= 0) {
-      audit.findings.push(uiText("shortcut_text_0595", [String(doc.id)]));
+      audit.findings.push(uiText('shortcut_text_0595', [String(doc.id)]));
     }
     seen.push(doc.id);
     if (doc.title.length === 0) {
-      audit.findings.push(uiText("shortcut_text_0470", [String(doc.id)]));
+      audit.findings.push(uiText('shortcut_text_0470', [String(doc.id)]));
     }
     if (doc.title.length > 64) {
-      audit.findings.push(uiText("shortcut_text_0122", [String(doc.id)]));
+      audit.findings.push(uiText('shortcut_text_0122', [String(doc.id)]));
     }
   });
   audit.ok = audit.findings.length === 0;

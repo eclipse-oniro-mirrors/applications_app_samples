@@ -15,6 +15,7 @@
 
 import { businessLabel } from '../i18n/BusinessLabels';
 import { uiText, resourceText } from '../i18n/Strings';
+
 /**
  * 笔记回收站与保存基线。
  *
@@ -66,16 +67,16 @@ export class SaveRule {
  * 三者相等表示无变化；local > baseline 且 local == remote 表示双方改成了同一版本。
  */
 export const SAVE_RULES: SaveRule[] = [
-  new SaveRule('SV-01', "@string/shortcut_text_0491", SaveOutcome.SAFE, "@string/shortcut_text_0394"),
-  new SaveRule('SV-02', "@string/shortcut_text_0755", SaveOutcome.SAFE, "@string/shortcut_text_0150"),
-  new SaveRule('SV-03', "@string/shortcut_text_0757", SaveOutcome.CONFIRM, "@string/shortcut_text_0066"),
-  new SaveRule('SV-04', "@string/shortcut_text_0540", SaveOutcome.SAFE, "@string/shortcut_text_0524"),
-  new SaveRule('SV-05', "@string/shortcut_text_0539", SaveOutcome.BRANCH, "@string/shortcut_text_0385"),
-  new SaveRule('SV-06', "@string/shortcut_text_0229", SaveOutcome.CONFIRM, "@string/shortcut_text_0228"),
-  new SaveRule('SV-07', "@string/shortcut_text_0067", SaveOutcome.BLOCKED, "@string/shortcut_text_0468"),
-  new SaveRule('SV-08', "@string/shortcut_text_0180", SaveOutcome.BLOCKED, "@string/shortcut_text_0289"),
-  new SaveRule('SV-09', "@string/shortcut_text_0071", SaveOutcome.BLOCKED, "@string/shortcut_text_0303"),
-  new SaveRule('SV-10', "@string/shortcut_text_0496", SaveOutcome.CONFIRM, "@string/shortcut_text_0627")
+  new SaveRule('SV-01', '@string/shortcut_text_0491', SaveOutcome.SAFE, '@string/shortcut_text_0394'),
+  new SaveRule('SV-02', '@string/shortcut_text_0755', SaveOutcome.SAFE, '@string/shortcut_text_0150'),
+  new SaveRule('SV-03', '@string/shortcut_text_0757', SaveOutcome.CONFIRM, '@string/shortcut_text_0066'),
+  new SaveRule('SV-04', '@string/shortcut_text_0540', SaveOutcome.SAFE, '@string/shortcut_text_0524'),
+  new SaveRule('SV-05', '@string/shortcut_text_0539', SaveOutcome.BRANCH, '@string/shortcut_text_0385'),
+  new SaveRule('SV-06', '@string/shortcut_text_0229', SaveOutcome.CONFIRM, '@string/shortcut_text_0228'),
+  new SaveRule('SV-07', '@string/shortcut_text_0067', SaveOutcome.BLOCKED, '@string/shortcut_text_0468'),
+  new SaveRule('SV-08', '@string/shortcut_text_0180', SaveOutcome.BLOCKED, '@string/shortcut_text_0289'),
+  new SaveRule('SV-09', '@string/shortcut_text_0071', SaveOutcome.BLOCKED, '@string/shortcut_text_0303'),
+  new SaveRule('SV-10', '@string/shortcut_text_0496', SaveOutcome.CONFIRM, '@string/shortcut_text_0627')
 ];
 
 /** 保存判定输入。 */
@@ -194,8 +195,8 @@ export class TrashEntry {
   }
 
   describe(): string {
-    return uiText("shortcut_text_0029", [String(this.title), String(this.state as string), String(this.revision)]) +
-      uiText("shortcut_text_0372", [String(this.origin.length === 0 ? uiText("shortcut_text_0576") : this.origin)]);
+    return uiText('shortcut_text_0029', [String(this.title), String(this.state as string), String(this.revision)]) +
+      uiText('shortcut_text_0372', [String(this.origin.length === 0 ? uiText('shortcut_text_0576') : this.origin)]);
   }
 }
 
@@ -288,13 +289,13 @@ export function trashLines(bin: TrashBin, now: number): string[] {
   const lines: string[] = [];
   const items: TrashEntry[] = bin.trashed();
   if (items.length === 0) {
-    lines.push(uiText("shortcut_text_0304"));
+    lines.push(uiText('shortcut_text_0304'));
     return lines;
   }
-  lines.push(uiText("shortcut_text_0300", [String(items.length), String(TRASH_RETENTION_DAYS)]));
+  lines.push(uiText('shortcut_text_0300', [String(items.length), String(TRASH_RETENTION_DAYS)]));
   items.forEach((entry: TrashEntry): void => {
     const days: number = Math.floor((now - entry.trashedAt) / 86400000);
-    const state: string = entry.restorable(now, TRASH_RETENTION_DAYS * 86400000) ? uiText("shortcut_text_0356", [String(days)]) : uiText("shortcut_text_0654");
+    const state: string = entry.restorable(now, TRASH_RETENTION_DAYS * 86400000) ? uiText('shortcut_text_0356', [String(days)]) : uiText('shortcut_text_0654');
     lines.push(`${entry.describe()}｜${state}`);
   });
   return lines;
@@ -303,10 +304,10 @@ export function trashLines(bin: TrashBin, now: number): string[] {
 /** 一句话保存建议。 */
 export function saveAdvice(decision: SaveDecision): string {
   if (decision.writable()) {
-    return uiText("shortcut_text_0360");
+    return uiText('shortcut_text_0360');
   }
   if (decision.outcome === SaveOutcome.BRANCH) {
-    return uiText("shortcut_text_0321");
+    return uiText('shortcut_text_0321');
   }
   return decision.message;
 }

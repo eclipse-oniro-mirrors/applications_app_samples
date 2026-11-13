@@ -15,7 +15,7 @@
 
 {
   "app": {
-    "bundleName": "com.example.appperformance",
+    "bundleName": "com.samples.appperformance",
     "vendor": "example",
     "versionCode": 2000000,
     "versionName": "2.0.0",

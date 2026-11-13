@@ -42,7 +42,7 @@ export class PreferencesBusinessStorage implements BusinessStorage {
     const store: preferences.Preferences = await preferences.getPreferences(context,
       { name: this.namespace });
     const raw: preferences.ValueType = await store.get('workspace', '');
-    if (typeof raw !== 'string') { throw new Error("Invalid storage format"); }
+    if (typeof raw !== 'string') { throw new Error('Invalid storage format'); }
     this.store = store;
     return raw;
   }
@@ -55,12 +55,12 @@ export class PreferencesBusinessStorage implements BusinessStorage {
 
   async write(value: string): Promise<void> {
     const store: preferences.Preferences | undefined = this.store;
-    if (store === undefined) { throw new BusinessWriteError("Storage has not been initialized", false); }
+    if (store === undefined) { throw new BusinessWriteError('Storage has not been initialized', false); }
     try {
       await store.put('workspace', value);
       await store.flush();
     } catch (_) {
-      throw new BusinessWriteError("Write result has not been confirmed", true);
+      throw new BusinessWriteError('Write result has not been confirmed', true);
     }
   }
 }

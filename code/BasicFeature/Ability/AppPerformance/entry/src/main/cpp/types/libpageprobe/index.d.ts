@@ -22,6 +22,8 @@ export interface PageProbe {
   residencyTrustReason: string;
   operation: string;
   errorCode: number;
+  /** Secondary temporary-mapping cleanup error; primary errorCode/message are preserved. */
+  cleanupErrorCode?: number;
   message: string;
   fileBytes: number;
   pageBytes: number;
@@ -112,10 +114,15 @@ export interface MappedProbe {
   /** Old raw mincore signal retained separately. */
   file: PageProbe;
 }
-/** Holds PROT_READ MAP_PRIVATE until explicit release; checksum touches all file bytes. */
+/** Holds PROT_READ MAP_PRIVATE until explicit release; checksum touches all file bytes.
+ * One live handle belongs to each N-API environment. A worker cannot use another env's handle.
+ * Environment teardown also attempts cleanup; failed munmap ownership is retained natively. */
 export const beginMappedFile: (path: string) => MappedProbe;
 /** Passive self/pagemap PRESENT scan; does not read target mapping data. */
 export const sampleMappedFile: (handle: number) => MappedProbe;
 /** Only AFTER SDK/window: full mapped-byte checksum plus narrowly bracketed getrusage faults. */
 export const rereadMappedFile: (handle: number) => MappedProbe;
+/** False on a stale handle or cleanup failure. A failed munmap keeps the same handle
+ * live for an explicit retry in its owning env. After successful munmap, close is
+ * consumed once even on EINTR: a possibly reused descriptor is never closed again. */
 export const releaseMappedFile: (handle: number) => boolean;

@@ -16,6 +16,7 @@
 import { AppService } from './AppService';
 import { ReportFormat } from './report/ReportExport';
 import { SeriesHistorySelection, SeriesHistoryView, buildSeriesHistoryView } from './SeriesHistoryPresentation';
+import { message, localize } from './TextMessages';
 
 /** Selection owns only view context; it never starts samples or holds an SDK lease. */
 export class SeriesHistoryController {
@@ -80,12 +81,14 @@ export class SeriesHistoryController {
     const format = this.selection.format;
     const report = this.service.seriesHistoryReport(ownerId, format);
     if (!report.ok) {
-      this.selection.status = `历史报告未生成：${report.check.summary()}`;
+      this.selection.status = message('ap_series_history_report_unavailable', [localize(report.check.summary())]);
       return false;
     }
     const generation = ++this.generation;
     this.selection.copying = true;
-    this.selection.status = `正在复制所选系列历史（${format === ReportFormat.CSV ? 'CSV' : 'Markdown'}）`;
+    const formatText: string = format === ReportFormat.CSV ? message('ap_series_history_format_csv') :
+      message('ap_series_history_format_markdown');
+    this.selection.status = message('ap_series_history_copying', [formatText]);
     let copied: boolean = false;
     try {
       copied = await this.service.copySeriesHistoryReport(ownerId, format);
@@ -95,8 +98,8 @@ export class SeriesHistoryController {
     if (!this.disposed && generation === this.generation && ownerId === this.selection.selectedOwnerId &&
       format === this.selection.format) {
       this.selection.copying = false;
-      this.selection.status = copied ? `已复制所选系列历史（${format === ReportFormat.CSV ? 'CSV' : 'Markdown'}）` :
-        '复制失败；所选系列未改变，请查看真实调用记录';
+      this.selection.status = copied ? message('ap_series_history_copied', [formatText]) :
+        message('ap_series_history_copy_failed');
     }
     return copied;
   }

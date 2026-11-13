@@ -15,10 +15,9 @@
 
 import { common } from '@kit.AbilityKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
-import { logInfo, logWarning } from '../../../main/ets/services/Logger';
+import { runWithCleanup } from './CaseLifecycle';
 
-export const BUNDLE: string = 'com.example.shortcut';
-let caseSequence: number = 0;
+export const BUNDLE: string = 'com.samples.shortcut';
 
 export const CASE_TIMEOUT_MS: number = 10000;
 export type Cleanup = () => void;
@@ -63,43 +62,33 @@ export class CaseScope {
   finish(): void {
     if (this.ended) { return; }
     this.ended = true;
+    let failed: boolean = false;
     let failure: Error | undefined = undefined;
     for (let index = this.actions.length - 1; index >= 0; index--) {
       try {
         this.actions[index]();
       } catch (error) {
-        failure = error as Error;
+        if (!failed) {
+          failed = true;
+          failure = error as Error;
+        }
       }
     }
     this.actions = [];
-    if (failure !== undefined) { throw failure; }
+    if (failed) { throw failure as Error; }
   }
 }
 
-export async function runCase(body: (scope: CaseScope) => Promise<void>): Promise<void> {
+export async function runCase(caseName: string, body: (scope: CaseScope) => Promise<void>,
+  timeoutMs: number = CASE_TIMEOUT_MS): Promise<void> {
   const scope: CaseScope = new CaseScope();
-  const caseId: number = ++caseSequence;
-  logInfo(`${BUNDLE} case=${caseId} begin`);
   let timer: number = -1;
   const timeout: Promise<void> = new Promise<void>((_, reject) => {
-    timer = setTimeout((): void => reject(new Error('用例超过10秒')), CASE_TIMEOUT_MS);
+    timer = setTimeout((): void => reject(new Error('case-watchdog-timeout')), timeoutMs);
   });
-  try {
+  await runWithCleanup(caseName, async (): Promise<void> => {
     await Promise.race([body(scope), timeout]);
-  } catch (error) {
-    logWarning(`${BUNDLE} case=${caseId} failure`);
-    throw error;
-  } finally {
-    clearTimeout(timer);
-    try {
-      scope.finish();
-    } catch (error) {
-      logWarning(`${BUNDLE} case=${caseId} cleanup failure`);
-      throw error;
-    } finally {
-      logInfo(`${BUNDLE} case=${caseId} end`);
-    }
-  }
+  }, [(): void => { clearTimeout(timer); }, (): void => { scope.finish(); }]);
 }
 
 export function getTestContext(): common.ApplicationContext {

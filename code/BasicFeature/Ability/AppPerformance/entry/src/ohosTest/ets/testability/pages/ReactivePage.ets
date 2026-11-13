@@ -17,6 +17,7 @@ import {
   ActionButton, InfoField, MemoryResultCard, CallRecordCard
 } from '../../../../main/ets/components/ReactiveCards';
 import { CallRecord, emptyCallRecord } from '../../../../main/ets/core/Types';
+import { requireUiTestSession, UiTestSession } from '../../support/UiTestRuntime';
 
 function recordAt(revision: number): CallRecord {
   return {
@@ -40,9 +41,12 @@ function memoryAt(revision: number): CallRecord {
   return record;
 }
 
-@Entry
+@Entry({ useSharedStorage: true })
 @Component
 struct ReactivePage {
+  @LocalStorageProp('uiSessionId') sessionId: string = '';
+  @State ready: boolean = false;
+  private session: UiTestSession | undefined = undefined;
   @State revision: number = 0;
   @State phase: number = 0;
   @State actionLabel: string = '等待更新';
@@ -52,7 +56,20 @@ struct ReactivePage {
   @State records: CallRecord[] = [recordAt(0)];
   @State expandedId: number = 41;
 
+  aboutToAppear(): void {
+    try { this.session = requireUiTestSession(this.sessionId); this.ready = true; }
+    catch (_) { this.ready = false; }
+  }
+
+  aboutToDisappear(): void { this.session = undefined; this.ready = false; }
+
+  private fixtureIsLive(): boolean {
+    const session = this.session;
+    return session !== undefined && session.isLive();
+  }
+
   private updateFixture(): void {
+    if (!this.fixtureIsLive()) { return; }
     this.revision++;
     this.actionLabel = `动作${this.revision}`;
     this.actionEnabled = true;
@@ -68,6 +85,7 @@ struct ReactivePage {
 
   build(): void {
     Column({ space: 8 }) {
+      if (this.ready) { Text('Reactive fixture ready').id(`reactive-ui-ready-${this.sessionId}`) }
       Row({ space: 8 }) {
         Button('更新组件')
           .id('ui-update')
@@ -76,11 +94,11 @@ struct ReactivePage {
         Button('内存结果')
           .id('ui-show-memory')
           .layoutWeight(1)
-          .onClick((): void => { this.phase = 1; })
+          .onClick((): void => { if (this.fixtureIsLive()) { this.phase = 1; } })
         Button('记录')
           .id('ui-show-log')
           .layoutWeight(1)
-          .onClick((): void => { this.phase = 2; })
+          .onClick((): void => { if (this.fixtureIsLive()) { this.phase = 2; } })
       }
       .width('100%')
       // Keep the action mounted so the final check observes updates across both result panes.
@@ -98,7 +116,7 @@ struct ReactivePage {
             record: this.currentRecord(id),
             expanded: this.expandedId === id,
             onToggle: (recordId: number): void => {
-              this.expandedId = this.expandedId === recordId ? -1 : recordId;
+              if (this.fixtureIsLive()) { this.expandedId = this.expandedId === recordId ? -1 : recordId; }
             }
           })
         }, (id: number): string => id.toString())

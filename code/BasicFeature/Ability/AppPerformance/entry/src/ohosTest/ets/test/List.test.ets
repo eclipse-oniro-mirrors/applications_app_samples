@@ -14,6 +14,9 @@
  */
 
 import { afterAll, beforeEachIt } from '@ohos/hypium';
+import { setTextResourceResolver } from '../../../main/ets/core/TextMessages';
+import { TestMessageResolver } from '../support/TestMessageResolver';
+import localeContractTests from './LocaleContracts.test';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { fileIo } from '@kit.CoreFileKit';
 import coreTests from './Core.test';
@@ -50,11 +53,13 @@ import seriesNativeQaTests from './SeriesNativeQa.test';
 import { CaseResult, caseResults, CASE_TIMEOUT_MS, RUNNER_TIMEOUT_MS } from '../support/BoundedCase';
 
 interface TestReport {
+  scope: string;
+  verdictSource: string;
   caseTimeoutMs: number;
   runnerTimeoutMs: number;
-  total: number;
-  passed: number;
-  failed: number;
+  observedBodies: number;
+  returnedBodies: number;
+  threwBodies: number;
   cases: CaseResult[];
 }
 
@@ -91,6 +96,7 @@ export default function testsuite(): void {
   seriesPersistenceFeatureTests();
   seriesStateFeatureTests();
   seriesNativeQaTests();
+  localeContractTests();
   registerReportHook();
 }
 
@@ -99,6 +105,8 @@ function registerEventLoopYield(): void {
   // Yield to the native event loop before EVERY leaf case, including after a failed case.
   // Promise.resolve() is not sufficient: it only schedules another microtask.
   beforeEachIt(async (): Promise<void> => {
+    // Deterministic presentation only. Canonical schemas/statuses keep their original values.
+    setTextResourceResolver(new TestMessageResolver('zh_CN'));
     await new Promise<void>((resolve): void => {
       setTimeout((): void => { resolve(); }, 0);
     });
@@ -111,11 +119,13 @@ function registerReportHook(): void {
     const path = `${delegator.getAppContext().filesDir}/app-performance-test-report.json`;
     const rows = caseResults();
     const data: TestReport = {
+      scope: 'BoundedCase body telemetry only; excludes direct loggedIt cases and framework expectation verdicts',
+      verdictSource: 'Hypium complete framework report',
       caseTimeoutMs: CASE_TIMEOUT_MS,
       runnerTimeoutMs: RUNNER_TIMEOUT_MS,
-      total: rows.length,
-      passed: rows.filter((row: CaseResult): boolean => row.status === 'passed').length,
-      failed: rows.filter((row: CaseResult): boolean => row.status === 'failed').length,
+      observedBodies: rows.length,
+      returnedBodies: rows.filter((row: CaseResult): boolean => row.status === 'body-returned').length,
+      threwBodies: rows.filter((row: CaseResult): boolean => row.status === 'body-threw').length,
       cases: rows
     };
     const report = JSON.stringify(data, null, 2);
@@ -125,8 +135,6 @@ function registerReportHook(): void {
     } finally {
       fileIo.closeSync(file);
     }
-    await delegator.print(`[AP_REPORT] ${path}`);
+    await delegator.print('[AP_REPORT] saved bounded-body telemetry in app-private storage');
   });
 }
-
-

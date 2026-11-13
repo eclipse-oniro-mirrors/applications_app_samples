@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import runnerFilterTests from './RunnerFilter.test';
+import caseLifecycleTests from './CaseLifecycle.test';
 import localizationTests from './Localization.test';
 import visibilityBatchTests from './VisibilityBatch.test';
 import appNavigationTests from './AppNavigation.test';
@@ -56,6 +58,8 @@ import recycleUiQaTests from './RecycleUiQa.test';
 import recycleBatchPreviewTests from './RecycleBatchPreview.test';
 
 export default function testsuite(): void {
+  runnerFilterTests();
+  caseLifecycleTests();
   visibilityBatchTests();
   appNavigationTests();
   shortcutServiceTests();
@@ -98,4 +102,3 @@ export default function testsuite(): void {
   recycleBatchPreviewTests();
   localizationTests();
 }
-

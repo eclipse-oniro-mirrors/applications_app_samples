@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { uiText } from '../i18n/Strings';
+import { shortcutText as uiText } from '../i18n/Strings';
+
 export type BatchResult = 'not-run' | 'confirmed' | 'failed' | 'unknown';
 export type BatchMode = 'apply' | 'retry' | 'restore';
 
@@ -161,9 +162,9 @@ export function decodeJournal(raw: string): BatchJournal {
 
 export function batchResultText(result: BatchResult): string {
   switch (result) {
-    case 'confirmed': return uiText("shortcut_text_0673");
-    case 'failed': return uiText("shortcut_text_0514");
-    case 'unknown': return uiText("shortcut_text_0583");
-    default: return uiText("shortcut_text_0589");
+    case 'confirmed': return uiText('shortcut_text_0673');
+    case 'failed': return uiText('shortcut_text_0514');
+    case 'unknown': return uiText('shortcut_text_0583');
+    default: return uiText('shortcut_text_0589');
   }
 }

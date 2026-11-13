@@ -16,20 +16,30 @@
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
 import { RUNNER_TIMEOUT_MS } from '../support/BoundedCase';
+import { BUNDLE, parameterSummary, runRunner, testSelector } from '../support/TestLog';
 import { logInfo, logError } from '../../../main/ets/core/Logger';
 
 export default class OpenHarmonyTestRunner implements TestRunner {
-  onPrepare(): void { logInfo('[AP_RUNNER] prepare'); }
+  onPrepare(): void { logInfo(`${BUNDLE} OpenHarmonyTestRunner prepare`); }
 
   async onRun(): Promise<void> {
+    await runRunner('OpenHarmonyTestRunner', (): Promise<void> => this.run());
+  }
+
+  private async run(): Promise<void> {
     const delegator = abilityDelegatorRegistry.getAbilityDelegator();
     const args = abilityDelegatorRegistry.getArguments();
     if (args.parameters['-s timeout'] === undefined && args.parameters['timeout'] === undefined) {
       args.parameters['-s timeout'] = `${RUNNER_TIMEOUT_MS}`;
     }
-    logInfo(`[AP_RUNNER] init class=${args.parameters['class'] ?? args.parameters['-s class'] ?? '<all>'}` +
-      ` dryRun=${args.parameters['dryRun'] ?? args.parameters['-s dryRun'] ?? 'false'}` +
-      ` timeout=${args.parameters['timeout'] ?? args.parameters['-s timeout'] ?? '<default>'}`);
+    for (const key of ['class', '-s class', 'notClass', '-s notClass', 'itName', '-s itName']) {
+      const value = args.parameters[key];
+      if (typeof value === 'string') { args.parameters[key] = testSelector(value); }
+    }
+    logInfo(`${BUNDLE} [AP_RUNNER] init selectors=${parameterSummary(
+      args.parameters['class'] ?? args.parameters['-s class'])}` +
+      ` dryRun=${parameterSummary(args.parameters['dryRun'] ?? args.parameters['-s dryRun'])}` +
+      ` timeout=${parameterSummary(args.parameters['timeout'] ?? args.parameters['-s timeout'])}`);
     let stage: string = 'import-list';
     try {
       const suite = await import('../test/List.test');
@@ -39,7 +49,7 @@ export default class OpenHarmonyTestRunner implements TestRunner {
       logInfo('[AP_RUNNER] Hypium scheduled; test result requires framework summary');
     } catch (error) {
       const message: string = `Test initialization failed at ${stage}: ${(error as Error).message}`;
-      logError(`[AP_RUNNER] ${message}`);
+      logError(`${BUNDLE} [AP_RUNNER] initialization failure at ${stage}: ${parameterSummary((error as Error).message)}`);
       await delegator.finishTest(message, 1);
     }
   }

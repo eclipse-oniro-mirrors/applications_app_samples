@@ -2,7 +2,8 @@
   "string": [
     {
       "name": "app_name",
-      "value": "App performance"
+      "value": "App performance",
+      "description": "Application display name."
     }
   ]
 }

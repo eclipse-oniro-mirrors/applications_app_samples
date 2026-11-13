@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { traceParameter } from '../support/TestLog';
+import { describe, expect } from '@ohos/hypium';
+import { loggedIt as it } from '../support/TestLog';
 import {
   ExecutorClock, SafeExecutor
 } from '../../../main/ets/core/SafeExecutor';
@@ -67,14 +69,14 @@ export default function templateCoreCasesTest(): void {
       const clock: FakeClock = new FakeClock();
       const executor: SafeExecutor = new SafeExecutor(clock, (): void => {
       });
-      expect(executor.busy()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0001 TemplateCoreCases.test:70 assertFalse actual', executor.busy())).assertFalse();
       const token: number = executor.acquire();
-      expect(token > 0).assertTrue();
-      expect(executor.busy()).assertTrue();
-      expect(executor.acquire()).assertEqual(0);
-      expect(executor.quarantined()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0001 TemplateCoreCases.test:72 assertTrue actual', token > 0)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0001 TemplateCoreCases.test:73 assertTrue actual', executor.busy())).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0001 TemplateCoreCases.test:74 assertEqual actual', executor.acquire())).assertEqual(traceParameter('com.samples.appperformance_SafeExecutorCases_0001 TemplateCoreCases.test:74 assertEqual expected', 0));
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0001 TemplateCoreCases.test:75 assertFalse actual', executor.quarantined())).assertFalse();
       executor.release(token);
-      expect(executor.busy()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0001 TemplateCoreCases.test:77 assertFalse actual', executor.busy())).assertFalse();
     });
 
     /**
@@ -91,10 +93,10 @@ export default function templateCoreCasesTest(): void {
       });
       const token: number = executor.acquire();
       executor.release(token + 99);
-      expect(executor.busy()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0002 TemplateCoreCases.test:94 assertTrue actual', executor.busy())).assertTrue();
       executor.release(token);
-      expect(executor.busy()).assertFalse();
-      expect(token >= 0).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0002 TemplateCoreCases.test:96 assertFalse actual', executor.busy())).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0002 TemplateCoreCases.test:97 assertTrue actual', token >= 0)).assertTrue();
     });
 
     /**
@@ -112,14 +114,14 @@ export default function templateCoreCasesTest(): void {
         notified++;
       });
       executor.cancel();
-      expect(notified).assertEqual(0);
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0003 TemplateCoreCases.test:115 assertEqual actual', notified)).assertEqual(traceParameter('com.samples.appperformance_SafeExecutorCases_0003 TemplateCoreCases.test:115 assertEqual expected', 0));
       const token: number = executor.acquire();
       executor.cancel();
-      expect(executor.reason()).assertEqual('cancelled');
-      expect(notified).assertEqual(1);
-      expect(executor.busy()).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0003 TemplateCoreCases.test:118 assertEqual actual', executor.reason())).assertEqual(traceParameter('com.samples.appperformance_SafeExecutorCases_0003 TemplateCoreCases.test:118 assertEqual expected', 'cancelled'));
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0003 TemplateCoreCases.test:119 assertEqual actual', notified)).assertEqual(traceParameter('com.samples.appperformance_SafeExecutorCases_0003 TemplateCoreCases.test:119 assertEqual expected', 1));
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0003 TemplateCoreCases.test:120 assertTrue actual', executor.busy())).assertTrue();
       executor.release(token);
-      expect(executor.busy()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0003 TemplateCoreCases.test:122 assertFalse actual', executor.busy())).assertFalse();
     });
 
     /**
@@ -136,12 +138,12 @@ export default function templateCoreCasesTest(): void {
       });
       const first: number = executor.acquire();
       executor.cancel();
-      expect(executor.reason()).assertEqual('cancelled');
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0004 TemplateCoreCases.test:139 assertEqual actual', executor.reason())).assertEqual(traceParameter('com.samples.appperformance_SafeExecutorCases_0004 TemplateCoreCases.test:139 assertEqual expected', 'cancelled'));
       executor.release(first);
       const second: number = executor.acquire();
-      expect(second > first).assertTrue();
-      expect(executor.reason()).assertEqual('');
-      expect(executor.quarantined()).assertFalse();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0004 TemplateCoreCases.test:142 assertTrue actual', second > first)).assertTrue();
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0004 TemplateCoreCases.test:143 assertEqual actual', executor.reason())).assertEqual(traceParameter('com.samples.appperformance_SafeExecutorCases_0004 TemplateCoreCases.test:143 assertEqual expected', ''));
+      expect(traceParameter('com.samples.appperformance_SafeExecutorCases_0004 TemplateCoreCases.test:144 assertFalse actual', executor.quarantined())).assertFalse();
     });
   });
 }

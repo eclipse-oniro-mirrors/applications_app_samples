@@ -14,6 +14,7 @@
  */
 
 import { uiText } from '../i18n/Strings';
+
 export const BG: Resource = $r('app.color.page_background');
 export const CARD: Resource = $r('app.color.card_background');
 export const TEXT: Resource = $r('app.color.text_primary');
@@ -35,7 +36,7 @@ export struct PageHeader {
     Column({ space: 8 }) {
       Row({ space: 12 }) {
         if (this.onBack !== undefined) {
-          Button(uiText("shortcut_text_0232"), { type: ButtonType.Normal })
+          Button($r('app.string.shortcut_text_0232'), { type: ButtonType.Normal })
             .fontSize(14)
             .fontColor(ACCENT)
             .backgroundColor(Color.Transparent)
@@ -60,7 +61,10 @@ export struct PageHeader {
       }
       .width('100%')
       if (this.subtitle.length > 0) {
-        Text(this.subtitle).fontSize(14).fontColor(MUTED).width('100%')
+        Text(this.subtitle)
+          .fontSize(14)
+          .fontColor(MUTED)
+          .width('100%')
       }
     }
     .width('100%')
@@ -94,9 +98,15 @@ export struct EmptyState {
 
   build() {
     Column({ space: 8 }) {
-      Text(this.title).fontSize(17).fontWeight(FontWeight.Medium).fontColor(TEXT)
+      Text(this.title)
+        .fontSize(17)
+        .fontWeight(FontWeight.Medium)
+        .fontColor(TEXT)
       if (this.detail.length > 0) {
-        Text(this.detail).fontSize(14).fontColor(MUTED).textAlign(TextAlign.Center)
+        Text(this.detail)
+          .fontSize(14)
+          .fontColor(MUTED)
+          .textAlign(TextAlign.Center)
       }
     }
     .width('100%')
@@ -111,8 +121,15 @@ export struct FieldRow {
 
   build() {
     Column({ space: 5 }) {
-      Text(this.label).fontSize(12).fontColor(MUTED).width('100%')
-      Text(this.value).fontSize(15).fontColor(TEXT).width('100%').copyOption(CopyOptions.InApp)
+      Text(this.label)
+        .fontSize(12)
+        .fontColor(MUTED)
+        .width('100%')
+      Text(this.value)
+        .fontSize(15)
+        .fontColor(TEXT)
+        .width('100%')
+        .copyOption(CopyOptions.InApp)
     }
     .width('100%')
     .padding({ top: 10, bottom: 10 })
