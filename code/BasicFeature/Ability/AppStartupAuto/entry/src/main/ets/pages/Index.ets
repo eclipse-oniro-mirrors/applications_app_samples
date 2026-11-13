@@ -190,7 +190,8 @@ struct Index {
           .width('100%')
       }
 
-      Divider().color($r('app.color.line_color'))
+      Divider()
+        .color($r('app.color.line_color'))
       Column({ space: 8 }) {
         if (this.query.phase !== QueryPhase.UNSUPPORTED) {
           Text(formatResource('startup_format_0d8bc32738eb', [String(supportLabel(this.query.support))]))
@@ -223,9 +224,15 @@ struct Index {
   @Builder
   private actionButtons() {
     Button(this.refreshLabel(), { type: ButtonType.Normal })
-      .fontSize(16).fontWeight(FontWeight.Medium).fontColor(Color.White)
-      .width('100%').height(48).backgroundColor($r('app.color.accent_color')).borderRadius(12)
-      .enabled(!this.query.pending).opacity(this.query.pending ? 0.6 : 1)
+      .fontSize(16)
+        .fontWeight(FontWeight.Medium)
+        .fontColor(Color.White)
+      .width('100%')
+        .height(48)
+        .backgroundColor($r('app.color.accent_color'))
+        .borderRadius(12)
+      .enabled(!this.query.pending)
+        .opacity(this.query.pending ? 0.6 : 1)
       .onClick(() => autoStartupService.refresh(RefreshSource.MANUAL))
   }
 
@@ -233,14 +240,23 @@ struct Index {
   private toolsCard() {
     Row({ space: 12 }) {
       Button(localText('startup_text_0978'), { type: ButtonType.Normal })
-        .fontSize(14).fontColor($r('app.color.text_secondary'))
-        .layoutWeight(1).height(44).backgroundColor($r('app.color.card_background')).borderRadius(12)
-        .onClick(() => { this.openPage('pages/DiagnosticPage'); })
+        .fontSize(14)
+          .fontColor($r('app.color.text_secondary'))
+        .layoutWeight(1)
+          .height(44)
+          .backgroundColor($r('app.color.card_background'))
+          .borderRadius(12)
+        .onClick(() => { this.openPage('startup/pages/DiagnosticPage'); })
       Button(localText('startup_text_0880'), { type: ButtonType.Normal })
-        .fontSize(14).fontColor($r('app.color.text_secondary'))
-        .layoutWeight(1).height(44).backgroundColor($r('app.color.card_background')).borderRadius(12)
-        .onClick(() => { this.openPage('pages/FaultPage'); })
-    }.width('100%')
+        .fontSize(14)
+          .fontColor($r('app.color.text_secondary'))
+        .layoutWeight(1)
+          .height(44)
+          .backgroundColor($r('app.color.card_background'))
+          .borderRadius(12)
+        .onClick(() => { this.openPage('startup/pages/FaultPage'); })
+    }
+      .width('100%')
   }
 
   @Builder
@@ -248,31 +264,59 @@ struct Index {
     Column({ space: 8 }) {
       Row({ space: 12 }) {
         Column({ space: 4 }) {
-          Text(localText('startup_text_0979')).fontSize(16).fontWeight(FontWeight.Medium)
-            .fontColor($r('app.color.text_primary')).width('100%')
-          Text(localText('startup_text_0980')).fontSize(13)
-            .fontColor($r('app.color.text_secondary')).width('100%')
-        }.layoutWeight(1).alignItems(HorizontalAlign.Start)
+          Text(localText('startup_text_0979'))
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .fontColor($r('app.color.text_primary'))
+              .width('100%')
+          Text(localText('startup_text_0980'))
+            .fontSize(13)
+            .fontColor($r('app.color.text_secondary'))
+              .width('100%')
+        }
+          .layoutWeight(1)
+          .alignItems(HorizontalAlign.Start)
         Button(localText('startup_text_0981'), { type: ButtonType.Normal })
-          .fontSize(14).height(44).fontColor($r('app.color.accent_color'))
-          .backgroundColor($r('app.color.accent_soft')).borderRadius(12)
-          .onClick(() => { this.openPage('pages/GuidancePage'); })
-      }.width('100%')
+          .fontSize(14)
+            .height(44)
+            .fontColor($r('app.color.accent_color'))
+          .backgroundColor($r('app.color.accent_soft'))
+            .borderRadius(12)
+          .onClick(() => { this.openPage('startup/pages/GuidancePage'); })
+      }
+        .width('100%')
       Button(this.showGuidanceSteps ? localText('startup_text_0982') : localText('startup_text_0983'), { type: ButtonType.Normal })
-        .height(44).fontSize(13).fontColor($r('app.color.text_secondary'))
-        .backgroundColor(Color.Transparent).constraintSize({ minHeight: 44 }).padding(0)
+        .height(44)
+          .fontSize(13)
+          .fontColor($r('app.color.text_secondary'))
+        .backgroundColor(Color.Transparent)
+          .constraintSize({ minHeight: 44 })
+          .padding(0)
         .onClick(() => { this.showGuidanceSteps = !this.showGuidanceSteps; })
       if (this.showGuidanceSteps) {
-        Text(this.guidanceTitle).fontSize(14).fontColor($r('app.color.text_primary')).width('100%')
+        Text(this.guidanceTitle)
+          .fontSize(14)
+          .fontColor($r('app.color.text_primary'))
+          .width('100%')
         if (this.guidanceCaption.length > 0) {
-          Text(this.guidanceCaption).fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
+          Text(this.guidanceCaption)
+            .fontSize(12)
+            .fontColor($r('app.color.text_secondary'))
+            .width('100%')
         }
         ForEach(this.guidanceSteps, (step: string) => {
-          Text(step).fontSize(14).fontColor($r('app.color.text_secondary')).width('100%')
+          Text(step)
+            .fontSize(14)
+            .fontColor($r('app.color.text_secondary'))
+            .width('100%')
         }, (step: string): string => step)
       }
-    }.width('100%').padding(16).backgroundColor($r('app.color.card_background'))
-      .borderRadius(16).alignItems(HorizontalAlign.Start)
+    }
+      .width('100%')
+      .padding(16)
+      .backgroundColor($r('app.color.card_background'))
+      .borderRadius(16)
+        .alignItems(HorizontalAlign.Start)
   }
 
   @Builder
@@ -285,13 +329,15 @@ struct Index {
           .width('100%')
       }
       .width('100%')
-      .constraintSize({ minHeight: 44 }).padding(0)
+      .constraintSize({ minHeight: 44 })
+        .padding(0)
       .backgroundColor($r('app.color.card_background'))
       .borderRadius(12)
       .onClick(() => this.showCallDetails = !this.showCallDetails)
 
       if (this.showCallDetails) {
-        Divider().color($r('app.color.line_color'))
+        Divider()
+          .color($r('app.color.line_color'))
         ApiCallDetails({
           supportResult: this.query.supportResult,
           statusResult: this.query.statusResult,
@@ -366,7 +412,7 @@ struct Index {
         .backgroundColor($r('app.color.card_background'))
         .borderRadius(16)
         .onClick(() => {
-          this.openPage('pages/HistoryPage');
+          this.openPage('startup/pages/HistoryPage');
         })
         this.toolsCard()
         this.callDetailsCard()

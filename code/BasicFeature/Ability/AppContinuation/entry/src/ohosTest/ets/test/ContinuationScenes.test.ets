@@ -14,7 +14,8 @@
  */
 
 /** Real SceneWorkbench + LearningController composition, with controlled native/store/widget receipts only. */
-import { describe, expect } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { loggedExpect } from '../support/LoggedExpect';
 import { AbilityConstant, Want } from '@kit.AbilityKit';
 import { LearningController, ScenePositionTarget } from '../../../main/ets/learning/LearningController';
 import { LearningDependencies, LearningStore } from '../../../main/ets/learning/LearningPorts';
@@ -27,7 +28,7 @@ import {
 import {
   FakeContinueNative, FakeLearningEnvironment, ManualLearningClock, resultInfo
 } from '../support/LearningFixtures';
-import { scenario } from '../support/BoundedCase';
+import { BUNDLE, scenario } from '../support/BoundedCase';
 
 class SceneTestStore implements LearningStore, SceneStorePort {
   private cache: Map<string, string> = new Map<string, string>();
@@ -92,9 +93,9 @@ function receipt(f: SceneControllerFixture, target: ScenePositionTarget, ok: boo
 }
 function outgoing(f: SceneControllerFixture): string {
   const parameters: Record<string, Object> = {};
-  expect(f.controller.buildContinuation(parameters)).assertEqual(AbilityConstant.OnContinueResult.AGREE);
+  loggedExpect(f.controller.buildContinuation(parameters), 'ContinuationScenes.test.ets:A0001').assertEqual(AbilityConstant.OnContinueResult.AGREE);
   // ArkTS 不支持 delete：写入端以空串标记"未携带"，此处断言不残留可解析的文本载荷。
-  expect(String(parameters[TEXT_PAYLOAD_KEY] ?? '').length).assertEqual(0);
+  loggedExpect(String(parameters[TEXT_PAYLOAD_KEY] ?? '').length, 'ContinuationScenes.test.ets:A0002').assertEqual(0);
   return parameters[SCENE_PAYLOAD_KEY] as string;
 }
 
@@ -102,7 +103,7 @@ export default function continuationScenes(): void {
   describe('ContinuationScenes', (): void => {
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0100
-     * @tc.name      testContinuationScenes0001
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0001
      * @tc.desc      Verify sC 001 persistence is a transaction
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -110,33 +111,33 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0001', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0001', (): void => {
       const store = new SceneTestStore(); const work = new SceneWorkbench(store);
-      work.open('note'); work.editNote('标题A', 'A🌱BC', 1, 3); expect(work.saveNote()).assertTrue();
+      work.open('note'); work.editNote('标题A', 'A🌱BC', 1, 3); loggedExpect(work.saveNote(), 'ContinuationScenes.test.ets:A0003', BUNDLE + '_ContinuationScenes_0001').assertTrue();
       const baseline = work.snapshot(); const raw = store.stored();
       work.editNote('标题B', '编辑内容', 0, 2);
       store.failPut = [store.putCalls + 1];
-      expect(work.saveNote()).assertFalse();
-      expect(work.snapshot().revision).assertEqual(baseline.revision);
-      expect(work.snapshot().historyCount).assertEqual(0);
-      expect(work.snapshot().noteDirty).assertTrue();
-      expect(work.snapshot().noteSavedBody).assertEqual('A🌱BC');
-      expect(store.stored()).assertEqual(raw);
+      loggedExpect(work.saveNote(), 'ContinuationScenes.test.ets:A0004', BUNDLE + '_ContinuationScenes_0001').assertFalse();
+      loggedExpect(work.snapshot().revision, 'ContinuationScenes.test.ets:A0005', BUNDLE + '_ContinuationScenes_0001').assertEqual(baseline.revision);
+      loggedExpect(work.snapshot().historyCount, 'ContinuationScenes.test.ets:A0006', BUNDLE + '_ContinuationScenes_0001').assertEqual(0);
+      loggedExpect(work.snapshot().noteDirty, 'ContinuationScenes.test.ets:A0007', BUNDLE + '_ContinuationScenes_0001').assertTrue();
+      loggedExpect(work.snapshot().noteSavedBody, 'ContinuationScenes.test.ets:A0008', BUNDLE + '_ContinuationScenes_0001').assertEqual('A🌱BC');
+      loggedExpect(store.stored(), 'ContinuationScenes.test.ets:A0009', BUNDLE + '_ContinuationScenes_0001').assertEqual(raw);
       store.failFlush = [store.flushCalls + 1];
-      expect(work.saveNote()).assertFalse(); expect(store.stored()).assertEqual(raw);
-      expect(work.snapshot().revision).assertEqual(baseline.revision);
-      expect(work.saveNote()).assertTrue();
+      loggedExpect(work.saveNote(), 'ContinuationScenes.test.ets:A0010', BUNDLE + '_ContinuationScenes_0001').assertFalse(); loggedExpect(store.stored(), 'ContinuationScenes.test.ets:A0011', BUNDLE + '_ContinuationScenes_0001').assertEqual(raw);
+      loggedExpect(work.snapshot().revision, 'ContinuationScenes.test.ets:A0012', BUNDLE + '_ContinuationScenes_0001').assertEqual(baseline.revision);
+      loggedExpect(work.saveNote(), 'ContinuationScenes.test.ets:A0013', BUNDLE + '_ContinuationScenes_0001').assertTrue();
       const history = work.historyDocuments();
-      expect(history.length).assertEqual(1); expect(history[0].state.note.body).assertEqual('A🌱BC');
-      expect(history[0].state.note.title).assertEqual('标题A'); expect(history[0].state.note.selectionEnd).assertEqual(3);
+      loggedExpect(history.length, 'ContinuationScenes.test.ets:A0014', BUNDLE + '_ContinuationScenes_0001').assertEqual(1); loggedExpect(history[0].state.note.body, 'ContinuationScenes.test.ets:A0015', BUNDLE + '_ContinuationScenes_0001').assertEqual('A🌱BC');
+      loggedExpect(history[0].state.note.title, 'ContinuationScenes.test.ets:A0016', BUNDLE + '_ContinuationScenes_0001').assertEqual('标题A'); loggedExpect(history[0].state.note.selectionEnd, 'ContinuationScenes.test.ets:A0017', BUNDLE + '_ContinuationScenes_0001').assertEqual(3);
       const reopened = new SceneWorkbench(new SceneTestStore(store.stored()));
-      expect(reopened.snapshot().noteTitle).assertEqual('标题B'); expect(reopened.snapshot().noteDirty).assertFalse();
+      loggedExpect(reopened.snapshot().noteTitle, 'ContinuationScenes.test.ets:A0018', BUNDLE + '_ContinuationScenes_0001').assertEqual('标题B'); loggedExpect(reopened.snapshot().noteDirty, 'ContinuationScenes.test.ets:A0019', BUNDLE + '_ContinuationScenes_0001').assertFalse();
       work.dispose(); reopened.dispose();
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0200
-     * @tc.name      testContinuationScenes0002
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0002
      * @tc.desc      Verify sC 002 discard restores complete baseline
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -144,19 +145,19 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0002', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0002', (): void => {
       const work = new SceneWorkbench(new SceneTestStore());
       work.open('note'); work.editNote('原题', 'A🌱BC', 1, 3); work.saveNote();
       work.editNote('改题', '别的内容', 0, 4); work.discardNote();
-      expect(work.snapshot().noteTitle).assertEqual('原题'); expect(work.snapshot().noteBody).assertEqual('A🌱BC');
-      expect(work.snapshot().noteSelectionStart).assertEqual(1);
-      expect(work.snapshot().noteSelectionEnd).assertEqual(3);
-      expect(work.hasDirtyWork()).assertFalse(); expect(work.open('reading')).assertTrue(); work.dispose();
+      loggedExpect(work.snapshot().noteTitle, 'ContinuationScenes.test.ets:A0020', BUNDLE + '_ContinuationScenes_0002').assertEqual('原题'); loggedExpect(work.snapshot().noteBody, 'ContinuationScenes.test.ets:A0021', BUNDLE + '_ContinuationScenes_0002').assertEqual('A🌱BC');
+      loggedExpect(work.snapshot().noteSelectionStart, 'ContinuationScenes.test.ets:A0022', BUNDLE + '_ContinuationScenes_0002').assertEqual(1);
+      loggedExpect(work.snapshot().noteSelectionEnd, 'ContinuationScenes.test.ets:A0023', BUNDLE + '_ContinuationScenes_0002').assertEqual(3);
+      loggedExpect(work.hasDirtyWork(), 'ContinuationScenes.test.ets:A0024', BUNDLE + '_ContinuationScenes_0002').assertFalse(); loggedExpect(work.open('reading'), 'ContinuationScenes.test.ets:A0025', BUNDLE + '_ContinuationScenes_0002').assertTrue(); work.dispose();
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0300
-     * @tc.name      testContinuationScenes0003
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0003
      * @tc.desc      Verify sC 003 compensation failure freezes
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -164,18 +165,18 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0003', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0003', (): void => {
       const store = new SceneTestStore(); const work = new SceneWorkbench(store);
       work.editNote('草稿', '必须保留', 0, 4); store.failFlush = [1]; store.failDelete = true;
-      expect(work.saveNote()).assertFalse(); expect(work.snapshot().storageFrozen).assertTrue();
-      const writes = store.putCalls; expect(work.saveNote()).assertFalse(); expect(work.resetWorkspace()).assertFalse();
-      expect(store.putCalls).assertEqual(writes); expect(work.snapshot().noteBody).assertEqual('必须保留');
-      expect(work.snapshot().revision).assertEqual(0); expect(work.snapshot().noteDirty).assertTrue(); work.dispose();
+      loggedExpect(work.saveNote(), 'ContinuationScenes.test.ets:A0026', BUNDLE + '_ContinuationScenes_0003').assertFalse(); loggedExpect(work.snapshot().storageFrozen, 'ContinuationScenes.test.ets:A0027', BUNDLE + '_ContinuationScenes_0003').assertTrue();
+      const writes = store.putCalls; loggedExpect(work.saveNote(), 'ContinuationScenes.test.ets:A0028', BUNDLE + '_ContinuationScenes_0003').assertFalse(); loggedExpect(work.resetWorkspace(), 'ContinuationScenes.test.ets:A0029', BUNDLE + '_ContinuationScenes_0003').assertFalse();
+      loggedExpect(store.putCalls, 'ContinuationScenes.test.ets:A0030', BUNDLE + '_ContinuationScenes_0003').assertEqual(writes); loggedExpect(work.snapshot().noteBody, 'ContinuationScenes.test.ets:A0031', BUNDLE + '_ContinuationScenes_0003').assertEqual('必须保留');
+      loggedExpect(work.snapshot().revision, 'ContinuationScenes.test.ets:A0032', BUNDLE + '_ContinuationScenes_0003').assertEqual(0); loggedExpect(work.snapshot().noteDirty, 'ContinuationScenes.test.ets:A0033', BUNDLE + '_ContinuationScenes_0003').assertTrue(); work.dispose();
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0400
-     * @tc.name      testContinuationScenes0004
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0004
      * @tc.desc      Verify sC 004 partial form and validation
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -183,27 +184,27 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0004', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0004', (): void => {
       const store = new SceneTestStore(); const work = new SceneWorkbench(store); work.open('form');
-      expect(work.setFormField('name', '小明')).assertTrue();
-      expect(work.setFormField('name', 'x'.repeat(41))).assertFalse();
-      expect(work.snapshot().formName).assertEqual('小明');
-      expect(work.setFormField('address', '\uD800')).assertFalse();
-      expect(work.gotoFormStep(2)).assertFalse(); expect(work.saveForm()).assertTrue();
-      expect(work.snapshot().formDirty).assertFalse(); expect(work.confirmForm()).assertFalse();
+      loggedExpect(work.setFormField('name', '小明'), 'ContinuationScenes.test.ets:A0034', BUNDLE + '_ContinuationScenes_0004').assertTrue();
+      loggedExpect(work.setFormField('name', 'x'.repeat(41)), 'ContinuationScenes.test.ets:A0035', BUNDLE + '_ContinuationScenes_0004').assertFalse();
+      loggedExpect(work.snapshot().formName, 'ContinuationScenes.test.ets:A0036', BUNDLE + '_ContinuationScenes_0004').assertEqual('小明');
+      loggedExpect(work.setFormField('address', '\uD800'), 'ContinuationScenes.test.ets:A0037', BUNDLE + '_ContinuationScenes_0004').assertFalse();
+      loggedExpect(work.gotoFormStep(2), 'ContinuationScenes.test.ets:A0038', BUNDLE + '_ContinuationScenes_0004').assertFalse(); loggedExpect(work.saveForm(), 'ContinuationScenes.test.ets:A0039', BUNDLE + '_ContinuationScenes_0004').assertTrue();
+      loggedExpect(work.snapshot().formDirty, 'ContinuationScenes.test.ets:A0040', BUNDLE + '_ContinuationScenes_0004').assertFalse(); loggedExpect(work.confirmForm(), 'ContinuationScenes.test.ets:A0041', BUNDLE + '_ContinuationScenes_0004').assertFalse();
       const reopened = new SceneWorkbench(new SceneTestStore(store.stored()));
-      expect(reopened.snapshot().formName).assertEqual('小明'); expect(reopened.snapshot().formPhone).assertEqual('');
-      reopened.setFormField('phone', '13800000000'); expect(reopened.nextFormStep()).assertTrue();
-      reopened.setFormField('address', '受控测试地址'); expect(reopened.nextFormStep()).assertTrue();
+      loggedExpect(reopened.snapshot().formName, 'ContinuationScenes.test.ets:A0042', BUNDLE + '_ContinuationScenes_0004').assertEqual('小明'); loggedExpect(reopened.snapshot().formPhone, 'ContinuationScenes.test.ets:A0043', BUNDLE + '_ContinuationScenes_0004').assertEqual('');
+      reopened.setFormField('phone', '13800000000'); loggedExpect(reopened.nextFormStep(), 'ContinuationScenes.test.ets:A0044', BUNDLE + '_ContinuationScenes_0004').assertTrue();
+      reopened.setFormField('address', '受控测试地址'); loggedExpect(reopened.nextFormStep(), 'ContinuationScenes.test.ets:A0045', BUNDLE + '_ContinuationScenes_0004').assertTrue();
       reopened.setFormAgreed(true);
-      expect(reopened.confirmForm()).assertTrue();
-      expect(reopened.snapshot().formConfirmed).assertTrue();
+      loggedExpect(reopened.confirmForm(), 'ContinuationScenes.test.ets:A0046', BUNDLE + '_ContinuationScenes_0004').assertTrue();
+      loggedExpect(reopened.snapshot().formConfirmed, 'ContinuationScenes.test.ets:A0047', BUNDLE + '_ContinuationScenes_0004').assertTrue();
       work.dispose(); reopened.dispose();
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0500
-     * @tc.name      testContinuationScenes0005
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0005
      * @tc.desc      Verify sC 005 scene system roundtrip
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -211,11 +212,11 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0005', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0005', (): void => {
       ['note', 'reading', 'form'].forEach((kind: string): void => {
         const source = new SceneControllerFixture(); const target = new SceneControllerFixture();
         try {
-          expect(source.controller.openScene(kind)).assertTrue();
+          loggedExpect(source.controller.openScene(kind), 'ContinuationScenes.test.ets:A0048', BUNDLE + '_ContinuationScenes_0005').assertTrue();
           const work = source.controller.sceneWorkbench;
           if (kind === 'note') {
             work.editNote('未保存标题', 'A🌱BC', 1, 3);
@@ -231,15 +232,15 @@ export default function continuationScenes(): void {
           const raw = outgoing(source); const first = decodeScene(raw).value as SceneDocument;
           target.controller.handleLaunch(inbound(raw), 10); target.controller.markWindowReady();
           target.native.deliverOn(0, undefined, resultInfo(0));
-          expect(target.controller.snapshot().committed).assertFalse(); expect(target.store.putCalls).assertEqual(0);
-          expect(target.native.onCallbacks.length).assertEqual(1);
+          loggedExpect(target.controller.snapshot().committed, 'ContinuationScenes.test.ets:A0049', BUNDLE + '_ContinuationScenes_0005').assertFalse(); loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0050', BUNDLE + '_ContinuationScenes_0005').assertEqual(0);
+          loggedExpect(target.native.onCallbacks.length, 'ContinuationScenes.test.ets:A0051', BUNDLE + '_ContinuationScenes_0005').assertEqual(1);
           receipt(target, targetOf(target));
-          expect(target.controller.snapshot().committed).assertTrue();
-          expect(target.controller.snapshot().canEdit).assertTrue();
+          loggedExpect(target.controller.snapshot().committed, 'ContinuationScenes.test.ets:A0052', BUNDLE + '_ContinuationScenes_0005').assertTrue();
+          loggedExpect(target.controller.snapshot().canEdit, 'ContinuationScenes.test.ets:A0053', BUNDLE + '_ContinuationScenes_0005').assertTrue();
           const restored = target.controller.sceneWorkbench.document(kind);
-          expect(JSON.stringify(restored.state)).assertEqual(JSON.stringify(first.state));
+          loggedExpect(JSON.stringify(restored.state), 'ContinuationScenes.test.ets:A0054', BUNDLE + '_ContinuationScenes_0005').assertEqual(JSON.stringify(first.state));
           if (kind === 'note') {
-            expect(target.controller.sceneWorkbench.snapshot().noteDirty).assertTrue();
+            loggedExpect(target.controller.sceneWorkbench.snapshot().noteDirty, 'ContinuationScenes.test.ets:A0055', BUNDLE + '_ContinuationScenes_0005').assertTrue();
             target.controller.sceneWorkbench.editNote('继续编辑', '目标端继续操作', 0, 3);
             target.controller.sceneWorkbench.saveNote();
           } else if (kind === 'reading') {
@@ -250,11 +251,11 @@ export default function continuationScenes(): void {
             target.controller.sceneWorkbench.saveForm();
           }
           const next = decodeScene(outgoing(target)).value as SceneDocument;
-          expect(next.transferId !== first.transferId).assertTrue();
-          expect(next.documentId).assertEqual(first.documentId);
-          expect(next.revision > first.revision).assertTrue();
+          loggedExpect(next.transferId !== first.transferId, 'ContinuationScenes.test.ets:A0056', BUNDLE + '_ContinuationScenes_0005').assertTrue();
+          loggedExpect(next.documentId, 'ContinuationScenes.test.ets:A0057', BUNDLE + '_ContinuationScenes_0005').assertEqual(first.documentId);
+          loggedExpect(next.revision > first.revision, 'ContinuationScenes.test.ets:A0058', BUNDLE + '_ContinuationScenes_0005').assertTrue();
           const reopened = new SceneControllerFixture(target.store.stored());
-          expect(JSON.stringify(reopened.controller.sceneWorkbench.document(kind).state))
+          loggedExpect(JSON.stringify(reopened.controller.sceneWorkbench.document(kind).state), 'ContinuationScenes.test.ets:A0059', BUNDLE + '_ContinuationScenes_0005')
         .assertEqual(JSON.stringify(next.state)); reopened.release();
         } finally { source.release(); target.release(); }
       });
@@ -262,7 +263,7 @@ export default function continuationScenes(): void {
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0600
-     * @tc.name      testContinuationScenes0006
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0006
      * @tc.desc      Verify sC 006 position failure retry and stale receipt
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -270,26 +271,26 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0006', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0006', (): void => {
       const source = new SceneControllerFixture(); const target = new SceneControllerFixture();
       try {
         source.controller.openScene('reading'); source.controller.sceneWorkbench.gotoParagraph(2, 1);
         target.controller.handleLaunch(inbound(outgoing(source)), 3); target.controller.markWindowReady();
         const old = targetOf(target); receipt(target, old, false);
-        expect(target.controller.snapshot().targetPage).assertEqual('pages/ProcessPage');
-        expect(target.store.putCalls).assertEqual(0);
+        loggedExpect(target.controller.snapshot().targetPage, 'ContinuationScenes.test.ets:A0060', BUNDLE + '_ContinuationScenes_0006').assertEqual('continuation/pages/ProcessPage');
+        loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0061', BUNDLE + '_ContinuationScenes_0006').assertEqual(0);
         target.controller.retryBusinessPosition(); const retried = targetOf(target);
-        expect(retried.request !== old.request).assertTrue(); receipt(target, old);
-        expect(target.store.putCalls).assertEqual(0);
+        loggedExpect(retried.request !== old.request, 'ContinuationScenes.test.ets:A0062', BUNDLE + '_ContinuationScenes_0006').assertTrue(); receipt(target, old);
+        loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0063', BUNDLE + '_ContinuationScenes_0006').assertEqual(0);
         target.controller.markWindowGone(); target.controller.markWindowReady();
-        receipt(target, retried); expect(target.store.putCalls).assertEqual(0);
-        receipt(target, targetOf(target)); expect(target.controller.snapshot().committed).assertTrue();
+        receipt(target, retried); loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0064', BUNDLE + '_ContinuationScenes_0006').assertEqual(0);
+        receipt(target, targetOf(target)); loggedExpect(target.controller.snapshot().committed, 'ContinuationScenes.test.ets:A0065', BUNDLE + '_ContinuationScenes_0006').assertTrue();
       } finally { source.release(); target.release(); }
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0700
-     * @tc.name      testContinuationScenes0007
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0007
      * @tc.desc      Verify sC 007 conflict accept still obeys all gates
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -297,31 +298,31 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0007', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0007', (): void => {
       const source = new SceneControllerFixture(); const target = new SceneControllerFixture();
       try {
         source.controller.openScene('note'); source.controller.sceneWorkbench.editNote('远端', '远端草稿', 0, 2);
         target.controller.openScene('note'); target.controller.sceneWorkbench.editNote('本机', '本机草稿', 1, 3);
         const before = target.controller.sceneWorkbench.document('note');
         target.controller.handleLaunch(inbound(outgoing(source)), 10); target.controller.acceptConflict();
-        expect(target.controller.snapshot().conflictAccepted).assertTrue();
-        expect(target.store.putCalls).assertEqual(0);
+        loggedExpect(target.controller.snapshot().conflictAccepted, 'ContinuationScenes.test.ets:A0066', BUNDLE + '_ContinuationScenes_0007').assertTrue();
+        loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0067', BUNDLE + '_ContinuationScenes_0007').assertEqual(0);
         receipt(target, targetOf(target));
         target.controller.markWindowReady();
-        expect(target.store.putCalls).assertEqual(0);
+        loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0068', BUNDLE + '_ContinuationScenes_0007').assertEqual(0);
         target.store.failFlush = [1]; target.native.deliverOn(0);
-        expect(target.controller.snapshot().committed).assertFalse();
-        expect(target.controller.snapshot().sessionActive).assertFalse();
-        expect(JSON.stringify(target.controller.sceneWorkbench.document('note')))
+        loggedExpect(target.controller.snapshot().committed, 'ContinuationScenes.test.ets:A0069', BUNDLE + '_ContinuationScenes_0007').assertFalse();
+        loggedExpect(target.controller.snapshot().sessionActive, 'ContinuationScenes.test.ets:A0070', BUNDLE + '_ContinuationScenes_0007').assertFalse();
+        loggedExpect(JSON.stringify(target.controller.sceneWorkbench.document('note')), 'ContinuationScenes.test.ets:A0071', BUNDLE + '_ContinuationScenes_0007')
           .assertEqual(JSON.stringify(before));
-        expect(target.controller.sceneWorkbench.snapshot().noteDirty).assertTrue();
-        expect(target.store.stored()).assertEqual('');
+        loggedExpect(target.controller.sceneWorkbench.snapshot().noteDirty, 'ContinuationScenes.test.ets:A0072', BUNDLE + '_ContinuationScenes_0007').assertTrue();
+        loggedExpect(target.store.stored(), 'ContinuationScenes.test.ets:A0073', BUNDLE + '_ContinuationScenes_0007').assertEqual('');
       } finally { source.release(); target.release(); }
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0800
-     * @tc.name      testContinuationScenes0008
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0008
      * @tc.desc      Verify sC 008 page rebind and privacy
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -329,15 +330,15 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0008', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0008', (): void => {
       const f = new SceneControllerFixture(); const page = new ScenePageSession('form'); let changes: number = 0;
       try {
         page.bind(f.controller, (): void => { changes++; }); page.detach(); const afterDetach = changes;
-        f.controller.sceneWorkbench.setFormField('name', '隐私姓名'); expect(changes).assertEqual(afterDetach);
-        page.bind(f.controller, (): void => { changes++; }); expect(page.snapshot().formName).assertEqual('隐私姓名');
+        f.controller.sceneWorkbench.setFormField('name', '隐私姓名'); loggedExpect(changes, 'ContinuationScenes.test.ets:A0074', BUNDLE + '_ContinuationScenes_0008').assertEqual(afterDetach);
+        page.bind(f.controller, (): void => { changes++; }); loggedExpect(page.snapshot().formName, 'ContinuationScenes.test.ets:A0075', BUNDLE + '_ContinuationScenes_0008').assertEqual('隐私姓名');
         const afterBind = changes;
         f.controller.sceneWorkbench.setFormField('address', '隐私地址');
-        expect(changes).assertEqual(afterBind + 1);
+        loggedExpect(changes, 'ContinuationScenes.test.ets:A0076', BUNDLE + '_ContinuationScenes_0008').assertEqual(afterBind + 1);
         const source = new SceneControllerFixture();
         try {
           source.controller.openScene('form'); source.controller.sceneWorkbench.setFormField('phone', '13812345678');
@@ -345,16 +346,16 @@ export default function continuationScenes(): void {
           f.native.deliverOn(0, undefined, resultInfo(0, '13812345678 隐私地址'));
           f.controller.handleLaunch(inbound(outgoing(source)), 3);
           const summary = JSON.stringify(f.controller.snapshot().records);
-          expect(summary.indexOf('13812345678')).assertEqual(-1); expect(summary.indexOf('隐私地址')).assertEqual(-1);
+          loggedExpect(summary.indexOf('13812345678'), 'ContinuationScenes.test.ets:A0077', BUNDLE + '_ContinuationScenes_0008').assertEqual(-1); loggedExpect(summary.indexOf('隐私地址'), 'ContinuationScenes.test.ets:A0078', BUNDLE + '_ContinuationScenes_0008').assertEqual(-1);
           f.controller.stopLocalWait(); const writes = f.store.putCalls;
-          expect(f.controller.positionTarget()).assertUndefined(); expect(f.store.putCalls).assertEqual(writes);
+          loggedExpect(f.controller.positionTarget(), 'ContinuationScenes.test.ets:A0079', BUNDLE + '_ContinuationScenes_0008').assertUndefined(); loggedExpect(f.store.putCalls, 'ContinuationScenes.test.ets:A0080', BUNDLE + '_ContinuationScenes_0008').assertEqual(writes);
         } finally { source.release(); }
       } finally { page.detach(); f.release(); }
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_0900
-     * @tc.name      testContinuationScenes0009
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0009
      * @tc.desc      Verify sC 009 namespace and storage validation
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -362,7 +363,7 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0009', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0009', (): void => {
       const source = new SceneControllerFixture(); const target = new SceneControllerFixture();
       try {
         source.controller.openScene('reading');
@@ -370,19 +371,19 @@ export default function continuationScenes(): void {
         const parameters: Record<string, Object> = {};
         parameters[TEXT_PAYLOAD_KEY] = raw;
         target.controller.handleLaunch({ parameters: parameters } as Want, 3);
-        expect(target.store.putCalls).assertEqual(0);
+        loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0081', BUNDLE + '_ContinuationScenes_0009').assertEqual(0);
         parameters[SCENE_PAYLOAD_KEY] = raw;
         target.controller.handleLaunch({ parameters: parameters } as Want, 3);
-        expect(target.controller.snapshot().sessionActive).assertFalse();
-        expect(target.store.putCalls).assertEqual(0);
+        loggedExpect(target.controller.snapshot().sessionActive, 'ContinuationScenes.test.ets:A0082', BUNDLE + '_ContinuationScenes_0009').assertFalse();
+        loggedExpect(target.store.putCalls, 'ContinuationScenes.test.ets:A0083', BUNDLE + '_ContinuationScenes_0009').assertEqual(0);
         const broken = new SceneWorkbench(new SceneTestStore('{bad'));
-        expect(broken.snapshot().storageFrozen).assertTrue(); expect(broken.saveNote()).assertFalse(); broken.dispose();
+        loggedExpect(broken.snapshot().storageFrozen, 'ContinuationScenes.test.ets:A0084', BUNDLE + '_ContinuationScenes_0009').assertTrue(); loggedExpect(broken.saveNote(), 'ContinuationScenes.test.ets:A0085', BUNDLE + '_ContinuationScenes_0009').assertFalse(); broken.dispose();
       } finally { source.release(); target.release(); }
     });
 
     /**
      * @tc.number    SUB_CONTINUATION_CONTINUATIONSCENES_1000
-     * @tc.name      testContinuationScenes0010
+     * @tc.name      com.samples.appcontinuation_ContinuationScenes_0010
      * @tc.desc      Verify sC 010 history restore is real content
      * @tc.size      SmallTest
      * @tc.type      Function
@@ -390,13 +391,13 @@ export default function continuationScenes(): void {
      */
 
 
-    scenario('testContinuationScenes0010', (): void => {
+    scenario(BUNDLE + '_ContinuationScenes_0010', (): void => {
       const store = new SceneTestStore(); const work = new SceneWorkbench(store); work.open('note');
       work.editNote('第一版', '原始正文', 0, 2); work.saveNote();
       work.editNote('第二版', '另一个正文', 1, 4); work.saveNote();
-      expect(work.restoreHistory(0)).assertTrue(); expect(work.snapshot().revision).assertEqual(3);
-      expect(work.snapshot().noteTitle).assertEqual('第一版'); expect(work.snapshot().noteBody).assertEqual('原始正文');
-      expect(decodeWorkspace(store.stored()) !== undefined).assertTrue(); work.dispose();
+      loggedExpect(work.restoreHistory(0), 'ContinuationScenes.test.ets:A0086', BUNDLE + '_ContinuationScenes_0010').assertTrue(); loggedExpect(work.snapshot().revision, 'ContinuationScenes.test.ets:A0087', BUNDLE + '_ContinuationScenes_0010').assertEqual(3);
+      loggedExpect(work.snapshot().noteTitle, 'ContinuationScenes.test.ets:A0088', BUNDLE + '_ContinuationScenes_0010').assertEqual('第一版'); loggedExpect(work.snapshot().noteBody, 'ContinuationScenes.test.ets:A0089', BUNDLE + '_ContinuationScenes_0010').assertEqual('原始正文');
+      loggedExpect(decodeWorkspace(store.stored()) !== undefined, 'ContinuationScenes.test.ets:A0090', BUNDLE + '_ContinuationScenes_0010').assertTrue(); work.dispose();
     });
   });
 }

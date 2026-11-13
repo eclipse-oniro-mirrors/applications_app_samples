@@ -14,7 +14,8 @@
  */
 
 import { afterEach, describe, expect } from '@ohos/hypium';
-import { loggedIt as it } from '../support/TestLog';
+import { traceParameter, loggedIt as it } from '../support/TestLog';
+import { configureTestText } from '../support/TestTextResources';
 import { AutoStartupService } from '../../../main/ets/autostart/AutoStartupService';
 import { HistoryStorage, parseHistory, serializeHistory } from '../../../main/ets/autostart/AutoStartupHistory';
 import { QueryOutcome, QueryPhase, QueryRecord, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
@@ -83,6 +84,7 @@ function recoveryRow(id: number, timestamp: number): QueryRecord {
 }
 
 export default function startupRecoveryB2Test(): void {
+  configureTestText();
   describe('StartupRecoveryB2', (): void => {
     const fixtures: RecoveryFixture[] = [];
     const create = (blocked: boolean = false): RecoveryFixture => {
@@ -105,13 +107,14 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0001', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(true); const raw = serializeHistory([recoveryRow(8, f.clock.now())], f.clock.now());
       f.store.value = raw; await f.sample(true); f.service.clearRecords(); f.service.retryPersistence();
       await f.service.whenSaved();
-      expect(f.store.writes.length).assertEqual(0);
-      expect(f.store.value).assertEqual(raw);
-      expect(f.service.snapshot().phase).assertEqual(QueryPhase.SUCCEEDED);
-      expect(f.service.records().length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0001|StartupRecoveryB2.test.ets|assert0001|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0001|StartupRecoveryB2.test.ets|assert0001|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0001|StartupRecoveryB2.test.ets|assert0002|assertEqual|actual', f.store.value)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0001|StartupRecoveryB2.test.ets|assert0002|assertEqual|expected', raw));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0001|StartupRecoveryB2.test.ets|assert0003|assertEqual|actual', f.service.snapshot().phase)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0001|StartupRecoveryB2.test.ets|assert0003|assertEqual|expected', QueryPhase.SUCCEEDED));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0001|StartupRecoveryB2.test.ets|assert0004|assertEqual|actual', f.service.records().length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0001|StartupRecoveryB2.test.ets|assert0004|assertEqual|expected', 0));
     });
 
     /**
@@ -123,14 +126,15 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0002', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(true); await f.sample(true);
       f.store.value = serializeHistory([
         recoveryRow(1, f.clock.now() - 10), recoveryRow(9, f.clock.now() - 20)], f.clock.now());
       f.store.failRead = false; f.service.retryHistoryRead(); await f.service.whenSaved();
-      expect(f.rows().map((row: QueryRecord): number => row.id).join(',')).assertEqual('1,10,9');
-      expect(f.service.records()[0].result).assertEqual('已开启');
-      expect(f.store.writes.length).assertEqual(1);
-      await f.sample(false); expect(f.service.records()[0].id).assertEqual(11);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0002|StartupRecoveryB2.test.ets|assert0005|assertEqual|actual', f.rows().map((row: QueryRecord): number => row.id).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0002|StartupRecoveryB2.test.ets|assert0005|assertEqual|expected', '1,10,9'));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0002|StartupRecoveryB2.test.ets|assert0006|assertEqual|actual', f.service.records()[0].result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0002|StartupRecoveryB2.test.ets|assert0006|assertEqual|expected', '已开启'));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0002|StartupRecoveryB2.test.ets|assert0007|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0002|StartupRecoveryB2.test.ets|assert0007|assertEqual|expected', 1));
+      await f.sample(false); expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0002|StartupRecoveryB2.test.ets|assert0008|assertEqual|actual', f.service.records()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0002|StartupRecoveryB2.test.ets|assert0008|assertEqual|expected', 11));
     });
 
     /**
@@ -142,14 +146,15 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0003', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(true); f.store.failRead = false;
       f.store.value = serializeHistory([recoveryRow(40, f.clock.now() - 5)], f.clock.now());
       f.service.refresh(RefreshSource.MANUAL); f.service.retryHistoryRead();
-      expect(f.store.reads).assertEqual(1);
-      expect(f.service.snapshot().pending).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0003|StartupRecoveryB2.test.ets|assert0009|assertEqual|actual', f.store.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0003|StartupRecoveryB2.test.ets|assert0009|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0003|StartupRecoveryB2.test.ets|assert0010|assertTrue|actual|expected=true', f.service.snapshot().pending)).assertTrue();
       f.api.resolveNext(true); await flushMicrotasks(); f.service.retryHistoryRead(); await f.service.whenSaved();
-      expect(f.service.records().map((row: QueryRecord): number => row.id).join(',')).assertEqual('1,40');
-      expect(f.store.reads).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0003|StartupRecoveryB2.test.ets|assert0011|assertEqual|actual', f.service.records().map((row: QueryRecord): number => row.id).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0003|StartupRecoveryB2.test.ets|assert0011|assertEqual|expected', '1,40'));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0003|StartupRecoveryB2.test.ets|assert0012|assertEqual|actual', f.store.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0003|StartupRecoveryB2.test.ets|assert0012|assertEqual|expected', 2));
     });
 
     /**
@@ -161,13 +166,14 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0004', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(true); await f.sample(false); f.service.retryHistoryRead(); f.service.retryHistoryRead();
-      expect(f.service.records()[0].durationMillis).assertEqual(7);
-      expect(f.store.reads).assertEqual(3);
-      expect(f.store.writes.length).assertEqual(0);
-      expect(f.service.historyNotice().indexOf('内存结果保留') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0013|assertEqual|actual', f.service.records()[0].durationMillis)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0013|assertEqual|expected', 7));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0014|assertEqual|actual', f.store.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0014|assertEqual|expected', 3));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0015|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0015|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0016|assertTrue|actual|expected=true', f.service.historyNotice().indexOf('内存结果保留') >= 0)).assertTrue();
       f.store.failRead = false; f.service.retryHistoryRead(); await f.service.whenSaved();
-      expect(f.rows()[0].result).assertEqual('未开启');
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0017|assertEqual|actual', f.rows()[0].result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0004|StartupRecoveryB2.test.ets|assert0017|assertEqual|expected', '未开启'));
     });
 
     /**
@@ -179,13 +185,14 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0005', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); await f.sample(true); await f.service.whenSaved();
       f.store.value = serializeHistory([recoveryRow(99, f.clock.now())], f.clock.now());
       f.service.retryHistoryRead(); await f.service.whenSaved();
-      expect(f.store.reads).assertEqual(1);
-      expect(f.service.records()[0].id).assertEqual(1);
-      expect(f.rows()[0].id).assertEqual(99);
-      expect(f.store.writes.length).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0005|StartupRecoveryB2.test.ets|assert0018|assertEqual|actual', f.store.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0005|StartupRecoveryB2.test.ets|assert0018|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0005|StartupRecoveryB2.test.ets|assert0019|assertEqual|actual', f.service.records()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0005|StartupRecoveryB2.test.ets|assert0019|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0005|StartupRecoveryB2.test.ets|assert0020|assertEqual|actual', f.rows()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0005|StartupRecoveryB2.test.ets|assert0020|assertEqual|expected', 99));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0005|StartupRecoveryB2.test.ets|assert0021|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0005|StartupRecoveryB2.test.ets|assert0021|assertEqual|expected', 1));
     });
 
     /**
@@ -197,6 +204,7 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0006', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(true); await f.sample(true);
       const stored: QueryRecord[] = [];
       for (let i = 0; i < 20; i++) {
@@ -204,10 +212,10 @@ export default function startupRecoveryB2Test(): void {
       }
       f.store.value = serializeHistory(stored, f.clock.now()); f.store.failRead = false;
       f.service.retryHistoryRead(); await f.service.whenSaved();
-      expect(f.rows().length).assertEqual(20);
-      expect(f.rows()[19].id).assertEqual(118);
-      expect(f.service.latestValidRecord()?.result).assertEqual('已开启');
-      await f.sample(false); expect(f.service.records()[0].id).assertEqual(119);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0006|StartupRecoveryB2.test.ets|assert0022|assertEqual|actual', f.rows().length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0006|StartupRecoveryB2.test.ets|assert0022|assertEqual|expected', 20));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0006|StartupRecoveryB2.test.ets|assert0023|assertEqual|actual', f.rows()[19].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0006|StartupRecoveryB2.test.ets|assert0023|assertEqual|expected', 118));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0006|StartupRecoveryB2.test.ets|assert0024|assertEqual|actual', f.service.latestValidRecord()?.result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0006|StartupRecoveryB2.test.ets|assert0024|assertEqual|expected', '已开启'));
+      await f.sample(false); expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0006|StartupRecoveryB2.test.ets|assert0025|assertEqual|actual', f.service.records()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0006|StartupRecoveryB2.test.ets|assert0025|assertEqual|expected', 119));
     });
 
     /**
@@ -219,15 +227,16 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0007', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(true); await f.sample(true);
       f.store.value = serializeHistory([recoveryRow(7, f.clock.now() - 1)], f.clock.now());
       f.store.failRead = false; f.store.failWrite = true; f.service.retryHistoryRead(); await f.service.whenSaved();
-      expect(f.service.records().length).assertEqual(2);
-      expect(f.service.historyNotice().indexOf('保存失败') >= 0).assertTrue();
-      expect(f.rows()[0].id).assertEqual(7);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0026|assertEqual|actual', f.service.records().length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0026|assertEqual|expected', 2));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0027|assertTrue|actual|expected=true', f.service.historyNotice().indexOf('保存失败') >= 0)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0028|assertEqual|actual', f.rows()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0028|assertEqual|expected', 7));
       f.store.failWrite = false; f.service.retryPersistence(); await f.service.whenSaved();
-      expect(f.rows().map((row: QueryRecord): number => row.id).join(',')).assertEqual('1,7');
-      expect(f.service.historyNotice()).assertEqual('');
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0029|assertEqual|actual', f.rows().map((row: QueryRecord): number => row.id).join(','))).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0029|assertEqual|expected', '1,7'));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0030|assertEqual|actual', f.service.historyNotice())).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0007|StartupRecoveryB2.test.ets|assert0030|assertEqual|expected', ''));
     });
 
     /**
@@ -239,14 +248,15 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0008', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.store.hold = true; await f.sample(true);
       f.service.clearRecords(); await f.sample(false);
-      expect(f.store.writes.length).assertEqual(1);
-      expect(f.service.records()[0].id).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0031|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0031|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0032|assertEqual|actual', f.service.records()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0032|assertEqual|expected', 2));
       f.store.release(); await f.service.whenSaved();
-      expect(parseHistory(f.store.writes[1], f.clock.now()).records.length).assertEqual(0);
-      expect(f.rows()[0].result).assertEqual('未开启');
-      expect(f.store.writes.length).assertEqual(3);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0033|assertEqual|actual', parseHistory(f.store.writes[1], f.clock.now()).records.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0033|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0034|assertEqual|actual', f.rows()[0].result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0034|assertEqual|expected', '未开启'));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0035|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0008|StartupRecoveryB2.test.ets|assert0035|assertEqual|expected', 3));
     });
 
     /**
@@ -258,13 +268,14 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0009', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.store.hold = true; f.store.failWrite = true; await f.sample(true);
       const first = f.service.whenSaved(); f.service.clearRecords(); f.store.release();
       await first; f.store.failWrite = false; f.service.retryPersistence(); await f.service.whenSaved();
-      expect(f.service.historyNotice()).assertEqual('');
-      expect(f.rows().length).assertEqual(0);
-      expect(f.service.snapshot().lastValue).assertTrue();
-      expect(f.store.writes.length).assertEqual(3);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0009|StartupRecoveryB2.test.ets|assert0036|assertEqual|actual', f.service.historyNotice())).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0009|StartupRecoveryB2.test.ets|assert0036|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0009|StartupRecoveryB2.test.ets|assert0037|assertEqual|actual', f.rows().length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0009|StartupRecoveryB2.test.ets|assert0037|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0009|StartupRecoveryB2.test.ets|assert0038|assertTrue|actual|expected=true', f.service.snapshot().lastValue)).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0009|StartupRecoveryB2.test.ets|assert0039|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0009|StartupRecoveryB2.test.ets|assert0039|assertEqual|expected', 3));
     });
 
     /**
@@ -276,12 +287,13 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0010', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.api.supported = false; f.service.refresh(RefreshSource.MANUAL);
       f.store.value = serializeHistory([recoveryRow(80, f.clock.now() - 1)], f.clock.now());
       f.service.attachHistory(f.store); await f.service.whenSaved();
-      expect(f.rows()[0].id).assertEqual(80);
-      expect(f.service.records()[0].id).assertEqual(80);
-      expect(f.store.writes.length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0010|StartupRecoveryB2.test.ets|assert0040|assertEqual|actual', f.rows()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0010|StartupRecoveryB2.test.ets|assert0040|assertEqual|expected', 80));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0010|StartupRecoveryB2.test.ets|assert0041|assertEqual|actual', f.service.records()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0010|StartupRecoveryB2.test.ets|assert0041|assertEqual|expected', 80));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0010|StartupRecoveryB2.test.ets|assert0042|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0010|StartupRecoveryB2.test.ets|assert0042|assertEqual|expected', 0));
     });
 
     /**
@@ -293,14 +305,15 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0011', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.store.hold = true; f.store.failWrite = true; await f.sample(true);
       const other = new RecoveryStore();
       other.value = serializeHistory([recoveryRow(60, f.clock.now())], f.clock.now());
       f.service.attachHistory(other); f.store.release(); await f.service.whenSaved();
-      expect(f.service.historyNotice()).assertEqual('');
-      expect(f.service.records()[0].id).assertEqual(60);
-      expect(other.writes.length).assertEqual(0);
-      expect(other.reads).assertEqual(1);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0011|StartupRecoveryB2.test.ets|assert0043|assertEqual|actual', f.service.historyNotice())).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0011|StartupRecoveryB2.test.ets|assert0043|assertEqual|expected', ''));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0011|StartupRecoveryB2.test.ets|assert0044|assertEqual|actual', f.service.records()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0011|StartupRecoveryB2.test.ets|assert0044|assertEqual|expected', 60));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0011|StartupRecoveryB2.test.ets|assert0045|assertEqual|actual', other.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0011|StartupRecoveryB2.test.ets|assert0045|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0011|StartupRecoveryB2.test.ets|assert0046|assertEqual|actual', other.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0011|StartupRecoveryB2.test.ets|assert0046|assertEqual|expected', 1));
     });
 
     /**
@@ -312,14 +325,15 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0012', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.store.hold = true; await f.sample(true);
       f.service.clearRecords(); f.service.attachHistory(f.store);
-      expect(f.store.reads).assertEqual(1);
-      expect(f.service.historyNotice().indexOf('写入尚在结束') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0047|assertEqual|actual', f.store.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0047|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0048|assertTrue|actual|expected=true', f.service.historyNotice().indexOf('写入尚在结束') >= 0)).assertTrue();
       f.store.release(); await f.service.whenSaved();
-      expect(f.store.writes.length).assertEqual(1);
-      expect(f.service.records()[0].result).assertEqual('已开启');
-      expect(f.store.reads).assertEqual(2);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0049|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0049|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0050|assertEqual|actual', f.service.records()[0].result)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0050|assertEqual|expected', '已开启'));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0051|assertEqual|actual', f.store.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0012|StartupRecoveryB2.test.ets|assert0051|assertEqual|expected', 2));
     });
 
     /**
@@ -331,6 +345,7 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0013', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.store.hold = true; await f.sample(true);
       const abandoned = new RecoveryStore();
       abandoned.value = serializeHistory([recoveryRow(90, f.clock.now())], f.clock.now());
@@ -338,12 +353,12 @@ export default function startupRecoveryB2Test(): void {
       selected.value = serializeHistory([recoveryRow(70, f.clock.now())], f.clock.now());
       f.service.attachHistory(abandoned); f.service.attachHistory(selected);
       f.store.release(); await f.service.whenSaved();
-      expect(abandoned.reads).assertEqual(0);
-      expect(selected.reads).assertEqual(1);
-      expect(f.service.records()[0].id).assertEqual(70);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0052|assertEqual|actual', abandoned.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0052|assertEqual|expected', 0));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0053|assertEqual|actual', selected.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0053|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0054|assertEqual|actual', f.service.records()[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0054|assertEqual|expected', 70));
       await f.sample(false); await f.service.whenSaved();
-      expect(parseHistory(selected.value, f.clock.now()).records[0].id).assertEqual(71);
-      expect(abandoned.writes.length).assertEqual(0);
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0055|assertEqual|actual', parseHistory(selected.value, f.clock.now()).records[0].id)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0055|assertEqual|expected', 71));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0056|assertEqual|actual', abandoned.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0013|StartupRecoveryB2.test.ets|assert0056|assertEqual|expected', 0));
     });
 
     /**
@@ -355,14 +370,15 @@ export default function startupRecoveryB2Test(): void {
      * @tc.level Level 2
      */
     it('testStartupRecoveryBatchTwo0014', 0, async (): Promise<void> => {
+      configureTestText();
       const f = create(); f.store.hold = true; await f.sample(true);
       f.service.attachHistory(f.store); f.service.retryHistoryRead(); f.service.retryPersistence();
-      expect(f.store.reads).assertEqual(1);
-      expect(f.service.historyNotice().indexOf('写入尚在结束') >= 0).assertTrue();
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0057|assertEqual|actual', f.store.reads)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0057|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0058|assertTrue|actual|expected=true', f.service.historyNotice().indexOf('写入尚在结束') >= 0)).assertTrue();
       f.store.release(); await f.service.whenSaved();
-      expect(f.store.writes.length).assertEqual(1);
-      expect(f.service.records()[0].durationMillis).assertEqual(7);
-      expect(f.service.historyNotice()).assertEqual('');
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0059|assertEqual|actual', f.store.writes.length)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0059|assertEqual|expected', 1));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0060|assertEqual|actual', f.service.records()[0].durationMillis)).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0060|assertEqual|expected', 7));
+      expect(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0061|assertEqual|actual', f.service.historyNotice())).assertEqual(traceParameter('com.samples.appstartupauto_StartupRecoveryBatchTwo_0014|StartupRecoveryB2.test.ets|assert0061|assertEqual|expected', ''));
     });
   });
 }

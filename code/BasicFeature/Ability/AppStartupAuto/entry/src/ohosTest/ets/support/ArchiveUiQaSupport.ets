@@ -14,7 +14,10 @@
  */
 
 /** Test I/O ports only. All archive validation, filtering, planning and persistence sequencing are production. */
-import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
+import { common } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { ON, UiTestComponent, UiTestDriver, UiTestSession } from './UiTestRuntime';
+import { BUNDLE } from './TestLog';
 import { QueryOutcome, QueryRecord, RefreshSource } from '../../../main/ets/autostart/AutoStartupTypes';
 import { ArchiveClipboardPort, ArchiveDocument, ArchiveFailure, ArchiveStorage,
   StartupArchiveRepository } from '../../../main/ets/autostart/archive/StartupArchive';
@@ -76,10 +79,20 @@ export class ArchiveUiQaFixture {
   public readonly repository: StartupArchiveRepository = new StartupArchiveRepository((): number => this.now);
   public liveRecords: QueryRecord[] = [];
   public gate: ArchiveQaSignal | undefined = undefined;
+  public readonly session: UiTestSession;
+  public readonly context: common.UIAbilityContext;
+  private disposal: Promise<void> | undefined = undefined;
+
+  constructor(session: UiTestSession, context: common.UIAbilityContext) {
+    this.session = session;
+    this.context = context;
+  }
 
   async initialize(scenario: string): Promise<void> {
+    this.session.requireLive();
     if (scenario === 'readFailure') { this.storage.failLoad = true; }
     await this.repository.attach(this.storage);
+    this.session.requireLive();
     if (scenario !== 'empty' && scenario !== 'readFailure') {
       this.liveRecords = [this.record(101, QueryOutcome.SUCCESS, RefreshSource.MANUAL),
         this.record(102, QueryOutcome.FAILURE, RefreshSource.FOREGROUND)];
@@ -91,6 +104,7 @@ export class ArchiveUiQaFixture {
     } else if (scenario === 'seeded' || scenario === 'copyPending' || scenario === 'copyFailure') {
       await this.repository.save(this.liveRecords);
     }
+    this.session.requireLive();
     if (scenario === 'writeFailure') { this.storage.failNext = true; }
     if (scenario === 'pending') {
       this.gate = new ArchiveQaSignal(); this.storage.hold = this.gate;
@@ -116,41 +130,78 @@ export class ArchiveUiQaFixture {
     const gate = this.gate;
     if (gate !== undefined) { gate.release(); }
   }
-  async dispose(): Promise<void> { this.release(); await this.repository.close(); }
+  dispose(): Promise<void> {
+    if (this.disposal === undefined) {
+      this.release();
+      this.disposal = this.repository.close();
+    }
+    return this.disposal;
+  }
 }
 
 let activeFixture: ArchiveUiQaFixture | undefined = undefined;
-export async function mountArchiveUiQa(scenario: string): Promise<ArchiveUiQaFixture> {
-  const old = activeFixture;
-  if (old !== undefined) { await old.dispose(); }
-  const fixture = new ArchiveUiQaFixture();
-  activeFixture = fixture;
-  await fixture.initialize(scenario);
-  return fixture;
+
+export function archiveQaErrorCode(error: Error): number {
+  const code = (error as BusinessError).code;
+  return typeof code === 'number' && Number.isFinite(code) ? code : 0;
 }
-export function currentArchiveUiQa(): ArchiveUiQaFixture {
-  const fixture = activeFixture;
-  if (fixture === undefined) { throw new Error('Archive QA harness did not mount'); }
+
+/** The Ability owns initialization/disposal; mounting never replaces a previous owner. */
+export function mountArchiveUiQa(session: UiTestSession, context: common.UIAbilityContext): ArchiveUiQaFixture {
+  session.requireLive();
+  if (activeFixture !== undefined) { throw new Error('Previous Archive QA fixture has not been disposed'); }
+  const fixture = new ArchiveUiQaFixture(session, context);
+  activeFixture = fixture;
   return fixture;
 }
 
-export async function archiveQaNode(driver: Driver, id: string): Promise<Component> {
-  if (!await driver.waitForIdle(100, 2000)) { throw new Error(`Archive UI not idle: ${id}`); }
-  let component = await driver.findComponent(ON.id(id));
-  if (component === undefined || component === null) {
-    const scroll = await driver.findComponent(ON.id('archive-qa-scroll'));
-    if (scroll !== undefined && scroll !== null) { component = await scroll.scrollSearch(ON.id(id)); }
+export function currentArchiveUiQa(session?: UiTestSession): ArchiveUiQaFixture {
+  const fixture = activeFixture;
+  if (fixture === undefined || (session !== undefined && fixture.session !== session)) {
+    throw new Error('Archive QA fixture does not belong to this session');
   }
-  if (component === undefined || component === null) { component = await driver.waitForComponent(ON.id(id), 3000); }
-  if (component === undefined || component === null) { throw new Error(`Missing archive control: ${id}`); }
+  fixture.session.requireLive();
+  return fixture;
+}
+
+export function bindArchiveUiQa(sessionId: string): ArchiveUiQaFixture {
+  const fixture = currentArchiveUiQa();
+  if (fixture.session.id !== sessionId) { throw new Error('Archive QA page belongs to another session'); }
+  return fixture;
+}
+
+export function failArchiveUiQaInitialization(sessionId: string, phase: string, code: number): void {
+  const fixture = activeFixture;
+  if (fixture !== undefined && fixture.session.id === sessionId) {
+    try { fixture.session.requireLive(); } catch (_) { return; }
+    fixture.session.failInitialization(phase, code);
+  }
+}
+
+export async function disposeArchiveUiQa(fixture: ArchiveUiQaFixture): Promise<void> {
+  try { await fixture.dispose(); }
+  finally { if (activeFixture === fixture) { activeFixture = undefined; } }
+}
+
+async function archiveQaIdle(driver: UiTestDriver): Promise<void> {
+  while (!await driver.waitForIdle(50, 250)) { await driver.session.pause(30); }
+}
+
+export async function archiveQaNode(driver: UiTestDriver, id: string): Promise<UiTestComponent> {
+  await archiveQaIdle(driver);
+  let component = await driver.findComponent(ON.id(id));
+  if (component === undefined) {
+    const scroll = await driver.findComponent(ON.id('archive-qa-scroll'));
+    if (scroll !== undefined) { component = await scroll.scrollSearch(ON.id(id)); }
+  }
+  if (component === undefined) { component = await driver.waitForComponent(ON.id(id), driver.session.remaining()); }
+  if (component === undefined) { throw new Error(`Missing archive control: ${id}`); }
   return component;
 }
-/**
- * Resolve an expected UI string from the same resources the panel uses, so assertions do
- * not assume a particular device language. args follow the {0}/{1} placeholder order.
- */
+
+/** Expected and displayed strings come from the same owned Ability resource context. */
 export function archiveQaExpected(key: string, args: string[] = []): string {
-  const context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+  const context = currentArchiveUiQa().context;
   const template: string = context.resourceManager.getStringByNameSync(key);
   return template.replace(/\{(\d+)\}/g, (match: string, index: string): string => {
     const position = Number(index);
@@ -158,38 +209,24 @@ export function archiveQaExpected(key: string, args: string[] = []): string {
   });
 }
 
-export async function archiveQaText(driver: Driver, id: string): Promise<string> {
+export async function archiveQaText(driver: UiTestDriver, id: string): Promise<string> {
   return (await archiveQaNode(driver, id)).getText();
 }
-export async function archiveQaClick(driver: Driver, id: string): Promise<void> {
-  await archiveQaNode(driver, id);
-  if (!await driver.waitForIdle(100, 2000)) { throw new Error(`Archive UI not idle: ${id}`); }
+export async function archiveQaClick(driver: UiTestDriver, id: string): Promise<void> {
   await (await archiveQaNode(driver, id)).click();
 }
-export async function archiveQaInput(driver: Driver, id: string, text: string): Promise<void> {
+export async function archiveQaInput(driver: UiTestDriver, id: string, text: string): Promise<void> {
   await (await archiveQaNode(driver, id)).inputText(text);
-  await driver.pressBack();
-  if (!await driver.waitForIdle(100, 2000)) { throw new Error('Archive input did not settle'); }
+  await archiveQaIdle(driver);
 }
-export async function launchArchiveUiQa(scenario: string): Promise<Driver> {
+
+export async function launchArchiveUiQa(session: UiTestSession, scenario: string): Promise<UiTestDriver> {
+  const driver = session.createDriver();
+  await driver.wakeUpDisplay();
   const parameters: Record<string, Object> = {};
   parameters['testPage'] = 'ArchiveUiQa'; parameters['qaScenario'] = scenario;
-  await abilityDelegatorRegistry.getAbilityDelegator().startAbility({
-    bundleName: 'com.example.appstartupauto', moduleName: 'entry_test', abilityName: 'FeatureQaAbility',
-    parameters: parameters
-  });
-  const driver = Driver.create();
-  if (driver === undefined || driver === null) {
-    throw new Error('UiTest Driver.create() returned null; native IPC initialization failed. ' +
-      'Check deferred Runner imports and device UiTest logs.');
-  }
-  const ready = await driver.waitForComponent(ON.id('archive-qa-ready'), 3000);
-  if (ready === undefined || ready === null) { throw new Error('Archive QA page not ready'); }
+  await session.startAbility(BUNDLE, 'FeatureQaAbility', parameters);
+  const ready = await driver.waitForComponent(ON.id(`archive-qa-ready-${session.id}`), session.remaining());
+  if (ready === undefined) { throw new Error('Owned Archive QA page did not become ready within the case budget'); }
   return driver;
-}
-export async function finishArchiveUiQa(): Promise<void> {
-  const fixture = activeFixture; activeFixture = undefined;
-  if (fixture !== undefined) { await fixture.dispose(); }
-  const top = await abilityDelegatorRegistry.getAbilityDelegator().getCurrentTopAbility();
-  if (top.context.abilityInfo.name === 'FeatureQaAbility') { await top.context.terminateSelf(); }
 }
