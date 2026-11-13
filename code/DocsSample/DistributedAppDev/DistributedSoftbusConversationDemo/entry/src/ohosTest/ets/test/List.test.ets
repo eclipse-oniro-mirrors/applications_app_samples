@@ -63,6 +63,11 @@ import conversationPlusBundleTest from './ConversationPlusBundle.test';
 import conversationPlusPermissionTest from './ConversationPlusPermission.test';
 import conversationPlusUiTest from './ConversationPlusUi.test';
 import conversationPlusContractTest from './ConversationPlusContract.test';
+import conversationPlusApiDeep2Test from './ConversationPlusApiDeep2.test';
+import conversationPlusBufferDeepTest from './ConversationPlusBufferDeep.test';
+import conversationPlusBundleDeep2Test from './ConversationPlusBundleDeep2.test';
+import conversationPlusPermissionDeep2Test from './ConversationPlusPermissionDeep2.test';
+import conversationPlusUiDeepTest from './ConversationPlusUiDeep.test';
 export default function testsuite() {
   abilityTest();
   conversationUiMatrixTest();
@@ -113,4 +118,9 @@ export default function testsuite() {
   conversationPlusPermissionTest();
   conversationPlusUiTest();
   conversationPlusContractTest();
+  conversationPlusApiDeep2Test();
+  conversationPlusBufferDeepTest();
+  conversationPlusBundleDeep2Test();
+  conversationPlusPermissionDeep2Test();
+  conversationPlusUiDeepTest();
 }
