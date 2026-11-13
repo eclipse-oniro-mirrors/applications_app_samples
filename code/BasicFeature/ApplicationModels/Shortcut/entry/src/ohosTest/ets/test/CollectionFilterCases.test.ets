@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import {
   COLLECTION_RULES, CollectionAction, CollectionItem, CollectionLevel, CollectionRule,
   CollectionRuleKind, actionLabel, auditCollectionRules, govern, judgeItem, needsConfirm,
@@ -65,20 +66,20 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testCollectionRuleCases0001', 0, (): void => {
-      expect(COLLECTION_RULES.length).assertEqual(20);
-      expect(ruleIds().length).assertEqual(20);
-      expect(ruleLines().length).assertEqual(20);
+    it(caseName('CollectionRuleCases', '0001'), 0, (): void => {
+      expect(COLLECTION_RULES.length, caseName('CollectionRuleCases', '0001')).assertEqual(20);
+      expect(ruleIds().length, caseName('CollectionRuleCases', '0001')).assertEqual(20);
+      expect(ruleLines().length, caseName('CollectionRuleCases', '0001')).assertEqual(20);
       const audit = auditCollectionRules();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.ok).assertTrue();
-      expect(audit.summary()).assertEqual('收藏规则表自洽');
+      expect(audit.findings.length, caseName('CollectionRuleCases', '0001')).assertEqual(0);
+      expect(audit.ok, caseName('CollectionRuleCases', '0001')).assertTrue();
+      expect(audit.summary(), caseName('CollectionRuleCases', '0001')).assertEqual('收藏规则表自洽');
       COLLECTION_RULES.forEach((rule: CollectionRule): void => {
-        expect(rule.description.length > 0).assertTrue();
-        expect(rule.threshold >= 0).assertTrue();
-        expect(rule.text().indexOf(rule.ruleId) === 0).assertTrue();
+        expect(rule.description.length > 0, caseName('CollectionRuleCases', '0001')).assertTrue();
+        expect(rule.threshold >= 0, caseName('CollectionRuleCases', '0001')).assertTrue();
+        expect(rule.text().indexOf(rule.ruleId) === 0, caseName('CollectionRuleCases', '0001')).assertTrue();
       });
-      expect(ruleOf('CL-99')).assertEqual(undefined);
+      expect(ruleOf('CL-99'), caseName('CollectionRuleCases', '0001')).assertEqual(undefined);
     });
 
     /**
@@ -90,19 +91,19 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testCollectionRuleCases0002', 0, (): void => {
-      expect(rulesOfKind(CollectionRuleKind.VALIDITY).length).assertEqual(5);
-      expect(rulesOfKind(CollectionRuleKind.DUPLICATE).length).assertEqual(3);
-      expect(rulesOfKind(CollectionRuleKind.TAG).length).assertEqual(4);
-      expect(rulesOfKind(CollectionRuleKind.PIN).length).assertEqual(3);
-      expect(rulesOfKind(CollectionRuleKind.AGE).length).assertEqual(3);
-      expect(rulesOfKind(CollectionRuleKind.TIME).length).assertEqual(2);
-      expect(actionLabel(CollectionAction.MERGE)).assertEqual('合并');
-      expect(actionLabel(CollectionAction.WARN_ONLY)).assertEqual('仅提醒');
-      expect(needsConfirm(CollectionAction.DROP)).assertTrue();
-      expect(needsConfirm(CollectionAction.KEEP)).assertFalse();
-      expect(shrinksList(CollectionAction.MERGE)).assertTrue();
-      expect(shrinksList(CollectionAction.RETAG)).assertFalse();
+    it(caseName('CollectionRuleCases', '0002'), 0, (): void => {
+      expect(rulesOfKind(CollectionRuleKind.VALIDITY).length, caseName('CollectionRuleCases', '0002')).assertEqual(5);
+      expect(rulesOfKind(CollectionRuleKind.DUPLICATE).length, caseName('CollectionRuleCases', '0002')).assertEqual(3);
+      expect(rulesOfKind(CollectionRuleKind.TAG).length, caseName('CollectionRuleCases', '0002')).assertEqual(4);
+      expect(rulesOfKind(CollectionRuleKind.PIN).length, caseName('CollectionRuleCases', '0002')).assertEqual(3);
+      expect(rulesOfKind(CollectionRuleKind.AGE).length, caseName('CollectionRuleCases', '0002')).assertEqual(3);
+      expect(rulesOfKind(CollectionRuleKind.TIME).length, caseName('CollectionRuleCases', '0002')).assertEqual(2);
+      expect(actionLabel(CollectionAction.MERGE), caseName('CollectionRuleCases', '0002')).assertEqual('合并');
+      expect(actionLabel(CollectionAction.WARN_ONLY), caseName('CollectionRuleCases', '0002')).assertEqual('仅提醒');
+      expect(needsConfirm(CollectionAction.DROP), caseName('CollectionRuleCases', '0002')).assertTrue();
+      expect(needsConfirm(CollectionAction.KEEP), caseName('CollectionRuleCases', '0002')).assertFalse();
+      expect(shrinksList(CollectionAction.MERGE), caseName('CollectionRuleCases', '0002')).assertTrue();
+      expect(shrinksList(CollectionAction.RETAG), caseName('CollectionRuleCases', '0002')).assertFalse();
     });
 
     /**
@@ -114,20 +115,20 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testCollectionRuleCases0003', 0, (): void => {
+    it(caseName('CollectionRuleCases', '0003'), 0, (): void => {
       const broken: CollectionItem = new CollectionItem('', '无标识', '摘要');
-      expect(judgeItem(broken, NOW, []).ruleId).assertEqual('CL-01');
-      expect(judgeItem(broken, NOW, []).action).assertEqual(CollectionAction.DROP);
-      expect(judgeItem(broken, NOW, []).level).assertEqual(CollectionLevel.ERROR);
+      expect(judgeItem(broken, NOW, []).ruleId, caseName('CollectionRuleCases', '0003')).assertEqual('CL-01');
+      expect(judgeItem(broken, NOW, []).action, caseName('CollectionRuleCases', '0003')).assertEqual(CollectionAction.DROP);
+      expect(judgeItem(broken, NOW, []).level, caseName('CollectionRuleCases', '0003')).assertEqual(CollectionLevel.ERROR);
       const emptyTitle: CollectionItem = new CollectionItem('x1', '   ', '摘要');
-      expect(judgeItem(emptyTitle, NOW, []).ruleId).assertEqual('CL-02');
+      expect(judgeItem(emptyTitle, NOW, []).ruleId, caseName('CollectionRuleCases', '0003')).assertEqual('CL-02');
       const unknownTime: CollectionItem = new CollectionItem('x2', '标题', '摘要');
       unknownTime.savedAt = 0;
-      expect(judgeItem(unknownTime, NOW, []).ruleId).assertEqual('CL-16');
-      expect(judgeItem(unknownTime, NOW, []).action).assertEqual(CollectionAction.KEEP);
+      expect(judgeItem(unknownTime, NOW, []).ruleId, caseName('CollectionRuleCases', '0003')).assertEqual('CL-16');
+      expect(judgeItem(unknownTime, NOW, []).action, caseName('CollectionRuleCases', '0003')).assertEqual(CollectionAction.KEEP);
       const future: CollectionItem = new CollectionItem('x3', '标题', '摘要');
       future.savedAt = NOW + 2 * DAY;
-      expect(judgeItem(future, NOW, []).ruleId).assertEqual('CL-17');
+      expect(judgeItem(future, NOW, []).ruleId, caseName('CollectionRuleCases', '0003')).assertEqual('CL-17');
     });
 
     /**
@@ -139,21 +140,21 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testCollectionRuleCases0004', 0, (): void => {
+    it(caseName('CollectionRuleCases', '0004'), 0, (): void => {
       const manyTags: CollectionItem = item('x4', '标签多', 1000, ['a', 'b', 'c', 'd', 'e', 'f']);
-      expect(judgeItem(manyTags, NOW, []).ruleId).assertEqual('CL-07');
-      expect(judgeItem(manyTags, NOW, []).action).assertEqual(CollectionAction.RETAG);
+      expect(judgeItem(manyTags, NOW, []).ruleId, caseName('CollectionRuleCases', '0004')).assertEqual('CL-07');
+      expect(judgeItem(manyTags, NOW, []).action, caseName('CollectionRuleCases', '0004')).assertEqual(CollectionAction.RETAG);
       const duplicated: CollectionItem = item('x5', '重复标签', 1000, ['a', 'a']);
-      expect(judgeItem(duplicated, NOW, []).ruleId).assertEqual('CL-07');
+      expect(judgeItem(duplicated, NOW, []).ruleId, caseName('CollectionRuleCases', '0004')).assertEqual('CL-07');
       const old: CollectionItem = item('x6', '老资料', 400 * DAY, ['资料']);
-      expect(judgeItem(old, NOW, []).ruleId).assertEqual('CL-13');
-      expect(judgeItem(old, NOW, []).action).assertEqual(CollectionAction.DROP);
+      expect(judgeItem(old, NOW, []).ruleId, caseName('CollectionRuleCases', '0004')).assertEqual('CL-13');
+      expect(judgeItem(old, NOW, []).action, caseName('CollectionRuleCases', '0004')).assertEqual(CollectionAction.DROP);
       const halfYear: CollectionItem = item('x7', '半年未读', 200 * DAY, ['资料']);
-      expect(judgeItem(halfYear, NOW, []).ruleId).assertEqual('CL-14');
-      expect(judgeItem(halfYear, NOW, []).action).assertEqual(CollectionAction.WARN_ONLY);
+      expect(judgeItem(halfYear, NOW, []).ruleId, caseName('CollectionRuleCases', '0004')).assertEqual('CL-14');
+      expect(judgeItem(halfYear, NOW, []).action, caseName('CollectionRuleCases', '0004')).assertEqual(CollectionAction.WARN_ONLY);
       const fresh: CollectionItem = item('x8', '新收藏', 1000, ['资料']);
-      expect(judgeItem(fresh, NOW, []).ruleId).assertEqual('CL-20');
-      expect(judgeItem(fresh, NOW, []).action).assertEqual(CollectionAction.KEEP);
+      expect(judgeItem(fresh, NOW, []).ruleId, caseName('CollectionRuleCases', '0004')).assertEqual('CL-20');
+      expect(judgeItem(fresh, NOW, []).action, caseName('CollectionRuleCases', '0004')).assertEqual(CollectionAction.KEEP);
     });
 
     /**
@@ -165,20 +166,20 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testCollectionRuleCases0005', 0, (): void => {
+    it(caseName('CollectionRuleCases', '0005'), 0, (): void => {
       const items: CollectionItem[] = sampleItems();
       const plan = govern(items, NOW);
-      expect(plan.verdicts.length).assertEqual(5);
-      expect(plan.countOf(CollectionAction.KEEP)).assertEqual(2);
-      expect(plan.countOf(CollectionAction.MERGE)).assertEqual(1);
-      expect(plan.countOf(CollectionAction.DROP)).assertEqual(1);
-      expect(plan.countOf(CollectionAction.RETAG)).assertEqual(1);
-      expect(plan.confirmCount()).assertEqual(2);
-      expect(plan.projectedTotal()).assertEqual(3);
-      expect(plan.text().indexOf('共 5 条') === 0).assertTrue();
-      expect(plan.lines().length).assertEqual(5);
+      expect(plan.verdicts.length, caseName('CollectionRuleCases', '0005')).assertEqual(5);
+      expect(plan.countOf(CollectionAction.KEEP), caseName('CollectionRuleCases', '0005')).assertEqual(2);
+      expect(plan.countOf(CollectionAction.MERGE), caseName('CollectionRuleCases', '0005')).assertEqual(1);
+      expect(plan.countOf(CollectionAction.DROP), caseName('CollectionRuleCases', '0005')).assertEqual(1);
+      expect(plan.countOf(CollectionAction.RETAG), caseName('CollectionRuleCases', '0005')).assertEqual(1);
+      expect(plan.confirmCount(), caseName('CollectionRuleCases', '0005')).assertEqual(2);
+      expect(plan.projectedTotal(), caseName('CollectionRuleCases', '0005')).assertEqual(3);
+      expect(plan.text().indexOf('共 5 条') === 0, caseName('CollectionRuleCases', '0005')).assertTrue();
+      expect(plan.lines().length, caseName('CollectionRuleCases', '0005')).assertEqual(5);
       plan.verdicts.forEach((verdict): void => {
-        expect(verdict.text().indexOf(verdict.itemId) === 0).assertTrue();
+        expect(verdict.text().indexOf(verdict.itemId) === 0, caseName('CollectionRuleCases', '0005')).assertTrue();
       });
     });
 
@@ -191,7 +192,7 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testCollectionRuleCases0006', 0, (): void => {
+    it(caseName('CollectionRuleCases', '0006'), 0, (): void => {
       const items: CollectionItem[] = sampleItems();
       const clone: CollectionItem = new CollectionItem('c1', '另一个标题', '摘要');
       clone.source = 'web';
@@ -199,13 +200,13 @@ export default function collectionFilterCasesTest(): void {
       clone.savedAt = NOW - 5000;
       items.push(clone);
       const plan = govern(items, NOW);
-      expect(plan.countOf(CollectionAction.DROP)).assertEqual(2);
-      expect(plan.countOf(CollectionAction.MERGE)).assertEqual(1);
-      expect(plan.projectedTotal()).assertEqual(3);
+      expect(plan.countOf(CollectionAction.DROP), caseName('CollectionRuleCases', '0006')).assertEqual(2);
+      expect(plan.countOf(CollectionAction.MERGE), caseName('CollectionRuleCases', '0006')).assertEqual(1);
+      expect(plan.projectedTotal(), caseName('CollectionRuleCases', '0006')).assertEqual(3);
       const dropped = plan.verdicts.filter((verdict): boolean =>
         verdict.ruleId === 'CL-06');
-      expect(dropped.length).assertEqual(1);
-      expect(dropped[0].level).assertEqual(CollectionLevel.ERROR);
+      expect(dropped.length, caseName('CollectionRuleCases', '0006')).assertEqual(1);
+      expect(dropped[0].level, caseName('CollectionRuleCases', '0006')).assertEqual(CollectionLevel.ERROR);
     });
 
     /**
@@ -217,7 +218,7 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testCollectionRuleCases0007', 0, (): void => {
+    it(caseName('CollectionRuleCases', '0007'), 0, (): void => {
       const first: CollectionItem = item('p1', '最早置顶', 30 * DAY, ['资料']);
       first.pinned = true;
       const second: CollectionItem = item('p2', '中间置顶', 10 * DAY, ['资料']);
@@ -226,11 +227,11 @@ export default function collectionFilterCasesTest(): void {
       third.pinned = true;
       const unpinned: CollectionItem = item('p4', '未置顶', 1000, ['资料']);
       const over = pinQuota([first, second, third, unpinned], 1);
-      expect(over.length).assertEqual(2);
-      expect(over[0]).assertEqual('p1');
-      expect(over[1]).assertEqual('p2');
-      expect(pinQuota([first, second, third], 5).length).assertEqual(0);
-      expect(pinQuota([], 3).length).assertEqual(0);
+      expect(over.length, caseName('CollectionRuleCases', '0007')).assertEqual(2);
+      expect(over[0], caseName('CollectionRuleCases', '0007')).assertEqual('p1');
+      expect(over[1], caseName('CollectionRuleCases', '0007')).assertEqual('p2');
+      expect(pinQuota([first, second, third], 5).length, caseName('CollectionRuleCases', '0007')).assertEqual(0);
+      expect(pinQuota([], 3).length, caseName('CollectionRuleCases', '0007')).assertEqual(0);
     });
   });
 
@@ -244,22 +245,22 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 1
      */
 
-    it('testFilterChainCases0001', 0, (): void => {
-      expect(PRESET_CHAINS.length).assertEqual(15);
-      expect(chainIds().length).assertEqual(15);
-      expect(chainNames().length).assertEqual(15);
-      expect(chainLines().length).assertEqual(15);
+    it(caseName('FilterChainCases', '0001'), 0, (): void => {
+      expect(PRESET_CHAINS.length, caseName('FilterChainCases', '0001')).assertEqual(15);
+      expect(chainIds().length, caseName('FilterChainCases', '0001')).assertEqual(15);
+      expect(chainNames().length, caseName('FilterChainCases', '0001')).assertEqual(15);
+      expect(chainLines().length, caseName('FilterChainCases', '0001')).assertEqual(15);
       const audit = auditChains();
-      expect(audit.findings.length).assertEqual(0);
-      expect(audit.ok).assertTrue();
-      expect(audit.summary()).assertEqual('筛选链自洽');
+      expect(audit.findings.length, caseName('FilterChainCases', '0001')).assertEqual(0);
+      expect(audit.ok, caseName('FilterChainCases', '0001')).assertTrue();
+      expect(audit.summary(), caseName('FilterChainCases', '0001')).assertEqual('筛选链自洽');
       PRESET_CHAINS.forEach((chain: FilterChain): void => {
-        expect(chain.name.length > 0).assertTrue();
-        expect(chain.text().indexOf(chain.name) === 0).assertTrue();
+        expect(chain.name.length > 0, caseName('FilterChainCases', '0001')).assertTrue();
+        expect(chain.text().indexOf(chain.name) === 0, caseName('FilterChainCases', '0001')).assertTrue();
       });
-      expect(chainOf('FC-99')).assertEqual(undefined);
-      expect(chainOf('FC-01')?.empty()).assertTrue();
-      expect(chainOf('FC-12')?.size()).assertEqual(2);
+      expect(chainOf('FC-99'), caseName('FilterChainCases', '0001')).assertEqual(undefined);
+      expect(chainOf('FC-01')?.empty(), caseName('FilterChainCases', '0001')).assertTrue();
+      expect(chainOf('FC-12')?.size(), caseName('FilterChainCases', '0001')).assertEqual(2);
     });
 
     /**
@@ -271,18 +272,18 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testFilterChainCases0002', 0, (): void => {
-      expect(operatorLabel(FilterOperator.CONTAINS)).assertEqual('包含');
-      expect(operatorLabel(FilterOperator.IS_FALSE)).assertEqual('为假');
-      expect(fieldLabel(FilterField.UPDATED)).assertEqual('更新时间');
-      expect(fieldLabel(FilterField.PINNED)).assertEqual('置顶');
-      expect(operatorOptions(FilterField.UPDATED).length).assertEqual(2);
-      expect(operatorOptions(FilterField.PINNED).length).assertEqual(2);
-      expect(operatorOptions(FilterField.TAG)[0]).assertEqual(FilterOperator.HAS_TAG);
+    it(caseName('FilterChainCases', '0002'), 0, (): void => {
+      expect(operatorLabel(FilterOperator.CONTAINS), caseName('FilterChainCases', '0002')).assertEqual('包含');
+      expect(operatorLabel(FilterOperator.IS_FALSE), caseName('FilterChainCases', '0002')).assertEqual('为假');
+      expect(fieldLabel(FilterField.UPDATED), caseName('FilterChainCases', '0002')).assertEqual('更新时间');
+      expect(fieldLabel(FilterField.PINNED), caseName('FilterChainCases', '0002')).assertEqual('置顶');
+      expect(operatorOptions(FilterField.UPDATED).length, caseName('FilterChainCases', '0002')).assertEqual(2);
+      expect(operatorOptions(FilterField.PINNED).length, caseName('FilterChainCases', '0002')).assertEqual(2);
+      expect(operatorOptions(FilterField.TAG)[0], caseName('FilterChainCases', '0002')).assertEqual(FilterOperator.HAS_TAG);
       const node: FilterNode = new FilterNode('n1', FilterField.TITLE,
         FilterOperator.CONTAINS, '整理');
-      expect(node.text()).assertEqual('标题包含整理');
-      expect(node.signature().indexOf('title') === 0).assertTrue();
+      expect(node.text(), caseName('FilterChainCases', '0002')).assertEqual('标题包含整理');
+      expect(node.signature().indexOf('title') === 0, caseName('FilterChainCases', '0002')).assertTrue();
     });
 
     /**
@@ -294,30 +295,30 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testFilterChainCases0003', 0, (): void => {
+    it(caseName('FilterChainCases', '0003'), 0, (): void => {
       const t1: FilterTarget = targets()[0];
       expect(matchNode(t1, new FilterNode('a', FilterField.TITLE,
-        FilterOperator.CONTAINS, '整理'))).assertTrue();
+        FilterOperator.CONTAINS, '整理')), caseName('FilterChainCases', '0003')).assertTrue();
       expect(matchNode(t1, new FilterNode('a', FilterField.TITLE,
-        FilterOperator.CONTAINS, '不存在'))).assertFalse();
+        FilterOperator.CONTAINS, '不存在')), caseName('FilterChainCases', '0003')).assertFalse();
       expect(matchNode(t1, new FilterNode('a', FilterField.STATE,
-        FilterOperator.EQUALS, 'open'))).assertTrue();
+        FilterOperator.EQUALS, 'open')), caseName('FilterChainCases', '0003')).assertTrue();
       expect(matchNode(t1, new FilterNode('a', FilterField.STATE,
-        FilterOperator.NOT_EQUALS, 'done'))).assertTrue();
+        FilterOperator.NOT_EQUALS, 'done')), caseName('FilterChainCases', '0003')).assertTrue();
       expect(matchNode(t1, new FilterNode('a', FilterField.TAG,
-        FilterOperator.HAS_TAG, '便签'))).assertTrue();
+        FilterOperator.HAS_TAG, '便签')), caseName('FilterChainCases', '0003')).assertTrue();
       expect(matchNode(t1, new FilterNode('a', FilterField.TAG,
-        FilterOperator.NOT_HAS_TAG, '收藏'))).assertTrue();
+        FilterOperator.NOT_HAS_TAG, '收藏')), caseName('FilterChainCases', '0003')).assertTrue();
       expect(matchNode(t1, new FilterNode('a', FilterField.UPDATED,
-        FilterOperator.GREATER, '', 1600000000000))).assertTrue();
+        FilterOperator.GREATER, '', 1600000000000)), caseName('FilterChainCases', '0003')).assertTrue();
       expect(matchNode(t1, new FilterNode('a', FilterField.UPDATED,
-        FilterOperator.LESS, '', 1600000000000))).assertFalse();
+        FilterOperator.LESS, '', 1600000000000)), caseName('FilterChainCases', '0003')).assertFalse();
       expect(matchNode(t1, new FilterNode('a', FilterField.PINNED,
-        FilterOperator.IS_TRUE, ''))).assertTrue();
+        FilterOperator.IS_TRUE, '')), caseName('FilterChainCases', '0003')).assertTrue();
       expect(matchNode(t1, new FilterNode('a', FilterField.PINNED,
-        FilterOperator.IS_FALSE, ''))).assertFalse();
+        FilterOperator.IS_FALSE, '')), caseName('FilterChainCases', '0003')).assertFalse();
       expect(matchNode(t1, new FilterNode('a', FilterField.PINNED,
-        FilterOperator.IS_TRUE, '', 0, true))).assertFalse();
+        FilterOperator.IS_TRUE, '', 0, true)), caseName('FilterChainCases', '0003')).assertFalse();
     });
 
     /**
@@ -329,25 +330,25 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testFilterChainCases0004', 0, (): void => {
+    it(caseName('FilterChainCases', '0004'), 0, (): void => {
       const list: FilterTarget[] = targets();
       const counts: number[] = chainCounts(list);
-      expect(counts.length).assertEqual(15);
-      expect(counts[0]).assertEqual(3);
-      expect(counts[1]).assertEqual(1);
-      expect(counts[2]).assertEqual(1);
-      expect(counts[3]).assertEqual(1);
-      expect(counts[4]).assertEqual(1);
-      expect(counts[5]).assertEqual(2);
-      expect(counts[6]).assertEqual(2);
-      expect(counts[7]).assertEqual(2);
-      expect(counts[8]).assertEqual(2);
-      expect(counts[11]).assertEqual(1);
-      expect(counts[12]).assertEqual(2);
-      expect(counts[13]).assertEqual(1);
-      expect(counts[14]).assertEqual(2);
-      expect(applyChain(list, PRESET_CHAINS[0]).length).assertEqual(3);
-      expect(evaluateChain(new FilterChain('x', '空', []), list[0])).assertTrue();
+      expect(counts.length, caseName('FilterChainCases', '0004')).assertEqual(15);
+      expect(counts[0], caseName('FilterChainCases', '0004')).assertEqual(3);
+      expect(counts[1], caseName('FilterChainCases', '0004')).assertEqual(1);
+      expect(counts[2], caseName('FilterChainCases', '0004')).assertEqual(1);
+      expect(counts[3], caseName('FilterChainCases', '0004')).assertEqual(1);
+      expect(counts[4], caseName('FilterChainCases', '0004')).assertEqual(1);
+      expect(counts[5], caseName('FilterChainCases', '0004')).assertEqual(2);
+      expect(counts[6], caseName('FilterChainCases', '0004')).assertEqual(2);
+      expect(counts[7], caseName('FilterChainCases', '0004')).assertEqual(2);
+      expect(counts[8], caseName('FilterChainCases', '0004')).assertEqual(2);
+      expect(counts[11], caseName('FilterChainCases', '0004')).assertEqual(1);
+      expect(counts[12], caseName('FilterChainCases', '0004')).assertEqual(2);
+      expect(counts[13], caseName('FilterChainCases', '0004')).assertEqual(1);
+      expect(counts[14], caseName('FilterChainCases', '0004')).assertEqual(2);
+      expect(applyChain(list, PRESET_CHAINS[0]).length, caseName('FilterChainCases', '0004')).assertEqual(3);
+      expect(evaluateChain(new FilterChain('x', '空', []), list[0]), caseName('FilterChainCases', '0004')).assertTrue();
     });
 
     /**
@@ -359,22 +360,22 @@ export default function collectionFilterCasesTest(): void {
      * @tc.level     Level 2
      */
 
-    it('testFilterChainCases0005', 0, (): void => {
+    it(caseName('FilterChainCases', '0005'), 0, (): void => {
       const merged: FilterChain = mergeChains(PRESET_CHAINS[1], PRESET_CHAINS[4]);
-      expect(merged.size()).assertEqual(2);
-      expect(merged.nodes[0].field).assertEqual(FilterField.STATE);
-      expect(merged.nodes[1].field).assertEqual(FilterField.PINNED);
-      expect(merged.name).assertEqual('待处理 + 已置顶');
+      expect(merged.size(), caseName('FilterChainCases', '0005')).assertEqual(2);
+      expect(merged.nodes[0].field, caseName('FilterChainCases', '0005')).assertEqual(FilterField.STATE);
+      expect(merged.nodes[1].field, caseName('FilterChainCases', '0005')).assertEqual(FilterField.PINNED);
+      expect(merged.name, caseName('FilterChainCases', '0005')).assertEqual('待处理 + 已置顶');
       const selfMerge: FilterChain = mergeChains(PRESET_CHAINS[1], PRESET_CHAINS[1]);
-      expect(selfMerge.size()).assertEqual(1);
+      expect(selfMerge.size(), caseName('FilterChainCases', '0005')).assertEqual(1);
       const negated: FilterChain = negateLast(PRESET_CHAINS[1]);
-      expect(negated.size()).assertEqual(1);
-      expect(negated.name.indexOf('排除') > 0).assertTrue();
-      expect(negated.nodes[0].negate).assertTrue();
-      expect(applyChain(targets(), negated).length).assertEqual(2);
-      expect(negateLast(new FilterChain('e', '空', [])).size()).assertEqual(0);
-      expect(chainByName('不存在的链').name).assertEqual('全部');
-      expect(chainByName('已置顶').size()).assertEqual(1);
+      expect(negated.size(), caseName('FilterChainCases', '0005')).assertEqual(1);
+      expect(negated.name.indexOf('排除') > 0, caseName('FilterChainCases', '0005')).assertTrue();
+      expect(negated.nodes[0].negate, caseName('FilterChainCases', '0005')).assertTrue();
+      expect(applyChain(targets(), negated).length, caseName('FilterChainCases', '0005')).assertEqual(2);
+      expect(negateLast(new FilterChain('e', '空', [])).size(), caseName('FilterChainCases', '0005')).assertEqual(0);
+      expect(chainByName('不存在的链').name, caseName('FilterChainCases', '0005')).assertEqual('全部');
+      expect(chainByName('已置顶').size(), caseName('FilterChainCases', '0005')).assertEqual(1);
     });
   });
 }

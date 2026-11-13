@@ -15,14 +15,17 @@
 
 /** Only the persistence boundary is fake; all note/history/recycle transitions use BusinessStore. */
 import { common } from '@kit.AbilityKit';
-import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
+import { UiTestSession, UiTestDriver as Driver, UiTestComponent as Component, ON } from './UiTestRuntime';
 import { BusinessStore } from '../../../main/ets/business/BusinessStore';
 import { RecycleBatchPreview } from '../../../main/ets/business/RecycleBatch';
 import { BusinessStorage, BusinessWriteError } from '../../../main/ets/business/BusinessStorage';
 import { MAX_ACTIVE_NOTES, NOTE_RECYCLE_RETENTION_MS } from '../../../main/ets/business/NoteRecyclePolicy';
 import { uiText } from '../../../main/ets/i18n/Strings';
 import { useModelBaselineStrings } from './TestStrings';
-import { logInfo, logWarning } from '../../../main/ets/services/Logger';
+import { logInfo } from '../../../main/ets/services/Logger';
+import { BUNDLE } from './CaseScope';
+
+const SHARED_FIXTURE_NAME: string = `${BUNDLE}_SharedRecycleUiFixture_0000`;
 
 export class RecycleQaSignal {
   public readonly promise: Promise<void>;
@@ -78,6 +81,7 @@ export async function recycleQaUntil(store: BusinessStore, condition: () => bool
 }
 
 export class RecycleUiQaFixture {
+  public readonly session: UiTestSession;
   public readonly storage: RecycleQaMemory = new RecycleQaMemory();
   public readonly store: BusinessStore;
   private time: number = new Date(2026, 10, 6, 12).getTime();
@@ -90,7 +94,7 @@ export class RecycleUiQaFixture {
   public baselineWrites: number = 0;
   private disposed: boolean = false;
 
-  constructor() { this.store = new BusinessStore(this.storage, (): number => this.time); }
+  constructor(session: UiTestSession) { this.session = session; this.store = new BusinessStore(this.storage, (): number => this.time); }
 
   async initialize(context: common.ApplicationContext, scenario: string): Promise<void> {
     if (scenario === 'readFailure') { this.storage.failRead = true; }
@@ -150,140 +154,169 @@ export class RecycleUiQaFixture {
   dispose(): void { if (!this.disposed) { this.disposed = true; this.release(); this.store.dispose(); } }
 }
 
-/** Own the test Ability directly; a foreground query is not a lifecycle guarantee. */
+/** Capture only this exact Context and this session's fixture; runtime owns the single close path. */
 export class RecycleUiQaAbilitySession {
+  public readonly runtime: UiTestSession;
   private readonly context: common.UIAbilityContext;
-  private readonly destroyedSignal: RecycleQaSignal = new RecycleQaSignal();
-  private destroyed: boolean = false;
+  private fixture: RecycleUiQaFixture | undefined = undefined;
 
-  constructor(context: common.UIAbilityContext) { this.context = context; }
-
-  markDestroyed(): void {
-    this.destroyed = true;
-    this.destroyedSignal.release();
+  constructor(context: common.UIAbilityContext, runtime: UiTestSession) {
+    this.context = context;
+    this.runtime = runtime;
   }
-
-  async close(): Promise<void> {
-    if (this.destroyed) { return; }
-    await new Promise<void>((resolve, reject): void => {
-      let settled: boolean = false;
-      let timer: number = -1;
-      const finish = (error: Error | undefined = undefined): void => {
-        if (settled) { return; }
-        settled = true;
-        if (timer >= 0) { clearTimeout(timer); }
-        if (error === undefined) { resolve(); } else { reject(error); }
-      };
-      timer = setTimeout((): void => {
-        finish(new Error('Recycle QA Ability did not reach onDestroy during cleanup'));
-      }, 3000);
-      this.destroyedSignal.promise.then((): void => { finish(); });
-      try {
-        this.context.terminateSelf().catch((error: Error): void => {
-          if (this.destroyed) { finish(); } else { finish(error); }
-        });
-      } catch (error) {
-        if (this.destroyed) { finish(); } else { finish(error as Error); }
-      }
-    });
+  bindFixture(fixture: RecycleUiQaFixture): void {
+    this.runtime.requireLive();
+    if (fixture.session !== this.runtime) { throw new Error('Recycle fixture belongs to another session'); }
+    if (this.fixture !== undefined && this.fixture !== fixture) {
+      throw new Error('Recycle QA owner already has a different fixture; replacement rejected');
+    }
+    this.fixture = fixture;
   }
+  hasFixture(): boolean { return this.fixture !== undefined; }
+  ownsFixture(fixture: RecycleUiQaFixture): boolean {
+    return this.fixture === fixture && fixture.session === this.runtime;
+  }
+  takeFixture(): RecycleUiQaFixture | undefined {
+    const fixture = this.fixture;
+    this.fixture = undefined;
+    return fixture;
+  }
+  forgetFixture(fixture: RecycleUiQaFixture): void {
+    if (this.fixture === fixture) { this.fixture = undefined; }
+  }
+  markDestroyed(): void { this.runtime.markDestroyed(this.context); }
+  close(): Promise<void> { return this.runtime.close(); }
 }
 
 let activeQaAbility: RecycleUiQaAbilitySession | undefined = undefined;
-export function attachRecycleUiQaAbility(context: common.UIAbilityContext): RecycleUiQaAbilitySession {
-  const session = new RecycleUiQaAbilitySession(context);
+export function attachRecycleUiQaAbility(context: common.UIAbilityContext,
+  runtime: UiTestSession): RecycleUiQaAbilitySession {
+  runtime.requireLive();
+  const session = new RecycleUiQaAbilitySession(context, runtime);
   activeQaAbility = session;
   return session;
 }
 export function detachRecycleUiQaAbility(session: RecycleUiQaAbilitySession): void {
-  session.markDestroyed();
-  // A late destroy callback must not clear a newer test Ability's ownership.
+  // A late old destroy must not detach the new owner or acknowledge its Context.
   if (activeQaAbility === session) { activeQaAbility = undefined; }
+  // FeatureQaAbility acknowledges the saved exact Context only after all cleanup, in its final finally.
+}
+export function recycleUiQaOwner(id: string): RecycleUiQaAbilitySession {
+  const owner = activeQaAbility;
+  if (owner === undefined || owner.runtime.id !== id) { throw new Error('Recycle QA session nonce is not owned'); }
+  owner.runtime.requireLive();
+  return owner;
 }
 
 let activeFixture: RecycleUiQaFixture | undefined = undefined;
-export async function mountRecycleUiQa(context: common.ApplicationContext,
-  scenario: string): Promise<RecycleUiQaFixture> {
-  const previous = activeFixture;
-  if (previous !== undefined) { previous.dispose(); }
-  const fixture = new RecycleUiQaFixture(); activeFixture = fixture;
-  await fixture.initialize(context, scenario);
-  return fixture;
+export async function mountRecycleUiQa(context: common.ApplicationContext, scenario: string,
+  owner: RecycleUiQaAbilitySession): Promise<RecycleUiQaFixture> {
+  const session = owner.runtime;
+  session.requireLive();
+  if (activeQaAbility !== owner) { throw new Error('Recycle QA owner changed before fixture creation'); }
+  if (activeFixture !== undefined || owner.hasFixture()) {
+    throw new Error('Recycle QA fixture is already mounted; duplicate mount rejected');
+  }
+  const fixture = new RecycleUiQaFixture(session);
+  owner.bindFixture(fixture);
+  activeFixture = fixture;
+  try {
+    await session.guard(fixture.initialize(context, scenario));
+    return fixture;
+  } catch (error) {
+    try { fixture.dispose(); } catch (_) { session.failCleanup('fixture-initialize-dispose'); }
+    owner.forgetFixture(fixture);
+    if (activeFixture === fixture) { activeFixture = undefined; }
+    throw error as Error;
+  }
 }
-export function currentRecycleUiQa(): RecycleUiQaFixture {
+export function currentRecycleUiQa(session: UiTestSession): RecycleUiQaFixture {
+  session.requireLive();
   const fixture = activeFixture;
-  if (fixture === undefined) { throw new Error('Recycle QA harness did not mount'); }
+  if (fixture === undefined || fixture.session !== session) { throw new Error('Recycle QA fixture is not owned by this case'); }
   return fixture;
 }
 export function recycleQaPreview(fixture: RecycleUiQaFixture): RecycleBatchPreview {
+  fixture.session.requireLive();
   const preview = fixture.store.snapshot().recycleBatchPreview;
   if (preview === undefined) { throw new Error('Production batch preview was not generated'); }
   return preview;
 }
-export async function recycleQaNode(driver: Driver, id: string): Promise<Component> {
-  if (!await driver.waitForIdle(100, 2000)) { throw new Error(`Recycle UI not idle: ${id}`); }
-  let component = await driver.findComponent(ON.id(id));
-  if (component === undefined || component === null) {
-    const scroll = await driver.findComponent(ON.id('note-trash-list'));
-    if (scroll !== undefined && scroll !== null) { component = await scroll.scrollSearch(ON.id(id)); }
+async function requireRecycleQaRoot(driver: Driver): Promise<void> {
+  // Launch validates the nonce-bearing native root once. Later calls keep exact local
+  // fixture/session/owner checks instead of repeating a root snapshot and geometry RPCs.
+  const session = driver.session;
+  const fixture = currentRecycleUiQa(session);
+  const owner = recycleUiQaOwner(session.id);
+  if (owner.runtime !== session || !owner.ownsFixture(fixture)) {
+    throw new Error('Recycle QA fixture does not belong to the exact active owner');
   }
-  if (component === undefined || component === null) { component = await driver.waitForComponent(ON.id(id), 3000); }
-  if (component === undefined || component === null) { throw new Error(`Missing recycle control: ${id}`); }
+  await session.requireOwnedForeground();
+  if (currentRecycleUiQa(session) !== fixture || activeQaAbility !== owner || !owner.ownsFixture(fixture)) {
+    throw new Error('Recycle QA owner or fixture changed during foreground verification');
+  }
+}
+export async function recycleQaNode(driver: Driver, id: string): Promise<Component> {
+  await requireRecycleQaRoot(driver);
+  let component = await driver.findComponent(ON.id(id));
+  if (component === undefined) {
+    const scroll = await driver.findComponent(ON.id('note-trash-list'));
+    if (scroll !== undefined) { component = await scroll.scrollSearch(ON.id(id)); }
+  }
+  if (component === undefined) { component = await driver.waitForComponent(ON.id(id), 1500); }
+  if (component === undefined) { throw new Error(`Missing recycle control: ${id}`); }
+  driver.session.requireLive();
   return component;
 }
 export async function recycleQaText(driver: Driver, id: string): Promise<string> {
-  return (await recycleQaNode(driver, id)).getText();
+  const deadline = Date.now() + Math.min(1000, driver.session.remaining());
+  let actual: string = '';
+  while (true) {
+    actual = await (await recycleQaNode(driver, id)).getText();
+    if (actual.length > 0 || Date.now() >= deadline) { return actual; }
+    await driver.session.pause(50);
+  }
 }
 export async function recycleQaClick(driver: Driver, id: string): Promise<void> {
-  await recycleQaNode(driver, id);
-  if (!await driver.waitForIdle(100, 2000)) { throw new Error(`Recycle UI not idle: ${id}`); }
+  driver.session.enterPhase(`recycle.click:${id}`);
   await (await recycleQaNode(driver, id)).click();
 }
 export async function recycleQaDialog(driver: Driver, label: string,
   title: string = uiText('shortcut_text_0699')): Promise<void> {
-  const dialogTitle = await driver.waitForComponent(ON.text(title), 3000);
-  if (dialogTitle === undefined || dialogTitle === null) { throw new Error(`Missing recycle dialog: ${title}`); }
-  // Relative selection avoids the identically labelled production button behind the modal.
-  const button = await driver.waitForComponent(ON.text(label).isAfter(ON.text(title)), 3000);
-  if (button === undefined || button === null) { throw new Error(`Missing recycle confirmation: ${label}`); }
+  await requireRecycleQaRoot(driver);
+  const dialogTitle = await driver.waitForComponent(ON.text(title), 1500);
+  if (dialogTitle === undefined) { throw new Error(`Missing recycle dialog: ${title}`); }
+  const button = await driver.waitForComponent(ON.text(label).isAfter(ON.text(title)), 1500);
+  if (button === undefined) { throw new Error(`Missing recycle confirmation: ${label}`); }
+  driver.session.enterPhase('recycle.dialog.click');
   await button.click();
 }
-export async function launchRecycleUiQa(scenario: string): Promise<Driver> {
-  logInfo('Native UI QA begin');
-  // Do not reuse a previous case's Ability if its cleanup was interrupted.
-  if (activeQaAbility !== undefined) { await finishRecycleUiQa(); }
+export async function launchRecycleUiQa(scenario: string, session: UiTestSession): Promise<Driver> {
+  session.requireLive();
+  logInfo(`${SHARED_FIXTURE_NAME} native-ui launch`);
   const parameters: Record<string, Object> = {};
   parameters['testPage'] = 'RecycleUiQa'; parameters['qaScenario'] = scenario;
-  await abilityDelegatorRegistry.getAbilityDelegator().startAbility({
-    bundleName: 'com.example.shortcut', moduleName: 'entry_test', abilityName: 'FeatureQaAbility',
-    parameters: parameters
-  });
-  const driver = Driver.create();
-  if (driver === undefined || driver === null) {
-    throw new Error('UiTest Driver.create() returned null; native IPC initialization failed. ' +
-      'Check deferred Runner imports and device UiTest logs.');
-  }
-  const ready = await driver.waitForComponent(ON.id('recycle-qa-ready'), 3000);
-  if (ready === undefined || ready === null) { throw new Error('Recycle QA page not ready'); }
-  if (activeQaAbility === undefined) { throw new Error('Recycle QA Ability lifecycle ownership was not registered'); }
+  await session.startAbility(BUNDLE, 'FeatureQaAbility', parameters);
+  const driver = session.createDriver();
+  const ready = await driver.waitForComponent(ON.id(`recycle-qa-ready-${session.id}`), 1500);
+  if (ready === undefined) { throw new Error('Owned recycle QA page not ready'); }
+  recycleUiQaOwner(session.id);
+  const root = await driver.findComponent(ON.id(`recycle-qa-root-${session.id}`));
+  if (root === undefined) { throw new Error('Owned recycle QA root is not present'); }
+  await requireRecycleQaRoot(driver);
   return driver;
 }
-export async function finishRecycleUiQa(): Promise<void> {
-  const fixture = activeFixture; activeFixture = undefined;
-  const session = activeQaAbility;
+/** Called only with the exact owner captured by Ability.onDestroy; never terminate a foreground query. */
+export function finishRecycleUiQa(owner: RecycleUiQaAbilitySession): void {
+  const session = owner.runtime;
+  const fixture = owner.takeFixture();
   try {
     if (fixture !== undefined) { fixture.dispose(); }
-  } finally {
-    // No owned Ability means launch failed before creation, or onDestroy already ran.
-    // Never query or terminate whichever unrelated Ability happens to be on top.
-    try {
-      if (session !== undefined) { await session.close(); }
-    } catch (error) {
-      logWarning('Native UI QA cleanup failure');
-      throw error;
-    } finally {
-      useModelBaselineStrings();
-      logInfo('Native UI QA end');
-    }
-  }
+  } catch (_) { session.failCleanup('fixture-dispose'); }
+  if (activeFixture === fixture) { activeFixture = undefined; }
+  try {
+    // An old late destroy cannot overwrite the locale of a newer Ability/session.
+    if (activeQaAbility === owner) { useModelBaselineStrings(); }
+  } catch (_) { session.failCleanup('resource-restore'); }
+  logInfo(`${SHARED_FIXTURE_NAME} native-ui-cleanup`);
 }

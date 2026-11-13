@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { describe, expect, it } from '@ohos/hypium';
+import { describe } from '@ohos/hypium';
+import { caseName, expect, it } from '../support/TestCase';
 import { BatchJournal } from '../../../main/ets/services/VisibilityBatch';
 import { CaseScope, getTestContext, runCase } from '../support/CaseScope';
 import { Deferred, shortcutInfo } from '../support/ShortcutFixture';
@@ -29,8 +30,8 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0001', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0001'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0001'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         const excess: string[] = [];
@@ -38,10 +39,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.service.previewBatch([], false);
         await h.service.previewBatch(['a', 'a'], false);
         await h.service.previewBatch(excess, true);
-        expect(h.api.queries).assertEqual(1);
-        expect(h.io.writes.length).assertEqual(0);
-        expect(h.service.snapshot().batchPreview).assertUndefined();
-        expect(h.api.writes.length).assertEqual(0);
+        expect(h.api.queries, caseName('ShortcutBatchWaveOne', '0001')).assertEqual(1);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0001')).assertEqual(0);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0001')).assertUndefined();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0001')).assertEqual(0);
       });
     });
 
@@ -53,15 +54,15 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0002', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0002'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0002'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         await h.service.previewBatch(['a', 'removed'], false);
-        expect(h.service.snapshot().batchMessage).assertEqual('所选入口已变化，请重新选择');
-        expect(h.io.writes.length).assertEqual(0);
-        expect(h.service.snapshot().batches.length).assertEqual(0);
-        expect(h.service.snapshot().batchPreview).assertUndefined();
+        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0002')).assertEqual('所选入口已变化，请重新选择');
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0002')).assertEqual(0);
+        expect(h.service.snapshot().batches.length, caseName('ShortcutBatchWaveOne', '0002')).assertEqual(0);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0002')).assertUndefined();
       });
     });
 
@@ -73,8 +74,8 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0003', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0003'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0003'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         const journal: BatchJournal = waveJournal();
         journal.sequence = Number.MAX_SAFE_INTEGER;
@@ -82,10 +83,10 @@ export default function shortcutBatchWaveOneTests(): void {
         const original: string = h.io.value;
         await h.start();
         await h.service.previewBatch(['b'], true);
-        expect(h.service.snapshot().batchMessage).assertEqual('批次编号已达上限，未执行');
-        expect(h.io.value).assertEqual(original);
-        expect(h.io.writes.length).assertEqual(0);
-        expect(h.plan().batchId).assertEqual('batch-1');
+        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0003')).assertEqual('批次编号已达上限，未执行');
+        expect(h.io.value, caseName('ShortcutBatchWaveOne', '0003')).assertEqual(original);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0003')).assertEqual(0);
+        expect(h.plan().batchId, caseName('ShortcutBatchWaveOne', '0003')).assertEqual('batch-1');
       });
     });
 
@@ -97,17 +98,17 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0004', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0004'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0004'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         h.io.failWrite = true;
         await h.service.previewBatch(['a'], false);
-        expect(h.service.snapshot().batchReady).assertFalse();
-        expect(h.service.snapshot().batchError).assertEqual('批次存档写入失败，已停止；先重新读取/核对，禁止盲目重试');
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.io.value).assertEqual('');
-        expect(h.service.snapshot().batchPreview).assertUndefined();
+        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0004')).assertFalse();
+        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0004')).assertEqual('批次存档写入失败，已停止；先重新读取/核对，禁止盲目重试');
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0004')).assertEqual(0);
+        expect(h.io.value, caseName('ShortcutBatchWaveOne', '0004')).assertEqual('');
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0004')).assertUndefined();
       });
     });
 
@@ -119,18 +120,18 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0005', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0005'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0005'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         await h.service.previewBatch(['a'], false);
         const token: number = h.preview().token;
         h.service.cancelBatchPreview();
         await h.service.executeBatchPreview(token);
-        expect(h.service.snapshot().batchPreview).assertUndefined();
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.plan().items[0].result).assertEqual('not-run');
-        expect(h.io.writes.length).assertEqual(1);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0005')).assertUndefined();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0005')).assertEqual(0);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0005')).assertEqual('not-run');
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0005')).assertEqual(1);
       });
     });
 
@@ -142,20 +143,20 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0006', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0006'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0006'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         await h.service.previewBatch(['a'], false);
         const oldToken: number = h.preview().token;
         await h.service.previewBatch(['b'], true);
         await h.service.executeBatchPreview(oldToken);
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.preview().items[0].id).assertEqual('b');
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0006')).assertEqual(0);
+        expect(h.preview().items[0].id, caseName('ShortcutBatchWaveOne', '0006')).assertEqual('b');
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.api.writes.join(',')).assertEqual('b:true');
-        expect(h.service.snapshot().batches[1].items[0].result).assertEqual('not-run');
-        expect(h.plan().items[0].result).assertEqual('confirmed');
+        expect(h.api.writes.join(','), caseName('ShortcutBatchWaveOne', '0006')).assertEqual('b:true');
+        expect(h.service.snapshot().batches[1].items[0].result, caseName('ShortcutBatchWaveOne', '0006')).assertEqual('not-run');
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0006')).assertEqual('confirmed');
       });
     });
 
@@ -167,17 +168,17 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0007', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0007'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0007'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         h.io.value = JSON.stringify(waveJournal());
         await h.start();
         h.api.failQuery = true;
         await h.service.previewBatch(['b'], true);
-        expect(h.service.snapshot().queryError).assertEqual('code=350001；query unavailable');
-        expect(h.plan().items[0].result).assertEqual('failed');
-        expect(h.io.writes.length).assertEqual(0);
-        expect(h.service.snapshot().batchPreview).assertUndefined();
+        expect(h.service.snapshot().queryError, caseName('ShortcutBatchWaveOne', '0007')).assertEqual('code=350001；query unavailable');
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0007')).assertEqual('failed');
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0007')).assertEqual(0);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0007')).assertUndefined();
       });
     });
 
@@ -189,21 +190,21 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0008', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0008'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0008'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         h.io.value = JSON.stringify(waveJournal());
         h.io.failRead = true;
         await h.start();
-        expect(h.service.snapshot().batchReady).assertFalse();
-        expect(h.service.snapshot().batchError).assertEqual('批次存档读取失败；不会覆盖或重放，请重试读取');
+        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0008')).assertFalse();
+        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0008')).assertEqual('批次存档读取失败；不会覆盖或重放，请重试读取');
         h.io.failRead = false;
         await h.service.loadBatches();
-        expect(h.service.snapshot().batchReady).assertTrue();
-        expect(h.service.snapshot().batchError).assertEqual('');
-        expect(h.plan().interrupted).assertTrue();
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.io.reads).assertEqual(2);
+        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0008')).assertTrue();
+        expect(h.service.snapshot().batchError, caseName('ShortcutBatchWaveOne', '0008')).assertEqual('');
+        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0008')).assertTrue();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0008')).assertEqual(0);
+        expect(h.io.reads, caseName('ShortcutBatchWaveOne', '0008')).assertEqual(2);
       });
     });
 
@@ -215,8 +216,8 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0009', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0009'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0009'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         const oldRead: Deferred<string> = new Deferred<string>();
         h.io.readGate = oldRead;
@@ -230,10 +231,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.start();
         oldRead.resolve(JSON.stringify(waveJournal()));
         await waveSettle();
-        expect(h.plan().items[0].id).assertEqual('b');
-        expect(h.service.snapshot().batchReady).assertTrue();
-        expect(h.io.reads).assertEqual(2);
-        expect(h.io.writes.length).assertEqual(0);
+        expect(h.plan().items[0].id, caseName('ShortcutBatchWaveOne', '0009')).assertEqual('b');
+        expect(h.service.snapshot().batchReady, caseName('ShortcutBatchWaveOne', '0009')).assertTrue();
+        expect(h.io.reads, caseName('ShortcutBatchWaveOne', '0009')).assertEqual(2);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0009')).assertEqual(0);
       });
     });
 
@@ -245,18 +246,18 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0010', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0010'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0010'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         await h.service.previewBatch(['a'], false);
         h.api.failQuery = true;
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.plan().items[0].attempt).assertEqual(0);
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.service.snapshot().batchPreview).assertUndefined();
-        expect(h.io.writes.length).assertEqual(1);
-        expect(h.service.snapshot().queryError).assertEqual('code=350001；query unavailable');
+        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0010')).assertEqual(0);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0010')).assertEqual(0);
+        expect(h.service.snapshot().batchPreview, caseName('ShortcutBatchWaveOne', '0010')).assertUndefined();
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0010')).assertEqual(1);
+        expect(h.service.snapshot().queryError, caseName('ShortcutBatchWaveOne', '0010')).assertEqual('code=350001；query unavailable');
       });
     });
 
@@ -268,17 +269,17 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0011', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0011'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0011'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         await h.service.previewBatch(['a'], false);
         h.api.infos = [shortcutInfo('b', false)];
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.service.snapshot().batchMessage).assertEqual('确认后状态变化，未执行；请重新预览');
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.io.writes.length).assertEqual(1);
-        expect(h.plan().items[0].attempt).assertEqual(0);
+        expect(h.service.snapshot().batchMessage, caseName('ShortcutBatchWaveOne', '0011')).assertEqual('确认后状态变化，未执行；请重新预览');
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0011')).assertEqual(0);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0011')).assertEqual(1);
+        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0011')).assertEqual(0);
       });
     });
 
@@ -290,17 +291,17 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0012', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0012'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0012'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         h.io.value = JSON.stringify(waveJournal());
         h.api.infos = [shortcutInfo('a', false)];
         await h.start();
         await h.service.previewBatchRetry('batch-1');
-        expect(h.plan().items[0].result).assertEqual('confirmed');
-        expect(h.preview().items.length).assertEqual(0);
-        expect(h.plan().items[0].attempt).assertEqual(1);
-        expect(h.api.writes.length).assertEqual(0);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0012')).assertEqual('confirmed');
+        expect(h.preview().items.length, caseName('ShortcutBatchWaveOne', '0012')).assertEqual(0);
+        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0012')).assertEqual(1);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0012')).assertEqual(0);
       });
     });
 
@@ -312,17 +313,17 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0013', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0013'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0013'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         h.io.value = JSON.stringify(waveJournal());
         h.api.infos = [];
         await h.start();
         await h.service.previewBatchRetry('batch-1');
-        expect(h.plan().items[0].result).assertEqual('unknown');
-        expect(h.preview().items.length).assertEqual(0);
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.io.writes.length).assertEqual(1);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0013')).assertEqual('unknown');
+        expect(h.preview().items.length, caseName('ShortcutBatchWaveOne', '0013')).assertEqual(0);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0013')).assertEqual(0);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0013')).assertEqual(1);
       });
     });
 
@@ -334,17 +335,17 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0014', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0014'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0014'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         await h.start();
         await h.service.previewBatch(['a'], false);
         await h.service.previewBatchRestore(h.plan().batchId);
-        expect(h.preview().items[0].reason).assertEqual('原批次未执行，不补偿');
-        expect(h.preview().items[0].eligible).assertFalse();
+        expect(h.preview().items[0].reason, caseName('ShortcutBatchWaveOne', '0014')).assertEqual('原批次未执行，不补偿');
+        expect(h.preview().items[0].eligible, caseName('ShortcutBatchWaveOne', '0014')).assertFalse();
         await h.service.executeBatchPreview(h.preview().token, true);
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.plan().items[0].restoreAttempt).assertEqual(0);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0014')).assertEqual(0);
+        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0014')).assertEqual(0);
       });
     });
 
@@ -356,18 +357,18 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0015', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0015'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0015'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         h.io.value = JSON.stringify(waveJournal());
         h.api.infos = [shortcutInfo('a')];
         await h.start();
         await h.service.previewBatchRestore('batch-1');
-        expect(h.preview().items[0].reason).assertEqual('当前visible未知，先核对，不重放');
-        expect(h.preview().items[0].target).assertTrue();
+        expect(h.preview().items[0].reason, caseName('ShortcutBatchWaveOne', '0015')).assertEqual('当前visible未知，先核对，不重放');
+        expect(h.preview().items[0].target, caseName('ShortcutBatchWaveOne', '0015')).assertTrue();
         await h.service.executeBatchPreview(h.preview().token, true);
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.plan().items[0].restoreAttempt).assertEqual(0);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0015')).assertEqual(0);
+        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0015')).assertEqual(0);
       });
     });
 
@@ -379,8 +380,8 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0016', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0016'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0016'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         const journal: BatchJournal = waveJournal();
         journal.batches[0].items[0].attempt = 100;
@@ -389,10 +390,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.service.previewBatchRetry('batch-1');
         const writes: number = h.io.writes.length;
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.plan().items[0].attempt).assertEqual(100);
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.io.writes.length).assertEqual(writes);
-        expect(h.plan().items[0].result).assertEqual('failed');
+        expect(h.plan().items[0].attempt, caseName('ShortcutBatchWaveOne', '0016')).assertEqual(100);
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0016')).assertEqual(0);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0016')).assertEqual(writes);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0016')).assertEqual('failed');
       });
     });
 
@@ -404,8 +405,8 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0017', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0017'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0017'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         const journal: BatchJournal = waveJournal();
         journal.batches[0].items[0].restoreAttempt = 100;
@@ -415,10 +416,10 @@ export default function shortcutBatchWaveOneTests(): void {
         await h.start();
         await h.service.previewBatchRestore('batch-1');
         await h.service.executeBatchPreview(h.preview().token);
-        expect(h.plan().items[0].restoreAttempt).assertEqual(100);
-        expect(h.plan().items[0].restoreResult).assertEqual('failed');
-        expect(h.api.writes.length).assertEqual(0);
-        expect(h.io.writes.length).assertEqual(0);
+        expect(h.plan().items[0].restoreAttempt, caseName('ShortcutBatchWaveOne', '0017')).assertEqual(100);
+        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0017')).assertEqual('failed');
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0017')).assertEqual(0);
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0017')).assertEqual(0);
       });
     });
 
@@ -430,8 +431,8 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0018', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0018'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0018'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         const journal: BatchJournal = waveJournal();
         journal.batches[0].items[0].result = 'confirmed';
@@ -441,10 +442,10 @@ export default function shortcutBatchWaveOneTests(): void {
         h.api.infos = [];
         await h.start();
         await h.service.reconcileBatch('batch-1');
-        expect(h.plan().items[0].result).assertEqual('unknown');
-        expect(h.plan().items[0].restoreResult).assertEqual('unknown');
-        expect(h.plan().interrupted).assertFalse();
-        expect(h.api.writes.length).assertEqual(0);
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0018')).assertEqual('unknown');
+        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0018')).assertEqual('unknown');
+        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0018')).assertFalse();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0018')).assertEqual(0);
       });
     });
 
@@ -456,8 +457,8 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0019', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0019'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0019'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         const journal: BatchJournal = waveJournal();
         journal.batches[0].items[0].result = 'confirmed';
@@ -466,10 +467,10 @@ export default function shortcutBatchWaveOneTests(): void {
         h.io.value = JSON.stringify(journal);
         await h.start();
         await h.service.reconcileBatch('batch-1');
-        expect(h.plan().items[0].restoreResult).assertEqual('confirmed');
-        expect(h.plan().items[0].result).assertEqual('confirmed');
-        expect(h.plan().items[0].lastVisible).assertFalse();
-        expect(h.api.writes.length).assertEqual(0);
+        expect(h.plan().items[0].restoreResult, caseName('ShortcutBatchWaveOne', '0019')).assertEqual('confirmed');
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0019')).assertEqual('confirmed');
+        expect(h.plan().items[0].lastVisible, caseName('ShortcutBatchWaveOne', '0019')).assertFalse();
+        expect(h.api.writes.length, caseName('ShortcutBatchWaveOne', '0019')).assertEqual(0);
       });
     });
 
@@ -481,20 +482,20 @@ export default function shortcutBatchWaveOneTests(): void {
      * @tc.type Function
      * @tc.level Level 2
      */
-    it('testShortcutBatchWaveOne0020', 0, async (): Promise<void> => {
-      await runCase(async (scope: CaseScope): Promise<void> => {
+    it(caseName('ShortcutBatchWaveOne', '0020'), 0, async (): Promise<void> => {
+      await runCase(caseName('ShortcutBatchWaveOne', '0020'), async (scope: CaseScope): Promise<void> => {
         const h: WaveBatchHarness = new WaveBatchHarness(scope);
         const atSdk: BatchJournal[] = [];
         h.api.onWrite = (): void => { atSdk.push(JSON.parse(h.io.value) as BatchJournal); };
         await h.start();
         await h.service.previewBatch(['a'], false);
         await h.service.executeBatchPreview(h.preview().token);
-        expect(atSdk[0].batches[0].items[0].result).assertEqual('unknown');
-        expect(atSdk[0].batches[0].items[0].attempt).assertEqual(1);
-        expect(atSdk[0].batches[0].interrupted).assertTrue();
-        expect(h.plan().interrupted).assertFalse();
-        expect(h.plan().items[0].result).assertEqual('confirmed');
-        expect(h.io.writes.length).assertEqual(3);
+        expect(atSdk[0].batches[0].items[0].result, caseName('ShortcutBatchWaveOne', '0020')).assertEqual('unknown');
+        expect(atSdk[0].batches[0].items[0].attempt, caseName('ShortcutBatchWaveOne', '0020')).assertEqual(1);
+        expect(atSdk[0].batches[0].interrupted, caseName('ShortcutBatchWaveOne', '0020')).assertTrue();
+        expect(h.plan().interrupted, caseName('ShortcutBatchWaveOne', '0020')).assertFalse();
+        expect(h.plan().items[0].result, caseName('ShortcutBatchWaveOne', '0020')).assertEqual('confirmed');
+        expect(h.io.writes.length, caseName('ShortcutBatchWaveOne', '0020')).assertEqual(3);
       });
     });
   });
