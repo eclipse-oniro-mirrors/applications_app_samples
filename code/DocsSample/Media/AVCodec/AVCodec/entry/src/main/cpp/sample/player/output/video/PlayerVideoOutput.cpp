@@ -255,8 +255,8 @@ bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, b
         const uint64_t revision = videoTimingRevision_.load();
         std::unique_lock<std::mutex> lock(pauseMutex_);
         if (pauseCond_.wait_for(lock, std::chrono::microseconds(waitTimeUs - maxRenderLeadUs), [this, revision]() {
-            return !isStarted_.load() || paused_.load() || audioInterrupted_.load() ||
-                   videoTimingRevision_.load() != revision;
+            const bool shouldStopWaiting = !isStarted_.load() || paused_.load() || audioInterrupted_.load();
+            return shouldStopWaiting || videoTimingRevision_.load() != revision;
         })) {
             // 时钟状态已变化，归还当前帧，下一帧重新读取音频时间戳。
             lock.unlock();

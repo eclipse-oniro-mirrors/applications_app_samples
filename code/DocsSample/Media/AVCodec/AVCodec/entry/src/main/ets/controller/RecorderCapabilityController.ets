@@ -16,7 +16,11 @@
 import { common } from '@kit.AbilityKit';
 import { camera } from '@kit.CameraKit';
 import { CameraDataModel } from '../model/CameraDataModel';
-import { bufferProfileCameraCheck, encoderProfileCameraCheck, setFirstCameraProfile } from '../common/utils/CameraCheck';
+import {
+  bufferProfileCameraCheck,
+  encoderProfileCameraCheck,
+  setFirstCameraProfile
+} from '../common/utils/CameraCheck';
 import { CommonConstants as Const } from '../common/CommonConstants';
 
 export class RecorderCapabilityController {
@@ -26,11 +30,10 @@ export class RecorderCapabilityController {
       return bufferProfileCameraCheck(manager, data) === undefined ?
         $r('app.string.recorder_buffer_profile_unavailable') : $r('app.string.success');
     }
-    if (await encoderProfileCameraCheck(manager, data) !== undefined) { return $r('app.string.success'); }
+    if (encoderProfileCameraCheck(manager, data) !== undefined) { return $r('app.string.success'); }
     // 回退相机规格时保留声音开关等录制选项。
     const fallback: CameraDataModel = new CameraDataModel();
-    const profile: camera.VideoProfile | undefined = await encoderProfileCameraCheck(manager, fallback) ??
-      await setFirstCameraProfile(manager);
+    const profile = encoderProfileCameraCheck(manager, fallback) ?? setFirstCameraProfile(manager);
     if (profile !== undefined) {
       data.cameraWidth = profile.size.width;
       data.cameraHeight = profile.size.height;
