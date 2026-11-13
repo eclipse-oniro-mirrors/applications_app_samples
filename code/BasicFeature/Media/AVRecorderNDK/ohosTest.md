@@ -16,34 +16,25 @@
 
 ## 套件总览
 
-`List.test.ets` 共注册 **21 个套件、1,621 条用例、约 2.7 万行测试代码**。
+`List.test.ets` 共注册 **24 个套件、1,560 条用例、约 22,000 行测试代码**。按质量轴拆分，全部直接调用真实主工程代码；不使用 `index % N` 模板轮转，套件内用例体去重后等于用例数。
 
-按 PR 12056 的写法，20 个专题文件每个固定 **81 条显式用例**，文件内自定义 `it()` / `expect()` 包装器（统一 begin/end 与 `actual:` 日志），逐条展开而非循环生成。
+| 分类 | 套件 | 用例数 | 验证点 |
+|---|---|---:|---|
+| Validation | `DateTimeFillMatrixPart1..4` | 300 | `fill(0..299)` 补零规则 |
+| Validation | `DateTimeConcatDateMatrixPart1..4` | 300 | 300 组不同年月日拼接 |
+| Validation | `DateTimeConcatTimeMatrixPart1..4` | 300 | 300 组不同时分秒六位拼接 |
+| Validation | `DateTimeCountdownMatrixPart1..4` | 300 | 300 个不同秒数 → `mm:ss` |
+| Security | `DateTimeBoundaryPart1` | 76 | 负数/0/小数/NaN/Infinity/极大值边界 |
+| Performance | `DateTimePerfPart1` | 13 | fill/concat/countdown/getTime/getDate 的宽松耗时上界与均值 |
+| Stability | `DateTimeStabilityPart1` | 30 | 各函数 50 次重复调用结果稳定 |
+| Integration | `DateTimeIntegrationPart1..2` | 100 | 小时回绕一致性、`dateTime` 与 `fill` 的时分组合一致性 |
+| Compatibility | `ResolutionCompatibilityPart1` | 80 | 常用分辨率、横竖屏、极值、实例独立 |
+| I18n | `LoggerI18nPart1` | 60 | 4 个日志级别 × 15 组中英文/emoji/长文本输入 |
+| 冒烟 | `ActsAbilityTest` | 1 | 应用启动 |
 
-| 套件 | 用例数 | 验证点 |
-|---|---:|---|
-| `ActsAbilityTest` | 1 | 模板断言冒烟 |
-| `dateTimeZeroCore` | 81 | `dateTime(k*3600) = '00:00'` |
-| `dateTimeSecondsCore` | 81 | 0~59 秒格式 |
-| `dateTimeMinutesCore` | 81 | 分/秒组合格式 |
-| `dateTimeBoundaryCore` | 81 | 0/59/60/3599/3600/86399/86400/90000 |
-| `dateTimeFormatCore` | 81 | 长度 5、冒号位置、`\d{2}:\d{2}` |
-| `dateTimeFillCore` | 81 | `DateTimeUtil.fill` 0~99 补零 |
-| `concatTimeCore` | 81 | `concatTime(h,m,s)` 六位拼接 |
-| `concatDateCore` | 81 | `concatDate(year,month,date)` 拼接 |
-| `resolutionDefaultsCore` | 81 | `Resolution` 默认 0 |
-| `resolutionFieldsCore` | 81 | 宽高赋值组合 |
-| `resolutionIndependenceCore` | 81 | 两个 `Resolution` 实例互不影响 |
-| `loggerDebugCore` / `loggerInfoCore` / `loggerWarnCore` / `loggerErrorCore` | 324 | Logger 四个级别调用不抛异常 |
-| `loggerEmptyCore` | 81 | 空字符串日志不抛异常 |
-| `dateTimeStabilityCore` | 81 | 100 次重复调用结果稳定 |
-| `dateTimePerfCore` | 81 | 1000 次调用耗时 < 5s |
-| `dateTimeUniquenessCore` | 81 | `01:00` 与 `00:01` 等不同输入可区分 |
-| `dateTimeExtremesCore` | 81 | 86399/86400/90000/604800 等极值 |
-
-- 所有用例引用真实主工程代码：`DateTimeUtil`、`dateTime`、`Logger`、`Resolution`。
-- 每条用例带 `@tc.number`（步长 100）/`@tc.name`/`@tc.desc` 元数据，DOMAIN `0xF811`，TAG `[Sample_<suite>]`。
-- 注：页面 `AudioRecorder`/`VideoRecorder`/`CameraService` 依赖 `libentry.so`，本机 32 位设备无法加载 64 位原生库，故本次自动化只覆盖不依赖原生库的纯 TS 逻辑。
+- 用例元数据：`@tc.number` = 序号 × 100（如 `..._0100`），`@tc.name` = 4 位序号；`it` 名与 `@tc.name` 一致。
+- 每条用例输出 begin/end 日志；DOMAIN `0xF811`，TAG `[Sample_AVRecorder]`。
+- 注：页面 `AudioRecorder`/`VideoRecorder`/`CameraService` 依赖 `libentry.so`，本次自动化只覆盖不依赖原生库的纯 TS 逻辑。
 
 ## 验证记录
 
