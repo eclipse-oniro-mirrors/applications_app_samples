@@ -118,23 +118,30 @@ export struct StartupArchivePanel {
 
   @Builder
   private filterButton(label: string, id: string, active: boolean, onTap: () => void) {
-    Button(label, { type: ButtonType.Normal }).id(id).height(44).fontSize(13)
+    Button(label, { type: ButtonType.Normal })
+      .id(id)
+      .height(44)
+      .fontSize(13)
       .fontColor(active ? Color.White : $r('app.color.accent_color'))
       .backgroundColor(active ? $r('app.color.accent_color') : $r('app.color.accent_soft'))
-      .borderRadius(10).padding({ left: 12, right: 12 }).margin({ right: 8, bottom: 8 })
+      .borderRadius(10)
+        .padding({ left: 12, right: 12 })
+        .margin({ right: 8, bottom: 8 })
       .onClick(onTap)
   }
 
   @Builder
   private filters() {
     TextInput({ text: this.query.needle, placeholder: localText('startup_text_0792') })
-      .id('archive-search').maxLength(64)
+      .id('archive-search')
+        .maxLength(64)
       .onChange((text: string): void => {
         this.operation++; this.working = false; this.query.needle = text; this.query.page = 0;
         this.query = this.query.clone(); this.confirmation = ''; this.actionNotice = localText('startup_text_0793'); this.refresh();
       })
     TextInput({ text: this.query.day, placeholder: localText('startup_text_0794') })
-      .id('archive-day').maxLength(10)
+      .id('archive-day')
+        .maxLength(10)
       .onChange((text: string): void => {
         this.operation++; this.working = false; this.confirmation = ''; this.actionNotice = localText('startup_text_0795');
         this.query.day = text; this.query.page = 0; this.query = this.query.clone(); this.refresh();
@@ -149,7 +156,8 @@ export struct StartupArchivePanel {
         (): void => this.chooseSource(RefreshSource.INITIAL))
       this.filterButton(localText('startup_text_0799'), 'archive-source-foreground', this.query.source === RefreshSource.FOREGROUND,
         (): void => this.chooseSource(RefreshSource.FOREGROUND))
-    }.width('100%')
+    }
+      .width('100%')
     Flex({ wrap: FlexWrap.Wrap }) {
       this.filterButton(localText('startup_text_0509'), 'archive-outcome-all', this.query.outcome === '', (): void => this.chooseOutcome(''))
       this.filterButton(localText('startup_text_0001'), 'archive-outcome-success', this.query.outcome === QueryOutcome.SUCCESS,
@@ -162,55 +170,94 @@ export struct StartupArchivePanel {
         (): void => this.chooseOutcome(QueryOutcome.TIMEOUT))
       this.filterButton(localText('startup_text_0005'), 'archive-outcome-unknown', this.query.outcome === QueryOutcome.UNKNOWN,
         (): void => this.chooseOutcome(QueryOutcome.UNKNOWN))
-    }.width('100%')
+    }
+      .width('100%')
   }
 
   build() {
     Column({ space: 12 }) {
-      Text(localText('startup_text_0800')).fontSize(18).fontColor($r('app.color.text_primary')).fontWeight(FontWeight.Bold)
+      Text(localText('startup_text_0800'))
+        .fontSize(18)
+        .fontColor($r('app.color.text_primary'))
+        .fontWeight(FontWeight.Bold)
       Button(this.showInformation ? localText('startup_text_0801') : localText('startup_text_0802'), { type: ButtonType.Normal })
-        .height(44).fontSize(13).fontColor($r('app.color.text_secondary')).backgroundColor(Color.Transparent).padding(0)
+        .height(44)
+          .fontSize(13)
+          .fontColor($r('app.color.text_secondary'))
+          .backgroundColor(Color.Transparent)
+          .padding(0)
         .onClick(() => { this.showInformation = !this.showInformation; })
       if (this.showInformation) {
         Text(localText('startup_text_0803'))
-          .fontSize(12).fontColor($r('app.color.text_secondary')).width('100%')
+          .fontSize(12)
+            .fontColor($r('app.color.text_secondary'))
+            .width('100%')
       }
       Text(formatResource('startup_format_106ca484f859', [String(this.state.stage), String(this.state.automatic ? localText('startup_text_0805') : localText('startup_text_0776'))]) +
         formatResource('startup_format_0a37325a996c', [String(this.state.pending), String(this.state.paused ? localText('startup_text_0807') : localText('startup_text_0808'))]))
-        .id('archive-status').fontSize(12).width('100%')
+        .id('archive-status')
+          .fontSize(12)
+          .width('100%')
       Text(formatResource('startup_format_4d47b0140922', [String(this.state.rows.length), String(this.viewState.matchedTotal), String(this.state.bytes)]))
-        .id('archive-count').fontSize(12).width('100%')
+        .id('archive-count')
+          .fontSize(12)
+          .width('100%')
       Text(this.actionNotice || this.viewState.notice || this.state.notice)
-        .id('archive-notice').fontSize(12).width('100%').fontColor($r('app.color.warning_color'))
+        .id('archive-notice')
+          .fontSize(12)
+          .width('100%')
+          .fontColor($r('app.color.warning_color'))
       if (this.state.pending > 0) {
         Text(localText('startup_text_0812'))
-          .fontSize(12).width('100%')
+          .fontSize(12)
+            .width('100%')
       }
       Column({ space: 8 }) {
-        Button(localText('startup_text_0813')).id('archive-save').fontColor(Color.White)
-          .backgroundColor($r('app.color.accent_color')).width('100%')
-          .constraintSize({ minHeight: 44 }).fontSize(14)
+        Button(localText('startup_text_0813'))
+          .id('archive-save')
+          .fontColor(Color.White)
+          .backgroundColor($r('app.color.accent_color'))
+            .width('100%')
+          .constraintSize({ minHeight: 44 })
+            .fontSize(14)
           .enabled(this.state.canWrite && !this.working && this.liveRecords.length > 0)
           .onClick((): void => this.run(this.repository.save(this.liveRecords)))
-        Button(this.state.automatic ? localText('startup_text_0814') : localText('startup_text_0815')).id('archive-auto')
-          .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft'))
-          .width('100%').constraintSize({ minHeight: 44 }).fontSize(14)
-          .enabled(this.state.canWrite && !this.working).onClick((): void => this.ask('auto'))
+        Button(this.state.automatic ? localText('startup_text_0814') : localText('startup_text_0815'))
+          .id('archive-auto')
+          .fontColor($r('app.color.accent_color'))
+            .backgroundColor($r('app.color.accent_soft'))
+          .width('100%')
+            .constraintSize({ minHeight: 44 })
+            .fontSize(14)
+          .enabled(this.state.canWrite && !this.working)
+            .onClick((): void => this.ask('auto'))
         if (this.confirmation === 'auto') {
-          Button(localText('startup_text_0816')).id('archive-auto-confirm').constraintSize({ minHeight: 44 }).fontSize(14)
+          Button(localText('startup_text_0816'))
+            .id('archive-auto-confirm')
+            .constraintSize({ minHeight: 44 })
+            .fontSize(14)
             .enabled(!this.working)
             .onClick((): void => this.confirmAutomatic())
-          Button(localText('startup_text_0769')).id('archive-cancel').constraintSize({ minHeight: 44 }).fontSize(14)
+          Button(localText('startup_text_0769'))
+            .id('archive-cancel')
+            .constraintSize({ minHeight: 44 })
+            .fontSize(14)
             .onClick((): void => {
               this.confirmation = '';
               this.actionNotice = localText('startup_text_0817');
             })
         }
-      }.width('100%')
+      }
+        .width('100%')
       Row({ space: 6 }) {
-        Button(localText('startup_text_0818')).id('archive-retry').layoutWeight(1)
-          .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft'))
-          .constraintSize({ minHeight: 44 }).fontSize(14).enabled(!this.working)
+        Button(localText('startup_text_0818'))
+          .id('archive-retry')
+          .layoutWeight(1)
+          .fontColor($r('app.color.accent_color'))
+            .backgroundColor($r('app.color.accent_soft'))
+          .constraintSize({ minHeight: 44 })
+            .fontSize(14)
+            .enabled(!this.working)
           .onClick((): void => {
             if (this.state.stage === ArchiveStage.BLOCKED || this.state.stage === ArchiveStage.DETACHED) {
               const generation = this.generation;
@@ -219,58 +266,100 @@ export struct StartupArchivePanel {
               });
             } else { this.run(this.repository.retryPending()); }
           })
-        Button(localText('startup_text_0819')).id('archive-copy').layoutWeight(1)
-          .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft'))
-          .constraintSize({ minHeight: 44 }).fontSize(14)
+        Button(localText('startup_text_0819'))
+          .id('archive-copy')
+          .layoutWeight(1)
+          .fontColor($r('app.color.accent_color'))
+            .backgroundColor($r('app.color.accent_soft'))
+          .constraintSize({ minHeight: 44 })
+            .fontSize(14)
           .enabled(this.state.canWrite && !this.working && this.viewState.matchedTotal > 0)
           .onClick((): void => this.run(this.repository.copy(this.query, this.clipboard)))
-      }.width('100%')
+      }
+        .width('100%')
       Row({ space: 6 }) {
-        Button(localText('startup_text_0820')).id('archive-clean-preview').layoutWeight(1)
-          .fontColor($r('app.color.accent_color')).backgroundColor($r('app.color.accent_soft'))
-          .constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.state.canWrite && !this.working)
+        Button(localText('startup_text_0820'))
+          .id('archive-clean-preview')
+          .layoutWeight(1)
+          .fontColor($r('app.color.accent_color'))
+            .backgroundColor($r('app.color.accent_soft'))
+          .constraintSize({ minHeight: 44 })
+            .fontSize(14)
+            .enabled(this.state.canWrite && !this.working)
           .onClick((): void => this.ask('clean'))
-        Button(localText('startup_text_0821')).id('archive-clear').layoutWeight(1)
-          .fontColor($r('app.color.error_color')).backgroundColor($r('app.color.error_soft'))
-          .constraintSize({ minHeight: 44 }).fontSize(14)
+        Button(localText('startup_text_0821'))
+          .id('archive-clear')
+          .layoutWeight(1)
+          .fontColor($r('app.color.error_color'))
+            .backgroundColor($r('app.color.error_soft'))
+          .constraintSize({ minHeight: 44 })
+            .fontSize(14)
           .enabled(this.state.canWrite && !this.working && this.state.rows.length > 0)
           .onClick((): void => this.ask('clear'))
       }
       if (this.confirmation === 'clean') {
-        Button(localText('startup_text_0822')).id('archive-clean-confirm').constraintSize({ minHeight: 44 }).fontSize(14).enabled(!this.working)
+        Button(localText('startup_text_0822'))
+          .id('archive-clean-confirm')
+          .constraintSize({ minHeight: 44 })
+          .fontSize(14)
+          .enabled(!this.working)
           .onClick((): void => this.run(this.repository.applyCleanup(this.cleanup)))
       }
       if (this.confirmation === 'clear') {
-        Button(localText('startup_text_0823')).id('archive-clear-confirm').constraintSize({ minHeight: 44 }).fontSize(14).enabled(!this.working)
+        Button(localText('startup_text_0823'))
+          .id('archive-clear-confirm')
+          .constraintSize({ minHeight: 44 })
+          .fontSize(14)
+          .enabled(!this.working)
           .onClick((): void => this.run(this.repository.clear(this.confirmationRevision)))
       }
       if (this.confirmation.length > 0 && this.confirmation !== 'auto') {
-        Button(localText('startup_text_0769')).id('archive-cancel').constraintSize({ minHeight: 44 }).fontSize(14)
+        Button(localText('startup_text_0769'))
+          .id('archive-cancel')
+          .constraintSize({ minHeight: 44 })
+          .fontSize(14)
           .onClick((): void => {
             this.confirmation = '';
             this.actionNotice = localText('startup_text_0817');
           })
       }
       this.filters()
-      Text(this.viewState.summary).id('archive-summary').fontSize(12).width('100%')
+      Text(this.viewState.summary)
+        .id('archive-summary')
+        .fontSize(12)
+        .width('100%')
       if (this.viewState.matchedTotal === 0) {
-        Text(localText('startup_text_0824')).id('archive-empty').fontSize(13)
+        Text(localText('startup_text_0824'))
+          .id('archive-empty')
+          .fontSize(13)
       }
       ForEach(this.viewState.rows, (row: ArchivedQuery) => {
         Button(formatResource('startup_format_0d580d1b7775', [String(row.archiveId), String(row.record.id), String(describeRecord(row.viewRecord()))]))
-          .id(`archive-row-${row.archiveId}`).constraintSize({ minHeight: 44 }).fontSize(14)
-          .fontColor($r('app.color.text_primary')).backgroundColor($r('app.color.muted_background')).width('100%')
+          .id(`archive-row-${row.archiveId}`)
+            .constraintSize({ minHeight: 44 })
+            .fontSize(14)
+          .fontColor($r('app.color.text_primary'))
+            .backgroundColor($r('app.color.muted_background'))
+            .width('100%')
           .onClick((): void => { this.selectedId = row.archiveId; this.refresh(); })
       }, (row: ArchivedQuery): string => String(row.archiveId))
       Row({ space: 10 }) {
-        Button(localText('startup_text_0825')).id('archive-prev').constraintSize({ minHeight: 44 }).fontSize(14).enabled(this.viewState.page > 0)
+        Button(localText('startup_text_0825'))
+          .id('archive-prev')
+          .constraintSize({ minHeight: 44 })
+          .fontSize(14)
+          .enabled(this.viewState.page > 0)
           .onClick((): void => {
             this.query.page = this.viewState.page - 1;
             this.query = this.query.clone();
             this.refresh();
           })
-        Text(`${this.viewState.page + 1}/${this.viewState.pageCount}`).id('archive-page')
-        Button(localText('startup_text_0826')).id('archive-next').constraintSize({ minHeight: 44 }).fontSize(14)
+        Text(`${this.viewState.page + 1}/${this.viewState.pageCount}`)
+          .id('archive-page')
+        Button(localText('startup_text_0826'))
+          .id('archive-next')
+          .constraintSize({ minHeight: 44 })
+          .fontSize(14)
           .enabled(this.viewState.page + 1 < this.viewState.pageCount)
           .onClick((): void => {
             this.query.page = this.viewState.page + 1;
@@ -278,11 +367,22 @@ export struct StartupArchivePanel {
             this.refresh();
           })
       }
-      Text(this.details).id('archive-details').fontSize(12).width('100%')
-      Text(localText('startup_text_0827')).fontSize(14)
+      Text(this.details)
+        .id('archive-details')
+        .fontSize(12)
+        .width('100%')
+      Text(localText('startup_text_0827'))
+        .fontSize(14)
       ForEach(this.viewState.dayLines, (line: string) => {
-        Text(line).fontSize(12).width('100%')
+        Text(line)
+          .fontSize(12)
+          .width('100%')
       }, (line: string): string => line)
-    }.id('archive-panel').width('100%').padding(16).backgroundColor($r('app.color.card_background')).borderRadius(16)
+    }
+      .id('archive-panel')
+      .width('100%')
+      .padding(16)
+      .backgroundColor($r('app.color.card_background'))
+      .borderRadius(16)
   }
 }

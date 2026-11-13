@@ -19,6 +19,10 @@ import { promptAction, UIContext } from '@kit.ArkUI';
 import { BusinessError, pasteboard } from '@kit.BasicServicesKit';
 import { DiagnosticEvent, EnvironmentItem, OperationRecord } from '../learning/LearningTypes';
 
+function hasLearningText(value: ResourceStr): boolean {
+  return typeof value !== 'string' || value.length > 0;
+}
+
 export const LEARNING_BG: string = '#F5F7FA';
 export const LEARNING_INK: string = '#182238';
 export const LEARNING_MUTED: string = '#667085';
@@ -131,19 +135,31 @@ export function rawLearningRecord(record: OperationRecord): string {
 
 @Component
 export struct LearningHeader {
-  @Prop eyebrow: string = '';
-  @Prop title: string = '';
-  @Prop description: string = '';
+  @Prop eyebrow: ResourceStr = '';
+  @Prop title: ResourceStr = '';
+  @Prop description: ResourceStr = '';
 
   build() {
     Column({ space: 8 }) {
-      if (this.eyebrow.length > 0) {
-        Text(this.eyebrow).fontSize(11).fontWeight(FontWeight.Medium)
-          .fontColor(LEARNING_TEAL).letterSpacing(1).width('100%');
+      if (hasLearningText(this.eyebrow)) {
+        Text(this.eyebrow)
+          .fontSize(11)
+          .fontWeight(FontWeight.Medium)
+          .fontColor(LEARNING_TEAL)
+          .letterSpacing(1)
+          .width('100%');
       }
-      Text(this.title).fontSize(26).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%');
-      if (this.description.length > 0) {
-        Text(this.description).fontSize(14).lineHeight(22).fontColor(LEARNING_MUTED).width('100%');
+      Text(this.title)
+        .fontSize(26)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(LEARNING_INK)
+        .width('100%');
+      if (hasLearningText(this.description)) {
+        Text(this.description)
+          .fontSize(14)
+          .lineHeight(22)
+          .fontColor(LEARNING_MUTED)
+          .width('100%');
       }
     }
     .alignItems(HorizontalAlign.Start)
@@ -154,15 +170,23 @@ export struct LearningHeader {
 
 @Component
 export struct LearningCard {
-  @Prop title: string = '';
-  @Prop subtitle: string = '';
+  @Prop title: ResourceStr = '';
+  @Prop subtitle: ResourceStr = '';
   @BuilderParam content: () => void;
 
   build() {
     Column({ space: 12 }) {
-      Text(this.title).fontSize(16).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%');
-      if (this.subtitle.length > 0) {
-        Text(this.subtitle).fontSize(13).lineHeight(21).fontColor(LEARNING_MUTED).width('100%');
+      Text(this.title)
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(LEARNING_INK)
+        .width('100%');
+      if (hasLearningText(this.subtitle)) {
+        Text(this.subtitle)
+          .fontSize(13)
+          .lineHeight(21)
+          .fontColor(LEARNING_MUTED)
+          .width('100%');
       }
       this.content()
     }
@@ -177,8 +201,8 @@ export struct LearningCard {
 
 @Component
 export struct LearningDisclosure {
-  @Prop title: string = '';
-  @Prop subtitle: string = '';
+  @Prop title: ResourceStr = '';
+  @Prop subtitle: ResourceStr = '';
   @State private expanded: boolean = false;
   @BuilderParam content: () => void;
 
@@ -186,16 +210,34 @@ export struct LearningDisclosure {
     Column({ space: 12 }) {
       Button({ type: ButtonType.Normal }) {
         Row({ space: 12 }) {
-          Text(this.title).fontSize(16).fontWeight(FontWeight.Medium).fontColor(LEARNING_INK).layoutWeight(1)
-          Text(this.expanded ? localize('ac_learningui_015') : localize('ac_learningui_016')).fontSize(14).fontColor(LEARNING_BLUE)
-        }.width('100%')
-      }.width('100%').constraintSize({ minHeight: 44 }).backgroundColor('#FFFFFF')
+          Text(this.title)
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .fontColor(LEARNING_INK)
+            .layoutWeight(1)
+          Text(this.expanded ? $r('app.string.ac_learningui_015') : $r('app.string.ac_learningui_016'))
+            .fontSize(14)
+            .fontColor(LEARNING_BLUE)
+        }
+        .width('100%')
+      }
+      .width('100%')
+      .constraintSize({ minHeight: 44 })
+      .backgroundColor('#FFFFFF')
         .onClick((): void => { this.expanded = !this.expanded; })
-      if (this.subtitle.length > 0) {
-        Text(this.subtitle).fontSize(13).lineHeight(21).fontColor(LEARNING_MUTED).width('100%')
+      if (hasLearningText(this.subtitle)) {
+        Text(this.subtitle)
+          .fontSize(13)
+          .lineHeight(21)
+          .fontColor(LEARNING_MUTED)
+          .width('100%')
       }
       if (this.expanded) { this.content() }
-    }.width('100%').padding(16).backgroundColor('#FFFFFF').borderRadius(14)
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(14)
       .border({ width: 1, color: LEARNING_BORDER })
   }
 }
@@ -209,9 +251,17 @@ export struct LearningNotice {
     if (this.message.length > 0) {
       Column({ space: 5 }) {
         if (this.title.length > 0 && this.title !== localize('ac_learningui_017')) {
-          Text(this.title).fontSize(13).fontWeight(FontWeight.Bold).fontColor(LEARNING_BLUE).width('100%');
+          Text(this.title)
+            .fontSize(13)
+            .fontWeight(FontWeight.Bold)
+            .fontColor(LEARNING_BLUE)
+            .width('100%');
         }
-        Text(this.message).fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%');
+        Text(this.message)
+          .fontSize(14)
+          .lineHeight(22)
+          .fontColor(LEARNING_INK)
+          .width('100%');
       }
       .alignItems(HorizontalAlign.Start)
       .padding(14)
@@ -225,14 +275,22 @@ export struct LearningNotice {
 
 @Component
 export struct LearningLine {
-  @Prop label: string = '';
-  @Prop value: string = '';
+  @Prop valueId: string = '';
+  @Prop label: ResourceStr = '';
+  @Prop value: ResourceStr = '';
 
   build() {
     Column({ space: 3 }) {
-      Text(this.label).fontSize(12).fontColor(LEARNING_MUTED).width('100%');
-      Text(this.value.length > 0 ? this.value : localize('ac_learningui_019'))
-        .fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%')
+      Text(this.label)
+        .fontSize(12)
+        .fontColor(LEARNING_MUTED)
+        .width('100%');
+      Text(hasLearningText(this.value) ? this.value : $r('app.string.ac_learningui_019'))
+        .id(this.valueId)
+        .fontSize(14)
+        .lineHeight(22)
+        .fontColor(LEARNING_INK)
+        .width('100%')
         .copyOption(CopyOptions.LocalDevice);
     }
     .alignItems(HorizontalAlign.Start)
@@ -242,7 +300,7 @@ export struct LearningLine {
 
 @Component
 export struct LearningAction {
-  @Prop label: string = '';
+  @Prop label: ResourceStr = '';
   @Prop secondary: boolean = false;
   @Prop actionEnabled: boolean = true;
   onTap: () => void = () => {};
@@ -265,17 +323,28 @@ export struct LearningAction {
 
 @Component
 export struct LearningFacts {
-  @Prop title: string = '';
+  @Prop title: ResourceStr = '';
   @Prop lines: string[] = [];
 
   build() {
     Column({ space: 6 }) {
-      Text(this.title).fontSize(14).fontWeight(FontWeight.Bold).fontColor(LEARNING_TEAL).width('100%');
+      Text(this.title)
+        .fontSize(14)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(LEARNING_TEAL)
+        .width('100%');
       if (this.lines.length === 0) {
-        Text($r('app.string.ac_learningui_020')).fontSize(14).fontColor(LEARNING_MUTED).width('100%');
+        Text($r('app.string.ac_learningui_020'))
+          .fontSize(14)
+          .fontColor(LEARNING_MUTED)
+          .width('100%');
       } else {
         ForEach(this.lines, (line: string) => {
-          Text(`• ${line}`).fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%');
+          Text(`• ${line}`)
+            .fontSize(14)
+            .lineHeight(22)
+            .fontColor(LEARNING_INK)
+            .width('100%');
         }, (line: string, index: number) => `${index}-${line}`)
       }
     }
@@ -292,13 +361,23 @@ export struct LearningEnvironment {
     Column({ space: 12 }) {
       if (this.items.length === 0) {
         Text($r('app.string.ac_learningui_021'))
-          .fontSize(14).lineHeight(22).fontColor(LEARNING_MUTED).width('100%');
+          .fontSize(14)
+          .lineHeight(22)
+          .fontColor(LEARNING_MUTED)
+          .width('100%');
       } else {
         ForEach(this.items, (item: EnvironmentItem) => {
           Column({ space: 4 }) {
-            Text(`${item.label} · ${item.status}`).fontSize(14).fontWeight(FontWeight.Medium)
-              .fontColor(LEARNING_INK).width('100%');
-            Text(item.value).fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%');
+            Text(`${item.label} · ${item.status}`)
+              .fontSize(14)
+              .fontWeight(FontWeight.Medium)
+              .fontColor(LEARNING_INK)
+              .width('100%');
+            Text(item.value)
+              .fontSize(14)
+              .lineHeight(22)
+              .fontColor(LEARNING_INK)
+              .width('100%');
           }
           .alignItems(HorizontalAlign.Start)
           .width('100%')
@@ -320,15 +399,27 @@ export struct LearningEvents {
     Column({ space: 12 }) {
       if (this.events.length === 0) {
         Text($r('app.string.ac_learningui_022'))
-          .fontSize(14).lineHeight(22).fontColor(LEARNING_MUTED).width('100%');
+          .fontSize(14)
+          .lineHeight(22)
+          .fontColor(LEARNING_MUTED)
+          .width('100%');
       } else {
         ForEach(this.events.slice(-40).reverse(), (event: DiagnosticEvent) => {
           Column({ space: 4 }) {
             Text(`${learningLevel(event.level)} · ${event.phase}`)
-              .fontSize(12).fontWeight(FontWeight.Bold).fontColor(learningLevelColor(event.level)).width('100%');
-            Text(event.message).fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%');
+              .fontSize(12)
+              .fontWeight(FontWeight.Bold)
+              .fontColor(learningLevelColor(event.level))
+              .width('100%');
+            Text(event.message)
+              .fontSize(14)
+              .lineHeight(22)
+              .fontColor(LEARNING_INK)
+              .width('100%');
             Text(`${event.time}  /  ${event.operationId}`)
-              .fontSize(11).fontColor(LEARNING_MUTED).width('100%');
+              .fontSize(11)
+              .fontColor(LEARNING_MUTED)
+              .width('100%');
           }
           .alignItems(HorizontalAlign.Start)
           .width('100%')
@@ -349,12 +440,26 @@ export struct LearningRecord {
   build() {
     Column({ space: 7 }) {
       Text(`${learningLevel(this.record.level)} · ${this.record.operation}`)
-        .fontSize(12).fontWeight(FontWeight.Bold).fontColor(learningLevelColor(this.record.level)).width('100%');
-      Text(this.record.title).fontSize(16).fontWeight(FontWeight.Bold).fontColor(LEARNING_INK).width('100%');
-      Text(this.record.result).fontSize(14).lineHeight(22).fontColor(LEARNING_INK).width('100%');
+        .fontSize(12)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(learningLevelColor(this.record.level))
+        .width('100%');
+      Text(this.record.title)
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(LEARNING_INK)
+        .width('100%');
+      Text(this.record.result)
+        .fontSize(14)
+        .lineHeight(22)
+        .fontColor(LEARNING_INK)
+        .width('100%');
       Text(`${this.record.startedAt} · ${this.record.stage}`)
-        .fontSize(12).lineHeight(19).fontColor(LEARNING_MUTED).width('100%');
-      LearningAction({ label: localize('ac_learningui_023'), secondary: true, onTap: () => this.onOpen() })
+        .fontSize(12)
+        .lineHeight(19)
+        .fontColor(LEARNING_MUTED)
+        .width('100%');
+      LearningAction({ label: $r('app.string.ac_learningui_023'), secondary: true, onTap: () => this.onOpen() })
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')
