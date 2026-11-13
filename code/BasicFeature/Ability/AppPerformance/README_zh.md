@@ -8,12 +8,19 @@
 
 | 完整 API 模块与官方文档 | Kit 导入 | 本示例中的用途 |
 |---|---|---|
-| [@ohos.app.ability.appMemoryOptimizer](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-app-ability-appmemoryoptimizer/) | `@kit.AbilityKit` | 发现自身文件或模块目标后请求释放文件页缓存。文件目标接受 `.so`、`.hap`、`.hsp`，实验同时校验随包配置。 |
-| [@ohos.app.ability.hyperSnapManager](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-app-ability-hypersnapmanager/) | `@kit.AbilityKit` | 设置本应用快启开关并请求重建；请求结果与实际快启启动分开记录。 |
+| `@ohos.app.ability.appMemoryOptimizer` | `@kit.AbilityKit` | 发现自身文件或模块目标后请求释放文件页缓存。文件目标接受 `.so`、`.hap`、`.hsp`，实验同时校验随包配置。 |
+| `@ohos.app.ability.hyperSnapManager` | `@kit.AbilityKit` | 设置本应用快启开关并请求重建；请求结果与实际快启启动分开记录。 |
 | [@ohos.resourceManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/js-apis-resource-manager.md) | `@kit.LocalizationKit` | 读取文本、笔记列表、图片索引和表单草稿四类随包负载，并校验重读完整性。 |
 | [@ohos.data.preferences](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-preferences.md) | `@kit.ArkData` | 保存有界调用记录、实验账本和系列元信息。 |
 | [@ohos.pasteboard](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-pasteboard.md) | `@kit.BasicServicesKit` | 按用户操作复制调用记录、脱敏账本和 Markdown / CSV 报告。 |
 | [Node-API](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/napi/napi-introduction.md) | Native | 为独立诊断 Runner 提供私有文件校准和持有映射采样。 |
+
+上表前两个 API 模块以 SDK `26.0.0` 声明作为参考，不再链接外部文档。声明位置相对于 SDK 根目录：
+
+```text
+ets/api/@ohos.app.ability.appMemoryOptimizer.d.ts
+ets/api/@ohos.app.ability.hyperSnapManager.d.ts
+```
 
 ## 效果预览
 

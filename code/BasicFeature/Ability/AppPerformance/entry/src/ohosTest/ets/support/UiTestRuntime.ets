@@ -95,11 +95,17 @@ export class UiSelector {
     if (dispatching !== session || pendingNative !== session) { throw new Error('Native selector outside dispatch gate'); }
     let selector: On = NATIVE_ON;
     this.parts.forEach((part: SelectorPart): void => {
-      if (part.kind === 'id') { selector = selector.id(part.value); }
-      else if (part.kind === 'text') { selector = selector.text(part.value, part.pattern); }
-      else if (part.kind === 'type') { selector = selector.type(part.value); }
-      else if (part.kind === 'window') { selector = selector.inWindow(part.value); }
-      else { throw new Error('Unsupported UI selector descriptor'); }
+      if (part.kind === 'id') {
+        selector = selector.id(part.value);
+      } else if (part.kind === 'text') {
+        selector = selector.text(part.value, part.pattern);
+      } else if (part.kind === 'type') {
+        selector = selector.type(part.value);
+      } else if (part.kind === 'window') {
+        selector = selector.inWindow(part.value);
+      } else {
+        throw new Error('Unsupported UI selector descriptor');
+      }
     });
     if (this.after !== undefined) { selector = selector.isAfter(this.after.materialize(session)); }
     return selector;
@@ -265,8 +271,11 @@ export class UiTestSession {
         this.retire(); reject(new Error('Native UI operation exceeded its budget; actual pending call remains quarantined'));
       }, Math.min(3000, this.remaining()));
     });
-    try { return await Promise.race([tracked, timeout]); }
-    finally { if (timer >= 0) { clearTimeout(timer); } }
+    try {
+      return await Promise.race([tracked, timeout]);
+    } finally {
+      if (timer >= 0) { clearTimeout(timer); }
+    }
   }
   createDriver(): UiTestDriver {
     this.requireLive();
@@ -315,8 +324,12 @@ export class UiTestSession {
       if (this.cleanupFailed) { throw this.cleanupFailure as Error; }
       if (this.initializationFailure !== undefined) { throw this.initializationFailure; }
     };
-    try { await Promise.race([complete(), timeout]); }
-    finally { if (watchdog >= 0) { clearTimeout(watchdog); } this.releaseIfSafe(); }
+    try {
+      await Promise.race([complete(), timeout]);
+    } finally {
+      if (watchdog >= 0) { clearTimeout(watchdog); }
+      this.releaseIfSafe();
+    }
   }
 }
 
@@ -372,7 +385,8 @@ export class UiTestDriver {
   }
   async findComponent(selector: UiSelector): Promise<UiTestComponent | undefined> {
     this.invalidateInputTarget();
-    let node = await this.session.call((): Promise<NativeComponent> => this.native.findComponent(selector.materialize(this.session)));
+    let node = await this.session.call((): Promise<NativeComponent> =>
+      this.native.findComponent(selector.materialize(this.session)));
     if ((node === undefined || node === null) && this.pendingTextInput) {
       await this.finishTextInput();
       // Only a read-only lookup can be retried after IME dismissal.
@@ -534,8 +548,11 @@ export class UiTestComponent {
         }
       }
       if (step === 16) { return undefined; }
-      if (towardTop) { await this.driver.swipe(x, top, x, bottom, speed); }
-      else { await this.driver.swipe(x, bottom, x, top, speed); }
+      if (towardTop) {
+        await this.driver.swipe(x, top, x, bottom, speed);
+      } else {
+        await this.driver.swipe(x, bottom, x, top, speed);
+      }
       await this.driver.session.pause(50);
     }
     return undefined;

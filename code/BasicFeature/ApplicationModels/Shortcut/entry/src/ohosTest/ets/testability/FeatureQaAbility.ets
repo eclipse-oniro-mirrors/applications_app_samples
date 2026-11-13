@@ -77,8 +77,7 @@ export default class FeatureQaAbility extends UIAbility {
     this.allowed = false; this.stage = undefined;
     try {
       if (owner !== undefined) { finishRecycleUiQa(owner); }
-    } catch (_) { if (session !== undefined) { session.failCleanup('owner-fixture-cleanup'); } }
-    finally {
+    } catch (_) { if (session !== undefined) { session.failCleanup('owner-fixture-cleanup'); } } finally {
       try {
         if (owner !== undefined) { detachRecycleUiQaAbility(owner); }
       } catch (_) {

@@ -233,9 +233,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | 原编号 / 源码定位 | 原名称 / 规范运行名 | 覆盖点 |
 |---|---|---|
 | [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0100](<entry/src/ohosTest/ets/test/AppNavigation.test.ets#L69>) | `testProductionAppNavigation0001`<br>`com.samples.shortcut_ProductionAppNavigation_0001` | cold want waits for store and applies today open |
-| [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0200](<entry/src/ohosTest/ets/test/AppNavigation.test.ets#L100>) | `testProductionAppNavigation0002`<br>`com.samples.shortcut_ProductionAppNavigation_0002` | duplicate pending and same page want uses production store |
-| [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0300](<entry/src/ohosTest/ets/test/AppNavigation.test.ets#L141>) | `testProductionAppNavigation0003`<br>`com.samples.shortcut_ProductionAppNavigation_0003` | leave cancel and save failure never navigate or apply context |
-| [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0400](<entry/src/ohosTest/ets/test/AppNavigation.test.ets#L182>) | `testProductionAppNavigation0004`<br>`com.samples.shortcut_ProductionAppNavigation_0004` | route failure rolls back filter and successful leave save remains saved |
+| [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0200](<entry/src/ohosTest/ets/test/AppNavigation.test.ets>)（源码第100行） | `testProductionAppNavigation0002`<br>`com.samples.shortcut_ProductionAppNavigation_0002` | duplicate pending and same page want uses production store |
+| [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0300](<entry/src/ohosTest/ets/test/AppNavigation.test.ets>)（源码第141行） | `testProductionAppNavigation0003`<br>`com.samples.shortcut_ProductionAppNavigation_0003` | leave cancel and save failure never navigate or apply context |
+| [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0400](<entry/src/ohosTest/ets/test/AppNavigation.test.ets>)（源码第182行） | `testProductionAppNavigation0004`<br>`com.samples.shortcut_ProductionAppNavigation_0004` | route failure rolls back filter and successful leave save remains saved |
 | [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0500](<entry/src/ohosTest/ets/test/AppNavigation.test.ets#L219>) | `testProductionAppNavigation0005`<br>`com.samples.shortcut_ProductionAppNavigation_0005` | late dialog and canceled pending do not run after dispose |
 | [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0600](<entry/src/ohosTest/ets/test/AppNavigation.test.ets#L254>) | `testProductionAppNavigation0006`<br>`com.samples.shortcut_ProductionAppNavigation_0006` | pending detail retains id when cold or busy |
 | [SUB_SHORTCUT_PRODUCTIONAPPNAVIGATION_0700](<entry/src/ohosTest/ets/test/AppNavigation.test.ets#L289>) | `testProductionAppNavigation0007`<br>`com.samples.shortcut_ProductionAppNavigation_0007` | old dialog cannot clear reinitialized session pending |
@@ -249,9 +249,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 |---|---|---|
 | [SUB_SHORTCUT_BUSINESSCOVERAGE_0100](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets#L28>) | `testBusinessCoverage0001`<br>`com.samples.shortcut_BusinessCoverage_0001` | empty initialize idempotent and retry without context |
 | [SUB_SHORTCUT_BUSINESSCOVERAGE_0200](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets#L57>) | `testBusinessCoverage0002`<br>`com.samples.shortcut_BusinessCoverage_0002` | read rejection and invalid json can retry without overwrite |
-| [SUB_SHORTCUT_BUSINESSCOVERAGE_0300](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets#L100>) | `testBusinessCoverage0003`<br>`com.samples.shortcut_BusinessCoverage_0003` | invalid note schema duplicates and limits reject atomically |
-| [SUB_SHORTCUT_BUSINESSCOVERAGE_0400](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets#L146>) | `testBusinessCoverage0004`<br>`com.samples.shortcut_BusinessCoverage_0004` | invalid todo schema dates ids count and boolean reject |
-| [SUB_SHORTCUT_BUSINESSCOVERAGE_0500](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets#L186>) | `testBusinessCoverage0005`<br>`com.samples.shortcut_BusinessCoverage_0005` | valid maximum lengths and fifty notes load without write |
+| [SUB_SHORTCUT_BUSINESSCOVERAGE_0300](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets>)（源码第100行） | `testBusinessCoverage0003`<br>`com.samples.shortcut_BusinessCoverage_0003` | invalid note schema duplicates and limits reject atomically |
+| [SUB_SHORTCUT_BUSINESSCOVERAGE_0400](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets>)（源码第146行） | `testBusinessCoverage0004`<br>`com.samples.shortcut_BusinessCoverage_0004` | invalid todo schema dates ids count and boolean reject |
+| [SUB_SHORTCUT_BUSINESSCOVERAGE_0500](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets>)（源码第186行） | `testBusinessCoverage0005`<br>`com.samples.shortcut_BusinessCoverage_0005` | valid maximum lengths and fifty notes load without write |
 | [SUB_SHORTCUT_BUSINESSCOVERAGE_0600](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets#L213>) | `testBusinessCoverage0006`<br>`com.samples.shortcut_BusinessCoverage_0006` | draft truncation reverting to saved value clears dirty |
 | [SUB_SHORTCUT_BUSINESSCOVERAGE_0700](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets#L243>) | `testBusinessCoverage0007`<br>`com.samples.shortcut_BusinessCoverage_0007` | body only title fallback trims and same tick ids are unique |
 | [SUB_SHORTCUT_BUSINESSCOVERAGE_0800](<entry/src/ohosTest/ets/test/BusinessCoverage.test.ets#L273>) | `testBusinessCoverage0008`<br>`com.samples.shortcut_BusinessCoverage_0008` | note capacity rejects without write and delete reopens slot |
@@ -278,12 +278,12 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_NOTETRASHCASES_0200](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L59>) | `testNoteTrashCases0002`<br>`com.samples.shortcut_NoteTrashCases_0002` | clean forward save is safe |
 | [SUB_SHORTCUT_NOTETRASHCASES_0300](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L76>) | `testNoteTrashCases0003`<br>`com.samples.shortcut_NoteTrashCases_0003` | identical triple needs no change |
 | [SUB_SHORTCUT_NOTETRASHCASES_0400](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L93>) | `testNoteTrashCases0004`<br>`com.samples.shortcut_NoteTrashCases_0004` | remote ahead asks for confirm |
-| [SUB_SHORTCUT_NOTETRASHCASES_0500](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L109>) | `testNoteTrashCases0005`<br>`com.samples.shortcut_NoteTrashCases_0005` | both ahead branches the save |
-| [SUB_SHORTCUT_NOTETRASHCASES_0600](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L125>) | `testNoteTrashCases0006`<br>`com.samples.shortcut_NoteTrashCases_0006` | converged revisions are safe |
-| [SUB_SHORTCUT_NOTETRASHCASES_0700](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L142>) | `testNoteTrashCases0007`<br>`com.samples.shortcut_NoteTrashCases_0007` | rollback and guards block writing |
-| [SUB_SHORTCUT_NOTETRASHCASES_0800](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L162>) | `testNoteTrashCases0008`<br>`com.samples.shortcut_NoteTrashCases_0008` | missing revision and uncertain write are handled |
-| [SUB_SHORTCUT_NOTETRASHCASES_0900](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L179>) | `testNoteTrashCases0009`<br>`com.samples.shortcut_NoteTrashCases_0009` | trash bin keeps recent items |
-| [SUB_SHORTCUT_NOTETRASHCASES_1000](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L199>) | `testNoteTrashCases0010`<br>`com.samples.shortcut_NoteTrashCases_0010` | expired items cannot be restored |
+| [SUB_SHORTCUT_NOTETRASHCASES_0500](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets>)（源码第109行） | `testNoteTrashCases0005`<br>`com.samples.shortcut_NoteTrashCases_0005` | both ahead branches the save |
+| [SUB_SHORTCUT_NOTETRASHCASES_0600](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets>)（源码第125行） | `testNoteTrashCases0006`<br>`com.samples.shortcut_NoteTrashCases_0006` | converged revisions are safe |
+| [SUB_SHORTCUT_NOTETRASHCASES_0700](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets>)（源码第142行） | `testNoteTrashCases0007`<br>`com.samples.shortcut_NoteTrashCases_0007` | rollback and guards block writing |
+| [SUB_SHORTCUT_NOTETRASHCASES_0800](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets>)（源码第162行） | `testNoteTrashCases0008`<br>`com.samples.shortcut_NoteTrashCases_0008` | missing revision and uncertain write are handled |
+| [SUB_SHORTCUT_NOTETRASHCASES_0900](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets>)（源码第179行） | `testNoteTrashCases0009`<br>`com.samples.shortcut_NoteTrashCases_0009` | trash bin keeps recent items |
+| [SUB_SHORTCUT_NOTETRASHCASES_1000](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets>)（源码第199行） | `testNoteTrashCases0010`<br>`com.samples.shortcut_NoteTrashCases_0010` | expired items cannot be restored |
 | [SUB_SHORTCUT_DUEPOLICYCASES_0100](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L221>) | `testDuePolicyCases0001`<br>`com.samples.shortcut_DuePolicyCases_0001` | rule table has ten entries |
 | [SUB_SHORTCUT_DUEPOLICYCASES_0200](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L236>) | `testDuePolicyCases0002`<br>`com.samples.shortcut_DuePolicyCases_0002` | state covers all branches |
 | [SUB_SHORTCUT_DUEPOLICYCASES_0300](<entry/src/ohosTest/ets/test/BusinessDeepCases.test.ets#L256>) | `testDuePolicyCases0003`<br>`com.samples.shortcut_DuePolicyCases_0003` | overdue days rounds down |
@@ -313,11 +313,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 |---|---|---|
 | [SUB_SHORTCUT_BATCHCOPYCASES_0100](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets#L69>) | `testBatchCopyCases0001`<br>`com.samples.shortcut_BatchCopyCases_0001` | batch item defaults |
 | [SUB_SHORTCUT_BATCHCOPYCASES_0200](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets#L90>) | `testBatchCopyCases0002`<br>`com.samples.shortcut_BatchCopyCases_0002` | batch journal defaults |
-| [SUB_SHORTCUT_BATCHCOPYCASES_0300](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets#L106>) | `testBatchCopyCases0003`<br>`com.samples.shortcut_BatchCopyCases_0003` | batch preview item defaults |
-| [SUB_SHORTCUT_BATCHCOPYCASES_0400](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets#L125>) | `testBatchCopyCases0004`<br>`com.samples.shortcut_BatchCopyCases_0004` | batch result text covers all outcomes |
-| [SUB_SHORTCUT_BATCHCOPYCASES_0500](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets#L141>) | `testBatchCopyCases0005`<br>`com.samples.shortcut_BatchCopyCases_0005` | copy batch is deep |
-| [SUB_SHORTCUT_BATCHCOPYCASES_0600](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets#L166>) | `testBatchCopyCases0006`<br>`com.samples.shortcut_BatchCopyCases_0006` | copy batch handles empty items |
-| [SUB_SHORTCUT_BATCHCOPYCASES_0700](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets#L184>) | `testBatchCopyCases0007`<br>`com.samples.shortcut_BatchCopyCases_0007` | copy journal copies plans |
+| [SUB_SHORTCUT_BATCHCOPYCASES_0300](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets>)（源码第106行） | `testBatchCopyCases0003`<br>`com.samples.shortcut_BatchCopyCases_0003` | batch preview item defaults |
+| [SUB_SHORTCUT_BATCHCOPYCASES_0400](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets>)（源码第125行） | `testBatchCopyCases0004`<br>`com.samples.shortcut_BatchCopyCases_0004` | batch result text covers all outcomes |
+| [SUB_SHORTCUT_BATCHCOPYCASES_0500](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets>)（源码第141行） | `testBatchCopyCases0005`<br>`com.samples.shortcut_BatchCopyCases_0005` | copy batch is deep |
+| [SUB_SHORTCUT_BATCHCOPYCASES_0600](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets>)（源码第166行） | `testBatchCopyCases0006`<br>`com.samples.shortcut_BatchCopyCases_0006` | copy batch handles empty items |
+| [SUB_SHORTCUT_BATCHCOPYCASES_0700](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets>)（源码第184行） | `testBatchCopyCases0007`<br>`com.samples.shortcut_BatchCopyCases_0007` | copy journal copies plans |
 | [SUB_SHORTCUT_BATCHCOPYCASES_0800](<entry/src/ohosTest/ets/test/BusinessGapCases.test.ets#L206>) | `testBatchCopyCases0008`<br>`com.samples.shortcut_BatchCopyCases_0008` | copy preview copies items |
 
 ### [BusinessRecoveryB2.test.ets](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets>) — 14条
@@ -328,9 +328,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 |---|---|---|
 | [SUB_SHORTCUT_BUSINESSRECOVERYB2_0100](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets#L28>) | `testBusinessRecoveryBatchTwo0001`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0001` | 放弃编辑时写失败应阻止离开并保留可重试缓冲 |
 | [SUB_SHORTCUT_BUSINESSRECOVERYB2_0200](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets#L64>) | `testBusinessRecoveryBatchTwo0002`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0002` | 放弃编辑等待磁盘完成期间保持编辑上下文 |
-| [SUB_SHORTCUT_BUSINESSRECOVERYB2_0300](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets#L102>) | `testBusinessRecoveryBatchTwo0003`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0003` | 放弃已保留编辑后重开恢复独立草稿而非被放弃编辑 |
-| [SUB_SHORTCUT_BUSINESSRECOVERYB2_0400](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets#L138>) | `testBusinessRecoveryBatchTwo0004`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0004` | 第二次保留失败后重开只恢复上次成功编辑草稿 |
-| [SUB_SHORTCUT_BUSINESSRECOVERYB2_0500](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets#L176>) | `testBusinessRecoveryBatchTwo0005`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0005` | 收藏提交不丢失已保留编辑与独立新草稿 |
+| [SUB_SHORTCUT_BUSINESSRECOVERYB2_0300](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets>)（源码第102行） | `testBusinessRecoveryBatchTwo0003`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0003` | 放弃已保留编辑后重开恢复独立草稿而非被放弃编辑 |
+| [SUB_SHORTCUT_BUSINESSRECOVERYB2_0400](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets>)（源码第138行） | `testBusinessRecoveryBatchTwo0004`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0004` | 第二次保留失败后重开只恢复上次成功编辑草稿 |
+| [SUB_SHORTCUT_BUSINESSRECOVERYB2_0500](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets>)（源码第176行） | `testBusinessRecoveryBatchTwo0005`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0005` | 收藏提交不丢失已保留编辑与独立新草稿 |
 | [SUB_SHORTCUT_BUSINESSRECOVERYB2_0600](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets#L213>) | `testBusinessRecoveryBatchTwo0006`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0006` | 待办提交后重开保留编辑基线且正式正文不变 |
 | [SUB_SHORTCUT_BUSINESSRECOVERYB2_0700](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets#L250>) | `testBusinessRecoveryBatchTwo0007`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0007` | 删除另一条便签不会清除当前编辑恢复信息 |
 | [SUB_SHORTCUT_BUSINESSRECOVERYB2_0800](<entry/src/ohosTest/ets/test/BusinessRecoveryB2.test.ets#L286>) | `testBusinessRecoveryBatchTwo0008`<br>`com.samples.shortcut_BusinessRecoveryBatchTwo_0008` | 删除当前编辑目标同时清除持久编辑但保留独立草稿 |
@@ -348,9 +348,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | 原编号 / 源码定位 | 原名称 / 规范运行名 | 覆盖点 |
 |---|---|---|
 | [SUB_SHORTCUT_ENTRYROUTEMATRIX_0100](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets#L70>) | `testEntryRouteMatrix0001`<br>`com.samples.shortcut_EntryRouteMatrix_0001` | route table is consistent |
-| [SUB_SHORTCUT_ENTRYROUTEMATRIX_0200](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets#L102>) | `testEntryRouteMatrix0002`<br>`com.samples.shortcut_EntryRouteMatrix_0002` | resolve route handles guards |
-| [SUB_SHORTCUT_ENTRYROUTEMATRIX_0300](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets#L144>) | `testEntryRouteMatrix0003`<br>`com.samples.shortcut_EntryRouteMatrix_0003` | page reverse lookup |
-| [SUB_SHORTCUT_TODORULESMATRIX_0100](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets#L172>) | `testTodoRulesMatrix0001`<br>`com.samples.shortcut_TodoRulesMatrix_0001` | transition table is consistent |
+| [SUB_SHORTCUT_ENTRYROUTEMATRIX_0200](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets>)（源码第102行） | `testEntryRouteMatrix0002`<br>`com.samples.shortcut_EntryRouteMatrix_0002` | resolve route handles guards |
+| [SUB_SHORTCUT_ENTRYROUTEMATRIX_0300](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets>)（源码第144行） | `testEntryRouteMatrix0003`<br>`com.samples.shortcut_EntryRouteMatrix_0003` | page reverse lookup |
+| [SUB_SHORTCUT_TODORULESMATRIX_0100](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets>)（源码第172行） | `testTodoRulesMatrix0001`<br>`com.samples.shortcut_TodoRulesMatrix_0001` | transition table is consistent |
 | [SUB_SHORTCUT_TODORULESMATRIX_0200](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets#L203>) | `testTodoRulesMatrix0002`<br>`com.samples.shortcut_TodoRulesMatrix_0002` | rejects illegal transitions |
 | [SUB_SHORTCUT_TODORULESMATRIX_0300](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets#L226>) | `testTodoRulesMatrix0003`<br>`com.samples.shortcut_TodoRulesMatrix_0003` | scoring and sorting |
 | [SUB_SHORTCUT_TODORULESMATRIX_0400](<entry/src/ohosTest/ets/test/BusinessRuleMatrix.test.ets#L259>) | `testTodoRulesMatrix0004`<br>`com.samples.shortcut_TodoRulesMatrix_0004` | summary covers buckets and states |
@@ -366,7 +366,7 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | 原编号 / 源码定位 | 原名称 / 规范运行名 | 覆盖点 |
 |---|---|---|
 | [SUB_SHORTCUT_BUSINESSSTORE_0100](<entry/src/ohosTest/ets/test/BusinessStore.test.ets#L25>) | `testBusinessStore0001`<br>`com.samples.shortcut_BusinessStore_0001` | 便签草稿恢复保存删除与写失败保护 |
-| [SUB_SHORTCUT_BUSINESSSTORE_0200](<entry/src/ohosTest/ets/test/BusinessStore.test.ets#L115>) | `testBusinessStore0002`<br>`com.samples.shortcut_BusinessStore_0002` | 待办完成恢复与本地日期隔离 |
+| [SUB_SHORTCUT_BUSINESSSTORE_0200](<entry/src/ohosTest/ets/test/BusinessStore.test.ets>)（源码第115行） | `testBusinessStore0002`<br>`com.samples.shortcut_BusinessStore_0002` | 待办完成恢复与本地日期隔离 |
 
 ### [CollectionFilterCases.test.ets](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets>) — 12条
 
@@ -376,10 +376,10 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 |---|---|---|
 | [SUB_SHORTCUT_COLLECTIONRULECASES_0100](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L61>) | `testCollectionRuleCases0001`<br>`com.samples.shortcut_CollectionRuleCases_0001` | rule table is consistent |
 | [SUB_SHORTCUT_COLLECTIONRULECASES_0200](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L86>) | `testCollectionRuleCases0002`<br>`com.samples.shortcut_CollectionRuleCases_0002` | kind distribution covers every bucket |
-| [SUB_SHORTCUT_COLLECTIONRULECASES_0300](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L110>) | `testCollectionRuleCases0003`<br>`com.samples.shortcut_CollectionRuleCases_0003` | judge item covers validity rules |
-| [SUB_SHORTCUT_COLLECTIONRULECASES_0400](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L135>) | `testCollectionRuleCases0004`<br>`com.samples.shortcut_CollectionRuleCases_0004` | judge item covers tag and age rules |
-| [SUB_SHORTCUT_COLLECTIONRULECASES_0500](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L161>) | `testCollectionRuleCases0005`<br>`com.samples.shortcut_CollectionRuleCases_0005` | govern plans every item |
-| [SUB_SHORTCUT_COLLECTIONRULECASES_0600](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L187>) | `testCollectionRuleCases0006`<br>`com.samples.shortcut_CollectionRuleCases_0006` | duplicate ids are dropped first |
+| [SUB_SHORTCUT_COLLECTIONRULECASES_0300](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets>)（源码第110行） | `testCollectionRuleCases0003`<br>`com.samples.shortcut_CollectionRuleCases_0003` | judge item covers validity rules |
+| [SUB_SHORTCUT_COLLECTIONRULECASES_0400](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets>)（源码第135行） | `testCollectionRuleCases0004`<br>`com.samples.shortcut_CollectionRuleCases_0004` | judge item covers tag and age rules |
+| [SUB_SHORTCUT_COLLECTIONRULECASES_0500](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets>)（源码第161行） | `testCollectionRuleCases0005`<br>`com.samples.shortcut_CollectionRuleCases_0005` | govern plans every item |
+| [SUB_SHORTCUT_COLLECTIONRULECASES_0600](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets>)（源码第187行） | `testCollectionRuleCases0006`<br>`com.samples.shortcut_CollectionRuleCases_0006` | duplicate ids are dropped first |
 | [SUB_SHORTCUT_COLLECTIONRULECASES_0700](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L213>) | `testCollectionRuleCases0007`<br>`com.samples.shortcut_CollectionRuleCases_0007` | pin quota keeps newest |
 | [SUB_SHORTCUT_FILTERCHAINCASES_0100](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L240>) | `testFilterChainCases0001`<br>`com.samples.shortcut_FilterChainCases_0001` | chain table is consistent |
 | [SUB_SHORTCUT_FILTERCHAINCASES_0200](<entry/src/ohosTest/ets/test/CollectionFilterCases.test.ets#L267>) | `testFilterChainCases0002`<br>`com.samples.shortcut_FilterChainCases_0002` | labels match enums |
@@ -397,7 +397,7 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_TEXTDIFF_0200](<entry/src/ohosTest/ets/test/DiffCases.test.ets#L45>) | `testTextDiff0002`<br>`com.samples.shortcut_TextDiff_0002` | replaced line is removed then added |
 | [SUB_SHORTCUT_TEXTDIFF_0300](<entry/src/ohosTest/ets/test/DiffCases.test.ets#L68>) | `testTextDiff0003`<br>`com.samples.shortcut_TextDiff_0003` | inserted line keeps common lines |
 | [SUB_SHORTCUT_TEXTDIFF_0400](<entry/src/ohosTest/ets/test/DiffCases.test.ets#L89>) | `testTextDiff0004`<br>`com.samples.shortcut_TextDiff_0004` | character diff reports changes |
-| [SUB_SHORTCUT_TEXTDIFF_0500](<entry/src/ohosTest/ets/test/DiffCases.test.ets#L107>) | `testTextDiff0005`<br>`com.samples.shortcut_TextDiff_0005` | oversized input is explicitly truncated |
+| [SUB_SHORTCUT_TEXTDIFF_0500](<entry/src/ohosTest/ets/test/DiffCases.test.ets>)（源码第107行） | `testTextDiff0005`<br>`com.samples.shortcut_TextDiff_0005` | oversized input is explicitly truncated |
 
 ### [DueRepeatMatrixCases.test.ets](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>) — 61条
 
@@ -409,12 +409,12 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_DUERULECASES_0200](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L56>) | `testDueRuleCases0002`<br>`com.samples.shortcut_DueRuleCases_0002` | rule describe joins facts |
 | [SUB_SHORTCUT_DUERULECASES_0300](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L73>) | `testDueRuleCases0003`<br>`com.samples.shortcut_DueRuleCases_0003` | due state enum is closed |
 | [SUB_SHORTCUT_DUERULECASES_0400](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L90>) | `testDueRuleCases0004`<br>`com.samples.shortcut_DueRuleCases_0004` | priority enum is ordered |
-| [SUB_SHORTCUT_DUERULECASES_0500](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L106>) | `testDueRuleCases0005`<br>`com.samples.shortcut_DueRuleCases_0005` | repeat enum covers five kinds |
-| [SUB_SHORTCUT_DUERULECASES_0600](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L123>) | `testDueRuleCases0006`<br>`com.samples.shortcut_DueRuleCases_0006` | due soon window is one day |
-| [SUB_SHORTCUT_DUERULECASES_0700](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L139>) | `testDueRuleCases0007`<br>`com.samples.shortcut_DueRuleCases_0007` | due lines match table |
-| [SUB_SHORTCUT_DUERULECASES_0800](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L155>) | `testDueRuleCases0008`<br>`com.samples.shortcut_DueRuleCases_0008` | every rule carries note |
-| [SUB_SHORTCUT_TODODUECASES_0100](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L174>) | `testTodoDueCases0001`<br>`com.samples.shortcut_TodoDueCases_0001` | todo defaults are undated |
-| [SUB_SHORTCUT_TODODUECASES_0200](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L194>) | `testTodoDueCases0002`<br>`com.samples.shortcut_TodoDueCases_0002` | undated covers zero and negative |
+| [SUB_SHORTCUT_DUERULECASES_0500](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第106行） | `testDueRuleCases0005`<br>`com.samples.shortcut_DueRuleCases_0005` | repeat enum covers five kinds |
+| [SUB_SHORTCUT_DUERULECASES_0600](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第123行） | `testDueRuleCases0006`<br>`com.samples.shortcut_DueRuleCases_0006` | due soon window is one day |
+| [SUB_SHORTCUT_DUERULECASES_0700](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第139行） | `testDueRuleCases0007`<br>`com.samples.shortcut_DueRuleCases_0007` | due lines match table |
+| [SUB_SHORTCUT_DUERULECASES_0800](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第155行） | `testDueRuleCases0008`<br>`com.samples.shortcut_DueRuleCases_0008` | every rule carries note |
+| [SUB_SHORTCUT_TODODUECASES_0100](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第174行） | `testTodoDueCases0001`<br>`com.samples.shortcut_TodoDueCases_0001` | todo defaults are undated |
+| [SUB_SHORTCUT_TODODUECASES_0200](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第194行） | `testTodoDueCases0002`<br>`com.samples.shortcut_TodoDueCases_0002` | undated covers zero and negative |
 | [SUB_SHORTCUT_TODODUECASES_0300](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L209>) | `testTodoDueCases0003`<br>`com.samples.shortcut_TodoDueCases_0003` | date key pads month and day |
 | [SUB_SHORTCUT_TODODUECASES_0400](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L224>) | `testTodoDueCases0004`<br>`com.samples.shortcut_TodoDueCases_0004` | date key ignores time of day |
 | [SUB_SHORTCUT_TODODUECASES_0500](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L242>) | `testTodoDueCases0005`<br>`com.samples.shortcut_TodoDueCases_0005` | date key splits days |
@@ -459,13 +459,13 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_BUCKETCASES_0100](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L939>) | `testBucketCases0001`<br>`com.samples.shortcut_BucketCases_0001` | empty buckets |
 | [SUB_SHORTCUT_BUCKETCASES_0200](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L955>) | `testBucketCases0002`<br>`com.samples.shortcut_BucketCases_0002` | buckets sort by state |
 | [SUB_SHORTCUT_BUCKETCASES_0300](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L983>) | `testBucketCases0003`<br>`com.samples.shortcut_BucketCases_0003` | bucket describe counts all |
-| [SUB_SHORTCUT_BUCKETCASES_0400](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L1002>) | `testBucketCases0004`<br>`com.samples.shortcut_BucketCases_0004` | done entry goes to done bucket |
-| [SUB_SHORTCUT_BUCKETCASES_0500](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L1021>) | `testBucketCases0005`<br>`com.samples.shortcut_BucketCases_0005` | undated goes to undated bucket |
-| [SUB_SHORTCUT_BUCKETCASES_0600](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L1037>) | `testBucketCases0006`<br>`com.samples.shortcut_BucketCases_0006` | bucket keeps input order |
-| [SUB_SHORTCUT_BUCKETCASES_0700](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L1056>) | `testBucketCases0007`<br>`com.samples.shortcut_BucketCases_0007` | summary of empty list |
-| [SUB_SHORTCUT_BUCKETCASES_0800](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L1071>) | `testBucketCases0008`<br>`com.samples.shortcut_BucketCases_0008` | summary matches buckets |
-| [SUB_SHORTCUT_BUCKETCASES_0900](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L1090>) | `testBucketCases0009`<br>`com.samples.shortcut_BucketCases_0009` | priority does not affect bucketing |
-| [SUB_SHORTCUT_BUCKETCASES_1000](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets#L1110>) | `testBucketCases0010`<br>`com.samples.shortcut_BucketCases_0010` | deferred item rebuckets |
+| [SUB_SHORTCUT_BUCKETCASES_0400](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第1002行） | `testBucketCases0004`<br>`com.samples.shortcut_BucketCases_0004` | done entry goes to done bucket |
+| [SUB_SHORTCUT_BUCKETCASES_0500](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第1021行） | `testBucketCases0005`<br>`com.samples.shortcut_BucketCases_0005` | undated goes to undated bucket |
+| [SUB_SHORTCUT_BUCKETCASES_0600](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第1037行） | `testBucketCases0006`<br>`com.samples.shortcut_BucketCases_0006` | bucket keeps input order |
+| [SUB_SHORTCUT_BUCKETCASES_0700](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第1056行） | `testBucketCases0007`<br>`com.samples.shortcut_BucketCases_0007` | summary of empty list |
+| [SUB_SHORTCUT_BUCKETCASES_0800](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第1071行） | `testBucketCases0008`<br>`com.samples.shortcut_BucketCases_0008` | summary matches buckets |
+| [SUB_SHORTCUT_BUCKETCASES_0900](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第1090行） | `testBucketCases0009`<br>`com.samples.shortcut_BucketCases_0009` | priority does not affect bucketing |
+| [SUB_SHORTCUT_BUCKETCASES_1000](<entry/src/ohosTest/ets/test/DueRepeatMatrixCases.test.ets>)（源码第1110行） | `testBucketCases0010`<br>`com.samples.shortcut_BucketCases_0010` | deferred item rebuckets |
 
 ### [EntryIntentMatrixCases.test.ets](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>) — 84条
 
@@ -477,12 +477,12 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_ROUTEPARAMCASES_0200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L62>) | `testRouteParamCases0002`<br>`com.samples.shortcut_RouteParamCases_0002` | required param rejects empty |
 | [SUB_SHORTCUT_ROUTEPARAMCASES_0300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L78>) | `testRouteParamCases0003`<br>`com.samples.shortcut_RouteParamCases_0003` | number kind only accepts integer text |
 | [SUB_SHORTCUT_ROUTEPARAMCASES_0400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L95>) | `testRouteParamCases0004`<br>`com.samples.shortcut_RouteParamCases_0004` | boolean kind only accepts two literals |
-| [SUB_SHORTCUT_ROUTEPARAMCASES_0500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L112>) | `testRouteParamCases0005`<br>`com.samples.shortcut_RouteParamCases_0005` | id kind rejects separators outside allow list |
-| [SUB_SHORTCUT_ROUTEPARAMCASES_0600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L129>) | `testRouteParamCases0006`<br>`com.samples.shortcut_RouteParamCases_0006` | text kind accepts any non empty value |
-| [SUB_SHORTCUT_ROUTEPARAMCASES_0700](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L146>) | `testRouteParamCases0007`<br>`com.samples.shortcut_RouteParamCases_0007` | coerce keeps legal value |
-| [SUB_SHORTCUT_ROUTEPARAMCASES_0800](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L163>) | `testRouteParamCases0008`<br>`com.samples.shortcut_RouteParamCases_0008` | coerce falls back on illegal value |
-| [SUB_SHORTCUT_ROUTEPARAMCASES_0900](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L179>) | `testRouteParamCases0009`<br>`com.samples.shortcut_RouteParamCases_0009` | empty value is not replaced by fallback |
-| [SUB_SHORTCUT_ROUTEPARAMCASES_1000](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L196>) | `testRouteParamCases0010`<br>`com.samples.shortcut_RouteParamCases_0010` | param text marks optional |
+| [SUB_SHORTCUT_ROUTEPARAMCASES_0500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第112行） | `testRouteParamCases0005`<br>`com.samples.shortcut_RouteParamCases_0005` | id kind rejects separators outside allow list |
+| [SUB_SHORTCUT_ROUTEPARAMCASES_0600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第129行） | `testRouteParamCases0006`<br>`com.samples.shortcut_RouteParamCases_0006` | text kind accepts any non empty value |
+| [SUB_SHORTCUT_ROUTEPARAMCASES_0700](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第146行） | `testRouteParamCases0007`<br>`com.samples.shortcut_RouteParamCases_0007` | coerce keeps legal value |
+| [SUB_SHORTCUT_ROUTEPARAMCASES_0800](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第163行） | `testRouteParamCases0008`<br>`com.samples.shortcut_RouteParamCases_0008` | coerce falls back on illegal value |
+| [SUB_SHORTCUT_ROUTEPARAMCASES_0900](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第179行） | `testRouteParamCases0009`<br>`com.samples.shortcut_RouteParamCases_0009` | empty value is not replaced by fallback |
+| [SUB_SHORTCUT_ROUTEPARAMCASES_1000](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第196行） | `testRouteParamCases0010`<br>`com.samples.shortcut_RouteParamCases_0010` | param text marks optional |
 | [SUB_SHORTCUT_ROUTEENTRYCASES_0100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L215>) | `testRouteEntryCases0001`<br>`com.samples.shortcut_RouteEntryCases_0001` | param of finds declared parameter |
 | [SUB_SHORTCUT_ROUTEENTRYCASES_0200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L233>) | `testRouteEntryCases0002`<br>`com.samples.shortcut_RouteEntryCases_0002` | param of miss returns undefined |
 | [SUB_SHORTCUT_ROUTEENTRYCASES_0300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L249>) | `testRouteEntryCases0003`<br>`com.samples.shortcut_RouteEntryCases_0003` | entry text lists params |
@@ -527,36 +527,36 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_ENTRYRULECASES_1100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L950>) | `testEntryRuleCases0011`<br>`com.samples.shortcut_EntryRuleCases_0011` | source counts are ordered |
 | [SUB_SHORTCUT_PARSEURICASES_0100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L971>) | `testParseUriCases0001`<br>`com.samples.shortcut_ParseUriCases_0001` | uri without query keeps whole text |
 | [SUB_SHORTCUT_PARSEURICASES_0200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L987>) | `testParseUriCases0002`<br>`com.samples.shortcut_ParseUriCases_0002` | uri splits into pairs |
-| [SUB_SHORTCUT_PARSEURICASES_0300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1004>) | `testParseUriCases0003`<br>`com.samples.shortcut_ParseUriCases_0003` | empty pairs are skipped |
-| [SUB_SHORTCUT_PARSEURICASES_0400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1020>) | `testParseUriCases0004`<br>`com.samples.shortcut_ParseUriCases_0004` | pairs without key are skipped |
-| [SUB_SHORTCUT_PARSEURICASES_0500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1036>) | `testParseUriCases0005`<br>`com.samples.shortcut_ParseUriCases_0005` | values are decoded |
-| [SUB_SHORTCUT_PARSEURICASES_0600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1053>) | `testParseUriCases0006`<br>`com.samples.shortcut_ParseUriCases_0006` | value may contain equals |
-| [SUB_SHORTCUT_PARSEURICASES_0700](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1069>) | `testParseUriCases0007`<br>`com.samples.shortcut_ParseUriCases_0007` | launch request text joins pairs |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1089>) | `testResolveEntryCases0001`<br>`com.samples.shortcut_ResolveEntryCases_0001` | shortcut uri hits exact rule |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1106>) | `testResolveEntryCases0002`<br>`com.samples.shortcut_ResolveEntryCases_0002` | unknown shortcut falls back to rule center |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1123>) | `testResolveEntryCases0003`<br>`com.samples.shortcut_ResolveEntryCases_0003` | deeplink hits todo rule |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1139>) | `testResolveEntryCases0004`<br>`com.samples.shortcut_ResolveEntryCases_0004` | unknown deeplink falls back to call log |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1155>) | `testResolveEntryCases0005`<br>`com.samples.shortcut_ResolveEntryCases_0005` | unknown source uses last resort |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1172>) | `testResolveEntryCases0006`<br>`com.samples.shortcut_ResolveEntryCases_0006` | widget uri hits note rule |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0700](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1188>) | `testResolveEntryCases0007`<br>`com.samples.shortcut_ResolveEntryCases_0007` | resume without draft is blocked |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0800](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1205>) | `testResolveEntryCases0008`<br>`com.samples.shortcut_ResolveEntryCases_0008` | resume with draft passes |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_0900](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1223>) | `testResolveEntryCases0009`<br>`com.samples.shortcut_ResolveEntryCases_0009` | notification without todo is blocked |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1000](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1242>) | `testResolveEntryCases0010`<br>`com.samples.shortcut_ResolveEntryCases_0010` | notification requires login |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1260>) | `testResolveEntryCases0011`<br>`com.samples.shortcut_ResolveEntryCases_0011` | notification with login and todo passes |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1279>) | `testResolveEntryCases0012`<br>`com.samples.shortcut_ResolveEntryCases_0012` | extra keys are reported for parameterless rule |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1297>) | `testResolveEntryCases0013`<br>`com.samples.shortcut_ResolveEntryCases_0013` | extra keys are tolerated when rule has required keys |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1317>) | `testResolveEntryCases0014`<br>`com.samples.shortcut_ResolveEntryCases_0014` | fallback flag uses priority threshold |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1334>) | `testResolveEntryCases0015`<br>`com.samples.shortcut_ResolveEntryCases_0015` | plan text explains ready state |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1351>) | `testResolveEntryCases0016`<br>`com.samples.shortcut_ResolveEntryCases_0016` | plan text explains pending state |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1700](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1368>) | `testResolveEntryCases0017`<br>`com.samples.shortcut_ResolveEntryCases_0017` | plan text explains unresolved state |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1800](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1386>) | `testResolveEntryCases0018`<br>`com.samples.shortcut_ResolveEntryCases_0018` | plan ok requires all three facts |
-| [SUB_SHORTCUT_RESOLVEENTRYCASES_1900](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1407>) | `testResolveEntryCases0019`<br>`com.samples.shortcut_ResolveEntryCases_0019` | matched rule is stable for repeated parse |
-| [SUB_SHORTCUT_ENTRYAUDITCASES_0100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1426>) | `testEntryAuditCases0001`<br>`com.samples.shortcut_EntryAuditCases_0001` | launch table is self consistent |
-| [SUB_SHORTCUT_ENTRYAUDITCASES_0200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1442>) | `testEntryAuditCases0002`<br>`com.samples.shortcut_EntryAuditCases_0002` | every rule has route and description |
-| [SUB_SHORTCUT_ENTRYAUDITCASES_0300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1460>) | `testEntryAuditCases0003`<br>`com.samples.shortcut_EntryAuditCases_0003` | fallback rules carry no required keys |
-| [SUB_SHORTCUT_ENTRYAUDITCASES_0400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1478>) | `testEntryAuditCases0004`<br>`com.samples.shortcut_EntryAuditCases_0004` | every source has at least one rule |
-| [SUB_SHORTCUT_ENTRYAUDITCASES_0500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1494>) | `testEntryAuditCases0005`<br>`com.samples.shortcut_EntryAuditCases_0005` | source lines match counts |
-| [SUB_SHORTCUT_ENTRYAUDITCASES_0600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets#L1511>) | `testEntryAuditCases0006`<br>`com.samples.shortcut_EntryAuditCases_0006` | rule targets exist in route table |
+| [SUB_SHORTCUT_PARSEURICASES_0300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1004行） | `testParseUriCases0003`<br>`com.samples.shortcut_ParseUriCases_0003` | empty pairs are skipped |
+| [SUB_SHORTCUT_PARSEURICASES_0400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1020行） | `testParseUriCases0004`<br>`com.samples.shortcut_ParseUriCases_0004` | pairs without key are skipped |
+| [SUB_SHORTCUT_PARSEURICASES_0500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1036行） | `testParseUriCases0005`<br>`com.samples.shortcut_ParseUriCases_0005` | values are decoded |
+| [SUB_SHORTCUT_PARSEURICASES_0600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1053行） | `testParseUriCases0006`<br>`com.samples.shortcut_ParseUriCases_0006` | value may contain equals |
+| [SUB_SHORTCUT_PARSEURICASES_0700](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1069行） | `testParseUriCases0007`<br>`com.samples.shortcut_ParseUriCases_0007` | launch request text joins pairs |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1089行） | `testResolveEntryCases0001`<br>`com.samples.shortcut_ResolveEntryCases_0001` | shortcut uri hits exact rule |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1106行） | `testResolveEntryCases0002`<br>`com.samples.shortcut_ResolveEntryCases_0002` | unknown shortcut falls back to rule center |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1123行） | `testResolveEntryCases0003`<br>`com.samples.shortcut_ResolveEntryCases_0003` | deeplink hits todo rule |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1139行） | `testResolveEntryCases0004`<br>`com.samples.shortcut_ResolveEntryCases_0004` | unknown deeplink falls back to call log |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1155行） | `testResolveEntryCases0005`<br>`com.samples.shortcut_ResolveEntryCases_0005` | unknown source uses last resort |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1172行） | `testResolveEntryCases0006`<br>`com.samples.shortcut_ResolveEntryCases_0006` | widget uri hits note rule |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0700](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1188行） | `testResolveEntryCases0007`<br>`com.samples.shortcut_ResolveEntryCases_0007` | resume without draft is blocked |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0800](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1205行） | `testResolveEntryCases0008`<br>`com.samples.shortcut_ResolveEntryCases_0008` | resume with draft passes |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_0900](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1223行） | `testResolveEntryCases0009`<br>`com.samples.shortcut_ResolveEntryCases_0009` | notification without todo is blocked |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1000](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1242行） | `testResolveEntryCases0010`<br>`com.samples.shortcut_ResolveEntryCases_0010` | notification requires login |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1260行） | `testResolveEntryCases0011`<br>`com.samples.shortcut_ResolveEntryCases_0011` | notification with login and todo passes |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1279行） | `testResolveEntryCases0012`<br>`com.samples.shortcut_ResolveEntryCases_0012` | extra keys are reported for parameterless rule |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1297行） | `testResolveEntryCases0013`<br>`com.samples.shortcut_ResolveEntryCases_0013` | extra keys are tolerated when rule has required keys |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1317行） | `testResolveEntryCases0014`<br>`com.samples.shortcut_ResolveEntryCases_0014` | fallback flag uses priority threshold |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1334行） | `testResolveEntryCases0015`<br>`com.samples.shortcut_ResolveEntryCases_0015` | plan text explains ready state |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1351行） | `testResolveEntryCases0016`<br>`com.samples.shortcut_ResolveEntryCases_0016` | plan text explains pending state |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1700](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1368行） | `testResolveEntryCases0017`<br>`com.samples.shortcut_ResolveEntryCases_0017` | plan text explains unresolved state |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1800](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1386行） | `testResolveEntryCases0018`<br>`com.samples.shortcut_ResolveEntryCases_0018` | plan ok requires all three facts |
+| [SUB_SHORTCUT_RESOLVEENTRYCASES_1900](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1407行） | `testResolveEntryCases0019`<br>`com.samples.shortcut_ResolveEntryCases_0019` | matched rule is stable for repeated parse |
+| [SUB_SHORTCUT_ENTRYAUDITCASES_0100](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1426行） | `testEntryAuditCases0001`<br>`com.samples.shortcut_EntryAuditCases_0001` | launch table is self consistent |
+| [SUB_SHORTCUT_ENTRYAUDITCASES_0200](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1442行） | `testEntryAuditCases0002`<br>`com.samples.shortcut_EntryAuditCases_0002` | every rule has route and description |
+| [SUB_SHORTCUT_ENTRYAUDITCASES_0300](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1460行） | `testEntryAuditCases0003`<br>`com.samples.shortcut_EntryAuditCases_0003` | fallback rules carry no required keys |
+| [SUB_SHORTCUT_ENTRYAUDITCASES_0400](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1478行） | `testEntryAuditCases0004`<br>`com.samples.shortcut_EntryAuditCases_0004` | every source has at least one rule |
+| [SUB_SHORTCUT_ENTRYAUDITCASES_0500](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1494行） | `testEntryAuditCases0005`<br>`com.samples.shortcut_EntryAuditCases_0005` | source lines match counts |
+| [SUB_SHORTCUT_ENTRYAUDITCASES_0600](<entry/src/ohosTest/ets/test/EntryIntentMatrixCases.test.ets>)（源码第1511行） | `testEntryAuditCases0006`<br>`com.samples.shortcut_EntryAuditCases_0006` | rule targets exist in route table |
 
 ### [FilterCollectionDiffCases.test.ets](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets>) — 30条
 
@@ -567,11 +567,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0100](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L65>) | `testFilterChainMatrixCases0001`<br>`com.samples.shortcut_FilterChainMatrixCases_0001` | empty chain matches everything |
 | [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0200](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L81>) | `testFilterChainMatrixCases0002`<br>`com.samples.shortcut_FilterChainMatrixCases_0002` | contains matches substring |
 | [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0300](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L97>) | `testFilterChainMatrixCases0003`<br>`com.samples.shortcut_FilterChainMatrixCases_0003` | negate inverts result |
-| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0400](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L115>) | `testFilterChainMatrixCases0004`<br>`com.samples.shortcut_FilterChainMatrixCases_0004` | multiple nodes narrow the result |
-| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0500](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L138>) | `testFilterChainMatrixCases0005`<br>`com.samples.shortcut_FilterChainMatrixCases_0005` | apply chain filters list |
-| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0600](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L160>) | `testFilterChainMatrixCases0006`<br>`com.samples.shortcut_FilterChainMatrixCases_0006` | apply chain keeps order |
-| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0700](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L179>) | `testFilterChainMatrixCases0007`<br>`com.samples.shortcut_FilterChainMatrixCases_0007` | equality operator is exact |
-| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0800](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L197>) | `testFilterChainMatrixCases0008`<br>`com.samples.shortcut_FilterChainMatrixCases_0008` | operator labels are distinct |
+| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0400](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets>)（源码第115行） | `testFilterChainMatrixCases0004`<br>`com.samples.shortcut_FilterChainMatrixCases_0004` | multiple nodes narrow the result |
+| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0500](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets>)（源码第138行） | `testFilterChainMatrixCases0005`<br>`com.samples.shortcut_FilterChainMatrixCases_0005` | apply chain filters list |
+| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0600](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets>)（源码第160行） | `testFilterChainMatrixCases0006`<br>`com.samples.shortcut_FilterChainMatrixCases_0006` | apply chain keeps order |
+| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0700](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets>)（源码第179行） | `testFilterChainMatrixCases0007`<br>`com.samples.shortcut_FilterChainMatrixCases_0007` | equality operator is exact |
+| [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0800](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets>)（源码第197行） | `testFilterChainMatrixCases0008`<br>`com.samples.shortcut_FilterChainMatrixCases_0008` | operator labels are distinct |
 | [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_0900](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L216>) | `testFilterChainMatrixCases0009`<br>`com.samples.shortcut_FilterChainMatrixCases_0009` | field labels are distinct |
 | [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_1100](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L234>) | `testFilterChainMatrixCases0011`<br>`com.samples.shortcut_FilterChainMatrixCases_0011` | tag filter matches exact tag |
 | [SUB_SHORTCUT_FILTERCHAINMATRIXCASES_1200](<entry/src/ohosTest/ets/test/FilterCollectionDiffCases.test.ets#L251>) | `testFilterChainMatrixCases0012`<br>`com.samples.shortcut_FilterChainMatrixCases_0012` | chain with negated node excludes matches |
@@ -605,7 +605,7 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_LAUNCHCOVERAGE_0200](<entry/src/ohosTest/ets/test/LaunchCoverage.test.ets#L52>) | `testLaunchCoverage0002`<br>`com.samples.shortcut_LaunchCoverage_0002` | partial protocol fields reject with exact error category |
 | [SUB_SHORTCUT_LAUNCHCOVERAGE_0300](<entry/src/ohosTest/ets/test/LaunchCoverage.test.ets#L70>) | `testLaunchCoverage0003`<br>`com.samples.shortcut_LaunchCoverage_0003` | protocol does not trim or ignore case |
 | [SUB_SHORTCUT_LAUNCHCOVERAGE_0400](<entry/src/ohosTest/ets/test/LaunchCoverage.test.ets#L96>) | `testLaunchCoverage0004`<br>`com.samples.shortcut_LaunchCoverage_0004` | wrong runtime types and long unknown action never route |
-| [SUB_SHORTCUT_LAUNCHCOVERAGE_0500](<entry/src/ohosTest/ets/test/LaunchCoverage.test.ets#L123>) | `testLaunchCoverage0005`<br>`com.samples.shortcut_LaunchCoverage_0005` | parsing is pure and each result is independent |
+| [SUB_SHORTCUT_LAUNCHCOVERAGE_0500](<entry/src/ohosTest/ets/test/LaunchCoverage.test.ets>)（源码第123行） | `testLaunchCoverage0005`<br>`com.samples.shortcut_LaunchCoverage_0005` | parsing is pure and each result is independent |
 
 ### [LaunchIntentCases.test.ets](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets>) — 6条
 
@@ -616,9 +616,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_LAUNCHENTRYCASES_0100](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets#L27>) | `testLaunchEntryCases0001`<br>`com.samples.shortcut_LaunchEntryCases_0001` | rule table is consistent |
 | [SUB_SHORTCUT_LAUNCHENTRYCASES_0200](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets#L52>) | `testLaunchEntryCases0002`<br>`com.samples.shortcut_LaunchEntryCases_0002` | source distribution |
 | [SUB_SHORTCUT_LAUNCHENTRYCASES_0300](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets#L75>) | `testLaunchEntryCases0003`<br>`com.samples.shortcut_LaunchEntryCases_0003` | parse uri extracts query |
-| [SUB_SHORTCUT_LAUNCHENTRYCASES_0400](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets#L101>) | `testLaunchEntryCases0004`<br>`com.samples.shortcut_LaunchEntryCases_0004` | shortcut resolution |
-| [SUB_SHORTCUT_LAUNCHENTRYCASES_0500](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets#L124>) | `testLaunchEntryCases0005`<br>`com.samples.shortcut_LaunchEntryCases_0005` | missing params and login are reported |
-| [SUB_SHORTCUT_LAUNCHENTRYCASES_0600](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets#L149>) | `testLaunchEntryCases0006`<br>`com.samples.shortcut_LaunchEntryCases_0006` | deeplink and unknown source |
+| [SUB_SHORTCUT_LAUNCHENTRYCASES_0400](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets>)（源码第101行） | `testLaunchEntryCases0004`<br>`com.samples.shortcut_LaunchEntryCases_0004` | shortcut resolution |
+| [SUB_SHORTCUT_LAUNCHENTRYCASES_0500](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets>)（源码第124行） | `testLaunchEntryCases0005`<br>`com.samples.shortcut_LaunchEntryCases_0005` | missing params and login are reported |
+| [SUB_SHORTCUT_LAUNCHENTRYCASES_0600](<entry/src/ohosTest/ets/test/LaunchIntentCases.test.ets>)（源码第149行） | `testLaunchEntryCases0006`<br>`com.samples.shortcut_LaunchEntryCases_0006` | deeplink and unknown source |
 
 ### [LaunchRequest.test.ets](<entry/src/ohosTest/ets/test/LaunchRequest.test.ets>) — 1条
 
@@ -647,7 +647,7 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_SHORTCUTNATIVECOVERAGE_0100](<entry/src/ohosTest/ets/test/NativeCoverage.test.ets#L30>) | `testShortcutNativeCoverage0001`<br>`com.samples.shortcut_ShortcutNativeCoverage_0001` | native support and installed shortcut manifest are consistent |
 | [SUB_SHORTCUT_SHORTCUTNATIVECOVERAGE_0200](<entry/src/ohosTest/ets/test/NativeCoverage.test.ets#L57>) | `testShortcutNativeCoverage0002`<br>`com.samples.shortcut_ShortcutNativeCoverage_0002` | native nonexistent id is rejected without changing real shortcuts |
 | [SUB_SHORTCUT_SHORTCUTNATIVECOVERAGE_0300](<entry/src/ohosTest/ets/test/NativeCoverage.test.ets#L88>) | `testShortcutNativeCoverage0003`<br>`com.samples.shortcut_ShortcutNativeCoverage_0003` | production preferences adapter rejects write before read |
-| [SUB_SHORTCUT_SHORTCUTNATIVECOVERAGE_0400](<entry/src/ohosTest/ets/test/NativeCoverage.test.ets#L115>) | `testShortcutNativeCoverage0004`<br>`com.samples.shortcut_ShortcutNativeCoverage_0004` | native preferences flush cache reload preserves test data |
+| [SUB_SHORTCUT_SHORTCUTNATIVECOVERAGE_0400](<entry/src/ohosTest/ets/test/NativeCoverage.test.ets>)（源码第115行） | `testShortcutNativeCoverage0004`<br>`com.samples.shortcut_ShortcutNativeCoverage_0004` | native preferences flush cache reload preserves test data |
 
 ### [NoteHistory.test.ets](<entry/src/ohosTest/ets/test/NoteHistory.test.ets>) — 14条
 
@@ -657,8 +657,8 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 |---|---|---|
 | [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0100](<entry/src/ohosTest/ets/test/NoteHistory.test.ets#L26>) | `testNoteEditingAndHistory0001`<br>`com.samples.shortcut_NoteEditingAndHistory_0001` | edit saves revision and restores older version across reopen |
 | [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0200](<entry/src/ohosTest/ets/test/NoteHistory.test.ets#L82>) | `testNoteEditingAndHistory0002`<br>`com.samples.shortcut_NoteEditingAndHistory_0002` | search filters notes and collections without touching storage |
-| [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0300](<entry/src/ohosTest/ets/test/NoteHistory.test.ets#L129>) | `testNoteEditingAndHistory0003`<br>`com.samples.shortcut_NoteEditingAndHistory_0003` | editing guards dirty draft unchanged save and cancel |
-| [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0400](<entry/src/ohosTest/ets/test/NoteHistory.test.ets#L173>) | `testNoteEditingAndHistory0004`<br>`com.samples.shortcut_NoteEditingAndHistory_0004` | invalid history rejects archive and delete removes revisions |
+| [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0300](<entry/src/ohosTest/ets/test/NoteHistory.test.ets>)（源码第129行） | `testNoteEditingAndHistory0003`<br>`com.samples.shortcut_NoteEditingAndHistory_0003` | editing guards dirty draft unchanged save and cancel |
+| [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0400](<entry/src/ohosTest/ets/test/NoteHistory.test.ets>)（源码第173行） | `testNoteEditingAndHistory0004`<br>`com.samples.shortcut_NoteEditingAndHistory_0004` | invalid history rejects archive and delete removes revisions |
 | [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0500](<entry/src/ohosTest/ets/test/NoteHistory.test.ets#L209>) | `testNoteEditingAndHistory0005`<br>`com.samples.shortcut_NoteEditingAndHistory_0005` | legacy archive migrates and history is bounded to one hundred |
 | [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0600](<entry/src/ohosTest/ets/test/NoteHistory.test.ets#L250>) | `testNoteEditingAndHistory0006`<br>`com.samples.shortcut_NoteEditingAndHistory_0006` | leave confirmation saves existing note keeps draft and discards edits |
 | [SUB_SHORTCUT_NOTEEDITINGANDHISTORY_0700](<entry/src/ohosTest/ets/test/NoteHistory.test.ets#L291>) | `testNoteEditingAndHistory0007`<br>`com.samples.shortcut_NoteEditingAndHistory_0007` | todo crud and filters respect daily limits |
@@ -680,11 +680,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_SAVERULECASES_0200](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L56>) | `testSaveRuleCases0002`<br>`com.samples.shortcut_SaveRuleCases_0002` | rule describe joins facts |
 | [SUB_SHORTCUT_SAVERULECASES_0300](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L76>) | `testSaveRuleCases0003`<br>`com.samples.shortcut_SaveRuleCases_0003` | outcome enum is closed |
 | [SUB_SHORTCUT_SAVERULECASES_0400](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L92>) | `testSaveRuleCases0004`<br>`com.samples.shortcut_SaveRuleCases_0004` | every rule carries note |
-| [SUB_SHORTCUT_SAVERULECASES_0500](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L109>) | `testSaveRuleCases0005`<br>`com.samples.shortcut_SaveRuleCases_0005` | blocking rules are listed |
-| [SUB_SHORTCUT_SAVERULECASES_0600](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L129>) | `testSaveRuleCases0006`<br>`com.samples.shortcut_SaveRuleCases_0006` | outcome distribution is stable |
-| [SUB_SHORTCUT_SAVERULECASES_0700](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L151>) | `testSaveRuleCases0007`<br>`com.samples.shortcut_SaveRuleCases_0007` | save lines match table |
-| [SUB_SHORTCUT_SAVERULECASES_0800](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L167>) | `testSaveRuleCases0008`<br>`com.samples.shortcut_SaveRuleCases_0008` | save input defaults to no facts |
-| [SUB_SHORTCUT_SAVEDECISIONCASES_0100](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L188>) | `testSaveDecisionCases0001`<br>`com.samples.shortcut_SaveDecisionCases_0001` | decision defaults are safe |
+| [SUB_SHORTCUT_SAVERULECASES_0500](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第109行） | `testSaveRuleCases0005`<br>`com.samples.shortcut_SaveRuleCases_0005` | blocking rules are listed |
+| [SUB_SHORTCUT_SAVERULECASES_0600](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第129行） | `testSaveRuleCases0006`<br>`com.samples.shortcut_SaveRuleCases_0006` | outcome distribution is stable |
+| [SUB_SHORTCUT_SAVERULECASES_0700](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第151行） | `testSaveRuleCases0007`<br>`com.samples.shortcut_SaveRuleCases_0007` | save lines match table |
+| [SUB_SHORTCUT_SAVERULECASES_0800](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第167行） | `testSaveRuleCases0008`<br>`com.samples.shortcut_SaveRuleCases_0008` | save input defaults to no facts |
+| [SUB_SHORTCUT_SAVEDECISIONCASES_0100](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第188行） | `testSaveDecisionCases0001`<br>`com.samples.shortcut_SaveDecisionCases_0001` | decision defaults are safe |
 | [SUB_SHORTCUT_SAVEDECISIONCASES_0200](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L205>) | `testSaveDecisionCases0002`<br>`com.samples.shortcut_SaveDecisionCases_0002` | writable only for safe |
 | [SUB_SHORTCUT_SAVEDECISIONCASES_0300](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L221>) | `testSaveDecisionCases0003`<br>`com.samples.shortcut_SaveDecisionCases_0003` | decision describe joins facts |
 | [SUB_SHORTCUT_SAVEDECISIONCASES_0400](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L239>) | `testSaveDecisionCases0004`<br>`com.samples.shortcut_SaveDecisionCases_0004` | identical revisions are safe |
@@ -731,18 +731,18 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_TRASHBINCASES_0900](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L956>) | `testTrashBinCases0009`<br>`com.samples.shortcut_TrashBinCases_0009` | restore rejects already active |
 | [SUB_SHORTCUT_TRASHBINCASES_1000](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L975>) | `testTrashBinCases0010`<br>`com.samples.shortcut_TrashBinCases_0010` | purge removes only expired |
 | [SUB_SHORTCUT_TRASHBINCASES_1100](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L995>) | `testTrashBinCases0011`<br>`com.samples.shortcut_TrashBinCases_0011` | purge keeps boundary entry |
-| [SUB_SHORTCUT_TRASHBINCASES_1200](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1012>) | `testTrashBinCases0012`<br>`com.samples.shortcut_TrashBinCases_0012` | purge skips active entries |
-| [SUB_SHORTCUT_TRASHBINCASES_1300](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1031>) | `testTrashBinCases0013`<br>`com.samples.shortcut_TrashBinCases_0013` | purged entry cannot be restored |
-| [SUB_SHORTCUT_TRASHBINCASES_1400](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1049>) | `testTrashBinCases0014`<br>`com.samples.shortcut_TrashBinCases_0014` | size counts purged entries |
-| [SUB_SHORTCUT_TRASHBINCASES_1500](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1069>) | `testTrashBinCases0015`<br>`com.samples.shortcut_TrashBinCases_0015` | retrash after restore works |
-| [SUB_SHORTCUT_TRASHBINCASES_1600](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1088>) | `testTrashBinCases0016`<br>`com.samples.shortcut_TrashBinCases_0016` | empty bin reports nothing |
-| [SUB_SHORTCUT_TRASHLINESCASES_0100](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1107>) | `testTrashLinesCases0001`<br>`com.samples.shortcut_TrashLinesCases_0001` | empty bin line |
-| [SUB_SHORTCUT_TRASHLINESCASES_0200](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1124>) | `testTrashLinesCases0002`<br>`com.samples.shortcut_TrashLinesCases_0002` | headline counts items |
-| [SUB_SHORTCUT_TRASHLINESCASES_0300](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1144>) | `testTrashLinesCases0003`<br>`com.samples.shortcut_TrashLinesCases_0003` | line shows restorable state |
-| [SUB_SHORTCUT_TRASHLINESCASES_0400](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1163>) | `testTrashLinesCases0004`<br>`com.samples.shortcut_TrashLinesCases_0004` | line marks expired entry |
-| [SUB_SHORTCUT_TRASHLINESCASES_0500](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1182>) | `testTrashLinesCases0005`<br>`com.samples.shortcut_TrashLinesCases_0005` | days are floored |
-| [SUB_SHORTCUT_TRASHLINESCASES_0600](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1199>) | `testTrashLinesCases0006`<br>`com.samples.shortcut_TrashLinesCases_0006` | lines skip restored entries |
-| [SUB_SHORTCUT_TRASHLINESCASES_0700](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets#L1219>) | `testTrashLinesCases0007`<br>`com.samples.shortcut_TrashLinesCases_0007` | lines skip purged entries |
+| [SUB_SHORTCUT_TRASHBINCASES_1200](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1012行） | `testTrashBinCases0012`<br>`com.samples.shortcut_TrashBinCases_0012` | purge skips active entries |
+| [SUB_SHORTCUT_TRASHBINCASES_1300](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1031行） | `testTrashBinCases0013`<br>`com.samples.shortcut_TrashBinCases_0013` | purged entry cannot be restored |
+| [SUB_SHORTCUT_TRASHBINCASES_1400](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1049行） | `testTrashBinCases0014`<br>`com.samples.shortcut_TrashBinCases_0014` | size counts purged entries |
+| [SUB_SHORTCUT_TRASHBINCASES_1500](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1069行） | `testTrashBinCases0015`<br>`com.samples.shortcut_TrashBinCases_0015` | retrash after restore works |
+| [SUB_SHORTCUT_TRASHBINCASES_1600](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1088行） | `testTrashBinCases0016`<br>`com.samples.shortcut_TrashBinCases_0016` | empty bin reports nothing |
+| [SUB_SHORTCUT_TRASHLINESCASES_0100](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1107行） | `testTrashLinesCases0001`<br>`com.samples.shortcut_TrashLinesCases_0001` | empty bin line |
+| [SUB_SHORTCUT_TRASHLINESCASES_0200](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1124行） | `testTrashLinesCases0002`<br>`com.samples.shortcut_TrashLinesCases_0002` | headline counts items |
+| [SUB_SHORTCUT_TRASHLINESCASES_0300](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1144行） | `testTrashLinesCases0003`<br>`com.samples.shortcut_TrashLinesCases_0003` | line shows restorable state |
+| [SUB_SHORTCUT_TRASHLINESCASES_0400](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1163行） | `testTrashLinesCases0004`<br>`com.samples.shortcut_TrashLinesCases_0004` | line marks expired entry |
+| [SUB_SHORTCUT_TRASHLINESCASES_0500](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1182行） | `testTrashLinesCases0005`<br>`com.samples.shortcut_TrashLinesCases_0005` | days are floored |
+| [SUB_SHORTCUT_TRASHLINESCASES_0600](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1199行） | `testTrashLinesCases0006`<br>`com.samples.shortcut_TrashLinesCases_0006` | lines skip restored entries |
+| [SUB_SHORTCUT_TRASHLINESCASES_0700](<entry/src/ohosTest/ets/test/NoteSaveTrashCases.test.ets>)（源码第1219行） | `testTrashLinesCases0007`<br>`com.samples.shortcut_TrashLinesCases_0007` | lines skip purged entries |
 
 ### [RecycleBatchPreview.test.ets](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets>) — 17条
 
@@ -753,11 +753,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0100](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L31>) | `testShortcutRecycleBatchPreview0001`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0001` | 预览给出真实目标历史与容量且不改盘面或活动列表 |
 | [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0200](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L57>) | `testShortcutRecycleBatchPreview0002`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0002` | 空选择及超过五十项选择整体无效不隐式截取目标 |
 | [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0300](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L82>) | `testShortcutRecycleBatchPreview0003`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0003` | 重复标识不会被静默去重后执行部分选择 |
-| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0400](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L104>) | `testShortcutRecycleBatchPreview0004`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0004` | 有效项与缺失项混选时审查显示缺口且全体拒绝 |
-| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0500](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L125>) | `testShortcutRecycleBatchPreview0005`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0005` | 已过期项阻止整批恢复但不阻止明确永久删除的预览 |
-| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0600](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L151>) | `testShortcutRecycleBatchPreview0006`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0006` | 每项单独可恢复但总名额不足时整批不部分恢复 |
-| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0700](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L173>) | `testShortcutRecycleBatchPreview0007`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0007` | 活动容量已满不影响批量永久删除回收项预览 |
-| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0800](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L195>) | `testShortcutRecycleBatchPreview0008`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0008` | 修改调用者选择数组或返回预览不能改变私有确认目标 |
+| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0400](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets>)（源码第104行） | `testShortcutRecycleBatchPreview0004`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0004` | 有效项与缺失项混选时审查显示缺口且全体拒绝 |
+| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0500](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets>)（源码第125行） | `testShortcutRecycleBatchPreview0005`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0005` | 已过期项阻止整批恢复但不阻止明确永久删除的预览 |
+| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0600](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets>)（源码第151行） | `testShortcutRecycleBatchPreview0006`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0006` | 每项单独可恢复但总名额不足时整批不部分恢复 |
+| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0700](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets>)（源码第173行） | `testShortcutRecycleBatchPreview0007`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0007` | 活动容量已满不影响批量永久删除回收项预览 |
+| [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0800](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets>)（源码第195行） | `testShortcutRecycleBatchPreview0008`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0008` | 修改调用者选择数组或返回预览不能改变私有确认目标 |
 | [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_0900](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L224>) | `testShortcutRecycleBatchPreview0009`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0009` | 未加载和写入在途时预览不会授予可执行令牌 |
 | [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_1000](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L250>) | `testShortcutRecycleBatchPreview0010`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0010` | 取消只销毁会话令牌不执行任何回收变更 |
 | [SUB_SHORTCUT_RECYCLEBATCHPREVIEW_1100](<entry/src/ohosTest/ets/test/RecycleBatchPreview.test.ets#L271>) | `testShortcutRecycleBatchPreview0011`<br>`com.samples.shortcut_ShortcutRecycleBatchPreview_0011` | 新预览替换旧令牌且旧确认不能取消或执行新选择 |
@@ -777,11 +777,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_RECYCLELIFECYCLE_0100](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L30>) | `testShortcutRecycleLifecycle0001`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0001` | 兼容删除入口真实软删除正文历史并在重开后恢复 |
 | [SUB_SHORTCUT_RECYCLELIFECYCLE_0200](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L59>) | `testShortcutRecycleLifecycle0002`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0002` | 当前目标有未处理编辑时默认删除拒绝且不触碰存储 |
 | [SUB_SHORTCUT_RECYCLELIFECYCLE_0300](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L80>) | `testShortcutRecycleLifecycle0003`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0003` | 保留修改并移入在一个存档里保留新正文和修改前版本 |
-| [SUB_SHORTCUT_RECYCLELIFECYCLE_0400](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L105>) | `testShortcutRecycleLifecycle0004`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0004` | 放弃目标编辑只回收正式正文而不删除独立新草稿 |
-| [SUB_SHORTCUT_RECYCLELIFECYCLE_0500](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L127>) | `testShortcutRecycleLifecycle0005`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0005` | 已保留且dirty为假的编辑仍需要明确处理选择 |
-| [SUB_SHORTCUT_RECYCLELIFECYCLE_0600](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L151>) | `testShortcutRecycleLifecycle0006`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0006` | 取消目标删除保留当前编辑和已保存历史不产生写入 |
-| [SUB_SHORTCUT_RECYCLELIFECYCLE_0700](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L172>) | `testShortcutRecycleLifecycle0007`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0007` | 删除非编辑目标便签不改变当前编辑的内存缓冲或持久草稿 |
-| [SUB_SHORTCUT_RECYCLELIFECYCLE_0800](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L196>) | `testShortcutRecycleLifecycle0008`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0008` | 保留空白编辑不能先移除正式便签或清除独立草稿 |
+| [SUB_SHORTCUT_RECYCLELIFECYCLE_0400](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets>)（源码第105行） | `testShortcutRecycleLifecycle0004`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0004` | 放弃目标编辑只回收正式正文而不删除独立新草稿 |
+| [SUB_SHORTCUT_RECYCLELIFECYCLE_0500](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets>)（源码第127行） | `testShortcutRecycleLifecycle0005`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0005` | 已保留且dirty为假的编辑仍需要明确处理选择 |
+| [SUB_SHORTCUT_RECYCLELIFECYCLE_0600](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets>)（源码第151行） | `testShortcutRecycleLifecycle0006`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0006` | 取消目标删除保留当前编辑和已保存历史不产生写入 |
+| [SUB_SHORTCUT_RECYCLELIFECYCLE_0700](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets>)（源码第172行） | `testShortcutRecycleLifecycle0007`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0007` | 删除非编辑目标便签不改变当前编辑的内存缓冲或持久草稿 |
+| [SUB_SHORTCUT_RECYCLELIFECYCLE_0800](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets>)（源码第196行） | `testShortcutRecycleLifecycle0008`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0008` | 保留空白编辑不能先移除正式便签或清除独立草稿 |
 | [SUB_SHORTCUT_RECYCLELIFECYCLE_0900](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L217>) | `testShortcutRecycleLifecycle0009`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0009` | 回收站已满时不自动淘汰未过期旧项且保留活动目标 |
 | [SUB_SHORTCUT_RECYCLELIFECYCLE_1000](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L240>) | `testShortcutRecycleLifecycle0010`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0010` | 活动便签满额时恢复失败保留回收项并可释放名额再恢复 |
 | [SUB_SHORTCUT_RECYCLELIFECYCLE_1100](<entry/src/ohosTest/ets/test/RecycleLifecycle.test.ets#L263>) | `testShortcutRecycleLifecycle0011`<br>`com.samples.shortcut_ShortcutRecycleLifecycle_0011` | 恢复再删除生成新标识使旧永久删除确认不能命中新回收项 |
@@ -808,9 +808,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0100](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L32>) | `testRecycleNativeQa0001`<br>`com.samples.shortcut_RecycleNativeQa_0001` | 回收移动真实flush后重新打开同时保留另一便签与原便签修订 |
 | [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0200](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L58>) | `testRecycleNativeQa0002`<br>`com.samples.shortcut_RecycleNativeQa_0002` | 回收后重开恢复正文及编辑历史并将恢复结果再次持久化 |
 | [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0300](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L90>) | `testRecycleNativeQa0003`<br>`com.samples.shortcut_RecycleNativeQa_0003` | 永久删除仅清除指定回收项不删除另一回收项与收藏待办 |
-| [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0400](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L119>) | `testRecycleNativeQa0004`<br>`com.samples.shortcut_RecycleNativeQa_0004` | 显式过期清理只删除超过期限的项且清理提交在重开后可见 |
-| [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0500](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L150>) | `testRecycleNativeQa0005`<br>`com.samples.shortcut_RecycleNativeQa_0005` | 期限恰好相等仍可恢复并且时钟回退不会把新回收项判过期 |
-| [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0600](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L179>) | `testRecycleNativeQa0006`<br>`com.samples.shortcut_RecycleNativeQa_0006` | 编辑便签选择保留修改再回收会落盘编辑内容并清除恢复编辑指针 |
+| [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0400](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets>)（源码第119行） | `testRecycleNativeQa0004`<br>`com.samples.shortcut_RecycleNativeQa_0004` | 显式过期清理只删除超过期限的项且清理提交在重开后可见 |
+| [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0500](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets>)（源码第150行） | `testRecycleNativeQa0005`<br>`com.samples.shortcut_RecycleNativeQa_0005` | 期限恰好相等仍可恢复并且时钟回退不会把新回收项判过期 |
+| [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0600](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets>)（源码第179行） | `testRecycleNativeQa0006`<br>`com.samples.shortcut_RecycleNativeQa_0006` | 编辑便签选择保留修改再回收会落盘编辑内容并清除恢复编辑指针 |
 | [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0700](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L206>) | `testRecycleNativeQa0007`<br>`com.samples.shortcut_RecycleNativeQa_0007` | 放弃编辑回收保留旧正文且重开不会复活已保留的编辑草稿 |
 | [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0800](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L235>) | `testRecycleNativeQa0008`<br>`com.samples.shortcut_RecycleNativeQa_0008` | 取消回收不改变真实存档且未保存的编辑仍可继续保存 |
 | [SUB_SHORTCUT_RECYCLE_NATIVE_QA_0900](<entry/src/ohosTest/ets/test/RecycleNativeQa.test.ets#L261>) | `testRecycleNativeQa0009`<br>`com.samples.shortcut_RecycleNativeQa_0009` | 合法旧版本读取不重写；无回收记录时执行回收原子写入完整新版本 |
@@ -838,11 +838,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_RECYCLERECOVERY_0100](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L32>) | `testShortcutRecycleRecovery0001`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0001` | 已知写前失败不会移走目标正文或编辑缓冲 |
 | [SUB_SHORTCUT_RECYCLERECOVERY_0200](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L55>) | `testShortcutRecycleRecovery0002`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0002` | 写入未完成时不先清编辑成功后才整体移入 |
 | [SUB_SHORTCUT_RECYCLERECOVERY_0300](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L81>) | `testShortcutRecycleRecovery0003`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0003` | 恢复写前失败不从回收站移除且不创建活动副本 |
-| [SUB_SHORTCUT_RECYCLERECOVERY_0400](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L102>) | `testShortcutRecycleRecovery0004`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0004` | 永久删除写前失败保留原回收项及剩余历史 |
-| [SUB_SHORTCUT_RECYCLERECOVERY_0500](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L123>) | `testShortcutRecycleRecovery0005`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0005` | 过期清理写前失败不能报告已清数量且可显式重试 |
-| [SUB_SHORTCUT_RECYCLERECOVERY_0600](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L149>) | `testShortcutRecycleRecovery0006`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0006` | 写入已产生效果但响应失败时隔离内存并禁止盲目重放 |
-| [SUB_SHORTCUT_RECYCLERECOVERY_0700](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L171>) | `testShortcutRecycleRecovery0007`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0007` | 重新读取精确候选后才应用已确认的编辑移入 |
-| [SUB_SHORTCUT_RECYCLERECOVERY_0800](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L197>) | `testShortcutRecycleRecovery0008`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0008` | 核对确认写入未生效时保留原编辑并允许用户重新操作 |
+| [SUB_SHORTCUT_RECYCLERECOVERY_0400](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets>)（源码第102行） | `testShortcutRecycleRecovery0004`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0004` | 永久删除写前失败保留原回收项及剩余历史 |
+| [SUB_SHORTCUT_RECYCLERECOVERY_0500](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets>)（源码第123行） | `testShortcutRecycleRecovery0005`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0005` | 过期清理写前失败不能报告已清数量且可显式重试 |
+| [SUB_SHORTCUT_RECYCLERECOVERY_0600](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets>)（源码第149行） | `testShortcutRecycleRecovery0006`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0006` | 写入已产生效果但响应失败时隔离内存并禁止盲目重放 |
+| [SUB_SHORTCUT_RECYCLERECOVERY_0700](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets>)（源码第171行） | `testShortcutRecycleRecovery0007`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0007` | 重新读取精确候选后才应用已确认的编辑移入 |
+| [SUB_SHORTCUT_RECYCLERECOVERY_0800](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets>)（源码第197行） | `testShortcutRecycleRecovery0008`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0008` | 核对确认写入未生效时保留原编辑并允许用户重新操作 |
 | [SUB_SHORTCUT_RECYCLERECOVERY_0900](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L223>) | `testShortcutRecycleRecovery0009`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0009` | 核对得到损坏原文仍保持隔离且不覆盖当前编辑 |
 | [SUB_SHORTCUT_RECYCLERECOVERY_1000](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L245>) | `testShortcutRecycleRecovery0010`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0010` | 核对第三方有效文档不能擅自认作当前提交候选或覆盖磁盘 |
 | [SUB_SHORTCUT_RECYCLERECOVERY_1100](<entry/src/ohosTest/ets/test/RecycleRecovery.test.ets#L269>) | `testShortcutRecycleRecovery0011`<br>`com.samples.shortcut_ShortcutRecycleRecovery_0011` | 核对读取失败后可再读精确候选而不再次执行写操作 |
@@ -862,9 +862,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_RECYCLESCHEMA_0200](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L55>) | `testShortcutRecycleSchema0002`<br>`com.samples.shortcut_ShortcutRecycleSchema_0002` | 旧版含未知非空回收区时拒绝迁移而不静默丢弃 |
 | [SUB_SHORTCUT_RECYCLESCHEMA_0300](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L76>) | `testShortcutRecycleSchema0003`<br>`com.samples.shortcut_ShortcutRecycleSchema_0003` | 旧版缺省可选字段和空回收区仍以无回收项加载 |
 | [SUB_SHORTCUT_RECYCLESCHEMA_0400](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L97>) | `testShortcutRecycleSchema0004`<br>`com.samples.shortcut_ShortcutRecycleSchema_0004` | 第二版同时恢复活动编辑基线和独立回收历史 |
-| [SUB_SHORTCUT_RECYCLESCHEMA_0500](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L121>) | `testShortcutRecycleSchema0005`<br>`com.samples.shortcut_ShortcutRecycleSchema_0005` | 第二版缺少回收区或序号非法时不得当成合法旧版读取 |
-| [SUB_SHORTCUT_RECYCLESCHEMA_0600](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L146>) | `testShortcutRecycleSchema0006`<br>`com.samples.shortcut_ShortcutRecycleSchema_0006` | 活动回收联合便签标识及回收操作标识必须唯一 |
-| [SUB_SHORTCUT_RECYCLESCHEMA_0700](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L175>) | `testShortcutRecycleSchema0007`<br>`com.samples.shortcut_ShortcutRecycleSchema_0007` | 回收历史不能指向非所属便签或复用活动修订编号 |
+| [SUB_SHORTCUT_RECYCLESCHEMA_0500](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets>)（源码第121行） | `testShortcutRecycleSchema0005`<br>`com.samples.shortcut_ShortcutRecycleSchema_0005` | 第二版缺少回收区或序号非法时不得当成合法旧版读取 |
+| [SUB_SHORTCUT_RECYCLESCHEMA_0600](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets>)（源码第146行） | `testShortcutRecycleSchema0006`<br>`com.samples.shortcut_ShortcutRecycleSchema_0006` | 活动回收联合便签标识及回收操作标识必须唯一 |
+| [SUB_SHORTCUT_RECYCLESCHEMA_0700](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets>)（源码第175行） | `testShortcutRecycleSchema0007`<br>`com.samples.shortcut_ShortcutRecycleSchema_0007` | 回收历史不能指向非所属便签或复用活动修订编号 |
 | [SUB_SHORTCUT_RECYCLESCHEMA_0800](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L202>) | `testShortcutRecycleSchema0008`<br>`com.samples.shortcut_ShortcutRecycleSchema_0008` | 合法五十回收项可读第五十一项则整体拒绝不截断 |
 | [SUB_SHORTCUT_RECYCLESCHEMA_0900](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L226>) | `testShortcutRecycleSchema0009`<br>`com.samples.shortcut_ShortcutRecycleSchema_0009` | 回收与活动历史合计超过一百条不能以分区各自未满绕过 |
 | [SUB_SHORTCUT_RECYCLESCHEMA_1000](<entry/src/ohosTest/ets/test/RecycleSchema.test.ets#L250>) | `testShortcutRecycleSchema0010`<br>`com.samples.shortcut_ShortcutRecycleSchema_0010` | 回收标识不能越过持久序号或使用歧义前导零 |
@@ -881,10 +881,10 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_RECYCLEUIQA_0200](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L47>) | `testRecycleUiQa0002`<br>`com.samples.shortcut_RecycleUiQa_0002` | The real restore button returns both the original note and its retained production revision history. |
 | [SUB_SHORTCUT_RECYCLEUIQA_0300](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L68>) | `testRecycleUiQa0003`<br>`com.samples.shortcut_RecycleUiQa_0003` | Cancelling the real permanent-delete alert leaves its target and history recoverable |
 | [SUB_SHORTCUT_RECYCLEUIQA_0400](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L89>) | `testRecycleUiQa0004`<br>`com.samples.shortcut_RecycleUiQa_0004` | Confirmed permanent deletion removes the actual recycled payload and history |
-| [SUB_SHORTCUT_RECYCLEUIQA_0500](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L112>) | `testRecycleUiQa0005`<br>`com.samples.shortcut_RecycleUiQa_0005` | Mixed-expiry scope disables only the expired restore and actual cleanup retains the unexpired item. |
-| [SUB_SHORTCUT_RECYCLEUIQA_0600](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L135>) | `testRecycleUiQa0006`<br>`com.samples.shortcut_RecycleUiQa_0006` | A suspended restore displays pending feedback and gates conflicting writes |
-| [SUB_SHORTCUT_RECYCLEUIQA_0700](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L159>) | `testRecycleUiQa0007`<br>`com.samples.shortcut_RecycleUiQa_0007` | A known-before-effect write failure retains the real recycle card |
-| [SUB_SHORTCUT_RECYCLEUIQA_0800](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L183>) | `testRecycleUiQa0008`<br>`com.samples.shortcut_RecycleUiQa_0008` | An uncertain applied restore requires the actual reread entry and never blindly repeats the write. |
+| [SUB_SHORTCUT_RECYCLEUIQA_0500](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets>)（源码第112行） | `testRecycleUiQa0005`<br>`com.samples.shortcut_RecycleUiQa_0005` | Mixed-expiry scope disables only the expired restore and actual cleanup retains the unexpired item. |
+| [SUB_SHORTCUT_RECYCLEUIQA_0600](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets>)（源码第135行） | `testRecycleUiQa0006`<br>`com.samples.shortcut_RecycleUiQa_0006` | A suspended restore displays pending feedback and gates conflicting writes |
+| [SUB_SHORTCUT_RECYCLEUIQA_0700](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets>)（源码第159行） | `testRecycleUiQa0007`<br>`com.samples.shortcut_RecycleUiQa_0007` | A known-before-effect write failure retains the real recycle card |
+| [SUB_SHORTCUT_RECYCLEUIQA_0800](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets>)（源码第183行） | `testRecycleUiQa0008`<br>`com.samples.shortcut_RecycleUiQa_0008` | An uncertain applied restore requires the actual reread entry and never blindly repeats the write. |
 | [SUB_SHORTCUT_RECYCLEUIQA_0900](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L208>) | `testRecycleUiQa0009`<br>`com.samples.shortcut_RecycleUiQa_0009` | A permanent-delete dialog whose item was independently restored is stale |
 | [SUB_SHORTCUT_RECYCLEUIQA_1000](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L231>) | `testRecycleUiQa0010`<br>`com.samples.shortcut_RecycleUiQa_0010` | A failed initial read renders its retry view and recovers through that real entry |
 | [SUB_SHORTCUT_RECYCLEUIQA_1100](<entry/src/ohosTest/ets/test/RecycleUiQa.test.ets#L255>) | `testRecycleUiQa0011`<br>`com.samples.shortcut_RecycleUiQa_0011` | The production close action invokes its supplied callback and unmounts the panel |
@@ -904,11 +904,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0100](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L51>) | `testEntryRouteMatrixCases0001`<br>`com.samples.shortcut_EntryRouteMatrixCases_0001` | route table is well formed |
 | [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0200](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L71>) | `testEntryRouteMatrixCases0002`<br>`com.samples.shortcut_EntryRouteMatrixCases_0002` | every route is reachable |
 | [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0300](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L94>) | `testEntryRouteMatrixCases0003`<br>`com.samples.shortcut_EntryRouteMatrixCases_0003` | page lookup is defined for known routes |
-| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0400](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L113>) | `testEntryRouteMatrixCases0004`<br>`com.samples.shortcut_EntryRouteMatrixCases_0004` | unknown route is not in table |
-| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0500](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L129>) | `testEntryRouteMatrixCases0005`<br>`com.samples.shortcut_EntryRouteMatrixCases_0005` | param names are unique within route |
-| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0600](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L148>) | `testEntryRouteMatrixCases0006`<br>`com.samples.shortcut_EntryRouteMatrixCases_0006` | required params have fallback or are enforced |
-| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0700](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L168>) | `testEntryRouteMatrixCases0007`<br>`com.samples.shortcut_EntryRouteMatrixCases_0007` | complete request resolves |
-| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0800](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L190>) | `testEntryRouteMatrixCases0008`<br>`com.samples.shortcut_EntryRouteMatrixCases_0008` | unknown route request is rejected |
+| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0400](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets>)（源码第113行） | `testEntryRouteMatrixCases0004`<br>`com.samples.shortcut_EntryRouteMatrixCases_0004` | unknown route is not in table |
+| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0500](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets>)（源码第129行） | `testEntryRouteMatrixCases0005`<br>`com.samples.shortcut_EntryRouteMatrixCases_0005` | param names are unique within route |
+| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0600](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets>)（源码第148行） | `testEntryRouteMatrixCases0006`<br>`com.samples.shortcut_EntryRouteMatrixCases_0006` | required params have fallback or are enforced |
+| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0700](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets>)（源码第168行） | `testEntryRouteMatrixCases0007`<br>`com.samples.shortcut_EntryRouteMatrixCases_0007` | complete request resolves |
+| [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0800](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets>)（源码第190行） | `testEntryRouteMatrixCases0008`<br>`com.samples.shortcut_EntryRouteMatrixCases_0008` | unknown route request is rejected |
 | [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_0900](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L211>) | `testEntryRouteMatrixCases0009`<br>`com.samples.shortcut_EntryRouteMatrixCases_0009` | missing required param is rejected |
 | [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_1000](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L234>) | `testEntryRouteMatrixCases0010`<br>`com.samples.shortcut_EntryRouteMatrixCases_0010` | login requirement is enforced |
 | [SUB_SHORTCUT_ENTRYROUTEMATRIXCASES_1100](<entry/src/ohosTest/ets/test/RouteTodoMatrixCases.test.ets#L255>) | `testEntryRouteMatrixCases0011`<br>`com.samples.shortcut_EntryRouteMatrixCases_0011` | open routes need no login |
@@ -938,11 +938,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_SEARCHINDEXDEEP_0300](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L68>) | `testSearchIndexDeep0003`<br>`com.samples.shortcut_SearchIndexDeep_0003` | uniqueTokens keeps first-appearance order and removes duplicates |
 | [SUB_SHORTCUT_SEARCHINDEXDEEP_0400](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L84>) | `testSearchIndexDeep0004`<br>`com.samples.shortcut_SearchIndexDeep_0004` | 大小写不敏感的出现次数计算；连续重复字符按非重叠匹配计数，保留重叠边界覆盖 |
 | [SUB_SHORTCUT_SEARCHINDEXDEEP_0500](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L99>) | `testSearchIndexDeep0005`<br>`com.samples.shortcut_SearchIndexDeep_0005` | scoring weights title above tag above body |
-| [SUB_SHORTCUT_SEARCHINDEXDEEP_0600](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L118>) | `testSearchIndexDeep0006`<br>`com.samples.shortcut_SearchIndexDeep_0006` | empty token list and non-matching documents score zero |
-| [SUB_SHORTCUT_SEARCHINDEXDEEP_0700](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L132>) | `testSearchIndexDeep0007`<br>`com.samples.shortcut_SearchIndexDeep_0007` | recency bonus applies within one day and within one week only |
-| [SUB_SHORTCUT_SEARCHINDEXDEEP_0800](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L150>) | `testSearchIndexDeep0008`<br>`com.samples.shortcut_SearchIndexDeep_0008` | recency bonus is skipped when timestamps are unknown |
-| [SUB_SHORTCUT_SEARCHINDEXDEEP_0900](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L166>) | `testSearchIndexDeep0009`<br>`com.samples.shortcut_SearchIndexDeep_0009` | snippet returns empty for empty body and truncates without a hit |
-| [SUB_SHORTCUT_SEARCHINDEXDEEP_1000](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L183>) | `testSearchIndexDeep0010`<br>`com.samples.shortcut_SearchIndexDeep_0010` | snippet centres on the first hit and marks both truncation sides |
+| [SUB_SHORTCUT_SEARCHINDEXDEEP_0600](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets>)（源码第118行） | `testSearchIndexDeep0006`<br>`com.samples.shortcut_SearchIndexDeep_0006` | empty token list and non-matching documents score zero |
+| [SUB_SHORTCUT_SEARCHINDEXDEEP_0700](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets>)（源码第132行） | `testSearchIndexDeep0007`<br>`com.samples.shortcut_SearchIndexDeep_0007` | recency bonus applies within one day and within one week only |
+| [SUB_SHORTCUT_SEARCHINDEXDEEP_0800](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets>)（源码第150行） | `testSearchIndexDeep0008`<br>`com.samples.shortcut_SearchIndexDeep_0008` | recency bonus is skipped when timestamps are unknown |
+| [SUB_SHORTCUT_SEARCHINDEXDEEP_0900](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets>)（源码第166行） | `testSearchIndexDeep0009`<br>`com.samples.shortcut_SearchIndexDeep_0009` | snippet returns empty for empty body and truncates without a hit |
+| [SUB_SHORTCUT_SEARCHINDEXDEEP_1000](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets>)（源码第183行） | `testSearchIndexDeep0010`<br>`com.samples.shortcut_SearchIndexDeep_0010` | snippet centres on the first hit and marks both truncation sides |
 | [SUB_SHORTCUT_SEARCHINDEXDEEP_1100](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L202>) | `testSearchIndexDeep0011`<br>`com.samples.shortcut_SearchIndexDeep_0011` | snippet width is never below the documented floor |
 | [SUB_SHORTCUT_SEARCHINDEXDEEP_1200](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L217>) | `testSearchIndexDeep0012`<br>`com.samples.shortcut_SearchIndexDeep_0012` | an empty query returns no hits instead of all documents |
 | [SUB_SHORTCUT_SEARCHINDEXDEEP_1300](<entry/src/ohosTest/ets/test/SearchIndexDeep.test.ets#L232>) | `testSearchIndexDeep0013`<br>`com.samples.shortcut_SearchIndexDeep_0013` | search drops non-matching documents and orders by score then id |
@@ -964,10 +964,10 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_BATCHWAVEONE_0200](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L50>) | `testShortcutBatchWaveOne0002`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0002` | 预览重新查询发现选择入口消失时不保存半份计划 |
 | [SUB_SHORTCUT_BATCHWAVEONE_0300](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L70>) | `testShortcutBatchWaveOne0003`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0003` | 批次编号到安全整数上限时不产生重复编号 |
 | [SUB_SHORTCUT_BATCHWAVEONE_0400](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L94>) | `testShortcutBatchWaveOne0004`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0004` | 无已有预览时存档失败关闭执行能力且不触发系统修改 |
-| [SUB_SHORTCUT_BATCHWAVEONE_0500](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L116>) | `testShortcutBatchWaveOne0005`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0005` | 取消预览撤销会话令牌但保留未执行历史 |
-| [SUB_SHORTCUT_BATCHWAVEONE_0600](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L139>) | `testShortcutBatchWaveOne0006`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0006` | 新预览替换旧令牌且只执行新选择的目标 |
-| [SUB_SHORTCUT_BATCHWAVEONE_0700](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L164>) | `testShortcutBatchWaveOne0007`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0007` | 预览新查询失败不改写已有批次历史 |
-| [SUB_SHORTCUT_BATCHWAVEONE_0800](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L186>) | `testShortcutBatchWaveOne0008`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0008` | 批次读取失败可显式重读恢复而不自动重放系统设置 |
+| [SUB_SHORTCUT_BATCHWAVEONE_0500](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets>)（源码第116行） | `testShortcutBatchWaveOne0005`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0005` | 取消预览撤销会话令牌但保留未执行历史 |
+| [SUB_SHORTCUT_BATCHWAVEONE_0600](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets>)（源码第139行） | `testShortcutBatchWaveOne0006`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0006` | 新预览替换旧令牌且只执行新选择的目标 |
+| [SUB_SHORTCUT_BATCHWAVEONE_0700](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets>)（源码第164行） | `testShortcutBatchWaveOne0007`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0007` | 预览新查询失败不改写已有批次历史 |
+| [SUB_SHORTCUT_BATCHWAVEONE_0800](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets>)（源码第186行） | `testShortcutBatchWaveOne0008`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0008` | 批次读取失败可显式重读恢复而不自动重放系统设置 |
 | [SUB_SHORTCUT_BATCHWAVEONE_0900](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L212>) | `testShortcutBatchWaveOne0009`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0009` | 旧会话批次读取迟到不覆盖重新初始化后的存档 |
 | [SUB_SHORTCUT_BATCHWAVEONE_1000](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L242>) | `testShortcutBatchWaveOne0010`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0010` | 确认前核对失败消费令牌但不增加尝试次数 |
 | [SUB_SHORTCUT_BATCHWAVEONE_1100](<entry/src/ohosTest/ets/test/ShortcutBatchWaveOne.test.ets#L265>) | `testShortcutBatchWaveOne0011`<br>`com.samples.shortcut_ShortcutBatchWaveOne_0011` | 确认后入口被删除时拒绝使用旧列表执行 |
@@ -988,9 +988,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | 原编号 / 源码定位 | 原名称 / 规范运行名 | 覆盖点 |
 |---|---|---|
 | [SUB_SHORTCUT_BATCHWAVETWO_0100](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets#L47>) | `testShortcutBatchWaveTwo0001`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0001` | 批次存档写入期间同实例重新初始化不永久卡在旧设置忙状态 |
-| [SUB_SHORTCUT_BATCHWAVETWO_0200](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets#L109>) | `testShortcutBatchWaveTwo0002`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0002` | 权限能力错误封闭的计划不能通过补偿入口绕开限制 |
-| [SUB_SHORTCUT_BATCHWAVETWO_0300](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets#L137>) | `testShortcutBatchWaveTwo0003`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0003` | 补偿写超时尚在途时不能重放且完成后可通过核对确认原态 |
-| [SUB_SHORTCUT_BATCHWAVETWO_0400](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets#L172>) | `testShortcutBatchWaveTwo0004`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0004` | 批次文档结构或标识重复不能部分载入或自动覆盖 |
+| [SUB_SHORTCUT_BATCHWAVETWO_0200](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets>)（源码第109行） | `testShortcutBatchWaveTwo0002`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0002` | 权限能力错误封闭的计划不能通过补偿入口绕开限制 |
+| [SUB_SHORTCUT_BATCHWAVETWO_0300](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets>)（源码第137行） | `testShortcutBatchWaveTwo0003`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0003` | 补偿写超时尚在途时不能重放且完成后可通过核对确认原态 |
+| [SUB_SHORTCUT_BATCHWAVETWO_0400](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets>)（源码第172行） | `testShortcutBatchWaveTwo0004`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0004` | 批次文档结构或标识重复不能部分载入或自动覆盖 |
 | [SUB_SHORTCUT_BATCHWAVETWO_0500](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets#L203>) | `testShortcutBatchWaveTwo0005`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0005` | 超过一百次或零尝试却记结果的存档不会获得执行能力 |
 | [SUB_SHORTCUT_BATCHWAVETWO_0600](<entry/src/ohosTest/ets/test/ShortcutBatchWaveTwo.test.ets#L235>) | `testShortcutBatchWaveTwo0006`<br>`com.samples.shortcut_ShortcutBatchWaveTwo_0006` | 原始可见性未知却存在补偿尝试的存档拒绝读取且可修正重读 |
 
@@ -1003,10 +1003,10 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_SHORTCUTCOVERAGE_0100](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L27>) | `testShortcutCoverage0001`<br>`com.samples.shortcut_ShortcutCoverage_0001` | support recovery clears error then refresh is available |
 | [SUB_SHORTCUT_SHORTCUTCOVERAGE_0200](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L61>) | `testShortcutCoverage0002`<br>`com.samples.shortcut_ShortcutCoverage_0002` | restore stops at first readback mismatch |
 | [SUB_SHORTCUT_SHORTCUTCOVERAGE_0300](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L84>) | `testShortcutCoverage0003`<br>`com.samples.shortcut_ShortcutCoverage_0003` | restore stops on pending readback without writing next item |
-| [SUB_SHORTCUT_SHORTCUTCOVERAGE_0400](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L115>) | `testShortcutCoverage0004`<br>`com.samples.shortcut_ShortcutCoverage_0004` | listener exception isolated and snapshot observes new state |
-| [SUB_SHORTCUT_SHORTCUTCOVERAGE_0500](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L138>) | `testShortcutCoverage0005`<br>`com.samples.shortcut_ShortcutCoverage_0005` | dispose inside notification cancels remaining callbacks |
-| [SUB_SHORTCUT_SHORTCUTCOVERAGE_0600](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L162>) | `testShortcutCoverage0006`<br>`com.samples.shortcut_ShortcutCoverage_0006` | reinitialize during write discards old rejection and reloads |
-| [SUB_SHORTCUT_SHORTCUTCOVERAGE_0700](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L191>) | `testShortcutCoverage0007`<br>`com.samples.shortcut_ShortcutCoverage_0007` | dispose during write readback never leaks old items to new generation |
+| [SUB_SHORTCUT_SHORTCUTCOVERAGE_0400](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets>)（源码第115行） | `testShortcutCoverage0004`<br>`com.samples.shortcut_ShortcutCoverage_0004` | listener exception isolated and snapshot observes new state |
+| [SUB_SHORTCUT_SHORTCUTCOVERAGE_0500](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets>)（源码第138行） | `testShortcutCoverage0005`<br>`com.samples.shortcut_ShortcutCoverage_0005` | dispose inside notification cancels remaining callbacks |
+| [SUB_SHORTCUT_SHORTCUTCOVERAGE_0600](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets>)（源码第162行） | `testShortcutCoverage0006`<br>`com.samples.shortcut_ShortcutCoverage_0006` | reinitialize during write discards old rejection and reloads |
+| [SUB_SHORTCUT_SHORTCUTCOVERAGE_0700](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets>)（源码第191行） | `testShortcutCoverage0007`<br>`com.samples.shortcut_ShortcutCoverage_0007` | dispose during write readback never leaks old items to new generation |
 | [SUB_SHORTCUT_SHORTCUTCOVERAGE_0800](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L219>) | `testShortcutCoverage0008`<br>`com.samples.shortcut_ShortcutCoverage_0008` | resource name prefixes resolve real test module resources |
 | [SUB_SHORTCUT_SHORTCUTCOVERAGE_0900](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L248>) | `testShortcutCoverage0009`<br>`com.samples.shortcut_ShortcutCoverage_0009` | missing module and resource fallback keep query usable |
 | [SUB_SHORTCUT_SHORTCUTCOVERAGE_1000](<entry/src/ohosTest/ets/test/ShortcutCoverage.test.ets#L284>) | `testShortcutCoverage0010`<br>`com.samples.shortcut_ShortcutCoverage_0010` | unknown query error preserves message and can retry empty result |
@@ -1020,10 +1020,10 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 |---|---|---|
 | [SUB_SHORTCUT_NAVIGATIONWAVEONE_0100](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L65>) | `testShortcutNavigationWaveOne0001`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0001` | 页面尚未激活时只交付最后一个不同的桌面请求 |
 | [SUB_SHORTCUT_NAVIGATIONWAVEONE_0200](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L88>) | `testShortcutNavigationWaveOne0002`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0002` | 非法启动参数单独记录失败但不挤掉已排队的合法入口 |
-| [SUB_SHORTCUT_NAVIGATIONWAVEONE_0300](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L110>) | `testShortcutNavigationWaveOne0003`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0003` | 只有当前页的失活通知暂停交付并在再次激活后排空 |
-| [SUB_SHORTCUT_NAVIGATIONWAVEONE_0400](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L138>) | `testShortcutNavigationWaveOne0004`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0004` | 已在便签页时重复桌面入口保留未保存正文并执行重访回调 |
-| [SUB_SHORTCUT_NAVIGATIONWAVEONE_0500](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L163>) | `testShortcutNavigationWaveOne0005`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0005` | 详情页再次打开不同入口时替换路由并保留各自标识 |
-| [SUB_SHORTCUT_NAVIGATIONWAVEONE_0600](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L186>) | `testShortcutNavigationWaveOne0006`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0006` | 单页栈返回替换首页并等待首页生命周期后交付新入口 |
+| [SUB_SHORTCUT_NAVIGATIONWAVEONE_0300](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets>)（源码第110行） | `testShortcutNavigationWaveOne0003`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0003` | 只有当前页的失活通知暂停交付并在再次激活后排空 |
+| [SUB_SHORTCUT_NAVIGATIONWAVEONE_0400](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets>)（源码第138行） | `testShortcutNavigationWaveOne0004`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0004` | 已在便签页时重复桌面入口保留未保存正文并执行重访回调 |
+| [SUB_SHORTCUT_NAVIGATIONWAVEONE_0500](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets>)（源码第163行） | `testShortcutNavigationWaveOne0005`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0005` | 详情页再次打开不同入口时替换路由并保留各自标识 |
+| [SUB_SHORTCUT_NAVIGATIONWAVEONE_0600](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets>)（源码第186行） | `testShortcutNavigationWaveOne0006`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0006` | 单页栈返回替换首页并等待首页生命周期后交付新入口 |
 | [SUB_SHORTCUT_NAVIGATIONWAVEONE_0700](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L211>) | `testShortcutNavigationWaveOne0007`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0007` | 多页栈返回中的请求不能继续按旧页面身份导航 |
 | [SUB_SHORTCUT_NAVIGATIONWAVEONE_0800](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L238>) | `testShortcutNavigationWaveOne0008`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0008` | 返回时选择继续编辑会清除期间排队的新快捷方式 |
 | [SUB_SHORTCUT_NAVIGATIONWAVEONE_0900](<entry/src/ohosTest/ets/test/ShortcutNavigationWaveOne.test.ets#L266>) | `testShortcutNavigationWaveOne0009`<br>`com.samples.shortcut_ShortcutNavigationWaveOne_0009` | 返回路由失败报告安全提示且解除导航忙状态以便重试 |
@@ -1048,10 +1048,10 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_PERSISTENCEWAVEONE_0100](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets#L35>) | `testShortcutPersistenceWaveOne0001`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0001` | 编辑检查点恢复目标便签时同步恢复该目标的基线修订 |
 | [SUB_SHORTCUT_PERSISTENCEWAVEONE_0200](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets#L66>) | `testShortcutPersistenceWaveOne0002`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0002` | 编辑存档指向不存在便签时保留原文并允许修正后重读 |
 | [SUB_SHORTCUT_PERSISTENCEWAVEONE_0300](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets#L92>) | `testShortcutPersistenceWaveOne0003`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0003` | 编辑正文类型错误不部分导入便签且修复后恢复编辑缓冲 |
-| [SUB_SHORTCUT_PERSISTENCEWAVEONE_0400](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets#L117>) | `testShortcutPersistenceWaveOne0004`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0004` | 修订编号重复的历史存档被整体拒绝而不是覆盖较早版本 |
-| [SUB_SHORTCUT_PERSISTENCEWAVEONE_0500](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets#L142>) | `testShortcutPersistenceWaveOne0005`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0005` | 未知历史动作不被当成有效编辑记录加载 |
-| [SUB_SHORTCUT_PERSISTENCEWAVEONE_0600](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets#L167>) | `testShortcutPersistenceWaveOne0006`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0006` | 重复或不存在的收藏标识拒绝加载且不覆盖原存档 |
-| [SUB_SHORTCUT_PERSISTENCEWAVEONE_0700](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets#L195>) | `testShortcutPersistenceWaveOne0007`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0007` | 修改返回的历史快照不能污染后续恢复及重新打开后的历史 |
+| [SUB_SHORTCUT_PERSISTENCEWAVEONE_0400](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets>)（源码第117行） | `testShortcutPersistenceWaveOne0004`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0004` | 修订编号重复的历史存档被整体拒绝而不是覆盖较早版本 |
+| [SUB_SHORTCUT_PERSISTENCEWAVEONE_0500](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets>)（源码第142行） | `testShortcutPersistenceWaveOne0005`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0005` | 未知历史动作不被当成有效编辑记录加载 |
+| [SUB_SHORTCUT_PERSISTENCEWAVEONE_0600](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets>)（源码第167行） | `testShortcutPersistenceWaveOne0006`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0006` | 重复或不存在的收藏标识拒绝加载且不覆盖原存档 |
+| [SUB_SHORTCUT_PERSISTENCEWAVEONE_0700](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets>)（源码第195行） | `testShortcutPersistenceWaveOne0007`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0007` | 修改返回的历史快照不能污染后续恢复及重新打开后的历史 |
 | [SUB_SHORTCUT_PERSISTENCEWAVEONE_0800](<entry/src/ohosTest/ets/test/ShortcutPersistenceWaveOne.test.ets#L224>) | `testShortcutPersistenceWaveOne0008`<br>`com.samples.shortcut_ShortcutPersistenceWaveOne_0008` | 不能将另一便签的有效修订编号用于当前便签恢复 |
 
 ### [ShortcutRecoveryWaveTwo.test.ets](<entry/src/ohosTest/ets/test/ShortcutRecoveryWaveTwo.test.ets>) — 5条
@@ -1063,8 +1063,8 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_RECOVERYWAVETWO_0100](<entry/src/ohosTest/ets/test/ShortcutRecoveryWaveTwo.test.ets#L27>) | `testShortcutRecoveryWaveTwo0001`<br>`com.samples.shortcut_ShortcutRecoveryWaveTwo_0001` | 已保留编辑回到正式原文后再次保留不能在重启时复活旧修改 |
 | [SUB_SHORTCUT_RECOVERYWAVETWO_0200](<entry/src/ohosTest/ets/test/ShortcutRecoveryWaveTwo.test.ets#L56>) | `testShortcutRecoveryWaveTwo0002`<br>`com.samples.shortcut_ShortcutRecoveryWaveTwo_0002` | 恢复历史成功后重启不能用旧持久编辑覆盖已恢复的正文 |
 | [SUB_SHORTCUT_RECOVERYWAVETWO_0300](<entry/src/ohosTest/ets/test/ShortcutRecoveryWaveTwo.test.ets#L85>) | `testShortcutRecoveryWaveTwo0003`<br>`com.samples.shortcut_ShortcutRecoveryWaveTwo_0003` | 保存仅有首尾空白差异的编辑会解除脏状态且不创建重复版本 |
-| [SUB_SHORTCUT_RECOVERYWAVETWO_0400](<entry/src/ohosTest/ets/test/ShortcutRecoveryWaveTwo.test.ets#L111>) | `testShortcutRecoveryWaveTwo0004`<br>`com.samples.shortcut_ShortcutRecoveryWaveTwo_0004` | 同一业务实例重新初始化后不继承历史浏览筛选和旧编辑基线 |
-| [SUB_SHORTCUT_RECOVERYWAVETWO_0500](<entry/src/ohosTest/ets/test/ShortcutRecoveryWaveTwo.test.ets#L144>) | `testShortcutRecoveryWaveTwo0005`<br>`com.samples.shortcut_ShortcutRecoveryWaveTwo_0005` | 存档中格式正确但日历不存在的待办日期被原子拒绝 |
+| [SUB_SHORTCUT_RECOVERYWAVETWO_0400](<entry/src/ohosTest/ets/test/ShortcutRecoveryWaveTwo.test.ets>)（源码第111行） | `testShortcutRecoveryWaveTwo0004`<br>`com.samples.shortcut_ShortcutRecoveryWaveTwo_0004` | 同一业务实例重新初始化后不继承历史浏览筛选和旧编辑基线 |
+| [SUB_SHORTCUT_RECOVERYWAVETWO_0500](<entry/src/ohosTest/ets/test/ShortcutRecoveryWaveTwo.test.ets>)（源码第144行） | `testShortcutRecoveryWaveTwo0005`<br>`com.samples.shortcut_ShortcutRecoveryWaveTwo_0005` | 存档中格式正确但日历不存在的待办日期被原子拒绝 |
 
 ### [ShortcutResidualSafety.test.ets](<entry/src/ohosTest/ets/test/ShortcutResidualSafety.test.ets>) — 3条
 
@@ -1085,11 +1085,11 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_ENTRYROUTECASES_0100](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L60>) | `testEntryRouteCases0001`<br>`com.samples.shortcut_EntryRouteCases_0001` | note new route |
 | [SUB_SHORTCUT_ENTRYROUTECASES_0200](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L79>) | `testEntryRouteCases0002`<br>`com.samples.shortcut_EntryRouteCases_0002` | todo today route |
 | [SUB_SHORTCUT_ENTRYROUTECASES_0300](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L97>) | `testEntryRouteCases0003`<br>`com.samples.shortcut_EntryRouteCases_0003` | collection route |
-| [SUB_SHORTCUT_ENTRYROUTECASES_0400](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L114>) | `testEntryRouteCases0004`<br>`com.samples.shortcut_EntryRouteCases_0004` | detail route requires login |
-| [SUB_SHORTCUT_ENTRYROUTECASES_0500](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L133>) | `testEntryRouteCases0005`<br>`com.samples.shortcut_EntryRouteCases_0005` | call log route |
-| [SUB_SHORTCUT_ENTRYROUTECASES_0600](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L150>) | `testEntryRouteCases0006`<br>`com.samples.shortcut_EntryRouteCases_0006` | rule center route |
-| [SUB_SHORTCUT_ENTRYROUTECASES_0700](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L167>) | `testEntryRouteCases0007`<br>`com.samples.shortcut_EntryRouteCases_0007` | resume route expires |
-| [SUB_SHORTCUT_ENTRYROUTECASES_0800](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L192>) | `testEntryRouteCases0008`<br>`com.samples.shortcut_EntryRouteCases_0008` | todo detail route |
+| [SUB_SHORTCUT_ENTRYROUTECASES_0400](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets>)（源码第114行） | `testEntryRouteCases0004`<br>`com.samples.shortcut_EntryRouteCases_0004` | detail route requires login |
+| [SUB_SHORTCUT_ENTRYROUTECASES_0500](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets>)（源码第133行） | `testEntryRouteCases0005`<br>`com.samples.shortcut_EntryRouteCases_0005` | call log route |
+| [SUB_SHORTCUT_ENTRYROUTECASES_0600](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets>)（源码第150行） | `testEntryRouteCases0006`<br>`com.samples.shortcut_EntryRouteCases_0006` | rule center route |
+| [SUB_SHORTCUT_ENTRYROUTECASES_0700](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets>)（源码第167行） | `testEntryRouteCases0007`<br>`com.samples.shortcut_EntryRouteCases_0007` | resume route expires |
+| [SUB_SHORTCUT_ENTRYROUTECASES_0800](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets>)（源码第192行） | `testEntryRouteCases0008`<br>`com.samples.shortcut_EntryRouteCases_0008` | todo detail route |
 | [SUB_SHORTCUT_ENTRYROUTECASES_0900](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L218>) | `testEntryRouteCases0009`<br>`com.samples.shortcut_EntryRouteCases_0009` | table is consistent |
 | [SUB_SHORTCUT_TODOTRANSITIONCASES_0100](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L241>) | `testTodoTransitionCases0001`<br>`com.samples.shortcut_TodoTransitionCases_0001` | open state has five exits |
 | [SUB_SHORTCUT_TODOTRANSITIONCASES_0200](<entry/src/ohosTest/ets/test/ShortcutRuleCases.test.ets#L260>) | `testTodoTransitionCases0002`<br>`com.samples.shortcut_TodoTransitionCases_0002` | doing state transitions |
@@ -1113,8 +1113,8 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 |---|---|---|
 | [SUB_SHORTCUT_SHORTCUTSERVICE_0100](<entry/src/ohosTest/ets/test/ShortcutService.test.ets#L31>) | `testShortcutService0001`<br>`com.samples.shortcut_ShortcutService_0001` | support result error and gate |
 | [SUB_SHORTCUT_SHORTCUTSERVICE_0200](<entry/src/ohosTest/ets/test/ShortcutService.test.ets#L75>) | `testShortcutService0002`<br>`com.samples.shortcut_ShortcutService_0002` | complete mapping defaults resources and snapshot isolation |
-| [SUB_SHORTCUT_SHORTCUTSERVICE_0300](<entry/src/ohosTest/ets/test/ShortcutService.test.ets#L158>) | `testShortcutService0003`<br>`com.samples.shortcut_ShortcutService_0003` | query failure preserves items and raw code |
-| [SUB_SHORTCUT_SHORTCUTSERVICE_0400](<entry/src/ohosTest/ets/test/ShortcutService.test.ets#L189>) | `testShortcutService0004`<br>`com.samples.shortcut_ShortcutService_0004` | hide show parameters and single readback |
+| [SUB_SHORTCUT_SHORTCUTSERVICE_0300](<entry/src/ohosTest/ets/test/ShortcutService.test.ets>)（源码第158行） | `testShortcutService0003`<br>`com.samples.shortcut_ShortcutService_0003` | query failure preserves items and raw code |
+| [SUB_SHORTCUT_SHORTCUTSERVICE_0400](<entry/src/ohosTest/ets/test/ShortcutService.test.ets>)（源码第189行） | `testShortcutService0004`<br>`com.samples.shortcut_ShortcutService_0004` | hide show parameters and single readback |
 | [SUB_SHORTCUT_SHORTCUTSERVICE_0500](<entry/src/ohosTest/ets/test/ShortcutService.test.ets#L228>) | `testShortcutService0005`<br>`com.samples.shortcut_ShortcutService_0005` | set error mismatch and pending readback |
 | [SUB_SHORTCUT_SHORTCUTSERVICE_0600](<entry/src/ohosTest/ets/test/ShortcutService.test.ets#L293>) | `testShortcutService0006`<br>`com.samples.shortcut_ShortcutService_0006` | restore skips visible orders writes and stops on failure |
 | [SUB_SHORTCUT_SHORTCUTSERVICE_0700](<entry/src/ohosTest/ets/test/ShortcutService.test.ets#L348>) | `testShortcutService0007`<br>`com.samples.shortcut_ShortcutService_0007` | busy gate dispose late results and subscriptions |
@@ -1128,8 +1128,8 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_TODOWAVETWO_0100](<entry/src/ohosTest/ets/test/ShortcutTodoWaveTwo.test.ets#L26>) | `testShortcutTodoWaveTwo0001`<br>`com.samples.shortcut_ShortcutTodoWaveTwo_0001` | 更新待办拒绝空和超长输入且接受六十字边界 |
 | [SUB_SHORTCUT_TODOWAVETWO_0200](<entry/src/ohosTest/ets/test/ShortcutTodoWaveTwo.test.ets#L51>) | `testShortcutTodoWaveTwo0002`<br>`com.samples.shortcut_ShortcutTodoWaveTwo_0002` | 待办标题去空白后未变化时不写盘且保留完成状态 |
 | [SUB_SHORTCUT_TODOWAVETWO_0300](<entry/src/ohosTest/ets/test/ShortcutTodoWaveTwo.test.ets#L75>) | `testShortcutTodoWaveTwo0003`<br>`com.samples.shortcut_ShortcutTodoWaveTwo_0003` | 当前日不能更新不存在或归属不同日期的待办标识 |
-| [SUB_SHORTCUT_TODOWAVETWO_0400](<entry/src/ohosTest/ets/test/ShortcutTodoWaveTwo.test.ets#L104>) | `testShortcutTodoWaveTwo0004`<br>`com.samples.shortcut_ShortcutTodoWaveTwo_0004` | 完成项改标题失败可重试且重开保留标题与完成状态组合 |
-| [SUB_SHORTCUT_TODOWAVETWO_0500](<entry/src/ohosTest/ets/test/ShortcutTodoWaveTwo.test.ets#L134>) | `testShortcutTodoWaveTwo0005`<br>`com.samples.shortcut_ShortcutTodoWaveTwo_0005` | 达到二十项后拒绝新增并在删除释放名额后正确持久化新项 |
+| [SUB_SHORTCUT_TODOWAVETWO_0400](<entry/src/ohosTest/ets/test/ShortcutTodoWaveTwo.test.ets>)（源码第104行） | `testShortcutTodoWaveTwo0004`<br>`com.samples.shortcut_ShortcutTodoWaveTwo_0004` | 完成项改标题失败可重试且重开保留标题与完成状态组合 |
+| [SUB_SHORTCUT_TODOWAVETWO_0500](<entry/src/ohosTest/ets/test/ShortcutTodoWaveTwo.test.ets>)（源码第134行） | `testShortcutTodoWaveTwo0005`<br>`com.samples.shortcut_ShortcutTodoWaveTwo_0005` | 达到二十项后拒绝新增并在删除释放名额后正确持久化新项 |
 
 ### [TagSearchMatrixCases.test.ets](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets>) — 52条
 
@@ -1141,13 +1141,13 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_TAGRULECASES_0200](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L53>) | `testTagRuleCases0002`<br>`com.samples.shortcut_TagRuleCases_0002` | rule describe joins facts |
 | [SUB_SHORTCUT_TAGRULECASES_0300](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L70>) | `testTagRuleCases0003`<br>`com.samples.shortcut_TagRuleCases_0003` | tag lines match table |
 | [SUB_SHORTCUT_TAGRULECASES_0400](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L86>) | `testTagRuleCases0004`<br>`com.samples.shortcut_TagRuleCases_0004` | tag limits are fixed |
-| [SUB_SHORTCUT_TAGRULECASES_0500](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L101>) | `testTagRuleCases0005`<br>`com.samples.shortcut_TagRuleCases_0005` | synonym table has four pairs |
-| [SUB_SHORTCUT_TAGRULECASES_0600](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L117>) | `testTagRuleCases0006`<br>`com.samples.shortcut_TagRuleCases_0006` | synonym describe shows aliases |
-| [SUB_SHORTCUT_NORMALIZECASES_0100](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L135>) | `testNormalizeCases0001`<br>`com.samples.shortcut_NormalizeCases_0001` | trims whitespace |
-| [SUB_SHORTCUT_NORMALIZECASES_0200](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L151>) | `testNormalizeCases0002`<br>`com.samples.shortcut_NormalizeCases_0002` | strips hash prefix |
-| [SUB_SHORTCUT_NORMALIZECASES_0300](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L166>) | `testNormalizeCases0003`<br>`com.samples.shortcut_NormalizeCases_0003` | folds chinese comma |
-| [SUB_SHORTCUT_NORMALIZECASES_0400](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L182>) | `testNormalizeCases0004`<br>`com.samples.shortcut_NormalizeCases_0004` | collapses repeated separators |
-| [SUB_SHORTCUT_NORMALIZECASES_0500](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L197>) | `testNormalizeCases0005`<br>`com.samples.shortcut_NormalizeCases_0005` | blank tags become empty |
+| [SUB_SHORTCUT_TAGRULECASES_0500](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets>)（源码第101行） | `testTagRuleCases0005`<br>`com.samples.shortcut_TagRuleCases_0005` | synonym table has four pairs |
+| [SUB_SHORTCUT_TAGRULECASES_0600](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets>)（源码第117行） | `testTagRuleCases0006`<br>`com.samples.shortcut_TagRuleCases_0006` | synonym describe shows aliases |
+| [SUB_SHORTCUT_NORMALIZECASES_0100](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets>)（源码第135行） | `testNormalizeCases0001`<br>`com.samples.shortcut_NormalizeCases_0001` | trims whitespace |
+| [SUB_SHORTCUT_NORMALIZECASES_0200](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets>)（源码第151行） | `testNormalizeCases0002`<br>`com.samples.shortcut_NormalizeCases_0002` | strips hash prefix |
+| [SUB_SHORTCUT_NORMALIZECASES_0300](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets>)（源码第166行） | `testNormalizeCases0003`<br>`com.samples.shortcut_NormalizeCases_0003` | folds chinese comma |
+| [SUB_SHORTCUT_NORMALIZECASES_0400](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets>)（源码第182行） | `testNormalizeCases0004`<br>`com.samples.shortcut_NormalizeCases_0004` | collapses repeated separators |
+| [SUB_SHORTCUT_NORMALIZECASES_0500](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets>)（源码第197行） | `testNormalizeCases0005`<br>`com.samples.shortcut_NormalizeCases_0005` | blank tags become empty |
 | [SUB_SHORTCUT_NORMALIZECASES_0600](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L213>) | `testNormalizeCases0006`<br>`com.samples.shortcut_NormalizeCases_0006` | long tags are truncated |
 | [SUB_SHORTCUT_NORMALIZECASES_0700](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L230>) | `testNormalizeCases0007`<br>`com.samples.shortcut_NormalizeCases_0007` | case is folded |
 | [SUB_SHORTCUT_NORMALIZECASES_0800](<entry/src/ohosTest/ets/test/TagSearchMatrixCases.test.ets#L245>) | `testNormalizeCases0008`<br>`com.samples.shortcut_NormalizeCases_0008` | synonyms merge to canonical |
@@ -1199,9 +1199,9 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_TODODATEHISTORY_0100](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets#L33>) | `testTodoDateHistory0001`<br>`com.samples.shortcut_TodoDateHistory_0001` | past date writes stay on selected day |
 | [SUB_SHORTCUT_TODODATEHISTORY_0200](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets#L71>) | `testTodoDateHistory0002`<br>`com.samples.shortcut_TodoDateHistory_0002` | invalid and future dates are rejected |
 | [SUB_SHORTCUT_TODODATEHISTORY_0300](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets#L99>) | `testTodoDateHistory0003`<br>`com.samples.shortcut_TodoDateHistory_0003` | date shift stops at today |
-| [SUB_SHORTCUT_TODODATEHISTORY_0400](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets#L126>) | `testTodoDateHistory0004`<br>`com.samples.shortcut_TodoDateHistory_0004` | historical selection survives midnight |
-| [SUB_SHORTCUT_TODODATEHISTORY_0500](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets#L157>) | `testTodoDateHistory0005`<br>`com.samples.shortcut_TodoDateHistory_0005` | summaries are descending and counted |
-| [SUB_SHORTCUT_TODODATEHISTORY_0600](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets#L187>) | `testTodoDateHistory0006`<br>`com.samples.shortcut_TodoDateHistory_0006` | historical write persists across reopen |
+| [SUB_SHORTCUT_TODODATEHISTORY_0400](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets>)（源码第126行） | `testTodoDateHistory0004`<br>`com.samples.shortcut_TodoDateHistory_0004` | historical selection survives midnight |
+| [SUB_SHORTCUT_TODODATEHISTORY_0500](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets>)（源码第157行） | `testTodoDateHistory0005`<br>`com.samples.shortcut_TodoDateHistory_0005` | summaries are descending and counted |
+| [SUB_SHORTCUT_TODODATEHISTORY_0600](<entry/src/ohosTest/ets/test/TodoDateCases.test.ets>)（源码第187行） | `testTodoDateHistory0006`<br>`com.samples.shortcut_TodoDateHistory_0006` | historical write persists across reopen |
 
 ### [VisibilityBatch.test.ets](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets>) — 16条
 
@@ -1209,10 +1209,10 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 
 | 原编号 / 源码定位 | 原名称 / 规范运行名 | 覆盖点 |
 |---|---|---|
-| [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0100](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets#L115>) | `testVisibilityBatchProductionService0001`<br>`com.samples.shortcut_VisibilityBatchProductionService_0001` | preview has no sdk writes and confirmation token is single use |
-| [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0200](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets#L144>) | `testVisibilityBatchProductionService0002`<br>`com.samples.shortcut_VisibilityBatchProductionService_0002` | rejected write that already applied is confirmed by readback |
-| [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0300](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets#L166>) | `testVisibilityBatchProductionService0003`<br>`com.samples.shortcut_VisibilityBatchProductionService_0003` | second item failure retries only failed item |
-| [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0400](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets#L193>) | `testVisibilityBatchProductionService0004`<br>`com.samples.shortcut_VisibilityBatchProductionService_0004` | missing visible remains unknown until explicit reconcile |
+| [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0100](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets>)（源码第115行） | `testVisibilityBatchProductionService0001`<br>`com.samples.shortcut_VisibilityBatchProductionService_0001` | preview has no sdk writes and confirmation token is single use |
+| [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0200](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets>)（源码第144行） | `testVisibilityBatchProductionService0002`<br>`com.samples.shortcut_VisibilityBatchProductionService_0002` | rejected write that already applied is confirmed by readback |
+| [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0300](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets>)（源码第166行） | `testVisibilityBatchProductionService0003`<br>`com.samples.shortcut_VisibilityBatchProductionService_0003` | second item failure retries only failed item |
+| [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0400](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets>)（源码第193行） | `testVisibilityBatchProductionService0004`<br>`com.samples.shortcut_VisibilityBatchProductionService_0004` | missing visible remains unknown until explicit reconcile |
 | [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0500](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets#L217>) | `testVisibilityBatchProductionService0005`<br>`com.samples.shortcut_VisibilityBatchProductionService_0005` | compensation restores mixed original state not all visible |
 | [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0600](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets#L243>) | `testVisibilityBatchProductionService0006`<br>`com.samples.shortcut_VisibilityBatchProductionService_0006` | failed compensation remains partial and can be previewed again |
 | [SUB_SHORTCUT_VISIBILITYBATCHPRODUCTIONSERVICE_0700](<entry/src/ohosTest/ets/test/VisibilityBatch.test.ets#L269>) | `testVisibilityBatchProductionService0007`<br>`com.samples.shortcut_VisibilityBatchProductionService_0007` | unknown original never compensates to assumed default |
@@ -1237,12 +1237,12 @@ U01–U29 由人工从正式应用或桌面执行，自动化套件另列于 A01
 | [SUB_SHORTCUT_CASELIFECYCLE_0300](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L64>) | `testCaseLifecycle0003`<br>`com.samples.shortcut_CaseLifecycle_0003` | Cleanup-only failure propagates and cannot skip a later cleanup. |
 | [SUB_SHORTCUT_CASELIFECYCLE_0400](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L80>) | `testCaseLifecycle0004`<br>`com.samples.shortcut_CaseLifecycle_0004` | Dual failure preserves the original assertion rather than replacing it with cleanup. |
 | [SUB_SHORTCUT_CASELIFECYCLE_0500](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L96>) | `testCaseLifecycle0005`<br>`com.samples.shortcut_CaseLifecycle_0005` | An asynchronous cleanup rejection is awaited before remaining cleanup and rethrow. |
-| [SUB_SHORTCUT_CASELIFECYCLE_0600](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L112>) | `testCaseLifecycle0006`<br>`com.samples.shortcut_CaseLifecycle_0006` | Throwing undefined is a real body failure, not the no-error sentinel. |
-| [SUB_SHORTCUT_CASELIFECYCLE_0700](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L127>) | `testCaseLifecycle0007`<br>`com.samples.shortcut_CaseLifecycle_0007` | Throwing null from cleanup is also propagated rather than swallowed. |
-| [SUB_SHORTCUT_CASELIFECYCLE_0800](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L140>) | `testCaseLifecycle0008`<br>`com.samples.shortcut_CaseLifecycle_0008` | Scope cleanup remains reverse-ordered and idempotent after completion. |
-| [SUB_SHORTCUT_CASELIFECYCLE_0900](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L155>) | `testCaseLifecycle0009`<br>`com.samples.shortcut_CaseLifecycle_0009` | runCase preserves body error while all reverse-ordered failing cleanup actions run. |
-| [SUB_SHORTCUT_CASELIFECYCLE_1000](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L173>) | `testCaseLifecycle0010`<br>`com.samples.shortcut_CaseLifecycle_0010` | Watchdog timeout releases subscriptions and propagates a failure after cleanup. |
-| [SUB_SHORTCUT_CASELIFECYCLE_1100](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L191>) | `testCaseLifecycle0011`<br>`com.samples.shortcut_CaseLifecycle_0011` | Scope cleanup-only failure propagates unchanged after all remaining actions. |
+| [SUB_SHORTCUT_CASELIFECYCLE_0600](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets>)（源码第112行） | `testCaseLifecycle0006`<br>`com.samples.shortcut_CaseLifecycle_0006` | Throwing undefined is a real body failure, not the no-error sentinel. |
+| [SUB_SHORTCUT_CASELIFECYCLE_0700](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets>)（源码第127行） | `testCaseLifecycle0007`<br>`com.samples.shortcut_CaseLifecycle_0007` | Throwing null from cleanup is also propagated rather than swallowed. |
+| [SUB_SHORTCUT_CASELIFECYCLE_0800](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets>)（源码第140行） | `testCaseLifecycle0008`<br>`com.samples.shortcut_CaseLifecycle_0008` | Scope cleanup remains reverse-ordered and idempotent after completion. |
+| [SUB_SHORTCUT_CASELIFECYCLE_0900](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets>)（源码第155行） | `testCaseLifecycle0009`<br>`com.samples.shortcut_CaseLifecycle_0009` | runCase preserves body error while all reverse-ordered failing cleanup actions run. |
+| [SUB_SHORTCUT_CASELIFECYCLE_1000](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets>)（源码第173行） | `testCaseLifecycle0010`<br>`com.samples.shortcut_CaseLifecycle_0010` | Watchdog timeout releases subscriptions and propagates a failure after cleanup. |
+| [SUB_SHORTCUT_CASELIFECYCLE_1100](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets>)（源码第191行） | `testCaseLifecycle0011`<br>`com.samples.shortcut_CaseLifecycle_0011` | Scope cleanup-only failure propagates unchanged after all remaining actions. |
 | [SUB_SHORTCUT_CASELIFECYCLE_1200](<entry/src/ohosTest/ets/test/CaseLifecycle.test.ets#L209>) | `testCaseLifecycle0012`<br>`com.samples.shortcut_CaseLifecycle_0012` | Timeout remains primary when subscription cleanup also fails. |
 
 ### [RunnerFilter.test.ets](<entry/src/ohosTest/ets/test/RunnerFilter.test.ets>) — 4条

@@ -8,12 +8,19 @@ This OpenHarmony Stage-model ArkTS sample demonstrates file-page cache eviction 
 
 | Full API module and official reference | Kit import | Use in this sample |
 |---|---|---|
-| [@ohos.app.ability.appMemoryOptimizer](https://developer.huawei.com/consumer/en/doc/harmonyos-references/js-apis-app-ability-appmemoryoptimizer/) | `@kit.AbilityKit` | Discover this application's file or module targets before requesting file-page eviction. File targets accept `.so`, `.hap` and `.hsp`; experiments also validate packaged configuration. |
-| [@ohos.app.ability.hyperSnapManager](https://developer.huawei.com/consumer/en/doc/harmonyos-references/js-apis-app-ability-hypersnapmanager/) | `@kit.AbilityKit` | Change this application's Quick Launch setting and request a rebuild, keeping request results separate from actual launches. |
+| `@ohos.app.ability.appMemoryOptimizer` | `@kit.AbilityKit` | Discover this application's file or module targets before requesting file-page eviction. File targets accept `.so`, `.hap` and `.hsp`; experiments also validate packaged configuration. |
+| `@ohos.app.ability.hyperSnapManager` | `@kit.AbilityKit` | Change this application's Quick Launch setting and request a rebuild, keeping request results separate from actual launches. |
 | [@ohos.resourceManager](https://gitee.com/openharmony/docs/blob/master/en/application-dev/reference/apis-localization-kit/js-apis-resource-manager.md) | `@kit.LocalizationKit` | Read text, note-list, image-index and form-draft workloads and check reread integrity. |
 | [@ohos.data.preferences](https://gitee.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkdata/js-apis-data-preferences.md) | `@kit.ArkData` | Save bounded call records, the experiment ledger and series metadata. |
 | [@ohos.pasteboard](https://gitee.com/openharmony/docs/blob/master/en/application-dev/reference/apis-basic-services-kit/js-apis-pasteboard.md) | `@kit.BasicServicesKit` | Copy call records, a redacted ledger and Markdown / CSV reports on user request. |
 | [Node-API](https://gitee.com/openharmony/docs/blob/master/en/application-dev/napi/napi-introduction.md) | Native | Provide private-file calibration and held-mapping samples for independent diagnostic runners. |
+
+The first two API modules above refer to their SDK `26.0.0` declarations instead of external documentation links. Locate them relative to the SDK root:
+
+```text
+ets/api/@ohos.app.ability.appMemoryOptimizer.d.ts
+ets/api/@ohos.app.ability.hyperSnapManager.d.ts
+```
 
 ## Preview
 

@@ -119,7 +119,7 @@ export class UiSelector {
 export const ON: UiSelector = new UiSelector();
 
 export class UiTestSession {
-  readonly id: string;
+  public readonly id: string;
   private accepting: boolean = true;
   private deadline: number;
   private cleanupMs: number;
