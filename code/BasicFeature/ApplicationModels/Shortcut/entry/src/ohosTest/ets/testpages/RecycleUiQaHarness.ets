@@ -31,8 +31,12 @@ struct RecycleUiQaHarness {
 
   aboutToAppear(): void {
     let owner: RecycleUiQaAbilitySession;
-    try { owner = recycleUiQaOwner(this.sessionId); }
-    catch (_) { this.failure = 'Recycle QA session nonce is not owned'; return; }
+    try {
+      owner = recycleUiQaOwner(this.sessionId);
+    } catch (_) {
+      this.failure = 'Recycle QA session nonce is not owned';
+      return;
+    }
     this.owner = owner;
     const session = owner.runtime;
     const context = this.getUIContext().getHostContext();
@@ -40,7 +44,9 @@ struct RecycleUiQaHarness {
       session.failInitialization('page-context'); this.failure = 'QA host context unavailable'; return;
     }
     const generation = ++this.generation;
-    mountRecycleUiQa(context.getApplicationContext(), this.scenario, owner).then((fixture: RecycleUiQaFixture): void => {
+    mountRecycleUiQa(
+      context.getApplicationContext(), this.scenario, owner
+    ).then((fixture: RecycleUiQaFixture): void => {
       if (generation !== this.generation || this.owner !== owner) {
         try { fixture.dispose(); } catch (_) { session.failCleanup('stale-page-fixture'); }
         owner.forgetFixture(fixture);
@@ -60,8 +66,11 @@ struct RecycleUiQaHarness {
     const owner = this.owner;
     this.fixture = undefined;
     if (fixture !== undefined) {
-      try { fixture.dispose(); }
-      catch (_) { if (owner !== undefined) { owner.runtime.failCleanup('page-fixture-dispose'); } }
+      try {
+        fixture.dispose();
+      } catch (_) {
+        if (owner !== undefined) { owner.runtime.failCleanup('page-fixture-dispose'); }
+      }
     }
   }
   build(): void {

@@ -60,8 +60,11 @@ export function prepareUiTestDriver(): void {
 
 function safeUiLog(level: string, message: string): void {
   try {
-    if (level === 'error') { hilog.error(DOMAIN, TAG, '%{public}s', message); }
-    else { hilog.info(DOMAIN, TAG, '%{public}s', message); }
+    if (level === 'error') {
+      hilog.error(DOMAIN, TAG, '%{public}s', message);
+    } else {
+      hilog.info(DOMAIN, TAG, '%{public}s', message);
+    }
   } catch (_) { /* Logging must not skip owned cleanup or replace the real failure. */ }
 }
 
@@ -99,10 +102,15 @@ export class UiSelector {
   materialize(): On {
     let selector: On = NATIVE_ON;
     this.parts.forEach((part: SelectorPart): void => {
-      if (part.kind === 'id') { selector = selector.id(part.value); }
-      else if (part.kind === 'text') { selector = selector.text(part.value); }
-      else if (part.kind === 'type') { selector = selector.type(part.value); }
-      else { throw new Error('Unsupported UI selector descriptor'); }
+      if (part.kind === 'id') {
+        selector = selector.id(part.value);
+      } else if (part.kind === 'text') {
+        selector = selector.text(part.value);
+      } else if (part.kind === 'type') {
+        selector = selector.type(part.value);
+      } else {
+        throw new Error('Unsupported UI selector descriptor');
+      }
     });
     if (this.after !== undefined) { selector = selector.isAfter(this.after.materialize()); }
     return selector;
@@ -196,8 +204,11 @@ export class UiTestSession {
   private terminateOwned(owner: common.UIAbilityContext): Promise<void> {
     let termination = this.termination;
     if (termination === undefined) {
-      try { termination = owner.terminateSelf(); }
-      catch (error) { termination = Promise.reject(error as Error); }
+      try {
+        termination = owner.terminateSelf();
+      } catch (error) {
+        termination = Promise.reject(error as Error);
+      }
       this.termination = termination;
     }
     return termination;
@@ -265,8 +276,11 @@ export class UiTestSession {
         reject(new Error(`Native UI operation exceeded its budget; ${this.diagnostic()}`));
       }, Math.min(3000, this.remaining()));
     });
-    try { return await Promise.race([tracked, timeout]); }
-    finally { if (timer >= 0) { clearTimeout(timer); } }
+    try {
+      return await Promise.race([tracked, timeout]);
+    } finally {
+      if (timer >= 0) { clearTimeout(timer); }
+    }
   }
   createDriver(): UiTestDriver {
     this.requireLive();
@@ -336,8 +350,7 @@ export class UiTestSession {
       if (this.cleanupFailure !== undefined) { throw this.cleanupFailure; }
       if (this.initializationFailure !== undefined) { throw this.initializationFailure; }
     };
-    try { await Promise.race([complete(), timeout]); }
-    finally {
+    try { await Promise.race([complete(), timeout]); } finally {
       if (watchdog >= 0) { clearTimeout(watchdog); }
       this.releaseIfSafe();
     }
@@ -356,7 +369,7 @@ export function claimUiTestSession(want: Want, owner: common.UIAbilityContext): 
 interface RetainedUiInput { selector: UiSelector; target: UiTestComponent; }
 
 export class UiTestDriver {
-  readonly session: UiTestSession;
+  public readonly session: UiTestSession;
   private native: NativeDriver;
   private displays: Map<number, Point> = new Map<number, Point>();
   private retainedInput: RetainedUiInput | undefined = undefined;
@@ -570,8 +583,11 @@ export class UiTestComponent {
       if (step === 8) { return undefined; }
       safeUiLog('info', `UI scroll target=${selector.traceName()} step=${step} towardTop=${towardTop}`);
       // Relative, viewport-sized gestures only. The case deadline remains the sole overall budget.
-      if (towardTop) { await this.driver.swipe(x, top, x, bottom); }
-      else { await this.driver.swipe(x, bottom, x, top); }
+      if (towardTop) {
+        await this.driver.swipe(x, top, x, bottom);
+      } else {
+        await this.driver.swipe(x, bottom, x, top);
+      }
       await this.driver.session.pause(30);
     }
     return undefined;

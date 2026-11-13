@@ -55,8 +55,12 @@ export default class FeatureQaAbility extends UIAbility {
     this.uiSession = session;
     this.ownedContext = context;
     try { session.requireLive(); } catch (_) { return false; }
-    if (this.qaSession === undefined) { this.qaSession = attachRecycleUiQaAbility(context, session); }
-    else if (this.qaSession.runtime !== session) { session.failInitialization('ability-session-reuse'); return false; }
+    if (this.qaSession === undefined) {
+      this.qaSession = attachRecycleUiQaAbility(context, session);
+    } else if (this.qaSession.runtime !== session) {
+      session.failInitialization('ability-session-reuse');
+      return false;
+    }
     const scenario = parameters['qaScenario'];
     this.scenario = typeof scenario === 'string' ? scenario : 'empty';
     this.allowed = true;
@@ -77,8 +81,9 @@ export default class FeatureQaAbility extends UIAbility {
     finally {
       try {
         if (owner !== undefined) { detachRecycleUiQaAbility(owner); }
-      } catch (_) { if (session !== undefined) { session.failCleanup('owner-detach'); } }
-      finally {
+      } catch (_) {
+        if (session !== undefined) { session.failCleanup('owner-detach'); }
+      } finally {
         // markDestroyed is last, after all fixture/resource cleanup, with the saved exact Context.
         if (session !== undefined && context !== undefined) { session.markDestroyed(context); }
       }

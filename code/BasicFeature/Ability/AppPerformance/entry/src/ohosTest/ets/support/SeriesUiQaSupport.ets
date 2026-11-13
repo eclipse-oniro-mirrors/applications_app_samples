@@ -129,7 +129,13 @@ export class SeriesUiQaFixture {
     let failure: Error | undefined = undefined;
     try { this.service.dispose(); } catch (error) { failure = error as Error; }
     try { this.releaseRead(); } catch (error) { if (failure === undefined) { failure = error as Error; } }
-    try { this.platform.copyReply.resolve(undefined); } catch (error) { if (failure === undefined) { failure = error as Error; } }
+    try {
+      this.platform.copyReply.resolve(undefined);
+    } catch (error) {
+      if (failure === undefined) {
+        failure = error as Error;
+      }
+    }
     if (failure !== undefined) { throw failure; }
   }
 }
@@ -219,8 +225,11 @@ export async function seriesQaUntil(fixture: SeriesUiQaFixture, condition: () =>
       if (failure === undefined) { resolve(); } else { reject(failure); }
     };
     const changed = (): void => {
-      if (!session.isLive()) { finish(new Error('Series observation was cancelled with its UI session')); }
-      else if (condition()) { finish(); }
+      if (!session.isLive()) {
+        finish(new Error('Series observation was cancelled with its UI session'));
+      } else if (condition()) {
+        finish();
+      }
     };
     session.ownCleanup((): void => { finish(new Error('Series observation was cancelled with its UI session')); });
     subscription = fixture.service.subscribe(changed);

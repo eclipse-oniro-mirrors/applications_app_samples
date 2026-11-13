@@ -26,7 +26,7 @@
 1. 按文末命令下载工程，在 DevEco Studio 中打开 `AppPerformance` 工程根目录。保留 AppScope、entry 和根构建文件的相对位置，不单独导入 entry。
 2. 准备 OpenHarmony SDK `26.0.0` 及 Native / CMake 工具链。在 IDE 中同步依赖，或在工程根目录执行 `ohpm install --all`。
 3. 在 IDE 中为 `default` 产品配置本机调试签名，选择兼容的标准系统设备，构建并运行 entry。
-4. 首次进入主工具页后，可先读取资源并运行无回收对照，再体验其他功能。
+4. 第一次进入主工具页后，可先读取资源并运行无回收对照，再体验其余功能。
 
 ### 内存优化与资源完整性
 
@@ -90,7 +90,7 @@ entry/src/ohosTest/                         自动化用例、隔离 UI 和独�
 
 ## 依赖
 
-1. 应用逻辑在单 entry 内实现，无独立特性模块，也不依赖其他 Sample。
+1. 应用逻辑在单 entry 内实现，无独立特性模块，也不依赖其余 Sample。
 2. entry 下的本地 `libpageprobe.so` 类型包和 CMake / Node-API 源码保留；它们是 Native 依赖，不是独立 ArkTS 特性模块。
 3. 测试依赖 [@ohos/hypium](https://gitee.com/openharmony/testfwk_arkxtest) `1.0.25`；Hvigor OpenHarmony 插件由匹配工具链提供。
 
@@ -118,4 +118,4 @@ git remote add origin https://gitcode.com/openharmony/applications_app_samples.g
 git pull origin master
 ```
 
-如需其他发布或评审分支，将 `master` 替换为对应分支。下载后在 DevEco Studio 中打开 `code/BasicFeature/Ability/AppPerformance/` 工程根目录。
+如需其余发布或评审分支，将 `master` 替换为对应分支。下载后在 DevEco Studio 中打开 `code/BasicFeature/Ability/AppPerformance/` 工程根目录。

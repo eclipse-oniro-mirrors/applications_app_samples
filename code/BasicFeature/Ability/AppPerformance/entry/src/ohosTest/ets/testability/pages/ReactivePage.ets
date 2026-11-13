@@ -57,8 +57,12 @@ struct ReactivePage {
   @State expandedId: number = 41;
 
   aboutToAppear(): void {
-    try { this.session = requireUiTestSession(this.sessionId); this.ready = true; }
-    catch (_) { this.ready = false; }
+    try {
+      this.session = requireUiTestSession(this.sessionId);
+      this.ready = true;
+    } catch (_) {
+      this.ready = false;
+    }
   }
 
   aboutToDisappear(): void { this.session = undefined; this.ready = false; }

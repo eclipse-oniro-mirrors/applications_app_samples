@@ -68,8 +68,11 @@ export default class TestAbility extends UIAbility {
   onDestroy(): void {
     const session = this.session; this.session = undefined; this.loadGeneration++;
     if (session === undefined) { return; }
-    try { releaseSeriesUiQa(session); } catch (error) { session.failCleanup('series-fixture-release'); }
-    finally {
+    try {
+      releaseSeriesUiQa(session);
+    } catch (error) {
+      session.failCleanup('series-fixture-release');
+    } finally {
       // Restores this session's saved provider before the final destruction acknowledgement.
       session.markDestroyed(this.context);
     }

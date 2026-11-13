@@ -94,7 +94,10 @@ export class RecycleUiQaFixture {
   public baselineWrites: number = 0;
   private disposed: boolean = false;
 
-  constructor(session: UiTestSession) { this.session = session; this.store = new BusinessStore(this.storage, (): number => this.time); }
+  constructor(session: UiTestSession) {
+    this.session = session;
+    this.store = new BusinessStore(this.storage, (): number => this.time);
+  }
 
   async initialize(context: common.ApplicationContext, scenario: string): Promise<void> {
     if (scenario === 'readFailure') { this.storage.failRead = true; }

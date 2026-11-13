@@ -166,14 +166,81 @@ bool Boolean(napi_env env, napi_value object, const char *key, bool flag)
 class ScopedFd {
 public:
     explicit ScopedFd(int fd) : fd_(fd) {}
-    ~ScopedFd() { if (fd_ >= 0) { close(fd_); } }
+    ~ScopedFd()
+    {
+        if (fd_ >= 0) {
+            close(fd_);
+        }
+    }
     ScopedFd(const ScopedFd &) = delete;
     ScopedFd &operator=(const ScopedFd &) = delete;
     int Get() const { return fd_; }
-    int Take() { const int fd = fd_; fd_ = -1; return fd; }
+    int Take()
+    {
+        const int fd = fd_;
+        fd_ = -1;
+        return fd;
+    }
 private:
     int fd_ = -1;
 };
+
+bool SerializeProbeStatus(napi_env env, napi_value object, const Probe &probe)
+{
+    if (!Boolean(env, object, "ok", probe.ok)) { return false; }
+    if (!Boolean(env, object, "residencyTrusted", probe.residencyTrusted)) { return false; }
+    if (!Text(env, object, "residencyTrustReason", probe.residencyTrustReason)) { return false; }
+    if (!Text(env, object, "operation", probe.operation)) { return false; }
+    if (!Number(env, object, "errorCode", probe.errorCode)) { return false; }
+    if (!Number(env, object, "cleanupErrorCode", probe.cleanupErrorCode)) { return false; }
+    if (!Text(env, object, "message", probe.message)) { return false; }
+    return true;
+}
+
+bool SerializeProbeLayout(napi_env env, napi_value object, const Probe &probe)
+{
+    if (!Number(env, object, "fileBytes", probe.fileBytes)) { return false; }
+    if (!Number(env, object, "pageBytes", probe.pageBytes)) { return false; }
+    if (!Number(env, object, "totalPages", probe.totalPages)) { return false; }
+    if (!Number(env, object, "residentPages", probe.residentPages)) { return false; }
+    if (!Number(env, object, "residentBytes", probe.residentBytes)) { return false; }
+    if (!Number(env, object, "residentContentBytes", probe.residentBytes)) { return false; }
+    if (!Text(env, object, "residentBytesMeaning",
+        "file content bytes covered by raw reported resident pages; not physical allocation or reclaimed bytes")) {
+        return false;
+    }
+    if (!Number(env, object, "bytesRead", probe.bytesRead)) { return false; }
+    if (!Number(env, object, "checksum", probe.checksum)) { return false; }
+    return true;
+}
+
+bool SerializeProbeIdentity(napi_env env, napi_value object, const Probe &probe)
+{
+    if (!Text(env, object, "inode", probe.inode)) { return false; }
+    if (!Text(env, object, "deviceId", probe.deviceId)) { return false; }
+    if (!Number(env, object, "deviceMajor", probe.deviceMajor)) { return false; }
+    if (!Number(env, object, "deviceMinor", probe.deviceMinor)) { return false; }
+    if (!Text(env, object, "inodeNumber", probe.inodeNumber)) { return false; }
+    if (!Text(env, object, "inodeHex", probe.inodeHex)) { return false; }
+    if (!Number(env, object, "fileOwnerUid", probe.fileOwnerUid)) { return false; }
+    if (!Number(env, object, "processUid", probe.processUid)) { return false; }
+    if (!Number(env, object, "realUid", probe.realUid)) { return false; }
+    if (!Boolean(env, object, "ownsFile", probe.ownsFile)) { return false; }
+    if (!Boolean(env, object, "writeOpenAllowed", probe.writeOpenAllowed)) { return false; }
+    if (!Number(env, object, "writeOpenErrno", probe.writeOpenErrno)) { return false; }
+    if (!Boolean(env, object, "ownerOrWritable", probe.ownerOrWritable)) { return false; }
+    return true;
+}
+
+bool SerializeProbeTimeKernel(napi_env env, napi_value object, const Probe &probe)
+{
+    if (!Number(env, object, "sampleStartedMonotonicMs", probe.sampleStartedMonotonicMs)) { return false; }
+    if (!Number(env, object, "sampleCompletedMonotonicMs", probe.sampleCompletedMonotonicMs)) { return false; }
+    if (!Number(env, object, "sampleWallTimeMs", probe.sampleWallTimeMs)) { return false; }
+    if (!Text(env, object, "kernelName", probe.kernelName)) { return false; }
+    if (!Text(env, object, "kernelRelease", probe.kernelRelease)) { return false; }
+    return true;
+}
 
 napi_value Result(napi_env env, const Probe &probe)
 {
@@ -181,41 +248,18 @@ napi_value Result(napi_env env, const Probe &probe)
     if (!NapiOk(env, napi_create_object(env, &object))) {
         return nullptr;
     }
-    if (!Boolean(env, object, "ok", probe.ok)) { return nullptr; }
-    if (!Boolean(env, object, "residencyTrusted", probe.residencyTrusted)) { return nullptr; }
-    if (!Text(env, object, "residencyTrustReason", probe.residencyTrustReason)) { return nullptr; }
-    if (!Text(env, object, "operation", probe.operation)) { return nullptr; }
-    if (!Number(env, object, "errorCode", probe.errorCode)) { return nullptr; }
-    if (!Number(env, object, "cleanupErrorCode", probe.cleanupErrorCode)) { return nullptr; }
-    if (!Text(env, object, "message", probe.message)) { return nullptr; }
-    if (!Number(env, object, "fileBytes", probe.fileBytes)) { return nullptr; }
-    if (!Number(env, object, "pageBytes", probe.pageBytes)) { return nullptr; }
-    if (!Number(env, object, "totalPages", probe.totalPages)) { return nullptr; }
-    if (!Number(env, object, "residentPages", probe.residentPages)) { return nullptr; }
-    if (!Number(env, object, "residentBytes", probe.residentBytes)) { return nullptr; }
-    if (!Number(env, object, "residentContentBytes", probe.residentBytes)) { return nullptr; }
-    if (!Text(env, object, "residentBytesMeaning",
-        "file content bytes covered by raw reported resident pages; not physical allocation or reclaimed bytes")) { return nullptr; }
-    if (!Number(env, object, "bytesRead", probe.bytesRead)) { return nullptr; }
-    if (!Number(env, object, "checksum", probe.checksum)) { return nullptr; }
-    if (!Text(env, object, "inode", probe.inode)) { return nullptr; }
-    if (!Text(env, object, "deviceId", probe.deviceId)) { return nullptr; }
-    if (!Number(env, object, "deviceMajor", probe.deviceMajor)) { return nullptr; }
-    if (!Number(env, object, "deviceMinor", probe.deviceMinor)) { return nullptr; }
-    if (!Text(env, object, "inodeNumber", probe.inodeNumber)) { return nullptr; }
-    if (!Text(env, object, "inodeHex", probe.inodeHex)) { return nullptr; }
-    if (!Number(env, object, "fileOwnerUid", probe.fileOwnerUid)) { return nullptr; }
-    if (!Number(env, object, "processUid", probe.processUid)) { return nullptr; }
-    if (!Number(env, object, "realUid", probe.realUid)) { return nullptr; }
-    if (!Boolean(env, object, "ownsFile", probe.ownsFile)) { return nullptr; }
-    if (!Boolean(env, object, "writeOpenAllowed", probe.writeOpenAllowed)) { return nullptr; }
-    if (!Number(env, object, "writeOpenErrno", probe.writeOpenErrno)) { return nullptr; }
-    if (!Boolean(env, object, "ownerOrWritable", probe.ownerOrWritable)) { return nullptr; }
-    if (!Number(env, object, "sampleStartedMonotonicMs", probe.sampleStartedMonotonicMs)) { return nullptr; }
-    if (!Number(env, object, "sampleCompletedMonotonicMs", probe.sampleCompletedMonotonicMs)) { return nullptr; }
-    if (!Number(env, object, "sampleWallTimeMs", probe.sampleWallTimeMs)) { return nullptr; }
-    if (!Text(env, object, "kernelName", probe.kernelName)) { return nullptr; }
-    if (!Text(env, object, "kernelRelease", probe.kernelRelease)) { return nullptr; }
+    if (!SerializeProbeStatus(env, object, probe)) {
+        return nullptr;
+    }
+    if (!SerializeProbeLayout(env, object, probe)) {
+        return nullptr;
+    }
+    if (!SerializeProbeIdentity(env, object, probe)) {
+        return nullptr;
+    }
+    if (!SerializeProbeTimeKernel(env, object, probe)) {
+        return nullptr;
+    }
     return object;
 }
 
@@ -367,7 +411,11 @@ struct HeldMapping {
     HeldMapping() = default;
     HeldMapping(const HeldMapping &) = delete;
     HeldMapping &operator=(const HeldMapping &) = delete;
-    ~HeldMapping() { int ignored = 0; Release(ignored); }
+    ~HeldMapping()
+    {
+        int ignored = 0;
+        Release(ignored);
+    }
 
     bool Release(int &errorCode)
     {
@@ -773,7 +821,8 @@ bool NullableNumber(napi_env env, napi_value object, const char *key, bool valid
     return NapiOk(env, napi_get_null(env, &nullValue)) && Property(env, object, key, nullValue);
 }
 
-bool MappingHeader(napi_env env, napi_value object, const HeldMapping &held, uint32_t handle, bool active, bool valid, const Probe &file)
+bool MappingHeader(napi_env env, napi_value object, const HeldMapping &held, uint32_t handle,
+    bool active, bool valid, const Probe &file)
 {
     if (!Boolean(env, object, "ok", valid)) { return false; }
     if (!Number(env, object, "handle", active ? handle : 0)) { return false; }
@@ -781,7 +830,9 @@ bool MappingHeader(napi_env env, napi_value object, const HeldMapping &held, uin
     if (!Text(env, object, "message", valid ? "Held PROT_READ MAP_PRIVATE mapping; not global pagecache quantity" :
         (active ? file.message : "No matching live mapping handle"))) { return false; }
     if (!Number(env, object, "mappedBytes", active ? held.length : 0)) { return false; }
-    if (!Text(env, object, "virtualStart", active ? AddressHex(reinterpret_cast<uintptr_t>(held.address)) : "")) { return false; }
+    if (!Text(env, object, "virtualStart", active ? AddressHex(reinterpret_cast<uintptr_t>(held.address)) : "")) {
+        return false;
+    }
     if (!Text(env, object, "virtualEnd",
         active ? AddressHex(reinterpret_cast<uintptr_t>(held.address) + held.length) : "")) { return false; }
     return true;
@@ -830,8 +881,14 @@ bool TouchMapping(napi_env env, napi_value object, const HeldMapping &held, cons
     if (!Text(env, object, "faultScope", faultScope == RUSAGE_SELF ?
         "process-during-synchronous-touch" : "thread-during-synchronous-touch")) { return false; }
     if (!Boolean(env, object, "faultCountersAvailable", faultsKnown)) { return false; }
-    if (!NullableNumber(env, object, "minorFaults", faultsKnown, faultsAfter.ru_minflt - faultsBefore.ru_minflt)) { return false; }
-    if (!NullableNumber(env, object, "majorFaults", faultsKnown, faultsAfter.ru_majflt - faultsBefore.ru_majflt)) { return false; }
+    if (!NullableNumber(env, object, "minorFaults", faultsKnown,
+        faultsAfter.ru_minflt - faultsBefore.ru_minflt)) {
+        return false;
+    }
+    if (!NullableNumber(env, object, "majorFaults", faultsKnown,
+        faultsAfter.ru_majflt - faultsBefore.ru_majflt)) {
+        return false;
+    }
     return true;
 }
 
@@ -901,9 +958,14 @@ bool MappingPagemap(napi_env env, napi_value object, const HeldMapping &held, bo
     if (!Boolean(env, object, "pagemapEstablished", valid && held.pagemapEstablished)) { return false; }
     if (!Number(env, object, "pagemapErrorCode", sample.errorCode)) { return false; }
     if (!Text(env, object, "pagemapMeaning",
-        "PRESENT PTE count for ONLY virtualStart..virtualEnd; not global filecache or physical memory returned")) { return false; }
+        "PRESENT PTE count for ONLY virtualStart..virtualEnd; not global filecache or physical memory returned")) {
+        return false;
+    }
     if (!NullableNumber(env, object, "rawPresentPages", sample.readable, sample.present)) { return false; }
-    if (!NullableNumber(env, object, "presentPages", valid && sample.readable && held.pagemapEstablished, sample.present)) { return false; }
+    if (!NullableNumber(env, object, "presentPages",
+        valid && sample.readable && held.pagemapEstablished, sample.present)) {
+        return false;
+    }
     return true;
 }
 
@@ -944,6 +1006,25 @@ napi_value MappingObservation(napi_env env, HeldMapping &held, uint32_t handle, 
     return object;
 }
 
+napi_value ObserveNewMappingOrRollback(napi_env env, HeldMapping &held)
+{
+    napi_value result = nullptr;
+    try {
+        result = MappingObservation(env, held, held.handle, true);
+    } catch (...) {
+        int cleanupError = 0;
+        held.Release(cleanupError);
+        throw;
+    }
+    if (result == nullptr) {
+        int cleanupError = 0;
+        held.Release(cleanupError); // Preserve failed munmap state for the next begin/env cleanup.
+    } else {
+        held.unreported = false;
+    }
+    return result;
+}
+
 napi_value BeginMapping(napi_env env, napi_callback_info info)
 {
     EnvironmentState *state = CallbackState(env, info);
@@ -982,21 +1063,7 @@ napi_value BeginMapping(napi_env env, napi_callback_info info)
     do { held.handle = ++g_nextMappingHandle; } while (held.handle == 0);
     held.pagemapEstablished = false;
     held.unreported = true;
-    napi_value result = nullptr;
-    try {
-        result = MappingObservation(env, held, held.handle, true);
-    } catch (...) {
-        int cleanupError = 0;
-        held.Release(cleanupError);
-        throw;
-    }
-    if (result == nullptr) {
-        int cleanupError = 0;
-        held.Release(cleanupError); // Preserve failed munmap state for the next begin/env cleanup.
-    } else {
-        held.unreported = false;
-    }
-    return result;
+    return ObserveNewMappingOrRollback(env, held);
 }
 
 napi_value SampleMapping(napi_env env, napi_callback_info info)
@@ -1061,7 +1128,8 @@ napi_value Initialize(napi_env env, napi_value exports)
     const napi_property_descriptor descriptors[] = {
         {"warmFile", nullptr, GuardCallback<Warm>, nullptr, nullptr, nullptr, napi_default, state},
         {"sampleFile", nullptr, GuardCallback<Sample>, nullptr, nullptr, nullptr, napi_default, state},
-        {"calibratePrivateFile", nullptr, GuardCallback<CalibratePrivate>, nullptr, nullptr, nullptr, napi_default, state},
+        {"calibratePrivateFile", nullptr, GuardCallback<CalibratePrivate>,
+            nullptr, nullptr, nullptr, napi_default, state},
         {"beginMappedFile", nullptr, GuardCallback<BeginMapping>, nullptr, nullptr, nullptr, napi_default, state},
         {"sampleMappedFile", nullptr, GuardCallback<SampleMapping>, nullptr, nullptr, nullptr, napi_default, state},
         {"rereadMappedFile", nullptr, GuardCallback<RereadMapping>, nullptr, nullptr, nullptr, napi_default, state},

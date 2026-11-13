@@ -155,7 +155,10 @@ export class UiTestSession {
     }
   }
   diagnostic(): string { return this.initializationFailure === undefined ? 'owned UI session' : this.initializationFailure.message; }
-  isLive(): boolean { return this.accepting && !this.destroyed && current === this && Date.now() < this.deadline && this.initializationFailure === undefined; }
+  isLive(): boolean {
+    return this.accepting && !this.destroyed && current === this && Date.now() < this.deadline &&
+      this.initializationFailure === undefined;
+  }
   requireLive(): void {
     if (this.initializationFailure !== undefined) { throw this.initializationFailure; }
     if (!this.isLive()) { throw new Error('UI session ended or its case budget expired; late actions are cancelled'); }
@@ -320,7 +323,10 @@ export class UiTestSession {
 /** A late host is identified by its exact nonce, then must requireLive before loading a page. */
 export function claimUiTestSession(want: Want, owner: common.UIAbilityContext): UiTestSession | undefined {
   const session = current;
-  if (session === undefined || want.parameters === undefined || want.parameters[SESSION_PARAMETER] !== session.id) { return undefined; }
+  if (session === undefined || want.parameters === undefined ||
+    want.parameters[SESSION_PARAMETER] !== session.id) {
+    return undefined;
+  }
   session.attach(owner); return session;
 }
 export function requireUiTestSession(id: string): UiTestSession {
@@ -370,7 +376,8 @@ export class UiTestDriver {
     if ((node === undefined || node === null) && this.pendingTextInput) {
       await this.finishTextInput();
       // Only a read-only lookup can be retried after IME dismissal.
-      node = await this.session.call((): Promise<NativeComponent> => this.native.findComponent(selector.materialize(this.session)));
+      node = await this.session.call((): Promise<NativeComponent> =>
+        this.native.findComponent(selector.materialize(this.session)));
     }
     return node === undefined || node === null ? undefined : new UiTestComponent(this, node, selector);
   }
@@ -392,7 +399,8 @@ export class UiTestDriver {
     }
     let candidate: UiTestComponent | undefined = initial === undefined ? retained : initial;
     while (true) {
-      const component: UiTestComponent | undefined = candidate === undefined ? await this.findComponent(selector) : candidate;
+      const component: UiTestComponent | undefined = candidate === undefined ?
+        await this.findComponent(selector) : candidate;
       if (component !== undefined && await component.getText() === expected) { return; }
       if (Date.now() >= deadline) { throw new Error('UI text did not reach its requested value'); }
       candidate = undefined;
@@ -401,7 +409,8 @@ export class UiTestDriver {
   }
   async waitForIdle(idleMs: number, limitMs: number): Promise<boolean> {
     await this.finishTextInput();
-    return this.session.call((): Promise<boolean> => this.native.waitForIdle(idleMs, Math.min(limitMs, 500, this.session.remaining())));
+    return this.session.call((): Promise<boolean> =>
+      this.native.waitForIdle(idleMs, Math.min(limitMs, 500, this.session.remaining())));
   }
   async wakeUpDisplay(): Promise<void> {
     this.invalidateInputTarget();
@@ -482,8 +491,11 @@ export class UiTestComponent {
     await this.driver.session.call((): Promise<void> => target.inputText(value));
     const selector = this.selector;
     const input = new UiTestComponent(this.driver, target, selector);
-    if (selector !== undefined) { this.driver.rememberInputTarget(selector, input); }
-    else { this.driver.noteTextInput(); }
+    if (selector !== undefined) {
+      this.driver.rememberInputTarget(selector, input);
+    } else {
+      this.driver.noteTextInput();
+    }
     return input;
   }
   async getBounds(): Promise<Rect> {
@@ -547,8 +559,10 @@ export function uiCase(name: string, filter: number, body: UiCaseBody): void {
         }, owned.remaining());
       });
       await Promise.race([body(owned), deadline]);
-    } catch (error) { failed = true; primary = error as Error; }
-    finally {
+    } catch (error) {
+      failed = true;
+      primary = error as Error;
+    } finally {
       if (watchdog >= 0) { clearTimeout(watchdog); }
       if (session !== undefined) {
         try { await session.close(); } catch (error) {

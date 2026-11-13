@@ -182,9 +182,11 @@ struct Index {
         ForEach(this.view.batches, (plan: BatchPlan) => {
           this.batchHistory(plan)
         }, (plan: BatchPlan) => plan.batchId)
-        if (this.view.batches.length === 0) { Text($r('app.string.shortcut_text_0724'))
-          .fontSize(14)
-          .fontColor(MUTED) }
+        if (this.view.batches.length === 0) {
+          Text($r('app.string.shortcut_text_0724'))
+            .fontSize(14)
+            .fontColor(MUTED)
+        }
       }
     }
       .width('100%')
@@ -294,10 +296,12 @@ struct Index {
           .fontSize(15)
           .fontColor(this.view.supported ? OK : MUTED)
           .layoutWeight(1)
-        if (this.view.checking || this.view.querying) { LoadingProgress()
-          .width(24)
-          .height(24)
-          .color(ACCENT) }
+        if (this.view.checking || this.view.querying) {
+          LoadingProgress()
+            .width(24)
+            .height(24)
+            .color(ACCENT)
+        }
       }
         .width('100%')
       if (this.view.lastQuery.length > 0) {

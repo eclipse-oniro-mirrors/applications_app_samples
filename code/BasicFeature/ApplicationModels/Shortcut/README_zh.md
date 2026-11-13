@@ -90,7 +90,7 @@ Shortcut/
 
 ## 约束与限制
 
-1. 适用于 OpenHarmony 标准系统，工程设备类型为 `default`。桌面功能要求 `SystemCapability.BundleManager.BundleFramework.Launcher` 和支持快捷方式的桌面；设备桌面不支持时，便签、待办、收藏及其他应用内本地页面仍可使用。
+1. 适用于 OpenHarmony 标准系统，工程设备类型为 `default`。桌面功能要求 `SystemCapability.BundleManager.BundleFramework.Launcher` 和支持快捷方式的桌面；设备桌面不支持时，便签、待办、收藏及其余应用内本地页面仍可使用。
 2. `compileSdkVersion`、`targetSdkVersion` 和 `compatibleSdkVersion` 使用 SDK `26.0.0`；`modelVersion` 使用工程/构建模型版本 `26.0.0`。使用与两者兼容的 DevEco Studio 和构建工具。测试环境要求见[测试准备](<ohosTest.md#测试范围与环境>)。
 3. 应用身份为 `com.samples.shortcut`。部署时在本机配置匹配的开发签名，不提交个人证书、密钥或签名配置。
 4. 活跃便签与回收站各最多50条，总历史最多100条修订，根文档 UTF-8 预算为8 MiB，超限写入会被拒绝。回收站保留期为30天，永久删除不可撤销，请使用可丢弃测试数据。
@@ -113,4 +113,4 @@ git remote add origin https://gitcode.com/openharmony/applications_app_samples.g
 git pull origin master
 ```
 
-如工程由其他分支交付，将 `master` 替换为实际包含本工程的分支。
+如工程由其余分支交付，将 `master` 替换为实际包含本工程的分支。
