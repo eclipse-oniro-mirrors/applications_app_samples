@@ -92,7 +92,7 @@ export default function importIsolationTest(): void {
     /**
      * @tc.number    SUB_EXPAND_PATH_ISO_0500
      * @tc.name      testBothModulesExposeSameApi0005
-     * @tc.desc      Both singleton variants expose the same init/print/inited surface
+     * @tc.desc      Both module variants export the same init/print/inited members
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL1
