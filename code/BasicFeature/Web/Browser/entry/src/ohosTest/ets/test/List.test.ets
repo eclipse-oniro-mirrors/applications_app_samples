@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -64,7 +64,7 @@ import browserSystemIntegrationTest from './Integration/SystemIntegration.test';
 import browserUserScenarioTest from './Integration/UserScenarios.test';
 
 // Suites of the Interaction area.
-import browserAccessibilityNavigationTest from './Interaction/AccessibilityNavigation.test';
+import browserA11yNavigationTest from './Interaction/A11yNavigation.test';
 import browserButtonInteractionTest from './Interaction/ButtonInteraction.test';
 import browserContentScalingTest from './Interaction/ContentScaling.test';
 import browserDataBindingTest from './Interaction/DataBinding.test';
@@ -102,7 +102,7 @@ import browserWebViewConsumptionTest from './PerformanceStability/WebViewConsump
 
 // Suites of the Security area.
 import browserSecurityTest from './Security/BrowserSecurity.test';
-import securityAccessibilityTest from './Security/SecurityAccessibility.test';
+import securityA11yTest from './Security/SecurityA11y.test';
 import securityValidationTest from './Security/SecurityValidation.test';
 
 // Suites of the Validation area.
@@ -159,7 +159,7 @@ export default function testsuite(): void {
   browserSystemIntegrationTest();
   browserUserScenarioTest();
   // Interaction
-  browserAccessibilityNavigationTest();
+  browserA11yNavigationTest();
   browserButtonInteractionTest();
   browserContentScalingTest();
   browserDataBindingTest();
@@ -194,7 +194,7 @@ export default function testsuite(): void {
   browserWebViewConsumptionTest();
   // Security
   browserSecurityTest();
-  securityAccessibilityTest();
+  securityA11yTest();
   securityValidationTest();
   // Validation
   browserAnimationControllerValidationTest();

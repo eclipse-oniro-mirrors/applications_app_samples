@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2022-2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -43,6 +43,21 @@ function logError(message: string): void {
 }
 
 /**
+ * Serializes a value for logging without ever throwing.
+ *
+ * `JSON.stringify` aborts on circular structures, and an exception inside
+ * `onCreate` would take the whole test ability down before any suite runs.
+ */
+function safeJson(value: Object): string {
+  try {
+    const text: string = JSON.stringify(value);
+    return text === undefined ? '' : text;
+  } catch (error) {
+    return '[unserializable]';
+  }
+}
+
+/**
  * Starts the browser sample so that UI suites have a live window.
  *
  * The ohosTest ability and the application under test are two different
@@ -69,8 +84,8 @@ export default class TestAbility extends Ability {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     logInfo('TestAbility onCreate');
-    logInfo(`want: ${JSON.stringify(want)}`);
-    logInfo(`launchParam: ${JSON.stringify(launchParam)}`);
+    logInfo(`want: ${safeJson(want)}`);
+    logInfo(`launchParam: ${safeJson(launchParam)}`);
     logInfo('schedule browser launch and suite execution');
     setTimeout(() => {
       startBrowserApp()
