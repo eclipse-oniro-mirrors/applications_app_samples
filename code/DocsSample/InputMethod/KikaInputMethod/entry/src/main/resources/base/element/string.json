@@ -47,6 +47,26 @@
     {
       "name": "Preview_tip",
       "value": "Please input preview content"
+    },
+    {
+      "name": "subwindow_title",
+      "value": "SubWindow"
+    },
+    {
+      "name": "subwindow_placeholder",
+      "value": "Click to create and show subwindow"
+    },
+    {
+      "name": "subwindow_destroy",
+      "value": "Destroy SubWindow"
+    },
+    {
+      "name": "not_focusable_window_title",
+      "value": "Input box and input method interaction in non-focusable window"
+    },
+    {
+      "name": "subwindow_input_placeholder",
+      "value": "This is an input component"
     }
   ]
 }

@@ -29,6 +29,9 @@ export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+    // [Start input_case_input_store_windowStage]
+    // 保存windowStage，供子窗创建使用
+    AppStorage.setOrCreate('windowStage', windowStage);
 
     windowStage.loadContent('pages/PrivatePreview', (err) => {
       if (err.code) {
@@ -36,7 +39,11 @@ export default class EntryAbility extends UIAbility {
         return;
       }
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+      // 保存主窗口id，供焦点切换使用
+      let mainWindow: window.Window = windowStage.getMainWindowSync();
+      AppStorage.setOrCreate('mainWindowId', mainWindow.getWindowProperties().id);
     });
+    // [End input_case_input_store_windowStage]
   }
 
   onWindowStageDestroy(): void {
