@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -402,7 +402,7 @@ class ThrowingController extends MockWebController {
   }
 }
 
-/** Severity policy so a reporter can rank the failure surface. */
+/** Severity policy so a reporter can rank the failure panel. */
 class ErrorTaxonomy {
   static severityOf(code: string): number {
     if (code === ErrorCode.ENGINE_EXCEPTION) {
@@ -426,8 +426,8 @@ class ErrorTaxonomy {
 }
 
 const ADDRESS_CASES: AddressCase[] = [
-  { address: 'www.huawei.com', valid: true, note: 'bare host' },
-  { address: 'developer.huawei.com/consumer', valid: true, note: 'host with path' },
+  { address: 'www.sample.com', valid: true, note: 'bare host' },
+  { address: 'developer.sample.com/consumer', valid: true, note: 'host with path' },
   { address: 'https://www.bing.com/search?q=ohos', valid: true, note: 'full https url' },
   { address: 'http://www.example.com', valid: true, note: 'http url' },
   { address: 'pad.html', valid: true, note: 'pad rawfile page' },
@@ -461,7 +461,7 @@ export default function browserExceptionHandlingTest() {
       TestLogger.step(TAG, 'detached controller is reported, not thrown');
       const registry: ControllerRegistry = new ControllerRegistry(2);
       registry.detach(0);
-      const result: OperationResult = registry.safeLoad(0, 'www.huawei.com');
+      const result: OperationResult = registry.safeLoad(0, 'www.sample.com');
       expect(result.ok).assertFalse();
       expect(result.code).assertEqual(ErrorCode.NULL_CONTROLLER);
       expect(result.stage).assertContain('loadUrl');
@@ -473,7 +473,7 @@ export default function browserExceptionHandlingTest() {
     it('Browser_Exception_002', 0, async () => {
       TestLogger.step(TAG, 'negative index is rejected before touching the controller');
       const registry: ControllerRegistry = new ControllerRegistry(2);
-      const result: OperationResult = registry.safeLoad(-1, 'www.huawei.com');
+      const result: OperationResult = registry.safeLoad(-1, 'www.sample.com');
       expect(result.ok).assertFalse();
       expect(result.code).assertEqual(ErrorCode.INDEX_OUT_OF_RANGE);
       expect(registry.controllerAt(-1) === null).assertTrue();
@@ -483,7 +483,7 @@ export default function browserExceptionHandlingTest() {
     it('Browser_Exception_003', 0, async () => {
       TestLogger.step(TAG, 'index equal to size is an out of range failure');
       const registry: ControllerRegistry = new ControllerRegistry(2);
-      const result: OperationResult = registry.safeLoad(2, 'www.huawei.com');
+      const result: OperationResult = registry.safeLoad(2, 'www.sample.com');
       expect(result.ok).assertFalse();
       expect(result.code).assertEqual(ErrorCode.INDEX_OUT_OF_RANGE);
       expect(result.message).assertContain('outside');
@@ -509,7 +509,7 @@ export default function browserExceptionHandlingTest() {
 
     it('Browser_Exception_006', 0, async () => {
       TestLogger.step(TAG, 'oversized url is rejected with the length code');
-      let longUrl: string = 'www.huawei.com/';
+      let longUrl: string = 'www.sample.com/';
       while (longUrl.length <= 2100) {
         longUrl += 'segment';
       }
@@ -546,7 +546,7 @@ export default function browserExceptionHandlingTest() {
       expect(result.ok).assertFalse();
       expect(result.code).assertEqual(ErrorCode.MALFORMED_URL);
       expect(isValidAddress('localhost')).assertFalse();
-      expect(isValidAddress('www.huawei.com')).assertTrue();
+      expect(isValidAddress('www.sample.com')).assertTrue();
     });
 
     it('Browser_Exception_010', 0, async () => {
@@ -563,11 +563,11 @@ export default function browserExceptionHandlingTest() {
     it('Browser_Exception_011', 0, async () => {
       TestLogger.step(TAG, 'valid https address is normalized once and loaded');
       const registry: ControllerRegistry = new ControllerRegistry(1);
-      const result: OperationResult = registry.safeLoad(0, 'www.huawei.com');
+      const result: OperationResult = registry.safeLoad(0, 'www.sample.com');
       expect(result.ok).assertTrue();
       expect(result.code).assertEqual('OK');
-      expect(result.url).assertEqual('https://www.huawei.com');
-      expect(registry.controllerAt(0)?.getPendingUrl()).assertEqual('https://www.huawei.com');
+      expect(result.url).assertEqual('https://www.sample.com');
+      expect(registry.controllerAt(0)?.getPendingUrl()).assertEqual('https://www.sample.com');
       expect(registry.controllerAt(0)?.loadCount).assertEqual(1);
     });
 
@@ -604,7 +604,7 @@ export default function browserExceptionHandlingTest() {
     it('Browser_Exception_015', 0, async () => {
       TestLogger.step(TAG, 'back at the history head reports no history');
       const registry: ControllerRegistry = new ControllerRegistry(1);
-      registry.safeLoad(0, 'www.huawei.com');
+      registry.safeLoad(0, 'www.sample.com');
       const result: OperationResult = registry.safeBack(0);
       expect(result.ok).assertFalse();
       expect(result.code).assertEqual(ErrorCode.NO_HISTORY);
@@ -614,7 +614,7 @@ export default function browserExceptionHandlingTest() {
     it('Browser_Exception_016', 0, async () => {
       TestLogger.step(TAG, 'forward at the history tail reports no history');
       const registry: ControllerRegistry = new ControllerRegistry(1);
-      registry.safeLoad(0, 'www.huawei.com');
+      registry.safeLoad(0, 'www.sample.com');
       registry.safeLoad(0, 'www.bing.com');
       const result: OperationResult = registry.safeForward(0);
       expect(result.ok).assertFalse();
@@ -627,7 +627,7 @@ export default function browserExceptionHandlingTest() {
       const registry: ControllerRegistry = new ControllerRegistry(1);
       const throwing: ThrowingController = new ThrowingController();
       registry.attach(0, throwing);
-      const result: OperationResult = registry.safeLoad(0, 'www.huawei.com');
+      const result: OperationResult = registry.safeLoad(0, 'www.sample.com');
       expect(result.ok).assertFalse();
       expect(result.code).assertEqual(ErrorCode.ENGINE_EXCEPTION);
       expect(result.message).assertContain('web engine crashed');
@@ -651,7 +651,7 @@ export default function browserExceptionHandlingTest() {
       const throwing: ThrowingController = new ThrowingController();
       throwing.throwOnLoad = false;
       registry.attach(0, throwing);
-      registry.safeLoad(0, 'www.huawei.com');
+      registry.safeLoad(0, 'www.sample.com');
       registry.safeLoad(0, 'www.bing.com');
       const result: OperationResult = registry.safeBack(0);
       expect(result.ok).assertFalse();
@@ -704,7 +704,7 @@ export default function browserExceptionHandlingTest() {
       TestLogger.step(TAG, 'executor counts attempts, successes and failures');
       const registry: ControllerRegistry = new ControllerRegistry(1);
       const executor: SafeExecutor = new SafeExecutor();
-      executor.run('load', () => registry.safeLoad(0, 'www.huawei.com'));
+      executor.run('load', () => registry.safeLoad(0, 'www.sample.com'));
       executor.run('load', () => registry.safeLoad(0, ''));
       executor.run('load', () => registry.safeLoad(5, 'www.bing.com'));
       expect(executor.attempts).assertEqual(3);
@@ -733,7 +733,7 @@ export default function browserExceptionHandlingTest() {
       executor.run('load', () => registry.safeLoad(0, ''));
       expect(executor.lastError === null).assertFalse();
       expect(executor.lastError?.code).assertEqual(ErrorCode.EMPTY_URL);
-      executor.run('load', () => registry.safeLoad(0, 'www.huawei.com'));
+      executor.run('load', () => registry.safeLoad(0, 'www.sample.com'));
       expect(executor.lastError?.code).assertEqual(ErrorCode.EMPTY_URL);
       expect(executor.failures).assertEqual(1);
       executor.reset();
@@ -747,9 +747,9 @@ export default function browserExceptionHandlingTest() {
       const executor: SafeExecutor = new SafeExecutor();
       const failed: OperationResult = executor.run('load', () => registry.safeLoad(0, ''));
       expect(failed.ok).assertFalse();
-      const recovered: OperationResult = executor.run('load', () => registry.safeLoad(0, 'www.huawei.com'));
+      const recovered: OperationResult = executor.run('load', () => registry.safeLoad(0, 'www.sample.com'));
       expect(recovered.ok).assertTrue();
-      expect(registry.controllerAt(0)?.currentUrl).assertEqual('https://www.huawei.com');
+      expect(registry.controllerAt(0)?.currentUrl).assertEqual('https://www.sample.com');
       expect(executor.successes).assertEqual(1);
       expect(executor.failures).assertEqual(1);
     });
@@ -758,7 +758,7 @@ export default function browserExceptionHandlingTest() {
       TestLogger.step(TAG, 'a failed tab does not poison a healthy sibling tab');
       const registry: ControllerRegistry = new ControllerRegistry(3);
       registry.detach(1);
-      const failed: OperationResult = registry.safeLoad(1, 'www.huawei.com');
+      const failed: OperationResult = registry.safeLoad(1, 'www.sample.com');
       const healthy: OperationResult = registry.safeLoad(2, 'www.bing.com');
       expect(failed.ok).assertFalse();
       expect(healthy.ok).assertTrue();
@@ -787,8 +787,8 @@ export default function browserExceptionHandlingTest() {
       const before: number = browser.tabs.length;
       const executor: SafeExecutor = new SafeExecutor();
       executor.run('load', () => registry.safeLoad(0, ''));
-      executor.run('load', () => registry.safeLoad(-3, 'www.huawei.com'));
-      executor.run('load', () => registry.safeLoad(9, 'www.huawei.com'));
+      executor.run('load', () => registry.safeLoad(-3, 'www.sample.com'));
+      executor.run('load', () => registry.safeLoad(9, 'www.sample.com'));
       expect(browser.tabs.length).assertEqual(before);
       expect(browser.getTabArrayIndex()).assertEqual(1);
       expect(browser.getCurrentTab()?.key).assertEqual(1);
@@ -888,7 +888,7 @@ export default function browserExceptionHandlingTest() {
       const browser: MockBrowser = new MockBrowser();
       browser.tabs = [];
       browser.tabArrayIndex = 0;
-      const loaded: boolean = browser.loadUrl('www.huawei.com');
+      const loaded: boolean = browser.loadUrl('www.sample.com');
       expect(loaded).assertFalse();
       expect(browser.back()).assertFalse();
       expect(browser.forward()).assertFalse();
@@ -901,10 +901,10 @@ export default function browserExceptionHandlingTest() {
       const browser: MockBrowser = new MockBrowser(2);
       browser.setTabArrayIndex(7);
       expect(browser.getCurrentTab() === null).assertTrue();
-      expect(browser.loadUrl('www.huawei.com')).assertFalse();
+      expect(browser.loadUrl('www.sample.com')).assertFalse();
       expect(browser.onBackPress()).assertFalse();
       browser.setTabArrayIndex(0);
-      expect(browser.loadUrl('www.huawei.com')).assertTrue();
+      expect(browser.loadUrl('www.sample.com')).assertTrue();
     });
 
     it('Browser_Exception_039', 0, async () => {
@@ -915,11 +915,11 @@ export default function browserExceptionHandlingTest() {
         executor.run('submit', () => registry.safeLoad(0, ''));
       }
       expect(executor.failures).assertEqual(50);
-      const recovered: OperationResult = executor.run('submit', () => registry.safeLoad(0, 'www.huawei.com'));
+      const recovered: OperationResult = executor.run('submit', () => registry.safeLoad(0, 'www.sample.com'));
       expect(recovered.ok).assertTrue();
       expect(executor.attempts).assertEqual(51);
       expect(executor.successes).assertEqual(1);
-      expect(registry.controllerAt(0)?.currentUrl).assertEqual('https://www.huawei.com');
+      expect(registry.controllerAt(0)?.currentUrl).assertEqual('https://www.sample.com');
     });
 
     it('Browser_Exception_040', 0, async () => {
@@ -934,7 +934,7 @@ export default function browserExceptionHandlingTest() {
       }
       expect(rejected).assertEqual(7);
       expect(validateAddress('pad.html')).assertEqual('');
-      expect(validateAddress('www.huawei.com')).assertEqual('');
+      expect(validateAddress('www.sample.com')).assertEqual('');
     });
     it('Browser_Exception_041', 0, async () => {
       TestLogger.step(TAG, 'every valid address in the table reaches the controller');
@@ -973,7 +973,7 @@ export default function browserExceptionHandlingTest() {
       TestLogger.step(TAG, 'failure messages differ for different roots');
       const first: OperationResult = new ControllerRegistry(1).safeLoad(0, '');
       const second: OperationResult = new ControllerRegistry(1).safeLoad(0, 'localhost');
-      const third: OperationResult = new ControllerRegistry(1).safeLoad(4, 'www.huawei.com');
+      const third: OperationResult = new ControllerRegistry(1).safeLoad(4, 'www.sample.com');
       expect(first.message === second.message).assertFalse();
       expect(second.message === third.message).assertFalse();
       expect(first.code === second.code).assertFalse();
@@ -985,10 +985,10 @@ export default function browserExceptionHandlingTest() {
       const registry: ControllerRegistry = new ControllerRegistry(1);
       const throwing: ThrowingController = new ThrowingController();
       registry.attach(0, throwing);
-      const failed: OperationResult = registry.safeLoad(0, 'www.huawei.com');
+      const failed: OperationResult = registry.safeLoad(0, 'www.sample.com');
       expect(failed.ok).assertFalse();
       throwing.throwOnLoad = false;
-      const recovered: OperationResult = registry.safeLoad(0, 'www.huawei.com');
+      const recovered: OperationResult = registry.safeLoad(0, 'www.sample.com');
       expect(recovered.ok).assertTrue();
       expect(throwing.loadCount).assertEqual(1);
       expect(throwing.getLoadFailure()).assertEqual('');
@@ -1049,19 +1049,19 @@ export default function browserExceptionHandlingTest() {
       const throwing: ThrowingController = new ThrowingController();
       throwing.throwOnLoad = false;
       registry.attach(0, throwing);
-      registry.safeLoad(0, 'www.huawei.com');
+      registry.safeLoad(0, 'www.sample.com');
       registry.safeLoad(0, 'www.bing.com');
       throwing.throwOnBack = true;
       expect(registry.safeBack(0).code).assertEqual(ErrorCode.ENGINE_EXCEPTION);
       throwing.throwOnBack = false;
       const moved: OperationResult = registry.safeBack(0);
       expect(moved.ok).assertTrue();
-      expect(throwing.currentUrl).assertEqual('https://www.huawei.com');
+      expect(throwing.currentUrl).assertEqual('https://www.sample.com');
       expect(registry.safeForward(0).ok).assertTrue();
     });
 
     it('Browser_Exception_050', 0, async () => {
-      TestLogger.step(TAG, 'summarize the exception surface for the report');
+      TestLogger.step(TAG, 'summarize the exception panel for the report');
       const guard: UncaughtGuard = new UncaughtGuard();
       guard.install();
       guard.handle(new Error('adapterDevice failed'));
@@ -1080,8 +1080,8 @@ export default function browserExceptionHandlingTest() {
       TestLogger.step(TAG, 'a detached middle tab leaves neighbours operational');
       const registry: ControllerRegistry = new ControllerRegistry(4);
       registry.detach(2);
-      const left: OperationResult = registry.safeLoad(1, 'www.huawei.com');
-      const middle: OperationResult = registry.safeLoad(2, 'www.huawei.com');
+      const left: OperationResult = registry.safeLoad(1, 'www.sample.com');
+      const middle: OperationResult = registry.safeLoad(2, 'www.sample.com');
       const right: OperationResult = registry.safeLoad(3, 'www.bing.com');
       expect(left.ok).assertTrue();
       expect(middle.code).assertEqual(ErrorCode.NULL_CONTROLLER);
@@ -1098,7 +1098,7 @@ export default function browserExceptionHandlingTest() {
       const registry: ControllerRegistry = new ControllerRegistry(1);
       const executor: SafeExecutor = new SafeExecutor();
       for (let round = 0; round < 4; round++) {
-        executor.run('phase.load', () => registry.safeLoad(0, round % 2 === 0 ? '' : 'www.huawei.com'));
+        executor.run('phase.load', () => registry.safeLoad(0, round % 2 === 0 ? '' : 'www.sample.com'));
       }
       expect(executor.attempts).assertEqual(4);
       expect(executor.successes).assertEqual(2);

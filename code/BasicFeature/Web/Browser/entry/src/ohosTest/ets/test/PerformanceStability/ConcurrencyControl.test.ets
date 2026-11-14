@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -160,7 +160,7 @@ class SerializedQueue {
  * The title bar can fire "add tab" and "close tab" in the same frame, for
  * example when the user double taps. Applying both mutations in place would
  * lose the second one because each closure captured the old tab array, so the
- * worker queues the intents and replays them against the live model.
+ * worker queues the requests and replays them against the live model.
  */
 class TabMutationWorker {
   browser: MockBrowser;
@@ -187,7 +187,7 @@ class TabMutationWorker {
     return this.pendingAdds + this.pendingDeletes.length;
   }
 
-  /** Replays the queued intents; every intent is observed exactly once. */
+  /** Replays the queued requests; every request is observed exactly once. */
   flush(): number {
     let applied: number = 0;
     while (this.pendingAdds > 0) {
@@ -228,12 +228,12 @@ class TabMutationWorker {
 }
 
 /**
- * Resolves a navigation intent racing with a back gesture.
+ * Resolves a navigation request racing with a back gesture.
  *
  * In the sample the back gesture is handled while a page is still loading,
  * because Index.onBackPress consumes the event when loadingStatus is LOADING.
  * The coordinator models the three observable outcomes so the suite can assert
- * that no intent is silently dropped: load wins, back wins, or both are applied
+ * that no request is silently dropped: load wins, back wins, or both are applied
  * in submission order.
  */
 class LoadBackCoordinator {
@@ -261,7 +261,7 @@ class LoadBackCoordinator {
     return this.pendingLoad.length > 0 || this.backRequested;
   }
 
-  /** Applies the pending intents in submission order exactly once. */
+  /** Applies the pending requests in submission order exactly once. */
   flush(): boolean {
     let consumed: boolean = false;
     if (this.pendingLoad.length > 0) {
@@ -411,13 +411,13 @@ export default function browserConcurrencyControlTest() {
 
     it('Concurrency_TabAdd_007', 0, async () => {
       TestLogger.caseBegin(TAG, 'Concurrency_TabAdd_007');
-      TestLogger.step(TAG, 'queue three add tab intents and replay them');
+      TestLogger.step(TAG, 'queue three add tab requests and replay them');
       const browser: MockBrowser = new MockBrowser(1);
       const worker: TabMutationWorker = new TabMutationWorker(browser);
       worker.requestAdd(3);
       expect(worker.pendingCount()).assertEqual(3);
       const applied: number = worker.flush();
-      TestLogger.info(TAG, `applied ${applied} add intents, tabs=${browser.tabs.length}`);
+      TestLogger.info(TAG, `applied ${applied} add requests, tabs=${browser.tabs.length}`);
       expect(applied).assertEqual(3);
       expect(worker.appliedAdds).assertEqual(3);
       expect(worker.lostMutations()).assertEqual(0);
@@ -429,7 +429,7 @@ export default function browserConcurrencyControlTest() {
 
     it('Concurrency_TabAdd_008', 0, async () => {
       TestLogger.caseBegin(TAG, 'Concurrency_TabAdd_008');
-      TestLogger.step(TAG, 'queue add intents on a full tab strip');
+      TestLogger.step(TAG, 'queue add requests on a full tab strip');
       const browser: MockBrowser = new MockBrowser(MAX_TAB_COUNT);
       const worker: TabMutationWorker = new TabMutationWorker(browser);
       worker.requestAdd(3);
@@ -527,7 +527,7 @@ export default function browserConcurrencyControlTest() {
 
     it('Concurrency_Stress_013', 0, async () => {
       TestLogger.caseBegin(TAG, 'Concurrency_Stress_013');
-      TestLogger.step(TAG, 'interleave forty eight tab and navigation intents');
+      TestLogger.step(TAG, 'interleave forty eight tab and navigation requests');
       const browser: MockBrowser = new MockBrowser(3);
       const worker: TabMutationWorker = new TabMutationWorker(browser);
       const coordinator: LoadBackCoordinator = new LoadBackCoordinator(browser);

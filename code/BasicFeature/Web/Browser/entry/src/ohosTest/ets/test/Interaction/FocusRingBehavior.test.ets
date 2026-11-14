@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -335,7 +335,7 @@ class FocusRingModel {
     return result;
   }
 
-  eventLog(): string {
+  traceLog(): string {
     return this.events.join(',');
   }
 
@@ -569,7 +569,7 @@ export default function browserFocusRingBehaviorTest() {
       expect(model.pressedId).assertEqual('');
       expect(model.pressedCount()).assertEqual(0);
       expect(model.release(ID_ACTION_ADD)).assertFalse();
-      expect(model.eventLog()).assertContain('release-missed');
+      expect(model.traceLog()).assertContain('release-missed');
     });
 
     it('Browser_FocusRing_006', 0, async () => {
@@ -583,7 +583,7 @@ export default function browserFocusRingBehaviorTest() {
       expect(model.backgroundOf(ID_NAV_FORWARD)).assertEqual(DOWN_COLOR);
       expect(model.press(ID_NAV_FORWARD)).assertFalse();
       expect(model.pressedCount()).assertEqual(1);
-      expect(model.eventLog()).assertContain('press-duplicate');
+      expect(model.traceLog()).assertContain('press-duplicate');
     });
 
     it('Browser_FocusRing_007', 0, async () => {
@@ -605,7 +605,7 @@ export default function browserFocusRingBehaviorTest() {
         expect(second.focused).assertTrue();
         expect(second.focusGained).assertEqual(1);
       }
-      expect(model.eventLog()).assertContain('blur:' + ID_NAV_BACK);
+      expect(model.traceLog()).assertContain('blur:' + ID_NAV_BACK);
     });
 
     it('Browser_FocusRing_008', 0, async () => {
@@ -639,7 +639,7 @@ export default function browserFocusRingBehaviorTest() {
       expect(model.focusedId).assertEqual('');
       expect(model.pressedId).assertEqual('');
       expect(model.backgroundOf(ID_NAV_BACK)).assertEqual(UP_COLOR);
-      expect(model.eventLog()).assertContain('lose-focus');
+      expect(model.traceLog()).assertContain('lose-focus');
     });
 
     it('Browser_FocusRing_010', 0, async () => {
@@ -655,7 +655,7 @@ export default function browserFocusRingBehaviorTest() {
         expect(forward.focusGained).assertEqual(1);
         expect(forward.focusLost).assertEqual(0);
       }
-      expect(model.eventLog()).assertContain('focus-duplicate:' + ID_NAV_FORWARD);
+      expect(model.traceLog()).assertContain('focus-duplicate:' + ID_NAV_FORWARD);
     });
 
     it('Browser_FocusRing_011', 0, async () => {
@@ -665,7 +665,7 @@ export default function browserFocusRingBehaviorTest() {
       expect(model.focus('')).assertFalse();
       expect(model.focusedId).assertEqual('');
       expect(model.focusedCount()).assertEqual(0);
-      expect(model.eventLog()).assertContain('focus-unknown:ghostButton');
+      expect(model.traceLog()).assertContain('focus-unknown:ghostButton');
       expect(model.size()).assertEqual(7);
     });
 
@@ -677,7 +677,7 @@ export default function browserFocusRingBehaviorTest() {
       expect(model.register(ID_NAV_BACK, GROUP_NAVIGATION, geometry)).assertFalse();
       expect(model.size()).assertEqual(1);
       expect(model.ids().length).assertEqual(1);
-      expect(model.eventLog()).assertContain('register-duplicate');
+      expect(model.traceLog()).assertContain('register-duplicate');
       expect(model.find(ID_NAV_BACK) !== null).assertTrue();
       expect(model.find('ghostButton')).assertNull();
     });
@@ -710,7 +710,7 @@ export default function browserFocusRingBehaviorTest() {
       expect(model.focusedId).assertEqual('');
       expect(model.focusedCount()).assertEqual(0);
       expect(model.blur('ghostButton')).assertFalse();
-      expect(model.eventLog()).assertContain('blur-missed');
+      expect(model.traceLog()).assertContain('blur-missed');
     });
 
     it('Browser_FocusRing_015', 0, async () => {
@@ -724,7 +724,7 @@ export default function browserFocusRingBehaviorTest() {
       expect(model.pressedId).assertEqual(ID_NAV_BACK);
       expect(model.backgroundOf(ID_NAV_BACK)).assertEqual(DOWN_COLOR);
       expect(model.backgroundOf('ghostButton')).assertEqual(UP_COLOR);
-      expect(model.eventLog()).assertContain('press-unknown:ghostButton');
+      expect(model.traceLog()).assertContain('press-unknown:ghostButton');
     });
 
     it('Browser_FocusRing_016', 0, async () => {
@@ -872,7 +872,7 @@ export default function browserFocusRingBehaviorTest() {
       expect(model.focusedCount()).assertEqual(1);
       expect(model.focusedId).assertEqual(ID_ACTION_SUBMIT);
       expect(model.backgroundOf(ID_ACTION_SUBMIT)).assertEqual(UP_COLOR);
-      expect(model.eventLog()).assertContain('blur:' + ID_NAV_FORWARD);
+      expect(model.traceLog()).assertContain('blur:' + ID_NAV_FORWARD);
     });
 
     it('Browser_FocusRing_025', 0, async () => {

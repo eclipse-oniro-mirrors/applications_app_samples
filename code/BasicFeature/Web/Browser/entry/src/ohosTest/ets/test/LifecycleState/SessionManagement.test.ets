@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -429,14 +429,14 @@ export default function browserSessionManagementTest() {
     it('Browser_Session_009', 0, async () => {
       TestLogger.step(TAG, 'session snapshot captures tabs, urls and input');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       browser.addTab();
       browser.loadUrl('www.bing.com');
       browser.setInputVal('www.bing.com');
       const session: BrowseSession = new BrowseSession('s1', 1700000000000);
       session.capture(browser);
       expect(session.tabCount()).assertEqual(2);
-      expect(session.tabs[0].url).assertEqual('https://www.huawei.com');
+      expect(session.tabs[0].url).assertEqual('https://www.sample.com');
       expect(session.tabs[1].url).assertEqual('https://www.bing.com');
       expect(session.inputValue).assertEqual('www.bing.com');
       expect(session.tabs[1].key).assertEqual(1);
@@ -445,7 +445,7 @@ export default function browserSessionManagementTest() {
     it('Browser_Session_010', 0, async () => {
       TestLogger.step(TAG, 'snapshot applies back onto a fresh browser');
       const source: MockBrowser = new MockBrowser();
-      source.loadUrl('www.huawei.com');
+      source.loadUrl('www.sample.com');
       source.addTab();
       source.loadUrl('pad.html');
       const session: BrowseSession = new BrowseSession('s1', 1700000000000);
@@ -453,7 +453,7 @@ export default function browserSessionManagementTest() {
       const target: MockBrowser = new MockBrowser(3);
       expect(session.applyTo(target)).assertTrue();
       expect(target.tabs.length).assertEqual(2);
-      expect(target.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+      expect(target.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
       expect(target.tabs[1].controller.currentUrl).assertEqual('https://pad.html');
       expect(target.getTabArrayIndex()).assertEqual(0);
     });
@@ -472,7 +472,7 @@ export default function browserSessionManagementTest() {
       const first: BrowseSession = new BrowseSession('a', 1700000000000);
       const second: BrowseSession = new BrowseSession('b', 1700000000000);
       const browserA: MockBrowser = new MockBrowser();
-      browserA.loadUrl('www.huawei.com');
+      browserA.loadUrl('www.sample.com');
       const browserB: MockBrowser = new MockBrowser();
       browserB.loadUrl('www.bing.com');
       browserB.addTab();
@@ -480,7 +480,7 @@ export default function browserSessionManagementTest() {
       second.capture(browserB);
       expect(first.tabCount()).assertEqual(1);
       expect(second.tabCount()).assertEqual(2);
-      expect(first.tabs[0].url).assertEqual('https://www.huawei.com');
+      expect(first.tabs[0].url).assertEqual('https://www.sample.com');
       expect(second.tabs[0].url).assertEqual('https://www.bing.com');
       expect(first.describe()).assertContain('tabs=1');
       expect(second.describe()).assertContain('tabs=2');
@@ -491,7 +491,7 @@ export default function browserSessionManagementTest() {
       const first: BrowseSession = store.create();
       const second: BrowseSession = store.create();
       const source: MockBrowser = new MockBrowser();
-      source.loadUrl('www.huawei.com');
+      source.loadUrl('www.sample.com');
       first.capture(source);
       source.loadUrl('www.bing.com');
       source.addTab();
@@ -500,7 +500,7 @@ export default function browserSessionManagementTest() {
       expect(first.applyTo(target)).assertTrue();
       expect(target.tabs.length).assertEqual(1);
       expect(second.tabCount()).assertEqual(2);
-      expect(first.tabs[0].url).assertEqual('https://www.huawei.com');
+      expect(first.tabs[0].url).assertEqual('https://www.sample.com');
       expect(second.tabs[0].url).assertEqual('https://www.bing.com');
     });
 
@@ -590,7 +590,7 @@ export default function browserSessionManagementTest() {
     it('Browser_Session_020', 0, async () => {
       TestLogger.step(TAG, 'repeated restore is idempotent for the snapshot');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       const session: BrowseSession = new BrowseSession('s1', 1700000000000);
       session.capture(browser);
       const firstTarget: MockBrowser = new MockBrowser();
@@ -640,8 +640,8 @@ export default function browserSessionManagementTest() {
       TestLogger.info(TAG, `session input ready=${ready}`);
       const store: SessionStore = new SessionStore();
       const session: BrowseSession = store.create();
-      session.inputValue = 'www.huawei.com';
-      expect(session.inputValue).assertEqual('www.huawei.com');
+      session.inputValue = 'www.sample.com';
+      expect(session.inputValue).assertEqual('www.sample.com');
       expect(session.status).assertEqual(SessionStatus.ACTIVE);
       expect(store.size()).assertEqual(1);
       await serializedDelay(driver, TIMEOUT_TAB_SWITCH / 3);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -29,7 +29,7 @@ const TAG: string = 'BrowserThemeVariationTest';
 /* ------------------------------------------------------------------ */
 
 const COLOR_BACKGROUND: string = '#ffffff';
-const COLOR_SURFACE: string = '#ececec';
+const COLOR_PANEL: string = '#ececec';
 const COLOR_DIVIDER: string = '#e4e4e4';
 const COLOR_SECONDARY: string = '#c6c6c6';
 const COLOR_ACCENT: string = '#0000ff';
@@ -37,7 +37,7 @@ const COLOR_TEXT: string = '#000000';
 const COLOR_TRANSPARENT: string = '#00000000';
 
 const TOKEN_BACKGROUND: string = 'app.color.background';
-const TOKEN_SURFACE: string = 'app.color.surface';
+const TOKEN_PANEL: string = 'app.color.panel';
 const TOKEN_DIVIDER: string = 'app.color.divider';
 const TOKEN_SECONDARY: string = 'app.color.secondary';
 const TOKEN_ACCENT: string = 'app.color.accent';
@@ -58,17 +58,17 @@ const CONTRAST_DECORATIVE_MIN: number = 1.1;
 class ThemePalette {
   name: string;
   background: string;
-  surface: string;
+  panel: string;
   divider: string;
   secondary: string;
   accent: string;
   text: string;
 
-  constructor(name: string, background: string, surface: string, divider: string,
+  constructor(name: string, background: string, panel: string, divider: string,
     secondary: string, accent: string, text: string) {
     this.name = name;
     this.background = background;
-    this.surface = surface;
+    this.panel = panel;
     this.divider = divider;
     this.secondary = secondary;
     this.accent = accent;
@@ -76,7 +76,7 @@ class ThemePalette {
   }
 
   colors(): string[] {
-    return [this.background, this.surface, this.divider, this.secondary, this.accent, this.text];
+    return [this.background, this.panel, this.divider, this.secondary, this.accent, this.text];
   }
 
   /** The pressed background of a title bar image button. */
@@ -94,7 +94,7 @@ class ThemePalette {
   }
 
   sameAs(other: ThemePalette): boolean {
-    return this.background === other.background && this.surface === other.surface &&
+    return this.background === other.background && this.panel === other.panel &&
       this.divider === other.divider && this.secondary === other.secondary &&
       this.accent === other.accent && this.text === other.text;
   }
@@ -103,7 +103,7 @@ class ThemePalette {
 /** Factory of the two palettes shipped with the sample. */
 class PaletteFactory {
   static light(): ThemePalette {
-    return new ThemePalette(THEME_LIGHT, COLOR_BACKGROUND, COLOR_SURFACE, COLOR_DIVIDER,
+    return new ThemePalette(THEME_LIGHT, COLOR_BACKGROUND, COLOR_PANEL, COLOR_DIVIDER,
       COLOR_SECONDARY, COLOR_ACCENT, COLOR_TEXT);
   }
 
@@ -167,14 +167,14 @@ function isHexColor(value: string): boolean {
 
 /** Token names resolved by the sample resource table. */
 class TokenTable {
-  names: string[] = [TOKEN_BACKGROUND, TOKEN_SURFACE, TOKEN_DIVIDER, TOKEN_SECONDARY, TOKEN_ACCENT];
+  names: string[] = [TOKEN_BACKGROUND, TOKEN_PANEL, TOKEN_DIVIDER, TOKEN_SECONDARY, TOKEN_ACCENT];
 
   resolve(token: string, palette: ThemePalette): string {
     if (token === TOKEN_BACKGROUND) {
       return palette.background;
     }
-    if (token === TOKEN_SURFACE) {
-      return palette.surface;
+    if (token === TOKEN_PANEL) {
+      return palette.panel;
     }
     if (token === TOKEN_DIVIDER) {
       return palette.divider;
@@ -189,7 +189,7 @@ class TokenTable {
   }
 
   hardcoded(palette: ThemePalette): string[] {
-    return [palette.background, palette.surface, palette.divider, palette.secondary, palette.accent];
+    return [palette.background, palette.panel, palette.divider, palette.secondary, palette.accent];
   }
 
   mismatches(palette: ThemePalette): string[] {
@@ -338,7 +338,7 @@ export default function browserThemeVariationTest() {
       const palette: ThemePalette = buildLight();
       expect(palette.name).assertEqual(THEME_LIGHT);
       expect(palette.background).assertEqual(COLOR_BACKGROUND);
-      expect(palette.surface).assertEqual(COLOR_SURFACE);
+      expect(palette.panel).assertEqual(COLOR_PANEL);
       expect(palette.divider).assertEqual(COLOR_DIVIDER);
       expect(palette.secondary).assertEqual(COLOR_SECONDARY);
       expect(palette.accent).assertEqual(COLOR_ACCENT);
@@ -363,13 +363,13 @@ export default function browserThemeVariationTest() {
     });
 
     it('Browser_Theme_003', 0, async () => {
-      TestLogger.step(TAG, 'dark palette keeps the accent and swaps the surfaces');
+      TestLogger.step(TAG, 'dark palette keeps the accent and swaps the panels');
       const light: ThemePalette = buildLight();
       const dark: ThemePalette = buildDark();
       expect(dark.name).assertEqual(THEME_DARK);
       expect(dark.accent).assertEqual(light.accent);
       expect(dark.background === light.background).assertFalse();
-      expect(dark.surface === light.surface).assertFalse();
+      expect(dark.panel === light.panel).assertFalse();
       expect(dark.divider === light.divider).assertFalse();
       expect(dark.isLight()).assertFalse();
       expect(dark.sameAs(light)).assertFalse();
@@ -402,15 +402,15 @@ export default function browserThemeVariationTest() {
     });
 
     it('Browser_Theme_006', 0, async () => {
-      TestLogger.step(TAG, 'accent blue stays readable on both surfaces');
+      TestLogger.step(TAG, 'accent blue stays readable on both panels');
       const light: ThemePalette = buildLight();
       const dark: ThemePalette = buildDark();
       const onLight: number = contrastRatio(light.accent, light.background);
-      const onSurface: number = contrastRatio(light.accent, light.surface);
-      TestLogger.info(TAG, `accent contrast light=${onLight}, surface=${onSurface}`);
+      const onPanel: number = contrastRatio(light.accent, light.panel);
+      TestLogger.info(TAG, `accent contrast light=${onLight}, panel=${onPanel}`);
       expect(onLight).assertLarger(CONTRAST_LARGE_MIN);
-      expect(onSurface).assertLarger(CONTRAST_LARGE_MIN);
-      // Pure blue on a near black surface tops out around 2.2:1, so the dark
+      expect(onPanel).assertLarger(CONTRAST_LARGE_MIN);
+      // Pure blue on a near black panel tops out around 2.2:1, so the dark
       // theme can only guarantee the relaxed floor.
       expect(contrastRatio(dark.accent, dark.background)).assertLarger(2);
       expect(onLight).assertLess(21);
@@ -510,7 +510,7 @@ export default function browserThemeVariationTest() {
       expect(light.buttonBackground(false)).assertEqual(COLOR_TRANSPARENT);
       expect(light.buttonBackground(true)).assertEqual('#2a2a2a');
       expect(light.textOnBackground()).assertLarger(CONTRAST_TEXT_MIN);
-      // The dark theme keeps the shared blue accent; on the dark surface it
+      // The dark theme keeps the shared blue accent; on the dark panel it
       // reaches the relaxed floor instead of the large-text one.
       expect(light.accentOnBackground()).assertLarger(2);
     });

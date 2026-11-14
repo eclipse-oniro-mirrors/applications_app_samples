@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -73,7 +73,7 @@ interface LoadPoint {
 }
 
 /**
- * Energy model of one WebView activity window.
+ * Energy model of one WebView lifecycle window.
  *
  * The CPU term dominates: a page that keeps the compositor busy at thirty
  * percent for two seconds costs far more than the radio transfer itself. The

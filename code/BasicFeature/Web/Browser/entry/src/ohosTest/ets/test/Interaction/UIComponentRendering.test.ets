@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -467,10 +467,10 @@ class ProgressPresentation {
 }
 
 /* ------------------------------------------------------------------ */
-/* Web surface model (mirror of the Web component attributes)          */
+/* Web panel model (mirror of the Web component attributes)          */
 /* ------------------------------------------------------------------ */
 
-class WebSurfaceModel {
+class WebPanelModel {
   javaScriptAccess: boolean = true;
   fileAccess: boolean = true;
   domStorageAccess: boolean = true;
@@ -547,8 +547,8 @@ function buildTabletTree(tabCount: number = MIN_TAB_COUNT,
   root.addChild(new ComponentNode('Divider', 'Divider', 1280, DIVIDER_THICKNESS, 0, true));
 
   const web: ComponentNode = root.addChild(new ComponentNode('WebTab', 'Tabs', 1280, 640, 0, true));
-  const surface: ComponentNode = web.addChild(new ComponentNode('Web', 'Web', 1280, 640, 0, true));
-  surface.addChild(new ComponentNode('WebContent', 'page', 1280, 640, 0, true));
+  const panel: ComponentNode = web.addChild(new ComponentNode('Web', 'Web', 1280, 640, 0, true));
+  panel.addChild(new ComponentNode('WebContent', 'page', 1280, 640, 0, true));
   return root;
 }
 
@@ -867,17 +867,17 @@ export default function browserUIComponentRenderingTest() {
     });
 
     it('Browser_UI_Render_014', 0, async () => {
-      TestLogger.step(TAG, 'Web surface keeps the five render flags enabled');
-      const surface: WebSurfaceModel = new WebSurfaceModel();
-      expect(surface.enabledFlagCount()).assertEqual(4);
-      expect(surface.javaScriptAccess).assertTrue();
-      expect(surface.fileAccess).assertTrue();
-      expect(surface.domStorageAccess).assertTrue();
-      expect(surface.multiWindowAccess).assertTrue();
-      expect(surface.mixedMode).assertEqual('All');
-      expect(surface.barIsCollapsed()).assertTrue();
-      expect(surface.homePage(false)).assertEqual(PAD_HOME_PAGE);
-      expect(surface.homePage(true)).assertEqual(PHONE_HOME_PAGE);
+      TestLogger.step(TAG, 'Web panel keeps the five render flags enabled');
+      const panel: WebPanelModel = new WebPanelModel();
+      expect(panel.enabledFlagCount()).assertEqual(4);
+      expect(panel.javaScriptAccess).assertTrue();
+      expect(panel.fileAccess).assertTrue();
+      expect(panel.domStorageAccess).assertTrue();
+      expect(panel.multiWindowAccess).assertTrue();
+      expect(panel.mixedMode).assertEqual('All');
+      expect(panel.barIsCollapsed()).assertTrue();
+      expect(panel.homePage(false)).assertEqual(PAD_HOME_PAGE);
+      expect(panel.homePage(true)).assertEqual(PHONE_HOME_PAGE);
       const tree: UiTree = new UiTree(buildTabletTree());
       expect(tree.countByType('Web')).assertEqual(1);
     });

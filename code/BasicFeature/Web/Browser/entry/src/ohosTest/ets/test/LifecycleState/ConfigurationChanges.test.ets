@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -52,7 +52,7 @@ const PHONE_MAX_WIDTH: number = 600;
 const WIDTH_PHONE: number = 360;
 const WIDTH_PAD: number = 1280;
 
-/** Font scaling range accepted by the accessibility settings. */
+/** Font scaling range accepted by the a11y settings. */
 const FONT_SCALE_MIN: number = 0.85;
 const FONT_SCALE_MAX: number = 3.2;
 const FONT_SCALE_DEFAULT: number = 1.0;
@@ -780,7 +780,7 @@ export default function browserConfigurationChangesTest() {
 
     it('Browser_Config_FontScale_007', 0, async () => {
       TestLogger.caseBegin(TAG, 'Browser_Config_FontScale_007');
-      TestLogger.step(TAG, 'font scale is clamped to the accessibility range');
+      TestLogger.step(TAG, 'font scale is clamped to the a11y range');
       const scaler: FontScaler = new FontScaler();
       const tooSmall: FontRow = scaler.build(0.2);
       const tooLarge: FontRow = scaler.build(9.0);

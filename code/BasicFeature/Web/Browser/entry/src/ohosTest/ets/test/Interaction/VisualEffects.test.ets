@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -315,10 +315,10 @@ class ProgressVisualModel {
 }
 
 /* ------------------------------------------------------------------ */
-/* Button surface model (22 x 22, radius 4)                            */
+/* Button panel model (22 x 22, radius 4)                            */
 /* ------------------------------------------------------------------ */
 
-class ButtonSurfaceModel {
+class ButtonPanelModel {
   width: number = BUTTON_WIDTH;
   height: number = BUTTON_WIDTH;
   radius: number = BUTTON_RADIUS;
@@ -333,12 +333,12 @@ class ButtonSurfaceModel {
   }
 
   /** A released button paints nothing, only its image is visible. */
-  surfaceIsInvisible(): boolean {
+  panelIsInvisible(): boolean {
     return isTransparent(this.background());
   }
 
-  pressedSurfaceIsOpaque(): boolean {
-    const pressed: ButtonSurfaceModel = new ButtonSurfaceModel(true);
+  pressedPanelIsOpaque(): boolean {
+    const pressed: ButtonPanelModel = new ButtonPanelModel(true);
     return isOpaque(pressed.background());
   }
 
@@ -351,8 +351,8 @@ class ButtonSurfaceModel {
     return this.radius / this.width;
   }
 
-  clone(pressed: boolean): ButtonSurfaceModel {
-    return new ButtonSurfaceModel(pressed);
+  clone(pressed: boolean): ButtonPanelModel {
+    return new ButtonPanelModel(pressed);
   }
 }
 
@@ -655,7 +655,7 @@ export default function browserVisualEffectsTest() {
     });
 
     it('Browser_Visual_Effect_009', 0, async () => {
-      TestLogger.step(TAG, 'luminance orders the chrome surfaces from bright to dark');
+      TestLogger.step(TAG, 'luminance orders the chrome panels from bright to dark');
       const white: number = relativeLuminance(TAB_SELECTED_COLOR);
       const selected: number = relativeLuminance(TAB_UNSELECTED_COLOR);
       const pressed: number = relativeLuminance(DOWN_COLOR);
@@ -724,22 +724,22 @@ export default function browserVisualEffectsTest() {
     });
 
     it('Browser_Visual_Effect_013', 0, async () => {
-      TestLogger.step(TAG, 'button surface is a rounded 22 x 22 square');
-      const released: ButtonSurfaceModel = new ButtonSurfaceModel(false);
+      TestLogger.step(TAG, 'button panel is a rounded 22 x 22 square');
+      const released: ButtonPanelModel = new ButtonPanelModel(false);
       expect(released.width).assertEqual(22);
       expect(released.height).assertEqual(22);
       expect(released.width).assertEqual(released.height);
       expect(released.radius).assertEqual(4);
       expect(released.background()).assertEqual(UP_COLOR);
-      expect(released.surfaceIsInvisible()).assertTrue();
-      expect(released.pressedSurfaceIsOpaque()).assertTrue();
+      expect(released.panelIsInvisible()).assertTrue();
+      expect(released.pressedPanelIsOpaque()).assertTrue();
       expect(released.cornerIsSoft()).assertTrue();
       expect(released.cornerRatio()).assertLarger(0.15);
       expect(released.cornerRatio()).assertLess(0.2);
-      const pressed: ButtonSurfaceModel = released.clone(true);
+      const pressed: ButtonPanelModel = released.clone(true);
       expect(pressed.pressed).assertTrue();
       expect(pressed.background()).assertEqual(DOWN_COLOR);
-      expect(pressed.surfaceIsInvisible()).assertFalse();
+      expect(pressed.panelIsInvisible()).assertFalse();
     });
 
     it('Browser_Visual_Effect_014', 0, async () => {

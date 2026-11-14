@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -245,13 +245,13 @@ export default function browserStatePersistenceTest() {
     it('Browser_Persistence_002', 0, async () => {
       TestLogger.step(TAG, 'draft survives an encode decode round trip');
       const draft: BrowserDraft = new BrowserDraft();
-      draft.inputValue = 'www.huawei.com';
+      draft.inputValue = 'www.sample.com';
       draft.tabIndex = 2;
       draft.progress = 35;
-      draft.history = ['https://www.huawei.com', 'https://www.bing.com'];
+      draft.history = ['https://www.sample.com', 'https://www.bing.com'];
       const restored: BrowserDraft = StateCodec.decode(StateCodec.encode(draft));
       expect(restored.equals(draft)).assertTrue();
-      expect(restored.inputValue).assertEqual('www.huawei.com');
+      expect(restored.inputValue).assertEqual('www.sample.com');
       expect(restored.tabIndex).assertEqual(2);
       expect(restored.progress).assertEqual(35);
       expect(restored.history.length).assertEqual(2);
@@ -261,11 +261,11 @@ export default function browserStatePersistenceTest() {
       TestLogger.step(TAG, 'input draft is saved and reloaded from the slot');
       const store: PersistenceStore = new PersistenceStore();
       const draft: BrowserDraft = new BrowserDraft();
-      draft.inputValue = 'developer.huawei.com';
+      draft.inputValue = 'developer.sample.com';
       expect(store.save('draft', draft)).assertTrue();
       expect(store.has('draft')).assertTrue();
       const loaded: BrowserDraft = store.load('draft');
-      expect(loaded.inputValue).assertEqual('developer.huawei.com');
+      expect(loaded.inputValue).assertEqual('developer.sample.com');
       expect(store.saveCount()).assertEqual(1);
       expect(store.loadCount()).assertEqual(1);
     });
@@ -286,11 +286,11 @@ export default function browserStatePersistenceTest() {
       TestLogger.step(TAG, 'history stack is persisted in visit order');
       const store: PersistenceStore = new PersistenceStore();
       const draft: BrowserDraft = new BrowserDraft();
-      draft.history = ['https://www.huawei.com', 'https://www.bing.com', 'https://pad.html'];
+      draft.history = ['https://www.sample.com', 'https://www.bing.com', 'https://pad.html'];
       store.save('history', draft);
       const loaded: BrowserDraft = store.load('history');
       expect(loaded.history.length).assertEqual(3);
-      expect(loaded.history[0]).assertEqual('https://www.huawei.com');
+      expect(loaded.history[0]).assertEqual('https://www.sample.com');
       expect(loaded.history[2]).assertEqual('https://pad.html');
     });
 
@@ -318,7 +318,7 @@ export default function browserStatePersistenceTest() {
 
     it('Browser_Persistence_008', 0, async () => {
       TestLogger.step(TAG, 'unknown schema version degrades to the default draft');
-      const draft: BrowserDraft = StateCodec.decode('v9|www.huawei.com|1|20|');
+      const draft: BrowserDraft = StateCodec.decode('v9|www.sample.com|1|20|');
       expect(draft.inputValue).assertEqual('');
       expect(draft.tabIndex).assertEqual(0);
       expect(draft.history.length).assertEqual(0);
@@ -347,14 +347,14 @@ export default function browserStatePersistenceTest() {
       TestLogger.step(TAG, 'injected write failure keeps the last good snapshot');
       const store: PersistenceStore = new PersistenceStore();
       const draft: BrowserDraft = new BrowserDraft();
-      draft.inputValue = 'www.huawei.com';
+      draft.inputValue = 'www.sample.com';
       expect(store.save('draft', draft)).assertTrue();
       store.failNextSave = true;
       draft.inputValue = 'www.bing.com';
       expect(store.save('draft', draft)).assertFalse();
       expect(store.failureCount()).assertEqual(1);
       expect(store.failureReason()).assertEqual('injected write failure');
-      expect(store.load('draft').inputValue).assertEqual('www.huawei.com');
+      expect(store.load('draft').inputValue).assertEqual('www.sample.com');
     });
 
     it('Browser_Persistence_012', 0, async () => {
@@ -362,13 +362,13 @@ export default function browserStatePersistenceTest() {
       const store: PersistenceStore = new PersistenceStore();
       store.quotaBytes = 16;
       const draft: BrowserDraft = new BrowserDraft();
-      draft.inputValue = 'www.huawei.com';
+      draft.inputValue = 'www.sample.com';
       expect(store.save('small', draft)).assertFalse();
       expect(store.failureReason()).assertEqual('quota exceeded');
       expect(store.has('small')).assertFalse();
       store.quotaBytes = 4096;
       expect(store.save('small', draft)).assertTrue();
-      expect(store.load('small').inputValue).assertEqual('www.huawei.com');
+      expect(store.load('small').inputValue).assertEqual('www.sample.com');
     });
     it('Browser_Persistence_013', 0, async () => {
       TestLogger.step(TAG, 'clear removes a slot and reports the change');
@@ -387,7 +387,7 @@ export default function browserStatePersistenceTest() {
       TestLogger.step(TAG, 'overwriting a slot keeps only the latest draft');
       const store: PersistenceStore = new PersistenceStore();
       const draft: BrowserDraft = new BrowserDraft();
-      draft.inputValue = 'www.huawei.com';
+      draft.inputValue = 'www.sample.com';
       draft.tabIndex = 1;
       store.save('draft', draft);
       draft.inputValue = 'www.bing.com';
@@ -428,11 +428,11 @@ export default function browserStatePersistenceTest() {
 
     it('Browser_Persistence_017', 0, async () => {
       TestLogger.step(TAG, 'negative tab index and progress are clamped on decode');
-      const payload: string = 'v1|www.huawei.com|-3|-40|';
+      const payload: string = 'v1|www.sample.com|-3|-40|';
       const loaded: BrowserDraft = StateCodec.decode(payload);
       expect(loaded.tabIndex).assertEqual(0);
       expect(loaded.progress).assertEqual(0);
-      expect(loaded.inputValue).assertEqual('www.huawei.com');
+      expect(loaded.inputValue).assertEqual('www.sample.com');
       const over: BrowserDraft = StateCodec.decode('v1|x|2|180|');
       expect(over.tabIndex).assertEqual(2);
       expect(over.progress).assertEqual(100);
@@ -459,8 +459,8 @@ export default function browserStatePersistenceTest() {
       TestLogger.step(TAG, 'saving the same payload twice is idempotent');
       const store: PersistenceStore = new PersistenceStore();
       const draft: BrowserDraft = new BrowserDraft();
-      draft.inputValue = 'www.huawei.com';
-      draft.history = ['https://www.huawei.com'];
+      draft.inputValue = 'www.sample.com';
+      draft.history = ['https://www.sample.com'];
       expect(store.save('draft', draft)).assertTrue();
       const firstPayload: string = store.raw('draft');
       expect(store.save('draft', draft)).assertTrue();
@@ -472,12 +472,12 @@ export default function browserStatePersistenceTest() {
     it('Browser_Persistence_020', 0, async () => {
       TestLogger.step(TAG, 'draft clone is independent from its source');
       const draft: BrowserDraft = new BrowserDraft();
-      draft.inputValue = 'www.huawei.com';
-      draft.history = ['https://www.huawei.com'];
+      draft.inputValue = 'www.sample.com';
+      draft.history = ['https://www.sample.com'];
       const copy: BrowserDraft = draft.clone();
       copy.inputValue = 'www.bing.com';
       copy.history.push('https://www.bing.com');
-      expect(draft.inputValue).assertEqual('www.huawei.com');
+      expect(draft.inputValue).assertEqual('www.sample.com');
       expect(draft.history.length).assertEqual(1);
       expect(copy.history.length).assertEqual(2);
       expect(draft.equals(copy)).assertFalse();
@@ -486,14 +486,14 @@ export default function browserStatePersistenceTest() {
     it('Browser_Persistence_021', 0, async () => {
       TestLogger.step(TAG, 'draft built from the browser mirrors tab and history');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       browser.loadUrl('www.bing.com');
       browser.setInputVal('www.bing.com');
       const draft: BrowserDraft = draftFromBrowser(browser);
       expect(draft.inputValue).assertEqual('www.bing.com');
       expect(draft.tabIndex).assertEqual(0);
       expect(draft.history.length).assertEqual(2);
-      expect(draft.history[0]).assertEqual('https://www.huawei.com');
+      expect(draft.history[0]).assertEqual('https://www.sample.com');
       expect(draft.history[1]).assertEqual('https://www.bing.com');
     });
 

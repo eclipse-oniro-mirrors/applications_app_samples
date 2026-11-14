@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -179,7 +179,7 @@ class ResourcePool {
 class RawfileCatalog {
   files: string[] = [
     'pad.html', 'phone.html', 'index.html', 'test.html', 'favicon.ico',
-    'backgroundImg.jpg', 'search.svg', 'bing.png', 'huawei.png', 'baidu.png',
+    'backgroundImg.jpg', 'search.svg', 'bing.png', 'sample.png', 'baidu.png',
     'all.png', 'img.png'
   ];
 

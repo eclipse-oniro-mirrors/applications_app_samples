@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -230,7 +230,7 @@ export default function browserStateRecoveryTest() {
     it('Browser_Recovery_001', 0, async () => {
       TestLogger.step(TAG, 'snapshot captures tabs, index, input and progress');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       browser.addTab();
       browser.loadUrl('www.bing.com');
       browser.setInputVal('www.bing.com');
@@ -248,7 +248,7 @@ export default function browserStateRecoveryTest() {
     it('Browser_Recovery_002', 0, async () => {
       TestLogger.step(TAG, 'rebuild restores the tab count and every url');
       const source: MockBrowser = new MockBrowser();
-      source.loadUrl('www.huawei.com');
+      source.loadUrl('www.sample.com');
       source.addTab();
       source.loadUrl('www.bing.com');
       source.addTab();
@@ -256,7 +256,7 @@ export default function browserStateRecoveryTest() {
       const engine: RecoveryEngine = new RecoveryEngine();
       const rebuilt: MockBrowser = engine.rebuild(engine.snapshot(source, 1700000001000));
       expect(rebuilt.tabs.length).assertEqual(3);
-      expect(urlsOf(rebuilt)[0]).assertEqual('https://www.huawei.com');
+      expect(urlsOf(rebuilt)[0]).assertEqual('https://www.sample.com');
       expect(urlsOf(rebuilt)[1]).assertEqual('https://www.bing.com');
       expect(urlsOf(rebuilt)[2]).assertEqual('https://pad.html');
       expect(rebuilt.getTabKeys().join(',')).assertEqual('0,1,2');
@@ -266,19 +266,19 @@ export default function browserStateRecoveryTest() {
       TestLogger.step(TAG, 'rebuild restores the selected tab index');
       const source: MockBrowser = new MockBrowser(4);
       source.selectTab(2);
-      source.setInputVal('www.huawei.com');
+      source.setInputVal('www.sample.com');
       const engine: RecoveryEngine = new RecoveryEngine();
       const rebuilt: MockBrowser = engine.rebuild(engine.snapshot(source, 1700000002000));
       expect(rebuilt.tabs.length).assertEqual(4);
       expect(rebuilt.getTabArrayIndex()).assertEqual(2);
       expect(rebuilt.getCurrentTab()?.key).assertEqual(2);
-      expect(rebuilt.getInputVal()).assertEqual('www.huawei.com');
+      expect(rebuilt.getInputVal()).assertEqual('www.sample.com');
     });
 
     it('Browser_Recovery_004', 0, async () => {
       TestLogger.step(TAG, 'restore steps run in a deterministic order');
       const source: MockBrowser = new MockBrowser();
-      source.loadUrl('www.huawei.com');
+      source.loadUrl('www.sample.com');
       const engine: RecoveryEngine = new RecoveryEngine();
       const snapshot: RecoverySnapshot = engine.snapshot(source, 1700000003000);
       engine.rebuild(snapshot);
@@ -291,7 +291,7 @@ export default function browserStateRecoveryTest() {
     it('Browser_Recovery_005', 0, async () => {
       TestLogger.step(TAG, 'rotation keeps the current url untouched');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       browser.loadUrl('www.bing.com');
       const engine: RecoveryEngine = new RecoveryEngine();
       const before: string = browser.getCurrentTab()?.controller.currentUrl ?? '';
@@ -305,7 +305,7 @@ export default function browserStateRecoveryTest() {
       TestLogger.step(TAG, 'rotation keeps tabs, index and history');
       const browser: MockBrowser = new MockBrowser(3);
       browser.selectTab(1);
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       const engine: RecoveryEngine = new RecoveryEngine();
       const historyBefore: number = browser.getCurrentTab()?.controller.history.length ?? 0;
       engine.rotate(browser, true);
@@ -319,7 +319,7 @@ export default function browserStateRecoveryTest() {
     it('Browser_Recovery_007', 0, async () => {
       TestLogger.step(TAG, 'abrupt exit recovers from the last snapshot');
       const source: MockBrowser = new MockBrowser();
-      source.loadUrl('www.huawei.com');
+      source.loadUrl('www.sample.com');
       source.addTab();
       source.loadUrl('www.bing.com');
       const engine: RecoveryEngine = new RecoveryEngine();
@@ -339,14 +339,14 @@ export default function browserStateRecoveryTest() {
       TestLogger.step(TAG, 'recovery without a crash is a no-op');
       const engine: RecoveryEngine = new RecoveryEngine();
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       const rebuild: ProcessRebuild = new ProcessRebuild();
       const snapshot: RecoverySnapshot = engine.snapshot(browser, 1700000000000);
       const result: MockBrowser = rebuild.recover(engine, browser, snapshot);
       expect(rebuild.crashed).assertFalse();
       expect(rebuild.recovered).assertFalse();
       expect(result.tabs.length).assertEqual(1);
-      expect(result.getCurrentTab()?.controller.currentUrl).assertEqual('https://www.huawei.com');
+      expect(result.getCurrentTab()?.controller.currentUrl).assertEqual('https://www.sample.com');
     });
 
     it('Browser_Recovery_009', 0, async () => {
@@ -365,7 +365,7 @@ export default function browserStateRecoveryTest() {
     it('Browser_Recovery_010', 0, async () => {
       TestLogger.step(TAG, 'recovery is idempotent for the same snapshot');
       const source: MockBrowser = new MockBrowser();
-      source.loadUrl('www.huawei.com');
+      source.loadUrl('www.sample.com');
       source.addTab();
       source.loadUrl('www.bing.com');
       const engine: RecoveryEngine = new RecoveryEngine();
@@ -381,7 +381,7 @@ export default function browserStateRecoveryTest() {
       TestLogger.step(TAG, 'out of range snapshot index is clamped into the tab array');
       const engine: RecoveryEngine = new RecoveryEngine();
       const snapshot: RecoverySnapshot = new RecoverySnapshot();
-      snapshot.tabs.push(new RecoveryTab(0, 'https://www.huawei.com', 0));
+      snapshot.tabs.push(new RecoveryTab(0, 'https://www.sample.com', 0));
       snapshot.tabs.push(new RecoveryTab(1, 'https://www.bing.com', 0));
       snapshot.tabIndex = 9;
       const high: MockBrowser = engine.rebuild(snapshot);
@@ -412,7 +412,7 @@ export default function browserStateRecoveryTest() {
       TestLogger.step(TAG, 'empty url inside a snapshot is restored as a blank tab');
       const engine: RecoveryEngine = new RecoveryEngine();
       const snapshot: RecoverySnapshot = new RecoverySnapshot();
-      snapshot.tabs.push(new RecoveryTab(0, 'https://www.huawei.com', 0));
+      snapshot.tabs.push(new RecoveryTab(0, 'https://www.sample.com', 0));
       snapshot.tabs.push(new RecoveryTab(1, '', 0));
       snapshot.tabIndex = 1;
       snapshot.inputValue = 'www.bing.com';
@@ -437,13 +437,13 @@ export default function browserStateRecoveryTest() {
     it('Browser_Recovery_015', 0, async () => {
       TestLogger.step(TAG, 'recovered browser keeps a usable history stack');
       const source: MockBrowser = new MockBrowser();
-      source.loadUrl('www.huawei.com');
+      source.loadUrl('www.sample.com');
       source.loadUrl('www.bing.com');
       const engine: RecoveryEngine = new RecoveryEngine();
       const rebuilt: MockBrowser = engine.rebuild(engine.snapshot(source, 1700000000000));
       expect(rebuilt.getCurrentTab()?.controller.accessBackward()).assertTrue();
       expect(rebuilt.back()).assertTrue();
-      expect(rebuilt.getCurrentTab()?.controller.currentUrl).assertEqual('https://www.huawei.com');
+      expect(rebuilt.getCurrentTab()?.controller.currentUrl).assertEqual('https://www.sample.com');
       expect(rebuilt.forward()).assertTrue();
       expect(rebuilt.getCurrentTab()?.controller.currentUrl).assertEqual('https://www.bing.com');
     });
@@ -464,7 +464,7 @@ export default function browserStateRecoveryTest() {
       TestLogger.step(TAG, 'recovering into an existing browser keeps the caller reference');
       const engine: RecoveryEngine = new RecoveryEngine();
       const snapshot: RecoverySnapshot = new RecoverySnapshot();
-      snapshot.tabs.push(new RecoveryTab(0, 'https://www.huawei.com', 0));
+      snapshot.tabs.push(new RecoveryTab(0, 'https://www.sample.com', 0));
       snapshot.tabs.push(new RecoveryTab(1, 'https://www.bing.com', 0));
       snapshot.tabIndex = 1;
       const live: MockBrowser = new MockBrowser(1);
@@ -478,7 +478,7 @@ export default function browserStateRecoveryTest() {
     it('Browser_Recovery_018', 0, async () => {
       TestLogger.step(TAG, 'after destroy the recovery produces a single tab home page');
       const source: MockBrowser = new MockBrowser();
-      source.loadUrl('www.huawei.com');
+      source.loadUrl('www.sample.com');
       const engine: RecoveryEngine = new RecoveryEngine();
       const snapshot: RecoverySnapshot = engine.snapshot(source, 1700000000000);
       source.tabs = [];
@@ -520,7 +520,7 @@ export default function browserStateRecoveryTest() {
       TestLogger.step(TAG, 'UI: url input is available after the recovery path runs');
       const engine: RecoveryEngine = new RecoveryEngine();
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       const snapshot: RecoverySnapshot = engine.snapshot(browser, 1700000000000);
       engine.recover(browser, snapshot);
       const ready: boolean = await componentByIdExists(driver, ID_INPUT_URL);
