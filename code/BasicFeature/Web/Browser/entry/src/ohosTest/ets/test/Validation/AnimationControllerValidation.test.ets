@@ -1990,3 +1990,86 @@ export default function browserAnimationControllerValidationTest() {
       expect(listener.log.countPhase(CallbackPhase.CANCEL)).assertEqual(1);
       TestLogger.pass(TAG, 'Animation_PressFeedback_056');
     });
+
+    it('Animation_PressFeedback_057', 0, async () => {
+      TestLogger.caseBegin(TAG, 'Animation_PressFeedback_057');
+      TestLogger.step(TAG, 'rapid press toggles keep a balanced pressed state');
+      const animator: PressFeedbackAnimator = new PressFeedbackAnimator();
+      const toggles: number = animator.toggle(9);
+      TestLogger.info(TAG, `toggles=${toggles} pressed=${animator.pressed} count=${animator.pressCount}`);
+      expect(toggles).assertEqual(9);
+      expect(animator.pressed).assertTrue();
+      expect(animator.pressCount).assertEqual(9);
+      expect(animator.controller.state).assertEqual(AnimationState.RUNNING);
+      TestLogger.pass(TAG, 'Animation_PressFeedback_057');
+    });
+
+    it('Animation_PressFeedback_058', 0, async () => {
+      TestLogger.caseBegin(TAG, 'Animation_PressFeedback_058');
+      TestLogger.step(TAG, 'release without a preceding press is rejected');
+      const animator: PressFeedbackAnimator = new PressFeedbackAnimator();
+      expect(animator.pressUp()).assertFalse();
+      TestLogger.info(TAG, `idle release rejected, pressed=${animator.pressed}`);
+      expect(animator.pressed).assertFalse();
+      expect(animator.pressCount).assertEqual(0);
+      expect(animator.overlayOpacity()).assertEqual(0);
+      TestLogger.pass(TAG, 'Animation_PressFeedback_058');
+    });
+
+    it('Animation_UI_059', 0, async () => {
+      TestLogger.caseBegin(TAG, 'Animation_UI_059');
+      TestLogger.step(TAG, 'the title bar url field is present before any animation starts');
+      // The Web window of the sample may still be settling right after the
+      // launch requested in beforeAll, therefore poll before asserting.
+      const visible: boolean = await waitForId(driver, ID_INPUT_URL, TIMEOUT_APP_LAUNCH);
+      await serializedDelay(driver, DELAY_TOUCH_EVENT);
+      TestLogger.info(TAG, `title bar input visible=${visible}`);
+      expect(visible).assertTrue();
+      const exists: boolean = await componentByIdExists(driver, ID_INPUT_URL);
+      expect(exists).assertTrue();
+      TestLogger.pass(TAG, 'Animation_UI_059');
+    });
+
+    it('Animation_UI_060', 0, async () => {
+      TestLogger.caseBegin(TAG, 'Animation_UI_060');
+      TestLogger.step(TAG, 'navigation buttons remain queryable while animations idle');
+      const backCount: number = await countById(driver, ID_NAV_BACK);
+      const refreshCount: number = await countById(driver, ID_NAV_REFRESH);
+      await serializedDelay(driver, DELAY_TAB_OPERATION);
+      TestLogger.info(TAG, `back=${backCount} refresh=${refreshCount}`);
+      expect(backCount).assertLarger(0);
+      expect(refreshCount).assertLarger(0);
+      TestLogger.pass(TAG, 'Animation_UI_060');
+    });
+
+    it('Animation_UI_061', 0, async () => {
+      TestLogger.caseBegin(TAG, 'Animation_UI_061');
+      TestLogger.step(TAG, 'a tab switch animation is driven through the real render loop');
+      const animator: TabSwitchAnimator = new TabSwitchAnimator(0, 1);
+      animator.start();
+      await serializedDelay(driver, TIMEOUT_TAB_SWITCH / 4);
+      const midValue: number = animator.controller.value;
+      await serializedDelay(driver, TIMEOUT_TAB_SWITCH / 2);
+      animator.advanceToEnd();
+      TestLogger.info(TAG, `mid=${midValue} final=${animator.projectedIndex()}`);
+      expect(animator.projectedIndex()).assertEqual(1);
+      expect(animator.controller.state).assertEqual(AnimationState.FINISHED);
+      TestLogger.pass(TAG, 'Animation_UI_061');
+    });
+
+    it('Animation_UI_062', 0, async () => {
+      TestLogger.caseBegin(TAG, 'Animation_UI_062');
+      TestLogger.step(TAG, 'add tab button is present and keeps the add animation target valid');
+      const addExists: boolean = await componentByIdExists(driver, ID_ACTION_ADD);
+      await serializedDelay(driver, DELAY_TAB_OPERATION);
+      TestLogger.info(TAG, `add button exists=${addExists}`);
+      expect(addExists).assertTrue();
+      const animator: TabSwitchAnimator = new TabSwitchAnimator(0, 1);
+      animator.start();
+      const frame: AnimationFrame | null = animator.advanceToEnd();
+      expect(frame === null).assertFalse();
+      expect(animator.controller.spec.to).assertLess(TAB_INDEX_MAX + 1);
+      TestLogger.pass(TAG, 'Animation_UI_062');
+    });
+  });
+}
