@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -392,7 +392,7 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network);
             navigator.goOffline();
-            expect(navigator.open('https://www.huawei.com', 200)).assertFalse();
+            expect(navigator.open('https://www.sample.com', 200)).assertFalse();
             expect(navigator.status).assertEqual(STATUS_DEGRADED);
             expect(navigator.lastError).assertEqual(ERROR_OFFLINE_MISS);
             expect(navigator.failures).assertEqual(1);
@@ -407,10 +407,10 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network);
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 300)).assertFalse();
-            expect(browser.getInputVal()).assertEqual('www.huawei.com');
-            expect(navigator.lastUrl).assertEqual('https://www.huawei.com');
-            expect(navigator.lastAddress).assertEqual('www.huawei.com');
+            expect(navigator.open('www.sample.com', 300)).assertFalse();
+            expect(browser.getInputVal()).assertEqual('www.sample.com');
+            expect(navigator.lastUrl).assertEqual('https://www.sample.com');
+            expect(navigator.lastAddress).assertEqual('www.sample.com');
             expect(navigator.open('', 400)).assertFalse();
             expect(navigator.lastError).assertEqual(ERROR_EMPTY_ADDRESS);
             expect(navigator.failures).assertEqual(2);
@@ -422,12 +422,12 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            cache.put('https://www.huawei.com', '<html>cached</html>', 0, 1000);
+            cache.put('https://www.sample.com', '<html>cached</html>', 0, 1000);
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 5000)).assertTrue();
+            expect(navigator.open('www.sample.com', 5000)).assertTrue();
             expect(navigator.status).assertEqual(STATUS_OFFLINE);
             expect(navigator.lastError).assertEqual(ERROR_STALE_CACHE);
-            expect(navigator.currentUrl()).assertEqual('https://www.huawei.com');
+            expect(navigator.currentUrl()).assertEqual('https://www.sample.com');
             expect(cache.stales(5000).length).assertEqual(1);
         });
 
@@ -437,17 +437,17 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            expect(navigator.open('www.huawei.com', 600)).assertTrue();
+            expect(navigator.open('www.sample.com', 600)).assertTrue();
             expect(navigator.status).assertEqual(STATUS_ONLINE);
             expect(navigator.lastError).assertEqual('');
             expect(network.requestCount()).assertEqual(1);
-            expect(cache.has('https://www.huawei.com')).assertTrue();
+            expect(cache.has('https://www.sample.com')).assertTrue();
             expect(cache.writes).assertEqual(1);
-            expect(navigator.currentUrl()).assertEqual('https://www.huawei.com');
-            const entry: CacheEntry | null = cache.find('https://www.huawei.com');
+            expect(navigator.currentUrl()).assertEqual('https://www.sample.com');
+            const entry: CacheEntry | null = cache.find('https://www.sample.com');
             expect(entry !== null).assertTrue();
             if (entry !== null) {
-                expect(entry.body).assertContain('https://www.huawei.com');
+                expect(entry.body).assertContain('https://www.sample.com');
                 expect(entry.storedAt).assertEqual(600);
             }
         });
@@ -473,13 +473,13 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            expect(navigator.open('www.huawei.com', 700)).assertTrue();
-            expect(navigator.open('www.huawei.com', 800)).assertTrue();
+            expect(navigator.open('www.sample.com', 700)).assertTrue();
+            expect(navigator.open('www.sample.com', 800)).assertTrue();
             expect(cache.size()).assertEqual(1);
             expect(cache.writes).assertEqual(2);
             expect(cache.evictions).assertEqual(0);
             expect(network.requestCount()).assertEqual(2);
-            const entry: CacheEntry | null = cache.find('https://www.huawei.com');
+            const entry: CacheEntry | null = cache.find('https://www.sample.com');
             expect(entry !== null).assertTrue();
             if (entry !== null) {
                 expect(entry.storedAt).assertEqual(800);
@@ -493,14 +493,14 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network);
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 900)).assertFalse();
+            expect(navigator.open('www.sample.com', 900)).assertFalse();
             expect(navigator.retry(1000)).assertFalse();
             expect(navigator.retry(1100)).assertFalse();
             expect(navigator.attempts).assertEqual(3);
             expect(navigator.failures).assertEqual(3);
             expect(navigator.status).assertEqual(STATUS_DEGRADED);
             expect(navigator.lastError).assertEqual(ERROR_OFFLINE_MISS);
-            expect(browser.getInputVal()).assertEqual('www.huawei.com');
+            expect(browser.getInputVal()).assertEqual('www.sample.com');
         });
 
         it('Browser_Offline_009', 0, async () => {
@@ -510,14 +510,14 @@ export default function browserOfflineNetworkTest() {
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 1200)).assertFalse();
+            expect(navigator.open('www.sample.com', 1200)).assertFalse();
             expect(navigator.lastError).assertEqual(ERROR_OFFLINE_MISS);
             navigator.goOnline();
             expect(navigator.status).assertEqual(STATUS_ONLINE);
             expect(navigator.retry(1300)).assertTrue();
             expect(navigator.lastError).assertEqual('');
-            expect(navigator.currentUrl()).assertEqual('https://www.huawei.com');
-            expect(cache.has('https://www.huawei.com')).assertTrue();
+            expect(navigator.currentUrl()).assertEqual('https://www.sample.com');
+            expect(cache.has('https://www.sample.com')).assertTrue();
             expect(navigator.attempts).assertEqual(2);
             expect(navigator.failures).assertEqual(1);
         });
@@ -529,7 +529,7 @@ export default function browserOfflineNetworkTest() {
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
             navigator.goOffline();
-            expect(navigator.queueNavigation('www.huawei.com')).assertTrue();
+            expect(navigator.queueNavigation('www.sample.com')).assertTrue();
             expect(navigator.queueNavigation('www.bing.com')).assertTrue();
             expect(navigator.queueNavigation('pad.html')).assertTrue();
             expect(navigator.pendingCount()).assertEqual(3);
@@ -540,7 +540,7 @@ export default function browserOfflineNetworkTest() {
             expect(navigator.replays).assertEqual(3);
             expect(navigator.pendingCount()).assertEqual(0);
             expect(navigator.currentUrl()).assertEqual('https://pad.html');
-            expect(cache.has('https://www.huawei.com')).assertTrue();
+            expect(cache.has('https://www.sample.com')).assertTrue();
             expect(cache.has('https://www.bing.com')).assertTrue();
             expect(network.requestCount()).assertEqual(3);
         });
@@ -551,15 +551,15 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network);
             navigator.goOffline();
-            expect(navigator.queueNavigation('www.huawei.com')).assertTrue();
-            expect(navigator.queueNavigation('www.huawei.com')).assertFalse();
+            expect(navigator.queueNavigation('www.sample.com')).assertTrue();
+            expect(navigator.queueNavigation('www.sample.com')).assertFalse();
             expect(navigator.queueNavigation('www.bing.com')).assertTrue();
             expect(navigator.queueNavigation('www.bing.com')).assertFalse();
-            expect(navigator.queueNavigation('www.huawei.com')).assertTrue();
+            expect(navigator.queueNavigation('www.sample.com')).assertTrue();
             expect(navigator.pendingCount()).assertEqual(3);
             navigator.goOnline();
             expect(navigator.sync(1600)).assertEqual(3);
-            expect(navigator.currentUrl()).assertEqual('https://www.huawei.com');
+            expect(navigator.currentUrl()).assertEqual('https://www.sample.com');
             expect(navigator.replays).assertEqual(3);
         });
 
@@ -570,11 +570,11 @@ export default function browserOfflineNetworkTest() {
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network);
             navigator.goOffline();
             for (let index = 0; index < 12; index++) {
-                expect(navigator.queueNavigation(`www.huawei.com/${index}`)).assertTrue();
+                expect(navigator.queueNavigation(`www.sample.com/${index}`)).assertTrue();
             }
             expect(navigator.pendingCount()).assertEqual(10);
-            expect(navigator.pending[0]).assertEqual('https://www.huawei.com/2');
-            expect(navigator.pending[9]).assertEqual('https://www.huawei.com/11');
+            expect(navigator.pending[0]).assertEqual('https://www.sample.com/2');
+            expect(navigator.pending[9]).assertEqual('https://www.sample.com/11');
             expect(navigator.queueNavigation('')).assertFalse();
             expect(navigator.pendingCount()).assertEqual(10);
         });
@@ -586,17 +586,17 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            cache.put('https://www.huawei.com', '<html>a</html>', 0);
+            cache.put('https://www.sample.com', '<html>a</html>', 0);
             cache.put('https://www.bing.com', '<html>b</html>', 0);
             navigator.goOffline();
             browser.setTabArrayIndex(0);
-            expect(navigator.open('www.huawei.com', 1700)).assertTrue();
+            expect(navigator.open('www.sample.com', 1700)).assertTrue();
             expect(browser.selectTab(1)).assertTrue();
             expect(navigator.open('www.bing.com', 1710)).assertTrue();
-            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
             expect(browser.tabs[1].controller.currentUrl).assertEqual('https://www.bing.com');
             expect(browser.selectTab(0)).assertTrue();
-            expect(navigator.currentUrl()).assertEqual('https://www.huawei.com');
+            expect(navigator.currentUrl()).assertEqual('https://www.sample.com');
             expect(browser.tabs.length).assertEqual(2);
             expect(network.requestCount()).assertEqual(0);
         });
@@ -610,8 +610,8 @@ export default function browserOfflineNetworkTest() {
             navigator.goOffline();
             const writesBefore: number = cache.writes;
             for (let index = 0; index < 5; index++) {
-                browser.setInputVal(`www.huawei.com/${index}`);
-                expect(browser.getInputVal()).assertEqual(`www.huawei.com/${index}`);
+                browser.setInputVal(`www.sample.com/${index}`);
+                expect(browser.getInputVal()).assertEqual(`www.sample.com/${index}`);
             }
             expect(network.requestCount()).assertEqual(0);
             expect(cache.writes).assertEqual(writesBefore);
@@ -625,13 +625,13 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            cache.put('https://www.huawei.com', '<html>a</html>', 0);
+            cache.put('https://www.sample.com', '<html>a</html>', 0);
             cache.put('https://www.bing.com', '<html>b</html>', 0);
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 1800)).assertTrue();
+            expect(navigator.open('www.sample.com', 1800)).assertTrue();
             expect(navigator.open('www.bing.com', 1810)).assertTrue();
             expect(browser.back()).assertTrue();
-            expect(navigator.currentUrl()).assertEqual('https://www.huawei.com');
+            expect(navigator.currentUrl()).assertEqual('https://www.sample.com');
             expect(browser.forward()).assertTrue();
             expect(navigator.currentUrl()).assertEqual('https://www.bing.com');
         });
@@ -642,9 +642,9 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            cache.put('https://www.huawei.com', '<html>a</html>', 0);
+            cache.put('https://www.sample.com', '<html>a</html>', 0);
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 1900)).assertTrue();
+            expect(navigator.open('www.sample.com', 1900)).assertTrue();
             expect(browser.progress).assertEqual(0);
             expect(browser.hideProgress).assertTrue();
             expect(progressVisibleAfter(0)).assertTrue();
@@ -660,7 +660,7 @@ export default function browserOfflineNetworkTest() {
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
             let success: number = 0;
             for (let index = 0; index < 10; index++) {
-                if (navigator.open(`www.huawei.com/${index}`, 2000 + index)) {
+                if (navigator.open(`www.sample.com/${index}`, 2000 + index)) {
                     success += 1;
                 }
             }
@@ -751,13 +751,13 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network);
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 2300)).assertFalse();
+            expect(navigator.open('www.sample.com', 2300)).assertFalse();
             expect(navigator.status).assertEqual(STATUS_DEGRADED);
-            expect(navigator.queueNavigation('www.huawei.com')).assertTrue();
+            expect(navigator.queueNavigation('www.sample.com')).assertTrue();
             navigator.goOnline();
             expect(navigator.sync(2400)).assertEqual(1);
             expect(navigator.status).assertEqual(STATUS_ONLINE);
-            expect(navigator.currentUrl()).assertEqual('https://www.huawei.com');
+            expect(navigator.currentUrl()).assertEqual('https://www.sample.com');
             expect(navigator.pendingCount()).assertEqual(0);
             expect(navigator.failures).assertEqual(1);
         });
@@ -791,7 +791,7 @@ export default function browserOfflineNetworkTest() {
             expect(submitExists).assertTrue();
             expect(refreshExists).assertTrue();
             expect(backExists).assertTrue();
-            const typed: boolean = await inputById(driver, ID_INPUT_URL, 'www.huawei.com');
+            const typed: boolean = await inputById(driver, ID_INPUT_URL, 'www.sample.com');
             TestLogger.info(TAG, `address typed: ${typed}`);
             await clickById(driver, ID_ACTION_SUBMIT);
             await serializedDelay(driver, DELAY_KEY_NAVIGATION);
@@ -809,11 +809,11 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            cache.put('https://www.huawei.com', '<html>old</html>', 0, 1000);
+            cache.put('https://www.sample.com', '<html>old</html>', 0, 1000);
             expect(cache.stales(5000).length).assertEqual(1);
-            expect(navigator.open('www.huawei.com', 5000)).assertTrue();
+            expect(navigator.open('www.sample.com', 5000)).assertTrue();
             expect(cache.stales(5000).length).assertEqual(0);
-            const entry: CacheEntry | null = cache.find('https://www.huawei.com');
+            const entry: CacheEntry | null = cache.find('https://www.sample.com');
             expect(entry !== null).assertTrue();
             if (entry !== null) {
                 expect(entry.storedAt).assertEqual(5000);
@@ -821,7 +821,7 @@ export default function browserOfflineNetworkTest() {
                 expect(entry.isStale(6001)).assertTrue();
             }
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 5100)).assertTrue();
+            expect(navigator.open('www.sample.com', 5100)).assertTrue();
             expect(navigator.lastError).assertEqual('');
         });
 
@@ -845,7 +845,7 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network);
             navigator.goOffline();
-            expect(navigator.queueNavigation('www.huawei.com')).assertTrue();
+            expect(navigator.queueNavigation('www.sample.com')).assertTrue();
             expect(navigator.queueNavigation('www.bing.com')).assertTrue();
             navigator.goOnline();
             network.setFailureRate(1);
@@ -862,16 +862,16 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            expect(navigator.open('https://www.huawei.com', 5400)).assertTrue();
-            expect(navigator.open('www.huawei.com', 5410)).assertTrue();
+            expect(navigator.open('https://www.sample.com', 5400)).assertTrue();
+            expect(navigator.open('www.sample.com', 5410)).assertTrue();
             expect(cache.size()).assertEqual(1);
             expect(cache.writes).assertEqual(2);
-            expect(navigator.lastUrl).assertEqual('https://www.huawei.com');
+            expect(navigator.lastUrl).assertEqual('https://www.sample.com');
             navigator.goOffline();
             expect(cache.hits).assertEqual(0);
-            expect(navigator.open('www.huawei.com', 5420)).assertTrue();
+            expect(navigator.open('www.sample.com', 5420)).assertTrue();
             expect(cache.hits).assertEqual(1);
-            expect(navigator.currentUrl()).assertEqual('https://www.huawei.com');
+            expect(navigator.currentUrl()).assertEqual('https://www.sample.com');
         });
 
         it('Browser_Offline_029', 0, async () => {
@@ -901,11 +901,11 @@ export default function browserOfflineNetworkTest() {
             recorder.record(navigator.status);
             navigator.goOffline();
             recorder.record(navigator.status);
-            navigator.open('www.huawei.com', 5600);
+            navigator.open('www.sample.com', 5600);
             recorder.record(navigator.status);
             navigator.goOnline();
             recorder.record(navigator.status);
-            navigator.open('www.huawei.com', 5700);
+            navigator.open('www.sample.com', 5700);
             recorder.record(navigator.status);
             recorder.record(navigator.status);
             expect(recorder.states.length).assertEqual(4);
@@ -922,17 +922,17 @@ export default function browserOfflineNetworkTest() {
             const network: MockNetwork = new MockNetwork();
             const cache: OfflineCache = new OfflineCache(8);
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
-            expect(navigator.open('www.huawei.com', 5800)).assertTrue();
+            expect(navigator.open('www.sample.com', 5800)).assertTrue();
             expect(navigator.open('www.bing.com', 5810)).assertTrue();
-            const huawei: CacheEntry | null = cache.find('https://www.huawei.com');
+            const sample: CacheEntry | null = cache.find('https://www.sample.com');
             const bing: CacheEntry | null = cache.find('https://www.bing.com');
-            expect(huawei !== null).assertTrue();
+            expect(sample !== null).assertTrue();
             expect(bing !== null).assertTrue();
-            if (huawei !== null && bing !== null) {
-                expect(huawei.body).assertContain('www.huawei.com');
+            if (sample !== null && bing !== null) {
+                expect(sample.body).assertContain('www.sample.com');
                 expect(bing.body).assertContain('www.bing.com');
-                expect(huawei.body === bing.body).assertFalse();
-                expect(huawei.describe()).assertContain('url=https://www.huawei.com');
+                expect(sample.body === bing.body).assertFalse();
+                expect(sample.describe()).assertContain('url=https://www.sample.com');
             }
             navigator.goOffline();
             expect(navigator.open('www.bing.com', 5820)).assertTrue();
@@ -947,16 +947,16 @@ export default function browserOfflineNetworkTest() {
             const cache: OfflineCache = new OfflineCache();
             const navigator: OfflineNavigator = new OfflineNavigator(browser, network, cache);
             navigator.goOffline();
-            expect(navigator.open('www.huawei.com', 5900)).assertFalse();
+            expect(navigator.open('www.sample.com', 5900)).assertFalse();
             expect(cache.size()).assertEqual(0);
             expect(cache.misses).assertEqual(1);
             expect(cache.writes).assertEqual(0);
             expect(navigator.lastError).assertEqual(ERROR_OFFLINE_MISS);
             navigator.goOnline();
-            expect(navigator.open('www.huawei.com', 6000)).assertTrue();
+            expect(navigator.open('www.sample.com', 6000)).assertTrue();
             expect(cache.size()).assertEqual(1);
             expect(cache.misses).assertEqual(1);
-            const entry: CacheEntry | null = cache.find('https://www.huawei.com');
+            const entry: CacheEntry | null = cache.find('https://www.sample.com');
             expect(entry !== null).assertTrue();
             if (entry !== null) {
                 expect(entry.body.length > 0).assertTrue();

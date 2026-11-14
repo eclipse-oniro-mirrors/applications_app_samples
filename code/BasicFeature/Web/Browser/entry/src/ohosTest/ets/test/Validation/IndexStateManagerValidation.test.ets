@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -462,7 +462,7 @@ class IndexStateManager {
    * mediaquery orientation callback.
    *
    * The callback must only take effect when the value really changed: an
-   * activity recreation usually delivers the current orientation once more and
+   * lifecycle recreation usually delivers the current orientation once more and
    * a second layout rebuild would drop the running page state.
    */
   onOrientationChange(orientation: string): boolean {
@@ -675,7 +675,7 @@ class IndexStateManager {
   /**
    * Cross checks every field pair a render pass depends on.
    *
-   * The validator is intentionally independent from the mutators so that a
+   * The validator is requestionally independent from the mutators so that a
    * directly poked field (which is what a broken binding would do) is reported.
    */
   validate(): StateIssue[] {

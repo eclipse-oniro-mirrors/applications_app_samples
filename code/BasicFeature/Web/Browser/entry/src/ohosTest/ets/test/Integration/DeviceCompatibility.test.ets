@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,7 +31,7 @@ const TAG: string = 'BrowserDeviceCompatTest';
  */
 const PAD_USER_AGENT: string =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.105 Safari/537.36';
-const PHONE_USER_AGENT: string = 'HuaweiBrowser/12.0.4.1';
+const PHONE_USER_AGENT: string = 'SampleBrowser/12.0.4.1';
 
 /** deviceType values reported by @ohos.deviceInfo on shipped products. */
 const DEVICE_TYPE_DEFAULT: string = 'default';
@@ -161,15 +161,15 @@ export default function browserDeviceCompatibilityTest() {
       expect(pad.userAgent).assertEqual(PAD_USER_AGENT);
       expect(pad.userAgent.indexOf('AppleWebKit')).assertLarger(0);
       expect(pad.userAgent.indexOf('Chrome/92')).assertLarger(0);
-      expect(pad.userAgent.indexOf('HuaweiBrowser')).assertEqual(-1);
+      expect(pad.userAgent.indexOf('SampleBrowser')).assertEqual(-1);
       expect(pad.userAgent.length).assertLarger(PHONE_USER_AGENT.length);
     });
 
     it('Browser_Integration_Device_006', 0, async () => {
-      TestLogger.step(TAG, 'phone user agent keeps the HuaweiBrowser token');
+      TestLogger.step(TAG, 'phone user agent keeps the SampleBrowser token');
       const phone: LayoutProfile = new LayoutProfile(DEVICE_TYPE_PHONE);
       expect(phone.userAgent).assertEqual(PHONE_USER_AGENT);
-      expect(phone.userAgent.indexOf('HuaweiBrowser')).assertEqual(0);
+      expect(phone.userAgent.indexOf('SampleBrowser')).assertEqual(0);
       expect(phone.userAgent.indexOf('AppleWebKit')).assertEqual(-1);
     });
 

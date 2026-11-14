@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -526,7 +526,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_001', 0, async () => {
             TestLogger.step(TAG, 'snapshot captures tabs, urls, index and input');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             browser.setInputVal('www.bing.com');
@@ -535,7 +535,7 @@ export default function browserInterruptionRecoveryTest() {
             const snapshot: RecoverySnapshot = engine.capture(browser, INTERRUPT_CALL, clock.now());
             expect(snapshot.tabCount()).assertEqual(2);
             expect(snapshot.keys.join(',')).assertEqual('0,1');
-            expect(snapshot.tabUrls[0]).assertEqual('https://www.huawei.com');
+            expect(snapshot.tabUrls[0]).assertEqual('https://www.sample.com');
             expect(snapshot.tabUrls[1]).assertEqual('https://www.bing.com');
             expect(snapshot.activeIndex).assertEqual(1);
             expect(snapshot.activeUrl()).assertEqual('https://www.bing.com');
@@ -560,7 +560,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_003', 0, async () => {
             TestLogger.step(TAG, 'background recovery keeps tab count and urls');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('pad.html');
             browser.setTabArrayIndex(0);
@@ -572,7 +572,7 @@ export default function browserInterruptionRecoveryTest() {
             expect(outcome.ok).assertTrue();
             expect(outcome.degraded).assertFalse();
             expect(browser.tabs.length).assertEqual(2);
-            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
             expect(browser.tabs[1].controller.currentUrl).assertEqual('https://pad.html');
             expect(browser.getTabArrayIndex()).assertEqual(0);
             expect(outcome.executedJoined())
@@ -582,9 +582,9 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_004', 0, async () => {
             TestLogger.step(TAG, 'lock and unlock reset progress while keeping urls');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.onProgressChange(63);
-            browser.onPageBegin('https://www.huawei.com');
+            browser.onPageBegin('https://www.sample.com');
             expect(browser.progress).assertEqual(63);
             expect(browser.hideProgress).assertFalse();
             const engine: RecoveryEngine = new RecoveryEngine();
@@ -595,14 +595,14 @@ export default function browserInterruptionRecoveryTest() {
             expect(browser.progress).assertEqual(0);
             expect(browser.hideProgress).assertTrue();
             expect(browser.loadingStatus).assertEqual(MockLoadingStatus.END);
-            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
             expect(plan.indexOf(STEP_RESET_PROGRESS) > plan.indexOf(STEP_RESTORE_TABS)).assertTrue();
         });
 
         it('Browser_Interrupt_005', 0, async () => {
             TestLogger.step(TAG, 'rotation switches layout and preserves the tab list');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             const engine: RecoveryEngine = new RecoveryEngine();
@@ -624,8 +624,8 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_006', 0, async () => {
             TestLogger.step(TAG, 'offline recovery reload fails and degrades to home');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
-            browser.setInputVal('www.huawei.com');
+            browser.loadUrl('www.sample.com');
+            browser.setInputVal('www.sample.com');
             const network: MockNetwork = new MockNetwork();
             network.setOnline(false);
             const engine: RecoveryEngine = new RecoveryEngine();
@@ -645,7 +645,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_007', 0, async () => {
             TestLogger.step(TAG, 'reconnect recovery reloads the interrupted url');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const network: MockNetwork = new MockNetwork();
             const engine: RecoveryEngine = new RecoveryEngine();
             const plan: RecoveryPlan = engine.planFor(INTERRUPT_NETWORK);
@@ -656,14 +656,14 @@ export default function browserInterruptionRecoveryTest() {
             expect(outcome.reason).assertEqual('');
             expect(engine.reloadCount).assertEqual(1);
             expect(network.requestCount()).assertEqual(0);
-            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
             expect(outcome.executedJoined()).assertEqual('pause>reattach>reload>resume');
         });
 
         it('Browser_Interrupt_008', 0, async () => {
             TestLogger.step(TAG, 'reclaimed tab is rebuilt from the reclaim store');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             const store: ReclaimStore = new ReclaimStore();
@@ -681,7 +681,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_009', 0, async () => {
             TestLogger.step(TAG, 'tab reclaim plan rebuilds tabs before reloading');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             browser.setTabArrayIndex(1);
@@ -701,7 +701,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_010', 0, async () => {
             TestLogger.step(TAG, 'executed steps follow the declared order exactly');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const engine: RecoveryEngine = new RecoveryEngine();
             const plan: RecoveryPlan = engine.planFor(INTERRUPT_LOCK);
             const snapshot: RecoverySnapshot = engine.capture(browser, INTERRUPT_LOCK, 70);
@@ -719,7 +719,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_011', 0, async () => {
             TestLogger.step(TAG, 'recovery of the same snapshot is idempotent');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             const engine: RecoveryEngine = new RecoveryEngine();
@@ -757,7 +757,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_013', 0, async () => {
             TestLogger.step(TAG, 'snapshot repairs a tab count mismatch');
             const source: MockBrowser = new MockBrowser();
-            source.loadUrl('www.huawei.com');
+            source.loadUrl('www.sample.com');
             source.addTab();
             source.loadUrl('www.bing.com');
             source.addTab();
@@ -765,7 +765,7 @@ export default function browserInterruptionRecoveryTest() {
             const engine: RecoveryEngine = new RecoveryEngine();
             const snapshot: RecoverySnapshot = engine.capture(source, INTERRUPT_BACKGROUND, 100);
             const target: MockBrowser = new MockBrowser(1);
-            target.loadUrl('www.huawei.com');
+            target.loadUrl('www.sample.com');
             expect(target.tabs.length).assertEqual(1);
             expect(snapshot.tabCount()).assertEqual(3);
             const plan: RecoveryPlan = engine.planFor(INTERRUPT_BACKGROUND);
@@ -797,8 +797,8 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_015', 0, async () => {
             TestLogger.step(TAG, 'rotation while loading does not duplicate the load');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
-            browser.onPageBegin('https://www.huawei.com');
+            browser.loadUrl('www.sample.com');
+            browser.onPageBegin('https://www.sample.com');
             expect(browser.loadingStatus).assertEqual(MockLoadingStatus.LOADING);
             const tab = browser.getCurrentTab();
             expect(tab !== null).assertTrue();
@@ -820,7 +820,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_016', 0, async () => {
             TestLogger.step(TAG, 'network recovery keeps the observed history position');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.loadUrl('www.bing.com');
             expect(browser.back()).assertTrue();
             const tab = browser.getCurrentTab();
@@ -838,7 +838,7 @@ export default function browserInterruptionRecoveryTest() {
             if (tab !== null) {
                 expect(tab.controller.history.length).assertEqual(1);
                 expect(tab.controller.historyIndex).assertEqual(0);
-                expect(tab.controller.currentUrl).assertEqual('https://www.huawei.com');
+                expect(tab.controller.currentUrl).assertEqual('https://www.sample.com');
                 expect(tab.controller.accessBackward()).assertFalse();
             }
         });
@@ -848,7 +848,7 @@ export default function browserInterruptionRecoveryTest() {
             const browser: MockBrowser = new MockBrowser(MAX_TAB_COUNT);
             for (let index = 0; index < MAX_TAB_COUNT; index++) {
                 browser.setTabArrayIndex(index);
-                browser.loadUrl(`www.huawei.com/${index}`);
+                browser.loadUrl(`www.sample.com/${index}`);
             }
             browser.setTabArrayIndex(4);
             const engine: RecoveryEngine = new RecoveryEngine();
@@ -859,14 +859,14 @@ export default function browserInterruptionRecoveryTest() {
             expect(outcome.restoredTabCount).assertEqual(MAX_TAB_COUNT);
             expect(browser.tabs.length).assertEqual(MAX_TAB_COUNT);
             expect(browser.getTabArrayIndex()).assertEqual(4);
-            expect(browser.tabs[9].controller.currentUrl).assertEqual('https://www.huawei.com/9');
-            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com/0');
+            expect(browser.tabs[9].controller.currentUrl).assertEqual('https://www.sample.com/9');
+            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com/0');
         });
 
         it('Browser_Interrupt_018', 0, async () => {
             TestLogger.step(TAG, 'three chained interruptions keep the session usable');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             const engine: RecoveryEngine = new RecoveryEngine();
@@ -879,7 +879,7 @@ export default function browserInterruptionRecoveryTest() {
                 expect(outcome.ok).assertTrue();
                 expect(browser.tabs.length).assertEqual(2);
             }
-            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
             expect(browser.tabs[1].controller.currentUrl).assertEqual('https://www.bing.com');
             expect(engine.degradedCount).assertEqual(0);
         });
@@ -887,7 +887,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_019', 0, async () => {
             TestLogger.step(TAG, 'draft input value survives a successful restore');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.setInputVal('draft text for the address bar');
             const engine: RecoveryEngine = new RecoveryEngine();
             const plan: RecoveryPlan = engine.planFor(INTERRUPT_BACKGROUND);
@@ -902,14 +902,14 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_020', 0, async () => {
             TestLogger.step(TAG, 'recovered tab can still navigate back and forward');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.loadUrl('www.bing.com');
             const engine: RecoveryEngine = new RecoveryEngine();
             const plan: RecoveryPlan = engine.planFor(INTERRUPT_NETWORK);
             const snapshot: RecoverySnapshot = engine.capture(browser, INTERRUPT_NETWORK, 160);
             engine.restore(browser, snapshot, new MockNetwork(), plan);
             expect(browser.back()).assertTrue();
-            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+            expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
             expect(browser.forward()).assertTrue();
             expect(browser.tabs[0].controller.currentUrl).assertEqual('https://www.bing.com');
             expect(browser.forward()).assertFalse();
@@ -918,7 +918,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_021', 0, async () => {
             TestLogger.step(TAG, 'reclaim of the active tab restores its content');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             const store: ReclaimStore = new ReclaimStore();
@@ -957,7 +957,7 @@ export default function browserInterruptionRecoveryTest() {
         it('Browser_Interrupt_023', 0, async () => {
             TestLogger.step(TAG, 'browser stays interactive after a degraded recovery');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const network: MockNetwork = new MockNetwork();
             network.setOnline(false);
             const engine: RecoveryEngine = new RecoveryEngine();

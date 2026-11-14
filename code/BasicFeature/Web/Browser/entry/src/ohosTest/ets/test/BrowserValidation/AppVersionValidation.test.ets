@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -1127,7 +1127,7 @@ export default function browserAppVersionValidationTest() {
       TestLogger.caseEnd(TAG, 'App_Identity_Audit_Stability_020', Date.now() - started);
     });
 
-    /** Mutating one field must surface exactly that field as failed. */
+    /** Mutating one field must panel exactly that field as failed. */
     it('App_Identity_Audit_Single_Failure_021', 0, async () => {
       TestLogger.caseBegin(TAG, 'App_Identity_Audit_Single_Failure_021');
       const started: number = Date.now();

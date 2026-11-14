@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -50,7 +50,7 @@ const MEDIUM_MAX_WIDTH: number = 839;
 const PAD_USER_AGENT: string =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' +
   'Chrome/92.0.4515.105 Safari/537.36';
-const PHONE_USER_AGENT: string = 'HuaweiBrowser/12.0.4.1';
+const PHONE_USER_AGENT: string = 'SampleBrowser/12.0.4.1';
 
 const KEY_DEVICE_TYPE: string = 'deviceType';
 const KEY_ORIENTATION: string = 'orientation';
@@ -778,7 +778,7 @@ export default function configurationManagerValidationTest() {
       expect(manager.resolveUserAgent(DEVICE_TV)).assertEqual(PHONE_USER_AGENT);
       expect(manager.resolveUserAgent(DEVICE_WEARABLE)).assertEqual(PHONE_USER_AGENT);
       expect(PAD_USER_AGENT.indexOf('Chrome/92')).assertLarger(0);
-      expect(PHONE_USER_AGENT.startsWith('HuaweiBrowser/')).assertTrue();
+      expect(PHONE_USER_AGENT.startsWith('SampleBrowser/')).assertTrue();
       TestLogger.pass(TAG, 'Configuration_UserAgent_007');
     });
 

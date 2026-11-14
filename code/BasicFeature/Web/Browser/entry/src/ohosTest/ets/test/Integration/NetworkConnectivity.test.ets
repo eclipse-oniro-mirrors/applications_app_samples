@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -38,7 +38,7 @@ interface FetchOutcome {
  *
  * The browser sample has no offline queue, therefore the recovery contract is
  * "the user taps again": the policy only bounds how many automatic attempts a
- * single submit may consume before the failure is surfaced.
+ * single submit may consume before the failure is reported.
  */
 class RetryPolicy {
   maxAttempts: number;
@@ -179,10 +179,10 @@ export default function browserNetworkConnectivityTest() {
       TestLogger.step(TAG, 'online single attempt reaches the page');
       const session: ConnectivitySession = new ConnectivitySession(new RetryPolicy(3, 500));
       session.goOnline();
-      const outcome: FetchOutcome = session.attempt('www.huawei.com');
+      const outcome: FetchOutcome = session.attempt('www.sample.com');
       expect(outcome.success).assertTrue();
       expect(outcome.attempts).assertEqual(1);
-      expect(outcome.url).assertEqual('https://www.huawei.com');
+      expect(outcome.url).assertEqual('https://www.sample.com');
       expect(session.requestCount()).assertEqual(1);
       expect(outcome.local).assertFalse();
     });
@@ -212,11 +212,11 @@ export default function browserNetworkConnectivityTest() {
       TestLogger.step(TAG, 'recovery allows the next attempt to succeed');
       const session: ConnectivitySession = new ConnectivitySession(new RetryPolicy(2, 100));
       session.goOffline();
-      const failed: FetchOutcome = session.attempt('www.huawei.com');
+      const failed: FetchOutcome = session.attempt('www.sample.com');
       expect(failed.success).assertFalse();
       const failedRequests: number = session.requestCount();
       session.goOnline();
-      const retried: FetchOutcome = session.attempt('www.huawei.com');
+      const retried: FetchOutcome = session.attempt('www.sample.com');
       expect(retried.success).assertTrue();
       expect(session.requestCount()).assertEqual(failedRequests + 1);
       expect(session.retryLog.indexOf('online')).assertLarger(0);
@@ -237,7 +237,7 @@ export default function browserNetworkConnectivityTest() {
       const session: ConnectivitySession = new ConnectivitySession(new RetryPolicy(3, 400));
       session.network.setLatency(120);
       session.goOffline();
-      const outcome: FetchOutcome = session.attempt('www.huawei.com');
+      const outcome: FetchOutcome = session.attempt('www.sample.com');
       expect(outcome.attempts).assertEqual(3);
       expect(session.elapsedMs()).assertEqual(2 * (120 + 400));
       expect(session.elapsedMs()).assertLarger(0);
@@ -247,10 +247,10 @@ export default function browserNetworkConnectivityTest() {
       TestLogger.step(TAG, 'failure rate zero and one behave as absolute bounds');
       const clean: ConnectivitySession = new ConnectivitySession(new RetryPolicy(2, 0));
       clean.network.setFailureRate(0);
-      expect(clean.attempt('www.huawei.com').success).assertTrue();
+      expect(clean.attempt('www.sample.com').success).assertTrue();
       const broken: ConnectivitySession = new ConnectivitySession(new RetryPolicy(2, 0));
       broken.network.setFailureRate(1);
-      expect(broken.attempt('www.huawei.com').success).assertFalse();
+      expect(broken.attempt('www.sample.com').success).assertFalse();
       expect(broken.attempts).assertEqual(2);
     });
 
@@ -264,20 +264,20 @@ export default function browserNetworkConnectivityTest() {
       expect(local.local).assertTrue();
       expect(local.success).assertTrue();
       expect(local.attempts).assertEqual(0);
-      expect(session.isLocalTarget('https://www.huawei.com')).assertFalse();
+      expect(session.isLocalTarget('https://www.sample.com')).assertFalse();
     });
 
     it('Browser_Integration_Network_009', 0, async () => {
       TestLogger.step(TAG, 'offline then online keeps tabs and history intact');
       const session: ConnectivitySession = new ConnectivitySession(new RetryPolicy(1, 0));
-      session.browser.loadUrl('www.huawei.com');
+      session.browser.loadUrl('www.sample.com');
       session.browser.addTab();
       session.goOffline();
       session.attempt('www.bing.com');
       session.goOnline();
       session.attempt('www.bing.com');
       expect(session.browser.tabs.length).assertEqual(2);
-      expect(session.browser.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+      expect(session.browser.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
       expect(session.browser.tabs[1].controller.currentUrl).assertEqual('https://www.bing.com');
     });
 
@@ -285,7 +285,7 @@ export default function browserNetworkConnectivityTest() {
       TestLogger.step(TAG, 'batch navigation offline reports zero successes');
       const session: ConnectivitySession = new ConnectivitySession(new RetryPolicy(1, 0));
       session.goOffline();
-      const urls: string[] = ['www.huawei.com', 'www.bing.com', 'developer.huawei.com'];
+      const urls: string[] = ['www.sample.com', 'www.bing.com', 'developer.sample.com'];
       const outcomes: FetchOutcome[] = [];
       for (let index = 0; index < urls.length; index++) {
         outcomes.push(session.attempt(urls[index]));
@@ -300,10 +300,10 @@ export default function browserNetworkConnectivityTest() {
       const session: ConnectivitySession = new ConnectivitySession(new RetryPolicy(2, 50));
       const marks: number[] = [];
       session.goOffline();
-      session.attempt('www.huawei.com');
+      session.attempt('www.sample.com');
       marks.push(session.requestCount());
       session.goOnline();
-      session.attempt('www.huawei.com');
+      session.attempt('www.sample.com');
       marks.push(session.requestCount());
       session.goOffline();
       session.attempt('www.bing.com');
@@ -316,11 +316,11 @@ export default function browserNetworkConnectivityTest() {
     it('Browser_Integration_Network_012', 0, async () => {
       TestLogger.step(TAG, 'mixed batch yields a deterministic success ratio');
       const session: ConnectivitySession = new ConnectivitySession(new RetryPolicy(1, 0));
-      const first: FetchOutcome = session.attempt('www.huawei.com');
+      const first: FetchOutcome = session.attempt('www.sample.com');
       session.goOffline();
       const second: FetchOutcome = session.attempt('www.bing.com');
       session.goOnline();
-      const third: FetchOutcome = session.attempt('developer.huawei.com');
+      const third: FetchOutcome = session.attempt('developer.sample.com');
       const outcomes: FetchOutcome[] = [first, second, third];
       expect(countSuccess(outcomes)).assertEqual(2);
       expect(countSuccess(outcomes) / outcomes.length).assertLarger(0.6);
@@ -330,7 +330,7 @@ export default function browserNetworkConnectivityTest() {
     it('Browser_Integration_Network_013', 0, async () => {
       TestLogger.step(TAG, 'session reset clears counters and pending input');
       const session: ConnectivitySession = new ConnectivitySession();
-      session.attempt('www.huawei.com');
+      session.attempt('www.sample.com');
       session.typeAddress('www.bing.com');
       expect(session.requestCount()).assertEqual(1);
       session.reset();
@@ -382,7 +382,7 @@ export default function browserNetworkConnectivityTest() {
       expect(addButtons >= 0).assertTrue();
       const session: ConnectivitySession = new ConnectivitySession(new RetryPolicy(1, 0));
       session.goOffline();
-      session.attempt('www.huawei.com');
+      session.attempt('www.sample.com');
       expect(session.browser.tabs.length).assertEqual(1);
     });
   });

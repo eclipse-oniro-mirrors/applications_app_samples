@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -356,7 +356,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_001', 0, async () => {
             TestLogger.step(TAG, 'create captures two tabs and seals a checksum');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             browser.setInputVal('www.bing.com');
@@ -366,7 +366,7 @@ export default function browserSessionValidationTest() {
             expect(snapshot.revision).assertEqual(1);
             expect(snapshot.tabCount()).assertEqual(2);
             expect(snapshot.state).assertEqual(STATE_ACTIVE);
-            expect(snapshot.tabs[0].url).assertEqual('https://www.huawei.com');
+            expect(snapshot.tabs[0].url).assertEqual('https://www.sample.com');
             expect(snapshot.tabs[1].url).assertEqual('https://www.bing.com');
             expect(snapshot.inputValue).assertEqual('www.bing.com');
             expect(snapshot.checksum.indexOf('chk_')).assertEqual(0);
@@ -379,7 +379,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_002', 0, async () => {
             TestLogger.step(TAG, 'checksum is stable for identical content');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const snapshot: SessionSnapshot = registry.create(browser, 1100);
             const sealed: string = snapshot.checksum;
@@ -395,13 +395,13 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_003', 0, async () => {
             TestLogger.step(TAG, 'checksum changes as soon as a tab url changes');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const snapshot: SessionSnapshot = registry.create(browser, 1200);
             const before: string = snapshot.checksum;
             snapshot.tabs[0].url = 'https://www.bing.com';
             expect(snapshot.computeChecksum() === before).assertFalse();
-            snapshot.tabs[0].url = 'https://www.huawei.com';
+            snapshot.tabs[0].url = 'https://www.sample.com';
             expect(snapshot.computeChecksum()).assertEqual(before);
             snapshot.activeIndex = 0;
             snapshot.inputValue = 'changed';
@@ -411,7 +411,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_004', 0, async () => {
             TestLogger.step(TAG, 'valid session restores into a fresh browser');
             const source: MockBrowser = new MockBrowser();
-            source.loadUrl('www.huawei.com');
+            source.loadUrl('www.sample.com');
             source.addTab();
             source.loadUrl('www.bing.com');
             source.setInputVal('www.bing.com');
@@ -421,7 +421,7 @@ export default function browserSessionValidationTest() {
             expect(target.tabs.length).assertEqual(1);
             expect(registry.restore(snapshot.id, target, 1400)).assertTrue();
             expect(target.tabs.length).assertEqual(2);
-            expect(target.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+            expect(target.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
             expect(target.tabs[1].controller.currentUrl).assertEqual('https://www.bing.com');
             expect(target.getInputVal()).assertEqual('www.bing.com');
             expect(registry.restored).assertEqual(1);
@@ -431,10 +431,10 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_005', 0, async () => {
             TestLogger.step(TAG, 'restore keeps the active tab index and history');
             const source: MockBrowser = new MockBrowser();
-            source.loadUrl('www.huawei.com');
+            source.loadUrl('www.sample.com');
             source.addTab();
             source.loadUrl('www.bing.com');
-            source.loadUrl('www.huawei.com');
+            source.loadUrl('www.sample.com');
             source.back();
             source.setTabArrayIndex(1);
             const registry: SessionRegistry = new SessionRegistry();
@@ -454,7 +454,7 @@ export default function browserSessionValidationTest() {
             TestLogger.step(TAG, 'expired session is rejected and mutates nothing');
             const clock: MockClock = new MockClock(1700000000000);
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const snapshot: SessionSnapshot = registry.create(browser, clock.now(), 1000);
             clock.advance(1500);
@@ -471,7 +471,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_007', 0, async () => {
             TestLogger.step(TAG, 'destroyed session is rejected before the checksum check');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const snapshot: SessionSnapshot = registry.create(browser, 1700);
             registry.destroy(snapshot.id);
@@ -521,8 +521,8 @@ export default function browserSessionValidationTest() {
             const snapshot: SessionSnapshot = new SessionSnapshot('big', 11, 2300);
             for (let index = 0; index < MAX_SESSION_TABS + 1; index++) {
                 const tab: SessionTabSnapshot = new SessionTabSnapshot(index,
-                    `https://www.huawei.com/${index}`, 0);
-                tab.history = [`https://www.huawei.com/${index}`];
+                    `https://www.sample.com/${index}`, 0);
+                tab.history = [`https://www.sample.com/${index}`];
                 snapshot.tabs.push(tab);
             }
             snapshot.seal();
@@ -536,14 +536,14 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_011', 0, async () => {
             TestLogger.step(TAG, 'plain http url makes the session invalid');
             const snapshot: SessionSnapshot = new SessionSnapshot('scheme', 12, 2500);
-            const tab: SessionTabSnapshot = new SessionTabSnapshot(0, 'http://www.huawei.com', 0);
-            tab.history = ['http://www.huawei.com'];
+            const tab: SessionTabSnapshot = new SessionTabSnapshot(0, 'http://www.sample.com', 0);
+            tab.history = ['http://www.sample.com'];
             snapshot.tabs.push(tab);
             snapshot.seal();
             const validator: SessionValidator = new SessionValidator();
             expect(validator.validate(snapshot, 2600)).assertEqual(ERROR_SCHEME);
-            snapshot.tabs[0].url = 'https://www.huawei.com';
-            snapshot.tabs[0].history = ['https://www.huawei.com'];
+            snapshot.tabs[0].url = 'https://www.sample.com';
+            snapshot.tabs[0].history = ['https://www.sample.com'];
             snapshot.seal();
             expect(validator.validate(snapshot, 2600)).assertEqual(ERROR_NONE);
         });
@@ -551,21 +551,21 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_012', 0, async () => {
             TestLogger.step(TAG, 'tampered snapshot fails the checksum rule');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
-            browser.setInputVal('www.huawei.com');
+            browser.loadUrl('www.sample.com');
+            browser.setInputVal('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const snapshot: SessionSnapshot = registry.create(browser, 2700);
             expect(registry.validator.validate(snapshot, 2800)).assertEqual(ERROR_NONE);
             snapshot.inputValue = 'www.bing.com';
             expect(registry.validator.validate(snapshot, 2800)).assertEqual(ERROR_CHECKSUM);
             expect(registry.restore(snapshot.id, browser, 2800)).assertFalse();
-            expect(browser.getInputVal()).assertEqual('www.huawei.com');
+            expect(browser.getInputVal()).assertEqual('www.sample.com');
             expect(registry.rejectionReasons[0]).assertEqual(ERROR_CHECKSUM);
         });
         it('Browser_SessionV_013', 0, async () => {
             TestLogger.step(TAG, 'rejected restore is atomic for the live browser');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.addTab();
             browser.loadUrl('www.bing.com');
             browser.setTabArrayIndex(1);
@@ -589,11 +589,11 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_014', 0, async () => {
             TestLogger.step(TAG, 'two sessions keep fully isolated tab lists');
             const first: MockBrowser = new MockBrowser();
-            first.loadUrl('www.huawei.com');
+            first.loadUrl('www.sample.com');
             const second: MockBrowser = new MockBrowser();
             second.loadUrl('www.bing.com');
             second.addTab();
-            second.loadUrl('www.huawei.com');
+            second.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const sessionA: SessionSnapshot = registry.create(first, 3100);
             const sessionB: SessionSnapshot = registry.create(second, 3110);
@@ -605,17 +605,17 @@ export default function browserSessionValidationTest() {
             expect(registry.restore(sessionB.id, targetB, 3210)).assertTrue();
             expect(targetA.tabs.length).assertEqual(1);
             expect(targetB.tabs.length).assertEqual(2);
-            expect(targetA.tabs[0].controller.currentUrl).assertEqual('https://www.huawei.com');
+            expect(targetA.tabs[0].controller.currentUrl).assertEqual('https://www.sample.com');
             expect(targetB.tabs[0].controller.currentUrl).assertEqual('https://www.bing.com');
-            expect(sessionA.urls().join('|')).assertEqual('https://www.huawei.com');
+            expect(sessionA.urls().join('|')).assertEqual('https://www.sample.com');
             expect(sessionB.urls().join('|')).assertEqual(
-                'https://www.bing.com|https://www.huawei.com');
+                'https://www.bing.com|https://www.sample.com');
         });
 
         it('Browser_SessionV_015', 0, async () => {
             TestLogger.step(TAG, 'restore order is independent of creation order');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const s1: SessionSnapshot = registry.create(browser, 3300);
             const s2: SessionSnapshot = registry.create(browser, 3310);
@@ -638,7 +638,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_016', 0, async () => {
             TestLogger.step(TAG, 'restoring the same session twice is idempotent');
             const source: MockBrowser = new MockBrowser();
-            source.loadUrl('www.huawei.com');
+            source.loadUrl('www.sample.com');
             source.addTab();
             source.loadUrl('www.bing.com');
             const registry: SessionRegistry = new SessionRegistry();
@@ -661,7 +661,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_017', 0, async () => {
             TestLogger.step(TAG, 'registry evicts the oldest snapshot at capacity');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry(2);
             const first: SessionSnapshot = registry.create(browser, 3800);
             const second: SessionSnapshot = registry.create(browser, 3810);
@@ -680,7 +680,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_018', 0, async () => {
             TestLogger.step(TAG, 'destroy removes the session from the active set');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const first: SessionSnapshot = registry.create(browser, 4000);
             const second: SessionSnapshot = registry.create(browser, 4010);
@@ -699,7 +699,7 @@ export default function browserSessionValidationTest() {
             TestLogger.step(TAG, 'expireIdle sweeps only the overdue sessions');
             const clock: MockClock = new MockClock(1700000000000);
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry(4);
             const stale: SessionSnapshot = registry.create(browser, clock.now(), 1000);
             clock.advance(900);
@@ -718,8 +718,8 @@ export default function browserSessionValidationTest() {
 
         it('Browser_SessionV_020', 0, async () => {
             TestLogger.step(TAG, 'history pointer must match the recorded url');
-            const tab: SessionTabSnapshot = new SessionTabSnapshot(0, 'https://www.huawei.com', 1);
-            tab.history = ['https://www.huawei.com', 'https://www.bing.com'];
+            const tab: SessionTabSnapshot = new SessionTabSnapshot(0, 'https://www.sample.com', 1);
+            tab.history = ['https://www.sample.com', 'https://www.bing.com'];
             expect(tab.isHistoryConsistent()).assertFalse();
             tab.historyIndex = 0;
             expect(tab.isHistoryConsistent()).assertTrue();
@@ -729,7 +729,7 @@ export default function browserSessionValidationTest() {
             expect(tab.isHistoryConsistent()).assertFalse();
             expect(tab.describe()).assertContain('key=0');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.loadUrl('www.bing.com');
             const registry: SessionRegistry = new SessionRegistry();
             const snapshot: SessionSnapshot = registry.create(browser, 4200);
@@ -741,7 +741,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_021', 0, async () => {
             TestLogger.step(TAG, 'audit counters aggregate every rejection reason');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const expired: SessionSnapshot = registry.create(browser, 4300, 1000);
             const tampered: SessionSnapshot = registry.create(browser, 4310);
@@ -762,7 +762,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_022', 0, async () => {
             TestLogger.step(TAG, 'window is usable after a rejected restore');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry();
             const snapshot: SessionSnapshot = registry.create(browser, 4500);
             snapshot.tabCount();
@@ -802,7 +802,7 @@ export default function browserSessionValidationTest() {
         it('Browser_SessionV_024', 0, async () => {
             TestLogger.step(TAG, 'revision and id increase for every new session');
             const browser: MockBrowser = new MockBrowser();
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             const registry: SessionRegistry = new SessionRegistry(8);
             const first: SessionSnapshot = registry.create(browser, 4700);
             const second: SessionSnapshot = registry.create(browser, 4710);

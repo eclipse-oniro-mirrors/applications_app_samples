@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -413,7 +413,7 @@ export default function browserEventToolValidationTest() {
             const id: number = bus.subscribe(EVENT_PAGE_BEGIN);
             expect(id).assertEqual(1);
             expect(bus.activeCount(EVENT_PAGE_BEGIN)).assertEqual(1);
-            const handled: number = bus.emit(EVENT_PAGE_BEGIN, 'https://www.huawei.com');
+            const handled: number = bus.emit(EVENT_PAGE_BEGIN, 'https://www.sample.com');
             expect(handled).assertEqual(1);
             expect(bus.activeCount(EVENT_PAGE_BEGIN)).assertEqual(1);
             const subscription: EventSubscription | null = bus.find(id);
@@ -443,7 +443,7 @@ export default function browserEventToolValidationTest() {
             expect(bus.unsubscribe(id)).assertTrue();
             expect(bus.isActive(id)).assertFalse();
             expect(bus.activeCount(EVENT_PAGE_BEGIN)).assertEqual(0);
-            expect(bus.emit(EVENT_PAGE_BEGIN, 'https://www.huawei.com')).assertEqual(0);
+            expect(bus.emit(EVENT_PAGE_BEGIN, 'https://www.sample.com')).assertEqual(0);
             expect(bus.records.length).assertEqual(0);
         });
 
@@ -468,7 +468,7 @@ export default function browserEventToolValidationTest() {
             bus.subscribe(EVENT_PAGE_BEGIN, PRIORITY_HIGH);
             bus.subscribe(EVENT_PAGE_BEGIN, PRIORITY_NORMAL);
             expect(bus.listFor(EVENT_PAGE_BEGIN).length).assertEqual(3);
-            expect(bus.emit(EVENT_PAGE_BEGIN, 'https://www.huawei.com')).assertEqual(3);
+            expect(bus.emit(EVENT_PAGE_BEGIN, 'https://www.sample.com')).assertEqual(3);
             expect(bus.outcomes(EVENT_PAGE_BEGIN)).assertEqual('2:handled|3:handled|1:handled');
             expect(bus.recordsFor(EVENT_PAGE_BEGIN)[0].subscriptionId).assertEqual(2);
         });
@@ -541,7 +541,7 @@ export default function browserEventToolValidationTest() {
             TestLogger.step(TAG, 'filtered subscription records a filtered outcome');
             const bus: EventBus = new EventBus();
             bus.subscribe(EVENT_PAGE_BEGIN, PRIORITY_NORMAL, false, BEHAVIOR_HANDLE, 'bing.com');
-            expect(bus.emit(EVENT_PAGE_BEGIN, 'https://www.huawei.com')).assertEqual(0);
+            expect(bus.emit(EVENT_PAGE_BEGIN, 'https://www.sample.com')).assertEqual(0);
             expect(bus.outcomes(EVENT_PAGE_BEGIN)).assertEqual('1:filtered');
             expect(bus.handledCount(EVENT_PAGE_BEGIN)).assertEqual(0);
             expect(bus.emit(EVENT_PAGE_BEGIN, 'https://www.bing.com')).assertEqual(1);
@@ -559,7 +559,7 @@ export default function browserEventToolValidationTest() {
             bus.subscribe(EVENT_PAGE_BEGIN, PRIORITY_HIGH, false, BEHAVIOR_THROW);
             bus.subscribe(EVENT_PAGE_BEGIN, PRIORITY_NORMAL);
             bus.subscribe(EVENT_PAGE_BEGIN, PRIORITY_LOW);
-            const handled: number = bus.emit(EVENT_PAGE_BEGIN, 'https://www.huawei.com');
+            const handled: number = bus.emit(EVENT_PAGE_BEGIN, 'https://www.sample.com');
             expect(handled).assertEqual(2);
             expect(bus.outcomes(EVENT_PAGE_BEGIN)).assertEqual('1:error|2:handled|3:handled');
             expect(bus.errorCount()).assertEqual(1);
@@ -597,10 +597,10 @@ export default function browserEventToolValidationTest() {
             const victim: number = bus.subscribe(EVENT_WINDOW_NEW, PRIORITY_LOW);
             bus.subscribe(EVENT_WINDOW_NEW, PRIORITY_NORMAL, false,
                 BEHAVIOR_UNSUBSCRIBE_PEER, '', victim);
-            expect(bus.emit(EVENT_WINDOW_NEW, 'https://www.huawei.com')).assertEqual(2);
+            expect(bus.emit(EVENT_WINDOW_NEW, 'https://www.sample.com')).assertEqual(2);
             expect(bus.outcomes(EVENT_WINDOW_NEW)).assertEqual('2:handled');
             expect(bus.isActive(victim)).assertFalse();
-            expect(bus.emit(EVENT_WINDOW_NEW, 'https://www.huawei.com')).assertEqual(1);
+            expect(bus.emit(EVENT_WINDOW_NEW, 'https://www.sample.com')).assertEqual(1);
         });
 
         it('Browser_Event_016', 0, async () => {
@@ -633,7 +633,7 @@ export default function browserEventToolValidationTest() {
             const bus: EventBus = new EventBus();
             bus.subscribe(EVENT_PAGE_BEGIN);
             bus.subscribe(EVENT_PROGRESS);
-            bus.emit(EVENT_PAGE_BEGIN, 'https://www.huawei.com');
+            bus.emit(EVENT_PAGE_BEGIN, 'https://www.sample.com');
             expect(bus.records.length).assertEqual(1);
             bus.clear();
             expect(bus.activeCount()).assertEqual(0);
@@ -661,11 +661,11 @@ export default function browserEventToolValidationTest() {
             const bus: EventBus = new EventBus();
             const clock: MockClock = new MockClock(1700000000000);
             bus.subscribe(EVENT_PAGE_BEGIN);
-            bus.emit(EVENT_PAGE_BEGIN, 'https://www.huawei.com', clock.now());
+            bus.emit(EVENT_PAGE_BEGIN, 'https://www.sample.com', clock.now());
             clock.advance(120);
             bus.emit(EVENT_PAGE_BEGIN, 'https://www.bing.com', clock.now());
             clock.advance(80);
-            bus.emit(EVENT_PAGE_BEGIN, 'https://www.huawei.com/pad.html', clock.now());
+            bus.emit(EVENT_PAGE_BEGIN, 'https://www.sample.com/pad.html', clock.now());
             const records: EventRecord[] = bus.recordsFor(EVENT_PAGE_BEGIN);
             expect(records.length).assertEqual(3);
             expect(records[0].sequence).assertEqual(1);
@@ -682,7 +682,7 @@ export default function browserEventToolValidationTest() {
             const browser: MockBrowser = new MockBrowser();
             const bridge: WebEventBridge = new WebEventBridge(bus, browser);
             bus.subscribe(EVENT_PAGE_BEGIN);
-            const url: string = 'https://www.huawei.com/index.html';
+            const url: string = 'https://www.sample.com/index.html';
             expect(bridge.pageBegin(url)).assertEqual(1);
             expect(bus.recordsFor(EVENT_PAGE_BEGIN)[0].payload).assertEqual(url);
             expect(browser.inputValue).assertEqual(url);
@@ -716,7 +716,7 @@ export default function browserEventToolValidationTest() {
             const browser: MockBrowser = new MockBrowser();
             const bridge: WebEventBridge = new WebEventBridge(bus, browser);
             bus.subscribe(EVENT_PAGE_END);
-            bridge.pageBegin('https://www.huawei.com');
+            bridge.pageBegin('https://www.sample.com');
             expect(browser.loadingStatus).assertEqual(MockLoadingStatus.LOADING);
             expect(bridge.pageEnd()).assertEqual(1);
             expect(browser.loadingStatus).assertEqual(MockLoadingStatus.END);
@@ -755,7 +755,7 @@ export default function browserEventToolValidationTest() {
         it('Browser_Event_025', 0, async () => {
             TestLogger.step(TAG, 'web callback matrix agrees with the event tool');
             const vectors: EventVector[] = [
-                new EventVector(EVENT_PAGE_BEGIN, 'https://www.huawei.com', 2),
+                new EventVector(EVENT_PAGE_BEGIN, 'https://www.sample.com', 2),
                 new EventVector(EVENT_PAGE_END, '', 2),
                 new EventVector(EVENT_PROGRESS, '100', 2),
                 new EventVector(EVENT_WINDOW_NEW, 'https://www.bing.com', 2)

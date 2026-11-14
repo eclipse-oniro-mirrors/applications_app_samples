@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -441,7 +441,7 @@ export default function browserNotificationValidationTest() {
             TestLogger.step(TAG, 'different prompts never share the dedup key');
             const browser: MockBrowser = new MockBrowser();
             const center: NotificationCenter = new NotificationCenter(browser);
-            expect(center.loadFailure('https://www.huawei.com', 5000)).assertTrue();
+            expect(center.loadFailure('https://www.sample.com', 5000)).assertTrue();
             expect(center.homeHint(PAD_HOME_PAGE, 5000)).assertTrue();
             expect(center.queue.delivered).assertEqual(2);
             expect(center.queue.suppressed).assertEqual(0);
@@ -532,10 +532,10 @@ export default function browserNotificationValidationTest() {
             TestLogger.step(TAG, 'load failure prompt names the failed address');
             const browser: MockBrowser = new MockBrowser();
             const center: NotificationCenter = new NotificationCenter(browser);
-            expect(center.loadFailure('https://www.huawei.com', 6000)).assertTrue();
+            expect(center.loadFailure('https://www.sample.com', 6000)).assertTrue();
             const text: string = center.queue.visibleText();
             expect(text).assertContain(LOAD_FAIL_PREFIX);
-            expect(text).assertContain('https://www.huawei.com');
+            expect(text).assertContain('https://www.sample.com');
             expect(center.loadFailures).assertEqual(1);
             expect(center.queue.countOf(text)).assertEqual(1);
             expect(center.describe()).assertContain('failures=1');
@@ -545,8 +545,8 @@ export default function browserNotificationValidationTest() {
             TestLogger.step(TAG, 'failure prompt is deduped per address only');
             const browser: MockBrowser = new MockBrowser();
             const center: NotificationCenter = new NotificationCenter(browser);
-            expect(center.loadFailure('https://www.huawei.com', 7000)).assertTrue();
-            expect(center.loadFailure('https://www.huawei.com', 7100)).assertFalse();
+            expect(center.loadFailure('https://www.sample.com', 7000)).assertTrue();
+            expect(center.loadFailure('https://www.sample.com', 7100)).assertFalse();
             expect(center.queue.suppressed).assertEqual(1);
             expect(center.loadFailure('https://www.bing.com', 7200)).assertTrue();
             expect(center.queue.delivered).assertEqual(2);
@@ -562,11 +562,11 @@ export default function browserNotificationValidationTest() {
             center.addTab(8000);
             center.addTab(8100);
             expect(center.queue.visibleText()).assertEqual(TAB_LIMIT_MESSAGE);
-            expect(browser.loadUrl('www.huawei.com')).assertTrue();
+            expect(browser.loadUrl('www.sample.com')).assertTrue();
             const tab: MockBrowserTab | null = browser.getCurrentTab();
             expect(tab !== null).assertTrue();
             if (tab !== null) {
-                expect(tab.controller.currentUrl).assertEqual('https://www.huawei.com');
+                expect(tab.controller.currentUrl).assertEqual('https://www.sample.com');
                 expect(tab.controller.loadCount).assertEqual(1);
             }
             expect(browser.getInputVal()).assertEqual('');
@@ -597,13 +597,13 @@ export default function browserNotificationValidationTest() {
             const center: NotificationCenter = new NotificationCenter(browser);
             center.addTab(10000);
             center.addTab(10100);
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.loadUrl('www.bing.com');
             expect(browser.back()).assertTrue();
             const tab: MockBrowserTab | null = browser.getCurrentTab();
             expect(tab !== null).assertTrue();
             if (tab !== null) {
-                expect(tab.controller.currentUrl).assertEqual('https://www.huawei.com');
+                expect(tab.controller.currentUrl).assertEqual('https://www.sample.com');
                 expect(tab.controller.accessForward()).assertTrue();
             }
             expect(center.queue.visibleText()).assertEqual(TAB_LIMIT_MESSAGE);
@@ -643,7 +643,7 @@ export default function browserNotificationValidationTest() {
             TestLogger.step(TAG, 'dismissAll clears every visible prompt');
             const browser: MockBrowser = new MockBrowser();
             const center: NotificationCenter = new NotificationCenter(browser);
-            center.loadFailure('https://www.huawei.com', 14000);
+            center.loadFailure('https://www.sample.com', 14000);
             center.homeHint(PAD_HOME_PAGE, 14000);
             expect(center.queue.visibleCount()).assertEqual(2);
             expect(center.queue.dismissAll()).assertEqual(2);
@@ -744,8 +744,8 @@ export default function browserNotificationValidationTest() {
 
         it('Browser_Notify_024', 0, async () => {
             TestLogger.step(TAG, 'catalogue builds and classifies every prompt');
-            const failure: string = PromptCatalogue.buildLoadFailure('https://www.huawei.com');
-            expect(failure).assertEqual(`${LOAD_FAIL_PREFIX}: https://www.huawei.com`);
+            const failure: string = PromptCatalogue.buildLoadFailure('https://www.sample.com');
+            expect(failure).assertEqual(`${LOAD_FAIL_PREFIX}: https://www.sample.com`);
             expect(PromptCatalogue.isKnown(failure)).assertTrue();
             expect(PromptCatalogue.kindOf(failure)).assertEqual(KEY_LOAD_FAIL);
             const hint: string = PromptCatalogue.buildHomeHint(PAD_HOME_PAGE);
@@ -825,8 +825,8 @@ export default function browserNotificationValidationTest() {
             TestLogger.step(TAG, 'distinct addresses are delivered independently');
             const browser: MockBrowser = new MockBrowser();
             const center: NotificationCenter = new NotificationCenter(browser);
-            const urls: string[] = ['https://a.huawei.com', 'https://b.huawei.com',
-                'https://c.huawei.com', 'https://d.huawei.com'];
+            const urls: string[] = ['https://a.sample.com', 'https://b.sample.com',
+                'https://c.sample.com', 'https://d.sample.com'];
             for (let index = 0; index < urls.length; index++) {
                 expect(center.loadFailure(urls[index], 22000 + index)).assertTrue();
             }
@@ -834,10 +834,10 @@ export default function browserNotificationValidationTest() {
             expect(center.queue.suppressed).assertEqual(0);
             expect(center.queue.visibleCount()).assertEqual(4);
             expect(center.queue.texts().length).assertEqual(4);
-            expect(center.queue.visibleText()).assertContain('https://d.huawei.com');
-            expect(center.queue.countOf(`${LOAD_FAIL_PREFIX}: https://a.huawei.com`))
+            expect(center.queue.visibleText()).assertContain('https://d.sample.com');
+            expect(center.queue.countOf(`${LOAD_FAIL_PREFIX}: https://a.sample.com`))
                 .assertEqual(1);
-            expect(center.queue.texts()[0]).assertContain('https://a.huawei.com');
+            expect(center.queue.texts()[0]).assertContain('https://a.sample.com');
         });
 
         it('Browser_Notify_029', 0, async () => {
@@ -861,13 +861,13 @@ export default function browserNotificationValidationTest() {
             const center: NotificationCenter = new NotificationCenter(browser);
             center.addTab(24000);
             center.addTab(24100);
-            browser.loadUrl('www.huawei.com');
+            browser.loadUrl('www.sample.com');
             browser.refresh();
             const tab: MockBrowserTab | null = browser.getCurrentTab();
             expect(tab !== null).assertTrue();
             if (tab !== null) {
                 expect(tab.controller.refreshCount).assertEqual(1);
-                expect(tab.controller.currentUrl).assertEqual('https://www.huawei.com');
+                expect(tab.controller.currentUrl).assertEqual('https://www.sample.com');
             }
             browser.refresh();
             if (tab !== null) {
@@ -884,9 +884,9 @@ export default function browserNotificationValidationTest() {
             center.addTab(25100);
             expect(center.queue.tick(27100)).assertEqual(1);
             expect(center.queue.visibleCount()).assertEqual(0);
-            expect(center.loadFailure('https://www.huawei.com', 27200)).assertTrue();
+            expect(center.loadFailure('https://www.sample.com', 27200)).assertTrue();
             expect(center.queue.visibleText()).assertContain(LOAD_FAIL_PREFIX);
-            expect(center.queue.visibleText()).assertContain('https://www.huawei.com');
+            expect(center.queue.visibleText()).assertContain('https://www.sample.com');
             expect(center.queue.keys()[1]).assertContain(KEY_LOAD_FAIL);
             expect(center.queue.expired).assertEqual(1);
             expect(center.queue.delivered).assertEqual(2);

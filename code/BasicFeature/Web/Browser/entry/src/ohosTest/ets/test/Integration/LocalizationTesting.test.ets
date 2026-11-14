@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -540,7 +540,7 @@ export default function browserLocalizationTest() {
     it('Browser_Integration_Localization_021', 0, async () => {
       TestLogger.step(TAG, 'locale switch does not reset the browser model');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       browser.addTab();
       const tabsBefore: number = browser.tabs.length;
       const urlBefore: string = browser.tabs[0].controller.currentUrl;
@@ -686,8 +686,8 @@ export default function browserLocalizationTest() {
     it('Browser_Integration_Localization_033', 0, async () => {
       TestLogger.step(TAG, 'localized text never leaks into the loaded url');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
-      browser.onPageBegin('https://www.huawei.com');
+      browser.loadUrl('www.sample.com');
+      browser.onPageBegin('https://www.sample.com');
       const url: string = browser.inputValue;
       expect(url.indexOf('输入网址')).assertEqual(-1);
       expect(url.indexOf('页签数量已满')).assertEqual(-1);

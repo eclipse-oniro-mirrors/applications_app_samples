@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -456,7 +456,7 @@ export default function browserUserScenarioTest() {
     it('Browser_Integration_Scenario_006', 0, async () => {
       TestLogger.step(TAG, 'searching keeps the reader inside the active tab');
       const session: SearchSession = new SearchSession();
-      session.submit('harmonyos');
+      session.submit('opensource');
       expect(session.browser.tabs.length).assertEqual(1);
       expect(session.browser.tabArrayIndex).assertEqual(0);
       expect(session.browser.toasts.length).assertEqual(0);
@@ -466,9 +466,9 @@ export default function browserUserScenarioTest() {
     it('Browser_Integration_Scenario_007', 0, async () => {
       TestLogger.step(TAG, 'two searches for the same phrase stay a single history row');
       const session: SearchSession = new SearchSession();
-      session.submit('harmonyos');
+      session.submit('opensource');
       const firstLength: number = session.historyLength();
-      session.submit('harmonyos');
+      session.submit('opensource');
       expect(session.historyLength()).assertEqual(firstLength);
       session.submit('openharmony');
       expect(session.historyLength()).assertEqual(firstLength + 1);
@@ -652,14 +652,14 @@ export default function browserUserScenarioTest() {
     it('Browser_Integration_Scenario_020', 0, async () => {
       TestLogger.step(TAG, 'typed text survives the rotation rebuild');
       const session: SearchSession = new SearchSession();
-      session.submit('harmonyos');
+      session.submit('opensource');
       session.browser.setInputVal('openharmony');
       const continuity: RotationContinuity = new RotationContinuity(session.browser);
       continuity.capture();
       const rebuilt: MockBrowser = continuity.restore();
       expect(rebuilt.getInputVal()).assertEqual('openharmony');
       expect(rebuilt.tabs.length).assertEqual(1);
-      expect(rebuilt.tabs[0].controller.currentUrl).assertEqual(normalizeUrl(buildSearchUrl('harmonyos')));
+      expect(rebuilt.tabs[0].controller.currentUrl).assertEqual(normalizeUrl(buildSearchUrl('opensource')));
     });
 
     it('Browser_Integration_Scenario_021', 0, async () => {

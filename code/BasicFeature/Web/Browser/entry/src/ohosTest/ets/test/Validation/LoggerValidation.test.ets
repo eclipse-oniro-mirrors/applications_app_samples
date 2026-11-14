@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -886,7 +886,7 @@ export default function browserLoggerValidationTest() {
       TestLogger.caseBegin(TAG, 'Logger_Hilog_Facade_026');
       const started: number = Date.now();
       const formatter: LogFormatter = new LogFormatter();
-      TestLogger.step(TAG, 'verify the facade surface');
+      TestLogger.step(TAG, 'verify the facade panel');
       expect(typeof TestLogger.info).assertEqual('function');
       expect(typeof TestLogger.warn).assertEqual('function');
       expect(typeof TestLogger.error).assertEqual('function');
@@ -899,7 +899,7 @@ export default function browserLoggerValidationTest() {
       expect(HILOG_PREFIX).assertEqual('BrowserTest');
       expect(HILOG_PREFIX.length).assertEqual(11);
       expect(HILOG_DOMAIN).assertLarger(0);
-      TestLogger.info(TAG, 'facade surface matches the hilog wrapper');
+      TestLogger.info(TAG, 'facade panel matches the hilog wrapper');
       TestLogger.caseEnd(TAG, 'Logger_Hilog_Facade_026', Date.now() - started);
     });
 

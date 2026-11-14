@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -500,7 +500,7 @@ class AnimationController {
     }
   }
 
-  /** Starts from any state, re-entry intentionally restarts the timeline. */
+  /** Starts from any state, re-entry requestionally restarts the timeline. */
   start(): boolean {
     if (this.spec.durationMs < 0) {
       return false;

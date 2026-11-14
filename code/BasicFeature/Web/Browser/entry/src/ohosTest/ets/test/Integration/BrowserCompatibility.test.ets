@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,7 +30,7 @@ const PAD_USER_AGENT: string =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.105 Safari/537.36';
 
 /** Mobile user agent handed to the Web component on the phone layout. */
-const PHONE_USER_AGENT: string = 'HuaweiBrowser/12.0.4.1';
+const PHONE_USER_AGENT: string = 'SampleBrowser/12.0.4.1';
 
 /** deviceType values that shipped products report through @ohos.deviceInfo. */
 const DEVICE_TYPE_DEFAULT: string = 'default';
@@ -254,7 +254,7 @@ function jsProxyMethods(): string[] {
 /**
  * Aggregates the matrix so a single assertion can guard the whole table.
  *
- * The audit is intentionally derived from the matrix instead of hard coded
+ * The audit is requestionally derived from the matrix instead of hard coded
  * counts: adding a new deviceType row must not silently break the suite.
  */
 class CompatAudit {
@@ -374,7 +374,7 @@ export default function browserCompatibilityTest() {
       const profile: CompatProfile = new CompatProfile(DEVICE_TYPE_TV);
       expect(profile.isPhone).assertTrue();
       expect(profile.homePage).assertEqual('phone.html');
-      expect(profile.userAgent.indexOf('HuaweiBrowser')).assertEqual(0);
+      expect(profile.userAgent.indexOf('SampleBrowser')).assertEqual(0);
       expect(profile.userAgent.indexOf('Chrome/92')).assertEqual(-1);
     });
 
@@ -412,12 +412,12 @@ export default function browserCompatibilityTest() {
       expect(profile.userAgent.indexOf('Windows NT 10.0')).assertLarger(0);
       expect(profile.userAgent.indexOf('AppleWebKit')).assertLarger(0);
       expect(profile.userAgent.indexOf('Chrome/92.0.4515.105')).assertLarger(0);
-      expect(profile.userAgent.indexOf('HuaweiBrowser')).assertEqual(-1);
+      expect(profile.userAgent.indexOf('SampleBrowser')).assertEqual(-1);
       expect(profile.usesDesktopUserAgent()).assertTrue();
     });
 
     it('Browser_Integration_Compat_009', 0, async () => {
-      TestLogger.step(TAG, 'phone user agent keeps the HuaweiBrowser token');
+      TestLogger.step(TAG, 'phone user agent keeps the SampleBrowser token');
       const profile: CompatProfile = new CompatProfile(DEVICE_TYPE_PHONE);
       expect(profile.userAgent).assertEqual(PHONE_USER_AGENT);
       expect(profile.userAgent.indexOf('Windows NT')).assertEqual(-1);
@@ -529,8 +529,8 @@ export default function browserCompatibilityTest() {
         expect(all[index].homePage.length).assertLarger(4);
       }
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
-      expect(browser.onWindowNew('https://developer.huawei.com')).assertTrue();
+      browser.loadUrl('www.sample.com');
+      expect(browser.onWindowNew('https://developer.sample.com')).assertTrue();
       expect(browser.onWindowNew('about:blank')).assertFalse();
     });
 
@@ -596,7 +596,7 @@ export default function browserCompatibilityTest() {
       }
       expect(PAD_USER_AGENT === PHONE_USER_AGENT).assertFalse();
       expect(PAD_USER_AGENT.indexOf('Mozilla/5.0')).assertEqual(0);
-      expect(PHONE_USER_AGENT.indexOf('HuaweiBrowser')).assertEqual(0);
+      expect(PHONE_USER_AGENT.indexOf('SampleBrowser')).assertEqual(0);
     });
 
     it('Browser_Integration_Compat_024', 0, async () => {

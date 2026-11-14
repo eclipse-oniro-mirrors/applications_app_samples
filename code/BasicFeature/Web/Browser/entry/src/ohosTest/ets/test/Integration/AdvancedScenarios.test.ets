@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -165,11 +165,11 @@ export default function browserAdvancedScenariosTest() {
     it('Browser_Integration_Advanced_002', 0, async () => {
       TestLogger.step(TAG, 'a new tab starts with an empty independent controller');
       const runner: JourneyRunner = new JourneyRunner(new MockBrowser());
-      runner.visit('www.huawei.com');
+      runner.visit('www.sample.com');
       runner.openNewTab();
       const firstTab: MockBrowserTab = runner.browser.tabs[0];
       const secondTab: MockBrowserTab = runner.browser.tabs[1];
-      expect(firstTab.controller.currentUrl).assertEqual('https://www.huawei.com');
+      expect(firstTab.controller.currentUrl).assertEqual('https://www.sample.com');
       expect(secondTab.controller.currentUrl).assertEqual('');
       expect(firstTab.controller === secondTab.controller).assertFalse();
       expect(runner.currentUrl()).assertEqual('');
@@ -178,7 +178,7 @@ export default function browserAdvancedScenariosTest() {
     it('Browser_Integration_Advanced_003', 0, async () => {
       TestLogger.step(TAG, 'navigation in tab two leaves tab one history untouched');
       const runner: JourneyRunner = new JourneyRunner(new MockBrowser());
-      runner.visit('www.huawei.com');
+      runner.visit('www.sample.com');
       runner.openNewTab();
       runner.visit('www.bing.com');
       runner.visit('www.bing.com/news');
@@ -190,25 +190,25 @@ export default function browserAdvancedScenariosTest() {
     it('Browser_Integration_Advanced_004', 0, async () => {
       TestLogger.step(TAG, 'back walks the history of the active tab only');
       const runner: JourneyRunner = new JourneyRunner(new MockBrowser());
-      runner.visit('www.huawei.com');
-      runner.visit('www.huawei.com/consumer');
-      runner.visit('www.huawei.com/consumer/cn');
+      runner.visit('www.sample.com');
+      runner.visit('www.sample.com/consumer');
+      runner.visit('www.sample.com/consumer/cn');
       expect(runner.goBack()).assertTrue();
-      expect(runner.currentUrl()).assertEqual('https://www.huawei.com/consumer');
+      expect(runner.currentUrl()).assertEqual('https://www.sample.com/consumer');
       expect(runner.goBack()).assertTrue();
-      expect(runner.currentUrl()).assertEqual('https://www.huawei.com');
+      expect(runner.currentUrl()).assertEqual('https://www.sample.com');
       expect(runner.goBack()).assertFalse();
     });
 
     it('Browser_Integration_Advanced_005', 0, async () => {
       TestLogger.step(TAG, 'forward restores the page after a back navigation');
       const runner: JourneyRunner = new JourneyRunner(new MockBrowser());
-      runner.visit('www.huawei.com');
-      runner.visit('www.huawei.com/consumer');
+      runner.visit('www.sample.com');
+      runner.visit('www.sample.com/consumer');
       runner.goBack();
       expect(runner.browser.tabs[0].controller.accessForward()).assertTrue();
       expect(runner.goForward()).assertTrue();
-      expect(runner.currentUrl()).assertEqual('https://www.huawei.com/consumer');
+      expect(runner.currentUrl()).assertEqual('https://www.sample.com/consumer');
       expect(runner.goForward()).assertFalse();
     });
 
@@ -249,25 +249,25 @@ export default function browserAdvancedScenariosTest() {
     it('Browser_Integration_Advanced_009', 0, async () => {
       TestLogger.step(TAG, 'onWindowNew loads the popup target inside the same tab');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
-      const handled: boolean = browser.onWindowNew('https://developer.huawei.com/consumer');
+      browser.loadUrl('www.sample.com');
+      const handled: boolean = browser.onWindowNew('https://developer.sample.com/consumer');
       expect(handled).assertTrue();
       const activeTab: MockBrowserTab | null = browser.getCurrentTab();
       expect(activeTab === null).assertFalse();
-      expect(activeTab?.controller.currentUrl).assertEqual('https://developer.huawei.com/consumer');
+      expect(activeTab?.controller.currentUrl).assertEqual('https://developer.sample.com/consumer');
       expect(browser.tabs.length).assertEqual(1);
     });
 
     it('Browser_Integration_Advanced_010', 0, async () => {
       TestLogger.step(TAG, 'onWindowNew rejects the blank popup target');
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       expect(browser.onWindowNew('about:blank')).assertFalse();
       expect(browser.onWindowNew('')).assertFalse();
       expect(browser.tabs.length).assertEqual(1);
       const keptTab: MockBrowserTab | null = browser.getCurrentTab();
       expect(keptTab === null).assertFalse();
-      expect(keptTab?.controller.currentUrl).assertEqual('https://www.huawei.com');
+      expect(keptTab?.controller.currentUrl).assertEqual('https://www.sample.com');
     });
 
     it('Browser_Integration_Advanced_011', 0, async () => {
@@ -302,8 +302,8 @@ export default function browserAdvancedScenariosTest() {
       TestLogger.step(TAG, 'composed journey: tabs, navigation, back, home, close');
       const runner: JourneyRunner = new JourneyRunner(new MockBrowser());
       runner.openNewTab();
-      runner.visit('www.huawei.com');
-      runner.visit('www.huawei.com/consumer');
+      runner.visit('www.sample.com');
+      runner.visit('www.sample.com/consumer');
       runner.goBack();
       runner.goHome();
       runner.openNewTab();
@@ -311,8 +311,8 @@ export default function browserAdvancedScenariosTest() {
       const trace: string[] = runner.traceOf();
       expect(trace.length).assertEqual(7);
       expect(trace[0]).assertEqual('addTab=');
-      expect(trace[1]).assertEqual('visit:www.huawei.com=https://www.huawei.com');
-      expect(trace[3]).assertEqual('back=https://www.huawei.com');
+      expect(trace[1]).assertEqual('visit:www.sample.com=https://www.sample.com');
+      expect(trace[3]).assertEqual('back=https://www.sample.com');
       expect(trace[4]).assertEqual('home=' + PAD_HOME_PAGE);
       expect(runner.browser.tabs.length).assertEqual(3);
       expect(runner.browser.tabs[2].controller.currentUrl).assertEqual('https://www.bing.com');
@@ -321,11 +321,11 @@ export default function browserAdvancedScenariosTest() {
     it('Browser_Integration_Advanced_014', 0, async () => {
       TestLogger.step(TAG, 'journey expectation table matches the runner state');
       const runner: JourneyRunner = new JourneyRunner(new MockBrowser());
-      runner.visit('www.huawei.com');
+      runner.visit('www.sample.com');
       runner.openNewTab();
       runner.visit('www.bing.com');
       const rows: JourneyExpectation[] = [
-        { stepName: 'first tab keeps huawei', urlSuffix: 'www.huawei.com', tabCount: 2, activeIndex: 0 },
+        { stepName: 'first tab keeps sample', urlSuffix: 'www.sample.com', tabCount: 2, activeIndex: 0 },
         { stepName: 'second tab owns bing', urlSuffix: 'www.bing.com', tabCount: 2, activeIndex: 1 }
       ];
       assertJourney(runner, rows);
@@ -347,11 +347,11 @@ export default function browserAdvancedScenariosTest() {
 
     it('Browser_Integration_Advanced_016', 0, async () => {
       TestLogger.step(TAG, 'address normalization applies to every journey entry point');
-      expect(normalizeUrl('www.huawei.com')).assertEqual('https://www.huawei.com');
-      expect(normalizeUrl('https://www.huawei.com')).assertEqual('https://www.huawei.com');
+      expect(normalizeUrl('www.sample.com')).assertEqual('https://www.sample.com');
+      expect(normalizeUrl('https://www.sample.com')).assertEqual('https://www.sample.com');
       const runner: JourneyRunner = new JourneyRunner(new MockBrowser());
-      runner.visit('www.huawei.com');
-      expect(runner.currentUrl()).assertEqual(normalizeUrl('www.huawei.com'));
+      runner.visit('www.sample.com');
+      expect(runner.currentUrl()).assertEqual(normalizeUrl('www.sample.com'));
     });
 
     it('Browser_Integration_Advanced_017', 0, async () => {

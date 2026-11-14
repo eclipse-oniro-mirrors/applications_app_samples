@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -46,7 +46,7 @@ export class MockWebController {
   history: string[] = [];
   historyIndex: number = -1;
   currentUrl: string = '';
-  userAgent: string = 'HuaweiBrowser/12.0.4.1';
+  userAgent: string = 'SampleBrowser/12.0.4.1';
   refreshCount: number = 0;
   loadCount: number = 0;
   javaScriptCalls: string[] = [];

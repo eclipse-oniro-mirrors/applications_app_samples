@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -120,7 +120,7 @@ class MockDeviceProfile {
   sdkApiVersion: number;
   screenDensity: number;
 
-  constructor(deviceType: string = DEVICE_TYPE_DEFAULT, brand: string = 'Huawei',
+  constructor(deviceType: string = DEVICE_TYPE_DEFAULT, brand: string = 'Sample',
     model: string = 'MatePad', sdkApiVersion: number = BASELINE_API_LEVEL,
     screenDensity: number = 320) {
     this.deviceType = deviceType;
@@ -377,7 +377,7 @@ export default function browserSystemIntegrationTest() {
 
     it('Browser_Integration_System_007', 0, async () => {
       TestLogger.step(TAG, 'deviceInfo default keeps the tablet layout');
-      const device: MockDeviceProfile = new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Huawei', 'MatePad', 12, 320);
+      const device: MockDeviceProfile = new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Sample', 'MatePad', 12, 320);
       expect(device.usesTabletLayout()).assertTrue();
       expect(device.usesPhoneLayout()).assertFalse();
       expect(device.homePage()).assertEqual(PAD_HOME_PAGE);
@@ -399,10 +399,10 @@ export default function browserSystemIntegrationTest() {
 
     it('Browser_Integration_System_009', 0, async () => {
       TestLogger.step(TAG, 'sdk api version gates the media query capability');
-      expect(new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Huawei', 'MatePad', 12).supportsMediaQuery()).assertTrue();
-      expect(new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Huawei', 'MatePad', 9).supportsMediaQuery()).assertTrue();
-      expect(new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Huawei', 'MatePad', 8).supportsMediaQuery()).assertFalse();
-      expect(new MockDeviceProfile().summary()).assertEqual('Huawei MatePad default api9');
+      expect(new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Sample', 'MatePad', 12).supportsMediaQuery()).assertTrue();
+      expect(new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Sample', 'MatePad', 9).supportsMediaQuery()).assertTrue();
+      expect(new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Sample', 'MatePad', 8).supportsMediaQuery()).assertFalse();
+      expect(new MockDeviceProfile().summary()).assertEqual('Sample MatePad default api9');
     });
 
     it('Browser_Integration_System_010', 0, async () => {
@@ -590,7 +590,7 @@ export default function browserSystemIntegrationTest() {
 
     it('Browser_Integration_System_023', 0, async () => {
       TestLogger.step(TAG, 'rotation flow keeps device, query and model consistent');
-      const device: MockDeviceProfile = new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Huawei', 'MatePad', 12);
+      const device: MockDeviceProfile = new MockDeviceProfile(DEVICE_TYPE_DEFAULT, 'Sample', 'MatePad', 12);
       const query: MockMediaQueryList = new MockMediaQueryList();
       query.evaluate(1280, 800);
       let landscape: boolean = query.matches;
@@ -602,7 +602,7 @@ export default function browserSystemIntegrationTest() {
       expect(landscape).assertFalse();
       expect(device.homePage()).assertEqual(PAD_HOME_PAGE);
       const browser: MockBrowser = new MockBrowser();
-      browser.loadUrl('www.huawei.com');
+      browser.loadUrl('www.sample.com');
       expect(browser.getCurrentTab() === null).assertFalse();
       expect(browser.tabs.length).assertEqual(1);
     });

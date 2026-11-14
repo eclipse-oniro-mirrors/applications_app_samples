@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -65,7 +65,7 @@ const LONG_PRESS_INTERVAL: number = 100;
 const KEY_CODE_MIN: number = 0;
 const KEY_CODE_MAX: number = 3199;
 
-/** Chromium's virtual key code for Enter on the HarmonyOS Web engine. */
+/** Chromium's virtual key code for Enter on the OpenSource Web engine. */
 const KEY_ENTER_WEB: number = 2054;
 
 /* ------------------------------------------------------------------ */

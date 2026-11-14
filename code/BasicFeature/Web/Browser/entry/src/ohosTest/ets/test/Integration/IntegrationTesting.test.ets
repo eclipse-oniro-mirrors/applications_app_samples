@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -248,8 +248,8 @@ export default function browserIntegrationTestingTest() {
     it('Browser_Integration_E2E_005', 0, async () => {
       TestLogger.step(TAG, 'onPageBegin writes the url back into the input box');
       const browser: MockBrowser = new MockBrowser();
-      browser.onPageBegin('https://www.huawei.com');
-      expect(browser.inputValue).assertEqual('https://www.huawei.com');
+      browser.onPageBegin('https://www.sample.com');
+      expect(browser.inputValue).assertEqual('https://www.sample.com');
       expect(browser.loadingStatus).assertEqual(MockLoadingStatus.LOADING);
       browser.onPageBegin('resource://rawfile/pad.html');
       expect(browser.inputValue).assertEqual('');
@@ -259,7 +259,7 @@ export default function browserIntegrationTestingTest() {
     it('Browser_Integration_E2E_006', 0, async () => {
       TestLogger.step(TAG, 'onPageEnd closes the load and injects the adapter script');
       const browser: MockBrowser = new MockBrowser();
-      browser.onPageBegin('https://www.huawei.com');
+      browser.onPageBegin('https://www.sample.com');
       browser.onPageEnd();
       expect(browser.loadingStatus).assertEqual(MockLoadingStatus.END);
       expect(browser.tabs[0].controller.javaScriptCalls.length).assertEqual(1);
@@ -270,9 +270,9 @@ export default function browserIntegrationTestingTest() {
       TestLogger.step(TAG, 'user submission writes address and url back to the state');
       const browser: MockBrowser = new MockBrowser();
       const writer: StateWriter = new StateWriter(browser);
-      expect(writer.submit('www.huawei.com')).assertTrue();
+      expect(writer.submit('www.sample.com')).assertTrue();
       const snapshot: AppStateSnapshot = writer.snapshot();
-      expect(snapshot.inputValue).assertEqual('https://www.huawei.com');
+      expect(snapshot.inputValue).assertEqual('https://www.sample.com');
       expect(snapshot.loading).assertTrue();
       writer.commitEnd();
       expect(browser.loadingStatus).assertEqual(MockLoadingStatus.END);
@@ -351,13 +351,13 @@ export default function browserIntegrationTestingTest() {
       network.setOnline(false);
       const browser: MockBrowser = new MockBrowser();
       const writer: StateWriter = new StateWriter(browser);
-      expect(network.fetch('https://www.huawei.com')).assertFalse();
-      expect(writer.submit('www.huawei.com')).assertTrue();
+      expect(network.fetch('https://www.sample.com')).assertFalse();
+      expect(writer.submit('www.sample.com')).assertTrue();
       writer.commitEnd();
       expect(network.requestCount()).assertEqual(1);
       expect(writer.snapshot().loading).assertFalse();
       network.setOnline(true);
-      expect(network.fetch('https://www.huawei.com')).assertTrue();
+      expect(network.fetch('https://www.sample.com')).assertTrue();
     });
 
     it('Browser_Integration_E2E_014', 0, async () => {
@@ -383,8 +383,8 @@ export default function browserIntegrationTestingTest() {
       recorder.settle('launch', BUNDLE_NAME, BUNDLE_NAME);
       recorder.enter('home');
       recorder.settleLoose('home', HOME_PAGE, normalizeUrl(HOME_PAGE));
-      writer.submit('www.huawei.com');
-      recorder.settle('submit', 'https://www.huawei.com', writer.snapshot().inputValue);
+      writer.submit('www.sample.com');
+      recorder.settle('submit', 'https://www.sample.com', writer.snapshot().inputValue);
       writer.commitEnd();
       recorder.settle('end', 'END', writer.snapshot().loading ? 'LOADING' : 'END');
       expect(recorder.names().join(',')).assertEqual('launch,home,submit,end');
