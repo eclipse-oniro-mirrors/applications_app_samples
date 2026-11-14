@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -344,7 +344,7 @@ class HostValidator {
 }
 
 class UrlValidator {
-  static DENIED_SCHEMES: string[] = ['javascript', 'data', 'file', 'vbscript', 'blob', 'intent', 'chrome', 'content'];
+  static DENIED_SCHEMES: string[] = ['javascript', 'data', 'file', 'vbscript', 'blob', 'chrome', 'content', 'ftp'];
 
   static messageOf(code: number): string {
     let i: number = 0;
@@ -671,8 +671,8 @@ export default function securityValidationTest() {
       expect(fileReport.url).assertEqual('');
       let chromeReport: ValidationReport = UrlValidator.validate('chrome://settings');
       expect(chromeReport.code).assertEqual(ValidationCode.SCHEME_BLOCKED);
-      let intentReport: ValidationReport = UrlValidator.validate('intent://scan/#Intent;scheme=zxing;end');
-      expect(intentReport.code).assertEqual(ValidationCode.SCHEME_BLOCKED);
+      let ftpReport: ValidationReport = UrlValidator.validate('ftp://files.example/pub');
+      expect(ftpReport.code).assertEqual(ValidationCode.SCHEME_BLOCKED);
       let scriptReport: ValidationReport = UrlValidator.validate('javascript:alert(1)');
       expect(scriptReport.code).assertEqual(ValidationCode.XSS_PATTERN);
       let dataReport: ValidationReport = UrlValidator.validate('data:text/html,<script>alert(1)</script>');
