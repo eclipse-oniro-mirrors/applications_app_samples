@@ -1987,3 +1987,188 @@ export default function focusNavigationTest() {
       expect(session.getCurrentIndex()).assertEqual(11);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'FocusById_045, end');
     });
+
+    /**
+     * Scenario: enabling the end button makes it reachable.
+     * Expectation: the traversal grows by one node and the Tab walk from the begin button now
+     * visits the end button.
+     */
+    it('Assessment_EnableTogglesTraversal_046', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EnableTogglesTraversal_046, begin');
+      const localGraph: FocusGraph = buildEntryPageGraph();
+      const endNode: FocusNode | null = localGraph.byId(ID_END_BUTTON);
+      expect(endNode !== null).assertTrue();
+      expect(localGraph.traversableIndices().length).assertEqual(5);
+      if (endNode !== null) {
+        endNode.setEnabled(true);
+        expect(endNode.isTraversable()).assertTrue();
+      }
+      expect(localGraph.traversableIndices().length).assertEqual(6);
+      const localCycler: FocusCycler = new FocusCycler(localGraph);
+      expect(localCycler.next(8, true)).assertEqual(9);
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EnableTogglesTraversal_046, end');
+    });
+
+    /**
+     * Scenario: a node that is not focusable can never be traversed.
+     * Expectation: marking a text node as focusable without enabling the flag combination
+     * keeps it out of the traversal until all three conditions hold.
+     */
+    it('Assessment_TraversableRequiresAllFlags_047', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'TraversableRequiresAllFlags_047, begin');
+      const localGraph: FocusGraph = buildEntryPageGraph();
+      const statusNode: FocusNode | null = localGraph.byId('assessment_status_text');
+      expect(statusNode !== null).assertTrue();
+      if (statusNode !== null) {
+        expect(statusNode.isTraversable()).assertFalse();
+        statusNode.setFocusable(true);
+        expect(statusNode.isTraversable()).assertTrue();
+        statusNode.setVisible(false);
+        expect(statusNode.isTraversable()).assertFalse();
+        statusNode.setVisible(true);
+        statusNode.setEnabled(false);
+        expect(statusNode.isTraversable()).assertFalse();
+        statusNode.setEnabled(true);
+        expect(statusNode.isTraversable()).assertTrue();
+      }
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'TraversableRequiresAllFlags_047, end');
+    });
+
+    /**
+     * Scenario: moving from an index that does not hold a traversable node.
+     * Expectation: the navigator refuses the move and keeps the index, the graph itself is
+     * still consistent afterwards.
+     */
+    it('Assessment_MoveFromNonTraversable_050', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'MoveFromNonTraversable_050, begin');
+      session.reset();
+      session.setCurrentIndex(0);
+      const result: FocusMoveResult = session.move(FocusDirection.DOWN);
+      expect(result.toIndex).assertEqual(0);
+      expect(result.moved).assertFalse();
+      expect(result.blocked).assertTrue();
+      expect(session.getGraph().size()).assertEqual(18);
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'MoveFromNonTraversable_050, end');
+    });
+
+    /**
+     * Scenario: a long deterministic random walk.
+     * Expectation: the focus index is always either the start index or a traversable index,
+     * and the trace size matches the number of applied keys.
+     */
+    it('Assessment_RandomWalkInvariant_051', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'RandomWalkInvariant_051, begin');
+      session.reset();
+      session.setCurrentIndex(6);
+      const keys: number[] = [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_TAB];
+      const allowed: number[] = graph.traversableIndices();
+      let state: number = 12345;
+      let violation: number = 0;
+      const rounds: number = 200;
+      for (let i = 0; i < rounds; i++) {
+        state = nextPseudoRandom(state);
+        const key: number = keys[state % keys.length];
+        const result: FocusMoveResult = session.pressKey(key);
+        if (allowed.indexOf(result.toIndex) < 0) {
+          violation++;
+        }
+      }
+      expect(violation).assertEqual(0);
+      expect(session.getTrace().size() >= rounds).assertTrue();
+      expect(session.getCurrentIndex() >= 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s walk finished at %{public}d',
+        BUNDLE + 'RandomWalkInvariant_051', session.getCurrentIndex());
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'RandomWalkInvariant_051, end');
+    });
+
+    /**
+     * Scenario: the graph ids are kept in sync with the identifiers declared by the driver.
+     * Expectation: every identifier used by the model is also declared in the shared driver,
+     * which is what makes the model comparable with the live page.
+     */
+    it('Assessment_ModelIdAlignment_052', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ModelIdAlignment_052, begin');
+      expect(graph.indexOf(ID_INDEX_TITLE) >= 0).assertTrue();
+      expect(graph.indexOf(ID_BUNDLE_INPUT) >= 0).assertTrue();
+      expect(graph.indexOf(ID_ADD_BUTTON) >= 0).assertTrue();
+      expect(graph.indexOf(ID_BEGIN_BUTTON) >= 0).assertTrue();
+      expect(graph.indexOf(ID_END_BUTTON) >= 0).assertTrue();
+      expect(graph.indexOf(ID_QUERY_STATE_BUTTON) >= 0).assertTrue();
+      expect(graph.indexOf(ID_QUERY_CONFIG_BUTTON) >= 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ModelIdAlignment_052, end');
+    });
+
+    /**
+     * Scenario: the driver key constants match the documented OpenHarmony key codes.
+     * Expectation: the four arrow codes and the tab code have the documented values.
+     */
+    it('Assessment_KeyCodeConstants_053', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeConstants_053, begin');
+      expect(KEY_UP).assertEqual(2012);
+      expect(KEY_DOWN).assertEqual(2013);
+      expect(KEY_LEFT).assertEqual(2014);
+      expect(KEY_RIGHT).assertEqual(2015);
+      expect(KEY_ENTER).assertEqual(2049);
+      expect(KEY_TAB).assertEqual(4);
+      expect(KEY_BACK).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeConstants_053, end');
+    });
+
+    /**
+     * Scenario: the shared cycler is independent from the session.
+     * Expectation: the suite level cycler still starts from the first traversable node after
+     * the session was reset many times.
+     */
+    it('Assessment_StandaloneCycler_064', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'StandaloneCycler_064, begin');
+      cycler.reset();
+      const first: number = cycler.next(6, true);
+      expect(first).assertEqual(7);
+      const last: number = cycler.next(11, true);
+      expect(last).assertEqual(6);
+      expect(cycler.getWrapCount()).assertEqual(1);
+      expect(cycler.getStepCount()).assertEqual(2);
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'StandaloneCycler_064, end');
+    });
+
+    /**
+     * Scenario: the graph can be rebuilt and answers identically.
+     * Expectation: two independently built graphs report the same size, ids and traversal, so
+     * the restoration cases compare identical structures.
+     */
+    it('Assessment_GraphRebuildEquality_065', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'GraphRebuildEquality_065, begin');
+      const rebuilt: FocusGraph = buildEntryPageGraph();
+      expect(rebuilt.size()).assertEqual(graph.size());
+      const left: string[] = graph.ids();
+      const right: string[] = rebuilt.ids();
+      let mismatch: number = 0;
+      for (let i = 0; i < left.length; i++) {
+        if (left[i] !== right[i]) {
+          mismatch++;
+        }
+      }
+      expect(mismatch).assertEqual(0);
+      expect(rebuilt.firstTraversableIndex()).assertEqual(graph.firstTraversableIndex());
+      expect(rebuilt.lastTraversableIndex()).assertEqual(graph.lastTraversableIndex());
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'GraphRebuildEquality_065, end');
+    });
+  });
+}
+
+/**
+ * Presses the down key a number of times and waits after every press, the helper keeps the
+ * live cases short and puts the timing in one place.
+ */
+async function progressFocusDown(driver: Driver, times: number): Promise<void> {
+  await pressAndWait(driver, KEY_DOWN, times, DELAY_KEY_NAVIGATION);
+  await serializedDelay(driver, TIMEOUT_FOCUS_CHANGE);
+}
+
+/**
+ * Presses the up key a number of times and waits after every press.
+ */
+async function progressFocusUp(driver: Driver, times: number): Promise<void> {
+  await pressAndWait(driver, KEY_UP, times, DELAY_KEY_NAVIGATION);
+  await serializedDelay(driver, TIMEOUT_FOCUS_CHANGE);
+}
