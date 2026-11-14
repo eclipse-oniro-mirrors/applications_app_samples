@@ -162,7 +162,7 @@
 - URL scheme 约束与外部地址判定（`isExternalUrl`、`normalizeUrl`，仅 `http/https` 视为外部地址）
 - JS 代理最小暴露（`BrowserSecurity`：`etsObj` 仅注册 `test` 与 `searchWord`）
 - 权限与能力声明（`SecurityValidation`、`module.json5` 的 INTERNET 等权限）
-- 日志脱敏与敏感信息检查（`LoggerValidation`、`SecurityAccessibility`）
+- 日志脱敏与敏感信息检查（`LoggerValidation`、`SecurityA11y`）
 - 配置与常量契约（`ConfigurationManagerValidation`、`IndexStateManagerValidation`、`ResourceLoaderValidation`、`AppVersionValidation`）
 
 这一部分用于降低未来版本演进过程中的接口漂移和数据污染风险。
@@ -171,7 +171,7 @@
 
 针对浏览器操作特点，测试设计特别覆盖：
 
-- 无障碍元数据与焦点顺序（`AccessibilityNavigation`、`SecurityAccessibility`）
+- 无障碍元数据与焦点顺序（`A11yNavigation`、`SecurityA11y`）
 - 焦点高亮与焦点环样式（`FocusRingBehavior`、`FocusNavigation`）
 - 按钮、触摸、手势与事件分发（`ButtonInteraction`、`TouchInteraction`、`GestureRecognition`、`EventHandling`、`EventPropagation`）
 - 数据绑定与状态回填（`DataBinding`、`BrowserStateManagement`）
@@ -206,10 +206,10 @@
 | 浏览器主流程 `Browser` | 16 | `BrowserUI`、`BrowserEndToEnd`、`BrowserOperationWorkflow`、`BrowserConsistency`、`BrowserConcurrency`、`BrowserStress`、`BrowserErrorRecovery`、`BrowserLifecycle`、`BrowserStateManagement`、`BrowserInputInteraction`、`BrowserMenuConfiguration`、`BrowserModelDeep`、`TabItemModel`、`TabOperations`、`TabOperationCatalog`、`UrlOperationFlow`：主流程回归、页签模型与操作、URL 流、菜单与输入、并发与异常恢复 |
 | 浏览器专项校验 `BrowserValidation` | 8 | `AppVersionValidation`、`AuthSessionValidation`、`DataSourceValidation`、`EventToolValidation`、`InterruptionRecovery`、`NotificationValidation`、`OfflineNetwork`、`SessionValidation`：版本信息、鉴权会话、数据源与缓存、事件工具、中断恢复、通知、离线与会话 |
 | 集成与场景 `Integration` | 9 | `SystemIntegration`、`DeviceCompatibility`、`BrowserCompatibility`、`NetworkConnectivity`、`LocalizationTesting`、`UserScenarios`、`AdvancedScenarios`、`IntegrationTesting`、`ComprehensiveRegression`：系统集成、设备与版本兼容、网络连通、本地化、用户场景与综合回归 |
-| 交互与可达性 `Interaction` | 14 | `FocusNavigation`、`FocusRingBehavior`、`ButtonInteraction`、`TouchInteraction`、`GestureRecognition`、`EventHandling`、`EventPropagation`、`AccessibilityNavigation`、`DataBinding`、`ContentScaling`、`LayoutPositioning`、`ThemeVariation`、`VisualEffects`、`UIComponentRendering`：焦点、按键、触摸、手势、事件传播、无障碍、数据绑定、布局与视觉 |
+| 交互与可达性 `Interaction` | 14 | `FocusNavigation`、`FocusRingBehavior`、`ButtonInteraction`、`TouchInteraction`、`GestureRecognition`、`EventHandling`、`EventPropagation`、`A11yNavigation`、`DataBinding`、`ContentScaling`、`LayoutPositioning`、`ThemeVariation`、`VisualEffects`、`UIComponentRendering`：焦点、按键、触摸、手势、事件传播、无障碍、数据绑定、布局与视觉 |
 | 生命周期与状态 `LifecycleState` | 10 | `AbilityLifecycle`、`PageLifecycle`、`ConfigurationChanges`、`BrowserStateFlow`、`StatePersistence`、`StateRecovery`、`SessionManagement`、`ResourceManagement`、`ErrorRecovery`、`ExceptionHandling`：Ability/页面生命周期、配置变化、状态流与持久化恢复、资源与异常处理 |
 | 性能与长稳 `PerformanceStability` | 7 | `WebRenderPerformance`、`AnimationPerformance`、`MemoryLeakDetection`、`WebViewConsumption`、`ConcurrencyControl`、`LongTermStability`、`PerformanceStress`：Web 渲染与动画、内存泄漏、WebView 消耗、并发控制、长稳与压力 |
-| 安全 `Security` | 3 | `BrowserSecurity`、`SecurityValidation`、`SecurityAccessibility`：JS 代理与 scheme 约束、安全校验、安全相关无障碍 |
+| 安全 `Security` | 3 | `BrowserSecurity`、`SecurityValidation`、`SecurityA11y`：JS 代理与 scheme 约束、安全校验、安全相关无障碍 |
 | 校验与契约 `Validation` | 11 | `InputValidation`、`KeyEventValidation`、`BoundaryErrorTesting`、`AnimationControllerValidation`、`CommonEventUtilValidation`、`ConfigurationManagerValidation`、`FocusManagerValidation`、`IndexStateManagerValidation`、`LoggerValidation`、`PointerUtilValidation`、`ResourceLoaderValidation`：输入、按键、边界、动画、事件、配置、焦点、首页状态、日志、触点与资源校验 |
 
 说明：`Ability.test.ets` 另外提供 Ability 级冒烟检查（bundle/ability 参数、启动结果、地址栏与主页按钮挂载、地址规则与常量契约）。
