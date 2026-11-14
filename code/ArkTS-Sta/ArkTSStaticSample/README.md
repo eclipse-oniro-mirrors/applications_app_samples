@@ -77,50 +77,6 @@ ohosTest.md                            // 基础功能用例与自动化覆盖�
 
 不涉及。
 
-### 依赖
-
-业务模块 `entry` 依赖本工程的 `library`，配置为 `file:../library`。
-工程开发依赖为 `@ohos/hypium` `1.0.21` 和 `@ohos/hamock` `1.0.0`。
-测试使用 Hypium 的 `describe/it/expect`，按场景使用手写依赖替身。
-
-### 本机运行环境
-
-以下版本及路径于 **2026-11-14** 在本机核实，用于当前工程的构建和设备测试：
-
-| 项目 | 本机配置 |
-| --- | --- |
-| 操作系统 | macOS `26.6.1`，构建号 `25G76`，`arm64` |
-| 工程目录 | `/Users/niannian/OhProject/ArkTSStaticSample` |
-| DevEco Studio | `26.0.0`，构建号 `DS-243.24978.46.36.26002` |
-| IDE 安装目录 | `/Applications/DevEco-Studio.app` |
-| SDK 根目录 | `/Users/niannian/SDK` |
-| 当前 SDK | `/Users/niannian/SDK/26.0.0`，API `26`，ETS/Toolchains 组件版本 `26.0.0.40`，Beta |
-| Node.js | `v18.20.1`，`/Applications/DevEco-Studio.app/Contents/tools/node/bin/node` |
-| JDK | OpenJDK/JBR `21.0.8`，`/Applications/DevEco-Studio.app/Contents/jbr/Contents/Home` |
-| OHPM | `6.1.1.816`，`/Applications/DevEco-Studio.app/Contents/tools/ohpm/bin/ohpm` |
-| Hvigor 与 OHOS 插件 | 工程内 `.local-tools/arkts-7.26.0/hvigor/`，实际包版本均为 `5.14.2-td-rc.2851` |
-| HDC | `3.2.0f`，`/Users/niannian/SDK/26.0.0/toolchains/hdc` |
-| 设备 API | `26`，通过 HDC 连接的标准系统真机 |
-
-`local.properties` 当前内容为：
-
-```properties
-sdk.dir=/Users/niannian/SDK
-```
-
-工程级 `build-profile.json5` 的 `app.products` 中，`default` 产品使用以下配置：
-
-| 配置项 | 当前值 |
-| --- | --- |
-| `compileSdkVersion` | `"26.0.0"` |
-| `targetSdkVersion` | `"26.0.0"` |
-| `compatibleSdkVersion` | `"26.0.0"` |
-| `runtimeOS` | `"OpenHarmony"` |
-
-测试使用 `entry@ohosTest` 目标，应用包名为 `com.example.arktsstaticsample`，
-测试模块为 `entry_test`。现有工程内构建适配负责混合 ArkTS 工程的测试入口、
-测试专用静态工作负载及静态字节码打包；运行脚本调用上述工程内 Hvigor。
-签名沿用本机已有配置。
 
 ### 自动化测试覆盖与结果
 

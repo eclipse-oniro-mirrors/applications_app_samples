@@ -111,10 +111,10 @@
 | --- | --- | ---: |
 | `CreateDataContractTest` | createData 接收原 DataModel 并返回生产 CardData | 22 |
 | `ExactKeyDispatchTest` | 空键、原型键、大小写、空白、Unicode 和 NUL 的精确分发 | 8 |
-| `RegistrationIsolationTest` | 类型键独立注册和覆盖，不污染其他类型 | 28 |
+| `RegistrationIsolationTest` | 类型键独立注册和覆盖，不污染别的类型 | 28 |
 | `ResolverCallsTest` | resolver 调用次数、接收模型和返回的新实例 | 39 |
 | `ResolverDispatchTest` | 注册后的 resolver 分发和 createData 调用 | 28 |
-| `ResolverReplacementTest` | 同类型覆盖、原 resolver 隔离及其他类型不受影响 | 12 |
+| `ResolverReplacementTest` | 同类型覆盖、原 resolver 隔离及别的类型不受影响 | 12 |
 | `SpecialTypeKeysTest` | 含空白、大小写和原型相关名称的类型键注册 | 19 |
 | `TypeCatalogTest` | 类型目录注册、查找、重复创建及未注册键 | 33 |
 
@@ -125,7 +125,7 @@
 | `AppendStabilityTest` | 持续追加后已有条目的内容、顺序和身份 | 6 |
 | `BackingStoreTest` | dataList 重绑定、冻结追加失败恢复、共享数组及索引 getter 异常 | 4 |
 | `DataBindingTest` | 数据源持有真实 CardData 引用并反映 payload 修改 | 15 |
-| `EmptyAndSingleTest` | 空数据源、首次追加和末尾越界 | 3 |
+| `EmptyAndSingleTest` | 空数据源、追加和末尾越界 | 3 |
 | `IndependentSourcesTest` | 多个数据源独立追加后的长度、内容和对象引用 | 13 |
 | `IndexBoundariesTest` | 负索引、长度边界、小数、NaN 和无穷值 | 27 |
 | `IndexLookupTest` | 多种容量下 getData 与 dataList 存储一致 | 44 |
@@ -159,34 +159,11 @@
 | `LibraryWorkloadTest` | library 递归 Fibonacci 的区间、重复调用和基础分支 | 25 |
 | `WorkloadParityTest` | entry、library 两份实现与独立预言机交叉比较 | 15 |
 
-以上自动化用例合计 **1,782 条**。两轮扩展分别新增 68 条和 57 条，
-均已包含在表内；具体差异见[第一轮扩展](docs/ohos-test-migration/EXPANSION.md)和
-[第二轮扩展](docs/ohos-test-migration/EXPANSION_2.md)。
 
 ## 本机运行
 
 本机环境和工程配置见 [README](README.md#本机运行环境)。
-在 DevEco Studio 终端执行下列命令，会构建主应用与测试包、安装、运行全量用例并核验结果：
-
-```sh
-cd /Users/niannian/OhProject/ArkTSStaticSample
-OHOS_TEST_REPORT_DIR="$PWD/docs/ohos-test-migration/local-run" \
-bash script/run-device-tests.sh
-```
-
-主应用和测试包已安装时，可按上表中的真实套件名称执行，例如复验页面功能的 54 条用例：
-
-```sh
-/Users/niannian/SDK/26.0.0/toolchains/hdc shell aa test \
--b com.example.arktsstaticsample -m entry_test \
--s unittest /ets/testrunner/OpenHarmonyTestRunner \
--s class AbilityTest,CardListRenderingTest,CardListInteractionTest,PageLifecycleTest \
--s timeout 15000 -w 600
-```
-
-DevEco Studio 可使用现有 `All Tests in 'test (entry)'` 配置执行全部套件，
-保持“超时时间(s)”为 **15**。命令行的 `-s timeout 15000` 单位为毫秒，
-`-w` 单位为秒，表示整次命令的等待上限。
+在 DevEco Studio 终端执行下列命令，会构建主应用与测试包、安装、运行全量用例
 
 ## 验证结果与范围
 
