@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -53,7 +53,7 @@ interface RecoveryRecord {
  *
  * A negative test passes when the failure is refused cleanly, so passing and
  * failing assertions look identical in the hilog stream. The ledger keeps the
- * intent next to the observation: which input was used, whether the engine was
+ * request next to the observation: which input was used, whether the engine was
  * touched, and whether the state was restored afterwards.
  */
 class RecoveryLedger {
@@ -519,7 +519,7 @@ export default function browserErrorRecoveryTest() {
 
     it('Browser_Error_Capacity_015', 0, async () => {
       TestLogger.caseBegin(TAG, 'Browser_Error_Capacity_015');
-      TestLogger.step(TAG, 'surface the capacity warning without corrupting the strip');
+      TestLogger.step(TAG, 'panel the capacity warning without corrupting the strip');
       const model: MockBrowser = new MockBrowser(1);
       while (model.tabs.length <= MAX_TAB_COUNT) {
         model.addTab();

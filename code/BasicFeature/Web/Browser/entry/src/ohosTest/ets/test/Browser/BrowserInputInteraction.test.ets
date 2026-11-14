@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -33,9 +33,9 @@ const URL_SCHEME_LENGTH: number = 8;
 
 const PAD_NAV_IDS: string[] = [ID_NAV_BACK, ID_NAV_FORWARD, ID_NAV_REFRESH, ID_NAV_HOME];
 
-const PLAIN_HOST: string = 'developer.huawei.com';
-const HTTPS_HOST: string = 'https://developer.huawei.com';
-const HTTP_HOST: string = 'http://developer.huawei.com';
+const PLAIN_HOST: string = 'developer.sample.com';
+const HTTPS_HOST: string = 'https://developer.sample.com';
+const HTTP_HOST: string = 'http://developer.sample.com';
 const CHINESE_WORD: string = '鸿蒙浏览器';
 const SPACED_WORD: string = 'harmony os browser';
 const RESERVED_WORD: string = 'a&b=c#d';
@@ -130,7 +130,7 @@ const ADDRESS_CASES: AddressCase[] = [
   { raw: '192.168.1.1', valid: true, normalized: 'https://192.168.1.1', note: 'ipv4 host' },
   { raw: 'localhost:8080', valid: false, normalized: 'https://localhost:8080', note: 'no dot host' },
   { raw: 'example.', valid: false, normalized: 'https://example.', note: 'trailing dot' },
-  { raw: 'developer huawei com', valid: false, normalized: 'https://developer huawei com', note: 'inner space' },
+  { raw: 'developer sample com', valid: false, normalized: 'https://developer sample com', note: 'inner space' },
   { raw: '', valid: false, normalized: 'https://', note: 'empty input' },
   { raw: '例子.测试', valid: true, normalized: 'https://例子.测试', note: 'unicode host' },
   { raw: 'HTTPS://example.com', valid: true, normalized: 'https://HTTPS://example.com', note: 'upper scheme' },
@@ -318,7 +318,7 @@ export default function browserInputInteractionTest() {
 
     it('Browser_Input_018', 0, async () => {
       TestLogger.step(TAG, 'reject addresses that contain an inner space');
-      expect(isValidAddress('developer huawei com')).assertFalse();
+      expect(isValidAddress('developer sample com')).assertFalse();
       // Whitespace around an address is stripped by the sanitizer before the
       // validator runs, so a raw padded address is not accepted as is.
       expect(isValidAddress(' ' + PLAIN_HOST)).assertFalse();

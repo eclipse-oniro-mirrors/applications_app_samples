@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -525,7 +525,7 @@ export default function browserMenuConfigurationTest() {
     });
 
     it('Browser_Menu_016', 0, async () => {
-      TestLogger.step(TAG, 'verify the phone icon order places home third');
+      TestLogger.step(TAG, 'verify the phone icon order puts home third');
       const config: MenuConfig = createPhoneTools();
       expect(config.icons()).assertDeepEquals([
         ICON_BACK, ICON_FORWARD, ICON_HOME, ICON_REFRESH

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -27,7 +27,7 @@ import { MockBrowser, MockClock } from '../Shared/BrowserMock';
 const TAG: string = 'BrowserTabOperationCatalogTest';
 
 /* ------------------------------------------------------------------ */
-/* Operation vocabulary of the browser tab surface                     */
+/* Operation vocabulary of the browser tab panel                     */
 /* ------------------------------------------------------------------ */
 
 /** Every tab level operation the sample application exposes. */
@@ -468,7 +468,7 @@ function makeContext(name: string, tabCount: number, currentIndex: number, targe
   return context;
 }
 
-/** Lookup and evaluation surface of the catalog. */
+/** Lookup and evaluation panel of the catalog. */
 class TabOperationCatalog {
   private specs: TabOperationSpec[] = [];
   private positions: Map<string, number> = new Map<string, number>();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -690,7 +690,7 @@ export default function browserLifecycleTest() {
 
     it('Browser_Lifecycle_UI_019', 0, async () => {
       TestLogger.caseBegin(TAG, 'Browser_Lifecycle_UI_019');
-      TestLogger.step(TAG, 'probe the launched activity lifecycle on the real device');
+      TestLogger.step(TAG, 'probe the launched lifecycle lifecycle on the real device');
       const launched: boolean = await waitForId(driver, ID_INPUT_URL, TIMEOUT_PAGE_LOAD);
       expect(launched).assertTrue();
       try {
@@ -704,7 +704,7 @@ export default function browserLifecycleTest() {
         expect(stillVisible).assertTrue();
       } finally {
         await serializedDelay(driver, DELAY_TAB_OPERATION);
-        TestLogger.info(TAG, 'activity lifecycle probe finished');
+        TestLogger.info(TAG, 'lifecycle lifecycle probe finished');
       }
       TestLogger.pass(TAG, 'Browser_Lifecycle_UI_019');
     });

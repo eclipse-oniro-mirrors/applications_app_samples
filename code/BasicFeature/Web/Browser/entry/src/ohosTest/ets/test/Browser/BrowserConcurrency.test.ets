@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Sample Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -57,7 +57,7 @@ interface ProgressSample {
  * UiTest refuses two overlapping operations, so every helper chains its work
  * onto a single promise. The double below makes that guarantee observable: it
  * records arrival and completion ticks, flags any overlap and keeps the FIFO
- * order of the submitted intents. A regression of the chaining logic then
+ * order of the submitted requests. A regression of the chaining logic then
  * becomes a hard assertion instead of a sporadic device timeout.
  */
 class SerialLaneQueue {
@@ -338,8 +338,8 @@ function seedTabs(model: MockBrowser, total: number): number {
   return added;
 }
 
-/** Applies n add intents, returning one success flag per intent. */
-function applyAddIntents(model: MockBrowser, requests: number): boolean[] {
+/** Applies n add requests, returning one success flag per request. */
+function applyAddRequests(model: MockBrowser, requests: number): boolean[] {
   const results: boolean[] = [];
   for (let index = 0; index < requests; index++) {
     results.push(model.addTab());
@@ -347,8 +347,8 @@ function applyAddIntents(model: MockBrowser, requests: number): boolean[] {
   return results;
 }
 
-/** Applies the given delete indexes in order, returning one flag per intent. */
-function applyDeleteIntents(model: MockBrowser, indexes: number[]): boolean[] {
+/** Applies the given delete indexes in order, returning one flag per request. */
+function applyDeleteRequests(model: MockBrowser, indexes: number[]): boolean[] {
   const results: boolean[] = [];
   for (let index = 0; index < indexes.length; index++) {
     results.push(model.deleteTab(indexes[index]));
@@ -395,7 +395,7 @@ export default function browserConcurrencyTest() {
 
     it('Browser_Concurrency_Tab_001', 0, async () => {
       TestLogger.caseBegin(TAG, 'Browser_Concurrency_Tab_001');
-      TestLogger.step(TAG, 'queue five add tab intents and replay them in order');
+      TestLogger.step(TAG, 'queue five add tab requests and replay them in order');
       const queue: SerialLaneQueue = new SerialLaneQueue();
       for (let index = 0; index < CONCURRENT_TABS; index++) {
         queue.request(index, `add tab ${index}`, 2);
@@ -423,7 +423,7 @@ export default function browserConcurrencyTest() {
         queue.request(index, 'add', 1);
       }
       queue.drain();
-      const results: boolean[] = applyAddIntents(model, CONCURRENT_TABS);
+      const results: boolean[] = applyAddRequests(model, CONCURRENT_TABS);
       TestLogger.info(TAG, `tabs=${model.tabs.length} index=${model.getTabArrayIndex()}`);
       expect(results.length).assertEqual(CONCURRENT_TABS);
       expect(results[0]).assertTrue();
@@ -442,7 +442,7 @@ export default function browserConcurrencyTest() {
       const model: MockBrowser = new MockBrowser(1);
       seedTabs(model, MAX_TAB_COUNT - 1);
       expect(model.tabs.length).assertEqual(MAX_TAB_COUNT - 1);
-      const results: boolean[] = applyAddIntents(model, 4);
+      const results: boolean[] = applyAddRequests(model, 4);
       const accepted: number = results.filter((item: boolean) => item).length;
       const rejected: number = results.length - accepted;
       TestLogger.info(TAG, `accepted=${accepted} rejected=${rejected} tabs=${model.tabs.length}`);
@@ -461,7 +461,7 @@ export default function browserConcurrencyTest() {
       TestLogger.step(TAG, 'queue four deletes around the active middle tab');
       const model: MockBrowser = new MockBrowser(6);
       model.selectTab(3);
-      const results: boolean[] = applyDeleteIntents(model, [1, 1, 0, 0]);
+      const results: boolean[] = applyDeleteRequests(model, [1, 1, 0, 0]);
       const applied: number = results.filter((item: boolean) => item).length;
       const index: number = model.getTabArrayIndex();
       TestLogger.info(TAG, `applied=${applied} tabs=${model.tabs.length} index=${index} keys=${model.getTabKeys().join(',')}`);
@@ -477,9 +477,9 @@ export default function browserConcurrencyTest() {
 
     it('Browser_Concurrency_Tab_005', 0, async () => {
       TestLogger.caseBegin(TAG, 'Browser_Concurrency_Tab_005');
-      TestLogger.step(TAG, 'reject the closing intent on the last remaining tab');
+      TestLogger.step(TAG, 'reject the closing request on the last remaining tab');
       const model: MockBrowser = new MockBrowser(1);
-      const results: boolean[] = applyDeleteIntents(model, [0, 0, 2]);
+      const results: boolean[] = applyDeleteRequests(model, [0, 0, 2]);
       TestLogger.info(TAG, `results=${results.join(',')} tabs=${model.tabs.length}`);
       expect(results[0]).assertFalse();
       expect(results[1]).assertFalse();
@@ -657,7 +657,7 @@ export default function browserConcurrencyTest() {
 
     it('Browser_Concurrency_Mixed_013', 0, async () => {
       TestLogger.caseBegin(TAG, 'Browser_Concurrency_Mixed_013');
-      TestLogger.step(TAG, 'interleave forty eight tab and navigation intents');
+      TestLogger.step(TAG, 'interleave forty eight tab and navigation requests');
       const model: MockBrowser = new MockBrowser(3);
       const queue: SerialLaneQueue = new SerialLaneQueue();
       for (let round = 0; round < STRESS_OPERATIONS; round++) {
