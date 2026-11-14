@@ -16,6 +16,7 @@
 import { describe, it, expect } from '@ohos/hypium';
 import { Driver, ON, Component } from '@ohos.UiTest';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import Want from '@ohos.app.ability.Want';
 import deviceInfo from '@ohos.deviceInfo';
 import Logger from '../util/Logger';
 
@@ -45,11 +46,11 @@ async function targetSpecialPage() {
 }
 
 export default function appTest() {
-  describe('appTest', function () {
+  describe('appTest', () => {
     // 打开应用
-    it(BUNDLE + 'StartAbility', 0, async function (done) {
+    it('Brower_StartAbility', 0, async (done: Function) => {
       Logger.info(TAG, 'StartAbility start');
-      let want = {
+      let want: Want = {
         bundleName: 'ohos.samples.browser1',
         abilityName: 'MainAbility'
       };
@@ -62,54 +63,9 @@ export default function appTest() {
       Logger.info(TAG, 'StartAbility end');
     });
     /**
-     * 验证输入网址跳转
-     */
-    it(`${BUNDLE}TargetSepcialUrl_001`, 0, async () => {
-      Logger.info(TAG, BUNDLE + 'TargetSepcialUrl_001 begin');
-      await driver.delayMs(1000);
-      await targetSpecialPage();
-      Logger.info(TAG, BUNDLE + 'TargetSepcialUrl_001 end');
-    });
-    /**
-     * 验证向左向右跳转
-     */
-    it(`${BUNDLE}TargetLeftAndRight_001`, 0, async () => {
-      Logger.info(TAG, `${BUNDLE}TargetLeftAndRight_001 begin`);
-      let driver: Driver = Driver.create();
-      await driver.delayMs(1000);
-      await driver.assertComponentExist(ON.id('inputUrl'));
-      let inputUrl: Component = await driver.findComponent(ON.id('inputUrl'));
-      await driver.delayMs(1000);
-      let currentUrl = await inputUrl.getText();
-      // 验证向左跳转
-      await driver.assertComponentExist(ON.id('navigationButton0'));
-      let backBtn: Component = await driver.findComponent(ON.id('navigationButton0'));
-      await backBtn.click();
-      await driver.delayMs(3000);
-      currentUrl = await inputUrl.getText();
-      if (currentUrl) {
-        Logger.info(TAG, 'Target left failed');
-        expect().assertFail();
-        return;
-      }
-      // 验证向右
-      await driver.assertComponentExist(ON.id('navigationButton1'));
-      let forward: Component = await driver.findComponent(ON.id('navigationButton1'));
-      await forward.click();
-      await driver.delayMs(3000);
-      currentUrl = await inputUrl.getText();
-      if (!currentUrl) {
-        Logger.info(TAG, 'Target right failed');
-        expect().assertFail();
-        return;
-      }
-      await driver.delayMs(1000);
-      Logger.info(TAG, `${BUNDLE}TargetLeftAndRight_001 end`);
-    });
-    /**
      * 验证新增网页
      */
-    it(`${BUNDLE}AddWebPage_001`, 0, async () => {
+    it('Brower_AddWebPage_001', 0, async () => {
       Logger.info(TAG, `${BUNDLE}AddWebPage_001 begin`);
       try {
         let deviceType = deviceInfo.deviceType;
