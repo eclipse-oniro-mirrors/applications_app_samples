@@ -1,4 +1,4 @@
-﻿/**
+/**
  *
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  *
@@ -24,38 +24,74 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+// Reference: ets/test/Ability.test.ets
+// Original line floor: 49; scenario family: ability.
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from '@ohos/hypium';
+import { CardData } from 'library/src/main/ets/components/dyn/CardData';
+import { DataModel } from 'library/src/main/ets/components/dyn/DataModel';
+import { DataSource } from 'library/src/main/ets/components/dyn/DataSource';
+import { DataParser as DynamicParser } from 'library/src/main/ets/components/dyn/DataParser';
+import { RESOLVER_REGISTRY as registry } from 'library/src/main/ets/components/dyn/ResolverRegistry';
+import { DataParserStaW } from 'library/src/main/ets/components/sta_wrapper/DataParserStaW';
+import { EtsFactory } from 'library/src/main/ets/components/sta_bridge/EtsFactory';
+import { fibonacciRecursive as libraryFibonacci } from 'library/src/main/ets/components/dyn/Workload';
+import { CardResolver } from '../../../main/ets/pages/CardResolver';
+import { TextCardData } from '../../../main/ets/pages/TextCardData';
+import { fibonacciRecursive as entryFibonacci } from '../../../main/ets/pages/Workload';
+import bundledLayout from '../../../main/ets/pages/jsonData.json';
+import {
+  CardPayload, CardStyle, LayoutGroup, makePayload, makeModel, makeGroup, makeSource,
+  assertSource, assertUniqueIds, snapshotTitles, RecordingResolver, ListenerRecorder,
+  ControlledParser, ControlledFactory, waitForNativeFactory, logSuite, expectedFibonacci
+} from './Shared/ScenarioSupport';
+import { inspectProperty } from './Shared/PropertyInspection';
+import {
+  getDriver, ensureSampleVisible, readSampleTitles, requireText, readText,
+  componentEnabled, interactWithComponent, checkTextContent, checkComponentExists,
+  sampleCardCount, textBounds, SAMPLE_TITLES, backgroundSample, foregroundSampleAndVerify
+} from './Shared/SharedDriver';
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+export default function AbilityTest(): void {
+  describe('AbilityTest', () => {
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
-    afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
+      logSuite('AbilityTest', 'begin');
+    });
+    beforeEach(async () => {
+      // Yield between cases so device watchdog and UI events can be processed.
+      await new Promise<void>((resolve) => { setTimeout(resolve, 1); });
+    });
     afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
-    })
-  })
+      logSuite('AbilityTest', 'end');
+    });
+
+    /**
+     * @tc.name AbilityTest_case_001
+     * @tc.desc ability: inspect actual sample cards after read; input vector 1.
+     * @tc.type Function
+     * @tc.level Level1
+     */
+    it('AbilityTest_case_001', 0, async () => {
+      const driver = getDriver();
+      await ensureSampleVisible(driver);
+      const expectedTitle = "\u5361\u7247 1";
+      const before = await readSampleTitles(driver);
+      expect(before).assertDeepEquals(SAMPLE_TITLES);
+      
+      for (let pass = 0; pass < 1; pass++) {
+        const component = await requireText(driver, expectedTitle);
+        const original = await readText(component);
+        expect(original).assertEqual(expectedTitle);
+        expect(await componentEnabled(component)).assertTrue();
+        expect(await checkTextContent(driver, expectedTitle)).assertTrue();
+      }
+      const after = await readSampleTitles(driver);
+      expect(after).assertDeepEquals(before);
+      expect(await checkComponentExists(driver, 'List')).assertTrue();
+      expect(await sampleCardCount(driver)).assertEqual(3);
+      const bounds = await textBounds(driver, expectedTitle);
+      expect(bounds.right > bounds.left).assertTrue();
+      expect(bounds.bottom > bounds.top).assertTrue();
+      expect(await checkTextContent(driver, 'Hello 0')).assertTrue();
+    });
+  });
 }

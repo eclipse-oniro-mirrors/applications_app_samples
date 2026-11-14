@@ -23,6 +23,10 @@
       - 当设备`sdkApiVersion >= 23`时，日志应显示走静态实现。
       - 当设备`sdkApiVersion < 23`时，日志应显示走动态实现。
 
+当前工程的编译、目标和最低兼容 SDK 均配置为 `26.0.0`，本机连接的设备 API 为 `26`，
+因此本次设备验证实际执行静态分支。上述 API 23 判断是源码中的分发规则，
+不表示当前构建配置可以直接安装到低于 API 23 的设备。
+
 ### 工程目录
 
 ```text
@@ -48,6 +52,14 @@ library/src/main/ets/
 |   |---sta_wrapper
 |   |   |---DataParserStaW.ts           // 静态适配动态的实现层，解决静态实现适配动态接口的数据格式转换问题
 |   |---Index.ets                       // library 统一出口，对外导出 dyn 公共类型与接口
+entry/src/ohosTest/
+|---ets/test/List.test.ets              // 注册全部 96 个套件、1,782 条用例
+|---ets/test/                          // Models、Parser、Interop、Registry、DataSource、Integration、UI、Workload
+|---ets/testability/                   // 测试宿主与页面准备
+|---ets/testrunner/                    // OpenHarmonyTestRunner
+script/
+|---run-device-tests.sh                // 构建、安装、设备运行与完整性核验
+ohosTest.md                            // 基础功能用例与自动化覆盖表
 ```
 
 ### 具体实现
@@ -67,13 +79,63 @@ library/src/main/ets/
 
 ### 依赖
 
-不涉及。
+业务模块 `entry` 依赖本工程的 `library`，配置为 `file:../library`。
+工程开发依赖为 `@ohos/hypium` `1.0.21` 和 `@ohos/hamock` `1.0.0`。
+测试使用 Hypium 的 `describe/it/expect`，按场景使用手写依赖替身。
+
+### 本机运行环境
+
+以下版本及路径于 **2026-11-14** 在本机核实，用于当前工程的构建和设备测试：
+
+| 项目 | 本机配置 |
+| --- | --- |
+| 操作系统 | macOS `26.6.1`，构建号 `25G76`，`arm64` |
+| 工程目录 | `/Users/niannian/OhProject/ArkTSStaticSample` |
+| DevEco Studio | `26.0.0`，构建号 `DS-243.24978.46.36.26002` |
+| IDE 安装目录 | `/Applications/DevEco-Studio.app` |
+| SDK 根目录 | `/Users/niannian/SDK` |
+| 当前 SDK | `/Users/niannian/SDK/26.0.0`，API `26`，ETS/Toolchains 组件版本 `26.0.0.40`，Beta |
+| Node.js | `v18.20.1`，`/Applications/DevEco-Studio.app/Contents/tools/node/bin/node` |
+| JDK | OpenJDK/JBR `21.0.8`，`/Applications/DevEco-Studio.app/Contents/jbr/Contents/Home` |
+| OHPM | `6.1.1.816`，`/Applications/DevEco-Studio.app/Contents/tools/ohpm/bin/ohpm` |
+| Hvigor 与 OHOS 插件 | 工程内 `.local-tools/arkts-7.26.0/hvigor/`，实际包版本均为 `5.14.2-td-rc.2851` |
+| HDC | `3.2.0f`，`/Users/niannian/SDK/26.0.0/toolchains/hdc` |
+| 设备 API | `26`，通过 HDC 连接的标准系统真机 |
+
+`local.properties` 当前内容为：
+
+```properties
+sdk.dir=/Users/niannian/SDK
+```
+
+工程级 `build-profile.json5` 的 `app.products` 中，`default` 产品使用以下配置：
+
+| 配置项 | 当前值 |
+| --- | --- |
+| `compileSdkVersion` | `"26.0.0"` |
+| `targetSdkVersion` | `"26.0.0"` |
+| `compatibleSdkVersion` | `"26.0.0"` |
+| `runtimeOS` | `"OpenHarmony"` |
+
+测试使用 `entry@ohosTest` 目标，应用包名为 `com.example.arktsstaticsample`，
+测试模块为 `entry_test`。现有工程内构建适配负责混合 ArkTS 工程的测试入口、
+测试专用静态工作负载及静态字节码打包；运行脚本调用上述工程内 Hvigor。
+签名沿用本机已有配置。
+
+### 自动化测试覆盖与结果
+
+测试覆盖数据模型、动态解析器、静态包装器、注册表、数据源、计算工作负载、
+真实静态链路及页面渲染、交互和前后台切换，共 **96 个套件、1,782 条用例**。
+完整套件名称、覆盖点和逐项用例数见 [ohosTest.md](ohosTest.md)。
+
+2026-11-14 已完成设备全量回归：**1,782 条全部通过，Failure / Error / Ignore 均为 0**，
+总测试时间 359,848 毫秒，最长单条 7,996 毫秒，15 秒配置未修改。
 
 ### 约束与限制
 
 1.  本示例仅支持在标准系统上运行。
-2.  本示例推荐使用当前最新版本的API和SDK编译运行。
-3.  本示例推荐使用当前最新版本的DevEco Studio。
+2.  当前工程使用 OpenHarmony API 26 / SDK `26.0.0` 构建，最低兼容版本同为 `26.0.0`。
+3.  本机已验证 DevEco Studio `26.0.0`、上述工程内 Hvigor 和 API 26 真机；测试需连接并解锁设备。
 4.  业务扩展说明：若新增业务卡片类型，需在`ResolverRegistry`注册新类型并补充相应的解析逻辑，同时务必保持ArkTS-Dyn和ArkTS-Sta两侧能力的一致性。
 
 ### 下载
