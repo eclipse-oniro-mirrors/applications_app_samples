@@ -24,6 +24,7 @@ const ON_DESTROY_ERROR = -2;
 
 export default class TestAbility extends UIAbility {
   private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
+  private testStarted: boolean = false;
 
   constructor() {
     super();
@@ -34,10 +35,7 @@ export default class TestAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
     hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
     hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
-    let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
-    abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
-    hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-    Hypium.hypiumTest(this.abilityDelegator, abilityDelegatorArguments, testsuite);
+    hilog.info(0x0000, 'testTag', '%{public}s', 'testcase registration deferred to onForeground');
   }
 
   onDestroy() {
@@ -62,6 +60,13 @@ export default class TestAbility extends UIAbility {
 
   onForeground() {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground');
+    if (this.testStarted) {
+      return;
+    }
+    this.testStarted = true;
+    setTimeout(() => {
+      Hypium.hypiumTest(this.abilityDelegator, abilityDelegatorRegistry.getArguments(), testsuite);
+    }, 0);
   }
 
   onBackground() {
