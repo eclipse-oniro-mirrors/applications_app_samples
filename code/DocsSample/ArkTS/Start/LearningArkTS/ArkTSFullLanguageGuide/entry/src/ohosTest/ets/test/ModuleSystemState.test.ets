@@ -99,7 +99,7 @@ export default function ArkTSModuleStateTest(): void {
     /**
      * @tc.number    SUB_ARKTS_GUIDE_MODULE_STATE_testLoggerStateSurvivesStatusWork0004
      * @tc.name      testLoggerStateSurvivesStatusWork0004
-     * @tc.desc      Verify unrelated module activity does not reset the module-private logger flag
+     * @tc.desc      Verify unrelated module operation does not reset the module-private logger flag
      * @tc.type      Function
      * @tc.size      SmallTest
      * @tc.level     LEVEL1
