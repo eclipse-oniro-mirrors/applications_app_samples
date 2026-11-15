@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MediaTools } from '../../../main/ets/common/utils/mediaUtils/MediaTools';
 
@@ -22,6 +22,12 @@ const TAG: string = '[Sample_CapturerApplication]';
 
 export default function MediaCountdownMatrixPart1Test(): void {
   describe('MediaCountdownMatrixPart1', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_CAPTURER_COUNTDOWNP1_0100

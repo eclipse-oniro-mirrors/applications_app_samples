@@ -13,15 +13,22 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MediaTools } from '../../../main/ets/common/utils/mediaUtils/MediaTools';
+import { RecordingMetadata } from '../../../main/ets/common/model/RecordingMetadata';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_CapturerApplication]';
 
 export default function MediaBoundaryPart2Test(): void {
   describe('MediaBoundaryPart2', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_CAPTURER_BOUNDARYP2_9100
@@ -33,7 +40,7 @@ export default function MediaBoundaryPart2Test(): void {
      */
     it('testCountdownNegInfinity0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCountdownNegInfinity0091 begin');
-      expect(MediaTools.msToCountdownTime(-Infinity)).assertEqual('0-Infinity:\n      0NaN:0NaN');
+      expect(MediaTools.msToCountdownTime(-Infinity)).assertEqual('-Infinity:\n      NaN:NaN');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCountdownNegInfinity0091 end');
     })
 

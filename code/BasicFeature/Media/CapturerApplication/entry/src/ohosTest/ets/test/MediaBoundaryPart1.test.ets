@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MediaTools } from '../../../main/ets/common/utils/mediaUtils/MediaTools';
 
@@ -22,6 +22,12 @@ const TAG: string = '[Sample_CapturerApplication]';
 
 export default function MediaBoundaryPart1Test(): void {
   describe('MediaBoundaryPart1', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_CAPTURER_BOUNDARYP1_0100
@@ -1223,7 +1229,7 @@ export default function MediaBoundaryPart1Test(): void {
      */
     it('testCountdownEdge0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCountdownEdge0082 begin');
-      expect(MediaTools.msToCountdownTime(-1)).assertEqual('0-1:0-1:\n      0-1:0-1');
+      expect(MediaTools.msToCountdownTime(-1)).assertEqual('-1:-1:\n      -1:-1');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCountdownEdge0082 end');
     })
 
@@ -1237,7 +1243,7 @@ export default function MediaBoundaryPart1Test(): void {
      */
     it('testCountdownEdge0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCountdownEdge0083 begin');
-      expect(MediaTools.msToCountdownTime(-1000)).assertEqual('0-1:0-1:\n      0-1:0-1');
+      expect(MediaTools.msToCountdownTime(-1000)).assertEqual('-1:-1:\n      -1:-1');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCountdownEdge0083 end');
     })
 
@@ -1335,7 +1341,7 @@ export default function MediaBoundaryPart1Test(): void {
      */
     it('testCountdownInfinity0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCountdownInfinity0090 begin');
-      expect(MediaTools.msToCountdownTime(Infinity)).assertEqual('Infinity:\n      0NaN:0NaN');
+      expect(MediaTools.msToCountdownTime(Infinity)).assertEqual('Infinity:\n      NaN:NaN');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testCountdownInfinity0090 end');
     })
 

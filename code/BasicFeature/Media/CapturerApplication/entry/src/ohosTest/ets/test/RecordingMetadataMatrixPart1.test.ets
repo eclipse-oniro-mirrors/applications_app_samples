@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { RecordingMetadata } from '../../../main/ets/common/model/RecordingMetadata';
 
@@ -22,6 +22,12 @@ const TAG: string = '[Sample_CapturerApplication]';
 
 export default function RecordingMetadataMatrixPart1Test(): void {
   describe('RecordingMetadataMatrixPart1', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_CAPTURER_METAMATRIXP1_0100

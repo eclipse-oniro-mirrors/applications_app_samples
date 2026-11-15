@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SAMPLING_RATE_KEY_MAP, SAMPLING_RATE_OPTIONS, CHANNEL_KEY_MAP, CHANNEL_OPTIONS,
   SOURCE_TYPE_KEY_MAP, SOURCE_TYPE_OPTIONS, SAMPLE_FORMAT_KEY_MAP, SAMPLE_FORMAT_OPTIONS } from '../../../main/ets/common/constants/SelectConstants';
@@ -24,6 +24,12 @@ const TAG: string = '[Sample_CapturerApplication]';
 
 export default function SelectOptionContractPart1Test(): void {
   describe('SelectOptionContractPart1', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_CAPTURER_SELECTP1_0100

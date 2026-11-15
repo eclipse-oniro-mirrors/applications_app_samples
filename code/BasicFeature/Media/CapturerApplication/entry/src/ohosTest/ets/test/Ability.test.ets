@@ -14,13 +14,19 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_Ability]';
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
     /**
      * @tc.number    SUB_ABILITY_BASE_0100
      * @tc.name      testAssertContain0001
