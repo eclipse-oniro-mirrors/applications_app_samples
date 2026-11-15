@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import DateTimeUtil, { dateTime } from '../../../main/ets/utils/DateTimeUtil';
 
@@ -24,9 +24,15 @@ const TAG: string = '[Sample_AVRecorder]';
 
 export default function DateTimeConcatDateMatrixPart4Test(): void {
   describe('DateTimeConcatDateMatrixPart4', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27100
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0100
      * @tc.name      testConcatDate0271
      * @tc.desc      Verify date composition 2026-7-10.
      * @tc.size      SMALLTEST
@@ -40,7 +46,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27200
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0200
      * @tc.name      testConcatDate0272
      * @tc.desc      Verify date composition 2026-7-11.
      * @tc.size      SMALLTEST
@@ -54,7 +60,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27300
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0300
      * @tc.name      testConcatDate0273
      * @tc.desc      Verify date composition 2026-7-15.
      * @tc.size      SMALLTEST
@@ -68,7 +74,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27400
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0400
      * @tc.name      testConcatDate0274
      * @tc.desc      Verify date composition 2026-7-20.
      * @tc.size      SMALLTEST
@@ -82,7 +88,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27500
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0500
      * @tc.name      testConcatDate0275
      * @tc.desc      Verify date composition 2026-7-25.
      * @tc.size      SMALLTEST
@@ -96,7 +102,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27600
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0600
      * @tc.name      testConcatDate0276
      * @tc.desc      Verify date composition 2026-7-28.
      * @tc.size      SMALLTEST
@@ -110,7 +116,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27700
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0700
      * @tc.name      testConcatDate0277
      * @tc.desc      Verify date composition 2026-7-29.
      * @tc.size      SMALLTEST
@@ -124,7 +130,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27800
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0800
      * @tc.name      testConcatDate0278
      * @tc.desc      Verify date composition 2026-7-30.
      * @tc.size      SMALLTEST
@@ -138,7 +144,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_27900
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_0900
      * @tc.name      testConcatDate0279
      * @tc.desc      Verify date composition 2026-7-31.
      * @tc.size      SMALLTEST
@@ -152,7 +158,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28000
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1000
      * @tc.name      testConcatDate0280
      * @tc.desc      Verify date composition 2026-8-10.
      * @tc.size      SMALLTEST
@@ -166,7 +172,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28100
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1100
      * @tc.name      testConcatDate0281
      * @tc.desc      Verify date composition 2026-8-11.
      * @tc.size      SMALLTEST
@@ -180,7 +186,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28200
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1200
      * @tc.name      testConcatDate0282
      * @tc.desc      Verify date composition 2026-8-15.
      * @tc.size      SMALLTEST
@@ -194,7 +200,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28300
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1300
      * @tc.name      testConcatDate0283
      * @tc.desc      Verify date composition 2026-8-20.
      * @tc.size      SMALLTEST
@@ -208,7 +214,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28400
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1400
      * @tc.name      testConcatDate0284
      * @tc.desc      Verify date composition 2026-8-25.
      * @tc.size      SMALLTEST
@@ -222,7 +228,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28500
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1500
      * @tc.name      testConcatDate0285
      * @tc.desc      Verify date composition 2026-8-28.
      * @tc.size      SMALLTEST
@@ -236,7 +242,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28600
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1600
      * @tc.name      testConcatDate0286
      * @tc.desc      Verify date composition 2026-8-29.
      * @tc.size      SMALLTEST
@@ -250,7 +256,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28700
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1700
      * @tc.name      testConcatDate0287
      * @tc.desc      Verify date composition 2026-8-30.
      * @tc.size      SMALLTEST
@@ -264,7 +270,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28800
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1800
      * @tc.name      testConcatDate0288
      * @tc.desc      Verify date composition 2026-8-31.
      * @tc.size      SMALLTEST
@@ -278,7 +284,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_28900
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_1900
      * @tc.name      testConcatDate0289
      * @tc.desc      Verify date composition 2026-9-10.
      * @tc.size      SMALLTEST
@@ -292,7 +298,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29000
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2000
      * @tc.name      testConcatDate0290
      * @tc.desc      Verify date composition 2026-9-11.
      * @tc.size      SMALLTEST
@@ -306,7 +312,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29100
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2100
      * @tc.name      testConcatDate0291
      * @tc.desc      Verify date composition 2026-9-15.
      * @tc.size      SMALLTEST
@@ -320,7 +326,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29200
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2200
      * @tc.name      testConcatDate0292
      * @tc.desc      Verify date composition 2026-9-20.
      * @tc.size      SMALLTEST
@@ -334,7 +340,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29300
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2300
      * @tc.name      testConcatDate0293
      * @tc.desc      Verify date composition 2026-9-25.
      * @tc.size      SMALLTEST
@@ -348,7 +354,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29400
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2400
      * @tc.name      testConcatDate0294
      * @tc.desc      Verify date composition 2026-9-28.
      * @tc.size      SMALLTEST
@@ -362,7 +368,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29500
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2500
      * @tc.name      testConcatDate0295
      * @tc.desc      Verify date composition 2026-9-29.
      * @tc.size      SMALLTEST
@@ -376,7 +382,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29600
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2600
      * @tc.name      testConcatDate0296
      * @tc.desc      Verify date composition 2026-9-30.
      * @tc.size      SMALLTEST
@@ -390,7 +396,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29700
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2700
      * @tc.name      testConcatDate0297
      * @tc.desc      Verify date composition 2026-9-31.
      * @tc.size      SMALLTEST
@@ -404,7 +410,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29800
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2800
      * @tc.name      testConcatDate0298
      * @tc.desc      Verify date composition 2026-10-10.
      * @tc.size      SMALLTEST
@@ -418,7 +424,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_29900
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_2900
      * @tc.name      testConcatDate0299
      * @tc.desc      Verify date composition 2026-10-11.
      * @tc.size      SMALLTEST
@@ -432,7 +438,7 @@ export default function DateTimeConcatDateMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTDATEP4_30000
+     * @tc.number    SUB_AVREC_DTDATEP4_ONE_3000
      * @tc.name      testConcatDate0300
      * @tc.desc      Verify date composition 2026-10-15.
      * @tc.size      SMALLTEST

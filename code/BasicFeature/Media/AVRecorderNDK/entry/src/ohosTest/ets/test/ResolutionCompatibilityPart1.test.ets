@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Resolution } from '../../../main/ets/services/CommonTypes';
 
@@ -22,6 +22,12 @@ const TAG: string = '[Sample_AVRecorder]';
 
 export default function ResolutionCompatibilityPart1Test(): void {
   describe('ResolutionCompatibilityPart1', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_AVREC_RESCOMPP1_0100

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import DateTimeUtil, { dateTime } from '../../../main/ets/utils/DateTimeUtil';
 
@@ -24,6 +24,12 @@ const TAG: string = '[Sample_AVRecorder]';
 
 export default function DateTimeConcatTimeMatrixPart2Test(): void {
   describe('DateTimeConcatTimeMatrixPart2', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_AVREC_DTTIMEP2_9100
@@ -152,7 +158,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0100
      * @tc.name      testConcatTime0100
      * @tc.desc      Verify time composition 0:14:1.
      * @tc.size      SMALLTEST
@@ -166,7 +172,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10100
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0200
      * @tc.name      testConcatTime0101
      * @tc.desc      Verify time composition 0:14:5.
      * @tc.size      SMALLTEST
@@ -180,7 +186,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10200
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0300
      * @tc.name      testConcatTime0102
      * @tc.desc      Verify time composition 0:14:9.
      * @tc.size      SMALLTEST
@@ -194,7 +200,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10300
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0400
      * @tc.name      testConcatTime0103
      * @tc.desc      Verify time composition 0:14:10.
      * @tc.size      SMALLTEST
@@ -208,7 +214,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10400
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0500
      * @tc.name      testConcatTime0104
      * @tc.desc      Verify time composition 0:14:30.
      * @tc.size      SMALLTEST
@@ -222,7 +228,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10500
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0600
      * @tc.name      testConcatTime0105
      * @tc.desc      Verify time composition 0:14:59.
      * @tc.size      SMALLTEST
@@ -236,7 +242,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10600
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0700
      * @tc.name      testConcatTime0106
      * @tc.desc      Verify time composition 0:15:0.
      * @tc.size      SMALLTEST
@@ -250,7 +256,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10700
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0800
      * @tc.name      testConcatTime0107
      * @tc.desc      Verify time composition 0:15:1.
      * @tc.size      SMALLTEST
@@ -264,7 +270,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10800
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_0900
      * @tc.name      testConcatTime0108
      * @tc.desc      Verify time composition 0:15:5.
      * @tc.size      SMALLTEST
@@ -278,7 +284,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_10900
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1000
      * @tc.name      testConcatTime0109
      * @tc.desc      Verify time composition 0:15:9.
      * @tc.size      SMALLTEST
@@ -292,7 +298,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1100
      * @tc.name      testConcatTime0110
      * @tc.desc      Verify time composition 0:15:10.
      * @tc.size      SMALLTEST
@@ -306,7 +312,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11100
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1200
      * @tc.name      testConcatTime0111
      * @tc.desc      Verify time composition 0:15:30.
      * @tc.size      SMALLTEST
@@ -320,7 +326,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11200
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1300
      * @tc.name      testConcatTime0112
      * @tc.desc      Verify time composition 0:15:59.
      * @tc.size      SMALLTEST
@@ -334,7 +340,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11300
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1400
      * @tc.name      testConcatTime0113
      * @tc.desc      Verify time composition 0:16:0.
      * @tc.size      SMALLTEST
@@ -348,7 +354,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11400
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1500
      * @tc.name      testConcatTime0114
      * @tc.desc      Verify time composition 0:16:1.
      * @tc.size      SMALLTEST
@@ -362,7 +368,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11500
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1600
      * @tc.name      testConcatTime0115
      * @tc.desc      Verify time composition 0:16:5.
      * @tc.size      SMALLTEST
@@ -376,7 +382,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11600
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1700
      * @tc.name      testConcatTime0116
      * @tc.desc      Verify time composition 0:16:9.
      * @tc.size      SMALLTEST
@@ -390,7 +396,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11700
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1800
      * @tc.name      testConcatTime0117
      * @tc.desc      Verify time composition 0:16:10.
      * @tc.size      SMALLTEST
@@ -404,7 +410,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11800
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_1900
      * @tc.name      testConcatTime0118
      * @tc.desc      Verify time composition 0:16:30.
      * @tc.size      SMALLTEST
@@ -418,7 +424,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_11900
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2000
      * @tc.name      testConcatTime0119
      * @tc.desc      Verify time composition 0:16:59.
      * @tc.size      SMALLTEST
@@ -432,7 +438,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2100
      * @tc.name      testConcatTime0120
      * @tc.desc      Verify time composition 0:17:0.
      * @tc.size      SMALLTEST
@@ -446,7 +452,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12100
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2200
      * @tc.name      testConcatTime0121
      * @tc.desc      Verify time composition 0:17:1.
      * @tc.size      SMALLTEST
@@ -460,7 +466,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12200
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2300
      * @tc.name      testConcatTime0122
      * @tc.desc      Verify time composition 0:17:5.
      * @tc.size      SMALLTEST
@@ -474,7 +480,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12300
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2400
      * @tc.name      testConcatTime0123
      * @tc.desc      Verify time composition 0:17:9.
      * @tc.size      SMALLTEST
@@ -488,7 +494,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12400
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2500
      * @tc.name      testConcatTime0124
      * @tc.desc      Verify time composition 0:17:10.
      * @tc.size      SMALLTEST
@@ -502,7 +508,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12500
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2600
      * @tc.name      testConcatTime0125
      * @tc.desc      Verify time composition 0:17:30.
      * @tc.size      SMALLTEST
@@ -516,7 +522,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12600
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2700
      * @tc.name      testConcatTime0126
      * @tc.desc      Verify time composition 0:17:59.
      * @tc.size      SMALLTEST
@@ -530,7 +536,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12700
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2800
      * @tc.name      testConcatTime0127
      * @tc.desc      Verify time composition 0:18:0.
      * @tc.size      SMALLTEST
@@ -544,7 +550,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12800
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_2900
      * @tc.name      testConcatTime0128
      * @tc.desc      Verify time composition 0:18:1.
      * @tc.size      SMALLTEST
@@ -558,7 +564,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_12900
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3000
      * @tc.name      testConcatTime0129
      * @tc.desc      Verify time composition 0:18:5.
      * @tc.size      SMALLTEST
@@ -572,7 +578,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3100
      * @tc.name      testConcatTime0130
      * @tc.desc      Verify time composition 0:18:9.
      * @tc.size      SMALLTEST
@@ -586,7 +592,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13100
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3200
      * @tc.name      testConcatTime0131
      * @tc.desc      Verify time composition 0:18:10.
      * @tc.size      SMALLTEST
@@ -600,7 +606,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13200
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3300
      * @tc.name      testConcatTime0132
      * @tc.desc      Verify time composition 0:18:30.
      * @tc.size      SMALLTEST
@@ -614,7 +620,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13300
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3400
      * @tc.name      testConcatTime0133
      * @tc.desc      Verify time composition 0:18:59.
      * @tc.size      SMALLTEST
@@ -628,7 +634,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13400
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3500
      * @tc.name      testConcatTime0134
      * @tc.desc      Verify time composition 0:19:0.
      * @tc.size      SMALLTEST
@@ -642,7 +648,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13500
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3600
      * @tc.name      testConcatTime0135
      * @tc.desc      Verify time composition 0:19:1.
      * @tc.size      SMALLTEST
@@ -656,7 +662,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13600
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3700
      * @tc.name      testConcatTime0136
      * @tc.desc      Verify time composition 0:19:5.
      * @tc.size      SMALLTEST
@@ -670,7 +676,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13700
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3800
      * @tc.name      testConcatTime0137
      * @tc.desc      Verify time composition 0:19:9.
      * @tc.size      SMALLTEST
@@ -684,7 +690,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13800
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_3900
      * @tc.name      testConcatTime0138
      * @tc.desc      Verify time composition 0:19:10.
      * @tc.size      SMALLTEST
@@ -698,7 +704,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_13900
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4000
      * @tc.name      testConcatTime0139
      * @tc.desc      Verify time composition 0:19:30.
      * @tc.size      SMALLTEST
@@ -712,7 +718,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4100
      * @tc.name      testConcatTime0140
      * @tc.desc      Verify time composition 0:19:59.
      * @tc.size      SMALLTEST
@@ -726,7 +732,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14100
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4200
      * @tc.name      testConcatTime0141
      * @tc.desc      Verify time composition 0:20:0.
      * @tc.size      SMALLTEST
@@ -740,7 +746,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14200
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4300
      * @tc.name      testConcatTime0142
      * @tc.desc      Verify time composition 0:20:1.
      * @tc.size      SMALLTEST
@@ -754,7 +760,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14300
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4400
      * @tc.name      testConcatTime0143
      * @tc.desc      Verify time composition 0:20:5.
      * @tc.size      SMALLTEST
@@ -768,7 +774,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14400
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4500
      * @tc.name      testConcatTime0144
      * @tc.desc      Verify time composition 0:20:9.
      * @tc.size      SMALLTEST
@@ -782,7 +788,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14500
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4600
      * @tc.name      testConcatTime0145
      * @tc.desc      Verify time composition 0:20:10.
      * @tc.size      SMALLTEST
@@ -796,7 +802,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14600
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4700
      * @tc.name      testConcatTime0146
      * @tc.desc      Verify time composition 0:20:30.
      * @tc.size      SMALLTEST
@@ -810,7 +816,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14700
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4800
      * @tc.name      testConcatTime0147
      * @tc.desc      Verify time composition 0:20:59.
      * @tc.size      SMALLTEST
@@ -824,7 +830,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14800
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_4900
      * @tc.name      testConcatTime0148
      * @tc.desc      Verify time composition 0:21:0.
      * @tc.size      SMALLTEST
@@ -838,7 +844,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_14900
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5000
      * @tc.name      testConcatTime0149
      * @tc.desc      Verify time composition 0:21:1.
      * @tc.size      SMALLTEST
@@ -852,7 +858,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5100
      * @tc.name      testConcatTime0150
      * @tc.desc      Verify time composition 0:21:5.
      * @tc.size      SMALLTEST
@@ -866,7 +872,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15100
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5200
      * @tc.name      testConcatTime0151
      * @tc.desc      Verify time composition 0:21:9.
      * @tc.size      SMALLTEST
@@ -880,7 +886,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15200
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5300
      * @tc.name      testConcatTime0152
      * @tc.desc      Verify time composition 0:21:10.
      * @tc.size      SMALLTEST
@@ -894,7 +900,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15300
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5400
      * @tc.name      testConcatTime0153
      * @tc.desc      Verify time composition 0:21:30.
      * @tc.size      SMALLTEST
@@ -908,7 +914,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15400
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5500
      * @tc.name      testConcatTime0154
      * @tc.desc      Verify time composition 0:21:59.
      * @tc.size      SMALLTEST
@@ -922,7 +928,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15500
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5600
      * @tc.name      testConcatTime0155
      * @tc.desc      Verify time composition 0:22:0.
      * @tc.size      SMALLTEST
@@ -936,7 +942,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15600
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5700
      * @tc.name      testConcatTime0156
      * @tc.desc      Verify time composition 0:22:1.
      * @tc.size      SMALLTEST
@@ -950,7 +956,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15700
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5800
      * @tc.name      testConcatTime0157
      * @tc.desc      Verify time composition 0:22:5.
      * @tc.size      SMALLTEST
@@ -964,7 +970,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15800
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_5900
      * @tc.name      testConcatTime0158
      * @tc.desc      Verify time composition 0:22:9.
      * @tc.size      SMALLTEST
@@ -978,7 +984,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_15900
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6000
      * @tc.name      testConcatTime0159
      * @tc.desc      Verify time composition 0:22:10.
      * @tc.size      SMALLTEST
@@ -992,7 +998,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6100
      * @tc.name      testConcatTime0160
      * @tc.desc      Verify time composition 0:22:30.
      * @tc.size      SMALLTEST
@@ -1006,7 +1012,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16100
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6200
      * @tc.name      testConcatTime0161
      * @tc.desc      Verify time composition 0:22:59.
      * @tc.size      SMALLTEST
@@ -1020,7 +1026,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16200
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6300
      * @tc.name      testConcatTime0162
      * @tc.desc      Verify time composition 0:23:0.
      * @tc.size      SMALLTEST
@@ -1034,7 +1040,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16300
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6400
      * @tc.name      testConcatTime0163
      * @tc.desc      Verify time composition 0:23:1.
      * @tc.size      SMALLTEST
@@ -1048,7 +1054,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16400
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6500
      * @tc.name      testConcatTime0164
      * @tc.desc      Verify time composition 0:23:5.
      * @tc.size      SMALLTEST
@@ -1062,7 +1068,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16500
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6600
      * @tc.name      testConcatTime0165
      * @tc.desc      Verify time composition 0:23:9.
      * @tc.size      SMALLTEST
@@ -1076,7 +1082,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16600
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6700
      * @tc.name      testConcatTime0166
      * @tc.desc      Verify time composition 0:23:10.
      * @tc.size      SMALLTEST
@@ -1090,7 +1096,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16700
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6800
      * @tc.name      testConcatTime0167
      * @tc.desc      Verify time composition 0:23:30.
      * @tc.size      SMALLTEST
@@ -1104,7 +1110,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16800
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_6900
      * @tc.name      testConcatTime0168
      * @tc.desc      Verify time composition 0:23:59.
      * @tc.size      SMALLTEST
@@ -1118,7 +1124,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_16900
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7000
      * @tc.name      testConcatTime0169
      * @tc.desc      Verify time composition 0:24:0.
      * @tc.size      SMALLTEST
@@ -1132,7 +1138,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7100
      * @tc.name      testConcatTime0170
      * @tc.desc      Verify time composition 0:24:1.
      * @tc.size      SMALLTEST
@@ -1146,7 +1152,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17100
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7200
      * @tc.name      testConcatTime0171
      * @tc.desc      Verify time composition 0:24:5.
      * @tc.size      SMALLTEST
@@ -1160,7 +1166,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17200
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7300
      * @tc.name      testConcatTime0172
      * @tc.desc      Verify time composition 0:24:9.
      * @tc.size      SMALLTEST
@@ -1174,7 +1180,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17300
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7400
      * @tc.name      testConcatTime0173
      * @tc.desc      Verify time composition 0:24:10.
      * @tc.size      SMALLTEST
@@ -1188,7 +1194,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17400
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7500
      * @tc.name      testConcatTime0174
      * @tc.desc      Verify time composition 0:24:30.
      * @tc.size      SMALLTEST
@@ -1202,7 +1208,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17500
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7600
      * @tc.name      testConcatTime0175
      * @tc.desc      Verify time composition 0:24:59.
      * @tc.size      SMALLTEST
@@ -1216,7 +1222,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17600
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7700
      * @tc.name      testConcatTime0176
      * @tc.desc      Verify time composition 0:25:0.
      * @tc.size      SMALLTEST
@@ -1230,7 +1236,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17700
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7800
      * @tc.name      testConcatTime0177
      * @tc.desc      Verify time composition 0:25:1.
      * @tc.size      SMALLTEST
@@ -1244,7 +1250,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17800
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_7900
      * @tc.name      testConcatTime0178
      * @tc.desc      Verify time composition 0:25:5.
      * @tc.size      SMALLTEST
@@ -1258,7 +1264,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_17900
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_8000
      * @tc.name      testConcatTime0179
      * @tc.desc      Verify time composition 0:25:9.
      * @tc.size      SMALLTEST
@@ -1272,7 +1278,7 @@ export default function DateTimeConcatTimeMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTTIMEP2_18000
+     * @tc.number    SUB_AVREC_DTTIMEP2_ONE_8100
      * @tc.name      testConcatTime0180
      * @tc.desc      Verify time composition 0:25:10.
      * @tc.size      SMALLTEST

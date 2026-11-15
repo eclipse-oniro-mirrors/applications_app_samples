@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import DateTimeUtil, { dateTime } from '../../../main/ets/utils/DateTimeUtil';
 
@@ -24,6 +24,12 @@ const TAG: string = '[Sample_AVRecorder]';
 
 export default function DateTimeIntegrationPart2Test(): void {
   describe('DateTimeIntegrationPart2', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_AVREC_DTINTP2_9100
@@ -152,7 +158,7 @@ export default function DateTimeIntegrationPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTINTP2_10000
+     * @tc.number    SUB_AVREC_DTINTP2_ONE_0100
      * @tc.name      testCompose0100
      * @tc.desc      Verify dateTime(2983) matches fill(49) + ":" + fill(43).
      * @tc.size      SMALLTEST

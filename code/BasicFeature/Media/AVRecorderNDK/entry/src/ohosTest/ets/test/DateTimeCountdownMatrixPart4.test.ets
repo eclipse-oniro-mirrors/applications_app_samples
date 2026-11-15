@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import DateTimeUtil, { dateTime } from '../../../main/ets/utils/DateTimeUtil';
 
@@ -24,9 +24,15 @@ const TAG: string = '[Sample_AVRecorder]';
 
 export default function DateTimeCountdownMatrixPart4Test(): void {
   describe('DateTimeCountdownMatrixPart4', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27100
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0100
      * @tc.name      testCountdown0271
      * @tc.desc      Verify countdown text for 270 seconds.
      * @tc.size      SMALLTEST
@@ -40,7 +46,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27200
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0200
      * @tc.name      testCountdown0272
      * @tc.desc      Verify countdown text for 271 seconds.
      * @tc.size      SMALLTEST
@@ -54,7 +60,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27300
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0300
      * @tc.name      testCountdown0273
      * @tc.desc      Verify countdown text for 272 seconds.
      * @tc.size      SMALLTEST
@@ -68,7 +74,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27400
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0400
      * @tc.name      testCountdown0274
      * @tc.desc      Verify countdown text for 273 seconds.
      * @tc.size      SMALLTEST
@@ -82,7 +88,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27500
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0500
      * @tc.name      testCountdown0275
      * @tc.desc      Verify countdown text for 274 seconds.
      * @tc.size      SMALLTEST
@@ -96,7 +102,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27600
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0600
      * @tc.name      testCountdown0276
      * @tc.desc      Verify countdown text for 275 seconds.
      * @tc.size      SMALLTEST
@@ -110,7 +116,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27700
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0700
      * @tc.name      testCountdown0277
      * @tc.desc      Verify countdown text for 276 seconds.
      * @tc.size      SMALLTEST
@@ -124,7 +130,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27800
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0800
      * @tc.name      testCountdown0278
      * @tc.desc      Verify countdown text for 277 seconds.
      * @tc.size      SMALLTEST
@@ -138,7 +144,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_27900
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_0900
      * @tc.name      testCountdown0279
      * @tc.desc      Verify countdown text for 278 seconds.
      * @tc.size      SMALLTEST
@@ -152,7 +158,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28000
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1000
      * @tc.name      testCountdown0280
      * @tc.desc      Verify countdown text for 279 seconds.
      * @tc.size      SMALLTEST
@@ -166,7 +172,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28100
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1100
      * @tc.name      testCountdown0281
      * @tc.desc      Verify countdown text for 280 seconds.
      * @tc.size      SMALLTEST
@@ -180,7 +186,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28200
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1200
      * @tc.name      testCountdown0282
      * @tc.desc      Verify countdown text for 281 seconds.
      * @tc.size      SMALLTEST
@@ -194,7 +200,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28300
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1300
      * @tc.name      testCountdown0283
      * @tc.desc      Verify countdown text for 282 seconds.
      * @tc.size      SMALLTEST
@@ -208,7 +214,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28400
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1400
      * @tc.name      testCountdown0284
      * @tc.desc      Verify countdown text for 283 seconds.
      * @tc.size      SMALLTEST
@@ -222,7 +228,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28500
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1500
      * @tc.name      testCountdown0285
      * @tc.desc      Verify countdown text for 284 seconds.
      * @tc.size      SMALLTEST
@@ -236,7 +242,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28600
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1600
      * @tc.name      testCountdown0286
      * @tc.desc      Verify countdown text for 285 seconds.
      * @tc.size      SMALLTEST
@@ -250,7 +256,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28700
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1700
      * @tc.name      testCountdown0287
      * @tc.desc      Verify countdown text for 286 seconds.
      * @tc.size      SMALLTEST
@@ -264,7 +270,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28800
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1800
      * @tc.name      testCountdown0288
      * @tc.desc      Verify countdown text for 287 seconds.
      * @tc.size      SMALLTEST
@@ -278,7 +284,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_28900
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_1900
      * @tc.name      testCountdown0289
      * @tc.desc      Verify countdown text for 288 seconds.
      * @tc.size      SMALLTEST
@@ -292,7 +298,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29000
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2000
      * @tc.name      testCountdown0290
      * @tc.desc      Verify countdown text for 289 seconds.
      * @tc.size      SMALLTEST
@@ -306,7 +312,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29100
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2100
      * @tc.name      testCountdown0291
      * @tc.desc      Verify countdown text for 290 seconds.
      * @tc.size      SMALLTEST
@@ -320,7 +326,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29200
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2200
      * @tc.name      testCountdown0292
      * @tc.desc      Verify countdown text for 291 seconds.
      * @tc.size      SMALLTEST
@@ -334,7 +340,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29300
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2300
      * @tc.name      testCountdown0293
      * @tc.desc      Verify countdown text for 292 seconds.
      * @tc.size      SMALLTEST
@@ -348,7 +354,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29400
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2400
      * @tc.name      testCountdown0294
      * @tc.desc      Verify countdown text for 293 seconds.
      * @tc.size      SMALLTEST
@@ -362,7 +368,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29500
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2500
      * @tc.name      testCountdown0295
      * @tc.desc      Verify countdown text for 294 seconds.
      * @tc.size      SMALLTEST
@@ -376,7 +382,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29600
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2600
      * @tc.name      testCountdown0296
      * @tc.desc      Verify countdown text for 295 seconds.
      * @tc.size      SMALLTEST
@@ -390,7 +396,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29700
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2700
      * @tc.name      testCountdown0297
      * @tc.desc      Verify countdown text for 296 seconds.
      * @tc.size      SMALLTEST
@@ -404,7 +410,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29800
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2800
      * @tc.name      testCountdown0298
      * @tc.desc      Verify countdown text for 297 seconds.
      * @tc.size      SMALLTEST
@@ -418,7 +424,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_29900
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_2900
      * @tc.name      testCountdown0299
      * @tc.desc      Verify countdown text for 298 seconds.
      * @tc.size      SMALLTEST
@@ -432,7 +438,7 @@ export default function DateTimeCountdownMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_AVREC_DTCOUNTP4_30000
+     * @tc.number    SUB_AVREC_DTCOUNTP4_ONE_3000
      * @tc.name      testCountdown0300
      * @tc.desc      Verify countdown text for 299 seconds.
      * @tc.size      SMALLTEST

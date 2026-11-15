@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import Logger from '../../../main/ets/utils/Logger';
 
@@ -22,6 +22,12 @@ const TAG: string = '[Sample_AVRecorder]';
 
 export default function LoggerI18nPart1Test(): void {
   describe('LoggerI18nPart1', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_AVREC_LOGI18NP1_0100
