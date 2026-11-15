@@ -173,7 +173,7 @@ export default function MediaBoundaryPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BOUNDARYP2_10000
+     * @tc.number    SUB_CAPTURER_BOUNDARYP2_ONE_0100
      * @tc.name      testMetaEdge0100
      * @tc.desc      Verify RecordingMetadata stores unusual sampling rate 999999.
      * @tc.size      SMALLTEST
@@ -189,7 +189,7 @@ export default function MediaBoundaryPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BOUNDARYP2_10100
+     * @tc.number    SUB_CAPTURER_BOUNDARYP2_ONE_0200
      * @tc.name      testMetaChannelEdge0101
      * @tc.desc      Verify RecordingMetadata stores unusual channel count 999999.
      * @tc.size      SMALLTEST
@@ -205,7 +205,7 @@ export default function MediaBoundaryPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BOUNDARYP2_10200
+     * @tc.number    SUB_CAPTURER_BOUNDARYP2_ONE_0300
      * @tc.name      testMetaEdge0102
      * @tc.desc      Verify RecordingMetadata stores unusual sampling rate 1.5.
      * @tc.size      SMALLTEST
@@ -221,7 +221,7 @@ export default function MediaBoundaryPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BOUNDARYP2_10300
+     * @tc.number    SUB_CAPTURER_BOUNDARYP2_ONE_0400
      * @tc.name      testMetaChannelEdge0103
      * @tc.desc      Verify RecordingMetadata stores unusual channel count 1.5.
      * @tc.size      SMALLTEST

@@ -30,7 +30,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
 
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18100
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0100
      * @tc.name      testRoundTrip0181
      * @tc.desc      Verify byte offset for 180 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -46,7 +46,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18200
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0200
      * @tc.name      testRoundTrip0182
      * @tc.desc      Verify byte offset for 181 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -62,7 +62,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18300
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0300
      * @tc.name      testRoundTrip0183
      * @tc.desc      Verify byte offset for 182 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -78,7 +78,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18400
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0400
      * @tc.name      testRoundTrip0184
      * @tc.desc      Verify byte offset for 183 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -94,7 +94,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18500
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0500
      * @tc.name      testRoundTrip0185
      * @tc.desc      Verify byte offset for 184 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -110,7 +110,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18600
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0600
      * @tc.name      testRoundTrip0186
      * @tc.desc      Verify byte offset for 185 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -126,7 +126,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18700
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0700
      * @tc.name      testRoundTrip0187
      * @tc.desc      Verify byte offset for 186 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -142,7 +142,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18800
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0800
      * @tc.name      testRoundTrip0188
      * @tc.desc      Verify byte offset for 187 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -158,7 +158,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_18900
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_0900
      * @tc.name      testRoundTrip0189
      * @tc.desc      Verify byte offset for 188 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -174,7 +174,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19000
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1000
      * @tc.name      testRoundTrip0190
      * @tc.desc      Verify byte offset for 189 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -190,7 +190,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19100
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1100
      * @tc.name      testRoundTrip0191
      * @tc.desc      Verify byte offset for 190 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -206,7 +206,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19200
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1200
      * @tc.name      testRoundTrip0192
      * @tc.desc      Verify byte offset for 191 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -222,7 +222,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19300
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1300
      * @tc.name      testRoundTrip0193
      * @tc.desc      Verify byte offset for 192 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -238,7 +238,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19400
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1400
      * @tc.name      testRoundTrip0194
      * @tc.desc      Verify byte offset for 193 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -254,7 +254,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19500
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1500
      * @tc.name      testRoundTrip0195
      * @tc.desc      Verify byte offset for 194 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -270,7 +270,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19600
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1600
      * @tc.name      testRoundTrip0196
      * @tc.desc      Verify byte offset for 195 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -286,7 +286,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19700
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1700
      * @tc.name      testRoundTrip0197
      * @tc.desc      Verify byte offset for 196 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -302,7 +302,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19800
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1800
      * @tc.name      testRoundTrip0198
      * @tc.desc      Verify byte offset for 197 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -318,7 +318,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_19900
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_1900
      * @tc.name      testRoundTrip0199
      * @tc.desc      Verify byte offset for 198 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -334,7 +334,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20000
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2000
      * @tc.name      testRoundTrip0200
      * @tc.desc      Verify byte offset for 199 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -350,7 +350,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20100
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2100
      * @tc.name      testRoundTrip0201
      * @tc.desc      Verify byte offset for 200 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -366,7 +366,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20200
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2200
      * @tc.name      testRoundTrip0202
      * @tc.desc      Verify byte offset for 201 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -382,7 +382,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20300
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2300
      * @tc.name      testRoundTrip0203
      * @tc.desc      Verify byte offset for 202 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -398,7 +398,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20400
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2400
      * @tc.name      testRoundTrip0204
      * @tc.desc      Verify byte offset for 203 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -414,7 +414,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20500
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2500
      * @tc.name      testRoundTrip0205
      * @tc.desc      Verify byte offset for 204 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -430,7 +430,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20600
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2600
      * @tc.name      testRoundTrip0206
      * @tc.desc      Verify byte offset for 205 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -446,7 +446,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20700
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2700
      * @tc.name      testRoundTrip0207
      * @tc.desc      Verify byte offset for 206 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -462,7 +462,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20800
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2800
      * @tc.name      testRoundTrip0208
      * @tc.desc      Verify byte offset for 207 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -478,7 +478,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_20900
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_2900
      * @tc.name      testRoundTrip0209
      * @tc.desc      Verify byte offset for 208 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -494,7 +494,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21000
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3000
      * @tc.name      testRoundTrip0210
      * @tc.desc      Verify byte offset for 209 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -510,7 +510,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21100
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3100
      * @tc.name      testRoundTrip0211
      * @tc.desc      Verify byte offset for 210 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -526,7 +526,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21200
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3200
      * @tc.name      testRoundTrip0212
      * @tc.desc      Verify byte offset for 211 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -542,7 +542,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21300
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3300
      * @tc.name      testRoundTrip0213
      * @tc.desc      Verify byte offset for 212 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -558,7 +558,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21400
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3400
      * @tc.name      testRoundTrip0214
      * @tc.desc      Verify byte offset for 213 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -574,7 +574,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21500
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3500
      * @tc.name      testRoundTrip0215
      * @tc.desc      Verify byte offset for 214 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -590,7 +590,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21600
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3600
      * @tc.name      testRoundTrip0216
      * @tc.desc      Verify byte offset for 215 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -606,7 +606,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21700
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3700
      * @tc.name      testRoundTrip0217
      * @tc.desc      Verify byte offset for 216 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -622,7 +622,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21800
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3800
      * @tc.name      testRoundTrip0218
      * @tc.desc      Verify byte offset for 217 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -638,7 +638,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_21900
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_3900
      * @tc.name      testRoundTrip0219
      * @tc.desc      Verify byte offset for 218 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -654,7 +654,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22000
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4000
      * @tc.name      testRoundTrip0220
      * @tc.desc      Verify byte offset for 219 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -670,7 +670,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22100
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4100
      * @tc.name      testRoundTrip0221
      * @tc.desc      Verify byte offset for 220 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -686,7 +686,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22200
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4200
      * @tc.name      testRoundTrip0222
      * @tc.desc      Verify byte offset for 221 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -702,7 +702,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22300
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4300
      * @tc.name      testRoundTrip0223
      * @tc.desc      Verify byte offset for 222 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -718,7 +718,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22400
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4400
      * @tc.name      testRoundTrip0224
      * @tc.desc      Verify byte offset for 223 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -734,7 +734,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22500
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4500
      * @tc.name      testRoundTrip0225
      * @tc.desc      Verify byte offset for 224 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -750,7 +750,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22600
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4600
      * @tc.name      testRoundTrip0226
      * @tc.desc      Verify byte offset for 225 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -766,7 +766,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22700
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4700
      * @tc.name      testRoundTrip0227
      * @tc.desc      Verify byte offset for 226 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -782,7 +782,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22800
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4800
      * @tc.name      testRoundTrip0228
      * @tc.desc      Verify byte offset for 227 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -798,7 +798,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_22900
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_4900
      * @tc.name      testRoundTrip0229
      * @tc.desc      Verify byte offset for 228 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -814,7 +814,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23000
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5000
      * @tc.name      testRoundTrip0230
      * @tc.desc      Verify byte offset for 229 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -830,7 +830,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23100
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5100
      * @tc.name      testRoundTrip0231
      * @tc.desc      Verify byte offset for 230 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -846,7 +846,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23200
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5200
      * @tc.name      testRoundTrip0232
      * @tc.desc      Verify byte offset for 231 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -862,7 +862,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23300
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5300
      * @tc.name      testRoundTrip0233
      * @tc.desc      Verify byte offset for 232 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -878,7 +878,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23400
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5400
      * @tc.name      testRoundTrip0234
      * @tc.desc      Verify byte offset for 233 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -894,7 +894,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23500
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5500
      * @tc.name      testRoundTrip0235
      * @tc.desc      Verify byte offset for 234 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -910,7 +910,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23600
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5600
      * @tc.name      testRoundTrip0236
      * @tc.desc      Verify byte offset for 235 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -926,7 +926,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23700
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5700
      * @tc.name      testRoundTrip0237
      * @tc.desc      Verify byte offset for 236 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -942,7 +942,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23800
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5800
      * @tc.name      testRoundTrip0238
      * @tc.desc      Verify byte offset for 237 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -958,7 +958,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_23900
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_5900
      * @tc.name      testRoundTrip0239
      * @tc.desc      Verify byte offset for 238 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -974,7 +974,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24000
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6000
      * @tc.name      testRoundTrip0240
      * @tc.desc      Verify byte offset for 239 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -990,7 +990,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24100
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6100
      * @tc.name      testRoundTrip0241
      * @tc.desc      Verify byte offset for 240 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1006,7 +1006,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24200
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6200
      * @tc.name      testRoundTrip0242
      * @tc.desc      Verify byte offset for 241 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1022,7 +1022,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24300
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6300
      * @tc.name      testRoundTrip0243
      * @tc.desc      Verify byte offset for 242 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1038,7 +1038,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24400
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6400
      * @tc.name      testRoundTrip0244
      * @tc.desc      Verify byte offset for 243 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1054,7 +1054,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24500
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6500
      * @tc.name      testRoundTrip0245
      * @tc.desc      Verify byte offset for 244 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1070,7 +1070,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24600
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6600
      * @tc.name      testRoundTrip0246
      * @tc.desc      Verify byte offset for 245 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1086,7 +1086,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24700
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6700
      * @tc.name      testRoundTrip0247
      * @tc.desc      Verify byte offset for 246 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1102,7 +1102,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24800
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6800
      * @tc.name      testRoundTrip0248
      * @tc.desc      Verify byte offset for 247 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1118,7 +1118,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_24900
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_6900
      * @tc.name      testRoundTrip0249
      * @tc.desc      Verify byte offset for 248 ms converts back to the same duration.
      * @tc.size      SMALLTEST
@@ -1134,7 +1134,7 @@ export default function MediaRoundTripMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_25000
+     * @tc.number    SUB_CAPTURER_ROUNDTRIPP3_ONE_7000
      * @tc.name      testRoundTrip0250
      * @tc.desc      Verify byte offset for 249 ms converts back to the same duration.
      * @tc.size      SMALLTEST

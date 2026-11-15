@@ -174,7 +174,7 @@ export default function MediaIntegrationPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_INTEGP2_10000
+     * @tc.number    SUB_CAPTURER_INTEGP2_ONE_0100
      * @tc.name      testByteRoundTrip0100
      * @tc.desc      Verify byte length 99 survives a millisecond round trip.
      * @tc.size      SMALLTEST

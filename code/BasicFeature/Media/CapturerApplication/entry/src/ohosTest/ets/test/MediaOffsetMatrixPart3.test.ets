@@ -30,7 +30,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
 
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18100
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0100
      * @tc.name      testOffset0181
      * @tc.desc      Verify offset for 180 milliseconds.
      * @tc.size      SMALLTEST
@@ -45,7 +45,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18200
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0200
      * @tc.name      testOffset0182
      * @tc.desc      Verify offset for 181 milliseconds.
      * @tc.size      SMALLTEST
@@ -60,7 +60,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18300
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0300
      * @tc.name      testOffset0183
      * @tc.desc      Verify offset for 182 milliseconds.
      * @tc.size      SMALLTEST
@@ -75,7 +75,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18400
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0400
      * @tc.name      testOffset0184
      * @tc.desc      Verify offset for 183 milliseconds.
      * @tc.size      SMALLTEST
@@ -90,7 +90,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18500
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0500
      * @tc.name      testOffset0185
      * @tc.desc      Verify offset for 184 milliseconds.
      * @tc.size      SMALLTEST
@@ -105,7 +105,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18600
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0600
      * @tc.name      testOffset0186
      * @tc.desc      Verify offset for 185 milliseconds.
      * @tc.size      SMALLTEST
@@ -120,7 +120,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18700
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0700
      * @tc.name      testOffset0187
      * @tc.desc      Verify offset for 186 milliseconds.
      * @tc.size      SMALLTEST
@@ -135,7 +135,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18800
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0800
      * @tc.name      testOffset0188
      * @tc.desc      Verify offset for 187 milliseconds.
      * @tc.size      SMALLTEST
@@ -150,7 +150,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_18900
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_0900
      * @tc.name      testOffset0189
      * @tc.desc      Verify offset for 188 milliseconds.
      * @tc.size      SMALLTEST
@@ -165,7 +165,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19000
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1000
      * @tc.name      testOffset0190
      * @tc.desc      Verify offset for 189 milliseconds.
      * @tc.size      SMALLTEST
@@ -180,7 +180,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19100
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1100
      * @tc.name      testOffset0191
      * @tc.desc      Verify offset for 190 milliseconds.
      * @tc.size      SMALLTEST
@@ -195,7 +195,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19200
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1200
      * @tc.name      testOffset0192
      * @tc.desc      Verify offset for 191 milliseconds.
      * @tc.size      SMALLTEST
@@ -210,7 +210,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19300
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1300
      * @tc.name      testOffset0193
      * @tc.desc      Verify offset for 192 milliseconds.
      * @tc.size      SMALLTEST
@@ -225,7 +225,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19400
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1400
      * @tc.name      testOffset0194
      * @tc.desc      Verify offset for 193 milliseconds.
      * @tc.size      SMALLTEST
@@ -240,7 +240,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19500
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1500
      * @tc.name      testOffset0195
      * @tc.desc      Verify offset for 194 milliseconds.
      * @tc.size      SMALLTEST
@@ -255,7 +255,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19600
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1600
      * @tc.name      testOffset0196
      * @tc.desc      Verify offset for 195 milliseconds.
      * @tc.size      SMALLTEST
@@ -270,7 +270,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19700
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1700
      * @tc.name      testOffset0197
      * @tc.desc      Verify offset for 196 milliseconds.
      * @tc.size      SMALLTEST
@@ -285,7 +285,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19800
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1800
      * @tc.name      testOffset0198
      * @tc.desc      Verify offset for 197 milliseconds.
      * @tc.size      SMALLTEST
@@ -300,7 +300,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_19900
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_1900
      * @tc.name      testOffset0199
      * @tc.desc      Verify offset for 198 milliseconds.
      * @tc.size      SMALLTEST
@@ -315,7 +315,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20000
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2000
      * @tc.name      testOffset0200
      * @tc.desc      Verify offset for 199 milliseconds.
      * @tc.size      SMALLTEST
@@ -330,7 +330,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20100
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2100
      * @tc.name      testOffset0201
      * @tc.desc      Verify offset for 200 milliseconds.
      * @tc.size      SMALLTEST
@@ -345,7 +345,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20200
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2200
      * @tc.name      testOffset0202
      * @tc.desc      Verify offset for 250 milliseconds.
      * @tc.size      SMALLTEST
@@ -360,7 +360,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20300
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2300
      * @tc.name      testOffset0203
      * @tc.desc      Verify offset for 500 milliseconds.
      * @tc.size      SMALLTEST
@@ -375,7 +375,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20400
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2400
      * @tc.name      testOffset0204
      * @tc.desc      Verify offset for 999 milliseconds.
      * @tc.size      SMALLTEST
@@ -390,7 +390,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20500
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2500
      * @tc.name      testOffset0205
      * @tc.desc      Verify offset for 1000 milliseconds.
      * @tc.size      SMALLTEST
@@ -405,7 +405,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20600
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2600
      * @tc.name      testOffset0206
      * @tc.desc      Verify offset for 1500 milliseconds.
      * @tc.size      SMALLTEST
@@ -420,7 +420,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20700
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2700
      * @tc.name      testOffset0207
      * @tc.desc      Verify offset for 2000 milliseconds.
      * @tc.size      SMALLTEST
@@ -435,7 +435,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20800
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2800
      * @tc.name      testOffset0208
      * @tc.desc      Verify offset for 5000 milliseconds.
      * @tc.size      SMALLTEST
@@ -450,7 +450,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_20900
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_2900
      * @tc.name      testOffset0209
      * @tc.desc      Verify offset for 10000 milliseconds.
      * @tc.size      SMALLTEST
@@ -465,7 +465,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21000
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3000
      * @tc.name      testOffset0210
      * @tc.desc      Verify offset for 60000 milliseconds.
      * @tc.size      SMALLTEST
@@ -480,7 +480,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21100
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3100
      * @tc.name      testOffset0211
      * @tc.desc      Verify offset for 120000 milliseconds.
      * @tc.size      SMALLTEST
@@ -495,7 +495,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21200
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3200
      * @tc.name      testOffset0212
      * @tc.desc      Verify offset for 3600000 milliseconds.
      * @tc.size      SMALLTEST
@@ -510,7 +510,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21300
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3300
      * @tc.name      testOffset0213
      * @tc.desc      Verify offset for 7200000 milliseconds.
      * @tc.size      SMALLTEST
@@ -525,7 +525,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21400
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3400
      * @tc.name      testOffset0214
      * @tc.desc      Verify offset for 86400000 milliseconds.
      * @tc.size      SMALLTEST
@@ -540,7 +540,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21500
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3500
      * @tc.name      testOffset0215
      * @tc.desc      Verify offset for 86461000 milliseconds.
      * @tc.size      SMALLTEST
@@ -555,7 +555,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21600
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3600
      * @tc.name      testOffset0216
      * @tc.desc      Verify offset for 100000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -570,7 +570,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21700
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3700
      * @tc.name      testOffset0217
      * @tc.desc      Verify offset for 123456789 milliseconds.
      * @tc.size      SMALLTEST
@@ -585,7 +585,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21800
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3800
      * @tc.name      testOffset0218
      * @tc.desc      Verify offset for 999999999 milliseconds.
      * @tc.size      SMALLTEST
@@ -600,7 +600,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_21900
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_3900
      * @tc.name      testOffset0219
      * @tc.desc      Verify offset for 1000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -615,7 +615,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22000
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4000
      * @tc.name      testOffset0220
      * @tc.desc      Verify offset for 2000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -630,7 +630,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22100
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4100
      * @tc.name      testOffset0221
      * @tc.desc      Verify offset for 3000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -645,7 +645,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22200
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4200
      * @tc.name      testOffset0222
      * @tc.desc      Verify offset for 5000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -660,7 +660,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22300
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4300
      * @tc.name      testOffset0223
      * @tc.desc      Verify offset for 8640000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -675,7 +675,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22400
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4400
      * @tc.name      testOffset0224
      * @tc.desc      Verify offset for 10000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -690,7 +690,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22500
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4500
      * @tc.name      testOffset0225
      * @tc.desc      Verify offset for 12345678901 milliseconds.
      * @tc.size      SMALLTEST
@@ -705,7 +705,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22600
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4600
      * @tc.name      testOffset0226
      * @tc.desc      Verify offset for 20000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -720,7 +720,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22700
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4700
      * @tc.name      testOffset0227
      * @tc.desc      Verify offset for 50000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -735,7 +735,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22800
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4800
      * @tc.name      testOffset0228
      * @tc.desc      Verify offset for 99999999999 milliseconds.
      * @tc.size      SMALLTEST
@@ -750,7 +750,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_22900
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_4900
      * @tc.name      testOffset0229
      * @tc.desc      Verify offset for 100000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -765,7 +765,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23000
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5000
      * @tc.name      testOffset0230
      * @tc.desc      Verify offset for 123456789012 milliseconds.
      * @tc.size      SMALLTEST
@@ -780,7 +780,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23100
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5100
      * @tc.name      testOffset0231
      * @tc.desc      Verify offset for 200000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -795,7 +795,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23200
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5200
      * @tc.name      testOffset0232
      * @tc.desc      Verify offset for 500000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -810,7 +810,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23300
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5300
      * @tc.name      testOffset0233
      * @tc.desc      Verify offset for 999999999999 milliseconds.
      * @tc.size      SMALLTEST
@@ -825,7 +825,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23400
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5400
      * @tc.name      testOffset0234
      * @tc.desc      Verify offset for 1000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -840,7 +840,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23500
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5500
      * @tc.name      testOffset0235
      * @tc.desc      Verify offset for 2000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -855,7 +855,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23600
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5600
      * @tc.name      testOffset0236
      * @tc.desc      Verify offset for 5000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -870,7 +870,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23700
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5700
      * @tc.name      testOffset0237
      * @tc.desc      Verify offset for 9999999999999 milliseconds.
      * @tc.size      SMALLTEST
@@ -885,7 +885,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23800
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5800
      * @tc.name      testOffset0238
      * @tc.desc      Verify offset for 10000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -900,7 +900,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_23900
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_5900
      * @tc.name      testOffset0239
      * @tc.desc      Verify offset for 12345678901234 milliseconds.
      * @tc.size      SMALLTEST
@@ -915,7 +915,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24000
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6000
      * @tc.name      testOffset0240
      * @tc.desc      Verify offset for 20000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -930,7 +930,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24100
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6100
      * @tc.name      testOffset0241
      * @tc.desc      Verify offset for 50000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -945,7 +945,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24200
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6200
      * @tc.name      testOffset0242
      * @tc.desc      Verify offset for 99999999999999 milliseconds.
      * @tc.size      SMALLTEST
@@ -960,7 +960,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24300
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6300
      * @tc.name      testOffset0243
      * @tc.desc      Verify offset for 100000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -975,7 +975,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24400
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6400
      * @tc.name      testOffset0244
      * @tc.desc      Verify offset for 200000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -990,7 +990,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24500
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6500
      * @tc.name      testOffset0245
      * @tc.desc      Verify offset for 500000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -1005,7 +1005,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24600
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6600
      * @tc.name      testOffset0246
      * @tc.desc      Verify offset for 999999999999999 milliseconds.
      * @tc.size      SMALLTEST
@@ -1020,7 +1020,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24700
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6700
      * @tc.name      testOffset0247
      * @tc.desc      Verify offset for 1000000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -1035,7 +1035,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24800
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6800
      * @tc.name      testOffset0248
      * @tc.desc      Verify offset for 2000000000000000 milliseconds.
      * @tc.size      SMALLTEST
@@ -1050,7 +1050,7 @@ export default function MediaOffsetMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_OFFSETP3_24900
+     * @tc.number    SUB_CAPTURER_OFFSETP3_ONE_6900
      * @tc.name      testOffset0249
      * @tc.desc      Verify offset for 5000000000000000 milliseconds.
      * @tc.size      SMALLTEST

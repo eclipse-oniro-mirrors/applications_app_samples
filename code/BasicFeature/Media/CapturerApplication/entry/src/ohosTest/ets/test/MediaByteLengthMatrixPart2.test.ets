@@ -165,7 +165,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0100
      * @tc.name      testByteLength0100
      * @tc.desc      Verify byte length 521 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -180,7 +180,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10100
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0200
      * @tc.name      testByteLength0101
      * @tc.desc      Verify byte length 1920 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -195,7 +195,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10200
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0300
      * @tc.name      testByteLength0102
      * @tc.desc      Verify byte length 3840 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -210,7 +210,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10300
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0400
      * @tc.name      testByteLength0103
      * @tc.desc      Verify byte length 5760 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -225,7 +225,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10400
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0500
      * @tc.name      testByteLength0104
      * @tc.desc      Verify byte length 7680 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -240,7 +240,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10500
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0600
      * @tc.name      testByteLength0105
      * @tc.desc      Verify byte length 9600 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -255,7 +255,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10600
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0700
      * @tc.name      testByteLength0106
      * @tc.desc      Verify byte length 11520 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -270,7 +270,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10700
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0800
      * @tc.name      testByteLength0107
      * @tc.desc      Verify byte length 13440 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -285,7 +285,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10800
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_0900
      * @tc.name      testByteLength0108
      * @tc.desc      Verify byte length 15360 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -300,7 +300,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_10900
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1000
      * @tc.name      testByteLength0109
      * @tc.desc      Verify byte length 17280 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -315,7 +315,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1100
      * @tc.name      testByteLength0110
      * @tc.desc      Verify byte length 19200 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -330,7 +330,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11100
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1200
      * @tc.name      testByteLength0111
      * @tc.desc      Verify byte length 21120 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -345,7 +345,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11200
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1300
      * @tc.name      testByteLength0112
      * @tc.desc      Verify byte length 23040 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -360,7 +360,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11300
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1400
      * @tc.name      testByteLength0113
      * @tc.desc      Verify byte length 24960 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -375,7 +375,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11400
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1500
      * @tc.name      testByteLength0114
      * @tc.desc      Verify byte length 26880 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -390,7 +390,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11500
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1600
      * @tc.name      testByteLength0115
      * @tc.desc      Verify byte length 28800 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -405,7 +405,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11600
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1700
      * @tc.name      testByteLength0116
      * @tc.desc      Verify byte length 30720 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -420,7 +420,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11700
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1800
      * @tc.name      testByteLength0117
      * @tc.desc      Verify byte length 32640 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -435,7 +435,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11800
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_1900
      * @tc.name      testByteLength0118
      * @tc.desc      Verify byte length 34560 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -450,7 +450,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_11900
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2000
      * @tc.name      testByteLength0119
      * @tc.desc      Verify byte length 36480 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -465,7 +465,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2100
      * @tc.name      testByteLength0120
      * @tc.desc      Verify byte length 38400 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -480,7 +480,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12100
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2200
      * @tc.name      testByteLength0121
      * @tc.desc      Verify byte length 40320 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -495,7 +495,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12200
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2300
      * @tc.name      testByteLength0122
      * @tc.desc      Verify byte length 42240 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -510,7 +510,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12300
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2400
      * @tc.name      testByteLength0123
      * @tc.desc      Verify byte length 44160 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -525,7 +525,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12400
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2500
      * @tc.name      testByteLength0124
      * @tc.desc      Verify byte length 46080 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -540,7 +540,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12500
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2600
      * @tc.name      testByteLength0125
      * @tc.desc      Verify byte length 48000 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -555,7 +555,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12600
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2700
      * @tc.name      testByteLength0126
      * @tc.desc      Verify byte length 49920 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -570,7 +570,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12700
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2800
      * @tc.name      testByteLength0127
      * @tc.desc      Verify byte length 51840 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -585,7 +585,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12800
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_2900
      * @tc.name      testByteLength0128
      * @tc.desc      Verify byte length 53760 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -600,7 +600,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_12900
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3000
      * @tc.name      testByteLength0129
      * @tc.desc      Verify byte length 55680 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -615,7 +615,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3100
      * @tc.name      testByteLength0130
      * @tc.desc      Verify byte length 57600 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -630,7 +630,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13100
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3200
      * @tc.name      testByteLength0131
      * @tc.desc      Verify byte length 59520 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -645,7 +645,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13200
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3300
      * @tc.name      testByteLength0132
      * @tc.desc      Verify byte length 61440 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -660,7 +660,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13300
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3400
      * @tc.name      testByteLength0133
      * @tc.desc      Verify byte length 63360 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -675,7 +675,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13400
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3500
      * @tc.name      testByteLength0134
      * @tc.desc      Verify byte length 65280 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -690,7 +690,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13500
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3600
      * @tc.name      testByteLength0135
      * @tc.desc      Verify byte length 67200 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -705,7 +705,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13600
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3700
      * @tc.name      testByteLength0136
      * @tc.desc      Verify byte length 69120 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -720,7 +720,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13700
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3800
      * @tc.name      testByteLength0137
      * @tc.desc      Verify byte length 71040 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -735,7 +735,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13800
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_3900
      * @tc.name      testByteLength0138
      * @tc.desc      Verify byte length 72960 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -750,7 +750,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_13900
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4000
      * @tc.name      testByteLength0139
      * @tc.desc      Verify byte length 74880 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -765,7 +765,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4100
      * @tc.name      testByteLength0140
      * @tc.desc      Verify byte length 76800 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -780,7 +780,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14100
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4200
      * @tc.name      testByteLength0141
      * @tc.desc      Verify byte length 78720 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -795,7 +795,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14200
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4300
      * @tc.name      testByteLength0142
      * @tc.desc      Verify byte length 80640 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -810,7 +810,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14300
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4400
      * @tc.name      testByteLength0143
      * @tc.desc      Verify byte length 82560 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -825,7 +825,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14400
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4500
      * @tc.name      testByteLength0144
      * @tc.desc      Verify byte length 84480 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -840,7 +840,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14500
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4600
      * @tc.name      testByteLength0145
      * @tc.desc      Verify byte length 86400 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -855,7 +855,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14600
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4700
      * @tc.name      testByteLength0146
      * @tc.desc      Verify byte length 88320 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -870,7 +870,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14700
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4800
      * @tc.name      testByteLength0147
      * @tc.desc      Verify byte length 90240 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -885,7 +885,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14800
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_4900
      * @tc.name      testByteLength0148
      * @tc.desc      Verify byte length 92160 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -900,7 +900,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_14900
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5000
      * @tc.name      testByteLength0149
      * @tc.desc      Verify byte length 94080 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -915,7 +915,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5100
      * @tc.name      testByteLength0150
      * @tc.desc      Verify byte length 96000 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -930,7 +930,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15100
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5200
      * @tc.name      testByteLength0151
      * @tc.desc      Verify byte length 97920 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -945,7 +945,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15200
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5300
      * @tc.name      testByteLength0152
      * @tc.desc      Verify byte length 99840 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -960,7 +960,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15300
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5400
      * @tc.name      testByteLength0153
      * @tc.desc      Verify byte length 101760 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -975,7 +975,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15400
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5500
      * @tc.name      testByteLength0154
      * @tc.desc      Verify byte length 103680 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -990,7 +990,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15500
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5600
      * @tc.name      testByteLength0155
      * @tc.desc      Verify byte length 105600 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1005,7 +1005,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15600
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5700
      * @tc.name      testByteLength0156
      * @tc.desc      Verify byte length 107520 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1020,7 +1020,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15700
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5800
      * @tc.name      testByteLength0157
      * @tc.desc      Verify byte length 109440 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1035,7 +1035,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15800
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_5900
      * @tc.name      testByteLength0158
      * @tc.desc      Verify byte length 111360 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1050,7 +1050,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_15900
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6000
      * @tc.name      testByteLength0159
      * @tc.desc      Verify byte length 113280 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1065,7 +1065,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6100
      * @tc.name      testByteLength0160
      * @tc.desc      Verify byte length 115200 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1080,7 +1080,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16100
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6200
      * @tc.name      testByteLength0161
      * @tc.desc      Verify byte length 117120 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1095,7 +1095,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16200
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6300
      * @tc.name      testByteLength0162
      * @tc.desc      Verify byte length 119040 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1110,7 +1110,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16300
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6400
      * @tc.name      testByteLength0163
      * @tc.desc      Verify byte length 120960 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1125,7 +1125,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16400
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6500
      * @tc.name      testByteLength0164
      * @tc.desc      Verify byte length 122880 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1140,7 +1140,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16500
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6600
      * @tc.name      testByteLength0165
      * @tc.desc      Verify byte length 124800 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1155,7 +1155,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16600
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6700
      * @tc.name      testByteLength0166
      * @tc.desc      Verify byte length 126720 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1170,7 +1170,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16700
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6800
      * @tc.name      testByteLength0167
      * @tc.desc      Verify byte length 128640 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1185,7 +1185,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16800
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_6900
      * @tc.name      testByteLength0168
      * @tc.desc      Verify byte length 130560 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1200,7 +1200,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_16900
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7000
      * @tc.name      testByteLength0169
      * @tc.desc      Verify byte length 132480 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1215,7 +1215,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7100
      * @tc.name      testByteLength0170
      * @tc.desc      Verify byte length 134400 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1230,7 +1230,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17100
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7200
      * @tc.name      testByteLength0171
      * @tc.desc      Verify byte length 136320 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1245,7 +1245,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17200
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7300
      * @tc.name      testByteLength0172
      * @tc.desc      Verify byte length 138240 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1260,7 +1260,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17300
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7400
      * @tc.name      testByteLength0173
      * @tc.desc      Verify byte length 140160 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1275,7 +1275,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17400
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7500
      * @tc.name      testByteLength0174
      * @tc.desc      Verify byte length 142080 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1290,7 +1290,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17500
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7600
      * @tc.name      testByteLength0175
      * @tc.desc      Verify byte length 144000 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1305,7 +1305,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17600
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7700
      * @tc.name      testByteLength0176
      * @tc.desc      Verify byte length 145920 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1320,7 +1320,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17700
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7800
      * @tc.name      testByteLength0177
      * @tc.desc      Verify byte length 147840 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1335,7 +1335,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17800
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_7900
      * @tc.name      testByteLength0178
      * @tc.desc      Verify byte length 149760 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1350,7 +1350,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_17900
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_8000
      * @tc.name      testByteLength0179
      * @tc.desc      Verify byte length 151680 converts to the documented milliseconds.
      * @tc.size      SMALLTEST
@@ -1365,7 +1365,7 @@ export default function MediaByteLengthMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_BYTELENP2_18000
+     * @tc.number    SUB_CAPTURER_BYTELENP2_ONE_8100
      * @tc.name      testByteLength0180
      * @tc.desc      Verify byte length 153600 converts to the documented milliseconds.
      * @tc.size      SMALLTEST

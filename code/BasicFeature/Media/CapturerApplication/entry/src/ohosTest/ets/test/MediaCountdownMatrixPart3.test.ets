@@ -30,7 +30,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
 
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18100
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0100
      * @tc.name      testCountdown0181
      * @tc.desc      Verify countdown text for 173000 milliseconds.
      * @tc.size      SMALLTEST
@@ -44,7 +44,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18200
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0200
      * @tc.name      testCountdown0182
      * @tc.desc      Verify countdown text for 174000 milliseconds.
      * @tc.size      SMALLTEST
@@ -58,7 +58,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18300
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0300
      * @tc.name      testCountdown0183
      * @tc.desc      Verify countdown text for 175000 milliseconds.
      * @tc.size      SMALLTEST
@@ -72,7 +72,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18400
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0400
      * @tc.name      testCountdown0184
      * @tc.desc      Verify countdown text for 176000 milliseconds.
      * @tc.size      SMALLTEST
@@ -86,7 +86,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18500
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0500
      * @tc.name      testCountdown0185
      * @tc.desc      Verify countdown text for 177000 milliseconds.
      * @tc.size      SMALLTEST
@@ -100,7 +100,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18600
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0600
      * @tc.name      testCountdown0186
      * @tc.desc      Verify countdown text for 178000 milliseconds.
      * @tc.size      SMALLTEST
@@ -114,7 +114,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18700
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0700
      * @tc.name      testCountdown0187
      * @tc.desc      Verify countdown text for 179000 milliseconds.
      * @tc.size      SMALLTEST
@@ -128,7 +128,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18800
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0800
      * @tc.name      testCountdown0188
      * @tc.desc      Verify countdown text for 180000 milliseconds.
      * @tc.size      SMALLTEST
@@ -142,7 +142,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_18900
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_0900
      * @tc.name      testCountdown0189
      * @tc.desc      Verify countdown text for 181000 milliseconds.
      * @tc.size      SMALLTEST
@@ -156,7 +156,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19000
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1000
      * @tc.name      testCountdown0190
      * @tc.desc      Verify countdown text for 182000 milliseconds.
      * @tc.size      SMALLTEST
@@ -170,7 +170,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19100
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1100
      * @tc.name      testCountdown0191
      * @tc.desc      Verify countdown text for 183000 milliseconds.
      * @tc.size      SMALLTEST
@@ -184,7 +184,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19200
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1200
      * @tc.name      testCountdown0192
      * @tc.desc      Verify countdown text for 184000 milliseconds.
      * @tc.size      SMALLTEST
@@ -198,7 +198,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19300
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1300
      * @tc.name      testCountdown0193
      * @tc.desc      Verify countdown text for 185000 milliseconds.
      * @tc.size      SMALLTEST
@@ -212,7 +212,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19400
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1400
      * @tc.name      testCountdown0194
      * @tc.desc      Verify countdown text for 186000 milliseconds.
      * @tc.size      SMALLTEST
@@ -226,7 +226,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19500
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1500
      * @tc.name      testCountdown0195
      * @tc.desc      Verify countdown text for 187000 milliseconds.
      * @tc.size      SMALLTEST
@@ -240,7 +240,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19600
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1600
      * @tc.name      testCountdown0196
      * @tc.desc      Verify countdown text for 188000 milliseconds.
      * @tc.size      SMALLTEST
@@ -254,7 +254,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19700
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1700
      * @tc.name      testCountdown0197
      * @tc.desc      Verify countdown text for 189000 milliseconds.
      * @tc.size      SMALLTEST
@@ -268,7 +268,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19800
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1800
      * @tc.name      testCountdown0198
      * @tc.desc      Verify countdown text for 190000 milliseconds.
      * @tc.size      SMALLTEST
@@ -282,7 +282,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_19900
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_1900
      * @tc.name      testCountdown0199
      * @tc.desc      Verify countdown text for 191000 milliseconds.
      * @tc.size      SMALLTEST
@@ -296,7 +296,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20000
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2000
      * @tc.name      testCountdown0200
      * @tc.desc      Verify countdown text for 192000 milliseconds.
      * @tc.size      SMALLTEST
@@ -310,7 +310,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20100
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2100
      * @tc.name      testCountdown0201
      * @tc.desc      Verify countdown text for 193000 milliseconds.
      * @tc.size      SMALLTEST
@@ -324,7 +324,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20200
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2200
      * @tc.name      testCountdown0202
      * @tc.desc      Verify countdown text for 194000 milliseconds.
      * @tc.size      SMALLTEST
@@ -338,7 +338,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20300
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2300
      * @tc.name      testCountdown0203
      * @tc.desc      Verify countdown text for 195000 milliseconds.
      * @tc.size      SMALLTEST
@@ -352,7 +352,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20400
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2400
      * @tc.name      testCountdown0204
      * @tc.desc      Verify countdown text for 196000 milliseconds.
      * @tc.size      SMALLTEST
@@ -366,7 +366,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20500
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2500
      * @tc.name      testCountdown0205
      * @tc.desc      Verify countdown text for 197000 milliseconds.
      * @tc.size      SMALLTEST
@@ -380,7 +380,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20600
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2600
      * @tc.name      testCountdown0206
      * @tc.desc      Verify countdown text for 198000 milliseconds.
      * @tc.size      SMALLTEST
@@ -394,7 +394,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20700
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2700
      * @tc.name      testCountdown0207
      * @tc.desc      Verify countdown text for 199000 milliseconds.
      * @tc.size      SMALLTEST
@@ -408,7 +408,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20800
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2800
      * @tc.name      testCountdown0208
      * @tc.desc      Verify countdown text for 200000 milliseconds.
      * @tc.size      SMALLTEST
@@ -422,7 +422,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_20900
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_2900
      * @tc.name      testCountdown0209
      * @tc.desc      Verify countdown text for 201000 milliseconds.
      * @tc.size      SMALLTEST
@@ -436,7 +436,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21000
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3000
      * @tc.name      testCountdown0210
      * @tc.desc      Verify countdown text for 202000 milliseconds.
      * @tc.size      SMALLTEST
@@ -450,7 +450,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21100
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3100
      * @tc.name      testCountdown0211
      * @tc.desc      Verify countdown text for 203000 milliseconds.
      * @tc.size      SMALLTEST
@@ -464,7 +464,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21200
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3200
      * @tc.name      testCountdown0212
      * @tc.desc      Verify countdown text for 204000 milliseconds.
      * @tc.size      SMALLTEST
@@ -478,7 +478,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21300
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3300
      * @tc.name      testCountdown0213
      * @tc.desc      Verify countdown text for 205000 milliseconds.
      * @tc.size      SMALLTEST
@@ -492,7 +492,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21400
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3400
      * @tc.name      testCountdown0214
      * @tc.desc      Verify countdown text for 206000 milliseconds.
      * @tc.size      SMALLTEST
@@ -506,7 +506,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21500
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3500
      * @tc.name      testCountdown0215
      * @tc.desc      Verify countdown text for 207000 milliseconds.
      * @tc.size      SMALLTEST
@@ -520,7 +520,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21600
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3600
      * @tc.name      testCountdown0216
      * @tc.desc      Verify countdown text for 208000 milliseconds.
      * @tc.size      SMALLTEST
@@ -534,7 +534,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21700
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3700
      * @tc.name      testCountdown0217
      * @tc.desc      Verify countdown text for 209000 milliseconds.
      * @tc.size      SMALLTEST
@@ -548,7 +548,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21800
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3800
      * @tc.name      testCountdown0218
      * @tc.desc      Verify countdown text for 210000 milliseconds.
      * @tc.size      SMALLTEST
@@ -562,7 +562,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_21900
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_3900
      * @tc.name      testCountdown0219
      * @tc.desc      Verify countdown text for 211000 milliseconds.
      * @tc.size      SMALLTEST
@@ -576,7 +576,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22000
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4000
      * @tc.name      testCountdown0220
      * @tc.desc      Verify countdown text for 212000 milliseconds.
      * @tc.size      SMALLTEST
@@ -590,7 +590,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22100
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4100
      * @tc.name      testCountdown0221
      * @tc.desc      Verify countdown text for 213000 milliseconds.
      * @tc.size      SMALLTEST
@@ -604,7 +604,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22200
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4200
      * @tc.name      testCountdown0222
      * @tc.desc      Verify countdown text for 214000 milliseconds.
      * @tc.size      SMALLTEST
@@ -618,7 +618,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22300
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4300
      * @tc.name      testCountdown0223
      * @tc.desc      Verify countdown text for 215000 milliseconds.
      * @tc.size      SMALLTEST
@@ -632,7 +632,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22400
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4400
      * @tc.name      testCountdown0224
      * @tc.desc      Verify countdown text for 216000 milliseconds.
      * @tc.size      SMALLTEST
@@ -646,7 +646,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22500
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4500
      * @tc.name      testCountdown0225
      * @tc.desc      Verify countdown text for 217000 milliseconds.
      * @tc.size      SMALLTEST
@@ -660,7 +660,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22600
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4600
      * @tc.name      testCountdown0226
      * @tc.desc      Verify countdown text for 218000 milliseconds.
      * @tc.size      SMALLTEST
@@ -674,7 +674,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22700
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4700
      * @tc.name      testCountdown0227
      * @tc.desc      Verify countdown text for 219000 milliseconds.
      * @tc.size      SMALLTEST
@@ -688,7 +688,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22800
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4800
      * @tc.name      testCountdown0228
      * @tc.desc      Verify countdown text for 220000 milliseconds.
      * @tc.size      SMALLTEST
@@ -702,7 +702,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_22900
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_4900
      * @tc.name      testCountdown0229
      * @tc.desc      Verify countdown text for 221000 milliseconds.
      * @tc.size      SMALLTEST
@@ -716,7 +716,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23000
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5000
      * @tc.name      testCountdown0230
      * @tc.desc      Verify countdown text for 222000 milliseconds.
      * @tc.size      SMALLTEST
@@ -730,7 +730,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23100
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5100
      * @tc.name      testCountdown0231
      * @tc.desc      Verify countdown text for 223000 milliseconds.
      * @tc.size      SMALLTEST
@@ -744,7 +744,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23200
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5200
      * @tc.name      testCountdown0232
      * @tc.desc      Verify countdown text for 224000 milliseconds.
      * @tc.size      SMALLTEST
@@ -758,7 +758,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23300
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5300
      * @tc.name      testCountdown0233
      * @tc.desc      Verify countdown text for 225000 milliseconds.
      * @tc.size      SMALLTEST
@@ -772,7 +772,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23400
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5400
      * @tc.name      testCountdown0234
      * @tc.desc      Verify countdown text for 226000 milliseconds.
      * @tc.size      SMALLTEST
@@ -786,7 +786,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23500
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5500
      * @tc.name      testCountdown0235
      * @tc.desc      Verify countdown text for 227000 milliseconds.
      * @tc.size      SMALLTEST
@@ -800,7 +800,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23600
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5600
      * @tc.name      testCountdown0236
      * @tc.desc      Verify countdown text for 228000 milliseconds.
      * @tc.size      SMALLTEST
@@ -814,7 +814,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23700
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5700
      * @tc.name      testCountdown0237
      * @tc.desc      Verify countdown text for 229000 milliseconds.
      * @tc.size      SMALLTEST
@@ -828,7 +828,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23800
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5800
      * @tc.name      testCountdown0238
      * @tc.desc      Verify countdown text for 230000 milliseconds.
      * @tc.size      SMALLTEST
@@ -842,7 +842,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_23900
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_5900
      * @tc.name      testCountdown0239
      * @tc.desc      Verify countdown text for 231000 milliseconds.
      * @tc.size      SMALLTEST
@@ -856,7 +856,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24000
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6000
      * @tc.name      testCountdown0240
      * @tc.desc      Verify countdown text for 232000 milliseconds.
      * @tc.size      SMALLTEST
@@ -870,7 +870,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24100
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6100
      * @tc.name      testCountdown0241
      * @tc.desc      Verify countdown text for 233000 milliseconds.
      * @tc.size      SMALLTEST
@@ -884,7 +884,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24200
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6200
      * @tc.name      testCountdown0242
      * @tc.desc      Verify countdown text for 234000 milliseconds.
      * @tc.size      SMALLTEST
@@ -898,7 +898,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24300
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6300
      * @tc.name      testCountdown0243
      * @tc.desc      Verify countdown text for 235000 milliseconds.
      * @tc.size      SMALLTEST
@@ -912,7 +912,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24400
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6400
      * @tc.name      testCountdown0244
      * @tc.desc      Verify countdown text for 236000 milliseconds.
      * @tc.size      SMALLTEST
@@ -926,7 +926,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24500
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6500
      * @tc.name      testCountdown0245
      * @tc.desc      Verify countdown text for 237000 milliseconds.
      * @tc.size      SMALLTEST
@@ -940,7 +940,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24600
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6600
      * @tc.name      testCountdown0246
      * @tc.desc      Verify countdown text for 238000 milliseconds.
      * @tc.size      SMALLTEST
@@ -954,7 +954,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24700
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6700
      * @tc.name      testCountdown0247
      * @tc.desc      Verify countdown text for 239000 milliseconds.
      * @tc.size      SMALLTEST
@@ -968,7 +968,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24800
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6800
      * @tc.name      testCountdown0248
      * @tc.desc      Verify countdown text for 240000 milliseconds.
      * @tc.size      SMALLTEST
@@ -982,7 +982,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_24900
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_6900
      * @tc.name      testCountdown0249
      * @tc.desc      Verify countdown text for 241000 milliseconds.
      * @tc.size      SMALLTEST
@@ -996,7 +996,7 @@ export default function MediaCountdownMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_25000
+     * @tc.number    SUB_CAPTURER_COUNTDOWNP3_ONE_7000
      * @tc.name      testCountdown0250
      * @tc.desc      Verify countdown text for 242000 milliseconds.
      * @tc.size      SMALLTEST

@@ -30,7 +30,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
 
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16100
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0100
      * @tc.name      testMetaCombo0161
      * @tc.desc      Verify metadata combination (32000, 2, 0, True).
      * @tc.size      SMALLTEST
@@ -52,7 +52,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16200
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0200
      * @tc.name      testMetaCombo0162
      * @tc.desc      Verify metadata combination (32000, 2, 0, False).
      * @tc.size      SMALLTEST
@@ -74,7 +74,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16300
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0300
      * @tc.name      testMetaCombo0163
      * @tc.desc      Verify metadata combination (32000, 2, 1, True).
      * @tc.size      SMALLTEST
@@ -96,7 +96,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16400
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0400
      * @tc.name      testMetaCombo0164
      * @tc.desc      Verify metadata combination (32000, 2, 1, False).
      * @tc.size      SMALLTEST
@@ -118,7 +118,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16500
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0500
      * @tc.name      testMetaCombo0165
      * @tc.desc      Verify metadata combination (32000, 2, 2, True).
      * @tc.size      SMALLTEST
@@ -140,7 +140,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16600
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0600
      * @tc.name      testMetaCombo0166
      * @tc.desc      Verify metadata combination (32000, 2, 2, False).
      * @tc.size      SMALLTEST
@@ -162,7 +162,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16700
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0700
      * @tc.name      testMetaCombo0167
      * @tc.desc      Verify metadata combination (32000, 2, 3, True).
      * @tc.size      SMALLTEST
@@ -184,7 +184,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16800
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0800
      * @tc.name      testMetaCombo0168
      * @tc.desc      Verify metadata combination (32000, 2, 3, False).
      * @tc.size      SMALLTEST
@@ -206,7 +206,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_16900
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_0900
      * @tc.name      testMetaCombo0169
      * @tc.desc      Verify metadata combination (32000, 2, 4, True).
      * @tc.size      SMALLTEST
@@ -228,7 +228,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17000
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1000
      * @tc.name      testMetaCombo0170
      * @tc.desc      Verify metadata combination (32000, 2, 4, False).
      * @tc.size      SMALLTEST
@@ -250,7 +250,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17100
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1100
      * @tc.name      testMetaCombo0171
      * @tc.desc      Verify metadata combination (32000, 3, 0, True).
      * @tc.size      SMALLTEST
@@ -272,7 +272,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17200
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1200
      * @tc.name      testMetaCombo0172
      * @tc.desc      Verify metadata combination (32000, 3, 0, False).
      * @tc.size      SMALLTEST
@@ -294,7 +294,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17300
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1300
      * @tc.name      testMetaCombo0173
      * @tc.desc      Verify metadata combination (32000, 3, 1, True).
      * @tc.size      SMALLTEST
@@ -316,7 +316,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17400
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1400
      * @tc.name      testMetaCombo0174
      * @tc.desc      Verify metadata combination (32000, 3, 1, False).
      * @tc.size      SMALLTEST
@@ -338,7 +338,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17500
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1500
      * @tc.name      testMetaCombo0175
      * @tc.desc      Verify metadata combination (32000, 3, 2, True).
      * @tc.size      SMALLTEST
@@ -360,7 +360,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17600
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1600
      * @tc.name      testMetaCombo0176
      * @tc.desc      Verify metadata combination (32000, 3, 2, False).
      * @tc.size      SMALLTEST
@@ -382,7 +382,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17700
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1700
      * @tc.name      testMetaCombo0177
      * @tc.desc      Verify metadata combination (32000, 3, 3, True).
      * @tc.size      SMALLTEST
@@ -404,7 +404,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17800
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1800
      * @tc.name      testMetaCombo0178
      * @tc.desc      Verify metadata combination (32000, 3, 3, False).
      * @tc.size      SMALLTEST
@@ -426,7 +426,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_17900
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_1900
      * @tc.name      testMetaCombo0179
      * @tc.desc      Verify metadata combination (32000, 3, 4, True).
      * @tc.size      SMALLTEST
@@ -448,7 +448,7 @@ export default function RecordingMetadataMatrixPart3Test(): void {
     })
 
     /**
-     * @tc.number    SUB_CAPTURER_METAMATRIXP3_18000
+     * @tc.number    SUB_CAPTURER_METAMATRIXP3_ONE_2000
      * @tc.name      testMetaCombo0180
      * @tc.desc      Verify metadata combination (32000, 3, 4, False).
      * @tc.size      SMALLTEST
