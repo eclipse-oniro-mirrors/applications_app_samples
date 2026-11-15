@@ -14,7 +14,7 @@
  */
 
 import hilog from '@ohos.hilog';
-import { describe, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { Want } from '@kit.AbilityKit';
@@ -36,6 +36,12 @@ async function ensureIdle(): Promise<void> {
 
 export default function abilityTest(): void {
   describe('ActsAbilityTest', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
     beforeAll(async (done: Function) => {
       const want: Want = {
         bundleName: 'com.samples.multiplefilesdownload',
