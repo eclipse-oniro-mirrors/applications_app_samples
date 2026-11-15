@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { checkPermission } from '../../../main/ets/common/utils/PermissionUtil';
 import { abilityAccessCtrl, Permissions } from '@kit.AbilityKit';
@@ -23,6 +23,12 @@ const TAG: string = '[Sample_VideoConferenceDemo]';
 
 export default function PermissionStatusPart1Test(): void {
   describe('PermissionStatusPart1', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_VIDEO_CONF_PERMP1_0100

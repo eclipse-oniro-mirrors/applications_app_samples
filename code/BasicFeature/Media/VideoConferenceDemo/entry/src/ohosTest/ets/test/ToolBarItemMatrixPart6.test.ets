@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ToolBarItem } from '../../../main/ets/components/CustomToolBarItem';
 
@@ -22,6 +22,12 @@ const TAG: string = '[Sample_VideoConferenceDemo]';
 
 export default function ToolBarItemMatrixPart6Test(): void {
   describe('ToolBarItemMatrixPart6', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_VIDEO_CONF_TOOLBARP6_27600
@@ -71,6 +77,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_276');
       expect(item.label).assertEqual('tool_label_276');
@@ -202,6 +209,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_280');
       expect(item.label).assertEqual('tool_label_280');
@@ -333,6 +341,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInActiveColors: [Color.White],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_284');
       expect(item.label).assertEqual('tool_label_284');
@@ -464,6 +473,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_288');
       expect(item.label).assertEqual('tool_label_288');
@@ -595,6 +605,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_292');
       expect(item.label).assertEqual('tool_label_292');
@@ -726,6 +737,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInActiveColors: [Color.White],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_296');
       expect(item.label).assertEqual('tool_label_296');
@@ -857,6 +869,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_300');
       expect(item.label).assertEqual('tool_label_300');
@@ -988,6 +1001,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_304');
       expect(item.label).assertEqual('tool_label_304');
@@ -1119,6 +1133,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInActiveColors: [Color.White],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_308');
       expect(item.label).assertEqual('tool_label_308');
@@ -1250,6 +1265,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_312');
       expect(item.label).assertEqual('tool_label_312');
@@ -1381,6 +1397,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_316');
       expect(item.label).assertEqual('tool_label_316');
@@ -1512,6 +1529,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInActiveColors: [Color.White],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_320');
       expect(item.label).assertEqual('tool_label_320');
@@ -1643,6 +1661,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_324');
       expect(item.label).assertEqual('tool_label_324');
@@ -1774,6 +1793,7 @@ export default function ToolBarItemMatrixPart6Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_328');
       expect(item.label).assertEqual('tool_label_328');

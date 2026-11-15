@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ToolBarItem } from '../../../main/ets/components/CustomToolBarItem';
 
@@ -22,6 +22,12 @@ const TAG: string = '[Sample_VideoConferenceDemo]';
 
 export default function ToolBarItemMatrixPart1Test(): void {
   describe('ToolBarItemMatrixPart1', () => {
+    beforeEach(async () => {
+      await new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), 20);
+      });
+    })
+
 
     /**
      * @tc.number    SUB_VIDEO_CONF_TOOLBARP1_0100
@@ -40,6 +46,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_0');
       expect(item.label).assertEqual('tool_label_0');
@@ -171,6 +178,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_4');
       expect(item.label).assertEqual('tool_label_4');
@@ -302,6 +310,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInActiveColors: [Color.White],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_8');
       expect(item.label).assertEqual('tool_label_8');
@@ -433,6 +442,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_12');
       expect(item.label).assertEqual('tool_label_12');
@@ -564,6 +574,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_16');
       expect(item.label).assertEqual('tool_label_16');
@@ -695,6 +706,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInActiveColors: [Color.White],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_20');
       expect(item.label).assertEqual('tool_label_20');
@@ -826,6 +838,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_24');
       expect(item.label).assertEqual('tool_label_24');
@@ -957,6 +970,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_28');
       expect(item.label).assertEqual('tool_label_28');
@@ -1088,6 +1102,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInActiveColors: [Color.White],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_32');
       expect(item.label).assertEqual('tool_label_32');
@@ -1219,6 +1234,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_36');
       expect(item.label).assertEqual('tool_label_36');
@@ -1350,6 +1366,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_40');
       expect(item.label).assertEqual('tool_label_40');
@@ -1481,6 +1498,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInActiveColors: [Color.White],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_44');
       expect(item.label).assertEqual('tool_label_44');
@@ -1612,6 +1630,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White],
         iconInActiveColors: [Color.White, Color.Red],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_48');
       expect(item.label).assertEqual('tool_label_48');
@@ -1743,6 +1762,7 @@ export default function ToolBarItemMatrixPart1Test(): void {
         iconActiveColors: [Color.White, Color.Red],
         iconInActiveColors: [Color.Black, Color.Green, Color.Blue],
         iconInactive: $r('sys.symbol.mic_fill'),
+        isActive: false,
       });
       expect(item.id).assertEqual('tool_id_52');
       expect(item.label).assertEqual('tool_label_52');
