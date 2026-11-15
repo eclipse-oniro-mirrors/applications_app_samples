@@ -424,14 +424,14 @@ export default function FileNameMatrixPart3Test(): void {
     /**
      * @tc.number    SUB_MULTI_DOWNLOAD_FNAMEP3_20900
      * @tc.name      testFileName0209
-     * @tc.desc      Verify file name extraction for 'https://cdn.example.com/v8/photo8.png?size=8'.
+     * @tc.desc      Verify file name extraction for 'https://cdn.example.com/release8/photo8.png?size=8'.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL1
      */
     it('testFileName0209', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testFileName0209 begin');
-      expect(getFileNameFromUrl('https://cdn.example.com/v8/photo8.png?size=8')).assertEqual('photo8.png?size=8');
+      expect(getFileNameFromUrl('https://cdn.example.com/release8/photo8.png?size=8')).assertEqual('photo8.png?size=8');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testFileName0209 end');
     })
 

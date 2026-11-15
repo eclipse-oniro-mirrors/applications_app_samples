@@ -16,17 +16,7 @@
 
 - 测试模块：`entry_test`（ohosTest），`TestAbility` + `OpenHarmonyTestRunner`。
 - 设备前置：解锁、无系统弹窗；main HAP 与 ohosTest HAP 均安装（DevEco 自动签名）。
-- 运行命令：
 
-```bash
-hdc uninstall com.north.cases
-hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.north.cases -m entry_test \
-  -s unittest OpenHarmonyTestRunner -s class downloadDataMatrixPart1Test -s timeout 15000
-```
-
-- 全部套件运行：去掉 `-s class` 参数即可。
 
 ## 套件总览
 

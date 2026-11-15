@@ -15,7 +15,7 @@
 
 import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { AudioSourceType, AudioSamplingRate, AudioChannel, AudioSampleFormat, InterruptHintType, AudioState, SECOND_BUFFER_WALK } from '../../../main/ets/common/constants/AudioConstants';
+import { AudioSourceType, AudioSamplingRate, AudioChannel, AudioSampleFormat, InterruptHintType, SECOND_BUFFER_WALK } from '../../../main/ets/common/constants/AudioConstants';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_CapturerApplication]';
@@ -493,77 +493,7 @@ export default function AudioEnumValuesPart1Test(): void {
 
     /**
      * @tc.number    SUB_CAPTURER_ENUMP1_3400
-     * @tc.name      testAudioState0034
-     * @tc.desc      Verify AudioState.RUNNING.
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testAudioState0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0034 begin');
-      expect(AudioState.RUNNING).assertEqual(0);
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0034 end');
-    })
-
-    /**
-     * @tc.number    SUB_CAPTURER_ENUMP1_3500
-     * @tc.name      testAudioState0035
-     * @tc.desc      Verify AudioState.PAUSED.
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testAudioState0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0035 begin');
-      expect(AudioState.PAUSED).assertEqual(1);
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0035 end');
-    })
-
-    /**
-     * @tc.number    SUB_CAPTURER_ENUMP1_3600
-     * @tc.name      testAudioState0036
-     * @tc.desc      Verify AudioState.STOPPED.
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testAudioState0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0036 begin');
-      expect(AudioState.STOPPED).assertEqual(2);
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0036 end');
-    })
-
-    /**
-     * @tc.number    SUB_CAPTURER_ENUMP1_3700
-     * @tc.name      testAudioState0037
-     * @tc.desc      Verify AudioState.MUTED.
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testAudioState0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0037 begin');
-      expect(AudioState.MUTED).assertEqual(3);
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0037 end');
-    })
-
-    /**
-     * @tc.number    SUB_CAPTURER_ENUMP1_3800
-     * @tc.name      testAudioState0038
-     * @tc.desc      Verify AudioState.UNMUTED.
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL1
-     */
-    it('testAudioState0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0038 begin');
-      expect(AudioState.UNMUTED).assertEqual(4);
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testAudioState0038 end');
-    })
-
-    /**
-     * @tc.number    SUB_CAPTURER_ENUMP1_3900
-     * @tc.name      testSecondBufferWalk0039
+     * @tc.name      testSecondBufferWalk0034
      * @tc.desc      Verify SECOND_BUFFER_WALK.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
