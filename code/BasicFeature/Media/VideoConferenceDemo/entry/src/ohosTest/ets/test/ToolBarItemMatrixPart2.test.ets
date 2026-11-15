@@ -1482,7 +1482,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10000
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0100
      * @tc.name      testToolBarItemMatrix0100
      * @tc.desc      Verify ToolBarItem construction for matrix row 99.
      * @tc.size      SMALLTEST
@@ -1513,7 +1513,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10100
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0200
      * @tc.name      testToolBarItemMatrix0101
      * @tc.desc      Verify ToolBarItem construction for matrix row 100.
      * @tc.size      SMALLTEST
@@ -1548,7 +1548,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10200
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0300
      * @tc.name      testToolBarItemMatrix0102
      * @tc.desc      Verify ToolBarItem construction for matrix row 101.
      * @tc.size      SMALLTEST
@@ -1579,7 +1579,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10300
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0400
      * @tc.name      testToolBarItemMatrix0103
      * @tc.desc      Verify ToolBarItem construction for matrix row 102.
      * @tc.size      SMALLTEST
@@ -1614,7 +1614,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10400
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0500
      * @tc.name      testToolBarItemMatrix0104
      * @tc.desc      Verify ToolBarItem construction for matrix row 103.
      * @tc.size      SMALLTEST
@@ -1645,7 +1645,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10500
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0600
      * @tc.name      testToolBarItemMatrix0105
      * @tc.desc      Verify ToolBarItem construction for matrix row 104.
      * @tc.size      SMALLTEST
@@ -1680,7 +1680,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10600
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0700
      * @tc.name      testToolBarItemMatrix0106
      * @tc.desc      Verify ToolBarItem construction for matrix row 105.
      * @tc.size      SMALLTEST
@@ -1711,7 +1711,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10700
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0800
      * @tc.name      testToolBarItemMatrix0107
      * @tc.desc      Verify ToolBarItem construction for matrix row 106.
      * @tc.size      SMALLTEST
@@ -1746,7 +1746,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10800
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_0900
      * @tc.name      testToolBarItemMatrix0108
      * @tc.desc      Verify ToolBarItem construction for matrix row 107.
      * @tc.size      SMALLTEST
@@ -1777,7 +1777,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_10900
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_1000
      * @tc.name      testToolBarItemMatrix0109
      * @tc.desc      Verify ToolBarItem construction for matrix row 108.
      * @tc.size      SMALLTEST
@@ -1812,7 +1812,7 @@ export default function ToolBarItemMatrixPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_11000
+     * @tc.number    SUB_VIDEO_CONF_TOOLBARP2_ONE_1100
      * @tc.name      testToolBarItemMatrix0110
      * @tc.desc      Verify ToolBarItem construction for matrix row 109.
      * @tc.size      SMALLTEST

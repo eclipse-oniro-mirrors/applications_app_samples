@@ -30,7 +30,7 @@ export default function LoggerVariadicPart4Test(): void {
 
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24100
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0100
      * @tc.name      testLoggerVariadic0241
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -50,7 +50,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24200
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0200
      * @tc.name      testLoggerVariadic0242
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -70,7 +70,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24300
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0300
      * @tc.name      testLoggerVariadic0243
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -90,7 +90,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24400
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0400
      * @tc.name      testLoggerVariadic0244
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -110,7 +110,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24500
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0500
      * @tc.name      testLoggerVariadic0245
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -130,7 +130,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24600
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0600
      * @tc.name      testLoggerVariadic0246
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -150,7 +150,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24700
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0700
      * @tc.name      testLoggerVariadic0247
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -170,7 +170,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24800
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0800
      * @tc.name      testLoggerVariadic0248
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -190,7 +190,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_24900
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_0900
      * @tc.name      testLoggerVariadic0249
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -210,7 +210,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25000
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1000
      * @tc.name      testLoggerVariadic0250
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -230,7 +230,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25100
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1100
      * @tc.name      testLoggerVariadic0251
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -250,7 +250,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25200
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1200
      * @tc.name      testLoggerVariadic0252
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -270,7 +270,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25300
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1300
      * @tc.name      testLoggerVariadic0253
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -290,7 +290,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25400
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1400
      * @tc.name      testLoggerVariadic0254
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -310,7 +310,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25500
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1500
      * @tc.name      testLoggerVariadic0255
      * @tc.desc      Verify Logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -330,7 +330,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25600
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1600
      * @tc.name      testLoggerVariadic0256
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -350,7 +350,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25700
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1700
      * @tc.name      testLoggerVariadic0257
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -370,7 +370,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25800
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1800
      * @tc.name      testLoggerVariadic0258
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -390,7 +390,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_25900
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_1900
      * @tc.name      testLoggerVariadic0259
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -410,7 +410,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26000
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2000
      * @tc.name      testLoggerVariadic0260
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -430,7 +430,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26100
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2100
      * @tc.name      testLoggerVariadic0261
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -450,7 +450,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26200
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2200
      * @tc.name      testLoggerVariadic0262
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -470,7 +470,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26300
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2300
      * @tc.name      testLoggerVariadic0263
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -490,7 +490,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26400
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2400
      * @tc.name      testLoggerVariadic0264
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -510,7 +510,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26500
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2500
      * @tc.name      testLoggerVariadic0265
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -530,7 +530,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26600
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2600
      * @tc.name      testLoggerVariadic0266
      * @tc.desc      Verify Logger.error accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -550,7 +550,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26700
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2700
      * @tc.name      testLoggerVariadic0267
      * @tc.desc      Verify Logger.error accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -570,7 +570,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26800
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2800
      * @tc.name      testLoggerVariadic0268
      * @tc.desc      Verify Logger.error accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -590,7 +590,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_26900
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_2900
      * @tc.name      testLoggerVariadic0269
      * @tc.desc      Verify Logger.error accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -610,7 +610,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27000
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3000
      * @tc.name      testLoggerVariadic0270
      * @tc.desc      Verify Logger.error accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -630,7 +630,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27100
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3100
      * @tc.name      testLoggerVariadic0271
      * @tc.desc      Verify Logger.error accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -650,7 +650,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27200
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3200
      * @tc.name      testLoggerVariadic0272
      * @tc.desc      Verify Logger.error accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -670,7 +670,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27300
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3300
      * @tc.name      testLoggerVariadic0273
      * @tc.desc      Verify Logger.error accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -690,7 +690,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27400
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3400
      * @tc.name      testLoggerVariadic0274
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -710,7 +710,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27500
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3500
      * @tc.name      testLoggerVariadic0275
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -730,7 +730,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27600
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3600
      * @tc.name      testLoggerVariadic0276
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -750,7 +750,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27700
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3700
      * @tc.name      testLoggerVariadic0277
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -770,7 +770,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27800
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3800
      * @tc.name      testLoggerVariadic0278
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -790,7 +790,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_27900
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_3900
      * @tc.name      testLoggerVariadic0279
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -810,7 +810,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28000
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4000
      * @tc.name      testLoggerVariadic0280
      * @tc.desc      Verify Logger.error accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -830,7 +830,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28100
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4100
      * @tc.name      testLoggerVariadic0281
      * @tc.desc      Verify Logger.error accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -850,7 +850,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28200
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4200
      * @tc.name      testLoggerVariadic0282
      * @tc.desc      Verify Logger.error accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -870,7 +870,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28300
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4300
      * @tc.name      testLoggerVariadic0283
      * @tc.desc      Verify Logger.error accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -890,7 +890,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28400
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4400
      * @tc.name      testLoggerVariadic0284
      * @tc.desc      Verify Logger.error accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -910,7 +910,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28500
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4500
      * @tc.name      testLoggerVariadic0285
      * @tc.desc      Verify Logger.error accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -930,7 +930,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28600
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4600
      * @tc.name      testLoggerVariadic0286
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -950,7 +950,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28700
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4700
      * @tc.name      testLoggerVariadic0287
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -970,7 +970,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28800
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4800
      * @tc.name      testLoggerVariadic0288
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -990,7 +990,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_28900
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_4900
      * @tc.name      testLoggerVariadic0289
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1010,7 +1010,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29000
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5000
      * @tc.name      testLoggerVariadic0290
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1030,7 +1030,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29100
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5100
      * @tc.name      testLoggerVariadic0291
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1050,7 +1050,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29200
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5200
      * @tc.name      testLoggerVariadic0292
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1070,7 +1070,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29300
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5300
      * @tc.name      testLoggerVariadic0293
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1090,7 +1090,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29400
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5400
      * @tc.name      testLoggerVariadic0294
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -1110,7 +1110,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29500
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5500
      * @tc.name      testLoggerVariadic0295
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -1130,7 +1130,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29600
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5600
      * @tc.name      testLoggerVariadic0296
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -1150,7 +1150,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29700
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5700
      * @tc.name      testLoggerVariadic0297
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -1170,7 +1170,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29800
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5800
      * @tc.name      testLoggerVariadic0298
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -1190,7 +1190,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_29900
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_5900
      * @tc.name      testLoggerVariadic0299
      * @tc.desc      Verify Logger.error accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -1210,7 +1210,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30000
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6000
      * @tc.name      testLoggerVariadic0300
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1230,7 +1230,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30100
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6100
      * @tc.name      testLoggerVariadic0301
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1250,7 +1250,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30200
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6200
      * @tc.name      testLoggerVariadic0302
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1270,7 +1270,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30300
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6300
      * @tc.name      testLoggerVariadic0303
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1290,7 +1290,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30400
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6400
      * @tc.name      testLoggerVariadic0304
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1310,7 +1310,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30500
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6500
      * @tc.name      testLoggerVariadic0305
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1330,7 +1330,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30600
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6600
      * @tc.name      testLoggerVariadic0306
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1350,7 +1350,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30700
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6700
      * @tc.name      testLoggerVariadic0307
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1370,7 +1370,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30800
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6800
      * @tc.name      testLoggerVariadic0308
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1390,7 +1390,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_30900
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_6900
      * @tc.name      testLoggerVariadic0309
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1410,7 +1410,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31000
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7000
      * @tc.name      testLoggerVariadic0310
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1430,7 +1430,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31100
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7100
      * @tc.name      testLoggerVariadic0311
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1450,7 +1450,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31200
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7200
      * @tc.name      testLoggerVariadic0312
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1470,7 +1470,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31300
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7300
      * @tc.name      testLoggerVariadic0313
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1490,7 +1490,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31400
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7400
      * @tc.name      testLoggerVariadic0314
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1510,7 +1510,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31500
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7500
      * @tc.name      testLoggerVariadic0315
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1530,7 +1530,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31600
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7600
      * @tc.name      testLoggerVariadic0316
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1550,7 +1550,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31700
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7700
      * @tc.name      testLoggerVariadic0317
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1570,7 +1570,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31800
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7800
      * @tc.name      testLoggerVariadic0318
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1590,7 +1590,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_31900
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_7900
      * @tc.name      testLoggerVariadic0319
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1610,7 +1610,7 @@ export default function LoggerVariadicPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_32000
+     * @tc.number    SUB_VIDEO_CONF_LOGVARP4_ONE_8000
      * @tc.name      testLoggerVariadic0320
      * @tc.desc      Verify Logger.error accepts 2 argument(s).
      * @tc.size      SMALLTEST
