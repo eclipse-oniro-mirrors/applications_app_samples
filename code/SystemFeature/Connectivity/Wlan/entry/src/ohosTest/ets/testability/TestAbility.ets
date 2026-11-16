@@ -46,7 +46,8 @@ export default class TestAbility extends UIAbility {
         return;
       }
       Logger.info(TAG, 'Succeeded in loading the content. Data: %{public}s', JSON.stringify(data) ?? '');
-    });
+    }
+      );
   }
 
   onWindowStageDestroy() {

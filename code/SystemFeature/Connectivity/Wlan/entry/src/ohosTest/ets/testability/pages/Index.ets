@@ -39,12 +39,14 @@ struct Index {
         .type(ButtonType.Capsule)
         .margin({
           top: 20
-        })
+        }
+          )
         .backgroundColor('#0D9FFB')
         .width('35%')
         .height('5%')
         .onClick(() => {
-        })
+        }
+          )
       }
       .width('100%')
     }
