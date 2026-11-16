@@ -55,6 +55,7 @@ struct Index {
   @State updatePlaceholderMtimeMs: string = '0';
   @State updatePlaceholderLogicalSize: string = '0';
   @State updatePlaceholderCustomInfo: string = '';
+  @State updateOnCloudSizeChangeSize: string = '';
   @State convertPlaceholderSyncPath: string = '';
   @State convertPlaceholderFilePath: string = '';
   @State markFileSyncPath: string = '';
@@ -752,6 +753,30 @@ struct Index {
                             ' avg: ' + (totalTime / totalCount).toFixed(2) + 'ms/op',
                           buttons: [{ text: $r('app.string.ok'), color: '#000000' }]
                         });
+                      })
+                  }.margin(10)
+                  Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
+                    Text($r('app.string.new_cloud_size_label'))
+                    TextInput({ text: this.updateOnCloudSizeChangeSize, placeholder: $r('app.string.new_cloud_size_placeholder') })
+                      .type(InputType.Number)
+                      .onChange((value: string) => { this.updateOnCloudSizeChangeSize = value; })
+                      .width('75%').margin(10)
+                  }
+                  Row() {
+                    Button($r('app.string.update_on_cloud_size_change_btn'))
+                      .id('updateOnCloudSizeChangeBtn')
+                      .onClick(() => {
+                        let now = Date.now();
+                        let ret: number = cloudDisk.updatePlaceholderOnCloudSizeChange(
+                          this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath,
+                          parseInt(this.updateOnCloudSizeChangeSize) || 0,
+                          now, now
+                        );
+                        if (ret === 0) {
+                          this.promptAction.showDialog({ title: $r('app.string.update_success'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                        } else {
+                          this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: this.resStr($r('app.string.error_code_label')) + ret.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(ret), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                        }
                       })
                   }.margin(10)
                 } else if (this.phase2ModuleIndex === 3) {

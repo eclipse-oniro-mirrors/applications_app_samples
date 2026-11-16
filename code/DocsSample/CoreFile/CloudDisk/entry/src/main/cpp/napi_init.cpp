@@ -1298,6 +1298,59 @@ static napi_value UpdatePlaceholder(napi_env env, napi_callback_info info)
 // [End update_placeholder]
 
 // ============================================================================
+// 16b. updatePlaceholderOnCloudSizeChange(syncPath, relativePath, newCloudSize,
+//                                         atimeMs, mtimeMs): number
+//     云侧文件大小变化后修正占位符元数据示例：以新的云侧大小更新logicalSize，
+//     保持本地占位符元数据与云侧一致（示例中时间戳沿用当前系统时间）。
+// ============================================================================
+// [Start update_placeholder_on_cloud_size_change]
+static napi_value UpdatePlaceholderOnCloudSizeChange(napi_env env, napi_callback_info info)
+{
+    size_t argc = 5;
+    napi_value args[5] = {nullptr};
+    GetArgs(env, info, argc, args);
+
+    char* syncPath = GetStringParam(env, args[0]);
+    char* relativePath = GetStringParam(env, args[1]);
+    if (!syncPath || !relativePath) {
+        LOGE("UpdatePlaceholderOnCloudSizeChange invalid params.");
+        delete[] syncPath;
+        delete[] relativePath;
+        napi_value result;
+        napi_create_int32(env, CLOUD_DISK_INVALID_ARG, &result);
+        return result;
+    }
+
+    // 云侧文件变化后的最新大小（应用应从云侧元数据查询获得，此处由入参模拟）
+    uint64_t newCloudSize = static_cast<uint64_t>(GetNumberParam(env, args[2]));
+    uint64_t atimeMs = static_cast<uint64_t>(GetNumberParam(env, args[3]));
+    uint64_t mtimeMs = static_cast<uint64_t>(GetNumberParam(env, args[4]));
+
+    CloudDisk_SyncFolderPath syncFolderPath = MakePathInfo(syncPath);
+    CloudDisk_PathInfo relativePathInfo = MakePathInfo(relativePath);
+
+    // 按云侧最新大小构造占位符元数据，修正本地占位符logicalSize
+    OH_CloudDisk_PlaceholderInfo placeholderInfo = {};
+    placeholderInfo.atimeMs = atimeMs;
+    placeholderInfo.mtimeMs = mtimeMs;
+    placeholderInfo.logicalSize = newCloudSize;
+    auto ret = OH_CloudDisk_UpdatePlaceholder(syncFolderPath, relativePathInfo, placeholderInfo, NULL);
+    if (ret != CLOUD_DISK_OK) {
+        LOGE("OH_CloudDisk_UpdatePlaceholder failed, errorCode: %{public}d.", ret);
+    } else {
+        LOGI("OH_CloudDisk_UpdatePlaceholder success, logicalSize updated to cloud size.");
+    }
+
+    delete[] syncPath;
+    delete[] relativePath;
+
+    napi_value result;
+    napi_create_int32(env, ret, &result);
+    return result;
+}
+// [End update_placeholder_on_cloud_size_change]
+
+// ============================================================================
 // 17. convertPlaceholderToFile(syncPath, relativePath): number
 //     将占位符文件转换为普通文件（本地已有完整内容，不再需要水合）。
 //     OH_CloudDisk_ConvertPlaceholderToFile(const CloudDisk_SyncFolderPath syncFolderPath,
@@ -2368,6 +2421,8 @@ static napi_value Init(napi_env env, napi_value exports)
         {"isPlaceholderFile", nullptr, IsPlaceholderFile, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getPlaceholderState", nullptr, GetPlaceholderState, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"updatePlaceholder", nullptr, UpdatePlaceholder, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"updatePlaceholderOnCloudSizeChange", nullptr, UpdatePlaceholderOnCloudSizeChange,
+         nullptr, nullptr, nullptr, napi_default, nullptr},
         {"convertPlaceholderToFile", nullptr, ConvertPlaceholderToFile,
          nullptr, nullptr, nullptr, napi_default, nullptr},
         {"markFileAsPlaceholder", nullptr, MarkFileAsPlaceholder, nullptr, nullptr, nullptr, napi_default, nullptr},
