@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import bundleManager from '@ohos.bundle.bundleManager';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
 
 export default function wlanBundleMiscTest() {
@@ -30,10 +33,15 @@ export default function wlanBundleMiscTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMiscBundleDesc0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscBundleDesc0001 begin');
       const module = info.hapModulesInfo[0];
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module.description.length > 0).assertTrue();');
       expect(module.description.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module.mainElementName).assertEqual(\'MainAbility\');');
       expect(module.mainElementName).assertEqual('MainAbility');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module.name).assertEqual(\'entry\');');
       expect(module.name).assertEqual('entry');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscBundleDesc0001 end');
     })
 
     /**
@@ -45,10 +53,15 @@ export default function wlanBundleMiscTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMiscBundleAbility0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscBundleAbility0002 begin');
       const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.skills.length).assertEqual(1);');
       expect(ability.skills.length).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.exported).assertTrue();');
       expect(ability.exported).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.name).assertEqual(\'EntryAbility\');');
       expect(ability.name).assertEqual('EntryAbility');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscBundleAbility0002 end');
     })
 
     /**
@@ -60,9 +73,14 @@ export default function wlanBundleMiscTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMiscBundlePerm0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscBundlePerm0003 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length >= 4).assertTrue();');
       expect(info.reqPermissionDetails.length >= 4).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[0].name.length > 0).assertTrue();');
       expect(info.reqPermissionDetails[0].name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[info.reqPermissionDetails.length - 1].reason.length > 0).assertTrue();');
       expect(info.reqPermissionDetails[info.reqPermissionDetails.length - 1].reason.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscBundlePerm0003 end');
     })
   })
 }

@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import bundleManager from '@ohos.bundle.bundleManager';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
 
 export default function wlanBundleConfigExtraTest() {
@@ -30,13 +33,20 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundleModuleDesc0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleDesc0001 begin');
       let module: bundleManager.HapModuleInfo | undefined = undefined;
       for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
-        if (info.hapModulesInfo[i].name === 'entry') { module = info.hapModulesInfo[i]; }
+        if (info.hapModulesInfo[i].name === 'entry') {
+          module = info.hapModulesInfo[i];
+          }
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module !== undefined).assertTrue();');
       expect(module !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect((module?.description.length ?? 0) > 0).assertTrue();');
       expect((module?.description.length ?? 0) > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module?.name).assertEqual(\'entry\');');
       expect(module?.name).assertEqual('entry');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleDesc0001 end');
     })
 
     /**
@@ -48,12 +58,18 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundleModuleMain0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleMain0002 begin');
       let module: bundleManager.HapModuleInfo | undefined = undefined;
       for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
-        if (info.hapModulesInfo[i].name === 'entry') { module = info.hapModulesInfo[i]; }
+        if (info.hapModulesInfo[i].name === 'entry') {
+          module = info.hapModulesInfo[i];
+          }
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module?.mainElementName).assertEqual(\'MainAbility\');');
       expect(module?.mainElementName).assertEqual('MainAbility');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect((module?.deviceTypes.length ?? 0) >= 2).assertTrue();');
       expect((module?.deviceTypes.length ?? 0) >= 2).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleMain0002 end');
     })
 
     /**
@@ -65,10 +81,15 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundleAbilityLabel0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityLabel0003 begin');
       const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.name).assertEqual(\'EntryAbility\');');
       expect(ability.name).assertEqual('EntryAbility');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.labelId > 0).assertTrue();');
       expect(ability.labelId > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.iconId > 0).assertTrue();');
       expect(ability.iconId > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityLabel0003 end');
     })
 
     /**
@@ -80,10 +101,15 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundleAbilityExport0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityExport0004 begin');
       const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.exported).assertTrue();');
       expect(ability.exported).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.name.length > 0).assertTrue();');
       expect(ability.name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.description.length > 0).assertTrue();');
       expect(ability.description.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityExport0004 end');
     })
 
     /**
@@ -95,9 +121,14 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundleAppResources0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAppResources0005 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
       expect(info.appInfo.labelId > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
       expect(info.appInfo.iconId > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'ohos.samples.wlan\');');
       expect(info.appInfo.name).assertEqual('ohos.samples.wlan');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAppResources0005 end');
     })
 
     /**
@@ -109,9 +140,14 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundlePermissionFirst0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionFirst0006 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length > 0).assertTrue();');
       expect(info.reqPermissionDetails.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[0].usedScene.abilities.length > 0).assertTrue();');
       expect(info.reqPermissionDetails[0].usedScene.abilities.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[0].reason.length > 0).assertTrue();');
       expect(info.reqPermissionDetails[0].reason.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionFirst0006 end');
     })
 
     /**
@@ -123,10 +159,15 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundlePermissionLast0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionLast0007 begin');
       const last: number = info.reqPermissionDetails.length - 1;
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(last >= 0).assertTrue();');
       expect(last >= 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[last].usedScene.abilities.length > 0).assertTrue();');
       expect(info.reqPermissionDetails[last].usedScene.abilities.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[last].reason.length > 0).assertTrue();');
       expect(info.reqPermissionDetails[last].reason.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionLast0007 end');
     })
 
     /**
@@ -138,12 +179,16 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundlePermissionUnique0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionUnique0008 begin');
       const names: Set<string> = new Set<string>();
       for (let i: number = 0; i < info.reqPermissionDetails.length; i++) {
         names.add(info.reqPermissionDetails[i].name);
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(names.size).assertEqual(info.reqPermissionDetails.length);');
       expect(names.size).assertEqual(info.reqPermissionDetails.length);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(names.size >= 4).assertTrue();');
       expect(names.size >= 4).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionUnique0008 end');
     })
 
     /**
@@ -155,9 +200,14 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundleModuleCount0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleCount0009 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
       expect(info.hapModulesInfo.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
       expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
       expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleCount0009 end');
     })
 
     /**
@@ -169,9 +219,14 @@ export default function wlanBundleConfigExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanBundleAbilityCount0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityCount0010 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].abilitiesInfo.length > 0).assertTrue();');
       expect(info.hapModulesInfo[0].abilitiesInfo.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].abilitiesInfo[0].name).assertEqual(\'EntryAbility\');');
       expect(info.hapModulesInfo[0].abilitiesInfo[0].name).assertEqual('EntryAbility');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].installationFree).assertFalse();');
       expect(info.hapModulesInfo[0].installationFree).assertFalse();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityCount0010 end');
     })
   })
 }

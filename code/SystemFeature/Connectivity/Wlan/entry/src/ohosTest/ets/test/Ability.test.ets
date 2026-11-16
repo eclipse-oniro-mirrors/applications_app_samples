@@ -42,14 +42,17 @@ export default function abilityTest() {
         await abilityDelegator.startAbility({
           bundleName: 'ohos.samples.wlan',
           abilityName: 'EntryAbility'
-        })
+        }
+          )
         done()
-      } catch (exception) {
+      }
+        catch (exception) {
         hilog.info(DOMAIN, TAG, `StartAbility_001 exception = ${JSON.stringify(exception)}`)
         expect().assertFail()
       }
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 end')
-    })
+    }
+      )
 
     /**
      * 获取权限
@@ -65,12 +68,14 @@ export default function abilityTest() {
         let btnStart = await driver.findComponent(ON.text(await getResourceString($r('app.string.only_accept_during_use'))));
         await btnStart.click();
         hilog.info(DOMAIN, TAG, 'RequestPermissionFunction clicked');
-      } catch (err) {
+      }
+        catch (err) {
         hilog.info(DOMAIN, TAG, 'RequestPermissionFunction no dialog needed');
       }
       expect((await getResourceString($r('app.string.only_accept_during_use'))).length > 0).assertTrue();
       hilog.info(DOMAIN, TAG, 'RequestPermissionFunction end');
-    })
+    }
+      )
 
     /**
      * 点击TitleBar
@@ -89,7 +94,8 @@ export default function abilityTest() {
       await driver.assertComponentExist(ON.id('back'))
       await driver.pressBack()
       hilog.info(DOMAIN, TAG, BUNDLE + 'EnterAboutFunction end')
-    })
+    }
+      )
 
     /**
      * wifi激活状态
@@ -113,7 +119,8 @@ export default function abilityTest() {
       await driver.delayMs(5000)
       try {
         await driver.assertComponentExist(ON.id('validWlan'))
-      } catch (err) {
+      }
+        catch (err) {
         hilog.info(DOMAIN, TAG, BUNDLE + 'ActivateWlanFunction no validWlan')
         expect((await getResourceString($r('app.string.available_wlan'))).length > 0).assertTrue()
         return
@@ -137,6 +144,8 @@ export default function abilityTest() {
       await driver.delayMs(1000);
       // 是否弹出提示文本
       await driver.assertComponentExist(ON.text('connecting'));
-    })
-  })
+    }
+      )
+  }
+    )
 }
