@@ -14,10 +14,16 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import wifi from '@ohos.wifiManager';
 import WifiDataSource from '../../../../src/main/ets/component/BasicDataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 function info(index: number): wifi.WifiScanInfo {
-  return { ssid: `Wlan-${index}`, bssid: '00:11:22:33:44:55', bssidType: wifi.DeviceAddressType.REAL_DEVICE_ADDRESS, capabilities: 'ESS', securityType: wifi.WifiSecurityType.WIFI_SEC_TYPE_PSK, rssi: -40, band: 2, frequency: 2412, channelWidth: 20, centerFrequency0: 2412, centerFrequency1: 0, infoElems: [], timestamp: index, supportedWifiCategory: wifi.WifiCategory.DEFAULT, isHiLinkNetwork: false };
+  return {
+    ssid: `Wlan-${index}`, bssid: '00:11:22:33:44:55', bssidType: wifi.DeviceAddressType.REAL_DEVICE_ADDRESS, capabilities: 'ESS', securityType: wifi.WifiSecurityType.WIFI_SEC_TYPE_PSK, rssi: -40, band: 2, frequency: 2412, channelWidth: 20, centerFrequency0: 2412, centerFrequency1: 0, infoElems: [], timestamp: index, supportedWifiCategory: wifi.WifiCategory.DEFAULT, isHiLinkNetwork: false
+    }
+    ;
 }
 
 export default function wlanDataSourceEdgeTest() {
@@ -32,10 +38,15 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgeEmpty0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeEmpty0001 begin');
       const source: WifiDataSource = new WifiDataSource([]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(-1) === undefined).assertTrue();');
       expect(source.getData(-1) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0) === undefined).assertTrue();');
       expect(source.getData(0) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(99) === undefined).assertTrue();');
       expect(source.getData(99) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeEmpty0001 end');
     })
 
     /**
@@ -47,11 +58,16 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgeAddEmpty0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeAddEmpty0002 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.addData(0, info(1));
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
       expect(source.totalCount()).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-1\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-1');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1) === undefined).assertTrue();');
       expect(source.getData(1) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeAddEmpty0002 end');
     })
 
     /**
@@ -63,11 +79,16 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgeAddPastEnd0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeAddPastEnd0003 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.addData(5, info(2));
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
       expect(source.totalCount()).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-2\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-2');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(2);');
       expect(source.getData(0).timestamp).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeAddPastEnd0003 end');
     })
 
     /**
@@ -79,13 +100,18 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgeDuplicate0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeDuplicate0004 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = info(3);
       source.pushData(item);
       source.pushData(item);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
       expect(source.totalCount()).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-3\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-3');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).ssid).assertEqual(\'Wlan-3\');');
       expect(source.getData(1).ssid).assertEqual('Wlan-3');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeDuplicate0004 end');
     })
 
     /**
@@ -97,12 +123,17 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgeAppend0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeAppend0005 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.pushData(info(1));
       source.addData(source.totalCount(), info(2));
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
       expect(source.totalCount()).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-1\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-1');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).ssid).assertEqual(\'Wlan-2\');');
       expect(source.getData(1).ssid).assertEqual('Wlan-2');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeAppend0005 end');
     })
 
     /**
@@ -114,14 +145,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0006 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 6; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(6);');
       expect(source.totalCount()).assertEqual(6);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(5).timestamp).assertEqual(5);');
       expect(source.getData(5).timestamp).assertEqual(5);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(6) === undefined).assertTrue();');
       expect(source.getData(6) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0006 end');
     })
 
     /**
@@ -133,14 +170,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0007 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 7; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(7);');
       expect(source.totalCount()).assertEqual(7);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(6).timestamp).assertEqual(6);');
       expect(source.getData(6).timestamp).assertEqual(6);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(7) === undefined).assertTrue();');
       expect(source.getData(7) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0007 end');
     })
 
     /**
@@ -152,14 +195,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0008 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 8; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(8);');
       expect(source.totalCount()).assertEqual(8);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(7).timestamp).assertEqual(7);');
       expect(source.getData(7).timestamp).assertEqual(7);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(8) === undefined).assertTrue();');
       expect(source.getData(8) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0008 end');
     })
 
     /**
@@ -171,14 +220,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0009 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 9; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(9);');
       expect(source.totalCount()).assertEqual(9);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(8).timestamp).assertEqual(8);');
       expect(source.getData(8).timestamp).assertEqual(8);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(9) === undefined).assertTrue();');
       expect(source.getData(9) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0009 end');
     })
 
     /**
@@ -190,14 +245,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0010 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 10; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(10);');
       expect(source.totalCount()).assertEqual(10);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(9).timestamp).assertEqual(9);');
       expect(source.getData(9).timestamp).assertEqual(9);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(10) === undefined).assertTrue();');
       expect(source.getData(10) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0010 end');
     })
 
     /**
@@ -209,14 +270,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0011 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 11; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(11);');
       expect(source.totalCount()).assertEqual(11);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(10).timestamp).assertEqual(10);');
       expect(source.getData(10).timestamp).assertEqual(10);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(11) === undefined).assertTrue();');
       expect(source.getData(11) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0011 end');
     })
 
     /**
@@ -228,14 +295,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0012 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 12; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(12);');
       expect(source.totalCount()).assertEqual(12);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(11).timestamp).assertEqual(11);');
       expect(source.getData(11).timestamp).assertEqual(11);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(12) === undefined).assertTrue();');
       expect(source.getData(12) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0012 end');
     })
 
     /**
@@ -247,14 +320,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0013 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 13; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(13);');
       expect(source.totalCount()).assertEqual(13);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(12).timestamp).assertEqual(12);');
       expect(source.getData(12).timestamp).assertEqual(12);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(13) === undefined).assertTrue();');
       expect(source.getData(13) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0013 end');
     })
 
     /**
@@ -266,14 +345,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0014 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 14; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(14);');
       expect(source.totalCount()).assertEqual(14);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(13).timestamp).assertEqual(13);');
       expect(source.getData(13).timestamp).assertEqual(13);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(14) === undefined).assertTrue();');
       expect(source.getData(14) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0014 end');
     })
 
     /**
@@ -285,14 +370,20 @@ export default function wlanDataSourceEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanDataEdgePush0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0015 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 15; index++) {
         source.pushData(info(index));
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(15);');
       expect(source.totalCount()).assertEqual(15);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(0);');
       expect(source.getData(0).timestamp).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(14).timestamp).assertEqual(14);');
       expect(source.getData(14).timestamp).assertEqual(14);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(15) === undefined).assertTrue();');
       expect(source.getData(15) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgePush0015 end');
     })
   })
 }

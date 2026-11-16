@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { WifiModel } from '../../../../src/main/ets/model/WifiModel';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function wlanModelMiscTest() {
   describe('WlanModelMiscTest', () => {
@@ -22,18 +25,23 @@ export default function wlanModelMiscTest() {
     /**
      * @tc.name   testWlanMiscStable0001
      * @tc.number SUB_WLAN_MISC_0001
-     * @tc.desc   Resolve the same IP value repeatedly and compare results.
+     * @tc.desc   Verify first equals second.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testWlanMiscStable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscStable0001 begin');
       const model: WifiModel = new WifiModel();
       const first: string = model.resolveIP(3232235777);
       const second: string = model.resolveIP(3232235777);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first).assertEqual(second);');
       expect(first).assertEqual(second);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first).assertEqual(\'32:32:235:777\');');
       expect(first).assertEqual('32:32:235:777');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.split(\':\').length).assertEqual(4);');
       expect(second.split(':').length).assertEqual(4);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscStable0001 end');
     })
 
     /**
@@ -45,10 +53,15 @@ export default function wlanModelMiscTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMiscMethodSet0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscMethodSet0002 begin');
       const model: WifiModel = new WifiModel();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.getScanInfos === \'function\').assertTrue();');
       expect(typeof model.getScanInfos === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.getIpInfo === \'function\').assertTrue();');
       expect(typeof model.getIpInfo === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.getFeatureSupport === \'function\').assertTrue();');
       expect(typeof model.getFeatureSupport === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscMethodSet0002 end');
     })
 
     /**
@@ -60,10 +73,15 @@ export default function wlanModelMiscTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMiscZeroRepeat0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscZeroRepeat0003 begin');
       const model: WifiModel = new WifiModel();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(0)).assertEqual(\'00:00:000:000\');');
       expect(model.resolveIP(0)).assertEqual('00:00:000:000');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(0)).assertEqual(model.resolveIP(0));');
       expect(model.resolveIP(0)).assertEqual(model.resolveIP(0));
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(0).length).assertEqual(13);');
       expect(model.resolveIP(0).length).assertEqual(13);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscZeroRepeat0003 end');
     })
   })
 }

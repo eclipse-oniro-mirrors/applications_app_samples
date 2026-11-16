@@ -14,10 +14,16 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import wifi from '@ohos.wifiManager';
 import WifiDataSource from '../../../../src/main/ets/component/BasicDataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 function makeInfo(index: number): wifi.WifiScanInfo {
-  return { ssid: `Wlan-${index}`, bssid: '00:11:22:33:44:55', bssidType: wifi.DeviceAddressType.REAL_DEVICE_ADDRESS, capabilities: 'ESS', securityType: wifi.WifiSecurityType.WIFI_SEC_TYPE_PSK, rssi: -40 - index, band: 2, frequency: 2412, channelWidth: 20, centerFrequency0: 2412, centerFrequency1: 0, infoElems: [], timestamp: 1000 + index, supportedWifiCategory: wifi.WifiCategory.DEFAULT, isHiLinkNetwork: false };
+  return {
+    ssid: `Wlan-${index}`, bssid: '00:11:22:33:44:55', bssidType: wifi.DeviceAddressType.REAL_DEVICE_ADDRESS, capabilities: 'ESS', securityType: wifi.WifiSecurityType.WIFI_SEC_TYPE_PSK, rssi: -40 - index, band: 2, frequency: 2412, channelWidth: 20, centerFrequency0: 2412, centerFrequency1: 0, infoElems: [], timestamp: 1000 + index, supportedWifiCategory: wifi.WifiCategory.DEFAULT, isHiLinkNetwork: false
+    }
+    ;
 }
 
 export default function wlanDataSourceMatrixTest() {
@@ -32,12 +38,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0001 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 1; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 1; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
       expect(source.totalCount()).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1000);');
       expect(source.getData(0).timestamp).assertEqual(1000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1) === undefined).assertTrue();');
       expect(source.getData(1) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0001 end');
     })
 
     /**
@@ -49,12 +63,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0002 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 2; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 2; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
       expect(source.totalCount()).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).timestamp).assertEqual(1001);');
       expect(source.getData(1).timestamp).assertEqual(1001);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2) === undefined).assertTrue();');
       expect(source.getData(2) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0002 end');
     })
 
     /**
@@ -66,12 +88,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0003 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 3; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 3; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
       expect(source.totalCount()).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2).timestamp).assertEqual(1002);');
       expect(source.getData(2).timestamp).assertEqual(1002);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
       expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0003 end');
     })
 
     /**
@@ -83,12 +113,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0004 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 4; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 4; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
       expect(source.totalCount()).assertEqual(4);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3).timestamp).assertEqual(1003);');
       expect(source.getData(3).timestamp).assertEqual(1003);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(4) === undefined).assertTrue();');
       expect(source.getData(4) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0004 end');
     })
 
     /**
@@ -100,12 +138,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0005 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 5; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 5; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(5);');
       expect(source.totalCount()).assertEqual(5);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(4).timestamp).assertEqual(1004);');
       expect(source.getData(4).timestamp).assertEqual(1004);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(5) === undefined).assertTrue();');
       expect(source.getData(5) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0005 end');
     })
 
     /**
@@ -117,12 +163,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0006 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 6; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 6; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(6);');
       expect(source.totalCount()).assertEqual(6);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(5).timestamp).assertEqual(1005);');
       expect(source.getData(5).timestamp).assertEqual(1005);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(6) === undefined).assertTrue();');
       expect(source.getData(6) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0006 end');
     })
 
     /**
@@ -134,12 +188,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0007 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 7; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 7; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(7);');
       expect(source.totalCount()).assertEqual(7);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(6).timestamp).assertEqual(1006);');
       expect(source.getData(6).timestamp).assertEqual(1006);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(7) === undefined).assertTrue();');
       expect(source.getData(7) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0007 end');
     })
 
     /**
@@ -151,12 +213,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0008 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 8; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 8; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(8);');
       expect(source.totalCount()).assertEqual(8);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(7).timestamp).assertEqual(1007);');
       expect(source.getData(7).timestamp).assertEqual(1007);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(8) === undefined).assertTrue();');
       expect(source.getData(8) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0008 end');
     })
 
     /**
@@ -168,12 +238,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0009 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 9; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 9; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(9);');
       expect(source.totalCount()).assertEqual(9);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(8).timestamp).assertEqual(1008);');
       expect(source.getData(8).timestamp).assertEqual(1008);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(9) === undefined).assertTrue();');
       expect(source.getData(9) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0009 end');
     })
 
     /**
@@ -185,12 +263,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0010 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 10; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 10; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(10);');
       expect(source.totalCount()).assertEqual(10);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(9).timestamp).assertEqual(1009);');
       expect(source.getData(9).timestamp).assertEqual(1009);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(10) === undefined).assertTrue();');
       expect(source.getData(10) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0010 end');
     })
 
     /**
@@ -202,12 +288,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0011 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 11; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 11; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(11);');
       expect(source.totalCount()).assertEqual(11);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(10).timestamp).assertEqual(1010);');
       expect(source.getData(10).timestamp).assertEqual(1010);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(11) === undefined).assertTrue();');
       expect(source.getData(11) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0011 end');
     })
 
     /**
@@ -219,12 +313,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0012 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 12; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 12; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(12);');
       expect(source.totalCount()).assertEqual(12);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(11).timestamp).assertEqual(1011);');
       expect(source.getData(11).timestamp).assertEqual(1011);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(12) === undefined).assertTrue();');
       expect(source.getData(12) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0012 end');
     })
 
     /**
@@ -236,12 +338,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0013 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 13; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 13; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(13);');
       expect(source.totalCount()).assertEqual(13);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(12).timestamp).assertEqual(1012);');
       expect(source.getData(12).timestamp).assertEqual(1012);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(13) === undefined).assertTrue();');
       expect(source.getData(13) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0013 end');
     })
 
     /**
@@ -253,12 +363,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0014 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 14; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 14; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(14);');
       expect(source.totalCount()).assertEqual(14);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(13).timestamp).assertEqual(1013);');
       expect(source.getData(13).timestamp).assertEqual(1013);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(14) === undefined).assertTrue();');
       expect(source.getData(14) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0014 end');
     })
 
     /**
@@ -270,12 +388,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0015 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 15; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 15; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(15);');
       expect(source.totalCount()).assertEqual(15);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(14).timestamp).assertEqual(1014);');
       expect(source.getData(14).timestamp).assertEqual(1014);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(15) === undefined).assertTrue();');
       expect(source.getData(15) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0015 end');
     })
 
     /**
@@ -287,12 +413,20 @@ export default function wlanDataSourceMatrixTest() {
      * @tc.level  LEVEL2
      */
     it('testWlanMatrixData0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0016 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      for (let index: number = 0; index < 16; index++) { source.pushData(makeInfo(index)); }
+      for (let index: number = 0; index < 16; index++) {
+        source.pushData(makeInfo(index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(16);');
       expect(source.totalCount()).assertEqual(16);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-0\');');
       expect(source.getData(0).ssid).assertEqual('Wlan-0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(15).timestamp).assertEqual(1015);');
       expect(source.getData(15).timestamp).assertEqual(1015);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(16) === undefined).assertTrue();');
       expect(source.getData(16) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMatrixData0016 end');
     })
   })
 }
