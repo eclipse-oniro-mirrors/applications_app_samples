@@ -14,6 +14,8 @@
  */
 
 import assessmentAbilityTest from './Ability.test';
+import assessmentApiTest from './Assessment.test';
+import assessmentSampleUiTest from './AssessmentUi.test';
 import assessmentUITest from './Assessment/AssessmentUI.test';
 import assessmentOperationsTest from './Assessment/AssessmentOperations.test';
 import assessmentConfigModelTest from './Assessment/AssessmentConfigModel.test';
@@ -94,6 +96,8 @@ import securityValidationTest from './Security/SecurityValidation.test';
 
 export default function testsuite(): void {
   assessmentAbilityTest();
+  assessmentApiTest();
+  assessmentSampleUiTest();
   assessmentUITest();
   assessmentOperationsTest();
   assessmentConfigModelTest();
