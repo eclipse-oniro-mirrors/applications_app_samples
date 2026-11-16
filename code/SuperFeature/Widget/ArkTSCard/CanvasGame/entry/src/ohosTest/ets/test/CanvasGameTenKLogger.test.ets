@@ -23,183 +23,183 @@ export default function canvasGameTenKLoggerTest() {
   describe('CanvasGameTenKLoggerTest', () => {
 
     /**
-     * @tc.name   testCanvasTenKLog0001
+     * @tc.name   com.samples.canvasgame_TenKLogger_0001
      * @tc.number SUB_CANVAS_10K_LOG_0001
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0001 begin');
+    it('com.samples.canvasgame_TenKLogger_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0001 begin');
       const s: string = 'j'.repeat(200);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(200));
         expect(s.length).assertEqual(200);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0001 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0002
+     * @tc.name   com.samples.canvasgame_TenKLogger_0002
      * @tc.number SUB_CANVAS_10K_LOG_0002
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0002 begin');
+    it('com.samples.canvasgame_TenKLogger_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0002 begin');
       const s: string = 'j'.repeat(400);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(400));
         expect(s.length).assertEqual(400);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0002 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0003
+     * @tc.name   com.samples.canvasgame_TenKLogger_0003
      * @tc.number SUB_CANVAS_10K_LOG_0003
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0003 begin');
+    it('com.samples.canvasgame_TenKLogger_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0003 begin');
       const s: string = 'j'.repeat(600);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(600));
         expect(s.length).assertEqual(600);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0003 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0004
+     * @tc.name   com.samples.canvasgame_TenKLogger_0004
      * @tc.number SUB_CANVAS_10K_LOG_0004
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0004 begin');
+    it('com.samples.canvasgame_TenKLogger_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0004 begin');
       const s: string = 'j'.repeat(800);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(800));
         expect(s.length).assertEqual(800);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0004 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0005
+     * @tc.name   com.samples.canvasgame_TenKLogger_0005
      * @tc.number SUB_CANVAS_10K_LOG_0005
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0005 begin');
+    it('com.samples.canvasgame_TenKLogger_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0005 begin');
       const s: string = 'j'.repeat(1000);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1000));
         expect(s.length).assertEqual(1000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0005 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0006
+     * @tc.name   com.samples.canvasgame_TenKLogger_0006
      * @tc.number SUB_CANVAS_10K_LOG_0006
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0006 begin');
+    it('com.samples.canvasgame_TenKLogger_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0006 begin');
       const s: string = 'j'.repeat(1200);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1200));
         expect(s.length).assertEqual(1200);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0006 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0007
+     * @tc.name   com.samples.canvasgame_TenKLogger_0007
      * @tc.number SUB_CANVAS_10K_LOG_0007
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0007 begin');
+    it('com.samples.canvasgame_TenKLogger_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0007 begin');
       const s: string = 'j'.repeat(1400);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1400));
         expect(s.length).assertEqual(1400);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0007 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0008
+     * @tc.name   com.samples.canvasgame_TenKLogger_0008
      * @tc.number SUB_CANVAS_10K_LOG_0008
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0008 begin');
+    it('com.samples.canvasgame_TenKLogger_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0008 begin');
       const s: string = 'j'.repeat(1600);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1600));
         expect(s.length).assertEqual(1600);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0008 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0009
+     * @tc.name   com.samples.canvasgame_TenKLogger_0009
      * @tc.number SUB_CANVAS_10K_LOG_0009
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0009 begin');
+    it('com.samples.canvasgame_TenKLogger_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0009 begin');
       const s: string = 'j'.repeat(1800);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1800));
         expect(s.length).assertEqual(1800);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0009 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKLog0010
+     * @tc.name   com.samples.canvasgame_TenKLogger_0010
      * @tc.number SUB_CANVAS_10K_LOG_0010
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKLog0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0010 begin');
+    it('com.samples.canvasgame_TenKLogger_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0010 begin');
       const s: string = 'j'.repeat(2000);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(2000));
         expect(s.length).assertEqual(2000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKLog0010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKLogger_0010 end');
     })
   })
 }

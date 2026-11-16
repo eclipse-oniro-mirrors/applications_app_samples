@@ -23,155 +23,155 @@ export default function canvasGameTenKPlusTest() {
   describe('CanvasGameTenKPlusTest', () => {
 
     /**
-     * @tc.name   testCanvasTenKPlus0001
+     * @tc.name   com.samples.canvasgame_TenKPlus_0001
      * @tc.number SUB_CANVAS_10K_PLUS_0001
      * @tc.desc   Final CanvasGame boundary case.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKPlus0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0001 begin');
+    it('com.samples.canvasgame_TenKPlus_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'p'.repeat(256);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(256));
         expect(id.length).assertEqual(256);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0001 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKPlus0002
+     * @tc.name   com.samples.canvasgame_TenKPlus_0002
      * @tc.number SUB_CANVAS_10K_PLUS_0002
      * @tc.desc   Final CanvasGame boundary case.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKPlus0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0002 begin');
+    it('com.samples.canvasgame_TenKPlus_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'p'.repeat(512);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(512));
         expect(id.length).assertEqual(512);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0002 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKPlus0003
+     * @tc.name   com.samples.canvasgame_TenKPlus_0003
      * @tc.number SUB_CANVAS_10K_PLUS_0003
      * @tc.desc   Final CanvasGame boundary case.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKPlus0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0003 begin');
+    it('com.samples.canvasgame_TenKPlus_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'p'.repeat(768);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(768));
         expect(id.length).assertEqual(768);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0003 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKPlus0004
+     * @tc.name   com.samples.canvasgame_TenKPlus_0004
      * @tc.number SUB_CANVAS_10K_PLUS_0004
      * @tc.desc   Final CanvasGame boundary case.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKPlus0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0004 begin');
+    it('com.samples.canvasgame_TenKPlus_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'p'.repeat(1024);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1024));
         expect(id.length).assertEqual(1024);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0004 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKPlus0005
+     * @tc.name   com.samples.canvasgame_TenKPlus_0005
      * @tc.number SUB_CANVAS_10K_PLUS_0005
      * @tc.desc   Final CanvasGame boundary case.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKPlus0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0005 begin');
+    it('com.samples.canvasgame_TenKPlus_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0005 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'p'.repeat(1280);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1280));
         expect(id.length).assertEqual(1280);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0005 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKPlus0006
+     * @tc.name   com.samples.canvasgame_TenKPlus_0006
      * @tc.number SUB_CANVAS_10K_PLUS_0006
      * @tc.desc   Final CanvasGame boundary case.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKPlus0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0006 begin');
+    it('com.samples.canvasgame_TenKPlus_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'p'.repeat(1536);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1536));
         expect(id.length).assertEqual(1536);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0006 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKPlus0007
+     * @tc.name   com.samples.canvasgame_TenKPlus_0007
      * @tc.number SUB_CANVAS_10K_PLUS_0007
      * @tc.desc   Final CanvasGame boundary case.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKPlus0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0007 begin');
+    it('com.samples.canvasgame_TenKPlus_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'p'.repeat(1792);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1792));
         expect(id.length).assertEqual(1792);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0007 end');
     })
 
     /**
-     * @tc.name   testCanvasTenKPlus0008
+     * @tc.name   com.samples.canvasgame_TenKPlus_0008
      * @tc.number SUB_CANVAS_10K_PLUS_0008
      * @tc.desc   Final CanvasGame boundary case.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasTenKPlus0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0008 begin');
+    it('com.samples.canvasgame_TenKPlus_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'p'.repeat(2048);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(2048));
         expect(id.length).assertEqual(2048);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasTenKPlus0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_TenKPlus_0008 end');
     })
   })
 }

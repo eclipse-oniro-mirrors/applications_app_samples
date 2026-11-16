@@ -24,15 +24,15 @@ export default function canvasGameSpecialTypesTest() {
   describe('CanvasGameSpecialTypesTest', () => {
 
     /**
-     * @tc.name   testCanvasSpecial0001
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0001
      * @tc.number SUB_CANVAS_SPECIAL_0001
      * @tc.desc   Special type sample 1.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0001 begin');
+    it('com.samples.canvasgame_SpecialTypes_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onCastToNormalForm('') === undefined));
         expect(a.onCastToNormalForm('') === undefined).assertTrue();
@@ -40,19 +40,19 @@ export default function canvasGameSpecialTypesTest() {
         expect(a.onRemoveForm('') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
         expect(a.onAcquireFormState({}) >= 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0001 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0002
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0002
      * @tc.number SUB_CANVAS_SPECIAL_0002
      * @tc.desc   Special type sample 2.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0002 begin');
+    it('com.samples.canvasgame_SpecialTypes_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onCastToNormalForm('') === undefined));
         expect(a.onCastToNormalForm('') === undefined).assertTrue();
@@ -60,19 +60,19 @@ export default function canvasGameSpecialTypesTest() {
         expect(a.onRemoveForm('') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
         expect(a.onAcquireFormState({}) >= 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0002 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0003
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0003
      * @tc.number SUB_CANVAS_SPECIAL_0003
      * @tc.desc   Special type sample 3.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0003 begin');
+    it('com.samples.canvasgame_SpecialTypes_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onCastToNormalForm('') === undefined));
         expect(a.onCastToNormalForm('') === undefined).assertTrue();
@@ -80,19 +80,19 @@ export default function canvasGameSpecialTypesTest() {
         expect(a.onRemoveForm('') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
         expect(a.onAcquireFormState({}) >= 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0003 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0004
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0004
      * @tc.number SUB_CANVAS_SPECIAL_0004
      * @tc.desc   Special type sample 4.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0004 begin');
+    it('com.samples.canvasgame_SpecialTypes_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onCastToNormalForm('') === undefined));
         expect(a.onCastToNormalForm('') === undefined).assertTrue();
@@ -100,151 +100,151 @@ export default function canvasGameSpecialTypesTest() {
         expect(a.onRemoveForm('') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
         expect(a.onAcquireFormState({}) >= 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0004 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0005
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0005
      * @tc.number SUB_CANVAS_SPECIAL_0005
      * @tc.desc   Special type sample 5.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0005 begin');
+    it('com.samples.canvasgame_SpecialTypes_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0005 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 1; n++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(n % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0005 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0006
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0006
      * @tc.number SUB_CANVAS_SPECIAL_0006
      * @tc.desc   Special type sample 6.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0006 begin');
+    it('com.samples.canvasgame_SpecialTypes_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 2; n++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(n % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0006 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0007
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0007
      * @tc.number SUB_CANVAS_SPECIAL_0007
      * @tc.desc   Special type sample 7.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0007 begin');
+    it('com.samples.canvasgame_SpecialTypes_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 3; n++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(n % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0007 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0008
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0008
      * @tc.number SUB_CANVAS_SPECIAL_0008
      * @tc.desc   Special type sample 8.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0008 begin');
+    it('com.samples.canvasgame_SpecialTypes_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 4; n++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(n % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0008 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0009
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0009
      * @tc.number SUB_CANVAS_SPECIAL_0009
      * @tc.desc   Special type sample 9.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0009 begin');
+    it('com.samples.canvasgame_SpecialTypes_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0009 begin');
       const msg: string = 's'.repeat(576);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug(msg) === undefined));
         expect(logger.debug(msg) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(576));
         expect(msg.length).assertEqual(576);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0009 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0010
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0010
      * @tc.number SUB_CANVAS_SPECIAL_0010
      * @tc.desc   Special type sample 10.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0010 begin');
+    it('com.samples.canvasgame_SpecialTypes_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0010 begin');
       const msg: string = 's'.repeat(640);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug(msg) === undefined));
         expect(logger.debug(msg) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(640));
         expect(msg.length).assertEqual(640);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0010 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0011
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0011
      * @tc.number SUB_CANVAS_SPECIAL_0011
      * @tc.desc   Special type sample 11.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0011 begin');
+    it('com.samples.canvasgame_SpecialTypes_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0011 begin');
       const msg: string = 's'.repeat(704);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug(msg) === undefined));
         expect(logger.debug(msg) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(704));
         expect(msg.length).assertEqual(704);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0011 end');
     })
 
     /**
-     * @tc.name   testCanvasSpecial0012
+     * @tc.name   com.samples.canvasgame_SpecialTypes_0012
      * @tc.number SUB_CANVAS_SPECIAL_0012
      * @tc.desc   Special type sample 12.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasSpecial0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0012 begin');
+    it('com.samples.canvasgame_SpecialTypes_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0012 begin');
       const msg: string = 's'.repeat(768);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug(msg) === undefined));
         expect(logger.debug(msg) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(768));
         expect(msg.length).assertEqual(768);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_SpecialTypes_0012 end');
     })
   })
 }
