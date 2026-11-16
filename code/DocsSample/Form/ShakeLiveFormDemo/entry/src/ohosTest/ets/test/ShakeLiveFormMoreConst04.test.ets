@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Constants } from '../../../main/ets/common/Constants';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function shakeLiveFormMoreConst04Test() {
   describe('ShakeLiveFormMoreConst04Test', () => {
@@ -22,193 +25,305 @@ export default function shakeLiveFormMoreConst04Test() {
     /**
      * @tc.name   testShakeMoreConst040001
      * @tc.number SUB_SHAKE_MORE_CONST_04_0001
-     * @tc.desc   More constants case 4-1.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 980 equals 147.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 980).assertEqual(147.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 980).assertEqual(1274.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040001 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 980).assertEqual(147.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 980).assertEqual(147.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 980).assertEqual(1274.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 980).assertEqual(1274.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040001 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040002
      * @tc.number SUB_SHAKE_MORE_CONST_04_0002
-     * @tc.desc   More constants case 4-2.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1000 equals 150.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1000).assertEqual(150.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1000).assertEqual(1300.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040002 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1000).assertEqual(150.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1000).assertEqual(150.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1000).assertEqual(1300.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1000).assertEqual(1300.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040002 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040003
      * @tc.number SUB_SHAKE_MORE_CONST_04_0003
-     * @tc.desc   More constants case 4-3.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1020 equals 153.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1020).assertEqual(153.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1020).assertEqual(1326.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040003 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1020).assertEqual(153.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1020).assertEqual(153.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1020).assertEqual(1326.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1020).assertEqual(1326.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040003 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040004
      * @tc.number SUB_SHAKE_MORE_CONST_04_0004
-     * @tc.desc   More constants case 4-4.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1040 equals 156.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1040).assertEqual(156.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1040).assertEqual(1352.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040004 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1040).assertEqual(156.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1040).assertEqual(156.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1040).assertEqual(1352.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1040).assertEqual(1352.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040004 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040005
      * @tc.number SUB_SHAKE_MORE_CONST_04_0005
-     * @tc.desc   More constants case 4-5.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1060 equals 159.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1060).assertEqual(159.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1060).assertEqual(1378.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040005 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1060).assertEqual(159.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1060).assertEqual(159.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1060).assertEqual(1378.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1060).assertEqual(1378.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040005 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040006
      * @tc.number SUB_SHAKE_MORE_CONST_04_0006
-     * @tc.desc   More constants case 4-6.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1080 equals 162.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1080).assertEqual(162.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1080).assertEqual(1404.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040006 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1080).assertEqual(162.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1080).assertEqual(162.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1080).assertEqual(1404.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1080).assertEqual(1404.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040006 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040007
      * @tc.number SUB_SHAKE_MORE_CONST_04_0007
-     * @tc.desc   More constants case 4-7.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1100 equals 165.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1100).assertEqual(165.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1100).assertEqual(1430.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040007 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1100).assertEqual(165.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1100).assertEqual(165.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1100).assertEqual(1430.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1100).assertEqual(1430.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040007 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040008
      * @tc.number SUB_SHAKE_MORE_CONST_04_0008
-     * @tc.desc   More constants case 4-8.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1120 equals 168.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1120).assertEqual(168.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1120).assertEqual(1456.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040008 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1120).assertEqual(168.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1120).assertEqual(168.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1120).assertEqual(1456.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1120).assertEqual(1456.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040008 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040009
      * @tc.number SUB_SHAKE_MORE_CONST_04_0009
-     * @tc.desc   More constants case 4-9.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1140 equals 171.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1140).assertEqual(171.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1140).assertEqual(1482.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040009 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1140).assertEqual(171.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1140).assertEqual(171.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1140).assertEqual(1482.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1140).assertEqual(1482.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040009 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040010
      * @tc.number SUB_SHAKE_MORE_CONST_04_0010
-     * @tc.desc   More constants case 4-10.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1160 equals 174.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1160).assertEqual(174.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1160).assertEqual(1508.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040010 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1160).assertEqual(174.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1160).assertEqual(174.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1160).assertEqual(1508.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1160).assertEqual(1508.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040010 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040011
      * @tc.number SUB_SHAKE_MORE_CONST_04_0011
-     * @tc.desc   More constants case 4-11.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1180 equals 177.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1180).assertEqual(177.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1180).assertEqual(1534.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040011 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1180).assertEqual(177.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1180).assertEqual(177.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1180).assertEqual(1534.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1180).assertEqual(1534.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040011 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040012
      * @tc.number SUB_SHAKE_MORE_CONST_04_0012
-     * @tc.desc   More constants case 4-12.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1200 equals 180.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1200).assertEqual(180.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1200).assertEqual(1560.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040012 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1200).assertEqual(180.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1200).assertEqual(180.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1200).assertEqual(1560.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1200).assertEqual(1560.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040012 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040013
      * @tc.number SUB_SHAKE_MORE_CONST_04_0013
-     * @tc.desc   More constants case 4-13.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1220 equals 183.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1220).assertEqual(183.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1220).assertEqual(1586.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040013 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1220).assertEqual(183.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1220).assertEqual(183.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1220).assertEqual(1586.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1220).assertEqual(1586.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040013 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040014
      * @tc.number SUB_SHAKE_MORE_CONST_04_0014
-     * @tc.desc   More constants case 4-14.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1240 equals 186.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1240).assertEqual(186.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1240).assertEqual(1612.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040014 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1240).assertEqual(186.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1240).assertEqual(186.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1240).assertEqual(1612.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1240).assertEqual(1612.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040014 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040015
      * @tc.number SUB_SHAKE_MORE_CONST_04_0015
-     * @tc.desc   More constants case 4-15.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1260 equals 189.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1260).assertEqual(189.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1260).assertEqual(1638.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040015 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1260).assertEqual(189.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1260).assertEqual(189.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1260).assertEqual(1638.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1260).assertEqual(1638.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040015 end');
     })
 
     /**
      * @tc.name   testShakeMoreConst040016
      * @tc.number SUB_SHAKE_MORE_CONST_04_0016
-     * @tc.desc   More constants case 4-16.
+     * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1280 equals 192.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst040016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1280).assertEqual(192.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1280).assertEqual(1664.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040016 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 1280).assertEqual(192.0);');
+      expect(Constants.OVERFLOW_TOP_RATIO * 1280).assertEqual(192.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 1280).assertEqual(1664.0);');
+        expect(Constants.OVERFLOW_HEIGHT_RATIO * 1280).assertEqual(1664.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst040016 end');
     })
   })
 }
