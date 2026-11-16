@@ -17,7 +17,7 @@
 
 ## 套件总览
 
-`List.test.ets` 共注册 **24 个套件、1,502 条用例、约 23,000 行测试代码**。
+`List.test.ets` 共注册 **24 个套件、1,497 条用例、约 23,000 行测试代码**。
 
 | 分类 | 套件 | 用例数 | 验证点 |
 |---|---|---:|---|
@@ -30,7 +30,7 @@
 | Stability | `MediaStabilityPart1` | 30 | 各输入 50 次重复调用结果稳定 |
 | Integration | `MediaIntegrationPart1..2` | 100 | 字节→毫秒→字节 往返 |
 | Compatibility | `RecordingMetadataMatrixPart1..3` | 180 | 采样率×声道×格式×低时延组合 |
-| Validation | `AudioEnumValuesPart1` | 39 | 6 个枚举全部成员 + `SECOND_BUFFER_WALK` |
+| Validation | `AudioEnumValuesPart1` | 34 | 5 个枚举全部成员 + `SECOND_BUFFER_WALK` |
 | Validation | `SelectOptionContractPart1` | 40 | 4 组 KEY_MAP/OPTIONS 全量键值与一致性 |
 | 冒烟 | `ActsAbilityTest` | 1 | 应用启动 |
 

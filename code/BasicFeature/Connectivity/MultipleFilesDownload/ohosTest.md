@@ -20,9 +20,8 @@
 
 ## 套件总览
 
-`List.test.ets` 共注册 **21 个纯逻辑套件、1,313 条用例、约 23,600 行测试代码**。网络/UI 依赖的 `ActsAbilityTest` 未加入默认注册，需在联网设备上单独运行。
+`List.test.ets` 共注册 **22 个套件（21 个纯逻辑 + 1 个 UI 冒烟），1,317 条用例、约 23,600 行测试代码**。其中 `ActsAbilityTest` 已默认注册，运行需要联网设备并完成应用启动/页面加载。
 
-全部用例直接调用真实 HAR 代码，不使用 `index % N` 模板轮转，套件内用例体去重后等于用例数。
 
 | 套件 | 用例数 | 验证点 |
 |---|---:|---|
@@ -32,6 +31,7 @@
 | `FormatTimeMatrixPart1..4` | 300 | 300 组本地日期组件 × 格式 token（YYYY/YY/M/MM/D/DD/H/HH/m/mm/s/ss） |
 | `FormatTimeEdgesPart1` | 10 | 非法日期、空串、NaN/Infinity、默认/字面量/未知/重复 token |
 | `LoggerVariadicPart1..3` | 200 | 4 个日志级别 × 50 组变参调用不抛异常 |
+| `ActsAbilityTest` | 4 | 应用启动、下载页面、开始/暂停、历史删除 UI 冒烟 |
 
 - 所有用例引用真实 HAR 代码：`downloadFilesData`、`getFileNameFromUrl`、`formatTime`、`logger`。
 - 用例元数据：`@tc.number` = 序号 × 100（如 `..._0100`），`@tc.name` = 4 位序号；`it` 名与 `@tc.name` 一致。

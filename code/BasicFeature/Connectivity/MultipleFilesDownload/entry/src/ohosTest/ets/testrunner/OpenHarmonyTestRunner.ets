@@ -28,7 +28,7 @@ const UNLOCK_ERROR: number = -3;
 const global: object = globalThis;
 
 async function onAbilityCreateCallback(data: UIAbility) {
-  hilog.info(0x0000, tag, 'onAbilityCreateCallback, data: ${}', JSON.stringify(data));
+  hilog.info(0x0000, tag, 'onAbilityCreateCallback, data: %{public}s', JSON.stringify(data));
 }
 
 async function addAbilityMonitorCallback(err: BusinessError) {
