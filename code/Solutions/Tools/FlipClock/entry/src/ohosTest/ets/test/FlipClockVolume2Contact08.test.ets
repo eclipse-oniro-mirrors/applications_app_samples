@@ -23,15 +23,15 @@ export default function flipClockVolume2Contact08Test() {
   describe('FlipClockVolume2Contact08Test', () => {
 
     /**
-     * @tc.name   testFlipClockVol2080001
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0001
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0001
      * @tc.desc   Verify source.totalCount() equals 741.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080001 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0001 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 741; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -43,19 +43,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(740).reminderId), String(740));
       expect(source.getData(740).reminderId).assertEqual(740);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080002
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0002
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0002
      * @tc.desc   Verify source.totalCount() equals 742.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080002 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0002 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 742; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -67,19 +67,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(741).reminderId), String(741));
       expect(source.getData(741).reminderId).assertEqual(741);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080003
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0003
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0003
      * @tc.desc   Verify source.totalCount() equals 743.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080003 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0003 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 743; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -91,19 +91,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(742).reminderId), String(742));
       expect(source.getData(742).reminderId).assertEqual(742);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080004
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0004
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0004
      * @tc.desc   Verify source.totalCount() equals 744.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080004 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0004 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 744; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -115,19 +115,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(743).reminderId), String(743));
       expect(source.getData(743).reminderId).assertEqual(743);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080005
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0005
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0005
      * @tc.desc   Verify source.totalCount() equals 745.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080005 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0005 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 745; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -139,19 +139,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(744).reminderId), String(744));
       expect(source.getData(744).reminderId).assertEqual(744);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080006
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0006
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0006
      * @tc.desc   Verify source.totalCount() equals 746.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080006 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0006 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 746; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -163,19 +163,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(745).reminderId), String(745));
       expect(source.getData(745).reminderId).assertEqual(745);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080007
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0007
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0007
      * @tc.desc   Verify source.totalCount() equals 747.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080007 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0007 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 747; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -187,19 +187,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(746).reminderId), String(746));
       expect(source.getData(746).reminderId).assertEqual(746);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080008
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0008
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0008
      * @tc.desc   Verify source.totalCount() equals 748.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080008 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0008 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 748; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -211,19 +211,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(747).reminderId), String(747));
       expect(source.getData(747).reminderId).assertEqual(747);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0008 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080009
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0009
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0009
      * @tc.desc   Verify source.totalCount() equals 749.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080009 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0009 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 749; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -235,19 +235,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(748).reminderId), String(748));
       expect(source.getData(748).reminderId).assertEqual(748);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0009 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080010
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0010
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0010
      * @tc.desc   Verify source.totalCount() equals 750.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080010 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0010 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 750; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -259,19 +259,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(749).reminderId), String(749));
       expect(source.getData(749).reminderId).assertEqual(749);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0010 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080011
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0011
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0011
      * @tc.desc   Verify source.totalCount() equals 751.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080011 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0011 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 751; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -283,19 +283,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(750).reminderId), String(750));
       expect(source.getData(750).reminderId).assertEqual(750);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0011 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080012
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0012
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0012
      * @tc.desc   Verify source.totalCount() equals 752.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080012 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0012 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 752; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -307,19 +307,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(751).reminderId), String(751));
       expect(source.getData(751).reminderId).assertEqual(751);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0012 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080013
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0013
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0013
      * @tc.desc   Verify source.totalCount() equals 753.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080013 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0013 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 753; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -331,19 +331,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(752).reminderId), String(752));
       expect(source.getData(752).reminderId).assertEqual(752);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0013 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080014
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0014
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0014
      * @tc.desc   Verify source.totalCount() equals 754.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080014 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0014 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 754; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -355,19 +355,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(753).reminderId), String(753));
       expect(source.getData(753).reminderId).assertEqual(753);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0014 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080015
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0015
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0015
      * @tc.desc   Verify source.totalCount() equals 755.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080015 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0015 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 755; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -379,19 +379,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(754).reminderId), String(754));
       expect(source.getData(754).reminderId).assertEqual(754);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080015 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0015 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080016
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0016
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0016
      * @tc.desc   Verify source.totalCount() equals 756.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080016 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0016 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 756; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -403,19 +403,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(755).reminderId), String(755));
       expect(source.getData(755).reminderId).assertEqual(755);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080016 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0016 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080017
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0017
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0017
      * @tc.desc   Verify source.totalCount() equals 757.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080017 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0017 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 757; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -427,19 +427,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(756).reminderId), String(756));
       expect(source.getData(756).reminderId).assertEqual(756);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080017 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0017 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080018
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0018
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0018
      * @tc.desc   Verify source.totalCount() equals 758.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080018 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0018 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 758; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -451,19 +451,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(757).reminderId), String(757));
       expect(source.getData(757).reminderId).assertEqual(757);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080018 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0018 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080019
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0019
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0019
      * @tc.desc   Verify source.totalCount() equals 759.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080019 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0019 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 759; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -475,19 +475,19 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(758).reminderId), String(758));
       expect(source.getData(758).reminderId).assertEqual(758);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080019 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0019 end');
     })
 
     /**
-     * @tc.name   testFlipClockVol2080020
+     * @tc.name   ohos.samples.flipclock_Volume2Contact08_0020
      * @tc.number SUB_FLIP_CLOCK_VOL2_08_0020
      * @tc.desc   Verify source.totalCount() equals 760.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockVol2080020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080020 begin');
+    it('ohos.samples.flipclock_Volume2Contact08_0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0020 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 760; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
@@ -499,7 +499,7 @@ export default function flipClockVolume2Contact08Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(759).reminderId), String(759));
       expect(source.getData(759).reminderId).assertEqual(759);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVol2080020 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact08_0020 end');
     })
   })
 }
