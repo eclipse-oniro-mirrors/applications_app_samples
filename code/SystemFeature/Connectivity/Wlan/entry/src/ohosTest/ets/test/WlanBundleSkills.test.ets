@@ -34,7 +34,7 @@ export default function wlanBundleSkillsTest() {
      */
     it('testWlanSkillsCount0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanSkillsCount0001 begin');
-      const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      const ability: bundleManager.AbilityInfo = info.hapModulesInfo[0].abilitiesInfo[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.skills.length > 0));
       expect(ability.skills.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(ability.skills.length), String(1));
@@ -54,7 +54,7 @@ export default function wlanBundleSkillsTest() {
      */
     it('testWlanSkillsEntity0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanSkillsEntity0002 begin');
-      const skill = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
+      const skill: bundleManager.SkillInfo = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(skill.entities.includes('entity.system.home')));
       expect(skill.entities.includes('entity.system.home')).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(skill.entities.length > 0));
@@ -72,7 +72,7 @@ export default function wlanBundleSkillsTest() {
      */
     it('testWlanSkillsAction0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanSkillsAction0003 begin');
-      const skill = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
+      const skill: bundleManager.SkillInfo = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(skill.actions.includes('action.system.home')));
       expect(skill.actions.includes('action.system.home')).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(skill.actions.length > 0));

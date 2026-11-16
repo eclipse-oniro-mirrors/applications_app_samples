@@ -104,7 +104,7 @@ export default function flipClockAppConfigTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigAbility004 begin');
       let found: boolean = false;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
-          const a = info.hapModulesInfo[i].abilitiesInfo;
+          const a: Array<bundleManager.AbilityInfo> = info.hapModulesInfo[i].abilitiesInfo;
         for (let j: number = 0; j < a.length; j++) {
           if (a[j].name === 'EntryAbility') {
           found = true;
@@ -211,7 +211,7 @@ export default function flipClockAppConfigTest() {
     it('testFlipClockConfigPermissionScene009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermissionScene009 begin');
       for (let i: number = 0; i < info.reqPermissionDetails.length; i++) {
-        const item = info.reqPermissionDetails[i];
+        const item: bundleManager.PermissionDef = info.reqPermissionDetails[i];
         if (item.name.includes('CALENDAR')) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.reason.length > 0));
           expect(item.reason.length > 0).assertTrue();

@@ -82,7 +82,7 @@ export default function wlanBundleConfigExtraTest() {
      */
     it('testWlanBundleAbilityLabel0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityLabel0003 begin');
-      const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      const ability: bundleManager.AbilityInfo = info.hapModulesInfo[0].abilitiesInfo[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(ability.name), String('EntryAbility'));
       expect(ability.name).assertEqual('EntryAbility');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.labelId > 0));
@@ -102,7 +102,7 @@ export default function wlanBundleConfigExtraTest() {
      */
     it('testWlanBundleAbilityExport0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityExport0004 begin');
-      const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      const ability: bundleManager.AbilityInfo = info.hapModulesInfo[0].abilitiesInfo[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.exported));
       expect(ability.exported).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.name.length > 0));

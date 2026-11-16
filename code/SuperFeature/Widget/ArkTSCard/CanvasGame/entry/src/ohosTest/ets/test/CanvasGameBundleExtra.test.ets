@@ -62,7 +62,7 @@ export default function canvasGameBundleExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraExtension002 begin');
       let found: boolean = false;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
-          const e = info.hapModulesInfo[i].extensionAbilitiesInfo;
+          const e: Array<bundleManager.ExtensionAbilityInfo> = info.hapModulesInfo[i].extensionAbilitiesInfo;
         for (let j: number = 0; j < e.length; j++) {
           if (e[j].name === 'EntryFormAbility') {
           found = true;
@@ -86,7 +86,7 @@ export default function canvasGameBundleExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraAbilitySkills003 begin');
       let found: boolean = false;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
-          const a = info.hapModulesInfo[i].abilitiesInfo;
+          const a: Array<bundleManager.AbilityInfo> = info.hapModulesInfo[i].abilitiesInfo;
         for (let j: number = 0; j < a.length; j++) {
           if (a[j].name === 'EntryAbility') {
           found = true;

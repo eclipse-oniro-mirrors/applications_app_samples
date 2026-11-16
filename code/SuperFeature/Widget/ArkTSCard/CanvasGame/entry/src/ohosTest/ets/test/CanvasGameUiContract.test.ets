@@ -20,7 +20,7 @@ import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
 import { Want } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
-const BUNDLE='com.samples.canvasgame';
+const BUNDLE: string ='com.samples.canvasgame';
 const DEL=AbilityDelegatorRegistry.getAbilityDelegator();
 let driver: Driver;
   let ctx = DEL.getAppContext();

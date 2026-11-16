@@ -34,7 +34,7 @@ export default function wlanBundleMiscTest() {
      */
     it('testWlanMiscBundleDesc0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscBundleDesc0001 begin');
-      const module = info.hapModulesInfo[0];
+      const module: bundleManager.HapModuleInfo = info.hapModulesInfo[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(module.description.length > 0));
       expect(module.description.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(module.mainElementName), String('MainAbility'));
@@ -54,7 +54,7 @@ export default function wlanBundleMiscTest() {
      */
     it('testWlanMiscBundleAbility0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscBundleAbility0002 begin');
-      const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      const ability: bundleManager.AbilityInfo = info.hapModulesInfo[0].abilitiesInfo[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(ability.skills.length), String(1));
       expect(ability.skills.length).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.exported));

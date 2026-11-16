@@ -34,7 +34,7 @@ export default function wlanAbilityExtraTest() {
      */
     it('testWlanAbilityDesc0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilityDesc0001 begin');
-      const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      const ability: bundleManager.AbilityInfo = info.hapModulesInfo[0].abilitiesInfo[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.description.length > 0));
       expect(ability.description.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(ability.name), String('EntryAbility'));
@@ -54,7 +54,7 @@ export default function wlanAbilityExtraTest() {
      */
     it('testWlanAbilitySkillShape0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilitySkillShape0002 begin');
-      const skill = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
+      const skill: bundleManager.SkillInfo = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(skill.entities.length), String(1));
       expect(skill.entities.length).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(skill.actions.length), String(1));
@@ -74,7 +74,7 @@ export default function wlanAbilityExtraTest() {
      */
     it('testWlanAbilityExportScene0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilityExportScene0003 begin');
-      const ability = info.hapModulesInfo[0].abilitiesInfo[0];
+      const ability: bundleManager.AbilityInfo = info.hapModulesInfo[0].abilitiesInfo[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.exported));
       expect(ability.exported).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails[0].usedScene.abilities.includes('MainAbility')));

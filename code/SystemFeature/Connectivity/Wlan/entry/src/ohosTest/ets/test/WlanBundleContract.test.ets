@@ -78,7 +78,7 @@ export default function wlanBundleContractTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbility0003 begin');
       let found: boolean = false;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
-          const a = info.hapModulesInfo[i].abilitiesInfo;
+          const a: Array<bundleManager.AbilityInfo> = info.hapModulesInfo[i].abilitiesInfo;
         for (let j: number = 0; j < a.length; j++) {
           if (a[j].name === 'EntryAbility') {
           found = true;
