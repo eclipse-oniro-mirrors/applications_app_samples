@@ -1,0 +1,756 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll } from '@ohos/hypium';
+import { runIsolatedTrajectory, assertNoActiveWorkers, logSuite } from '../Shared/NBodyHarness';
+
+export default function nBodyPartitionedRegression70Test(): void {
+  describe('NBodyPartitionedRegression70Test', (): void => {
+    beforeAll((): void => {
+      logSuite('NBodyPartitionedRegression70Test', 'start');
+    });
+    beforeEach((): void => {
+      assertNoActiveWorkers();
+    });
+    afterEach((): void => {
+      assertNoActiveWorkers();
+    });
+    afterAll((): void => {
+      logSuite('NBodyPartitionedRegression70Test', 'complete');
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0100
+    // @tc.name nBodyPartitionedRegression70Test001
+    // @tc.desc Verify advance and energy for 90 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test001', 0, async (): Promise<void> => {
+      const steps: number = 90;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907511022776006;
+      const expectedEnd: number = -0.16907505587109994;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0200
+    // @tc.name nBodyPartitionedRegression70Test002
+    // @tc.desc Verify advance and energy for 91 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test002', 0, async (): Promise<void> => {
+      const steps: number = 91;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907511022776006;
+      const expectedEnd: number = -0.16907505465477163;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0300
+    // @tc.name nBodyPartitionedRegression70Test003
+    // @tc.desc Verify advance and energy for 92 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test003', 0, async (): Promise<void> => {
+      const steps: number = 92;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.1690751090279588;
+      const expectedEnd: number = -0.1690750534380822;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0400
+    // @tc.name nBodyPartitionedRegression70Test004
+    // @tc.desc Verify advance and energy for 93 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test004', 0, async (): Promise<void> => {
+      const steps: number = 93;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.1690751090279588;
+      const expectedEnd: number = -0.1690750522210317;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0500
+    // @tc.name nBodyPartitionedRegression70Test005
+    // @tc.desc Verify advance and energy for 94 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test005', 0, async (): Promise<void> => {
+      const steps: number = 94;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.1690751078277842;
+      const expectedEnd: number = -0.16907505100362086;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0600
+    // @tc.name nBodyPartitionedRegression70Test006
+    // @tc.desc Verify advance and energy for 95 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test006', 0, async (): Promise<void> => {
+      const steps: number = 95;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.1690751078277842;
+      const expectedEnd: number = -0.1690750497858495;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0700
+    // @tc.name nBodyPartitionedRegression70Test007
+    // @tc.desc Verify advance and energy for 96 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test007', 0, async (): Promise<void> => {
+      const steps: number = 96;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510662723704;
+      const expectedEnd: number = -0.16907504856771796;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0800
+    // @tc.name nBodyPartitionedRegression70Test008
+    // @tc.desc Verify advance and energy for 97 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test008', 0, async (): Promise<void> => {
+      const steps: number = 97;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510662723704;
+      const expectedEnd: number = -0.16907504734922676;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_0900
+    // @tc.name nBodyPartitionedRegression70Test009
+    // @tc.desc Verify advance and energy for 98 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test009', 0, async (): Promise<void> => {
+      const steps: number = 98;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510542631743;
+      const expectedEnd: number = -0.16907504613037588;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1000
+    // @tc.name nBodyPartitionedRegression70Test010
+    // @tc.desc Verify advance and energy for 99 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test010', 0, async (): Promise<void> => {
+      const steps: number = 99;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510542631743;
+      const expectedEnd: number = -0.16907504491116576;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1100
+    // @tc.name nBodyPartitionedRegression70Test011
+    // @tc.desc Verify advance and energy for 100 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test011', 0, async (): Promise<void> => {
+      const steps: number = 100;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510422502536;
+      const expectedEnd: number = -0.1690750436915967;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1200
+    // @tc.name nBodyPartitionedRegression70Test012
+    // @tc.desc Verify advance and energy for 101 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test012', 0, async (): Promise<void> => {
+      const steps: number = 101;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510422502536;
+      const expectedEnd: number = -0.16907504247166885;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1300
+    // @tc.name nBodyPartitionedRegression70Test013
+    // @tc.desc Verify advance and energy for 102 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test013', 0, async (): Promise<void> => {
+      const steps: number = 102;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510302336132;
+      const expectedEnd: number = -0.1690750412513825;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1400
+    // @tc.name nBodyPartitionedRegression70Test014
+    // @tc.desc Verify advance and energy for 103 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test014', 0, async (): Promise<void> => {
+      const steps: number = 103;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510302336132;
+      const expectedEnd: number = -0.16907504003073817;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1500
+    // @tc.name nBodyPartitionedRegression70Test015
+    // @tc.desc Verify advance and energy for 104 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test015', 0, async (): Promise<void> => {
+      const steps: number = 104;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.1690751018213256;
+      const expectedEnd: number = -0.1690750388097357;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1600
+    // @tc.name nBodyPartitionedRegression70Test016
+    // @tc.desc Verify advance and energy for 105 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test016', 0, async (): Promise<void> => {
+      const steps: number = 105;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.1690751018213256;
+      const expectedEnd: number = -0.1690750375883756;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1700
+    // @tc.name nBodyPartitionedRegression70Test017
+    // @tc.desc Verify advance and energy for 106 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test017', 0, async (): Promise<void> => {
+      const steps: number = 106;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510061891823;
+      const expectedEnd: number = -0.1690750363666582;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1800
+    // @tc.name nBodyPartitionedRegression70Test018
+    // @tc.desc Verify advance and energy for 107 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test018', 0, async (): Promise<void> => {
+      const steps: number = 107;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907510061891823;
+      const expectedEnd: number = -0.16907503514458372;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+
+    // @tc.number SUB_NBODY_NBODYPARTITIONEDREGRESSION70TEST_1900
+    // @tc.name nBodyPartitionedRegression70Test019
+    // @tc.desc Verify advance and energy for 108 steps at dt 0.00075 with partitioned initialization
+    // @tc.size MediumTest
+    // @tc.type Function
+    // @tc.level Level 2
+    it('nBodyPartitionedRegression70Test019', 0, async (): Promise<void> => {
+      const steps: number = 108;
+      const dt: number = 0.00075;
+      const mode: string = 'partitioned';
+      const expectedStart: number = -0.16907516382852453;
+      const expectedMiddle: number = -0.16907509941613996;
+      const expectedEnd: number = -0.16907503392215217;
+      const tolerance: number = 2e-11;
+      const result = await runIsolatedTrajectory(steps, dt, mode);
+
+      const actualSteps: number = result.steps;
+      const actualDt: number = result.dt;
+      const startError: number = Math.abs(result.initialEnergy - expectedStart);
+      const middleError: number = Math.abs(result.middleEnergy - expectedMiddle);
+      const endError: number = Math.abs(result.finalEnergy - expectedEnd);
+      const readError: number = Math.abs(result.repeatedEnergy - result.finalEnergy);
+      const finiteEnergy: boolean = isFinite(result.finalEnergy);
+      const isolatedSession: number = result.requests;
+      const startMatches: boolean = startError < tolerance;
+      const middleMatches: boolean = middleError < tolerance;
+      const endMatches: boolean = endError < tolerance;
+
+      expect(actualSteps).assertEqual(steps);
+      expect(actualDt).assertEqual(dt);
+      expect(startMatches).assertTrue();
+      expect(middleMatches).assertTrue();
+      expect(endMatches).assertTrue();
+      expect(readError).assertEqual(0);
+      expect(finiteEnergy).assertTrue();
+      expect(isolatedSession).assertEqual(1);
+    });
+  });
+}
