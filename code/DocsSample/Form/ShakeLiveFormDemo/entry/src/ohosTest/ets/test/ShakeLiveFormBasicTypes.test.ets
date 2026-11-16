@@ -14,8 +14,11 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Constants } from '../../../main/ets/common/Constants';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function shakeLiveFormBasicTypesTest() {
   describe('ShakeLiveFormBasicTypesTest', () => {
@@ -23,121 +26,156 @@ export default function shakeLiveFormBasicTypesTest() {
     /**
      * @tc.name   testShakeBasic0001
      * @tc.number SUB_SHAKE_BASIC_0001
-     * @tc.desc   Basic type case 1.
+     * @tc.desc   Verify typeof Constants.OVERFLOW_LEFT_RATIO === \'number\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0001 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0001 end');
     })
 
     /**
      * @tc.name   testShakeBasic0002
      * @tc.number SUB_SHAKE_BASIC_0002
-     * @tc.desc   Basic type case 2.
+     * @tc.desc   Verify typeof Constants.OVERFLOW_LEFT_RATIO === \'number\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0002 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0002 end');
     })
 
     /**
      * @tc.name   testShakeBasic0003
      * @tc.number SUB_SHAKE_BASIC_0003
-     * @tc.desc   Basic type case 3.
+     * @tc.desc   Verify typeof Constants.OVERFLOW_LEFT_RATIO === \'number\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0003 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0003 end');
     })
 
     /**
      * @tc.name   testShakeBasic0004
      * @tc.number SUB_SHAKE_BASIC_0004
-     * @tc.desc   Basic type case 4.
+     * @tc.desc   Verify typeof Constants.OVERFLOW_LEFT_RATIO === \'number\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0004 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0004 end');
     })
 
     /**
      * @tc.name   testShakeBasic0005
      * @tc.number SUB_SHAKE_BASIC_0005
-     * @tc.desc   Basic type case 5.
+     * @tc.desc   Verify typeof Constants.OVERFLOW_LEFT_RATIO === \'number\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0005 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0005 end');
     })
 
     /**
      * @tc.name   testShakeBasic0006
      * @tc.number SUB_SHAKE_BASIC_0006
-     * @tc.desc   Basic type case 6.
+     * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0006 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0006 end');
     })
 
     /**
      * @tc.name   testShakeBasic0007
      * @tc.number SUB_SHAKE_BASIC_0007
-     * @tc.desc   Basic type case 7.
+     * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0007 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0007 end');
     })
 
     /**
      * @tc.name   testShakeBasic0008
      * @tc.number SUB_SHAKE_BASIC_0008
-     * @tc.desc   Basic type case 8.
+     * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0008 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0008 end');
     })
 
     /**
      * @tc.name   testShakeBasic0009
      * @tc.number SUB_SHAKE_BASIC_0009
-     * @tc.desc   Basic type case 9.
+     * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0009 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0009 end');
     })
 
     /**
      * @tc.name   testShakeBasic0010
      * @tc.number SUB_SHAKE_BASIC_0010
-     * @tc.desc   Basic type case 10.
+     * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0010 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        expect(a.onAddForm({}) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0010 end');
     })
   })
 }

@@ -14,11 +14,14 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { common } from '@kit.AbilityKit';
 import { image } from '@kit.ImageKit';
 import { Constants } from '../../../main/ets/common/Constants';
 import { SegmentationUtil } from '../../../main/ets/common/SegmentationUtil';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 const FORM_WIDTH: number = 200;
 const FORM_HEIGHT: number = 200;
@@ -43,10 +46,16 @@ export default function interactionFormTest() {
      * @tc.level  LEVEL0
      */
     it('testOverflowRatioConstants0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowRatioConstants0001 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_LEFT_RATIO).assertEqual(0.1);');
       expect(Constants.OVERFLOW_LEFT_RATIO).assertEqual(0.1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO).assertEqual(0.15);');
       expect(Constants.OVERFLOW_TOP_RATIO).assertEqual(0.15);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_WIDTH_RATIO).assertEqual(1.2);');
       expect(Constants.OVERFLOW_WIDTH_RATIO).assertEqual(1.2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO).assertEqual(1.3);');
       expect(Constants.OVERFLOW_HEIGHT_RATIO).assertEqual(1.3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowRatioConstants0001 end');
     })
 
     /**
@@ -58,8 +67,12 @@ export default function interactionFormTest() {
      * @tc.level  LEVEL0
      */
     it('testOverflowDurationConstant0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowDurationConstant0001 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(EXPECTED_OVERFLOW_DURATION);');
       expect(Constants.OVERFLOW_DURATION).assertEqual(EXPECTED_OVERFLOW_DURATION);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION > 0).assertTrue();');
       expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowDurationConstant0001 end');
     })
 
     /**
@@ -71,14 +84,20 @@ export default function interactionFormTest() {
      * @tc.level  LEVEL0
      */
     it('testOverflowAreaCalculation0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaCalculation0001 begin');
       const left: number = -Constants.OVERFLOW_LEFT_RATIO * FORM_WIDTH;
       const top: number = -Constants.OVERFLOW_TOP_RATIO * FORM_HEIGHT;
       const width: number = Constants.OVERFLOW_WIDTH_RATIO * FORM_WIDTH;
       const height: number = Constants.OVERFLOW_HEIGHT_RATIO * FORM_HEIGHT;
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(left).assertEqual(-20);');
       expect(left).assertEqual(-20);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(top).assertEqual(-30);');
       expect(top).assertEqual(-30);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(width).assertEqual(240);');
       expect(width).assertEqual(240);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(height).assertEqual(260);');
       expect(height).assertEqual(260);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaCalculation0001 end');
     })
 
     /**
@@ -90,12 +109,18 @@ export default function interactionFormTest() {
      * @tc.level  LEVEL0
      */
     it('testOverflowAreaScaling0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaScaling0001 begin');
       const fullOverflowWidth: number = Constants.OVERFLOW_WIDTH_RATIO * FORM_WIDTH;
       const halfOverflowWidth: number = Constants.OVERFLOW_WIDTH_RATIO * HALF_FORM_WIDTH;
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(fullOverflowWidth).assertEqual(240);');
       expect(fullOverflowWidth).assertEqual(240);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(halfOverflowWidth).assertEqual(120);');
       expect(halfOverflowWidth).assertEqual(120);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(fullOverflowWidth / FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);');
       expect(fullOverflowWidth / FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(halfOverflowWidth / HALF_FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);');
       expect(halfOverflowWidth / HALF_FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaScaling0001 end');
     })
 
     /**
@@ -107,10 +132,14 @@ export default function interactionFormTest() {
      * @tc.level  LEVEL0
      */
     it('testSegmentationUtilSingleton0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationUtilSingleton0001 begin');
       const firstInstance: SegmentationUtil = SegmentationUtil.getInstance();
       const secondInstance: SegmentationUtil = SegmentationUtil.getInstance();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(firstInstance !== undefined).assertTrue();');
       expect(firstInstance !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(firstInstance === secondInstance).assertTrue();');
       expect(firstInstance === secondInstance).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationUtilSingleton0001 end');
     })
 
     /**
@@ -122,17 +151,21 @@ export default function interactionFormTest() {
      * @tc.level  LEVEL0
      */
     it('testSegmentationWithInvalidResource0001',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationWithInvalidResource0001 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       const segmentationUtil: SegmentationUtil = SegmentationUtil.getInstance();
       const invalidResource: Resource = {
         bundleName: 'com.example.shakeliveformdemo',
         moduleName: 'entry',
         id: 0x7FFFFFFF
-      };
+      }
+        ;
       const result: image.PixelMap | undefined =
         await segmentationUtil.SegmentationImage(invalidResource, appContext);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result === undefined).assertTrue();');
       expect(result === undefined).assertTrue();
       done();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationWithInvalidResource0001 end');
     })
   })
 }

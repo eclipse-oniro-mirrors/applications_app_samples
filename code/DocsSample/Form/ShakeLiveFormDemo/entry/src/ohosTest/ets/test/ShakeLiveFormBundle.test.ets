@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { bundleManager } from '@kit.AbilityKit';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
 
 export default function shakeLiveFormBundleTest() {
@@ -30,7 +33,14 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleIdentity001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.name).assertEqual('com.example.shakeliveformdemo'); expect(info.versionName).assertEqual('1.0.0'); expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleIdentity001 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.example.shakeliveformdemo\');');
+      expect(info.name).assertEqual('com.example.shakeliveformdemo');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        expect(info.versionName).assertEqual('1.0.0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleIdentity001 end');
     })
 
     /**
@@ -42,7 +52,14 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleApp002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.appInfo.labelId > 0).assertTrue(); expect(info.appInfo.iconId > 0).assertTrue(); expect(info.appInfo.name).assertEqual('com.example.shakeliveformdemo');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleApp002 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      expect(info.appInfo.labelId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        expect(info.appInfo.iconId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.example.shakeliveformdemo\');');
+        expect(info.appInfo.name).assertEqual('com.example.shakeliveformdemo');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleApp002 end');
     })
 
     /**
@@ -54,7 +71,18 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleModule003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { if (info.hapModulesInfo[i].name === 'entry') { found = true; expect(info.hapModulesInfo[i].deviceTypes.includes('phone')).assertTrue(); } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleModule003 begin');
+      let found: boolean = false;
+      for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+        if (info.hapModulesInfo[i].name === 'entry') {
+          found = true;
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[i].deviceTypes.includes(\'phone\')).assertTrue();');
+          expect(info.hapModulesInfo[i].deviceTypes.includes('phone')).assertTrue();
+        }
+      }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+      expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleModule003 end');
     })
 
     /**
@@ -66,7 +94,21 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleAbility004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const a = info.hapModulesInfo[i].abilitiesInfo; for (let j: number = 0; j < a.length; j++) { if (a[j].name === 'EntryAbility') { found = true; expect(a[j].exported).assertTrue(); } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleAbility004 begin');
+      let found: boolean = false;
+      for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+        const a = info.hapModulesInfo[i].abilitiesInfo;
+        for (let j: number = 0; j < a.length; j++) {
+          if (a[j].name === 'EntryAbility') {
+            found = true;
+            hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+            expect(a[j].exported).assertTrue();
+          }
+        }
+      }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+      expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleAbility004 end');
     })
 
     /**
@@ -78,7 +120,19 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleForm005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const e = info.hapModulesInfo[i].extensionAbilitiesInfo; for (let j: number = 0; j < e.length; j++) { if (e[j].name === 'EntryFormAbility') { found = true; } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleForm005 begin');
+      let found: boolean = false;
+      for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+        const e = info.hapModulesInfo[i].extensionAbilitiesInfo;
+        for (let j: number = 0; j < e.length; j++) {
+          if (e[j].name === 'EntryFormAbility') {
+            found = true;
+          }
+        }
+      }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+      expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleForm005 end');
     })
 
     /**
@@ -90,7 +144,19 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleLiveForm006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const e = info.hapModulesInfo[i].extensionAbilitiesInfo; for (let j: number = 0; j < e.length; j++) { if (e[j].name === 'EntryFormLiveAbility') { found = true; } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleLiveForm006 begin');
+      let found: boolean = false;
+      for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+        const e = info.hapModulesInfo[i].extensionAbilitiesInfo;
+        for (let j: number = 0; j < e.length; j++) {
+          if (e[j].name === 'EntryFormLiveAbility') {
+            found = true;
+          }
+        }
+      }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+      expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleLiveForm006 end');
     })
 
     /**
@@ -102,7 +168,14 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleNoPerm007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.reqPermissionDetails.length).assertEqual(0); expect(info.name.length > 0).assertTrue(); expect(info.versionName.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleNoPerm007 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length).assertEqual(0);');
+      expect(info.reqPermissionDetails.length).assertEqual(0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name.length > 0).assertTrue();');
+        expect(info.name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName.length > 0).assertTrue();');
+        expect(info.versionName.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleNoPerm007 end');
     })
 
     /**
@@ -114,7 +187,14 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleMeta008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta008 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta008 end');
     })
 
     /**
@@ -126,7 +206,14 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleMeta009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta009 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta009 end');
     })
 
     /**
@@ -138,7 +225,14 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleMeta010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta010 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta010 end');
     })
 
     /**
@@ -150,7 +244,14 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleMeta011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta011 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta011 end');
     })
 
     /**
@@ -162,7 +263,14 @@ export default function shakeLiveFormBundleTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBundleMeta012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta012 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta012 end');
     })
   })
 }

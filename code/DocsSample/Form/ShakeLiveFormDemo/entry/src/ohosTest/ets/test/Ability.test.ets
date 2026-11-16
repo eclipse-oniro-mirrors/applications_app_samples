@@ -14,9 +14,12 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { bundleManager, common, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 const BUNDLE_NAME: string = 'com.example.shakeliveformdemo';
 const ENTRY_ABILITY_NAME: string = 'EntryAbility';
@@ -42,9 +45,14 @@ export default function abilityTest() {
      * @tc.level  LEVEL0
      */
     it('testAppContext0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testAppContext0001 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(appContext !== undefined).assertTrue();');
       expect(appContext !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(appContext.resourceManager !== undefined).assertTrue();');
       expect(appContext.resourceManager !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(appContext.applicationInfo.name).assertEqual(BUNDLE_NAME);');
       expect(appContext.applicationInfo.name).assertEqual(BUNDLE_NAME);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testAppContext0001 end');
     })
 
     /**
@@ -56,10 +64,14 @@ export default function abilityTest() {
      * @tc.level  LEVEL0
      */
     it('testBundleInfo0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testBundleInfo0001 begin');
       const bundleFlag: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT;
       const bundleInfo: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(bundleFlag);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(bundleInfo.name).assertEqual(BUNDLE_NAME);');
       expect(bundleInfo.name).assertEqual(BUNDLE_NAME);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(bundleInfo.versionName).assertEqual(EXPECTED_VERSION_NAME);');
       expect(bundleInfo.versionName).assertEqual(EXPECTED_VERSION_NAME);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testBundleInfo0001 end');
     })
 
     /**
@@ -71,10 +83,12 @@ export default function abilityTest() {
      * @tc.level  LEVEL0
      */
     it('testHapModuleInfo0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testHapModuleInfo0001 begin');
       const bundleFlag: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
         bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_EXTENSION_ABILITY;
       const bundleInfo: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(bundleFlag);
       const hapModules: Array<bundleManager.HapModuleInfo> = bundleInfo.hapModulesInfo;
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(hapModules.length >= 1).assertTrue();');
       expect(hapModules.length >= 1).assertTrue();
       let foundEntryModule: boolean = false;
       let foundFormAbility: boolean = false;
@@ -85,7 +99,9 @@ export default function abilityTest() {
           continue;
         }
         foundEntryModule = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(hapModule.mainElementName).assertEqual(ENTRY_ABILITY_NAME);');
         expect(hapModule.mainElementName).assertEqual(ENTRY_ABILITY_NAME);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(hapModule.deviceTypes.length > 0).assertTrue();');
         expect(hapModule.deviceTypes.length > 0).assertTrue();
         const extensionAbilities: Array<bundleManager.ExtensionAbilityInfo> = hapModule.extensionAbilitiesInfo;
         for (let j = 0; j < extensionAbilities.length; j++) {
@@ -97,9 +113,13 @@ export default function abilityTest() {
           }
         }
       }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(foundEntryModule).assertTrue();');
       expect(foundEntryModule).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(foundFormAbility).assertTrue();');
       expect(foundFormAbility).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(foundLiveFormAbility).assertTrue();');
       expect(foundLiveFormAbility).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testHapModuleInfo0001 end');
     })
 
     /**
@@ -111,10 +131,12 @@ export default function abilityTest() {
      * @tc.level  LEVEL0
      */
     it('testStartEntryAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testStartEntryAbility0001 begin');
       const want: Want = {
         bundleName: BUNDLE_NAME,
         abilityName: ENTRY_ABILITY_NAME
-      };
+      }
+        ;
       const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
         abilityDelegatorRegistry.getAbilityDelegator();
       let isFailed: boolean = false;
@@ -122,9 +144,12 @@ export default function abilityTest() {
         if (err !== undefined && err !== null && err.code !== 0) {
           isFailed = true;
         }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(isFailed).assertFalse();');
         expect(isFailed).assertFalse();
         done();
-      });
+      }
+        );
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testStartEntryAbility0001 end');
     })
   })
 }

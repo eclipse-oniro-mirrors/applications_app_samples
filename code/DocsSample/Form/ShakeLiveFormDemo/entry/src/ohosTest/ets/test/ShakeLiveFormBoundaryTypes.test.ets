@@ -14,8 +14,11 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Constants } from '../../../main/ets/common/Constants';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function shakeLiveFormBoundaryTypesTest() {
   describe('ShakeLiveFormBoundaryTypesTest', () => {
@@ -23,125 +26,184 @@ export default function shakeLiveFormBoundaryTypesTest() {
     /**
      * @tc.name   testShakeBoundary0001
      * @tc.number SUB_SHAKE_BOUNDARY_0001
-     * @tc.desc   Boundary type case 1.
+     * @tc.desc   Verify a.onRemoveForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'x'.repeat(512); expect(a.onRemoveForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(512);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0001 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'x'.repeat(512);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(id) === undefined).assertTrue();');
+        expect(a.onRemoveForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(512);');
+        expect(id.length).assertEqual(512);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0001 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0002
      * @tc.number SUB_SHAKE_BOUNDARY_0002
-     * @tc.desc   Boundary type case 2.
+     * @tc.desc   Verify a.onRemoveForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'x'.repeat(1024); expect(a.onRemoveForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(1024);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0002 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'x'.repeat(1024);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(id) === undefined).assertTrue();');
+        expect(a.onRemoveForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1024);');
+        expect(id.length).assertEqual(1024);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0002 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0003
      * @tc.number SUB_SHAKE_BOUNDARY_0003
-     * @tc.desc   Boundary type case 3.
+     * @tc.desc   Verify a.onRemoveForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'x'.repeat(1536); expect(a.onRemoveForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(1536);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0003 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'x'.repeat(1536);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(id) === undefined).assertTrue();');
+        expect(a.onRemoveForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1536);');
+        expect(id.length).assertEqual(1536);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0003 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0004
      * @tc.number SUB_SHAKE_BOUNDARY_0004
-     * @tc.desc   Boundary type case 4.
+     * @tc.desc   Verify a.onRemoveForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'x'.repeat(2048); expect(a.onRemoveForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(2048);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0004 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'x'.repeat(2048);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(id) === undefined).assertTrue();');
+        expect(a.onRemoveForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2048);');
+        expect(id.length).assertEqual(2048);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0004 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0005
      * @tc.number SUB_SHAKE_BOUNDARY_0005
-     * @tc.desc   Boundary type case 5.
+     * @tc.desc   Verify -Constants.OVERFLOW_LEFT_RATIO * width equals -25.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const width: number = 250; expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-25.0); expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(300.0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0005 begin');
+      const width: number = 250;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-25.0);');
+        expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-25.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(300.0);');
+        expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(300.0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0005 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0006
      * @tc.number SUB_SHAKE_BOUNDARY_0006
-     * @tc.desc   Boundary type case 6.
+     * @tc.desc   Verify Math.abs(left - (-30)) < 0.000001.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0006 begin');
       const width: number = 300;
       const left: number = -Constants.OVERFLOW_LEFT_RATIO * width;
       const scaled: number = Constants.OVERFLOW_WIDTH_RATIO * width;
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Math.abs(left - (-30)) < 0.000001).assertTrue();');
       expect(Math.abs(left - (-30)) < 0.000001).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Math.abs(scaled - 360) < 0.000001).assertTrue();');
       expect(Math.abs(scaled - 360) < 0.000001).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0006 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0007
      * @tc.number SUB_SHAKE_BOUNDARY_0007
-     * @tc.desc   Boundary type case 7.
+     * @tc.desc   Verify -Constants.OVERFLOW_LEFT_RATIO * width equals -35.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const width: number = 350; expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-35.0); expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(420.0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0007 begin');
+      const width: number = 350;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-35.0);');
+        expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-35.0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(420.0);');
+        expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(420.0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0007 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0008
      * @tc.number SUB_SHAKE_BOUNDARY_0008
-     * @tc.desc   Boundary type case 8.
+     * @tc.desc   Verify Constants.OVERFLOW_DURATION equals 3500.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0008 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+      expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION > 0).assertTrue();');
+        expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0008 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0009
      * @tc.number SUB_SHAKE_BOUNDARY_0009
-     * @tc.desc   Boundary type case 9.
+     * @tc.desc   Verify Constants.OVERFLOW_DURATION equals 3500.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0009 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+      expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION > 0).assertTrue();');
+        expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0009 end');
     })
 
     /**
      * @tc.name   testShakeBoundary0010
      * @tc.number SUB_SHAKE_BOUNDARY_0010
-     * @tc.desc   Boundary type case 10.
+     * @tc.desc   Verify Constants.OVERFLOW_DURATION equals 3500.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0010 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+      expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION > 0).assertTrue();');
+        expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0010 end');
     })
   })
 }
