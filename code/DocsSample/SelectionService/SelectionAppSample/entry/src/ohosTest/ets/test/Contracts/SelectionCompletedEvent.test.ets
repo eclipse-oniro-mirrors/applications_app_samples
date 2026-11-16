@@ -90,7 +90,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-2147483548);
       expect(fixture.model.getSelectionContent()).assertEqual("SELECT * FROM words;");
-      
+
     });
 
     it('SEL_00748_event', 0, async () => {
@@ -150,7 +150,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(900);
       expect(fixture.model.getSelectionContent()).assertEqual("-- comment");
-      
+
     });
 
     it('SEL_00749_event', 0, async () => {
@@ -210,7 +210,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(1380);
       expect(fixture.model.getSelectionContent()).assertEqual("000123");
-      
+
     });
 
     it('SEL_00750_event', 0, async () => {
@@ -270,7 +270,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2660);
       expect(fixture.model.getSelectionContent()).assertEqual("-0");
-      
+
     });
 
     it('SEL_00751_event', 0, async () => {
@@ -330,7 +330,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(7780);
       expect(fixture.model.getSelectionContent()).assertEqual("3.141592653589793");
-      
+
     });
 
     it('SEL_00752_event', 0, async () => {
@@ -390,7 +390,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(101);
       expect(fixture.model.getSelectionContent()).assertEqual("1e309");
-      
+
     });
 
     it('SEL_00753_event', 0, async () => {
@@ -450,7 +450,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("NaN");
-      
+
     });
 
     it('SEL_00754_event', 0, async () => {
@@ -510,7 +510,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99.5);
       expect(fixture.model.getSelectionContent()).assertEqual("Infinity");
-      
+
     });
 
     it('SEL_00755_event', 0, async () => {
@@ -570,7 +570,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(142);
       expect(fixture.model.getSelectionContent()).assertEqual("true");
-      
+
     });
 
     it('SEL_00756_event', 0, async () => {
@@ -630,7 +630,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("null");
-      
+
     });
 
     it('SEL_00757_event', 0, async () => {
@@ -690,7 +690,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(101);
       expect(fixture.model.getSelectionContent()).assertEqual("undefined");
-      
+
     });
 
     it('SEL_00758_event', 0, async () => {
@@ -750,7 +750,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99);
       expect(fixture.model.getSelectionContent()).assertEqual("[]");
-      
+
     });
 
     it('SEL_00759_event', 0, async () => {
@@ -810,7 +810,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("{}");
-      
+
     });
 
     it('SEL_00760_event', 0, async () => {
@@ -870,7 +870,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2020);
       expect(fixture.model.getSelectionContent()).assertEqual("[1,2,3]");
-      
+
     });
 
     it('SEL_00761_event', 0, async () => {
@@ -930,7 +930,7 @@ export default function SelectionCompletedEvent(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2019);
       expect(fixture.model.getSelectionContent()).assertEqual("{\"text\":\"value\"}");
-      
+
     });
 
   });

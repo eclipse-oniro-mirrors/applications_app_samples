@@ -81,7 +81,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00695_connect', 0, async () => {
@@ -132,7 +132,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00696_connect', 0, async () => {
@@ -183,7 +183,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00697_connect', 0, async () => {
@@ -234,7 +234,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00698_connect', 0, async () => {
@@ -285,7 +285,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00699_connect', 0, async () => {
@@ -336,7 +336,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00700_connect', 0, async () => {
@@ -387,7 +387,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00701_connect', 0, async () => {
@@ -438,7 +438,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00702_connect', 0, async () => {
@@ -489,7 +489,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00703_connect', 0, async () => {
@@ -540,7 +540,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00704_connect', 0, async () => {
@@ -591,7 +591,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00705_connect', 0, async () => {
@@ -642,7 +642,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00706_connect', 0, async () => {
@@ -693,7 +693,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00707_connect', 0, async () => {
@@ -744,7 +744,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00708_connect', 0, async () => {
@@ -795,7 +795,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00709_connect', 0, async () => {
@@ -846,7 +846,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00710_connect', 0, async () => {
@@ -897,7 +897,7 @@ export default function SelectionContextIdentity(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
   });

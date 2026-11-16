@@ -91,7 +91,7 @@ export default function MenuPanelPositioning(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(-2147483548);
       expect(fixture.panel.positions[0][1]).assertEqual(100);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00127_uiMenu', 0, async () => {
@@ -145,7 +145,7 @@ export default function MenuPanelPositioning(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(900);
       expect(fixture.panel.positions[0][1]).assertEqual(700);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00128_uiMenu', 0, async () => {
@@ -199,7 +199,7 @@ export default function MenuPanelPositioning(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(1380);
       expect(fixture.panel.positions[0][1]).assertEqual(820);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00129_uiMenu', 0, async () => {
@@ -253,7 +253,7 @@ export default function MenuPanelPositioning(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(2660);
       expect(fixture.panel.positions[0][1]).assertEqual(1540);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00130_uiMenu', 0, async () => {
@@ -307,7 +307,7 @@ export default function MenuPanelPositioning(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(7780);
       expect(fixture.panel.positions[0][1]).assertEqual(4420);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
   });

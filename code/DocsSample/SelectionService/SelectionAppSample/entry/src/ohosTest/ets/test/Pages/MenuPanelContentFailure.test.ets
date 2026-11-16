@@ -92,7 +92,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(2660);
       expect(fixture.panel.positions[0][1]).assertEqual(1540);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00257_uiContentError', 0, async () => {
@@ -147,7 +147,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(7780);
       expect(fixture.panel.positions[0][1]).assertEqual(4420);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00258_uiContentError', 0, async () => {
@@ -202,7 +202,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(101);
       expect(fixture.panel.positions[0][1]).assertEqual(100);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00259_uiContentError', 0, async () => {
@@ -257,7 +257,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(100);
       expect(fixture.panel.positions[0][1]).assertEqual(101);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00260_uiContentError', 0, async () => {
@@ -312,7 +312,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(99.5);
       expect(fixture.panel.positions[0][1]).assertEqual(101.5);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00261_uiContentError', 0, async () => {
@@ -367,7 +367,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(142);
       expect(fixture.panel.positions[0][1]).assertEqual(173);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00262_uiContentError', 0, async () => {
@@ -422,7 +422,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(100);
       expect(fixture.panel.positions[0][1]).assertEqual(100);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00263_uiContentError', 0, async () => {
@@ -477,7 +477,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(101);
       expect(fixture.panel.positions[0][1]).assertEqual(101);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00264_uiContentError', 0, async () => {
@@ -532,7 +532,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(99);
       expect(fixture.panel.positions[0][1]).assertEqual(99);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00265_uiContentError', 0, async () => {
@@ -587,7 +587,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(100);
       expect(fixture.panel.positions[0][1]).assertEqual(1180);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00266_uiContentError', 0, async () => {
@@ -642,7 +642,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(2020);
       expect(fixture.panel.positions[0][1]).assertEqual(100);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00267_uiContentError', 0, async () => {
@@ -697,7 +697,7 @@ export default function MenuPanelContentFailure(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(2019);
       expect(fixture.panel.positions[0][1]).assertEqual(1179);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
   });

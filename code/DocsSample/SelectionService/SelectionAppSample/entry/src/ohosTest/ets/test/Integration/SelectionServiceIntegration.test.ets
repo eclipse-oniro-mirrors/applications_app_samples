@@ -90,7 +90,7 @@ export default function SelectionServiceIntegration(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100.5);
       expect(fixture.model.getSelectionContent()).assertEqual("../private/file");
-      
+
     });
 
     it('SEL_00019_event', 0, async () => {
@@ -150,7 +150,7 @@ export default function SelectionServiceIntegration(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(200.125);
       expect(fixture.model.getSelectionContent()).assertEqual("../../etc/passwd");
-      
+
     });
 
     it('SEL_00020_event', 0, async () => {
@@ -210,7 +210,7 @@ export default function SelectionServiceIntegration(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(32867);
       expect(fixture.model.getSelectionContent()).assertEqual("%00%2F%3C");
-      
+
     });
 
     it('SEL_00021_event', 0, async () => {
@@ -270,7 +270,7 @@ export default function SelectionServiceIntegration(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-32668);
       expect(fixture.model.getSelectionContent()).assertEqual("${expression}");
-      
+
     });
 
     it('SEL_00022_event', 0, async () => {
@@ -330,7 +330,7 @@ export default function SelectionServiceIntegration(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(65635);
       expect(fixture.model.getSelectionContent()).assertEqual("{{template}}");
-      
+
     });
 
     it('SEL_00023_event', 0, async () => {
@@ -390,7 +390,7 @@ export default function SelectionServiceIntegration(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2147483747);
       expect(fixture.model.getSelectionContent()).assertEqual("a&b<c>d");
-      
+
     });
 
   });

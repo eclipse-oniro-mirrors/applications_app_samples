@@ -85,7 +85,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00146_uiReuse', 0, async () => {
@@ -133,7 +133,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00147_uiReuse', 0, async () => {
@@ -181,7 +181,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00148_uiReuse', 0, async () => {
@@ -229,7 +229,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00149_uiReuse', 0, async () => {
@@ -277,7 +277,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00150_uiReuse', 0, async () => {
@@ -325,7 +325,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00151_uiReuse', 0, async () => {
@@ -373,7 +373,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00152_uiReuse', 0, async () => {
@@ -421,7 +421,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00153_uiReuse', 0, async () => {
@@ -469,7 +469,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00154_uiReuse', 0, async () => {
@@ -517,7 +517,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00155_uiReuse', 0, async () => {
@@ -565,7 +565,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00156_uiReuse', 0, async () => {
@@ -613,7 +613,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00157_uiReuse', 0, async () => {
@@ -661,7 +661,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00158_uiReuse', 0, async () => {
@@ -709,7 +709,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00159_uiReuse', 0, async () => {
@@ -757,7 +757,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00160_uiReuse', 0, async () => {
@@ -805,7 +805,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
     it('SEL_00161_uiReuse', 0, async () => {
@@ -853,7 +853,7 @@ export default function MenuPanelReuse(): void {
       expect(fixture.panel.count('content')).assertEqual(0);
       expect(fixture.panel.count('move')).assertEqual(0);
       expect(fixture.panel.count('on:destroyed')).assertEqual(0);
-      
+
     });
 
   });

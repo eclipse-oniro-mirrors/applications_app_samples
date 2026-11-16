@@ -100,7 +100,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00132_uiDestroyed', 0, async () => {
@@ -163,7 +163,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00133_uiDestroyed', 0, async () => {
@@ -226,7 +226,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00134_uiDestroyed', 0, async () => {
@@ -289,7 +289,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00135_uiDestroyed', 0, async () => {
@@ -352,7 +352,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00136_uiDestroyed', 0, async () => {
@@ -415,7 +415,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00137_uiDestroyed', 0, async () => {
@@ -478,7 +478,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00138_uiDestroyed', 0, async () => {
@@ -541,7 +541,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00139_uiDestroyed', 0, async () => {
@@ -604,7 +604,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00140_uiDestroyed', 0, async () => {
@@ -667,7 +667,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00141_uiDestroyed', 0, async () => {
@@ -730,7 +730,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00142_uiDestroyed', 0, async () => {
@@ -793,7 +793,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00143_uiDestroyed', 0, async () => {
@@ -856,7 +856,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
     it('SEL_00144_uiDestroyed', 0, async () => {
@@ -919,7 +919,7 @@ export default function MenuPanelDestroyedEvent(): void {
       await waitForCondition(() => fixture.panel.visible, 'recreated panel show');
       expect(fixture.model.getSelectionPanel() === fixture.panel).assertTrue();
       expect(fixture.panel.count('show')).assertEqual(2);
-      
+
     });
 
   });

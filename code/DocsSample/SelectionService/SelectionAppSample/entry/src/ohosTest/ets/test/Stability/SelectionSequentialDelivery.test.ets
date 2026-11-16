@@ -86,7 +86,7 @@ export default function SelectionSequentialDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(3940);
       expect(fixture.model.getSelectionContent()).assertEqual("café");
-      
+
     });
 
     it('SEL_00400_repeat', 0, async () => {
@@ -142,7 +142,7 @@ export default function SelectionSequentialDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-1820);
       expect(fixture.model.getSelectionContent()).assertEqual("naïve");
-      
+
     });
 
     it('SEL_00401_repeat', 0, async () => {
@@ -198,7 +198,7 @@ export default function SelectionSequentialDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(200);
       expect(fixture.model.getSelectionContent()).assertEqual("Straße");
-      
+
     });
 
   });

@@ -90,7 +90,7 @@ export default function SelectionEventDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2660);
       expect(fixture.model.getSelectionContent()).assertEqual("ends with newline\n");
-      
+
     });
 
     it('SEL_00366_event', 0, async () => {
@@ -150,7 +150,7 @@ export default function SelectionEventDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(7780);
       expect(fixture.model.getSelectionContent()).assertEqual("");
-      
+
     });
 
     it('SEL_00367_event', 0, async () => {
@@ -210,7 +210,7 @@ export default function SelectionEventDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(101);
       expect(fixture.model.getSelectionContent()).assertEqual(" ");
-      
+
     });
 
     it('SEL_00368_event', 0, async () => {
@@ -270,7 +270,7 @@ export default function SelectionEventDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("\t");
-      
+
     });
 
     it('SEL_00369_event', 0, async () => {
@@ -330,7 +330,7 @@ export default function SelectionEventDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99.5);
       expect(fixture.model.getSelectionContent()).assertEqual("\n");
-      
+
     });
 
     it('SEL_00370_event', 0, async () => {
@@ -390,7 +390,7 @@ export default function SelectionEventDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(142);
       expect(fixture.model.getSelectionContent()).assertEqual("\r\n");
-      
+
     });
 
     it('SEL_00371_event', 0, async () => {
@@ -450,7 +450,7 @@ export default function SelectionEventDelivery(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("Hello World");
-      
+
     });
 
   });

@@ -77,7 +77,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00627_flow', 0, async () => {
@@ -124,7 +124,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00628_flow', 0, async () => {
@@ -171,7 +171,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00629_flow', 0, async () => {
@@ -218,7 +218,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00630_flow', 0, async () => {
@@ -265,7 +265,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00631_flow', 0, async () => {
@@ -312,7 +312,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00632_flow', 0, async () => {
@@ -359,7 +359,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00633_flow', 0, async () => {
@@ -406,7 +406,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00634_flow', 0, async () => {
@@ -453,7 +453,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00635_flow', 0, async () => {
@@ -500,7 +500,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00636_flow', 0, async () => {
@@ -547,7 +547,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00637_flow', 0, async () => {
@@ -594,7 +594,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00638_flow', 0, async () => {
@@ -641,7 +641,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00639_flow', 0, async () => {
@@ -688,7 +688,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00640_flow', 0, async () => {
@@ -735,7 +735,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00641_flow', 0, async () => {
@@ -782,7 +782,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00642_flow', 0, async () => {
@@ -829,7 +829,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00643_flow', 0, async () => {
@@ -876,7 +876,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00644_flow', 0, async () => {
@@ -923,7 +923,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00645_flow', 0, async () => {
@@ -970,7 +970,7 @@ export default function SelectionOperationOrder(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
   });

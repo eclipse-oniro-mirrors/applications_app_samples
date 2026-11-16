@@ -86,7 +86,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("العربية");
-      
+
     });
 
     it('SEL_00385_repeat', 0, async () => {
@@ -142,7 +142,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2020);
       expect(fixture.model.getSelectionContent()).assertEqual("עברית");
-      
+
     });
 
     it('SEL_00386_repeat', 0, async () => {
@@ -198,7 +198,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2019);
       expect(fixture.model.getSelectionContent()).assertEqual("हिन्दी");
-      
+
     });
 
     it('SEL_00387_repeat', 0, async () => {
@@ -254,7 +254,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(3940);
       expect(fixture.model.getSelectionContent()).assertEqual("ภาษาไทย");
-      
+
     });
 
     it('SEL_00388_repeat', 0, async () => {
@@ -310,7 +310,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-1820);
       expect(fixture.model.getSelectionContent()).assertEqual("Ελληνικά");
-      
+
     });
 
     it('SEL_00389_repeat', 0, async () => {
@@ -366,7 +366,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(200);
       expect(fixture.model.getSelectionContent()).assertEqual("Русский");
-      
+
     });
 
     it('SEL_00390_repeat', 0, async () => {
@@ -422,7 +422,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100.5);
       expect(fixture.model.getSelectionContent()).assertEqual("café");
-      
+
     });
 
     it('SEL_00391_repeat', 0, async () => {
@@ -478,7 +478,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(200.125);
       expect(fixture.model.getSelectionContent()).assertEqual("café");
-      
+
     });
 
     it('SEL_00392_repeat', 0, async () => {
@@ -534,7 +534,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(32867);
       expect(fixture.model.getSelectionContent()).assertEqual("naïve");
-      
+
     });
 
     it('SEL_00393_repeat', 0, async () => {
@@ -590,7 +590,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-32668);
       expect(fixture.model.getSelectionContent()).assertEqual("Straße");
-      
+
     });
 
     it('SEL_00394_repeat', 0, async () => {
@@ -646,7 +646,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(65635);
       expect(fixture.model.getSelectionContent()).assertEqual("İstanbul");
-      
+
     });
 
     it('SEL_00395_repeat', 0, async () => {
@@ -702,7 +702,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2147483747);
       expect(fixture.model.getSelectionContent()).assertEqual("éèêë");
-      
+
     });
 
     it('SEL_00396_repeat', 0, async () => {
@@ -758,7 +758,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-2147483548);
       expect(fixture.model.getSelectionContent()).assertEqual("😀");
-      
+
     });
 
     it('SEL_00397_repeat', 0, async () => {
@@ -814,7 +814,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(900);
       expect(fixture.model.getSelectionContent()).assertEqual("👨‍👩‍👧‍👦");
-      
+
     });
 
     it('SEL_00398_repeat', 0, async () => {
@@ -870,7 +870,7 @@ export default function SelectionRepeatedMovement(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(1380);
       expect(fixture.model.getSelectionContent()).assertEqual("🇨🇳");
-      
+
     });
 
   });

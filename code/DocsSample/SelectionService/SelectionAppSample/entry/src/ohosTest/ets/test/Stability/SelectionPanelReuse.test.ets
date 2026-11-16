@@ -86,7 +86,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("NaN");
-      
+
     });
 
     it('SEL_00440_repeat', 0, async () => {
@@ -142,7 +142,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99.5);
       expect(fixture.model.getSelectionContent()).assertEqual("Infinity");
-      
+
     });
 
     it('SEL_00441_repeat', 0, async () => {
@@ -198,7 +198,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(142);
       expect(fixture.model.getSelectionContent()).assertEqual("true");
-      
+
     });
 
     it('SEL_00442_repeat', 0, async () => {
@@ -254,7 +254,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("null");
-      
+
     });
 
     it('SEL_00443_repeat', 0, async () => {
@@ -310,7 +310,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(101);
       expect(fixture.model.getSelectionContent()).assertEqual("undefined");
-      
+
     });
 
     it('SEL_00444_repeat', 0, async () => {
@@ -366,7 +366,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99);
       expect(fixture.model.getSelectionContent()).assertEqual("[]");
-      
+
     });
 
     it('SEL_00445_repeat', 0, async () => {
@@ -422,7 +422,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("{}");
-      
+
     });
 
     it('SEL_00446_repeat', 0, async () => {
@@ -478,7 +478,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2020);
       expect(fixture.model.getSelectionContent()).assertEqual("[1,2,3]");
-      
+
     });
 
     it('SEL_00447_repeat', 0, async () => {
@@ -534,7 +534,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2019);
       expect(fixture.model.getSelectionContent()).assertEqual("{\"text\":\"value\"}");
-      
+
     });
 
     it('SEL_00448_repeat', 0, async () => {
@@ -590,7 +590,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(3940);
       expect(fixture.model.getSelectionContent()).assertEqual("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-      
+
     });
 
     it('SEL_00449_repeat', 0, async () => {
@@ -646,7 +646,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-1820);
       expect(fixture.model.getSelectionContent()).assertEqual("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-      
+
     });
 
     it('SEL_00450_repeat', 0, async () => {
@@ -702,7 +702,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(200);
       expect(fixture.model.getSelectionContent()).assertEqual("字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字");
-      
+
     });
 
     it('SEL_00451_repeat', 0, async () => {
@@ -758,7 +758,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100.5);
       expect(fixture.model.getSelectionContent()).assertEqual("a\nb\nc\nd");
-      
+
     });
 
     it('SEL_00452_repeat', 0, async () => {
@@ -814,7 +814,7 @@ export default function SelectionPanelReuse(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(200.125);
       expect(fixture.model.getSelectionContent()).assertEqual("(one) [two] {three}");
-      
+
     });
 
   });

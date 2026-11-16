@@ -77,7 +77,7 @@ export default function SelectionPanelCreation(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00277_flow', 0, async () => {
@@ -124,7 +124,7 @@ export default function SelectionPanelCreation(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00278_flow', 0, async () => {
@@ -171,7 +171,7 @@ export default function SelectionPanelCreation(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00279_flow', 0, async () => {
@@ -218,7 +218,7 @@ export default function SelectionPanelCreation(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
     it('SEL_00280_flow', 0, async () => {
@@ -265,7 +265,7 @@ export default function SelectionPanelCreation(): void {
       expect(fixture.contexts[0] === fixture.context).assertTrue();
       expect(fixture.model.getSelectionPanel()).assertUndefined();
       expect(fixture.panel.calls.join(',')).assertEqual('on:hidden,content,move,show');
-      
+
     });
 
   });

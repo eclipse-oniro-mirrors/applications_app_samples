@@ -86,7 +86,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("Hello World");
-      
+
     });
 
     it('SEL_00063_repeat', 0, async () => {
@@ -142,7 +142,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(101);
       expect(fixture.model.getSelectionContent()).assertEqual("Welcome");
-      
+
     });
 
     it('SEL_00064_repeat', 0, async () => {
@@ -198,7 +198,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99);
       expect(fixture.model.getSelectionContent()).assertEqual("Selection service");
-      
+
     });
 
     it('SEL_00065_repeat', 0, async () => {
@@ -254,7 +254,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("two words");
-      
+
     });
 
     it('SEL_00066_repeat', 0, async () => {
@@ -310,7 +310,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2020);
       expect(fixture.model.getSelectionContent()).assertEqual(" leading");
-      
+
     });
 
     it('SEL_00067_repeat', 0, async () => {
@@ -366,7 +366,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2019);
       expect(fixture.model.getSelectionContent()).assertEqual("trailing ");
-      
+
     });
 
     it('SEL_00068_repeat', 0, async () => {
@@ -422,7 +422,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(3940);
       expect(fixture.model.getSelectionContent()).assertEqual("both sides ");
-      
+
     });
 
     it('SEL_00069_repeat', 0, async () => {
@@ -478,7 +478,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-1820);
       expect(fixture.model.getSelectionContent()).assertEqual("line one\nline two");
-      
+
     });
 
     it('SEL_00070_repeat', 0, async () => {
@@ -534,7 +534,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(200);
       expect(fixture.model.getSelectionContent()).assertEqual("line one\r\nline two");
-      
+
     });
 
     it('SEL_00071_repeat', 0, async () => {
@@ -590,7 +590,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100.5);
       expect(fixture.model.getSelectionContent()).assertEqual("tabs\tbetween\twords");
-      
+
     });
 
     it('SEL_00072_repeat', 0, async () => {
@@ -646,7 +646,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(200.125);
       expect(fixture.model.getSelectionContent()).assertEqual("汉字划词");
-      
+
     });
 
     it('SEL_00073_repeat', 0, async () => {
@@ -702,7 +702,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(32867);
       expect(fixture.model.getSelectionContent()).assertEqual("简体中文");
-      
+
     });
 
     it('SEL_00074_repeat', 0, async () => {
@@ -758,7 +758,7 @@ export default function SelectionReplacementScenarios(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-32668);
       expect(fixture.model.getSelectionContent()).assertEqual("繁體中文");
-      
+
     });
 
   });

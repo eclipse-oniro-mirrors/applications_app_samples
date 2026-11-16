@@ -86,7 +86,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("tabs\tbetween\twords");
-      
+
     });
 
     it('SEL_00662_repeat', 0, async () => {
@@ -142,7 +142,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99.5);
       expect(fixture.model.getSelectionContent()).assertEqual("汉字划词");
-      
+
     });
 
     it('SEL_00663_repeat', 0, async () => {
@@ -198,7 +198,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(142);
       expect(fixture.model.getSelectionContent()).assertEqual("简体中文");
-      
+
     });
 
     it('SEL_00664_repeat', 0, async () => {
@@ -254,7 +254,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("繁體中文");
-      
+
     });
 
     it('SEL_00665_repeat', 0, async () => {
@@ -310,7 +310,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(101);
       expect(fixture.model.getSelectionContent()).assertEqual("日本語の選択");
-      
+
     });
 
     it('SEL_00666_repeat', 0, async () => {
@@ -366,7 +366,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99);
       expect(fixture.model.getSelectionContent()).assertEqual("한국어 선택");
-      
+
     });
 
     it('SEL_00667_repeat', 0, async () => {
@@ -422,7 +422,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("العربية");
-      
+
     });
 
     it('SEL_00668_repeat', 0, async () => {
@@ -478,7 +478,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2020);
       expect(fixture.model.getSelectionContent()).assertEqual("עברית");
-      
+
     });
 
     it('SEL_00669_repeat', 0, async () => {
@@ -534,7 +534,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2019);
       expect(fixture.model.getSelectionContent()).assertEqual("हिन्दी");
-      
+
     });
 
     it('SEL_00670_repeat', 0, async () => {
@@ -590,7 +590,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(3940);
       expect(fixture.model.getSelectionContent()).assertEqual("ภาษาไทย");
-      
+
     });
 
     it('SEL_00671_repeat', 0, async () => {
@@ -646,7 +646,7 @@ export default function SelectionRepeatedWorkflow(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-1820);
       expect(fixture.model.getSelectionContent()).assertEqual("Ελληνικά");
-      
+
     });
 
   });

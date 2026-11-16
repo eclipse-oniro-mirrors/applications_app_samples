@@ -90,7 +90,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(-2147483548);
       expect(fixture.model.getSelectionContent()).assertEqual("javascript:alert(1)");
-      
+
     });
 
     it('SEL_00411_event', 0, async () => {
@@ -150,7 +150,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(900);
       expect(fixture.model.getSelectionContent()).assertEqual("https://example.test/a?b=1&c=2");
-      
+
     });
 
     it('SEL_00412_event', 0, async () => {
@@ -210,7 +210,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(1380);
       expect(fixture.model.getSelectionContent()).assertEqual("../private/file");
-      
+
     });
 
     it('SEL_00413_event', 0, async () => {
@@ -270,7 +270,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(2660);
       expect(fixture.model.getSelectionContent()).assertEqual("../../etc/passwd");
-      
+
     });
 
     it('SEL_00414_event', 0, async () => {
@@ -330,7 +330,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(7780);
       expect(fixture.model.getSelectionContent()).assertEqual("%00%2F%3C");
-      
+
     });
 
     it('SEL_00415_event', 0, async () => {
@@ -390,7 +390,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(101);
       expect(fixture.model.getSelectionContent()).assertEqual("${expression}");
-      
+
     });
 
     it('SEL_00416_event', 0, async () => {
@@ -450,7 +450,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("{{template}}");
-      
+
     });
 
     it('SEL_00417_event', 0, async () => {
@@ -510,7 +510,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(99.5);
       expect(fixture.model.getSelectionContent()).assertEqual("a&b<c>d");
-      
+
     });
 
     it('SEL_00418_event', 0, async () => {
@@ -570,7 +570,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(142);
       expect(fixture.model.getSelectionContent()).assertEqual("SELECT * FROM words;");
-      
+
     });
 
     it('SEL_00419_event', 0, async () => {
@@ -630,7 +630,7 @@ export default function SelectionBurstEvents(): void {
       expect(fixture.panel.count('show')).assertEqual(2);
       expect(fixture.panel.positions[1][0]).assertEqual(100);
       expect(fixture.model.getSelectionContent()).assertEqual("-- comment");
-      
+
     });
 
   });

@@ -83,7 +83,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("{}");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00493_disconnect', 0, async () => {
@@ -136,7 +136,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("[1,2,3]");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00494_disconnect', 0, async () => {
@@ -189,7 +189,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("{\"text\":\"value\"}");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00495_disconnect', 0, async () => {
@@ -242,7 +242,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00496_disconnect', 0, async () => {
@@ -295,7 +295,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00497_disconnect', 0, async () => {
@@ -348,7 +348,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字字");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00498_disconnect', 0, async () => {
@@ -401,7 +401,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("a\nb\nc\nd");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00499_disconnect', 0, async () => {
@@ -454,7 +454,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("(one) [two] {three}");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00500_disconnect', 0, async () => {
@@ -507,7 +507,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("2026-11-14T00:00:00Z");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00501_disconnect', 0, async () => {
@@ -560,7 +560,7 @@ export default function SelectionPanelLifecycle(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("user@example.test");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
   });

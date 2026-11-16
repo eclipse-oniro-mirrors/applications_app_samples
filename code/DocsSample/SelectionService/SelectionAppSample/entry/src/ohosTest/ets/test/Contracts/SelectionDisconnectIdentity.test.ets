@@ -83,7 +83,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("　");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00781_disconnect', 0, async () => {
@@ -136,7 +136,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("\u0000");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00782_disconnect', 0, async () => {
@@ -189,7 +189,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("a\u0000b");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00783_disconnect', 0, async () => {
@@ -242,7 +242,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("quotes ' and \"");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00784_disconnect', 0, async () => {
@@ -295,7 +295,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("backslash \\");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00785_disconnect', 0, async () => {
@@ -348,7 +348,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("<script>alert(1)</script>");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00786_disconnect', 0, async () => {
@@ -401,7 +401,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("<b>literal</b>");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00787_disconnect', 0, async () => {
@@ -454,7 +454,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("javascript:alert(1)");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00788_disconnect', 0, async () => {
@@ -507,7 +507,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("https://example.test/a?b=1&c=2");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00789_disconnect', 0, async () => {
@@ -560,7 +560,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("../private/file");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
     it('SEL_00790_disconnect', 0, async () => {
@@ -613,7 +613,7 @@ export default function SelectionDisconnectIdentity(): void {
       expect(fixture.destroyed[0] === fixture.panel).assertTrue();
       expect(fixture.model.getSelectionContent()).assertEqual("../../etc/passwd");
       expect(fixture.model.getSelectionInfo() === info).assertTrue();
-      
+
     });
 
   });

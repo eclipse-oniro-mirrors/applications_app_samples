@@ -91,7 +91,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(100);
       expect(fixture.panel.positions[0][1]).assertEqual(101);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00517_uiMenu', 0, async () => {
@@ -145,7 +145,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(99.5);
       expect(fixture.panel.positions[0][1]).assertEqual(101.5);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00518_uiMenu', 0, async () => {
@@ -199,7 +199,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(142);
       expect(fixture.panel.positions[0][1]).assertEqual(173);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00519_uiMenu', 0, async () => {
@@ -253,7 +253,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(100);
       expect(fixture.panel.positions[0][1]).assertEqual(100);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00520_uiMenu', 0, async () => {
@@ -307,7 +307,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(101);
       expect(fixture.panel.positions[0][1]).assertEqual(101);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00521_uiMenu', 0, async () => {
@@ -361,7 +361,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(99);
       expect(fixture.panel.positions[0][1]).assertEqual(99);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00522_uiMenu', 0, async () => {
@@ -415,7 +415,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(100);
       expect(fixture.panel.positions[0][1]).assertEqual(1180);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00523_uiMenu', 0, async () => {
@@ -469,7 +469,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(2020);
       expect(fixture.panel.positions[0][1]).assertEqual(100);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
     it('SEL_00524_uiMenu', 0, async () => {
@@ -523,7 +523,7 @@ export default function SelectionMenuContentRoute(): void {
       expect(fixture.panel.positions[0][0]).assertEqual(2019);
       expect(fixture.panel.positions[0][1]).assertEqual(1179);
       expect(fixture.panel.count('on:destroyed')).assertEqual(1);
-      
+
     });
 
   });
