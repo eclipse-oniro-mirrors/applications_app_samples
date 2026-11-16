@@ -19,7 +19,7 @@
 #define LOG_TAG "recorder"
 
 namespace {
-constexpr auto CAMERA_DRAIN_GRACE = std::chrono::milliseconds(310);
+constexpr auto CAMERA_DRAIN_GRACE = std::chrono::milliseconds(50);
 constexpr auto ENCODER_DRAIN_TIMEOUT = std::chrono::seconds(5);
 }
 
@@ -168,6 +168,7 @@ void Recorder::Release()
 
 void Recorder::CancelWorkerWaits()
 {
+    if (frameReceiver_ != nullptr) { frameReceiver_->CancelWait(); }
     for (auto *context : {encContext_.get(), secondaryEncContext_.get(), audioEncContext_.get()}) {
         if (context != nullptr) {
             context->inputCond.notify_all();

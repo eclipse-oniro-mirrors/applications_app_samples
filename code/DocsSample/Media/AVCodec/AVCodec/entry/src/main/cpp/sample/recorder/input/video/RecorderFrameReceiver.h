@@ -19,11 +19,14 @@
 #include <cstdint>
 #include <atomic>
 #include <mutex>
+#include <condition_variable>
 #include <thread>
+#include <memory>
 #include <multimedia/image_framework/image/image_receiver_native.h>
 #include <multimedia/player_framework/native_avbuffer.h>
 
 // Receiver、Image和编码输入Buffer各自保有独立所有权；只在视频输入线程复制像素。
+struct RecorderArrivalSignal;
 class RecorderFrameReceiver {
   public:
     ~RecorderFrameReceiver();
@@ -32,16 +35,26 @@ class RecorderFrameReceiver {
     {
         return surfaceId_;
     }
-    OH_ImageNative *ReadLatest();
+    OH_ImageNative *ReadLatest(int32_t timeoutMs = 0);
+    void CancelWait();
     bool Copy(OH_ImageNative *image, OH_AVBuffer *destination, int32_t stride, int32_t sliceHeight,
               int32_t &size) const;
 
   private:
+    bool LoadImageApis();
+    bool CreateReceiver(int32_t width, int32_t height);
     void ReceiveImages();
+    static void OnImageArrive(OH_ImageReceiverNative *receiver, void *userData);
     bool ReadImageData(OH_ImageNative *image, OH_ImageBufferData &data) const;
     using GetBufferData = Image_ErrorCode (*)(OH_ImageNative *, OH_ImageBufferData *);
     void *imageLibrary_ = nullptr;
+    void *receiverLibrary_ = nullptr;
     GetBufferData getBufferData_ = nullptr;
+    using RegisterArrival = Image_ErrorCode (*)(OH_ImageReceiverNative *, OH_ImageReceiver_ImageArriveCallback, void *);
+    using UnregisterArrival = Image_ErrorCode (*)(OH_ImageReceiverNative *, OH_ImageReceiver_ImageArriveCallback);
+    RegisterArrival registerArrival_ = nullptr;
+    UnregisterArrival unregisterArrival_ = nullptr;
+    bool callbackRegistered_ = false;
     OH_ImageReceiverNative *receiver_ = nullptr;
     uint64_t surfaceId_ = 0;
     int32_t width_ = 0;
@@ -49,6 +62,9 @@ class RecorderFrameReceiver {
     std::atomic<bool> closing_{false};
     std::thread receiverThread_;
     std::mutex imageMutex_;
+    std::condition_variable imageCond_;
+    bool inputCancelled_ = false;
+    std::shared_ptr<RecorderArrivalSignal> arrival_;
     OH_ImageNative *latestImage_ = nullptr;
 };
 

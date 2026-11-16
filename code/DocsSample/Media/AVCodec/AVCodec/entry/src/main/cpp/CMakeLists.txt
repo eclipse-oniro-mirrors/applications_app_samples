@@ -91,6 +91,7 @@ add_library(recorder SHARED sample/recorder/napi/RecorderNative.cpp
                             sample/recorder/input/video/RecorderVideoInput.cpp
                             sample/recorder/input/video/RecorderFrameReceiver.cpp
                             sample/recorder/input/video/RecorderFrameCopy.cpp
+                            sample/recorder/input/video/RecorderFrameEffects.cpp
                             sample/recorder/output/audio/RecorderAudio.cpp
                             sample/recorder/output/video/RecorderVideoOutput.cpp
                             sample/recorder/output/video/RecorderSecondaryOutput.cpp
@@ -117,6 +118,9 @@ target_link_libraries(recorder PUBLIC ${BASE_LIBRARY} libimage_receiver.so liboh
 
 add_library(transcoder SHARED sample/transcoder/napi/TranscoderNative.cpp
                               sample/transcoder/core/TranscodeJob.cpp
+                              sample/transcoder/core/TranscodeInitialization.cpp
+                              sample/transcoder/core/TranscodeFramePipeline.cpp
+                              sample/transcoder/core/TranscodeFinalization.cpp
                               sample/transcoder/core/TranscodeInspection.cpp
                               sample/transcoder/core/TranscodeTimeRange.cpp
                               sample/transcoder/core/TranscodeOperations.cpp

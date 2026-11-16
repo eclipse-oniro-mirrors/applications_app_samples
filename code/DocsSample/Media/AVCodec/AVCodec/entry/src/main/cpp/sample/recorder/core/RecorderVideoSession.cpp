@@ -112,8 +112,10 @@ int32_t Recorder::UpdateVideoParameters(const std::string &sessionId, bool prima
 int32_t Recorder::InitializeSession(SampleInfo &sampleInfo)
 {
     // 本次录制会话独占封装器、编码器和采集器，失败时由ReleaseThread回收已创建的资源。
-    audioEncoder_ = std::make_unique<AudioEncoder>();
-    audioCapturer_ = std::make_unique<AudioCapturer>();
+    if (sampleInfo_.audio.enabled) {
+        audioEncoder_ = std::make_unique<AudioEncoder>();
+        audioCapturer_ = std::make_unique<AudioCapturer>();
+    }
     videoEncoder_ = std::make_unique<VideoEncoder>();
     muxer_ = std::make_unique<Muxer>();
     if (sampleInfo_.output.enableDualOutput) {
@@ -131,11 +133,12 @@ int32_t Recorder::InitializeSession(SampleInfo &sampleInfo)
     ret = InitializeSecondaryMuxer();
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Configure secondary muxer failed");
 
-    ret = CreateAudioEncoder();
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create audio encoder failed");
-
-    ret = audioCapturer_->AudioCapturerInit(sampleInfo_, audioEncContext_.get());
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Initialize audio capturer failed");
+    if (sampleInfo_.audio.enabled) {
+        ret = CreateAudioEncoder();
+        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create audio encoder failed");
+        ret = audioCapturer_->AudioCapturerInit(sampleInfo_, audioEncContext_.get());
+        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Initialize audio capturer failed");
+    }
 
     ret = CreateVideoEncoder();
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Create video encoder failed");

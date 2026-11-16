@@ -42,8 +42,11 @@ int32_t Muxer::Config(SampleInfo &sampleInfo)
 {
     CHECK_AND_RETURN_RET_LOG(muxer_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Muxer is null");
 
-    int32_t ret = AddAudioTrack(sampleInfo);
-    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Add audio track failed");
+    int32_t ret = AVCODEC_SAMPLE_ERR_OK;
+    if (sampleInfo.audio.enabled) {
+        ret = AddAudioTrack(sampleInfo);
+        CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Add audio track failed");
+    }
 
     ret = AddVideoTrack(sampleInfo);
     CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, ret, "Add video track failed");

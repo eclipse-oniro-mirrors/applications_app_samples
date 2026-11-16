@@ -26,9 +26,12 @@ export interface RecorderVideoOptions {
   hdrVivid: boolean;
   synchronous: boolean;
   bufferInput: boolean;
+  grayscale?: boolean;
+  watermark?: boolean;
 }
 
 export interface RecorderAudioOptions {
+  enabled?: boolean;
   sampleRate: number;
   channelCount: number;
   bitrate: number;

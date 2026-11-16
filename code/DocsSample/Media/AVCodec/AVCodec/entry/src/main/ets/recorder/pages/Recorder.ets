@@ -51,7 +51,6 @@ struct Recorder {
   private previewController: XComponentController = new XComponentController();
   private finishTask: Promise<void> | undefined = undefined;
   private result: RecordingResultInfo | undefined = undefined;
-  private startedAt: number = 0;
   private canNavigate: boolean = true;
   private navigating: boolean = false;
   private zoom: number = 1;
@@ -106,15 +105,14 @@ struct Recorder {
     this.session.mark('camera.started');
     if (this.ending) { return; }
     this.phase = RecordingPhase.RECORDING;
-    this.startedAt = Date.now();
-    this.segments.started(this.startedAt);
+    this.segments.started(0);
     this.diagnostics.start(this.data.enableDualOutput, this.data.stopOnLowSpace,
       (compact: string, details: string): void => {
         this.compact = compact; this.details = details;
         this.elapsed = Math.floor(this.session.elapsedSeconds());
         if (this.phase === RecordingPhase.RECORDING && !this.pauseBusy &&
           this.segments.due(this.data, recorder.getDiagnostics(),
-            this.startedAt + this.session.elapsedSeconds() * 1000)) { this.rotateSegment(); }
+            this.session.elapsedSeconds() * 1000)) { this.rotateSegment(); }
       }, (): void => {
         if (this.data.stopOnLowSpace && recorder.getDiagnostics().active &&
           recorder.getDiagnostics().failure.stage.length === 0) { this.session.mark('storage.stop_requested'); }

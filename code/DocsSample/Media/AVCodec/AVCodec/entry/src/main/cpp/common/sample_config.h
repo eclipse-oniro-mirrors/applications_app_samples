@@ -78,6 +78,8 @@ struct VideoSampleInfo {
     int32_t isHDRVivid = 0;
     // Recorder: false使用Camera -> Surface；true由应用填充编码输入Buffer。
     bool bufferInput = false;
+    bool grayscale = false;
+    bool watermark = false;
     bool hdrVividContainerSignaled = false;
     int32_t hevcProfile = HEVC_PROFILE_MAIN;
     OH_ColorPrimary primary = COLOR_PRIMARY_BT2020;
@@ -103,6 +105,7 @@ enum VideoPreprocMode : int32_t {
 };
 
 struct AudioSampleInfo {
+    bool enabled = true;
     std::string audioCodecMime;
     int32_t audioSampleFormat = 0;
     int32_t audioSampleRate = 0;
