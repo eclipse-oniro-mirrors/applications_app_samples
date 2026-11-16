@@ -162,7 +162,7 @@ export class BoardEngine {
   }
 
   /**
-   * Places a stone without any turn check, exactly like DistributedDataModel
+   * Writes a stone without any turn check, exactly like DistributedDataModel
    * .fallChess: it unshifts the coordinate into the history, writes the colour
    * and moves the cursor. Returns false when the cell is out of range or taken.
    */
@@ -207,7 +207,7 @@ export class BoardEngine {
   }
 
   /**
-   * Places a stone for whichever side owns the current step, bypassing the
+   * Writes a stone for whichever side owns the current step, bypassing the
    * device check. Used by matrix builders that only care about board content.
    */
   forcePlace(x: number, y: number): boolean {
@@ -820,7 +820,7 @@ export function emptyBoard(): BoardEngine {
   return new BoardEngine();
 }
 
-/** Places a horizontal run of `count` stones of one colour at (row, 0..count-1). */
+/** Fills a horizontal run of `count` stones of one colour at (row, 0..count-1). */
 export function rowBoard(row: number, count: number, color: string = BLACK): BoardEngine {
   let engine: BoardEngine = new BoardEngine();
   for (let i = 0; i < count; i++) {
@@ -832,7 +832,7 @@ export function rowBoard(row: number, count: number, color: string = BLACK): Boa
   return engine;
 }
 
-/** Places a vertical run of `count` stones of one colour at (0..count-1, col). */
+/** Fills a vertical run of `count` stones of one colour at (0..count-1, col). */
 export function columnBoard(col: number, count: number, color: string = BLACK): BoardEngine {
   let engine: BoardEngine = new BoardEngine();
   for (let i = 0; i < count; i++) {
@@ -844,7 +844,7 @@ export function columnBoard(col: number, count: number, color: string = BLACK): 
   return engine;
 }
 
-/** Places a main-diagonal run starting at (start, start). */
+/** Fills a main-diagonal run starting at (start, start). */
 export function diagonalBoard(start: number, count: number, color: string = BLACK): BoardEngine {
   let engine: BoardEngine = new BoardEngine();
   for (let i = 0; i < count; i++) {
@@ -856,7 +856,7 @@ export function diagonalBoard(start: number, count: number, color: string = BLAC
   return engine;
 }
 
-/** Places an anti-diagonal run ending at (14 - start, start). */
+/** Fills an anti-diagonal run ending at (14 - start, start). */
 export function antiDiagonalBoard(start: number, count: number, color: string = BLACK): BoardEngine {
   let engine: BoardEngine = new BoardEngine();
   for (let i = 0; i < count; i++) {

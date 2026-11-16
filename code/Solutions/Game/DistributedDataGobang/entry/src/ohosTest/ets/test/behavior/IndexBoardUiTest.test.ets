@@ -521,7 +521,7 @@ export async function clickGrid(driver: Driver, gx: number, gy: number): Promise
   if (point[0] <= 0 || point[1] <= 0) {
     return false;
   }
-  // The page records the snapped point on the first tap and only places the
+  // The page records the snapped point on the first tap and only commits the
   // stone when the same point is tapped again, so a move is a double tap.
   await clickPoint(driver, point[0], point[1]);
   await delayQuiet(driver, DELAY_SHORT);
@@ -1061,7 +1061,7 @@ export default function indexBoardUi() {
     /**
      * @tc.number SUB_GOBANG_UI_BOARD_1300
      * @tc.name testBoardCornerClick0013
-     * @tc.desc A corner click places the first stone and the next click waits for the peer
+     * @tc.desc A corner click writes the first stone and the next click waits for the peer
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

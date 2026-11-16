@@ -163,7 +163,7 @@ export class BoardEngine {
   }
 
   /**
-   * Places a stone without any turn check, exactly like DistributedDataModel
+   * Writes a stone without any turn check, exactly like DistributedDataModel
    * .fallChess: it unshifts the coordinate into the history, writes the colour
    * and moves the cursor. Returns false when the cell is out of range or taken.
    */
@@ -208,7 +208,7 @@ export class BoardEngine {
   }
 
   /**
-   * Places a stone for whichever side owns the current step, bypassing the
+   * Writes a stone for whichever side owns the current step, bypassing the
    * device check. Used by matrix builders that only care about board content.
    */
   forcePlace(x: number, y: number): boolean {

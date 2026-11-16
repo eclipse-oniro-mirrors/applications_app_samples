@@ -161,7 +161,7 @@ export class BoardEngine {
   }
 
   /**
-   * Places a stone without any turn check, exactly like DistributedDataModel
+   * Writes a stone without any turn check, exactly like DistributedDataModel
    * .fallChess: it unshifts the coordinate into the history, writes the colour
    * and moves the cursor. Returns false when the cell is out of range or taken.
    */
@@ -206,7 +206,7 @@ export class BoardEngine {
   }
 
   /**
-   * Places a stone for whichever side owns the current step, bypassing the
+   * Writes a stone for whichever side owns the current step, bypassing the
    * device check. Used by matrix builders that only care about board content.
    */
   forcePlace(x: number, y: number): boolean {
@@ -692,7 +692,7 @@ export default function coordinateCellMatrix() {
     /**
      * @tc.number SUB_GOBANG_COORD_0800
      * @tc.name testRenderAtCorners0008
-     * @tc.desc Rendering places both colours at the corners and dots elsewhere
+     * @tc.desc Rendering fills both colours at the corners and dots elsewhere
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 0

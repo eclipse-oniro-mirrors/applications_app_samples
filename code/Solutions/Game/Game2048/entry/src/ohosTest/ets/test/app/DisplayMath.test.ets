@@ -230,7 +230,7 @@ export default function displayMathTest() {
     /**
      * @tc.number SUB_GAME2048_DISPLAYMATH_0800
      * @tc.name displayMathPortraitHuge0800
-     * @tc.desc Verify a 100000x200000 portrait surface keeps exact fractional vp values
+     * @tc.desc Verify a 100000x200000 portrait screen keeps exact fractional vp values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -263,7 +263,7 @@ export default function displayMathTest() {
     /**
      * @tc.number SUB_GAME2048_DISPLAYMATH_1000
      * @tc.name displayMathLandscapeBasic1000
-     * @tc.desc Verify a 1920x1080 landscape surface maps x to 750 px and y to the width
+     * @tc.desc Verify a 1920x1080 landscape screen maps x to 750 px and y to the width
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -341,7 +341,7 @@ export default function displayMathTest() {
     /**
      * @tc.number SUB_GAME2048_DISPLAYMATH_1500
      * @tc.name displayMathLandscapeSquareTiny1500
-     * @tc.desc Verify a 1x1 surface still reports the full 750 px reference width
+     * @tc.desc Verify a 1x1 screen still reports the full 750 px reference width
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -388,7 +388,7 @@ export default function displayMathTest() {
     /**
      * @tc.number SUB_GAME2048_DISPLAYMATH_1800
      * @tc.name displayMathLandscapeHuge1800
-     * @tc.desc Verify a 200000x100000 landscape surface keeps the fixed reference width
+     * @tc.desc Verify a 200000x100000 landscape screen keeps the fixed reference width
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -920,7 +920,7 @@ export default function displayMathTest() {
     /**
      * @tc.number SUB_GAME2048_DISPLAYMATH_5000
      * @tc.name displayMathZeroWidthSquare5000
-     * @tc.desc Verify a 0x0 surface takes the landscape branch and keeps the reference width
+     * @tc.desc Verify a 0x0 screen takes the landscape branch and keeps the reference width
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1
@@ -931,7 +931,7 @@ export default function displayMathTest() {
       expect(size.y).assertEqual(0);
       expect(size.x > 0).assertTrue();
       expect(size.y === size.x).assertFalse();
-      BoardKit.warn('zeroWidthSquare', 'degenerate surface clamped by reference width');
+      BoardKit.warn('zeroWidthSquare', 'degenerate screen clamped by reference width');
     });
   });
 }

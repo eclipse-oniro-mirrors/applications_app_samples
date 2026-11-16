@@ -610,7 +610,7 @@ export default function tileValueContractTest() {
     /**
      * @tc.number SUB_GAME2048_TILEVALUECONTRACT_2800
      * @tc.name tileValueInitProducesOnlySpawnValues2800
-     * @tc.desc Verify init places exactly two tiles and both are spawn values
+     * @tc.desc Verify init spawns exactly two tiles and both are spawn values
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level Level 1

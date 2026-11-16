@@ -24,7 +24,7 @@ const SIDE_LENGTH: number = SIDE;
 const STATUS_BEFORE: number = -1;
 /** Status value that marks a rule whose board is being played. */
 const STATUS_RUNNING: number = 1;
-/** Number of tiles the production init places on a fresh board. */
+/** Number of tiles the production init spawns on a fresh board. */
 const INIT_TILE_COUNT: number = 2;
 
 /**
