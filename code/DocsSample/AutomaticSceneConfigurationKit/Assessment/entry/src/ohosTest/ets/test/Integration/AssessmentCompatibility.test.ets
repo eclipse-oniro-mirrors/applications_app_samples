@@ -64,7 +64,7 @@ const MIN_API_VERSION: number = 20;
 const INVALID_COMPONENT: number = -1;
 const VERSION_COMPONENT_COUNT: number = 3;
 
-// Feature flags of the sample, they gate the optional surface of the assessment integration.
+// Feature flags of the sample, they gate the optional scope of the assessment integration.
 const FEATURE_COUNT: number = 6;
 
 /**
@@ -738,7 +738,7 @@ export default function assessmentCompatibilityTest() {
     });
 
     /**
-     * Scenario: the feature count of the matrix matches the documented surface.
+     * Scenario: the feature count of the matrix matches the documented scope.
      * Expectation: four APIs plus two hardening measures, and the optional gates are exactly the
      * ones that the exam page applies itself.
      */

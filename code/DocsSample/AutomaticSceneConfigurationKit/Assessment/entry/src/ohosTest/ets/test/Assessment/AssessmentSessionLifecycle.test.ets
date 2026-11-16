@@ -141,7 +141,7 @@ class AssessmentSession {
     return this.apps.slice();
   }
 
-  public eventLog(): string[] {
+  public eventJournal(): string[] {
     return this.events.slice();
   }
 
@@ -887,18 +887,18 @@ export default function assessmentSessionLifecycleTest() {
      * Scenario: the session event log cap.
      * Expectation: the log never grows past twenty recorded events.
      */
-    it('Assessment_SessionEventLogCap_027', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'SessionEventLogCap_027, begin');
+    it('Assessment_SessionEventJournalCap_027', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'SessionEventJournalCap_027, begin');
       const session: AssessmentSession = new AssessmentSession(1);
       expect(session.eventCount()).assertEqual(0);
       session.activate();
       expect(session.eventCount()).assertEqual(1);
       session.interrupt();
       expect(session.eventCount()).assertEqual(2);
-      expect(session.eventLog().length <= MAX_EVENT_LOG).assertTrue();
+      expect(session.eventJournal().length <= MAX_EVENT_LOG).assertTrue();
       expect(MAX_EVENT_LOG).assertEqual(20);
       hilog.info(DOMAIN, TAG, '%{public}s', session.describe());
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'SessionEventLogCap_027, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'SessionEventJournalCap_027, end');
     });
 
     /**

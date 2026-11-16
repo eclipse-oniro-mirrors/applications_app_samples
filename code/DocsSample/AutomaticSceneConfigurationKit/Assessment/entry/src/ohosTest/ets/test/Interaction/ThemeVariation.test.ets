@@ -60,7 +60,7 @@ const LIGHT_WARNING: string = '#ED6F21';
 const LIGHT_SUCCESS: string = '#64BB5C';
 
 // Tokens of resources/dark/element/color.json, the dark theme. The brand, the warning and the
-// success tokens are shared, only the surface and the font tokens flip.
+// success tokens are shared, only the background and the font tokens flip.
 const DARK_PAGE_BACKGROUND: string = '#000000';
 const DARK_CARD_BACKGROUND: string = '#1C1C1E';
 const DARK_TITLE_FONT: string = '#E5E5E5';
@@ -109,7 +109,7 @@ interface ThemeToken {
 }
 
 /**
- * A surface and the font that is painted on it, the pair is the unit of the contrast audit.
+ * A background and the font that is painted on it, the pair is the unit of the contrast audit.
  */
 interface ContrastPair {
   foreground: string;
@@ -121,7 +121,7 @@ interface ContrastPair {
  * A plain RGBA color in the 0 to 255 channel range.
  *
  * Two sample tokens carry an alpha channel (#99182431 and #0D182431), so the contrast helper
- * needs the channels separately and it needs alpha blending against the surface.
+ * needs the channels separately and it needs alpha blending against the background.
  */
 class ThemeColor {
   public red: number = 0;
@@ -191,9 +191,9 @@ class ThemeColor {
   }
 
   /**
-   * Composites the color over an opaque surface.
+   * Composites the color over an opaque background.
    *
-   * @param background opaque surface color.
+   * @param background opaque background color.
    * @returns the blended color with an alpha of one.
    */
   public blendOver(background: ThemeColor): ThemeColor {
@@ -256,8 +256,8 @@ class ThemeContrast {
   }
 
   /**
-   * @param foregroundHex foreground token, it is blended over the surface first.
-   * @param backgroundHex opaque surface token.
+   * @param foregroundHex foreground token, it is blended over the background first.
+   * @param backgroundHex opaque background token.
    * @returns the ratio between one and twenty one.
    */
   public static ratioOfHex(foregroundHex: string, backgroundHex: string): number {
@@ -451,8 +451,8 @@ class ThemePalette {
 
   /**
    * @param name token name.
-   * @param backgroundName name of the surface token.
-   * @returns the contrast ratio of the token over the surface.
+   * @param backgroundName name of the background token.
+   * @returns the contrast ratio of the token over the background.
    */
   public ratioOn(name: string, backgroundName: string): number {
     return ThemeContrast.ratioOfHex(this.resolve(name), this.resolve(backgroundName));
@@ -634,7 +634,7 @@ export default function themeVariationTest() {
     /**
      * Scenario: both theme files are loaded into the model.
      * Expectation: the two palettes declare the same number of tokens and the light palette
-     * carries the documented light surface.
+     * carries the documented light background.
      */
     it('Assessment_ThemeVariation_001', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ThemeVariation_001, begin');
@@ -671,7 +671,7 @@ export default function themeVariationTest() {
 
     /**
      * Scenario: the tokens that change between the two themes.
-     * Expectation: the surfaces, the fonts and the divider change, the brand, the warning and
+     * Expectation: the backgrounds, the fonts and the divider change, the brand, the warning and
      * the success color are shared, which is what the design system specifies.
      */
     it('Assessment_ThemeVariation_003', 0, async () => {

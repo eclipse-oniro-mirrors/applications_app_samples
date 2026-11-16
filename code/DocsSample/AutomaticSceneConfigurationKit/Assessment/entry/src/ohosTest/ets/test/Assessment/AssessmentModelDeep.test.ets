@@ -604,7 +604,7 @@ class DefaultCatalogue {
     return MAX_CONFIG_CHARS;
   }
 
-  public static maxEventLog(): number {
+  public static maxEventJournal(): number {
     return MAX_EVENT_LOG;
   }
 
@@ -1149,22 +1149,22 @@ export default function assessmentModelDeepTest() {
      * Scenario: the log line of an event record.
      * Expectation: it matches the line format of the sample controller.
      */
-    it('Assessment_EventLogLine_033', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogLine_033, begin');
+    it('Assessment_EventJournalLine_033', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalLine_033, begin');
       const record: EventRecord = new EventRecord(EVENT_END, CODE_OK, '');
       expect(record.toLogLine()).assertEqual('onEnd code=0 message=');
       const apiError: EventRecord = new EventRecord(EVENT_API_ERROR, 401, 'denied');
       expect(apiError.toLogLine()).assertEqual('onApiError code=401 message=denied');
       hilog.info(DOMAIN, TAG, '%{public}s', apiError.toLogLine());
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogLine_033, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalLine_033, end');
     });
 
     /**
      * Scenario: parsing a log line back into an event record.
      * Expectation: the type, the code and the message survive the round trip.
      */
-    it('Assessment_EventLogParse_034', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogParse_034, begin');
+    it('Assessment_EventJournalParse_034', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalParse_034, begin');
       const original: EventRecord = new EventRecord(EVENT_BEGIN, CODE_ENV_ANOMALY, 'the environment changed');
       const parsed: EventRecord | null = EventRecord.parseLogLine(original.toLogLine());
       expect(parsed !== null).assertTrue();
@@ -1174,29 +1174,29 @@ export default function assessmentModelDeepTest() {
         expect(parsed.code()).assertEqual(CODE_ENV_ANOMALY);
       }
       hilog.info(DOMAIN, TAG, '%{public}s', original.toLogLine());
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogParse_034, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalParse_034, end');
     });
 
     /**
      * Scenario: parsing malformed log lines.
      * Expectation: every malformed line yields null.
      */
-    it('Assessment_EventLogParseMalformed_035', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogParseMalformed_035, begin');
+    it('Assessment_EventJournalParseMalformed_035', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalParseMalformed_035, begin');
       expect(EventRecord.parseLogLine('')).assertNull();
       expect(EventRecord.parseLogLine('onBegin')).assertNull();
       expect(EventRecord.parseLogLine('onBegin code=0')).assertNull();
       expect(EventRecord.parseLogLine('onBegin message=')).assertNull();
       expect(EventRecord.parseLogLine('onBegin code=abc message=x')).assertNull();
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogParseMalformed_035, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalParseMalformed_035, end');
     });
 
     /**
      * Scenario: a message that contains the separator words.
      * Expectation: the parser keeps the trailing text intact.
      */
-    it('Assessment_EventLogParseTrickyMessage_036', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogParseTrickyMessage_036, begin');
+    it('Assessment_EventJournalParseTrickyMessage_036', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalParseTrickyMessage_036, begin');
       const record: EventRecord = new EventRecord(EVENT_API_ERROR, 401, 'code=999 was reported');
       const parsed: EventRecord | null = EventRecord.parseLogLine(record.toLogLine());
       expect(parsed !== null).assertTrue();
@@ -1205,7 +1205,7 @@ export default function assessmentModelDeepTest() {
         expect(parsed.message()).assertContain('code=999');
       }
       hilog.info(DOMAIN, TAG, '%{public}s', record.toLogLine());
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogParseTrickyMessage_036, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalParseTrickyMessage_036, end');
     });
 
     /**
@@ -1312,7 +1312,7 @@ export default function assessmentModelDeepTest() {
       expect(DefaultCatalogue.invalidAnswer()).assertEqual(-1);
       expect(DefaultCatalogue.maxAllowedApps()).assertEqual(20);
       expect(DefaultCatalogue.maxConfigChars()).assertEqual(2048);
-      expect(DefaultCatalogue.maxEventLog()).assertEqual(20);
+      expect(DefaultCatalogue.maxEventJournal()).assertEqual(20);
       hilog.info(DOMAIN, TAG, '%{public}s', DefaultCatalogue.describe());
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'DefaultsCatalogue_043, end');
     });

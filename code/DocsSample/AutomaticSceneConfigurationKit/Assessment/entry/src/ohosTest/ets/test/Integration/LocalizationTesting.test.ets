@@ -218,7 +218,7 @@ class DurationFormatter {
   }
 
   /**
-   * Formats the exam_progress resource, which places the current index before the total count.
+   * Formats the exam_progress resource, which puts the current index before the total count.
    *
    * @param template resource template, for example "Question %1$d/%2$d".
    * @param current one based index of the current question.

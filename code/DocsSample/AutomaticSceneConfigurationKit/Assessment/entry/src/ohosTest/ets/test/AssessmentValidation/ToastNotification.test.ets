@@ -1413,8 +1413,8 @@ export default function toastNotificationTest() {
      * Expectation: the log keeps its twenty entry cap while every failure still reaches the
      * watch handler.
      */
-    it('Assessment_EventLogCapUnderStorm_045', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogCapUnderStorm_045, begin');
+    it('Assessment_EventJournalCapUnderStorm_045', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalCapUnderStorm_045, begin');
       const entries: string[] = [];
       for (let i = 0; i < MAX_EVENT_LOG + 10; i++) {
         entries.unshift(`${EVENT_API_ERROR} code=3 message=failed ${i}`);
@@ -1428,8 +1428,8 @@ export default function toastNotificationTest() {
       local.dispatchApiError(CODE_SYSTEM_ERROR, 'failed');
       expect(local.getShown()).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s log capped at %{public}d entries',
-        BUNDLE + 'EventLogCapUnderStorm_045', entries.length);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogCapUnderStorm_045, end');
+        BUNDLE + 'EventJournalCapUnderStorm_045', entries.length);
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalCapUnderStorm_045, end');
     });
 
     /**

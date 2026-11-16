@@ -348,7 +348,7 @@ class ForEachKeyAudit {
    * @param entries event log entries.
    * @returns the keys in entry order.
    */
-  public static eventLogKeys(entries: string[]): string[] {
+  public static eventJournalKeys(entries: string[]): string[] {
     const keys: string[] = [];
     for (let i = 0; i < entries.length; i++) {
       keys.push(`${i}_${entries[i]}`);
@@ -947,7 +947,7 @@ export default function uiComponentRenderingTest() {
     it('Assessment_UIComponentRendering_006', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'UIComponentRendering_006, begin');
       const entries: string[] = ['onBegin: 0', 'onBegin: 0'];
-      const keys: string[] = ForEachKeyAudit.eventLogKeys(entries);
+      const keys: string[] = ForEachKeyAudit.eventJournalKeys(entries);
       expect(keys.length).assertEqual(2);
       expect(keys[0] === keys[1]).assertFalse();
       const audit: ForEachKeyAudit = new ForEachKeyAudit('event_log', keys);

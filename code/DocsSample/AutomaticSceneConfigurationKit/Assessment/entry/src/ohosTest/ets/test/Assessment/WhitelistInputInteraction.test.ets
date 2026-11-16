@@ -329,7 +329,7 @@ class WhitelistRowModel {
  * The focus order of the whitelist input and the add button.
  *
  * The configuration card renders the input before the add button, so a keyboard user reaches the
- * input first. The order is asserted by the accessibility oriented cases.
+ * input first. The order is asserted by the usability oriented cases.
  */
 class ConfigFocusOrder {
   public static ids(): string[] {

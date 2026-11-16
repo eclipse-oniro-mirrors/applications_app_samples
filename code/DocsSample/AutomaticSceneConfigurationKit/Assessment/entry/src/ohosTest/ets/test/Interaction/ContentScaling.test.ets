@@ -61,7 +61,7 @@ const BUNDLE: string = 'Assessment_';
 // reference device so that the numbers of the model and of the rendered page can be compared.
 const DENSITY_RATIO: number = 3;
 
-// The font scale candidates that the accessibility setting exposes. The scale multiplies every
+// The font scale candidates that the system font setting exposes. The scale multiplies every
 // fp value of the sample, the vp values stay untouched.
 const FONT_SCALE_COMPACT: number = 0.85;
 const FONT_SCALE_NORMAL: number = 1.0;
@@ -122,7 +122,7 @@ const TEXT_BEGIN_LABEL: string = 'begin';
 const TEXT_ADD_LABEL: string = 'Add';
 
 /**
- * The named font scale levels of the accessibility setting.
+ * The named font scale levels of the system font setting.
  *
  * The enumeration is numeric so that the levels can be ordered, the human readable name is
  * carried by the ScaleSpec that is paired with every level.

@@ -1035,7 +1035,7 @@ export default function offlineServiceValidationTest() {
 
     /**
      * Scenario: retry a call that keeps failing.
-     * Expectation: the local retry loop terminates without any network activity.
+     * Expectation: the local retry loop terminates without any network traffic.
      */
     it('Assessment_OfflineRetryNeverConsultsNetwork_024', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'OfflineRetryNeverConsultsNetwork_024, begin');
@@ -1059,8 +1059,8 @@ export default function offlineServiceValidationTest() {
      * Scenario: the event log of the offline service.
      * Expectation: the log records the begin and the end events and keeps its twenty entry cap.
      */
-    it('Assessment_OfflineEventLogCap_025', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'OfflineEventLogCap_025, begin');
+    it('Assessment_OfflineEventJournalCap_025', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'OfflineEventJournalCap_025, begin');
       network.setState(ConnectivityState.AIRPLANE);
       service.reset();
       for (let i = 0; i < MAX_EVENT_LOG + 5; i++) {
@@ -1073,7 +1073,7 @@ export default function offlineServiceValidationTest() {
       expect(events[0].type).assertEqual('onEnd');
       expect(events[1].type).assertEqual('onBegin');
       expect(network.getRequests()).assertEqual(0);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'OfflineEventLogCap_025, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'OfflineEventJournalCap_025, end');
     });
 
     /**
@@ -1100,7 +1100,7 @@ export default function offlineServiceValidationTest() {
 
     /**
      * Scenario: a begin, an end and a second begin while offline.
-     * Expectation: the state machine moves forward and backward without any network activity.
+     * Expectation: the state machine moves forward and backward without any network traffic.
      */
     it('Assessment_OfflineRepeatedSessions_027', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'OfflineRepeatedSessions_027, begin');

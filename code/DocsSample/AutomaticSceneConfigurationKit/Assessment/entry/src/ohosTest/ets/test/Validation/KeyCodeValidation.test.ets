@@ -66,9 +66,9 @@ enum KeyCategory {
 }
 
 /**
- * Intent that a key resolves to inside the sample.
+ * Action that a key resolves to inside the sample.
  */
-enum NavigationIntent {
+enum NavigationAction {
   NONE = 'none',
   FOCUS_LEFT = 'focus_left',
   FOCUS_RIGHT = 'focus_right',
@@ -98,7 +98,7 @@ interface KeyDescriptor {
   code: number;
   name: string;
   category: KeyCategory;
-  intent: NavigationIntent;
+  action: NavigationAction;
   repeatable: boolean;
   printable: boolean;
 }
@@ -109,7 +109,7 @@ interface KeyDescriptor {
 interface KeyEventRecord {
   code: number;
   outcome: PressOutcome;
-  intent: NavigationIntent;
+  action: NavigationAction;
   repeatCount: number;
   timestamp: number;
 }
@@ -119,7 +119,7 @@ interface KeyEventRecord {
  */
 interface DispatchResult {
   outcome: PressOutcome;
-  intent: NavigationIntent;
+  action: NavigationAction;
   handled: boolean;
   description: string;
 }
@@ -147,46 +147,46 @@ interface KeyStatistics {
 /**
  * Catalogue of the key codes used by the sample.
  *
- * The catalogue is the single source of truth for the name, the category and the intent of
+ * The catalogue is the single source of truth for the name, the category and the action of
  * a key. Every lookup of the page goes through it.
  */
 class KeyCatalog {
   private static readonly DESCRIPTORS: KeyDescriptor[] = [
     {
       code: KEY_LEFT, name: 'KEYCODE_DPAD_LEFT', category: KeyCategory.DIRECTION,
-      intent: NavigationIntent.FOCUS_LEFT, repeatable: true, printable: false
+      action: NavigationAction.FOCUS_LEFT, repeatable: true, printable: false
     },
     {
       code: KEY_RIGHT, name: 'KEYCODE_DPAD_RIGHT', category: KeyCategory.DIRECTION,
-      intent: NavigationIntent.FOCUS_RIGHT, repeatable: true, printable: false
+      action: NavigationAction.FOCUS_RIGHT, repeatable: true, printable: false
     },
     {
       code: KEY_UP, name: 'KEYCODE_DPAD_UP', category: KeyCategory.DIRECTION,
-      intent: NavigationIntent.FOCUS_UP, repeatable: true, printable: false
+      action: NavigationAction.FOCUS_UP, repeatable: true, printable: false
     },
     {
       code: KEY_DOWN, name: 'KEYCODE_DPAD_DOWN', category: KeyCategory.DIRECTION,
-      intent: NavigationIntent.FOCUS_DOWN, repeatable: true, printable: false
+      action: NavigationAction.FOCUS_DOWN, repeatable: true, printable: false
     },
     {
       code: KEY_ENTER, name: 'KEYCODE_ENTER', category: KeyCategory.CONFIRM,
-      intent: NavigationIntent.ACTIVATE, repeatable: false, printable: false
+      action: NavigationAction.ACTIVATE, repeatable: false, printable: false
     },
     {
       code: KEY_BACK, name: 'KEYCODE_BACK', category: KeyCategory.CANCEL,
-      intent: NavigationIntent.LEAVE_PAGE, repeatable: false, printable: false
+      action: NavigationAction.LEAVE_PAGE, repeatable: false, printable: false
     },
     {
       code: KEY_HOME, name: 'KEYCODE_HOME', category: KeyCategory.SYSTEM,
-      intent: NavigationIntent.LEAVE_APP, repeatable: false, printable: false
+      action: NavigationAction.LEAVE_APP, repeatable: false, printable: false
     },
     {
       code: KEY_TAB, name: 'KEYCODE_TAB', category: KeyCategory.TRAVERSAL,
-      intent: NavigationIntent.MOVE_TRAVERSAL, repeatable: true, printable: false
+      action: NavigationAction.MOVE_TRAVERSAL, repeatable: true, printable: false
     },
     {
       code: KEY_ESCAPE, name: 'KEYCODE_ESCAPE', category: KeyCategory.CANCEL,
-      intent: NavigationIntent.LEAVE_PAGE, repeatable: false, printable: false
+      action: NavigationAction.LEAVE_PAGE, repeatable: false, printable: false
     }
   ];
 
@@ -223,12 +223,12 @@ class KeyCatalog {
     return descriptor.category;
   }
 
-  public static intentOf(code: number): NavigationIntent {
+  public static actionOf(code: number): NavigationAction {
     const descriptor: KeyDescriptor | null = KeyCatalog.find(code);
     if (descriptor === null) {
-      return NavigationIntent.NONE;
+      return NavigationAction.NONE;
     }
-    return descriptor.intent;
+    return descriptor.action;
   }
 
   public static isRepeatable(code: number): boolean {
@@ -295,12 +295,12 @@ class KeyCatalog {
 }
 
 /**
- * Resolves a key code to the navigation intent of the page.
+ * Resolves a key code to the navigation action of the page.
  *
  * The resolver adds the context of the current page: the back key on the entry page leaves
  * the ability while the back key on the exam page ends the assessment first.
  */
-class KeyIntentResolver {
+class KeyActionResolver {
   private onExamPage: boolean;
 
   public constructor(onExamPage: boolean = false) {
@@ -315,73 +315,73 @@ class KeyIntentResolver {
     return this.onExamPage;
   }
 
-  public resolve(code: number): NavigationIntent {
-    const intent: NavigationIntent = KeyCatalog.intentOf(code);
-    if (intent === NavigationIntent.LEAVE_PAGE) {
-      return this.onExamPage ? NavigationIntent.LEAVE_PAGE : NavigationIntent.LEAVE_APP;
+  public resolve(code: number): NavigationAction {
+    const action: NavigationAction = KeyCatalog.actionOf(code);
+    if (action === NavigationAction.LEAVE_PAGE) {
+      return this.onExamPage ? NavigationAction.LEAVE_PAGE : NavigationAction.LEAVE_APP;
     }
-    return intent;
+    return action;
   }
 
-  public isNavigationIntent(intent: NavigationIntent): boolean {
-    return intent === NavigationIntent.FOCUS_LEFT || intent === NavigationIntent.FOCUS_RIGHT ||
-      intent === NavigationIntent.FOCUS_UP || intent === NavigationIntent.FOCUS_DOWN;
+  public isNavigationAction(action: NavigationAction): boolean {
+    return action === NavigationAction.FOCUS_LEFT || action === NavigationAction.FOCUS_RIGHT ||
+      action === NavigationAction.FOCUS_UP || action === NavigationAction.FOCUS_DOWN;
   }
 
   public movesFocus(code: number): boolean {
-    return this.isNavigationIntent(this.resolve(code));
+    return this.isNavigationAction(this.resolve(code));
   }
 
-  public isCancelIntent(intent: NavigationIntent): boolean {
-    return intent === NavigationIntent.LEAVE_PAGE || intent === NavigationIntent.LEAVE_APP;
+  public isCancelAction(action: NavigationAction): boolean {
+    return action === NavigationAction.LEAVE_PAGE || action === NavigationAction.LEAVE_APP;
   }
 
   public isActivation(code: number): boolean {
-    return this.resolve(code) === NavigationIntent.ACTIVATE;
+    return this.resolve(code) === NavigationAction.ACTIVATE;
   }
 
-  // The directional intent of a key is turned into a delta on the focus grid. The exam page
+  // The directional action of a key is turned into a delta on the focus grid. The exam page
   // uses the delta to step through the questions.
   public columnDelta(code: number): number {
-    const intent: NavigationIntent = this.resolve(code);
-    if (intent === NavigationIntent.FOCUS_LEFT) {
+    const action: NavigationAction = this.resolve(code);
+    if (action === NavigationAction.FOCUS_LEFT) {
       return -1;
     }
-    if (intent === NavigationIntent.FOCUS_RIGHT) {
+    if (action === NavigationAction.FOCUS_RIGHT) {
       return 1;
     }
     return 0;
   }
 
   public rowDelta(code: number): number {
-    const intent: NavigationIntent = this.resolve(code);
-    if (intent === NavigationIntent.FOCUS_UP) {
+    const action: NavigationAction = this.resolve(code);
+    if (action === NavigationAction.FOCUS_UP) {
       return -1;
     }
-    if (intent === NavigationIntent.FOCUS_DOWN) {
+    if (action === NavigationAction.FOCUS_DOWN) {
       return 1;
     }
     return 0;
   }
 
   public describe(code: number): string {
-    const intent: NavigationIntent = this.resolve(code);
-    if (this.isNavigationIntent(intent)) {
-      return `move focus ${intent.substring('focus_'.length)}`;
+    const action: NavigationAction = this.resolve(code);
+    if (this.isNavigationAction(action)) {
+      return `move focus ${action.substring('focus_'.length)}`;
     }
-    if (intent === NavigationIntent.ACTIVATE) {
+    if (action === NavigationAction.ACTIVATE) {
       return 'activate the focused control';
     }
-    if (intent === NavigationIntent.LEAVE_PAGE) {
+    if (action === NavigationAction.LEAVE_PAGE) {
       return 'leave the current page';
     }
-    if (intent === NavigationIntent.LEAVE_APP) {
+    if (action === NavigationAction.LEAVE_APP) {
       return 'leave the application';
     }
-    if (intent === NavigationIntent.MOVE_TRAVERSAL) {
+    if (action === NavigationAction.MOVE_TRAVERSAL) {
       return 'traverse to the next control';
     }
-    return 'no intent';
+    return 'no action';
   }
 }
 
@@ -482,18 +482,18 @@ class KeyRepeatPolicy {
  * the outcome in its journal so that the cases can verify the full chain.
  */
 class KeyDispatcher {
-  private resolver: KeyIntentResolver;
+  private resolver: KeyActionResolver;
   private repeatPolicy: KeyRepeatPolicy;
   private journal: KeyEventRecord[] = [];
   private capacity: number;
 
-  public constructor(resolver: KeyIntentResolver, capacity: number = 64) {
+  public constructor(resolver: KeyActionResolver, capacity: number = 64) {
     this.resolver = resolver;
     this.repeatPolicy = new KeyRepeatPolicy();
     this.capacity = capacity > 0 ? capacity : 64;
   }
 
-  public getResolver(): KeyIntentResolver {
+  public getResolver(): KeyActionResolver {
     return this.resolver;
   }
 
@@ -506,18 +506,18 @@ class KeyDispatcher {
     if (descriptor === null) {
       const unknown: DispatchResult = {
         outcome: PressOutcome.UNKNOWN_KEY,
-        intent: NavigationIntent.NONE,
+        action: NavigationAction.NONE,
         handled: false,
         description: 'unknown key code'
       };
       this.record(code, unknown);
       return unknown;
     }
-    const intent: NavigationIntent = this.resolver.resolve(code);
-    if (intent === NavigationIntent.NONE || intent === NavigationIntent.IGNORE) {
+    const action: NavigationAction = this.resolver.resolve(code);
+    if (action === NavigationAction.NONE || action === NavigationAction.IGNORE) {
       const ignored: DispatchResult = {
         outcome: PressOutcome.IGNORED,
-        intent: intent,
+        action: action,
         handled: false,
         description: 'no handler for the key'
       };
@@ -526,7 +526,7 @@ class KeyDispatcher {
     }
     const handled: DispatchResult = {
       outcome: PressOutcome.HANDLED,
-      intent: intent,
+      action: action,
       handled: true,
       description: this.resolver.describe(code)
     };
@@ -541,7 +541,7 @@ class KeyDispatcher {
     if (!decision.allowed) {
       const suppressed: DispatchResult = {
         outcome: PressOutcome.REPEAT_SUPPRESSED,
-        intent: NavigationIntent.NONE,
+        action: NavigationAction.NONE,
         handled: false,
         description: 'the repeat was suppressed'
       };
@@ -555,7 +555,7 @@ class KeyDispatcher {
     const record: KeyEventRecord = {
       code: code,
       outcome: result.outcome,
-      intent: result.intent,
+      action: result.action,
       repeatCount: this.repeatPolicy.countOf(code),
       timestamp: Date.now()
     };
@@ -742,11 +742,11 @@ function clampValue(value: number, minimum: number, maximum: number): number {
 export default function keyCodeValidationTest() {
   describe('KeyCodeValidation_Test', () => {
     let driver: Driver;
-    let resolver: KeyIntentResolver;
+    let resolver: KeyActionResolver;
 
     beforeAll(async () => {
       driver = getDriver();
-      resolver = new KeyIntentResolver(false);
+      resolver = new KeyActionResolver(false);
       await serializedDelay(driver, 1000);
       await launchAssessmentApp();
       await waitForIndexPage(driver, TIMEOUT_PAGE_TRANSITION);
@@ -928,31 +928,31 @@ export default function keyCodeValidationTest() {
     });
 
     /**
-     * Scenario: the intent of every direction key.
-     * Expectation: the intent names the focus direction exactly once.
+     * Scenario: the action of every direction key.
+     * Expectation: the action names the focus direction exactly once.
      */
-    it('Assessment_KeyCodeDirectionIntents_011', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDirectionIntents_011, begin');
-      expect(KeyCatalog.intentOf(KEY_LEFT)).assertEqual(NavigationIntent.FOCUS_LEFT);
-      expect(KeyCatalog.intentOf(KEY_RIGHT)).assertEqual(NavigationIntent.FOCUS_RIGHT);
-      expect(KeyCatalog.intentOf(KEY_UP)).assertEqual(NavigationIntent.FOCUS_UP);
-      expect(KeyCatalog.intentOf(KEY_DOWN)).assertEqual(NavigationIntent.FOCUS_DOWN);
-      expect(KeyCatalog.intentOf(9999)).assertEqual(NavigationIntent.NONE);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDirectionIntents_011, end');
+    it('Assessment_KeyCodeDirectionActions_011', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDirectionActions_011, begin');
+      expect(KeyCatalog.actionOf(KEY_LEFT)).assertEqual(NavigationAction.FOCUS_LEFT);
+      expect(KeyCatalog.actionOf(KEY_RIGHT)).assertEqual(NavigationAction.FOCUS_RIGHT);
+      expect(KeyCatalog.actionOf(KEY_UP)).assertEqual(NavigationAction.FOCUS_UP);
+      expect(KeyCatalog.actionOf(KEY_DOWN)).assertEqual(NavigationAction.FOCUS_DOWN);
+      expect(KeyCatalog.actionOf(9999)).assertEqual(NavigationAction.NONE);
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDirectionActions_011, end');
     });
 
     /**
-     * Scenario: the intent of the non movement keys.
+     * Scenario: the action of the non movement keys.
      * Expectation: confirm activates, cancel leaves and traversal moves the focus onward.
      */
-    it('Assessment_KeyCodeNonMovementIntents_012', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeNonMovementIntents_012, begin');
-      expect(KeyCatalog.intentOf(KEY_ENTER)).assertEqual(NavigationIntent.ACTIVATE);
-      expect(KeyCatalog.intentOf(KEY_BACK)).assertEqual(NavigationIntent.LEAVE_PAGE);
-      expect(KeyCatalog.intentOf(KEY_ESCAPE)).assertEqual(NavigationIntent.LEAVE_PAGE);
-      expect(KeyCatalog.intentOf(KEY_HOME)).assertEqual(NavigationIntent.LEAVE_APP);
-      expect(KeyCatalog.intentOf(KEY_TAB)).assertEqual(NavigationIntent.MOVE_TRAVERSAL);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeNonMovementIntents_012, end');
+    it('Assessment_KeyCodeNonMovementActions_012', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeNonMovementActions_012, begin');
+      expect(KeyCatalog.actionOf(KEY_ENTER)).assertEqual(NavigationAction.ACTIVATE);
+      expect(KeyCatalog.actionOf(KEY_BACK)).assertEqual(NavigationAction.LEAVE_PAGE);
+      expect(KeyCatalog.actionOf(KEY_ESCAPE)).assertEqual(NavigationAction.LEAVE_PAGE);
+      expect(KeyCatalog.actionOf(KEY_HOME)).assertEqual(NavigationAction.LEAVE_APP);
+      expect(KeyCatalog.actionOf(KEY_TAB)).assertEqual(NavigationAction.MOVE_TRAVERSAL);
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeNonMovementActions_012, end');
     });
 
     /**
@@ -967,7 +967,7 @@ export default function keyCodeValidationTest() {
         expect(descriptor.code).assertEqual(KEY_ENTER);
         expect(descriptor.name).assertEqual('KEYCODE_ENTER');
         expect(descriptor.category).assertEqual(KeyCategory.CONFIRM);
-        expect(descriptor.intent).assertEqual(NavigationIntent.ACTIVATE);
+        expect(descriptor.action).assertEqual(NavigationAction.ACTIVATE);
         expect(descriptor.repeatable).assertFalse();
         expect(descriptor.printable).assertFalse();
       }
@@ -985,7 +985,7 @@ export default function keyCodeValidationTest() {
         code: 4242,
         name: 'KEYCODE_INJECTED',
         category: KeyCategory.UNKNOWN,
-        intent: NavigationIntent.NONE,
+        action: NavigationAction.NONE,
         repeatable: false,
         printable: false
       });
@@ -996,31 +996,31 @@ export default function keyCodeValidationTest() {
     });
 
     /**
-     * Scenario: the intent resolver on the entry page.
+     * Scenario: the action resolver on the entry page.
      * Expectation: the back key leaves the application because no page sits on top.
      */
     it('Assessment_KeyCodeResolverEntryPage_015', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeResolverEntryPage_015, begin');
-      const entryResolver: KeyIntentResolver = new KeyIntentResolver(false);
+      const entryResolver: KeyActionResolver = new KeyActionResolver(false);
       expect(entryResolver.isOnExamPage()).assertFalse();
-      expect(entryResolver.resolve(KEY_BACK)).assertEqual(NavigationIntent.LEAVE_APP);
-      expect(entryResolver.resolve(KEY_ESCAPE)).assertEqual(NavigationIntent.LEAVE_APP);
-      expect(entryResolver.isCancelIntent(entryResolver.resolve(KEY_BACK))).assertTrue();
+      expect(entryResolver.resolve(KEY_BACK)).assertEqual(NavigationAction.LEAVE_APP);
+      expect(entryResolver.resolve(KEY_ESCAPE)).assertEqual(NavigationAction.LEAVE_APP);
+      expect(entryResolver.isCancelAction(entryResolver.resolve(KEY_BACK))).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeResolverEntryPage_015, end');
     });
 
     /**
-     * Scenario: the intent resolver on the exam page.
-     * Expectation: the back key stays on the page intent so the assessment ends first.
+     * Scenario: the action resolver on the exam page.
+     * Expectation: the back key stays on the page action so the assessment ends first.
      */
     it('Assessment_KeyCodeResolverExamPage_016', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeResolverExamPage_016, begin');
-      const examResolver: KeyIntentResolver = new KeyIntentResolver(true);
+      const examResolver: KeyActionResolver = new KeyActionResolver(true);
       expect(examResolver.isOnExamPage()).assertTrue();
-      expect(examResolver.resolve(KEY_BACK)).assertEqual(NavigationIntent.LEAVE_PAGE);
-      expect(examResolver.resolve(KEY_HOME)).assertEqual(NavigationIntent.LEAVE_APP);
+      expect(examResolver.resolve(KEY_BACK)).assertEqual(NavigationAction.LEAVE_PAGE);
+      expect(examResolver.resolve(KEY_HOME)).assertEqual(NavigationAction.LEAVE_APP);
       examResolver.setOnExamPage(false);
-      expect(examResolver.resolve(KEY_BACK)).assertEqual(NavigationIntent.LEAVE_APP);
+      expect(examResolver.resolve(KEY_BACK)).assertEqual(NavigationAction.LEAVE_APP);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeResolverExamPage_016, end');
     });
 
@@ -1084,7 +1084,7 @@ export default function keyCodeValidationTest() {
 
     /**
      * Scenario: the resolver descriptions.
-     * Expectation: every intent answers a non empty English description.
+     * Expectation: every action answers a non empty English description.
      */
     it('Assessment_KeyCodeResolverDescriptions_021', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeResolverDescriptions_021, begin');
@@ -1095,21 +1095,21 @@ export default function keyCodeValidationTest() {
       expect(resolver.describe(KEY_ENTER)).assertEqual('activate the focused control');
       expect(resolver.describe(KEY_BACK)).assertEqual('leave the application');
       expect(resolver.describe(KEY_TAB)).assertEqual('traverse to the next control');
-      expect(resolver.describe(9999)).assertEqual('no intent');
+      expect(resolver.describe(9999)).assertEqual('no action');
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeResolverDescriptions_021, end');
     });
 
     /**
      * Scenario: a dispatcher on the entry page.
-     * Expectation: the direction keys are handled and record their intent.
+     * Expectation: the direction keys are handled and record their action.
      */
     it('Assessment_KeyCodeDispatchDirection_022', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchDirection_022, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       const down: DispatchResult = dispatcher.dispatch(KEY_DOWN);
       expect(down.outcome).assertEqual(PressOutcome.HANDLED);
       expect(down.handled).assertTrue();
-      expect(down.intent).assertEqual(NavigationIntent.FOCUS_DOWN);
+      expect(down.action).assertEqual(NavigationAction.FOCUS_DOWN);
       expect(down.description).assertEqual('move focus down');
       expect(dispatcher.journalSize()).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchDirection_022, end');
@@ -1117,62 +1117,62 @@ export default function keyCodeValidationTest() {
 
     /**
      * Scenario: dispatching every direction key.
-     * Expectation: each key answers its own intent and the journal keeps the order.
+     * Expectation: each key answers its own action and the journal keeps the order.
      */
     it('Assessment_KeyCodeDispatchAllDirections_023', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchAllDirections_023, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       dispatcher.dispatch(KEY_LEFT);
       dispatcher.dispatch(KEY_RIGHT);
       dispatcher.dispatch(KEY_UP);
       dispatcher.dispatch(KEY_DOWN);
       const journal: KeyEventRecord[] = dispatcher.getJournal();
       expect(journal.length).assertEqual(4);
-      expect(journal[0].intent).assertEqual(NavigationIntent.FOCUS_LEFT);
-      expect(journal[1].intent).assertEqual(NavigationIntent.FOCUS_RIGHT);
-      expect(journal[2].intent).assertEqual(NavigationIntent.FOCUS_UP);
-      expect(journal[3].intent).assertEqual(NavigationIntent.FOCUS_DOWN);
+      expect(journal[0].action).assertEqual(NavigationAction.FOCUS_LEFT);
+      expect(journal[1].action).assertEqual(NavigationAction.FOCUS_RIGHT);
+      expect(journal[2].action).assertEqual(NavigationAction.FOCUS_UP);
+      expect(journal[3].action).assertEqual(NavigationAction.FOCUS_DOWN);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchAllDirections_023, end');
     });
 
     /**
      * Scenario: dispatching the confirm key.
-     * Expectation: the activation intent is recorded and the event is handled.
+     * Expectation: the activation action is recorded and the event is handled.
      */
     it('Assessment_KeyCodeDispatchConfirm_024', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchConfirm_024, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       const result: DispatchResult = dispatcher.dispatch(KEY_ENTER);
       expect(result.outcome).assertEqual(PressOutcome.HANDLED);
-      expect(result.intent).assertEqual(NavigationIntent.ACTIVATE);
+      expect(result.action).assertEqual(NavigationAction.ACTIVATE);
       expect(dispatcher.countOfCode(KEY_ENTER)).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchConfirm_024, end');
     });
 
     /**
      * Scenario: dispatching the cancel key on the exam page.
-     * Expectation: the leave page intent is produced, not the leave app intent.
+     * Expectation: the leave page action is produced, not the leave app action.
      */
     it('Assessment_KeyCodeDispatchCancelExam_025', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchCancelExam_025, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(true));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(true));
       const result: DispatchResult = dispatcher.dispatch(KEY_BACK);
       expect(result.outcome).assertEqual(PressOutcome.HANDLED);
-      expect(result.intent).assertEqual(NavigationIntent.LEAVE_PAGE);
+      expect(result.action).assertEqual(NavigationAction.LEAVE_PAGE);
       expect(result.description).assertEqual('leave the current page');
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchCancelExam_025, end');
     });
 
     /**
      * Scenario: dispatching the home key.
-     * Expectation: the leave app intent is produced on every page.
+     * Expectation: the leave app action is produced on every page.
      */
     it('Assessment_KeyCodeDispatchHome_026', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchHome_026, begin');
-      const entry: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
-      const exam: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(true));
-      expect(entry.dispatch(KEY_HOME).intent).assertEqual(NavigationIntent.LEAVE_APP);
-      expect(exam.dispatch(KEY_HOME).intent).assertEqual(NavigationIntent.LEAVE_APP);
+      const entry: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
+      const exam: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(true));
+      expect(entry.dispatch(KEY_HOME).action).assertEqual(NavigationAction.LEAVE_APP);
+      expect(exam.dispatch(KEY_HOME).action).assertEqual(NavigationAction.LEAVE_APP);
       expect(entry.dispatch(KEY_HOME).description).assertEqual('leave the application');
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchHome_026, end');
     });
@@ -1183,11 +1183,11 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchUnknown_027', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchUnknown_027, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       const result: DispatchResult = dispatcher.dispatch(9999);
       expect(result.outcome).assertEqual(PressOutcome.UNKNOWN_KEY);
       expect(result.handled).assertFalse();
-      expect(result.intent).assertEqual(NavigationIntent.NONE);
+      expect(result.action).assertEqual(NavigationAction.NONE);
       expect(result.description).assertEqual('unknown key code');
       expect(dispatcher.countOutcome(PressOutcome.UNKNOWN_KEY)).assertEqual(1);
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchUnknown_027, end');
@@ -1199,7 +1199,7 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchUnknownRepeated_028', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchUnknownRepeated_028, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       const unknownCodes: number[] = [-1, 0, 42, 9999];
       for (let i = 0; i < unknownCodes.length; i++) {
         dispatcher.dispatch(unknownCodes[i]);
@@ -1216,7 +1216,7 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchLatest_029', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchLatest_029, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       expect(dispatcher.latest() === null).assertTrue();
       dispatcher.dispatch(KEY_LEFT);
       dispatcher.dispatch(KEY_RIGHT);
@@ -1224,7 +1224,7 @@ export default function keyCodeValidationTest() {
       expect(latest !== null).assertTrue();
       if (latest !== null) {
         expect(latest.code).assertEqual(KEY_RIGHT);
-        expect(latest.intent).assertEqual(NavigationIntent.FOCUS_RIGHT);
+        expect(latest.action).assertEqual(NavigationAction.FOCUS_RIGHT);
         expect(latest.outcome).assertEqual(PressOutcome.HANDLED);
       }
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchLatest_029, end');
@@ -1236,7 +1236,7 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchJournalCapacity_030', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchJournalCapacity_030, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false), 5);
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false), 5);
       const stream: number[] = KeyStreamBuilder.repeat(KEY_DOWN, 12);
       for (let i = 0; i < stream.length; i++) {
         dispatcher.dispatch(stream[i]);
@@ -1256,7 +1256,7 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchClear_031', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchClear_031, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       dispatcher.getRepeatPolicy().press(KEY_DOWN, 0);
       dispatcher.dispatch(KEY_DOWN);
       expect(dispatcher.journalSize()).assertEqual(1);
@@ -1274,7 +1274,7 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchStatistics_032', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchStatistics_032, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       dispatcher.dispatch(KEY_LEFT);
       dispatcher.dispatch(KEY_RIGHT);
       dispatcher.dispatch(KEY_ENTER);
@@ -1434,7 +1434,7 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchRepeatUnpressed_041', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchRepeatUnpressed_041, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       const result: DispatchResult = dispatcher.dispatchRepeat(KEY_DOWN, 1000);
       expect(result.outcome).assertEqual(PressOutcome.REPEAT_SUPPRESSED);
       expect(result.handled).assertFalse();
@@ -1448,13 +1448,13 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchRepeatHeld_042', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchRepeatHeld_042, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       dispatcher.getRepeatPolicy().press(KEY_DOWN, 0);
       const early: DispatchResult = dispatcher.dispatchRepeat(KEY_DOWN, REPEAT_DELAY_MS - 10);
       expect(early.outcome).assertEqual(PressOutcome.REPEAT_SUPPRESSED);
       const accepted: DispatchResult = dispatcher.dispatchRepeat(KEY_DOWN, REPEAT_DELAY_MS + 10);
       expect(accepted.outcome).assertEqual(PressOutcome.HANDLED);
-      expect(accepted.intent).assertEqual(NavigationIntent.FOCUS_DOWN);
+      expect(accepted.action).assertEqual(NavigationAction.FOCUS_DOWN);
       expect(dispatcher.countOutcome(PressOutcome.HANDLED)).assertEqual(1);
       expect(dispatcher.countOutcome(PressOutcome.REPEAT_SUPPRESSED)).assertEqual(1);
       expect(dispatcher.countOfCode(KEY_DOWN)).assertEqual(2);
@@ -1467,7 +1467,7 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchRepeatCap_043', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchRepeatCap_043, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false));
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false));
       dispatcher.getRepeatPolicy().press(KEY_RIGHT, 0);
       let handled: number = 0;
       for (let i = 0; i < MAX_REPEAT_COUNT + 4; i++) {
@@ -1666,7 +1666,7 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeDispatchStream_055', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchStream_055, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false), 128);
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false), 128);
       const stream: number[] = KeyCatalog.codes();
       for (let i = 0; i < stream.length; i++) {
         expect(dispatcher.dispatch(stream[i]).handled).assertTrue();
@@ -1678,23 +1678,23 @@ export default function keyCodeValidationTest() {
     });
 
     /**
-     * Scenario: the intent chain of a stream.
-     * Expectation: the recorded intents follow the catalogue order.
+     * Scenario: the action chain of a stream.
+     * Expectation: the recorded actions follow the catalogue order.
      */
-    it('Assessment_KeyCodeDispatchStreamIntents_056', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchStreamIntents_056, begin');
-      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyIntentResolver(false), 32);
+    it('Assessment_KeyCodeDispatchStreamActions_056', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchStreamActions_056, begin');
+      const dispatcher: KeyDispatcher = new KeyDispatcher(new KeyActionResolver(false), 32);
       const directions: number[] = KeyCatalog.codesOfCategory(KeyCategory.DIRECTION);
       for (let i = 0; i < directions.length; i++) {
         dispatcher.dispatch(directions[i]);
       }
       const journal: KeyEventRecord[] = dispatcher.getJournal();
       expect(journal.length).assertEqual(4);
-      expect(journal[0].intent).assertEqual(NavigationIntent.FOCUS_LEFT);
-      expect(journal[3].intent).assertEqual(NavigationIntent.FOCUS_DOWN);
+      expect(journal[0].action).assertEqual(NavigationAction.FOCUS_LEFT);
+      expect(journal[3].action).assertEqual(NavigationAction.FOCUS_DOWN);
       expect(journal[0].code).assertEqual(KEY_LEFT);
       expect(journal[3].code).assertEqual(KEY_DOWN);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchStreamIntents_056, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeDispatchStreamActions_056, end');
     });
 
     /**
@@ -1753,18 +1753,18 @@ export default function keyCodeValidationTest() {
      */
     it('Assessment_KeyCodeComprehensive_061', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeComprehensive_061, begin');
-      const pageResolver: KeyIntentResolver = new KeyIntentResolver(true);
+      const pageResolver: KeyActionResolver = new KeyActionResolver(true);
       const dispatcher: KeyDispatcher = new KeyDispatcher(pageResolver, 64);
       const tracker: KeyInterruptTracker = new KeyInterruptTracker();
-      expect(dispatcher.dispatch(KEY_DOWN).intent).assertEqual(NavigationIntent.FOCUS_DOWN);
+      expect(dispatcher.dispatch(KEY_DOWN).action).assertEqual(NavigationAction.FOCUS_DOWN);
       dispatcher.getRepeatPolicy().press(KEY_DOWN, 0);
       expect(dispatcher.dispatchRepeat(KEY_DOWN, REPEAT_DELAY_MS + 10).handled).assertTrue();
-      expect(dispatcher.dispatch(KEY_ENTER).intent).assertEqual(NavigationIntent.ACTIVATE);
+      expect(dispatcher.dispatch(KEY_ENTER).action).assertEqual(NavigationAction.ACTIVATE);
       tracker.buffer(KEY_DOWN);
       tracker.buffer(KEY_ENTER);
       tracker.interrupt();
       expect(tracker.bufferSize()).assertEqual(0);
-      expect(dispatcher.dispatch(KEY_BACK).intent).assertEqual(NavigationIntent.LEAVE_PAGE);
+      expect(dispatcher.dispatch(KEY_BACK).action).assertEqual(NavigationAction.LEAVE_PAGE);
       expect(dispatcher.countOutcome(PressOutcome.HANDLED)).assertEqual(4);
       expect(dispatcher.statistics().distinctKeys).assertEqual(3);
       dispatcher.getRepeatPolicy().release(KEY_DOWN);
@@ -1773,20 +1773,20 @@ export default function keyCodeValidationTest() {
     });
 
     /**
-     * Scenario: the dispatcher intents never contradict the catalogue.
-     * Expectation: every catalogued code answers the intent the catalogue declares.
+     * Scenario: the dispatcher actions never contradict the catalogue.
+     * Expectation: every catalogued code answers the action the catalogue declares.
      */
     it('Assessment_KeyCodeCatalogDispatcherAgreement_068', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeCatalogDispatcherAgreement_068, begin');
-      const entryResolver: KeyIntentResolver = new KeyIntentResolver(false);
+      const entryResolver: KeyActionResolver = new KeyActionResolver(false);
       const codes: number[] = KeyCatalog.codes();
       for (let i = 0; i < codes.length; i++) {
-        const catalogIntent: NavigationIntent = KeyCatalog.intentOf(codes[i]);
-        const resolvedIntent: NavigationIntent = entryResolver.resolve(codes[i]);
-        if (catalogIntent === NavigationIntent.LEAVE_PAGE) {
-          expect(resolvedIntent).assertEqual(NavigationIntent.LEAVE_APP);
+        const catalogAction: NavigationAction = KeyCatalog.actionOf(codes[i]);
+        const resolvedAction: NavigationAction = entryResolver.resolve(codes[i]);
+        if (catalogAction === NavigationAction.LEAVE_PAGE) {
+          expect(resolvedAction).assertEqual(NavigationAction.LEAVE_APP);
         } else {
-          expect(resolvedIntent).assertEqual(catalogIntent);
+          expect(resolvedAction).assertEqual(catalogAction);
         }
       }
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeCatalogDispatcherAgreement_068, end');
@@ -1803,7 +1803,7 @@ export default function keyCodeValidationTest() {
       expect(first).assertEqual(second);
       expect(first).assertEqual('KEYCODE_DPAD_DOWN');
       expect(first.length > 0).assertTrue();
-      expect(KeyCatalog.intentOf(KEY_DOWN)).assertEqual(KeyCatalog.intentOf(KEY_DOWN));
+      expect(KeyCatalog.actionOf(KEY_DOWN)).assertEqual(KeyCatalog.actionOf(KEY_DOWN));
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'KeyCodeCatalogStableNames_069, end');
     });
   });

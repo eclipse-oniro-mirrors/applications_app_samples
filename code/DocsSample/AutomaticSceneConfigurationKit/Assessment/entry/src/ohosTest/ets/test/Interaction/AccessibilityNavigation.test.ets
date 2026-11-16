@@ -49,7 +49,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_Assessment]';
 const BUNDLE: string = 'Assessment_';
 
-// The minimal touch target that the accessibility guidelines of the platform recommend for a
+// The minimal touch target that the usability guidelines of the platform recommend for a
 // primary action. The operation buttons of the sample declare a height of 44vp.
 const MIN_TOUCH_TARGET_VP: number = 44;
 
@@ -83,7 +83,7 @@ const ROLE_TEXT: string = 'Text';
 const ROLE_BUTTON: string = 'Button';
 const ROLE_INPUT: string = 'TextInput';
 
-// Focus indices used by the synthetic accessibility nodes that mirror the entry page.
+// Focus indices used by the synthetic usability nodes that mirror the entry page.
 const FOCUS_INDEX_TITLE: number = 0;
 const FOCUS_INDEX_INPUT: number = 1;
 const FOCUS_INDEX_ADD: number = 2;
@@ -351,7 +351,7 @@ class ContrastCalculator {
 }
 
 /**
- * One accessibility relevant component of a page.
+ * One usability-relevant component of a page.
  *
  * The class is a data model, the UiTest driver only provides identity, text and enabled
  * state, so the geometry is mirrored from the layout source instead of being measured.
@@ -465,7 +465,7 @@ class AccessibilityNode {
 }
 
 /**
- * Collects accessibility nodes and derives the audit findings of a page.
+ * Collects usability nodes and derives the audit findings of a page.
  */
 class AccessibilityAudit {
   private nodes: AccessibilityNode[] = [];
@@ -897,7 +897,7 @@ async function guardEntryPage(driver: Driver): Promise<boolean> {
 }
 
 /**
- * Probes one identifier of the entry page and converts it into an accessibility node.
+ * Probes one identifier of the entry page and converts it into a usability node.
  *
  * @param driver driver of the running case.
  * @param id identifier of the component.

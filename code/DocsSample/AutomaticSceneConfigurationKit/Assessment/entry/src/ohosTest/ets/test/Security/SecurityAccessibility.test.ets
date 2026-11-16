@@ -42,7 +42,7 @@ const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_Assessment]';
 const BUNDLE: string = 'Assessment_';
 
-// Accessibility thresholds of the platform.
+// Usability thresholds of the platform.
 const MIN_TAP_TARGET_VP: number = 44;
 const MIN_BODY_CONTRAST: number = 4.5;
 const MIN_LARGE_TEXT_CONTRAST: number = 3.0;
@@ -63,7 +63,7 @@ const LUMINANCE_BLACK: number = 0.0;
 const LUMINANCE_WHITE: number = 1.0;
 
 /**
- * Accessibility role of a component of the sample.
+ * Usability role of a component of the sample.
  */
 enum AccessibilityRole {
   TITLE = 'title',
@@ -74,7 +74,7 @@ enum AccessibilityRole {
 }
 
 /**
- * Description of one component of the entry page from the accessibility point of view.
+ * Description of one component of the entry page from the usability point of view.
  */
 interface AccessibleElement {
   id: string;
@@ -159,7 +159,7 @@ class ContrastCalculator {
  *
  * Every Button and every TextInput of the sample must carry an accessible label. The catalogue
  * lists the elements with their role, their label and their declared tap size, so a component
- * that loses its label shows up as a failed assertion instead of an accessibility defect.
+ * that loses its label shows up as a failed assertion instead of a usability defect.
  */
 class AccessibleElementCatalogue {
   private elements: AccessibleElement[] = [
@@ -478,7 +478,7 @@ export default function securityAccessibilityTest() {
     });
 
     /**
-     * Scenario: the accessibility thresholds of the platform.
+     * Scenario: the usability thresholds of the platform.
      * Expectation: the tap target minimum is forty four vp and the body text contrast minimum
      * is four and a half to one.
      */

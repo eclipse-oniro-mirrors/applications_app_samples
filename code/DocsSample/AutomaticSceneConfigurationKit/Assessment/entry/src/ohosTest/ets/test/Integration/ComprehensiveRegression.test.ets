@@ -264,7 +264,7 @@ class LifecycleTimeline {
  * The controller prepends every entry and drops the oldest one beyond twenty, so the newest
  * entry always sits at index zero and the buffer never exceeds the documented capacity.
  */
-class EventLogRing {
+class EventJournalRing {
   private entries: string[] = [];
   private capacity: number = MAX_EVENT_LOG;
 
@@ -310,7 +310,7 @@ class EventLogRing {
   }
 
   public describe(): string {
-    return `EventLogRing{size=${this.entries.length}, capacity=${this.capacity}}`;
+    return `EventJournalRing{size=${this.entries.length}, capacity=${this.capacity}}`;
   }
 }
 
@@ -623,7 +623,7 @@ export default function comprehensiveRegressionTest() {
      */
     it('Assessment_ComprehensiveRegression_005', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ComprehensiveRegression_005, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       for (let i = 0; i < MAX_EVENT_LOG; i++) {
         ring.push(`entry_${i}`);
       }
@@ -647,7 +647,7 @@ export default function comprehensiveRegressionTest() {
      */
     it('Assessment_ComprehensiveRegression_006', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ComprehensiveRegression_006, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       ring.push('onBegin code=0 message=');
       expect(ring.size()).assertEqual(1);
       expect(ring.isFull()).assertFalse();

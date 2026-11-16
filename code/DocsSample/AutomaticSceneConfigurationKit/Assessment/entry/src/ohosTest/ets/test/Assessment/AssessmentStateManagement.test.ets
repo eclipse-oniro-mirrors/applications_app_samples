@@ -749,8 +749,8 @@ export default function assessmentStateManagementTest() {
      * Scenario: the newest event wins in the log.
      * Expectation: the first log entry is the most recently published event.
      */
-    it('Assessment_EventLogOrdering_019', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogOrdering_019, begin');
+    it('Assessment_EventJournalOrdering_019', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalOrdering_019, begin');
       const storage: StorageMirror = new StorageMirror();
       const applier: CallbackApplier = new CallbackApplier(storage);
       applier.applyBegin(CODE_OK, 'first');
@@ -763,7 +763,7 @@ export default function assessmentStateManagementTest() {
       expect(logs[2]).assertContain(EVENT_BEGIN);
       expect(storage.newestLog()).assertEqual(logs[0]);
       hilog.info(DOMAIN, TAG, '%{public}s', logs.join(' | '));
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogOrdering_019, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalOrdering_019, end');
     });
 
     /**

@@ -82,7 +82,7 @@ const CASE_017: string = BUNDLE + 'LongTermStability_017';
  * the ring is full, so the published array never exceeds MAX_EVENT_LOG entries. The model
  * reproduces that behaviour exactly, including the immutability of the published slice.
  */
-class EventLogRing {
+class EventJournalRing {
   private entries: string[] = [];
   private readonly capacity: number;
   private dropped: number = 0;
@@ -170,7 +170,7 @@ class EventLogRing {
   }
 
   public toString(): string {
-    return `EventLogRing{size=${this.entries.length}, capacity=${this.capacity}, dropped=${this.dropped}}`;
+    return `EventJournalRing{size=${this.entries.length}, capacity=${this.capacity}, dropped=${this.dropped}}`;
   }
 }
 
@@ -512,7 +512,7 @@ export default function longTermStabilityTest() {
      */
     it('Assessment_LongTermStability_001', 0, () => {
       logBegin(CASE_001);
-      const ring: EventLogRing = new EventLogRing(MAX_EVENT_LOG);
+      const ring: EventJournalRing = new EventJournalRing(MAX_EVENT_LOG);
       expect(ring.size()).assertEqual(0);
       expect(ring.isEmpty()).assertTrue();
       expect(ring.capacityLimit()).assertEqual(20);
@@ -530,7 +530,7 @@ export default function longTermStabilityTest() {
      */
     it('Assessment_LongTermStability_002', 0, () => {
       logBegin(CASE_002);
-      const ring: EventLogRing = new EventLogRing(MAX_EVENT_LOG);
+      const ring: EventJournalRing = new EventJournalRing(MAX_EVENT_LOG);
       expect(ring.append('onBegin code=0 message=')).assertTrue();
       expect(ring.size()).assertEqual(1);
       expect(ring.newest()).assertEqual('onBegin code=0 message=');
@@ -547,7 +547,7 @@ export default function longTermStabilityTest() {
      */
     it('Assessment_LongTermStability_003', 0, () => {
       logBegin(CASE_003);
-      const ring: EventLogRing = new EventLogRing(MAX_EVENT_LOG);
+      const ring: EventJournalRing = new EventJournalRing(MAX_EVENT_LOG);
       expect(ring.append('')).assertFalse();
       expect(ring.size()).assertEqual(0);
       expect(ring.isEmpty()).assertTrue();
@@ -562,7 +562,7 @@ export default function longTermStabilityTest() {
      */
     it('Assessment_LongTermStability_004', 0, () => {
       logBegin(CASE_004);
-      const ring: EventLogRing = new EventLogRing(MAX_EVENT_LOG);
+      const ring: EventJournalRing = new EventJournalRing(MAX_EVENT_LOG);
       expect(ring.appendTimes('event', MAX_EVENT_LOG)).assertEqual(MAX_EVENT_LOG);
       expect(ring.size()).assertEqual(MAX_EVENT_LOG);
       expect(ring.droppedCount()).assertEqual(0);
@@ -579,7 +579,7 @@ export default function longTermStabilityTest() {
      */
     it('Assessment_LongTermStability_005', 0, () => {
       logBegin(CASE_005);
-      const ring: EventLogRing = new EventLogRing(MAX_EVENT_LOG);
+      const ring: EventJournalRing = new EventJournalRing(MAX_EVENT_LOG);
       ring.appendTimes('event', MAX_EVENT_LOG + 1);
       expect(ring.size()).assertEqual(MAX_EVENT_LOG);
       expect(ring.droppedCount()).assertEqual(1);
@@ -597,7 +597,7 @@ export default function longTermStabilityTest() {
      */
     it('Assessment_LongTermStability_007', 0, () => {
       logBegin(CASE_007);
-      const ring: EventLogRing = new EventLogRing(MAX_EVENT_LOG);
+      const ring: EventJournalRing = new EventJournalRing(MAX_EVENT_LOG);
       ring.appendTimes('event', 3);
       const snapshot: string[] = ring.snapshot();
       snapshot.push('injected');
@@ -616,7 +616,7 @@ export default function longTermStabilityTest() {
      */
     it('Assessment_LongTermStability_008', 0, () => {
       logBegin(CASE_008);
-      const ring: EventLogRing = new EventLogRing(MAX_EVENT_LOG);
+      const ring: EventJournalRing = new EventJournalRing(MAX_EVENT_LOG);
       ring.appendTimes('event', MAX_EVENT_LOG + 5);
       expect(ring.size()).assertEqual(MAX_EVENT_LOG);
       expect(ring.droppedCount()).assertEqual(5);

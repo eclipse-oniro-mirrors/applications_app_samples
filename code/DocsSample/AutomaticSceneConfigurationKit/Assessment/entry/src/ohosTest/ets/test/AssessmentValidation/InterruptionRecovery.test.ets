@@ -337,7 +337,7 @@ class InterruptionStateModel {
     return this.lastInterrupt;
   }
 
-  public getEventLog(): LogEntry[] {
+  public getEventJournal(): LogEntry[] {
     return this.log.slice();
   }
 
@@ -729,19 +729,19 @@ export default function interruptionRecoveryTest() {
      * Scenario: the log entry of an interruption.
      * Expectation: the entry carries the exact text that the status card renders, newest first.
      */
-    it('Assessment_EventLogAppend_010', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogAppend_010, begin');
+    it('Assessment_EventJournalAppend_010', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalAppend_010, begin');
       const local: InterruptionStateModel = new InterruptionStateModel();
       local.beginSuccess();
       local.interrupt(CODE_SYSTEM_ERROR, 'the service failed');
-      const log: LogEntry[] = local.getEventLog();
+      const log: LogEntry[] = local.getEventJournal();
       expect(log.length).assertEqual(2);
       expect(log[0].type).assertEqual(EVENT_INTERRUPTED);
       expect(log[1].type).assertEqual(EVENT_BEGIN);
       const text: string = formatLogEntry(log[0].type, log[0].code, log[0].message);
       expect(text).assertEqual('onInterrupted code=3 message=the service failed');
       expect(text).assertContain('onInterrupted');
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogAppend_010, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalAppend_010, end');
     });
 
     /**
@@ -749,14 +749,14 @@ export default function interruptionRecoveryTest() {
      * Expectation: every interruption is logged, the newest entry is on top and the dialog is
      * offered only once.
      */
-    it('Assessment_EventLogOrder_011', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogOrder_011, begin');
+    it('Assessment_EventJournalOrder_011', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalOrder_011, begin');
       const local: InterruptionStateModel = new InterruptionStateModel();
       local.beginSuccess();
       local.interrupt(CODE_TIMEOUT, 'first');
       local.interrupt(CODE_ENV_ANOMALY, 'second');
       local.interrupt(CODE_SYSTEM_ERROR, 'third');
-      const log: LogEntry[] = local.getEventLog();
+      const log: LogEntry[] = local.getEventJournal();
       expect(log.length).assertEqual(4);
       expect(log[0].message).assertEqual('third');
       expect(log[1].message).assertEqual('second');
@@ -764,15 +764,15 @@ export default function interruptionRecoveryTest() {
       expect(log[3].type).assertEqual(EVENT_BEGIN);
       expect(local.getDialogCount()).assertEqual(1);
       expect(local.getInterruptedCalls()).assertEqual(3);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogOrder_011, end');
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalOrder_011, end');
     });
 
     /**
      * Scenario: the event log reaches its cap after many interruptions.
      * Expectation: the log stops at twenty entries and the oldest entry is dropped.
      */
-    it('Assessment_EventLogCap_012', 0, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogCap_012, begin');
+    it('Assessment_EventJournalCap_012', 0, async () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalCap_012, begin');
       const local: InterruptionStateModel = new InterruptionStateModel();
       const rounds: number = MAX_EVENT_LOG + 7;
       for (let i = 0; i < rounds; i++) {
@@ -780,12 +780,12 @@ export default function interruptionRecoveryTest() {
       }
       expect(local.logSize()).assertEqual(MAX_EVENT_LOG);
       expect(local.getInterruptedCalls()).assertEqual(rounds);
-      const log: LogEntry[] = local.getEventLog();
+      const log: LogEntry[] = local.getEventJournal();
       expect(log[0].message).assertEqual(`round ${rounds - 1}`);
       expect(log[MAX_EVENT_LOG - 1].message).assertEqual(`round ${rounds - MAX_EVENT_LOG}`);
       hilog.info(DOMAIN, TAG, '%{public}s log holds %{public}d of %{public}d interruptions',
-        BUNDLE + 'EventLogCap_012', local.logSize(), rounds);
-      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventLogCap_012, end');
+        BUNDLE + 'EventJournalCap_012', local.logSize(), rounds);
+      hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'EventJournalCap_012, end');
     });
 
     /**

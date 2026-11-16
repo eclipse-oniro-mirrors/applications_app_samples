@@ -119,7 +119,7 @@ enum EffectKind {
  * The semantic role of a color token of the page.
  */
 enum ColorRole {
-  SURFACE = 0,
+  BACKDROP = 0,
   CARD = 1,
   PRIMARY_TEXT = 2,
   SECONDARY_TEXT = 3,
@@ -217,9 +217,9 @@ class EffectColor {
   }
 
   /**
-   * Composites this color over an opaque surface.
+   * Composites this color over an opaque backdrop.
    *
-   * @param background opaque surface color.
+   * @param background opaque backdrop color.
    * @returns the blended color with an alpha of one.
    */
   public blendOver(background: EffectColor): EffectColor {
@@ -281,7 +281,7 @@ class EffectColorTable {
    * Builds the light table of the sample.
    */
   constructor() {
-    this.tokens.set(ColorRole.SURFACE, COLOR_PAGE_BACKGROUND);
+    this.tokens.set(ColorRole.BACKDROP, COLOR_PAGE_BACKGROUND);
     this.tokens.set(ColorRole.CARD, COLOR_CARD_BACKGROUND);
     this.tokens.set(ColorRole.PRIMARY_TEXT, COLOR_TITLE_FONT);
     this.tokens.set(ColorRole.SECONDARY_TEXT, COLOR_SECONDARY_FONT);
@@ -335,7 +335,7 @@ class EffectColorTable {
    * @returns a compact description used by the log lines.
    */
   public toString(): string {
-    return `EffectColorTable{roles=${this.tokens.size}, surface=${this.resolve(ColorRole.SURFACE)}}`;
+    return `EffectColorTable{roles=${this.tokens.size}, backdrop=${this.resolve(ColorRole.BACKDROP)}}`;
   }
 }
 
@@ -360,7 +360,7 @@ class VisualStateResolver {
    */
   public buttonBackground(state: VisualState): string {
     if (state === VisualState.DISABLED) {
-      return this.table.resolve(ColorRole.SURFACE);
+      return this.table.resolve(ColorRole.BACKDROP);
     }
     if (state === VisualState.SELECTED) {
       return this.table.resolve(ColorRole.SUCCESS);
@@ -391,7 +391,7 @@ class VisualStateResolver {
    * @returns the background token of the chip.
    */
   public chipBackground(selected: boolean): string {
-    return selected ? this.table.resolve(ColorRole.BRAND) : this.table.resolve(ColorRole.SURFACE);
+    return selected ? this.table.resolve(ColorRole.BRAND) : this.table.resolve(ColorRole.BACKDROP);
   }
 
   /**
@@ -761,7 +761,7 @@ export default function visualEffectsTest() {
 
     /**
      * Scenario: the background of the begin button in each state.
-     * Expectation: the disabled state falls back to the surface, the selected state uses the
+     * Expectation: the disabled state falls back to the backdrop, the selected state uses the
      * success token and the normal state the brand token.
      */
     it('Assessment_VisualEffects_002', 0, async () => {
@@ -1074,7 +1074,7 @@ export default function visualEffectsTest() {
      */
     it('Assessment_VisualEffects_027', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'VisualEffects_027, begin');
-      const roles: ColorRole[] = [ColorRole.SURFACE, ColorRole.CARD, ColorRole.PRIMARY_TEXT,
+      const roles: ColorRole[] = [ColorRole.BACKDROP, ColorRole.CARD, ColorRole.PRIMARY_TEXT,
         ColorRole.SECONDARY_TEXT, ColorRole.BRAND, ColorRole.WARNING, ColorRole.SUCCESS,
         ColorRole.DIVIDER];
       for (let i = 0; i < roles.length; i++) {
@@ -1091,7 +1091,7 @@ export default function visualEffectsTest() {
      */
     it('Assessment_VisualEffects_028', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'VisualEffects_028, begin');
-      expect(table.resolve(ColorRole.SURFACE).length > 0).assertTrue();
+      expect(table.resolve(ColorRole.BACKDROP).length > 0).assertTrue();
       expect(table.alphaOf(ColorRole.WARNING)).assertEqual(1);
       expect(table.alphaOf(ColorRole.SUCCESS)).assertEqual(1);
       expect(table.alphaOf(ColorRole.DIVIDER) < 1).assertTrue();

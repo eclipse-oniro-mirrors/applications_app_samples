@@ -416,7 +416,7 @@ class StorageSchema {
 /**
  * The event log with the cape and ordering rules of AssessmentController.appendLog.
  */
-class EventLog {
+class EventJournal {
   private entries: string[] = [];
   private drops: number = 0;
   private appends: number = 0;
@@ -505,10 +505,10 @@ class EventLog {
  */
 class EventPublisher {
   private store: SimulatedAppStorage;
-  private log: EventLog;
+  private log: EventJournal;
   private records: PublishRecord[] = [];
 
-  public constructor(store: SimulatedAppStorage, log: EventLog) {
+  public constructor(store: SimulatedAppStorage, log: EventJournal) {
     this.store = store;
     this.log = log;
   }
@@ -701,7 +701,7 @@ export default function appStorageEventValidationTest() {
     let driver: Driver;
     let store: SimulatedAppStorage;
     let schema: StorageSchema;
-    let log: EventLog;
+    let log: EventJournal;
     let publisher: EventPublisher;
     let mapper: EventCodeMapper;
 
@@ -709,7 +709,7 @@ export default function appStorageEventValidationTest() {
       driver = getDriver();
       store = new SimulatedAppStorage();
       schema = new StorageSchema();
-      log = new EventLog();
+      log = new EventJournal();
       publisher = new EventPublisher(store, log);
       mapper = new EventCodeMapper();
       await serializedDelay(driver, 1000);
@@ -1120,7 +1120,7 @@ export default function appStorageEventValidationTest() {
      */
     it('Assessment_StorageLogClear_024', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'StorageLogClear_024, begin');
-      const localLog: EventLog = new EventLog();
+      const localLog: EventJournal = new EventJournal();
       for (let i = 0; i < 5; i++) {
         localLog.append(`entry ${i}`);
       }
@@ -1141,7 +1141,7 @@ export default function appStorageEventValidationTest() {
      */
     it('Assessment_StorageLogDefensiveCopy_025', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'StorageLogDefensiveCopy_025, begin');
-      const localLog: EventLog = new EventLog();
+      const localLog: EventJournal = new EventJournal();
       localLog.append('only entry');
       const copy: string[] = localLog.entriesList();
       copy.push('injected');
@@ -1156,7 +1156,7 @@ export default function appStorageEventValidationTest() {
      */
     it('Assessment_StorageLogEmptyAnswers_026', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'StorageLogEmptyAnswers_026, begin');
-      const localLog: EventLog = new EventLog();
+      const localLog: EventJournal = new EventJournal();
       expect(localLog.size()).assertEqual(0);
       expect(localLog.newest()).assertEqual('');
       expect(localLog.oldest()).assertEqual('');
@@ -1392,7 +1392,7 @@ export default function appStorageEventValidationTest() {
     it('Assessment_StorageSequenceStart_041', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'StorageSequenceStart_041, begin');
       const local: SimulatedAppStorage = new SimulatedAppStorage();
-      const localLog: EventLog = new EventLog();
+      const localLog: EventJournal = new EventJournal();
       const localPublisher: EventPublisher = new EventPublisher(local, localLog);
       expect(local.getNumber(KEY_EVENT_SEQ) === undefined).assertTrue();
       expect(localPublisher.publish(EVENT_BEGIN, 0, '')).assertEqual(1);
@@ -1447,7 +1447,7 @@ export default function appStorageEventValidationTest() {
     it('Assessment_StorageEmptySnapshot_044', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'StorageEmptySnapshot_044, begin');
       const local: SimulatedAppStorage = new SimulatedAppStorage();
-      const localPublisher: EventPublisher = new EventPublisher(local, new EventLog());
+      const localPublisher: EventPublisher = new EventPublisher(local, new EventJournal());
       const snapshot: PublishedSnapshot = localPublisher.snapshot();
       expect(snapshot.active).assertFalse();
       expect(snapshot.duration).assertEqual(0);
@@ -1505,7 +1505,7 @@ export default function appStorageEventValidationTest() {
     it('Assessment_StorageSharedSequence_048', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'StorageSharedSequence_048, begin');
       const local: SimulatedAppStorage = new SimulatedAppStorage();
-      const sharedLog: EventLog = new EventLog();
+      const sharedLog: EventJournal = new EventJournal();
       const first: EventPublisher = new EventPublisher(local, sharedLog);
       const second: EventPublisher = new EventPublisher(local, sharedLog);
       expect(first.publish(EVENT_BEGIN, 0, 'one')).assertEqual(1);

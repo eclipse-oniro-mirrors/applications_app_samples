@@ -504,7 +504,7 @@ class BoundedRetryModel {
  * The buffer mirrors the log that the controller keeps in AppStorage: every event is unshifted
  * and the buffer never grows beyond twenty entries.
  */
-class EventLogRing {
+class EventJournalRing {
   private entries: LogEntry[] = [];
 
   /**
@@ -647,7 +647,7 @@ class EventLogRing {
   }
 
   public summary(): string {
-    return `EventLogRing{size=${this.entries.length}, head=${this.head()?.type ?? 'none'}}`;
+    return `EventJournalRing{size=${this.entries.length}, head=${this.head()?.type ?? 'none'}}`;
   }
 }
 
@@ -773,14 +773,14 @@ class ActiveStateLedger {
 class RecoveryCoordinator {
   private table: VerdictTable;
   private retry: BoundedRetryModel;
-  private log: EventLogRing;
+  private log: EventJournalRing;
   private ledger: ActiveStateLedger;
   private failuresByCode: Map<number, number> = new Map<number, number>();
 
   public constructor() {
     this.table = new VerdictTable();
     this.retry = new BoundedRetryModel(this.table);
-    this.log = new EventLogRing();
+    this.log = new EventJournalRing();
     this.ledger = new ActiveStateLedger();
   }
 
@@ -859,7 +859,7 @@ class RecoveryCoordinator {
     return this.ledger.isActive();
   }
 
-  public logs(): EventLogRing {
+  public logs(): EventJournalRing {
     return this.log;
   }
 
@@ -1466,7 +1466,7 @@ export default function errorRecoveryTest() {
      */
     it('Assessment_ErrorRecovery_029', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ErrorRecovery_029, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       ring.publish(EVENT_BEGIN, CODE_OK, '');
       const entry: LogEntry = ring.publish(EVENT_END, CODE_OK, '');
       expect(ring.size()).assertEqual(2);
@@ -1483,7 +1483,7 @@ export default function errorRecoveryTest() {
      */
     it('Assessment_ErrorRecovery_031', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ErrorRecovery_031, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       const first: LogEntry = ring.publish(EVENT_BEGIN, CODE_OK, '');
       const second: LogEntry = ring.publish(EVENT_INTERRUPTED, CODE_ENV_ANOMALY, 'environment changed');
       expect(first.seq).assertEqual(1);
@@ -1498,7 +1498,7 @@ export default function errorRecoveryTest() {
      */
     it('Assessment_ErrorRecovery_032', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ErrorRecovery_032, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       ring.publish(EVENT_BEGIN, CODE_OK, '');
       ring.publish(EVENT_API_ERROR, CODE_SYSTEM_ERROR, 'begin threw');
       ring.publish(EVENT_END, CODE_OK, '');
@@ -1517,7 +1517,7 @@ export default function errorRecoveryTest() {
      */
     it('Assessment_ErrorRecovery_033', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ErrorRecovery_033, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       ring.publish(EVENT_BEGIN, CODE_OK, '');
       expect(ring.replayAfter(1).length).assertEqual(0);
       expect(ring.replayAfter(5).length).assertEqual(0);
@@ -1531,7 +1531,7 @@ export default function errorRecoveryTest() {
      */
     it('Assessment_ErrorRecovery_034', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ErrorRecovery_034, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       expect(ring.size()).assertEqual(0);
       expect(ring.head() === undefined).assertTrue();
       expect(ring.replayAfter(0).length).assertEqual(0);
@@ -1546,7 +1546,7 @@ export default function errorRecoveryTest() {
      */
     it('Assessment_ErrorRecovery_035', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ErrorRecovery_035, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       for (let i = 0; i < 6; i++) {
         ring.publish(EVENT_API_ERROR, CODE_TIMEOUT, `timeout ${i}`);
       }
@@ -1563,7 +1563,7 @@ export default function errorRecoveryTest() {
      */
     it('Assessment_ErrorRecovery_036', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ErrorRecovery_036, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       ring.publish(EVENT_API_ERROR, CODE_SYSTEM_ERROR, 'a');
       ring.publish(EVENT_API_ERROR, CODE_TIMEOUT, 'b');
       ring.publish(EVENT_BEGIN, CODE_OK, '');
@@ -1580,7 +1580,7 @@ export default function errorRecoveryTest() {
      */
     it('Assessment_ErrorRecovery_037', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'ErrorRecovery_037, begin');
-      const ring: EventLogRing = new EventLogRing();
+      const ring: EventJournalRing = new EventJournalRing();
       ring.publish(EVENT_BEGIN, CODE_OK, '');
       ring.clear();
       expect(ring.size()).assertEqual(0);

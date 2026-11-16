@@ -529,7 +529,7 @@ class WatchDispatcher {
  * The controller prepends a new entry and drops the oldest entry beyond twenty, which means the
  * rendered order is newest first while the storage order is insertion first.
  */
-class EventLogModel {
+class EventJournalModel {
   private entries: string[] = [];
   private capacity: number = MAX_EVENT_LOG;
 
@@ -620,7 +620,7 @@ class EventLogModel {
    * @returns a compact description used by the log lines.
    */
   public toString(): string {
-    return `EventLogModel{entries=${this.entries.length}, capacity=${this.capacity}}`;
+    return `EventJournalModel{entries=${this.entries.length}, capacity=${this.capacity}}`;
   }
 }
 
@@ -752,10 +752,10 @@ class ControllerModel {
   }
 
   /**
-   * Scenario: the controller publishes an activity change.
+   * Scenario: the controller publishes an active state change.
    * Expectation: the active key is written before the log entry is published.
    *
-   * @param active new activity state.
+   * @param active new active state.
    * @param timestampMs time of the write.
    * @returns the outcome of the storage write.
    */
@@ -1148,7 +1148,7 @@ export default function dataBindingTest() {
 
     /**
      * Scenario: the active flag is written before the event publication.
-     * Expectation: a repeated activity write of the same value is ignored and does not raise a
+     * Expectation: a repeated active state write of the same value is ignored and does not raise a
      * transition, which is what keeps the page from re-rendering twice.
      */
     it('Assessment_DataBinding_014', 0, async () => {
@@ -1164,7 +1164,7 @@ export default function dataBindingTest() {
     });
 
     /**
-     * Scenario: the activity transition reaches both storage links.
+     * Scenario: the active state transition reaches both storage links.
      * Expectation: the begin and the end button receive the flip in the same transaction, the
      * second link observes the same new value as the first one.
      */
@@ -1208,7 +1208,7 @@ export default function dataBindingTest() {
      */
     it('Assessment_DataBinding_017', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'DataBinding_017, begin');
-      const log: EventLogModel = new EventLogModel();
+      const log: EventJournalModel = new EventJournalModel();
       for (let i = 0; i < MAX_EVENT_LOG + 5; i++) {
         log.prepend(`entry_${i}`);
       }
@@ -1230,7 +1230,7 @@ export default function dataBindingTest() {
      */
     it('Assessment_DataBinding_018', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'DataBinding_018, begin');
-      const log: EventLogModel = new EventLogModel();
+      const log: EventJournalModel = new EventJournalModel();
       log.prepend('oldest');
       log.prepend('newest');
       expect(log.at(0)).assertEqual('newest');
@@ -1249,7 +1249,7 @@ export default function dataBindingTest() {
      */
     it('Assessment_DataBinding_019', 0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', BUNDLE + 'DataBinding_019, begin');
-      const log: EventLogModel = new EventLogModel();
+      const log: EventJournalModel = new EventJournalModel();
       expect(log.size()).assertEqual(0);
       expect(log.head()).assertEqual('');
       expect(log.tail()).assertEqual('');
@@ -1474,7 +1474,7 @@ export default function dataBindingTest() {
       const local: StorageMirror = new StorageMirror();
       const localDispatcher: WatchDispatcher = new WatchDispatcher();
       const localController: ControllerModel = new ControllerModel(local, localDispatcher, specs);
-      const log: EventLogModel = new EventLogModel();
+      const log: EventJournalModel = new EventJournalModel();
       localController.setActive(true, 100);
       localController.publish(EVENT_BEGIN, CODE_OK, 'started', 110);
       log.prepend(local.read(KEY_LOGS));
