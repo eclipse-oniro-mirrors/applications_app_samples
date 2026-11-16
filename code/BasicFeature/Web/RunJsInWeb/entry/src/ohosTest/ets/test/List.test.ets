@@ -15,7 +15,7 @@
 
 // Central registration of every RunJsInWeb test suite.
 // Hypium executes the function below once TestAbility starts, so every suite
-// listed here is part of a single `aa test` run. Each behaviour group is owned
+// listed here is part of a single `test` command run. Each behaviour group is owned
 // by exactly one suite to avoid duplicate assertions.
 
 // Ability smoke suite

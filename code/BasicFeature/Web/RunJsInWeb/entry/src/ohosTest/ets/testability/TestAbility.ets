@@ -30,7 +30,7 @@ const TAG: string = 'TestAbility';
  *
  * The ability only bootstraps Hypium and loads an empty page. Every real check
  * lives in the suites registered through List.test.ets so that a single
- * `aa test` invocation executes the complete regression set.
+ * `test` command invocation executes the complete regression set.
  */
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
