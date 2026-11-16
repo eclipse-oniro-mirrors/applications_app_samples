@@ -758,8 +758,9 @@ struct Index {
                       })
                   }.margin(10)
                   // 云侧文件内容变化后按云侧最新元数据重置占位符：组合"查询占位符水合状态"与
-                  // "更新占位符元数据"两个既有接口。重置会清空本地已水合数据，占位符回到未水合
-                  // 状态，后续打开文件时重新水合获取云侧最新内容。
+                  // "更新占位符元数据"两个既有接口。先确认目标文件为占位符文件（非占位符无法更新），
+                  // 更新会清空本地已水合数据，占位符回到未水合状态，后续打开文件时重新水合获取
+                  // 云侧最新内容。
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.new_cloud_size_label'))
                     TextInput({ text: this.updateOnCloudSizeChangeSize, placeholder: $r('app.string.new_cloud_size_placeholder') })
@@ -783,15 +784,20 @@ struct Index {
                     Button($r('app.string.update_on_cloud_size_change_btn'))
                       .id('updateOnCloudSizeChangeBtn')
                       .onClick(() => {
-                        // 步骤1：查询占位符水合状态，确认目标文件未被水合（水合中更新会被拒绝）
+                        // 步骤1：查询占位符水合状态，确认目标文件为占位符文件
+                        // （非占位符文件无法更新占位符元数据）
                         let stateRet: PlaceholderStateResult = cloudDisk.getPlaceholderState(
                           this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath);
                         if (stateRet.code !== 0) {
                           this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: this.resStr($r('app.string.error_code_label')) + stateRet.code.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(stateRet.code), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
                           return;
                         }
+                        if (stateRet.state === 0) {
+                          this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: $r('app.string.not_placeholder'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                          return;
+                        }
                         // 步骤2：按云侧最新元数据（大小、时间戳从云侧元数据查询获得，此处由入参模拟）
-                        // 更新占位符：本地已水合数据被清空，占位符回到未水合状态
+                        // 更新占位符：本地已水合数据会被清空，占位符回到未水合状态
                         let ret: number = cloudDisk.updatePlaceholder(
                           this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath,
                           parseInt(this.updateOnCloudSizeChangeAtimeMs) || 0,
@@ -799,7 +805,8 @@ struct Index {
                           parseInt(this.updateOnCloudSizeChangeSize) || 0
                         );
                         if (ret === 0) {
-                          this.promptAction.showDialog({ title: $r('app.string.update_success'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                          // 展示重置前占位符状态：未水合（本地无数据，仅更新元数据）/部分水合或完全水合（本地数据已清空，回到未水合）
+                          this.promptAction.showDialog({ title: $r('app.string.update_success'), message: this.getPlaceholderStateMsg(stateRet.state), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
                         } else {
                           this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: this.resStr($r('app.string.error_code_label')) + ret.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(ret), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
                         }
