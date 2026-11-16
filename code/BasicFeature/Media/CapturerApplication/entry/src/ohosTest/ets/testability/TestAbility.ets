@@ -20,7 +20,7 @@ import { window } from '@kit.ArkUI';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 
-const ON_DESTROY_ERROR = -2;
+const ON_DESTROY_ERROR: number = -2;
 
 export default class TestAbility extends UIAbility {
   private abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
