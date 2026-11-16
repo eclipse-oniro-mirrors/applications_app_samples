@@ -70,7 +70,7 @@ export default function statePersistenceTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'state_persistence suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: state_persistence_scenario_8669800_session_start_cycles
     it('state_persistence_scenario_8669800_session_start_cycles', 0, async () => {
       const caseSeed: number = 8669800;
       const session: GameSession = new GameSession();
@@ -84,7 +84,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669800);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: state_persistence_scenario_8669801_paddle_step_sequence
     it('state_persistence_scenario_8669801_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 8669801;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -97,7 +97,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669801);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: state_persistence_scenario_8669802_catalog_lookup_start
     it('state_persistence_scenario_8669802_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 8669802;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -109,7 +109,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669802);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: state_persistence_scenario_8669803_pipeline_round_trip
     it('state_persistence_scenario_8669803_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 8669803;
       const payload: string = '_main.paddle.moveLeft(); // case 8669803';
@@ -121,7 +121,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669803);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: state_persistence_scenario_8669804_settings_zoom_true
     it('state_persistence_scenario_8669804_settings_zoom_true', 0, async () => {
       const caseSeed: number = 8669804;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -132,7 +132,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669804);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: state_persistence_scenario_8669805_layout_custom_columns
     it('state_persistence_scenario_8669805_layout_custom_columns', 0, async () => {
       const caseSeed: number = 8669805;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -143,7 +143,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669805);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: state_persistence_scenario_8669806_score_accumulation
     it('state_persistence_scenario_8669806_score_accumulation', 0, async () => {
       const caseSeed: number = 8669806;
       const board: ScoreBoard = new ScoreBoard();
@@ -156,7 +156,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669806);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: state_persistence_scenario_8669807_brick_grid_progress
     it('state_persistence_scenario_8669807_brick_grid_progress', 0, async () => {
       const caseSeed: number = 8669807;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -169,7 +169,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669807);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: state_persistence_scenario_8669808_locale_lookup_en
     it('state_persistence_scenario_8669808_locale_lookup_en', 0, async () => {
       const caseSeed: number = 8669808;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -180,7 +180,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669808);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: state_persistence_scenario_8669809_validation_report_count
     it('state_persistence_scenario_8669809_validation_report_count', 0, async () => {
       const caseSeed: number = 8669809;
       const report: ValidationReport = new ValidationReport();
@@ -193,7 +193,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669809);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: state_persistence_scenario_8669810_url_with_query
     it('state_persistence_scenario_8669810_url_with_query', 0, async () => {
       const caseSeed: number = 8669810;
       const url: string = SAMPLE_GAME_URL + '?case=47';
@@ -205,7 +205,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669810);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: state_persistence_scenario_8669811_geometry_area
     it('state_persistence_scenario_8669811_geometry_area', 0, async () => {
       const caseSeed: number = 8669811;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 61);
@@ -216,7 +216,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669811);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: state_persistence_scenario_8669812_circular_buffer_capacity
     it('state_persistence_scenario_8669812_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 8669812;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -229,7 +229,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669812);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: state_persistence_scenario_8669813_command_queue_fifo
     it('state_persistence_scenario_8669813_command_queue_fifo', 0, async () => {
       const caseSeed: number = 8669813;
       const queue: CommandQueue = new CommandQueue();
@@ -242,7 +242,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669813);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: state_persistence_scenario_8669814_token_bucket_consume
     it('state_persistence_scenario_8669814_token_bucket_consume', 0, async () => {
       const caseSeed: number = 8669814;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -253,7 +253,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669814);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: state_persistence_scenario_8669815_page_load_budget
     it('state_persistence_scenario_8669815_page_load_budget', 0, async () => {
       const caseSeed: number = 8669815;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -264,7 +264,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669815);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: state_persistence_scenario_8669816_perf_sampler_bounds
     it('state_persistence_scenario_8669816_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 8669816;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -277,7 +277,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669816);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: state_persistence_scenario_8669817_config_api_9
     it('state_persistence_scenario_8669817_config_api_9', 0, async () => {
       const caseSeed: number = 8669817;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -288,7 +288,7 @@ export default function statePersistenceTest() {
       expect(caseSeed).assertEqual(8669817);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: state_persistence_scenario_8669818_retry_attempts
     it('state_persistence_scenario_8669818_retry_attempts', 0, async () => {
       const caseSeed: number = 8669818;
       const policy: RetryPolicy = new RetryPolicy(3, 100);

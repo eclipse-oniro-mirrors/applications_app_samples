@@ -1204,12 +1204,12 @@ export class LocaleCatalog {
 
   public static createChinese(): LocaleCatalog {
     const catalog: LocaleCatalog = new LocaleCatalog(UiLocale.ZH_CN);
-    catalog.put('start', '开始');
-    catalog.put('left', '左');
-    catalog.put('right', '右');
-    catalog.put('reset', '重置');
+    catalog.put('start', '\u5f00\u59cb');
+    catalog.put('left', '\u5de6');
+    catalog.put('right', '\u53f3');
+    catalog.put('reset', '\u91cd\u7f6e');
     catalog.put('app_name', 'RunJsInWeb');
-    catalog.put('permission_reason', '加载游戏需要访问网络');
+    catalog.put('permission_reason', '\u52a0\u8f7d\u6e38\u620f\u9700\u8981\u8bbf\u95ee\u7f51\u7edc');
     return catalog;
   }
 

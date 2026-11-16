@@ -60,7 +60,7 @@ export default function concurrencyControlTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'concurrency_control suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: concurrency_control_scenario_8574400_session_start_cycles
     it('concurrency_control_scenario_8574400_session_start_cycles', 0, async () => {
       const caseSeed: number = 8574400;
       const session: GameSession = new GameSession();
@@ -74,7 +74,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574400);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: concurrency_control_scenario_8574401_paddle_step_sequence
     it('concurrency_control_scenario_8574401_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 8574401;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -87,7 +87,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574401);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: concurrency_control_scenario_8574402_catalog_lookup_start
     it('concurrency_control_scenario_8574402_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 8574402;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -99,7 +99,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574402);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: concurrency_control_scenario_8574403_pipeline_round_trip
     it('concurrency_control_scenario_8574403_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 8574403;
       const payload: string = '_main.paddle.moveLeft(); // case 8574403';
@@ -111,7 +111,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574403);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: concurrency_control_scenario_8574404_settings_zoom_true
     it('concurrency_control_scenario_8574404_settings_zoom_true', 0, async () => {
       const caseSeed: number = 8574404;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -122,7 +122,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574404);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: concurrency_control_scenario_8574405_layout_custom_columns
     it('concurrency_control_scenario_8574405_layout_custom_columns', 0, async () => {
       const caseSeed: number = 8574405;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -133,7 +133,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574405);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: concurrency_control_scenario_8574406_score_accumulation
     it('concurrency_control_scenario_8574406_score_accumulation', 0, async () => {
       const caseSeed: number = 8574406;
       const board: ScoreBoard = new ScoreBoard();
@@ -146,7 +146,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574406);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: concurrency_control_scenario_8574407_brick_grid_progress
     it('concurrency_control_scenario_8574407_brick_grid_progress', 0, async () => {
       const caseSeed: number = 8574407;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -159,7 +159,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574407);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: concurrency_control_scenario_8574408_locale_lookup_en
     it('concurrency_control_scenario_8574408_locale_lookup_en', 0, async () => {
       const caseSeed: number = 8574408;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -170,7 +170,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574408);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: concurrency_control_scenario_8574409_validation_report_count
     it('concurrency_control_scenario_8574409_validation_report_count', 0, async () => {
       const caseSeed: number = 8574409;
       const report: ValidationReport = new ValidationReport();
@@ -183,7 +183,7 @@ export default function concurrencyControlTest() {
       expect(caseSeed).assertEqual(8574409);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: concurrency_control_scenario_8574410_url_with_query
     it('concurrency_control_scenario_8574410_url_with_query', 0, async () => {
       const caseSeed: number = 8574410;
       const url: string = SAMPLE_GAME_URL + '?case=95';

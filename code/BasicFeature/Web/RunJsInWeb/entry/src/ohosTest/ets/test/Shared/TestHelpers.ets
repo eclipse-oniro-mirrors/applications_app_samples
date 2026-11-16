@@ -25,7 +25,6 @@
 // removes the copies that previously existed in every generated test file.
 
 
-// 布局度量收集器：汇总左中右三列与按钮的尺寸信息
 export class LayoutMetricsCollector {
   private widths: number[] = [];
   private heights: number[] = [];
@@ -79,7 +78,6 @@ export class LayoutMetricsCollector {
 
 
 
-// URL 检查器：拆分协议、主机与路径并给出安全判定
 export class UrlInspector {
   private readonly raw: string;
   private scheme: string = '';
@@ -142,7 +140,6 @@ export class UrlInspector {
 }
 
 
-// 轻量事件总线：记录订阅者与事件分发次数
 export class EventBus {
   private handlers: Map<string, number> = new Map<string, number>();
   private emitted: string[] = [];
@@ -188,7 +185,6 @@ export class EventBus {
   }
 }
 
-// 按键序列匹配器：用于验证遥控器组合键与长按重复事件
 export class KeySequenceMatcher {
   private readonly target: number[];
   private readonly buffer: number[] = [];
@@ -236,7 +232,6 @@ export class KeySequenceMatcher {
   }
 }
 
-// 错误分类器：按错误信息关键字归类注入与加载失败
 export class ErrorClassifier {
   public static readonly NETWORK: string = 'network';
   public static readonly SCRIPT: string = 'script';
@@ -282,7 +277,6 @@ export class ErrorClassifier {
   }
 }
 
-// 手势分类器：根据按压时长与位移判定点击、长按与滑动
 export class GestureClassifier {
   public static readonly TAP: string = 'tap';
   public static readonly LONG_PRESS: string = 'long_press';
@@ -323,7 +317,6 @@ export class GestureClassifier {
 }
 
 
-// 快照仓库：保存与恢复页面状态字符串
 export class SnapshotStore {
   private snapshots: Map<string, string> = new Map<string, string>();
   private order: string[] = [];
@@ -370,7 +363,6 @@ export class SnapshotStore {
   }
 }
 
-// 主题解析器：根据主题名称解析控件颜色并计算对比度
 export class ThemeResolver {
   private palette: Map<string, string> = new Map<string, string>();
 

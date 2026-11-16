@@ -71,7 +71,7 @@ export default function performanceStressTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'performance_stress suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: performance_stress_scenario_9881000_session_start_cycles
     it('performance_stress_scenario_9881000_session_start_cycles', 0, async () => {
       const caseSeed: number = 9881000;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881000);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: performance_stress_scenario_9881001_paddle_step_sequence
     it('performance_stress_scenario_9881001_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9881001;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -98,7 +98,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881001);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: performance_stress_scenario_9881002_catalog_lookup_start
     it('performance_stress_scenario_9881002_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9881002;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881002);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: performance_stress_scenario_9881003_pipeline_round_trip
     it('performance_stress_scenario_9881003_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9881003;
       const payload: string = '_main.paddle.moveLeft(); // case 9881003';
@@ -122,7 +122,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881003);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: performance_stress_scenario_9881004_settings_zoom_true
     it('performance_stress_scenario_9881004_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9881004;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881004);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: performance_stress_scenario_9881005_layout_custom_columns
     it('performance_stress_scenario_9881005_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9881005;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881005);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: performance_stress_scenario_9881006_score_accumulation
     it('performance_stress_scenario_9881006_score_accumulation', 0, async () => {
       const caseSeed: number = 9881006;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881006);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: performance_stress_scenario_9881007_brick_grid_progress
     it('performance_stress_scenario_9881007_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9881007;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -170,7 +170,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881007);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: performance_stress_scenario_9881008_locale_lookup_en
     it('performance_stress_scenario_9881008_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9881008;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881008);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: performance_stress_scenario_9881009_validation_report_count
     it('performance_stress_scenario_9881009_validation_report_count', 0, async () => {
       const caseSeed: number = 9881009;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881009);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: performance_stress_scenario_9881010_url_with_query
     it('performance_stress_scenario_9881010_url_with_query', 0, async () => {
       const caseSeed: number = 9881010;
       const url: string = SAMPLE_GAME_URL + '?case=8';
@@ -206,7 +206,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881010);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: performance_stress_scenario_9881011_geometry_area
     it('performance_stress_scenario_9881011_geometry_area', 0, async () => {
       const caseSeed: number = 9881011;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 41);
@@ -217,7 +217,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881011);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: performance_stress_scenario_9881012_circular_buffer_capacity
     it('performance_stress_scenario_9881012_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9881012;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881012);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: performance_stress_scenario_9881013_command_queue_fifo
     it('performance_stress_scenario_9881013_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9881013;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881013);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: performance_stress_scenario_9881014_token_bucket_consume
     it('performance_stress_scenario_9881014_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9881014;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -254,7 +254,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881014);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: performance_stress_scenario_9881015_page_load_budget
     it('performance_stress_scenario_9881015_page_load_budget', 0, async () => {
       const caseSeed: number = 9881015;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881015);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: performance_stress_scenario_9881016_perf_sampler_bounds
     it('performance_stress_scenario_9881016_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9881016;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881016);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: performance_stress_scenario_9881017_config_api_9
     it('performance_stress_scenario_9881017_config_api_9', 0, async () => {
       const caseSeed: number = 9881017;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881017);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: performance_stress_scenario_9881018_retry_attempts
     it('performance_stress_scenario_9881018_retry_attempts', 0, async () => {
       const caseSeed: number = 9881018;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881018);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: performance_stress_scenario_9881019_event_recorder_sequence
     it('performance_stress_scenario_9881019_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9881019;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881019);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: performance_stress_scenario_9881020_session_start_cycles
     it('performance_stress_scenario_9881020_session_start_cycles', 0, async () => {
       const caseSeed: number = 9881020;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881020);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: performance_stress_scenario_9881021_paddle_step_sequence
     it('performance_stress_scenario_9881021_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9881021;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -341,7 +341,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881021);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: performance_stress_scenario_9881022_catalog_lookup_start
     it('performance_stress_scenario_9881022_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9881022;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881022);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: performance_stress_scenario_9881023_pipeline_round_trip
     it('performance_stress_scenario_9881023_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9881023;
       const payload: string = '_main.paddle.moveLeft(); // case 9881023';
@@ -365,7 +365,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881023);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: performance_stress_scenario_9881024_settings_zoom_true
     it('performance_stress_scenario_9881024_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9881024;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881024);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: performance_stress_scenario_9881025_layout_custom_columns
     it('performance_stress_scenario_9881025_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9881025;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881025);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: performance_stress_scenario_9881026_score_accumulation
     it('performance_stress_scenario_9881026_score_accumulation', 0, async () => {
       const caseSeed: number = 9881026;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881026);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: performance_stress_scenario_9881027_brick_grid_progress
     it('performance_stress_scenario_9881027_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9881027;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -413,7 +413,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881027);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: performance_stress_scenario_9881028_locale_lookup_en
     it('performance_stress_scenario_9881028_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9881028;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881028);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: performance_stress_scenario_9881029_validation_report_count
     it('performance_stress_scenario_9881029_validation_report_count', 0, async () => {
       const caseSeed: number = 9881029;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881029);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: performance_stress_scenario_9881030_url_with_query
     it('performance_stress_scenario_9881030_url_with_query', 0, async () => {
       const caseSeed: number = 9881030;
       const url: string = SAMPLE_GAME_URL + '?case=28';
@@ -449,7 +449,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881030);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: performance_stress_scenario_9881031_geometry_area
     it('performance_stress_scenario_9881031_geometry_area', 0, async () => {
       const caseSeed: number = 9881031;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 61);
@@ -460,7 +460,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881031);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: performance_stress_scenario_9881032_circular_buffer_capacity
     it('performance_stress_scenario_9881032_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9881032;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881032);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: performance_stress_scenario_9881033_command_queue_fifo
     it('performance_stress_scenario_9881033_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9881033;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881033);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: performance_stress_scenario_9881034_token_bucket_consume
     it('performance_stress_scenario_9881034_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9881034;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -497,7 +497,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881034);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: performance_stress_scenario_9881035_page_load_budget
     it('performance_stress_scenario_9881035_page_load_budget', 0, async () => {
       const caseSeed: number = 9881035;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881035);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: performance_stress_scenario_9881036_perf_sampler_bounds
     it('performance_stress_scenario_9881036_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9881036;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -521,7 +521,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881036);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: performance_stress_scenario_9881037_config_api_9
     it('performance_stress_scenario_9881037_config_api_9', 0, async () => {
       const caseSeed: number = 9881037;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -532,7 +532,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881037);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: performance_stress_scenario_9881038_retry_attempts
     it('performance_stress_scenario_9881038_retry_attempts', 0, async () => {
       const caseSeed: number = 9881038;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -544,7 +544,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881038);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: performance_stress_scenario_9881039_event_recorder_sequence
     it('performance_stress_scenario_9881039_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9881039;
       const recorder: EventRecorder = new EventRecorder();
@@ -557,7 +557,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881039);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: performance_stress_scenario_9881040_session_start_cycles
     it('performance_stress_scenario_9881040_session_start_cycles', 0, async () => {
       const caseSeed: number = 9881040;
       const session: GameSession = new GameSession();
@@ -571,7 +571,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881040);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: performance_stress_scenario_9881041_paddle_step_sequence
     it('performance_stress_scenario_9881041_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9881041;
       const paddle: PaddleModel = new PaddleModel(1, 101, 5);
@@ -584,7 +584,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881041);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: performance_stress_scenario_9881042_catalog_lookup_start
     it('performance_stress_scenario_9881042_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9881042;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -596,7 +596,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881042);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: performance_stress_scenario_9881043_pipeline_round_trip
     it('performance_stress_scenario_9881043_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9881043;
       const payload: string = '_main.paddle.moveLeft(); // case 9881043';
@@ -608,7 +608,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881043);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: performance_stress_scenario_9881044_settings_zoom_true
     it('performance_stress_scenario_9881044_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9881044;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -619,7 +619,7 @@ export default function performanceStressTest() {
       expect(caseSeed).assertEqual(9881044);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: performance_stress_scenario_9881045_layout_custom_columns
     it('performance_stress_scenario_9881045_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9881045;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);

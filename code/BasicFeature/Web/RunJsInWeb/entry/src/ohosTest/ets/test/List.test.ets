@@ -20,6 +20,11 @@
 
 // Ability smoke suite
 // Registers every RunJsInWeb suite. Each suite mirrors one reference file.
+// Registers every RunJsInWeb suite. Each suite mirrors one reference file.
+// Registers every RunJsInWeb suite. Each suite mirrors one reference file.
+// Registers every RunJsInWeb suite. Each suite mirrors one reference file.
+// Registers every RunJsInWeb suite. Each suite mirrors one reference file.
+// Registers every RunJsInWeb suite. Each suite mirrors one reference file.
 
 import webGameUITest from './WebGame/WebGameUI.test';
 import gameOperationsTest from './WebGame/GameOperations.test';
@@ -37,7 +42,7 @@ import webGameLifecycleTest from './WebGame/WebGameLifecycle.test';
 import webGameErrorRecoveryTest from './WebGame/WebGameErrorRecovery.test';
 import webGameEndToEndTest from './WebGame/WebGameEndToEnd.test';
 import gameInputInteractionTest from './WebGame/WebGameInputInteraction.test';
-import accessibilityNavigationTest from './Interaction/AccessibilityNavigation.test';
+import usabilityNavigationTest from './Interaction/UsabilityNavigation.test';
 import buttonInteractionTest from './Interaction/ButtonInteraction.test';
 import contentScalingTest from './Interaction/ContentScaling.test';
 import dataBindingTest from './Interaction/DataBinding.test';
@@ -78,7 +83,7 @@ import platformCompatibilityTest from './Integration/PlatformCompatibility.test'
 import systemIntegrationTest from './Integration/SystemIntegration.test';
 import userScenariosTest from './Integration/UserScenarios.test';
 import webSecurityTest from './Security/WebSecurity.test';
-import securityAccessibilityTest from './Security/SecurityAccessibility.test';
+import securityUsabilityTest from './Security/SecurityUsability.test';
 import securityValidationTest from './Security/SecurityValidation.test';
 import animationControllerValidationTest from './Validation/AnimationControllerValidation.test';
 import boundaryErrorTestingTest from './Validation/BoundaryErrorTesting.test';
@@ -117,7 +122,7 @@ export default function testsuite(): void {
   webGameErrorRecoveryTest();
   webGameEndToEndTest();
   gameInputInteractionTest();
-  accessibilityNavigationTest();
+  usabilityNavigationTest();
   buttonInteractionTest();
   contentScalingTest();
   dataBindingTest();
@@ -158,7 +163,7 @@ export default function testsuite(): void {
   systemIntegrationTest();
   userScenariosTest();
   webSecurityTest();
-  securityAccessibilityTest();
+  securityUsabilityTest();
   securityValidationTest();
   animationControllerValidationTest();
   boundaryErrorTestingTest();

@@ -71,7 +71,7 @@ export default function stateRecoveryTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'state_recovery suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: state_recovery_scenario_9774800_session_start_cycles
     it('state_recovery_scenario_9774800_session_start_cycles', 0, async () => {
       const caseSeed: number = 9774800;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774800);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: state_recovery_scenario_9774801_paddle_step_sequence
     it('state_recovery_scenario_9774801_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9774801;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -98,7 +98,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774801);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: state_recovery_scenario_9774802_catalog_lookup_start
     it('state_recovery_scenario_9774802_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9774802;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774802);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: state_recovery_scenario_9774803_pipeline_round_trip
     it('state_recovery_scenario_9774803_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9774803;
       const payload: string = '_main.paddle.moveLeft(); // case 9774803';
@@ -122,7 +122,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774803);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: state_recovery_scenario_9774804_settings_zoom_true
     it('state_recovery_scenario_9774804_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9774804;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774804);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: state_recovery_scenario_9774805_layout_custom_columns
     it('state_recovery_scenario_9774805_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9774805;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774805);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: state_recovery_scenario_9774806_score_accumulation
     it('state_recovery_scenario_9774806_score_accumulation', 0, async () => {
       const caseSeed: number = 9774806;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774806);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: state_recovery_scenario_9774807_brick_grid_progress
     it('state_recovery_scenario_9774807_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9774807;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -170,7 +170,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774807);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: state_recovery_scenario_9774808_locale_lookup_en
     it('state_recovery_scenario_9774808_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9774808;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774808);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: state_recovery_scenario_9774809_validation_report_count
     it('state_recovery_scenario_9774809_validation_report_count', 0, async () => {
       const caseSeed: number = 9774809;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774809);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: state_recovery_scenario_9774810_url_with_query
     it('state_recovery_scenario_9774810_url_with_query', 0, async () => {
       const caseSeed: number = 9774810;
       const url: string = SAMPLE_GAME_URL + '?case=23';
@@ -206,7 +206,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774810);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: state_recovery_scenario_9774811_geometry_area
     it('state_recovery_scenario_9774811_geometry_area', 0, async () => {
       const caseSeed: number = 9774811;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 41);
@@ -217,7 +217,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774811);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: state_recovery_scenario_9774812_circular_buffer_capacity
     it('state_recovery_scenario_9774812_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9774812;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774812);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: state_recovery_scenario_9774813_command_queue_fifo
     it('state_recovery_scenario_9774813_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9774813;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774813);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: state_recovery_scenario_9774814_token_bucket_consume
     it('state_recovery_scenario_9774814_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9774814;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -254,7 +254,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774814);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: state_recovery_scenario_9774815_page_load_budget
     it('state_recovery_scenario_9774815_page_load_budget', 0, async () => {
       const caseSeed: number = 9774815;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774815);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: state_recovery_scenario_9774816_perf_sampler_bounds
     it('state_recovery_scenario_9774816_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9774816;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774816);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: state_recovery_scenario_9774817_config_api_9
     it('state_recovery_scenario_9774817_config_api_9', 0, async () => {
       const caseSeed: number = 9774817;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774817);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: state_recovery_scenario_9774818_retry_attempts
     it('state_recovery_scenario_9774818_retry_attempts', 0, async () => {
       const caseSeed: number = 9774818;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function stateRecoveryTest() {
       expect(caseSeed).assertEqual(9774818);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: state_recovery_scenario_9774819_event_recorder_sequence
     it('state_recovery_scenario_9774819_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9774819;
       const recorder: EventRecorder = new EventRecorder();

@@ -71,7 +71,7 @@ export default function extensionLifecycleTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'extension_lifecycle suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: extension_lifecycle_scenario_3793700_session_start_cycles
     it('extension_lifecycle_scenario_3793700_session_start_cycles', 0, async () => {
       const caseSeed: number = 3793700;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793700);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: extension_lifecycle_scenario_3793701_paddle_step_sequence
     it('extension_lifecycle_scenario_3793701_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3793701;
       const paddle: PaddleModel = new PaddleModel(1, 101, 4);
@@ -98,7 +98,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793701);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: extension_lifecycle_scenario_3793702_catalog_lookup_start
     it('extension_lifecycle_scenario_3793702_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3793702;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793702);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: extension_lifecycle_scenario_3793703_pipeline_round_trip
     it('extension_lifecycle_scenario_3793703_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3793703;
       const payload: string = '_main.paddle.moveLeft(); // case 3793703';
@@ -122,7 +122,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793703);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: extension_lifecycle_scenario_3793704_settings_zoom_true
     it('extension_lifecycle_scenario_3793704_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3793704;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793704);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: extension_lifecycle_scenario_3793705_layout_custom_columns
     it('extension_lifecycle_scenario_3793705_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3793705;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793705);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: extension_lifecycle_scenario_3793706_score_accumulation
     it('extension_lifecycle_scenario_3793706_score_accumulation', 0, async () => {
       const caseSeed: number = 3793706;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793706);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: extension_lifecycle_scenario_3793707_brick_grid_progress
     it('extension_lifecycle_scenario_3793707_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3793707;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -170,7 +170,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793707);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: extension_lifecycle_scenario_3793708_locale_lookup_en
     it('extension_lifecycle_scenario_3793708_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3793708;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793708);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: extension_lifecycle_scenario_3793709_validation_report_count
     it('extension_lifecycle_scenario_3793709_validation_report_count', 0, async () => {
       const caseSeed: number = 3793709;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793709);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: extension_lifecycle_scenario_3793710_url_with_query
     it('extension_lifecycle_scenario_3793710_url_with_query', 0, async () => {
       const caseSeed: number = 3793710;
       const url: string = SAMPLE_GAME_URL + '?case=40';
@@ -206,7 +206,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793710);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: extension_lifecycle_scenario_3793711_geometry_area
     it('extension_lifecycle_scenario_3793711_geometry_area', 0, async () => {
       const caseSeed: number = 3793711;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 41);
@@ -217,7 +217,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793711);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: extension_lifecycle_scenario_3793712_circular_buffer_capacity
     it('extension_lifecycle_scenario_3793712_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3793712;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793712);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: extension_lifecycle_scenario_3793713_command_queue_fifo
     it('extension_lifecycle_scenario_3793713_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3793713;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793713);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: extension_lifecycle_scenario_3793714_token_bucket_consume
     it('extension_lifecycle_scenario_3793714_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3793714;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -254,7 +254,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793714);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: extension_lifecycle_scenario_3793715_page_load_budget
     it('extension_lifecycle_scenario_3793715_page_load_budget', 0, async () => {
       const caseSeed: number = 3793715;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793715);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: extension_lifecycle_scenario_3793716_perf_sampler_bounds
     it('extension_lifecycle_scenario_3793716_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3793716;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793716);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: extension_lifecycle_scenario_3793717_config_api_9
     it('extension_lifecycle_scenario_3793717_config_api_9', 0, async () => {
       const caseSeed: number = 3793717;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793717);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: extension_lifecycle_scenario_3793718_retry_attempts
     it('extension_lifecycle_scenario_3793718_retry_attempts', 0, async () => {
       const caseSeed: number = 3793718;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793718);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: extension_lifecycle_scenario_3793719_event_recorder_sequence
     it('extension_lifecycle_scenario_3793719_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3793719;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793719);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: extension_lifecycle_scenario_3793720_session_start_cycles
     it('extension_lifecycle_scenario_3793720_session_start_cycles', 0, async () => {
       const caseSeed: number = 3793720;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793720);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: extension_lifecycle_scenario_3793721_paddle_step_sequence
     it('extension_lifecycle_scenario_3793721_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3793721;
       const paddle: PaddleModel = new PaddleModel(1, 101, 6);
@@ -341,7 +341,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793721);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: extension_lifecycle_scenario_3793722_catalog_lookup_start
     it('extension_lifecycle_scenario_3793722_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3793722;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793722);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: extension_lifecycle_scenario_3793723_pipeline_round_trip
     it('extension_lifecycle_scenario_3793723_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3793723;
       const payload: string = '_main.paddle.moveLeft(); // case 3793723';
@@ -365,7 +365,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793723);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: extension_lifecycle_scenario_3793724_settings_zoom_true
     it('extension_lifecycle_scenario_3793724_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3793724;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793724);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: extension_lifecycle_scenario_3793725_layout_custom_columns
     it('extension_lifecycle_scenario_3793725_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3793725;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793725);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: extension_lifecycle_scenario_3793726_score_accumulation
     it('extension_lifecycle_scenario_3793726_score_accumulation', 0, async () => {
       const caseSeed: number = 3793726;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793726);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: extension_lifecycle_scenario_3793727_brick_grid_progress
     it('extension_lifecycle_scenario_3793727_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3793727;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -413,7 +413,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793727);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: extension_lifecycle_scenario_3793728_locale_lookup_en
     it('extension_lifecycle_scenario_3793728_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3793728;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793728);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: extension_lifecycle_scenario_3793729_validation_report_count
     it('extension_lifecycle_scenario_3793729_validation_report_count', 0, async () => {
       const caseSeed: number = 3793729;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793729);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: extension_lifecycle_scenario_3793730_url_with_query
     it('extension_lifecycle_scenario_3793730_url_with_query', 0, async () => {
       const caseSeed: number = 3793730;
       const url: string = SAMPLE_GAME_URL + '?case=60';
@@ -449,7 +449,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793730);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: extension_lifecycle_scenario_3793731_geometry_area
     it('extension_lifecycle_scenario_3793731_geometry_area', 0, async () => {
       const caseSeed: number = 3793731;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 61);
@@ -460,7 +460,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793731);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: extension_lifecycle_scenario_3793732_circular_buffer_capacity
     it('extension_lifecycle_scenario_3793732_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3793732;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793732);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: extension_lifecycle_scenario_3793733_command_queue_fifo
     it('extension_lifecycle_scenario_3793733_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3793733;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793733);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: extension_lifecycle_scenario_3793734_token_bucket_consume
     it('extension_lifecycle_scenario_3793734_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3793734;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -497,7 +497,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793734);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: extension_lifecycle_scenario_3793735_page_load_budget
     it('extension_lifecycle_scenario_3793735_page_load_budget', 0, async () => {
       const caseSeed: number = 3793735;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793735);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: extension_lifecycle_scenario_3793736_perf_sampler_bounds
     it('extension_lifecycle_scenario_3793736_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3793736;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -521,7 +521,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793736);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: extension_lifecycle_scenario_3793737_config_api_9
     it('extension_lifecycle_scenario_3793737_config_api_9', 0, async () => {
       const caseSeed: number = 3793737;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -532,7 +532,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793737);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: extension_lifecycle_scenario_3793738_retry_attempts
     it('extension_lifecycle_scenario_3793738_retry_attempts', 0, async () => {
       const caseSeed: number = 3793738;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -544,7 +544,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793738);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: extension_lifecycle_scenario_3793739_event_recorder_sequence
     it('extension_lifecycle_scenario_3793739_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3793739;
       const recorder: EventRecorder = new EventRecorder();
@@ -557,7 +557,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793739);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: extension_lifecycle_scenario_3793740_session_start_cycles
     it('extension_lifecycle_scenario_3793740_session_start_cycles', 0, async () => {
       const caseSeed: number = 3793740;
       const session: GameSession = new GameSession();
@@ -571,7 +571,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793740);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: extension_lifecycle_scenario_3793741_paddle_step_sequence
     it('extension_lifecycle_scenario_3793741_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3793741;
       const paddle: PaddleModel = new PaddleModel(1, 101, 8);
@@ -584,7 +584,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793741);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: extension_lifecycle_scenario_3793742_catalog_lookup_start
     it('extension_lifecycle_scenario_3793742_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3793742;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -596,7 +596,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793742);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: extension_lifecycle_scenario_3793743_pipeline_round_trip
     it('extension_lifecycle_scenario_3793743_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3793743;
       const payload: string = '_main.paddle.moveLeft(); // case 3793743';
@@ -608,7 +608,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793743);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: extension_lifecycle_scenario_3793744_settings_zoom_true
     it('extension_lifecycle_scenario_3793744_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3793744;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -619,7 +619,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793744);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: extension_lifecycle_scenario_3793745_layout_custom_columns
     it('extension_lifecycle_scenario_3793745_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3793745;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -630,7 +630,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793745);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: extension_lifecycle_scenario_3793746_score_accumulation
     it('extension_lifecycle_scenario_3793746_score_accumulation', 0, async () => {
       const caseSeed: number = 3793746;
       const board: ScoreBoard = new ScoreBoard();
@@ -643,7 +643,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793746);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: extension_lifecycle_scenario_3793747_brick_grid_progress
     it('extension_lifecycle_scenario_3793747_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3793747;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -656,7 +656,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793747);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: extension_lifecycle_scenario_3793748_locale_lookup_en
     it('extension_lifecycle_scenario_3793748_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3793748;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -667,7 +667,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793748);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: extension_lifecycle_scenario_3793749_validation_report_count
     it('extension_lifecycle_scenario_3793749_validation_report_count', 0, async () => {
       const caseSeed: number = 3793749;
       const report: ValidationReport = new ValidationReport();
@@ -680,7 +680,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793749);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: extension_lifecycle_scenario_3793750_url_with_query
     it('extension_lifecycle_scenario_3793750_url_with_query', 0, async () => {
       const caseSeed: number = 3793750;
       const url: string = SAMPLE_GAME_URL + '?case=80';
@@ -692,7 +692,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793750);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: extension_lifecycle_scenario_3793751_geometry_area
     it('extension_lifecycle_scenario_3793751_geometry_area', 0, async () => {
       const caseSeed: number = 3793751;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 21);
@@ -703,7 +703,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793751);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: extension_lifecycle_scenario_3793752_circular_buffer_capacity
     it('extension_lifecycle_scenario_3793752_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3793752;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -716,7 +716,7 @@ export default function extensionLifecycleTest() {
       expect(caseSeed).assertEqual(3793752);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: extension_lifecycle_scenario_3793753_command_queue_fifo
     it('extension_lifecycle_scenario_3793753_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3793753;
       const queue: CommandQueue = new CommandQueue();

@@ -55,7 +55,7 @@ export default function configurationManagerValidationTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'configuration_manager suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: configuration_manager_scenario_2655100_session_start_cycles
     it('configuration_manager_scenario_2655100_session_start_cycles', 0, async () => {
       const caseSeed: number = 2655100;
       const session: GameSession = new GameSession();
@@ -69,7 +69,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655100);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: configuration_manager_scenario_2655101_paddle_step_sequence
     it('configuration_manager_scenario_2655101_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 2655101;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -82,7 +82,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655101);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: configuration_manager_scenario_2655102_catalog_lookup_start
     it('configuration_manager_scenario_2655102_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 2655102;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -94,7 +94,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655102);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: configuration_manager_scenario_2655103_pipeline_round_trip
     it('configuration_manager_scenario_2655103_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 2655103;
       const payload: string = '_main.paddle.moveLeft(); // case 2655103';
@@ -106,7 +106,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655103);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: configuration_manager_scenario_2655104_settings_zoom_true
     it('configuration_manager_scenario_2655104_settings_zoom_true', 0, async () => {
       const caseSeed: number = 2655104;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -117,7 +117,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655104);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: configuration_manager_scenario_2655105_layout_custom_columns
     it('configuration_manager_scenario_2655105_layout_custom_columns', 0, async () => {
       const caseSeed: number = 2655105;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -128,7 +128,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655105);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: configuration_manager_scenario_2655106_score_accumulation
     it('configuration_manager_scenario_2655106_score_accumulation', 0, async () => {
       const caseSeed: number = 2655106;
       const board: ScoreBoard = new ScoreBoard();
@@ -141,7 +141,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655106);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: configuration_manager_scenario_2655107_brick_grid_progress
     it('configuration_manager_scenario_2655107_brick_grid_progress', 0, async () => {
       const caseSeed: number = 2655107;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -154,7 +154,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655107);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: configuration_manager_scenario_2655108_locale_lookup_en
     it('configuration_manager_scenario_2655108_locale_lookup_en', 0, async () => {
       const caseSeed: number = 2655108;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -165,7 +165,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655108);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: configuration_manager_scenario_2655109_validation_report_count
     it('configuration_manager_scenario_2655109_validation_report_count', 0, async () => {
       const caseSeed: number = 2655109;
       const report: ValidationReport = new ValidationReport();
@@ -178,7 +178,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655109);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: configuration_manager_scenario_2655110_url_with_query
     it('configuration_manager_scenario_2655110_url_with_query', 0, async () => {
       const caseSeed: number = 2655110;
       const url: string = SAMPLE_GAME_URL + '?case=26';
@@ -190,7 +190,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655110);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: configuration_manager_scenario_2655111_geometry_area
     it('configuration_manager_scenario_2655111_geometry_area', 0, async () => {
       const caseSeed: number = 2655111;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 61);
@@ -201,7 +201,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655111);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: configuration_manager_scenario_2655112_circular_buffer_capacity
     it('configuration_manager_scenario_2655112_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 2655112;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -214,7 +214,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655112);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: configuration_manager_scenario_2655113_command_queue_fifo
     it('configuration_manager_scenario_2655113_command_queue_fifo', 0, async () => {
       const caseSeed: number = 2655113;
       const queue: CommandQueue = new CommandQueue();
@@ -227,7 +227,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655113);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: configuration_manager_scenario_2655114_token_bucket_consume
     it('configuration_manager_scenario_2655114_token_bucket_consume', 0, async () => {
       const caseSeed: number = 2655114;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -238,7 +238,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655114);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: configuration_manager_scenario_2655115_page_load_budget
     it('configuration_manager_scenario_2655115_page_load_budget', 0, async () => {
       const caseSeed: number = 2655115;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -249,7 +249,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655115);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: configuration_manager_scenario_2655116_perf_sampler_bounds
     it('configuration_manager_scenario_2655116_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 2655116;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -262,7 +262,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655116);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: configuration_manager_scenario_2655117_config_api_9
     it('configuration_manager_scenario_2655117_config_api_9', 0, async () => {
       const caseSeed: number = 2655117;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -273,7 +273,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655117);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: configuration_manager_scenario_2655118_retry_attempts
     it('configuration_manager_scenario_2655118_retry_attempts', 0, async () => {
       const caseSeed: number = 2655118;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -285,7 +285,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655118);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: configuration_manager_scenario_2655119_event_recorder_sequence
     it('configuration_manager_scenario_2655119_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 2655119;
       const recorder: EventRecorder = new EventRecorder();
@@ -298,7 +298,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655119);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: configuration_manager_scenario_2655120_session_start_cycles
     it('configuration_manager_scenario_2655120_session_start_cycles', 0, async () => {
       const caseSeed: number = 2655120;
       const session: GameSession = new GameSession();
@@ -312,7 +312,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655120);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: configuration_manager_scenario_2655121_paddle_step_sequence
     it('configuration_manager_scenario_2655121_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 2655121;
       const paddle: PaddleModel = new PaddleModel(1, 101, 5);
@@ -325,7 +325,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655121);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: configuration_manager_scenario_2655122_catalog_lookup_start
     it('configuration_manager_scenario_2655122_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 2655122;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -337,7 +337,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655122);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: configuration_manager_scenario_2655123_pipeline_round_trip
     it('configuration_manager_scenario_2655123_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 2655123;
       const payload: string = '_main.paddle.moveLeft(); // case 2655123';
@@ -349,7 +349,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655123);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: configuration_manager_scenario_2655124_settings_zoom_true
     it('configuration_manager_scenario_2655124_settings_zoom_true', 0, async () => {
       const caseSeed: number = 2655124;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -360,7 +360,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655124);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: configuration_manager_scenario_2655125_layout_custom_columns
     it('configuration_manager_scenario_2655125_layout_custom_columns', 0, async () => {
       const caseSeed: number = 2655125;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -371,7 +371,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655125);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: configuration_manager_scenario_2655126_score_accumulation
     it('configuration_manager_scenario_2655126_score_accumulation', 0, async () => {
       const caseSeed: number = 2655126;
       const board: ScoreBoard = new ScoreBoard();
@@ -384,7 +384,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655126);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: configuration_manager_scenario_2655127_brick_grid_progress
     it('configuration_manager_scenario_2655127_brick_grid_progress', 0, async () => {
       const caseSeed: number = 2655127;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -397,7 +397,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655127);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: configuration_manager_scenario_2655128_locale_lookup_en
     it('configuration_manager_scenario_2655128_locale_lookup_en', 0, async () => {
       const caseSeed: number = 2655128;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -408,7 +408,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655128);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: configuration_manager_scenario_2655129_validation_report_count
     it('configuration_manager_scenario_2655129_validation_report_count', 0, async () => {
       const caseSeed: number = 2655129;
       const report: ValidationReport = new ValidationReport();
@@ -421,7 +421,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655129);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: configuration_manager_scenario_2655130_url_with_query
     it('configuration_manager_scenario_2655130_url_with_query', 0, async () => {
       const caseSeed: number = 2655130;
       const url: string = SAMPLE_GAME_URL + '?case=46';
@@ -433,7 +433,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655130);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: configuration_manager_scenario_2655131_geometry_area
     it('configuration_manager_scenario_2655131_geometry_area', 0, async () => {
       const caseSeed: number = 2655131;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 21);
@@ -444,7 +444,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655131);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: configuration_manager_scenario_2655132_circular_buffer_capacity
     it('configuration_manager_scenario_2655132_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 2655132;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -457,7 +457,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655132);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: configuration_manager_scenario_2655133_command_queue_fifo
     it('configuration_manager_scenario_2655133_command_queue_fifo', 0, async () => {
       const caseSeed: number = 2655133;
       const queue: CommandQueue = new CommandQueue();
@@ -470,7 +470,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655133);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: configuration_manager_scenario_2655134_token_bucket_consume
     it('configuration_manager_scenario_2655134_token_bucket_consume', 0, async () => {
       const caseSeed: number = 2655134;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -481,7 +481,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655134);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: configuration_manager_scenario_2655135_page_load_budget
     it('configuration_manager_scenario_2655135_page_load_budget', 0, async () => {
       const caseSeed: number = 2655135;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -492,7 +492,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655135);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: configuration_manager_scenario_2655136_perf_sampler_bounds
     it('configuration_manager_scenario_2655136_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 2655136;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -505,7 +505,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655136);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: configuration_manager_scenario_2655137_config_api_9
     it('configuration_manager_scenario_2655137_config_api_9', 0, async () => {
       const caseSeed: number = 2655137;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -516,7 +516,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655137);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: configuration_manager_scenario_2655138_retry_attempts
     it('configuration_manager_scenario_2655138_retry_attempts', 0, async () => {
       const caseSeed: number = 2655138;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -528,7 +528,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655138);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: configuration_manager_scenario_2655139_event_recorder_sequence
     it('configuration_manager_scenario_2655139_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 2655139;
       const recorder: EventRecorder = new EventRecorder();
@@ -541,7 +541,7 @@ export default function configurationManagerValidationTest() {
       expect(caseSeed).assertEqual(2655139);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: configuration_manager_scenario_2655140_session_start_cycles
     it('configuration_manager_scenario_2655140_session_start_cycles', 0, async () => {
       const caseSeed: number = 2655140;
       const session: GameSession = new GameSession();

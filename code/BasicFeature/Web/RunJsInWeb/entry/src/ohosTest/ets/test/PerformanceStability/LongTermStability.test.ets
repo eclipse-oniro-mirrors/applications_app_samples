@@ -62,7 +62,7 @@ export default function longTermStabilityTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'long_term_stability suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: long_term_stability_scenario_9964800_session_start_cycles
     it('long_term_stability_scenario_9964800_session_start_cycles', 0, async () => {
       const caseSeed: number = 9964800;
       const session: GameSession = new GameSession();
@@ -76,7 +76,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964800);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: long_term_stability_scenario_9964801_paddle_step_sequence
     it('long_term_stability_scenario_9964801_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9964801;
       const paddle: PaddleModel = new PaddleModel(1, 101, 2);
@@ -89,7 +89,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964801);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: long_term_stability_scenario_9964802_catalog_lookup_start
     it('long_term_stability_scenario_9964802_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9964802;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -101,7 +101,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964802);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: long_term_stability_scenario_9964803_pipeline_round_trip
     it('long_term_stability_scenario_9964803_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9964803;
       const payload: string = '_main.paddle.moveLeft(); // case 9964803';
@@ -113,7 +113,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964803);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: long_term_stability_scenario_9964804_settings_zoom_true
     it('long_term_stability_scenario_9964804_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9964804;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -124,7 +124,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964804);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: long_term_stability_scenario_9964805_layout_custom_columns
     it('long_term_stability_scenario_9964805_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9964805;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -135,7 +135,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964805);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: long_term_stability_scenario_9964806_score_accumulation
     it('long_term_stability_scenario_9964806_score_accumulation', 0, async () => {
       const caseSeed: number = 9964806;
       const board: ScoreBoard = new ScoreBoard();
@@ -148,7 +148,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964806);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: long_term_stability_scenario_9964807_brick_grid_progress
     it('long_term_stability_scenario_9964807_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9964807;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -161,7 +161,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964807);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: long_term_stability_scenario_9964808_locale_lookup_en
     it('long_term_stability_scenario_9964808_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9964808;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -172,7 +172,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964808);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: long_term_stability_scenario_9964809_validation_report_count
     it('long_term_stability_scenario_9964809_validation_report_count', 0, async () => {
       const caseSeed: number = 9964809;
       const report: ValidationReport = new ValidationReport();
@@ -185,7 +185,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964809);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: long_term_stability_scenario_9964810_url_with_query
     it('long_term_stability_scenario_9964810_url_with_query', 0, async () => {
       const caseSeed: number = 9964810;
       const url: string = SAMPLE_GAME_URL + '?case=0';
@@ -197,7 +197,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964810);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: long_term_stability_scenario_9964811_geometry_area
     it('long_term_stability_scenario_9964811_geometry_area', 0, async () => {
       const caseSeed: number = 9964811;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 21);
@@ -208,7 +208,7 @@ export default function longTermStabilityTest() {
       expect(caseSeed).assertEqual(9964811);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: long_term_stability_scenario_9964812_circular_buffer_capacity
     it('long_term_stability_scenario_9964812_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9964812;
       const buffer: CircularBuffer = new CircularBuffer(5);

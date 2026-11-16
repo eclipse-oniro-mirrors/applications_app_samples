@@ -66,7 +66,7 @@ export default function webViewLifecycleTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'webview_lifecycle suite end');
     });
 
-    // 页面开始加载时状态为 LOADING 且耗时为 0
+    // Scenario: webview_lifecycle_page_load_starts_in_loading_state
     it('webview_lifecycle_page_load_starts_in_loading_state', 0, async () => {
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 1000);
       expect(record.getStatus()).assertEqual(LoadStatus.LOADING);
@@ -75,7 +75,7 @@ export default function webViewLifecycleTest() {
       expect(record.getUrl()).assertEqual(SAMPLE_GAME_URL);
     });
 
-    // 加载成功后记录耗时且处于预算内
+    // Scenario: webview_lifecycle_successful_load_records_duration
     it('webview_lifecycle_successful_load_records_duration', 0, async () => {
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 1000);
       record.finish(2500);
@@ -85,7 +85,7 @@ export default function webViewLifecycleTest() {
       expect(record.isWithinBudget(PAGE_LOAD_BUDGET_MS)).assertTrue();
     });
 
-    // 加载失败时保留错误码且不计为成功
+    // Scenario: webview_lifecycle_failed_load_records_error_code
     it('webview_lifecycle_failed_load_records_error_code', 0, async () => {
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
       record.fail(404, 900);
@@ -95,7 +95,7 @@ export default function webViewLifecycleTest() {
       expect(record.getDuration()).assertEqual(900);
     });
 
-    // 超过预算的加载耗时应被判定为不在预算内
+    // Scenario: webview_lifecycle_slow_load_exceeds_budget
     it('webview_lifecycle_slow_load_exceeds_budget', 0, async () => {
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
       record.finish(9000);
@@ -103,7 +103,7 @@ export default function webViewLifecycleTest() {
       expect(record.getDuration() > PAGE_LOAD_BUDGET_MS).assertTrue();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: webview_lifecycle_scenario_5764500_session_start_cycles
     it('webview_lifecycle_scenario_5764500_session_start_cycles', 0, async () => {
       const caseSeed: number = 5764500;
       const session: GameSession = new GameSession();
@@ -117,7 +117,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764500);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: webview_lifecycle_scenario_5764501_paddle_step_sequence
     it('webview_lifecycle_scenario_5764501_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 5764501;
       const paddle: PaddleModel = new PaddleModel(1, 101, 2);
@@ -130,7 +130,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764501);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: webview_lifecycle_scenario_5764502_catalog_lookup_start
     it('webview_lifecycle_scenario_5764502_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 5764502;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -142,7 +142,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764502);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: webview_lifecycle_scenario_5764503_pipeline_round_trip
     it('webview_lifecycle_scenario_5764503_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 5764503;
       const payload: string = '_main.paddle.moveLeft(); // case 5764503';
@@ -154,7 +154,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764503);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: webview_lifecycle_scenario_5764504_settings_zoom_true
     it('webview_lifecycle_scenario_5764504_settings_zoom_true', 0, async () => {
       const caseSeed: number = 5764504;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -165,7 +165,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764504);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: webview_lifecycle_scenario_5764505_layout_custom_columns
     it('webview_lifecycle_scenario_5764505_layout_custom_columns', 0, async () => {
       const caseSeed: number = 5764505;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -176,7 +176,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764505);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: webview_lifecycle_scenario_5764506_score_accumulation
     it('webview_lifecycle_scenario_5764506_score_accumulation', 0, async () => {
       const caseSeed: number = 5764506;
       const board: ScoreBoard = new ScoreBoard();
@@ -189,7 +189,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764506);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: webview_lifecycle_scenario_5764507_brick_grid_progress
     it('webview_lifecycle_scenario_5764507_brick_grid_progress', 0, async () => {
       const caseSeed: number = 5764507;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -202,7 +202,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764507);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: webview_lifecycle_scenario_5764508_locale_lookup_en
     it('webview_lifecycle_scenario_5764508_locale_lookup_en', 0, async () => {
       const caseSeed: number = 5764508;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -213,7 +213,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764508);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: webview_lifecycle_scenario_5764509_validation_report_count
     it('webview_lifecycle_scenario_5764509_validation_report_count', 0, async () => {
       const caseSeed: number = 5764509;
       const report: ValidationReport = new ValidationReport();
@@ -226,7 +226,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764509);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: webview_lifecycle_scenario_5764510_url_with_query
     it('webview_lifecycle_scenario_5764510_url_with_query', 0, async () => {
       const caseSeed: number = 5764510;
       const url: string = SAMPLE_GAME_URL + '?case=91';
@@ -238,7 +238,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764510);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: webview_lifecycle_scenario_5764511_geometry_area
     it('webview_lifecycle_scenario_5764511_geometry_area', 0, async () => {
       const caseSeed: number = 5764511;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 21);
@@ -249,7 +249,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764511);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: webview_lifecycle_scenario_5764512_circular_buffer_capacity
     it('webview_lifecycle_scenario_5764512_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 5764512;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -262,7 +262,7 @@ export default function webViewLifecycleTest() {
       expect(caseSeed).assertEqual(5764512);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: webview_lifecycle_scenario_5764513_command_queue_fifo
     it('webview_lifecycle_scenario_5764513_command_queue_fifo', 0, async () => {
       const caseSeed: number = 5764513;
       const queue: CommandQueue = new CommandQueue();

@@ -62,7 +62,7 @@ export default function memoryLeakDetectionTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'memory_leak suite end');
     });
 
-    // 环形缓冲达到容量后丢弃最早样本
+    // Scenario: memory_leak_circular_buffer_keeps_capacity
     it('memory_leak_circular_buffer_keeps_capacity', 0, async () => {
       const buffer: CircularBuffer = new CircularBuffer(3);
       buffer.push(1);
@@ -76,7 +76,7 @@ export default function memoryLeakDetectionTest() {
       expect(buffer.sum()).assertEqual(9);
     });
 
-    // 越界读取返回 -1，清空后长度为 0
+    // Scenario: memory_leak_circular_buffer_rejects_invalid_index
     it('memory_leak_circular_buffer_rejects_invalid_index', 0, async () => {
       const buffer: CircularBuffer = new CircularBuffer(2);
       expect(buffer.get(0)).assertEqual(-1);
@@ -87,7 +87,7 @@ export default function memoryLeakDetectionTest() {
       expect(buffer.size()).assertEqual(0);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: memory_leak_scenario_1858600_session_start_cycles
     it('memory_leak_scenario_1858600_session_start_cycles', 0, async () => {
       const caseSeed: number = 1858600;
       const session: GameSession = new GameSession();
@@ -101,7 +101,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858600);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: memory_leak_scenario_1858601_paddle_step_sequence
     it('memory_leak_scenario_1858601_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 1858601;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -114,7 +114,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858601);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: memory_leak_scenario_1858602_catalog_lookup_start
     it('memory_leak_scenario_1858602_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 1858602;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -126,7 +126,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858602);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: memory_leak_scenario_1858603_pipeline_round_trip
     it('memory_leak_scenario_1858603_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 1858603;
       const payload: string = '_main.paddle.moveLeft(); // case 1858603';
@@ -138,7 +138,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858603);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: memory_leak_scenario_1858604_settings_zoom_true
     it('memory_leak_scenario_1858604_settings_zoom_true', 0, async () => {
       const caseSeed: number = 1858604;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -149,7 +149,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858604);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: memory_leak_scenario_1858605_layout_custom_columns
     it('memory_leak_scenario_1858605_layout_custom_columns', 0, async () => {
       const caseSeed: number = 1858605;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -160,7 +160,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858605);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: memory_leak_scenario_1858606_score_accumulation
     it('memory_leak_scenario_1858606_score_accumulation', 0, async () => {
       const caseSeed: number = 1858606;
       const board: ScoreBoard = new ScoreBoard();
@@ -173,7 +173,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858606);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: memory_leak_scenario_1858607_brick_grid_progress
     it('memory_leak_scenario_1858607_brick_grid_progress', 0, async () => {
       const caseSeed: number = 1858607;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -186,7 +186,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858607);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: memory_leak_scenario_1858608_locale_lookup_en
     it('memory_leak_scenario_1858608_locale_lookup_en', 0, async () => {
       const caseSeed: number = 1858608;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -197,7 +197,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858608);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: memory_leak_scenario_1858609_validation_report_count
     it('memory_leak_scenario_1858609_validation_report_count', 0, async () => {
       const caseSeed: number = 1858609;
       const report: ValidationReport = new ValidationReport();
@@ -210,7 +210,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858609);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: memory_leak_scenario_1858610_url_with_query
     it('memory_leak_scenario_1858610_url_with_query', 0, async () => {
       const caseSeed: number = 1858610;
       const url: string = SAMPLE_GAME_URL + '?case=90';
@@ -222,7 +222,7 @@ export default function memoryLeakDetectionTest() {
       expect(caseSeed).assertEqual(1858610);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: memory_leak_scenario_1858611_geometry_area
     it('memory_leak_scenario_1858611_geometry_area', 0, async () => {
       const caseSeed: number = 1858611;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 61);

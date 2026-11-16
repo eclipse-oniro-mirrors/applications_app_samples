@@ -71,7 +71,7 @@ export default function animationControllerValidationTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'animation_controller suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: animation_controller_scenario_3120800_session_start_cycles
     it('animation_controller_scenario_3120800_session_start_cycles', 0, async () => {
       const caseSeed: number = 3120800;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120800);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: animation_controller_scenario_3120801_paddle_step_sequence
     it('animation_controller_scenario_3120801_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3120801;
       const paddle: PaddleModel = new PaddleModel(1, 101, 7);
@@ -98,7 +98,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120801);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: animation_controller_scenario_3120802_catalog_lookup_start
     it('animation_controller_scenario_3120802_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3120802;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120802);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: animation_controller_scenario_3120803_pipeline_round_trip
     it('animation_controller_scenario_3120803_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3120803;
       const payload: string = '_main.paddle.moveLeft(); // case 3120803';
@@ -122,7 +122,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120803);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: animation_controller_scenario_3120804_settings_zoom_true
     it('animation_controller_scenario_3120804_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3120804;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120804);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: animation_controller_scenario_3120805_layout_custom_columns
     it('animation_controller_scenario_3120805_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3120805;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120805);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: animation_controller_scenario_3120806_score_accumulation
     it('animation_controller_scenario_3120806_score_accumulation', 0, async () => {
       const caseSeed: number = 3120806;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120806);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: animation_controller_scenario_3120807_brick_grid_progress
     it('animation_controller_scenario_3120807_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3120807;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -170,7 +170,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120807);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: animation_controller_scenario_3120808_locale_lookup_en
     it('animation_controller_scenario_3120808_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3120808;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120808);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: animation_controller_scenario_3120809_validation_report_count
     it('animation_controller_scenario_3120809_validation_report_count', 0, async () => {
       const caseSeed: number = 3120809;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120809);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: animation_controller_scenario_3120810_url_with_query
     it('animation_controller_scenario_3120810_url_with_query', 0, async () => {
       const caseSeed: number = 3120810;
       const url: string = SAMPLE_GAME_URL + '?case=29';
@@ -206,7 +206,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120810);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: animation_controller_scenario_3120811_geometry_area
     it('animation_controller_scenario_3120811_geometry_area', 0, async () => {
       const caseSeed: number = 3120811;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 41);
@@ -217,7 +217,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120811);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: animation_controller_scenario_3120812_circular_buffer_capacity
     it('animation_controller_scenario_3120812_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3120812;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120812);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: animation_controller_scenario_3120813_command_queue_fifo
     it('animation_controller_scenario_3120813_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3120813;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120813);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: animation_controller_scenario_3120814_token_bucket_consume
     it('animation_controller_scenario_3120814_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3120814;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -254,7 +254,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120814);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: animation_controller_scenario_3120815_page_load_budget
     it('animation_controller_scenario_3120815_page_load_budget', 0, async () => {
       const caseSeed: number = 3120815;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120815);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: animation_controller_scenario_3120816_perf_sampler_bounds
     it('animation_controller_scenario_3120816_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3120816;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120816);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: animation_controller_scenario_3120817_config_api_9
     it('animation_controller_scenario_3120817_config_api_9', 0, async () => {
       const caseSeed: number = 3120817;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120817);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: animation_controller_scenario_3120818_retry_attempts
     it('animation_controller_scenario_3120818_retry_attempts', 0, async () => {
       const caseSeed: number = 3120818;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120818);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: animation_controller_scenario_3120819_event_recorder_sequence
     it('animation_controller_scenario_3120819_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3120819;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120819);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: animation_controller_scenario_3120820_session_start_cycles
     it('animation_controller_scenario_3120820_session_start_cycles', 0, async () => {
       const caseSeed: number = 3120820;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120820);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: animation_controller_scenario_3120821_paddle_step_sequence
     it('animation_controller_scenario_3120821_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3120821;
       const paddle: PaddleModel = new PaddleModel(1, 101, 9);
@@ -341,7 +341,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120821);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: animation_controller_scenario_3120822_catalog_lookup_start
     it('animation_controller_scenario_3120822_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3120822;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120822);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: animation_controller_scenario_3120823_pipeline_round_trip
     it('animation_controller_scenario_3120823_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3120823;
       const payload: string = '_main.paddle.moveLeft(); // case 3120823';
@@ -365,7 +365,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120823);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: animation_controller_scenario_3120824_settings_zoom_true
     it('animation_controller_scenario_3120824_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3120824;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120824);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: animation_controller_scenario_3120825_layout_custom_columns
     it('animation_controller_scenario_3120825_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3120825;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120825);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: animation_controller_scenario_3120826_score_accumulation
     it('animation_controller_scenario_3120826_score_accumulation', 0, async () => {
       const caseSeed: number = 3120826;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120826);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: animation_controller_scenario_3120827_brick_grid_progress
     it('animation_controller_scenario_3120827_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3120827;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -413,7 +413,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120827);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: animation_controller_scenario_3120828_locale_lookup_en
     it('animation_controller_scenario_3120828_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3120828;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120828);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: animation_controller_scenario_3120829_validation_report_count
     it('animation_controller_scenario_3120829_validation_report_count', 0, async () => {
       const caseSeed: number = 3120829;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120829);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: animation_controller_scenario_3120830_url_with_query
     it('animation_controller_scenario_3120830_url_with_query', 0, async () => {
       const caseSeed: number = 3120830;
       const url: string = SAMPLE_GAME_URL + '?case=49';
@@ -449,7 +449,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120830);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: animation_controller_scenario_3120831_geometry_area
     it('animation_controller_scenario_3120831_geometry_area', 0, async () => {
       const caseSeed: number = 3120831;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 61);
@@ -460,7 +460,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120831);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: animation_controller_scenario_3120832_circular_buffer_capacity
     it('animation_controller_scenario_3120832_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3120832;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120832);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: animation_controller_scenario_3120833_command_queue_fifo
     it('animation_controller_scenario_3120833_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3120833;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120833);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: animation_controller_scenario_3120834_token_bucket_consume
     it('animation_controller_scenario_3120834_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3120834;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -497,7 +497,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120834);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: animation_controller_scenario_3120835_page_load_budget
     it('animation_controller_scenario_3120835_page_load_budget', 0, async () => {
       const caseSeed: number = 3120835;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120835);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: animation_controller_scenario_3120836_perf_sampler_bounds
     it('animation_controller_scenario_3120836_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3120836;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -521,7 +521,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120836);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: animation_controller_scenario_3120837_config_api_9
     it('animation_controller_scenario_3120837_config_api_9', 0, async () => {
       const caseSeed: number = 3120837;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -532,7 +532,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120837);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: animation_controller_scenario_3120838_retry_attempts
     it('animation_controller_scenario_3120838_retry_attempts', 0, async () => {
       const caseSeed: number = 3120838;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -544,7 +544,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120838);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: animation_controller_scenario_3120839_event_recorder_sequence
     it('animation_controller_scenario_3120839_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3120839;
       const recorder: EventRecorder = new EventRecorder();
@@ -557,7 +557,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120839);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: animation_controller_scenario_3120840_session_start_cycles
     it('animation_controller_scenario_3120840_session_start_cycles', 0, async () => {
       const caseSeed: number = 3120840;
       const session: GameSession = new GameSession();
@@ -571,7 +571,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120840);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: animation_controller_scenario_3120841_paddle_step_sequence
     it('animation_controller_scenario_3120841_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3120841;
       const paddle: PaddleModel = new PaddleModel(1, 101, 2);
@@ -584,7 +584,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120841);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: animation_controller_scenario_3120842_catalog_lookup_start
     it('animation_controller_scenario_3120842_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3120842;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -596,7 +596,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120842);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: animation_controller_scenario_3120843_pipeline_round_trip
     it('animation_controller_scenario_3120843_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3120843;
       const payload: string = '_main.paddle.moveLeft(); // case 3120843';
@@ -608,7 +608,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120843);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: animation_controller_scenario_3120844_settings_zoom_true
     it('animation_controller_scenario_3120844_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3120844;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -619,7 +619,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120844);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: animation_controller_scenario_3120845_layout_custom_columns
     it('animation_controller_scenario_3120845_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3120845;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -630,7 +630,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120845);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: animation_controller_scenario_3120846_score_accumulation
     it('animation_controller_scenario_3120846_score_accumulation', 0, async () => {
       const caseSeed: number = 3120846;
       const board: ScoreBoard = new ScoreBoard();
@@ -643,7 +643,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120846);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: animation_controller_scenario_3120847_brick_grid_progress
     it('animation_controller_scenario_3120847_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3120847;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -656,7 +656,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120847);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: animation_controller_scenario_3120848_locale_lookup_en
     it('animation_controller_scenario_3120848_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3120848;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -667,7 +667,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120848);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: animation_controller_scenario_3120849_validation_report_count
     it('animation_controller_scenario_3120849_validation_report_count', 0, async () => {
       const caseSeed: number = 3120849;
       const report: ValidationReport = new ValidationReport();
@@ -680,7 +680,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120849);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: animation_controller_scenario_3120850_url_with_query
     it('animation_controller_scenario_3120850_url_with_query', 0, async () => {
       const caseSeed: number = 3120850;
       const url: string = SAMPLE_GAME_URL + '?case=69';
@@ -692,7 +692,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120850);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: animation_controller_scenario_3120851_geometry_area
     it('animation_controller_scenario_3120851_geometry_area', 0, async () => {
       const caseSeed: number = 3120851;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 21);
@@ -703,7 +703,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120851);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: animation_controller_scenario_3120852_circular_buffer_capacity
     it('animation_controller_scenario_3120852_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3120852;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -716,7 +716,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120852);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: animation_controller_scenario_3120853_command_queue_fifo
     it('animation_controller_scenario_3120853_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3120853;
       const queue: CommandQueue = new CommandQueue();
@@ -729,7 +729,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120853);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: animation_controller_scenario_3120854_token_bucket_consume
     it('animation_controller_scenario_3120854_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3120854;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -740,7 +740,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120854);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: animation_controller_scenario_3120855_page_load_budget
     it('animation_controller_scenario_3120855_page_load_budget', 0, async () => {
       const caseSeed: number = 3120855;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -751,7 +751,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120855);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: animation_controller_scenario_3120856_perf_sampler_bounds
     it('animation_controller_scenario_3120856_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3120856;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -764,7 +764,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120856);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: animation_controller_scenario_3120857_config_api_9
     it('animation_controller_scenario_3120857_config_api_9', 0, async () => {
       const caseSeed: number = 3120857;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -775,7 +775,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120857);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: animation_controller_scenario_3120858_retry_attempts
     it('animation_controller_scenario_3120858_retry_attempts', 0, async () => {
       const caseSeed: number = 3120858;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -787,7 +787,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120858);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: animation_controller_scenario_3120859_event_recorder_sequence
     it('animation_controller_scenario_3120859_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3120859;
       const recorder: EventRecorder = new EventRecorder();
@@ -800,7 +800,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120859);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: animation_controller_scenario_3120860_session_start_cycles
     it('animation_controller_scenario_3120860_session_start_cycles', 0, async () => {
       const caseSeed: number = 3120860;
       const session: GameSession = new GameSession();
@@ -814,7 +814,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120860);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: animation_controller_scenario_3120861_paddle_step_sequence
     it('animation_controller_scenario_3120861_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3120861;
       const paddle: PaddleModel = new PaddleModel(1, 101, 4);
@@ -827,7 +827,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120861);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: animation_controller_scenario_3120862_catalog_lookup_start
     it('animation_controller_scenario_3120862_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3120862;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -839,7 +839,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120862);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: animation_controller_scenario_3120863_pipeline_round_trip
     it('animation_controller_scenario_3120863_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3120863;
       const payload: string = '_main.paddle.moveLeft(); // case 3120863';
@@ -851,7 +851,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120863);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: animation_controller_scenario_3120864_settings_zoom_true
     it('animation_controller_scenario_3120864_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3120864;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -862,7 +862,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120864);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: animation_controller_scenario_3120865_layout_custom_columns
     it('animation_controller_scenario_3120865_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3120865;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -873,7 +873,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120865);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: animation_controller_scenario_3120866_score_accumulation
     it('animation_controller_scenario_3120866_score_accumulation', 0, async () => {
       const caseSeed: number = 3120866;
       const board: ScoreBoard = new ScoreBoard();
@@ -886,7 +886,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120866);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: animation_controller_scenario_3120867_brick_grid_progress
     it('animation_controller_scenario_3120867_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3120867;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -899,7 +899,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120867);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: animation_controller_scenario_3120868_locale_lookup_en
     it('animation_controller_scenario_3120868_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3120868;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -910,7 +910,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120868);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: animation_controller_scenario_3120869_validation_report_count
     it('animation_controller_scenario_3120869_validation_report_count', 0, async () => {
       const caseSeed: number = 3120869;
       const report: ValidationReport = new ValidationReport();
@@ -923,7 +923,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120869);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: animation_controller_scenario_3120870_url_with_query
     it('animation_controller_scenario_3120870_url_with_query', 0, async () => {
       const caseSeed: number = 3120870;
       const url: string = SAMPLE_GAME_URL + '?case=89';
@@ -935,7 +935,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120870);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: animation_controller_scenario_3120871_geometry_area
     it('animation_controller_scenario_3120871_geometry_area', 0, async () => {
       const caseSeed: number = 3120871;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 41);
@@ -946,7 +946,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120871);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: animation_controller_scenario_3120872_circular_buffer_capacity
     it('animation_controller_scenario_3120872_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3120872;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -959,7 +959,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120872);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: animation_controller_scenario_3120873_command_queue_fifo
     it('animation_controller_scenario_3120873_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3120873;
       const queue: CommandQueue = new CommandQueue();
@@ -972,7 +972,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120873);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: animation_controller_scenario_3120874_token_bucket_consume
     it('animation_controller_scenario_3120874_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3120874;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -983,7 +983,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120874);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: animation_controller_scenario_3120875_page_load_budget
     it('animation_controller_scenario_3120875_page_load_budget', 0, async () => {
       const caseSeed: number = 3120875;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -994,7 +994,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120875);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: animation_controller_scenario_3120876_perf_sampler_bounds
     it('animation_controller_scenario_3120876_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3120876;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -1007,7 +1007,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120876);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: animation_controller_scenario_3120877_config_api_9
     it('animation_controller_scenario_3120877_config_api_9', 0, async () => {
       const caseSeed: number = 3120877;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -1018,7 +1018,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120877);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: animation_controller_scenario_3120878_retry_attempts
     it('animation_controller_scenario_3120878_retry_attempts', 0, async () => {
       const caseSeed: number = 3120878;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -1030,7 +1030,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120878);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: animation_controller_scenario_3120879_event_recorder_sequence
     it('animation_controller_scenario_3120879_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3120879;
       const recorder: EventRecorder = new EventRecorder();
@@ -1043,7 +1043,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120879);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: animation_controller_scenario_3120880_session_start_cycles
     it('animation_controller_scenario_3120880_session_start_cycles', 0, async () => {
       const caseSeed: number = 3120880;
       const session: GameSession = new GameSession();
@@ -1057,7 +1057,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120880);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: animation_controller_scenario_3120881_paddle_step_sequence
     it('animation_controller_scenario_3120881_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3120881;
       const paddle: PaddleModel = new PaddleModel(1, 101, 6);
@@ -1070,7 +1070,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120881);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: animation_controller_scenario_3120882_catalog_lookup_start
     it('animation_controller_scenario_3120882_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3120882;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -1082,7 +1082,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120882);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: animation_controller_scenario_3120883_pipeline_round_trip
     it('animation_controller_scenario_3120883_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3120883;
       const payload: string = '_main.paddle.moveLeft(); // case 3120883';
@@ -1094,7 +1094,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120883);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: animation_controller_scenario_3120884_settings_zoom_true
     it('animation_controller_scenario_3120884_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3120884;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -1105,7 +1105,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120884);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: animation_controller_scenario_3120885_layout_custom_columns
     it('animation_controller_scenario_3120885_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3120885;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -1116,7 +1116,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120885);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: animation_controller_scenario_3120886_score_accumulation
     it('animation_controller_scenario_3120886_score_accumulation', 0, async () => {
       const caseSeed: number = 3120886;
       const board: ScoreBoard = new ScoreBoard();
@@ -1129,7 +1129,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120886);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: animation_controller_scenario_3120887_brick_grid_progress
     it('animation_controller_scenario_3120887_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3120887;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -1142,7 +1142,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120887);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: animation_controller_scenario_3120888_locale_lookup_en
     it('animation_controller_scenario_3120888_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3120888;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -1153,7 +1153,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120888);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: animation_controller_scenario_3120889_validation_report_count
     it('animation_controller_scenario_3120889_validation_report_count', 0, async () => {
       const caseSeed: number = 3120889;
       const report: ValidationReport = new ValidationReport();
@@ -1166,7 +1166,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120889);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: animation_controller_scenario_3120890_url_with_query
     it('animation_controller_scenario_3120890_url_with_query', 0, async () => {
       const caseSeed: number = 3120890;
       const url: string = SAMPLE_GAME_URL + '?case=12';
@@ -1178,7 +1178,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120890);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: animation_controller_scenario_3120891_geometry_area
     it('animation_controller_scenario_3120891_geometry_area', 0, async () => {
       const caseSeed: number = 3120891;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 61);
@@ -1189,7 +1189,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120891);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: animation_controller_scenario_3120892_circular_buffer_capacity
     it('animation_controller_scenario_3120892_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3120892;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -1202,7 +1202,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120892);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: animation_controller_scenario_3120893_command_queue_fifo
     it('animation_controller_scenario_3120893_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3120893;
       const queue: CommandQueue = new CommandQueue();
@@ -1215,7 +1215,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120893);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: animation_controller_scenario_3120894_token_bucket_consume
     it('animation_controller_scenario_3120894_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3120894;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -1226,7 +1226,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120894);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: animation_controller_scenario_3120895_page_load_budget
     it('animation_controller_scenario_3120895_page_load_budget', 0, async () => {
       const caseSeed: number = 3120895;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -1237,7 +1237,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120895);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: animation_controller_scenario_3120896_perf_sampler_bounds
     it('animation_controller_scenario_3120896_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3120896;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -1250,7 +1250,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120896);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: animation_controller_scenario_3120897_config_api_9
     it('animation_controller_scenario_3120897_config_api_9', 0, async () => {
       const caseSeed: number = 3120897;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -1261,7 +1261,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120897);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: animation_controller_scenario_3120898_retry_attempts
     it('animation_controller_scenario_3120898_retry_attempts', 0, async () => {
       const caseSeed: number = 3120898;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -1273,7 +1273,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120898);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: animation_controller_scenario_3120899_event_recorder_sequence
     it('animation_controller_scenario_3120899_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3120899;
       const recorder: EventRecorder = new EventRecorder();
@@ -1286,7 +1286,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120899);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: animation_controller_scenario_3120900_session_start_cycles
     it('animation_controller_scenario_3120900_session_start_cycles', 0, async () => {
       const caseSeed: number = 3120900;
       const session: GameSession = new GameSession();
@@ -1300,7 +1300,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120900);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: animation_controller_scenario_3120901_paddle_step_sequence
     it('animation_controller_scenario_3120901_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3120901;
       const paddle: PaddleModel = new PaddleModel(1, 101, 8);
@@ -1313,7 +1313,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120901);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: animation_controller_scenario_3120902_catalog_lookup_start
     it('animation_controller_scenario_3120902_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3120902;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -1325,7 +1325,7 @@ export default function animationControllerValidationTest() {
       expect(caseSeed).assertEqual(3120902);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: animation_controller_scenario_3120903_pipeline_round_trip
     it('animation_controller_scenario_3120903_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3120903;
       const payload: string = '_main.paddle.moveLeft(); // case 3120903';
