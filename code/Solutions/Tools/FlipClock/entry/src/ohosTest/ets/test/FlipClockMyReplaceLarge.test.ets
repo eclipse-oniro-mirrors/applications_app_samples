@@ -24,15 +24,15 @@ export default function flipClockMyReplaceLargeTest() {
   describe('FlipClockMyReplaceLargeTest', () => {
 
     /**
-     * @tc.name   testFlipClockMyReplaceLarge0000
+     * @tc.name   ohos.samples.flipclock_MyReplaceLarge_0001
      * @tc.number SUB_FLIP_CLOCK_MORE6_MREP_0000
      * @tc.desc   Replace MyDataSource with 17 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyReplaceLarge0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0000 begin');
+    it('ohos.samples.flipclock_MyReplaceLarge_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0001 begin');
       const source: MyDataSource = new MyDataSource([]);
         const next: TabType[] = [];
         for (let index: number = 0; index < 17; index++) {
@@ -43,19 +43,19 @@ export default function flipClockMyReplaceLargeTest() {
         expect(source.totalCount()).assertEqual(17);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(16).num), String(0));
         expect(source.getData(16).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyReplaceLarge0001
+     * @tc.name   ohos.samples.flipclock_MyReplaceLarge_0002
      * @tc.number SUB_FLIP_CLOCK_MORE6_MREP_0001
      * @tc.desc   Replace MyDataSource with 18 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyReplaceLarge0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0001 begin');
+    it('ohos.samples.flipclock_MyReplaceLarge_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0002 begin');
       const source: MyDataSource = new MyDataSource([]);
         const next: TabType[] = [];
         for (let index: number = 0; index < 18; index++) {
@@ -66,19 +66,19 @@ export default function flipClockMyReplaceLargeTest() {
         expect(source.totalCount()).assertEqual(18);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(17).num), String(1));
         expect(source.getData(17).num).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyReplaceLarge0002
+     * @tc.name   ohos.samples.flipclock_MyReplaceLarge_0003
      * @tc.number SUB_FLIP_CLOCK_MORE6_MREP_0002
      * @tc.desc   Replace MyDataSource with 19 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyReplaceLarge0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0002 begin');
+    it('ohos.samples.flipclock_MyReplaceLarge_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0003 begin');
       const source: MyDataSource = new MyDataSource([]);
         const next: TabType[] = [];
         for (let index: number = 0; index < 19; index++) {
@@ -89,19 +89,19 @@ export default function flipClockMyReplaceLargeTest() {
         expect(source.totalCount()).assertEqual(19);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(18).num), String(2));
         expect(source.getData(18).num).assertEqual(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyReplaceLarge0003
+     * @tc.name   ohos.samples.flipclock_MyReplaceLarge_0004
      * @tc.number SUB_FLIP_CLOCK_MORE6_MREP_0003
      * @tc.desc   Replace MyDataSource with 20 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyReplaceLarge0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0003 begin');
+    it('ohos.samples.flipclock_MyReplaceLarge_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0004 begin');
       const source: MyDataSource = new MyDataSource([]);
         const next: TabType[] = [];
         for (let index: number = 0; index < 20; index++) {
@@ -112,19 +112,19 @@ export default function flipClockMyReplaceLargeTest() {
         expect(source.totalCount()).assertEqual(20);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(19).num), String(3));
         expect(source.getData(19).num).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyReplaceLarge0004
+     * @tc.name   ohos.samples.flipclock_MyReplaceLarge_0005
      * @tc.number SUB_FLIP_CLOCK_MORE6_MREP_0004
      * @tc.desc   Replace MyDataSource with 21 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyReplaceLarge0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0004 begin');
+    it('ohos.samples.flipclock_MyReplaceLarge_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0005 begin');
       const source: MyDataSource = new MyDataSource([]);
         const next: TabType[] = [];
         for (let index: number = 0; index < 21; index++) {
@@ -135,19 +135,19 @@ export default function flipClockMyReplaceLargeTest() {
         expect(source.totalCount()).assertEqual(21);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(20).num), String(0));
         expect(source.getData(20).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyReplaceLarge0005
+     * @tc.name   ohos.samples.flipclock_MyReplaceLarge_0006
      * @tc.number SUB_FLIP_CLOCK_MORE6_MREP_0005
      * @tc.desc   Replace MyDataSource with 22 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyReplaceLarge0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0005 begin');
+    it('ohos.samples.flipclock_MyReplaceLarge_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0006 begin');
       const source: MyDataSource = new MyDataSource([]);
         const next: TabType[] = [];
         for (let index: number = 0; index < 22; index++) {
@@ -158,19 +158,19 @@ export default function flipClockMyReplaceLargeTest() {
         expect(source.totalCount()).assertEqual(22);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(21).num), String(1));
         expect(source.getData(21).num).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyReplaceLarge0006
+     * @tc.name   ohos.samples.flipclock_MyReplaceLarge_0007
      * @tc.number SUB_FLIP_CLOCK_MORE6_MREP_0006
      * @tc.desc   Replace MyDataSource with 23 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyReplaceLarge0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0006 begin');
+    it('ohos.samples.flipclock_MyReplaceLarge_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0007 begin');
       const source: MyDataSource = new MyDataSource([]);
         const next: TabType[] = [];
         for (let index: number = 0; index < 23; index++) {
@@ -181,19 +181,19 @@ export default function flipClockMyReplaceLargeTest() {
         expect(source.totalCount()).assertEqual(23);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(22).num), String(2));
         expect(source.getData(22).num).assertEqual(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyReplaceLarge0007
+     * @tc.name   ohos.samples.flipclock_MyReplaceLarge_0008
      * @tc.number SUB_FLIP_CLOCK_MORE6_MREP_0007
      * @tc.desc   Replace MyDataSource with 24 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyReplaceLarge0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0007 begin');
+    it('ohos.samples.flipclock_MyReplaceLarge_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0008 begin');
       const source: MyDataSource = new MyDataSource([]);
         const next: TabType[] = [];
         for (let index: number = 0; index < 24; index++) {
@@ -204,7 +204,7 @@ export default function flipClockMyReplaceLargeTest() {
         expect(source.totalCount()).assertEqual(24);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(23).num), String(3));
         expect(source.getData(23).num).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyReplaceLarge0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyReplaceLarge_0008 end');
     })
   })
 }

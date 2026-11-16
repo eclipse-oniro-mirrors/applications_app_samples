@@ -51,34 +51,34 @@ export default function flipClockListenerBoundaryTest() {
   describe('FlipClockListenerBoundaryTest', () => {
 
     /**
-     * @tc.name   testFlipClockListenerBoundary001
+     * @tc.name   ohos.samples.flipclock_ListenerBoundary_0001
      * @tc.number SUB_FLIP_CLOCK_BOUND_LIS_001
      * @tc.desc   Notify without registered listeners.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockListenerBoundary001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary001 begin');
+    it('ohos.samples.flipclock_ListenerBoundary_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0001 begin');
       const source: MyDataSource = new MyDataSource([]);
         source.notifyDataReload();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
         expect(source.totalCount()).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
         expect(source.getData(0) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockListenerBoundary002
+     * @tc.name   ohos.samples.flipclock_ListenerBoundary_0002
      * @tc.number SUB_FLIP_CLOCK_BOUND_LIS_002
      * @tc.desc   Register and notify one listener.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockListenerBoundary002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary002 begin');
+    it('ohos.samples.flipclock_ListenerBoundary_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0002 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: BoundaryListener = new BoundaryListener();
         source.registerDataChangeListener(l);
@@ -87,19 +87,19 @@ export default function flipClockListenerBoundaryTest() {
         expect(l.reload).assertEqual(1);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.add), String(0));
         expect(l.add).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockListenerBoundary003
+     * @tc.name   ohos.samples.flipclock_ListenerBoundary_0003
      * @tc.number SUB_FLIP_CLOCK_BOUND_LIS_003
      * @tc.desc   Register the same listener three times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockListenerBoundary003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary003 begin');
+    it('ohos.samples.flipclock_ListenerBoundary_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0003 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: BoundaryListener = new BoundaryListener();
         source.registerDataChangeListener(l);
@@ -108,38 +108,38 @@ export default function flipClockListenerBoundaryTest() {
         source.notifyDataReload();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(1));
         expect(l.reload).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockListenerBoundary004
+     * @tc.name   ohos.samples.flipclock_ListenerBoundary_0004
      * @tc.number SUB_FLIP_CLOCK_BOUND_LIS_004
      * @tc.desc   Unregister an unknown listener.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockListenerBoundary004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary004 begin');
+    it('ohos.samples.flipclock_ListenerBoundary_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0004 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: BoundaryListener = new BoundaryListener();
         source.unregisterDataChangeListener(l);
         source.notifyDataReload();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(0));
         expect(l.reload).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockListenerBoundary005
+     * @tc.name   ohos.samples.flipclock_ListenerBoundary_0005
      * @tc.number SUB_FLIP_CLOCK_BOUND_LIS_005
      * @tc.desc   Unregister twice.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockListenerBoundary005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary005 begin');
+    it('ohos.samples.flipclock_ListenerBoundary_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0005 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: BoundaryListener = new BoundaryListener();
         source.registerDataChangeListener(l);
@@ -148,19 +148,19 @@ export default function flipClockListenerBoundaryTest() {
         source.notifyDataReload();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(0));
         expect(l.reload).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockListenerBoundary006
+     * @tc.name   ohos.samples.flipclock_ListenerBoundary_0006
      * @tc.number SUB_FLIP_CLOCK_BOUND_LIS_006
      * @tc.desc   Re-register after unregister.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockListenerBoundary006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary006 begin');
+    it('ohos.samples.flipclock_ListenerBoundary_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0006 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: BoundaryListener = new BoundaryListener();
         source.registerDataChangeListener(l);
@@ -169,19 +169,19 @@ export default function flipClockListenerBoundaryTest() {
         source.notifyDataReload();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(1));
         expect(l.reload).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockListenerBoundary007
+     * @tc.name   ohos.samples.flipclock_ListenerBoundary_0007
      * @tc.number SUB_FLIP_CLOCK_BOUND_LIS_007
      * @tc.desc   Two listeners both receive reload.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockListenerBoundary007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary007 begin');
+    it('ohos.samples.flipclock_ListenerBoundary_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0007 begin');
       const source: MyDataSource = new MyDataSource([]);
         const a: BoundaryListener = new BoundaryListener();
         const b: BoundaryListener = new BoundaryListener();
@@ -192,19 +192,19 @@ export default function flipClockListenerBoundaryTest() {
         expect(a.reload).assertEqual(1);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(b.reload), String(1));
         expect(b.reload).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockListenerBoundary008
+     * @tc.name   ohos.samples.flipclock_ListenerBoundary_0008
      * @tc.number SUB_FLIP_CLOCK_BOUND_LIS_008
      * @tc.desc   Unregister one of two listeners.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockListenerBoundary008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary008 begin');
+    it('ohos.samples.flipclock_ListenerBoundary_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0008 begin');
       const source: MyDataSource = new MyDataSource([]);
         const a: BoundaryListener = new BoundaryListener();
         const b: BoundaryListener = new BoundaryListener();
@@ -216,7 +216,7 @@ export default function flipClockListenerBoundaryTest() {
         expect(a.reload).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(b.reload), String(1));
         expect(b.reload).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerBoundary_0008 end');
     })
   })
 }

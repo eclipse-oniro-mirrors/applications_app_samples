@@ -24,15 +24,15 @@ export default function flipClockMyDataSourceMixedTest() {
   describe('FlipClockMyDataSourceMixedTest', () => {
 
     /**
-     * @tc.name   testFlipClockMyMixed0001
+     * @tc.name   ohos.samples.flipclock_MyDataSourceMixed_0001
      * @tc.number SUB_FLIP_CLOCK_MORE2_MYMIX_0001
      * @tc.desc   Verify MyDataSource mixed operation 1.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyMixed0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0001 begin');
+    it('ohos.samples.flipclock_MyDataSourceMixed_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0001 begin');
       const source: MyDataSource = new MyDataSource([]);
       source.replaceData(tabArray.slice());
         source.deleteData(0);
@@ -44,19 +44,19 @@ export default function flipClockMyDataSourceMixedTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyMixed0002
+     * @tc.name   ohos.samples.flipclock_MyDataSourceMixed_0002
      * @tc.number SUB_FLIP_CLOCK_MORE2_MYMIX_0002
      * @tc.desc   Verify MyDataSource mixed operation 2.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyMixed0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0002 begin');
+    it('ohos.samples.flipclock_MyDataSourceMixed_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0002 begin');
       const source: MyDataSource = new MyDataSource([]);
       source.pushData(tabArray[0]);
         source.replaceData([]);
@@ -68,19 +68,19 @@ export default function flipClockMyDataSourceMixedTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyMixed0003
+     * @tc.name   ohos.samples.flipclock_MyDataSourceMixed_0003
      * @tc.number SUB_FLIP_CLOCK_MORE2_MYMIX_0003
      * @tc.desc   Verify MyDataSource mixed operation 3.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyMixed0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0003 begin');
+    it('ohos.samples.flipclock_MyDataSourceMixed_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0003 begin');
       const source: MyDataSource = new MyDataSource([]);
       source.pushData(tabArray[0]);
         source.deleteData(0);
@@ -93,19 +93,19 @@ export default function flipClockMyDataSourceMixedTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyMixed0004
+     * @tc.name   ohos.samples.flipclock_MyDataSourceMixed_0004
      * @tc.number SUB_FLIP_CLOCK_MORE2_MYMIX_0004
      * @tc.desc   Verify MyDataSource mixed operation 4.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyMixed0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0004 begin');
+    it('ohos.samples.flipclock_MyDataSourceMixed_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0004 begin');
       const source: MyDataSource = new MyDataSource([]);
       source.replaceData([tabArray[1]]);
         source.pushData(tabArray[2]);
@@ -117,19 +117,19 @@ export default function flipClockMyDataSourceMixedTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyMixed0005
+     * @tc.name   ohos.samples.flipclock_MyDataSourceMixed_0005
      * @tc.number SUB_FLIP_CLOCK_MORE2_MYMIX_0005
      * @tc.desc   Verify MyDataSource mixed operation 5.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyMixed0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0005 begin');
+    it('ohos.samples.flipclock_MyDataSourceMixed_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0005 begin');
       const source: MyDataSource = new MyDataSource([]);
       source.pushData(tabArray[0]);
         source.pushData(tabArray[1]);
@@ -142,19 +142,19 @@ export default function flipClockMyDataSourceMixedTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyMixed0006
+     * @tc.name   ohos.samples.flipclock_MyDataSourceMixed_0006
      * @tc.number SUB_FLIP_CLOCK_MORE2_MYMIX_0006
      * @tc.desc   Verify MyDataSource mixed operation 6.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyMixed0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0006 begin');
+    it('ohos.samples.flipclock_MyDataSourceMixed_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0006 begin');
       const source: MyDataSource = new MyDataSource([]);
       source.replaceData(tabArray.slice());
         source.deleteData(3);
@@ -166,19 +166,19 @@ export default function flipClockMyDataSourceMixedTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyMixed0007
+     * @tc.name   ohos.samples.flipclock_MyDataSourceMixed_0007
      * @tc.number SUB_FLIP_CLOCK_MORE2_MYMIX_0007
      * @tc.desc   Verify MyDataSource mixed operation 7.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyMixed0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0007 begin');
+    it('ohos.samples.flipclock_MyDataSourceMixed_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0007 begin');
       const source: MyDataSource = new MyDataSource([]);
       source.pushData(tabArray[0]);
         source.replaceData([tabArray[3]]);
@@ -190,19 +190,19 @@ export default function flipClockMyDataSourceMixedTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyMixed0008
+     * @tc.name   ohos.samples.flipclock_MyDataSourceMixed_0008
      * @tc.number SUB_FLIP_CLOCK_MORE2_MYMIX_0008
      * @tc.desc   Verify MyDataSource mixed operation 8.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyMixed0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0008 begin');
+    it('ohos.samples.flipclock_MyDataSourceMixed_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0008 begin');
       const source: MyDataSource = new MyDataSource([]);
       source.replaceData(tabArray.slice());
         source.deleteData(0);
@@ -215,7 +215,7 @@ export default function flipClockMyDataSourceMixedTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceMixed_0008 end');
     })
   })
 }

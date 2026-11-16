@@ -24,15 +24,15 @@ export default function flipClockMyDeleteLargeTest() {
   describe('FlipClockMyDeleteLargeTest', () => {
 
     /**
-     * @tc.name   testFlipClockMyDeleteLarge0000
+     * @tc.name   ohos.samples.flipclock_MyDeleteLarge_0001
      * @tc.number SUB_FLIP_CLOCK_MORE6_MDEL_0000
      * @tc.desc   Delete first from 10 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDeleteLarge0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0000 begin');
+    it('ohos.samples.flipclock_MyDeleteLarge_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0001 begin');
       const source: MyDataSource = new MyDataSource([]);
         for (let index: number = 0; index < 10; index++) {
           source.pushData(tabArray[index % 4]);
@@ -42,19 +42,19 @@ export default function flipClockMyDeleteLargeTest() {
         expect(source.totalCount()).assertEqual(9);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDeleteLarge0001
+     * @tc.name   ohos.samples.flipclock_MyDeleteLarge_0002
      * @tc.number SUB_FLIP_CLOCK_MORE6_MDEL_0001
      * @tc.desc   Delete first from 11 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDeleteLarge0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0001 begin');
+    it('ohos.samples.flipclock_MyDeleteLarge_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0002 begin');
       const source: MyDataSource = new MyDataSource([]);
         for (let index: number = 0; index < 11; index++) {
           source.pushData(tabArray[index % 4]);
@@ -64,19 +64,19 @@ export default function flipClockMyDeleteLargeTest() {
         expect(source.totalCount()).assertEqual(10);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDeleteLarge0002
+     * @tc.name   ohos.samples.flipclock_MyDeleteLarge_0003
      * @tc.number SUB_FLIP_CLOCK_MORE6_MDEL_0002
      * @tc.desc   Delete first from 12 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDeleteLarge0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0002 begin');
+    it('ohos.samples.flipclock_MyDeleteLarge_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0003 begin');
       const source: MyDataSource = new MyDataSource([]);
         for (let index: number = 0; index < 12; index++) {
           source.pushData(tabArray[index % 4]);
@@ -86,19 +86,19 @@ export default function flipClockMyDeleteLargeTest() {
         expect(source.totalCount()).assertEqual(11);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDeleteLarge0003
+     * @tc.name   ohos.samples.flipclock_MyDeleteLarge_0004
      * @tc.number SUB_FLIP_CLOCK_MORE6_MDEL_0003
      * @tc.desc   Delete first from 13 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDeleteLarge0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0003 begin');
+    it('ohos.samples.flipclock_MyDeleteLarge_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0004 begin');
       const source: MyDataSource = new MyDataSource([]);
         for (let index: number = 0; index < 13; index++) {
           source.pushData(tabArray[index % 4]);
@@ -108,19 +108,19 @@ export default function flipClockMyDeleteLargeTest() {
         expect(source.totalCount()).assertEqual(12);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDeleteLarge0004
+     * @tc.name   ohos.samples.flipclock_MyDeleteLarge_0005
      * @tc.number SUB_FLIP_CLOCK_MORE6_MDEL_0004
      * @tc.desc   Delete first from 14 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDeleteLarge0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0004 begin');
+    it('ohos.samples.flipclock_MyDeleteLarge_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0005 begin');
       const source: MyDataSource = new MyDataSource([]);
         for (let index: number = 0; index < 14; index++) {
           source.pushData(tabArray[index % 4]);
@@ -130,19 +130,19 @@ export default function flipClockMyDeleteLargeTest() {
         expect(source.totalCount()).assertEqual(13);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDeleteLarge0005
+     * @tc.name   ohos.samples.flipclock_MyDeleteLarge_0006
      * @tc.number SUB_FLIP_CLOCK_MORE6_MDEL_0005
      * @tc.desc   Delete first from 15 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDeleteLarge0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0005 begin');
+    it('ohos.samples.flipclock_MyDeleteLarge_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0006 begin');
       const source: MyDataSource = new MyDataSource([]);
         for (let index: number = 0; index < 15; index++) {
           source.pushData(tabArray[index % 4]);
@@ -152,19 +152,19 @@ export default function flipClockMyDeleteLargeTest() {
         expect(source.totalCount()).assertEqual(14);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDeleteLarge0006
+     * @tc.name   ohos.samples.flipclock_MyDeleteLarge_0007
      * @tc.number SUB_FLIP_CLOCK_MORE6_MDEL_0006
      * @tc.desc   Delete first from 16 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDeleteLarge0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0006 begin');
+    it('ohos.samples.flipclock_MyDeleteLarge_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0007 begin');
       const source: MyDataSource = new MyDataSource([]);
         for (let index: number = 0; index < 16; index++) {
           source.pushData(tabArray[index % 4]);
@@ -174,19 +174,19 @@ export default function flipClockMyDeleteLargeTest() {
         expect(source.totalCount()).assertEqual(15);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDeleteLarge0007
+     * @tc.name   ohos.samples.flipclock_MyDeleteLarge_0008
      * @tc.number SUB_FLIP_CLOCK_MORE6_MDEL_0007
      * @tc.desc   Delete first from 17 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDeleteLarge0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0007 begin');
+    it('ohos.samples.flipclock_MyDeleteLarge_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0008 begin');
       const source: MyDataSource = new MyDataSource([]);
         for (let index: number = 0; index < 17; index++) {
           source.pushData(tabArray[index % 4]);
@@ -196,7 +196,7 @@ export default function flipClockMyDeleteLargeTest() {
         expect(source.totalCount()).assertEqual(16);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDeleteLarge0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDeleteLarge_0008 end');
     })
   })
 }

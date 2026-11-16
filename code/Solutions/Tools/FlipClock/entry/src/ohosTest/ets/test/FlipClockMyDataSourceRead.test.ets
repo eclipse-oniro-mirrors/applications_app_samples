@@ -24,15 +24,15 @@ export default function flipClockMyDataSourceReadTest() {
   describe('FlipClockMyDataSourceReadTest', () => {
 
     /**
-     * @tc.name   testFlipClockMyRead0000
+     * @tc.name   ohos.samples.flipclock_MyDataSourceRead_0001
      * @tc.number SUB_FLIP_CLOCK_MORE_MYREAD_0000
      * @tc.desc   Read all 1 entries from MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyRead0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0000 begin');
+    it('ohos.samples.flipclock_MyDataSourceRead_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0001 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 1; index++) {
         source.pushData(tabArray[index % 4]);
@@ -45,19 +45,19 @@ export default function flipClockMyDataSourceReadTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(1) === undefined));
       expect(source.getData(1) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyRead0001
+     * @tc.name   ohos.samples.flipclock_MyDataSourceRead_0002
      * @tc.number SUB_FLIP_CLOCK_MORE_MYREAD_0001
      * @tc.desc   Read all 2 entries from MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyRead0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0001 begin');
+    it('ohos.samples.flipclock_MyDataSourceRead_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0002 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 2; index++) {
         source.pushData(tabArray[index % 4]);
@@ -70,19 +70,19 @@ export default function flipClockMyDataSourceReadTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(2) === undefined));
       expect(source.getData(2) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyRead0002
+     * @tc.name   ohos.samples.flipclock_MyDataSourceRead_0003
      * @tc.number SUB_FLIP_CLOCK_MORE_MYREAD_0002
      * @tc.desc   Read all 3 entries from MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyRead0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0002 begin');
+    it('ohos.samples.flipclock_MyDataSourceRead_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0003 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 3; index++) {
         source.pushData(tabArray[index % 4]);
@@ -95,19 +95,19 @@ export default function flipClockMyDataSourceReadTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(3) === undefined));
       expect(source.getData(3) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyRead0003
+     * @tc.name   ohos.samples.flipclock_MyDataSourceRead_0004
      * @tc.number SUB_FLIP_CLOCK_MORE_MYREAD_0003
      * @tc.desc   Read all 4 entries from MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyRead0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0003 begin');
+    it('ohos.samples.flipclock_MyDataSourceRead_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0004 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 4; index++) {
         source.pushData(tabArray[index % 4]);
@@ -120,19 +120,19 @@ export default function flipClockMyDataSourceReadTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(4) === undefined));
       expect(source.getData(4) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyRead0004
+     * @tc.name   ohos.samples.flipclock_MyDataSourceRead_0005
      * @tc.number SUB_FLIP_CLOCK_MORE_MYREAD_0004
      * @tc.desc   Read all 5 entries from MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyRead0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0004 begin');
+    it('ohos.samples.flipclock_MyDataSourceRead_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0005 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 5; index++) {
         source.pushData(tabArray[index % 4]);
@@ -145,19 +145,19 @@ export default function flipClockMyDataSourceReadTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(5) === undefined));
       expect(source.getData(5) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyRead0005
+     * @tc.name   ohos.samples.flipclock_MyDataSourceRead_0006
      * @tc.number SUB_FLIP_CLOCK_MORE_MYREAD_0005
      * @tc.desc   Read all 6 entries from MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyRead0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0005 begin');
+    it('ohos.samples.flipclock_MyDataSourceRead_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0006 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 6; index++) {
         source.pushData(tabArray[index % 4]);
@@ -170,19 +170,19 @@ export default function flipClockMyDataSourceReadTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(6) === undefined));
       expect(source.getData(6) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyRead0006
+     * @tc.name   ohos.samples.flipclock_MyDataSourceRead_0007
      * @tc.number SUB_FLIP_CLOCK_MORE_MYREAD_0006
      * @tc.desc   Read all 7 entries from MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyRead0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0006 begin');
+    it('ohos.samples.flipclock_MyDataSourceRead_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0007 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 7; index++) {
         source.pushData(tabArray[index % 4]);
@@ -195,19 +195,19 @@ export default function flipClockMyDataSourceReadTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(7) === undefined));
       expect(source.getData(7) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyRead0007
+     * @tc.name   ohos.samples.flipclock_MyDataSourceRead_0008
      * @tc.number SUB_FLIP_CLOCK_MORE_MYREAD_0007
      * @tc.desc   Read all 8 entries from MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyRead0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0007 begin');
+    it('ohos.samples.flipclock_MyDataSourceRead_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0008 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 8; index++) {
         source.pushData(tabArray[index % 4]);
@@ -220,7 +220,7 @@ export default function flipClockMyDataSourceReadTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(8) === undefined));
       expect(source.getData(8) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyRead0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceRead_0008 end');
     })
   })
 }

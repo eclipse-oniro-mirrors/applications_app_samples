@@ -24,15 +24,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
   describe('FlipClockDataSourceIndexBoundaryTest', () => {
 
     /**
-     * @tc.name   testFlipClockIndexBoundary0001
+     * @tc.name   ohos.samples.flipclock_DataSourceIndexBoundary_0001
      * @tc.number SUB_FLIP_CLOCK_BOUND_IDX_0001
      * @tc.desc   Read MyDataSource at boundary index -9007199254740991.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockIndexBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0001 begin');
+    it('ohos.samples.flipclock_DataSourceIndexBoundary_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0001 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(-9007199254740991) === undefined));
       expect(source.getData(-9007199254740991) === undefined).assertTrue();
@@ -40,19 +40,19 @@ export default function flipClockDataSourceIndexBoundaryTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockIndexBoundary0002
+     * @tc.name   ohos.samples.flipclock_DataSourceIndexBoundary_0002
      * @tc.number SUB_FLIP_CLOCK_BOUND_IDX_0002
      * @tc.desc   Read MyDataSource at boundary index -2.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockIndexBoundary0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0002 begin');
+    it('ohos.samples.flipclock_DataSourceIndexBoundary_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0002 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(-2) === undefined));
       expect(source.getData(-2) === undefined).assertTrue();
@@ -60,19 +60,19 @@ export default function flipClockDataSourceIndexBoundaryTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockIndexBoundary0003
+     * @tc.name   ohos.samples.flipclock_DataSourceIndexBoundary_0003
      * @tc.number SUB_FLIP_CLOCK_BOUND_IDX_0003
      * @tc.desc   Read MyDataSource at boundary index -1.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockIndexBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0003 begin');
+    it('ohos.samples.flipclock_DataSourceIndexBoundary_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0003 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(-1) === undefined));
       expect(source.getData(-1) === undefined).assertTrue();
@@ -80,19 +80,19 @@ export default function flipClockDataSourceIndexBoundaryTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockIndexBoundary0004
+     * @tc.name   ohos.samples.flipclock_DataSourceIndexBoundary_0004
      * @tc.number SUB_FLIP_CLOCK_BOUND_IDX_0004
      * @tc.desc   Read MyDataSource at boundary index 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockIndexBoundary0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0004 begin');
+    it('ohos.samples.flipclock_DataSourceIndexBoundary_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0004 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
       expect(source.getData(0).num).assertEqual(0);
@@ -100,19 +100,19 @@ export default function flipClockDataSourceIndexBoundaryTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) !== undefined));
         expect(source.getData(0) !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockIndexBoundary0005
+     * @tc.name   ohos.samples.flipclock_DataSourceIndexBoundary_0005
      * @tc.number SUB_FLIP_CLOCK_BOUND_IDX_0005
      * @tc.desc   Read MyDataSource at boundary index 1.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockIndexBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0005 begin');
+    it('ohos.samples.flipclock_DataSourceIndexBoundary_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0005 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1).num), String(1));
       expect(source.getData(1).num).assertEqual(1);
@@ -120,19 +120,19 @@ export default function flipClockDataSourceIndexBoundaryTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(1) !== undefined));
         expect(source.getData(1) !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockIndexBoundary0006
+     * @tc.name   ohos.samples.flipclock_DataSourceIndexBoundary_0006
      * @tc.number SUB_FLIP_CLOCK_BOUND_IDX_0006
      * @tc.desc   Read MyDataSource at boundary index 2.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockIndexBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0006 begin');
+    it('ohos.samples.flipclock_DataSourceIndexBoundary_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0006 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(2).num), String(2));
       expect(source.getData(2).num).assertEqual(2);
@@ -140,19 +140,19 @@ export default function flipClockDataSourceIndexBoundaryTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(2) !== undefined));
         expect(source.getData(2) !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockIndexBoundary0007
+     * @tc.name   ohos.samples.flipclock_DataSourceIndexBoundary_0007
      * @tc.number SUB_FLIP_CLOCK_BOUND_IDX_0007
      * @tc.desc   Read MyDataSource at boundary index 3.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockIndexBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0007 begin');
+    it('ohos.samples.flipclock_DataSourceIndexBoundary_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0007 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(3) === undefined));
       expect(source.getData(3) === undefined).assertTrue();
@@ -160,19 +160,19 @@ export default function flipClockDataSourceIndexBoundaryTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockIndexBoundary0008
+     * @tc.name   ohos.samples.flipclock_DataSourceIndexBoundary_0008
      * @tc.number SUB_FLIP_CLOCK_BOUND_IDX_0008
      * @tc.desc   Read MyDataSource at boundary index 9007199254740991.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockIndexBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0008 begin');
+    it('ohos.samples.flipclock_DataSourceIndexBoundary_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0008 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(9007199254740991) === undefined));
       expect(source.getData(9007199254740991) === undefined).assertTrue();
@@ -180,7 +180,7 @@ export default function flipClockDataSourceIndexBoundaryTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_DataSourceIndexBoundary_0008 end');
     })
   })
 }

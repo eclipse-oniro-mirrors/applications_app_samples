@@ -24,15 +24,15 @@ export default function flipClockMyDataSourceReplaceTest() {
   describe('FlipClockMyDataSourceReplaceTest', () => {
 
     /**
-     * @tc.name   testFlipClockMyDataSourcereplace0000
+     * @tc.name   ohos.samples.flipclock_MyDataSourceReplace_0001
      * @tc.number SUB_FLIP_CLOCK_MYDS_REPLACE_0000
      * @tc.desc   Replace MyDataSource content with 0 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcereplace0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0000 begin');
+    it('ohos.samples.flipclock_MyDataSourceReplace_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0001 begin');
       const source: MyDataSource = new MyDataSource(tabArray.slice());
       const next: TabType[] = [];
       for (let index: number = 0; index < 0; index++) {
@@ -47,19 +47,19 @@ export default function flipClockMyDataSourceReplaceTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcereplace0001
+     * @tc.name   ohos.samples.flipclock_MyDataSourceReplace_0002
      * @tc.number SUB_FLIP_CLOCK_MYDS_REPLACE_0001
      * @tc.desc   Replace MyDataSource content with 1 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcereplace0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0001 begin');
+    it('ohos.samples.flipclock_MyDataSourceReplace_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0002 begin');
       const source: MyDataSource = new MyDataSource(tabArray.slice());
       const next: TabType[] = [];
       for (let index: number = 0; index < 1; index++) {
@@ -74,19 +74,19 @@ export default function flipClockMyDataSourceReplaceTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcereplace0002
+     * @tc.name   ohos.samples.flipclock_MyDataSourceReplace_0003
      * @tc.number SUB_FLIP_CLOCK_MYDS_REPLACE_0002
      * @tc.desc   Replace MyDataSource content with 2 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcereplace0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0002 begin');
+    it('ohos.samples.flipclock_MyDataSourceReplace_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0003 begin');
       const source: MyDataSource = new MyDataSource(tabArray.slice());
       const next: TabType[] = [];
       for (let index: number = 0; index < 2; index++) {
@@ -101,19 +101,19 @@ export default function flipClockMyDataSourceReplaceTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcereplace0003
+     * @tc.name   ohos.samples.flipclock_MyDataSourceReplace_0004
      * @tc.number SUB_FLIP_CLOCK_MYDS_REPLACE_0003
      * @tc.desc   Replace MyDataSource content with 3 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcereplace0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0003 begin');
+    it('ohos.samples.flipclock_MyDataSourceReplace_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0004 begin');
       const source: MyDataSource = new MyDataSource(tabArray.slice());
       const next: TabType[] = [];
       for (let index: number = 0; index < 3; index++) {
@@ -128,19 +128,19 @@ export default function flipClockMyDataSourceReplaceTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcereplace0004
+     * @tc.name   ohos.samples.flipclock_MyDataSourceReplace_0005
      * @tc.number SUB_FLIP_CLOCK_MYDS_REPLACE_0004
      * @tc.desc   Replace MyDataSource content with 4 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcereplace0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0004 begin');
+    it('ohos.samples.flipclock_MyDataSourceReplace_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0005 begin');
       const source: MyDataSource = new MyDataSource(tabArray.slice());
       const next: TabType[] = [];
       for (let index: number = 0; index < 4; index++) {
@@ -155,19 +155,19 @@ export default function flipClockMyDataSourceReplaceTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcereplace0005
+     * @tc.name   ohos.samples.flipclock_MyDataSourceReplace_0006
      * @tc.number SUB_FLIP_CLOCK_MYDS_REPLACE_0005
      * @tc.desc   Replace MyDataSource content with 5 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcereplace0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0005 begin');
+    it('ohos.samples.flipclock_MyDataSourceReplace_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0006 begin');
       const source: MyDataSource = new MyDataSource(tabArray.slice());
       const next: TabType[] = [];
       for (let index: number = 0; index < 5; index++) {
@@ -182,19 +182,19 @@ export default function flipClockMyDataSourceReplaceTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcereplace0006
+     * @tc.name   ohos.samples.flipclock_MyDataSourceReplace_0007
      * @tc.number SUB_FLIP_CLOCK_MYDS_REPLACE_0006
      * @tc.desc   Replace MyDataSource content with 6 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcereplace0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0006 begin');
+    it('ohos.samples.flipclock_MyDataSourceReplace_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0007 begin');
       const source: MyDataSource = new MyDataSource(tabArray.slice());
       const next: TabType[] = [];
       for (let index: number = 0; index < 6; index++) {
@@ -209,19 +209,19 @@ export default function flipClockMyDataSourceReplaceTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcereplace0007
+     * @tc.name   ohos.samples.flipclock_MyDataSourceReplace_0008
      * @tc.number SUB_FLIP_CLOCK_MYDS_REPLACE_0007
      * @tc.desc   Replace MyDataSource content with 7 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcereplace0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0007 begin');
+    it('ohos.samples.flipclock_MyDataSourceReplace_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0008 begin');
       const source: MyDataSource = new MyDataSource(tabArray.slice());
       const next: TabType[] = [];
       for (let index: number = 0; index < 7; index++) {
@@ -236,7 +236,7 @@ export default function flipClockMyDataSourceReplaceTest() {
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcereplace0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourceReplace_0008 end');
     })
   })
 }

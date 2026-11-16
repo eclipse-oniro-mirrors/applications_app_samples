@@ -51,15 +51,15 @@ export default function flipClockListenerAddSequenceTest() {
   describe('FlipClockListenerAddSequenceTest', () => {
 
     /**
-     * @tc.name   testFlipClockAddSeq0000
+     * @tc.name   ohos.samples.flipclock_ListenerAddSequence_0001
      * @tc.number SUB_FLIP_CLOCK_MORE4_ADDSEQ_0000
      * @tc.desc   Notify add 1 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockAddSeq0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0000 begin');
+    it('ohos.samples.flipclock_ListenerAddSequence_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0001 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: AddListener = new AddListener();
         source.registerDataChangeListener(l);
@@ -70,19 +70,19 @@ export default function flipClockListenerAddSequenceTest() {
       expect(l.adds).assertEqual(1);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reloads), String(0));
         expect(l.reloads).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockAddSeq0001
+     * @tc.name   ohos.samples.flipclock_ListenerAddSequence_0002
      * @tc.number SUB_FLIP_CLOCK_MORE4_ADDSEQ_0001
      * @tc.desc   Notify add 2 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockAddSeq0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0001 begin');
+    it('ohos.samples.flipclock_ListenerAddSequence_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0002 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: AddListener = new AddListener();
         source.registerDataChangeListener(l);
@@ -93,19 +93,19 @@ export default function flipClockListenerAddSequenceTest() {
       expect(l.adds).assertEqual(2);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reloads), String(0));
         expect(l.reloads).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockAddSeq0002
+     * @tc.name   ohos.samples.flipclock_ListenerAddSequence_0003
      * @tc.number SUB_FLIP_CLOCK_MORE4_ADDSEQ_0002
      * @tc.desc   Notify add 3 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockAddSeq0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0002 begin');
+    it('ohos.samples.flipclock_ListenerAddSequence_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0003 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: AddListener = new AddListener();
         source.registerDataChangeListener(l);
@@ -116,19 +116,19 @@ export default function flipClockListenerAddSequenceTest() {
       expect(l.adds).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reloads), String(0));
         expect(l.reloads).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockAddSeq0003
+     * @tc.name   ohos.samples.flipclock_ListenerAddSequence_0004
      * @tc.number SUB_FLIP_CLOCK_MORE4_ADDSEQ_0003
      * @tc.desc   Notify add 4 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockAddSeq0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0003 begin');
+    it('ohos.samples.flipclock_ListenerAddSequence_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0004 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: AddListener = new AddListener();
         source.registerDataChangeListener(l);
@@ -139,19 +139,19 @@ export default function flipClockListenerAddSequenceTest() {
       expect(l.adds).assertEqual(4);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reloads), String(0));
         expect(l.reloads).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockAddSeq0004
+     * @tc.name   ohos.samples.flipclock_ListenerAddSequence_0005
      * @tc.number SUB_FLIP_CLOCK_MORE4_ADDSEQ_0004
      * @tc.desc   Notify add 5 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockAddSeq0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0004 begin');
+    it('ohos.samples.flipclock_ListenerAddSequence_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0005 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: AddListener = new AddListener();
         source.registerDataChangeListener(l);
@@ -162,19 +162,19 @@ export default function flipClockListenerAddSequenceTest() {
       expect(l.adds).assertEqual(5);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reloads), String(0));
         expect(l.reloads).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockAddSeq0005
+     * @tc.name   ohos.samples.flipclock_ListenerAddSequence_0006
      * @tc.number SUB_FLIP_CLOCK_MORE4_ADDSEQ_0005
      * @tc.desc   Notify add 6 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockAddSeq0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0005 begin');
+    it('ohos.samples.flipclock_ListenerAddSequence_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0006 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: AddListener = new AddListener();
         source.registerDataChangeListener(l);
@@ -185,19 +185,19 @@ export default function flipClockListenerAddSequenceTest() {
       expect(l.adds).assertEqual(6);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reloads), String(0));
         expect(l.reloads).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockAddSeq0006
+     * @tc.name   ohos.samples.flipclock_ListenerAddSequence_0007
      * @tc.number SUB_FLIP_CLOCK_MORE4_ADDSEQ_0006
      * @tc.desc   Notify add 7 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockAddSeq0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0006 begin');
+    it('ohos.samples.flipclock_ListenerAddSequence_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0007 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: AddListener = new AddListener();
         source.registerDataChangeListener(l);
@@ -208,19 +208,19 @@ export default function flipClockListenerAddSequenceTest() {
       expect(l.adds).assertEqual(7);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reloads), String(0));
         expect(l.reloads).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockAddSeq0007
+     * @tc.name   ohos.samples.flipclock_ListenerAddSequence_0008
      * @tc.number SUB_FLIP_CLOCK_MORE4_ADDSEQ_0007
      * @tc.desc   Notify add 8 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockAddSeq0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0007 begin');
+    it('ohos.samples.flipclock_ListenerAddSequence_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0008 begin');
       const source: MyDataSource = new MyDataSource([]);
         const l: AddListener = new AddListener();
         source.registerDataChangeListener(l);
@@ -231,7 +231,7 @@ export default function flipClockListenerAddSequenceTest() {
       expect(l.adds).assertEqual(8);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reloads), String(0));
         expect(l.reloads).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ListenerAddSequence_0008 end');
     })
   })
 }

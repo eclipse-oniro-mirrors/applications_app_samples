@@ -24,15 +24,15 @@ export default function flipClockMyDataSourcePushTest() {
   describe('FlipClockMyDataSourcePushTest', () => {
 
     /**
-     * @tc.name   testFlipClockMyDataSourcepush0001
+     * @tc.name   ohos.samples.flipclock_MyDataSourcePush_0001
      * @tc.number SUB_FLIP_CLOCK_MYDS_PUSH_0001
      * @tc.desc   Push 1 tab entries into MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcepush0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0001 begin');
+    it('ohos.samples.flipclock_MyDataSourcePush_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0001 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 1; index++) {
         source.pushData(tabArray[0]);
@@ -43,19 +43,19 @@ export default function flipClockMyDataSourcePushTest() {
       expect(source.getData(0).num).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(0));
       expect(source.getData(source.totalCount() - 1).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcepush0002
+     * @tc.name   ohos.samples.flipclock_MyDataSourcePush_0002
      * @tc.number SUB_FLIP_CLOCK_MYDS_PUSH_0002
      * @tc.desc   Push 2 tab entries into MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcepush0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0002 begin');
+    it('ohos.samples.flipclock_MyDataSourcePush_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0002 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 2; index++) {
         source.pushData(tabArray[0]);
@@ -66,19 +66,19 @@ export default function flipClockMyDataSourcePushTest() {
       expect(source.getData(0).num).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(0));
       expect(source.getData(source.totalCount() - 1).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcepush0003
+     * @tc.name   ohos.samples.flipclock_MyDataSourcePush_0003
      * @tc.number SUB_FLIP_CLOCK_MYDS_PUSH_0003
      * @tc.desc   Push 3 tab entries into MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcepush0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0003 begin');
+    it('ohos.samples.flipclock_MyDataSourcePush_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0003 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 3; index++) {
         source.pushData(tabArray[0]);
@@ -89,19 +89,19 @@ export default function flipClockMyDataSourcePushTest() {
       expect(source.getData(0).num).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(0));
       expect(source.getData(source.totalCount() - 1).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcepush0004
+     * @tc.name   ohos.samples.flipclock_MyDataSourcePush_0004
      * @tc.number SUB_FLIP_CLOCK_MYDS_PUSH_0004
      * @tc.desc   Push 4 tab entries into MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcepush0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0004 begin');
+    it('ohos.samples.flipclock_MyDataSourcePush_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0004 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 4; index++) {
         source.pushData(tabArray[0]);
@@ -112,19 +112,19 @@ export default function flipClockMyDataSourcePushTest() {
       expect(source.getData(0).num).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(0));
       expect(source.getData(source.totalCount() - 1).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcepush0005
+     * @tc.name   ohos.samples.flipclock_MyDataSourcePush_0005
      * @tc.number SUB_FLIP_CLOCK_MYDS_PUSH_0005
      * @tc.desc   Push 5 tab entries into MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcepush0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0005 begin');
+    it('ohos.samples.flipclock_MyDataSourcePush_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0005 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 5; index++) {
         source.pushData(tabArray[0]);
@@ -135,19 +135,19 @@ export default function flipClockMyDataSourcePushTest() {
       expect(source.getData(0).num).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(0));
       expect(source.getData(source.totalCount() - 1).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcepush0006
+     * @tc.name   ohos.samples.flipclock_MyDataSourcePush_0006
      * @tc.number SUB_FLIP_CLOCK_MYDS_PUSH_0006
      * @tc.desc   Push 6 tab entries into MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcepush0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0006 begin');
+    it('ohos.samples.flipclock_MyDataSourcePush_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0006 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 6; index++) {
         source.pushData(tabArray[0]);
@@ -158,19 +158,19 @@ export default function flipClockMyDataSourcePushTest() {
       expect(source.getData(0).num).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(0));
       expect(source.getData(source.totalCount() - 1).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcepush0007
+     * @tc.name   ohos.samples.flipclock_MyDataSourcePush_0007
      * @tc.number SUB_FLIP_CLOCK_MYDS_PUSH_0007
      * @tc.desc   Push 7 tab entries into MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcepush0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0007 begin');
+    it('ohos.samples.flipclock_MyDataSourcePush_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0007 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 7; index++) {
         source.pushData(tabArray[0]);
@@ -181,19 +181,19 @@ export default function flipClockMyDataSourcePushTest() {
       expect(source.getData(0).num).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(0));
       expect(source.getData(source.totalCount() - 1).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockMyDataSourcepush0008
+     * @tc.name   ohos.samples.flipclock_MyDataSourcePush_0008
      * @tc.number SUB_FLIP_CLOCK_MYDS_PUSH_0008
      * @tc.desc   Push 8 tab entries into MyDataSource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockMyDataSourcepush0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0008 begin');
+    it('ohos.samples.flipclock_MyDataSourcePush_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0008 begin');
       const source: MyDataSource = new MyDataSource([]);
       for (let index: number = 0; index < 8; index++) {
         source.pushData(tabArray[0]);
@@ -204,7 +204,7 @@ export default function flipClockMyDataSourcePushTest() {
       expect(source.getData(0).num).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(0));
       expect(source.getData(source.totalCount() - 1).num).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyDataSourcepush0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_MyDataSourcePush_0008 end');
     })
   })
 }

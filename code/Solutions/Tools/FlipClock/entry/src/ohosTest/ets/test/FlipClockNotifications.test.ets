@@ -60,15 +60,15 @@ export default function flipClockNotificationsTest() {
   describe('FlipClockNotificationsTest', () => {
 
     /**
-     * @tc.name   testFlipClockNotifyChange001
+     * @tc.name   ohos.samples.flipclock_Notifications_0001
      * @tc.number SUB_FLIP_CLOCK_EDGE_NOTIFY_001
      * @tc.desc   Notify data change to a listener.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockNotifyChange001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyChange001 begin');
+    it('ohos.samples.flipclock_Notifications_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0001 begin');
       const source: MyDataSource = new MyDataSource([]);
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
@@ -79,19 +79,19 @@ export default function flipClockNotificationsTest() {
         expect(listener.reload).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(0));
         expect(listener.del).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyChange001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockNotifyDelete002
+     * @tc.name   ohos.samples.flipclock_Notifications_0002
      * @tc.number SUB_FLIP_CLOCK_EDGE_NOTIFY_002
      * @tc.desc   Notify data delete to a listener.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockNotifyDelete002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyDelete002 begin');
+    it('ohos.samples.flipclock_Notifications_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0002 begin');
       const source: MyDataSource = new MyDataSource([]);
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
@@ -102,19 +102,19 @@ export default function flipClockNotificationsTest() {
         expect(listener.change).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.add), String(0));
         expect(listener.add).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyDelete002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockNotifyMove003
+     * @tc.name   ohos.samples.flipclock_Notifications_0003
      * @tc.number SUB_FLIP_CLOCK_EDGE_NOTIFY_003
      * @tc.desc   Notify data move to a listener.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockNotifyMove003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyMove003 begin');
+    it('ohos.samples.flipclock_Notifications_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0003 begin');
       const source: MyDataSource = new MyDataSource([]);
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
@@ -125,19 +125,19 @@ export default function flipClockNotificationsTest() {
         expect(listener.add).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(0));
         expect(listener.del).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyMove003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockNotifyReload004
+     * @tc.name   ohos.samples.flipclock_Notifications_0004
      * @tc.number SUB_FLIP_CLOCK_EDGE_NOTIFY_004
      * @tc.desc   Notify reload to a listener.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockNotifyReload004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyReload004 begin');
+    it('ohos.samples.flipclock_Notifications_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0004 begin');
       const source: MyDataSource = new MyDataSource([]);
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
@@ -148,19 +148,19 @@ export default function flipClockNotificationsTest() {
         expect(listener.change).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.move), String(0));
         expect(listener.move).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyReload004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockNotifyAdd005
+     * @tc.name   ohos.samples.flipclock_Notifications_0005
      * @tc.number SUB_FLIP_CLOCK_EDGE_NOTIFY_005
      * @tc.desc   Notify add to a listener.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockNotifyAdd005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyAdd005 begin');
+    it('ohos.samples.flipclock_Notifications_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0005 begin');
       const source: MyDataSource = new MyDataSource([]);
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
@@ -171,19 +171,19 @@ export default function flipClockNotificationsTest() {
         expect(listener.reload).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(0));
         expect(listener.del).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyAdd005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockNotifyTwo006
+     * @tc.name   ohos.samples.flipclock_Notifications_0006
      * @tc.number SUB_FLIP_CLOCK_EDGE_NOTIFY_006
      * @tc.desc   Notify two listeners on change.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockNotifyTwo006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyTwo006 begin');
+    it('ohos.samples.flipclock_Notifications_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0006 begin');
       const source: MyDataSource = new MyDataSource([]);
         const a: NotifyListener = new NotifyListener();
         const b: NotifyListener = new NotifyListener();
@@ -196,19 +196,19 @@ export default function flipClockNotificationsTest() {
         expect(b.change).assertEqual(1);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(a.add), String(0));
         expect(a.add).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyTwo006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockNotifyUnregister007
+     * @tc.name   ohos.samples.flipclock_Notifications_0007
      * @tc.number SUB_FLIP_CLOCK_EDGE_NOTIFY_007
      * @tc.desc   Stop notifications after unregister.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockNotifyUnregister007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyUnregister007 begin');
+    it('ohos.samples.flipclock_Notifications_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0007 begin');
       const source: MyDataSource = new MyDataSource([]);
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
@@ -218,19 +218,19 @@ export default function flipClockNotificationsTest() {
       expect(listener.reload).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.add), String(0));
         expect(listener.add).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyUnregister007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockNotifyDuplicate008
+     * @tc.name   ohos.samples.flipclock_Notifications_0008
      * @tc.number SUB_FLIP_CLOCK_EDGE_NOTIFY_008
      * @tc.desc   Register duplicate listener once.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockNotifyDuplicate008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyDuplicate008 begin');
+    it('ohos.samples.flipclock_Notifications_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0008 begin');
       const source: MyDataSource = new MyDataSource([]);
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
@@ -242,7 +242,7 @@ export default function flipClockNotificationsTest() {
         expect(listener.add).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(0));
         expect(listener.del).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyDuplicate008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Notifications_0008 end');
     })
   })
 }
