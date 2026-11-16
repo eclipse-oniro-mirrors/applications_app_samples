@@ -14,8 +14,11 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MyDataSource } from '../../../main/ets/common/DataSource';
 import { testTabs as tabArray } from './FlipClockTestTabs';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockMyDeleteBothTest() {
   describe('FlipClockMyDeleteBothTest', () => {
@@ -29,10 +32,18 @@ export default function flipClockMyDeleteBothTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoth0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0000 begin');
       const source: MyDataSource = new MyDataSource([]);
-      for (let index: number = 0; index < 2; index++) { source.pushData(tabArray[index % 4]); }
-      source.deleteData(0); source.deleteData(source.totalCount() - 1);
-      expect(source.totalCount()).assertEqual(0); expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      for (let index: number = 0; index < 2; index++) {
+        source.pushData(tabArray[index % 4]);
+        }
+      source.deleteData(0);
+        source.deleteData(source.totalCount() - 1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+      expect(source.totalCount()).assertEqual(0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
+        expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0000 end');
     })
 
     /**
@@ -44,10 +55,18 @@ export default function flipClockMyDeleteBothTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoth0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0001 begin');
       const source: MyDataSource = new MyDataSource([]);
-      for (let index: number = 0; index < 3; index++) { source.pushData(tabArray[index % 4]); }
-      source.deleteData(0); source.deleteData(source.totalCount() - 1);
-      expect(source.totalCount()).assertEqual(1); expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      for (let index: number = 0; index < 3; index++) {
+        source.pushData(tabArray[index % 4]);
+        }
+      source.deleteData(0);
+        source.deleteData(source.totalCount() - 1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      expect(source.totalCount()).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
+        expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0001 end');
     })
 
     /**
@@ -59,10 +78,18 @@ export default function flipClockMyDeleteBothTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoth0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0002 begin');
       const source: MyDataSource = new MyDataSource([]);
-      for (let index: number = 0; index < 4; index++) { source.pushData(tabArray[index % 4]); }
-      source.deleteData(0); source.deleteData(source.totalCount() - 1);
-      expect(source.totalCount()).assertEqual(2); expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      for (let index: number = 0; index < 4; index++) {
+        source.pushData(tabArray[index % 4]);
+        }
+      source.deleteData(0);
+        source.deleteData(source.totalCount() - 1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      expect(source.totalCount()).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
+        expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0002 end');
     })
 
     /**
@@ -74,10 +101,18 @@ export default function flipClockMyDeleteBothTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoth0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0003 begin');
       const source: MyDataSource = new MyDataSource([]);
-      for (let index: number = 0; index < 5; index++) { source.pushData(tabArray[index % 4]); }
-      source.deleteData(0); source.deleteData(source.totalCount() - 1);
-      expect(source.totalCount()).assertEqual(3); expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      for (let index: number = 0; index < 5; index++) {
+        source.pushData(tabArray[index % 4]);
+        }
+      source.deleteData(0);
+        source.deleteData(source.totalCount() - 1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+      expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
+        expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0003 end');
     })
 
     /**
@@ -89,10 +124,18 @@ export default function flipClockMyDeleteBothTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoth0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0004 begin');
       const source: MyDataSource = new MyDataSource([]);
-      for (let index: number = 0; index < 6; index++) { source.pushData(tabArray[index % 4]); }
-      source.deleteData(0); source.deleteData(source.totalCount() - 1);
-      expect(source.totalCount()).assertEqual(4); expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      for (let index: number = 0; index < 6; index++) {
+        source.pushData(tabArray[index % 4]);
+        }
+      source.deleteData(0);
+        source.deleteData(source.totalCount() - 1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
+      expect(source.totalCount()).assertEqual(4);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
+        expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0004 end');
     })
 
     /**
@@ -104,10 +147,18 @@ export default function flipClockMyDeleteBothTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoth0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0005 begin');
       const source: MyDataSource = new MyDataSource([]);
-      for (let index: number = 0; index < 7; index++) { source.pushData(tabArray[index % 4]); }
-      source.deleteData(0); source.deleteData(source.totalCount() - 1);
-      expect(source.totalCount()).assertEqual(5); expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      for (let index: number = 0; index < 7; index++) {
+        source.pushData(tabArray[index % 4]);
+        }
+      source.deleteData(0);
+        source.deleteData(source.totalCount() - 1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(5);');
+      expect(source.totalCount()).assertEqual(5);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
+        expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0005 end');
     })
 
     /**
@@ -119,10 +170,18 @@ export default function flipClockMyDeleteBothTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoth0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0006 begin');
       const source: MyDataSource = new MyDataSource([]);
-      for (let index: number = 0; index < 8; index++) { source.pushData(tabArray[index % 4]); }
-      source.deleteData(0); source.deleteData(source.totalCount() - 1);
-      expect(source.totalCount()).assertEqual(6); expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      for (let index: number = 0; index < 8; index++) {
+        source.pushData(tabArray[index % 4]);
+        }
+      source.deleteData(0);
+        source.deleteData(source.totalCount() - 1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(6);');
+      expect(source.totalCount()).assertEqual(6);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
+        expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0006 end');
     })
 
     /**
@@ -134,10 +193,18 @@ export default function flipClockMyDeleteBothTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoth0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0007 begin');
       const source: MyDataSource = new MyDataSource([]);
-      for (let index: number = 0; index < 9; index++) { source.pushData(tabArray[index % 4]); }
-      source.deleteData(0); source.deleteData(source.totalCount() - 1);
-      expect(source.totalCount()).assertEqual(7); expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      for (let index: number = 0; index < 9; index++) {
+        source.pushData(tabArray[index % 4]);
+        }
+      source.deleteData(0);
+        source.deleteData(source.totalCount() - 1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(7);');
+      expect(source.totalCount()).assertEqual(7);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
+        expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoth0007 end');
     })
   })
 }

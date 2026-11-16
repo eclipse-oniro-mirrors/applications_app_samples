@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { testTabs as tabArray } from './FlipClockTestTabs';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockTabArrayContractTest() {
   describe('FlipClockTabArrayContractTest', () => {
@@ -28,9 +31,14 @@ export default function flipClockTabArrayContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabArraySize001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArraySize001 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray.length).assertEqual(4);');
       expect(tabArray.length).assertEqual(4);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[0].num).assertEqual(0);');
       expect(tabArray[0].num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[3].num).assertEqual(3);');
       expect(tabArray[3].num).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArraySize001 end');
     })
 
     /**
@@ -42,8 +50,14 @@ export default function flipClockTabArrayContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabArrayIcons002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      for (let i: number = 0; i < tabArray.length; i++) { expect(tabArray[i].icon !== undefined).assertTrue(); }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayIcons002 begin');
+      for (let i: number = 0; i < tabArray.length; i++) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[i].icon !== undefined).assertTrue();');
+        expect(tabArray[i].icon !== undefined).assertTrue();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[0].icon !== undefined).assertTrue();');
       expect(tabArray[0].icon !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayIcons002 end');
     })
 
     /**
@@ -55,8 +69,14 @@ export default function flipClockTabArrayContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabArraySelectedIcons003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      for (let i: number = 0; i < tabArray.length; i++) { expect(tabArray[i].icon_after !== undefined).assertTrue(); }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArraySelectedIcons003 begin');
+      for (let i: number = 0; i < tabArray.length; i++) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[i].icon_after !== undefined).assertTrue();');
+        expect(tabArray[i].icon_after !== undefined).assertTrue();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[2].icon_after !== undefined).assertTrue();');
       expect(tabArray[2].icon_after !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArraySelectedIcons003 end');
     })
 
     /**
@@ -68,8 +88,14 @@ export default function flipClockTabArrayContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabArrayTexts004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      for (let i: number = 0; i < tabArray.length; i++) { expect(tabArray[i].text !== undefined).assertTrue(); }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayTexts004 begin');
+      for (let i: number = 0; i < tabArray.length; i++) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[i].text !== undefined).assertTrue();');
+        expect(tabArray[i].text !== undefined).assertTrue();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[1].text !== undefined).assertTrue();');
       expect(tabArray[1].text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayTexts004 end');
     })
 
     /**
@@ -81,8 +107,16 @@ export default function flipClockTabArrayContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabArrayNums005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const nums: Set<number> = new Set<number>(); for (let i: number = 0; i < tabArray.length; i++) { nums.add(tabArray[i].num); }
-      expect(nums.size).assertEqual(4); expect(nums.has(0) && nums.has(3)).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayNums005 begin');
+      const nums: Set<number> = new Set<number>();
+        for (let i: number = 0; i < tabArray.length; i++) {
+          nums.add(tabArray[i].num);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(nums.size).assertEqual(4);');
+      expect(nums.size).assertEqual(4);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(nums.has(0) && nums.has(3)).assertTrue();');
+        expect(nums.has(0) && nums.has(3)).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayNums005 end');
     })
 
     /**
@@ -94,7 +128,14 @@ export default function flipClockTabArrayContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabArrayFirst006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(tabArray[0].num).assertEqual(0); expect(tabArray[0].icon !== undefined).assertTrue(); expect(tabArray[0].text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayFirst006 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[0].num).assertEqual(0);');
+      expect(tabArray[0].num).assertEqual(0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[0].icon !== undefined).assertTrue();');
+        expect(tabArray[0].icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[0].text !== undefined).assertTrue();');
+        expect(tabArray[0].text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayFirst006 end');
     })
 
     /**
@@ -106,7 +147,14 @@ export default function flipClockTabArrayContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabArrayLast007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(tabArray[3].num).assertEqual(3); expect(tabArray[3].icon !== undefined).assertTrue(); expect(tabArray[3].text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayLast007 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[3].num).assertEqual(3);');
+      expect(tabArray[3].num).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[3].icon !== undefined).assertTrue();');
+        expect(tabArray[3].icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[3].text !== undefined).assertTrue();');
+        expect(tabArray[3].text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayLast007 end');
     })
 
     /**
@@ -118,7 +166,14 @@ export default function flipClockTabArrayContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabArrayMiddle008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(tabArray[1].num).assertEqual(1); expect(tabArray[2].num).assertEqual(2); expect(tabArray[1].icon !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayMiddle008 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[1].num).assertEqual(1);');
+      expect(tabArray[1].num).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[2].num).assertEqual(2);');
+        expect(tabArray[2].num).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tabArray[1].icon !== undefined).assertTrue();');
+        expect(tabArray[1].icon !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabArrayMiddle008 end');
     })
   })
 }

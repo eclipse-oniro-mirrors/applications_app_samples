@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 let ctx = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 export default function flipClockResourceRemainingTest() {
@@ -29,7 +32,15 @@ export default function flipClockResourceRemainingTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResourceRemain0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const v: string = ctx.resourceManager.getStringByNameSync('supportLock'); expect(v.length > 0).assertTrue(); expect(v === 'supportLock').assertFalse(); expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0001 begin');
+      const v: string = ctx.resourceManager.getStringByNameSync('supportLock');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        expect(v.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'supportLock\').assertFalse();');
+        expect(v === 'supportLock').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0001 end');
     })
 
     /**
@@ -41,7 +52,15 @@ export default function flipClockResourceRemainingTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResourceRemain0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const v: string = ctx.resourceManager.getStringByNameSync('unsupportLock'); expect(v.length > 0).assertTrue(); expect(v === 'unsupportLock').assertFalse(); expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0002 begin');
+      const v: string = ctx.resourceManager.getStringByNameSync('unsupportLock');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        expect(v.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'unsupportLock\').assertFalse();');
+        expect(v === 'unsupportLock').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0002 end');
     })
 
     /**
@@ -53,7 +72,15 @@ export default function flipClockResourceRemainingTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResourceRemain0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const v: string = ctx.resourceManager.getStringByNameSync('stopSleep'); expect(v.length > 0).assertTrue(); expect(v === 'stopSleep').assertFalse(); expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0003 begin');
+      const v: string = ctx.resourceManager.getStringByNameSync('stopSleep');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        expect(v.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'stopSleep\').assertFalse();');
+        expect(v === 'stopSleep').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0003 end');
     })
 
     /**
@@ -65,7 +92,15 @@ export default function flipClockResourceRemainingTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResourceRemain0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const v: string = ctx.resourceManager.getStringByNameSync('turnSleep'); expect(v.length > 0).assertTrue(); expect(v === 'turnSleep').assertFalse(); expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0004 begin');
+      const v: string = ctx.resourceManager.getStringByNameSync('turnSleep');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        expect(v.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'turnSleep\').assertFalse();');
+        expect(v === 'turnSleep').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0004 end');
     })
 
     /**
@@ -77,7 +112,15 @@ export default function flipClockResourceRemainingTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResourceRemain0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const v: string = ctx.resourceManager.getStringByNameSync('screen_quenching'); expect(v.length > 0).assertTrue(); expect(v === 'screen_quenching').assertFalse(); expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0005 begin');
+      const v: string = ctx.resourceManager.getStringByNameSync('screen_quenching');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        expect(v.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'screen_quenching\').assertFalse();');
+        expect(v === 'screen_quenching').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0005 end');
     })
 
     /**
@@ -89,7 +132,15 @@ export default function flipClockResourceRemainingTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResourceRemain0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const v: string = ctx.resourceManager.getStringByNameSync('entry_MainAbility'); expect(v.length > 0).assertTrue(); expect(v === 'entry_MainAbility').assertFalse(); expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0006 begin');
+      const v: string = ctx.resourceManager.getStringByNameSync('entry_MainAbility');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        expect(v.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'entry_MainAbility\').assertFalse();');
+        expect(v === 'entry_MainAbility').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0006 end');
     })
 
     /**
@@ -101,7 +152,15 @@ export default function flipClockResourceRemainingTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResourceRemain0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const v: string = ctx.resourceManager.getStringByNameSync('description_mainability'); expect(v.length > 0).assertTrue(); expect(v === 'description_mainability').assertFalse(); expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0007 begin');
+      const v: string = ctx.resourceManager.getStringByNameSync('description_mainability');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        expect(v.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'description_mainability\').assertFalse();');
+        expect(v === 'description_mainability').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0007 end');
     })
 
     /**
@@ -113,7 +172,15 @@ export default function flipClockResourceRemainingTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResourceRemain0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const v: string = ctx.resourceManager.getStringByNameSync('setting'); expect(v.length > 0).assertTrue(); expect(v === 'setting').assertFalse(); expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0008 begin');
+      const v: string = ctx.resourceManager.getStringByNameSync('setting');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        expect(v.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'setting\').assertFalse();');
+        expect(v === 'setting').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        expect(v).assertEqual(v.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0008 end');
     })
   })
 }

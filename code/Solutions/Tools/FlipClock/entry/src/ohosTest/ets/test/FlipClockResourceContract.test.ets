@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 let appContext = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 export default function flipClockResourceContractTest() {
@@ -29,7 +32,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('alarmClock'); expect(value.length > 0).assertTrue(); expect(value === 'alarmClock').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource001 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('alarmClock');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'alarmClock\').assertFalse();');
+        expect(value === 'alarmClock').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource001 end');
     })
 
     /**
@@ -41,7 +52,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('delete'); expect(value.length > 0).assertTrue(); expect(value === 'delete').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource002 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('delete');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'delete\').assertFalse();');
+        expect(value === 'delete').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource002 end');
     })
 
     /**
@@ -53,7 +72,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('hour'); expect(value.length > 0).assertTrue(); expect(value === 'hour').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource003 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('hour');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'hour\').assertFalse();');
+        expect(value === 'hour').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource003 end');
     })
 
     /**
@@ -65,7 +92,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('minute'); expect(value.length > 0).assertTrue(); expect(value === 'minute').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource004 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('minute');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'minute\').assertFalse();');
+        expect(value === 'minute').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource004 end');
     })
 
     /**
@@ -77,7 +112,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('seconds'); expect(value.length > 0).assertTrue(); expect(value === 'seconds').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource005 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('seconds');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'seconds\').assertFalse();');
+        expect(value === 'seconds').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource005 end');
     })
 
     /**
@@ -89,7 +132,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('yes'); expect(value.length > 0).assertTrue(); expect(value === 'yes').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource006 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('yes');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'yes\').assertFalse();');
+        expect(value === 'yes').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource006 end');
     })
 
     /**
@@ -101,7 +152,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('no'); expect(value.length > 0).assertTrue(); expect(value === 'no').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource007 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('no');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'no\').assertFalse();');
+        expect(value === 'no').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource007 end');
     })
 
     /**
@@ -113,7 +172,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('fullScreen'); expect(value.length > 0).assertTrue(); expect(value === 'fullScreen').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource008 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('fullScreen');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'fullScreen\').assertFalse();');
+        expect(value === 'fullScreen').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource008 end');
     })
 
     /**
@@ -125,7 +192,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('brightness'); expect(value.length > 0).assertTrue(); expect(value === 'brightness').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource009 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('brightness');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'brightness\').assertFalse();');
+        expect(value === 'brightness').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource009 end');
     })
 
     /**
@@ -137,7 +212,15 @@ export default function flipClockResourceContractTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockResource010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const value: string = appContext.resourceManager.getStringByNameSync('tab0'); expect(value.length > 0).assertTrue(); expect(value === 'tab0').assertFalse(); expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource010 begin');
+      const value: string = appContext.resourceManager.getStringByNameSync('tab0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        expect(value.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'tab0\').assertFalse();');
+        expect(value === 'tab0').assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        expect(value).assertEqual(value.trim());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResource010 end');
     })
   })
 }
