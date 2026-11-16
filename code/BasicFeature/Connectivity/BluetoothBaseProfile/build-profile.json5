@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": "26.0.0",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "OpenHarmony",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/ISSUSER/.ohos/config/openharmony/default_BluetoothBaseProfile_sf9qPk3qJyHPJdsQLwh8Ik5DF4oRo5wIVYZa1QlqtUo=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B42C4BA1708757B1AE4A5EC1827F919324E9AF9DC8518680AE846399651D89C2DB11A3BCA91C8DE",
+          "profile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_BluetoothBaseProfile_sf9qPk3qJyHPJdsQLwh8Ik5DF4oRo5wIVYZa1QlqtUo=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/ISSUSER/.ohos/config/openharmony/default_BluetoothBaseProfile_sf9qPk3qJyHPJdsQLwh8Ik5DF4oRo5wIVYZa1QlqtUo=.p12",
+          "storePassword": "0000001BEE50E65296971349EA1976C3EA51622BE9D05586CF3AD21D818637555223E95F8C40A516E1F1EB"
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "library",
+      "srcPath": "./library",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        },
+        {
+          "name": "ohosTest",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}
