@@ -1,0 +1,344 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Noise reduction mode callback sample"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Noise reduction mode callback"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "NoiseReduction"
+    },
+    {
+      "name": "reason_microphone",
+      "value": "Microphone permission is required for audio capturing"
+    },
+    {
+      "name": "index_title",
+      "value": "降噪模式 Sample"
+    },
+    {
+      "name": "index_enter_demo",
+      "value": "进入降噪模式 Demo"
+    },
+    {
+      "name": "index_simple_example",
+      "value": "简化示例 (JS + C API)"
+    },
+    {
+      "name": "main_demo_title",
+      "value": "降噪模式 Demo"
+    },
+    {
+      "name": "main_stream_list",
+      "value": "流列表"
+    },
+    {
+      "name": "main_new_stream",
+      "value": "+ 新建"
+    },
+    {
+      "name": "main_record_stream",
+      "value": "录音流"
+    },
+    {
+      "name": "main_config_params",
+      "value": "⚙ 配置参数（本次创建）"
+    },
+    {
+      "name": "main_create",
+      "value": "创建"
+    },
+    {
+      "name": "main_query_supported",
+      "value": "查询支持"
+    },
+    {
+      "name": "main_query_current",
+      "value": "查询当前"
+    },
+    {
+      "name": "main_select_stream_first",
+      "value": "请先创建或选中录音流"
+    },
+    {
+      "name": "main_select_stream_only",
+      "value": "请先选中录音流"
+    },
+    {
+      "name": "main_register_callback",
+      "value": "注册回调"
+    },
+    {
+      "name": "main_unregister_specific",
+      "value": "取消指定"
+    },
+    {
+      "name": "main_unregister_all",
+      "value": "取消全部"
+    },
+    {
+      "name": "main_basic_info",
+      "value": "基本信息"
+    },
+    {
+      "name": "main_noise_reduction_info",
+      "value": "降噪信息"
+    },
+    {
+      "name": "main_sampling_rate",
+      "value": "采样率"
+    },
+    {
+      "name": "main_channels",
+      "value": "声道"
+    },
+    {
+      "name": "main_state",
+      "value": "状态"
+    },
+    {
+      "name": "main_api_type",
+      "value": "API类型"
+    },
+    {
+      "name": "main_current_mode",
+      "value": "当前模式"
+    },
+    {
+      "name": "main_supported_modes",
+      "value": "支持模式"
+    },
+    {
+      "name": "main_callback_status",
+      "value": "回调状态"
+    },
+    {
+      "name": "main_registered",
+      "value": "已注册"
+    },
+    {
+      "name": "main_not_registered",
+      "value": "未注册"
+    },
+    {
+      "name": "main_no_operation_log",
+      "value": "暂无操作日志"
+    },
+    {
+      "name": "main_current_stream_prefix",
+      "value": "当前操作流: "
+    },
+    {
+      "name": "main_noise_reduction_prefix",
+      "value": "降噪:"
+    },
+    {
+      "name": "main_selected_stream_prefix",
+      "value": "选中: #"
+    },
+    {
+      "name": "main_operation_applies_suffix",
+      "value": " | 操作将作用于此流"
+    },
+    {
+      "name": "main_set_mode_prefix",
+      "value": "对 #"
+    },
+    {
+      "name": "main_set_mode_suffix",
+      "value": " 流设置降噪模式"
+    },
+    {
+      "name": "main_callback_prefix",
+      "value": "对 #"
+    },
+    {
+      "name": "main_callback_suffix",
+      "value": " 流注册/注销回调"
+    },
+    {
+      "name": "main_param_config_title",
+      "value": "录音流参数配置"
+    },
+    {
+      "name": "main_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "main_confirm",
+      "value": "确定"
+    },
+    {
+      "name": "tab_stream_ops",
+      "value": "录音流操作"
+    },
+    {
+      "name": "tab_noise_mode",
+      "value": "降噪模式"
+    },
+    {
+      "name": "tab_callback",
+      "value": "回调"
+    },
+    {
+      "name": "tab_stream_detail",
+      "value": "流详情"
+    },
+    {
+      "name": "menu_back",
+      "value": "‹ 返回"
+    },
+    {
+      "name": "menu_title",
+      "value": "菜单"
+    },
+    {
+      "name": "menu_section_api_config",
+      "value": "接口配置"
+    },
+    {
+      "name": "menu_api_mode",
+      "value": "API 模式"
+    },
+    {
+      "name": "menu_section_record_config",
+      "value": "录音流默认配置"
+    },
+    {
+      "name": "menu_sampling_rate",
+      "value": "采样率"
+    },
+    {
+      "name": "menu_channels",
+      "value": "声道"
+    },
+    {
+      "name": "menu_section_playback_config",
+      "value": "播放流默认配置"
+    },
+    {
+      "name": "menu_section_display_options",
+      "value": "显示屏显示选项"
+    },
+    {
+      "name": "menu_show_stream_status",
+      "value": "录音流状态"
+    },
+    {
+      "name": "menu_show_current_mode",
+      "value": "当前降噪模式"
+    },
+    {
+      "name": "menu_show_supported_modes",
+      "value": "支持模式列表"
+    },
+    {
+      "name": "menu_show_playback_status",
+      "value": "播放流状态"
+    },
+    {
+      "name": "menu_section_callback_list",
+      "value": "回调事件列表"
+    },
+    {
+      "name": "menu_retain_count",
+      "value": "保留条数"
+    },
+    {
+      "name": "menu_section_view",
+      "value": "查看"
+    },
+    {
+      "name": "menu_view_instructions",
+      "value": "查看使用说明"
+    },
+    {
+      "name": "menu_view_simple_example",
+      "value": "查看简化示例代码"
+    },
+    {
+      "name": "main_no_stream",
+      "value": "无"
+    },
+    {
+      "name": "main_no_stream_selected",
+      "value": "无选中流"
+    },
+    {
+      "name": "main_stream_created",
+      "value": "已创建"
+    },
+    {
+      "name": "main_not_queried",
+      "value": "未查询"
+    },
+    {
+      "name": "main_query_failed",
+      "value": "查询失败"
+    },
+    {
+      "name": "main_log_callback",
+      "value": "回调"
+    },
+    {
+      "name": "main_log_create_capturer",
+      "value": "创建录音流"
+    },
+    {
+      "name": "main_log_create_failed_permission",
+      "value": "创建失败: 麦克风权限未授权"
+    },
+    {
+      "name": "main_log_failed",
+      "value": "失败"
+    },
+    {
+      "name": "main_log_success",
+      "value": "成功"
+    },
+    {
+      "name": "main_log_starting",
+      "value": "调用中..."
+    },
+    {
+      "name": "main_log_register_success",
+      "value": "注册成功"
+    },
+    {
+      "name": "main_log_register_failed",
+      "value": "注册失败:"
+    },
+    {
+      "name": "main_log_release_failed",
+      "value": "Release 失败:"
+    },
+    {
+      "name": "main_log_specified",
+      "value": "指定"
+    },
+    {
+      "name": "main_log_all",
+      "value": "全部"
+    },
+    {
+      "name": "main_log_noise_reduction",
+      "value": "降噪"
+    },
+    {
+      "name": "main_log_supported",
+      "value": "支持"
+    },
+    {
+      "name": "main_log_registered",
+      "value": "已注册"
+    },
+    {
+      "name": "main_log_not_registered",
+      "value": "未注册"
+    }
+  ]
+}

@@ -109,6 +109,14 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/foreground.png" desc="Provided by GeofenceCheckIn"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/startIcon.png" desc="Provided by GeofenceCheckIn"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/screenshots/main_page.png" desc="Provided by GeofenceCheckIn screenshots"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/Index.png" desc="Provided by AudioNoiseReduction screenshots"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/MenuPage.png" desc="Provided by AudioNoiseReduction screenshots"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionMain.png" desc="Provided by AudioNoiseReduction screenshots"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionSimpleExample.png" desc="Provided by AudioNoiseReduction screenshots"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionTabs.png" desc="Provided by AudioNoiseReduction screenshots"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/AppScope/resources/base/media/app_icon.png" desc="Provided by AudioNoiseReduction"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/entry/src/main/resources/base/media/icon.png" desc="Provided by AudioNoiseReduction"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/entry/src/ohosTest/resources/base/media/icon.png" desc="Provided by AudioNoiseReduction"/>
                 <filteritem type="filepath" name="code/SystemFeature/Compatibility/CompConfigCenter/screenshots/main.jpeg" desc="Provided by CompConfigCenter screenshots"/>
                 <filteritem type="filepath" name="code/SystemFeature/Compatibility/CompConfigCenter/screenshots/detail1.jpeg" desc="Provided by CompConfigCenter screenshots"/>
                 <filteritem type="filepath" name="code/SystemFeature/Compatibility/CompConfigCenter/screenshots/detail2.jpeg" desc="Provided by CompConfigCenter screenshots"/>
@@ -2659,6 +2667,14 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/screenshots/main_page.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/Index.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/MenuPage.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionMain.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionSimpleExample.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionTabs.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/AppScope/resources/base/media/app_icon.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/entry/src/main/resources/base/media/icon.png" desc="二进制文件，无需添加License头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/entry/src/ohosTest/resources/base/media/icon.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加License头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Security/NetworkSecurity/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加License头"/>
@@ -2750,6 +2766,14 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/entry/src/main/resources/base/media/startIcon.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/DeviceManagement/GeofenceCheckIn/screenshots/main_page.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/Index.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/MenuPage.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionMain.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionSimpleExample.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionTabs.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/AppScope/resources/base/media/app_icon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/entry/src/main/resources/base/media/icon.png" desc="二进制文件，无需添加版权头"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/entry/src/ohosTest/resources/base/media/icon.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/AppScope/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/AppScope/resources/base/media/foreground.png" desc="二进制文件，无需添加版权头"/>
                 <filteritem type="filepath" name="code/BasicFeature/Input/InfraredAndGesture/entry/src/main/resources/base/media/background.png" desc="二进制文件，无需添加版权头"/>
@@ -2853,6 +2877,13 @@ Note:If the text contains special characters, please escape them according to th
 				<filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/service.PNG" desc="Provided by code/SystemFeature/IPC"/>
                 <filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/fingerprint.PNG" desc="Provided by code/SystemFeature/IPC"/>
                 <filteritem type="filepath" name="code/SystemFeature/IPC/ObjectTransfer/IPC_Client/image/permission.PNG" desc="Provided by code/SystemFeature/IPC"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/AppScope/resources/base/media/app_icon.png" desc="Provided by code/BasicFeature/Media/AudioNoiseReduction"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/entry/src/main/resources/base/media/icon.png" desc="Provided by code/BasicFeature/Media/AudioNoiseReduction"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/Index.png" desc="screenshot"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionMain.png" desc="screenshot"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/MenuPage.png" desc="screenshot"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionSimpleExample.png" desc="screenshot"/>
+                <filteritem type="filepath" name="code/BasicFeature/Media/AudioNoiseReduction/screenshots/NoiseReductionTabs.png" desc="screenshot"/>
             </filefilter>
         </filefilterlist>
     </oatconfig>
