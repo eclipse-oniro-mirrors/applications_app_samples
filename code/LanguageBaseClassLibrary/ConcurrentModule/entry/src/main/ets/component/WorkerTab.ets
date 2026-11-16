@@ -21,7 +21,21 @@ export struct WorkerTab {
   @State jsWorkerInPutStr: string = '';
   jsWorkerInPutArr: string[] = [];
   isDone: boolean = false;
-  myWorker: worker.ThreadWorker = new worker.ThreadWorker("entry/ets/workers/Worker.ts");
+  myWorker: worker.ThreadWorker | undefined = undefined;
+
+  aboutToAppear(): void {
+    if (!this.myWorker) {
+      this.myWorker = new worker.ThreadWorker("entry/ets/workers/Worker.ts");
+    }
+  }
+
+  aboutToDisappear(): void {
+    const currentWorker = this.myWorker;
+    this.myWorker = undefined;
+    if (currentWorker) {
+      currentWorker.terminate();
+    }
+  }
 
   build() {
     Column() {
@@ -143,15 +157,22 @@ export struct WorkerTab {
       this.jsWorkerOutPutStr = "No input for the string to be sorted.\n";
       return;
     }
-    this.myWorker.postMessage(inPutArr);
+    const currentWorker = this.myWorker;
+    if (!currentWorker) {
+      return;
+    }
     let strFlag = false;
     let outPutStr = '';
-    this.myWorker.onmessage = (e) => {
+    currentWorker.onmessage = (e) => {
       outPutStr = e.data.toString();
       strFlag = true;
     }
-    while(!strFlag) {
+    currentWorker.postMessage(inPutArr);
+    while(!strFlag && this.myWorker === currentWorker) {
       await promiseCase();
+    }
+    if (this.myWorker !== currentWorker) {
+      return;
     }
     this.jsWorkerOutPutStr = outPutStr;
   }

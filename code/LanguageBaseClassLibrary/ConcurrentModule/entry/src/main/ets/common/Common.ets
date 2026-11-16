@@ -28,8 +28,7 @@ export function strToUtf8Bytes(content: string): Array<number> {
     const char: string = code.charAt(i);
     if (char === '%') {
       const hex: string = code.charAt(i + 1) + code.charAt(i + INDEX);
-      const hexValue: number = Math.floor(Number(hex));
-      // const hexValue: number = parseInt(hex, RADIX);
+      const hexValue: number = parseInt(hex, RADIX);
       bytes.push(hexValue);
       i += INDEX;
     } else {
@@ -70,9 +69,7 @@ export function bufferToString(buffer: ArrayBuffer): string {
   let textDecoder = new util.TextDecoder('utf-8', {
     ignoreBOM: true
   });
-  let resultPut = textDecoder.decodeWithStream(new Uint8Array(buffer), {
-    stream: true
-  });
+  let resultPut = textDecoder.decodeToString(new Uint8Array(buffer));
   return resultPut;
 }
 
