@@ -23,299 +23,299 @@ export default function canvasGameVolumeLogger05Test() {
   describe('CanvasGameVolumeLogger05Test', () => {
 
     /**
-     * @tc.name   testCanvasVolLog050001
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0001
      * @tc.number SUB_CANVAS_VOL_LOG_05_0001
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050001 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0001 begin');
       const s: string = 'v'.repeat(6500);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(6500));
         expect(s.length).assertEqual(6500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0001 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050002
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0002
      * @tc.number SUB_CANVAS_VOL_LOG_05_0002
      * @tc.desc   Verify logger.log(\'a\',\'b\',\'c\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050002 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0002 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.log('a','b','c') === undefined));
       expect(logger.log('a','b','c') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug('d','e') === undefined));
         expect(logger.debug('d','e') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.warn('f') === undefined));
         expect(logger.warn('f') === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0002 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050003
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0003
      * @tc.number SUB_CANVAS_VOL_LOG_05_0003
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050003 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0003 begin');
       const s: string = 'v'.repeat(6700);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(6700));
         expect(s.length).assertEqual(6700);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0003 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050004
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0004
      * @tc.number SUB_CANVAS_VOL_LOG_05_0004
      * @tc.desc   Verify logger.log(\'a\',\'b\',\'c\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050004 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0004 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.log('a','b','c') === undefined));
       expect(logger.log('a','b','c') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug('d','e') === undefined));
         expect(logger.debug('d','e') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.warn('f') === undefined));
         expect(logger.warn('f') === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0004 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050005
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0005
      * @tc.number SUB_CANVAS_VOL_LOG_05_0005
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050005 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0005 begin');
       const s: string = 'v'.repeat(6900);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(6900));
         expect(s.length).assertEqual(6900);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0005 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050006
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0006
      * @tc.number SUB_CANVAS_VOL_LOG_05_0006
      * @tc.desc   Verify logger.log(\'a\',\'b\',\'c\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050006 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0006 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.log('a','b','c') === undefined));
       expect(logger.log('a','b','c') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug('d','e') === undefined));
         expect(logger.debug('d','e') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.warn('f') === undefined));
         expect(logger.warn('f') === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0006 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050007
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0007
      * @tc.number SUB_CANVAS_VOL_LOG_05_0007
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050007 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0007 begin');
       const s: string = 'v'.repeat(7100);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(7100));
         expect(s.length).assertEqual(7100);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0007 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050008
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0008
      * @tc.number SUB_CANVAS_VOL_LOG_05_0008
      * @tc.desc   Verify logger.log(\'a\',\'b\',\'c\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050008 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0008 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.log('a','b','c') === undefined));
       expect(logger.log('a','b','c') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug('d','e') === undefined));
         expect(logger.debug('d','e') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.warn('f') === undefined));
         expect(logger.warn('f') === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0008 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050009
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0009
      * @tc.number SUB_CANVAS_VOL_LOG_05_0009
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050009 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0009 begin');
       const s: string = 'v'.repeat(7300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(7300));
         expect(s.length).assertEqual(7300);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0009 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050010
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0010
      * @tc.number SUB_CANVAS_VOL_LOG_05_0010
      * @tc.desc   Verify logger.log(\'a\',\'b\',\'c\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050010 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0010 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.log('a','b','c') === undefined));
       expect(logger.log('a','b','c') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug('d','e') === undefined));
         expect(logger.debug('d','e') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.warn('f') === undefined));
         expect(logger.warn('f') === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0010 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050011
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0011
      * @tc.number SUB_CANVAS_VOL_LOG_05_0011
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050011 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0011 begin');
       const s: string = 'v'.repeat(7500);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(7500));
         expect(s.length).assertEqual(7500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0011 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050012
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0012
      * @tc.number SUB_CANVAS_VOL_LOG_05_0012
      * @tc.desc   Verify logger.log(\'a\',\'b\',\'c\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050012 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0012 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.log('a','b','c') === undefined));
       expect(logger.log('a','b','c') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug('d','e') === undefined));
         expect(logger.debug('d','e') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.warn('f') === undefined));
         expect(logger.warn('f') === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0012 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050013
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0013
      * @tc.number SUB_CANVAS_VOL_LOG_05_0013
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050013 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0013 begin');
       const s: string = 'v'.repeat(7700);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(7700));
         expect(s.length).assertEqual(7700);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0013 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050014
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0014
      * @tc.number SUB_CANVAS_VOL_LOG_05_0014
      * @tc.desc   Verify logger.log(\'a\',\'b\',\'c\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050014 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0014 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.log('a','b','c') === undefined));
       expect(logger.log('a','b','c') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug('d','e') === undefined));
         expect(logger.debug('d','e') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.warn('f') === undefined));
         expect(logger.warn('f') === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0014 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050015
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0015
      * @tc.number SUB_CANVAS_VOL_LOG_05_0015
      * @tc.desc   Verify logger.info(s) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050015 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0015 begin');
       const s: string = 'v'.repeat(7900);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(7900));
         expect(s.length).assertEqual(7900);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050015 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0015 end');
     })
 
     /**
-     * @tc.name   testCanvasVolLog050016
+     * @tc.name   com.samples.canvasgame_VolumeLogger05_0016
      * @tc.number SUB_CANVAS_VOL_LOG_05_0016
      * @tc.desc   Verify logger.log(\'a\',\'b\',\'c\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolLog050016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050016 begin');
+    it('com.samples.canvasgame_VolumeLogger05_0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0016 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.log('a','b','c') === undefined));
       expect(logger.log('a','b','c') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug('d','e') === undefined));
         expect(logger.debug('d','e') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.warn('f') === undefined));
         expect(logger.warn('f') === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolLog050016 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeLogger05_0016 end');
     })
   })
 }

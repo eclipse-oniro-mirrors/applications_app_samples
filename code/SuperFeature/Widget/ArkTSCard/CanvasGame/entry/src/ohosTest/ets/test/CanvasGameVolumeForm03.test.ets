@@ -23,302 +23,302 @@ export default function canvasGameVolumeForm03Test() {
   describe('CanvasGameVolumeForm03Test', () => {
 
     /**
-     * @tc.name   testCanvasVolForm030001
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0001
      * @tc.number SUB_CANVAS_VOL_FORM_03_0001
      * @tc.desc   Verify a.onFormEvent(\'id-33\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030001 begin');
+    it('com.samples.canvasgame_VolumeForm03_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const m: string = 'm'.repeat(264);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('id-33', m) === undefined));
         expect(a.onFormEvent('id-33', m) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(m.length), String(264));
         expect(m.length).assertEqual(264);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0001 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030002
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0002
      * @tc.number SUB_CANVAS_VOL_FORM_03_0002
      * @tc.desc   Verify a.onChangeFormVisibility(i % 2 === 0) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030002 begin');
+    it('com.samples.canvasgame_VolumeForm03_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let i: number = 0; i < 5; i++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(i % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0002 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030003
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0003
      * @tc.number SUB_CANVAS_VOL_FORM_03_0003
      * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030003 begin');
+    it('com.samples.canvasgame_VolumeForm03_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'f'.repeat(35);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(35));
         expect(id.length).assertEqual(35);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0003 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030004
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0004
      * @tc.number SUB_CANVAS_VOL_FORM_03_0004
      * @tc.desc   Verify a.onFormEvent(\'id-36\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030004 begin');
+    it('com.samples.canvasgame_VolumeForm03_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const m: string = 'm'.repeat(288);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('id-36', m) === undefined));
         expect(a.onFormEvent('id-36', m) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(m.length), String(288));
         expect(m.length).assertEqual(288);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0004 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030005
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0005
      * @tc.number SUB_CANVAS_VOL_FORM_03_0005
      * @tc.desc   Verify a.onChangeFormVisibility(i % 2 === 0) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030005 begin');
+    it('com.samples.canvasgame_VolumeForm03_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0005 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let i: number = 0; i < 3; i++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(i % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0005 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030006
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0006
      * @tc.number SUB_CANVAS_VOL_FORM_03_0006
      * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030006 begin');
+    it('com.samples.canvasgame_VolumeForm03_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'f'.repeat(38);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(38));
         expect(id.length).assertEqual(38);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0006 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030007
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0007
      * @tc.number SUB_CANVAS_VOL_FORM_03_0007
      * @tc.desc   Verify a.onFormEvent(\'id-39\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030007 begin');
+    it('com.samples.canvasgame_VolumeForm03_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const m: string = 'm'.repeat(312);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('id-39', m) === undefined));
         expect(a.onFormEvent('id-39', m) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(m.length), String(312));
         expect(m.length).assertEqual(312);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0007 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030008
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0008
      * @tc.number SUB_CANVAS_VOL_FORM_03_0008
      * @tc.desc   Verify a.onChangeFormVisibility(i % 2 === 0) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030008 begin');
+    it('com.samples.canvasgame_VolumeForm03_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let i: number = 0; i < 1; i++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(i % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0008 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030009
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0009
      * @tc.number SUB_CANVAS_VOL_FORM_03_0009
      * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030009 begin');
+    it('com.samples.canvasgame_VolumeForm03_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0009 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'f'.repeat(41);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(41));
         expect(id.length).assertEqual(41);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0009 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030010
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0010
      * @tc.number SUB_CANVAS_VOL_FORM_03_0010
      * @tc.desc   Verify a.onFormEvent(\'id-42\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030010 begin');
+    it('com.samples.canvasgame_VolumeForm03_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0010 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const m: string = 'm'.repeat(336);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('id-42', m) === undefined));
         expect(a.onFormEvent('id-42', m) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(m.length), String(336));
         expect(m.length).assertEqual(336);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0010 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030011
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0011
      * @tc.number SUB_CANVAS_VOL_FORM_03_0011
      * @tc.desc   Verify a.onChangeFormVisibility(i % 2 === 0) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030011 begin');
+    it('com.samples.canvasgame_VolumeForm03_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0011 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let i: number = 0; i < 4; i++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(i % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0011 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030012
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0012
      * @tc.number SUB_CANVAS_VOL_FORM_03_0012
      * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030012 begin');
+    it('com.samples.canvasgame_VolumeForm03_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0012 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'f'.repeat(44);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(44));
         expect(id.length).assertEqual(44);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0012 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030013
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0013
      * @tc.number SUB_CANVAS_VOL_FORM_03_0013
      * @tc.desc   Verify a.onFormEvent(\'id-45\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030013 begin');
+    it('com.samples.canvasgame_VolumeForm03_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0013 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const m: string = 'm'.repeat(360);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('id-45', m) === undefined));
         expect(a.onFormEvent('id-45', m) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(m.length), String(360));
         expect(m.length).assertEqual(360);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0013 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030014
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0014
      * @tc.number SUB_CANVAS_VOL_FORM_03_0014
      * @tc.desc   Verify a.onChangeFormVisibility(i % 2 === 0) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030014 begin');
+    it('com.samples.canvasgame_VolumeForm03_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0014 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let i: number = 0; i < 2; i++) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(i % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0014 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030015
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0015
      * @tc.number SUB_CANVAS_VOL_FORM_03_0015
      * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030015 begin');
+    it('com.samples.canvasgame_VolumeForm03_0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0015 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'f'.repeat(47);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(47));
         expect(id.length).assertEqual(47);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030015 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0015 end');
     })
 
     /**
-     * @tc.name   testCanvasVolForm030016
+     * @tc.name   com.samples.canvasgame_VolumeForm03_0016
      * @tc.number SUB_CANVAS_VOL_FORM_03_0016
      * @tc.desc   Verify a.onFormEvent(\'id-48\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testCanvasVolForm030016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030016 begin');
+    it('com.samples.canvasgame_VolumeForm03_0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0016 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const m: string = 'm'.repeat(384);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('id-48', m) === undefined));
         expect(a.onFormEvent('id-48', m) === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(m.length), String(384));
         expect(m.length).assertEqual(384);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolForm030016 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_VolumeForm03_0016 end');
     })
   })
 }
