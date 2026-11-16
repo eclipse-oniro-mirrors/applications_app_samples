@@ -1985,3 +1985,96 @@ export default function winCheckContract() {
       engine.fallChess(2, 5, BLACK);
       expect(engine.checkWinAt(2, 5)).assertTrue();
     });
+
+    /** @tc.number SUB_GOBANG_WIN_2500 @tc.name testWinAfterUndoDrops0025 @tc.desc Removing a stone from a winning run drops the win flag on recheck */
+    it('testWinAfterUndoDrops0025', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      for (let i = 0; i < 5; i++) {
+        engine.fallChess(8, i, BLACK);
+      }
+      engine.step = 5;
+      engine.chessX = 8;
+      engine.chessY = 4;
+      expect(engine.applyWinCheck()).assertTrue();
+      let removed: boolean = engine.undo();
+      expect(removed).assertTrue();
+      engine.isOver = false;
+      engine.chessX = 8;
+      engine.chessY = 3;
+      expect(engine.applyWinCheck()).assertFalse();
+      expect(engine.step).assertEqual(4);
+    });
+
+    /** @tc.number SUB_GOBANG_WIN_2600 @tc.name testWinLengthConstant0026 @tc.desc The winning length is five, used by every probe loop */
+    it('testWinLengthConstant0026', 0, async () => {
+      expect(WIN_LENGTH).assertEqual(5);
+      expect(BoardEngine.WIN_LENGTH).assertEqual(5);
+      let four: BoardEngine = rowBoard(1, 4, BLACK);
+      let five: BoardEngine = rowBoard(1, 5, BLACK);
+      expect(four.probe(1, 3, MODE_ROW).reached).assertFalse();
+      expect(five.probe(1, 3, MODE_ROW).reached).assertTrue();
+    });
+
+    /** @tc.number SUB_GOBANG_WIN_2700 @tc.name testWinScannerOverRows0027 @tc.desc Scanning all rows finds a win on exactly one row */
+    it('testWinScannerOverRows0027', 0, async () => {
+      let engine: BoardEngine = rowBoard(11, 5, BLACK);
+      let winningRows: number[] = [];
+      for (let i = 0; i < BOARD_SIZE; i++) {
+        for (let j = 0; j < BOARD_SIZE; j++) {
+          if (engine.checkWinAt(i, j)) {
+            if (winningRows.indexOf(i) < 0) {
+              winningRows.push(i);
+            }
+          }
+        }
+      }
+      expect(winningRows.length).assertEqual(1);
+      expect(winningRows[0]).assertEqual(11);
+    });
+
+    /** @tc.number SUB_GOBANG_WIN_2800 @tc.name testWinMixedColoursInterfere0028 @tc.desc White stones at both ends cap the black run after it already won */
+    it('testWinMixedColoursInterfere0028', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      for (let i = 0; i < 5; i++) {
+        engine.fallChess(3, 2 + i, BLACK);
+      }
+      engine.fallChess(3, 1, WHITE);
+      engine.fallChess(3, 7, WHITE);
+      expect(engine.checkWinAt(3, 4)).assertTrue();
+      expect(engine.probe(3, 4, MODE_ROW).count).assertEqual(5);
+      engine.clearColor(BLACK);
+      expect(engine.checkWinAt(3, 4)).assertFalse();
+    });
+
+    /** @tc.number SUB_GOBANG_WIN_2900 @tc.name testWinVerticalAfterHorizontal0029 @tc.desc Adding a vertical run after a horizontal one keeps both wins reachable */
+    it('testWinVerticalAfterHorizontal0029', 0, async () => {
+      let engine: BoardEngine = rowBoard(4, 5, BLACK);
+      for (let i = 0; i < 3; i++) {
+        engine.fallChess(5 + i, 0, BLACK);
+      }
+      expect(engine.checkWinAt(4, 0)).assertTrue();
+      expect(engine.probe(6, 0, MODE_COL).count).assertEqual(4);
+      expect(engine.checkWinAt(6, 0)).assertFalse();
+      engine.fallChess(8, 0, BLACK);
+      expect(engine.probe(6, 0, MODE_COL).count).assertEqual(5);
+      expect(engine.checkWinAt(6, 0)).assertTrue();
+      engine.fallChess(8, 9, BLACK);
+      expect(engine.checkWinAt(8, 9)).assertFalse();
+    });
+
+    /** @tc.number SUB_GOBANG_WIN_3000 @tc.name testWinRecheckAfterFlush0030 @tc.desc Repeated flushes after a win stay stable and never undo the flag */
+    it('testWinRecheckAfterFlush0030', 0, async () => {
+      let engine: BoardEngine = diagonalBoard(1, 5, BLACK);
+      engine.chessX = 5;
+      engine.chessY = 5;
+      let first: boolean = engine.applyWinCheck();
+      let second: boolean = engine.applyWinCheck();
+      let third: boolean = engine.applyWinCheck();
+      expect(first).assertTrue();
+      expect(second).assertTrue();
+      expect(third).assertTrue();
+      expect(engine.isOver).assertTrue();
+      expect(engine.step).assertEqual(5);
+    });
+  });
+}
