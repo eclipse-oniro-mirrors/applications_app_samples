@@ -25,7 +25,7 @@ export struct WorkerTab {
 
   aboutToAppear(): void {
     if (!this.myWorker) {
-      this.myWorker = new worker.ThreadWorker("entry/ets/workers/Worker.ts");
+      this.myWorker = new worker.ThreadWorker('entry/ets/workers/Worker.ts');
     }
   }
 
