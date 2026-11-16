@@ -1,0 +1,362 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { ContactSource, Contact } from '../../../main/ets/common/DataSource';
+
+export default function flipClockVolumeContact05Test() {
+  describe('FlipClockVolumeContact05Test', () => {
+
+    /**
+     * @tc.name   testFlipClockVolume050001
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0001
+     * @tc.desc   Push contact volume batch 5-1.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 81; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(81);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(80).reminderId).assertEqual(80);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050002
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0002
+     * @tc.desc   Push contact volume batch 5-2.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 82; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(82);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(81).reminderId).assertEqual(81);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050003
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0003
+     * @tc.desc   Push contact volume batch 5-3.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 83; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(83);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(82).reminderId).assertEqual(82);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050004
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0004
+     * @tc.desc   Push contact volume batch 5-4.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 84; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(84);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(83).reminderId).assertEqual(83);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050005
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0005
+     * @tc.desc   Push contact volume batch 5-5.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 85; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(85);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(84).reminderId).assertEqual(84);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050006
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0006
+     * @tc.desc   Push contact volume batch 5-6.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 86; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(86);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(85).reminderId).assertEqual(85);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050007
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0007
+     * @tc.desc   Push contact volume batch 5-7.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 87; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(87);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(86).reminderId).assertEqual(86);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050008
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0008
+     * @tc.desc   Push contact volume batch 5-8.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 88; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(88);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(87).reminderId).assertEqual(87);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050009
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0009
+     * @tc.desc   Push contact volume batch 5-9.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 89; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(89);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(88).reminderId).assertEqual(88);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050010
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0010
+     * @tc.desc   Push contact volume batch 5-10.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 90; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(90);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(89).reminderId).assertEqual(89);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050011
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0011
+     * @tc.desc   Push contact volume batch 5-11.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 91; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(91);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(90).reminderId).assertEqual(90);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050012
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0012
+     * @tc.desc   Push contact volume batch 5-12.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 92; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(92);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(91).reminderId).assertEqual(91);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050013
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0013
+     * @tc.desc   Push contact volume batch 5-13.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 93; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(93);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(92).reminderId).assertEqual(92);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050014
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0014
+     * @tc.desc   Push contact volume batch 5-14.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 94; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(94);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(93).reminderId).assertEqual(93);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050015
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0015
+     * @tc.desc   Push contact volume batch 5-15.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 95; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(95);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(94).reminderId).assertEqual(94);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050016
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0016
+     * @tc.desc   Push contact volume batch 5-16.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 96; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(96);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(95).reminderId).assertEqual(95);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050017
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0017
+     * @tc.desc   Push contact volume batch 5-17.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 97; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(97);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(96).reminderId).assertEqual(96);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050018
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0018
+     * @tc.desc   Push contact volume batch 5-18.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 98; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(98);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(97).reminderId).assertEqual(97);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050019
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0019
+     * @tc.desc   Push contact volume batch 5-19.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 99; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(99);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(98).reminderId).assertEqual(98);
+      await Promise.resolve();
+    })
+
+    /**
+     * @tc.name   testFlipClockVolume050020
+     * @tc.number SUB_FLIP_CLOCK_VOLUME_05_0020
+     * @tc.desc   Push contact volume batch 5-20.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockVolume050020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      const source: ContactSource = new ContactSource([]);
+      for (let index: number = 0; index < 100; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      expect(source.totalCount()).assertEqual(100);
+      expect(source.getData(0).key).assertEqual('key0');
+      expect(source.getData(99).reminderId).assertEqual(99);
+      await Promise.resolve();
+    })
+  })
+}
