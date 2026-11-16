@@ -17,6 +17,10 @@ import distributedKVStore from '@ohos.data.distributedKVStore';
 import relationalStore from '@ohos.data.relationalStore';
 import { BusinessError } from '@ohos.base';
 import startupManager from '@ohos.app.appstartup.startupManager';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_AppStartup]';
 
 export class SingleKVStoreUtil {
   static getKVStore(): Promise<distributedKVStore.SingleKVStore> {
@@ -37,7 +41,8 @@ export class SingleKVStoreUtil {
       kvManagerUtilTask.getKVStore<distributedKVStore.SingleKVStore>('storeId', options,
         (err, store: distributedKVStore.SingleKVStore) => {
           if (err) {
-            console.error(`Failed to get KVStore: Code:${err.code},message:${err.message}`);
+            hilog.error(DOMAIN, TAG, 'Failed to get KVStore, code: %{public}d, message: %{public}s',
+              err.code, err.message);
             reject(`Failed to get KVStore: Code:${err.code},message:${err.message}`)
             return;
           }
@@ -83,11 +88,12 @@ export class RdbStoreUtil {
       relationalStore.getRdbStore(context, STORE_CONFIG, (err: BusinessError, rdbStore: relationalStore.RdbStore) => {
         if (err) {
           reject('rdbStore == undefined');
-          console.error(`Get RdbStore failed, code is ${err.code},message is ${err.message}`);
+          hilog.error(DOMAIN, TAG, 'Get RdbStore failed, code: %{public}d, message: %{public}s',
+            err.code, err.message);
           return;
         }
         resolve(rdbStore);
-        console.info('Get RdbStore successfully.');
+        hilog.info(DOMAIN, TAG, 'Get RdbStore successfully.');
       })
     });
 
