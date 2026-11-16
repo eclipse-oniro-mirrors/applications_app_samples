@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
+import { UserIdentity } from '../common/Types';
+
 export {}
 
 // [Start shared_types_usage_profile]
-import { UserIdentity } from '../common/Types';
-
 export function getProfileName(identity: UserIdentity): string {
   return 'user-' + identity.id.toString();
 }
