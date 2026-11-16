@@ -15,8 +15,14 @@
 
 import { TabType } from '../../../main/ets/common/DataSource';
 
-const TAB_RES: Resource = { bundleName: 'ohos.samples.flipclock', moduleName: 'entry', id: 0 };
-const TAB_TEXT: Resource = { bundleName: 'ohos.samples.flipclock', moduleName: 'entry', id: 0 };
+const TAB_RES: Resource = {
+  bundleName: 'ohos.samples.flipclock', moduleName: 'entry', id: 0
+  }
+  ;
+const TAB_TEXT: Resource = {
+  bundleName: 'ohos.samples.flipclock', moduleName: 'entry', id: 0
+  }
+  ;
 
 export const testTabs: TabType[] = [
   new TabType(TAB_RES, TAB_RES, TAB_TEXT, 0),

@@ -14,8 +14,11 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { TabType } from '../../../main/ets/common/DataSource';
 import { testTabs as tabArray } from './FlipClockTestTabs';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockTabTypeUniqueTest() {
   describe('FlipClockTabTypeUniqueTest', () => {
@@ -29,8 +32,17 @@ export default function flipClockTabTypeUniqueTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabUnique0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0000 begin');
       const item: TabType = new TabType(tabArray[0].icon, tabArray[0].icon_after, tabArray[0].text, 100);
-      expect(item.num).assertEqual(100); expect(item.icon !== undefined).assertTrue(); expect(item.icon_after !== undefined).assertTrue(); expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.num).assertEqual(100);');
+      expect(item.num).assertEqual(100);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon !== undefined).assertTrue();');
+        expect(item.icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon_after !== undefined).assertTrue();');
+        expect(item.icon_after !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.text !== undefined).assertTrue();');
+        expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0000 end');
     })
 
     /**
@@ -42,8 +54,17 @@ export default function flipClockTabTypeUniqueTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabUnique0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0001 begin');
       const item: TabType = new TabType(tabArray[1].icon, tabArray[1].icon_after, tabArray[1].text, 101);
-      expect(item.num).assertEqual(101); expect(item.icon !== undefined).assertTrue(); expect(item.icon_after !== undefined).assertTrue(); expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.num).assertEqual(101);');
+      expect(item.num).assertEqual(101);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon !== undefined).assertTrue();');
+        expect(item.icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon_after !== undefined).assertTrue();');
+        expect(item.icon_after !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.text !== undefined).assertTrue();');
+        expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0001 end');
     })
 
     /**
@@ -55,8 +76,17 @@ export default function flipClockTabTypeUniqueTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabUnique0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0002 begin');
       const item: TabType = new TabType(tabArray[2].icon, tabArray[2].icon_after, tabArray[2].text, 102);
-      expect(item.num).assertEqual(102); expect(item.icon !== undefined).assertTrue(); expect(item.icon_after !== undefined).assertTrue(); expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.num).assertEqual(102);');
+      expect(item.num).assertEqual(102);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon !== undefined).assertTrue();');
+        expect(item.icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon_after !== undefined).assertTrue();');
+        expect(item.icon_after !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.text !== undefined).assertTrue();');
+        expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0002 end');
     })
 
     /**
@@ -68,8 +98,17 @@ export default function flipClockTabTypeUniqueTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabUnique0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0003 begin');
       const item: TabType = new TabType(tabArray[3].icon, tabArray[3].icon_after, tabArray[3].text, 103);
-      expect(item.num).assertEqual(103); expect(item.icon !== undefined).assertTrue(); expect(item.icon_after !== undefined).assertTrue(); expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.num).assertEqual(103);');
+      expect(item.num).assertEqual(103);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon !== undefined).assertTrue();');
+        expect(item.icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon_after !== undefined).assertTrue();');
+        expect(item.icon_after !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.text !== undefined).assertTrue();');
+        expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0003 end');
     })
 
     /**
@@ -81,8 +120,17 @@ export default function flipClockTabTypeUniqueTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabUnique0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0004 begin');
       const item: TabType = new TabType(tabArray[0].icon, tabArray[0].icon_after, tabArray[0].text, 104);
-      expect(item.num).assertEqual(104); expect(item.icon !== undefined).assertTrue(); expect(item.icon_after !== undefined).assertTrue(); expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.num).assertEqual(104);');
+      expect(item.num).assertEqual(104);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon !== undefined).assertTrue();');
+        expect(item.icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon_after !== undefined).assertTrue();');
+        expect(item.icon_after !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.text !== undefined).assertTrue();');
+        expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0004 end');
     })
 
     /**
@@ -94,8 +142,17 @@ export default function flipClockTabTypeUniqueTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabUnique0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0005 begin');
       const item: TabType = new TabType(tabArray[1].icon, tabArray[1].icon_after, tabArray[1].text, 105);
-      expect(item.num).assertEqual(105); expect(item.icon !== undefined).assertTrue(); expect(item.icon_after !== undefined).assertTrue(); expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.num).assertEqual(105);');
+      expect(item.num).assertEqual(105);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon !== undefined).assertTrue();');
+        expect(item.icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon_after !== undefined).assertTrue();');
+        expect(item.icon_after !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.text !== undefined).assertTrue();');
+        expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0005 end');
     })
 
     /**
@@ -107,8 +164,17 @@ export default function flipClockTabTypeUniqueTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabUnique0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0006 begin');
       const item: TabType = new TabType(tabArray[2].icon, tabArray[2].icon_after, tabArray[2].text, 106);
-      expect(item.num).assertEqual(106); expect(item.icon !== undefined).assertTrue(); expect(item.icon_after !== undefined).assertTrue(); expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.num).assertEqual(106);');
+      expect(item.num).assertEqual(106);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon !== undefined).assertTrue();');
+        expect(item.icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon_after !== undefined).assertTrue();');
+        expect(item.icon_after !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.text !== undefined).assertTrue();');
+        expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0006 end');
     })
 
     /**
@@ -120,8 +186,17 @@ export default function flipClockTabTypeUniqueTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockTabUnique0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0007 begin');
       const item: TabType = new TabType(tabArray[3].icon, tabArray[3].icon_after, tabArray[3].text, 107);
-      expect(item.num).assertEqual(107); expect(item.icon !== undefined).assertTrue(); expect(item.icon_after !== undefined).assertTrue(); expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.num).assertEqual(107);');
+      expect(item.num).assertEqual(107);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon !== undefined).assertTrue();');
+        expect(item.icon !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.icon_after !== undefined).assertTrue();');
+        expect(item.icon_after !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.text !== undefined).assertTrue();');
+        expect(item.text !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabUnique0007 end');
     })
   })
 }
