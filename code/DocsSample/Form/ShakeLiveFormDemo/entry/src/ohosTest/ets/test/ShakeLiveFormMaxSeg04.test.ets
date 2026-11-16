@@ -34,11 +34,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040001 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040001 end');
     })
@@ -55,11 +55,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040002 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040002 end');
     })
@@ -76,11 +76,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040003 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040003 end');
     })
@@ -97,11 +97,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040004 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040004 end');
     })
@@ -118,11 +118,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040005 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040005 end');
     })
@@ -139,11 +139,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040006 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040006 end');
     })
@@ -160,11 +160,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040007 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040007 end');
     })
@@ -181,11 +181,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040008 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040008 end');
     })
@@ -202,11 +202,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040009 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040009 end');
     })
@@ -223,11 +223,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040010 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040010 end');
     })
@@ -244,11 +244,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040011 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040011 end');
     })
@@ -265,11 +265,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040012 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040012 end');
     })
@@ -286,11 +286,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040013 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040013 end');
     })
@@ -307,11 +307,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040014 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040014 end');
     })
@@ -328,11 +328,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040015 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040015 end');
     })
@@ -349,11 +349,11 @@ export default function shakeLiveFormMaxSeg04Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040016 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         const b: SegmentationUtil = SegmentationUtil.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.SegmentationImage === 'function'));
         expect(typeof a.SegmentationImage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxSeg040016 end');
     })

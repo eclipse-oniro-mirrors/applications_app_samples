@@ -32,11 +32,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020001 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 340).assertEqual(51.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 340), String(51.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 340).assertEqual(51.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 340).assertEqual(442.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 340), String(442.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 340).assertEqual(442.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020001 end');
     })
@@ -51,11 +51,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020002 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 360).assertEqual(54.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 360), String(54.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 360).assertEqual(54.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 360).assertEqual(468.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 360), String(468.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 360).assertEqual(468.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020002 end');
     })
@@ -70,11 +70,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020003 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 380).assertEqual(57.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 380), String(57.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 380).assertEqual(57.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 380).assertEqual(494.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 380), String(494.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 380).assertEqual(494.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020003 end');
     })
@@ -89,11 +89,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020004 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 400).assertEqual(60.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 400), String(60.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 400).assertEqual(60.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 400).assertEqual(520.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 400), String(520.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 400).assertEqual(520.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020004 end');
     })
@@ -108,11 +108,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020005 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 420).assertEqual(63.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 420), String(63.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 420).assertEqual(63.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 420).assertEqual(546.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 420), String(546.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 420).assertEqual(546.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020005 end');
     })
@@ -127,11 +127,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020006 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 440).assertEqual(66.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 440), String(66.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 440).assertEqual(66.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 440).assertEqual(572.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 440), String(572.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 440).assertEqual(572.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020006 end');
     })
@@ -146,11 +146,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020007 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 460).assertEqual(69.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 460), String(69.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 460).assertEqual(69.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 460).assertEqual(598.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 460), String(598.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 460).assertEqual(598.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020007 end');
     })
@@ -165,11 +165,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020008 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 480).assertEqual(72.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 480), String(72.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 480).assertEqual(72.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 480).assertEqual(624.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 480), String(624.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 480).assertEqual(624.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020008 end');
     })
@@ -184,11 +184,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020009 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 500).assertEqual(75.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 500), String(75.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 500).assertEqual(75.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 500).assertEqual(650.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 500), String(650.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 500).assertEqual(650.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020009 end');
     })
@@ -203,11 +203,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020010 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 520).assertEqual(78.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 520), String(78.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 520).assertEqual(78.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 520).assertEqual(676.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 520), String(676.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 520).assertEqual(676.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020010 end');
     })
@@ -222,11 +222,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020011 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 540).assertEqual(81.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 540), String(81.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 540).assertEqual(81.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 540).assertEqual(702.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 540), String(702.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 540).assertEqual(702.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020011 end');
     })
@@ -241,11 +241,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020012 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 560).assertEqual(84.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 560), String(84.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 560).assertEqual(84.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 560).assertEqual(728.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 560), String(728.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 560).assertEqual(728.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020012 end');
     })
@@ -260,11 +260,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020013 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 580).assertEqual(87.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 580), String(87.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 580).assertEqual(87.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 580).assertEqual(754.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 580), String(754.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 580).assertEqual(754.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020013 end');
     })
@@ -279,11 +279,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020014 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 600).assertEqual(90.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 600), String(90.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 600).assertEqual(90.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 600).assertEqual(780.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 600), String(780.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 600).assertEqual(780.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020014 end');
     })
@@ -298,11 +298,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020015 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 620).assertEqual(93.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 620), String(93.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 620).assertEqual(93.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 620).assertEqual(806.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 620), String(806.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 620).assertEqual(806.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020015 end');
     })
@@ -317,11 +317,11 @@ export default function shakeLiveFormMoreConst02Test() {
      */
     it('testShakeMoreConst020016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020016 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO * 640).assertEqual(96.0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 640), String(96.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 640).assertEqual(96.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO * 640).assertEqual(832.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 640), String(832.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 640).assertEqual(832.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst020016 end');
     })
