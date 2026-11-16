@@ -38,9 +38,9 @@ export default function shakeLiveFormCompositeTypesTest() {
         }
         ;
         const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm(want) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm(want) !== undefined));
         expect(a.onAddForm(want) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(want.bundleName === \'com.example.shakeliveformdemo\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0001 end');
     })
@@ -60,9 +60,9 @@ export default function shakeLiveFormCompositeTypesTest() {
         }
         ;
         const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm(want) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm(want) !== undefined));
         expect(a.onAddForm(want) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(want.bundleName === \'com.example.shakeliveformdemo\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0002 end');
     })
@@ -82,9 +82,9 @@ export default function shakeLiveFormCompositeTypesTest() {
         }
         ;
         const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm(want) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm(want) !== undefined));
         expect(a.onAddForm(want) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(want.bundleName === \'com.example.shakeliveformdemo\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0003 end');
     })
@@ -104,9 +104,9 @@ export default function shakeLiveFormCompositeTypesTest() {
         }
         ;
         const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm(want) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm(want) !== undefined));
         expect(a.onAddForm(want) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(want.bundleName === \'com.example.shakeliveformdemo\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0004 end');
     })
@@ -126,9 +126,9 @@ export default function shakeLiveFormCompositeTypesTest() {
         }
         ;
         const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm(want) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm(want) !== undefined));
         expect(a.onAddForm(want) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(want.bundleName === \'com.example.shakeliveformdemo\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0005 end');
     })
@@ -145,9 +145,9 @@ export default function shakeLiveFormCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-6\', values.join(\'-\')) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-6', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-6', values.join('-')) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0006 end');
     })
@@ -164,9 +164,9 @@ export default function shakeLiveFormCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-7\', values.join(\'-\')) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-7', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-7', values.join('-')) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0007 end');
     })
@@ -183,9 +183,9 @@ export default function shakeLiveFormCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-8\', values.join(\'-\')) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-8', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-8', values.join('-')) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0008 end');
     })
@@ -202,9 +202,9 @@ export default function shakeLiveFormCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0009 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-9\', values.join(\'-\')) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-9', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-9', values.join('-')) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0009 end');
     })
@@ -221,9 +221,9 @@ export default function shakeLiveFormCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0010 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-10\', values.join(\'-\')) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-10', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-10', values.join('-')) !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0010 end');
     })

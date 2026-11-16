@@ -47,13 +47,13 @@ export default function interactionFormTest() {
      */
     it('testOverflowRatioConstants0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowRatioConstants0001 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_LEFT_RATIO).assertEqual(0.1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_LEFT_RATIO), String(0.1));
       expect(Constants.OVERFLOW_LEFT_RATIO).assertEqual(0.1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_TOP_RATIO).assertEqual(0.15);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO), String(0.15));
       expect(Constants.OVERFLOW_TOP_RATIO).assertEqual(0.15);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_WIDTH_RATIO).assertEqual(1.2);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_WIDTH_RATIO), String(1.2));
       expect(Constants.OVERFLOW_WIDTH_RATIO).assertEqual(1.2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_HEIGHT_RATIO).assertEqual(1.3);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO), String(1.3));
       expect(Constants.OVERFLOW_HEIGHT_RATIO).assertEqual(1.3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowRatioConstants0001 end');
     })
@@ -68,9 +68,9 @@ export default function interactionFormTest() {
      */
     it('testOverflowDurationConstant0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowDurationConstant0001 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(EXPECTED_OVERFLOW_DURATION);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(EXPECTED_OVERFLOW_DURATION));
       expect(Constants.OVERFLOW_DURATION).assertEqual(EXPECTED_OVERFLOW_DURATION);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(Constants.OVERFLOW_DURATION > 0));
       expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowDurationConstant0001 end');
     })
@@ -89,13 +89,13 @@ export default function interactionFormTest() {
       const top: number = -Constants.OVERFLOW_TOP_RATIO * FORM_HEIGHT;
       const width: number = Constants.OVERFLOW_WIDTH_RATIO * FORM_WIDTH;
       const height: number = Constants.OVERFLOW_HEIGHT_RATIO * FORM_HEIGHT;
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(left).assertEqual(-20);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(left), String(-20));
       expect(left).assertEqual(-20);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(top).assertEqual(-30);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(top), String(-30));
       expect(top).assertEqual(-30);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(width).assertEqual(240);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(width), String(240));
       expect(width).assertEqual(240);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(height).assertEqual(260);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(height), String(260));
       expect(height).assertEqual(260);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaCalculation0001 end');
     })
@@ -112,13 +112,13 @@ export default function interactionFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaScaling0001 begin');
       const fullOverflowWidth: number = Constants.OVERFLOW_WIDTH_RATIO * FORM_WIDTH;
       const halfOverflowWidth: number = Constants.OVERFLOW_WIDTH_RATIO * HALF_FORM_WIDTH;
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(fullOverflowWidth).assertEqual(240);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(fullOverflowWidth), String(240));
       expect(fullOverflowWidth).assertEqual(240);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(halfOverflowWidth).assertEqual(120);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(halfOverflowWidth), String(120));
       expect(halfOverflowWidth).assertEqual(120);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(fullOverflowWidth / FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(fullOverflowWidth / FORM_WIDTH), String(Constants.OVERFLOW_WIDTH_RATIO));
       expect(fullOverflowWidth / FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(halfOverflowWidth / HALF_FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(halfOverflowWidth / HALF_FORM_WIDTH), String(Constants.OVERFLOW_WIDTH_RATIO));
       expect(halfOverflowWidth / HALF_FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaScaling0001 end');
     })
@@ -135,9 +135,9 @@ export default function interactionFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationUtilSingleton0001 begin');
       const firstInstance: SegmentationUtil = SegmentationUtil.getInstance();
       const secondInstance: SegmentationUtil = SegmentationUtil.getInstance();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(firstInstance !== undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(firstInstance !== undefined));
       expect(firstInstance !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(firstInstance === secondInstance).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(firstInstance === secondInstance));
       expect(firstInstance === secondInstance).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationUtilSingleton0001 end');
     })
@@ -162,7 +162,7 @@ export default function interactionFormTest() {
         ;
       const result: image.PixelMap | undefined =
         await segmentationUtil.SegmentationImage(invalidResource, appContext);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result === undefined));
       expect(result === undefined).assertTrue();
       done();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationWithInvalidResource0001 end');

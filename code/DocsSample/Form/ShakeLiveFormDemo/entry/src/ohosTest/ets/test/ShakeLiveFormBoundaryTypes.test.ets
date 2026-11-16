@@ -35,9 +35,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'x'.repeat(512);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm(id) === undefined));
         expect(a.onRemoveForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(512);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(512));
         expect(id.length).assertEqual(512);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0001 end');
     })
@@ -54,9 +54,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'x'.repeat(1024);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm(id) === undefined));
         expect(a.onRemoveForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1024);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1024));
         expect(id.length).assertEqual(1024);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0002 end');
     })
@@ -73,9 +73,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'x'.repeat(1536);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm(id) === undefined));
         expect(a.onRemoveForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1536);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1536));
         expect(id.length).assertEqual(1536);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0003 end');
     })
@@ -92,9 +92,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'x'.repeat(2048);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm(id) === undefined));
         expect(a.onRemoveForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2048);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(2048));
         expect(id.length).assertEqual(2048);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0004 end');
     })
@@ -110,9 +110,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
     it('testShakeBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0005 begin');
       const width: number = 250;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-25.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(-Constants.OVERFLOW_LEFT_RATIO * width), String(-25.0));
         expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-25.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(300.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_WIDTH_RATIO * width), String(300.0));
         expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(300.0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0005 end');
     })
@@ -130,9 +130,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
       const width: number = 300;
       const left: number = -Constants.OVERFLOW_LEFT_RATIO * width;
       const scaled: number = Constants.OVERFLOW_WIDTH_RATIO * width;
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Math.abs(left - (-30)) < 0.000001).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(Math.abs(left - (-30)) < 0.000001));
       expect(Math.abs(left - (-30)) < 0.000001).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Math.abs(scaled - 360) < 0.000001).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(Math.abs(scaled - 360) < 0.000001));
       expect(Math.abs(scaled - 360) < 0.000001).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0006 end');
     })
@@ -148,9 +148,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
     it('testShakeBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0007 begin');
       const width: number = 350;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-35.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(-Constants.OVERFLOW_LEFT_RATIO * width), String(-35.0));
         expect(-Constants.OVERFLOW_LEFT_RATIO * width).assertEqual(-35.0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(420.0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_WIDTH_RATIO * width), String(420.0));
         expect(Constants.OVERFLOW_WIDTH_RATIO * width).assertEqual(420.0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0007 end');
     })
@@ -165,9 +165,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
      */
     it('testShakeBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0008 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
       expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(Constants.OVERFLOW_DURATION > 0));
         expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0008 end');
     })
@@ -182,9 +182,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
      */
     it('testShakeBoundary0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0009 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
       expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(Constants.OVERFLOW_DURATION > 0));
         expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0009 end');
     })
@@ -199,9 +199,9 @@ export default function shakeLiveFormBoundaryTypesTest() {
      */
     it('testShakeBoundary0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0010 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION).assertEqual(3500);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
       expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(Constants.OVERFLOW_DURATION > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(Constants.OVERFLOW_DURATION > 0));
         expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBoundary0010 end');
     })

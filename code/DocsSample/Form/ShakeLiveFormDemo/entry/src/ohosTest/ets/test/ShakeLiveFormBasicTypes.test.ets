@@ -33,7 +33,7 @@ export default function shakeLiveFormBasicTypesTest() {
      */
     it('testShakeBasic0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0001 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof Constants.OVERFLOW_LEFT_RATIO === 'number'));
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0001 end');
     })
@@ -48,7 +48,7 @@ export default function shakeLiveFormBasicTypesTest() {
      */
     it('testShakeBasic0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0002 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof Constants.OVERFLOW_LEFT_RATIO === 'number'));
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0002 end');
     })
@@ -63,7 +63,7 @@ export default function shakeLiveFormBasicTypesTest() {
      */
     it('testShakeBasic0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0003 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof Constants.OVERFLOW_LEFT_RATIO === 'number'));
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0003 end');
     })
@@ -78,7 +78,7 @@ export default function shakeLiveFormBasicTypesTest() {
      */
     it('testShakeBasic0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0004 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof Constants.OVERFLOW_LEFT_RATIO === 'number'));
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0004 end');
     })
@@ -93,7 +93,7 @@ export default function shakeLiveFormBasicTypesTest() {
      */
     it('testShakeBasic0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0005 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof Constants.OVERFLOW_LEFT_RATIO === \'number\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof Constants.OVERFLOW_LEFT_RATIO === 'number'));
       expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0005 end');
     })
@@ -109,7 +109,7 @@ export default function shakeLiveFormBasicTypesTest() {
     it('testShakeBasic0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0006 end');
     })
@@ -125,7 +125,7 @@ export default function shakeLiveFormBasicTypesTest() {
     it('testShakeBasic0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0007 end');
     })
@@ -141,7 +141,7 @@ export default function shakeLiveFormBasicTypesTest() {
     it('testShakeBasic0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0008 end');
     })
@@ -157,7 +157,7 @@ export default function shakeLiveFormBasicTypesTest() {
     it('testShakeBasic0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0009 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0009 end');
     })
@@ -173,7 +173,7 @@ export default function shakeLiveFormBasicTypesTest() {
     it('testShakeBasic0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0010 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAddForm({}) !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBasic0010 end');
     })
