@@ -23,34 +23,34 @@ export default function flipClockStorageSingletonTest() {
   describe('FlipClockStorageSingletonTest', () => {
 
     /**
-     * @tc.name   testFlipClockStorageSingleton001
+     * @tc.name   ohos.samples.flipclock_StorageSingleton_0001
      * @tc.number SUB_FLIP_CLOCK_STORAGE_001
      * @tc.desc   Verify StorageModel singleton identity.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockStorageSingleton001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton001 begin');
+    it('ohos.samples.flipclock_StorageSingleton_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_StorageSingleton_0001 begin');
       const first: StorageModel = StorageModel.getInstance();
         const second: StorageModel = StorageModel.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(first === second));
         expect(first === second).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(first !== null));
         expect(first !== null).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_StorageSingleton_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockStorageSingleton002
+     * @tc.name   ohos.samples.flipclock_StorageSingleton_0002
      * @tc.number SUB_FLIP_CLOCK_STORAGE_002
      * @tc.desc   Verify StorageModel method set.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockStorageSingleton002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton002 begin');
+    it('ohos.samples.flipclock_StorageSingleton_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_StorageSingleton_0002 begin');
       const model: StorageModel = StorageModel.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.getFromStorage === 'function'));
         expect(typeof model.getFromStorage === 'function').assertTrue();
@@ -58,19 +58,19 @@ export default function flipClockStorageSingletonTest() {
         expect(typeof model.getStorage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.putStorageValue === 'function'));
         expect(typeof model.putStorageValue === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_StorageSingleton_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockStorageSingleton003
+     * @tc.name   ohos.samples.flipclock_StorageSingleton_0003
      * @tc.number SUB_FLIP_CLOCK_STORAGE_003
      * @tc.desc   Verify storage delete method exists.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockStorageSingleton003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton003 begin');
+    it('ohos.samples.flipclock_StorageSingleton_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_StorageSingleton_0003 begin');
       const model: StorageModel = StorageModel.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.deleteSync === 'function'));
         expect(typeof model.deleteSync === 'function').assertTrue();
@@ -78,19 +78,19 @@ export default function flipClockStorageSingletonTest() {
         expect(typeof model.getStorageValue === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.putTotalStorageValue === 'function'));
         expect(typeof model.putTotalStorageValue === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_StorageSingleton_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockStorageSingleton004
+     * @tc.name   ohos.samples.flipclock_StorageSingleton_0004
      * @tc.number SUB_FLIP_CLOCK_STORAGE_004
      * @tc.desc   Verify singleton survives repeated reads.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockStorageSingleton004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton004 begin');
+    it('ohos.samples.flipclock_StorageSingleton_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_StorageSingleton_0004 begin');
       const a: StorageModel = StorageModel.getInstance();
         const b: StorageModel = StorageModel.getInstance();
         const c: StorageModel = StorageModel.getInstance();
@@ -98,7 +98,7 @@ export default function flipClockStorageSingletonTest() {
         expect(a === b).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(b === c));
         expect(b === c).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_StorageSingleton_0004 end');
     })
   })
 }

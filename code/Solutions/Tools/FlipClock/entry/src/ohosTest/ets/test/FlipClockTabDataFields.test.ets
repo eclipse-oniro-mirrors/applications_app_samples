@@ -23,15 +23,15 @@ export default function flipClockTabDataFieldsTest() {
   describe('FlipClockTabDataFieldsTest', () => {
 
     /**
-     * @tc.name   testFlipClockTabField0000
+     * @tc.name   ohos.samples.flipclock_TabDataFields_0001
      * @tc.number SUB_FLIP_CLOCK_MORE4_TABFIELD_0000
      * @tc.desc   Verify tab field variant 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockTabField0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0000 begin');
+    it('ohos.samples.flipclock_TabDataFields_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0001 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tabArray[0].num), String(0));
       expect(tabArray[0].num).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[0].icon !== undefined));
@@ -40,19 +40,19 @@ export default function flipClockTabDataFieldsTest() {
         expect(tabArray[0].text !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[0].icon_after !== undefined));
         expect(tabArray[0].icon_after !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockTabField0001
+     * @tc.name   ohos.samples.flipclock_TabDataFields_0002
      * @tc.number SUB_FLIP_CLOCK_MORE4_TABFIELD_0001
      * @tc.desc   Verify tab field variant 1.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockTabField0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0001 begin');
+    it('ohos.samples.flipclock_TabDataFields_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0002 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tabArray[1].num), String(1));
       expect(tabArray[1].num).assertEqual(1);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[1].icon !== undefined));
@@ -61,19 +61,19 @@ export default function flipClockTabDataFieldsTest() {
         expect(tabArray[1].text !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[1].icon_after !== undefined));
         expect(tabArray[1].icon_after !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockTabField0002
+     * @tc.name   ohos.samples.flipclock_TabDataFields_0003
      * @tc.number SUB_FLIP_CLOCK_MORE4_TABFIELD_0002
      * @tc.desc   Verify tab field variant 2.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockTabField0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0002 begin');
+    it('ohos.samples.flipclock_TabDataFields_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0003 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tabArray[2].num), String(2));
       expect(tabArray[2].num).assertEqual(2);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[2].icon !== undefined));
@@ -82,19 +82,19 @@ export default function flipClockTabDataFieldsTest() {
         expect(tabArray[2].text !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[2].icon_after !== undefined));
         expect(tabArray[2].icon_after !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockTabField0003
+     * @tc.name   ohos.samples.flipclock_TabDataFields_0004
      * @tc.number SUB_FLIP_CLOCK_MORE4_TABFIELD_0003
      * @tc.desc   Verify tab field variant 3.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockTabField0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0003 begin');
+    it('ohos.samples.flipclock_TabDataFields_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0004 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tabArray[3].num), String(3));
       expect(tabArray[3].num).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[3].icon !== undefined));
@@ -103,19 +103,19 @@ export default function flipClockTabDataFieldsTest() {
         expect(tabArray[3].text !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[3].icon_after !== undefined));
         expect(tabArray[3].icon_after !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockTabField0004
+     * @tc.name   ohos.samples.flipclock_TabDataFields_0005
      * @tc.number SUB_FLIP_CLOCK_MORE4_TABFIELD_0004
      * @tc.desc   Verify tab field variant 4.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockTabField0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0004 begin');
+    it('ohos.samples.flipclock_TabDataFields_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0005 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tabArray[0].num), String(0));
       expect(tabArray[0].num).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[0].icon !== undefined));
@@ -124,19 +124,19 @@ export default function flipClockTabDataFieldsTest() {
         expect(tabArray[0].text !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[0].icon_after !== undefined));
         expect(tabArray[0].icon_after !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockTabField0005
+     * @tc.name   ohos.samples.flipclock_TabDataFields_0006
      * @tc.number SUB_FLIP_CLOCK_MORE4_TABFIELD_0005
      * @tc.desc   Verify tab field variant 5.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockTabField0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0005 begin');
+    it('ohos.samples.flipclock_TabDataFields_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0006 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tabArray[1].num), String(1));
       expect(tabArray[1].num).assertEqual(1);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[1].icon !== undefined));
@@ -145,19 +145,19 @@ export default function flipClockTabDataFieldsTest() {
         expect(tabArray[1].text !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[1].icon_after !== undefined));
         expect(tabArray[1].icon_after !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockTabField0006
+     * @tc.name   ohos.samples.flipclock_TabDataFields_0007
      * @tc.number SUB_FLIP_CLOCK_MORE4_TABFIELD_0006
      * @tc.desc   Verify tab field variant 6.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockTabField0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0006 begin');
+    it('ohos.samples.flipclock_TabDataFields_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0007 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tabArray[2].num), String(2));
       expect(tabArray[2].num).assertEqual(2);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[2].icon !== undefined));
@@ -166,19 +166,19 @@ export default function flipClockTabDataFieldsTest() {
         expect(tabArray[2].text !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[2].icon_after !== undefined));
         expect(tabArray[2].icon_after !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockTabField0007
+     * @tc.name   ohos.samples.flipclock_TabDataFields_0008
      * @tc.number SUB_FLIP_CLOCK_MORE4_TABFIELD_0007
      * @tc.desc   Verify tab field variant 7.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockTabField0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0007 begin');
+    it('ohos.samples.flipclock_TabDataFields_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0008 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tabArray[3].num), String(3));
       expect(tabArray[3].num).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[3].icon !== undefined));
@@ -187,7 +187,7 @@ export default function flipClockTabDataFieldsTest() {
         expect(tabArray[3].text !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(tabArray[3].icon_after !== undefined));
         expect(tabArray[3].icon_after !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabField0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_TabDataFields_0008 end');
     })
   })
 }

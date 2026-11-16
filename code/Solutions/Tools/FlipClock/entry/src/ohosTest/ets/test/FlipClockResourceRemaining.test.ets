@@ -24,15 +24,15 @@ export default function flipClockResourceRemainingTest() {
   describe('FlipClockResourceRemainingTest', () => {
 
     /**
-     * @tc.name   testFlipClockResourceRemain0001
+     * @tc.name   ohos.samples.flipclock_ResourceRemaining_0001
      * @tc.number SUB_FLIP_CLOCK_MORE5_RES_0001
      * @tc.desc   Load the support lock resource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockResourceRemain0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0001 begin');
+    it('ohos.samples.flipclock_ResourceRemaining_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0001 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('supportLock');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
@@ -40,19 +40,19 @@ export default function flipClockResourceRemainingTest() {
         expect(v === 'supportLock').assertFalse();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockResourceRemain0002
+     * @tc.name   ohos.samples.flipclock_ResourceRemaining_0002
      * @tc.number SUB_FLIP_CLOCK_MORE5_RES_0002
      * @tc.desc   Load the unsupported lock resource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockResourceRemain0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0002 begin');
+    it('ohos.samples.flipclock_ResourceRemaining_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0002 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('unsupportLock');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
@@ -60,19 +60,19 @@ export default function flipClockResourceRemainingTest() {
         expect(v === 'unsupportLock').assertFalse();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockResourceRemain0003
+     * @tc.name   ohos.samples.flipclock_ResourceRemaining_0003
      * @tc.number SUB_FLIP_CLOCK_MORE5_RES_0003
      * @tc.desc   Load the stop sleep resource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockResourceRemain0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0003 begin');
+    it('ohos.samples.flipclock_ResourceRemaining_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0003 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('stopSleep');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
@@ -80,19 +80,19 @@ export default function flipClockResourceRemainingTest() {
         expect(v === 'stopSleep').assertFalse();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockResourceRemain0004
+     * @tc.name   ohos.samples.flipclock_ResourceRemaining_0004
      * @tc.number SUB_FLIP_CLOCK_MORE5_RES_0004
      * @tc.desc   Load the turn sleep resource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockResourceRemain0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0004 begin');
+    it('ohos.samples.flipclock_ResourceRemaining_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0004 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('turnSleep');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
@@ -100,19 +100,19 @@ export default function flipClockResourceRemainingTest() {
         expect(v === 'turnSleep').assertFalse();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockResourceRemain0005
+     * @tc.name   ohos.samples.flipclock_ResourceRemaining_0005
      * @tc.number SUB_FLIP_CLOCK_MORE5_RES_0005
      * @tc.desc   Load the screen quenching resource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockResourceRemain0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0005 begin');
+    it('ohos.samples.flipclock_ResourceRemaining_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0005 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('screen_quenching');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
@@ -120,19 +120,19 @@ export default function flipClockResourceRemainingTest() {
         expect(v === 'screen_quenching').assertFalse();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockResourceRemain0006
+     * @tc.name   ohos.samples.flipclock_ResourceRemaining_0006
      * @tc.number SUB_FLIP_CLOCK_MORE5_RES_0006
      * @tc.desc   Load the entry main ability resource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockResourceRemain0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0006 begin');
+    it('ohos.samples.flipclock_ResourceRemaining_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0006 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('entry_MainAbility');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
@@ -140,19 +140,19 @@ export default function flipClockResourceRemainingTest() {
         expect(v === 'entry_MainAbility').assertFalse();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockResourceRemain0007
+     * @tc.name   ohos.samples.flipclock_ResourceRemaining_0007
      * @tc.number SUB_FLIP_CLOCK_MORE5_RES_0007
      * @tc.desc   Load the main ability description resource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockResourceRemain0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0007 begin');
+    it('ohos.samples.flipclock_ResourceRemaining_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0007 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('description_mainability');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
@@ -160,19 +160,19 @@ export default function flipClockResourceRemainingTest() {
         expect(v === 'description_mainability').assertFalse();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockResourceRemain0008
+     * @tc.name   ohos.samples.flipclock_ResourceRemaining_0008
      * @tc.number SUB_FLIP_CLOCK_MORE5_RES_0008
      * @tc.desc   Load the setting title resource.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockResourceRemain0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0008 begin');
+    it('ohos.samples.flipclock_ResourceRemaining_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0008 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('setting');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
@@ -180,7 +180,7 @@ export default function flipClockResourceRemainingTest() {
         expect(v === 'setting').assertFalse();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceRemain0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ResourceRemaining_0008 end');
     })
   })
 }
