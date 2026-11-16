@@ -33,11 +33,11 @@ export default function flipClockContactModelMoreTest() {
     it('testFlipClockContactMore20000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20000 begin');
       const c: Contact = new Contact('key0', 'value0', 0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.key).assertEqual(\'key0\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.key), String('key0'));
         expect(c.key).assertEqual('key0');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.value).assertEqual(\'value0\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.value), String('value0'));
         expect(c.value).assertEqual('value0');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.reminderId).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.reminderId), String(0));
         expect(c.reminderId).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20000 end');
     })
@@ -53,11 +53,11 @@ export default function flipClockContactModelMoreTest() {
     it('testFlipClockContactMore20001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20001 begin');
       const c: Contact = new Contact('key1', 'value1', 1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.key).assertEqual(\'key1\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.key), String('key1'));
         expect(c.key).assertEqual('key1');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.value).assertEqual(\'value1\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.value), String('value1'));
         expect(c.value).assertEqual('value1');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.reminderId).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.reminderId), String(1));
         expect(c.reminderId).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20001 end');
     })
@@ -73,11 +73,11 @@ export default function flipClockContactModelMoreTest() {
     it('testFlipClockContactMore20002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20002 begin');
       const c: Contact = new Contact('key2', 'value2', 2);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.key).assertEqual(\'key2\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.key), String('key2'));
         expect(c.key).assertEqual('key2');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.value).assertEqual(\'value2\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.value), String('value2'));
         expect(c.value).assertEqual('value2');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.reminderId).assertEqual(2);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.reminderId), String(2));
         expect(c.reminderId).assertEqual(2);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20002 end');
     })
@@ -93,11 +93,11 @@ export default function flipClockContactModelMoreTest() {
     it('testFlipClockContactMore20003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20003 begin');
       const c: Contact = new Contact('key3', 'value3', 3);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.key).assertEqual(\'key3\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.key), String('key3'));
         expect(c.key).assertEqual('key3');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.value).assertEqual(\'value3\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.value), String('value3'));
         expect(c.value).assertEqual('value3');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.reminderId).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.reminderId), String(3));
         expect(c.reminderId).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20003 end');
     })
@@ -113,11 +113,11 @@ export default function flipClockContactModelMoreTest() {
     it('testFlipClockContactMore20004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20004 begin');
       const c: Contact = new Contact('key4', 'value4', 4);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.key).assertEqual(\'key4\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.key), String('key4'));
         expect(c.key).assertEqual('key4');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.value).assertEqual(\'value4\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.value), String('value4'));
         expect(c.value).assertEqual('value4');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.reminderId).assertEqual(4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.reminderId), String(4));
         expect(c.reminderId).assertEqual(4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20004 end');
     })
@@ -133,11 +133,11 @@ export default function flipClockContactModelMoreTest() {
     it('testFlipClockContactMore20005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20005 begin');
       const c: Contact = new Contact('key5', 'value5', 5);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.key).assertEqual(\'key5\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.key), String('key5'));
         expect(c.key).assertEqual('key5');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.value).assertEqual(\'value5\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.value), String('value5'));
         expect(c.value).assertEqual('value5');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.reminderId).assertEqual(5);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.reminderId), String(5));
         expect(c.reminderId).assertEqual(5);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20005 end');
     })
@@ -153,11 +153,11 @@ export default function flipClockContactModelMoreTest() {
     it('testFlipClockContactMore20006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20006 begin');
       const c: Contact = new Contact('key6', 'value6', 6);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.key).assertEqual(\'key6\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.key), String('key6'));
         expect(c.key).assertEqual('key6');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.value).assertEqual(\'value6\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.value), String('value6'));
         expect(c.value).assertEqual('value6');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.reminderId).assertEqual(6);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.reminderId), String(6));
         expect(c.reminderId).assertEqual(6);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20006 end');
     })
@@ -173,11 +173,11 @@ export default function flipClockContactModelMoreTest() {
     it('testFlipClockContactMore20007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20007 begin');
       const c: Contact = new Contact('key7', 'value7', 7);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.key).assertEqual(\'key7\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.key), String('key7'));
         expect(c.key).assertEqual('key7');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.value).assertEqual(\'value7\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.value), String('value7'));
         expect(c.value).assertEqual('value7');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(c.reminderId).assertEqual(7);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(c.reminderId), String(7));
         expect(c.reminderId).assertEqual(7);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactMore20007 end');
     })

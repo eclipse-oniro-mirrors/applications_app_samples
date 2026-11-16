@@ -34,11 +34,11 @@ export default function shakeLiveFormResourceTest() {
     it('testShakeResource001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource001 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('module_desc');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'module_desc\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v === 'module_desc'));
         expect(v === 'module_desc').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource001 end');
     })
@@ -54,11 +54,11 @@ export default function shakeLiveFormResourceTest() {
     it('testShakeResource002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource002 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('EntryAbility_desc');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'EntryAbility_desc\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v === 'EntryAbility_desc'));
         expect(v === 'EntryAbility_desc').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource002 end');
     })
@@ -74,11 +74,11 @@ export default function shakeLiveFormResourceTest() {
     it('testShakeResource003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource003 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('EntryAbility_label');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'EntryAbility_label\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v === 'EntryAbility_label'));
         expect(v === 'EntryAbility_label').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource003 end');
     })
@@ -94,11 +94,11 @@ export default function shakeLiveFormResourceTest() {
     it('testShakeResource004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource004 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('EntryFormAbility_desc');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'EntryFormAbility_desc\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v === 'EntryFormAbility_desc'));
         expect(v === 'EntryFormAbility_desc').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource004 end');
     })
@@ -114,11 +114,11 @@ export default function shakeLiveFormResourceTest() {
     it('testShakeResource005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource005 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('EntryFormAbility_label');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'EntryFormAbility_label\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v === 'EntryFormAbility_label'));
         expect(v === 'EntryFormAbility_label').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource005 end');
     })
@@ -134,11 +134,11 @@ export default function shakeLiveFormResourceTest() {
     it('testShakeResource006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource006 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('demoCard_desc');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'demoCard_desc\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v === 'demoCard_desc'));
         expect(v === 'demoCard_desc').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource006 end');
     })
@@ -154,11 +154,11 @@ export default function shakeLiveFormResourceTest() {
     it('testShakeResource007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource007 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('demoCard_display_name');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'demoCard_display_name\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v === 'demoCard_display_name'));
         expect(v === 'demoCard_display_name').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource007 end');
     })
@@ -174,11 +174,11 @@ export default function shakeLiveFormResourceTest() {
     it('testShakeResource008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource008 begin');
       const v: string = ctx.resourceManager.getStringByNameSync('app_name');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v.length > 0));
         expect(v.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v === \'app_name\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(v === 'app_name'));
         expect(v === 'app_name').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(v).assertEqual(v.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(v), String(v.trim()));
         expect(v).assertEqual(v.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeResource008 end');
     })

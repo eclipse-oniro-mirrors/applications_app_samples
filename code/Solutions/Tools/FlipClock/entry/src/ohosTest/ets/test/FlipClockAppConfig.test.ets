@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import bundleManager from '@ohos.bundle.bundleManager';
+import { bundleManager } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
@@ -34,11 +34,11 @@ export default function flipClockAppConfigTest() {
      */
     it('testFlipClockConfigIdentity001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigIdentity001 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'ohos.samples.flipclock\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('ohos.samples.flipclock'));
       expect(info.name).assertEqual('ohos.samples.flipclock');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionCode), String(1000000));
         expect(info.versionCode).assertEqual(1000000);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigIdentity001 end');
     })
@@ -57,11 +57,11 @@ export default function flipClockAppConfigTest() {
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
           if (info.hapModulesInfo[i].name === 'entry') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[i].deviceTypes.includes(\'default\')).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[i].deviceTypes.includes('default')));
         expect(info.hapModulesInfo[i].deviceTypes.includes('default')).assertTrue();
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigModule002 end');
     })
@@ -82,12 +82,12 @@ export default function flipClockAppConfigTest() {
           module = info.hapModulesInfo[i];
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module !== undefined).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(module !== undefined));
           expect(module !== undefined).assertTrue();
         const mod: bundleManager.HapModuleInfo = module as bundleManager.HapModuleInfo;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.deviceTypes.includes(\'tablet\')).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(mod.deviceTypes.includes('tablet')));
         expect(mod.deviceTypes.includes('tablet')).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.deviceTypes.length >= 2).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(mod.deviceTypes.length >= 2));
         expect(mod.deviceTypes.length >= 2).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigDevice003 end');
     })
@@ -108,12 +108,12 @@ export default function flipClockAppConfigTest() {
         for (let j: number = 0; j < a.length; j++) {
           if (a[j].name === 'EntryAbility') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a[j].exported));
         expect(a[j].exported).assertTrue();
         }
           }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigAbility004 end');
     })
@@ -128,11 +128,11 @@ export default function flipClockAppConfigTest() {
      */
     it('testFlipClockConfigAppIcon005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigAppIcon005 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'ohos.samples.flipclock\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('ohos.samples.flipclock'));
         expect(info.appInfo.name).assertEqual('ohos.samples.flipclock');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigAppIcon005 end');
     })
@@ -151,9 +151,9 @@ export default function flipClockAppConfigTest() {
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
         }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(names.has(\'ohos.permission.PUBLISH_AGENT_REMINDER\')).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(names.has('ohos.permission.PUBLISH_AGENT_REMINDER')));
           expect(names.has('ohos.permission.PUBLISH_AGENT_REMINDER')).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length >= 3).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 3));
         expect(info.reqPermissionDetails.length >= 3).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission006 end');
     })
@@ -172,9 +172,9 @@ export default function flipClockAppConfigTest() {
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
         }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(names.has(\'ohos.permission.READ_CALENDAR\')).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(names.has('ohos.permission.READ_CALENDAR')));
           expect(names.has('ohos.permission.READ_CALENDAR')).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length >= 3).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 3));
         expect(info.reqPermissionDetails.length >= 3).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission007 end');
     })
@@ -193,9 +193,9 @@ export default function flipClockAppConfigTest() {
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
         }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(names.has(\'ohos.permission.WRITE_CALENDAR\')).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(names.has('ohos.permission.WRITE_CALENDAR')));
           expect(names.has('ohos.permission.WRITE_CALENDAR')).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length >= 3).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 3));
         expect(info.reqPermissionDetails.length >= 3).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission008 end');
     })
@@ -213,13 +213,13 @@ export default function flipClockAppConfigTest() {
       for (let i: number = 0; i < info.reqPermissionDetails.length; i++) {
         const item = info.reqPermissionDetails[i];
         if (item.name.includes('CALENDAR')) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.reason.length > 0).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.reason.length > 0));
           expect(item.reason.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.when.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.when.length > 0));
         expect(item.usedScene.when.length > 0).assertTrue();
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length >= 3).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 3));
           expect(info.reqPermissionDetails.length >= 3).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermissionScene009 end');
     })
@@ -240,12 +240,12 @@ export default function flipClockAppConfigTest() {
           module = info.hapModulesInfo[i];
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module !== undefined).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(module !== undefined));
           expect(module !== undefined).assertTrue();
         const mod: bundleManager.HapModuleInfo = module as bundleManager.HapModuleInfo;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.name).assertEqual(\'entry\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(mod.name), String('entry'));
         expect(mod.name).assertEqual('entry');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.installationFree).assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(mod.installationFree));
         expect(mod.installationFree).assertFalse();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigModuleFlags010 end');
     })

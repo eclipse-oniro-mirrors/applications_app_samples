@@ -14,10 +14,10 @@
  */
 
 import { afterEach, beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Component, Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { Component, Driver, ON } from '@kit.TestKit';
+import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import fileIo from '@ohos.file.fs';
+import { fileIo } from '@kit.CoreFileKit';
 import { Contact, ContactSource, MyDataSource } from '../../../main/ets/common/DataSource';
 import { tabArray } from '../../../main/ets/mock/TabData';
 const LOG_DOMAIN: number = 0xF811;
@@ -317,18 +317,18 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await ensureClockTab(driver)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await ensureClockTab(driver)));
           expect(await ensureClockTab(driver)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await existsById(driver, \'currentTimeBox\')).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await existsById(driver, 'currentTimeBox')));
           expect(await existsById(driver, 'currentTimeBox')).assertTrue();
           for (let i = 0; i < 4; i++) {
-            hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await existsById(driver, `tab${i}`)).assertTrue();');
+            hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await existsById(driver, `tab${i}`)));
             expect(await existsById(driver, `tab${i}`)).assertTrue();
           }
         }
           catch (err) {
           log(`testFlipClockLaunch0001 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -350,20 +350,20 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await ensureClockTab(driver)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await ensureClockTab(driver)));
           expect(await ensureClockTab(driver)).assertTrue();
           const digits: string = await readDigits(driver);
           log(`digits=${digits}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(digits.length).assertEqual(6);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(digits.length), String(6));
           expect(digits.length).assertEqual(6);
           const hour: number = parseInt(digits.substring(0, 2), 10);
           const minute: number = parseInt(digits.substring(2, 4), 10);
           const second: number = parseInt(digits.substring(4, 6), 10);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(hour < 24).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(hour < 24));
           expect(hour < 24).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(minute < 60).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(minute < 60));
           expect(minute < 60).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second < 60).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(second < 60));
           expect(second < 60).assertTrue();
           const now: Date = new Date();
           const nowSeconds: number = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
@@ -373,19 +373,19 @@ export default function abilityTest() {
             diff = 86400 - diff;
           }
           log(`digits=${digits}, diff=${diff}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(diff <= 5).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(diff <= 5));
           expect(diff <= 5).assertTrue();
           await sleep(1500);
           const nextDigits: string = await readDigits(driver);
           log(`nextDigits=${nextDigits}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(nextDigits.length).assertEqual(6);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(nextDigits.length), String(6));
           expect(nextDigits.length).assertEqual(6);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(nextDigits === digits).assertFalse();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(nextDigits === digits));
           expect(nextDigits === digits).assertFalse();
         }
           catch (err) {
           log(`testFlipClockDigits0002 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -407,28 +407,28 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 0)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 0)));
           expect(await clickTab(driver, 0)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await existsById(driver, \'currentTimeBox\')).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await existsById(driver, 'currentTimeBox')));
           expect(await existsById(driver, 'currentTimeBox')).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 1)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 1)));
           expect(await clickTab(driver, 1)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await existsById(driver, \'add\')).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await existsById(driver, 'add')));
           expect(await existsById(driver, 'add')).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 2)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
           expect(await clickTab(driver, 2)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await existsById(driver, \'countdownTime\')).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await existsById(driver, 'countdownTime')));
           expect(await existsById(driver, 'countdownTime')).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 3)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
           expect(await clickTab(driver, 3)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await waitForId(driver, \'fullScreenToggle\', 5)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await waitForId(driver, 'fullScreenToggle', 5)));
           expect(await waitForId(driver, 'fullScreenToggle', 5)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 0)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 0)));
           expect(await clickTab(driver, 0)).assertTrue();
         }
           catch (err) {
           log(`testFlipClockTabSwitch0003 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -450,46 +450,46 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 1)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 1)));
           expect(await clickTab(driver, 1)).assertTrue();
           await clearAlarms(driver);
           const addClicked: boolean = await clickId(driver, 'add', 3000);
           log(`alarm add clicked=${addClicked}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(addClicked).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(addClicked));
           expect(addClicked).assertTrue();
           await sleep(800);
           const picker: Component = await driver.waitForComponent(ON.id('timePicker'), 3000);
           const pickerFound: boolean = await existsById(driver, 'timePicker');
           log(`alarm picker found=${pickerFound}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(pickerFound).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(pickerFound));
           expect(pickerFound).assertTrue();
           const center = await picker.getBoundsCenter();
           await driver.swipe(center.x, center.y, center.x, center.y - 60, 600);
           await sleep(800);
           const yesClicked: boolean = await clickId(driver, 'yes', 3000);
           log(`alarm yes clicked=${yesClicked}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(yesClicked).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(yesClicked));
           expect(yesClicked).assertTrue();
           await sleep(1200);
           const deleteBefore: Component = await driver.findComponent(ON.id('deleteAlarmClock'));
           const deleteBeforeFound: boolean = await waitForId(driver, 'deleteAlarmClock', 5);
           log(`alarm deleteBefore=${deleteBeforeFound}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(deleteBeforeFound).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(deleteBeforeFound));
           expect(deleteBeforeFound).assertTrue();
           const alarmStored: boolean = await waitForStorageAlarm(true, 20);
           log(`alarm storage before delete ready=${alarmStored}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(alarmStored).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(alarmStored));
           expect(alarmStored).assertTrue();
           await deleteBefore.click();
           await sleep(500);
           const alarmRemoved: boolean = await waitForStorageAlarm(false, 20);
           log(`alarm storage after delete ready=${alarmRemoved}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(alarmRemoved).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(alarmRemoved));
           expect(alarmRemoved).assertTrue();
         }
           catch (err) {
           log(`testFlipClockAlarm0004 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -511,22 +511,22 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 2)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
           expect(await clickTab(driver, 2)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'reset\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'reset', 3000)));
           expect(await clickId(driver, 'reset', 3000)).assertTrue();
           await sleep(500);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await getTextById(driver, \'countdownTime\')).assertEqual(\'00:00:00\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(await getTextById(driver, 'countdownTime')), String('00:00:00'));
           expect(await getTextById(driver, 'countdownTime')).assertEqual('00:00:00');
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'start\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'start', 3000)));
           expect(await clickId(driver, 'start', 3000)).assertTrue();
           await sleep(1500);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await getTextById(driver, \'countdownTime\')).assertEqual(\'00:00:00\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(await getTextById(driver, 'countdownTime')), String('00:00:00'));
           expect(await getTextById(driver, 'countdownTime')).assertEqual('00:00:00');
         }
           catch (err) {
           log(`testFlipClockCountDownZero0005 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -548,35 +548,35 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 2)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
           expect(await clickTab(driver, 2)).assertTrue();
           const runningText: string = await startCountdown(driver, 'minute', 1, 3, 0);
           log(`countdown running text=${runningText}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(runningText === \'00:00:00\').assertFalse();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(runningText === '00:00:00'));
           expect(runningText === '00:00:00').assertFalse();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'start\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'start', 3000)));
           expect(await clickId(driver, 'start', 3000)).assertTrue();
           await sleep(800);
           const pausedText: string = await getTextById(driver, 'countdownTime');
           await sleep(1500);
           const pausedAgain: string = await getTextById(driver, 'countdownTime');
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(pausedAgain).assertEqual(pausedText);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(pausedAgain), String(pausedText));
           expect(pausedAgain).assertEqual(pausedText);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'start\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'start', 3000)));
           expect(await clickId(driver, 'start', 3000)).assertTrue();
           await sleep(2000);
           const resumedText: string = await getTextById(driver, 'countdownTime');
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(toSeconds(resumedText) < toSeconds(pausedText)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(toSeconds(resumedText) < toSeconds(pausedText)));
           expect(toSeconds(resumedText) < toSeconds(pausedText)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'reset\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'reset', 3000)));
           expect(await clickId(driver, 'reset', 3000)).assertTrue();
           await sleep(800);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await getTextById(driver, \'countdownTime\')).assertEqual(\'00:00:00\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(await getTextById(driver, 'countdownTime')), String('00:00:00'));
           expect(await getTextById(driver, 'countdownTime')).assertEqual('00:00:00');
         }
           catch (err) {
           log(`testFlipClockCountDownFlow0006 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -598,17 +598,17 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 3)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
           expect(await clickTab(driver, 3)).assertTrue();
           const ids: string[] = ['fullScreenToggle', 'screenLight', 'brightness', 'brightnessValue'];
           for (let i = 0; i < ids.length; i++) {
-            hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await waitForId(driver, ids[i], 10)).assertTrue();');
+            hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await waitForId(driver, ids[i], 10)));
             expect(await waitForId(driver, ids[i], 10)).assertTrue();
           }
         }
           catch (err) {
           log(`testFlipClockSetting0007 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -630,32 +630,32 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const source: MyDataSource = new MyDataSource([...tabArray]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(4));
           expect(source.totalCount()).assertEqual(4);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
           expect(source.getData(0).num).assertEqual(0);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3).num).assertEqual(3);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(3).num), String(3));
           expect(source.getData(3).num).assertEqual(3);
           source.pushData(tabArray[0]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(5);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(5));
           expect(source.totalCount()).assertEqual(5);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(4).num).assertEqual(0);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(4).num), String(0));
           expect(source.getData(4).num).assertEqual(0);
           source.deleteData(4);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(4));
           expect(source.totalCount()).assertEqual(4);
           source.replaceData([tabArray[1]]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
           expect(source.totalCount()).assertEqual(1);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(1);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(1));
           expect(source.getData(0).num).assertEqual(1);
           source.replaceData([]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
           expect(source.totalCount()).assertEqual(0);
         }
           catch (err) {
           log(`testFlipClockDataSource0008 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -679,32 +679,32 @@ export default function abilityTest() {
           const first: Contact = new Contact('a', 'A', 1);
           const second: Contact = new Contact('b', 'B', 2);
           const source: ContactSource = new ContactSource([first]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
           expect(source.totalCount()).assertEqual(1);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'a\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('a'));
           expect(source.getData(0).key).assertEqual('a');
           source.pushData(second);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(2));
           expect(source.totalCount()).assertEqual(2);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).value).assertEqual(\'B\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1).value), String('B'));
           expect(source.getData(1).value).assertEqual('B');
           source.deleteData(0);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
           expect(source.totalCount()).assertEqual(1);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'b\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('b'));
           expect(source.getData(0).key).assertEqual('b');
           source.replaceData([first]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
           expect(source.totalCount()).assertEqual(1);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).reminderId).assertEqual(1);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).reminderId), String(1));
           expect(source.getData(0).reminderId).assertEqual(1);
           source.replaceData([]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
           expect(source.totalCount()).assertEqual(0);
         }
           catch (err) {
           log(`testFlipClockContactSource0009 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -726,27 +726,27 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 1)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 1)));
           expect(await clickTab(driver, 1)).assertTrue();
           await clearAlarms(driver);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'add\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'add', 3000)));
           expect(await clickId(driver, 'add', 3000)).assertTrue();
           await sleep(800);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await waitForId(driver, \'timePicker\', 5)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await waitForId(driver, 'timePicker', 5)));
           expect(await waitForId(driver, 'timePicker', 5)).assertTrue();
           const noClicked: boolean = await clickId(driver, 'no', 3000);
           log(`alarm cancel no clicked=${noClicked}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(noClicked).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(noClicked));
           expect(noClicked).assertTrue();
           await sleep(1000);
           const noAlarm: boolean = await waitForStorageAlarm(false, 10);
           log(`alarm cancel storage noAlarm=${noAlarm}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(noAlarm).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(noAlarm));
           expect(noAlarm).assertTrue();
         }
           catch (err) {
           log(`testFlipClockAlarmCancel0010 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -768,33 +768,33 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 2)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
           expect(await clickTab(driver, 2)).assertTrue();
           const runningText: string = await startCountdown(driver, 'minute', 1, 3, 0);
           log(`countdown running text=${runningText}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(runningText === \'00:00:00\').assertFalse();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(runningText === '00:00:00'));
           expect(runningText === '00:00:00').assertFalse();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'start\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'start', 3000)));
           expect(await clickId(driver, 'start', 3000)).assertTrue();
           await sleep(800);
           const pausedText: string = await getTextById(driver, 'countdownTime');
           log(`countdown paused text=${pausedText}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(pausedText === \'00:00:00\').assertFalse();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(pausedText === '00:00:00'));
           expect(pausedText === '00:00:00').assertFalse();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'reset\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'reset', 3000)));
           expect(await clickId(driver, 'reset', 3000)).assertTrue();
           await sleep(800);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await getTextById(driver, \'countdownTime\')).assertEqual(\'00:00:00\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(await getTextById(driver, 'countdownTime')), String('00:00:00'));
           expect(await getTextById(driver, 'countdownTime')).assertEqual('00:00:00');
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickId(driver, \'start\', 3000)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickId(driver, 'start', 3000)));
           expect(await clickId(driver, 'start', 3000)).assertTrue();
           await sleep(1500);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await getTextById(driver, \'countdownTime\')).assertEqual(\'00:00:00\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(await getTextById(driver, 'countdownTime')), String('00:00:00'));
           expect(await getTextById(driver, 'countdownTime')).assertEqual('00:00:00');
         }
           catch (err) {
           log(`testFlipClockCountDownReset0011 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -816,28 +816,28 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const source: MyDataSource = new MyDataSource([]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
           expect(source.totalCount()).assertEqual(0);
           source.pushData(tabArray[2]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
           expect(source.totalCount()).assertEqual(1);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(2);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(2));
           expect(source.getData(0).num).assertEqual(2);
           source.deleteData(0);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
           expect(source.totalCount()).assertEqual(0);
           source.replaceData([tabArray[0], tabArray[1]]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(2));
           expect(source.totalCount()).assertEqual(2);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).num).assertEqual(1);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1).num), String(1));
           expect(source.getData(1).num).assertEqual(1);
           source.replaceData([]);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
           expect(source.totalCount()).assertEqual(0);
         }
           catch (err) {
           log(`testFlipClockDataSourceBoundary0012 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -859,13 +859,13 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 2)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
           expect(await clickTab(driver, 2)).assertTrue();
           const runningText: string = await startCountdown(driver, 'second', 1, 4, 8);
           log(`countdown running text=${runningText}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(runningText === \'00:00:00\').assertFalse();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(runningText === '00:00:00'));
           expect(runningText === '00:00:00').assertFalse();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(toSeconds(runningText) <= 8).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(toSeconds(runningText) <= 8));
           expect(toSeconds(runningText) <= 8).assertTrue();
           const expectedSeconds: number = toSeconds(runningText);
           let finished: boolean = false;
@@ -879,15 +879,15 @@ export default function abilityTest() {
             }
           }
           log(`countdown finished=${finished}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(finished).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(finished));
           expect(finished).assertTrue();
           await sleep(800);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await getTextById(driver, \'countdownTime\')).assertEqual(\'00:00:00\');');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(await getTextById(driver, 'countdownTime')), String('00:00:00'));
           expect(await getTextById(driver, 'countdownTime')).assertEqual('00:00:00');
         }
           catch (err) {
           log(`testFlipClockCountDownFinish0013 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -909,16 +909,16 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 3)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
           expect(await clickTab(driver, 3)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await ensureToggleChecked(driver, \'fullScreenToggle\', true)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await ensureToggleChecked(driver, 'fullScreenToggle', true)));
           expect(await ensureToggleChecked(driver, 'fullScreenToggle', true)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await ensureToggleChecked(driver, \'fullScreenToggle\', false)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await ensureToggleChecked(driver, 'fullScreenToggle', false)));
           expect(await ensureToggleChecked(driver, 'fullScreenToggle', false)).assertTrue();
         }
           catch (err) {
           log(`testFlipClockSettingFullScreen0014 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -940,16 +940,16 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 3)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
           expect(await clickTab(driver, 3)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await ensureToggleChecked(driver, \'screenLight\', true)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await ensureToggleChecked(driver, 'screenLight', true)));
           expect(await ensureToggleChecked(driver, 'screenLight', true)).assertTrue();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await ensureToggleChecked(driver, \'screenLight\', false)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await ensureToggleChecked(driver, 'screenLight', false)));
           expect(await ensureToggleChecked(driver, 'screenLight', false)).assertTrue();
         }
           catch (err) {
           log(`testFlipClockSettingScreenLight0015 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
@@ -971,25 +971,25 @@ export default function abilityTest() {
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await clickTab(driver, 3)).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
           expect(await clickTab(driver, 3)).assertTrue();
           const slider: Component = await driver.waitForComponent(ON.id('brightness'), 3000);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await existsById(driver, \'brightness\')).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await existsById(driver, 'brightness')));
           expect(await existsById(driver, 'brightness')).assertTrue();
           const initialText: string = await getTextById(driver, 'brightnessValue');
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(parseInt(initialText, 10)).assertEqual(40);');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(parseInt(initialText, 10)), String(40));
           expect(parseInt(initialText, 10)).assertEqual(40);
           const center = await slider.getBoundsCenter();
           await driver.swipe(center.x, center.y, center.x + 80, center.y, 600);
           await sleep(500);
           const valueText: string = await getTextById(driver, 'brightnessValue');
           log(`brightness value=${valueText}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(parseInt(valueText, 10) > 40).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(parseInt(valueText, 10) > 40));
           expect(parseInt(valueText, 10) > 40).assertTrue();
         }
           catch (err) {
           log(`testFlipClockSettingBrightness0016 failed: ${String(err)}`);
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect().assertFail();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', 'assertFail');
           expect().assertFail();
         }
           finally {
