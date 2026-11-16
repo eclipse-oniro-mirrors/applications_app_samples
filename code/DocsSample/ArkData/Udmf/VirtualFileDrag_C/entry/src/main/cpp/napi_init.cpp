@@ -27,6 +27,7 @@
 namespace {
 constexpr size_t CONFIG_ARGUMENT_COUNT = 3;
 constexpr size_t NODE_ARGUMENT_COUNT = 3;
+constexpr size_t LABEL_ARGUMENT_INDEX = 2;
 constexpr size_t MAX_LABEL_BYTES = 1024;
 constexpr float AREA_GAP = 20.0F;
 constexpr float DRAG_AREA_HEIGHT = 120.0F;
@@ -239,7 +240,7 @@ napi_value CreateNativeNode(napi_env env, napi_callback_info info)
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != NODE_ARGUMENT_COUNT ||
         OH_ArkUI_GetNodeContentFromNapiValue(env, args[0], &g_content) != 0 || g_content == nullptr ||
         napi_typeof(env, args[1], &callbackType) != napi_ok || callbackType != napi_function ||
-        !GetLabel(env, args[2], g_dropText)) {
+        !GetLabel(env, args[LABEL_ARGUMENT_INDEX], g_dropText)) {
         napi_throw_type_error(env, nullptr, "createNativeNode expects NodeContent, URI callback and drop label");
         return nullptr;
     }
@@ -267,7 +268,7 @@ napi_value Configure(napi_env env, napi_callback_info info)
     if (napi_get_cb_info(env, info, &count, args, nullptr, nullptr) != napi_ok || count != CONFIG_ARGUMENT_COUNT ||
         napi_get_value_bool(env, args[0], &directory) != napi_ok ||
         napi_get_value_bool(env, args[1], &compressed) != napi_ok ||
-        !GetLabel(env, args[2], sourceText)) {
+        !GetLabel(env, args[LABEL_ARGUMENT_INDEX], sourceText)) {
         napi_throw_type_error(env, nullptr, "configure expects two booleans and a source label");
         return nullptr;
     }

@@ -63,7 +63,7 @@ NODE_ON_DRAG_START
 | `OH_UdsFileUri_Create`、`OH_UdsFileUri_SetFileUri`、`OH_UdsFileUri_SetFileType` | 创建 FileUri，填写非空占位 URI 和文件类型；普通文件使用 general.file，目录使用 general.directory。 | `CreateVirtualDragData()` |
 | `OH_UDMF_SetFileUriVirtualEntry` | 将 VirtualFileInfo 附加到 FileUri，再通过 Record、Data 设置拖拽数据。 | `CreateVirtualDragData()` |
 | `OH_UDMF_ClearFileUriVirtualEntry` | 解除指定 FileUri 的附加关系，不影响此前已放入 Record 的独立引用。 | `CreateVirtualDragData()` 的临时对象清理 |
-| `OH_UDMF_DestroyVirtualItem`、`OH_UDMF_DestroyVirtualFileInfo` | 释放调用方持有的节点或包装对象；其他对象持有的独立引用仍然有效。 | `CreateFileItem()`、`AddChildAndDestroy()`、`CreateVirtualDragData()` |
+| `OH_UDMF_DestroyVirtualItem`、`OH_UDMF_DestroyVirtualFileInfo` | 释放调用方持有的节点或包装对象；关联对象持有的独立引用仍然有效。 | `CreateFileItem()`、`AddChildAndDestroy()`、`CreateVirtualDragData()` |
 | `OH_ArkUI_DragEvent_SetData` | 在起拖事件设置统一数据，并将该 Data 保留到拖拽结束。 | `napi_init.cpp`：`OnNodeEvent()` |
 | `OH_ArkUI_DragEvent_GetUdmfData`、`OH_UdmfRecord_GetFileUri`、`OH_UdsFileUri_GetFileUri` | 在落入事件提取 URI，销毁临时对象前复制字符串。 | `GetDroppedFileUris()` |
 
