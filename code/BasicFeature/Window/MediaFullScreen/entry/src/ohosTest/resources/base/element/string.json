@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_test_desc",
+      "value": "MediaFullScreen test ability description"
+    },
+    {
+      "name": "TestAbility_desc",
+      "value": "the media full screen test ability"
+    },
+    {
+      "name": "TestAbility_label",
+      "value": "media full screen test"
+    }
+  ]
+}
