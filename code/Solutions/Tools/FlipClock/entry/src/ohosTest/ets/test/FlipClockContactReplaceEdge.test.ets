@@ -23,15 +23,15 @@ export default function flipClockContactReplaceEdgeTest() {
   describe('FlipClockContactReplaceEdgeTest', () => {
 
     /**
-     * @tc.name   testFlipClockContactReplaceEdge0000
+     * @tc.name   ohos.samples.flipclock_ContactReplaceEdge_0001
      * @tc.number SUB_FLIP_CLOCK_EDGE_CREP_0000
      * @tc.desc   Replace contacts with 0 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactReplaceEdge0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0000 begin');
+    it('ohos.samples.flipclock_ContactReplaceEdge_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0001 begin');
       const source: ContactSource = new ContactSource([]);
         const next: Contact[] = [];
       for (let index: number = 0; index < 0; index++) {
@@ -42,19 +42,19 @@ export default function flipClockContactReplaceEdgeTest() {
         expect(source.totalCount()).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactReplaceEdge0001
+     * @tc.name   ohos.samples.flipclock_ContactReplaceEdge_0002
      * @tc.number SUB_FLIP_CLOCK_EDGE_CREP_0001
      * @tc.desc   Replace contacts with 1 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactReplaceEdge0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0001 begin');
+    it('ohos.samples.flipclock_ContactReplaceEdge_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0002 begin');
       const source: ContactSource = new ContactSource([]);
         const next: Contact[] = [];
       for (let index: number = 0; index < 1; index++) {
@@ -65,19 +65,19 @@ export default function flipClockContactReplaceEdgeTest() {
         expect(source.totalCount()).assertEqual(1);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactReplaceEdge0002
+     * @tc.name   ohos.samples.flipclock_ContactReplaceEdge_0003
      * @tc.number SUB_FLIP_CLOCK_EDGE_CREP_0002
      * @tc.desc   Replace contacts with 2 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactReplaceEdge0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0002 begin');
+    it('ohos.samples.flipclock_ContactReplaceEdge_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0003 begin');
       const source: ContactSource = new ContactSource([]);
         const next: Contact[] = [];
       for (let index: number = 0; index < 2; index++) {
@@ -88,19 +88,19 @@ export default function flipClockContactReplaceEdgeTest() {
         expect(source.totalCount()).assertEqual(2);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactReplaceEdge0003
+     * @tc.name   ohos.samples.flipclock_ContactReplaceEdge_0004
      * @tc.number SUB_FLIP_CLOCK_EDGE_CREP_0003
      * @tc.desc   Replace contacts with 3 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactReplaceEdge0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0003 begin');
+    it('ohos.samples.flipclock_ContactReplaceEdge_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0004 begin');
       const source: ContactSource = new ContactSource([]);
         const next: Contact[] = [];
       for (let index: number = 0; index < 3; index++) {
@@ -111,19 +111,19 @@ export default function flipClockContactReplaceEdgeTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactReplaceEdge0004
+     * @tc.name   ohos.samples.flipclock_ContactReplaceEdge_0005
      * @tc.number SUB_FLIP_CLOCK_EDGE_CREP_0004
      * @tc.desc   Replace contacts with 4 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactReplaceEdge0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0004 begin');
+    it('ohos.samples.flipclock_ContactReplaceEdge_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0005 begin');
       const source: ContactSource = new ContactSource([]);
         const next: Contact[] = [];
       for (let index: number = 0; index < 4; index++) {
@@ -134,19 +134,19 @@ export default function flipClockContactReplaceEdgeTest() {
         expect(source.totalCount()).assertEqual(4);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactReplaceEdge0005
+     * @tc.name   ohos.samples.flipclock_ContactReplaceEdge_0006
      * @tc.number SUB_FLIP_CLOCK_EDGE_CREP_0005
      * @tc.desc   Replace contacts with 5 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactReplaceEdge0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0005 begin');
+    it('ohos.samples.flipclock_ContactReplaceEdge_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0006 begin');
       const source: ContactSource = new ContactSource([]);
         const next: Contact[] = [];
       for (let index: number = 0; index < 5; index++) {
@@ -157,19 +157,19 @@ export default function flipClockContactReplaceEdgeTest() {
         expect(source.totalCount()).assertEqual(5);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactReplaceEdge0006
+     * @tc.name   ohos.samples.flipclock_ContactReplaceEdge_0007
      * @tc.number SUB_FLIP_CLOCK_EDGE_CREP_0006
      * @tc.desc   Replace contacts with 6 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactReplaceEdge0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0006 begin');
+    it('ohos.samples.flipclock_ContactReplaceEdge_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0007 begin');
       const source: ContactSource = new ContactSource([]);
         const next: Contact[] = [];
       for (let index: number = 0; index < 6; index++) {
@@ -180,19 +180,19 @@ export default function flipClockContactReplaceEdgeTest() {
         expect(source.totalCount()).assertEqual(6);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactReplaceEdge0007
+     * @tc.name   ohos.samples.flipclock_ContactReplaceEdge_0008
      * @tc.number SUB_FLIP_CLOCK_EDGE_CREP_0007
      * @tc.desc   Replace contacts with 7 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactReplaceEdge0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0007 begin');
+    it('ohos.samples.flipclock_ContactReplaceEdge_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0008 begin');
       const source: ContactSource = new ContactSource([]);
         const next: Contact[] = [];
       for (let index: number = 0; index < 7; index++) {
@@ -203,7 +203,7 @@ export default function flipClockContactReplaceEdgeTest() {
         expect(source.totalCount()).assertEqual(7);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(source.totalCount()) === undefined));
         expect(source.getData(source.totalCount()) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceEdge0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactReplaceEdge_0008 end');
     })
   })
 }

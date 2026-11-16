@@ -23,15 +23,15 @@ export default function flipClockContactDeleteLastTest() {
   describe('FlipClockContactDeleteLastTest', () => {
 
     /**
-     * @tc.name   testFlipClockContactDelLast0000
+     * @tc.name   ohos.samples.flipclock_ContactDeleteLast_0001
      * @tc.number SUB_FLIP_CLOCK_MORE5_CDLAST_0000
      * @tc.desc   Delete last contact from 2 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactDelLast0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0000 begin');
+    it('ohos.samples.flipclock_ContactDeleteLast_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0001 begin');
       const source: ContactSource = new ContactSource([]);
         for (let index: number = 0; index < 2; index++) {
           source.pushData(new Contact('k' + index, 'v', index));
@@ -41,19 +41,19 @@ export default function flipClockContactDeleteLastTest() {
         expect(source.totalCount()).assertEqual(1);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(1) === undefined));
         expect(source.getData(1) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactDelLast0001
+     * @tc.name   ohos.samples.flipclock_ContactDeleteLast_0002
      * @tc.number SUB_FLIP_CLOCK_MORE5_CDLAST_0001
      * @tc.desc   Delete last contact from 3 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactDelLast0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0001 begin');
+    it('ohos.samples.flipclock_ContactDeleteLast_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0002 begin');
       const source: ContactSource = new ContactSource([]);
         for (let index: number = 0; index < 3; index++) {
           source.pushData(new Contact('k' + index, 'v', index));
@@ -63,19 +63,19 @@ export default function flipClockContactDeleteLastTest() {
         expect(source.totalCount()).assertEqual(2);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(2) === undefined));
         expect(source.getData(2) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactDelLast0002
+     * @tc.name   ohos.samples.flipclock_ContactDeleteLast_0003
      * @tc.number SUB_FLIP_CLOCK_MORE5_CDLAST_0002
      * @tc.desc   Delete last contact from 4 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactDelLast0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0002 begin');
+    it('ohos.samples.flipclock_ContactDeleteLast_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0003 begin');
       const source: ContactSource = new ContactSource([]);
         for (let index: number = 0; index < 4; index++) {
           source.pushData(new Contact('k' + index, 'v', index));
@@ -85,19 +85,19 @@ export default function flipClockContactDeleteLastTest() {
         expect(source.totalCount()).assertEqual(3);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(3) === undefined));
         expect(source.getData(3) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactDelLast0003
+     * @tc.name   ohos.samples.flipclock_ContactDeleteLast_0004
      * @tc.number SUB_FLIP_CLOCK_MORE5_CDLAST_0003
      * @tc.desc   Delete last contact from 5 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactDelLast0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0003 begin');
+    it('ohos.samples.flipclock_ContactDeleteLast_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0004 begin');
       const source: ContactSource = new ContactSource([]);
         for (let index: number = 0; index < 5; index++) {
           source.pushData(new Contact('k' + index, 'v', index));
@@ -107,19 +107,19 @@ export default function flipClockContactDeleteLastTest() {
         expect(source.totalCount()).assertEqual(4);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(4) === undefined));
         expect(source.getData(4) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactDelLast0004
+     * @tc.name   ohos.samples.flipclock_ContactDeleteLast_0005
      * @tc.number SUB_FLIP_CLOCK_MORE5_CDLAST_0004
      * @tc.desc   Delete last contact from 6 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactDelLast0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0004 begin');
+    it('ohos.samples.flipclock_ContactDeleteLast_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0005 begin');
       const source: ContactSource = new ContactSource([]);
         for (let index: number = 0; index < 6; index++) {
           source.pushData(new Contact('k' + index, 'v', index));
@@ -129,19 +129,19 @@ export default function flipClockContactDeleteLastTest() {
         expect(source.totalCount()).assertEqual(5);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(5) === undefined));
         expect(source.getData(5) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactDelLast0005
+     * @tc.name   ohos.samples.flipclock_ContactDeleteLast_0006
      * @tc.number SUB_FLIP_CLOCK_MORE5_CDLAST_0005
      * @tc.desc   Delete last contact from 7 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactDelLast0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0005 begin');
+    it('ohos.samples.flipclock_ContactDeleteLast_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0006 begin');
       const source: ContactSource = new ContactSource([]);
         for (let index: number = 0; index < 7; index++) {
           source.pushData(new Contact('k' + index, 'v', index));
@@ -151,19 +151,19 @@ export default function flipClockContactDeleteLastTest() {
         expect(source.totalCount()).assertEqual(6);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(6) === undefined));
         expect(source.getData(6) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactDelLast0006
+     * @tc.name   ohos.samples.flipclock_ContactDeleteLast_0007
      * @tc.number SUB_FLIP_CLOCK_MORE5_CDLAST_0006
      * @tc.desc   Delete last contact from 8 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactDelLast0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0006 begin');
+    it('ohos.samples.flipclock_ContactDeleteLast_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0007 begin');
       const source: ContactSource = new ContactSource([]);
         for (let index: number = 0; index < 8; index++) {
           source.pushData(new Contact('k' + index, 'v', index));
@@ -173,19 +173,19 @@ export default function flipClockContactDeleteLastTest() {
         expect(source.totalCount()).assertEqual(7);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(7) === undefined));
         expect(source.getData(7) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactDelLast0007
+     * @tc.name   ohos.samples.flipclock_ContactDeleteLast_0008
      * @tc.number SUB_FLIP_CLOCK_MORE5_CDLAST_0007
      * @tc.desc   Delete last contact from 9 entries.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactDelLast0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0007 begin');
+    it('ohos.samples.flipclock_ContactDeleteLast_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0008 begin');
       const source: ContactSource = new ContactSource([]);
         for (let index: number = 0; index < 9; index++) {
           source.pushData(new Contact('k' + index, 'v', index));
@@ -195,7 +195,7 @@ export default function flipClockContactDeleteLastTest() {
         expect(source.totalCount()).assertEqual(8);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(8) === undefined));
         expect(source.getData(8) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactDelLast0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactDeleteLast_0008 end');
     })
   })
 }

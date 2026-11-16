@@ -23,15 +23,15 @@ export default function flipClockContactPairsTest() {
   describe('FlipClockContactPairsTest', () => {
 
     /**
-     * @tc.name   testFlipClockContactPairs0000
+     * @tc.name   ohos.samples.flipclock_ContactPairs_0001
      * @tc.number SUB_FLIP_CLOCK_MORE3_CPAIR_0000
      * @tc.desc   Push paired contacts 1 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactPairs0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0000 begin');
+    it('ohos.samples.flipclock_ContactPairs_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0001 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 1; index++) {
         source.pushData(new Contact('k' + index, 'v', index));
@@ -43,19 +43,19 @@ export default function flipClockContactPairsTest() {
         expect(source.getData(0).key).assertEqual('k0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).reminderId), String(100));
         expect(source.getData(source.totalCount() - 1).reminderId).assertEqual(100);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0000 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactPairs0001
+     * @tc.name   ohos.samples.flipclock_ContactPairs_0002
      * @tc.number SUB_FLIP_CLOCK_MORE3_CPAIR_0001
      * @tc.desc   Push paired contacts 2 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactPairs0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0001 begin');
+    it('ohos.samples.flipclock_ContactPairs_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0002 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 2; index++) {
         source.pushData(new Contact('k' + index, 'v', index));
@@ -67,19 +67,19 @@ export default function flipClockContactPairsTest() {
         expect(source.getData(0).key).assertEqual('k0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).reminderId), String(101));
         expect(source.getData(source.totalCount() - 1).reminderId).assertEqual(101);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactPairs0002
+     * @tc.name   ohos.samples.flipclock_ContactPairs_0003
      * @tc.number SUB_FLIP_CLOCK_MORE3_CPAIR_0002
      * @tc.desc   Push paired contacts 3 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactPairs0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0002 begin');
+    it('ohos.samples.flipclock_ContactPairs_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0003 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 3; index++) {
         source.pushData(new Contact('k' + index, 'v', index));
@@ -91,19 +91,19 @@ export default function flipClockContactPairsTest() {
         expect(source.getData(0).key).assertEqual('k0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).reminderId), String(102));
         expect(source.getData(source.totalCount() - 1).reminderId).assertEqual(102);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactPairs0003
+     * @tc.name   ohos.samples.flipclock_ContactPairs_0004
      * @tc.number SUB_FLIP_CLOCK_MORE3_CPAIR_0003
      * @tc.desc   Push paired contacts 4 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactPairs0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0003 begin');
+    it('ohos.samples.flipclock_ContactPairs_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0004 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 4; index++) {
         source.pushData(new Contact('k' + index, 'v', index));
@@ -115,19 +115,19 @@ export default function flipClockContactPairsTest() {
         expect(source.getData(0).key).assertEqual('k0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).reminderId), String(103));
         expect(source.getData(source.totalCount() - 1).reminderId).assertEqual(103);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactPairs0004
+     * @tc.name   ohos.samples.flipclock_ContactPairs_0005
      * @tc.number SUB_FLIP_CLOCK_MORE3_CPAIR_0004
      * @tc.desc   Push paired contacts 5 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactPairs0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0004 begin');
+    it('ohos.samples.flipclock_ContactPairs_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0005 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 5; index++) {
         source.pushData(new Contact('k' + index, 'v', index));
@@ -139,19 +139,19 @@ export default function flipClockContactPairsTest() {
         expect(source.getData(0).key).assertEqual('k0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).reminderId), String(104));
         expect(source.getData(source.totalCount() - 1).reminderId).assertEqual(104);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactPairs0005
+     * @tc.name   ohos.samples.flipclock_ContactPairs_0006
      * @tc.number SUB_FLIP_CLOCK_MORE3_CPAIR_0005
      * @tc.desc   Push paired contacts 6 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactPairs0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0005 begin');
+    it('ohos.samples.flipclock_ContactPairs_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0006 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 6; index++) {
         source.pushData(new Contact('k' + index, 'v', index));
@@ -163,19 +163,19 @@ export default function flipClockContactPairsTest() {
         expect(source.getData(0).key).assertEqual('k0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).reminderId), String(105));
         expect(source.getData(source.totalCount() - 1).reminderId).assertEqual(105);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactPairs0006
+     * @tc.name   ohos.samples.flipclock_ContactPairs_0007
      * @tc.number SUB_FLIP_CLOCK_MORE3_CPAIR_0006
      * @tc.desc   Push paired contacts 7 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactPairs0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0006 begin');
+    it('ohos.samples.flipclock_ContactPairs_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0007 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 7; index++) {
         source.pushData(new Contact('k' + index, 'v', index));
@@ -187,19 +187,19 @@ export default function flipClockContactPairsTest() {
         expect(source.getData(0).key).assertEqual('k0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).reminderId), String(106));
         expect(source.getData(source.totalCount() - 1).reminderId).assertEqual(106);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactPairs0007
+     * @tc.name   ohos.samples.flipclock_ContactPairs_0008
      * @tc.number SUB_FLIP_CLOCK_MORE3_CPAIR_0007
      * @tc.desc   Push paired contacts 8 times.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactPairs0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0007 begin');
+    it('ohos.samples.flipclock_ContactPairs_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0008 begin');
       const source: ContactSource = new ContactSource([]);
       for (let index: number = 0; index < 8; index++) {
         source.pushData(new Contact('k' + index, 'v', index));
@@ -211,7 +211,7 @@ export default function flipClockContactPairsTest() {
         expect(source.getData(0).key).assertEqual('k0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).reminderId), String(107));
         expect(source.getData(source.totalCount() - 1).reminderId).assertEqual(107);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPairs0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactPairs_0008 end');
     })
   })
 }

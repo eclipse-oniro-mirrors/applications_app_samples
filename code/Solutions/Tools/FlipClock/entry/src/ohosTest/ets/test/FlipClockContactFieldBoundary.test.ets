@@ -23,15 +23,15 @@ export default function flipClockContactFieldBoundaryTest() {
   describe('FlipClockContactFieldBoundaryTest', () => {
 
     /**
-     * @tc.name   testFlipClockContactBoundary0001
+     * @tc.name   ohos.samples.flipclock_ContactFieldBoundary_0001
      * @tc.number SUB_FLIP_CLOCK_BOUND_CONTACT_0001
      * @tc.desc   Construct contact boundary sample 1.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0001 begin');
+    it('ohos.samples.flipclock_ContactFieldBoundary_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0001 begin');
       const contact: Contact = new Contact('', '', 0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String(''));
       expect(contact.key).assertEqual('');
@@ -39,19 +39,19 @@ export default function flipClockContactFieldBoundaryTest() {
         expect(contact.value).assertEqual('');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(0));
         expect(contact.reminderId).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactBoundary0002
+     * @tc.name   ohos.samples.flipclock_ContactFieldBoundary_0002
      * @tc.number SUB_FLIP_CLOCK_BOUND_CONTACT_0002
      * @tc.desc   Construct contact boundary sample 2.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactBoundary0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0002 begin');
+    it('ohos.samples.flipclock_ContactFieldBoundary_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0002 begin');
       const contact: Contact = new Contact('k', 'v', -1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String('k'));
       expect(contact.key).assertEqual('k');
@@ -59,19 +59,19 @@ export default function flipClockContactFieldBoundaryTest() {
         expect(contact.value).assertEqual('v');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(-1));
         expect(contact.reminderId).assertEqual(-1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactBoundary0003
+     * @tc.name   ohos.samples.flipclock_ContactFieldBoundary_0003
      * @tc.number SUB_FLIP_CLOCK_BOUND_CONTACT_0003
      * @tc.desc   Construct contact boundary sample 3.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0003 begin');
+    it('ohos.samples.flipclock_ContactFieldBoundary_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0003 begin');
       const contact: Contact = new Contact('key', 'value', 9007199254740991);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String('key'));
       expect(contact.key).assertEqual('key');
@@ -79,19 +79,19 @@ export default function flipClockContactFieldBoundaryTest() {
         expect(contact.value).assertEqual('value');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(9007199254740991));
         expect(contact.reminderId).assertEqual(9007199254740991);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactBoundary0004
+     * @tc.name   ohos.samples.flipclock_ContactFieldBoundary_0004
      * @tc.number SUB_FLIP_CLOCK_BOUND_CONTACT_0004
      * @tc.desc   Construct contact boundary sample 4.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactBoundary0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0004 begin');
+    it('ohos.samples.flipclock_ContactFieldBoundary_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0004 begin');
       const contact: Contact = new Contact('key', 'value', -9007199254740991);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String('key'));
       expect(contact.key).assertEqual('key');
@@ -99,19 +99,19 @@ export default function flipClockContactFieldBoundaryTest() {
         expect(contact.value).assertEqual('value');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(-9007199254740991));
         expect(contact.reminderId).assertEqual(-9007199254740991);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactBoundary0005
+     * @tc.name   ohos.samples.flipclock_ContactFieldBoundary_0005
      * @tc.number SUB_FLIP_CLOCK_BOUND_CONTACT_0005
      * @tc.desc   Construct contact boundary sample 5.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0005 begin');
+    it('ohos.samples.flipclock_ContactFieldBoundary_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0005 begin');
       const contact: Contact = new Contact('longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong', 'valuevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevalue', 1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String('longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong'));
       expect(contact.key).assertEqual('longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong');
@@ -119,19 +119,19 @@ export default function flipClockContactFieldBoundaryTest() {
         expect(contact.value).assertEqual('valuevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevalue');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(1));
         expect(contact.reminderId).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactBoundary0006
+     * @tc.name   ohos.samples.flipclock_ContactFieldBoundary_0006
      * @tc.number SUB_FLIP_CLOCK_BOUND_CONTACT_0006
      * @tc.desc   Construct contact boundary sample 6.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0006 begin');
+    it('ohos.samples.flipclock_ContactFieldBoundary_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0006 begin');
       const contact: Contact = new Contact(' ', ' ', 2);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String(' '));
       expect(contact.key).assertEqual(' ');
@@ -139,19 +139,19 @@ export default function flipClockContactFieldBoundaryTest() {
         expect(contact.value).assertEqual(' ');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(2));
         expect(contact.reminderId).assertEqual(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactBoundary0007
+     * @tc.name   ohos.samples.flipclock_ContactFieldBoundary_0007
      * @tc.number SUB_FLIP_CLOCK_BOUND_CONTACT_0007
      * @tc.desc   Construct contact boundary sample 7.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0007 begin');
+    it('ohos.samples.flipclock_ContactFieldBoundary_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0007 begin');
       const contact: Contact = new Contact('0', '0', 3);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String('0'));
       expect(contact.key).assertEqual('0');
@@ -159,19 +159,19 @@ export default function flipClockContactFieldBoundaryTest() {
         expect(contact.value).assertEqual('0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(3));
         expect(contact.reminderId).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockContactBoundary0008
+     * @tc.name   ohos.samples.flipclock_ContactFieldBoundary_0008
      * @tc.number SUB_FLIP_CLOCK_BOUND_CONTACT_0008
      * @tc.desc   Construct contact boundary sample 8.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockContactBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0008 begin');
+    it('ohos.samples.flipclock_ContactFieldBoundary_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0008 begin');
       const contact: Contact = new Contact('key', 'value', -2147483648);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String('key'));
       expect(contact.key).assertEqual('key');
@@ -179,7 +179,7 @@ export default function flipClockContactFieldBoundaryTest() {
         expect(contact.value).assertEqual('value');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(-2147483648));
         expect(contact.reminderId).assertEqual(-2147483648);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFieldBoundary_0008 end');
     })
   })
 }
