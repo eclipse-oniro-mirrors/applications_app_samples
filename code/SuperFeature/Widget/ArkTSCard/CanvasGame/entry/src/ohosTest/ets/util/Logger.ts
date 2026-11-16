@@ -42,4 +42,4 @@ class Logger {
   }
 }
 
-export default new Logger('[Sample_EtsCardMusic]');
+export default new Logger('[Sample_CanvasGame]');
