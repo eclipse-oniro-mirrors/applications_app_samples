@@ -71,7 +71,7 @@ export default function webAuthSessionTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'web_auth_session suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: web_auth_session_scenario_952700_session_start_cycles
     it('web_auth_session_scenario_952700_session_start_cycles', 0, async () => {
       const caseSeed: number = 952700;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952700);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: web_auth_session_scenario_952701_paddle_step_sequence
     it('web_auth_session_scenario_952701_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 952701;
       const paddle: PaddleModel = new PaddleModel(1, 101, 7);
@@ -98,7 +98,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952701);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: web_auth_session_scenario_952702_catalog_lookup_start
     it('web_auth_session_scenario_952702_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 952702;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952702);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: web_auth_session_scenario_952703_pipeline_round_trip
     it('web_auth_session_scenario_952703_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 952703;
       const payload: string = '_main.paddle.moveLeft(); // case 952703';
@@ -122,7 +122,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952703);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: web_auth_session_scenario_952704_settings_zoom_true
     it('web_auth_session_scenario_952704_settings_zoom_true', 0, async () => {
       const caseSeed: number = 952704;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952704);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: web_auth_session_scenario_952705_layout_custom_columns
     it('web_auth_session_scenario_952705_layout_custom_columns', 0, async () => {
       const caseSeed: number = 952705;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952705);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: web_auth_session_scenario_952706_score_accumulation
     it('web_auth_session_scenario_952706_score_accumulation', 0, async () => {
       const caseSeed: number = 952706;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952706);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: web_auth_session_scenario_952707_brick_grid_progress
     it('web_auth_session_scenario_952707_brick_grid_progress', 0, async () => {
       const caseSeed: number = 952707;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -170,7 +170,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952707);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: web_auth_session_scenario_952708_locale_lookup_en
     it('web_auth_session_scenario_952708_locale_lookup_en', 0, async () => {
       const caseSeed: number = 952708;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952708);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: web_auth_session_scenario_952709_validation_report_count
     it('web_auth_session_scenario_952709_validation_report_count', 0, async () => {
       const caseSeed: number = 952709;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952709);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: web_auth_session_scenario_952710_url_with_query
     it('web_auth_session_scenario_952710_url_with_query', 0, async () => {
       const caseSeed: number = 952710;
       const url: string = SAMPLE_GAME_URL + '?case=73';
@@ -206,7 +206,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952710);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: web_auth_session_scenario_952711_geometry_area
     it('web_auth_session_scenario_952711_geometry_area', 0, async () => {
       const caseSeed: number = 952711;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 41);
@@ -217,7 +217,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952711);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: web_auth_session_scenario_952712_circular_buffer_capacity
     it('web_auth_session_scenario_952712_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 952712;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952712);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: web_auth_session_scenario_952713_command_queue_fifo
     it('web_auth_session_scenario_952713_command_queue_fifo', 0, async () => {
       const caseSeed: number = 952713;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952713);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: web_auth_session_scenario_952714_token_bucket_consume
     it('web_auth_session_scenario_952714_token_bucket_consume', 0, async () => {
       const caseSeed: number = 952714;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -254,7 +254,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952714);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: web_auth_session_scenario_952715_page_load_budget
     it('web_auth_session_scenario_952715_page_load_budget', 0, async () => {
       const caseSeed: number = 952715;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952715);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: web_auth_session_scenario_952716_perf_sampler_bounds
     it('web_auth_session_scenario_952716_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 952716;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952716);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: web_auth_session_scenario_952717_config_api_9
     it('web_auth_session_scenario_952717_config_api_9', 0, async () => {
       const caseSeed: number = 952717;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952717);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: web_auth_session_scenario_952718_retry_attempts
     it('web_auth_session_scenario_952718_retry_attempts', 0, async () => {
       const caseSeed: number = 952718;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952718);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: web_auth_session_scenario_952719_event_recorder_sequence
     it('web_auth_session_scenario_952719_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 952719;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952719);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: web_auth_session_scenario_952720_session_start_cycles
     it('web_auth_session_scenario_952720_session_start_cycles', 0, async () => {
       const caseSeed: number = 952720;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952720);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: web_auth_session_scenario_952721_paddle_step_sequence
     it('web_auth_session_scenario_952721_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 952721;
       const paddle: PaddleModel = new PaddleModel(1, 101, 9);
@@ -341,7 +341,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952721);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: web_auth_session_scenario_952722_catalog_lookup_start
     it('web_auth_session_scenario_952722_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 952722;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952722);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: web_auth_session_scenario_952723_pipeline_round_trip
     it('web_auth_session_scenario_952723_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 952723;
       const payload: string = '_main.paddle.moveLeft(); // case 952723';
@@ -365,7 +365,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952723);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: web_auth_session_scenario_952724_settings_zoom_true
     it('web_auth_session_scenario_952724_settings_zoom_true', 0, async () => {
       const caseSeed: number = 952724;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952724);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: web_auth_session_scenario_952725_layout_custom_columns
     it('web_auth_session_scenario_952725_layout_custom_columns', 0, async () => {
       const caseSeed: number = 952725;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952725);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: web_auth_session_scenario_952726_score_accumulation
     it('web_auth_session_scenario_952726_score_accumulation', 0, async () => {
       const caseSeed: number = 952726;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952726);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: web_auth_session_scenario_952727_brick_grid_progress
     it('web_auth_session_scenario_952727_brick_grid_progress', 0, async () => {
       const caseSeed: number = 952727;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -413,7 +413,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952727);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: web_auth_session_scenario_952728_locale_lookup_en
     it('web_auth_session_scenario_952728_locale_lookup_en', 0, async () => {
       const caseSeed: number = 952728;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952728);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: web_auth_session_scenario_952729_validation_report_count
     it('web_auth_session_scenario_952729_validation_report_count', 0, async () => {
       const caseSeed: number = 952729;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952729);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: web_auth_session_scenario_952730_url_with_query
     it('web_auth_session_scenario_952730_url_with_query', 0, async () => {
       const caseSeed: number = 952730;
       const url: string = SAMPLE_GAME_URL + '?case=93';
@@ -449,7 +449,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952730);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: web_auth_session_scenario_952731_geometry_area
     it('web_auth_session_scenario_952731_geometry_area', 0, async () => {
       const caseSeed: number = 952731;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 61);
@@ -460,7 +460,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952731);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: web_auth_session_scenario_952732_circular_buffer_capacity
     it('web_auth_session_scenario_952732_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 952732;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952732);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: web_auth_session_scenario_952733_command_queue_fifo
     it('web_auth_session_scenario_952733_command_queue_fifo', 0, async () => {
       const caseSeed: number = 952733;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952733);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: web_auth_session_scenario_952734_token_bucket_consume
     it('web_auth_session_scenario_952734_token_bucket_consume', 0, async () => {
       const caseSeed: number = 952734;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -497,7 +497,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952734);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: web_auth_session_scenario_952735_page_load_budget
     it('web_auth_session_scenario_952735_page_load_budget', 0, async () => {
       const caseSeed: number = 952735;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952735);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: web_auth_session_scenario_952736_perf_sampler_bounds
     it('web_auth_session_scenario_952736_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 952736;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -521,7 +521,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952736);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: web_auth_session_scenario_952737_config_api_9
     it('web_auth_session_scenario_952737_config_api_9', 0, async () => {
       const caseSeed: number = 952737;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -532,7 +532,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952737);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: web_auth_session_scenario_952738_retry_attempts
     it('web_auth_session_scenario_952738_retry_attempts', 0, async () => {
       const caseSeed: number = 952738;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -544,7 +544,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952738);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: web_auth_session_scenario_952739_event_recorder_sequence
     it('web_auth_session_scenario_952739_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 952739;
       const recorder: EventRecorder = new EventRecorder();
@@ -557,7 +557,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952739);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: web_auth_session_scenario_952740_session_start_cycles
     it('web_auth_session_scenario_952740_session_start_cycles', 0, async () => {
       const caseSeed: number = 952740;
       const session: GameSession = new GameSession();
@@ -571,7 +571,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952740);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: web_auth_session_scenario_952741_paddle_step_sequence
     it('web_auth_session_scenario_952741_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 952741;
       const paddle: PaddleModel = new PaddleModel(1, 101, 2);
@@ -584,7 +584,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952741);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: web_auth_session_scenario_952742_catalog_lookup_start
     it('web_auth_session_scenario_952742_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 952742;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -596,7 +596,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952742);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: web_auth_session_scenario_952743_pipeline_round_trip
     it('web_auth_session_scenario_952743_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 952743;
       const payload: string = '_main.paddle.moveLeft(); // case 952743';
@@ -608,7 +608,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952743);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: web_auth_session_scenario_952744_settings_zoom_true
     it('web_auth_session_scenario_952744_settings_zoom_true', 0, async () => {
       const caseSeed: number = 952744;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -619,7 +619,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952744);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: web_auth_session_scenario_952745_layout_custom_columns
     it('web_auth_session_scenario_952745_layout_custom_columns', 0, async () => {
       const caseSeed: number = 952745;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -630,7 +630,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952745);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: web_auth_session_scenario_952746_score_accumulation
     it('web_auth_session_scenario_952746_score_accumulation', 0, async () => {
       const caseSeed: number = 952746;
       const board: ScoreBoard = new ScoreBoard();
@@ -643,7 +643,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952746);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: web_auth_session_scenario_952747_brick_grid_progress
     it('web_auth_session_scenario_952747_brick_grid_progress', 0, async () => {
       const caseSeed: number = 952747;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -656,7 +656,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952747);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: web_auth_session_scenario_952748_locale_lookup_en
     it('web_auth_session_scenario_952748_locale_lookup_en', 0, async () => {
       const caseSeed: number = 952748;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -667,7 +667,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952748);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: web_auth_session_scenario_952749_validation_report_count
     it('web_auth_session_scenario_952749_validation_report_count', 0, async () => {
       const caseSeed: number = 952749;
       const report: ValidationReport = new ValidationReport();
@@ -680,7 +680,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952749);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: web_auth_session_scenario_952750_url_with_query
     it('web_auth_session_scenario_952750_url_with_query', 0, async () => {
       const caseSeed: number = 952750;
       const url: string = SAMPLE_GAME_URL + '?case=16';
@@ -692,7 +692,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952750);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: web_auth_session_scenario_952751_geometry_area
     it('web_auth_session_scenario_952751_geometry_area', 0, async () => {
       const caseSeed: number = 952751;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 21);
@@ -703,7 +703,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952751);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: web_auth_session_scenario_952752_circular_buffer_capacity
     it('web_auth_session_scenario_952752_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 952752;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -716,7 +716,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952752);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: web_auth_session_scenario_952753_command_queue_fifo
     it('web_auth_session_scenario_952753_command_queue_fifo', 0, async () => {
       const caseSeed: number = 952753;
       const queue: CommandQueue = new CommandQueue();
@@ -729,7 +729,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952753);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: web_auth_session_scenario_952754_token_bucket_consume
     it('web_auth_session_scenario_952754_token_bucket_consume', 0, async () => {
       const caseSeed: number = 952754;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -740,7 +740,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952754);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: web_auth_session_scenario_952755_page_load_budget
     it('web_auth_session_scenario_952755_page_load_budget', 0, async () => {
       const caseSeed: number = 952755;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -751,7 +751,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952755);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: web_auth_session_scenario_952756_perf_sampler_bounds
     it('web_auth_session_scenario_952756_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 952756;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -764,7 +764,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952756);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: web_auth_session_scenario_952757_config_api_9
     it('web_auth_session_scenario_952757_config_api_9', 0, async () => {
       const caseSeed: number = 952757;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -775,7 +775,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952757);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: web_auth_session_scenario_952758_retry_attempts
     it('web_auth_session_scenario_952758_retry_attempts', 0, async () => {
       const caseSeed: number = 952758;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -787,7 +787,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952758);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: web_auth_session_scenario_952759_event_recorder_sequence
     it('web_auth_session_scenario_952759_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 952759;
       const recorder: EventRecorder = new EventRecorder();
@@ -800,7 +800,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952759);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: web_auth_session_scenario_952760_session_start_cycles
     it('web_auth_session_scenario_952760_session_start_cycles', 0, async () => {
       const caseSeed: number = 952760;
       const session: GameSession = new GameSession();
@@ -814,7 +814,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952760);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: web_auth_session_scenario_952761_paddle_step_sequence
     it('web_auth_session_scenario_952761_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 952761;
       const paddle: PaddleModel = new PaddleModel(1, 101, 4);
@@ -827,7 +827,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952761);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: web_auth_session_scenario_952762_catalog_lookup_start
     it('web_auth_session_scenario_952762_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 952762;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -839,7 +839,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952762);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: web_auth_session_scenario_952763_pipeline_round_trip
     it('web_auth_session_scenario_952763_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 952763;
       const payload: string = '_main.paddle.moveLeft(); // case 952763';
@@ -851,7 +851,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952763);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: web_auth_session_scenario_952764_settings_zoom_true
     it('web_auth_session_scenario_952764_settings_zoom_true', 0, async () => {
       const caseSeed: number = 952764;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -862,7 +862,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952764);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: web_auth_session_scenario_952765_layout_custom_columns
     it('web_auth_session_scenario_952765_layout_custom_columns', 0, async () => {
       const caseSeed: number = 952765;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -873,7 +873,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952765);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: web_auth_session_scenario_952766_score_accumulation
     it('web_auth_session_scenario_952766_score_accumulation', 0, async () => {
       const caseSeed: number = 952766;
       const board: ScoreBoard = new ScoreBoard();
@@ -886,7 +886,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952766);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: web_auth_session_scenario_952767_brick_grid_progress
     it('web_auth_session_scenario_952767_brick_grid_progress', 0, async () => {
       const caseSeed: number = 952767;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -899,7 +899,7 @@ export default function webAuthSessionTest() {
       expect(caseSeed).assertEqual(952767);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: web_auth_session_scenario_952768_locale_lookup_en
     it('web_auth_session_scenario_952768_locale_lookup_en', 0, async () => {
       const caseSeed: number = 952768;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();

@@ -54,7 +54,7 @@ export default function webGameStressTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'game_stress suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_stress_scenario_9542600_session_start_cycles
     it('game_stress_scenario_9542600_session_start_cycles', 0, async () => {
       const caseSeed: number = 9542600;
       const session: GameSession = new GameSession();
@@ -68,7 +68,7 @@ export default function webGameStressTest() {
       expect(caseSeed).assertEqual(9542600);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_stress_scenario_9542601_paddle_step_sequence
     it('game_stress_scenario_9542601_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9542601;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -81,7 +81,7 @@ export default function webGameStressTest() {
       expect(caseSeed).assertEqual(9542601);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_stress_scenario_9542602_catalog_lookup_start
     it('game_stress_scenario_9542602_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9542602;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -93,7 +93,7 @@ export default function webGameStressTest() {
       expect(caseSeed).assertEqual(9542602);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_stress_scenario_9542603_pipeline_round_trip
     it('game_stress_scenario_9542603_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9542603;
       const payload: string = '_main.paddle.moveLeft(); // case 9542603';
@@ -105,7 +105,7 @@ export default function webGameStressTest() {
       expect(caseSeed).assertEqual(9542603);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_stress_scenario_9542604_settings_zoom_true
     it('game_stress_scenario_9542604_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9542604;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -116,7 +116,7 @@ export default function webGameStressTest() {
       expect(caseSeed).assertEqual(9542604);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_stress_scenario_9542605_layout_custom_columns
     it('game_stress_scenario_9542605_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9542605;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -127,7 +127,7 @@ export default function webGameStressTest() {
       expect(caseSeed).assertEqual(9542605);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: game_stress_scenario_9542606_score_accumulation
     it('game_stress_scenario_9542606_score_accumulation', 0, async () => {
       const caseSeed: number = 9542606;
       const board: ScoreBoard = new ScoreBoard();
@@ -140,7 +140,7 @@ export default function webGameStressTest() {
       expect(caseSeed).assertEqual(9542606);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: game_stress_scenario_9542607_brick_grid_progress
     it('game_stress_scenario_9542607_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9542607;
       const grid: BrickGrid = new BrickGrid(1, 4);

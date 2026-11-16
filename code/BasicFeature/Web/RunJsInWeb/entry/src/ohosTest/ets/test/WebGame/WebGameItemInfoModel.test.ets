@@ -59,7 +59,7 @@ export default function webGameItemInfoModelTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'game_item suite end');
     });
 
-    // 应用包名、模块名与入口 Ability 应与 module.json5 一致
+    // Scenario: game_item_config_identity_matches_module
     it('game_item_config_identity_matches_module', 0, async () => {
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
       expect(config.bundleName).assertEqual(BUNDLE_NAME);
@@ -68,7 +68,7 @@ export default function webGameItemInfoModelTest() {
       expect(config.apiVersion).assertEqual(API_VERSION);
     });
 
-    // 页面方向固定为横屏，设备类型包含默认设备与平板
+    // Scenario: game_item_config_is_landscape_only
     it('game_item_config_is_landscape_only', 0, async () => {
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
       expect(config.isLandscape()).assertTrue();
@@ -78,7 +78,7 @@ export default function webGameItemInfoModelTest() {
       expect(config.deviceTypeCount()).assertEqual(2);
     });
 
-    // 应用只申请网络权限以加载远端游戏页面
+    // Scenario: game_item_config_requests_internet_permission
     it('game_item_config_requests_internet_permission', 0, async () => {
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
       expect(config.hasPermission(INTERNET_PERMISSION)).assertTrue();
@@ -86,14 +86,14 @@ export default function webGameItemInfoModelTest() {
       expect(config.permissions[0]).assertEqual('ohos.permission.INTERNET');
     });
 
-    // metadata 中应声明 ArkTSPartialUpdate 能力
+    // Scenario: game_item_config_metadata_enables_partial_update
     it('game_item_config_metadata_enables_partial_update', 0, async () => {
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
       expect(config.hasMetadata('ArkTSPartialUpdate')).assertTrue();
       expect(config.hasMetadata('UnknownMetadata')).assertFalse();
     });
 
-    // 相同配置快照相等，修改方向后不再相等
+    // Scenario: game_item_config_snapshots_are_comparable
     it('game_item_config_snapshots_are_comparable', 0, async () => {
       const first: ConfigSnapshot = ConfigSnapshot.createDefault();
       const second: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -103,7 +103,7 @@ export default function webGameItemInfoModelTest() {
       expect(first.equals(changed)).assertFalse();
     });
 
-    // 新建校验报告默认无错误
+    // Scenario: game_item_report_starts_valid
     it('game_item_report_starts_valid', 0, async () => {
       const report: ValidationReport = new ValidationReport();
       expect(report.isValid()).assertTrue();
@@ -111,7 +111,7 @@ export default function webGameItemInfoModelTest() {
       expect(report.summary()).assertEqual('valid');
     });
 
-    // 错误可逐条追加并可从其它报告合并
+    // Scenario: game_item_report_collects_and_merges_errors
     it('game_item_report_collects_and_merges_errors', 0, async () => {
       const first: ValidationReport = new ValidationReport();
       first.addError('missing trace');
@@ -125,7 +125,7 @@ export default function webGameItemInfoModelTest() {
       expect(first.isValid()).assertTrue();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_item_scenario_9972500_session_start_cycles
     it('game_item_scenario_9972500_session_start_cycles', 0, async () => {
       const caseSeed: number = 9972500;
       const session: GameSession = new GameSession();
@@ -139,7 +139,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972500);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_item_scenario_9972501_paddle_step_sequence
     it('game_item_scenario_9972501_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9972501;
       const paddle: PaddleModel = new PaddleModel(1, 101, 7);
@@ -152,7 +152,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972501);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_item_scenario_9972502_catalog_lookup_start
     it('game_item_scenario_9972502_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9972502;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -164,7 +164,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972502);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_item_scenario_9972503_pipeline_round_trip
     it('game_item_scenario_9972503_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9972503;
       const payload: string = '_main.paddle.moveLeft(); // case 9972503';
@@ -176,7 +176,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972503);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_item_scenario_9972504_settings_zoom_true
     it('game_item_scenario_9972504_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9972504;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -187,7 +187,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972504);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_item_scenario_9972505_layout_custom_columns
     it('game_item_scenario_9972505_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9972505;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -198,7 +198,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972505);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: game_item_scenario_9972506_score_accumulation
     it('game_item_scenario_9972506_score_accumulation', 0, async () => {
       const caseSeed: number = 9972506;
       const board: ScoreBoard = new ScoreBoard();
@@ -211,7 +211,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972506);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: game_item_scenario_9972507_brick_grid_progress
     it('game_item_scenario_9972507_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9972507;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -224,7 +224,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972507);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: game_item_scenario_9972508_locale_lookup_en
     it('game_item_scenario_9972508_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9972508;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -235,7 +235,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972508);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: game_item_scenario_9972509_validation_report_count
     it('game_item_scenario_9972509_validation_report_count', 0, async () => {
       const caseSeed: number = 9972509;
       const report: ValidationReport = new ValidationReport();
@@ -248,7 +248,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972509);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: game_item_scenario_9972510_url_with_query
     it('game_item_scenario_9972510_url_with_query', 0, async () => {
       const caseSeed: number = 9972510;
       const url: string = SAMPLE_GAME_URL + '?case=37';
@@ -260,7 +260,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972510);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: game_item_scenario_9972511_geometry_area
     it('game_item_scenario_9972511_geometry_area', 0, async () => {
       const caseSeed: number = 9972511;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 41);
@@ -271,7 +271,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972511);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: game_item_scenario_9972512_circular_buffer_capacity
     it('game_item_scenario_9972512_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9972512;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -284,7 +284,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972512);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: game_item_scenario_9972513_command_queue_fifo
     it('game_item_scenario_9972513_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9972513;
       const queue: CommandQueue = new CommandQueue();
@@ -297,7 +297,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972513);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: game_item_scenario_9972514_token_bucket_consume
     it('game_item_scenario_9972514_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9972514;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -308,7 +308,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972514);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: game_item_scenario_9972515_page_load_budget
     it('game_item_scenario_9972515_page_load_budget', 0, async () => {
       const caseSeed: number = 9972515;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -319,7 +319,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972515);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: game_item_scenario_9972516_perf_sampler_bounds
     it('game_item_scenario_9972516_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9972516;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -332,7 +332,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972516);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: game_item_scenario_9972517_config_api_9
     it('game_item_scenario_9972517_config_api_9', 0, async () => {
       const caseSeed: number = 9972517;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -343,7 +343,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972517);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: game_item_scenario_9972518_retry_attempts
     it('game_item_scenario_9972518_retry_attempts', 0, async () => {
       const caseSeed: number = 9972518;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -355,7 +355,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972518);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: game_item_scenario_9972519_event_recorder_sequence
     it('game_item_scenario_9972519_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9972519;
       const recorder: EventRecorder = new EventRecorder();
@@ -368,7 +368,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972519);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_item_scenario_9972520_session_start_cycles
     it('game_item_scenario_9972520_session_start_cycles', 0, async () => {
       const caseSeed: number = 9972520;
       const session: GameSession = new GameSession();
@@ -382,7 +382,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972520);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_item_scenario_9972521_paddle_step_sequence
     it('game_item_scenario_9972521_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9972521;
       const paddle: PaddleModel = new PaddleModel(1, 101, 9);
@@ -395,7 +395,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972521);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_item_scenario_9972522_catalog_lookup_start
     it('game_item_scenario_9972522_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9972522;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -407,7 +407,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972522);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_item_scenario_9972523_pipeline_round_trip
     it('game_item_scenario_9972523_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9972523;
       const payload: string = '_main.paddle.moveLeft(); // case 9972523';
@@ -419,7 +419,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972523);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_item_scenario_9972524_settings_zoom_true
     it('game_item_scenario_9972524_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9972524;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -430,7 +430,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972524);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_item_scenario_9972525_layout_custom_columns
     it('game_item_scenario_9972525_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9972525;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -441,7 +441,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972525);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: game_item_scenario_9972526_score_accumulation
     it('game_item_scenario_9972526_score_accumulation', 0, async () => {
       const caseSeed: number = 9972526;
       const board: ScoreBoard = new ScoreBoard();
@@ -454,7 +454,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972526);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: game_item_scenario_9972527_brick_grid_progress
     it('game_item_scenario_9972527_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9972527;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -467,7 +467,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972527);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: game_item_scenario_9972528_locale_lookup_en
     it('game_item_scenario_9972528_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9972528;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -478,7 +478,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972528);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: game_item_scenario_9972529_validation_report_count
     it('game_item_scenario_9972529_validation_report_count', 0, async () => {
       const caseSeed: number = 9972529;
       const report: ValidationReport = new ValidationReport();
@@ -491,7 +491,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972529);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: game_item_scenario_9972530_url_with_query
     it('game_item_scenario_9972530_url_with_query', 0, async () => {
       const caseSeed: number = 9972530;
       const url: string = SAMPLE_GAME_URL + '?case=57';
@@ -503,7 +503,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972530);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: game_item_scenario_9972531_geometry_area
     it('game_item_scenario_9972531_geometry_area', 0, async () => {
       const caseSeed: number = 9972531;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 61);
@@ -514,7 +514,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972531);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: game_item_scenario_9972532_circular_buffer_capacity
     it('game_item_scenario_9972532_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9972532;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -527,7 +527,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972532);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: game_item_scenario_9972533_command_queue_fifo
     it('game_item_scenario_9972533_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9972533;
       const queue: CommandQueue = new CommandQueue();
@@ -540,7 +540,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972533);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: game_item_scenario_9972534_token_bucket_consume
     it('game_item_scenario_9972534_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9972534;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -551,7 +551,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972534);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: game_item_scenario_9972535_page_load_budget
     it('game_item_scenario_9972535_page_load_budget', 0, async () => {
       const caseSeed: number = 9972535;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -562,7 +562,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972535);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: game_item_scenario_9972536_perf_sampler_bounds
     it('game_item_scenario_9972536_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9972536;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -575,7 +575,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972536);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: game_item_scenario_9972537_config_api_9
     it('game_item_scenario_9972537_config_api_9', 0, async () => {
       const caseSeed: number = 9972537;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -586,7 +586,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972537);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: game_item_scenario_9972538_retry_attempts
     it('game_item_scenario_9972538_retry_attempts', 0, async () => {
       const caseSeed: number = 9972538;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -598,7 +598,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972538);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: game_item_scenario_9972539_event_recorder_sequence
     it('game_item_scenario_9972539_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9972539;
       const recorder: EventRecorder = new EventRecorder();
@@ -611,7 +611,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972539);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_item_scenario_9972540_session_start_cycles
     it('game_item_scenario_9972540_session_start_cycles', 0, async () => {
       const caseSeed: number = 9972540;
       const session: GameSession = new GameSession();
@@ -625,7 +625,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972540);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_item_scenario_9972541_paddle_step_sequence
     it('game_item_scenario_9972541_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9972541;
       const paddle: PaddleModel = new PaddleModel(1, 101, 2);
@@ -638,7 +638,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972541);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_item_scenario_9972542_catalog_lookup_start
     it('game_item_scenario_9972542_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9972542;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -650,7 +650,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972542);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_item_scenario_9972543_pipeline_round_trip
     it('game_item_scenario_9972543_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9972543;
       const payload: string = '_main.paddle.moveLeft(); // case 9972543';
@@ -662,7 +662,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972543);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_item_scenario_9972544_settings_zoom_true
     it('game_item_scenario_9972544_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9972544;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -673,7 +673,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972544);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_item_scenario_9972545_layout_custom_columns
     it('game_item_scenario_9972545_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9972545;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -684,7 +684,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972545);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: game_item_scenario_9972546_score_accumulation
     it('game_item_scenario_9972546_score_accumulation', 0, async () => {
       const caseSeed: number = 9972546;
       const board: ScoreBoard = new ScoreBoard();
@@ -697,7 +697,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972546);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: game_item_scenario_9972547_brick_grid_progress
     it('game_item_scenario_9972547_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9972547;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -710,7 +710,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972547);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: game_item_scenario_9972548_locale_lookup_en
     it('game_item_scenario_9972548_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9972548;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -721,7 +721,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972548);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: game_item_scenario_9972549_validation_report_count
     it('game_item_scenario_9972549_validation_report_count', 0, async () => {
       const caseSeed: number = 9972549;
       const report: ValidationReport = new ValidationReport();
@@ -734,7 +734,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972549);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: game_item_scenario_9972550_url_with_query
     it('game_item_scenario_9972550_url_with_query', 0, async () => {
       const caseSeed: number = 9972550;
       const url: string = SAMPLE_GAME_URL + '?case=77';
@@ -746,7 +746,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972550);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: game_item_scenario_9972551_geometry_area
     it('game_item_scenario_9972551_geometry_area', 0, async () => {
       const caseSeed: number = 9972551;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 21);
@@ -757,7 +757,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972551);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: game_item_scenario_9972552_circular_buffer_capacity
     it('game_item_scenario_9972552_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9972552;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -770,7 +770,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972552);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: game_item_scenario_9972553_command_queue_fifo
     it('game_item_scenario_9972553_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9972553;
       const queue: CommandQueue = new CommandQueue();
@@ -783,7 +783,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972553);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: game_item_scenario_9972554_token_bucket_consume
     it('game_item_scenario_9972554_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9972554;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -794,7 +794,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972554);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: game_item_scenario_9972555_page_load_budget
     it('game_item_scenario_9972555_page_load_budget', 0, async () => {
       const caseSeed: number = 9972555;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -805,7 +805,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972555);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: game_item_scenario_9972556_perf_sampler_bounds
     it('game_item_scenario_9972556_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9972556;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -818,7 +818,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972556);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: game_item_scenario_9972557_config_api_9
     it('game_item_scenario_9972557_config_api_9', 0, async () => {
       const caseSeed: number = 9972557;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -829,7 +829,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972557);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: game_item_scenario_9972558_retry_attempts
     it('game_item_scenario_9972558_retry_attempts', 0, async () => {
       const caseSeed: number = 9972558;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -841,7 +841,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972558);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: game_item_scenario_9972559_event_recorder_sequence
     it('game_item_scenario_9972559_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9972559;
       const recorder: EventRecorder = new EventRecorder();
@@ -854,7 +854,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972559);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_item_scenario_9972560_session_start_cycles
     it('game_item_scenario_9972560_session_start_cycles', 0, async () => {
       const caseSeed: number = 9972560;
       const session: GameSession = new GameSession();
@@ -868,7 +868,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972560);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_item_scenario_9972561_paddle_step_sequence
     it('game_item_scenario_9972561_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9972561;
       const paddle: PaddleModel = new PaddleModel(1, 101, 4);
@@ -881,7 +881,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972561);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_item_scenario_9972562_catalog_lookup_start
     it('game_item_scenario_9972562_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9972562;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -893,7 +893,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972562);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_item_scenario_9972563_pipeline_round_trip
     it('game_item_scenario_9972563_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9972563;
       const payload: string = '_main.paddle.moveLeft(); // case 9972563';
@@ -905,7 +905,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972563);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_item_scenario_9972564_settings_zoom_true
     it('game_item_scenario_9972564_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9972564;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -916,7 +916,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972564);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_item_scenario_9972565_layout_custom_columns
     it('game_item_scenario_9972565_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9972565;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -927,7 +927,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972565);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: game_item_scenario_9972566_score_accumulation
     it('game_item_scenario_9972566_score_accumulation', 0, async () => {
       const caseSeed: number = 9972566;
       const board: ScoreBoard = new ScoreBoard();
@@ -940,7 +940,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972566);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: game_item_scenario_9972567_brick_grid_progress
     it('game_item_scenario_9972567_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9972567;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -953,7 +953,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972567);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: game_item_scenario_9972568_locale_lookup_en
     it('game_item_scenario_9972568_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9972568;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -964,7 +964,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972568);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: game_item_scenario_9972569_validation_report_count
     it('game_item_scenario_9972569_validation_report_count', 0, async () => {
       const caseSeed: number = 9972569;
       const report: ValidationReport = new ValidationReport();
@@ -977,7 +977,7 @@ export default function webGameItemInfoModelTest() {
       expect(caseSeed).assertEqual(9972569);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: game_item_scenario_9972570_url_with_query
     it('game_item_scenario_9972570_url_with_query', 0, async () => {
       const caseSeed: number = 9972570;
       const url: string = SAMPLE_GAME_URL + '?case=0';

@@ -55,7 +55,7 @@ export default function webDataSourceValidationTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'web_data_source suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: web_data_source_scenario_2468400_session_start_cycles
     it('web_data_source_scenario_2468400_session_start_cycles', 0, async () => {
       const caseSeed: number = 2468400;
       const session: GameSession = new GameSession();
@@ -69,7 +69,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468400);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: web_data_source_scenario_2468401_paddle_step_sequence
     it('web_data_source_scenario_2468401_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 2468401;
       const paddle: PaddleModel = new PaddleModel(1, 101, 8);
@@ -82,7 +82,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468401);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: web_data_source_scenario_2468402_catalog_lookup_start
     it('web_data_source_scenario_2468402_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 2468402;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -94,7 +94,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468402);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: web_data_source_scenario_2468403_pipeline_round_trip
     it('web_data_source_scenario_2468403_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 2468403;
       const payload: string = '_main.paddle.moveLeft(); // case 2468403';
@@ -106,7 +106,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468403);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: web_data_source_scenario_2468404_settings_zoom_true
     it('web_data_source_scenario_2468404_settings_zoom_true', 0, async () => {
       const caseSeed: number = 2468404;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -117,7 +117,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468404);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: web_data_source_scenario_2468405_layout_custom_columns
     it('web_data_source_scenario_2468405_layout_custom_columns', 0, async () => {
       const caseSeed: number = 2468405;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -128,7 +128,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468405);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: web_data_source_scenario_2468406_score_accumulation
     it('web_data_source_scenario_2468406_score_accumulation', 0, async () => {
       const caseSeed: number = 2468406;
       const board: ScoreBoard = new ScoreBoard();
@@ -141,7 +141,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468406);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: web_data_source_scenario_2468407_brick_grid_progress
     it('web_data_source_scenario_2468407_brick_grid_progress', 0, async () => {
       const caseSeed: number = 2468407;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -154,7 +154,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468407);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: web_data_source_scenario_2468408_locale_lookup_en
     it('web_data_source_scenario_2468408_locale_lookup_en', 0, async () => {
       const caseSeed: number = 2468408;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -165,7 +165,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468408);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: web_data_source_scenario_2468409_validation_report_count
     it('web_data_source_scenario_2468409_validation_report_count', 0, async () => {
       const caseSeed: number = 2468409;
       const report: ValidationReport = new ValidationReport();
@@ -178,7 +178,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468409);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: web_data_source_scenario_2468410_url_with_query
     it('web_data_source_scenario_2468410_url_with_query', 0, async () => {
       const caseSeed: number = 2468410;
       const url: string = SAMPLE_GAME_URL + '?case=51';
@@ -190,7 +190,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468410);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: web_data_source_scenario_2468411_geometry_area
     it('web_data_source_scenario_2468411_geometry_area', 0, async () => {
       const caseSeed: number = 2468411;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 21);
@@ -201,7 +201,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468411);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: web_data_source_scenario_2468412_circular_buffer_capacity
     it('web_data_source_scenario_2468412_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 2468412;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -214,7 +214,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468412);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: web_data_source_scenario_2468413_command_queue_fifo
     it('web_data_source_scenario_2468413_command_queue_fifo', 0, async () => {
       const caseSeed: number = 2468413;
       const queue: CommandQueue = new CommandQueue();
@@ -227,7 +227,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468413);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: web_data_source_scenario_2468414_token_bucket_consume
     it('web_data_source_scenario_2468414_token_bucket_consume', 0, async () => {
       const caseSeed: number = 2468414;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -238,7 +238,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468414);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: web_data_source_scenario_2468415_page_load_budget
     it('web_data_source_scenario_2468415_page_load_budget', 0, async () => {
       const caseSeed: number = 2468415;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -249,7 +249,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468415);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: web_data_source_scenario_2468416_perf_sampler_bounds
     it('web_data_source_scenario_2468416_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 2468416;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -262,7 +262,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468416);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: web_data_source_scenario_2468417_config_api_9
     it('web_data_source_scenario_2468417_config_api_9', 0, async () => {
       const caseSeed: number = 2468417;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -273,7 +273,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468417);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: web_data_source_scenario_2468418_retry_attempts
     it('web_data_source_scenario_2468418_retry_attempts', 0, async () => {
       const caseSeed: number = 2468418;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -285,7 +285,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468418);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: web_data_source_scenario_2468419_event_recorder_sequence
     it('web_data_source_scenario_2468419_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 2468419;
       const recorder: EventRecorder = new EventRecorder();
@@ -298,7 +298,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468419);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: web_data_source_scenario_2468420_session_start_cycles
     it('web_data_source_scenario_2468420_session_start_cycles', 0, async () => {
       const caseSeed: number = 2468420;
       const session: GameSession = new GameSession();
@@ -312,7 +312,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468420);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: web_data_source_scenario_2468421_paddle_step_sequence
     it('web_data_source_scenario_2468421_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 2468421;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -325,7 +325,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468421);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: web_data_source_scenario_2468422_catalog_lookup_start
     it('web_data_source_scenario_2468422_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 2468422;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -337,7 +337,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468422);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: web_data_source_scenario_2468423_pipeline_round_trip
     it('web_data_source_scenario_2468423_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 2468423;
       const payload: string = '_main.paddle.moveLeft(); // case 2468423';
@@ -349,7 +349,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468423);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: web_data_source_scenario_2468424_settings_zoom_true
     it('web_data_source_scenario_2468424_settings_zoom_true', 0, async () => {
       const caseSeed: number = 2468424;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -360,7 +360,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468424);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: web_data_source_scenario_2468425_layout_custom_columns
     it('web_data_source_scenario_2468425_layout_custom_columns', 0, async () => {
       const caseSeed: number = 2468425;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -371,7 +371,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468425);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: web_data_source_scenario_2468426_score_accumulation
     it('web_data_source_scenario_2468426_score_accumulation', 0, async () => {
       const caseSeed: number = 2468426;
       const board: ScoreBoard = new ScoreBoard();
@@ -384,7 +384,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468426);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: web_data_source_scenario_2468427_brick_grid_progress
     it('web_data_source_scenario_2468427_brick_grid_progress', 0, async () => {
       const caseSeed: number = 2468427;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -397,7 +397,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468427);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: web_data_source_scenario_2468428_locale_lookup_en
     it('web_data_source_scenario_2468428_locale_lookup_en', 0, async () => {
       const caseSeed: number = 2468428;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -408,7 +408,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468428);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: web_data_source_scenario_2468429_validation_report_count
     it('web_data_source_scenario_2468429_validation_report_count', 0, async () => {
       const caseSeed: number = 2468429;
       const report: ValidationReport = new ValidationReport();
@@ -421,7 +421,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468429);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: web_data_source_scenario_2468430_url_with_query
     it('web_data_source_scenario_2468430_url_with_query', 0, async () => {
       const caseSeed: number = 2468430;
       const url: string = SAMPLE_GAME_URL + '?case=71';
@@ -433,7 +433,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468430);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: web_data_source_scenario_2468431_geometry_area
     it('web_data_source_scenario_2468431_geometry_area', 0, async () => {
       const caseSeed: number = 2468431;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 41);
@@ -444,7 +444,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468431);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: web_data_source_scenario_2468432_circular_buffer_capacity
     it('web_data_source_scenario_2468432_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 2468432;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -457,7 +457,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468432);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: web_data_source_scenario_2468433_command_queue_fifo
     it('web_data_source_scenario_2468433_command_queue_fifo', 0, async () => {
       const caseSeed: number = 2468433;
       const queue: CommandQueue = new CommandQueue();
@@ -470,7 +470,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468433);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: web_data_source_scenario_2468434_token_bucket_consume
     it('web_data_source_scenario_2468434_token_bucket_consume', 0, async () => {
       const caseSeed: number = 2468434;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -481,7 +481,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468434);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: web_data_source_scenario_2468435_page_load_budget
     it('web_data_source_scenario_2468435_page_load_budget', 0, async () => {
       const caseSeed: number = 2468435;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -492,7 +492,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468435);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: web_data_source_scenario_2468436_perf_sampler_bounds
     it('web_data_source_scenario_2468436_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 2468436;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -505,7 +505,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468436);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: web_data_source_scenario_2468437_config_api_9
     it('web_data_source_scenario_2468437_config_api_9', 0, async () => {
       const caseSeed: number = 2468437;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -516,7 +516,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468437);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: web_data_source_scenario_2468438_retry_attempts
     it('web_data_source_scenario_2468438_retry_attempts', 0, async () => {
       const caseSeed: number = 2468438;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -528,7 +528,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468438);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: web_data_source_scenario_2468439_event_recorder_sequence
     it('web_data_source_scenario_2468439_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 2468439;
       const recorder: EventRecorder = new EventRecorder();
@@ -541,7 +541,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468439);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: web_data_source_scenario_2468440_session_start_cycles
     it('web_data_source_scenario_2468440_session_start_cycles', 0, async () => {
       const caseSeed: number = 2468440;
       const session: GameSession = new GameSession();
@@ -555,7 +555,7 @@ export default function webDataSourceValidationTest() {
       expect(caseSeed).assertEqual(2468440);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: web_data_source_scenario_2468441_paddle_step_sequence
     it('web_data_source_scenario_2468441_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 2468441;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);

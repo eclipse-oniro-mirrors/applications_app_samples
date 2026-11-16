@@ -87,7 +87,7 @@ export default function webGameConcurrencyTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'game_concurrency suite end');
     });
 
-    // 20 轮左右导航后页面仍可见且控件完整
+    // Scenario: game_concurrency_twenty_navigation_rounds_keep_page_stable
     it('game_concurrency_twenty_navigation_rounds_keep_page_stable', 0, async () => {
       for (let i = 0; i < 20; i++) {
         await pressAndWait(driver, i % 2 === 0 ? KEY_LEFT : KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -96,7 +96,7 @@ export default function webGameConcurrencyTest() {
       expect(await hasAllControls(driver)).assertTrue();
     });
 
-    // 10 轮注入后组件数量变化不超过容差
+    // Scenario: game_concurrency_ten_injection_rounds_keep_component_count
     it('game_concurrency_ten_injection_rounds_keep_component_count', 0, async () => {
       const before: number = await gameComponentCount(driver);
       for (let i = 0; i < 10; i++) {
@@ -106,7 +106,7 @@ export default function webGameConcurrencyTest() {
       expect(Math.abs(after - before)).assertLessOrEqual(TOLERANCE_COMPONENT_COUNT);
     });
 
-    // 交替点击四个按钮 12 次后页面保持可用
+    // Scenario: game_concurrency_mixed_controls_do_not_crash
     it('game_concurrency_mixed_controls_do_not_crash', 0, async () => {
       const labels: string[] = [LABEL_START, LABEL_LEFT, LABEL_RIGHT, LABEL_RESET];
       for (let i = 0; i < 12; i++) {
@@ -116,7 +116,7 @@ export default function webGameConcurrencyTest() {
       expect(await checkComponentExists(driver, 'Web')).assertTrue();
     });
 
-    // 压力循环中的单次注入耗时保持可控
+    // Scenario: game_concurrency_stress_latency_stays_bounded
     it('game_concurrency_stress_latency_stays_bounded', 0, async () => {
       const sampler: PerformanceSampler = new PerformanceSampler();
       for (let i = 0; i < 5; i++) {
@@ -128,26 +128,26 @@ export default function webGameConcurrencyTest() {
       expect(sampler.max()).assertLessOrEqual(5000);
     });
 
-    // 页面初始焦点索引应可查询（-1 表示当前无焦点）
+    // Scenario: game_concurrency_initial_focus_is_valid
     it('game_concurrency_initial_focus_is_valid', 0, async () => {
       const index: number = await getCurrentFocusIndex(driver);
       expect(index).assertLargerOrEqual(-1);
       expect(index).assertLessOrEqual(100);
     });
 
-    // 按右键后焦点保持在有效范围
+    // Scenario: game_concurrency_right_key_moves_focus
     it('game_concurrency_right_key_moves_focus', 0, async () => {
       await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
       expect(await getCurrentFocusIndex(driver)).assertLargerOrEqual(-1);
     });
 
-    // 按左键后焦点保持在有效范围
+    // Scenario: game_concurrency_left_key_moves_focus
     it('game_concurrency_left_key_moves_focus', 0, async () => {
       await pressAndWait(driver, KEY_LEFT, 1, DELAY_KEY_NAVIGATION);
       expect(await getCurrentFocusIndex(driver)).assertLargerOrEqual(-1);
     });
 
-    // 上下键在单行布局中不应使焦点越界
+    // Scenario: game_concurrency_up_down_keys_keep_focus_valid
     it('game_concurrency_up_down_keys_keep_focus_valid', 0, async () => {
       await pressAndWait(driver, KEY_DOWN, 2, DELAY_KEY_NAVIGATION);
       expect(await getCurrentFocusIndex(driver)).assertLargerOrEqual(-1);
@@ -155,14 +155,14 @@ export default function webGameConcurrencyTest() {
       expect(await getCurrentFocusIndex(driver)).assertLargerOrEqual(-1);
     });
 
-    // 连续五次左移后焦点仍在页面内且页面可见
+    // Scenario: game_concurrency_boundary_navigation_does_not_escape_page
     it('game_concurrency_boundary_navigation_does_not_escape_page', 0, async () => {
       await pressAndWait(driver, KEY_LEFT, 5, DELAY_KEY_NAVIGATION);
       expect(await getCurrentFocusIndex(driver)).assertLargerOrEqual(-1);
       expect(await isGamePageVisible(driver)).assertTrue();
     });
 
-    // 左右交替导航两轮后页面结构保持稳定
+    // Scenario: game_concurrency_navigation_cycle_is_repeatable
     it('game_concurrency_navigation_cycle_is_repeatable', 0, async () => {
       for (let i = 0; i < 2; i++) {
         await pressAndWait(driver, KEY_RIGHT, 1, DELAY_KEY_NAVIGATION);
@@ -172,7 +172,7 @@ export default function webGameConcurrencyTest() {
       expect(await isGamePageVisible(driver)).assertTrue();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_concurrency_scenario_1933700_session_start_cycles
     it('game_concurrency_scenario_1933700_session_start_cycles', 0, async () => {
       const caseSeed: number = 1933700;
       const session: GameSession = new GameSession();
@@ -186,7 +186,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933700);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_concurrency_scenario_1933701_paddle_step_sequence
     it('game_concurrency_scenario_1933701_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 1933701;
       const paddle: PaddleModel = new PaddleModel(1, 101, 7);
@@ -199,7 +199,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933701);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_concurrency_scenario_1933702_catalog_lookup_start
     it('game_concurrency_scenario_1933702_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 1933702;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -211,7 +211,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933702);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_concurrency_scenario_1933703_pipeline_round_trip
     it('game_concurrency_scenario_1933703_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 1933703;
       const payload: string = '_main.paddle.moveLeft(); // case 1933703';
@@ -223,7 +223,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933703);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_concurrency_scenario_1933704_settings_zoom_true
     it('game_concurrency_scenario_1933704_settings_zoom_true', 0, async () => {
       const caseSeed: number = 1933704;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -234,7 +234,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933704);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_concurrency_scenario_1933705_layout_custom_columns
     it('game_concurrency_scenario_1933705_layout_custom_columns', 0, async () => {
       const caseSeed: number = 1933705;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -245,7 +245,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933705);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: game_concurrency_scenario_1933706_score_accumulation
     it('game_concurrency_scenario_1933706_score_accumulation', 0, async () => {
       const caseSeed: number = 1933706;
       const board: ScoreBoard = new ScoreBoard();
@@ -258,7 +258,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933706);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: game_concurrency_scenario_1933707_brick_grid_progress
     it('game_concurrency_scenario_1933707_brick_grid_progress', 0, async () => {
       const caseSeed: number = 1933707;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -271,7 +271,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933707);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: game_concurrency_scenario_1933708_locale_lookup_en
     it('game_concurrency_scenario_1933708_locale_lookup_en', 0, async () => {
       const caseSeed: number = 1933708;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -282,7 +282,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933708);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: game_concurrency_scenario_1933709_validation_report_count
     it('game_concurrency_scenario_1933709_validation_report_count', 0, async () => {
       const caseSeed: number = 1933709;
       const report: ValidationReport = new ValidationReport();
@@ -295,7 +295,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933709);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: game_concurrency_scenario_1933710_url_with_query
     it('game_concurrency_scenario_1933710_url_with_query', 0, async () => {
       const caseSeed: number = 1933710;
       const url: string = SAMPLE_GAME_URL + '?case=15';
@@ -307,7 +307,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933710);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: game_concurrency_scenario_1933711_geometry_area
     it('game_concurrency_scenario_1933711_geometry_area', 0, async () => {
       const caseSeed: number = 1933711;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 41);
@@ -318,7 +318,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933711);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: game_concurrency_scenario_1933712_circular_buffer_capacity
     it('game_concurrency_scenario_1933712_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 1933712;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -331,7 +331,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933712);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: game_concurrency_scenario_1933713_command_queue_fifo
     it('game_concurrency_scenario_1933713_command_queue_fifo', 0, async () => {
       const caseSeed: number = 1933713;
       const queue: CommandQueue = new CommandQueue();
@@ -344,7 +344,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933713);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: game_concurrency_scenario_1933714_token_bucket_consume
     it('game_concurrency_scenario_1933714_token_bucket_consume', 0, async () => {
       const caseSeed: number = 1933714;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -355,7 +355,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933714);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: game_concurrency_scenario_1933715_page_load_budget
     it('game_concurrency_scenario_1933715_page_load_budget', 0, async () => {
       const caseSeed: number = 1933715;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -366,7 +366,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933715);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: game_concurrency_scenario_1933716_perf_sampler_bounds
     it('game_concurrency_scenario_1933716_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 1933716;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -379,7 +379,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933716);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: game_concurrency_scenario_1933717_config_api_9
     it('game_concurrency_scenario_1933717_config_api_9', 0, async () => {
       const caseSeed: number = 1933717;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -390,7 +390,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933717);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: game_concurrency_scenario_1933718_retry_attempts
     it('game_concurrency_scenario_1933718_retry_attempts', 0, async () => {
       const caseSeed: number = 1933718;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -402,7 +402,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933718);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: game_concurrency_scenario_1933719_event_recorder_sequence
     it('game_concurrency_scenario_1933719_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 1933719;
       const recorder: EventRecorder = new EventRecorder();
@@ -415,7 +415,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933719);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_concurrency_scenario_1933720_session_start_cycles
     it('game_concurrency_scenario_1933720_session_start_cycles', 0, async () => {
       const caseSeed: number = 1933720;
       const session: GameSession = new GameSession();
@@ -429,7 +429,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933720);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_concurrency_scenario_1933721_paddle_step_sequence
     it('game_concurrency_scenario_1933721_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 1933721;
       const paddle: PaddleModel = new PaddleModel(1, 101, 9);
@@ -442,7 +442,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933721);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_concurrency_scenario_1933722_catalog_lookup_start
     it('game_concurrency_scenario_1933722_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 1933722;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -454,7 +454,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933722);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_concurrency_scenario_1933723_pipeline_round_trip
     it('game_concurrency_scenario_1933723_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 1933723;
       const payload: string = '_main.paddle.moveLeft(); // case 1933723';
@@ -466,7 +466,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933723);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_concurrency_scenario_1933724_settings_zoom_true
     it('game_concurrency_scenario_1933724_settings_zoom_true', 0, async () => {
       const caseSeed: number = 1933724;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -477,7 +477,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933724);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_concurrency_scenario_1933725_layout_custom_columns
     it('game_concurrency_scenario_1933725_layout_custom_columns', 0, async () => {
       const caseSeed: number = 1933725;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -488,7 +488,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933725);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: game_concurrency_scenario_1933726_score_accumulation
     it('game_concurrency_scenario_1933726_score_accumulation', 0, async () => {
       const caseSeed: number = 1933726;
       const board: ScoreBoard = new ScoreBoard();
@@ -501,7 +501,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933726);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: game_concurrency_scenario_1933727_brick_grid_progress
     it('game_concurrency_scenario_1933727_brick_grid_progress', 0, async () => {
       const caseSeed: number = 1933727;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -514,7 +514,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933727);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: game_concurrency_scenario_1933728_locale_lookup_en
     it('game_concurrency_scenario_1933728_locale_lookup_en', 0, async () => {
       const caseSeed: number = 1933728;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -525,7 +525,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933728);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: game_concurrency_scenario_1933729_validation_report_count
     it('game_concurrency_scenario_1933729_validation_report_count', 0, async () => {
       const caseSeed: number = 1933729;
       const report: ValidationReport = new ValidationReport();
@@ -538,7 +538,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933729);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: game_concurrency_scenario_1933730_url_with_query
     it('game_concurrency_scenario_1933730_url_with_query', 0, async () => {
       const caseSeed: number = 1933730;
       const url: string = SAMPLE_GAME_URL + '?case=35';
@@ -550,7 +550,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933730);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: game_concurrency_scenario_1933731_geometry_area
     it('game_concurrency_scenario_1933731_geometry_area', 0, async () => {
       const caseSeed: number = 1933731;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 61);
@@ -561,7 +561,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933731);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: game_concurrency_scenario_1933732_circular_buffer_capacity
     it('game_concurrency_scenario_1933732_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 1933732;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -574,7 +574,7 @@ export default function webGameConcurrencyTest() {
       expect(caseSeed).assertEqual(1933732);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: game_concurrency_scenario_1933733_command_queue_fifo
     it('game_concurrency_scenario_1933733_command_queue_fifo', 0, async () => {
       const caseSeed: number = 1933733;
       const queue: CommandQueue = new CommandQueue();
