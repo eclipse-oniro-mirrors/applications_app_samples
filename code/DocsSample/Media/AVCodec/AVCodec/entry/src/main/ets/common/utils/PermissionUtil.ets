@@ -27,14 +27,15 @@ function isPermissionGranted(status: number): boolean {
   return status === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED;
 }
 
-async function getDeniedPermissions(atManager: abilityAccessCtrl.AtManager): Promise<Permissions[] | undefined> {
+async function getDeniedPermissions(atManager: abilityAccessCtrl.AtManager,
+  permissions: Permissions[]): Promise<Permissions[] | undefined> {
   try {
     const bundleInfo = await bundleManager.getBundleInfoForSelf(
       bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
     const tokenId: number = bundleInfo.appInfo.accessTokenId;
     const deniedPermissions: Permissions[] = [];
 
-    for (const permission of RECORD_PERMISSIONS) {
+    for (const permission of permissions) {
       const status = await atManager.checkAccessToken(tokenId, permission);
       if (!isPermissionGranted(status)) {
         deniedPermissions.push(permission);
@@ -77,10 +78,11 @@ async function requestPermissionsOnSetting(atManager: abilityAccessCtrl.AtManage
   }
 }
 
-export async function requestRecordPermissions(context: Context): Promise<boolean> {
+export async function requestRecordPermissions(context: Context, recordAudio: boolean = true): Promise<boolean> {
   const atManager = abilityAccessCtrl.createAtManager();
   try {
-    const deniedPermissions = await getDeniedPermissions(atManager);
+    const requested: Permissions[] = recordAudio ? RECORD_PERMISSIONS : ['ohos.permission.CAMERA'];
+    const deniedPermissions = await getDeniedPermissions(atManager, requested);
     if (deniedPermissions === undefined) {
       return false;
     }

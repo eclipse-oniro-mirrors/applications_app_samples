@@ -74,6 +74,9 @@ export class PlayerSettingsDraft {
 
 @Observed
 export class RecorderSettingsDraft {
+  public recordAudio: boolean = true;
+  public bufferGrayscale: boolean = false;
+  public bufferWatermark: boolean = false;
   public inputMode: number = 0;
   public codec: number = 1;
   public outputFormat: number = 0;
@@ -101,6 +104,9 @@ export class RecorderSettingsDraft {
 
   load(data: CameraDataModel, advanced: boolean): void {
     this.inputMode = data.bufferInput ? 1 : 0;
+    this.recordAudio = data.recordAudio;
+    this.bufferGrayscale = data.bufferGrayscale;
+    this.bufferWatermark = data.bufferWatermark;
     this.outputFormat = data.outputFormat === Const.FORMAT_FLV ? 1 : 0;
     this.codec = data.isHDRVivid === Const.TRUE ? 0 :
       data.videoCodecMime === Const.MIME_VIDEO_AVC ? 1 : 2;
@@ -163,6 +169,9 @@ export class RecorderSettingsDraft {
     }
     data.enableVideoDump = this.videoDump;
     data.bufferInput = this.inputMode === 1;
+    data.recordAudio = this.recordAudio;
+    data.bufferGrayscale = data.bufferInput && this.bufferGrayscale;
+    data.bufferWatermark = data.bufferInput && this.bufferWatermark;
     data.stopOnLowSpace = this.stopOnLowSpace;
     data.segmentSeconds = this.outputFormat === 0 ? this.segmentSeconds : 0;
     data.segmentMiB = this.outputFormat === 0 ? this.segmentMiB : 0;

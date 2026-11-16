@@ -18,32 +18,39 @@ import { JSON } from '@kit.ArkTS';
   // [StartExclude containing_bigInt]
 let globalLogUpdate: ((msg: string, isError: boolean) => void) | undefined;
 
-function testParsingContainingBigInts() {
+function testParsingContainingBigInts(): boolean {
   // [EndExclude containing_bigInt]
   let numberText = '{"number": 10, "largeNumber": 112233445566778899}';
+  try {
+    let numberObj1 = JSON.parse(numberText) as Object;
+    console.info((numberObj1 as object)?.['largeNumber']);    // 112233445566778900
 
-  let numberObj1 = JSON.parse(numberText) as Object;
-  console.info((numberObj1 as object)?.['largeNumber']);    // 112233445566778900
+    // 使用PARSE_AS_BIGINT的BigInt模式进行解析，避免出现大整数解析错误
+    let options: JSON.ParseOptions = {
+      bigIntMode: JSON.BigIntMode.PARSE_AS_BIGINT,
+    }
 
-  // 使用PARSE_AS_BIGINT的BigInt模式进行解析，避免出现大整数解析错误
-  let options: JSON.ParseOptions = {
-    bigIntMode: JSON.BigIntMode.PARSE_AS_BIGINT,
-  }
+    let numberObj2 = JSON.parse(numberText, null, options) as Object;
 
-  let numberObj2 = JSON.parse(numberText, null, options) as Object;
+    console.info(typeof (numberObj2 as object)?.['number']);   // number
+    console.info((numberObj2 as object)?.['number']);    // 10
 
-  console.info(typeof (numberObj2 as object)?.['number']);   // number
-  console.info((numberObj2 as object)?.['number']);    // 10
-
-  console.info(typeof (numberObj2 as object)?.['largeNumber']);    // bigint
-  console.info((numberObj2 as object)?.['largeNumber']);    // 112233445566778899
-  // [End containing_bigInt]
-  let logMsg = 'typeof (numberObj2 as object)?.[\'number\']: ' + typeof (numberObj2 as object)?.['number'] + '\n' +
-    '(numberObj2 as object)?.[\'number\']: ' + (numberObj2 as object)?.['number'] + '\n' +
-    'typeof (numberObj2 as object)?.[\'largeNumber\']: ' + typeof (numberObj2 as object)?.['largeNumber'] + '\n' +
-    '(numberObj2 as object)?.[\'largeNumber\']: ' + (numberObj2 as object)?.['largeNumber'];
-  if (globalLogUpdate) {
-    globalLogUpdate(logMsg, false);
+    console.info(typeof (numberObj2 as object)?.['largeNumber']);    // bigint
+    console.info((numberObj2 as object)?.['largeNumber']);    // 112233445566778899
+    // [End containing_bigInt]
+    let logMsg = 'typeof (numberObj2 as object)?.[\'number\']: ' + typeof (numberObj2 as object)?.['number'] + '\n' +
+      '(numberObj2 as object)?.[\'number\']: ' + (numberObj2 as object)?.['number'] + '\n' +
+      'typeof (numberObj2 as object)?.[\'largeNumber\']: ' + typeof (numberObj2 as object)?.['largeNumber'] + '\n' +
+      '(numberObj2 as object)?.[\'largeNumber\']: ' + (numberObj2 as object)?.['largeNumber'];
+    if (globalLogUpdate) {
+      globalLogUpdate(logMsg, false);
+    }
+    return true;
+  } catch(err) {
+    if (globalLogUpdate) {
+      globalLogUpdate(err, true);
+    }
+    return false;
   }
 }
 
@@ -125,8 +132,11 @@ struct IndexArkTs {
         .justifyContent(FlexAlign.Center)
         .margin({ bottom: 12 })
         .onClick(() => {
-          testParsingContainingBigInts();
-          this.currentState = $r('app.string.test_parsing_big_ints_complete');
+          if (testParsingContainingBigInts()) {
+            this.currentState = $r('app.string.test_parsing_big_ints_complete');
+          } else {
+            this.currentState = 'Error!';
+          }
         })
       }
       .height('100%')

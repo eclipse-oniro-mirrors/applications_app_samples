@@ -185,7 +185,7 @@ void Player::Release()
     audioWorkerRunning_ = false;
     paused_ = false;
     renderSingleFrameAfterSeek_ = false;
-    pauseCond_.notify_all();
+    NotifyPlaybackTimingChanged();
     audioStartPendingAfterVideoSeek_ = false;
     audioStartCond_.notify_all();
     CancelWorkerWaits();

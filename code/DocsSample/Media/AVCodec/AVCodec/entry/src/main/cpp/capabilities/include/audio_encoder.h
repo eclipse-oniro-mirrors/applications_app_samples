@@ -30,18 +30,17 @@ public:
     AudioEncoder() = default;
     ~AudioEncoder();
 
-    // 按MIME创建音频编码器实例，成功后由Release() 负责销毁。
+    // 按MIME创建音频编码器实例，成功后由Release()负责销毁。
     int32_t Create(const std::string &codecMime);
     int32_t CreateByName(const std::string &codecMime);
     int32_t Config(const SampleInfo &sampleInfo, CodecUserData *codecUserData);
     int32_t Start();
     // 把填好音频数据和属性的输入Buffer交回编码器；成功后不能继续写该Buffer。
-    int32_t PushInputData(CodecBufferInfo &info);
-    // 同步模式下取得空闲输入Buffer；归还时必须使用同一个bufferIndex。
-    OH_AVBuffer *GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    // 同步模式下取得编码输出；调用方写入Muxer后必须调用FreeOutputData归还。
+    int32_t PushInputBuffer(CodecBufferInfo &info);
+    // 同步取Buffer返回OK、AGAIN或ERROR；成功时由info保存Buffer和原索引。
+    int32_t GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
-    int32_t FreeOutputData(uint32_t bufferIndex);
+    int32_t FreeOutputBuffer(const CodecBufferInfo &info);
     // 使用按当前同步/异步模式取得的输入Buffer提交EOS；调用后仍需取输出直到收到EOS。
     int32_t NotifyEndOfStream(CodecBufferInfo &bufferInfo);
     int32_t Flush();
@@ -55,7 +54,7 @@ private:
     int32_t Configure(const SampleInfo &sampleInfo);
 
     bool isAVBufferMode_ = false;
-    // 由OH_AudioCodec_CreateByMime创建、由Release() 销毁的音频编码器句柄。
+    // 由OH_AudioCodec_CreateByMime创建、由Release()销毁的音频编码器句柄。
     OH_AVCodec *encoder_ = nullptr;
 };
 

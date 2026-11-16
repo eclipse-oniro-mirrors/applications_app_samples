@@ -36,5 +36,7 @@ taskpool.execute(taskGroup).then((ret: object) => {
   }
   // The length of iconItemSourceList is 360
   console.info('The length of iconItemSourceList is ' + (iconItemSourceList?.length ?? 0));
-})
+}).catch((e: BusinessError) => {
+  console.error(`taskpool execute error, message is: ${e.message}`);
+});
 // [End execute_task_group]

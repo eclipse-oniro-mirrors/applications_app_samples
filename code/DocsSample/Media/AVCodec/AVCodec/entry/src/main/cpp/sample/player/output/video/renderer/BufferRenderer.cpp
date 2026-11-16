@@ -921,9 +921,8 @@ BufferRenderer::NativeBufferCopyResult BufferRenderer::PrepareNativeBuffer(OHNat
             preparation.dstConfig.format, expectedFormat);
         return NativeBufferCopyResult::RETRY;
     }
-    // OpenGL或Vulkan路径使用过的窗口，在Buffer模式接管后可能立即返回旧的仅GPU队列槽位。
-    // 映射这种槽位也许成功，但部分设备写入会触发故障。应等待带CPU写权限的Buffer模式槽位，
-    // 而不是拷贝到已经失效的分配中。
+    // OpenGL或Vulkan使用过的窗口在切换到Buffer模式后，可能仍返回仅供GPU访问的旧槽位。
+    // 这类槽位即使映射成功，CPU写入也可能出错；跳过并等待带CPU写权限的Buffer。
     if ((preparation.dstConfig.usage & CPU_WRITE_USAGE) == 0) {
         CloseFence(fenceFd);
         windowConfigured_ = false;

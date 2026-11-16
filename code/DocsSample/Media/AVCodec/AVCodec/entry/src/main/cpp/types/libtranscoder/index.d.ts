@@ -37,6 +37,8 @@ export interface TranscodeRequest {
   keyFrameIntervalMs?: number;
   audioSampleRate?: number;
   audioChannels?: number;
+  /** Source order declaration for six-channel AAC conversion: 0 unspecified, 1 5.1 side, 2 5.1 back. */
+  audioSourceLayout?: number;
   audioBitrate?: number;
   audioResampler?: number;
   previewTimeMs?: number;
@@ -86,6 +88,7 @@ export interface TranscodeStatus {
   sourceMime: string;
   audioTracks: string[];
   audioTrackIds: number[];
+  selectedAudioChannels: number;
   subtitleTracks?: string[];
   minBitrate: number;
   maxBitrate: number;

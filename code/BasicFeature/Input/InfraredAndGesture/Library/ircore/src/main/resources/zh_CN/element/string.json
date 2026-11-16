@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "transmit_ok",
+      "value": "发送成功"
+    },
+    {
+      "name": "transmit_no_permission",
+      "value": "缺少红外发射权限"
+    },
+    {
+      "name": "transmit_param_error",
+      "value": "红外码参数无效"
+    },
+    {
+      "name": "transmit_no_emitter",
+      "value": "当前设备不支持红外发射"
+    },
+    {
+      "name": "transmit_busy",
+      "value": "上一次发送尚未结束，请稍后重试"
+    },
+    {
+      "name": "transmit_failed",
+      "value": "发送失败，请重试"
+    }
+  ]
+}

@@ -22,6 +22,7 @@ import { PlaybackQueueController } from './PlaybackQueueController';
 import { LocalizedText } from '../common/LocalizedText';
 import Logger from '../common/utils/Logger';
 import { getPickerSelectedIndex } from '../common/utils/MediaUtils';
+import { PlaybackUriAccessController } from './PlaybackUriAccessController';
 
 const TAG: string = 'PlaybackSourceController';
 const PICKER_LAYOUT_SETTLE_DELAY_MS: number = 100;
@@ -183,6 +184,8 @@ export class PlaybackSourceController {
         this.callbacks.showNoMediaSelected();
         return;
       }
+      await Promise.all(result.map((uri: string): Promise<boolean> =>
+        PlaybackUriAccessController.persistDocumentUri(uri)));
       result.forEach((uri: string): void => this.enqueue(uri));
       if (this.callbacks.isButtonEnabled()) {
         this.queue.index = this.queue.index < 0 ? 0 : this.queue.index;
@@ -213,6 +216,7 @@ export class PlaybackSourceController {
         return;
       }
       const path: string = result[0];
+      await PlaybackUriAccessController.persistDocumentUri(path);
       this.callbacks.setPath(path);
       this.queue.paths = [path];
       this.queue.index = 0;

@@ -17,7 +17,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
-#include "../../entry/src/main/cpp/sample/transcoder/TranscodeFrameProcessor.h"
+#include "../../entry/src/main/cpp/sample/transcoder/process/video/TranscodeFrameProcessor.h"
 
 namespace {
 using namespace TranscodeFrames;
