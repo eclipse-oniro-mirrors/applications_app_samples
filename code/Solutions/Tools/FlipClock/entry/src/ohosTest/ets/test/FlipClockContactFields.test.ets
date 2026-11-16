@@ -172,11 +172,11 @@ export default function flipClockContactFieldsTest() {
      */
     it('ohos.samples.flipclock_ContactFields_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFields_0008 begin');
-      const contact: Contact = new Contact('k8', 'v8', 8);
+      const contact: Contact = new Contact('k8', 'value-8', 8);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.key), String('k8'));
         expect(contact.key).assertEqual('k8');
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.value), String('v8'));
-        expect(contact.value).assertEqual('v8');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.value), String('value-8'));
+        expect(contact.value).assertEqual('value-8');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(contact.reminderId), String(8));
         expect(contact.reminderId).assertEqual(8);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_ContactFields_0008 end');
