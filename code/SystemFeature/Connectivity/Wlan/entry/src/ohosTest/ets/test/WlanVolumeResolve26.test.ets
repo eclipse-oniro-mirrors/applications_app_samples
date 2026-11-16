@@ -33,11 +33,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260001 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000500000)).assertEqual(\'10:00:500:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000500000)), String('10:00:500:000'));
       expect(model.resolveIP(1000500000)).assertEqual('10:00:500:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000500000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000500000).split(':').length), String(4));
       expect(model.resolveIP(1000500000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000500000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000500000).length), String(13));
       expect(model.resolveIP(1000500000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260001 end');
@@ -55,11 +55,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260002 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000501000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'501\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('501'));
       expect(result.split(':')[2]).assertEqual('501');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260002 end');
@@ -76,11 +76,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260003 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000502000)).assertEqual(\'10:00:502:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000502000)), String('10:00:502:000'));
       expect(model.resolveIP(1000502000)).assertEqual('10:00:502:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000502000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000502000).split(':').length), String(4));
       expect(model.resolveIP(1000502000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000502000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000502000).length), String(13));
       expect(model.resolveIP(1000502000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260003 end');
@@ -98,11 +98,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260004 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000503000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'503\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('503'));
       expect(result.split(':')[2]).assertEqual('503');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260004 end');
@@ -119,11 +119,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260005 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000504000)).assertEqual(\'10:00:504:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000504000)), String('10:00:504:000'));
       expect(model.resolveIP(1000504000)).assertEqual('10:00:504:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000504000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000504000).split(':').length), String(4));
       expect(model.resolveIP(1000504000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000504000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000504000).length), String(13));
       expect(model.resolveIP(1000504000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260005 end');
@@ -141,11 +141,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260006 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000505000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'505\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('505'));
       expect(result.split(':')[2]).assertEqual('505');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260006 end');
@@ -162,11 +162,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260007 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000506000)).assertEqual(\'10:00:506:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000506000)), String('10:00:506:000'));
       expect(model.resolveIP(1000506000)).assertEqual('10:00:506:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000506000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000506000).split(':').length), String(4));
       expect(model.resolveIP(1000506000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000506000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000506000).length), String(13));
       expect(model.resolveIP(1000506000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260007 end');
@@ -184,11 +184,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260008 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000507000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'507\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('507'));
       expect(result.split(':')[2]).assertEqual('507');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260008 end');
@@ -205,11 +205,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260009 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000508000)).assertEqual(\'10:00:508:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000508000)), String('10:00:508:000'));
       expect(model.resolveIP(1000508000)).assertEqual('10:00:508:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000508000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000508000).split(':').length), String(4));
       expect(model.resolveIP(1000508000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000508000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000508000).length), String(13));
       expect(model.resolveIP(1000508000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260009 end');
@@ -227,11 +227,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260010 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000509000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'509\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('509'));
       expect(result.split(':')[2]).assertEqual('509');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260010 end');
@@ -248,11 +248,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260011 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000510000)).assertEqual(\'10:00:510:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000510000)), String('10:00:510:000'));
       expect(model.resolveIP(1000510000)).assertEqual('10:00:510:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000510000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000510000).split(':').length), String(4));
       expect(model.resolveIP(1000510000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000510000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000510000).length), String(13));
       expect(model.resolveIP(1000510000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260011 end');
@@ -270,11 +270,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260012 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000511000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'511\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('511'));
       expect(result.split(':')[2]).assertEqual('511');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260012 end');
@@ -291,11 +291,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260013 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000512000)).assertEqual(\'10:00:512:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000512000)), String('10:00:512:000'));
       expect(model.resolveIP(1000512000)).assertEqual('10:00:512:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000512000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000512000).split(':').length), String(4));
       expect(model.resolveIP(1000512000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000512000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000512000).length), String(13));
       expect(model.resolveIP(1000512000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260013 end');
@@ -313,11 +313,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260014 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000513000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'513\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('513'));
       expect(result.split(':')[2]).assertEqual('513');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260014 end');
@@ -334,11 +334,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260015 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000514000)).assertEqual(\'10:00:514:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000514000)), String('10:00:514:000'));
       expect(model.resolveIP(1000514000)).assertEqual('10:00:514:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000514000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000514000).split(':').length), String(4));
       expect(model.resolveIP(1000514000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000514000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000514000).length), String(13));
       expect(model.resolveIP(1000514000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260015 end');
@@ -356,11 +356,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260016 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000515000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'515\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('515'));
       expect(result.split(':')[2]).assertEqual('515');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260016 end');
@@ -377,11 +377,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260017 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000516000)).assertEqual(\'10:00:516:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000516000)), String('10:00:516:000'));
       expect(model.resolveIP(1000516000)).assertEqual('10:00:516:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000516000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000516000).split(':').length), String(4));
       expect(model.resolveIP(1000516000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000516000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000516000).length), String(13));
       expect(model.resolveIP(1000516000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260017 end');
@@ -399,11 +399,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260018 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000517000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'517\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('517'));
       expect(result.split(':')[2]).assertEqual('517');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260018 end');
@@ -420,11 +420,11 @@ export default function wlanVolumeResolve26Test() {
     it('testWlanVolume260019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260019 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000518000)).assertEqual(\'10:00:518:000\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000518000)), String('10:00:518:000'));
       expect(model.resolveIP(1000518000)).assertEqual('10:00:518:000');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000518000).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000518000).split(':').length), String(4));
       expect(model.resolveIP(1000518000).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000518000).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000518000).length), String(13));
       expect(model.resolveIP(1000518000).length).assertEqual(13);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260019 end');
@@ -442,11 +442,11 @@ export default function wlanVolumeResolve26Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260020 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000519000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'10\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
       expect(result.startsWith('10')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'000\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('000')));
       expect(result.endsWith('000')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'519\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('519'));
       expect(result.split(':')[2]).assertEqual('519');
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume260020 end');

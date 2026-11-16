@@ -15,7 +15,7 @@
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import wifi from '@ohos.wifiManager';
+import { wifiManager as wifi } from '@kit.ConnectivityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 
@@ -32,11 +32,11 @@ export default function wlanWifiApiContractTest() {
      */
     it('testWlanWifiScanApi0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiScanApi0001 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.scan === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.scan === 'function'));
       expect(typeof wifi.scan === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.getScanResults === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.getScanResults === 'function'));
       expect(typeof wifi.getScanResults === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.getScanInfoList === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.getScanInfoList === 'function'));
       expect(typeof wifi.getScanInfoList === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiScanApi0001 end');
     })
@@ -51,11 +51,11 @@ export default function wlanWifiApiContractTest() {
      */
     it('testWlanWifiConnectApi0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiConnectApi0002 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.getLinkedInfo === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.getLinkedInfo === 'function'));
       expect(typeof wifi.getLinkedInfo === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.addDeviceConfig === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.addDeviceConfig === 'function'));
       expect(typeof wifi.addDeviceConfig === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.disconnect === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.disconnect === 'function'));
       expect(typeof wifi.disconnect === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiConnectApi0002 end');
     })
@@ -70,11 +70,11 @@ export default function wlanWifiApiContractTest() {
      */
     it('testWlanWifiInfoApi0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiInfoApi0003 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.getIpInfo === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.getIpInfo === 'function'));
       expect(typeof wifi.getIpInfo === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.getLinkedInfo === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.getLinkedInfo === 'function'));
       expect(typeof wifi.getLinkedInfo === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.getCountryCode === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.getCountryCode === 'function'));
       expect(typeof wifi.getCountryCode === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiInfoApi0003 end');
     })
@@ -89,11 +89,11 @@ export default function wlanWifiApiContractTest() {
      */
     it('testWlanWifiControlApi0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiControlApi0004 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.enableWifi === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.enableWifi === 'function'));
       expect(typeof wifi.enableWifi === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.disableWifi === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.disableWifi === 'function'));
       expect(typeof wifi.disableWifi === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.isWifiActive === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.isWifiActive === 'function'));
       expect(typeof wifi.isWifiActive === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiControlApi0004 end');
     })
@@ -108,11 +108,11 @@ export default function wlanWifiApiContractTest() {
      */
     it('testWlanWifiFeatureApi0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiFeatureApi0005 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.isFeatureSupported === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.isFeatureSupported === 'function'));
       expect(typeof wifi.isFeatureSupported === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.getSignalLevel === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.getSignalLevel === 'function'));
       expect(typeof wifi.getSignalLevel === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.isWifiActive === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.isWifiActive === 'function'));
       expect(typeof wifi.isWifiActive === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiFeatureApi0005 end');
     })
@@ -127,11 +127,11 @@ export default function wlanWifiApiContractTest() {
      */
     it('testWlanWifiEventApi0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiEventApi0006 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.on === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.on === 'function'));
       expect(typeof wifi.on === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.off === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.off === 'function'));
       expect(typeof wifi.off === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof wifi.getP2pLinkedInfo === \'function\').assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof wifi.getP2pLinkedInfo === 'function'));
       expect(typeof wifi.getP2pLinkedInfo === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiEventApi0006 end');
     })
@@ -146,11 +146,11 @@ export default function wlanWifiApiContractTest() {
      */
     it('testWlanWifiSecurityEnum0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiSecurityEnum0007 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(wifi.WifiSecurityType.WIFI_SEC_TYPE_INVALID).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(wifi.WifiSecurityType.WIFI_SEC_TYPE_INVALID), String(0));
       expect(wifi.WifiSecurityType.WIFI_SEC_TYPE_INVALID).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(wifi.WifiSecurityType.WIFI_SEC_TYPE_OPEN).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(wifi.WifiSecurityType.WIFI_SEC_TYPE_OPEN), String(1));
       expect(wifi.WifiSecurityType.WIFI_SEC_TYPE_OPEN).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(wifi.WifiSecurityType.WIFI_SEC_TYPE_PSK).assertEqual(3);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(wifi.WifiSecurityType.WIFI_SEC_TYPE_PSK), String(3));
       expect(wifi.WifiSecurityType.WIFI_SEC_TYPE_PSK).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiSecurityEnum0007 end');
     })
@@ -165,11 +165,11 @@ export default function wlanWifiApiContractTest() {
      */
     it('testWlanWifiCategoryEnum0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiCategoryEnum0008 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(wifi.WifiCategory.DEFAULT).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(wifi.WifiCategory.DEFAULT), String(1));
       expect(wifi.WifiCategory.DEFAULT).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(wifi.WifiCategory.WIFI6).assertEqual(2);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(wifi.WifiCategory.WIFI6), String(2));
       expect(wifi.WifiCategory.WIFI6).assertEqual(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(wifi.WifiCategory.WIFI6_PLUS).assertEqual(3);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(wifi.WifiCategory.WIFI6_PLUS), String(3));
       expect(wifi.WifiCategory.WIFI6_PLUS).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanWifiCategoryEnum0008 end');
     })

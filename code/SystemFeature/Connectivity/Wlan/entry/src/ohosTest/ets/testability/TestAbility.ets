@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-import UIAbility from '@ohos.app.ability.UIAbility';
-import AbilityDelegatorRegistry from '@ohos.application.abilityDelegatorRegistry';
+import { UIAbility } from '@kit.AbilityKit';
+import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
-import Window from '@ohos.window';
+import { window as Window } from '@kit.ArkUI';
 import Logger from '../../../main/ets/model/Logger';
-import Want from '@ohos.app.ability.Want';
+import { Want } from '@kit.AbilityKit';
 import { AbilityConstant } from '@kit.AbilityKit';
 
 const TAG = 'TestAbility';
