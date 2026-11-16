@@ -23,7 +23,7 @@
 
 测试中大量复用以下设计资产：
 
-- 集中式套件清单：`List.test.ets` 作为唯一注册入口，按目录分组登记 78 个套件（WebGame 16、Interaction 14、LifecycleState 10、PerformanceStability 7、Integration 9、Security 3、Validation 11、WebValidation 8），一次 `aa test` 即可全量执行
+- 集中式套件清单：`List.test.ets` 作为唯一注册入口，按目录分组登记 78 个套件（WebGame 16、Interaction 14、LifecycleState 10、PerformanceStability 7、Integration 9、Security 3、Validation 11、WebValidation 8），一次 测试命令 即可全量执行
 - 统一驱动能力：各 UI 套件复用 `SharedDriver` 的页面探针、串行队列与按键/触摸模拟，避免重复实现 UiTest 细节
 - 串行化 UI 队列：UiTest 服务端不接受并发请求（`findComponent` / `triggerKey` / `delayMs` 不能重叠），所有操作与延时统一进入 `_uiOperationQueue` 串行执行，消除焦点竞争与丢键
 - 页面稳定前置：`triggerGamePage` 在套件 `beforeAll` 中先等待页面沉降，未检测到 `Start/L/R/Reset` 控件时再通过 `launchGameApp` 拉起 `EntryAbility`，`waitForGamePageStable` 在超时后仅重试一次，避免长链路堆叠 ability 实例导致测试进程被杀
@@ -45,7 +45,7 @@
 - 注入脚本矩阵（`GameScriptCatalog`、`WebGameConfiguration`：5 段脚本 × trace 前缀 / 入口引用 / 括号配平 / 安全字符）
 - 布局矩阵（`WebViewPositioning`、`LayoutMeasurement` 相关能力、`ContentScaling`：左 10% / 中 80% / 右 10% × 分辨率与缩放 × 按钮 50×100）
 - 网络与恢复矩阵（`NetworkConnectivity`、`WebOfflineNetwork`、`WebInterruptionRecovery`：离线/超时/5xx/响应异常 × 重试次数 × 预算判定）
-- 安全矩阵（`WebSecurity`、`SecurityValidation`、`SecurityAccessibility`：HTTPS 域名白名单 × `javascript:` 前缀校验 × 控制字符与转义注入）
+- 安全矩阵（`WebSecurity`、`SecurityValidation`、`SecurityUsability`：HTTPS 域名白名单 × `javascript:` 前缀校验 × 控制字符与转义注入）
 - 资源 × 语言矩阵（`LocalizationTesting`、`ResourceLoaderValidation`：base/zh_CN/en_US × 资源名/类型/缺失回退）
 
 矩阵化设计的意义在于降低"单点通过、组合失败"的漏测风险。
@@ -61,7 +61,7 @@
 - JS 注入（`@State gameStart/gameLeft/gameRight/gameReset/removeDesc` 五段脚本，经 `controller.loadUrl("javascript:" + script)` 执行，`try/catch` 失败时经 `Logger` 输出）
 - 手势控制（`L`/`R` 使用 `LongPressGesture({ repeat: true, duration: 20 })`，仅在 `event.repeat` 为真时连续注入左右移动脚本）
 - Web 配置（`domStorageAccess(true)`、`onlineImageAccess(true)`、`imageAccess(true)`、`zoomAccess(false)`、`javaScriptAccess(true)`、`backgroundColor(Color.Orange)`）
-- 首屏清理（`onPageEnd` 注入 `removeDesc` 脚本，移除页面首个 `div` 元素的描述层）
+- 首屏清理（`onPageEnd` 注入 `removeDesc` 脚本，移除页面第一个 `div` 元素的描述层）
 - 资源与配置（`resources/base|zh_CN|en_US`、`media` 图标、`main_pages.json`、`module.json5`、`syscap.json`；bundle `com.samples.runjsinweb`、module `entry`、deviceTypes `default/tablet`、orientation `landscape`、权限 `ohos.permission.INTERNET`、API 9）
 - 远端页面（`https://yangyunhe369.github.io/h5-game-blockBreaker/`：加载耗时、加载失败、控制台输出、游戏状态常量）
 
@@ -92,11 +92,11 @@
 - 应用启动至页面可交互，`Start`/`L`/`R`/`Reset` 四个控件成对出现且各出现一次
 - 页面必须包含 `Web` 组件，组件总数处于合理上界内，左右控件呈水平三列分布
 - `Start` 注入后会话从 `START` 进入 `RUNNING` 并发射小球；`GAMEOVER` 下重复 `Start` 被忽略
-- `Reset` 仅在 `GAMEOVER` 下生效并回到 `START`，其他状态被忽略并计入忽略次数
+- `Reset` 仅在 `GAMEOVER` 下生效并回到 `START`，其余状态被忽略并计入忽略次数
 - `L`/`R` 按固定步长移动挡板并在左右边界处钳制，移动次数与位置一致
 - `ScriptCatalog` 五段脚本齐备，均带 `webgame <action>` trace 前导与 `_main.`/`document.` 入口引用
 - `InjectionPipeline` 构建的 `javascript:` 地址可完整还原，括号配平、空载荷与不安全载荷被拒绝
-- `onPageEnd` 注入 `removeDesc` 的行为与页面首个 `div` 移除语义一致
+- `onPageEnd` 注入 `removeDesc` 的行为与页面第一个 `div` 移除语义一致
 - Web 配置默认为 `domStorage/onlineImage/image/javaScript` 开启、`zoom` 关闭
 - 布局为 10%/80%/10%，控件按钮 50×100，方向为横屏
 - 页面加载记录的状态流转、耗时与预算判定一致
@@ -157,7 +157,7 @@ WebView 形态下，用户可能连续长按左右键、反复点击 Start/Reset
 
 - 注入安全（`WebSecurity`、`InjectionPipeline.isSafe`：空载荷、换行、`\0`、`javascript:` 重复前缀均被拒绝）
 - URL 契约（`UrlParts`/`UrlInspector`：scheme、host、path 解析，HTTPS 与 `.github.io` 白名单校验）
-- 敏感信息与隐私（`SecurityValidation`、`SecurityAccessibility`：日志脱敏、控件文本不泄露路径与调试信息）
+- 敏感信息与隐私（`SecurityValidation`、`SecurityUsability`：日志脱敏、控件文本不泄露路径与调试信息）
 - 输入与边界校验（`InputValidation`、`BoundaryErrorTesting`、`KeyCodeValidation`：坐标、键码、载荷长度边界）
 - 配置与包元数据契约（`ConfigurationManagerValidation`、`WebAppVersion`：bundle/module/ability、API 版本、权限、deviceTypes、orientation、metadata）
 - 会话与鉴权契约（`WebAuthSession`、`WebSessionValidation`：会话建立、过期、并发续期）
@@ -170,7 +170,7 @@ WebView 形态下，用户可能连续长按左右键、反复点击 Start/Reset
 
 针对 TV/大屏与遥控器操作特点，测试设计特别覆盖：
 
-- 无障碍元数据与焦点顺序（`AccessibilityNavigation`、`SecurityAccessibility`）
+- 无障碍元数据与焦点顺序（`UsabilityNavigation`、`SecurityUsability`）
 - 焦点高亮与焦点环可见性（`FocusRingBehavior`、`FocusNavigation`）
 - 按钮、触摸、手势与事件分发（`ButtonInteraction`、`TouchInteraction`、`GestureRecognition`、`EventHandling`、`EventPropagation`）
 - 长按重复触发与按键序列匹配（`GestureClassifier`、`KeySequenceMatcher`）
@@ -208,11 +208,11 @@ WebView 形态下，用户可能连续长按左右键、反复点击 Start/Reset
 |---|---|---|---|
 | 共享资产 | — | — | `Shared/SharedDriver.ets`：串行 UI 队列、页面探针与拉起、文本/组件轮询、控件定位、焦点检查、按键与触摸模拟、时延与容差常量；`Shared/GameModel.ets`：脚本目录、注入管道、游戏状态机、挡板/小球、Web 配置、布局、加载记录、性能采样、配置快照、重试策略；`Shared/GameTestKit.ets`、`Shared/TestHelpers.ets`：URL/几何/队列/令牌桶与错误分类、手势分类、快照、主题解析 |
 | 游戏主流程 `WebGame` | 16 | 865 | `WebGameUI`、`GameOperations`、`GameControlFlow`、`GameOperationWorkflow`、`GameModelDeep`、`GameScriptCatalog`、`WebGameConfiguration`、`WebGameItemInfoModel`、`WebGameStateManagement`、`WebGameConcurrency`、`WebGameStress`、`WebGameConsistency`、`WebGameLifecycle`、`WebGameErrorRecovery`、`WebGameEndToEnd`、`WebGameInputInteraction`：控件渲染、Start/L/R/Reset 注入、状态流转、脚本目录与载荷、配置契约、并发与端到端链路 |
-| 交互与可达性 `Interaction` | 14 | 751 | `FocusNavigation`、`FocusRingBehavior`、`ButtonInteraction`、`TouchInteraction`、`GestureRecognition`、`EventHandling`、`EventPropagation`、`AccessibilityNavigation`、`ContentScaling`、`ThemeVariation`、`VisualEffects`、`UIComponentRendering`、`WebViewPositioning`、`DataBinding`：焦点顺序与焦点环、按键与触摸、手势分类、事件分发、无障碍、缩放与布局、主题与视觉、Web 定位与数据绑定 |
+| 交互与可达性 `Interaction` | 14 | 751 | `FocusNavigation`、`FocusRingBehavior`、`ButtonInteraction`、`TouchInteraction`、`GestureRecognition`、`EventHandling`、`EventPropagation`、`UsabilityNavigation`、`ContentScaling`、`ThemeVariation`、`VisualEffects`、`UIComponentRendering`、`WebViewPositioning`、`DataBinding`：焦点顺序与焦点环、按键与触摸、手势分类、事件分发、无障碍、缩放与布局、主题与视觉、Web 定位与数据绑定 |
 | 生命周期与状态 `LifecycleState` | 10 | 438 | `WebViewLifecycle`、`WebViewStateManagement`、`StatePersistence`、`StateRecovery`、`SessionManagement`、`ConfigurationChanges`、`ExtensionLifecycle`、`ResourceManagement`、`ErrorRecovery`、`ExceptionHandling`：Web 生命周期、状态保存与恢复、会话、配置变化、资源释放、异常与错误恢复 |
 | 性能与稳定 `PerformanceStability` | 7 | 277 | `WebPerformance`、`AnimationPerformance`、`RenderingPowerConsumption`、`PerformanceStress`、`LongTermStability`、`MemoryLeakDetection`、`ConcurrencyControl`：加载与注入时延、动画与渲染、功耗、压力与长稳、内存泄漏、并发控制 |
 | 集成与场景 `Integration` | 9 | 269 | `UserScenarios`、`AdvancedScenarios`、`IntegrationTesting`、`SystemIntegration`、`ComprehensiveRegression`、`NetworkConnectivity`、`PlatformCompatibility`、`DeviceCompatibility`、`LocalizationTesting`：用户路径、系统集成、综合回归、网络连通、平台与设备兼容、本地化 |
-| 安全与隐私 `Security` | 3 | 95 | `WebSecurity`、`SecurityValidation`、`SecurityAccessibility`：注入安全与 URL 白名单、敏感信息与输入校验、安全相关的无障碍暴露面 |
+| 安全与隐私 `Security` | 3 | 95 | `WebSecurity`、`SecurityValidation`、`SecurityUsability`：注入安全与 URL 白名单、敏感信息与输入校验、安全相关的无障碍暴露面 |
 | 校验与契约 `Validation` | 11 | 848 | `KeyCodeValidation`、`FocusManagerValidation`、`WebStateManagerValidation`、`WebEventUtilValidation`、`AnimationControllerValidation`、`PointerUtilValidation`、`LoggerValidation`、`InputValidation`、`BoundaryErrorTesting`、`ConfigurationManagerValidation`、`ResourceLoaderValidation`：键码、焦点、状态、事件、动画、指针、日志、输入与边界、配置与资源加载契约 |
 | Web 业务校验 `WebValidation` | 8 | 462 | `WebAppVersion`、`WebAuthSession`、`WebSessionValidation`、`WebDataSourceValidation`、`WebEventToolValidation`、`WebInterruptionRecovery`、`WebNotification`、`WebOfflineNetwork`：版本、鉴权与会话、数据源、事件工具、中断恢复、通知、离线网络 |
 | 合计 | 78 | 4005 | 由 `List.test.ets` 单入口注册 |
