@@ -130,7 +130,7 @@ async function existsByText(driver: Driver, text: string): Promise<boolean> {
 }
 
 async function unlockIfNeeded(driver: Driver): Promise<void> {
-  if (await existsByText(driver, '上滑解锁') || await existsByText(driver, 'Swipe up to unlock')) {
+  if (await existsByText(driver, 'Swipe up to unlock')) {
     await driver.swipe(360, 1100, 360, 300, 600);
     await sleep(1200);
     log('unlocked lock screen');
@@ -158,8 +158,7 @@ async function ensureToggleChecked(driver: Driver, id: string, target: boolean):
 }
 
 async function dismissDialogs(driver: Driver): Promise<void> {
-  const texts: string[] = ['允许', '始终允许', '总是允许', '仅在使用中允许', '允许一次',
-    'Allow', 'Allow all', 'Always allow', 'While using the app', 'Only this time'];
+  const texts: string[] = ['Allow', 'Allow all', 'Always allow', 'While using the app', 'Only this time'];
   for (let i = 0; i < 3; i++) {
     let clicked: boolean = false;
     for (let j = 0; j < texts.length; j++) {
