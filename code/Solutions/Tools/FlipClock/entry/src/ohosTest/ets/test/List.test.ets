@@ -141,6 +141,7 @@ import flipClockVolume2Contact28Test from './FlipClockVolume2Contact28.test';
 import flipClockVolume2Contact29Test from './FlipClockVolume2Contact29.test';
 import flipClockVolume2Contact30Test from './FlipClockVolume2Contact30.test';
 import flipClockVolume3ContactTest from './FlipClockVolume3Contact.test';
+import flipClockContactAuditTest from './FlipClockContactAudit.test';
 export default function testsuite() {
   abilityTest();
   flipClockMyDataSourcePushTest();
@@ -269,4 +270,5 @@ export default function testsuite() {
   flipClockVolume2Contact29Test();
   flipClockVolume2Contact30Test();
   flipClockVolume3ContactTest();
+  flipClockContactAuditTest();
 }
