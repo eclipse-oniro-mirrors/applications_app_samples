@@ -23,15 +23,15 @@ export default function shakeLiveFormMaxForm01Test() {
   describe('ShakeLiveFormMaxForm01Test', () => {
 
     /**
-     * @tc.name   testShakeMaxForm010001
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0001
      * @tc.number SUB_SHAKE_MAX_FORM_01_0001
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010001 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -41,19 +41,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-1') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-1', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-1', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0001 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010002
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0002
      * @tc.number SUB_SHAKE_MAX_FORM_01_0002
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010002 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -63,19 +63,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-2') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-2', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-2', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0002 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010003
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0003
      * @tc.number SUB_SHAKE_MAX_FORM_01_0003
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010003 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -85,19 +85,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-3') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-3', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-3', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0003 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010004
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0004
      * @tc.number SUB_SHAKE_MAX_FORM_01_0004
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010004 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -107,19 +107,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-4') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-4', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-4', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0004 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010005
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0005
      * @tc.number SUB_SHAKE_MAX_FORM_01_0005
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010005 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0005 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -129,19 +129,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-5') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-5', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-5', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0005 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010006
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0006
      * @tc.number SUB_SHAKE_MAX_FORM_01_0006
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010006 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -151,19 +151,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-6') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-6', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-6', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0006 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010007
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0007
      * @tc.number SUB_SHAKE_MAX_FORM_01_0007
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010007 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -173,19 +173,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-7') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-7', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-7', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0007 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010008
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0008
      * @tc.number SUB_SHAKE_MAX_FORM_01_0008
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010008 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -195,19 +195,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-8') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-8', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-8', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0008 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010009
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0009
      * @tc.number SUB_SHAKE_MAX_FORM_01_0009
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010009 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0009 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -217,19 +217,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-9') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-9', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-9', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0009 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010010
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0010
      * @tc.number SUB_SHAKE_MAX_FORM_01_0010
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010010 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0010 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -239,19 +239,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-10') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-10', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-10', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0010 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010011
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0011
      * @tc.number SUB_SHAKE_MAX_FORM_01_0011
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010011 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0011 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -261,19 +261,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-11') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-11', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-11', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0011 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010012
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0012
      * @tc.number SUB_SHAKE_MAX_FORM_01_0012
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010012 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0012 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -283,19 +283,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-12') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-12', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-12', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0012 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010013
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0013
      * @tc.number SUB_SHAKE_MAX_FORM_01_0013
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010013 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0013 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -305,19 +305,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-13') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-13', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-13', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0013 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010014
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0014
      * @tc.number SUB_SHAKE_MAX_FORM_01_0014
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010014 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0014 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -327,19 +327,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-14') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-14', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-14', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0014 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010015
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0015
      * @tc.number SUB_SHAKE_MAX_FORM_01_0015
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010015 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0015 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -349,19 +349,19 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-15') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-15', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-15', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010015 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0015 end');
     })
 
     /**
-     * @tc.name   testShakeMaxForm010016
+     * @tc.name   com.example.shakeliveformdemo_MaxForm01_0016
      * @tc.number SUB_SHAKE_MAX_FORM_01_0016
      * @tc.desc   Verify a.onAddForm({}) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxForm010016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010016 begin');
+    it('com.example.shakeliveformdemo_MaxForm01_0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0016 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAddForm({}) !== undefined));
         expect(a.onAddForm({}) !== undefined).assertTrue();
@@ -371,7 +371,7 @@ export default function shakeLiveFormMaxForm01Test() {
         expect(a.onCastToNormalForm('form-16') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-16', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('form-16', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxForm010016 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxForm01_0016 end');
     })
   })
 }

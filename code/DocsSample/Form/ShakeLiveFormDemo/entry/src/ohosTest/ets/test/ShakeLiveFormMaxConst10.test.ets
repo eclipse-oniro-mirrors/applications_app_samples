@@ -24,15 +24,15 @@ export default function shakeLiveFormMaxConst10Test() {
   describe('ShakeLiveFormMaxConst10Test', () => {
 
     /**
-     * @tc.name   testShakeMaxConstScaleRange
+     * @tc.name   com.example.shakeliveformdemo_MaxConst10_0001
      * @tc.number SUB_SHAKE_MAX_CONST_10_0001
      * @tc.desc   Verify overflow ratios across the 1450-1600 width range.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMaxConstScaleRange', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxConstScaleRange begin');
+    it('com.example.shakeliveformdemo_MaxConst10_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxConst10_0001 begin');
       expect(Constants.OVERFLOW_LEFT_RATIO).assertEqual(0.1);
       expect(Constants.OVERFLOW_TOP_RATIO).assertEqual(0.15);
       expect(Constants.OVERFLOW_WIDTH_RATIO).assertEqual(1.2);
@@ -44,7 +44,7 @@ export default function shakeLiveFormMaxConst10Test() {
         expect(Math.abs(left - (-width * 0.1)) < 0.000001).assertTrue();
         expect(Math.abs(scaledWidth - (width * 1.2)) < 0.000001).assertTrue();
       }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMaxConstScaleRange end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MaxConst10_0001 end');
     })
   })
 }

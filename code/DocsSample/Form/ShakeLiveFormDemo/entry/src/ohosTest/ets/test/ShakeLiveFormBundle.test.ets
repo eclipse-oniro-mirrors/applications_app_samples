@@ -25,53 +25,53 @@ export default function shakeLiveFormBundleTest() {
     beforeAll(() => { info = bundleManager.getBundleInfoForSelfSync(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_EXTENSION_ABILITY | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION); })
 
     /**
-     * @tc.name   testShakeBundleIdentity001
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0001
      * @tc.number SUB_SHAKE_BUNDLE_001
      * @tc.desc   Verify bundle identity.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleIdentity001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleIdentity001 begin');
+    it('com.example.shakeliveformdemo_Bundle_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0001 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('com.example.shakeliveformdemo'));
       expect(info.name).assertEqual('com.example.shakeliveformdemo');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionCode), String(1000000));
         expect(info.versionCode).assertEqual(1000000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleIdentity001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0001 end');
     })
 
     /**
-     * @tc.name   testShakeBundleApp002
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0002
      * @tc.number SUB_SHAKE_BUNDLE_002
      * @tc.desc   Verify app resources.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleApp002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleApp002 begin');
+    it('com.example.shakeliveformdemo_Bundle_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0002 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('com.example.shakeliveformdemo'));
         expect(info.appInfo.name).assertEqual('com.example.shakeliveformdemo');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleApp002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0002 end');
     })
 
     /**
-     * @tc.name   testShakeBundleModule003
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0003
      * @tc.number SUB_SHAKE_BUNDLE_003
      * @tc.desc   Verify entry module device type.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleModule003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleModule003 begin');
+    it('com.example.shakeliveformdemo_Bundle_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0003 begin');
       let found: boolean = false;
       for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
         if (info.hapModulesInfo[i].name === 'entry') {
@@ -82,19 +82,19 @@ export default function shakeLiveFormBundleTest() {
       }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
       expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleModule003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0003 end');
     })
 
     /**
-     * @tc.name   testShakeBundleAbility004
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0004
      * @tc.number SUB_SHAKE_BUNDLE_004
      * @tc.desc   Verify EntryAbility declaration.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleAbility004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleAbility004 begin');
+    it('com.example.shakeliveformdemo_Bundle_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0004 begin');
       let found: boolean = false;
       for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
         const a: Array<bundleManager.AbilityInfo> = info.hapModulesInfo[i].abilitiesInfo;
@@ -108,19 +108,19 @@ export default function shakeLiveFormBundleTest() {
       }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
       expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleAbility004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0004 end');
     })
 
     /**
-     * @tc.name   testShakeBundleForm005
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0005
      * @tc.number SUB_SHAKE_BUNDLE_005
      * @tc.desc   Verify form extension.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleForm005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleForm005 begin');
+    it('com.example.shakeliveformdemo_Bundle_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0005 begin');
       let found: boolean = false;
       for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
         const e: Array<bundleManager.ExtensionAbilityInfo> = info.hapModulesInfo[i].extensionAbilitiesInfo;
@@ -132,19 +132,19 @@ export default function shakeLiveFormBundleTest() {
       }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
       expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleForm005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0005 end');
     })
 
     /**
-     * @tc.name   testShakeBundleLiveForm006
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0006
      * @tc.number SUB_SHAKE_BUNDLE_006
      * @tc.desc   Verify live form extension.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleLiveForm006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleLiveForm006 begin');
+    it('com.example.shakeliveformdemo_Bundle_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0006 begin');
       let found: boolean = false;
       for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
         const e: Array<bundleManager.ExtensionAbilityInfo> = info.hapModulesInfo[i].extensionAbilitiesInfo;
@@ -156,121 +156,121 @@ export default function shakeLiveFormBundleTest() {
       }
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
       expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleLiveForm006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0006 end');
     })
 
     /**
-     * @tc.name   testShakeBundleNoPerm007
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0007
      * @tc.number SUB_SHAKE_BUNDLE_007
      * @tc.desc   Verify no requested permissions.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleNoPerm007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleNoPerm007 begin');
+    it('com.example.shakeliveformdemo_Bundle_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0007 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.reqPermissionDetails.length), String(0));
       expect(info.reqPermissionDetails.length).assertEqual(0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.name.length > 0));
         expect(info.name.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.versionName.length > 0));
         expect(info.versionName.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleNoPerm007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0007 end');
     })
 
     /**
-     * @tc.name   testShakeBundleMeta008
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0008
      * @tc.number SUB_SHAKE_BUNDLE_008
      * @tc.desc   Verify module metadata 8.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleMeta008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta008 begin');
+    it('com.example.shakeliveformdemo_Bundle_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0008 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0008 end');
     })
 
     /**
-     * @tc.name   testShakeBundleMeta009
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0009
      * @tc.number SUB_SHAKE_BUNDLE_009
      * @tc.desc   Verify module metadata 9.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleMeta009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta009 begin');
+    it('com.example.shakeliveformdemo_Bundle_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0009 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0009 end');
     })
 
     /**
-     * @tc.name   testShakeBundleMeta010
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0010
      * @tc.number SUB_SHAKE_BUNDLE_010
      * @tc.desc   Verify module metadata 10.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleMeta010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta010 begin');
+    it('com.example.shakeliveformdemo_Bundle_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0010 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0010 end');
     })
 
     /**
-     * @tc.name   testShakeBundleMeta011
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0011
      * @tc.number SUB_SHAKE_BUNDLE_011
      * @tc.desc   Verify module metadata 11.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleMeta011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta011 begin');
+    it('com.example.shakeliveformdemo_Bundle_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0011 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0011 end');
     })
 
     /**
-     * @tc.name   testShakeBundleMeta012
+     * @tc.name   com.example.shakeliveformdemo_Bundle_0012
      * @tc.number SUB_SHAKE_BUNDLE_012
      * @tc.desc   Verify module metadata 12.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeBundleMeta012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta012 begin');
+    it('com.example.shakeliveformdemo_Bundle_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0012 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeBundleMeta012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Bundle_0012 end');
     })
   })
 }

@@ -24,15 +24,15 @@ export default function shakeLiveFormCompositeTypesTest() {
   describe('ShakeLiveFormCompositeTypesTest', () => {
 
     /**
-     * @tc.name   testShakeComposite0001
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0001
      * @tc.number SUB_SHAKE_COMPOSITE_0001
      * @tc.desc   Verify a.onAddForm(want) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0001 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0001 begin');
       const want: Want = {
         bundleName: 'com.example.shakeliveformdemo', abilityName: 'EntryAbility'
         }
@@ -42,19 +42,19 @@ export default function shakeLiveFormCompositeTypesTest() {
         expect(a.onAddForm(want) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0001 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0002
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0002
      * @tc.number SUB_SHAKE_COMPOSITE_0002
      * @tc.desc   Verify a.onAddForm(want) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0002 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0002 begin');
       const want: Want = {
         bundleName: 'com.example.shakeliveformdemo', abilityName: 'EntryAbility'
         }
@@ -64,19 +64,19 @@ export default function shakeLiveFormCompositeTypesTest() {
         expect(a.onAddForm(want) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0002 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0003
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0003
      * @tc.number SUB_SHAKE_COMPOSITE_0003
      * @tc.desc   Verify a.onAddForm(want) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0003 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0003 begin');
       const want: Want = {
         bundleName: 'com.example.shakeliveformdemo', abilityName: 'EntryAbility'
         }
@@ -86,19 +86,19 @@ export default function shakeLiveFormCompositeTypesTest() {
         expect(a.onAddForm(want) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0003 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0004
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0004
      * @tc.number SUB_SHAKE_COMPOSITE_0004
      * @tc.desc   Verify a.onAddForm(want) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0004 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0004 begin');
       const want: Want = {
         bundleName: 'com.example.shakeliveformdemo', abilityName: 'EntryAbility'
         }
@@ -108,19 +108,19 @@ export default function shakeLiveFormCompositeTypesTest() {
         expect(a.onAddForm(want) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0004 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0005
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0005
      * @tc.number SUB_SHAKE_COMPOSITE_0005
      * @tc.desc   Verify a.onAddForm(want) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0005 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0005 begin');
       const want: Want = {
         bundleName: 'com.example.shakeliveformdemo', abilityName: 'EntryAbility'
         }
@@ -130,102 +130,102 @@ export default function shakeLiveFormCompositeTypesTest() {
         expect(a.onAddForm(want) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(want.bundleName === 'com.example.shakeliveformdemo'));
         expect(want.bundleName === 'com.example.shakeliveformdemo').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0005 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0006
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0006
      * @tc.number SUB_SHAKE_COMPOSITE_0006
      * @tc.desc   Verify a.onFormEvent(\'form-6\', values.join(\'-\')) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0006 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-6', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-6', values.join('-')) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0006 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0007
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0007
      * @tc.number SUB_SHAKE_COMPOSITE_0007
      * @tc.desc   Verify a.onFormEvent(\'form-7\', values.join(\'-\')) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0007 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-7', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-7', values.join('-')) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0007 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0008
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0008
      * @tc.number SUB_SHAKE_COMPOSITE_0008
      * @tc.desc   Verify a.onFormEvent(\'form-8\', values.join(\'-\')) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0008 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-8', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-8', values.join('-')) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0008 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0009
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0009
      * @tc.number SUB_SHAKE_COMPOSITE_0009
      * @tc.desc   Verify a.onFormEvent(\'form-9\', values.join(\'-\')) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0009 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0009 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-9', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-9', values.join('-')) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0009 end');
     })
 
     /**
-     * @tc.name   testShakeComposite0010
+     * @tc.name   com.example.shakeliveformdemo_CompositeTypes_0010
      * @tc.number SUB_SHAKE_COMPOSITE_0010
      * @tc.desc   Verify a.onFormEvent(\'form-10\', values.join(\'-\')) is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeComposite0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0010 begin');
+    it('com.example.shakeliveformdemo_CompositeTypes_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0010 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-10', values.join('-')) !== undefined));
         expect(a.onFormEvent('form-10', values.join('-')) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeComposite0010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_CompositeTypes_0010 end');
     })
   })
 }

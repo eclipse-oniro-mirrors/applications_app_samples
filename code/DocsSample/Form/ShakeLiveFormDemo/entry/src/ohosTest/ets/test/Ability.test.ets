@@ -37,53 +37,53 @@ export default function abilityTest() {
     })
 
     /**
-     * @tc.name   testAppContext0001
+     * @tc.name   com.example.shakeliveformdemo_Ability_0001
      * @tc.number SUB_FORM_SHAKE_ABILITY_0100
      * @tc.desc   Test that the app context and resource manager are available and the app name equals the bundle name.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testAppContext0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testAppContext0001 begin');
+    it('com.example.shakeliveformdemo_Ability_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Ability_0001 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(appContext !== undefined));
       expect(appContext !== undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(appContext.resourceManager !== undefined));
       expect(appContext.resourceManager !== undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(appContext.applicationInfo.name), String(BUNDLE_NAME));
       expect(appContext.applicationInfo.name).assertEqual(BUNDLE_NAME);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testAppContext0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Ability_0001 end');
     })
 
     /**
-     * @tc.name   testBundleInfo0001
+     * @tc.name   com.example.shakeliveformdemo_Ability_0002
      * @tc.number SUB_FORM_SHAKE_ABILITY_0200
      * @tc.desc   Test that the bundle name and the version of the app itself equal the values configured in app.json5.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testBundleInfo0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testBundleInfo0001 begin');
+    it('com.example.shakeliveformdemo_Ability_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Ability_0002 begin');
       const bundleFlag: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT;
       const bundleInfo: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(bundleFlag);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(bundleInfo.name), String(BUNDLE_NAME));
       expect(bundleInfo.name).assertEqual(BUNDLE_NAME);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(bundleInfo.versionName), String(EXPECTED_VERSION_NAME));
       expect(bundleInfo.versionName).assertEqual(EXPECTED_VERSION_NAME);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testBundleInfo0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Ability_0002 end');
     })
 
     /**
-     * @tc.name   testHapModuleInfo0001
+     * @tc.name   com.example.shakeliveformdemo_Ability_0003
      * @tc.number SUB_FORM_SHAKE_ABILITY_0300
      * @tc.desc   Test that the entry module has the expected name, main element and both form extension abilities.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testHapModuleInfo0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testHapModuleInfo0001 begin');
+    it('com.example.shakeliveformdemo_Ability_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Ability_0003 begin');
       const bundleFlag: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE |
         bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_EXTENSION_ABILITY;
       const bundleInfo: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(bundleFlag);
@@ -119,19 +119,19 @@ export default function abilityTest() {
       expect(foundFormAbility).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(foundLiveFormAbility));
       expect(foundLiveFormAbility).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testHapModuleInfo0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Ability_0003 end');
     })
 
     /**
-     * @tc.name   testStartEntryAbility0001
+     * @tc.name   com.example.shakeliveformdemo_Ability_0004
      * @tc.number SUB_FORM_SHAKE_ABILITY_0400
      * @tc.desc   Test that the entry ability can be started without error.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testStartEntryAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testStartEntryAbility0001 begin');
+    it('com.example.shakeliveformdemo_Ability_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Ability_0004 begin');
       const want: Want = {
         bundleName: BUNDLE_NAME,
         abilityName: ENTRY_ABILITY_NAME
@@ -149,7 +149,7 @@ export default function abilityTest() {
         done();
       }
         );
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testStartEntryAbility0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_Ability_0004 end');
     })
   })
 }

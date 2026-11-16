@@ -38,15 +38,15 @@ export default function interactionFormTest() {
     })
 
     /**
-     * @tc.name   testOverflowRatioConstants0001
+     * @tc.name   com.example.shakeliveformdemo_InteractionForm_0001
      * @tc.number SUB_FORM_SHAKE_INTERACTIONFORM_0100
      * @tc.desc   Test that the overflow ratio constants keep the documented left, top, width and height values.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testOverflowRatioConstants0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowRatioConstants0001 begin');
+    it('com.example.shakeliveformdemo_InteractionForm_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0001 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_LEFT_RATIO), String(0.1));
       expect(Constants.OVERFLOW_LEFT_RATIO).assertEqual(0.1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO), String(0.15));
@@ -55,36 +55,36 @@ export default function interactionFormTest() {
       expect(Constants.OVERFLOW_WIDTH_RATIO).assertEqual(1.2);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO), String(1.3));
       expect(Constants.OVERFLOW_HEIGHT_RATIO).assertEqual(1.3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowRatioConstants0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0001 end');
     })
 
     /**
-     * @tc.name   testOverflowDurationConstant0001
+     * @tc.name   com.example.shakeliveformdemo_InteractionForm_0002
      * @tc.number SUB_FORM_SHAKE_INTERACTIONFORM_0200
      * @tc.desc   Test that the overflow animation duration constant equals the documented 3500 milliseconds.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testOverflowDurationConstant0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowDurationConstant0001 begin');
+    it('com.example.shakeliveformdemo_InteractionForm_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0002 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(EXPECTED_OVERFLOW_DURATION));
       expect(Constants.OVERFLOW_DURATION).assertEqual(EXPECTED_OVERFLOW_DURATION);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(Constants.OVERFLOW_DURATION > 0));
       expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowDurationConstant0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0002 end');
     })
 
     /**
-     * @tc.name   testOverflowAreaCalculation0001
+     * @tc.name   com.example.shakeliveformdemo_InteractionForm_0003
      * @tc.number SUB_FORM_SHAKE_INTERACTIONFORM_0300
      * @tc.desc   Test the overflow area of a 200x200 form against the ratios used by requestOverflow.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testOverflowAreaCalculation0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaCalculation0001 begin');
+    it('com.example.shakeliveformdemo_InteractionForm_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0003 begin');
       const left: number = -Constants.OVERFLOW_LEFT_RATIO * FORM_WIDTH;
       const top: number = -Constants.OVERFLOW_TOP_RATIO * FORM_HEIGHT;
       const width: number = Constants.OVERFLOW_WIDTH_RATIO * FORM_WIDTH;
@@ -97,19 +97,19 @@ export default function interactionFormTest() {
       expect(width).assertEqual(240);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(height), String(260));
       expect(height).assertEqual(260);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaCalculation0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0003 end');
     })
 
     /**
-     * @tc.name   testOverflowAreaScaling0001
+     * @tc.name   com.example.shakeliveformdemo_InteractionForm_0004
      * @tc.number SUB_FORM_SHAKE_INTERACTIONFORM_0400
      * @tc.desc   Test that the overflow area scales linearly, so half the form size gives half the area.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testOverflowAreaScaling0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaScaling0001 begin');
+    it('com.example.shakeliveformdemo_InteractionForm_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0004 begin');
       const fullOverflowWidth: number = Constants.OVERFLOW_WIDTH_RATIO * FORM_WIDTH;
       const halfOverflowWidth: number = Constants.OVERFLOW_WIDTH_RATIO * HALF_FORM_WIDTH;
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(fullOverflowWidth), String(240));
@@ -120,38 +120,38 @@ export default function interactionFormTest() {
       expect(fullOverflowWidth / FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(halfOverflowWidth / HALF_FORM_WIDTH), String(Constants.OVERFLOW_WIDTH_RATIO));
       expect(halfOverflowWidth / HALF_FORM_WIDTH).assertEqual(Constants.OVERFLOW_WIDTH_RATIO);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testOverflowAreaScaling0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0004 end');
     })
 
     /**
-     * @tc.name   testSegmentationUtilSingleton0001
+     * @tc.name   com.example.shakeliveformdemo_InteractionForm_0005
      * @tc.number SUB_FORM_SHAKE_INTERACTIONFORM_0500
      * @tc.desc   Test that SegmentationUtil.getInstance returns the same singleton instance for every caller.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testSegmentationUtilSingleton0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationUtilSingleton0001 begin');
+    it('com.example.shakeliveformdemo_InteractionForm_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0005 begin');
       const firstInstance: SegmentationUtil = SegmentationUtil.getInstance();
       const secondInstance: SegmentationUtil = SegmentationUtil.getInstance();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(firstInstance !== undefined));
       expect(firstInstance !== undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(firstInstance === secondInstance));
       expect(firstInstance === secondInstance).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationUtilSingleton0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0005 end');
     })
 
     /**
-     * @tc.name   testSegmentationWithInvalidResource0001
+     * @tc.name   com.example.shakeliveformdemo_InteractionForm_0006
      * @tc.number SUB_FORM_SHAKE_INTERACTIONFORM_0600
      * @tc.desc   Test that SegmentationImage returns undefined when the resource cannot be read.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL0
      */
-    it('testSegmentationWithInvalidResource0001',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationWithInvalidResource0001 begin');
+    it('com.example.shakeliveformdemo_InteractionForm_0006',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0006 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
       const segmentationUtil: SegmentationUtil = SegmentationUtil.getInstance();
       const invalidResource: Resource = {
@@ -165,7 +165,7 @@ export default function interactionFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result === undefined));
       expect(result === undefined).assertTrue();
       done();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testSegmentationWithInvalidResource0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0006 end');
     })
   })
 }
