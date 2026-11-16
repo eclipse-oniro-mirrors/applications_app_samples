@@ -15,19 +15,19 @@
 
 import hilog from '@ohos.hilog';
 import { describe, beforeEach, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
-import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
+import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { Want } from '@kit.AbilityKit';
 
-const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
-const driver = Driver.create();
+const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+const driver: Driver = Driver.create();
 const DELAY_MS: number = 300;
 const START_TEXT: string = '全部开始';
 const PAUSE_TEXT: string = '全部暂停';
 const TAG: string = 'MultipleFilesDownload_Test';
 
 async function ensureIdle(): Promise<void> {
-  const button = await driver.findComponent(ON.id('download'));
+  const button: Component = await driver.findComponent(ON.id('download'));
   if (button !== undefined && await button.getText() === PAUSE_TEXT) {
     await button.click();
     await driver.delayMs(DELAY_MS);
@@ -66,9 +66,9 @@ export default function abilityTest(): void {
      * @tc.level     LEVEL1
      */
     it('testMainPageReady0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async (done: Function) => {
-      const button = await driver.waitForComponent(ON.id('download'), 5000);
+      const button: Component = await driver.waitForComponent(ON.id('download'), 5000);
       expect(await button.getText()).assertEqual(START_TEXT);
-      const files = await driver.findComponents(ON.id('fileName'));
+      const files: Component[] = await driver.findComponents(ON.id('fileName'));
       expect(files.length).assertEqual(5);
       expect(await files[0].getText()).assertEqual('favor_list_tea.png');
       expect(await files[4].getText()).assertEqual('banner_movie4.png');
@@ -85,14 +85,14 @@ export default function abilityTest(): void {
      */
     it('testStartPauseToggle0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async (done: Function) => {
       await ensureIdle();
-      const button = await driver.waitForComponent(ON.id('download'), 5000);
+      const button: Component = await driver.waitForComponent(ON.id('download'), 5000);
       await button.click();
       await driver.waitForComponent(ON.text(PAUSE_TEXT), 2000);
-      const pauseButton = await driver.findComponent(ON.id('download'));
+      const pauseButton: Component = await driver.findComponent(ON.id('download'));
       expect(await pauseButton!.getText()).assertEqual(PAUSE_TEXT);
       await pauseButton!.click();
       await driver.waitForComponent(ON.text(START_TEXT), 3000);
-      const startButton = await driver.findComponent(ON.id('download'));
+      const startButton: Component = await driver.findComponent(ON.id('download'));
       expect(await startButton!.getText()).assertEqual(START_TEXT);
       done();
     })
@@ -107,13 +107,13 @@ export default function abilityTest(): void {
      */
     it('testHistoryShowsCompleted0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async (done: Function) => {
       await ensureIdle();
-      const button = await driver.waitForComponent(ON.id('download'), 5000);
+      const button: Component = await driver.waitForComponent(ON.id('download'), 5000);
       await button.click();
       await driver.delayMs(2000);
-      const historyTab = await driver.waitForComponent(ON.text('下载历史'), 3000);
+      const historyTab: Component = await driver.waitForComponent(ON.text('下载历史'), 3000);
       await historyTab.click();
       await driver.waitForComponent(ON.id('favor_list_tea.pngdelete'), 8000);
-      const historyFiles = await driver.findComponents(ON.id('fileName'));
+      const historyFiles: Component[] = await driver.findComponents(ON.id('fileName'));
       expect(historyFiles.length > 0).assertTrue();
       done();
     })
@@ -127,7 +127,7 @@ export default function abilityTest(): void {
      * @tc.level     LEVEL1
      */
     it('testDeleteHistoryFile0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async (done: Function) => {
-      const deleteButton = await driver.waitForComponent(ON.id('favor_list_tea.pngdelete'), 5000);
+      const deleteButton: Component = await driver.waitForComponent(ON.id('favor_list_tea.pngdelete'), 5000);
       await deleteButton.click();
       await driver.delayMs(1000);
       let exists: boolean = true;
