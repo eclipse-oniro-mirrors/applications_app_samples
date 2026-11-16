@@ -15,7 +15,7 @@
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import wifi from '@ohos.wifiManager';
+import { wifiManager as wifi } from '@kit.ConnectivityKit';
 import WifiDataSource from '../../../../src/main/ets/component/BasicDataSource';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
@@ -57,13 +57,13 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(1, 'Wlan-One');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-One\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-One'));
       expect(source.getData(0).ssid).assertEqual('Wlan-One');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).bssid).assertEqual(\'00:11:22:33:44:55\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).bssid), String('00:11:22:33:44:55'));
       expect(source.getData(0).bssid).assertEqual('00:11:22:33:44:55');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).rssi).assertEqual(-41);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).rssi), String(-41));
       expect(source.getData(0).rssi).assertEqual(-41);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePushOne0001 end');
     })
@@ -82,13 +82,13 @@ export default function wlanDataSourceDataTest() {
       source.pushData(makeScanInfo(1, 'Wlan-A'));
       source.pushData(makeScanInfo(2, 'Wlan-B'));
       source.pushData(makeScanInfo(3, 'Wlan-C'));
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(3));
       expect(source.totalCount()).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-A\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-A'));
       expect(source.getData(0).ssid).assertEqual('Wlan-A');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).ssid).assertEqual(\'Wlan-B\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1).ssid), String('Wlan-B'));
       expect(source.getData(1).ssid).assertEqual('Wlan-B');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2).ssid).assertEqual(\'Wlan-C\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(2).ssid), String('Wlan-C'));
       expect(source.getData(2).ssid).assertEqual('Wlan-C');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePushThree0002 end');
     })
@@ -106,13 +106,13 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       source.pushData(makeScanInfo(1, 'Wlan-B'));
       source.addData(0, makeScanInfo(2, 'Wlan-A'));
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(2));
       expect(source.totalCount()).assertEqual(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-A\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-A'));
       expect(source.getData(0).ssid).assertEqual('Wlan-A');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).ssid).assertEqual(\'Wlan-B\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1).ssid), String('Wlan-B'));
       expect(source.getData(1).ssid).assertEqual('Wlan-B');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1002);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1002));
       expect(source.getData(0).timestamp).assertEqual(1002);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceAddFront0003 end');
     })
@@ -131,11 +131,11 @@ export default function wlanDataSourceDataTest() {
       source.pushData(makeScanInfo(1, 'Wlan-A'));
       source.pushData(makeScanInfo(2, 'Wlan-C'));
       source.addData(1, makeScanInfo(3, 'Wlan-B'));
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(3));
       expect(source.totalCount()).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).ssid).assertEqual(\'Wlan-B\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1).ssid), String('Wlan-B'));
       expect(source.getData(1).ssid).assertEqual('Wlan-B');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2).ssid).assertEqual(\'Wlan-C\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(2).ssid), String('Wlan-C'));
       expect(source.getData(2).ssid).assertEqual('Wlan-C');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceAddMiddle0004 end');
     })
@@ -153,11 +153,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(5, 'Wlan-5');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-5\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-5'));
       expect(source.getData(0).ssid).assertEqual('Wlan-5');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1005);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1005));
       expect(source.getData(0).timestamp).assertEqual(1005);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0005 end');
     })
@@ -175,11 +175,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(6, 'Wlan-6');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-6\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-6'));
       expect(source.getData(0).ssid).assertEqual('Wlan-6');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1006);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1006));
       expect(source.getData(0).timestamp).assertEqual(1006);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0006 end');
     })
@@ -197,11 +197,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(7, 'Wlan-7');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-7\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-7'));
       expect(source.getData(0).ssid).assertEqual('Wlan-7');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1007);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1007));
       expect(source.getData(0).timestamp).assertEqual(1007);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0007 end');
     })
@@ -219,11 +219,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(8, 'Wlan-8');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-8\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-8'));
       expect(source.getData(0).ssid).assertEqual('Wlan-8');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1008);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1008));
       expect(source.getData(0).timestamp).assertEqual(1008);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0008 end');
     })
@@ -241,11 +241,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(9, 'Wlan-9');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-9\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-9'));
       expect(source.getData(0).ssid).assertEqual('Wlan-9');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1009);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1009));
       expect(source.getData(0).timestamp).assertEqual(1009);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0009 end');
     })
@@ -263,11 +263,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(10, 'Wlan-10');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-10\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-10'));
       expect(source.getData(0).ssid).assertEqual('Wlan-10');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1010);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1010));
       expect(source.getData(0).timestamp).assertEqual(1010);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0010 end');
     })
@@ -285,11 +285,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(11, 'Wlan-11');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-11\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-11'));
       expect(source.getData(0).ssid).assertEqual('Wlan-11');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1011);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1011));
       expect(source.getData(0).timestamp).assertEqual(1011);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0011 end');
     })
@@ -307,11 +307,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(12, 'Wlan-12');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-12\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-12'));
       expect(source.getData(0).ssid).assertEqual('Wlan-12');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1012);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1012));
       expect(source.getData(0).timestamp).assertEqual(1012);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0012 end');
     })
@@ -329,11 +329,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(13, 'Wlan-13');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-13\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-13'));
       expect(source.getData(0).ssid).assertEqual('Wlan-13');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1013);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1013));
       expect(source.getData(0).timestamp).assertEqual(1013);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0013 end');
     })
@@ -351,11 +351,11 @@ export default function wlanDataSourceDataTest() {
       const source: WifiDataSource = new WifiDataSource([]);
       const item: wifi.WifiScanInfo = makeScanInfo(14, 'Wlan-14');
       source.pushData(item);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-14\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-14'));
       expect(source.getData(0).ssid).assertEqual('Wlan-14');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).timestamp).assertEqual(1014);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).timestamp), String(1014));
       expect(source.getData(0).timestamp).assertEqual(1014);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourcePush0014 end');
     })

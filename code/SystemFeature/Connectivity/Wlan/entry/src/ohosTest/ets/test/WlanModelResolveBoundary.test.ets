@@ -33,11 +33,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0001 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000000001)).assertEqual(\'10:00:000:001\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000000001)), String('10:00:000:001'));
       expect(model.resolveIP(1000000001)).assertEqual('10:00:000:001');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000000001).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000000001).split(':').length), String(4));
       expect(model.resolveIP(1000000001).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1000000001).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000000001).length), String(13));
       expect(model.resolveIP(1000000001).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0001 end');
     })
@@ -54,11 +54,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0002 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1111111112);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'11\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('11')));
       expect(result.startsWith('11')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'112\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('112')));
       expect(result.endsWith('112')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'111\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('111'));
       expect(result.split(':')[2]).assertEqual('111');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0002 end');
     })
@@ -74,11 +74,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0003 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1222222223)).assertEqual(\'12:22:222:223\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1222222223)), String('12:22:222:223'));
       expect(model.resolveIP(1222222223)).assertEqual('12:22:222:223');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1222222223).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1222222223).split(':').length), String(4));
       expect(model.resolveIP(1222222223).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1222222223).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1222222223).length), String(13));
       expect(model.resolveIP(1222222223).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0003 end');
     })
@@ -95,11 +95,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0004 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1333333334);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'13\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('13')));
       expect(result.startsWith('13')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'334\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('334')));
       expect(result.endsWith('334')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'333\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('333'));
       expect(result.split(':')[2]).assertEqual('333');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0004 end');
     })
@@ -115,11 +115,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0005 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1444444445)).assertEqual(\'14:44:444:445\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1444444445)), String('14:44:444:445'));
       expect(model.resolveIP(1444444445)).assertEqual('14:44:444:445');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1444444445).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1444444445).split(':').length), String(4));
       expect(model.resolveIP(1444444445).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1444444445).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1444444445).length), String(13));
       expect(model.resolveIP(1444444445).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0005 end');
     })
@@ -136,11 +136,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0006 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1555555556);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'15\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('15')));
       expect(result.startsWith('15')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'556\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('556')));
       expect(result.endsWith('556')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'555\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('555'));
       expect(result.split(':')[2]).assertEqual('555');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0006 end');
     })
@@ -156,11 +156,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0007 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1666666667)).assertEqual(\'16:66:666:667\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1666666667)), String('16:66:666:667'));
       expect(model.resolveIP(1666666667)).assertEqual('16:66:666:667');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1666666667).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1666666667).split(':').length), String(4));
       expect(model.resolveIP(1666666667).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1666666667).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1666666667).length), String(13));
       expect(model.resolveIP(1666666667).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0007 end');
     })
@@ -177,11 +177,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0008 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1777777778);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'17\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('17')));
       expect(result.startsWith('17')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'778\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('778')));
       expect(result.endsWith('778')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'777\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('777'));
       expect(result.split(':')[2]).assertEqual('777');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0008 end');
     })
@@ -197,11 +197,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0009 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1888888889)).assertEqual(\'18:88:888:889\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1888888889)), String('18:88:888:889'));
       expect(model.resolveIP(1888888889)).assertEqual('18:88:888:889');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1888888889).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1888888889).split(':').length), String(4));
       expect(model.resolveIP(1888888889).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(1888888889).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1888888889).length), String(13));
       expect(model.resolveIP(1888888889).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0009 end');
     })
@@ -218,11 +218,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0010 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1999999990);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'19\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('19')));
       expect(result.startsWith('19')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'990\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('990')));
       expect(result.endsWith('990')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'999\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('999'));
       expect(result.split(':')[2]).assertEqual('999');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0010 end');
     })
@@ -238,11 +238,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0011 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2000000001)).assertEqual(\'20:00:000:001\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2000000001)), String('20:00:000:001'));
       expect(model.resolveIP(2000000001)).assertEqual('20:00:000:001');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2000000001).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2000000001).split(':').length), String(4));
       expect(model.resolveIP(2000000001).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2000000001).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2000000001).length), String(13));
       expect(model.resolveIP(2000000001).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0011 end');
     })
@@ -259,11 +259,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0012 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(2111111112);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'21\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('21')));
       expect(result.startsWith('21')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'112\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('112')));
       expect(result.endsWith('112')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'111\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('111'));
       expect(result.split(':')[2]).assertEqual('111');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0012 end');
     })
@@ -279,11 +279,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0013 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2222222223)).assertEqual(\'22:22:222:223\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2222222223)), String('22:22:222:223'));
       expect(model.resolveIP(2222222223)).assertEqual('22:22:222:223');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2222222223).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2222222223).split(':').length), String(4));
       expect(model.resolveIP(2222222223).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2222222223).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2222222223).length), String(13));
       expect(model.resolveIP(2222222223).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0013 end');
     })
@@ -300,11 +300,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0014 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(2333333334);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'23\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('23')));
       expect(result.startsWith('23')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'334\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('334')));
       expect(result.endsWith('334')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'333\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('333'));
       expect(result.split(':')[2]).assertEqual('333');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0014 end');
     })
@@ -320,11 +320,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0015 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2444444445)).assertEqual(\'24:44:444:445\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2444444445)), String('24:44:444:445'));
       expect(model.resolveIP(2444444445)).assertEqual('24:44:444:445');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2444444445).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2444444445).split(':').length), String(4));
       expect(model.resolveIP(2444444445).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2444444445).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2444444445).length), String(13));
       expect(model.resolveIP(2444444445).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0015 end');
     })
@@ -341,11 +341,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0016 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(2555555556);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'25\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('25')));
       expect(result.startsWith('25')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'556\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('556')));
       expect(result.endsWith('556')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'555\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('555'));
       expect(result.split(':')[2]).assertEqual('555');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0016 end');
     })
@@ -361,11 +361,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0017 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2666666667)).assertEqual(\'26:66:666:667\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2666666667)), String('26:66:666:667'));
       expect(model.resolveIP(2666666667)).assertEqual('26:66:666:667');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2666666667).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2666666667).split(':').length), String(4));
       expect(model.resolveIP(2666666667).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2666666667).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2666666667).length), String(13));
       expect(model.resolveIP(2666666667).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0017 end');
     })
@@ -382,11 +382,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0018 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(2777777778);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'27\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('27')));
       expect(result.startsWith('27')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'778\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('778')));
       expect(result.endsWith('778')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'777\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('777'));
       expect(result.split(':')[2]).assertEqual('777');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0018 end');
     })
@@ -402,11 +402,11 @@ export default function wlanModelResolveBoundaryTest() {
     it('testWlanResolveBoundary0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0019 begin');
       const model: WifiModel = new WifiModel();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2888888889)).assertEqual(\'28:88:888:889\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2888888889)), String('28:88:888:889'));
       expect(model.resolveIP(2888888889)).assertEqual('28:88:888:889');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2888888889).split(\':\').length).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2888888889).split(':').length), String(4));
       expect(model.resolveIP(2888888889).split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(model.resolveIP(2888888889).length).assertEqual(13);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(2888888889).length), String(13));
       expect(model.resolveIP(2888888889).length).assertEqual(13);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0019 end');
     })
@@ -423,11 +423,11 @@ export default function wlanModelResolveBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0020 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(2999999990);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.startsWith(\'29\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('29')));
       expect(result.startsWith('29')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.endsWith(\'990\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.endsWith('990')));
       expect(result.endsWith('990')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(result.split(\':\')[2]).assertEqual(\'999\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('999'));
       expect(result.split(':')[2]).assertEqual('999');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResolveBoundary0020 end');
     })

@@ -33,11 +33,11 @@ export default function wlanDataSourceContractTest() {
     it('testWlanDataSourceEmpty0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceEmpty0001 begin');
       const source: WifiDataSource = new WifiDataSource([]);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0) === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
       expect(source.getData(0) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount() >= 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.totalCount() >= 0));
       expect(source.totalCount() >= 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceEmpty0001 end');
     })
@@ -54,9 +54,9 @@ export default function wlanDataSourceContractTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceReload0002 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1) === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(1) === undefined));
       expect(source.getData(1) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceReload0002 end');
     })
@@ -73,9 +73,9 @@ export default function wlanDataSourceContractTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceAdd0003 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataAdd(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(-1) === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(-1) === undefined));
       expect(source.getData(-1) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceAdd0003 end');
     })
@@ -92,9 +92,9 @@ export default function wlanDataSourceContractTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceChange0004 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataChange(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0) === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
       expect(source.getData(0) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceChange0004 end');
     })
@@ -111,9 +111,9 @@ export default function wlanDataSourceContractTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceDelete0005 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataDelete(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0) === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
       expect(source.getData(0) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceDelete0005 end');
     })
@@ -130,9 +130,9 @@ export default function wlanDataSourceContractTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceMove0006 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataMove(0, 1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2) === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(2) === undefined));
       expect(source.getData(2) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceMove0006 end');
     })

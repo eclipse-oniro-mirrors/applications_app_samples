@@ -75,11 +75,11 @@ export default function wlanDataSourceMultiListenerTest() {
       source.registerDataChangeListener(first);
       source.registerDataChangeListener(second);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.reloadCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(first.reloadCount), String(1));
       expect(first.reloadCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.reloadCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.reloadCount), String(1));
       expect(second.reloadCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.reloadCount + second.reloadCount).assertEqual(2);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(first.reloadCount + second.reloadCount), String(2));
       expect(first.reloadCount + second.reloadCount).assertEqual(2);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiReload0001 end');
     })
@@ -101,9 +101,9 @@ export default function wlanDataSourceMultiListenerTest() {
       source.registerDataChangeListener(second);
       source.unregisterDataChangeListener(first);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.reloadCount).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(first.reloadCount), String(0));
       expect(first.reloadCount).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.reloadCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.reloadCount), String(1));
       expect(second.reloadCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiUnregisterOne0002 end');
     })
@@ -124,9 +124,9 @@ export default function wlanDataSourceMultiListenerTest() {
       source.registerDataChangeListener(first);
       source.registerDataChangeListener(second);
       source.notifyDataChange(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.changeCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(first.changeCount), String(1));
       expect(first.changeCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.changeCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.changeCount), String(1));
       expect(second.changeCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiChange0003 end');
     })
@@ -147,9 +147,9 @@ export default function wlanDataSourceMultiListenerTest() {
       source.registerDataChangeListener(first);
       source.registerDataChangeListener(second);
       source.notifyDataDelete(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.deleteCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(first.deleteCount), String(1));
       expect(first.deleteCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.deleteCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.deleteCount), String(1));
       expect(second.deleteCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiDelete0004 end');
     })
@@ -170,9 +170,9 @@ export default function wlanDataSourceMultiListenerTest() {
       source.registerDataChangeListener(first);
       source.registerDataChangeListener(second);
       source.notifyDataMove(0, 4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.moveCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(first.moveCount), String(1));
       expect(first.moveCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.moveCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.moveCount), String(1));
       expect(second.moveCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiMove0005 end');
     })
@@ -193,9 +193,9 @@ export default function wlanDataSourceMultiListenerTest() {
       source.registerDataChangeListener(first);
       source.unregisterDataChangeListener(second);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.reloadCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(first.reloadCount), String(1));
       expect(first.reloadCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.reloadCount).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.reloadCount), String(0));
       expect(second.reloadCount).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiUnknownRemove0006 end');
     })

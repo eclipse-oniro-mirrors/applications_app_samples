@@ -15,7 +15,7 @@
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import wifi from '@ohos.wifiManager';
+import { wifiManager as wifi } from '@kit.ConnectivityKit';
 import WifiDataSource from '../../../../src/main/ets/component/BasicDataSource';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
@@ -74,9 +74,9 @@ export default function wlanDataSourceEdge2Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeNegative0001 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.addData(-1, item(1));
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).ssid).assertEqual(\'Wlan-1\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-1'));
       expect(source.getData(0).ssid).assertEqual('Wlan-1');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeNegative0001 end');
     })
@@ -95,9 +95,9 @@ export default function wlanDataSourceEdge2Test() {
       source.pushData(item(1));
       source.pushData(item(2));
       source.addData(100, item(3));
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(3));
       expect(source.totalCount()).assertEqual(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2).ssid).assertEqual(\'Wlan-3\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(2).ssid), String('Wlan-3'));
       expect(source.getData(2).ssid).assertEqual('Wlan-3');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeBeyond0002 end');
     })
@@ -118,7 +118,7 @@ export default function wlanDataSourceEdge2Test() {
       source.unregisterDataChangeListener(listener);
       source.unregisterDataChangeListener(listener);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.count).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.count), String(0));
       expect(listener.count).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeDoubleRemove0003 end');
     })
@@ -139,7 +139,7 @@ export default function wlanDataSourceEdge2Test() {
       source.unregisterDataChangeListener(listener);
       source.registerDataChangeListener(listener);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.count).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.count), String(1));
       expect(listener.count).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataEdgeReRegister0004 end');
     })

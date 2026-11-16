@@ -15,7 +15,7 @@
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import wifi from '@ohos.wifiManager';
+import { wifiManager as wifi } from '@kit.ConnectivityKit';
 import WifiDataSource from '../../../../src/main/ets/component/BasicDataSource';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
@@ -110,11 +110,11 @@ export default function wlanDataSourceListenerTest() {
       const listener: WlanDataListener = new WlanDataListener();
       source.registerDataChangeListener(listener);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reloadCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reloadCount), String(1));
       expect(listener.reloadCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.addCount), String(0));
       expect(listener.addCount).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.changeCount).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.changeCount), String(0));
       expect(listener.changeCount).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerRegister0001 end');
     })
@@ -134,9 +134,9 @@ export default function wlanDataSourceListenerTest() {
       source.registerDataChangeListener(listener);
       source.registerDataChangeListener(listener);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reloadCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reloadCount), String(1));
       expect(listener.reloadCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reloadCount < 2).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(listener.reloadCount < 2));
       expect(listener.reloadCount < 2).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerDuplicate0002 end');
     })
@@ -156,9 +156,9 @@ export default function wlanDataSourceListenerTest() {
       source.registerDataChangeListener(listener);
       source.unregisterDataChangeListener(listener);
       source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reloadCount).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reloadCount), String(0));
       expect(listener.reloadCount).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.addCount), String(0));
       expect(listener.addCount).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerUnregister0003 end');
     })
@@ -177,11 +177,11 @@ export default function wlanDataSourceListenerTest() {
       const listener: WlanDataListener = new WlanDataListener();
       source.registerDataChangeListener(listener);
       source.pushData(makeInfo(1));
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.addCount), String(1));
       expect(listener.addCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.lastIndex).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.lastIndex), String(0));
       expect(listener.lastIndex).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(1));
       expect(source.totalCount()).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerAdd0004 end');
     })
@@ -201,11 +201,11 @@ export default function wlanDataSourceListenerTest() {
       source.pushData(makeInfo(1));
       source.registerDataChangeListener(listener);
       source.addData(0, makeInfo(2));
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.addCount), String(1));
       expect(listener.addCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.lastIndex).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.lastIndex), String(0));
       expect(listener.lastIndex).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(2));
       expect(source.totalCount()).assertEqual(2);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerInsert0005 end');
     })
@@ -224,11 +224,11 @@ export default function wlanDataSourceListenerTest() {
       const listener: WlanDataListener = new WlanDataListener();
       source.registerDataChangeListener(listener);
       source.notifyDataChange(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.changeCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.changeCount), String(1));
       expect(listener.changeCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.lastIndex).assertEqual(2);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.lastIndex), String(2));
       expect(listener.lastIndex).assertEqual(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reloadCount).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reloadCount), String(0));
       expect(listener.reloadCount).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerChange0006 end');
     })
@@ -247,11 +247,11 @@ export default function wlanDataSourceListenerTest() {
       const listener: WlanDataListener = new WlanDataListener();
       source.registerDataChangeListener(listener);
       source.notifyDataDelete(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.deleteCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.deleteCount), String(1));
       expect(listener.deleteCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.lastIndex).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.lastIndex), String(1));
       expect(listener.lastIndex).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.addCount), String(0));
       expect(listener.addCount).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerDelete0007 end');
     })
@@ -270,11 +270,11 @@ export default function wlanDataSourceListenerTest() {
       const listener: WlanDataListener = new WlanDataListener();
       source.registerDataChangeListener(listener);
       source.notifyDataMove(1, 3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.moveCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.moveCount), String(1));
       expect(listener.moveCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.lastFrom).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.lastFrom), String(1));
       expect(listener.lastFrom).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.lastTo).assertEqual(3);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.lastTo), String(3));
       expect(listener.lastTo).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerMove0008 end');
     })
@@ -296,13 +296,13 @@ export default function wlanDataSourceListenerTest() {
       source.notifyDataChange(0);
       source.notifyDataDelete(1);
       source.notifyDataMove(0, 2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reloadCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reloadCount), String(1));
       expect(listener.reloadCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.changeCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.changeCount), String(1));
       expect(listener.changeCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.deleteCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.deleteCount), String(1));
       expect(listener.deleteCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.moveCount).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.moveCount), String(1));
       expect(listener.moveCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerMulti0009 end');
     })
@@ -321,9 +321,9 @@ export default function wlanDataSourceListenerTest() {
       source.notifyDataReload();
       source.notifyDataAdd(0);
       source.notifyDataDelete(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0) === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
       expect(source.getData(0) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanListenerEmptyNoop0010 end');
     })

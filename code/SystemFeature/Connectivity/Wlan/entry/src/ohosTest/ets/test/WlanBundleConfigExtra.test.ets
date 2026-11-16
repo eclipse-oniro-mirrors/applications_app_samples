@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import bundleManager from '@ohos.bundle.bundleManager';
+import { bundleManager } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
@@ -40,11 +40,11 @@ export default function wlanBundleConfigExtraTest() {
           module = info.hapModulesInfo[i];
           }
       }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module !== undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(module !== undefined));
       expect(module !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect((module?.description.length ?? 0) > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String((module?.description.length ?? 0) > 0));
       expect((module?.description.length ?? 0) > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module?.name).assertEqual(\'entry\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(module?.name), String('entry'));
       expect(module?.name).assertEqual('entry');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleDesc0001 end');
     })
@@ -65,9 +65,9 @@ export default function wlanBundleConfigExtraTest() {
           module = info.hapModulesInfo[i];
           }
       }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(module?.mainElementName).assertEqual(\'MainAbility\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(module?.mainElementName), String('MainAbility'));
       expect(module?.mainElementName).assertEqual('MainAbility');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect((module?.deviceTypes.length ?? 0) >= 2).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String((module?.deviceTypes.length ?? 0) >= 2));
       expect((module?.deviceTypes.length ?? 0) >= 2).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleMain0002 end');
     })
@@ -83,11 +83,11 @@ export default function wlanBundleConfigExtraTest() {
     it('testWlanBundleAbilityLabel0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityLabel0003 begin');
       const ability = info.hapModulesInfo[0].abilitiesInfo[0];
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.name).assertEqual(\'EntryAbility\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(ability.name), String('EntryAbility'));
       expect(ability.name).assertEqual('EntryAbility');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.labelId > 0));
       expect(ability.labelId > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.iconId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.iconId > 0));
       expect(ability.iconId > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityLabel0003 end');
     })
@@ -103,11 +103,11 @@ export default function wlanBundleConfigExtraTest() {
     it('testWlanBundleAbilityExport0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityExport0004 begin');
       const ability = info.hapModulesInfo[0].abilitiesInfo[0];
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.exported).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.exported));
       expect(ability.exported).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.name.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.name.length > 0));
       expect(ability.name.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.description.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.description.length > 0));
       expect(ability.description.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityExport0004 end');
     })
@@ -122,11 +122,11 @@ export default function wlanBundleConfigExtraTest() {
      */
     it('testWlanBundleAppResources0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAppResources0005 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
       expect(info.appInfo.iconId > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'ohos.samples.wlan\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('ohos.samples.wlan'));
       expect(info.appInfo.name).assertEqual('ohos.samples.wlan');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAppResources0005 end');
     })
@@ -141,11 +141,11 @@ export default function wlanBundleConfigExtraTest() {
      */
     it('testWlanBundlePermissionFirst0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionFirst0006 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length > 0));
       expect(info.reqPermissionDetails.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[0].usedScene.abilities.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails[0].usedScene.abilities.length > 0));
       expect(info.reqPermissionDetails[0].usedScene.abilities.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[0].reason.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails[0].reason.length > 0));
       expect(info.reqPermissionDetails[0].reason.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionFirst0006 end');
     })
@@ -161,11 +161,11 @@ export default function wlanBundleConfigExtraTest() {
     it('testWlanBundlePermissionLast0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionLast0007 begin');
       const last: number = info.reqPermissionDetails.length - 1;
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(last >= 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(last >= 0));
       expect(last >= 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[last].usedScene.abilities.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails[last].usedScene.abilities.length > 0));
       expect(info.reqPermissionDetails[last].usedScene.abilities.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[last].reason.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails[last].reason.length > 0));
       expect(info.reqPermissionDetails[last].reason.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionLast0007 end');
     })
@@ -184,9 +184,9 @@ export default function wlanBundleConfigExtraTest() {
       for (let i: number = 0; i < info.reqPermissionDetails.length; i++) {
         names.add(info.reqPermissionDetails[i].name);
       }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(names.size).assertEqual(info.reqPermissionDetails.length);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(names.size), String(info.reqPermissionDetails.length));
       expect(names.size).assertEqual(info.reqPermissionDetails.length);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(names.size >= 4).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(names.size >= 4));
       expect(names.size >= 4).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermissionUnique0008 end');
     })
@@ -201,11 +201,11 @@ export default function wlanBundleConfigExtraTest() {
      */
     it('testWlanBundleModuleCount0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleCount0009 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
       expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
       expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleModuleCount0009 end');
     })
@@ -220,11 +220,11 @@ export default function wlanBundleConfigExtraTest() {
      */
     it('testWlanBundleAbilityCount0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityCount0010 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].abilitiesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].abilitiesInfo.length > 0));
       expect(info.hapModulesInfo[0].abilitiesInfo.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].abilitiesInfo[0].name).assertEqual(\'EntryAbility\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.hapModulesInfo[0].abilitiesInfo[0].name), String('EntryAbility'));
       expect(info.hapModulesInfo[0].abilitiesInfo[0].name).assertEqual('EntryAbility');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].installationFree).assertFalse();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].installationFree));
       expect(info.hapModulesInfo[0].installationFree).assertFalse();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbilityCount0010 end');
     })

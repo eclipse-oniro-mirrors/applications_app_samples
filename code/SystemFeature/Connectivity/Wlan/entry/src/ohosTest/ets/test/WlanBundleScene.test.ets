@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import bundleManager from '@ohos.bundle.bundleManager';
+import { bundleManager } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
@@ -39,15 +39,15 @@ export default function wlanBundleSceneTest() {
           const item = info.reqPermissionDetails[index];
         if (item.name === 'ohos.permission.GET_WIFI_INFO') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.abilities.includes(\'MainAbility\')).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.abilities.includes('MainAbility')));
         expect(item.usedScene.abilities.includes('MainAbility')).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.when.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.when.length > 0));
         expect(item.usedScene.when.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.reason.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.reason.length > 0));
         expect(item.reason.length > 0).assertTrue();
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0001 end');
     })
@@ -67,15 +67,15 @@ export default function wlanBundleSceneTest() {
           const item = info.reqPermissionDetails[index];
         if (item.name === 'ohos.permission.SET_WIFI_INFO') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.abilities.includes(\'MainAbility\')).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.abilities.includes('MainAbility')));
         expect(item.usedScene.abilities.includes('MainAbility')).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.when.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.when.length > 0));
         expect(item.usedScene.when.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.reason.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.reason.length > 0));
         expect(item.reason.length > 0).assertTrue();
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0002 end');
     })
@@ -95,15 +95,15 @@ export default function wlanBundleSceneTest() {
           const item = info.reqPermissionDetails[index];
         if (item.name === 'ohos.permission.LOCATION') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.abilities.includes(\'MainAbility\')).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.abilities.includes('MainAbility')));
         expect(item.usedScene.abilities.includes('MainAbility')).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.when.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.when.length > 0));
         expect(item.usedScene.when.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.reason.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.reason.length > 0));
         expect(item.reason.length > 0).assertTrue();
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0003 end');
     })
@@ -123,15 +123,15 @@ export default function wlanBundleSceneTest() {
           const item = info.reqPermissionDetails[index];
         if (item.name === 'ohos.permission.APPROXIMATELY_LOCATION') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.abilities.includes(\'MainAbility\')).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.abilities.includes('MainAbility')));
         expect(item.usedScene.abilities.includes('MainAbility')).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.usedScene.when.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.when.length > 0));
         expect(item.usedScene.when.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(item.reason.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.reason.length > 0));
         expect(item.reason.length > 0).assertTrue();
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0004 end');
     })
