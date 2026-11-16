@@ -58,7 +58,7 @@ export default function gameOperationsTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'game_ops suite end');
     });
 
-    // 新建会话默认处于 START 状态，球未发射
+    // Scenario: game_ops_session_initial_state_is_start
     it('game_ops_session_initial_state_is_start', 0, async () => {
       const session: GameSession = new GameSession();
       expect(session.getState()).assertEqual(GameState.STATE_START);
@@ -68,7 +68,7 @@ export default function gameOperationsTest() {
       expect(session.getStartCount()).assertEqual(0);
     });
 
-    // START 状态下调用开始脚本应进入 RUNNING 并发射小球
+    // Scenario: game_ops_start_from_start_switches_to_running
     it('game_ops_start_from_start_switches_to_running', 0, async () => {
       const session: GameSession = new GameSession();
       const changed: boolean = session.start();
@@ -79,7 +79,7 @@ export default function gameOperationsTest() {
       expect(session.getStartCount()).assertEqual(1);
     });
 
-    // RUNNING 状态下重复开始仍保持 RUNNING，开始次数累加
+    // Scenario: game_ops_start_from_running_keeps_running
     it('game_ops_start_from_running_keeps_running', 0, async () => {
       const session: GameSession = new GameSession();
       session.start();
@@ -90,7 +90,7 @@ export default function gameOperationsTest() {
       expect(session.getIgnoredStartCount()).assertEqual(0);
     });
 
-    // GAMEOVER 状态下开始脚本必须被忽略，等待复位
+    // Scenario: game_ops_start_from_gameover_is_ignored
     it('game_ops_start_from_gameover_is_ignored', 0, async () => {
       const session: GameSession = new GameSession();
       session.start();
@@ -101,7 +101,7 @@ export default function gameOperationsTest() {
       expect(session.getIgnoredStartCount()).assertEqual(1);
     });
 
-    // START 状态下复位脚本不生效，状态保持不变
+    // Scenario: game_ops_reset_from_start_is_ignored
     it('game_ops_reset_from_start_is_ignored', 0, async () => {
       const session: GameSession = new GameSession();
       const changed: boolean = session.reset();
@@ -111,7 +111,7 @@ export default function gameOperationsTest() {
       expect(session.getResetCount()).assertEqual(0);
     });
 
-    // RUNNING 状态下复位脚本不生效，避免中途清空分数
+    // Scenario: game_ops_reset_from_running_is_ignored
     it('game_ops_reset_from_running_is_ignored', 0, async () => {
       const session: GameSession = new GameSession();
       session.start();
@@ -121,7 +121,7 @@ export default function gameOperationsTest() {
       expect(session.getIgnoredResetCount()).assertEqual(1);
     });
 
-    // GAMEOVER 状态下复位脚本回到 START 并清空发射标记
+    // Scenario: game_ops_reset_from_gameover_returns_to_start
     it('game_ops_reset_from_gameover_returns_to_start', 0, async () => {
       const session: GameSession = new GameSession();
       session.start();
@@ -133,7 +133,7 @@ export default function gameOperationsTest() {
       expect(session.getResetCount()).assertEqual(1);
     });
 
-    // 执行 开始-结束-复位 完整循环后回到初始状态
+    // Scenario: game_ops_full_lifecycle_cycle_is_consistent
     it('game_ops_full_lifecycle_cycle_is_consistent', 0, async () => {
       const session: GameSession = new GameSession();
       expect(session.start()).assertTrue();
@@ -146,7 +146,7 @@ export default function gameOperationsTest() {
       expect(history[2]).assertEqual('reset:start');
     });
 
-    // resetSession 应清空计数器与历史，避免用例间状态污染
+    // Scenario: game_ops_session_reset_clears_all_counters
     it('game_ops_session_reset_clears_all_counters', 0, async () => {
       const session: GameSession = new GameSession();
       session.start();
@@ -159,7 +159,7 @@ export default function gameOperationsTest() {
       expect(session.isStarted()).assertTrue();
     });
 
-    // 脚本目录应包含左移、右移、开始、复位与移除说明五个脚本
+    // Scenario: game_ops_catalog_contains_all_five_scripts
     it('game_ops_catalog_contains_all_five_scripts', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       expect(catalog.size()).assertEqual(5);
@@ -170,7 +170,7 @@ export default function gameOperationsTest() {
       expect(catalog.contains('removeDesc')).assertTrue();
     });
 
-    // 所有脚本都应携带动作名、负载、跟踪调用与 _main 入口
+    // Scenario: game_ops_catalog_validates_all_payloads
     it('game_ops_catalog_validates_all_payloads', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       expect(catalog.validateAll()).assertTrue();
@@ -178,7 +178,7 @@ export default function gameOperationsTest() {
       expect(catalog.totalPayloadLength()).assertLarger(0);
     });
 
-    // 目录应为每个脚本生成 javascript: 前缀的注入地址
+    // Scenario: game_ops_catalog_builds_javascript_urls
     it('game_ops_catalog_builds_javascript_urls', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const urls: string[] = catalog.toInjectionUrls();
@@ -189,7 +189,7 @@ export default function gameOperationsTest() {
       }
     });
 
-    // 脚本 left 应存在并调用 moveLeft
+    // Scenario: game_ops_script_left_exists_and_executes_moveleft
     it('game_ops_script_left_exists_and_executes_moveleft', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('left');
@@ -200,7 +200,7 @@ export default function gameOperationsTest() {
       expect(script.hasCode()).assertTrue();
     });
 
-    // 脚本 left 的负载语法完整，且不包含换行或嵌套 javascript: 协议
+    // Scenario: game_ops_script_left_payload_is_wellformed_and_safe
     it('game_ops_script_left_payload_is_wellformed_and_safe', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('left');
@@ -211,7 +211,7 @@ export default function gameOperationsTest() {
       expect(script.toInjectionUrl()).assertContain(JAVASCRIPT_PREFIX);
     });
 
-    // 脚本 right 应存在并调用 moveRight
+    // Scenario: game_ops_script_right_exists_and_executes_moveright
     it('game_ops_script_right_exists_and_executes_moveright', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('right');
@@ -222,7 +222,7 @@ export default function gameOperationsTest() {
       expect(script.hasCode()).assertTrue();
     });
 
-    // 脚本 right 的负载语法完整，且不包含换行或嵌套 javascript: 协议
+    // Scenario: game_ops_script_right_payload_is_wellformed_and_safe
     it('game_ops_script_right_payload_is_wellformed_and_safe', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('right');
@@ -233,7 +233,7 @@ export default function gameOperationsTest() {
       expect(script.toInjectionUrl()).assertContain(JAVASCRIPT_PREFIX);
     });
 
-    // 脚本 start 应存在并调用 state_RUNNING
+    // Scenario: game_ops_script_start_exists_and_executes_state_running
     it('game_ops_script_start_exists_and_executes_state_running', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('start');
@@ -244,7 +244,7 @@ export default function gameOperationsTest() {
       expect(script.hasCode()).assertTrue();
     });
 
-    // 脚本 start 的负载语法完整，且不包含换行或嵌套 javascript: 协议
+    // Scenario: game_ops_script_start_payload_is_wellformed_and_safe
     it('game_ops_script_start_payload_is_wellformed_and_safe', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('start');
@@ -255,7 +255,7 @@ export default function gameOperationsTest() {
       expect(script.toInjectionUrl()).assertContain(JAVASCRIPT_PREFIX);
     });
 
-    // 脚本 reset 应存在并调用 state_START
+    // Scenario: game_ops_script_reset_exists_and_executes_state_start
     it('game_ops_script_reset_exists_and_executes_state_start', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('reset');
@@ -266,7 +266,7 @@ export default function gameOperationsTest() {
       expect(script.hasCode()).assertTrue();
     });
 
-    // 脚本 reset 的负载语法完整，且不包含换行或嵌套 javascript: 协议
+    // Scenario: game_ops_script_reset_payload_is_wellformed_and_safe
     it('game_ops_script_reset_payload_is_wellformed_and_safe', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('reset');
@@ -277,7 +277,7 @@ export default function gameOperationsTest() {
       expect(script.toInjectionUrl()).assertContain(JAVASCRIPT_PREFIX);
     });
 
-    // 脚本 removeDesc 应存在并调用 removeChild
+    // Scenario: game_ops_script_removeDesc_exists_and_executes_removechild
     it('game_ops_script_removeDesc_exists_and_executes_removechild', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('removeDesc');
@@ -288,7 +288,7 @@ export default function gameOperationsTest() {
       expect(script.hasCode()).assertTrue();
     });
 
-    // 脚本 removeDesc 的负载语法完整，且不包含换行或嵌套 javascript: 协议
+    // Scenario: game_ops_script_removeDesc_payload_is_wellformed_and_safe
     it('game_ops_script_removeDesc_payload_is_wellformed_and_safe', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('removeDesc');
@@ -299,14 +299,14 @@ export default function gameOperationsTest() {
       expect(script.toInjectionUrl()).assertContain(JAVASCRIPT_PREFIX);
     });
 
-    // 构建注入地址时应拼接 javascript: 前缀
+    // Scenario: game_ops_build_adds_javascript_prefix
     it('game_ops_build_adds_javascript_prefix', 0, async () => {
       const url: string = InjectionPipeline.build('_main.start();');
       expect(url).assertEqual('javascript:_main.start();');
       expect(InjectionPipeline.isInjectionUrl(url)).assertTrue();
     });
 
-    // 从脚本对象构建地址时负载内容保持不变
+    // Scenario: game_ops_build_from_script_keeps_payload
     it('game_ops_build_from_script_keeps_payload', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const script: GameScript = catalog.require('start');
@@ -315,7 +315,7 @@ export default function gameOperationsTest() {
       expect(InjectionPipeline.extract(url)).assertEqual(script.code);
     });
 
-    // 空负载必须抛出错误，避免执行空脚本
+    // Scenario: game_ops_build_rejects_empty_payload
     it('game_ops_build_rejects_empty_payload', 0, async () => {
       let thrown: boolean = false;
       try {
@@ -326,7 +326,7 @@ export default function gameOperationsTest() {
       expect(thrown).assertTrue();
     });
 
-    // 注入地址校验应只接受 javascript: 前缀
+    // Scenario: game_ops_validate_recognizes_injection_url
     it('game_ops_validate_recognizes_injection_url', 0, async () => {
       expect(InjectionPipeline.isInjectionUrl('javascript:void(0)')).assertTrue();
       expect(InjectionPipeline.isInjectionUrl('https://example.com')).assertFalse();
@@ -334,14 +334,14 @@ export default function gameOperationsTest() {
       expect(InjectionPipeline.extract('https://example.com')).assertEqual('');
     });
 
-    // 远端页面地址应识别为 http 或 https 协议
+    // Scenario: game_ops_remote_url_detection
     it('game_ops_remote_url_detection', 0, async () => {
       expect(InjectionPipeline.isRemoteUrl(SAMPLE_GAME_URL)).assertTrue();
       expect(InjectionPipeline.isRemoteUrl('http://localhost:8080')).assertTrue();
       expect(InjectionPipeline.isRemoteUrl('javascript:void(0)')).assertFalse();
     });
 
-    // 花括号或圆括号不配对的负载应被识别为语法异常
+    // Scenario: game_ops_malformed_payload_is_detected
     it('game_ops_malformed_payload_is_detected', 0, async () => {
       const malformed: string = ScriptPayloadBuilder.malformedPayload();
       expect(InjectionPipeline.hasBalancedBraces(malformed)).assertFalse();
@@ -349,7 +349,7 @@ export default function gameOperationsTest() {
       expect(InjectionPipeline.hasBalancedParentheses('foo(bar')).assertFalse();
     });
 
-    // 包含换行、控制字符或嵌套协议的负载应被拒绝
+    // Scenario: game_ops_unsafe_payload_is_rejected
     it('game_ops_unsafe_payload_is_rejected', 0, async () => {
       expect(InjectionPipeline.isSafe(ScriptPayloadBuilder.unsafePayload())).assertFalse();
       expect(InjectionPipeline.isSafe('line1\nline2')).assertFalse();
@@ -357,14 +357,14 @@ export default function gameOperationsTest() {
       expect(InjectionPipeline.isSafe('_main.start();')).assertTrue();
     });
 
-    // 空字符串既不是安全负载也不是合法注入地址
+    // Scenario: game_ops_empty_payload_is_not_safe
     it('game_ops_empty_payload_is_not_safe', 0, async () => {
       expect(InjectionPipeline.isSafe(ScriptPayloadBuilder.emptyPayload())).assertFalse();
       expect(InjectionPipeline.isWellFormed(ScriptPayloadBuilder.emptyPayload())).assertFalse();
       expect(InjectionPipeline.extract('')).assertEqual('');
     });
 
-    // 嵌套函数调用应保持圆括号平衡
+    // Scenario: game_ops_escaped_parentheses_are_balanced
     it('game_ops_escaped_parentheses_are_balanced', 0, async () => {
       const payload: string = '_main.start(_main.game.state);';
       expect(InjectionPipeline.hasBalancedParentheses(payload)).assertTrue();
@@ -372,7 +372,7 @@ export default function gameOperationsTest() {
       expect(InjectionPipeline.hasBalancedBraces('} { ')).assertFalse();
     });
 
-    // 目录中的每个脚本都应能构建出合法且安全的注入地址
+    // Scenario: game_ops_catalog_payloads_are_all_injectable
     it('game_ops_catalog_payloads_are_all_injectable', 0, async () => {
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
       const scripts: GameScript[] = catalog.all();
@@ -383,7 +383,7 @@ export default function gameOperationsTest() {
       }
     });
 
-    // 击打砖块累加分数并统计命中次数
+    // Scenario: game_ops_score_accumulates_points
     it('game_ops_score_accumulates_points', 0, async () => {
       const board: ScoreBoard = new ScoreBoard();
       expect(board.add(10)).assertEqual(10);
@@ -393,7 +393,7 @@ export default function gameOperationsTest() {
       expect(board.getHighScore()).assertEqual(30);
     });
 
-    // 非正分不得改变分数与命中次数
+    // Scenario: game_ops_non_positive_points_are_ignored
     it('game_ops_non_positive_points_are_ignored', 0, async () => {
       const board: ScoreBoard = new ScoreBoard();
       board.add(10);
@@ -402,7 +402,7 @@ export default function gameOperationsTest() {
       expect(board.getHitCount()).assertEqual(1);
     });
 
-    // 复位当前分数后历史最高分保持
+    // Scenario: game_ops_high_score_survives_reset
     it('game_ops_high_score_survives_reset', 0, async () => {
       const board: ScoreBoard = new ScoreBoard();
       board.add(50);
@@ -413,7 +413,7 @@ export default function gameOperationsTest() {
       expect(board.isNewRecord()).assertFalse();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_ops_scenario_6260800_session_start_cycles
     it('game_ops_scenario_6260800_session_start_cycles', 0, async () => {
       const caseSeed: number = 6260800;
       const session: GameSession = new GameSession();
@@ -427,7 +427,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260800);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_ops_scenario_6260801_paddle_step_sequence
     it('game_ops_scenario_6260801_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 6260801;
       const paddle: PaddleModel = new PaddleModel(1, 101, 6);
@@ -440,7 +440,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260801);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_ops_scenario_6260802_catalog_lookup_start
     it('game_ops_scenario_6260802_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 6260802;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -452,7 +452,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260802);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_ops_scenario_6260803_pipeline_round_trip
     it('game_ops_scenario_6260803_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 6260803;
       const payload: string = '_main.paddle.moveLeft(); // case 6260803';
@@ -464,7 +464,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260803);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_ops_scenario_6260804_settings_zoom_true
     it('game_ops_scenario_6260804_settings_zoom_true', 0, async () => {
       const caseSeed: number = 6260804;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -475,7 +475,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260804);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_ops_scenario_6260805_layout_custom_columns
     it('game_ops_scenario_6260805_layout_custom_columns', 0, async () => {
       const caseSeed: number = 6260805;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -486,7 +486,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260805);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: game_ops_scenario_6260806_score_accumulation
     it('game_ops_scenario_6260806_score_accumulation', 0, async () => {
       const caseSeed: number = 6260806;
       const board: ScoreBoard = new ScoreBoard();
@@ -499,7 +499,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260806);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: game_ops_scenario_6260807_brick_grid_progress
     it('game_ops_scenario_6260807_brick_grid_progress', 0, async () => {
       const caseSeed: number = 6260807;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -512,7 +512,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260807);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: game_ops_scenario_6260808_locale_lookup_en
     it('game_ops_scenario_6260808_locale_lookup_en', 0, async () => {
       const caseSeed: number = 6260808;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -523,7 +523,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260808);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: game_ops_scenario_6260809_validation_report_count
     it('game_ops_scenario_6260809_validation_report_count', 0, async () => {
       const caseSeed: number = 6260809;
       const report: ValidationReport = new ValidationReport();
@@ -536,7 +536,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260809);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: game_ops_scenario_6260810_url_with_query
     it('game_ops_scenario_6260810_url_with_query', 0, async () => {
       const caseSeed: number = 6260810;
       const url: string = SAMPLE_GAME_URL + '?case=42';
@@ -548,7 +548,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260810);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: game_ops_scenario_6260811_geometry_area
     it('game_ops_scenario_6260811_geometry_area', 0, async () => {
       const caseSeed: number = 6260811;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 61);
@@ -559,7 +559,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260811);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: game_ops_scenario_6260812_circular_buffer_capacity
     it('game_ops_scenario_6260812_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 6260812;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -572,7 +572,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260812);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: game_ops_scenario_6260813_command_queue_fifo
     it('game_ops_scenario_6260813_command_queue_fifo', 0, async () => {
       const caseSeed: number = 6260813;
       const queue: CommandQueue = new CommandQueue();
@@ -585,7 +585,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260813);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: game_ops_scenario_6260814_token_bucket_consume
     it('game_ops_scenario_6260814_token_bucket_consume', 0, async () => {
       const caseSeed: number = 6260814;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -596,7 +596,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260814);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: game_ops_scenario_6260815_page_load_budget
     it('game_ops_scenario_6260815_page_load_budget', 0, async () => {
       const caseSeed: number = 6260815;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -607,7 +607,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260815);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: game_ops_scenario_6260816_perf_sampler_bounds
     it('game_ops_scenario_6260816_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 6260816;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -620,7 +620,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260816);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: game_ops_scenario_6260817_config_api_9
     it('game_ops_scenario_6260817_config_api_9', 0, async () => {
       const caseSeed: number = 6260817;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -631,7 +631,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260817);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: game_ops_scenario_6260818_retry_attempts
     it('game_ops_scenario_6260818_retry_attempts', 0, async () => {
       const caseSeed: number = 6260818;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -643,7 +643,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260818);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: game_ops_scenario_6260819_event_recorder_sequence
     it('game_ops_scenario_6260819_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 6260819;
       const recorder: EventRecorder = new EventRecorder();
@@ -656,7 +656,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260819);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: game_ops_scenario_6260820_session_start_cycles
     it('game_ops_scenario_6260820_session_start_cycles', 0, async () => {
       const caseSeed: number = 6260820;
       const session: GameSession = new GameSession();
@@ -670,7 +670,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260820);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: game_ops_scenario_6260821_paddle_step_sequence
     it('game_ops_scenario_6260821_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 6260821;
       const paddle: PaddleModel = new PaddleModel(1, 101, 8);
@@ -683,7 +683,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260821);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: game_ops_scenario_6260822_catalog_lookup_start
     it('game_ops_scenario_6260822_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 6260822;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -695,7 +695,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260822);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: game_ops_scenario_6260823_pipeline_round_trip
     it('game_ops_scenario_6260823_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 6260823;
       const payload: string = '_main.paddle.moveLeft(); // case 6260823';
@@ -707,7 +707,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260823);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: game_ops_scenario_6260824_settings_zoom_true
     it('game_ops_scenario_6260824_settings_zoom_true', 0, async () => {
       const caseSeed: number = 6260824;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -718,7 +718,7 @@ export default function gameOperationsTest() {
       expect(caseSeed).assertEqual(6260824);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: game_ops_scenario_6260825_layout_custom_columns
     it('game_ops_scenario_6260825_layout_custom_columns', 0, async () => {
       const caseSeed: number = 6260825;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
