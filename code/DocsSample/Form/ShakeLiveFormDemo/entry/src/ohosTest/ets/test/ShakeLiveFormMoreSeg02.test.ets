@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { SegmentationUtil } from '../../../main/ets/common/SegmentationUtil';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function shakeLiveFormMoreSeg02Test() {
   describe('ShakeLiveFormMoreSeg02Test', () => {
@@ -22,193 +25,321 @@ export default function shakeLiveFormMoreSeg02Test() {
     /**
      * @tc.name   testShakeMoreSeg020001
      * @tc.number SUB_SHAKE_MORE_SEG_02_0001
-     * @tc.desc   More segmentation case 2-1.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020001 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020001 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020002
      * @tc.number SUB_SHAKE_MORE_SEG_02_0002
-     * @tc.desc   More segmentation case 2-2.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020002 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020002 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020003
      * @tc.number SUB_SHAKE_MORE_SEG_02_0003
-     * @tc.desc   More segmentation case 2-3.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020003 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020003 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020004
      * @tc.number SUB_SHAKE_MORE_SEG_02_0004
-     * @tc.desc   More segmentation case 2-4.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020004 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020004 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020005
      * @tc.number SUB_SHAKE_MORE_SEG_02_0005
-     * @tc.desc   More segmentation case 2-5.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020005 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020005 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020006
      * @tc.number SUB_SHAKE_MORE_SEG_02_0006
-     * @tc.desc   More segmentation case 2-6.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020006 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020006 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020007
      * @tc.number SUB_SHAKE_MORE_SEG_02_0007
-     * @tc.desc   More segmentation case 2-7.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020007 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020007 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020008
      * @tc.number SUB_SHAKE_MORE_SEG_02_0008
-     * @tc.desc   More segmentation case 2-8.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020008 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020008 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020009
      * @tc.number SUB_SHAKE_MORE_SEG_02_0009
-     * @tc.desc   More segmentation case 2-9.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020009 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020009 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020010
      * @tc.number SUB_SHAKE_MORE_SEG_02_0010
-     * @tc.desc   More segmentation case 2-10.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020010 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020010 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020011
      * @tc.number SUB_SHAKE_MORE_SEG_02_0011
-     * @tc.desc   More segmentation case 2-11.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020011 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020011 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020012
      * @tc.number SUB_SHAKE_MORE_SEG_02_0012
-     * @tc.desc   More segmentation case 2-12.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020012 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020012 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020013
      * @tc.number SUB_SHAKE_MORE_SEG_02_0013
-     * @tc.desc   More segmentation case 2-13.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020013 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020013 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020014
      * @tc.number SUB_SHAKE_MORE_SEG_02_0014
-     * @tc.desc   More segmentation case 2-14.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020014 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020014 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020015
      * @tc.number SUB_SHAKE_MORE_SEG_02_0015
-     * @tc.desc   More segmentation case 2-15.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020015 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020015 end');
     })
 
     /**
      * @tc.name   testShakeMoreSeg020016
      * @tc.number SUB_SHAKE_MORE_SEG_02_0016
-     * @tc.desc   More segmentation case 2-16.
+     * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeMoreSeg020016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === SegmentationUtil.getInstance()).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020016 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === SegmentationUtil.getInstance()).assertTrue();');
+        expect(a === SegmentationUtil.getInstance()).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof a.SegmentationImage === 'function').assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof a.loadImage === \'function\').assertTrue();');
+        expect(typeof a.loadImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020016 end');
     })
   })
 }

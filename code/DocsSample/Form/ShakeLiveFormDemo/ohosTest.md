@@ -13,22 +13,13 @@
 |---|---:|
 | `Ability.test.ets` | 4 |
 | `InteractionForm.test.ets` | 6 |
-| `ShakeLiveFormAbility.test.ets` | 12 |
+| `ShakeLiveFormAbility.test.ets` | 10 |
 | `ShakeLiveFormBasicTypes.test.ets` | 10 |
 | `ShakeLiveFormBoundaryTypes.test.ets` | 10 |
 | `ShakeLiveFormBundle.test.ets` | 12 |
 | `ShakeLiveFormCompositeTypes.test.ets` | 10 |
 | `ShakeLiveFormConstants.test.ets` | 10 |
-| `ShakeLiveFormMaxConst01.test.ets` | 16 |
-| `ShakeLiveFormMaxConst02.test.ets` | 16 |
-| `ShakeLiveFormMaxConst03.test.ets` | 16 |
-| `ShakeLiveFormMaxConst04.test.ets` | 16 |
-| `ShakeLiveFormMaxConst05.test.ets` | 16 |
-| `ShakeLiveFormMaxConst06.test.ets` | 16 |
-| `ShakeLiveFormMaxConst07.test.ets` | 16 |
-| `ShakeLiveFormMaxConst08.test.ets` | 16 |
-| `ShakeLiveFormMaxConst09.test.ets` | 16 |
-| `ShakeLiveFormMaxConst10.test.ets` | 16 |
+| `ShakeLiveFormMaxConst10.test.ets` | 1 |
 | `ShakeLiveFormMaxForm01.test.ets` | 16 |
 | `ShakeLiveFormMaxForm02.test.ets` | 16 |
 | `ShakeLiveFormMaxForm03.test.ets` | 16 |
@@ -67,6 +58,6 @@
 | `ShakeLiveFormResource.test.ets` | 8 |
 | `ShakeLiveFormSpecialTypes.test.ets` | 10 |
 
-合计：**55 个测试套件，812 条用例**。
+合计：**46 个测试套件，651 条用例**。
 
 > 以上用例数与 `List.test.ets` 中实际注册的套件和用例数一致。

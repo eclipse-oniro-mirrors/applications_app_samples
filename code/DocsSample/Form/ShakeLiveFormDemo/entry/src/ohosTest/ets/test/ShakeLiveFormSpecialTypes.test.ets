@@ -14,10 +14,13 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { image } from '@kit.ImageKit';
 import { SegmentationUtil } from '../../../main/ets/common/SegmentationUtil';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function shakeLiveFormSpecialTypesTest() {
   describe('ShakeLiveFormSpecialTypesTest', () => {
@@ -31,7 +34,14 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(a !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial001 begin');
+      const a: SegmentationUtil = SegmentationUtil.getInstance();
+        const b: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        expect(a === b).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a !== undefined).assertTrue();');
+        expect(a !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial001 end');
     })
 
     /**
@@ -43,7 +53,13 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onRemoveForm('') === undefined).assertTrue(); expect(a.onCastToNormalForm('') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial002 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(\'\') === undefined).assertTrue();');
+        expect(a.onRemoveForm('') === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onCastToNormalForm(\'\') === undefined).assertTrue();');
+        expect(a.onCastToNormalForm('') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial002 end');
     })
 
     /**
@@ -55,91 +71,137 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('f', '{"message":"other"}') !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial003 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f\', \'{"message":"other"}\') !== undefined).assertTrue();');
+        expect(a.onFormEvent('f', '{"message":"other"}') !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial003 end');
     })
 
     /**
      * @tc.name   testShakeSpecial004
      * @tc.number SUB_SHAKE_SPECIAL_004
-     * @tc.desc   Special type case 4.
+     * @tc.desc   Verify s is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial004 begin');
+      const s: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s !== undefined).assertTrue();');
+        expect(s !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof s.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial004 end');
     })
 
     /**
      * @tc.name   testShakeSpecial005
      * @tc.number SUB_SHAKE_SPECIAL_005
-     * @tc.desc   Special type case 5.
+     * @tc.desc   Verify s is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial005 begin');
+      const s: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s !== undefined).assertTrue();');
+        expect(s !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof s.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial005 end');
     })
 
     /**
      * @tc.name   testShakeSpecial006
      * @tc.number SUB_SHAKE_SPECIAL_006
-     * @tc.desc   Special type case 6.
+     * @tc.desc   Verify s is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial006 begin');
+      const s: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s !== undefined).assertTrue();');
+        expect(s !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof s.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial006 end');
     })
 
     /**
      * @tc.name   testShakeSpecial007
      * @tc.number SUB_SHAKE_SPECIAL_007
-     * @tc.desc   Special type case 7.
+     * @tc.desc   Verify s is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial007 begin');
+      const s: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s !== undefined).assertTrue();');
+        expect(s !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof s.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial007 end');
     })
 
     /**
      * @tc.name   testShakeSpecial008
      * @tc.number SUB_SHAKE_SPECIAL_008
-     * @tc.desc   Special type case 8.
+     * @tc.desc   Verify s is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial008 begin');
+      const s: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s !== undefined).assertTrue();');
+        expect(s !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof s.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial008 end');
     })
 
     /**
      * @tc.name   testShakeSpecial009
      * @tc.number SUB_SHAKE_SPECIAL_009
-     * @tc.desc   Special type case 9.
+     * @tc.desc   Verify s is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial009 begin');
+      const s: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s !== undefined).assertTrue();');
+        expect(s !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof s.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial009 end');
     })
 
     /**
      * @tc.name   testShakeSpecial010
      * @tc.number SUB_SHAKE_SPECIAL_010
-     * @tc.desc   Special type case 10.
+     * @tc.desc   Verify s is defined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial010 begin');
+      const s: SegmentationUtil = SegmentationUtil.getInstance();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s !== undefined).assertTrue();');
+        expect(s !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof s.SegmentationImage === \'function\').assertTrue();');
+        expect(typeof s.SegmentationImage === 'function').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeSpecial010 end');
     })
   })
 }
