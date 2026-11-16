@@ -1991,3 +1991,195 @@ export default function boardRulesContract() {
       expect(engine.clickToCell(16 * cell, cell)[1]).assertEqual(15);
       expect(engine.isInside(15, 0)).assertFalse();
     });
+
+    /** @tc.number SUB_GOBANG_BOARD_2200 @tc.name testBoardDuplicateClickGuard0022 @tc.desc Repeating the same snapped click is reported as a duplicate */
+    it('testBoardDuplicateClickGuard0022', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      let cell: number = CELL_SIZE;
+      expect(engine.registerClick(3 * cell, 4 * cell, cell)).assertTrue();
+      expect(engine.fallLocation[0]).assertEqual(3 * cell);
+      expect(engine.fallLocation[1]).assertEqual(4 * cell);
+      expect(engine.registerClick(3 * cell + 1, 4 * cell + 1, cell)).assertFalse();
+      expect(engine.registerClick(5 * cell, 4 * cell, cell)).assertTrue();
+      expect(engine.fallLocation[0]).assertEqual(5 * cell);
+      expect(engine.clickCount).assertEqual(3);
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_2300 @tc.name testBoardRenderSymbols0023 @tc.desc render maps black to X, white to O and empty cells to dots */
+    it('testBoardRenderSymbols0023', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      engine.fallChess(0, 0, BLACK);
+      engine.fallChess(0, 1, WHITE);
+      let lines: string[] = engine.render().split('\n');
+      expect(lines.length).assertEqual(BOARD_SIZE);
+      expect(lines[0].substring(0, 3)).assertEqual('XO.');
+      expect(lines[0].length).assertEqual(BOARD_SIZE);
+      expect(lines[1]).assertEqual('...............');
+      expect(lines[14]).assertEqual('...............');
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_2400 @tc.name testBoardFingerprintStability0024 @tc.desc Two boards built by the same moves share a fingerprint */
+    it('testBoardFingerprintStability0024', 0, async () => {
+      let first: BoardEngine = randomBoard(40, 777);
+      let second: BoardEngine = randomBoard(40, 777);
+      let third: BoardEngine = randomBoard(40, 778);
+      expect(first.fingerprint()).assertEqual(second.fingerprint());
+      expect(first.fingerprint() === third.fingerprint()).assertFalse();
+      expect(first.fingerprint().length > MAX_STEP).assertTrue();
+      expect(first.fingerprint().indexOf('X') >= 0).assertTrue();
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_2500 @tc.name testBoardApplySnapshot0025 @tc.desc A received snapshot replaces the whole local board including counters */
+    it('testBoardApplySnapshot0025', 0, async () => {
+      let source: BoardEngine = diagonalBoard(2, 6, BLACK);
+      source.clickCount = 9;
+      source.chessX = 7;
+      source.chessY = 7;
+      let target: BoardEngine = emptyBoard();
+      target.applySnapshot(source.snapshot());
+      expect(target.step).assertEqual(6);
+      expect(target.clickCount).assertEqual(9);
+      expect(target.chessX).assertEqual(7);
+      expect(target.chessY).assertEqual(7);
+      expect(target.countColor(BLACK)).assertEqual(6);
+      expect(target.stoneCount()).assertEqual(6);
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_2600 @tc.name testBoardSnapshotIsDetached0026 @tc.desc Mutating the live board after snapshot does not change the snapshot */
+    it('testBoardSnapshotIsDetached0026', 0, async () => {
+      let engine: BoardEngine = rowBoard(1, 3, BLACK);
+      let snapshot: BoardSnapshot = engine.snapshot();
+      engine.fallChess(1, 3, BLACK);
+      engine.step = 4;
+      expect(snapshot.step).assertEqual(3);
+      expect(snapshot.chessMapArr[1][3]).assertEqual(EMPTY);
+      expect(snapshot.chessMapArr[1][0]).assertEqual(BLACK);
+      expect(engine.stoneCount()).assertEqual(4);
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_2700 @tc.name testBoardClearColor0027 @tc.desc clearColor removes only the requested colour and reports the count */
+    it('testBoardClearColor0027', 0, async () => {
+      let engine: BoardEngine = interleavedBoard(8);
+      expect(engine.clearColor(WHITE)).assertEqual(5);
+      expect(engine.countColor(WHITE)).assertEqual(0);
+      expect(engine.countColor(BLACK)).assertEqual(5);
+      expect(engine.stoneCount()).assertEqual(5);
+      expect(engine.clearColor(WHITE)).assertEqual(0);
+      expect(engine.clearColor(BLACK)).assertEqual(5);
+      expect(engine.stoneCount()).assertEqual(0);
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_2800 @tc.name testBoardForcePlaceBypass0028 @tc.desc forcePlace ignores turn ownership but honours occupancy and game over */
+    it('testBoardForcePlaceBypass0028', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      expect(engine.forcePlace(1, 1)).assertTrue();
+      expect(engine.forcePlace(1, 2)).assertTrue();
+      expect(engine.forcePlace(1, 3)).assertTrue();
+      expect(engine.step).assertEqual(3);
+      expect(engine.forcePlace(1, 3)).assertFalse();
+      engine.isOver = true;
+      expect(engine.forcePlace(2, 2)).assertFalse();
+      expect(engine.stoneCount()).assertEqual(3);
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_2900 @tc.name testBoardLargeSequence0029 @tc.desc A hundred placements keep counters and stone count consistent */
+    it('testBoardLargeSequence0029', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      let placed: number = 0;
+      let side: string = 'A';
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+          if (engine.place(i, j, side)) {
+            placed++;
+            side = side === 'A' ? 'B' : 'A';
+          }
+        }
+      }
+      expect(placed).assertEqual(100);
+      expect(engine.step).assertEqual(100);
+      expect(engine.stoneCount()).assertEqual(100);
+      expect(engine.countColor(BLACK)).assertEqual(50);
+      expect(engine.countColor(WHITE)).assertEqual(50);
+      expect(engine.fallGather.length).assertEqual(100);
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_3000 @tc.name testBoardAlternatingSequence0030 @tc.desc Two devices alternate turns exactly like the local page loop */
+    it('testBoardAlternatingSequence0030', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      let sequence: number[][] = [[7, 7], [7, 8], [8, 7], [8, 8], [9, 7], [9, 8]];
+      let expected: string[] = [BLACK, WHITE, BLACK, WHITE, BLACK, WHITE];
+      for (let i = 0; i < sequence.length; i++) {
+        expect(engine.place(sequence[i][0], sequence[i][1], i % 2 === 0 ? 'A' : 'B')).assertTrue();
+        expect(engine.chessMapArr[sequence[i][0]][sequence[i][1]]).assertEqual(expected[i]);
+        expect(engine.step).assertEqual(i + 1);
+      }
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_3100 @tc.name testBoardGappedFixture0031 @tc.desc The gapped fixture has four stones and one hole in the middle */
+    it('testBoardGappedFixture0031', 0, async () => {
+      let engine: BoardEngine = gappedBoard(10);
+      expect(engine.stoneCount()).assertEqual(4);
+      expect(engine.chessMapArr[10][2]).assertEqual(EMPTY);
+      expect(engine.chessMapArr[10][0]).assertEqual(BLACK);
+      expect(engine.chessMapArr[10][1]).assertEqual(BLACK);
+      expect(engine.chessMapArr[10][3]).assertEqual(BLACK);
+      expect(engine.chessMapArr[10][4]).assertEqual(BLACK);
+      expect(engine.probe(10, 4, [0, 1]).count).assertEqual(2);
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_3200 @tc.name testBoardCornerFixtures0032 @tc.desc Corner and edge fixtures stay inside the board on all four corners */
+    it('testBoardCornerFixtures0032', 0, async () => {
+      let topLeft: BoardEngine = emptyBoard();
+      expect(topLeft.place(0, 0, 'A')).assertTrue();
+      let topRight: BoardEngine = emptyBoard();
+      expect(topRight.place(0, 14, 'A')).assertTrue();
+      let bottomLeft: BoardEngine = emptyBoard();
+      expect(bottomLeft.place(14, 0, 'A')).assertTrue();
+      let bottomRight: BoardEngine = emptyBoard();
+      expect(bottomRight.place(14, 14, 'A')).assertTrue();
+      expect(topLeft.place(0, 0, 'B')).assertFalse();
+      expect(bottomRight.stoneCount()).assertEqual(1);
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_3300 @tc.name testBoardProbeSingle0033 @tc.desc A lone stone probes to a run of one on every axis */
+    it('testBoardProbeSingle0033', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      engine.fallChess(7, 7, BLACK);
+      for (let i = 0; i < BoardEngine.CHECK_MODE.length; i++) {
+        let probe: WinProbe = engine.probe(7, 7, BoardEngine.CHECK_MODE[i]);
+        expect(probe.count).assertEqual(1);
+        expect(probe.color).assertEqual(BLACK);
+        expect(probe.filled).assertTrue();
+        expect(probe.reached).assertFalse();
+      }
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_3400 @tc.name testBoardProbeEmptyCell0034 @tc.desc An empty cell can never report a winning run even when surrounded */
+    it('testBoardProbeEmptyCell0034', 0, async () => {
+      let engine: BoardEngine = emptyBoard();
+      for (let i = 0; i < 3; i++) {
+        engine.fallChess(7, i, BLACK);
+        engine.fallChess(7, i + 4, BLACK);
+      }
+      let probe: WinProbe = engine.probe(7, 3, [0, 1]);
+      expect(probe.color).assertEqual(EMPTY);
+      expect(probe.filled).assertFalse();
+      expect(probe.count).assertEqual(1);
+      expect(probe.reached).assertFalse();
+      expect(engine.checkWinAt(7, 3)).assertFalse();
+    });
+
+    /** @tc.number SUB_GOBANG_BOARD_3500 @tc.name testBoardModeTable0035 @tc.desc The four scan modes are exactly the horizontal, vertical and two diagonals */
+    it('testBoardModeTable0035', 0, async () => {
+      expect(BoardEngine.CHECK_MODE.length).assertEqual(4);
+      expect(BoardEngine.CHECK_MODE[0][0]).assertEqual(1);
+      expect(BoardEngine.CHECK_MODE[0][1]).assertEqual(0);
+      expect(BoardEngine.CHECK_MODE[1][0]).assertEqual(0);
+      expect(BoardEngine.CHECK_MODE[1][1]).assertEqual(1);
+      expect(BoardEngine.CHECK_MODE[2][0]).assertEqual(1);
+      expect(BoardEngine.CHECK_MODE[2][1]).assertEqual(1);
+      expect(BoardEngine.CHECK_MODE[3][0]).assertEqual(1);
+      expect(BoardEngine.CHECK_MODE[3][1]).assertEqual(-1);
+    });
+  });
+}
