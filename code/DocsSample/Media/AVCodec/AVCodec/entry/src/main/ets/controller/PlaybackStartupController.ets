@@ -19,7 +19,7 @@ import player, { PlaybackResult } from 'libplayer.so';
 import { PlayerSettingsModel } from '../model/PlayerSettingsModel';
 import { MediaFileActivity } from '../model/MediaFileActivity';
 import { MediaTaskCoordinator, MediaTaskLease } from '../model/MediaTaskCoordinator';
-import { MediaReports } from '../model/MediaSessionReport';
+import { MediaReports, MediaInputIdentity } from '../model/MediaSessionReport';
 import { MediaSessionStore } from '../model/MediaSessionStore';
 import Logger from '../common/utils/Logger';
 
@@ -39,6 +39,7 @@ export class PlaybackStartupController {
     if (lease === undefined) { MediaFileActivity.endLaunch(); result.error = 'busy'; return result; }
     let input: fileIo.File | undefined = undefined;
     let closed: boolean = false;
+    let sourceIdentity: MediaInputIdentity | undefined = undefined;
     const closeInput = (): void => {
       if (input === undefined || closed) { return; }
       try {
@@ -54,7 +55,9 @@ export class PlaybackStartupController {
           .catch((error: Error): void => Logger.warn('PlaybackStartup', error.message));
       }
       input = fileIo.openSync(path, fileIo.OpenMode.READ_ONLY);
-      const size: number = fileIo.statSync(input.fd).size;
+      const stat: fileIo.Stat = fileIo.statSync(input.fd);
+      const size: number = stat.size;
+      sourceIdentity = MediaReports.inputSnapshot(path, size, stat.mtime);
       if (size <= 0) { result.error = 'empty'; return result; }
       prepare(lease);
       result.started = player.play(settings.createPlayOptions({
@@ -67,7 +70,7 @@ export class PlaybackStartupController {
         try {
           if (context !== undefined && MediaTaskCoordinator.owns(lease)) {
             void MediaSessionStore.finish(context, lease.id,
-              MediaReports.playback(lease.id, player.getCompletedPlaybackInfo(), completion.reason))
+              MediaReports.playback(lease.id, player.getCompletedPlaybackInfo(), completion.reason, sourceIdentity))
               .catch((error: Error): void => Logger.warn('PlaybackStartup', error.message));
           }
         } catch (error) {

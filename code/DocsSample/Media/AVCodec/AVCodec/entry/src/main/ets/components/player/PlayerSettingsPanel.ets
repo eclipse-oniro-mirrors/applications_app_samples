@@ -45,6 +45,7 @@ export struct PlayerSettingsPanel {
   @Prop advancedExpanded: boolean = false;
   @Prop audioLowLatencyEnabled: boolean = false;
   @Prop autoHideControlsEnabled: boolean = true;
+  @Prop resumeLastPositionEnabled: boolean = false;
   @Prop retainLastFrameEnabled: boolean = true;
   @Prop retainLastFrameAvailable: boolean = true;
   @Prop lowLatencyEnabled: boolean = false;
@@ -57,6 +58,7 @@ export struct PlayerSettingsPanel {
   onAdvancedExpandedChanged: (expanded: boolean) => void = (_expanded: boolean): void => {};
   onAudioLowLatencyChanged: (enabled: boolean) => void = (_enabled: boolean): void => {};
   onAutoHideControlsChanged: (enabled: boolean) => void = (_enabled: boolean): void => {};
+  onResumeLastPositionChanged: (enabled: boolean) => void = (_enabled: boolean): void => {};
   onRetainLastFrameChanged: (enabled: boolean) => void = (_enabled: boolean): void => {};
   onLowLatencyChanged: (enabled: boolean) => void = (_enabled: boolean): void => {};
   onDecodingOrderOutputChanged: (enabled: boolean) => void = (_enabled: boolean): void => {};
@@ -222,6 +224,13 @@ export struct PlayerSettingsPanel {
           .padding({ left: '4vp', right: '4vp' })
           .onClick((): void => this.onAdvancedExpandedChanged(!this.advancedExpanded))
           if (this.advancedExpanded) {
+            this.SwitchOption({
+              title: $r('app.string.setting_resume_last_position'),
+              checked: this.resumeLastPositionEnabled,
+              onChanged: this.onResumeLastPositionChanged,
+              available: true
+            })
+            Divider().color('#E5E7EB')
             this.SwitchOption({ title: $r('app.string.setting_audio_latency'), checked: this.audioLowLatencyEnabled,
               onChanged: this.onAudioLowLatencyChanged, available: true })
             Divider().color('#E5E7EB')

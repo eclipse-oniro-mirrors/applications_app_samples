@@ -14,6 +14,7 @@
  */
 
 import { camera } from '@kit.CameraKit';
+import { LocalizedText } from './LocalizedText';
 
 export class CommonConstants {
   /**
@@ -125,18 +126,18 @@ export class CommonConstants {
    */
   public static getTransformTypes(): string[] {
     return [
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_NONE').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_90').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_180').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_ROTATE_270').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT90').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT90').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT180').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT180').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_H_ROT270').id),
-      globalThis.context.resourceManager.getStringSync($r('app.string.NATIVEBUFFER_FLIP_V_ROT270').id)
+      LocalizedText.get($r('app.string.NATIVEBUFFER_ROTATE_NONE')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_ROTATE_90')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_ROTATE_180')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_ROTATE_270')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_FLIP_H')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_FLIP_V')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_FLIP_H_ROT90')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_FLIP_V_ROT90')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_FLIP_H_ROT180')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_FLIP_V_ROT180')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_FLIP_H_ROT270')),
+      LocalizedText.get($r('app.string.NATIVEBUFFER_FLIP_V_ROT270'))
     ];
   }
   /**

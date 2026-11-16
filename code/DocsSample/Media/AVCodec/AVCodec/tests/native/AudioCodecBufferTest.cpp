@@ -17,9 +17,11 @@
 #include <iostream>
 #include "../../entry/src/main/cpp/capabilities/include/audio_decoder.h"
 #include "../../entry/src/main/cpp/capabilities/include/audio_encoder.h"
+#include "../../entry/src/main/cpp/sample/player/output/audio/AudioOutputPump.h"
 
 struct OH_AVBuffer {
     OH_AVCodecBufferAttr attr {};
+    uint8_t data[64] {};
 };
 struct OH_AVFormat {};
 struct OH_AVCodec {
@@ -30,7 +32,10 @@ struct OH_AVCodec {
     OH_AVErrCode attrStatus = AV_ERR_OK;
     OH_AVErrCode configureStatus = AV_ERR_OK;
     OH_AVErrCode freeStatus = AV_ERR_OK;
+    OH_AVErrCode flushStatus = AV_ERR_OK;
+    OH_AVErrCode stopStatus = AV_ERR_OK;
     OH_AVErrCode destroyStatus = AV_ERR_OK;
+    std::atomic<bool> *stopOnOutputQuery = nullptr;
     bool failInputGet = false;
     bool failOutputGet = false;
     int32_t frees = 0;
@@ -90,7 +95,7 @@ void TestInputStatus()
 }
 
 template<typename AudioCodec>
-void TestOutputOwnership()
+void TestOutputOwnership(int32_t eosStatus, bool eosReturned)
 {
     g_codec = {};
     AudioCodec wrapper;
@@ -98,12 +103,14 @@ void TestOutputOwnership()
     g_codec.output.attr.size = FRAME_BYTES;
     g_codec.output.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
     CodecBufferInfo info;
-    Require(wrapper.GetOutputBuffer(info, QUERY_TIMEOUT_US) == AVCODEC_SAMPLE_ERR_OK &&
-        info.buffer == &g_codec.output && info.bufferIndex == BUFFER_INDEX &&
-        (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0 && g_codec.frees == 0,
-        "EOS remains caller-owned until its original index is returned");
-    Require(wrapper.FreeOutputBuffer(info) == AVCODEC_SAMPLE_ERR_OK && g_codec.frees == 1,
-        "Caller returns EOS exactly once");
+    Require(wrapper.GetOutputBuffer(info, QUERY_TIMEOUT_US) == eosStatus &&
+        info.buffer == (eosReturned ? nullptr : &g_codec.output) && info.bufferIndex == BUFFER_INDEX &&
+        (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) != 0 && g_codec.frees == (eosReturned ? 1 : 0),
+        "EOS status identifies whether the codec has already returned its Buffer");
+    if (!eosReturned) {
+        Require(wrapper.FreeOutputBuffer(info) == AVCODEC_SAMPLE_ERR_OK && g_codec.frees == 1,
+            "Caller returns encoder EOS exactly once");
+    }
     g_codec.outputStatus = AV_ERR_TRY_AGAIN_LATER;
     Require(wrapper.GetOutputBuffer(info, QUERY_TIMEOUT_US) == AVCODEC_SAMPLE_ERR_AGAIN && info.buffer == nullptr,
         "Output timeout clears the previous Buffer");
@@ -123,7 +130,7 @@ void TestOutputOwnership()
 }
 
 template<typename AudioCodec>
-void TestLifecycle()
+void TestLifecycle(int32_t stopFlushes, int32_t releaseFlushes)
 {
     g_codec = {};
     {
@@ -138,13 +145,42 @@ void TestLifecycle()
         g_codec.configureStatus = AV_ERR_OK;
         Require(wrapper.Config(sample, &context) == AVCODEC_SAMPLE_ERR_OK &&
             g_codec.formatCreates == g_codec.formatDestroys, "Successful Configure also destroys its Format");
-        Require(wrapper.Stop() == AVCODEC_SAMPLE_ERR_OK && g_codec.stops == 1 && g_codec.flushes == 0,
-            "Stop does not implicitly Flush");
+        Require(wrapper.Stop() == AVCODEC_SAMPLE_ERR_OK && g_codec.stops == 1 &&
+            g_codec.flushes == stopFlushes, "Stop preserves the codec-specific Flush behavior");
         g_codec.destroyStatus = AV_ERR_UNKNOWN;
         Require(wrapper.Release() == AVCODEC_SAMPLE_ERR_ERROR && g_codec.destroys == 1 &&
-            g_codec.stops == 1 && g_codec.flushes == 0, "Release calls only Destroy and reports its failure");
+            g_codec.stops == 2 && g_codec.flushes == releaseFlushes,
+            "Release attempts Flush and Stop before Destroy and reports its failure");
+        Require(wrapper.Release() == AVCODEC_SAMPLE_ERR_OK && g_codec.destroys == 1 &&
+            g_codec.stops == 2 && g_codec.flushes == releaseFlushes,
+            "Repeated Release does not touch the destroyed codec");
     }
     Require(g_codec.destroys == 1, "Destructor does not destroy a released handle twice");
+}
+
+template<typename AudioCodec>
+void TestReleaseAfterCleanupFailure()
+{
+    g_codec = {};
+    {
+        AudioCodec wrapper;
+        Require(wrapper.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create audio codec");
+        g_codec.flushStatus = AV_ERR_INVALID_STATE;
+        g_codec.stopStatus = AV_ERR_INVALID_STATE;
+        Require(wrapper.Release() == AVCODEC_SAMPLE_ERR_OK && g_codec.destroys == 1,
+            "Flush or Stop failure must not prevent Destroy");
+    }
+    Require(g_codec.destroys == 1, "Cleanup failure does not cause repeated Destroy");
+}
+
+void TestEncoderStopFlushFailure()
+{
+    g_codec = {};
+    AudioEncoder encoder;
+    Require(encoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create audio encoder");
+    g_codec.flushStatus = AV_ERR_INVALID_STATE;
+    Require(encoder.Stop() == AVCODEC_SAMPLE_ERR_ERROR && g_codec.flushes == 1 && g_codec.stops == 0,
+        "Encoder Stop reports Flush failure before calling codec Stop");
 }
 
 void TestEncoderEos()
@@ -157,6 +193,126 @@ void TestEncoderEos()
     Require(encoder.NotifyEndOfStream(info) == AVCODEC_SAMPLE_ERR_OK && g_codec.pushes == 1 &&
         g_codec.input.attr.flags == AVCODEC_BUFFER_FLAGS_EOS && g_codec.input.attr.size == 0,
         "EOS uses the acquired input Buffer and index");
+}
+
+void TestDecoderEosReturnAttempt()
+{
+    g_codec = {};
+    AudioDecoder decoder;
+    Require(decoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create audio decoder");
+    g_codec.output.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+    g_codec.freeStatus = AV_ERR_UNKNOWN;
+    CodecBufferInfo info;
+    Require(decoder.GetOutputBuffer(info, QUERY_TIMEOUT_US) == AVCODEC_SAMPLE_ERR_END &&
+        info.buffer == nullptr && g_codec.frees == 1,
+        "Synchronous EOS attempts Free once, clears its Buffer and preserves the END contract");
+}
+
+bool ProcessPlaybackOutput(AudioOutputPump &pump, CodecUserData &context, bool asynchronous)
+{
+    if (asynchronous) {
+        context.outputBufferQueue.Enqueue(std::make_shared<CodecBufferInfo>(BUFFER_INDEX, &g_codec.output));
+        return pump.ProcessAsyncOutput();
+    }
+    return pump.ProcessSyncOutput();
+}
+
+void TestPlaybackEos(bool asynchronous, int32_t eosSize)
+{
+    g_codec = {};
+    AudioDecoder decoder;
+    Require(decoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create playback decoder");
+    CodecUserData context;
+    std::atomic<bool> running {true};
+    std::atomic<bool> playbackFailed {false};
+    int32_t prepareCalls = 0;
+    int32_t outputCalls = 0;
+    int32_t dumpCalls = 0;
+    AudioOutputPump pump({decoder, context, running, playbackFailed,
+        [&prepareCalls](CodecBufferInfo &) {
+            ++prepareCalls;
+            return true;
+        },
+        [&decoder, &outputCalls](CodecBufferInfo &info) {
+            ++outputCalls;
+            return decoder.FreeOutputBuffer(info) == AVCODEC_SAMPLE_ERR_OK;
+        },
+        [&dumpCalls](CodecBufferInfo &) { ++dumpCalls; }});
+
+    g_codec.output.attr.size = FRAME_BYTES;
+    for (int32_t i = 0; i < FRAME_BYTES; ++i) {
+        g_codec.output.data[i] = static_cast<uint8_t>(i);
+    }
+    Require(ProcessPlaybackOutput(pump, context, asynchronous) && !playbackFailed && g_codec.frees == 1,
+        "Final PCM frame remains playable and returns its Buffer once");
+    g_codec.output.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+    g_codec.output.attr.size = eosSize;
+    Require(!ProcessPlaybackOutput(pump, context, asynchronous) && !playbackFailed && running,
+        "Normal EOS ends audio output without marking playback as failed");
+    Require(g_codec.frees == 2 && prepareCalls == 1 && outputCalls == 1 &&
+        dumpCalls == (asynchronous ? 1 : 0) && context.outputFrameCount == 1,
+        "EOS is returned once and bypasses PCM preparation, rendering and dumping");
+    Require(context.renderQueue.size() == FRAME_BYTES, "EOS preserves queued tail audio without adding bytes");
+    for (int32_t i = 0; i < FRAME_BYTES; ++i) {
+        Require(context.renderQueue.front() == static_cast<uint8_t>(i), "Tail PCM order is preserved");
+        context.renderQueue.pop();
+    }
+}
+
+void TestPlaybackQueryStatus()
+{
+    g_codec = {};
+    AudioDecoder decoder;
+    Require(decoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create playback decoder");
+    CodecUserData context;
+    std::atomic<bool> running {true};
+    std::atomic<bool> playbackFailed {false};
+    AudioOutputPump pump({decoder, context, running, playbackFailed, {}, {}, {}});
+    g_codec.outputStatus = AV_ERR_TRY_AGAIN_LATER;
+    Require(pump.ProcessSyncOutput() && !playbackFailed && running && g_codec.frees == 0,
+        "Output timeout retries without reporting a playback error or freeing a Buffer");
+    g_codec.outputStatus = AV_ERR_UNKNOWN;
+    Require(!pump.ProcessSyncOutput() && playbackFailed && !running && g_codec.frees == 0,
+        "Real output query failure still stops playback as an error");
+}
+
+void TestPlaybackEosFreeContract(bool asynchronous)
+{
+    g_codec = {};
+    AudioDecoder decoder;
+    Require(decoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create playback decoder");
+    CodecUserData context;
+    std::atomic<bool> running {true};
+    std::atomic<bool> playbackFailed {false};
+    AudioOutputPump pump({decoder, context, running, playbackFailed, {}, {}, {}});
+    g_codec.output.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+    g_codec.freeStatus = AV_ERR_UNKNOWN;
+    Require(!ProcessPlaybackOutput(pump, context, asynchronous) && playbackFailed == asynchronous &&
+        running != asynchronous &&
+        g_codec.frees == 1 && context.renderQueue.empty(),
+        "EOS Free is attempted once; async reports failure while sync preserves the decoder END contract");
+}
+
+void TestPlaybackStoppedDuringQuery(OH_AVErrCode queryStatus, bool eos, bool freeFails)
+{
+    g_codec = {};
+    AudioDecoder decoder;
+    Require(decoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create playback decoder");
+    CodecUserData context;
+    std::atomic<bool> running {true};
+    std::atomic<bool> playbackFailed {false};
+    AudioOutputPump pump({decoder, context, running, playbackFailed, {}, {}, {}});
+    g_codec.outputStatus = queryStatus;
+    g_codec.output.attr.flags = eos ? AVCODEC_BUFFER_FLAGS_EOS : AVCODEC_BUFFER_FLAGS_NONE;
+    g_codec.freeStatus = freeFails ? AV_ERR_UNKNOWN : AV_ERR_OK;
+    g_codec.stopOnOutputQuery = &running;
+    Require(!pump.ProcessSyncOutput() && !running, "Stop during an output query ends the worker");
+    Require(g_codec.frees == (queryStatus == AV_ERR_OK ? 1 : 0),
+        "Stop returns acquired PCM and END Buffers once, and never frees a timeout result");
+    const bool queryFailed = queryStatus != AV_ERR_OK && queryStatus != AV_ERR_TRY_AGAIN_LATER;
+    Require(playbackFailed == (queryFailed || (queryStatus == AV_ERR_OK && freeFails && !eos)) &&
+        context.renderQueue.empty(),
+        "Stop bypasses PCM callbacks and preserves query and PCM return errors");
 }
 } // namespace
 
@@ -203,6 +359,9 @@ extern "C" OH_AVErrCode FakeAudioCodecQueryOutputBuffer(OH_AVCodec *, uint32_t *
 extern "C" OH_AVErrCode FakeAudioCodecQueryOutputBuffer(OH_AVCodec *, uint32_t *index, int64_t)
 {
     *index = BUFFER_INDEX;
+    if (g_codec.stopOnOutputQuery != nullptr) {
+        g_codec.stopOnOutputQuery->store(false);
+    }
     return g_codec.outputStatus;
 }
 extern "C" OH_AVBuffer *FakeAudioCodecGetOutputBuffer(OH_AVCodec *, uint32_t index)
@@ -225,6 +384,18 @@ extern "C" OH_AVErrCode FakeAvBufferSetBufferAttr(OH_AVBuffer *buffer, const OH_
 {
     buffer->attr = *attr;
     return AV_ERR_OK;
+}
+extern "C" uint8_t *FakeAvBufferGetAddr(OH_AVBuffer *buffer)
+    __asm__("OH_AVBuffer_GetAddr");
+extern "C" uint8_t *FakeAvBufferGetAddr(OH_AVBuffer *buffer)
+{
+    return buffer->data;
+}
+extern "C" int32_t FakeAvBufferGetCapacity(OH_AVBuffer *buffer)
+    __asm__("OH_AVBuffer_GetCapacity");
+extern "C" int32_t FakeAvBufferGetCapacity(OH_AVBuffer *buffer)
+{
+    return static_cast<int32_t>(sizeof(buffer->data));
 }
 extern "C" OH_AVErrCode FakeAudioCodecPushInputBuffer(OH_AVCodec *, uint32_t index)
     __asm__("OH_AudioCodec_PushInputBuffer");
@@ -296,14 +467,14 @@ extern "C" OH_AVErrCode FakeAudioCodecStop(OH_AVCodec *)
 extern "C" OH_AVErrCode FakeAudioCodecStop(OH_AVCodec *)
 {
     ++g_codec.stops;
-    return AV_ERR_OK;
+    return g_codec.stopStatus;
 }
 extern "C" OH_AVErrCode FakeAudioCodecFlush(OH_AVCodec *)
     __asm__("OH_AudioCodec_Flush");
 extern "C" OH_AVErrCode FakeAudioCodecFlush(OH_AVCodec *)
 {
     ++g_codec.flushes;
-    return AV_ERR_OK;
+    return g_codec.flushStatus;
 }
 extern "C" OH_AVErrCode FakeAudioCodecDestroy(OH_AVCodec *)
     __asm__("OH_AudioCodec_Destroy");
@@ -323,10 +494,26 @@ int main()
 {
     TestInputStatus<AudioEncoder>();
     TestInputStatus<AudioDecoder>();
-    TestOutputOwnership<AudioEncoder>();
-    TestOutputOwnership<AudioDecoder>();
-    TestLifecycle<AudioEncoder>();
-    TestLifecycle<AudioDecoder>();
+    TestOutputOwnership<AudioEncoder>(AVCODEC_SAMPLE_ERR_OK, false);
+    TestOutputOwnership<AudioDecoder>(AVCODEC_SAMPLE_ERR_END, true);
+    TestLifecycle<AudioEncoder>(1, 3);
+    TestLifecycle<AudioDecoder>(0, 1);
+    TestReleaseAfterCleanupFailure<AudioEncoder>();
+    TestReleaseAfterCleanupFailure<AudioDecoder>();
+    TestEncoderStopFlushFailure();
     TestEncoderEos();
-    std::cout << "Audio Buffers: status, EOS ownership, Format cleanup and independent lifecycle passed\n";
+    TestDecoderEosReturnAttempt();
+    TestPlaybackEos(false, 0);
+    TestPlaybackEos(false, FRAME_BYTES);
+    TestPlaybackEos(true, 0);
+    TestPlaybackEos(true, FRAME_BYTES);
+    TestPlaybackQueryStatus();
+    TestPlaybackEosFreeContract(false);
+    TestPlaybackEosFreeContract(true);
+    TestPlaybackStoppedDuringQuery(AV_ERR_OK, false, false);
+    TestPlaybackStoppedDuringQuery(AV_ERR_OK, true, false);
+    TestPlaybackStoppedDuringQuery(AV_ERR_OK, true, true);
+    TestPlaybackStoppedDuringQuery(AV_ERR_TRY_AGAIN_LATER, true, false);
+    TestPlaybackStoppedDuringQuery(AV_ERR_UNKNOWN, true, false);
+    std::cout << "Audio Buffers: END ownership, playback completion, stop races and cleanup lifecycle passed\n";
 }

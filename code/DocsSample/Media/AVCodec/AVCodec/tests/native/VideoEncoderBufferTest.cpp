@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+#include <algorithm>
 #include <cstdlib>
 #include <deque>
 #include <iostream>
@@ -182,6 +183,32 @@ void TestInputLayoutCallback()
     Require(invalid.hasError && invalid.inputBufferQueue.Dequeue(0) == nullptr,
         "Missing layout fails the callback instead of exposing an unusable Buffer");
 }
+
+void TestAudioTailPosition()
+{
+    SampleInfo sample;
+    sample.audio.audioChannelCount = 2;
+    sample.audio.audioSampleRate = 48000;
+    CodecUserData context;
+    context.sampleInfo = &sample;
+    context.endPosAudioBufferPts = 68'136'000;
+    std::atomic<int64_t> positionUs {68'000'000};
+    context.playbackPositionUs = &positionUs;
+    for (uint8_t value : {1, 2, 3, 4}) {
+        context.renderQueue.push(value);
+    }
+    uint8_t output[8] {};
+    Require(SampleCallback::OnRenderWriteData(nullptr, &context, output, sizeof(output)) == 0 &&
+        context.audioFramesWritten == 1 && positionUs == context.endPosAudioBufferPts,
+        "Last partial PCM callback updates the audio position and valid frame count");
+    Require(output[0] == 1 && output[3] == 4 && output[4] == 0 && output[7] == 0,
+        "Last PCM bytes are preserved and the remainder is silence");
+    positionUs = 68'400'000;
+    Require(SampleCallback::OnRenderWriteData(nullptr, &context, output, sizeof(output)) == 0 &&
+        positionUs == 68'400'000 && context.audioFramesWritten == 1 &&
+        std::all_of(output, output + sizeof(output), [](uint8_t value) { return value == 0; }),
+        "Silence after audio EOS must not rewind the position advanced by remaining video");
+}
 } // namespace
 
 extern "C" OH_AVCodec *FakeVideoEncoderCreateByMime(const char *)
@@ -304,5 +331,6 @@ int main()
     TestFormatChanges();
     TestStopWithoutFlush();
     TestInputLayoutCallback();
+    TestAudioTailPosition();
     std::cout << "Encoder Buffers: retry, errors, EOS, independent Stop and isolated input/output layout passed\n";
 }

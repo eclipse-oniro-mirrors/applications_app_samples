@@ -244,8 +244,11 @@ void Player::SetVolume(float volume)
     }
 }
 
-bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame)
+bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, bool dropFrame, VideoFramePacer &pacer)
 {
+    if (isAudioDone.load()) {
+        return ProcessVideoWithoutAudio(bufferInfo, pacer);
+    }
     // 60fps时提前渲染两帧是合理的，但在240fps时会占用约八个解码器输出buffer。
     // 将提前量限制为两个源帧，使硬件解码器在高帧率下仍可及时收回输出buffer。
     const int64_t sourceFrameIntervalUs = std::max<int64_t>(1, sampleInfo_.video.frameInterval);
@@ -255,11 +258,16 @@ bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, b
         const uint64_t revision = videoTimingRevision_.load();
         std::unique_lock<std::mutex> lock(pauseMutex_);
         if (pauseCond_.wait_for(lock, std::chrono::microseconds(waitTimeUs - maxRenderLeadUs), [this, revision]() {
-            const bool shouldStopWaiting = !isStarted_.load() || paused_.load() || audioInterrupted_.load();
+            const bool shouldStopWaiting = !isStarted_.load() || paused_.load() || audioInterrupted_.load() ||
+                isAudioDone.load();
             return shouldStopWaiting || videoTimingRevision_.load() != revision;
         })) {
-            // 时钟状态已变化，归还当前帧，下一帧重新读取音频时间戳。
             lock.unlock();
+            if (isStarted_.load() && isAudioDone.load() && !seekInProgress_.load() && !audioTrackSwitching_.load()) {
+                // 音频排空后保留当前帧，改用单调时钟，避免继续等待冻结的音频PTS。
+                return ProcessVideoWithoutAudio(bufferInfo, pacer);
+            }
+            // 暂停、Seek等状态变化仍按原逻辑归还当前帧。
             return PresentAndReleaseVideoBuffer(bufferInfo, false, GetCurrentTime());
         }
     }
@@ -283,6 +291,9 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
     if (audioTrackSwitching_.load()) {
         return ProcessVideoDuringTrackSwitch(bufferInfo, pacer);
     }
+    if (isAudioDone.load()) {
+        return ProcessVideoWithoutAudio(bufferInfo, pacer);
+    }
     int64_t framePosition = 0;
     int64_t timestamp = 0;
     int32_t ret = AUDIOSTREAM_SUCCESS;
@@ -301,7 +312,7 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         isStarted_ = false;
         return false;
     }
-    const bool rendered = RenderAndRelease(bufferInfo, decision.waitTimeUs, decision.dropFrame);
+    const bool rendered = RenderAndRelease(bufferInfo, decision.waitTimeUs, decision.dropFrame, pacer);
     if (rendered && !decision.dropFrame) {
         StartAudioAfterVideoSeek();
     }

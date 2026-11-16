@@ -13,5 +13,8 @@
  * limitations under the License.
  */
 
-// Script for compiling build behavior. It is built in the build plug-in and cannot be modified currently.
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+
+execFileSync(process.execPath, [path.join(__dirname, 'scripts/generate-build-info.cjs')], { stdio: 'inherit' });
 export { appTasks } from '@ohos/hvigor-ohos-plugin';

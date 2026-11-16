@@ -44,6 +44,7 @@ public:
     int32_t Stop();
     // 同步取Buffer返回OK、AGAIN或ERROR；成功时由info保存Buffer和原索引。
     int32_t GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
+    // 输出返回OK时由调用方归还Buffer；END表示EOS已调用Free，info.buffer为空，不可重复归还。
     int32_t GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs);
     // 释放codec及其内部资源。该操作后此前获得的Buffer和索引均不再有效。
     int32_t Release();

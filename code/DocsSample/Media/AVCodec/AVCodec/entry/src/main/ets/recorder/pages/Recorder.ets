@@ -28,6 +28,7 @@ import { RecorderLaunchController } from '../../controller/RecorderLaunchControl
 import { RecorderLiveParameters } from '../../components/recorder/RecorderLiveParameters';
 import { RecorderDiagnosticsPanel } from '../../components/recorder/RecorderDiagnosticsPanel';
 import Logger from '../../common/utils/Logger';
+import { ScreenOnController } from '../../controller/ScreenOnController';
 
 @Entry
 @Component
@@ -82,7 +83,7 @@ struct Recorder {
           message: LocalizedText.get($r('app.string.recorder_buffer_combination_unavailable')), duration: 5000
         });
       }
-      Logger.error('Recorder', JSON.stringify(error));
+      Logger.error('Recorder', String(error));
       await this.finish(true);
     }
   }
@@ -94,7 +95,7 @@ struct Recorder {
       await this.beginCapture();
     } catch (error) {
       this.session.mark('camera.failed', 'start_failed');
-      Logger.error('Recorder', JSON.stringify(error));
+      Logger.error('Recorder', String(error));
       await this.finish(true);
     }
   }
@@ -105,6 +106,7 @@ struct Recorder {
     this.session.mark('camera.started');
     if (this.ending) { return; }
     this.phase = RecordingPhase.RECORDING;
+    void ScreenOnController.setRecordingActive(true);
     this.segments.started(0);
     this.diagnostics.start(this.data.enableDualOutput, this.data.stopOnLowSpace,
       (compact: string, details: string): void => {
@@ -139,7 +141,10 @@ struct Recorder {
       if (!await this.session.setPaused(this.phase !== RecordingPhase.PAUSED)) {
         this.getUIContext().getPromptAction().showToast({ message: $r('app.string.recorder_pause_failed') });
       }
-      if (!this.ending) { this.phase = this.session.phase; }
+      if (!this.ending) {
+        this.phase = this.session.phase;
+        void ScreenOnController.setRecordingActive(this.phase === RecordingPhase.RECORDING);
+      }
     } finally { this.pauseBusy = false; }
   }
 
@@ -202,6 +207,7 @@ struct Recorder {
   }
 
   private async finish(showResult: boolean): Promise<void> {
+    void ScreenOnController.setRecordingActive(false);
     this.ending = true;
     // A Back/hide request wins over an automatic failure result during segment switching.
     this.showResultOnFinish = this.showResultOnFinish && showResult;
@@ -223,7 +229,7 @@ struct Recorder {
       this.result = this.segments.result(this.data.recordingGroupId, true);
       this.phase = RecordingPhase.FAILED;
       this.compact = LocalizedText.get($r('app.string.recorder_finalize_failed'));
-      Logger.error('Recorder', JSON.stringify(error));
+      Logger.error('Recorder', String(error));
     }
     if (this.result?.complete === false) {
       try {

@@ -179,8 +179,12 @@ int32_t AudioDecoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
     info.buffer = outputBuf;
 
     if (info.attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
-        AVCODEC_SAMPLE_LOGI("Out buffer EOS flag detected");
-        return AVCODEC_SAMPLE_ERR_OK;
+        // EOS输出也必须归还，之后不再访问outputBuf或该索引。
+        OH_AudioCodec_FreeOutputBuffer(decoder_, info.bufferIndex);
+        info.buffer = nullptr;
+        AVCODEC_SAMPLE_LOGI("Out buffer end");
+        // 解码输出结束。
+        return AVCODEC_SAMPLE_ERR_END;
     }
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -261,7 +265,9 @@ int32_t AudioDecoder::Stop()
 int32_t AudioDecoder::Release()
 {
     if (decoder_ != nullptr) {
-        // 工作线程退出后由业务侧销毁codec，Destroy完成后才能释放回调上下文。
+        // 销毁前刷新并停止解码器，不可重复destroy。
+        Flush();
+        Stop();
         const int32_t ret = OH_AudioCodec_Destroy(decoder_);
         decoder_ = nullptr;
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,

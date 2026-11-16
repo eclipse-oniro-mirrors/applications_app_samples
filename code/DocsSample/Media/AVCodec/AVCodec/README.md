@@ -1261,7 +1261,7 @@ If demuxer positioning, Flush, or playback-path recovery fails, playback enters 
 
 The queue panel lets the user select multiple media files from File Manager and choose sequential, repeat-one, repeat-all, or shuffle playback. URIs remain in the current-session queue; when a file completes naturally, the completion callback calculates the next index from the selected mode. Shuffle avoids immediately repeating the just-finished item. Explicit stop and playback errors do not advance the queue. The same panel lists recent playback entries.
 
-Recent entries are persisted with `@ohos.data.preferences` and contain the URI, display name, last position, duration, and update time. Position writes are throttled. When a URI is opened again and initialization succeeds, the UI performs one precise seek after the player enters the playback state. Positions close to the end restart from zero, while the Replay button always starts from zero.
+Recent entries are persisted with `@ohos.data.preferences` and contain the URI, display name, last position, duration, and update time. Position writes are throttled. **Resume last playback position** is off by default. Enable it under playback settings > **Advanced settings** and apply the change; the choice is saved with the configuration. With the switch off, opening a file starts from zero. With it on, reopening a URI performs one precise seek after the player enters the playback state. Positions close to the end and the Replay button still start from zero. Disabling the switch preserves history and leaves the separate playback-error retry policy in effect.
 
 **Retry once after a playback error** is enabled by default. A recovery snapshot is recorded only after the task has produced audio or video output; it contains the position, requested speed, and paused state. On a Native `error` completion, the page reopens the same URI at most once. User stop, media change, page disappearance, and errors before any output cancel this path. This handles a transient codec or renderer failure without reopening corrupt input or unsupported configurations repeatedly.
 
@@ -2295,7 +2295,11 @@ Media time locates content; elapsed time measures execution. `Date.now()` suppli
 
 Playback reads a snapshot every 250 ms; the session, Seek and each diagnostics module control their own resets. Transcode creates diagnostics per job, publishes roughly every 250 ms, and closes pending wait intervals before a final snapshot. UI polling frequency is not per-frame sampling frequency. Match session ID, actual output path and units before comparing FPS or duration.
 
-`MediaPerformanceBaseline` compares completed reports only when operation, device, api, requested and observed all match. Metrics match by name and unit; the baseline must be positive and the current value nonnegative and finite. Delta is `(current - baseline) / baseline × 100%`. A changed request/result summary can prevent a match. Higher FPS and higher duration mean different things; this comparison displays differences without a statistical-significance test or an automatic regression verdict.
+`MediaPerformanceBaseline` compares completed reports with a full source SHA256. Operation, device, API, requested and observed summaries, source SHA256 and byte size must match. Metrics are matched by name and unit; the baseline must be positive and the current value nonnegative and finite. Delta is `(current - baseline) / baseline × 100%`. A changed request/result summary can prevent a match. Higher FPS and higher duration have different meanings; the page displays differences without an automatic regression verdict.
+
+Expand a completed playback or transcode report on the device page, calculate its source checksum, then save it as a baseline. Calculate the checksum for a new report before comparing it. Hashing reads the full source asynchronously in chunks after timing ends and holds the file-task lease. Size and modification time are checked before and after reading. Changed files, expired access or read failures leave the report intact; restore access to the unchanged original and retry, or run the task again if the source changed. Old reports remain readable and exportable, but reports without source identity cannot be compared.
+
+Reports also include the application version, build time, Git revision and source SHA256, generated during the build. Source archives without Git history record the revision as unknown. The source checksum includes local code changes and excludes generated files and local signing settings. Revision and source checksum identify the code; they may differ across a comparison. Source URIs stay in local reports and are removed from JSON/TXT exports, while checksums remain available.
 
 <a id="capability-snapshots"></a>
 
@@ -2437,3 +2441,19 @@ echo code/DocsSample/Media/AVCodec/AVCodec/ > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
+
+
+### Automated verification
+
+Run the following from this sample directory. The SDK path must point to a version directory containing both ets and native. On Windows, the Native host tests use GCC inside WSL.
+
+```powershell
+$env:OHOS_SDK_HOME = '<SDK version directory>'
+$env:DEVECO_STUDIO_HOME = '<DevEco Studio installation>'
+$env:AVCODEC_WSL_DISTRO = '<distribution name from wsl --list>'
+node scripts/verify.mjs
+```
+
+The script runs both Host suites, all 14 Native tests, CodeLinter and the HAP build. Any failed stage returns a nonzero exit code. Use `--only host|native|lint|build` to run one stage. Use the Node version bundled with DevEco Studio, or add it to PATH first. See [verification details](tests/README.md) for dependencies, scope, existing findings and PR requirements. CI can call this script; repository maintainers must configure required remote checks.
+
+The foreground app keeps the screen on during video playback or active recording. Pause, stop, page exit and background transitions restore the system timeout policy. Audio-only playback and idle pages do not keep the screen on. Media asset queries attempt to release PhotoAccessHelper on success, lookup failure and result-close failure. Recording initialization retains the original error object so its stage, code and message remain available.

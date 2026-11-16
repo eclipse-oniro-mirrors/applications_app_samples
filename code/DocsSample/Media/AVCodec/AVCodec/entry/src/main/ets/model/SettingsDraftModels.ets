@@ -34,6 +34,7 @@ export class PlayerSettingsDraft {
   public audioLowLatency: boolean = false;
   public audioTrackIndex: number = -1;
   public autoHideControls: boolean = true;
+  public resumeLastPosition: boolean = false;
 
   load(settings: PlayerSettingsModel): void {
     this.decoderType = settings.videoDecoderType;
@@ -50,6 +51,7 @@ export class PlayerSettingsDraft {
     this.audioLowLatency = settings.enableAudioLowLatency;
     this.audioTrackIndex = settings.audioTrackIndex;
     this.autoHideControls = settings.autoHideControls;
+    this.resumeLastPosition = settings.resumeLastPosition;
   }
 
   apply(settings: PlayerSettingsModel): boolean {
@@ -68,6 +70,7 @@ export class PlayerSettingsDraft {
       return false;
     }
     settings.autoHideControls = this.autoHideControls;
+    settings.resumeLastPosition = this.resumeLastPosition;
     return true;
   }
 }
