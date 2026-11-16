@@ -1,5 +1,5 @@
 # Native XComponent
-本示例包含五个小示例。
+本示例包含六个小示例。
 
 示例一：使用ArkTS声明式方法创建XComponent，并使用SurfaceHolder相关接口
 
@@ -10,6 +10,8 @@
 示例四：使用ArkTS声明式方法创建XComponent，并使用NativeXComponent相关接口
 
 示例五：使用NDK接口创建XComponent，并使用NativeXComponent相关接口
+
+示例六：使用NDK接口创建XComponent作为第三方框架宿主节点，并注册/注销InspectorTreeGetter回调
 
 ### 工程目录
 
@@ -47,7 +49,8 @@
 |  |     ├──SurfaceHolderDeclarative.ets
 |  |     ├──SurfaceHolderNDK.ets
 |  |     ├──SurfaceHolderTypeNode.ets
-│  │  ├──interface
+|  |     ├──InspectorTreeGetterNDK.ets
+|  │  ├──interface
 │  │     ├──XComponentContext.ts
 |  ├──resources         			// 资源文件目录
 ```
@@ -324,6 +327,48 @@ EGL环境。在Native侧的OnsurfaceChanged回调中，传入OH_ArkUI_SurfaceHol
 | OH_NativeXComponent_GetNativeXComponent(ArkUI_NodeHandle node) | 基于Native接口创建的组件实例获取OH_NativeXComponent类型的指针。 |
 
 
+# NativeXComponent（示例六）
+
+### 介绍
+
+本示例展示了第三方框架（如Flutter、CMP）如何通过InspectorTreeGetter回调接口向ArkUI Inspector上报组件树信息。在Native侧使用NDK接口创建XComponent节点模拟第三方框架的渲染宿主节点，通过OH_ArkUI_NativeModule_RegisterInspectorTreeGetter在宿主节点上注册InspectorTreeGetter回调。当Inspector遍历组件树并遇到已注册回调的节点时，会调用该回调获取外部组件子树，并将其合并到完整的Inspector树输出中；通过OH_ArkUI_NativeModule_UnregisterInspectorTreeGetter注销回调后，Inspector遍历该节点时将不再调用该回调。
+
+功能主要包括：点击“Register”按钮注册InspectorTreeGetter回调，点击“Get Inspector Tree”按钮获取组件树，此时组件树中包含模拟的第三方框架组件子树（FlutterView等节点）；点击“Unregister”按钮注销回调后再次获取组件树，组件树中不再包含第三方框架组件子树。
+
+使用说明
+
+1. 安装编译生成的HAP包，并启动应用。
+
+2. 点击“NDK InspectorTreeGetter”页签，进入示例页面，页面灰色区域为Native侧创建的XComponent宿主节点（模拟第三方框架渲染区域）。
+
+3. 点击“Register”按钮，在宿主节点上注册InspectorTreeGetter回调，页面显示“register success”。
+
+4. 点击“Get Inspector Tree”按钮，页面显示“tree contains external framework subtree”，并在下方查看组件树JSON，其中包含回调上报的FlutterView、FlutterColumn、FlutterText、FlutterButton等模拟第三方框架组件节点。
+
+5. 点击“Unregister”按钮，注销宿主节点上的InspectorTreeGetter回调，页面显示“unregister success”。
+
+6. 再次点击“Get Inspector Tree”按钮，页面显示“tree does not contain external framework subtree”，组件树JSON中不再包含模拟的第三方框架组件子树。
+
+
+### 具体实现
+
+通过在Native C++代码中定义对外接口registerInspectorTreeGetter和unregisterInspectorTreeGetter，在ArkTS侧调用对应接口完成InspectorTreeGetter回调的注册与注销。
+
+在Native侧创建XComponent节点作为第三方框架的宿主节点，并保存其ArkUI_NodeHandle。注册回调时，调用OH_ArkUI_NativeModule_RegisterInspectorTreeGetter接口，将宿主节点、自定义数据指针（userData）和getInspectorTree回调函数传入。回调被调用时，构造外部宿主格式的JSON字符串模拟第三方框架的组件子树（节点包含elementId、componentType、screenRect、attributes、children字段，该字符串的内存由回调实现分配，调用方需使用free()释放），引擎会自动将其转换为ArkUI Inspector格式（elementId→$ID、componentType→$type、screenRect→$rect、attributes→$attrs、children→$children）并合并到完整的组件树输出中。注销回调时，调用OH_ArkUI_NativeModule_UnregisterInspectorTreeGetter接口，传入的函数指针必须与注册时一致；注销后由调用方负责释放此前注册时传入的userData。
+
+ArkTS侧通过UIContext的getFilteredInspectorTree接口获取组件树，通过检查返回的JSON中是否包含回调上报的组件节点，验证外部组件子树是否已合并到Inspector树中。
+
+源码参考：[manager目录](entry/src/main/cpp/manager)下的plugin_manager.cpp。
+
+涉及到的相关接口：
+
+| 接口名                                                       | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| OH_ArkUI_NativeModule_RegisterInspectorTreeGetter(ArkUI_NodeHandle node, void* userData, void (*getInspectorTree)(void* userData, char** inspectorTree)) | 在指定节点上注册InspectorTreeGetter回调，用于第三方框架向ArkUI Inspector上报组件树信息。仅支持ARKUI_NODE_XCOMPONENT、ARKUI_NODE_CUSTOM和ARKUI_NODE_XCOMPONENT_TEXTURE类型的节点。同一节点可以注册多个InspectorTreeGetter回调。 |
+| OH_ArkUI_NativeModule_UnregisterInspectorTreeGetter(ArkUI_NodeHandle node, void (*getInspectorTree)(void* userData, char** inspectorTree)) | 注销指定节点上已注册的InspectorTreeGetter回调，传入的回调函数指针必须与注册时一致；若传入空指针，则注销该节点上已注册的全部回调。本函数不会释放此前注册时传入的userData，其内存由调用方负责释放。 |
+| getFilteredInspectorTree(filters?: Array\<string\>) | 获取组件树及组件属性。注册回调后，回调上报的外部组件子树将合并到该接口返回的组件树中。 |
+
+
 # 相关权限
 
 不涉及。
@@ -336,7 +381,7 @@ EGL环境。在Native侧的OnsurfaceChanged回调中，传入OH_ArkUI_SurfaceHol
 
 1. 本示例仅支持标准系统上运行，支持设备：rk3568
 
-2. 本示例为Stage模型，支持API20版本SDK，SDK版本号(API Version 20 Release)，镜像版本号(6.0 Release)
+2. 本示例为Stage模型，支持API20版本SDK，SDK版本号(API Version 20 Release)，镜像版本号(6.0 Release)；其中示例六使用的OH_ArkUI_NativeModule_RegisterInspectorTreeGetter和OH_ArkUI_NativeModule_UnregisterInspectorTreeGetter接口从API版本26.1.0开始支持，需使用配套SDK编译运行
 
 3. 本示例涉及使用系统接口：XComponent组件的enableTransparentLayer接口，需要手动替换Full SDK才能编译通过，具体操作可参考[替换指南](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/faqs/full-sdk-switch-guide.md)。
 

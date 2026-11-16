@@ -17,6 +17,8 @@
 #include <ace/xcomponent/native_interface_xcomponent.h>
 #include <cstdint>
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <hilog/log.h>
 #include <string>
 #include "arkui/native_node.h"
@@ -31,6 +33,7 @@
 
 namespace NativeXComponentSample {
 std::unordered_map<std::string, ArkUI_NodeHandle> PluginManager::nodeHandleMap_;
+std::unordered_map<std::string, std::string *> PluginManager::inspectorUserDataMap_;
 std::unordered_map<void *, OH_ArkUI_SurfaceCallback *> PluginManager::callbackMap_;
 std::unordered_map<void *, OH_ArkUI_SurfaceHolder *> PluginManager::surfaceHolderMap_;
 ArkUI_AccessibilityProvider *PluginManager::provider_ = nullptr;
@@ -338,6 +341,48 @@ ArkUI_NodeHandle CreateNodeHandle(const std::string &tag)
     return column;
 }
 
+// 创建InspectorTreeGetter示例的宿主节点，XComponent模拟第三方框架（如Flutter）的渲染宿主
+ArkUI_NodeHandle CreateNodeHandleForInspectorTree(const std::string &tag)
+{
+    constexpr float INSPECTOR_XC_WIDTH = 200;
+    constexpr float INSPECTOR_XC_HEIGHT = 200;
+    ArkUI_NodeHandle column = nodeAPI->createNode(ARKUI_NODE_COLUMN);
+    ArkUI_NumberValue value[] = {480};
+    ArkUI_NumberValue value1[] = {{.u32 = 15}, {.f32 = 15}};
+    ArkUI_AttributeItem item = {value, 1, "changeSize"};
+    ArkUI_AttributeItem item1 = {value1, 2};
+    nodeAPI->setAttribute(column, NODE_WIDTH, &item);
+    value[0].f32 = COLUMN_MARGIN;
+    nodeAPI->setAttribute(column, NODE_MARGIN, &item);
+    ArkUI_NodeHandle hostNode = nodeAPI->createNode(ARKUI_NODE_XCOMPONENT); // 创建XComponent作为第三方框架宿主节点
+    value[0].u32 = ARKUI_XCOMPONENT_TYPE_SURFACE;
+    nodeAPI->setAttribute(hostNode, NODE_XCOMPONENT_TYPE, &item);
+    ArkUI_AttributeItem idItem = {value, 1, "inspectortreegetter"};
+    nodeAPI->setAttribute(hostNode, NODE_XCOMPONENT_ID, &idItem); // 设置XComponent的id
+    nodeAPI->setAttribute(hostNode, NODE_XCOMPONENT_SURFACE_SIZE, &item1);
+    ArkUI_NumberValue focusable[] = {1};
+    focusable[0].i32 = 1;
+    ArkUI_AttributeItem focusableItem = {focusable, 1};
+    nodeAPI->setAttribute(hostNode, NODE_FOCUSABLE, &focusableItem);
+    ArkUI_NumberValue valueSize[] = {480};
+    ArkUI_AttributeItem itemSize = {valueSize, 1};
+    valueSize[0].f32 = INSPECTOR_XC_WIDTH;
+    nodeAPI->setAttribute(hostNode, NODE_WIDTH, &itemSize);
+    valueSize[0].f32 = INSPECTOR_XC_HEIGHT;
+    nodeAPI->setAttribute(hostNode, NODE_HEIGHT, &itemSize);
+    nodeAPI->setAttribute(hostNode, NODE_ID, &idItem); // 设置组件唯一标识id
+    // 注册NativeXComponent生命周期回调，使用EGL绘制背景使宿主区域可见
+    auto *nativeXComponent = OH_NativeXComponent_GetNativeXComponent(hostNode);
+    if (!nativeXComponent) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "PluginManager", "GetNativeXComponent error");
+        return column;
+    }
+    OH_NativeXComponent_RegisterCallback(nativeXComponent, &PluginManager::callback_);
+    PluginManager::nodeHandleMap_[tag] = hostNode; // 保存节点句柄，供注册/注销InspectorTreeGetter回调使用
+    nodeAPI->addChild(column, hostNode);
+    return column;
+}
+
 // [Start surface_holder_ndk_create_xc_node]
 ArkUI_NodeHandle CreateNodeHandleUsingSurfaceHolder(const std::string &tag)
 {
@@ -435,7 +480,10 @@ napi_value PluginManager::createNativeNode(napi_env env, napi_callback_info info
                 return;
             }
             ArkUI_NodeHandle testNode;
-            if (userData->find("SurfaceHolder") == std::string::npos) {
+            if (userData->find("InspectorTreeGetter") != std::string::npos) {
+                // 创建XComponent组件作为第三方框架宿主节点，用于注册InspectorTreeGetter回调
+                testNode = CreateNodeHandleForInspectorTree(*userData);
+            } else if (userData->find("SurfaceHolder") == std::string::npos) {
                 // [StartExclude surface_holder_ndk_createNode]
                 testNode = CreateNodeHandle(*userData);
                 // [EndExclude surface_holder_ndk_createNode]
@@ -850,6 +898,128 @@ napi_value PluginManager::GetStatusForSurfaceHolder(napi_env env, napi_callback_
         return nullptr;
     }
     return obj;
+}
+
+// 模拟第三方框架（如Flutter）的组件树。
+// 回调输出的JSON需使用外部宿主格式（第三方框架视角的组件树），引擎会自动将其转换为
+// ArkUI Inspector格式：elementId→$ID、componentType→$type、screenRect→$rect、
+// attributes→$attrs、children→$children（递归转换），parentId等未知字段会被丢弃
+const char *MOCK_FRAMEWORK_TREE =
+    "[{"
+    "\"elementId\":1,"
+    "\"parentId\":-1,"
+    "\"componentType\":\"FlutterView\","
+    "\"screenRect\":{\"x\":0.0,\"y\":0.0,\"width\":480.0,\"height\":300.0},"
+    "\"attributes\":{\"visible\":true,\"width\":\"480.00vp\",\"height\":\"300.00vp\"},"
+    "\"children\":["
+    "{"
+    "\"elementId\":11,"
+    "\"parentId\":1,"
+    "\"componentType\":\"FlutterColumn\","
+    "\"screenRect\":{\"x\":0.0,\"y\":0.0,\"width\":480.0,\"height\":300.0},"
+    "\"attributes\":{\"mainAxisAlignment\":\"start\",\"crossAxisAlignment\":\"center\"},"
+    "\"children\":["
+    "{"
+    "\"elementId\":111,"
+    "\"parentId\":11,"
+    "\"componentType\":\"FlutterText\","
+    "\"screenRect\":{\"x\":140.0,\"y\":120.0,\"width\":200.0,\"height\":40.0},"
+    "\"attributes\":{\"text\":\"Hello Flutter\"},"
+    "\"children\":[]"
+    "},"
+    "{"
+    "\"elementId\":112,"
+    "\"parentId\":11,"
+    "\"componentType\":\"FlutterButton\","
+    "\"screenRect\":{\"x\":160.0,\"y\":180.0,\"width\":160.0,\"height\":60.0},"
+    "\"attributes\":{\"text\":\"Click Me\"},"
+    "\"children\":[]"
+    "}"
+    "]"
+    "}"
+    "]"
+    "}]";
+
+// InspectorTreeGetter回调：Inspector遍历到已注册回调的节点时被调用，获取第三方框架的组件子树
+void GetInspectorTreeCallback(void *userData, char **inspectorTree)
+{
+    if (inspectorTree == nullptr) {
+        return;
+    }
+    // userData为注册回调时传入的自定义数据，会在回调触发时回传
+    auto *frameworkName = reinterpret_cast<std::string *>(userData);
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "InspectorTreeGetter",
+                 "getInspectorTree callback invoked, framework: %{public}s", frameworkName->c_str());
+    // inspectorTree需输出外部宿主格式的JSON字符串（第三方框架视角的组件树），引擎会将其转换为
+    // ArkUI Inspector格式并合并到组件树输出中；该字符串的内存由回调实现分配，调用方需使用free()释放
+    *inspectorTree = strdup(MOCK_FRAMEWORK_TREE);
+}
+
+napi_value PluginManager::RegisterInspectorTreeGetter(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    std::string tag = value2String(env, args[0]);
+    napi_value result = nullptr;
+    ArkUI_NodeHandle node;
+    if (nodeHandleMap_.find(tag) == nodeHandleMap_.end()) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RegisterInspectorTreeGetter", "nodeId not exit error");
+        napi_create_int32(env, ARKUI_ERROR_CODE_PARAM_INVALID, &result);
+        return result;
+    }
+    node = nodeHandleMap_[tag];
+    // 避免重复注册时泄漏此前分配的userData
+    auto iter = inspectorUserDataMap_.find(tag);
+    if (iter != inspectorUserDataMap_.end()) {
+        delete iter->second;
+        inspectorUserDataMap_.erase(iter);
+    }
+    // 自定义数据指针，会在getInspectorTree回调被调用时作为userData参数回传
+    auto *userData = new std::string("Flutter");
+    // 在指定节点上注册InspectorTreeGetter回调，用于向ArkUI Inspector上报第三方框架组件树
+    int32_t ret = OH_ArkUI_NativeModule_RegisterInspectorTreeGetter(node, userData, GetInspectorTreeCallback);
+    if (ret != ARKUI_ERROR_CODE_NO_ERROR) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "RegisterInspectorTreeGetter",
+                     "register failed, error: %{public}d", ret);
+        delete userData;
+    } else {
+        inspectorUserDataMap_[tag] = userData;
+    }
+    napi_create_int32(env, ret, &result);
+    return result;
+}
+
+napi_value PluginManager::UnregisterInspectorTreeGetter(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    std::string tag = value2String(env, args[0]);
+    napi_value result = nullptr;
+    ArkUI_NodeHandle node;
+    if (nodeHandleMap_.find(tag) == nodeHandleMap_.end()) {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "UnregisterInspectorTreeGetter", "nodeId not exit error");
+        napi_create_int32(env, ARKUI_ERROR_CODE_PARAM_INVALID, &result);
+        return result;
+    }
+    node = nodeHandleMap_[tag];
+    // 注销指定节点上已注册的InspectorTreeGetter回调，传入的函数指针必须与注册时一致；
+    // 若传入空指针，则注销该节点上已注册的全部回调
+    int32_t ret = OH_ArkUI_NativeModule_UnregisterInspectorTreeGetter(node, GetInspectorTreeCallback);
+    if (ret == ARKUI_ERROR_CODE_NO_ERROR) {
+        // 注销接口不会释放注册时传入的userData，其内存由调用方负责释放
+        auto iter = inspectorUserDataMap_.find(tag);
+        if (iter != inspectorUserDataMap_.end()) {
+            delete iter->second;
+            inspectorUserDataMap_.erase(iter);
+        }
+    } else {
+        OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "UnregisterInspectorTreeGetter",
+                     "unregister failed, error: %{public}d", ret);
+    }
+    napi_create_int32(env, ret, &result);
+    return result;
 }
 
 } // namespace NativeXComponentSample
