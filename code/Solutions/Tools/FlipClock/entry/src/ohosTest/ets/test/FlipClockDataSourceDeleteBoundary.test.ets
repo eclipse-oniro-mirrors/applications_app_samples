@@ -14,8 +14,11 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MyDataSource } from '../../../main/ets/common/DataSource';
 import { testTabs as tabArray } from './FlipClockTestTabs';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockDataSourceDeleteBoundaryTest() {
   describe('FlipClockDataSourceDeleteBoundaryTest', () => {
@@ -29,9 +32,14 @@ export default function flipClockDataSourceDeleteBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0001 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       source.deleteData(-9007199254740991);
-      expect(source.totalCount()).assertEqual(2); expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      expect(source.totalCount()).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+        expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0001 end');
     })
 
     /**
@@ -43,9 +51,14 @@ export default function flipClockDataSourceDeleteBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoundary0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0002 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       source.deleteData(-3);
-      expect(source.totalCount()).assertEqual(2); expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      expect(source.totalCount()).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+        expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0002 end');
     })
 
     /**
@@ -57,9 +70,14 @@ export default function flipClockDataSourceDeleteBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0003 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       source.deleteData(-2);
-      expect(source.totalCount()).assertEqual(2); expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      expect(source.totalCount()).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+        expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0003 end');
     })
 
     /**
@@ -71,9 +89,14 @@ export default function flipClockDataSourceDeleteBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoundary0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0004 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       source.deleteData(-1);
-      expect(source.totalCount()).assertEqual(2); expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      expect(source.totalCount()).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+        expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0004 end');
     })
 
     /**
@@ -85,9 +108,14 @@ export default function flipClockDataSourceDeleteBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0005 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       source.deleteData(0);
-      expect(source.totalCount()).assertEqual(2); expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      expect(source.totalCount()).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+        expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0005 end');
     })
 
     /**
@@ -99,9 +127,14 @@ export default function flipClockDataSourceDeleteBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0006 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       source.deleteData(3);
-      expect(source.totalCount()).assertEqual(3); expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+      expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+        expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0006 end');
     })
 
     /**
@@ -113,9 +146,14 @@ export default function flipClockDataSourceDeleteBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0007 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       source.deleteData(4);
-      expect(source.totalCount()).assertEqual(3); expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+      expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+        expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0007 end');
     })
 
     /**
@@ -127,9 +165,14 @@ export default function flipClockDataSourceDeleteBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockDeleteBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0008 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
       source.deleteData(9007199254740991);
-      expect(source.totalCount()).assertEqual(3); expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+      expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+        expect(source.getData(3) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDeleteBoundary0008 end');
     })
   })
 }

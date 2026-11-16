@@ -14,19 +14,37 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MyDataSource } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 class AddListener implements DataChangeListener {
-  adds: number = 0; reloads: number = 0;
-  onDataReloaded(): void { this.reloads++; }
-  onDataAdded(index: number): void { this.adds++; }
-  onDataAdd(index: number): void { this.adds++; }
-  onDataMoved(from: number, to: number): void {}
-  onDataMove(from: number, to: number): void {}
-  onDataDeleted(index: number): void {}
-  onDataDelete(index: number): void {}
-  onDataChanged(index: number): void {}
-  onDataChange(index: number): void {}
-  onDatasetChange(dataOperations: DataOperation[]): void { this.reloads++; }
+  adds: number = 0;
+    reloads: number = 0;
+  onDataReloaded(): void {
+    this.reloads++;
+    }
+  onDataAdded(index: number): void {
+    this.adds++;
+    }
+  onDataAdd(index: number): void {
+    this.adds++;
+    }
+  onDataMoved(from: number, to: number): void {
+    }
+  onDataMove(from: number, to: number): void {
+    }
+  onDataDeleted(index: number): void {
+    }
+  onDataDelete(index: number): void {
+    }
+  onDataChanged(index: number): void {
+    }
+  onDataChange(index: number): void {
+    }
+  onDatasetChange(dataOperations: DataOperation[]): void {
+    this.reloads++;
+    }
 }
 
 export default function flipClockListenerAddSequenceTest() {
@@ -41,9 +59,18 @@ export default function flipClockListenerAddSequenceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockAddSeq0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: AddListener = new AddListener(); source.registerDataChangeListener(l);
-      for (let index: number = 0; index < 1; index++) { source.notifyDataAdd(index); }
-      expect(l.adds).assertEqual(1); expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0000 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: AddListener = new AddListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 1; index++) {
+        source.notifyDataAdd(index);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.adds).assertEqual(1);');
+      expect(l.adds).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reloads).assertEqual(0);');
+        expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0000 end');
     })
 
     /**
@@ -55,9 +82,18 @@ export default function flipClockListenerAddSequenceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockAddSeq0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: AddListener = new AddListener(); source.registerDataChangeListener(l);
-      for (let index: number = 0; index < 2; index++) { source.notifyDataAdd(index); }
-      expect(l.adds).assertEqual(2); expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0001 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: AddListener = new AddListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 2; index++) {
+        source.notifyDataAdd(index);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.adds).assertEqual(2);');
+      expect(l.adds).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reloads).assertEqual(0);');
+        expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0001 end');
     })
 
     /**
@@ -69,9 +105,18 @@ export default function flipClockListenerAddSequenceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockAddSeq0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: AddListener = new AddListener(); source.registerDataChangeListener(l);
-      for (let index: number = 0; index < 3; index++) { source.notifyDataAdd(index); }
-      expect(l.adds).assertEqual(3); expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0002 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: AddListener = new AddListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 3; index++) {
+        source.notifyDataAdd(index);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.adds).assertEqual(3);');
+      expect(l.adds).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reloads).assertEqual(0);');
+        expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0002 end');
     })
 
     /**
@@ -83,9 +128,18 @@ export default function flipClockListenerAddSequenceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockAddSeq0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: AddListener = new AddListener(); source.registerDataChangeListener(l);
-      for (let index: number = 0; index < 4; index++) { source.notifyDataAdd(index); }
-      expect(l.adds).assertEqual(4); expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0003 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: AddListener = new AddListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 4; index++) {
+        source.notifyDataAdd(index);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.adds).assertEqual(4);');
+      expect(l.adds).assertEqual(4);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reloads).assertEqual(0);');
+        expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0003 end');
     })
 
     /**
@@ -97,9 +151,18 @@ export default function flipClockListenerAddSequenceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockAddSeq0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: AddListener = new AddListener(); source.registerDataChangeListener(l);
-      for (let index: number = 0; index < 5; index++) { source.notifyDataAdd(index); }
-      expect(l.adds).assertEqual(5); expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0004 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: AddListener = new AddListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 5; index++) {
+        source.notifyDataAdd(index);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.adds).assertEqual(5);');
+      expect(l.adds).assertEqual(5);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reloads).assertEqual(0);');
+        expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0004 end');
     })
 
     /**
@@ -111,9 +174,18 @@ export default function flipClockListenerAddSequenceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockAddSeq0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: AddListener = new AddListener(); source.registerDataChangeListener(l);
-      for (let index: number = 0; index < 6; index++) { source.notifyDataAdd(index); }
-      expect(l.adds).assertEqual(6); expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0005 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: AddListener = new AddListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 6; index++) {
+        source.notifyDataAdd(index);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.adds).assertEqual(6);');
+      expect(l.adds).assertEqual(6);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reloads).assertEqual(0);');
+        expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0005 end');
     })
 
     /**
@@ -125,9 +197,18 @@ export default function flipClockListenerAddSequenceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockAddSeq0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: AddListener = new AddListener(); source.registerDataChangeListener(l);
-      for (let index: number = 0; index < 7; index++) { source.notifyDataAdd(index); }
-      expect(l.adds).assertEqual(7); expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0006 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: AddListener = new AddListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 7; index++) {
+        source.notifyDataAdd(index);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.adds).assertEqual(7);');
+      expect(l.adds).assertEqual(7);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reloads).assertEqual(0);');
+        expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0006 end');
     })
 
     /**
@@ -139,9 +220,18 @@ export default function flipClockListenerAddSequenceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockAddSeq0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: AddListener = new AddListener(); source.registerDataChangeListener(l);
-      for (let index: number = 0; index < 8; index++) { source.notifyDataAdd(index); }
-      expect(l.adds).assertEqual(8); expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0007 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: AddListener = new AddListener();
+        source.registerDataChangeListener(l);
+      for (let index: number = 0; index < 8; index++) {
+        source.notifyDataAdd(index);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.adds).assertEqual(8);');
+      expect(l.adds).assertEqual(8);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reloads).assertEqual(0);');
+        expect(l.reloads).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAddSeq0007 end');
     })
   })
 }

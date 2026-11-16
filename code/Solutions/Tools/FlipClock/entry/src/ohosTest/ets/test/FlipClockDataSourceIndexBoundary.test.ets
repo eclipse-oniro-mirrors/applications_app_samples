@@ -14,8 +14,11 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MyDataSource } from '../../../main/ets/common/DataSource';
 import { testTabs as tabArray } from './FlipClockTestTabs';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockDataSourceIndexBoundaryTest() {
   describe('FlipClockDataSourceIndexBoundaryTest', () => {
@@ -29,8 +32,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockIndexBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0001 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
-      expect(source.getData(-9007199254740991) === undefined).assertTrue(); expect(source.totalCount()).assertEqual(3); expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(-9007199254740991) === undefined).assertTrue();');
+      expect(source.getData(-9007199254740991) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0001 end');
     })
 
     /**
@@ -42,8 +52,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockIndexBoundary0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0002 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
-      expect(source.getData(-2) === undefined).assertTrue(); expect(source.totalCount()).assertEqual(3); expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(-2) === undefined).assertTrue();');
+      expect(source.getData(-2) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0002 end');
     })
 
     /**
@@ -55,8 +72,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockIndexBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0003 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
-      expect(source.getData(-1) === undefined).assertTrue(); expect(source.totalCount()).assertEqual(3); expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(-1) === undefined).assertTrue();');
+      expect(source.getData(-1) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0003 end');
     })
 
     /**
@@ -68,8 +92,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockIndexBoundary0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0004 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
-      expect(source.getData(0).num).assertEqual(0); expect(source.totalCount()).assertEqual(3); expect(source.getData(0) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+      expect(source.getData(0).num).assertEqual(0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0) !== undefined).assertTrue();');
+        expect(source.getData(0) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0004 end');
     })
 
     /**
@@ -81,8 +112,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockIndexBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0005 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
-      expect(source.getData(1).num).assertEqual(1); expect(source.totalCount()).assertEqual(3); expect(source.getData(1) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).num).assertEqual(1);');
+      expect(source.getData(1).num).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1) !== undefined).assertTrue();');
+        expect(source.getData(1) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0005 end');
     })
 
     /**
@@ -94,8 +132,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockIndexBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0006 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
-      expect(source.getData(2).num).assertEqual(2); expect(source.totalCount()).assertEqual(3); expect(source.getData(2) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2).num).assertEqual(2);');
+      expect(source.getData(2).num).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2) !== undefined).assertTrue();');
+        expect(source.getData(2) !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0006 end');
     })
 
     /**
@@ -107,8 +152,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockIndexBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0007 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
-      expect(source.getData(3) === undefined).assertTrue(); expect(source.totalCount()).assertEqual(3); expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3) === undefined).assertTrue();');
+      expect(source.getData(3) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0007 end');
     })
 
     /**
@@ -120,8 +172,15 @@ export default function flipClockDataSourceIndexBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockIndexBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0008 begin');
       const source: MyDataSource = new MyDataSource([tabArray[0], tabArray[1], tabArray[2]]);
-      expect(source.getData(9007199254740991) === undefined).assertTrue(); expect(source.totalCount()).assertEqual(3); expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(9007199254740991) === undefined).assertTrue();');
+      expect(source.getData(9007199254740991) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        expect(source.getData(0).num).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockIndexBoundary0008 end');
     })
   })
 }

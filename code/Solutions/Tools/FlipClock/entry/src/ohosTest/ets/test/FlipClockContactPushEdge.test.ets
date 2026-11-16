@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ContactSource, Contact } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockContactPushEdgeTest() {
   describe('FlipClockContactPushEdgeTest', () => {
@@ -28,9 +31,18 @@ export default function flipClockContactPushEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactPushEdge0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0000 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 1; index++) { source.pushData(new Contact('key' + index, 'value' + index, index)); }
-      expect(source.totalCount()).assertEqual(1); expect(source.getData(0).key).assertEqual('key0'); expect(source.getData(0).reminderId).assertEqual(0);
+      for (let index: number = 0; index < 1; index++) {
+        source.pushData(new Contact('key' + index, 'value' + index, index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+      expect(source.totalCount()).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).reminderId).assertEqual(0);');
+        expect(source.getData(0).reminderId).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0000 end');
     })
 
     /**
@@ -42,9 +54,18 @@ export default function flipClockContactPushEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactPushEdge0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0001 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 2; index++) { source.pushData(new Contact('key' + index, 'value' + index, index)); }
-      expect(source.totalCount()).assertEqual(2); expect(source.getData(0).key).assertEqual('key0'); expect(source.getData(1).reminderId).assertEqual(1);
+      for (let index: number = 0; index < 2; index++) {
+        source.pushData(new Contact('key' + index, 'value' + index, index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      expect(source.totalCount()).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(1).reminderId).assertEqual(1);');
+        expect(source.getData(1).reminderId).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0001 end');
     })
 
     /**
@@ -56,9 +77,18 @@ export default function flipClockContactPushEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactPushEdge0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0002 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 3; index++) { source.pushData(new Contact('key' + index, 'value' + index, index)); }
-      expect(source.totalCount()).assertEqual(3); expect(source.getData(0).key).assertEqual('key0'); expect(source.getData(2).reminderId).assertEqual(2);
+      for (let index: number = 0; index < 3; index++) {
+        source.pushData(new Contact('key' + index, 'value' + index, index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+      expect(source.totalCount()).assertEqual(3);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(2).reminderId).assertEqual(2);');
+        expect(source.getData(2).reminderId).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0002 end');
     })
 
     /**
@@ -70,9 +100,18 @@ export default function flipClockContactPushEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactPushEdge0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0003 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 4; index++) { source.pushData(new Contact('key' + index, 'value' + index, index)); }
-      expect(source.totalCount()).assertEqual(4); expect(source.getData(0).key).assertEqual('key0'); expect(source.getData(3).reminderId).assertEqual(3);
+      for (let index: number = 0; index < 4; index++) {
+        source.pushData(new Contact('key' + index, 'value' + index, index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
+      expect(source.totalCount()).assertEqual(4);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(3).reminderId).assertEqual(3);');
+        expect(source.getData(3).reminderId).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0003 end');
     })
 
     /**
@@ -84,9 +123,18 @@ export default function flipClockContactPushEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactPushEdge0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0004 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 5; index++) { source.pushData(new Contact('key' + index, 'value' + index, index)); }
-      expect(source.totalCount()).assertEqual(5); expect(source.getData(0).key).assertEqual('key0'); expect(source.getData(4).reminderId).assertEqual(4);
+      for (let index: number = 0; index < 5; index++) {
+        source.pushData(new Contact('key' + index, 'value' + index, index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(5);');
+      expect(source.totalCount()).assertEqual(5);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(4).reminderId).assertEqual(4);');
+        expect(source.getData(4).reminderId).assertEqual(4);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0004 end');
     })
 
     /**
@@ -98,9 +146,18 @@ export default function flipClockContactPushEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactPushEdge0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0005 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 6; index++) { source.pushData(new Contact('key' + index, 'value' + index, index)); }
-      expect(source.totalCount()).assertEqual(6); expect(source.getData(0).key).assertEqual('key0'); expect(source.getData(5).reminderId).assertEqual(5);
+      for (let index: number = 0; index < 6; index++) {
+        source.pushData(new Contact('key' + index, 'value' + index, index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(6);');
+      expect(source.totalCount()).assertEqual(6);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(5).reminderId).assertEqual(5);');
+        expect(source.getData(5).reminderId).assertEqual(5);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0005 end');
     })
 
     /**
@@ -112,9 +169,18 @@ export default function flipClockContactPushEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactPushEdge0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0006 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 7; index++) { source.pushData(new Contact('key' + index, 'value' + index, index)); }
-      expect(source.totalCount()).assertEqual(7); expect(source.getData(0).key).assertEqual('key0'); expect(source.getData(6).reminderId).assertEqual(6);
+      for (let index: number = 0; index < 7; index++) {
+        source.pushData(new Contact('key' + index, 'value' + index, index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(7);');
+      expect(source.totalCount()).assertEqual(7);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(6).reminderId).assertEqual(6);');
+        expect(source.getData(6).reminderId).assertEqual(6);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0006 end');
     })
 
     /**
@@ -126,9 +192,18 @@ export default function flipClockContactPushEdgeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactPushEdge0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0007 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 8; index++) { source.pushData(new Contact('key' + index, 'value' + index, index)); }
-      expect(source.totalCount()).assertEqual(8); expect(source.getData(0).key).assertEqual('key0'); expect(source.getData(7).reminderId).assertEqual(7);
+      for (let index: number = 0; index < 8; index++) {
+        source.pushData(new Contact('key' + index, 'value' + index, index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(8);');
+      expect(source.totalCount()).assertEqual(8);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(7).reminderId).assertEqual(7);');
+        expect(source.getData(7).reminderId).assertEqual(7);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactPushEdge0007 end');
     })
   })
 }

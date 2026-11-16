@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ContactSource, Contact } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockContactSourceReplaceTest() {
   describe('FlipClockContactSourceReplaceTest', () => {
@@ -28,13 +31,22 @@ export default function flipClockContactSourceReplaceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactreplace0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0000 begin');
       const source: ContactSource = new ContactSource([]);
       const next: Contact[] = [];
-      for (let index: number = 0; index < 0; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 0; index++) {
+        next.push(new Contact('key' + index, 'value', index));
+        }
       source.replaceData(next);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
       expect(source.totalCount()).assertEqual(0);
-      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0000 end');
     })
 
     /**
@@ -46,13 +58,22 @@ export default function flipClockContactSourceReplaceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactreplace0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0001 begin');
       const source: ContactSource = new ContactSource([]);
       const next: Contact[] = [];
-      for (let index: number = 0; index < 1; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 1; index++) {
+        next.push(new Contact('key' + index, 'value', index));
+        }
       source.replaceData(next);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
       expect(source.totalCount()).assertEqual(1);
-      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0001 end');
     })
 
     /**
@@ -64,13 +85,22 @@ export default function flipClockContactSourceReplaceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactreplace0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0002 begin');
       const source: ContactSource = new ContactSource([]);
       const next: Contact[] = [];
-      for (let index: number = 0; index < 2; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 2; index++) {
+        next.push(new Contact('key' + index, 'value', index));
+        }
       source.replaceData(next);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
       expect(source.totalCount()).assertEqual(2);
-      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0002 end');
     })
 
     /**
@@ -82,13 +112,22 @@ export default function flipClockContactSourceReplaceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactreplace0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0003 begin');
       const source: ContactSource = new ContactSource([]);
       const next: Contact[] = [];
-      for (let index: number = 0; index < 3; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 3; index++) {
+        next.push(new Contact('key' + index, 'value', index));
+        }
       source.replaceData(next);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
       expect(source.totalCount()).assertEqual(3);
-      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0003 end');
     })
 
     /**
@@ -100,13 +139,22 @@ export default function flipClockContactSourceReplaceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactreplace0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0004 begin');
       const source: ContactSource = new ContactSource([]);
       const next: Contact[] = [];
-      for (let index: number = 0; index < 4; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 4; index++) {
+        next.push(new Contact('key' + index, 'value', index));
+        }
       source.replaceData(next);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
       expect(source.totalCount()).assertEqual(4);
-      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0004 end');
     })
 
     /**
@@ -118,13 +166,22 @@ export default function flipClockContactSourceReplaceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactreplace0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0005 begin');
       const source: ContactSource = new ContactSource([]);
       const next: Contact[] = [];
-      for (let index: number = 0; index < 5; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 5; index++) {
+        next.push(new Contact('key' + index, 'value', index));
+        }
       source.replaceData(next);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(5);');
       expect(source.totalCount()).assertEqual(5);
-      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0005 end');
     })
 
     /**
@@ -136,13 +193,22 @@ export default function flipClockContactSourceReplaceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactreplace0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0006 begin');
       const source: ContactSource = new ContactSource([]);
       const next: Contact[] = [];
-      for (let index: number = 0; index < 6; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 6; index++) {
+        next.push(new Contact('key' + index, 'value', index));
+        }
       source.replaceData(next);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(6);');
       expect(source.totalCount()).assertEqual(6);
-      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0006 end');
     })
 
     /**
@@ -154,13 +220,22 @@ export default function flipClockContactSourceReplaceTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactreplace0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0007 begin');
       const source: ContactSource = new ContactSource([]);
       const next: Contact[] = [];
-      for (let index: number = 0; index < 7; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 7; index++) {
+        next.push(new Contact('key' + index, 'value', index));
+        }
       source.replaceData(next);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(7);');
       expect(source.totalCount()).assertEqual(7);
-      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+        expect(source.getData(0).key).assertEqual('key0');
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactreplace0007 end');
     })
   })
 }

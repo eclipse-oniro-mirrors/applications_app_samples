@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ContactSource, Contact } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockContactReplaceLargeTest() {
   describe('FlipClockContactReplaceLargeTest', () => {
@@ -28,8 +31,18 @@ export default function flipClockContactReplaceLargeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactReplaceLarge0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: ContactSource = new ContactSource([]); const next: Contact[] = []; for (let index: number = 0; index < 17; index++) { next.push(new Contact('k' + index, 'v', index)); }
-      source.replaceData(next); expect(source.totalCount()).assertEqual(17); expect(source.getData(16).reminderId).assertEqual(16);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0000 begin');
+      const source: ContactSource = new ContactSource([]);
+        const next: Contact[] = [];
+        for (let index: number = 0; index < 17; index++) {
+          next.push(new Contact('k' + index, 'v', index));
+        }
+      source.replaceData(next);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(17);');
+        expect(source.totalCount()).assertEqual(17);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(16).reminderId).assertEqual(16);');
+        expect(source.getData(16).reminderId).assertEqual(16);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0000 end');
     })
 
     /**
@@ -41,8 +54,18 @@ export default function flipClockContactReplaceLargeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactReplaceLarge0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: ContactSource = new ContactSource([]); const next: Contact[] = []; for (let index: number = 0; index < 18; index++) { next.push(new Contact('k' + index, 'v', index)); }
-      source.replaceData(next); expect(source.totalCount()).assertEqual(18); expect(source.getData(17).reminderId).assertEqual(17);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0001 begin');
+      const source: ContactSource = new ContactSource([]);
+        const next: Contact[] = [];
+        for (let index: number = 0; index < 18; index++) {
+          next.push(new Contact('k' + index, 'v', index));
+        }
+      source.replaceData(next);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(18);');
+        expect(source.totalCount()).assertEqual(18);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(17).reminderId).assertEqual(17);');
+        expect(source.getData(17).reminderId).assertEqual(17);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0001 end');
     })
 
     /**
@@ -54,8 +77,18 @@ export default function flipClockContactReplaceLargeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactReplaceLarge0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: ContactSource = new ContactSource([]); const next: Contact[] = []; for (let index: number = 0; index < 19; index++) { next.push(new Contact('k' + index, 'v', index)); }
-      source.replaceData(next); expect(source.totalCount()).assertEqual(19); expect(source.getData(18).reminderId).assertEqual(18);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0002 begin');
+      const source: ContactSource = new ContactSource([]);
+        const next: Contact[] = [];
+        for (let index: number = 0; index < 19; index++) {
+          next.push(new Contact('k' + index, 'v', index));
+        }
+      source.replaceData(next);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(19);');
+        expect(source.totalCount()).assertEqual(19);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(18).reminderId).assertEqual(18);');
+        expect(source.getData(18).reminderId).assertEqual(18);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0002 end');
     })
 
     /**
@@ -67,8 +100,18 @@ export default function flipClockContactReplaceLargeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactReplaceLarge0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: ContactSource = new ContactSource([]); const next: Contact[] = []; for (let index: number = 0; index < 20; index++) { next.push(new Contact('k' + index, 'v', index)); }
-      source.replaceData(next); expect(source.totalCount()).assertEqual(20); expect(source.getData(19).reminderId).assertEqual(19);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0003 begin');
+      const source: ContactSource = new ContactSource([]);
+        const next: Contact[] = [];
+        for (let index: number = 0; index < 20; index++) {
+          next.push(new Contact('k' + index, 'v', index));
+        }
+      source.replaceData(next);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(20);');
+        expect(source.totalCount()).assertEqual(20);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(19).reminderId).assertEqual(19);');
+        expect(source.getData(19).reminderId).assertEqual(19);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0003 end');
     })
 
     /**
@@ -80,8 +123,18 @@ export default function flipClockContactReplaceLargeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactReplaceLarge0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: ContactSource = new ContactSource([]); const next: Contact[] = []; for (let index: number = 0; index < 21; index++) { next.push(new Contact('k' + index, 'v', index)); }
-      source.replaceData(next); expect(source.totalCount()).assertEqual(21); expect(source.getData(20).reminderId).assertEqual(20);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0004 begin');
+      const source: ContactSource = new ContactSource([]);
+        const next: Contact[] = [];
+        for (let index: number = 0; index < 21; index++) {
+          next.push(new Contact('k' + index, 'v', index));
+        }
+      source.replaceData(next);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(21);');
+        expect(source.totalCount()).assertEqual(21);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(20).reminderId).assertEqual(20);');
+        expect(source.getData(20).reminderId).assertEqual(20);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0004 end');
     })
 
     /**
@@ -93,8 +146,18 @@ export default function flipClockContactReplaceLargeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactReplaceLarge0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: ContactSource = new ContactSource([]); const next: Contact[] = []; for (let index: number = 0; index < 22; index++) { next.push(new Contact('k' + index, 'v', index)); }
-      source.replaceData(next); expect(source.totalCount()).assertEqual(22); expect(source.getData(21).reminderId).assertEqual(21);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0005 begin');
+      const source: ContactSource = new ContactSource([]);
+        const next: Contact[] = [];
+        for (let index: number = 0; index < 22; index++) {
+          next.push(new Contact('k' + index, 'v', index));
+        }
+      source.replaceData(next);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(22);');
+        expect(source.totalCount()).assertEqual(22);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(21).reminderId).assertEqual(21);');
+        expect(source.getData(21).reminderId).assertEqual(21);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0005 end');
     })
 
     /**
@@ -106,8 +169,18 @@ export default function flipClockContactReplaceLargeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactReplaceLarge0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: ContactSource = new ContactSource([]); const next: Contact[] = []; for (let index: number = 0; index < 23; index++) { next.push(new Contact('k' + index, 'v', index)); }
-      source.replaceData(next); expect(source.totalCount()).assertEqual(23); expect(source.getData(22).reminderId).assertEqual(22);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0006 begin');
+      const source: ContactSource = new ContactSource([]);
+        const next: Contact[] = [];
+        for (let index: number = 0; index < 23; index++) {
+          next.push(new Contact('k' + index, 'v', index));
+        }
+      source.replaceData(next);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(23);');
+        expect(source.totalCount()).assertEqual(23);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(22).reminderId).assertEqual(22);');
+        expect(source.getData(22).reminderId).assertEqual(22);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0006 end');
     })
 
     /**
@@ -119,8 +192,18 @@ export default function flipClockContactReplaceLargeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactReplaceLarge0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: ContactSource = new ContactSource([]); const next: Contact[] = []; for (let index: number = 0; index < 24; index++) { next.push(new Contact('k' + index, 'v', index)); }
-      source.replaceData(next); expect(source.totalCount()).assertEqual(24); expect(source.getData(23).reminderId).assertEqual(23);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0007 begin');
+      const source: ContactSource = new ContactSource([]);
+        const next: Contact[] = [];
+        for (let index: number = 0; index < 24; index++) {
+          next.push(new Contact('k' + index, 'v', index));
+        }
+      source.replaceData(next);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(24);');
+        expect(source.totalCount()).assertEqual(24);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(23).reminderId).assertEqual(23);');
+        expect(source.getData(23).reminderId).assertEqual(23);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0007 end');
     })
   })
 }
