@@ -14,6 +14,7 @@
  */
 
 #include <algorithm>
+#include <array>
 #include <cstdlib>
 #include <deque>
 #include <iostream>
@@ -62,6 +63,13 @@ constexpr int32_t FRAME_HEIGHT = 720;
 constexpr int32_t INPUT_WIDTH_STRIDE = 1344;
 constexpr int32_t INPUT_HEIGHT_STRIDE = 736;
 constexpr int32_t FORMAT_CHANGE_QUERY_LIMIT = 2;
+constexpr int32_t AUDIO_CHANNEL_COUNT = 2;
+constexpr int32_t AUDIO_SAMPLE_RATE = 48000;
+constexpr int64_t AUDIO_END_PTS_US = 68'136'000;
+constexpr int64_t INITIAL_AUDIO_POSITION_US = 68'000'000;
+constexpr int64_t VIDEO_TAIL_POSITION_US = 68'400'000;
+constexpr std::array<uint8_t, 4> AUDIO_TAIL_PCM {1, 2, 3, 4};
+constexpr size_t AUDIO_CALLBACK_BYTES = AUDIO_TAIL_PCM.size() * 2;
 OH_AVCodec g_codec;
 OH_AVFormat g_outputFormat;
 OH_AVFormat g_inputFormat { true };
@@ -187,26 +195,27 @@ void TestInputLayoutCallback()
 void TestAudioTailPosition()
 {
     SampleInfo sample;
-    sample.audio.audioChannelCount = 2;
-    sample.audio.audioSampleRate = 48000;
+    sample.audio.audioChannelCount = AUDIO_CHANNEL_COUNT;
+    sample.audio.audioSampleRate = AUDIO_SAMPLE_RATE;
     CodecUserData context;
     context.sampleInfo = &sample;
-    context.endPosAudioBufferPts = 68'136'000;
-    std::atomic<int64_t> positionUs {68'000'000};
+    context.endPosAudioBufferPts = AUDIO_END_PTS_US;
+    std::atomic<int64_t> positionUs {INITIAL_AUDIO_POSITION_US};
     context.playbackPositionUs = &positionUs;
-    for (uint8_t value : {1, 2, 3, 4}) {
+    for (uint8_t value : AUDIO_TAIL_PCM) {
         context.renderQueue.push(value);
     }
-    uint8_t output[8] {};
-    Require(SampleCallback::OnRenderWriteData(nullptr, &context, output, sizeof(output)) == 0 &&
+    std::array<uint8_t, AUDIO_CALLBACK_BYTES> output {};
+    Require(SampleCallback::OnRenderWriteData(nullptr, &context, output.data(), output.size()) == 0 &&
         context.audioFramesWritten == 1 && positionUs == context.endPosAudioBufferPts,
         "Last partial PCM callback updates the audio position and valid frame count");
-    Require(output[0] == 1 && output[3] == 4 && output[4] == 0 && output[7] == 0,
+    Require(std::equal(AUDIO_TAIL_PCM.begin(), AUDIO_TAIL_PCM.end(), output.begin()) &&
+        std::all_of(output.begin() + AUDIO_TAIL_PCM.size(), output.end(), [](uint8_t value) { return value == 0; }),
         "Last PCM bytes are preserved and the remainder is silence");
-    positionUs = 68'400'000;
-    Require(SampleCallback::OnRenderWriteData(nullptr, &context, output, sizeof(output)) == 0 &&
-        positionUs == 68'400'000 && context.audioFramesWritten == 1 &&
-        std::all_of(output, output + sizeof(output), [](uint8_t value) { return value == 0; }),
+    positionUs = VIDEO_TAIL_POSITION_US;
+    Require(SampleCallback::OnRenderWriteData(nullptr, &context, output.data(), output.size()) == 0 &&
+        positionUs == VIDEO_TAIL_POSITION_US && context.audioFramesWritten == 1 &&
+        std::all_of(output.begin(), output.end(), [](uint8_t value) { return value == 0; }),
         "Silence after audio EOS must not rewind the position advanced by remaining video");
 }
 } // namespace

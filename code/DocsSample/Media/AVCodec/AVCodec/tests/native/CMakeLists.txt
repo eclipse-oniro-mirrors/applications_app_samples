@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.19)
 project(AVCodecHostTests LANGUAGES CXX)
+if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    message(FATAL_ERROR "Use Clang for SDK availability attributes: -DCMAKE_CXX_COMPILER=clang++")
+endif()
 enable_testing()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -29,8 +32,7 @@ foreach(INDEX RANGE ${LAST})
     endif()
     target_include_directories(${NAME} PRIVATE "${SOURCE}" "${SOURCE}/common"
         "${SOURCE}/common/dfx/log" "${SOURCE}/capabilities/include")
-    target_compile_options(${NAME} PRIVATE -ffunction-sections -fdata-sections
-        -include "${CMAKE_CURRENT_SOURCE_DIR}/HostSdkCompatibility.h"
+    target_compile_options(${NAME} PRIVATE -ffunction-sections -fdata-sections -Wno-ignored-attributes
         -idirafter "${OHOS_SDK_HOME}/native/sysroot/usr/include")
     target_link_options(${NAME} PRIVATE -Wl,--gc-sections)
     target_link_libraries(${NAME} PRIVATE Threads::Threads)

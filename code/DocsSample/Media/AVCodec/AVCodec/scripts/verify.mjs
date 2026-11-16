@@ -50,11 +50,12 @@ function native() {
   const sdkRoot = required(sdk, '--sdk or OHOS_SDK_HOME');
   if (process.platform === 'win32' && !distro) { throw new Error('Set --wsl-distro or AVCODEC_WSL_DISTRO'); }
   const targets = JSON.parse(readFileSync(path.join(root, 'tests/native/targets.json'), 'utf8'));
+  const compiler = option('--cxx', process.env.CXX || 'clang++');
   const source = path.join(root, 'entry/src/main/cpp');
   const includes = ['', 'common', 'common/dfx/log', 'capabilities/include'].map(part =>
     '-I' + linuxPath(path.join(source, part)));
-  const flags = ['-std=c++17', '-pthread', '-fmax-errors=5', '-ffunction-sections', '-fdata-sections',
-    '-Wl,--gc-sections', '-include', linuxPath(path.join(root, 'tests/native/HostSdkCompatibility.h')),
+  const flags = ['-std=c++17', '-pthread', '-ferror-limit=5', '-ffunction-sections', '-fdata-sections',
+    '-Wl,--gc-sections', '-Wno-ignored-attributes',
     ...includes, '-idirafter', linuxPath(path.join(sdkRoot, 'native/sysroot/usr/include'))];
   const selection = option('--native-test', '');
   if (selection && !targets[selection]) { throw new Error('Unknown Native test: ' + selection); }
@@ -65,10 +66,10 @@ function native() {
       ...sources.map(file => linuxPath(path.join(source, file))), '-o', binary];
     console.log('Native: ' + name);
     if (process.platform === 'win32') {
-      run('wsl.exe', ['-d', distro, '--exec', 'g++', ...compile]);
+      run('wsl.exe', ['-d', distro, '--exec', compiler, ...compile]);
       run('wsl.exe', ['-d', distro, '--exec', binary]);
     } else {
-      run(process.env.CXX || 'g++', compile);
+      run(compiler, compile);
       run(binary, []);
     }
   }

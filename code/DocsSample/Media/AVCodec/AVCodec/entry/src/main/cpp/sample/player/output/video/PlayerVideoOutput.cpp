@@ -258,9 +258,8 @@ bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, b
         const uint64_t revision = videoTimingRevision_.load();
         std::unique_lock<std::mutex> lock(pauseMutex_);
         if (pauseCond_.wait_for(lock, std::chrono::microseconds(waitTimeUs - maxRenderLeadUs), [this, revision]() {
-            const bool shouldStopWaiting = !isStarted_.load() || paused_.load() || audioInterrupted_.load() ||
-                isAudioDone.load();
-            return shouldStopWaiting || videoTimingRevision_.load() != revision;
+            const bool shouldStopWaiting = !isStarted_.load() || paused_.load() || audioInterrupted_.load();
+            return shouldStopWaiting || isAudioDone.load() || videoTimingRevision_.load() != revision;
         })) {
             lock.unlock();
             if (isStarted_.load() && isAudioDone.load() && !seekInProgress_.load() && !audioTrackSwitching_.load()) {

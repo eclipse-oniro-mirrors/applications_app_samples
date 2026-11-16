@@ -2445,7 +2445,7 @@ git pull origin master
 
 ### Automated verification
 
-Run the following from this sample directory. The SDK path must point to a version directory containing both ets and native. On Windows, the Native host tests use GCC inside WSL.
+Run the following from this sample directory. The SDK path must point to a version directory containing both ets and native. On Windows, the Native host tests use Clang inside WSL. Use `CXX` or `--cxx` to select its Linux path; the default is `clang++`.
 
 ```powershell
 $env:OHOS_SDK_HOME = '<SDK version directory>'

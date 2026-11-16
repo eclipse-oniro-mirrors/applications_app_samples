@@ -60,6 +60,12 @@ namespace {
 constexpr int64_t QUERY_TIMEOUT_US = 100000;
 constexpr uint32_t BUFFER_INDEX = 9;
 constexpr int32_t FRAME_BYTES = 32;
+constexpr int32_t STOP_CALLS_AFTER_RELEASE = 2;
+constexpr int32_t ENCODER_STOP_FLUSHES = 1;
+constexpr int32_t ENCODER_RELEASE_FLUSHES = 3;
+constexpr int32_t DECODER_STOP_FLUSHES = 0;
+constexpr int32_t DECODER_RELEASE_FLUSHES = 1;
+constexpr int32_t PCM_AND_EOS_FREE_CALLS = 2;
 OH_AVCodec g_codec;
 OH_AVFormat g_format;
 
@@ -149,10 +155,10 @@ void TestLifecycle(int32_t stopFlushes, int32_t releaseFlushes)
             g_codec.flushes == stopFlushes, "Stop preserves the codec-specific Flush behavior");
         g_codec.destroyStatus = AV_ERR_UNKNOWN;
         Require(wrapper.Release() == AVCODEC_SAMPLE_ERR_ERROR && g_codec.destroys == 1 &&
-            g_codec.stops == 2 && g_codec.flushes == releaseFlushes,
+            g_codec.stops == STOP_CALLS_AFTER_RELEASE && g_codec.flushes == releaseFlushes,
             "Release attempts Flush and Stop before Destroy and reports its failure");
         Require(wrapper.Release() == AVCODEC_SAMPLE_ERR_OK && g_codec.destroys == 1 &&
-            g_codec.stops == 2 && g_codec.flushes == releaseFlushes,
+            g_codec.stops == STOP_CALLS_AFTER_RELEASE && g_codec.flushes == releaseFlushes,
             "Repeated Release does not touch the destroyed codec");
     }
     Require(g_codec.destroys == 1, "Destructor does not destroy a released handle twice");
@@ -249,7 +255,7 @@ void TestPlaybackEos(bool asynchronous, int32_t eosSize)
     g_codec.output.attr.size = eosSize;
     Require(!ProcessPlaybackOutput(pump, context, asynchronous) && !playbackFailed && running,
         "Normal EOS ends audio output without marking playback as failed");
-    Require(g_codec.frees == 2 && prepareCalls == 1 && outputCalls == 1 &&
+    Require(g_codec.frees == PCM_AND_EOS_FREE_CALLS && prepareCalls == 1 && outputCalls == 1 &&
         dumpCalls == (asynchronous ? 1 : 0) && context.outputFrameCount == 1,
         "EOS is returned once and bypasses PCM preparation, rendering and dumping");
     Require(context.renderQueue.size() == FRAME_BYTES, "EOS preserves queued tail audio without adding bytes");
@@ -496,8 +502,8 @@ int main()
     TestInputStatus<AudioDecoder>();
     TestOutputOwnership<AudioEncoder>(AVCODEC_SAMPLE_ERR_OK, false);
     TestOutputOwnership<AudioDecoder>(AVCODEC_SAMPLE_ERR_END, true);
-    TestLifecycle<AudioEncoder>(1, 3);
-    TestLifecycle<AudioDecoder>(0, 1);
+    TestLifecycle<AudioEncoder>(ENCODER_STOP_FLUSHES, ENCODER_RELEASE_FLUSHES);
+    TestLifecycle<AudioDecoder>(DECODER_STOP_FLUSHES, DECODER_RELEASE_FLUSHES);
     TestReleaseAfterCleanupFailure<AudioEncoder>();
     TestReleaseAfterCleanupFailure<AudioDecoder>();
     TestEncoderStopFlushFailure();
