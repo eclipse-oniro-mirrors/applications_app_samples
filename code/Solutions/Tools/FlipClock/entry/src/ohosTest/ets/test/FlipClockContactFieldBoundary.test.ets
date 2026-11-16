@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Contact } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockContactFieldBoundaryTest() {
   describe('FlipClockContactFieldBoundaryTest', () => {
@@ -28,8 +31,15 @@ export default function flipClockContactFieldBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactBoundary0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0001 begin');
       const contact: Contact = new Contact('', '', 0);
-      expect(contact.key).assertEqual(''); expect(contact.value).assertEqual(''); expect(contact.reminderId).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.key).assertEqual(\'\');');
+      expect(contact.key).assertEqual('');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.value).assertEqual(\'\');');
+        expect(contact.value).assertEqual('');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.reminderId).assertEqual(0);');
+        expect(contact.reminderId).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0001 end');
     })
 
     /**
@@ -41,8 +51,15 @@ export default function flipClockContactFieldBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactBoundary0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0002 begin');
       const contact: Contact = new Contact('k', 'v', -1);
-      expect(contact.key).assertEqual('k'); expect(contact.value).assertEqual('v'); expect(contact.reminderId).assertEqual(-1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.key).assertEqual(\'k\');');
+      expect(contact.key).assertEqual('k');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.value).assertEqual(\'v\');');
+        expect(contact.value).assertEqual('v');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.reminderId).assertEqual(-1);');
+        expect(contact.reminderId).assertEqual(-1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0002 end');
     })
 
     /**
@@ -54,8 +71,15 @@ export default function flipClockContactFieldBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactBoundary0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0003 begin');
       const contact: Contact = new Contact('key', 'value', 9007199254740991);
-      expect(contact.key).assertEqual('key'); expect(contact.value).assertEqual('value'); expect(contact.reminderId).assertEqual(9007199254740991);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.key).assertEqual(\'key\');');
+      expect(contact.key).assertEqual('key');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.value).assertEqual(\'value\');');
+        expect(contact.value).assertEqual('value');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.reminderId).assertEqual(9007199254740991);');
+        expect(contact.reminderId).assertEqual(9007199254740991);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0003 end');
     })
 
     /**
@@ -67,8 +91,15 @@ export default function flipClockContactFieldBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactBoundary0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0004 begin');
       const contact: Contact = new Contact('key', 'value', -9007199254740991);
-      expect(contact.key).assertEqual('key'); expect(contact.value).assertEqual('value'); expect(contact.reminderId).assertEqual(-9007199254740991);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.key).assertEqual(\'key\');');
+      expect(contact.key).assertEqual('key');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.value).assertEqual(\'value\');');
+        expect(contact.value).assertEqual('value');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.reminderId).assertEqual(-9007199254740991);');
+        expect(contact.reminderId).assertEqual(-9007199254740991);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0004 end');
     })
 
     /**
@@ -80,8 +111,15 @@ export default function flipClockContactFieldBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0005 begin');
       const contact: Contact = new Contact('longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong', 'valuevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevalue', 1);
-      expect(contact.key).assertEqual('longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong'); expect(contact.value).assertEqual('valuevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevalue'); expect(contact.reminderId).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.key).assertEqual(\'longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong\');');
+      expect(contact.key).assertEqual('longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.value).assertEqual(\'valuevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevalue\');');
+        expect(contact.value).assertEqual('valuevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevaluevalue');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.reminderId).assertEqual(1);');
+        expect(contact.reminderId).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0005 end');
     })
 
     /**
@@ -93,8 +131,15 @@ export default function flipClockContactFieldBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0006 begin');
       const contact: Contact = new Contact(' ', ' ', 2);
-      expect(contact.key).assertEqual(' '); expect(contact.value).assertEqual(' '); expect(contact.reminderId).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.key).assertEqual(\' \');');
+      expect(contact.key).assertEqual(' ');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.value).assertEqual(\' \');');
+        expect(contact.value).assertEqual(' ');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.reminderId).assertEqual(2);');
+        expect(contact.reminderId).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0006 end');
     })
 
     /**
@@ -106,8 +151,15 @@ export default function flipClockContactFieldBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0007 begin');
       const contact: Contact = new Contact('0', '0', 3);
-      expect(contact.key).assertEqual('0'); expect(contact.value).assertEqual('0'); expect(contact.reminderId).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.key).assertEqual(\'0\');');
+      expect(contact.key).assertEqual('0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.value).assertEqual(\'0\');');
+        expect(contact.value).assertEqual('0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.reminderId).assertEqual(3);');
+        expect(contact.reminderId).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0007 end');
     })
 
     /**
@@ -119,8 +171,15 @@ export default function flipClockContactFieldBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockContactBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0008 begin');
       const contact: Contact = new Contact('key', 'value', -2147483648);
-      expect(contact.key).assertEqual('key'); expect(contact.value).assertEqual('value'); expect(contact.reminderId).assertEqual(-2147483648);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.key).assertEqual(\'key\');');
+      expect(contact.key).assertEqual('key');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.value).assertEqual(\'value\');');
+        expect(contact.value).assertEqual('value');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(contact.reminderId).assertEqual(-2147483648);');
+        expect(contact.reminderId).assertEqual(-2147483648);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactBoundary0008 end');
     })
   })
 }
