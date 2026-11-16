@@ -103,6 +103,11 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="network/Bluetooth/entry/src/main/java/ohos/samples/bluetooth/adapter/" desc="Not contains 3rd code，license file is not required in this subdirectory."/>
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/entry/src/main/resources/rawfile/printSample.jpg" desc="Generated for code/DocsSample/print/NativePrintFile using OpenAI image generation"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/entry/src/main/resources/rawfile/printDemo.pdf" desc="Generated from printSample.jpg for code/DocsSample/print/NativePrintFile"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/screenshots/print-settings.png" desc="Device screenshot of NativePrintFile source running in the signed debug project"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/screenshots/printer-dialog.png" desc="Device screenshot of NativePrintFile source running in the signed debug project"/>
+				<filteritem type="filepath" name="code/DocsSample/print/NativePrintFile/screenshots/system-preview.png" desc="Device screenshot of the system PDF preview opened by NativePrintFile"/>
 				<filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleStatic/AppScope/resources/base/media/app_icon.png" desc="Copied from code/DocsSample/InputMethod/SimpleKeyboard/AppScope/resources/base/media/app_icon.png" />
 				<filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleStatic/entry/src/main/resources/base/media/app_icon.png" desc="Copied from code/DocsSample/InputMethod/SimpleKeyboard/AppScope/resources/base/media/app_icon.png" />
 				<filteritem type="filepath" name="code/DocsSample/InputMethod/PreviewTextStyleStatic/screenshots/IDE-Build.jpg" desc="Provided by code/DocsSample/InputMethod/PreviewTextStyleStatic" />
