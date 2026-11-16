@@ -60,15 +60,15 @@ export default function wlanDataSourceMultiListenerTest() {
   describe('WlanDataSourceMultiListenerTest', () => {
 
     /**
-     * @tc.name   testWlanMultiReload0001
+     * @tc.name   ohos.samples.wlan_DataSourceMultiListener_0001
      * @tc.number SUB_WLAN_MULTI_0001
      * @tc.desc   Notify two registered listeners on reload.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMultiReload0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiReload0001 begin');
+    it('ohos.samples.wlan_DataSourceMultiListener_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0001 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       const first: MultiListener = new MultiListener();
       const second: MultiListener = new MultiListener();
@@ -81,19 +81,19 @@ export default function wlanDataSourceMultiListenerTest() {
       expect(second.reloadCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(first.reloadCount + second.reloadCount), String(2));
       expect(first.reloadCount + second.reloadCount).assertEqual(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiReload0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0001 end');
     })
 
     /**
-     * @tc.name   testWlanMultiUnregisterOne0002
+     * @tc.name   ohos.samples.wlan_DataSourceMultiListener_0002
      * @tc.number SUB_WLAN_MULTI_0002
      * @tc.desc   Unregister one listener while keeping the other.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMultiUnregisterOne0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiUnregisterOne0002 begin');
+    it('ohos.samples.wlan_DataSourceMultiListener_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0002 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       const first: MultiListener = new MultiListener();
       const second: MultiListener = new MultiListener();
@@ -105,19 +105,19 @@ export default function wlanDataSourceMultiListenerTest() {
       expect(first.reloadCount).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.reloadCount), String(1));
       expect(second.reloadCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiUnregisterOne0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0002 end');
     })
 
     /**
-     * @tc.name   testWlanMultiChange0003
+     * @tc.name   ohos.samples.wlan_DataSourceMultiListener_0003
      * @tc.number SUB_WLAN_MULTI_0003
      * @tc.desc   Notify change to both listeners.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMultiChange0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiChange0003 begin');
+    it('ohos.samples.wlan_DataSourceMultiListener_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0003 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       const first: MultiListener = new MultiListener();
       const second: MultiListener = new MultiListener();
@@ -128,19 +128,19 @@ export default function wlanDataSourceMultiListenerTest() {
       expect(first.changeCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.changeCount), String(1));
       expect(second.changeCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiChange0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0003 end');
     })
 
     /**
-     * @tc.name   testWlanMultiDelete0004
+     * @tc.name   ohos.samples.wlan_DataSourceMultiListener_0004
      * @tc.number SUB_WLAN_MULTI_0004
      * @tc.desc   Notify delete to both listeners.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMultiDelete0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiDelete0004 begin');
+    it('ohos.samples.wlan_DataSourceMultiListener_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0004 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       const first: MultiListener = new MultiListener();
       const second: MultiListener = new MultiListener();
@@ -151,19 +151,19 @@ export default function wlanDataSourceMultiListenerTest() {
       expect(first.deleteCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.deleteCount), String(1));
       expect(second.deleteCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiDelete0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0004 end');
     })
 
     /**
-     * @tc.name   testWlanMultiMove0005
+     * @tc.name   ohos.samples.wlan_DataSourceMultiListener_0005
      * @tc.number SUB_WLAN_MULTI_0005
      * @tc.desc   Notify move to both listeners.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMultiMove0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiMove0005 begin');
+    it('ohos.samples.wlan_DataSourceMultiListener_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0005 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       const first: MultiListener = new MultiListener();
       const second: MultiListener = new MultiListener();
@@ -174,19 +174,19 @@ export default function wlanDataSourceMultiListenerTest() {
       expect(first.moveCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.moveCount), String(1));
       expect(second.moveCount).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiMove0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0005 end');
     })
 
     /**
-     * @tc.name   testWlanMultiUnknownRemove0006
+     * @tc.name   ohos.samples.wlan_DataSourceMultiListener_0006
      * @tc.number SUB_WLAN_MULTI_0006
      * @tc.desc   Removing an unknown listener does not affect registered listeners.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMultiUnknownRemove0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiUnknownRemove0006 begin');
+    it('ohos.samples.wlan_DataSourceMultiListener_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0006 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       const first: MultiListener = new MultiListener();
       const second: MultiListener = new MultiListener();
@@ -197,7 +197,7 @@ export default function wlanDataSourceMultiListenerTest() {
       expect(first.reloadCount).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.reloadCount), String(0));
       expect(second.reloadCount).assertEqual(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMultiUnknownRemove0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMultiListener_0006 end');
     })
   })
 }

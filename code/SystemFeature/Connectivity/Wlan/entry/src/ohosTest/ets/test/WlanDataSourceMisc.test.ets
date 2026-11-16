@@ -53,15 +53,15 @@ export default function wlanDataSourceMiscTest() {
   describe('WlanDataSourceMiscTest', () => {
 
     /**
-     * @tc.name   testWlanMiscDataSourceLast0001
+     * @tc.name   ohos.samples.wlan_DataSourceMisc_0001
      * @tc.number SUB_WLAN_MISC_DS_0001
      * @tc.desc   Read the last inserted data source item.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMiscDataSourceLast0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscDataSourceLast0001 begin');
+    it('ohos.samples.wlan_DataSourceMisc_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMisc_0001 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.pushData(item(1));
       source.pushData(item(2));
@@ -69,19 +69,19 @@ export default function wlanDataSourceMiscTest() {
       expect(source.getData(source.totalCount() - 1).ssid).assertEqual('Wlan-2');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).timestamp), String(2));
       expect(source.getData(source.totalCount() - 1).timestamp).assertEqual(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscDataSourceLast0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMisc_0001 end');
     })
 
     /**
-     * @tc.name   testWlanMiscDataSourceRemoveUnknown0002
+     * @tc.name   ohos.samples.wlan_DataSourceMisc_0002
      * @tc.number SUB_WLAN_MISC_DS_0002
      * @tc.desc   Unregister a listener that was never registered.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMiscDataSourceRemoveUnknown0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscDataSourceRemoveUnknown0002 begin');
+    it('ohos.samples.wlan_DataSourceMisc_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMisc_0002 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       const listener: MiscListener = new MiscListener();
       source.unregisterDataChangeListener(listener);
@@ -90,19 +90,19 @@ export default function wlanDataSourceMiscTest() {
       expect(source.totalCount()).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
       expect(source.getData(0) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscDataSourceRemoveUnknown0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMisc_0002 end');
     })
 
     /**
-     * @tc.name   testWlanMiscDataSourceIndex0003
+     * @tc.name   ohos.samples.wlan_DataSourceMisc_0003
      * @tc.number SUB_WLAN_MISC_DS_0003
      * @tc.desc   Read indexes around a single data source item.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMiscDataSourceIndex0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscDataSourceIndex0003 begin');
+    it('ohos.samples.wlan_DataSourceMisc_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMisc_0003 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.pushData(item(9));
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).ssid), String('Wlan-9'));
@@ -111,19 +111,19 @@ export default function wlanDataSourceMiscTest() {
       expect(source.getData(1) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(-1) === undefined));
       expect(source.getData(-1) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscDataSourceIndex0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMisc_0003 end');
     })
 
     /**
-     * @tc.name   testWlanMiscDataSourceAppend0004
+     * @tc.name   ohos.samples.wlan_DataSourceMisc_0004
      * @tc.number SUB_WLAN_MISC_DS_0004
      * @tc.desc   Append after one existing item.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMiscDataSourceAppend0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscDataSourceAppend0004 begin');
+    it('ohos.samples.wlan_DataSourceMisc_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMisc_0004 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.pushData(item(1));
       source.addData(source.totalCount(), item(2));
@@ -131,7 +131,7 @@ export default function wlanDataSourceMiscTest() {
       expect(source.totalCount()).assertEqual(2);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1).ssid), String('Wlan-2'));
       expect(source.getData(1).ssid).assertEqual('Wlan-2');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscDataSourceAppend0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceMisc_0004 end');
     })
   })
 }

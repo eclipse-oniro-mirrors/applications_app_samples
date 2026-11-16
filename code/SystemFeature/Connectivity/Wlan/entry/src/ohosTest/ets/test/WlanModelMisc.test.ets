@@ -23,15 +23,15 @@ export default function wlanModelMiscTest() {
   describe('WlanModelMiscTest', () => {
 
     /**
-     * @tc.name   testWlanMiscStable0001
+     * @tc.name   ohos.samples.wlan_ModelMisc_0001
      * @tc.number SUB_WLAN_MISC_0001
      * @tc.desc   Verify first equals second.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMiscStable0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscStable0001 begin');
+    it('ohos.samples.wlan_ModelMisc_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_ModelMisc_0001 begin');
       const model: WifiModel = new WifiModel();
       const first: string = model.resolveIP(3232235777);
       const second: string = model.resolveIP(3232235777);
@@ -41,19 +41,19 @@ export default function wlanModelMiscTest() {
       expect(first).assertEqual('32:32:235:777');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(second.split(':').length), String(4));
       expect(second.split(':').length).assertEqual(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscStable0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_ModelMisc_0001 end');
     })
 
     /**
-     * @tc.name   testWlanMiscMethodSet0002
+     * @tc.name   ohos.samples.wlan_ModelMisc_0002
      * @tc.number SUB_WLAN_MISC_0002
      * @tc.desc   Verify WifiModel method types remain callable.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMiscMethodSet0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscMethodSet0002 begin');
+    it('ohos.samples.wlan_ModelMisc_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_ModelMisc_0002 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.getScanInfos === 'function'));
       expect(typeof model.getScanInfos === 'function').assertTrue();
@@ -61,19 +61,19 @@ export default function wlanModelMiscTest() {
       expect(typeof model.getIpInfo === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.getFeatureSupport === 'function'));
       expect(typeof model.getFeatureSupport === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscMethodSet0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_ModelMisc_0002 end');
     })
 
     /**
-     * @tc.name   testWlanMiscZeroRepeat0003
+     * @tc.name   ohos.samples.wlan_ModelMisc_0003
      * @tc.number SUB_WLAN_MISC_0003
      * @tc.desc   Resolve zero repeatedly and keep placeholder format.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanMiscZeroRepeat0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscZeroRepeat0003 begin');
+    it('ohos.samples.wlan_ModelMisc_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_ModelMisc_0003 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(0)), String('00:00:000:000'));
       expect(model.resolveIP(0)).assertEqual('00:00:000:000');
@@ -81,7 +81,7 @@ export default function wlanModelMiscTest() {
       expect(model.resolveIP(0)).assertEqual(model.resolveIP(0));
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(0).length), String(13));
       expect(model.resolveIP(0).length).assertEqual(13);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanMiscZeroRepeat0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_ModelMisc_0003 end');
     })
   })
 }

@@ -25,34 +25,34 @@ export default function wlanBundleContractTest() {
     beforeAll(() => { info = bundleManager.getBundleInfoForSelfSync(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SKILL); })
 
     /**
-     * @tc.name   testWlanBundleIdentity0001
+     * @tc.name   ohos.samples.wlan_BundleContract_0001
      * @tc.number SUB_WLAN_BUNDLE_0001
      * @tc.desc   Verify Wlan bundle identity fields.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundleIdentity0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleIdentity0001 begin');
+    it('ohos.samples.wlan_BundleContract_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0001 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('ohos.samples.wlan'));
       expect(info.name).assertEqual('ohos.samples.wlan');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionCode), String(1000000));
         expect(info.versionCode).assertEqual(1000000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleIdentity0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0001 end');
     })
 
     /**
-     * @tc.name   testWlanBundleEntryModule0002
+     * @tc.name   ohos.samples.wlan_BundleContract_0002
      * @tc.number SUB_WLAN_BUNDLE_0002
      * @tc.desc   Verify entry module device types.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundleEntryModule0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleEntryModule0002 begin');
+    it('ohos.samples.wlan_BundleContract_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0002 begin');
       let found: boolean = false;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
           if (info.hapModulesInfo[i].name === 'entry') {
@@ -63,19 +63,19 @@ export default function wlanBundleContractTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleEntryModule0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0002 end');
     })
 
     /**
-     * @tc.name   testWlanBundleAbility0003
+     * @tc.name   ohos.samples.wlan_BundleContract_0003
      * @tc.number SUB_WLAN_BUNDLE_0003
      * @tc.desc   Verify EntryAbility declaration.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundleAbility0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbility0003 begin');
+    it('ohos.samples.wlan_BundleContract_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0003 begin');
       let found: boolean = false;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
           const a: Array<bundleManager.AbilityInfo> = info.hapModulesInfo[i].abilitiesInfo;
@@ -89,38 +89,38 @@ export default function wlanBundleContractTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAbility0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0003 end');
     })
 
     /**
-     * @tc.name   testWlanBundleAppResource0004
+     * @tc.name   ohos.samples.wlan_BundleContract_0004
      * @tc.number SUB_WLAN_BUNDLE_0004
      * @tc.desc   Verify application label and icon resource IDs.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundleAppResource0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAppResource0004 begin');
+    it('ohos.samples.wlan_BundleContract_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0004 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('ohos.samples.wlan'));
         expect(info.appInfo.name).assertEqual('ohos.samples.wlan');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleAppResource0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0004 end');
     })
 
     /**
-     * @tc.name   testWlanBundlePermission0005
+     * @tc.name   ohos.samples.wlan_BundleContract_0005
      * @tc.number SUB_WLAN_BUNDLE_0005
      * @tc.desc   Verify permission GET_WIFI_INFO.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundlePermission0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermission0005 begin');
+    it('ohos.samples.wlan_BundleContract_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0005 begin');
       const names: Set<string> = new Set<string>();
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
@@ -129,19 +129,19 @@ export default function wlanBundleContractTest() {
           expect(names.has('ohos.permission.GET_WIFI_INFO')).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 4));
         expect(info.reqPermissionDetails.length >= 4).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermission0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0005 end');
     })
 
     /**
-     * @tc.name   testWlanBundlePermission0006
+     * @tc.name   ohos.samples.wlan_BundleContract_0006
      * @tc.number SUB_WLAN_BUNDLE_0006
      * @tc.desc   Verify permission SET_WIFI_INFO.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundlePermission0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermission0006 begin');
+    it('ohos.samples.wlan_BundleContract_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0006 begin');
       const names: Set<string> = new Set<string>();
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
@@ -150,19 +150,19 @@ export default function wlanBundleContractTest() {
           expect(names.has('ohos.permission.SET_WIFI_INFO')).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 4));
         expect(info.reqPermissionDetails.length >= 4).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermission0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0006 end');
     })
 
     /**
-     * @tc.name   testWlanBundlePermission0007
+     * @tc.name   ohos.samples.wlan_BundleContract_0007
      * @tc.number SUB_WLAN_BUNDLE_0007
      * @tc.desc   Verify permission LOCATION.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundlePermission0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermission0007 begin');
+    it('ohos.samples.wlan_BundleContract_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0007 begin');
       const names: Set<string> = new Set<string>();
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
@@ -171,19 +171,19 @@ export default function wlanBundleContractTest() {
           expect(names.has('ohos.permission.LOCATION')).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 4));
         expect(info.reqPermissionDetails.length >= 4).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermission0007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0007 end');
     })
 
     /**
-     * @tc.name   testWlanBundlePermission0008
+     * @tc.name   ohos.samples.wlan_BundleContract_0008
      * @tc.number SUB_WLAN_BUNDLE_0008
      * @tc.desc   Verify permission APPROXIMATELY_LOCATION.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundlePermission0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermission0008 begin');
+    it('ohos.samples.wlan_BundleContract_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0008 begin');
       const names: Set<string> = new Set<string>();
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
@@ -192,7 +192,7 @@ export default function wlanBundleContractTest() {
           expect(names.has('ohos.permission.APPROXIMATELY_LOCATION')).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 4));
         expect(info.reqPermissionDetails.length >= 4).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundlePermission0008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleContract_0008 end');
     })
   })
 }

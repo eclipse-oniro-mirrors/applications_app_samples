@@ -30,15 +30,15 @@ export default function wlanDataSourceAux03Test() {
   describe('WlanDataSourceAux03Test', () => {
 
     /**
-     * @tc.name   testWlanAux030001
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0001
      * @tc.number SUB_WLAN_AUX_03_0001
      * @tc.desc   Verify source.totalCount() equals 29.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030001 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0001 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 29; index++) {
         source.pushData(makeInfo(index));
@@ -51,19 +51,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(28).timestamp).assertEqual(1028);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(29) === undefined));
       expect(source.getData(29) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0001 end');
     })
 
     /**
-     * @tc.name   testWlanAux030002
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0002
      * @tc.number SUB_WLAN_AUX_03_0002
      * @tc.desc   Verify source.totalCount() equals 30.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030002 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0002 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 30; index++) {
         source.pushData(makeInfo(index));
@@ -76,19 +76,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(29).timestamp).assertEqual(1029);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(30) === undefined));
       expect(source.getData(30) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0002 end');
     })
 
     /**
-     * @tc.name   testWlanAux030003
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0003
      * @tc.number SUB_WLAN_AUX_03_0003
      * @tc.desc   Verify source.totalCount() equals 31.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030003 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0003 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 31; index++) {
         source.pushData(makeInfo(index));
@@ -101,19 +101,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(30).timestamp).assertEqual(1030);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(31) === undefined));
       expect(source.getData(31) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0003 end');
     })
 
     /**
-     * @tc.name   testWlanAux030004
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0004
      * @tc.number SUB_WLAN_AUX_03_0004
      * @tc.desc   Verify source.totalCount() equals 32.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030004 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0004 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 32; index++) {
         source.pushData(makeInfo(index));
@@ -126,19 +126,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(31).timestamp).assertEqual(1031);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(32) === undefined));
       expect(source.getData(32) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0004 end');
     })
 
     /**
-     * @tc.name   testWlanAux030005
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0005
      * @tc.number SUB_WLAN_AUX_03_0005
      * @tc.desc   Verify source.totalCount() equals 33.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030005 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0005 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 33; index++) {
         source.pushData(makeInfo(index));
@@ -151,19 +151,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(32).timestamp).assertEqual(1032);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(33) === undefined));
       expect(source.getData(33) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0005 end');
     })
 
     /**
-     * @tc.name   testWlanAux030006
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0006
      * @tc.number SUB_WLAN_AUX_03_0006
      * @tc.desc   Verify source.totalCount() equals 34.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030006 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0006 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 34; index++) {
         source.pushData(makeInfo(index));
@@ -176,19 +176,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(33).timestamp).assertEqual(1033);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(34) === undefined));
       expect(source.getData(34) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0006 end');
     })
 
     /**
-     * @tc.name   testWlanAux030007
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0007
      * @tc.number SUB_WLAN_AUX_03_0007
      * @tc.desc   Verify source.totalCount() equals 35.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030007 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0007 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 35; index++) {
         source.pushData(makeInfo(index));
@@ -201,19 +201,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(34).timestamp).assertEqual(1034);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(35) === undefined));
       expect(source.getData(35) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0007 end');
     })
 
     /**
-     * @tc.name   testWlanAux030008
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0008
      * @tc.number SUB_WLAN_AUX_03_0008
      * @tc.desc   Verify source.totalCount() equals 36.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030008 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0008 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 36; index++) {
         source.pushData(makeInfo(index));
@@ -226,19 +226,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(35).timestamp).assertEqual(1035);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(36) === undefined));
       expect(source.getData(36) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0008 end');
     })
 
     /**
-     * @tc.name   testWlanAux030009
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0009
      * @tc.number SUB_WLAN_AUX_03_0009
      * @tc.desc   Verify source.totalCount() equals 37.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030009 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0009 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 37; index++) {
         source.pushData(makeInfo(index));
@@ -251,19 +251,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(36).timestamp).assertEqual(1036);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(37) === undefined));
       expect(source.getData(37) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0009 end');
     })
 
     /**
-     * @tc.name   testWlanAux030010
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0010
      * @tc.number SUB_WLAN_AUX_03_0010
      * @tc.desc   Verify source.totalCount() equals 38.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030010 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0010 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 38; index++) {
         source.pushData(makeInfo(index));
@@ -276,19 +276,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(37).timestamp).assertEqual(1037);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(38) === undefined));
       expect(source.getData(38) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0010 end');
     })
 
     /**
-     * @tc.name   testWlanAux030011
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0011
      * @tc.number SUB_WLAN_AUX_03_0011
      * @tc.desc   Verify source.totalCount() equals 39.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030011 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0011 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 39; index++) {
         source.pushData(makeInfo(index));
@@ -301,19 +301,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(38).timestamp).assertEqual(1038);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(39) === undefined));
       expect(source.getData(39) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0011 end');
     })
 
     /**
-     * @tc.name   testWlanAux030012
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0012
      * @tc.number SUB_WLAN_AUX_03_0012
      * @tc.desc   Verify source.totalCount() equals 40.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030012 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0012 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 40; index++) {
         source.pushData(makeInfo(index));
@@ -326,19 +326,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(39).timestamp).assertEqual(1039);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(40) === undefined));
       expect(source.getData(40) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0012 end');
     })
 
     /**
-     * @tc.name   testWlanAux030013
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0013
      * @tc.number SUB_WLAN_AUX_03_0013
      * @tc.desc   Verify source.totalCount() equals 41.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030013 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0013 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 41; index++) {
         source.pushData(makeInfo(index));
@@ -351,19 +351,19 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(40).timestamp).assertEqual(1040);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(41) === undefined));
       expect(source.getData(41) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0013 end');
     })
 
     /**
-     * @tc.name   testWlanAux030014
+     * @tc.name   ohos.samples.wlan_DataSourceAux03_0014
      * @tc.number SUB_WLAN_AUX_03_0014
      * @tc.desc   Verify source.totalCount() equals 42.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanAux030014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030014 begin');
+    it('ohos.samples.wlan_DataSourceAux03_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0014 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       for (let index: number = 0; index < 42; index++) {
         source.pushData(makeInfo(index));
@@ -376,7 +376,7 @@ export default function wlanDataSourceAux03Test() {
       expect(source.getData(41).timestamp).assertEqual(1041);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(42) === undefined));
       expect(source.getData(42) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAux030014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceAux03_0014 end');
     })
   })
 }

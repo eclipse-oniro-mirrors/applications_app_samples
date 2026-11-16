@@ -25,15 +25,15 @@ export default function wlanBundleSceneTest() {
     beforeAll(() => { info = bundleManager.getBundleInfoForSelfSync(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_SKILL); })
 
     /**
-     * @tc.name   testWlanBundleScene0001
+     * @tc.name   ohos.samples.wlan_BundleScene_0001
      * @tc.number SUB_WLAN_BUNDLE_SCENE_0001
      * @tc.desc   Verify permission scene for GET_WIFI_INFO.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundleScene0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0001 begin');
+    it('ohos.samples.wlan_BundleScene_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0001 begin');
       let found: boolean = false;
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           const item: bundleManager.PermissionDef = info.reqPermissionDetails[index];
@@ -49,19 +49,19 @@ export default function wlanBundleSceneTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0001 end');
     })
 
     /**
-     * @tc.name   testWlanBundleScene0002
+     * @tc.name   ohos.samples.wlan_BundleScene_0002
      * @tc.number SUB_WLAN_BUNDLE_SCENE_0002
      * @tc.desc   Verify permission scene for SET_WIFI_INFO.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundleScene0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0002 begin');
+    it('ohos.samples.wlan_BundleScene_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0002 begin');
       let found: boolean = false;
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           const item: bundleManager.PermissionDef = info.reqPermissionDetails[index];
@@ -77,19 +77,19 @@ export default function wlanBundleSceneTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0002 end');
     })
 
     /**
-     * @tc.name   testWlanBundleScene0003
+     * @tc.name   ohos.samples.wlan_BundleScene_0003
      * @tc.number SUB_WLAN_BUNDLE_SCENE_0003
      * @tc.desc   Verify permission scene for LOCATION.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundleScene0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0003 begin');
+    it('ohos.samples.wlan_BundleScene_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0003 begin');
       let found: boolean = false;
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           const item: bundleManager.PermissionDef = info.reqPermissionDetails[index];
@@ -105,19 +105,19 @@ export default function wlanBundleSceneTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0003 end');
     })
 
     /**
-     * @tc.name   testWlanBundleScene0004
+     * @tc.name   ohos.samples.wlan_BundleScene_0004
      * @tc.number SUB_WLAN_BUNDLE_SCENE_0004
      * @tc.desc   Verify permission scene for APPROXIMATELY_LOCATION.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanBundleScene0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0004 begin');
+    it('ohos.samples.wlan_BundleScene_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0004 begin');
       let found: boolean = false;
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           const item: bundleManager.PermissionDef = info.reqPermissionDetails[index];
@@ -133,7 +133,7 @@ export default function wlanBundleSceneTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanBundleScene0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0004 end');
     })
   })
 }

@@ -23,15 +23,15 @@ export default function wlanDataSourceContractTest() {
   describe('WlanDataSourceContractTest', () => {
 
     /**
-     * @tc.name   testWlanDataSourceEmpty0001
+     * @tc.name   ohos.samples.wlan_DataSourceContract_0001
      * @tc.number SUB_WLAN_DATASOURCE_0001
      * @tc.desc   Create an empty Wi-Fi data source.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanDataSourceEmpty0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceEmpty0001 begin');
+    it('ohos.samples.wlan_DataSourceContract_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0001 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
@@ -39,102 +39,102 @@ export default function wlanDataSourceContractTest() {
       expect(source.getData(0) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.totalCount() >= 0));
       expect(source.totalCount() >= 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceEmpty0001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0001 end');
     })
 
     /**
-     * @tc.name   testWlanDataSourceReload0002
+     * @tc.name   ohos.samples.wlan_DataSourceContract_0002
      * @tc.number SUB_WLAN_DATASOURCE_0002
      * @tc.desc   Reload an empty data source without listeners.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanDataSourceReload0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceReload0002 begin');
+    it('ohos.samples.wlan_DataSourceContract_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0002 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataReload();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(1) === undefined));
       expect(source.getData(1) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceReload0002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0002 end');
     })
 
     /**
-     * @tc.name   testWlanDataSourceAdd0003
+     * @tc.name   ohos.samples.wlan_DataSourceContract_0003
      * @tc.number SUB_WLAN_DATASOURCE_0003
      * @tc.desc   Notify an add operation on an empty data source.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanDataSourceAdd0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceAdd0003 begin');
+    it('ohos.samples.wlan_DataSourceContract_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0003 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataAdd(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(-1) === undefined));
       expect(source.getData(-1) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceAdd0003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0003 end');
     })
 
     /**
-     * @tc.name   testWlanDataSourceChange0004
+     * @tc.name   ohos.samples.wlan_DataSourceContract_0004
      * @tc.number SUB_WLAN_DATASOURCE_0004
      * @tc.desc   Notify a change operation on an empty data source.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanDataSourceChange0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceChange0004 begin');
+    it('ohos.samples.wlan_DataSourceContract_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0004 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataChange(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
       expect(source.getData(0) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceChange0004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0004 end');
     })
 
     /**
-     * @tc.name   testWlanDataSourceDelete0005
+     * @tc.name   ohos.samples.wlan_DataSourceContract_0005
      * @tc.number SUB_WLAN_DATASOURCE_0005
      * @tc.desc   Notify a delete operation on an empty data source.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanDataSourceDelete0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceDelete0005 begin');
+    it('ohos.samples.wlan_DataSourceContract_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0005 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataDelete(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
       expect(source.getData(0) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceDelete0005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0005 end');
     })
 
     /**
-     * @tc.name   testWlanDataSourceMove0006
+     * @tc.name   ohos.samples.wlan_DataSourceContract_0006
      * @tc.number SUB_WLAN_DATASOURCE_0006
      * @tc.desc   Notify a move operation on an empty data source.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanDataSourceMove0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceMove0006 begin');
+    it('ohos.samples.wlan_DataSourceContract_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0006 begin');
       const source: WifiDataSource = new WifiDataSource([]);
       source.notifyDataMove(0, 1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
       expect(source.totalCount()).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(2) === undefined));
       expect(source.getData(2) === undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanDataSourceMove0006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_DataSourceContract_0006 end');
     })
   })
 }
