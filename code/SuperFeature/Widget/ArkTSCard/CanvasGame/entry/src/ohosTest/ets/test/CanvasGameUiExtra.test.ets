@@ -15,9 +15,9 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import Want from '@ohos.app.ability.Want';
+import { Driver, ON } from '@kit.TestKit';
+import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { Want } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 const B='com.samples.canvasgame';
@@ -52,7 +52,7 @@ export default function canvasGameUiExtraTest() {
         const btn = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
         expect(t.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi001 end');
@@ -73,7 +73,7 @@ export default function canvasGameUiExtraTest() {
         const btn = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
         expect(t.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi002 end');
@@ -94,7 +94,7 @@ export default function canvasGameUiExtraTest() {
         const btn = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
         expect(t.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi003 end');
@@ -115,7 +115,7 @@ export default function canvasGameUiExtraTest() {
         const btn = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
         expect(t.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi004 end');
@@ -136,7 +136,7 @@ export default function canvasGameUiExtraTest() {
         const btn = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
         expect(t.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi005 end');
@@ -157,7 +157,7 @@ export default function canvasGameUiExtraTest() {
         const btn = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
         expect(t.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi006 end');
@@ -178,7 +178,7 @@ export default function canvasGameUiExtraTest() {
         const btn = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
         expect(t.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi007 end');
@@ -199,7 +199,7 @@ export default function canvasGameUiExtraTest() {
         const btn = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
         expect(t.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi008 end');

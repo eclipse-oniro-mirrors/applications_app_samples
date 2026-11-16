@@ -33,9 +33,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0001 begin');
       const s: string = 'q'.repeat(150);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(150);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(150));
         expect(s.length).assertEqual(150);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0001 end');
     })
@@ -51,9 +51,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0002 begin');
       const s: string = 'q'.repeat(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(300);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(300));
         expect(s.length).assertEqual(300);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0002 end');
     })
@@ -69,9 +69,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0003 begin');
       const s: string = 'q'.repeat(450);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(450);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(450));
         expect(s.length).assertEqual(450);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0003 end');
     })
@@ -87,9 +87,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0004 begin');
       const s: string = 'q'.repeat(600);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(600);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(600));
         expect(s.length).assertEqual(600);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0004 end');
     })
@@ -105,9 +105,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0005 begin');
       const s: string = 'q'.repeat(750);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(750);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(750));
         expect(s.length).assertEqual(750);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0005 end');
     })
@@ -123,9 +123,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0006 begin');
       const s: string = 'q'.repeat(900);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(900);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(900));
         expect(s.length).assertEqual(900);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0006 end');
     })
@@ -141,9 +141,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0007 begin');
       const s: string = 'q'.repeat(1050);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(1050);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1050));
         expect(s.length).assertEqual(1050);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0007 end');
     })
@@ -159,9 +159,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0008 begin');
       const s: string = 'q'.repeat(1200);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(1200);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1200));
         expect(s.length).assertEqual(1200);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0008 end');
     })
@@ -177,9 +177,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0009 begin');
       const s: string = 'q'.repeat(1350);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(1350);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1350));
         expect(s.length).assertEqual(1350);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0009 end');
     })
@@ -195,9 +195,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0010 begin');
       const s: string = 'q'.repeat(1500);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(1500);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1500));
         expect(s.length).assertEqual(1500);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0010 end');
     })
@@ -213,9 +213,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0011 begin');
       const s: string = 'q'.repeat(1650);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(1650);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1650));
         expect(s.length).assertEqual(1650);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0011 end');
     })
@@ -231,9 +231,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0012 begin');
       const s: string = 'q'.repeat(1800);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(1800);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1800));
         expect(s.length).assertEqual(1800);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0012 end');
     })
@@ -249,9 +249,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0013 begin');
       const s: string = 'q'.repeat(1950);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(1950);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(1950));
         expect(s.length).assertEqual(1950);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0013 end');
     })
@@ -267,9 +267,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0014 begin');
       const s: string = 'q'.repeat(2100);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(2100);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(2100));
         expect(s.length).assertEqual(2100);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0014 end');
     })
@@ -285,9 +285,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0015 begin');
       const s: string = 'q'.repeat(2250);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(2250);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(2250));
         expect(s.length).assertEqual(2250);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0015 end');
     })
@@ -303,9 +303,9 @@ export default function canvasGameFinalLoggerTest() {
     it('testCanvasFinalLogger0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0016 begin');
       const s: string = 'q'.repeat(2400);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(s) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(s) === undefined));
         expect(logger.info(s) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(s.length).assertEqual(2400);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(s.length), String(2400));
         expect(s.length).assertEqual(2400);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFinalLogger0016 end');
     })

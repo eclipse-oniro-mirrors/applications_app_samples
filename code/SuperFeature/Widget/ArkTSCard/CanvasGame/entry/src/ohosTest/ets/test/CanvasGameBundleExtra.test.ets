@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import bundleManager from '@ohos.bundle.bundleManager';
+import { bundleManager } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
@@ -40,12 +40,12 @@ export default function canvasGameBundleExtraTest() {
           m = info.hapModulesInfo[i];
         }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m !== undefined).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(m !== undefined));
           expect(m !== undefined).assertTrue();
         const mod: bundleManager.HapModuleInfo = m as bundleManager.HapModuleInfo;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.name).assertEqual(\'entry\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(mod.name), String('entry'));
         expect(mod.name).assertEqual('entry');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.installationFree).assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(mod.installationFree));
         expect(mod.installationFree).assertFalse();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModule001 end');
     })
@@ -69,7 +69,7 @@ export default function canvasGameBundleExtraTest() {
         }
           }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraExtension002 end');
     })
@@ -93,7 +93,7 @@ export default function canvasGameBundleExtraTest() {
         }
           }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraAbilitySkills003 end');
     })
@@ -108,11 +108,11 @@ export default function canvasGameBundleExtraTest() {
      */
     it('testCanvasExtraNoPermissions004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraNoPermissions004 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.reqPermissionDetails.length), String(0));
       expect(info.reqPermissionDetails.length).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('com.samples.canvasgame'));
         expect(info.name).assertEqual('com.samples.canvasgame');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraNoPermissions004 end');
     })
@@ -127,11 +127,11 @@ export default function canvasGameBundleExtraTest() {
      */
     it('testCanvasExtraAppDesc005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraAppDesc005 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('com.samples.canvasgame'));
         expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraAppDesc005 end');
     })
@@ -146,11 +146,11 @@ export default function canvasGameBundleExtraTest() {
      */
     it('testCanvasExtraModuleMeta006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta006 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta006 end');
     })
@@ -165,11 +165,11 @@ export default function canvasGameBundleExtraTest() {
      */
     it('testCanvasExtraModuleMeta007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta007 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta007 end');
     })
@@ -184,11 +184,11 @@ export default function canvasGameBundleExtraTest() {
      */
     it('testCanvasExtraModuleMeta008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta008 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta008 end');
     })

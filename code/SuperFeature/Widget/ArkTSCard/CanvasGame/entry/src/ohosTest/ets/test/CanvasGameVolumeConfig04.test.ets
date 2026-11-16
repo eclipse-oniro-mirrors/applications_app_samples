@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import bundleManager from '@ohos.bundle.bundleManager';
+import { bundleManager } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
@@ -34,11 +34,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040001 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('com.samples.canvasgame'));
         expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040001 end');
     })
@@ -53,11 +53,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040002 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040002 end');
     })
@@ -78,12 +78,12 @@ export default function canvasGameVolumeConfig04Test() {
         for (let j: number = 0; j < a.length; j++) {
           if (a[j].name === 'EntryAbility') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a[j].exported));
         expect(a[j].exported).assertTrue();
         }
           }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040003 end');
     })
@@ -98,11 +98,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040004 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('com.samples.canvasgame'));
       expect(info.name).assertEqual('com.samples.canvasgame');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionCode), String(1000000));
         expect(info.versionCode).assertEqual(1000000);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040004 end');
     })
@@ -117,11 +117,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040005 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('com.samples.canvasgame'));
         expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040005 end');
     })
@@ -136,11 +136,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040006 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040006 end');
     })
@@ -161,12 +161,12 @@ export default function canvasGameVolumeConfig04Test() {
         for (let j: number = 0; j < a.length; j++) {
           if (a[j].name === 'EntryAbility') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a[j].exported));
         expect(a[j].exported).assertTrue();
         }
           }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040007 end');
     })
@@ -181,11 +181,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040008 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('com.samples.canvasgame'));
       expect(info.name).assertEqual('com.samples.canvasgame');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionCode), String(1000000));
         expect(info.versionCode).assertEqual(1000000);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040008 end');
     })
@@ -200,11 +200,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040009 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('com.samples.canvasgame'));
         expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040009 end');
     })
@@ -219,11 +219,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040010 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040010 end');
     })
@@ -244,12 +244,12 @@ export default function canvasGameVolumeConfig04Test() {
         for (let j: number = 0; j < a.length; j++) {
           if (a[j].name === 'EntryAbility') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a[j].exported));
         expect(a[j].exported).assertTrue();
         }
           }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040011 end');
     })
@@ -264,11 +264,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040012 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('com.samples.canvasgame'));
       expect(info.name).assertEqual('com.samples.canvasgame');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionCode), String(1000000));
         expect(info.versionCode).assertEqual(1000000);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040012 end');
     })
@@ -283,11 +283,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040013 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('com.samples.canvasgame'));
         expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040013 end');
     })
@@ -302,11 +302,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040014 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo.length > 0));
       expect(info.hapModulesInfo.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].name.length > 0));
         expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.hapModulesInfo[0].deviceTypes.length > 0));
         expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040014 end');
     })
@@ -327,12 +327,12 @@ export default function canvasGameVolumeConfig04Test() {
         for (let j: number = 0; j < a.length; j++) {
           if (a[j].name === 'EntryAbility') {
           found = true;
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a[j].exported));
         expect(a[j].exported).assertTrue();
         }
           }
           }
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040015 end');
     })
@@ -347,11 +347,11 @@ export default function canvasGameVolumeConfig04Test() {
      */
     it('testCanvasVolCfg040016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040016 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('com.samples.canvasgame'));
       expect(info.name).assertEqual('com.samples.canvasgame');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionCode), String(1000000));
         expect(info.versionCode).assertEqual(1000000);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg040016 end');
     })

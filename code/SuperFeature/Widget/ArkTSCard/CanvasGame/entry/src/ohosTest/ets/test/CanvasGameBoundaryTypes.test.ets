@@ -35,9 +35,9 @@ export default function canvasGameBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'g'.repeat(512);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(512);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(512));
         expect(id.length).assertEqual(512);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0001 end');
     })
@@ -54,9 +54,9 @@ export default function canvasGameBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'g'.repeat(1024);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1024);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1024));
         expect(id.length).assertEqual(1024);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0002 end');
     })
@@ -73,9 +73,9 @@ export default function canvasGameBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'g'.repeat(1536);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1536);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1536));
         expect(id.length).assertEqual(1536);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0003 end');
     })
@@ -92,9 +92,9 @@ export default function canvasGameBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'g'.repeat(2048);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2048);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(2048));
         expect(id.length).assertEqual(2048);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0004 end');
     })
@@ -110,9 +110,9 @@ export default function canvasGameBoundaryTypesTest() {
     it('testCanvasBoundary0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0005 begin');
       const msg: string = 'h'.repeat(1280);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(msg) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(msg) === undefined));
         expect(logger.info(msg) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(1280);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(1280));
         expect(msg.length).assertEqual(1280);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0005 end');
     })
@@ -128,9 +128,9 @@ export default function canvasGameBoundaryTypesTest() {
     it('testCanvasBoundary0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0006 begin');
       const msg: string = 'h'.repeat(1536);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(msg) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(msg) === undefined));
         expect(logger.info(msg) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(1536);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(1536));
         expect(msg.length).assertEqual(1536);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0006 end');
     })
@@ -146,9 +146,9 @@ export default function canvasGameBoundaryTypesTest() {
     it('testCanvasBoundary0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0007 begin');
       const msg: string = 'h'.repeat(1792);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(msg) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(msg) === undefined));
         expect(logger.info(msg) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(1792);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(1792));
         expect(msg.length).assertEqual(1792);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0007 end');
     })
@@ -164,9 +164,9 @@ export default function canvasGameBoundaryTypesTest() {
     it('testCanvasBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0008 begin');
       const msg: string = 'h'.repeat(2048);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(msg) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info(msg) === undefined));
         expect(logger.info(msg) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(2048);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(2048));
         expect(msg.length).assertEqual(2048);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0008 end');
     })
@@ -183,7 +183,7 @@ export default function canvasGameBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0009 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 10; n++) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAcquireFormState({}) >= 0).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
           expect(a.onAcquireFormState({}) >= 0).assertTrue();
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0009 end');
@@ -201,7 +201,7 @@ export default function canvasGameBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0010 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 10; n++) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAcquireFormState({}) >= 0).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
           expect(a.onAcquireFormState({}) >= 0).assertTrue();
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0010 end');
@@ -219,7 +219,7 @@ export default function canvasGameBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0011 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 10; n++) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAcquireFormState({}) >= 0).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
           expect(a.onAcquireFormState({}) >= 0).assertTrue();
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0011 end');
@@ -237,7 +237,7 @@ export default function canvasGameBoundaryTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0012 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 10; n++) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAcquireFormState({}) >= 0).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
           expect(a.onAcquireFormState({}) >= 0).assertTrue();
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasBoundary0012 end');

@@ -34,11 +34,11 @@ export default function canvasGameSpecialTypesTest() {
     it('testCanvasSpecial0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onCastToNormalForm(\'\') === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onCastToNormalForm('') === undefined));
         expect(a.onCastToNormalForm('') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(\'\') === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('') === undefined));
         expect(a.onRemoveForm('') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAcquireFormState({}) >= 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
         expect(a.onAcquireFormState({}) >= 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0001 end');
     })
@@ -54,11 +54,11 @@ export default function canvasGameSpecialTypesTest() {
     it('testCanvasSpecial0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onCastToNormalForm(\'\') === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onCastToNormalForm('') === undefined));
         expect(a.onCastToNormalForm('') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(\'\') === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('') === undefined));
         expect(a.onRemoveForm('') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAcquireFormState({}) >= 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
         expect(a.onAcquireFormState({}) >= 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0002 end');
     })
@@ -74,11 +74,11 @@ export default function canvasGameSpecialTypesTest() {
     it('testCanvasSpecial0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onCastToNormalForm(\'\') === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onCastToNormalForm('') === undefined));
         expect(a.onCastToNormalForm('') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(\'\') === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('') === undefined));
         expect(a.onRemoveForm('') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAcquireFormState({}) >= 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
         expect(a.onAcquireFormState({}) >= 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0003 end');
     })
@@ -94,11 +94,11 @@ export default function canvasGameSpecialTypesTest() {
     it('testCanvasSpecial0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onCastToNormalForm(\'\') === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onCastToNormalForm('') === undefined));
         expect(a.onCastToNormalForm('') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onRemoveForm(\'\') === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('') === undefined));
         expect(a.onRemoveForm('') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onAcquireFormState({}) >= 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onAcquireFormState({}) >= 0));
         expect(a.onAcquireFormState({}) >= 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0004 end');
     })
@@ -115,7 +115,7 @@ export default function canvasGameSpecialTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0005 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 1; n++) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(n % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0005 end');
@@ -133,7 +133,7 @@ export default function canvasGameSpecialTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 2; n++) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(n % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0006 end');
@@ -151,7 +151,7 @@ export default function canvasGameSpecialTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 3; n++) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(n % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0007 end');
@@ -169,7 +169,7 @@ export default function canvasGameSpecialTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         for (let n: number = 0; n < 4; n++) {
-          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();');
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(n % 2 === 0) === undefined));
           expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
         }
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0008 end');
@@ -186,9 +186,9 @@ export default function canvasGameSpecialTypesTest() {
     it('testCanvasSpecial0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0009 begin');
       const msg: string = 's'.repeat(576);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.debug(msg) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug(msg) === undefined));
         expect(logger.debug(msg) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(576);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(576));
         expect(msg.length).assertEqual(576);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0009 end');
     })
@@ -204,9 +204,9 @@ export default function canvasGameSpecialTypesTest() {
     it('testCanvasSpecial0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0010 begin');
       const msg: string = 's'.repeat(640);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.debug(msg) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug(msg) === undefined));
         expect(logger.debug(msg) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(640);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(640));
         expect(msg.length).assertEqual(640);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0010 end');
     })
@@ -222,9 +222,9 @@ export default function canvasGameSpecialTypesTest() {
     it('testCanvasSpecial0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0011 begin');
       const msg: string = 's'.repeat(704);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.debug(msg) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug(msg) === undefined));
         expect(logger.debug(msg) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(704);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(704));
         expect(msg.length).assertEqual(704);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0011 end');
     })
@@ -240,9 +240,9 @@ export default function canvasGameSpecialTypesTest() {
     it('testCanvasSpecial0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0012 begin');
       const msg: string = 's'.repeat(768);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.debug(msg) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.debug(msg) === undefined));
         expect(logger.debug(msg) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(768);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(msg.length), String(768));
         expect(msg.length).assertEqual(768);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasSpecial0012 end');
     })

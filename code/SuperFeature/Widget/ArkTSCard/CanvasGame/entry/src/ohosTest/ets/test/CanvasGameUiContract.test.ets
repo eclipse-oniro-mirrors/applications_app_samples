@@ -15,9 +15,9 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import Want from '@ohos.app.ability.Want';
+import { Driver, ON } from '@kit.TestKit';
+import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { Want } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 const BUNDLE='com.samples.canvasgame';
@@ -49,7 +49,7 @@ export default function canvasGameUiContractTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiStart001 begin');
       const restart: string = ctx.resourceManager.getStringByNameSync('res_restart');
         await driver.assertComponentExist(ON.text(restart));
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(restart.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(restart.length > 0));
         expect(restart.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiStart001 end');
@@ -67,7 +67,7 @@ export default function canvasGameUiContractTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiFallback002 begin');
       const fallback: string = ctx.resourceManager.getStringByNameSync('res_fallback');
         await driver.assertComponentExist(ON.text(fallback));
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(fallback.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(fallback.length > 0));
         expect(fallback.length > 0).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiFallback002 end');
@@ -120,9 +120,9 @@ export default function canvasGameUiContractTest() {
     it('testCanvasUiRepeat005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRepeat005 begin');
       await wait(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync(\'res_restart\'))) !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))) !== null));
         expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))) !== null).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync(\'res_fallback\'))) !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))) !== null));
         expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))) !== null).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRepeat005 end');
@@ -139,9 +139,9 @@ export default function canvasGameUiContractTest() {
     it('testCanvasUiRepeat006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRepeat006 begin');
       await wait(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync(\'res_restart\'))) !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))) !== null));
         expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))) !== null).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync(\'res_fallback\'))) !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))) !== null));
         expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))) !== null).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRepeat006 end');
@@ -158,9 +158,9 @@ export default function canvasGameUiContractTest() {
     it('testCanvasUiRepeat007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRepeat007 begin');
       await wait(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync(\'res_restart\'))) !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))) !== null));
         expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))) !== null).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync(\'res_fallback\'))) !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))) !== null));
         expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))) !== null).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRepeat007 end');
@@ -177,9 +177,9 @@ export default function canvasGameUiContractTest() {
     it('testCanvasUiRepeat008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRepeat008 begin');
       await wait(300);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync(\'res_restart\'))) !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))) !== null));
         expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))) !== null).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync(\'res_fallback\'))) !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))) !== null));
         expect(await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))) !== null).assertTrue();
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRepeat008 end');

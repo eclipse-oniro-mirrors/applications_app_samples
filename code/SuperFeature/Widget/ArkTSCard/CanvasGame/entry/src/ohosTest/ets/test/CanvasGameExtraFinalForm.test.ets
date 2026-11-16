@@ -34,9 +34,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(192);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(192);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(192));
         expect(id.length).assertEqual(192);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0001 end');
     })
@@ -53,9 +53,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(384);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(384);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(384));
         expect(id.length).assertEqual(384);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0002 end');
     })
@@ -72,9 +72,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(576);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(576);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(576));
         expect(id.length).assertEqual(576);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0003 end');
     })
@@ -91,9 +91,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(768);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(768);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(768));
         expect(id.length).assertEqual(768);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0004 end');
     })
@@ -110,9 +110,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0005 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(960);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(960);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(960));
         expect(id.length).assertEqual(960);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0005 end');
     })
@@ -129,9 +129,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(1152);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1152);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1152));
         expect(id.length).assertEqual(1152);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0006 end');
     })
@@ -148,9 +148,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(1344);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1344);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1344));
         expect(id.length).assertEqual(1344);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0007 end');
     })
@@ -167,9 +167,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(1536);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1536);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1536));
         expect(id.length).assertEqual(1536);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0008 end');
     })
@@ -186,9 +186,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0009 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(1728);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1728);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1728));
         expect(id.length).assertEqual(1728);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0009 end');
     })
@@ -205,9 +205,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0010 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(1920);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1920);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(1920));
         expect(id.length).assertEqual(1920);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0010 end');
     })
@@ -224,9 +224,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0011 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(2112);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2112);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(2112));
         expect(id.length).assertEqual(2112);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0011 end');
     })
@@ -243,9 +243,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0012 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(2304);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2304);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(2304));
         expect(id.length).assertEqual(2304);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0012 end');
     })
@@ -262,9 +262,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0013 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(2496);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2496);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(2496));
         expect(id.length).assertEqual(2496);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0013 end');
     })
@@ -281,9 +281,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0014 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(2688);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2688);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(2688));
         expect(id.length).assertEqual(2688);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0014 end');
     })
@@ -300,9 +300,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0015 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(2880);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2880);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(2880));
         expect(id.length).assertEqual(2880);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0015 end');
     })
@@ -319,9 +319,9 @@ export default function canvasGameExtraFinalFormTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0016 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const id: string = 'u'.repeat(3072);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onUpdateForm(id) === undefined));
         expect(a.onUpdateForm(id) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(3072);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(id.length), String(3072));
         expect(id.length).assertEqual(3072);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0016 end');
     })

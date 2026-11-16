@@ -35,9 +35,9 @@ export default function canvasGameCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const data = a.onAddForm({});
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));
         expect(typeof data === 'object').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0001 end');
     })
@@ -54,9 +54,9 @@ export default function canvasGameCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const data = a.onAddForm({});
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));
         expect(typeof data === 'object').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0002 end');
     })
@@ -73,9 +73,9 @@ export default function canvasGameCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const data = a.onAddForm({});
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));
         expect(typeof data === 'object').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0003 end');
     })
@@ -92,9 +92,9 @@ export default function canvasGameCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const data = a.onAddForm({});
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));
         expect(typeof data === 'object').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0004 end');
     })
@@ -111,9 +111,9 @@ export default function canvasGameCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0005 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-5\', values.join(\'-\')) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-5', values.join('-')) === undefined));
         expect(a.onFormEvent('form-5', values.join('-')) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0005 end');
     })
@@ -130,9 +130,9 @@ export default function canvasGameCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-6\', values.join(\'-\')) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-6', values.join('-')) === undefined));
         expect(a.onFormEvent('form-6', values.join('-')) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0006 end');
     })
@@ -149,9 +149,9 @@ export default function canvasGameCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-7\', values.join(\'-\')) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-7', values.join('-')) === undefined));
         expect(a.onFormEvent('form-7', values.join('-')) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0007 end');
     })
@@ -168,9 +168,9 @@ export default function canvasGameCompositeTypesTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         const values: string[] = ['a','b','c'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-8\', values.join(\'-\')) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('form-8', values.join('-')) === undefined));
         expect(a.onFormEvent('form-8', values.join('-')) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(values.length), String(3));
         expect(values.length).assertEqual(3);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0008 end');
     })
@@ -185,12 +185,12 @@ export default function canvasGameCompositeTypesTest() {
      */
     it('testCanvasComposite0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0009 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(\'a\',\'b\',\'c\',\'d\') === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info('a','b','c','d') === undefined));
       expect(logger.info('a','b','c','d') === undefined).assertTrue();
         const tuple: string[] = ['x','y'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple.length).assertEqual(2);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tuple.length), String(2));
         expect(tuple.length).assertEqual(2);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple[0]).assertEqual(\'x\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tuple[0]), String('x'));
         expect(tuple[0]).assertEqual('x');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0009 end');
     })
@@ -205,12 +205,12 @@ export default function canvasGameCompositeTypesTest() {
      */
     it('testCanvasComposite0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0010 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(\'a\',\'b\',\'c\',\'d\') === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info('a','b','c','d') === undefined));
       expect(logger.info('a','b','c','d') === undefined).assertTrue();
         const tuple: string[] = ['x','y'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple.length).assertEqual(2);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tuple.length), String(2));
         expect(tuple.length).assertEqual(2);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple[0]).assertEqual(\'x\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tuple[0]), String('x'));
         expect(tuple[0]).assertEqual('x');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0010 end');
     })
@@ -225,12 +225,12 @@ export default function canvasGameCompositeTypesTest() {
      */
     it('testCanvasComposite0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0011 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(\'a\',\'b\',\'c\',\'d\') === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info('a','b','c','d') === undefined));
       expect(logger.info('a','b','c','d') === undefined).assertTrue();
         const tuple: string[] = ['x','y'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple.length).assertEqual(2);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tuple.length), String(2));
         expect(tuple.length).assertEqual(2);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple[0]).assertEqual(\'x\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tuple[0]), String('x'));
         expect(tuple[0]).assertEqual('x');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0011 end');
     })
@@ -245,12 +245,12 @@ export default function canvasGameCompositeTypesTest() {
      */
     it('testCanvasComposite0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0012 begin');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(\'a\',\'b\',\'c\',\'d\') === undefined).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info('a','b','c','d') === undefined));
       expect(logger.info('a','b','c','d') === undefined).assertTrue();
         const tuple: string[] = ['x','y'];
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple.length).assertEqual(2);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tuple.length), String(2));
         expect(tuple.length).assertEqual(2);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple[0]).assertEqual(\'x\');');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(tuple[0]), String('x'));
         expect(tuple[0]).assertEqual('x');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0012 end');
     })
