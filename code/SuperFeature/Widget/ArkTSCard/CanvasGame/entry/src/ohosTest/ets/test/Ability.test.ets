@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { Driver, ON } from '@ohos.UiTest';
+import { Driver, ON } from '@kit.TestKit';
 import logger from '../util/Logger';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
 
 const TAG = '[Sample_CanvasGame]';
 const BUNDLE = 'canvasGame_';
