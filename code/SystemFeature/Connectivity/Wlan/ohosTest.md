@@ -1,12 +1,42 @@
-# Wlan 测试用例归档
+# Wlan 测试用例说明
 
-## 用例表
+## 测试环境
 
-|测试功能|预置条件|输入|预期输出|测试结果|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-|拉起应用|	设备正常运行|		|成功拉起应用|Pass|
-|申请权限|	成功拉起应用|		|弹出提示框|Pass|
-|验证点击TitleBar的关于图片按钮，是否点击成功跳转页面|	位于wifi页面|   点击关于图片按钮|   成功跳转页面|Pass|
-|验证开启wlan开关，是否显示可用wifi列表|	位于wifi页面|   点击wlan开关|   成功开启wlan|Pass|
-|验证点击可用wifi列表项，是否弹出弹框|	位于wifi页面|   点击可用wifi列表项|  弹出连接弹框|Pass|
-|验证输入wifi密码，点击确定，是否成功识别|	位于wifi页面|   输入wifi密码，点击确定|   弹出提示弹框connecting|Pass|
+- Bundle：`ohos.samples.wlan`
+- 测试模块：`entry_test`
+- 测试框架：`OpenHarmonyTestRunner`
+- SDK：API version 26.0.0
+
+## 自动化测试套件
+
+| 测试文件 | 用例数 |
+|---|---:|
+| `Ability.test.ets` | 4 |
+| `WlanAbilityExtra.test.ets` | 3 |
+| `WlanBundleConfigExtra.test.ets` | 10 |
+| `WlanBundleContract.test.ets` | 8 |
+| `WlanBundleMisc.test.ets` | 3 |
+| `WlanBundleScene.test.ets` | 4 |
+| `WlanBundleSkills.test.ets` | 8 |
+| `WlanConfigContract.test.ets` | 9 |
+| `WlanDataSourceContract.test.ets` | 6 |
+| `WlanDataSourceData.test.ets` | 14 |
+| `WlanDataSourceEdge.test.ets` | 15 |
+| `WlanDataSourceEdge2.test.ets` | 4 |
+| `WlanDataSourceListener.test.ets` | 10 |
+| `WlanDataSourceMisc.test.ets` | 4 |
+| `WlanDataSourceMultiListener.test.ets` | 6 |
+| `WlanModelLogic.test.ets` | 15 |
+| `WlanModelMisc.test.ets` | 3 |
+| `WlanModelResolveBoundary.test.ets` | 20 |
+| `WlanModelResolveEdge.test.ets` | 12 |
+| `WlanModelResolveExtra.test.ets` | 30 |
+| `WlanResourceContract.test.ets` | 6 |
+| `WlanResourceExtra.test.ets` | 8 |
+| `WlanResourceLast.test.ets` | 6 |
+| `WlanResourceRemaining.test.ets` | 10 |
+| `WlanWifiApiContract.test.ets` | 8 |
+
+合计：**25 个测试套件，226 条用例**。
+
+> 以上用例数与 `List.test.ets` 中实际注册的套件和用例数一致。
