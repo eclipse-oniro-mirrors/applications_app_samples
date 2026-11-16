@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeEach, beforeAll, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON, Component } from '@kit.TestKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
@@ -24,7 +24,8 @@ const driver: Driver = Driver.create();
 const DELAY_MS: number = 300;
 const START_TEXT: string = '全部开始';
 const PAUSE_TEXT: string = '全部暂停';
-const TAG: string = 'MultipleFilesDownload_Test';
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_MultipleFilesDownload]';
 
 async function ensureIdle(): Promise<void> {
   const button: Component = await driver.findComponent(ON.id('download'));
@@ -49,7 +50,7 @@ export default function abilityTest(): void {
       };
       abilityDelegator.startAbility(want, (err) => {
         if (err) {
-          hilog.error(0xFF00, TAG, '%{public}s', `start ability failed: ${JSON.stringify(err)}`);
+          hilog.error(DOMAIN, TAG, '%{public}s', `start ability failed: ${JSON.stringify(err)}`);
         }
       });
       await driver.waitForComponent(ON.id('download'), 10000);
