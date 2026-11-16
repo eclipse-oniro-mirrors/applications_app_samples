@@ -101,6 +101,11 @@ import wlanVolume2Resolve29Test from './WlanVolume2Resolve29.test';
 import wlanVolume2Resolve30Test from './WlanVolume2Resolve30.test';
 import wlanVolume3ResolveTest from './WlanVolume3Resolve.test';
 import wlanDataSourceMatrixTest from './WlanDataSourceMatrix.test';
+import wlanDataSourceAux01Test from './WlanDataSourceAux01.test';
+import wlanDataSourceAux02Test from './WlanDataSourceAux02.test';
+import wlanDataSourceAux03Test from './WlanDataSourceAux03.test';
+import wlanDataSourceAux04Test from './WlanDataSourceAux04.test';
+import wlanDataSourceAux05Test from './WlanDataSourceAux05.test';
 export default function testsuite() {
   abilityTest()
   wlanModelLogicTest();
@@ -189,4 +194,9 @@ export default function testsuite() {
   wlanVolume2Resolve30Test();
   wlanVolume3ResolveTest();
   wlanDataSourceMatrixTest();
+  wlanDataSourceAux01Test();
+  wlanDataSourceAux02Test();
+  wlanDataSourceAux03Test();
+  wlanDataSourceAux04Test();
+  wlanDataSourceAux05Test();
 }
