@@ -20,29 +20,31 @@ import Want from '@ohos.app.ability.Want';
 
 let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator | undefined = undefined
 let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs | undefined = undefined
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_NdkQoS]';
 
-async function onAbilityCreateCallback() {
-  hilog.info(0x0000, 'testTag', '%{public}s', 'onAbilityCreateCallback');
+async function onAbilityCreateCallback(): Promise<void> {
+  hilog.info(DOMAIN, TAG, '%{public}s', 'onAbilityCreateCallback');
 }
 
-async function addAbilityMonitorCallback(err : Error) {
-  hilog.info(0x0000, 'testTag', 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
+async function addAbilityMonitorCallback(err: Error): Promise<void> {
+  hilog.info(DOMAIN, TAG, 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
   constructor() {
   }
 
-  onPrepare() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
+  onPrepare(): void {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
   }
 
-  async onRun() {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
+  async onRun(): Promise<void> {
+    hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-    const bundleName = abilityDelegatorArguments.bundleName;
-    const testAbilityName = 'TestAbility';
+    const bundleName: string = abilityDelegatorArguments.bundleName;
+    const testAbilityName: string = 'TestAbility';
     let lMonitor: AbilityDelegatorRegistry.AbilityMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
@@ -54,9 +56,9 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     };
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     abilityDelegator.startAbility(want, (err, data) => {
-      hilog.info(0x0000, 'testTag', 'startAbility : err : %{public}s', JSON.stringify(err) ?? '');
-      hilog.info(0x0000, 'testTag', 'startAbility : data : %{public}s',JSON.stringify(data) ?? '');
+      hilog.info(DOMAIN, TAG, 'startAbility : err : %{public}s', JSON.stringify(err) ?? '');
+      hilog.info(DOMAIN, TAG, 'startAbility : data : %{public}s',JSON.stringify(data) ?? '');
     })
-    hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun end');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun end');
   }
 }
