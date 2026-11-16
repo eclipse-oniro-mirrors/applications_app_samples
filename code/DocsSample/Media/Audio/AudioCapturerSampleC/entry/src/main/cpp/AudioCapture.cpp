@@ -533,6 +533,8 @@ napi_value QueryUltraFastSupport(napi_env env, napi_callback_info info)
         return CreateStringResult(env, ss.str());
     }
 
+    // [Start IsUltraFastRecordingSupported]
+    // 构造与待创建录制流一致的音频流参数。
     OH_AudioStreamInfo streamInfo;
     const int SAMPLING_RATE_48K = 48000;
     streamInfo.samplingRate = SAMPLING_RATE_48K;
@@ -540,7 +542,7 @@ napi_value QueryUltraFastSupport(napi_env env, napi_callback_info info)
     streamInfo.encodingType = AUDIOSTREAM_ENCODING_TYPE_RAW;
     streamInfo.sampleFormat = AUDIOSTREAM_SAMPLE_S16LE;
 
-    // [Start IsUltraFastRecordingSupported]
+    // 查询当前设备是否支持超低时延录制。
     bool supported = false;
     OH_AudioCommon_Result queryRet = OH_AudioStreamManager_IsUltraFastRecordingSupported(
         streamManager, &streamInfo, AUDIOSTREAM_SOURCE_TYPE_MIC, &supported);
