@@ -1,0 +1,149 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { MyDataSource } from '../../../main/ets/common/DataSource';
+import { testTabs as tabArray } from './FlipClockTestTabs';
+class FlipClockListener implements DataChangeListener {
+  reloadCount: number = 0;
+  addCount: number = 0;
+  onDataReloaded(): void { this.reloadCount++; }
+  onDataAdded(index: number): void { this.addCount++; }
+  onDataAdd(index: number): void { this.addCount++; }
+  onDataMoved(from: number, to: number): void {}
+  onDataMove(from: number, to: number): void {}
+  onDataDeleted(index: number): void {}
+  onDataDelete(index: number): void {}
+  onDataChanged(index: number): void {}
+  onDataChange(index: number): void {}
+  onDatasetChange(dataOperations: DataOperation[]): void { this.reloadCount++; }
+}
+
+export default function flipClockListenersTest() {
+  describe('FlipClockListenersTest', () => {
+
+    /**
+     * @tc.name   testFlipClockListener001
+     * @tc.number SUB_FLIP_CLOCK_LISTENER_001
+     * @tc.desc   Notify a registered listener on push.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockListener001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: MyDataSource = new MyDataSource([]); const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener); source.pushData(tabArray[0]);
+      expect(listener.addCount).assertEqual(1); expect(source.totalCount()).assertEqual(1); expect(listener.reloadCount).assertEqual(0);
+    })
+
+    /**
+     * @tc.name   testFlipClockListener002
+     * @tc.number SUB_FLIP_CLOCK_LISTENER_002
+     * @tc.desc   Notify a registered listener on replace.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockListener002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: MyDataSource = new MyDataSource([]); const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener); source.replaceData(tabArray.slice());
+      expect(listener.reloadCount).assertEqual(1); expect(source.totalCount()).assertEqual(4); expect(listener.addCount).assertEqual(0);
+    })
+
+    /**
+     * @tc.name   testFlipClockListener003
+     * @tc.number SUB_FLIP_CLOCK_LISTENER_003
+     * @tc.desc   Stop notifications after unregister.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockListener003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: MyDataSource = new MyDataSource([]); const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener); source.unregisterDataChangeListener(listener); source.pushData(tabArray[0]);
+      expect(listener.addCount).assertEqual(0); expect(source.totalCount()).assertEqual(1);
+    })
+
+    /**
+     * @tc.name   testFlipClockListener004
+     * @tc.number SUB_FLIP_CLOCK_LISTENER_004
+     * @tc.desc   Register the same listener twice.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockListener004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: MyDataSource = new MyDataSource([]); const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener); source.registerDataChangeListener(listener); source.pushData(tabArray[0]);
+      expect(listener.addCount).assertEqual(1); expect(source.totalCount()).assertEqual(1);
+    })
+
+    /**
+     * @tc.name   testFlipClockListener005
+     * @tc.number SUB_FLIP_CLOCK_LISTENER_005
+     * @tc.desc   Notify delete after data removal.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockListener005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: MyDataSource = new MyDataSource(tabArray.slice()); const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener); source.deleteData(0);
+      expect(listener.addCount).assertEqual(1); expect(source.totalCount()).assertEqual(3);
+    })
+
+    /**
+     * @tc.name   testFlipClockListener006
+     * @tc.number SUB_FLIP_CLOCK_LISTENER_006
+     * @tc.desc   Unknown listener removal keeps notifications.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockListener006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: MyDataSource = new MyDataSource([]); const first: FlipClockListener = new FlipClockListener(); const second: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(first); source.unregisterDataChangeListener(second); source.pushData(tabArray[0]);
+      expect(first.addCount).assertEqual(1); expect(second.addCount).assertEqual(0);
+    })
+
+    /**
+     * @tc.name   testFlipClockListener007
+     * @tc.number SUB_FLIP_CLOCK_LISTENER_007
+     * @tc.desc   Two listeners both receive a push.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockListener007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: MyDataSource = new MyDataSource([]); const first: FlipClockListener = new FlipClockListener(); const second: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(first); source.registerDataChangeListener(second); source.pushData(tabArray[0]);
+      expect(first.addCount).assertEqual(1); expect(second.addCount).assertEqual(1);
+    })
+
+    /**
+     * @tc.name   testFlipClockListener008
+     * @tc.number SUB_FLIP_CLOCK_LISTENER_008
+     * @tc.desc   Reload notification reaches both listeners.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockListener008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: MyDataSource = new MyDataSource([]); const first: FlipClockListener = new FlipClockListener(); const second: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(first); source.registerDataChangeListener(second); source.replaceData(tabArray.slice());
+      expect(first.reloadCount).assertEqual(1); expect(second.reloadCount).assertEqual(1);
+    })
+  })
+}

@@ -1,0 +1,166 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { ContactSource, Contact } from '../../../main/ets/common/DataSource';
+
+export default function flipClockContactSourceReplaceTest() {
+  describe('FlipClockContactSourceReplaceTest', () => {
+
+    /**
+     * @tc.name   testFlipClockContactreplace0000
+     * @tc.number SUB_FLIP_CLOCK_CONTACT_REPLACE_0000
+     * @tc.desc   Replace ContactSource content with 0 entries.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockContactreplace0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: ContactSource = new ContactSource([]);
+      const next: Contact[] = [];
+      for (let index: number = 0; index < 0; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      source.replaceData(next);
+      expect(source.totalCount()).assertEqual(0);
+      if (0 > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      expect(source.getData(source.totalCount()) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.name   testFlipClockContactreplace0001
+     * @tc.number SUB_FLIP_CLOCK_CONTACT_REPLACE_0001
+     * @tc.desc   Replace ContactSource content with 1 entries.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockContactreplace0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: ContactSource = new ContactSource([]);
+      const next: Contact[] = [];
+      for (let index: number = 0; index < 1; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      source.replaceData(next);
+      expect(source.totalCount()).assertEqual(1);
+      if (1 > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      expect(source.getData(source.totalCount()) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.name   testFlipClockContactreplace0002
+     * @tc.number SUB_FLIP_CLOCK_CONTACT_REPLACE_0002
+     * @tc.desc   Replace ContactSource content with 2 entries.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockContactreplace0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: ContactSource = new ContactSource([]);
+      const next: Contact[] = [];
+      for (let index: number = 0; index < 2; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      source.replaceData(next);
+      expect(source.totalCount()).assertEqual(2);
+      if (2 > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      expect(source.getData(source.totalCount()) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.name   testFlipClockContactreplace0003
+     * @tc.number SUB_FLIP_CLOCK_CONTACT_REPLACE_0003
+     * @tc.desc   Replace ContactSource content with 3 entries.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockContactreplace0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: ContactSource = new ContactSource([]);
+      const next: Contact[] = [];
+      for (let index: number = 0; index < 3; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      source.replaceData(next);
+      expect(source.totalCount()).assertEqual(3);
+      if (3 > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      expect(source.getData(source.totalCount()) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.name   testFlipClockContactreplace0004
+     * @tc.number SUB_FLIP_CLOCK_CONTACT_REPLACE_0004
+     * @tc.desc   Replace ContactSource content with 4 entries.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockContactreplace0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: ContactSource = new ContactSource([]);
+      const next: Contact[] = [];
+      for (let index: number = 0; index < 4; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      source.replaceData(next);
+      expect(source.totalCount()).assertEqual(4);
+      if (4 > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      expect(source.getData(source.totalCount()) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.name   testFlipClockContactreplace0005
+     * @tc.number SUB_FLIP_CLOCK_CONTACT_REPLACE_0005
+     * @tc.desc   Replace ContactSource content with 5 entries.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockContactreplace0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: ContactSource = new ContactSource([]);
+      const next: Contact[] = [];
+      for (let index: number = 0; index < 5; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      source.replaceData(next);
+      expect(source.totalCount()).assertEqual(5);
+      if (5 > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      expect(source.getData(source.totalCount()) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.name   testFlipClockContactreplace0006
+     * @tc.number SUB_FLIP_CLOCK_CONTACT_REPLACE_0006
+     * @tc.desc   Replace ContactSource content with 6 entries.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockContactreplace0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: ContactSource = new ContactSource([]);
+      const next: Contact[] = [];
+      for (let index: number = 0; index < 6; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      source.replaceData(next);
+      expect(source.totalCount()).assertEqual(6);
+      if (6 > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      expect(source.getData(source.totalCount()) === undefined).assertTrue();
+    })
+
+    /**
+     * @tc.name   testFlipClockContactreplace0007
+     * @tc.number SUB_FLIP_CLOCK_CONTACT_REPLACE_0007
+     * @tc.desc   Replace ContactSource content with 7 entries.
+     * @tc.type   FUNCTION
+     * @tc.size   MEDIUMTEST
+     * @tc.level  LEVEL2
+     */
+    it('testFlipClockContactreplace0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      const source: ContactSource = new ContactSource([]);
+      const next: Contact[] = [];
+      for (let index: number = 0; index < 7; index++) { next.push(new Contact('key' + index, 'value', index)); }
+      source.replaceData(next);
+      expect(source.totalCount()).assertEqual(7);
+      if (7 > 0) { expect(source.getData(0).key).assertEqual('key0'); }
+      expect(source.getData(source.totalCount()) === undefined).assertTrue();
+    })
+  })
+}
