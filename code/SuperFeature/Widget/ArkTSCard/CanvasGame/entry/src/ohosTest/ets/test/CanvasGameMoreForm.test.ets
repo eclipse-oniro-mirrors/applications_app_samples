@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function canvasGameMoreFormTest() {
   describe('CanvasGameMoreFormTest', () => {
@@ -28,7 +31,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(32); expect(a.onFormEvent('event-1', m) === undefined).assertTrue(); expect(m.length).assertEqual(32);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0001 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(32);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-1\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-1', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(32);');
+        expect(m.length).assertEqual(32);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0001 end');
     })
 
     /**
@@ -40,7 +50,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(64); expect(a.onFormEvent('event-2', m) === undefined).assertTrue(); expect(m.length).assertEqual(64);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0002 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(64);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-2\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-2', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(64);');
+        expect(m.length).assertEqual(64);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0002 end');
     })
 
     /**
@@ -52,7 +69,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(96); expect(a.onFormEvent('event-3', m) === undefined).assertTrue(); expect(m.length).assertEqual(96);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0003 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(96);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-3\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-3', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(96);');
+        expect(m.length).assertEqual(96);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0003 end');
     })
 
     /**
@@ -64,7 +88,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(128); expect(a.onFormEvent('event-4', m) === undefined).assertTrue(); expect(m.length).assertEqual(128);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0004 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(128);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-4\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-4', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(128);');
+        expect(m.length).assertEqual(128);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0004 end');
     })
 
     /**
@@ -76,7 +107,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(160); expect(a.onFormEvent('event-5', m) === undefined).assertTrue(); expect(m.length).assertEqual(160);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0005 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(160);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-5\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-5', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(160);');
+        expect(m.length).assertEqual(160);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0005 end');
     })
 
     /**
@@ -88,7 +126,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(192); expect(a.onFormEvent('event-6', m) === undefined).assertTrue(); expect(m.length).assertEqual(192);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0006 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(192);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-6\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-6', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(192);');
+        expect(m.length).assertEqual(192);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0006 end');
     })
 
     /**
@@ -100,7 +145,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(224); expect(a.onFormEvent('event-7', m) === undefined).assertTrue(); expect(m.length).assertEqual(224);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0007 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(224);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-7\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-7', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(224);');
+        expect(m.length).assertEqual(224);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0007 end');
     })
 
     /**
@@ -112,7 +164,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(256); expect(a.onFormEvent('event-8', m) === undefined).assertTrue(); expect(m.length).assertEqual(256);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0008 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(256);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-8\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-8', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(256);');
+        expect(m.length).assertEqual(256);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0008 end');
     })
 
     /**
@@ -124,7 +183,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(288); expect(a.onFormEvent('event-9', m) === undefined).assertTrue(); expect(m.length).assertEqual(288);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0009 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(288);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-9\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-9', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(288);');
+        expect(m.length).assertEqual(288);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0009 end');
     })
 
     /**
@@ -136,7 +202,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(320); expect(a.onFormEvent('event-10', m) === undefined).assertTrue(); expect(m.length).assertEqual(320);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0010 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(320);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-10\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-10', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(320);');
+        expect(m.length).assertEqual(320);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0010 end');
     })
 
     /**
@@ -148,7 +221,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(352); expect(a.onFormEvent('event-11', m) === undefined).assertTrue(); expect(m.length).assertEqual(352);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0011 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(352);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-11\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-11', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(352);');
+        expect(m.length).assertEqual(352);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0011 end');
     })
 
     /**
@@ -160,7 +240,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(384); expect(a.onFormEvent('event-12', m) === undefined).assertTrue(); expect(m.length).assertEqual(384);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0012 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(384);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-12\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-12', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(384);');
+        expect(m.length).assertEqual(384);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0012 end');
     })
 
     /**
@@ -172,7 +259,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(416); expect(a.onFormEvent('event-13', m) === undefined).assertTrue(); expect(m.length).assertEqual(416);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0013 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(416);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-13\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-13', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(416);');
+        expect(m.length).assertEqual(416);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0013 end');
     })
 
     /**
@@ -184,7 +278,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(448); expect(a.onFormEvent('event-14', m) === undefined).assertTrue(); expect(m.length).assertEqual(448);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0014 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(448);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-14\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-14', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(448);');
+        expect(m.length).assertEqual(448);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0014 end');
     })
 
     /**
@@ -196,7 +297,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(480); expect(a.onFormEvent('event-15', m) === undefined).assertTrue(); expect(m.length).assertEqual(480);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0015 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(480);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-15\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-15', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(480);');
+        expect(m.length).assertEqual(480);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0015 end');
     })
 
     /**
@@ -208,7 +316,14 @@ export default function canvasGameMoreFormTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreForm0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(512); expect(a.onFormEvent('event-16', m) === undefined).assertTrue(); expect(m.length).assertEqual(512);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0016 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(512);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'event-16\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('event-16', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(512);');
+        expect(m.length).assertEqual(512);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasMoreForm0016 end');
     })
   })
 }

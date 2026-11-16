@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function canvasGameFormTypesTest() {
   describe('CanvasGameFormTypesTest', () => {
@@ -28,7 +31,14 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormAdd001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); const data = ability.onAddForm({}); expect(data !== undefined).assertTrue(); expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormAdd001 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        const data = ability.onAddForm({});
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        expect(data !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormAdd001 end');
     })
 
     /**
@@ -40,7 +50,17 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormAddTwo002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); const first = ability.onAddForm({}); const second = ability.onAddForm({}); expect(first !== undefined).assertTrue(); expect(second !== undefined).assertTrue(); expect(typeof first === typeof second).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormAddTwo002 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        const first = ability.onAddForm({});
+        const second = ability.onAddForm({});
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first !== undefined).assertTrue();');
+        expect(first !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second !== undefined).assertTrue();');
+        expect(second !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof first === typeof second).assertTrue();');
+        expect(typeof first === typeof second).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormAddTwo002 end');
     })
 
     /**
@@ -52,7 +72,14 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormState003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); const state = ability.onAcquireFormState({}); expect(state >= 0).assertTrue(); expect(typeof state === 'number').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormState003 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        const state = ability.onAcquireFormState({});
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(state >= 0).assertTrue();');
+        expect(state >= 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof state === \'number\').assertTrue();');
+        expect(typeof state === 'number').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormState003 end');
     })
 
     /**
@@ -64,7 +91,13 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormStateRepeat004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onAcquireFormState({})).assertEqual(ability.onAcquireFormState({})); expect(ability.onAcquireFormState({}) >= 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormStateRepeat004 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onAcquireFormState({})).assertEqual(ability.onAcquireFormState({}));');
+        expect(ability.onAcquireFormState({})).assertEqual(ability.onAcquireFormState({}));
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onAcquireFormState({}) >= 0).assertTrue();');
+        expect(ability.onAcquireFormState({}) >= 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormStateRepeat004 end');
     })
 
     /**
@@ -76,7 +109,11 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormUpdateEmpty005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onUpdateForm('') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormUpdateEmpty005 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onUpdateForm(\'\') === undefined).assertTrue();');
+        expect(ability.onUpdateForm('') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormUpdateEmpty005 end');
     })
 
     /**
@@ -88,7 +125,11 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormUpdateId006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onUpdateForm('form-001') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormUpdateId006 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onUpdateForm(\'form-001\') === undefined).assertTrue();');
+        expect(ability.onUpdateForm('form-001') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormUpdateId006 end');
     })
 
     /**
@@ -100,7 +141,14 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormUpdateLong007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); const id: string = 'form-' + 'x'.repeat(256); expect(ability.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(261);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormUpdateLong007 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'form-' + 'x'.repeat(256);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onUpdateForm(id) === undefined).assertTrue();');
+        expect(ability.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(261);');
+        expect(id.length).assertEqual(261);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormUpdateLong007 end');
     })
 
     /**
@@ -112,7 +160,11 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormCast008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onCastToNormalForm('') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormCast008 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onCastToNormalForm(\'\') === undefined).assertTrue();');
+        expect(ability.onCastToNormalForm('') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormCast008 end');
     })
 
     /**
@@ -124,7 +176,14 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormCastLong009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); const id: string = 'f'.repeat(512); expect(ability.onCastToNormalForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(512);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormCastLong009 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'f'.repeat(512);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onCastToNormalForm(id) === undefined).assertTrue();');
+        expect(ability.onCastToNormalForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(512);');
+        expect(id.length).assertEqual(512);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormCastLong009 end');
     })
 
     /**
@@ -136,7 +195,11 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility010 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();');
+        expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility010 end');
     })
 
     /**
@@ -148,7 +211,13 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(false) === undefined).assertTrue(); expect(false).assertEqual(false);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility011 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onChangeFormVisibility(false) === undefined).assertTrue();');
+        expect(ability.onChangeFormVisibility(false) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(false).assertEqual(false);');
+        expect(false).assertEqual(false);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility011 end');
     })
 
     /**
@@ -160,7 +229,11 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility012 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();');
+        expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility012 end');
     })
 
     /**
@@ -172,7 +245,13 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(false) === undefined).assertTrue(); expect(false).assertEqual(false);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility013 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onChangeFormVisibility(false) === undefined).assertTrue();');
+        expect(ability.onChangeFormVisibility(false) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(false).assertEqual(false);');
+        expect(false).assertEqual(false);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility013 end');
     })
 
     /**
@@ -184,7 +263,11 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility014 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();');
+        expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility014 end');
     })
 
     /**
@@ -196,67 +279,93 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(false) === undefined).assertTrue(); expect(false).assertEqual(false);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility015 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onChangeFormVisibility(false) === undefined).assertTrue();');
+        expect(ability.onChangeFormVisibility(false) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(false).assertEqual(false);');
+        expect(false).assertEqual(false);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormVisibility015 end');
     })
 
     /**
      * @tc.name   testCanvasFormEvent016
      * @tc.number SUB_CANVAS_FORM_016
-     * @tc.desc   Dispatch form event case 16.
+     * @tc.desc   Verify ability.onFormEvent(\'form-16\', \'\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-16', '') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent016 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onFormEvent(\'form-16\', \'\') === undefined).assertTrue();');
+        expect(ability.onFormEvent('form-16', '') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent016 end');
     })
 
     /**
      * @tc.name   testCanvasFormEvent017
      * @tc.number SUB_CANVAS_FORM_017
-     * @tc.desc   Dispatch form event case 17.
+     * @tc.desc   Verify ability.onFormEvent(\'form-17\', \'event-1717\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-17', 'event-1717') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent017 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onFormEvent(\'form-17\', \'event-1717\') === undefined).assertTrue();');
+        expect(ability.onFormEvent('form-17', 'event-1717') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent017 end');
     })
 
     /**
      * @tc.name   testCanvasFormEvent018
      * @tc.number SUB_CANVAS_FORM_018
-     * @tc.desc   Dispatch form event case 18.
+     * @tc.desc   Verify ability.onFormEvent(\'form-18\', \'event-181818\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-18', 'event-181818') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent018 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onFormEvent(\'form-18\', \'event-181818\') === undefined).assertTrue();');
+        expect(ability.onFormEvent('form-18', 'event-181818') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent018 end');
     })
 
     /**
      * @tc.name   testCanvasFormEvent019
      * @tc.number SUB_CANVAS_FORM_019
-     * @tc.desc   Dispatch form event case 19.
+     * @tc.desc   Verify ability.onFormEvent(\'form-19\', \'event-19191919\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-19', 'event-19191919') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent019 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onFormEvent(\'form-19\', \'event-19191919\') === undefined).assertTrue();');
+        expect(ability.onFormEvent('form-19', 'event-19191919') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent019 end');
     })
 
     /**
      * @tc.name   testCanvasFormEvent020
      * @tc.number SUB_CANVAS_FORM_020
-     * @tc.desc   Dispatch form event case 20.
+     * @tc.desc   Verify ability.onFormEvent(\'form-20\', \'event-2020202020\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-20', 'event-2020202020') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent020 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onFormEvent(\'form-20\', \'event-2020202020\') === undefined).assertTrue();');
+        expect(ability.onFormEvent('form-20', 'event-2020202020') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormEvent020 end');
     })
 
     /**
@@ -268,7 +377,11 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormRemove021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onRemoveForm('') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormRemove021 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onRemoveForm(\'\') === undefined).assertTrue();');
+        expect(ability.onRemoveForm('') === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormRemove021 end');
     })
 
     /**
@@ -280,7 +393,14 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormRemove022', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); const id: string = 'r'.repeat(128); expect(ability.onRemoveForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(128);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormRemove022 begin');
+      const ability: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'r'.repeat(128);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.onRemoveForm(id) === undefined).assertTrue();');
+        expect(ability.onRemoveForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(128);');
+        expect(id.length).assertEqual(128);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormRemove022 end');
     })
   })
 }

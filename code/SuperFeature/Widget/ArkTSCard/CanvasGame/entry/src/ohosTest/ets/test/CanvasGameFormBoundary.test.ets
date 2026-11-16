@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function canvasGameFormBoundaryTest() {
   describe('CanvasGameFormBoundaryTest', () => {
@@ -28,7 +31,14 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = ' '; expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary001 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = ' ';
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1);');
+        expect(id.length).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary001 end');
     })
 
     /**
@@ -40,7 +50,14 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = '  '; expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary002 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = '  ';
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2);');
+        expect(id.length).assertEqual(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary002 end');
     })
 
     /**
@@ -52,7 +69,14 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = '   '; expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary003 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = '   ';
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(3);');
+        expect(id.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary003 end');
     })
 
     /**
@@ -64,7 +88,14 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const msg: string = 'x'.repeat(512); expect(a.onFormEvent('form-4', msg) === undefined).assertTrue(); expect(msg.length).assertEqual(512);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary004 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const msg: string = 'x'.repeat(512);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-4\', msg) === undefined).assertTrue();');
+        expect(a.onFormEvent('form-4', msg) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(512);');
+        expect(msg.length).assertEqual(512);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary004 end');
     })
 
     /**
@@ -76,7 +107,14 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const msg: string = 'x'.repeat(640); expect(a.onFormEvent('form-5', msg) === undefined).assertTrue(); expect(msg.length).assertEqual(640);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary005 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const msg: string = 'x'.repeat(640);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-5\', msg) === undefined).assertTrue();');
+        expect(a.onFormEvent('form-5', msg) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(640);');
+        expect(msg.length).assertEqual(640);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary005 end');
     })
 
     /**
@@ -88,7 +126,14 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const msg: string = 'x'.repeat(768); expect(a.onFormEvent('form-6', msg) === undefined).assertTrue(); expect(msg.length).assertEqual(768);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary006 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const msg: string = 'x'.repeat(768);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-6\', msg) === undefined).assertTrue();');
+        expect(a.onFormEvent('form-6', msg) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(msg.length).assertEqual(768);');
+        expect(msg.length).assertEqual(768);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary006 end');
     })
 
     /**
@@ -100,7 +145,13 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 1; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary007 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        for (let n: number = 0; n < 1; n++) {
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();');
+          expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary007 end');
     })
 
     /**
@@ -112,7 +163,13 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 2; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary008 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        for (let n: number = 0; n < 2; n++) {
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();');
+          expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary008 end');
     })
 
     /**
@@ -124,7 +181,13 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 3; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary009 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        for (let n: number = 0; n < 3; n++) {
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();');
+          expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary009 end');
     })
 
     /**
@@ -136,7 +199,13 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 4; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary010 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        for (let n: number = 0; n < 4; n++) {
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();');
+          expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue();
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormBoundary010 end');
     })
   })
 }

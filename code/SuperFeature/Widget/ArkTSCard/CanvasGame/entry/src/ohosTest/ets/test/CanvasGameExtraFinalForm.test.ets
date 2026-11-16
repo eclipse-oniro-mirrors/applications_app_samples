@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function canvasGameExtraFinalFormTest() {
   describe('CanvasGameExtraFinalFormTest', () => {
@@ -22,193 +25,305 @@ export default function canvasGameExtraFinalFormTest() {
     /**
      * @tc.name   testCanvasExtraFinalForm0001
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0001
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(192); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(192);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0001 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(192);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(192);');
+        expect(id.length).assertEqual(192);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0001 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0002
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0002
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(384); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(384);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0002 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(384);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(384);');
+        expect(id.length).assertEqual(384);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0002 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0003
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0003
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(576); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(576);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0003 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(576);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(576);');
+        expect(id.length).assertEqual(576);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0003 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0004
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0004
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(768); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(768);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0004 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(768);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(768);');
+        expect(id.length).assertEqual(768);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0004 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0005
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0005
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(960); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(960);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0005 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(960);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(960);');
+        expect(id.length).assertEqual(960);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0005 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0006
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0006
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(1152); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(1152);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0006 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(1152);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1152);');
+        expect(id.length).assertEqual(1152);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0006 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0007
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0007
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(1344); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(1344);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0007 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(1344);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1344);');
+        expect(id.length).assertEqual(1344);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0007 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0008
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0008
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(1536); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(1536);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0008 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(1536);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1536);');
+        expect(id.length).assertEqual(1536);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0008 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0009
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0009
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(1728); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(1728);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0009 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(1728);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1728);');
+        expect(id.length).assertEqual(1728);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0009 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0010
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0010
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(1920); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(1920);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0010 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(1920);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(1920);');
+        expect(id.length).assertEqual(1920);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0010 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0011
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0011
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(2112); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(2112);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0011 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(2112);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2112);');
+        expect(id.length).assertEqual(2112);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0011 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0012
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0012
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(2304); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(2304);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0012 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(2304);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2304);');
+        expect(id.length).assertEqual(2304);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0012 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0013
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0013
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(2496); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(2496);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0013 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(2496);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2496);');
+        expect(id.length).assertEqual(2496);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0013 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0014
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0014
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(2688); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(2688);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0014 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(2688);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2688);');
+        expect(id.length).assertEqual(2688);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0014 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0015
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0015
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(2880); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(2880);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0015 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(2880);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(2880);');
+        expect(id.length).assertEqual(2880);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0015 end');
     })
 
     /**
      * @tc.name   testCanvasExtraFinalForm0016
      * @tc.number SUB_CANVAS_EXTRA_FINAL_FORM_0016
-     * @tc.desc   Extra CanvasGame boundary case.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraFinalForm0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'u'.repeat(3072); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(3072);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0016 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'u'.repeat(3072);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(3072);');
+        expect(id.length).assertEqual(3072);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraFinalForm0016 end');
     })
   })
 }

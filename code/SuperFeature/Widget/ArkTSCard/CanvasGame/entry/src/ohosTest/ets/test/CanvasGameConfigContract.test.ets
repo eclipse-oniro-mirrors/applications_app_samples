@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import bundleManager from '@ohos.bundle.bundleManager';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
 
 export default function canvasGameConfigContractTest() {
@@ -30,7 +33,21 @@ export default function canvasGameConfigContractTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigMain001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let m: bundleManager.HapModuleInfo | undefined = undefined; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { if (info.hapModulesInfo[i].name === 'entry') { m = info.hapModulesInfo[i]; } } expect(m !== undefined).assertTrue(); const mod = m as bundleManager.HapModuleInfo; expect(mod.name).assertEqual('entry'); expect(mod.installationFree).assertFalse();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMain001 begin');
+      let m: bundleManager.HapModuleInfo | undefined = undefined;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          if (info.hapModulesInfo[i].name === 'entry') {
+          m = info.hapModulesInfo[i];
+        }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m !== undefined).assertTrue();');
+          expect(m !== undefined).assertTrue();
+        const mod = m as bundleManager.HapModuleInfo;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.name).assertEqual(\'entry\');');
+        expect(mod.name).assertEqual('entry');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.installationFree).assertFalse();');
+        expect(mod.installationFree).assertFalse();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMain001 end');
     })
 
     /**
@@ -42,7 +59,18 @@ export default function canvasGameConfigContractTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigDevice002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let m: bundleManager.HapModuleInfo | undefined = undefined; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { if (info.hapModulesInfo[i].name === 'entry') { m = info.hapModulesInfo[i]; } } expect((m as bundleManager.HapModuleInfo).deviceTypes.includes('default')).assertTrue(); expect((m as bundleManager.HapModuleInfo).deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigDevice002 begin');
+      let m: bundleManager.HapModuleInfo | undefined = undefined;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          if (info.hapModulesInfo[i].name === 'entry') {
+          m = info.hapModulesInfo[i];
+        }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect((m as bundleManager.HapModuleInfo).deviceTypes.includes(\'default\')).assertTrue();');
+          expect((m as bundleManager.HapModuleInfo).deviceTypes.includes('default')).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect((m as bundleManager.HapModuleInfo).deviceTypes.length > 0).assertTrue();');
+        expect((m as bundleManager.HapModuleInfo).deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigDevice002 end');
     })
 
     /**
@@ -54,7 +82,21 @@ export default function canvasGameConfigContractTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigAbility003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const a = info.hapModulesInfo[i].abilitiesInfo; for (let j: number = 0; j < a.length; j++) { if (a[j].name === 'EntryAbility') { found = true; expect(a[j].exported).assertTrue(); } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigAbility003 begin');
+      let found: boolean = false;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          const a = info.hapModulesInfo[i].abilitiesInfo;
+        for (let j: number = 0; j < a.length; j++) {
+          if (a[j].name === 'EntryAbility') {
+          found = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        expect(a[j].exported).assertTrue();
+        }
+          }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigAbility003 end');
     })
 
     /**
@@ -66,79 +108,135 @@ export default function canvasGameConfigContractTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigForm004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const e = info.hapModulesInfo[i].extensionAbilitiesInfo; for (let j: number = 0; j < e.length; j++) { if (e[j].name === 'EntryFormAbility') { found = true; expect(e[j].name.length > 0).assertTrue(); } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigForm004 begin');
+      let found: boolean = false;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          const e = info.hapModulesInfo[i].extensionAbilitiesInfo;
+        for (let j: number = 0; j < e.length; j++) {
+          if (e[j].name === 'EntryFormAbility') {
+          found = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(e[j].name.length > 0).assertTrue();');
+        expect(e[j].name.length > 0).assertTrue();
+        }
+          }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigForm004 end');
     })
 
     /**
      * @tc.name   testCanvasConfigMeta005
      * @tc.number SUB_CANVAS_CONFIG_005
-     * @tc.desc   Verify module metadata case 5.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigMeta005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta005 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta005 end');
     })
 
     /**
      * @tc.name   testCanvasConfigMeta006
      * @tc.number SUB_CANVAS_CONFIG_006
-     * @tc.desc   Verify module metadata case 6.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigMeta006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta006 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta006 end');
     })
 
     /**
      * @tc.name   testCanvasConfigMeta007
      * @tc.number SUB_CANVAS_CONFIG_007
-     * @tc.desc   Verify module metadata case 7.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigMeta007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta007 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta007 end');
     })
 
     /**
      * @tc.name   testCanvasConfigMeta008
      * @tc.number SUB_CANVAS_CONFIG_008
-     * @tc.desc   Verify module metadata case 8.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigMeta008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta008 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta008 end');
     })
 
     /**
      * @tc.name   testCanvasConfigMeta009
      * @tc.number SUB_CANVAS_CONFIG_009
-     * @tc.desc   Verify module metadata case 9.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigMeta009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta009 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta009 end');
     })
 
     /**
      * @tc.name   testCanvasConfigMeta010
      * @tc.number SUB_CANVAS_CONFIG_010
-     * @tc.desc   Verify module metadata case 10.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasConfigMeta010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta010 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasConfigMeta010 end');
     })
   })
 }
