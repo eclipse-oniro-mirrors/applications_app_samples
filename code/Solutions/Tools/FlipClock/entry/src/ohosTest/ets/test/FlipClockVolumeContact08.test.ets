@@ -36,11 +36,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 141; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(141);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(141));
       expect(source.totalCount()).assertEqual(141);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(140).reminderId).assertEqual(140);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(140).reminderId), String(140));
       expect(source.getData(140).reminderId).assertEqual(140);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080001 end');
@@ -60,11 +60,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 142; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(142);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(142));
       expect(source.totalCount()).assertEqual(142);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(141).reminderId).assertEqual(141);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(141).reminderId), String(141));
       expect(source.getData(141).reminderId).assertEqual(141);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080002 end');
@@ -84,11 +84,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 143; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(143);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(143));
       expect(source.totalCount()).assertEqual(143);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(142).reminderId).assertEqual(142);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(142).reminderId), String(142));
       expect(source.getData(142).reminderId).assertEqual(142);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080003 end');
@@ -108,11 +108,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 144; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(144);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(144));
       expect(source.totalCount()).assertEqual(144);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(143).reminderId).assertEqual(143);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(143).reminderId), String(143));
       expect(source.getData(143).reminderId).assertEqual(143);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080004 end');
@@ -132,11 +132,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 145; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(145);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(145));
       expect(source.totalCount()).assertEqual(145);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(144).reminderId).assertEqual(144);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(144).reminderId), String(144));
       expect(source.getData(144).reminderId).assertEqual(144);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080005 end');
@@ -156,11 +156,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 146; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(146);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(146));
       expect(source.totalCount()).assertEqual(146);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(145).reminderId).assertEqual(145);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(145).reminderId), String(145));
       expect(source.getData(145).reminderId).assertEqual(145);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080006 end');
@@ -180,11 +180,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 147; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(147);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(147));
       expect(source.totalCount()).assertEqual(147);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(146).reminderId).assertEqual(146);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(146).reminderId), String(146));
       expect(source.getData(146).reminderId).assertEqual(146);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080007 end');
@@ -204,11 +204,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 148; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(148);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(148));
       expect(source.totalCount()).assertEqual(148);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(147).reminderId).assertEqual(147);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(147).reminderId), String(147));
       expect(source.getData(147).reminderId).assertEqual(147);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080008 end');
@@ -228,11 +228,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 149; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(149);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(149));
       expect(source.totalCount()).assertEqual(149);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(148).reminderId).assertEqual(148);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(148).reminderId), String(148));
       expect(source.getData(148).reminderId).assertEqual(148);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080009 end');
@@ -252,11 +252,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 150; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(150);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(150));
       expect(source.totalCount()).assertEqual(150);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(149).reminderId).assertEqual(149);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(149).reminderId), String(149));
       expect(source.getData(149).reminderId).assertEqual(149);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080010 end');
@@ -276,11 +276,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 151; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(151);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(151));
       expect(source.totalCount()).assertEqual(151);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(150).reminderId).assertEqual(150);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(150).reminderId), String(150));
       expect(source.getData(150).reminderId).assertEqual(150);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080011 end');
@@ -300,11 +300,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 152; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(152);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(152));
       expect(source.totalCount()).assertEqual(152);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(151).reminderId).assertEqual(151);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(151).reminderId), String(151));
       expect(source.getData(151).reminderId).assertEqual(151);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080012 end');
@@ -324,11 +324,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 153; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(153);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(153));
       expect(source.totalCount()).assertEqual(153);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(152).reminderId).assertEqual(152);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(152).reminderId), String(152));
       expect(source.getData(152).reminderId).assertEqual(152);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080013 end');
@@ -348,11 +348,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 154; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(154);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(154));
       expect(source.totalCount()).assertEqual(154);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(153).reminderId).assertEqual(153);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(153).reminderId), String(153));
       expect(source.getData(153).reminderId).assertEqual(153);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080014 end');
@@ -372,11 +372,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 155; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(155);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(155));
       expect(source.totalCount()).assertEqual(155);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(154).reminderId).assertEqual(154);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(154).reminderId), String(154));
       expect(source.getData(154).reminderId).assertEqual(154);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080015 end');
@@ -396,11 +396,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 156; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(156);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(156));
       expect(source.totalCount()).assertEqual(156);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(155).reminderId).assertEqual(155);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(155).reminderId), String(155));
       expect(source.getData(155).reminderId).assertEqual(155);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080016 end');
@@ -420,11 +420,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 157; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(157);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(157));
       expect(source.totalCount()).assertEqual(157);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(156).reminderId).assertEqual(156);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(156).reminderId), String(156));
       expect(source.getData(156).reminderId).assertEqual(156);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080017 end');
@@ -444,11 +444,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 158; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(158);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(158));
       expect(source.totalCount()).assertEqual(158);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(157).reminderId).assertEqual(157);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(157).reminderId), String(157));
       expect(source.getData(157).reminderId).assertEqual(157);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080018 end');
@@ -468,11 +468,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 159; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(159);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(159));
       expect(source.totalCount()).assertEqual(159);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(158).reminderId).assertEqual(158);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(158).reminderId), String(158));
       expect(source.getData(158).reminderId).assertEqual(158);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080019 end');
@@ -492,11 +492,11 @@ export default function flipClockVolumeContact08Test() {
       for (let index: number = 0; index < 160; index++) {
         source.pushData(new Contact('key' + index, 'value', index));
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(160);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(160));
       expect(source.totalCount()).assertEqual(160);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).key), String('key0'));
       expect(source.getData(0).key).assertEqual('key0');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(159).reminderId).assertEqual(159);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(159).reminderId), String(159));
       expect(source.getData(159).reminderId).assertEqual(159);
       await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080020 end');
