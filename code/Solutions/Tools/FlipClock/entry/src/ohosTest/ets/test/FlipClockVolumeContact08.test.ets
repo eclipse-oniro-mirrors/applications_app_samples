@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ContactSource, Contact } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockVolumeContact08Test() {
   describe('FlipClockVolumeContact08Test', () => {
@@ -22,341 +25,481 @@ export default function flipClockVolumeContact08Test() {
     /**
      * @tc.name   testFlipClockVolume080001
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0001
-     * @tc.desc   Push contact volume batch 8-1.
+     * @tc.desc   Verify source.totalCount() equals 141.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080001 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 141; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 141; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(141);');
       expect(source.totalCount()).assertEqual(141);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(140).reminderId).assertEqual(140);');
       expect(source.getData(140).reminderId).assertEqual(140);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080001 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080002
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0002
-     * @tc.desc   Push contact volume batch 8-2.
+     * @tc.desc   Verify source.totalCount() equals 142.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080002 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 142; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 142; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(142);');
       expect(source.totalCount()).assertEqual(142);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(141).reminderId).assertEqual(141);');
       expect(source.getData(141).reminderId).assertEqual(141);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080002 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080003
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0003
-     * @tc.desc   Push contact volume batch 8-3.
+     * @tc.desc   Verify source.totalCount() equals 143.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080003 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 143; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 143; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(143);');
       expect(source.totalCount()).assertEqual(143);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(142).reminderId).assertEqual(142);');
       expect(source.getData(142).reminderId).assertEqual(142);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080003 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080004
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0004
-     * @tc.desc   Push contact volume batch 8-4.
+     * @tc.desc   Verify source.totalCount() equals 144.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080004 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 144; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 144; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(144);');
       expect(source.totalCount()).assertEqual(144);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(143).reminderId).assertEqual(143);');
       expect(source.getData(143).reminderId).assertEqual(143);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080004 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080005
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0005
-     * @tc.desc   Push contact volume batch 8-5.
+     * @tc.desc   Verify source.totalCount() equals 145.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080005 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 145; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 145; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(145);');
       expect(source.totalCount()).assertEqual(145);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(144).reminderId).assertEqual(144);');
       expect(source.getData(144).reminderId).assertEqual(144);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080005 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080006
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0006
-     * @tc.desc   Push contact volume batch 8-6.
+     * @tc.desc   Verify source.totalCount() equals 146.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080006 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 146; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 146; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(146);');
       expect(source.totalCount()).assertEqual(146);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(145).reminderId).assertEqual(145);');
       expect(source.getData(145).reminderId).assertEqual(145);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080006 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080007
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0007
-     * @tc.desc   Push contact volume batch 8-7.
+     * @tc.desc   Verify source.totalCount() equals 147.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080007 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 147; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 147; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(147);');
       expect(source.totalCount()).assertEqual(147);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(146).reminderId).assertEqual(146);');
       expect(source.getData(146).reminderId).assertEqual(146);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080007 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080008
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0008
-     * @tc.desc   Push contact volume batch 8-8.
+     * @tc.desc   Verify source.totalCount() equals 148.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080008 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 148; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 148; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(148);');
       expect(source.totalCount()).assertEqual(148);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(147).reminderId).assertEqual(147);');
       expect(source.getData(147).reminderId).assertEqual(147);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080008 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080009
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0009
-     * @tc.desc   Push contact volume batch 8-9.
+     * @tc.desc   Verify source.totalCount() equals 149.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080009 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 149; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 149; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(149);');
       expect(source.totalCount()).assertEqual(149);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(148).reminderId).assertEqual(148);');
       expect(source.getData(148).reminderId).assertEqual(148);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080009 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080010
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0010
-     * @tc.desc   Push contact volume batch 8-10.
+     * @tc.desc   Verify source.totalCount() equals 150.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080010 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 150; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 150; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(150);');
       expect(source.totalCount()).assertEqual(150);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(149).reminderId).assertEqual(149);');
       expect(source.getData(149).reminderId).assertEqual(149);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080010 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080011
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0011
-     * @tc.desc   Push contact volume batch 8-11.
+     * @tc.desc   Verify source.totalCount() equals 151.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080011 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 151; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 151; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(151);');
       expect(source.totalCount()).assertEqual(151);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(150).reminderId).assertEqual(150);');
       expect(source.getData(150).reminderId).assertEqual(150);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080011 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080012
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0012
-     * @tc.desc   Push contact volume batch 8-12.
+     * @tc.desc   Verify source.totalCount() equals 152.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080012 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 152; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 152; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(152);');
       expect(source.totalCount()).assertEqual(152);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(151).reminderId).assertEqual(151);');
       expect(source.getData(151).reminderId).assertEqual(151);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080012 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080013
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0013
-     * @tc.desc   Push contact volume batch 8-13.
+     * @tc.desc   Verify source.totalCount() equals 153.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080013 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 153; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 153; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(153);');
       expect(source.totalCount()).assertEqual(153);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(152).reminderId).assertEqual(152);');
       expect(source.getData(152).reminderId).assertEqual(152);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080013 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080014
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0014
-     * @tc.desc   Push contact volume batch 8-14.
+     * @tc.desc   Verify source.totalCount() equals 154.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080014 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 154; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 154; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(154);');
       expect(source.totalCount()).assertEqual(154);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(153).reminderId).assertEqual(153);');
       expect(source.getData(153).reminderId).assertEqual(153);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080014 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080015
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0015
-     * @tc.desc   Push contact volume batch 8-15.
+     * @tc.desc   Verify source.totalCount() equals 155.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080015 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 155; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 155; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(155);');
       expect(source.totalCount()).assertEqual(155);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(154).reminderId).assertEqual(154);');
       expect(source.getData(154).reminderId).assertEqual(154);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080015 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080016
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0016
-     * @tc.desc   Push contact volume batch 8-16.
+     * @tc.desc   Verify source.totalCount() equals 156.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080016 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 156; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 156; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(156);');
       expect(source.totalCount()).assertEqual(156);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(155).reminderId).assertEqual(155);');
       expect(source.getData(155).reminderId).assertEqual(155);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080016 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080017
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0017
-     * @tc.desc   Push contact volume batch 8-17.
+     * @tc.desc   Verify source.totalCount() equals 157.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080017 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 157; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 157; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(157);');
       expect(source.totalCount()).assertEqual(157);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(156).reminderId).assertEqual(156);');
       expect(source.getData(156).reminderId).assertEqual(156);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080017 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080018
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0018
-     * @tc.desc   Push contact volume batch 8-18.
+     * @tc.desc   Verify source.totalCount() equals 158.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080018 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 158; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 158; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(158);');
       expect(source.totalCount()).assertEqual(158);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(157).reminderId).assertEqual(157);');
       expect(source.getData(157).reminderId).assertEqual(157);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080018 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080019
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0019
-     * @tc.desc   Push contact volume batch 8-19.
+     * @tc.desc   Verify source.totalCount() equals 159.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080019 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 159; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 159; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(159);');
       expect(source.totalCount()).assertEqual(159);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(158).reminderId).assertEqual(158);');
       expect(source.getData(158).reminderId).assertEqual(158);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080019 end');
     })
 
     /**
      * @tc.name   testFlipClockVolume080020
      * @tc.number SUB_FLIP_CLOCK_VOLUME_08_0020
-     * @tc.desc   Push contact volume batch 8-20.
+     * @tc.desc   Verify source.totalCount() equals 160.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testFlipClockVolume080020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080020 begin');
       const source: ContactSource = new ContactSource([]);
-      for (let index: number = 0; index < 160; index++) { source.pushData(new Contact('key' + index, 'value', index)); }
+      for (let index: number = 0; index < 160; index++) {
+        source.pushData(new Contact('key' + index, 'value', index));
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(160);');
       expect(source.totalCount()).assertEqual(160);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).key).assertEqual(\'key0\');');
       expect(source.getData(0).key).assertEqual('key0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(159).reminderId).assertEqual(159);');
       expect(source.getData(159).reminderId).assertEqual(159);
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockVolume080020 end');
     })
   })
 }
