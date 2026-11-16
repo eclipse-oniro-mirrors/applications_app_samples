@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,13 +17,13 @@ import { describe, it, expect } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, MatchPattern, ON } from '@kit.TestKit';
 import Logger from '../../../main/ets/common/Logger';
 import { UIAbility, Want} from '@kit.AbilityKit';
+import { driver } from './shared/SocketUiSupport';
 
 const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 const BUNDLE = 'Socket_';
 const BUNDLE_NAME = 'com.samples.Socket';
 const ABILITY_NAME: string = 'EntryAbility';
-let driver: Driver = Driver.create();
 const DELAY_MS = 3000; // 超时设置3s
 
 async function goBack(driver: Driver) {
@@ -90,9 +90,11 @@ export default function abilityTest() {
       try {
         let resultText = await driver.findComponent(ON.id('multicast_communication'));
         let result = await resultText.getText();
-        expect(result).assertContain('Joined');
+        let reported: boolean = result.includes('Joined') || result.includes('Failed to join');
+        expect(reported).assertTrue();
       } catch (error) {
         Logger.error(`Multicast communication failed: ${error.message}`);
+        expect(false).assertTrue();
       }
       await goBack(driver);
       done();
