@@ -14,8 +14,11 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MyDataSource } from '../../../main/ets/common/DataSource';
 import { tabArray } from '../../../main/ets/mock/TabData';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function flipClockMyDataSourceMixedTest() {
   describe('FlipClockMyDataSourceMixedTest', () => {
@@ -29,11 +32,19 @@ export default function flipClockMyDataSourceMixedTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMyMixed0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0001 begin');
       const source: MyDataSource = new MyDataSource([]);
-      source.replaceData(tabArray.slice()); source.deleteData(0);
+      source.replaceData(tabArray.slice());
+        source.deleteData(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
       expect(source.totalCount()).assertEqual(3);
-      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(1); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(1);');
+        expect(source.getData(0).num).assertEqual(1);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0001 end');
     })
 
     /**
@@ -45,11 +56,19 @@ export default function flipClockMyDataSourceMixedTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMyMixed0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0002 begin');
       const source: MyDataSource = new MyDataSource([]);
-      source.pushData(tabArray[0]); source.replaceData([]);
+      source.pushData(tabArray[0]);
+        source.replaceData([]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
       expect(source.totalCount()).assertEqual(0);
-      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(-1); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(-1);');
+        expect(source.getData(0).num).assertEqual(-1);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0002 end');
     })
 
     /**
@@ -61,11 +80,20 @@ export default function flipClockMyDataSourceMixedTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMyMixed0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0003 begin');
       const source: MyDataSource = new MyDataSource([]);
-      source.pushData(tabArray[0]); source.deleteData(0); source.pushData(tabArray[2]);
+      source.pushData(tabArray[0]);
+        source.deleteData(0);
+        source.pushData(tabArray[2]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
       expect(source.totalCount()).assertEqual(1);
-      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(2); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(2);');
+        expect(source.getData(0).num).assertEqual(2);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0003 end');
     })
 
     /**
@@ -77,11 +105,19 @@ export default function flipClockMyDataSourceMixedTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMyMixed0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0004 begin');
       const source: MyDataSource = new MyDataSource([]);
-      source.replaceData([tabArray[1]]); source.pushData(tabArray[2]);
+      source.replaceData([tabArray[1]]);
+        source.pushData(tabArray[2]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
       expect(source.totalCount()).assertEqual(2);
-      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(1); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(1);');
+        expect(source.getData(0).num).assertEqual(1);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0004 end');
     })
 
     /**
@@ -93,11 +129,20 @@ export default function flipClockMyDataSourceMixedTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMyMixed0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0005 begin');
       const source: MyDataSource = new MyDataSource([]);
-      source.pushData(tabArray[0]); source.pushData(tabArray[1]); source.deleteData(1);
+      source.pushData(tabArray[0]);
+        source.pushData(tabArray[1]);
+        source.deleteData(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
       expect(source.totalCount()).assertEqual(1);
-      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        expect(source.getData(0).num).assertEqual(0);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0005 end');
     })
 
     /**
@@ -109,11 +154,19 @@ export default function flipClockMyDataSourceMixedTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMyMixed0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0006 begin');
       const source: MyDataSource = new MyDataSource([]);
-      source.replaceData(tabArray.slice()); source.deleteData(3);
+      source.replaceData(tabArray.slice());
+        source.deleteData(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
       expect(source.totalCount()).assertEqual(3);
-      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        expect(source.getData(0).num).assertEqual(0);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0006 end');
     })
 
     /**
@@ -125,11 +178,19 @@ export default function flipClockMyDataSourceMixedTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMyMixed0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0007 begin');
       const source: MyDataSource = new MyDataSource([]);
-      source.pushData(tabArray[0]); source.replaceData([tabArray[3]]);
+      source.pushData(tabArray[0]);
+        source.replaceData([tabArray[3]]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
       expect(source.totalCount()).assertEqual(1);
-      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(3); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(3);');
+        expect(source.getData(0).num).assertEqual(3);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0007 end');
     })
 
     /**
@@ -141,11 +202,20 @@ export default function flipClockMyDataSourceMixedTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMyMixed0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0008 begin');
       const source: MyDataSource = new MyDataSource([]);
-      source.replaceData(tabArray.slice()); source.deleteData(0); source.pushData(tabArray[0]);
+      source.replaceData(tabArray.slice());
+        source.deleteData(0);
+        source.pushData(tabArray[0]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
       expect(source.totalCount()).assertEqual(4);
-      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(1); }
+      if (source.totalCount() > 0) {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(1);');
+        expect(source.getData(0).num).assertEqual(1);
+        }
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount()) === undefined).assertTrue();');
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMyMixed0008 end');
     })
   })
 }

@@ -14,19 +14,37 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MyDataSource } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 class BoundaryListener implements DataChangeListener {
-  reload: number = 0; add: number = 0;
-  onDataReloaded(): void { this.reload++; }
-  onDataAdded(index: number): void { this.add++; }
-  onDataAdd(index: number): void { this.add++; }
-  onDataMoved(from: number, to: number): void {}
-  onDataMove(from: number, to: number): void {}
-  onDataDeleted(index: number): void {}
-  onDataDelete(index: number): void {}
-  onDataChanged(index: number): void {}
-  onDataChange(index: number): void {}
-  onDatasetChange(dataOperations: DataOperation[]): void { this.reload++; }
+  reload: number = 0;
+    add: number = 0;
+  onDataReloaded(): void {
+    this.reload++;
+    }
+  onDataAdded(index: number): void {
+    this.add++;
+    }
+  onDataAdd(index: number): void {
+    this.add++;
+    }
+  onDataMoved(from: number, to: number): void {
+    }
+  onDataMove(from: number, to: number): void {
+    }
+  onDataDeleted(index: number): void {
+    }
+  onDataDelete(index: number): void {
+    }
+  onDataChanged(index: number): void {
+    }
+  onDataChange(index: number): void {
+    }
+  onDatasetChange(dataOperations: DataOperation[]): void {
+    this.reload++;
+    }
 }
 
 export default function flipClockListenerBoundaryTest() {
@@ -41,7 +59,14 @@ export default function flipClockListenerBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListenerBoundary001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); source.notifyDataReload(); expect(source.totalCount()).assertEqual(0); expect(source.getData(0) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary001 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        source.notifyDataReload();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+        expect(source.totalCount()).assertEqual(0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0) === undefined).assertTrue();');
+        expect(source.getData(0) === undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary001 end');
     })
 
     /**
@@ -53,7 +78,16 @@ export default function flipClockListenerBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListenerBoundary002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: BoundaryListener = new BoundaryListener(); source.registerDataChangeListener(l); source.notifyDataReload(); expect(l.reload).assertEqual(1); expect(l.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary002 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: BoundaryListener = new BoundaryListener();
+        source.registerDataChangeListener(l);
+        source.notifyDataReload();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(1);');
+        expect(l.reload).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.add).assertEqual(0);');
+        expect(l.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary002 end');
     })
 
     /**
@@ -65,7 +99,16 @@ export default function flipClockListenerBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListenerBoundary003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: BoundaryListener = new BoundaryListener(); source.registerDataChangeListener(l); source.registerDataChangeListener(l); source.registerDataChangeListener(l); source.notifyDataReload(); expect(l.reload).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary003 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: BoundaryListener = new BoundaryListener();
+        source.registerDataChangeListener(l);
+        source.registerDataChangeListener(l);
+        source.registerDataChangeListener(l);
+        source.notifyDataReload();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(1);');
+        expect(l.reload).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary003 end');
     })
 
     /**
@@ -77,7 +120,14 @@ export default function flipClockListenerBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListenerBoundary004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: BoundaryListener = new BoundaryListener(); source.unregisterDataChangeListener(l); source.notifyDataReload(); expect(l.reload).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary004 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: BoundaryListener = new BoundaryListener();
+        source.unregisterDataChangeListener(l);
+        source.notifyDataReload();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(0);');
+        expect(l.reload).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary004 end');
     })
 
     /**
@@ -89,7 +139,16 @@ export default function flipClockListenerBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListenerBoundary005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: BoundaryListener = new BoundaryListener(); source.registerDataChangeListener(l); source.unregisterDataChangeListener(l); source.unregisterDataChangeListener(l); source.notifyDataReload(); expect(l.reload).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary005 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: BoundaryListener = new BoundaryListener();
+        source.registerDataChangeListener(l);
+        source.unregisterDataChangeListener(l);
+        source.unregisterDataChangeListener(l);
+        source.notifyDataReload();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(0);');
+        expect(l.reload).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary005 end');
     })
 
     /**
@@ -101,7 +160,16 @@ export default function flipClockListenerBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListenerBoundary006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const l: BoundaryListener = new BoundaryListener(); source.registerDataChangeListener(l); source.unregisterDataChangeListener(l); source.registerDataChangeListener(l); source.notifyDataReload(); expect(l.reload).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary006 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const l: BoundaryListener = new BoundaryListener();
+        source.registerDataChangeListener(l);
+        source.unregisterDataChangeListener(l);
+        source.registerDataChangeListener(l);
+        source.notifyDataReload();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(1);');
+        expect(l.reload).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary006 end');
     })
 
     /**
@@ -113,7 +181,18 @@ export default function flipClockListenerBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListenerBoundary007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const a: BoundaryListener = new BoundaryListener(); const b: BoundaryListener = new BoundaryListener(); source.registerDataChangeListener(a); source.registerDataChangeListener(b); source.notifyDataReload(); expect(a.reload).assertEqual(1); expect(b.reload).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary007 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const a: BoundaryListener = new BoundaryListener();
+        const b: BoundaryListener = new BoundaryListener();
+        source.registerDataChangeListener(a);
+        source.registerDataChangeListener(b);
+        source.notifyDataReload();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.reload).assertEqual(1);');
+        expect(a.reload).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(b.reload).assertEqual(1);');
+        expect(b.reload).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary007 end');
     })
 
     /**
@@ -125,7 +204,19 @@ export default function flipClockListenerBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListenerBoundary008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const a: BoundaryListener = new BoundaryListener(); const b: BoundaryListener = new BoundaryListener(); source.registerDataChangeListener(a); source.registerDataChangeListener(b); source.unregisterDataChangeListener(a); source.notifyDataReload(); expect(a.reload).assertEqual(0); expect(b.reload).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary008 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const a: BoundaryListener = new BoundaryListener();
+        const b: BoundaryListener = new BoundaryListener();
+        source.registerDataChangeListener(a);
+        source.registerDataChangeListener(b);
+        source.unregisterDataChangeListener(a);
+        source.notifyDataReload();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.reload).assertEqual(0);');
+        expect(a.reload).assertEqual(0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(b.reload).assertEqual(1);');
+        expect(b.reload).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary008 end');
     })
   })
 }

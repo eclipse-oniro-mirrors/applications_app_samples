@@ -14,19 +14,46 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MyDataSource } from '../../../main/ets/common/DataSource';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 class ListenerMore3 implements DataChangeListener {
-  reload: number = 0; add: number = 0; change: number = 0; del: number = 0; move: number = 0;
-  onDataReloaded(): void { this.reload++; }
-  onDataAdded(index: number): void { this.add++; }
-  onDataAdd(index: number): void { this.add++; }
-  onDataMoved(from: number, to: number): void { this.move++; }
-  onDataMove(from: number, to: number): void { this.move++; }
-  onDataDeleted(index: number): void { this.del++; }
-  onDataDelete(index: number): void { this.del++; }
-  onDataChanged(index: number): void { this.change++; }
-  onDataChange(index: number): void { this.change++; }
-  onDatasetChange(dataOperations: DataOperation[]): void { this.reload++; }
+  reload: number = 0;
+    add: number = 0;
+    change: number = 0;
+    del: number = 0;
+    move: number = 0;
+  onDataReloaded(): void {
+    this.reload++;
+    }
+  onDataAdded(index: number): void {
+    this.add++;
+    }
+  onDataAdd(index: number): void {
+    this.add++;
+    }
+  onDataMoved(from: number, to: number): void {
+    this.move++;
+    }
+  onDataMove(from: number, to: number): void {
+    this.move++;
+    }
+  onDataDeleted(index: number): void {
+    this.del++;
+    }
+  onDataDelete(index: number): void {
+    this.del++;
+    }
+  onDataChanged(index: number): void {
+    this.change++;
+    }
+  onDataChange(index: number): void {
+    this.change++;
+    }
+  onDatasetChange(dataOperations: DataOperation[]): void {
+    this.reload++;
+    }
 }
 
 export default function flipClockMultiChangeTest() {
@@ -41,9 +68,20 @@ export default function flipClockMultiChangeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMultiChange0000', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const one: ListenerMore3 = new ListenerMore3(); const two: ListenerMore3 = new ListenerMore3();
-      source.registerDataChangeListener(one); source.registerDataChangeListener(two); source.notifyDataChange(0);
-      expect(one.change).assertEqual(1); expect(two.change).assertEqual(1); expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0000 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const one: ListenerMore3 = new ListenerMore3();
+        const two: ListenerMore3 = new ListenerMore3();
+      source.registerDataChangeListener(one);
+        source.registerDataChangeListener(two);
+        source.notifyDataChange(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      expect(one.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        expect(two.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0000 end');
     })
 
     /**
@@ -55,9 +93,20 @@ export default function flipClockMultiChangeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMultiChange0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const one: ListenerMore3 = new ListenerMore3(); const two: ListenerMore3 = new ListenerMore3();
-      source.registerDataChangeListener(one); source.registerDataChangeListener(two); source.notifyDataChange(1);
-      expect(one.change).assertEqual(1); expect(two.change).assertEqual(1); expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0001 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const one: ListenerMore3 = new ListenerMore3();
+        const two: ListenerMore3 = new ListenerMore3();
+      source.registerDataChangeListener(one);
+        source.registerDataChangeListener(two);
+        source.notifyDataChange(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      expect(one.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        expect(two.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0001 end');
     })
 
     /**
@@ -69,9 +118,20 @@ export default function flipClockMultiChangeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMultiChange0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const one: ListenerMore3 = new ListenerMore3(); const two: ListenerMore3 = new ListenerMore3();
-      source.registerDataChangeListener(one); source.registerDataChangeListener(two); source.notifyDataChange(2);
-      expect(one.change).assertEqual(1); expect(two.change).assertEqual(1); expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0002 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const one: ListenerMore3 = new ListenerMore3();
+        const two: ListenerMore3 = new ListenerMore3();
+      source.registerDataChangeListener(one);
+        source.registerDataChangeListener(two);
+        source.notifyDataChange(2);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      expect(one.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        expect(two.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0002 end');
     })
 
     /**
@@ -83,9 +143,20 @@ export default function flipClockMultiChangeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMultiChange0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const one: ListenerMore3 = new ListenerMore3(); const two: ListenerMore3 = new ListenerMore3();
-      source.registerDataChangeListener(one); source.registerDataChangeListener(two); source.notifyDataChange(3);
-      expect(one.change).assertEqual(1); expect(two.change).assertEqual(1); expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0003 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const one: ListenerMore3 = new ListenerMore3();
+        const two: ListenerMore3 = new ListenerMore3();
+      source.registerDataChangeListener(one);
+        source.registerDataChangeListener(two);
+        source.notifyDataChange(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      expect(one.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        expect(two.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0003 end');
     })
 
     /**
@@ -97,9 +168,20 @@ export default function flipClockMultiChangeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMultiChange0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const one: ListenerMore3 = new ListenerMore3(); const two: ListenerMore3 = new ListenerMore3();
-      source.registerDataChangeListener(one); source.registerDataChangeListener(two); source.notifyDataChange(4);
-      expect(one.change).assertEqual(1); expect(two.change).assertEqual(1); expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0004 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const one: ListenerMore3 = new ListenerMore3();
+        const two: ListenerMore3 = new ListenerMore3();
+      source.registerDataChangeListener(one);
+        source.registerDataChangeListener(two);
+        source.notifyDataChange(4);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      expect(one.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        expect(two.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0004 end');
     })
 
     /**
@@ -111,9 +193,20 @@ export default function flipClockMultiChangeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMultiChange0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const one: ListenerMore3 = new ListenerMore3(); const two: ListenerMore3 = new ListenerMore3();
-      source.registerDataChangeListener(one); source.registerDataChangeListener(two); source.notifyDataChange(5);
-      expect(one.change).assertEqual(1); expect(two.change).assertEqual(1); expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0005 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const one: ListenerMore3 = new ListenerMore3();
+        const two: ListenerMore3 = new ListenerMore3();
+      source.registerDataChangeListener(one);
+        source.registerDataChangeListener(two);
+        source.notifyDataChange(5);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      expect(one.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        expect(two.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0005 end');
     })
 
     /**
@@ -125,9 +218,20 @@ export default function flipClockMultiChangeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMultiChange0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const one: ListenerMore3 = new ListenerMore3(); const two: ListenerMore3 = new ListenerMore3();
-      source.registerDataChangeListener(one); source.registerDataChangeListener(two); source.notifyDataChange(6);
-      expect(one.change).assertEqual(1); expect(two.change).assertEqual(1); expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0006 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const one: ListenerMore3 = new ListenerMore3();
+        const two: ListenerMore3 = new ListenerMore3();
+      source.registerDataChangeListener(one);
+        source.registerDataChangeListener(two);
+        source.notifyDataChange(6);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      expect(one.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        expect(two.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0006 end');
     })
 
     /**
@@ -139,9 +243,20 @@ export default function flipClockMultiChangeTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockMultiChange0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const one: ListenerMore3 = new ListenerMore3(); const two: ListenerMore3 = new ListenerMore3();
-      source.registerDataChangeListener(one); source.registerDataChangeListener(two); source.notifyDataChange(7);
-      expect(one.change).assertEqual(1); expect(two.change).assertEqual(1); expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0007 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const one: ListenerMore3 = new ListenerMore3();
+        const two: ListenerMore3 = new ListenerMore3();
+      source.registerDataChangeListener(one);
+        source.registerDataChangeListener(two);
+        source.notifyDataChange(7);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      expect(one.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        expect(two.change).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        expect(one.add).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0007 end');
     })
   })
 }

@@ -14,21 +14,38 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { MyDataSource } from '../../../main/ets/common/DataSource';
 import { testTabs as tabArray } from './FlipClockTestTabs';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 class FlipClockListener implements DataChangeListener {
   reloadCount: number = 0;
   addCount: number = 0;
-  onDataReloaded(): void { this.reloadCount++; }
-  onDataAdded(index: number): void { this.addCount++; }
-  onDataAdd(index: number): void { this.addCount++; }
-  onDataMoved(from: number, to: number): void {}
-  onDataMove(from: number, to: number): void {}
-  onDataDeleted(index: number): void {}
-  onDataDelete(index: number): void {}
-  onDataChanged(index: number): void {}
-  onDataChange(index: number): void {}
-  onDatasetChange(dataOperations: DataOperation[]): void { this.reloadCount++; }
+  onDataReloaded(): void {
+    this.reloadCount++;
+    }
+  onDataAdded(index: number): void {
+    this.addCount++;
+    }
+  onDataAdd(index: number): void {
+    this.addCount++;
+    }
+  onDataMoved(from: number, to: number): void {
+    }
+  onDataMove(from: number, to: number): void {
+    }
+  onDataDeleted(index: number): void {
+    }
+  onDataDelete(index: number): void {
+    }
+  onDataChanged(index: number): void {
+    }
+  onDataChange(index: number): void {
+    }
+  onDatasetChange(dataOperations: DataOperation[]): void {
+    this.reloadCount++;
+    }
 }
 
 export default function flipClockListenersTest() {
@@ -43,9 +60,18 @@ export default function flipClockListenersTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListener001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const listener: FlipClockListener = new FlipClockListener();
-      source.registerDataChangeListener(listener); source.pushData(tabArray[0]);
-      expect(listener.addCount).assertEqual(1); expect(source.totalCount()).assertEqual(1); expect(listener.reloadCount).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener001 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener);
+        source.pushData(tabArray[0]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(1);');
+      expect(listener.addCount).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+        expect(source.totalCount()).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reloadCount).assertEqual(0);');
+        expect(listener.reloadCount).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener001 end');
     })
 
     /**
@@ -57,9 +83,18 @@ export default function flipClockListenersTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListener002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const listener: FlipClockListener = new FlipClockListener();
-      source.registerDataChangeListener(listener); source.replaceData(tabArray.slice());
-      expect(listener.reloadCount).assertEqual(1); expect(source.totalCount()).assertEqual(4); expect(listener.addCount).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener002 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener);
+        source.replaceData(tabArray.slice());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reloadCount).assertEqual(1);');
+      expect(listener.reloadCount).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
+        expect(source.totalCount()).assertEqual(4);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(0);');
+        expect(listener.addCount).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener002 end');
     })
 
     /**
@@ -71,9 +106,17 @@ export default function flipClockListenersTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListener003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const listener: FlipClockListener = new FlipClockListener();
-      source.registerDataChangeListener(listener); source.unregisterDataChangeListener(listener); source.pushData(tabArray[0]);
-      expect(listener.addCount).assertEqual(0); expect(source.totalCount()).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener003 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener);
+        source.unregisterDataChangeListener(listener);
+        source.pushData(tabArray[0]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(0);');
+      expect(listener.addCount).assertEqual(0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+        expect(source.totalCount()).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener003 end');
     })
 
     /**
@@ -85,9 +128,17 @@ export default function flipClockListenersTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListener004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const listener: FlipClockListener = new FlipClockListener();
-      source.registerDataChangeListener(listener); source.registerDataChangeListener(listener); source.pushData(tabArray[0]);
-      expect(listener.addCount).assertEqual(1); expect(source.totalCount()).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener004 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener);
+        source.registerDataChangeListener(listener);
+        source.pushData(tabArray[0]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(1);');
+      expect(listener.addCount).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(1);');
+        expect(source.totalCount()).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener004 end');
     })
 
     /**
@@ -99,9 +150,16 @@ export default function flipClockListenersTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListener005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource(tabArray.slice()); const listener: FlipClockListener = new FlipClockListener();
-      source.registerDataChangeListener(listener); source.deleteData(0);
-      expect(listener.addCount).assertEqual(1); expect(source.totalCount()).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener005 begin');
+      const source: MyDataSource = new MyDataSource(tabArray.slice());
+        const listener: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(listener);
+        source.deleteData(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.addCount).assertEqual(1);');
+      expect(listener.addCount).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(3);');
+        expect(source.totalCount()).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener005 end');
     })
 
     /**
@@ -113,9 +171,18 @@ export default function flipClockListenersTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListener006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const first: FlipClockListener = new FlipClockListener(); const second: FlipClockListener = new FlipClockListener();
-      source.registerDataChangeListener(first); source.unregisterDataChangeListener(second); source.pushData(tabArray[0]);
-      expect(first.addCount).assertEqual(1); expect(second.addCount).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener006 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const first: FlipClockListener = new FlipClockListener();
+        const second: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(first);
+        source.unregisterDataChangeListener(second);
+        source.pushData(tabArray[0]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.addCount).assertEqual(1);');
+      expect(first.addCount).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.addCount).assertEqual(0);');
+        expect(second.addCount).assertEqual(0);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener006 end');
     })
 
     /**
@@ -127,9 +194,18 @@ export default function flipClockListenersTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListener007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const first: FlipClockListener = new FlipClockListener(); const second: FlipClockListener = new FlipClockListener();
-      source.registerDataChangeListener(first); source.registerDataChangeListener(second); source.pushData(tabArray[0]);
-      expect(first.addCount).assertEqual(1); expect(second.addCount).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener007 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const first: FlipClockListener = new FlipClockListener();
+        const second: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(first);
+        source.registerDataChangeListener(second);
+        source.pushData(tabArray[0]);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.addCount).assertEqual(1);');
+      expect(first.addCount).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.addCount).assertEqual(1);');
+        expect(second.addCount).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener007 end');
     })
 
     /**
@@ -141,9 +217,18 @@ export default function flipClockListenersTest() {
      * @tc.level  LEVEL2
      */
     it('testFlipClockListener008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const source: MyDataSource = new MyDataSource([]); const first: FlipClockListener = new FlipClockListener(); const second: FlipClockListener = new FlipClockListener();
-      source.registerDataChangeListener(first); source.registerDataChangeListener(second); source.replaceData(tabArray.slice());
-      expect(first.reloadCount).assertEqual(1); expect(second.reloadCount).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener008 begin');
+      const source: MyDataSource = new MyDataSource([]);
+        const first: FlipClockListener = new FlipClockListener();
+        const second: FlipClockListener = new FlipClockListener();
+      source.registerDataChangeListener(first);
+        source.registerDataChangeListener(second);
+        source.replaceData(tabArray.slice());
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first.reloadCount).assertEqual(1);');
+      expect(first.reloadCount).assertEqual(1);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(second.reloadCount).assertEqual(1);');
+        expect(second.reloadCount).assertEqual(1);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListener008 end');
     })
   })
 }
