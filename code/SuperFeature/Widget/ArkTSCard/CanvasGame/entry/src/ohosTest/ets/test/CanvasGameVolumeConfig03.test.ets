@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import bundleManager from '@ohos.bundle.bundleManager';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
 
 export default function canvasGameVolumeConfig03Test() {
@@ -24,193 +27,333 @@ export default function canvasGameVolumeConfig03Test() {
     /**
      * @tc.name   testCanvasVolCfg030001
      * @tc.number SUB_CANVAS_VOL_CFG_03_0001
-     * @tc.desc   Config volume case 3-1.
+     * @tc.desc   Verify info.appInfo.labelId is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.appInfo.labelId > 0).assertTrue(); expect(info.appInfo.iconId > 0).assertTrue(); expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030001 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      expect(info.appInfo.labelId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        expect(info.appInfo.iconId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030001 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030002
      * @tc.number SUB_CANVAS_VOL_CFG_03_0002
-     * @tc.desc   Config volume case 3-2.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030002 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030002 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030003
      * @tc.number SUB_CANVAS_VOL_CFG_03_0003
-     * @tc.desc   Config volume case 3-3.
+     * @tc.desc   Verify a[j].exported.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const a = info.hapModulesInfo[i].abilitiesInfo; for (let j: number = 0; j < a.length; j++) { if (a[j].name === 'EntryAbility') { found = true; expect(a[j].exported).assertTrue(); } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030003 begin');
+      let found: boolean = false;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          const a = info.hapModulesInfo[i].abilitiesInfo;
+        for (let j: number = 0; j < a.length; j++) {
+          if (a[j].name === 'EntryAbility') {
+          found = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        expect(a[j].exported).assertTrue();
+        }
+          }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030003 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030004
      * @tc.number SUB_CANVAS_VOL_CFG_03_0004
-     * @tc.desc   Config volume case 3-4.
+     * @tc.desc   Verify info.name equals \'com.samples.canvasgame\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.name).assertEqual('com.samples.canvasgame'); expect(info.versionName).assertEqual('1.0.0'); expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030004 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+      expect(info.name).assertEqual('com.samples.canvasgame');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        expect(info.versionName).assertEqual('1.0.0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030004 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030005
      * @tc.number SUB_CANVAS_VOL_CFG_03_0005
-     * @tc.desc   Config volume case 3-5.
+     * @tc.desc   Verify info.appInfo.labelId is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.appInfo.labelId > 0).assertTrue(); expect(info.appInfo.iconId > 0).assertTrue(); expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030005 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      expect(info.appInfo.labelId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        expect(info.appInfo.iconId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030005 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030006
      * @tc.number SUB_CANVAS_VOL_CFG_03_0006
-     * @tc.desc   Config volume case 3-6.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030006 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030006 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030007
      * @tc.number SUB_CANVAS_VOL_CFG_03_0007
-     * @tc.desc   Config volume case 3-7.
+     * @tc.desc   Verify a[j].exported.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const a = info.hapModulesInfo[i].abilitiesInfo; for (let j: number = 0; j < a.length; j++) { if (a[j].name === 'EntryAbility') { found = true; expect(a[j].exported).assertTrue(); } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030007 begin');
+      let found: boolean = false;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          const a = info.hapModulesInfo[i].abilitiesInfo;
+        for (let j: number = 0; j < a.length; j++) {
+          if (a[j].name === 'EntryAbility') {
+          found = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        expect(a[j].exported).assertTrue();
+        }
+          }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030007 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030008
      * @tc.number SUB_CANVAS_VOL_CFG_03_0008
-     * @tc.desc   Config volume case 3-8.
+     * @tc.desc   Verify info.name equals \'com.samples.canvasgame\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.name).assertEqual('com.samples.canvasgame'); expect(info.versionName).assertEqual('1.0.0'); expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030008 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+      expect(info.name).assertEqual('com.samples.canvasgame');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        expect(info.versionName).assertEqual('1.0.0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030008 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030009
      * @tc.number SUB_CANVAS_VOL_CFG_03_0009
-     * @tc.desc   Config volume case 3-9.
+     * @tc.desc   Verify info.appInfo.labelId is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.appInfo.labelId > 0).assertTrue(); expect(info.appInfo.iconId > 0).assertTrue(); expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030009 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      expect(info.appInfo.labelId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        expect(info.appInfo.iconId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030009 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030010
      * @tc.number SUB_CANVAS_VOL_CFG_03_0010
-     * @tc.desc   Config volume case 3-10.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030010 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030010 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030011
      * @tc.number SUB_CANVAS_VOL_CFG_03_0011
-     * @tc.desc   Config volume case 3-11.
+     * @tc.desc   Verify a[j].exported.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const a = info.hapModulesInfo[i].abilitiesInfo; for (let j: number = 0; j < a.length; j++) { if (a[j].name === 'EntryAbility') { found = true; expect(a[j].exported).assertTrue(); } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030011 begin');
+      let found: boolean = false;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          const a = info.hapModulesInfo[i].abilitiesInfo;
+        for (let j: number = 0; j < a.length; j++) {
+          if (a[j].name === 'EntryAbility') {
+          found = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        expect(a[j].exported).assertTrue();
+        }
+          }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030011 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030012
      * @tc.number SUB_CANVAS_VOL_CFG_03_0012
-     * @tc.desc   Config volume case 3-12.
+     * @tc.desc   Verify info.name equals \'com.samples.canvasgame\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.name).assertEqual('com.samples.canvasgame'); expect(info.versionName).assertEqual('1.0.0'); expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030012 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+      expect(info.name).assertEqual('com.samples.canvasgame');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        expect(info.versionName).assertEqual('1.0.0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030012 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030013
      * @tc.number SUB_CANVAS_VOL_CFG_03_0013
-     * @tc.desc   Config volume case 3-13.
+     * @tc.desc   Verify info.appInfo.labelId is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.appInfo.labelId > 0).assertTrue(); expect(info.appInfo.iconId > 0).assertTrue(); expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030013 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      expect(info.appInfo.labelId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        expect(info.appInfo.iconId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030013 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030014
      * @tc.number SUB_CANVAS_VOL_CFG_03_0014
-     * @tc.desc   Config volume case 3-14.
+     * @tc.desc   Verify info.hapModulesInfo.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030014 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030014 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030015
      * @tc.number SUB_CANVAS_VOL_CFG_03_0015
-     * @tc.desc   Config volume case 3-15.
+     * @tc.desc   Verify a[j].exported.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const a = info.hapModulesInfo[i].abilitiesInfo; for (let j: number = 0; j < a.length; j++) { if (a[j].name === 'EntryAbility') { found = true; expect(a[j].exported).assertTrue(); } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030015 begin');
+      let found: boolean = false;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          const a = info.hapModulesInfo[i].abilitiesInfo;
+        for (let j: number = 0; j < a.length; j++) {
+          if (a[j].name === 'EntryAbility') {
+          found = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a[j].exported).assertTrue();');
+        expect(a[j].exported).assertTrue();
+        }
+          }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030015 end');
     })
 
     /**
      * @tc.name   testCanvasVolCfg030016
      * @tc.number SUB_CANVAS_VOL_CFG_03_0016
-     * @tc.desc   Config volume case 3-16.
+     * @tc.desc   Verify info.name equals \'com.samples.canvasgame\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasVolCfg030016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.name).assertEqual('com.samples.canvasgame'); expect(info.versionName).assertEqual('1.0.0'); expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030016 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+      expect(info.name).assertEqual('com.samples.canvasgame');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        expect(info.versionName).assertEqual('1.0.0');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionCode).assertEqual(1000000);');
+        expect(info.versionCode).assertEqual(1000000);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasVolCfg030016 end');
     })
   })
 }

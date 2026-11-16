@@ -14,118 +14,195 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Driver, ON } from '@ohos.UiTest';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import Want from '@ohos.app.ability.Want';
-const B='com.samples.canvasgame'; const D=AbilityDelegatorRegistry.getAbilityDelegator(); let drv: Driver; let c= D.getAppContext();
-function w(ms:number): Promise<void> { return new Promise<void>((r:()=>void)=>{ setTimeout(()=>{r();},ms); }); }
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
+const B='com.samples.canvasgame';
+  const D=AbilityDelegatorRegistry.getAbilityDelegator();
+  let drv: Driver;
+  let c= D.getAppContext();
+function w(ms:number): Promise<void> {
+  return new Promise<void>((r:()=>void)=>{ setTimeout(()=>{r();},ms); });
+  }
 
 export default function canvasGameUiExtraTest() {
   describe('CanvasGameUiExtraTest', () => {
-    beforeAll(async () => { const want: Want = { bundleName: B, abilityName: 'EntryAbility' }; await D.startAbility(want); await w(1800); drv = await Driver.create(); })
+    beforeAll(async () => {
+      const want: Want = { bundleName: B, abilityName: 'EntryAbility' };
+      await D.startAbility(want);
+      await w(1800);
+      drv = await Driver.create();
+    })
 
     /**
      * @tc.name   testCanvasExtraUi001
      * @tc.number SUB_CANVAS_EXTRA_UI_001
-     * @tc.desc   Click canvas control case 1.
+     * @tc.desc   Verify t.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraUi001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const t: string = c.resourceManager.getStringByNameSync('res_restart'); await drv.assertComponentExist(ON.text(t)); const btn = await drv.findComponent(ON.text(t)); await btn.click(); await w(300); expect(t.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi001 begin');
+      const t: string = c.resourceManager.getStringByNameSync('res_restart');
+        await drv.assertComponentExist(ON.text(t));
+        const btn = await drv.findComponent(ON.text(t));
+        await btn.click();
+        await w(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        expect(t.length > 0).assertTrue();
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi001 end');
     })
 
     /**
      * @tc.name   testCanvasExtraUi002
      * @tc.number SUB_CANVAS_EXTRA_UI_002
-     * @tc.desc   Click canvas control case 2.
+     * @tc.desc   Verify t.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraUi002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const t: string = c.resourceManager.getStringByNameSync('res_fallback'); await drv.assertComponentExist(ON.text(t)); const btn = await drv.findComponent(ON.text(t)); await btn.click(); await w(300); expect(t.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi002 begin');
+      const t: string = c.resourceManager.getStringByNameSync('res_fallback');
+        await drv.assertComponentExist(ON.text(t));
+        const btn = await drv.findComponent(ON.text(t));
+        await btn.click();
+        await w(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        expect(t.length > 0).assertTrue();
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi002 end');
     })
 
     /**
      * @tc.name   testCanvasExtraUi003
      * @tc.number SUB_CANVAS_EXTRA_UI_003
-     * @tc.desc   Click canvas control case 3.
+     * @tc.desc   Verify t.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraUi003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const t: string = c.resourceManager.getStringByNameSync('res_restart'); await drv.assertComponentExist(ON.text(t)); const btn = await drv.findComponent(ON.text(t)); await btn.click(); await w(300); expect(t.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi003 begin');
+      const t: string = c.resourceManager.getStringByNameSync('res_restart');
+        await drv.assertComponentExist(ON.text(t));
+        const btn = await drv.findComponent(ON.text(t));
+        await btn.click();
+        await w(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        expect(t.length > 0).assertTrue();
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi003 end');
     })
 
     /**
      * @tc.name   testCanvasExtraUi004
      * @tc.number SUB_CANVAS_EXTRA_UI_004
-     * @tc.desc   Click canvas control case 4.
+     * @tc.desc   Verify t.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraUi004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const t: string = c.resourceManager.getStringByNameSync('res_fallback'); await drv.assertComponentExist(ON.text(t)); const btn = await drv.findComponent(ON.text(t)); await btn.click(); await w(300); expect(t.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi004 begin');
+      const t: string = c.resourceManager.getStringByNameSync('res_fallback');
+        await drv.assertComponentExist(ON.text(t));
+        const btn = await drv.findComponent(ON.text(t));
+        await btn.click();
+        await w(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        expect(t.length > 0).assertTrue();
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi004 end');
     })
 
     /**
      * @tc.name   testCanvasExtraUi005
      * @tc.number SUB_CANVAS_EXTRA_UI_005
-     * @tc.desc   Click canvas control case 5.
+     * @tc.desc   Verify t.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraUi005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const t: string = c.resourceManager.getStringByNameSync('res_restart'); await drv.assertComponentExist(ON.text(t)); const btn = await drv.findComponent(ON.text(t)); await btn.click(); await w(300); expect(t.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi005 begin');
+      const t: string = c.resourceManager.getStringByNameSync('res_restart');
+        await drv.assertComponentExist(ON.text(t));
+        const btn = await drv.findComponent(ON.text(t));
+        await btn.click();
+        await w(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        expect(t.length > 0).assertTrue();
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi005 end');
     })
 
     /**
      * @tc.name   testCanvasExtraUi006
      * @tc.number SUB_CANVAS_EXTRA_UI_006
-     * @tc.desc   Click canvas control case 6.
+     * @tc.desc   Verify t.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraUi006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const t: string = c.resourceManager.getStringByNameSync('res_fallback'); await drv.assertComponentExist(ON.text(t)); const btn = await drv.findComponent(ON.text(t)); await btn.click(); await w(300); expect(t.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi006 begin');
+      const t: string = c.resourceManager.getStringByNameSync('res_fallback');
+        await drv.assertComponentExist(ON.text(t));
+        const btn = await drv.findComponent(ON.text(t));
+        await btn.click();
+        await w(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        expect(t.length > 0).assertTrue();
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi006 end');
     })
 
     /**
      * @tc.name   testCanvasExtraUi007
      * @tc.number SUB_CANVAS_EXTRA_UI_007
-     * @tc.desc   Click canvas control case 7.
+     * @tc.desc   Verify t.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraUi007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const t: string = c.resourceManager.getStringByNameSync('res_restart'); await drv.assertComponentExist(ON.text(t)); const btn = await drv.findComponent(ON.text(t)); await btn.click(); await w(300); expect(t.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi007 begin');
+      const t: string = c.resourceManager.getStringByNameSync('res_restart');
+        await drv.assertComponentExist(ON.text(t));
+        const btn = await drv.findComponent(ON.text(t));
+        await btn.click();
+        await w(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        expect(t.length > 0).assertTrue();
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi007 end');
     })
 
     /**
      * @tc.name   testCanvasExtraUi008
      * @tc.number SUB_CANVAS_EXTRA_UI_008
-     * @tc.desc   Click canvas control case 8.
+     * @tc.desc   Verify t.length is greater than 0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraUi008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const t: string = c.resourceManager.getStringByNameSync('res_fallback'); await drv.assertComponentExist(ON.text(t)); const btn = await drv.findComponent(ON.text(t)); await btn.click(); await w(300); expect(t.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi008 begin');
+      const t: string = c.resourceManager.getStringByNameSync('res_fallback');
+        await drv.assertComponentExist(ON.text(t));
+        const btn = await drv.findComponent(ON.text(t));
+        await btn.click();
+        await w(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(t.length > 0).assertTrue();');
+        expect(t.length > 0).assertTrue();
       await Promise.resolve();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi008 end');
     })
   })
 }
