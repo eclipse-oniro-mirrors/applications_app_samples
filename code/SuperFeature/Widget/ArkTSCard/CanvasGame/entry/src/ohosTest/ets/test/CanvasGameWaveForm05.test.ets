@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function canvasGameWaveForm05Test() {
   describe('CanvasGameWaveForm05Test', () => {
@@ -22,193 +25,305 @@ export default function canvasGameWaveForm05Test() {
     /**
      * @tc.name   testCanvasWaveForm050001
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0001
-     * @tc.desc   Wave form case 5-1.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'w'.repeat(260); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(260);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050001 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'w'.repeat(260);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(260);');
+        expect(id.length).assertEqual(260);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050001 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050002
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0002
-     * @tc.desc   Wave form case 5-2.
+     * @tc.desc   Verify a.onFormEvent(\'f-66\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(528); expect(a.onFormEvent('f-66', m) === undefined).assertTrue(); expect(m.length).assertEqual(528);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050002 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(528);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f-66\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('f-66', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(528);');
+        expect(m.length).assertEqual(528);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050002 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050003
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0003
-     * @tc.desc   Wave form case 5-3.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'w'.repeat(268); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(268);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050003 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'w'.repeat(268);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(268);');
+        expect(id.length).assertEqual(268);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050003 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050004
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0004
-     * @tc.desc   Wave form case 5-4.
+     * @tc.desc   Verify a.onFormEvent(\'f-68\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(544); expect(a.onFormEvent('f-68', m) === undefined).assertTrue(); expect(m.length).assertEqual(544);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050004 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(544);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f-68\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('f-68', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(544);');
+        expect(m.length).assertEqual(544);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050004 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050005
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0005
-     * @tc.desc   Wave form case 5-5.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'w'.repeat(276); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(276);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050005 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'w'.repeat(276);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(276);');
+        expect(id.length).assertEqual(276);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050005 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050006
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0006
-     * @tc.desc   Wave form case 5-6.
+     * @tc.desc   Verify a.onFormEvent(\'f-70\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(560); expect(a.onFormEvent('f-70', m) === undefined).assertTrue(); expect(m.length).assertEqual(560);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050006 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(560);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f-70\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('f-70', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(560);');
+        expect(m.length).assertEqual(560);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050006 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050007
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0007
-     * @tc.desc   Wave form case 5-7.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'w'.repeat(284); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(284);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050007 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'w'.repeat(284);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(284);');
+        expect(id.length).assertEqual(284);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050007 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050008
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0008
-     * @tc.desc   Wave form case 5-8.
+     * @tc.desc   Verify a.onFormEvent(\'f-72\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(576); expect(a.onFormEvent('f-72', m) === undefined).assertTrue(); expect(m.length).assertEqual(576);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050008 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(576);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f-72\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('f-72', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(576);');
+        expect(m.length).assertEqual(576);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050008 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050009
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0009
-     * @tc.desc   Wave form case 5-9.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'w'.repeat(292); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(292);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050009 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'w'.repeat(292);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(292);');
+        expect(id.length).assertEqual(292);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050009 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050010
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0010
-     * @tc.desc   Wave form case 5-10.
+     * @tc.desc   Verify a.onFormEvent(\'f-74\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(592); expect(a.onFormEvent('f-74', m) === undefined).assertTrue(); expect(m.length).assertEqual(592);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050010 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(592);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f-74\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('f-74', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(592);');
+        expect(m.length).assertEqual(592);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050010 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050011
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0011
-     * @tc.desc   Wave form case 5-11.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'w'.repeat(300); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(300);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050011 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'w'.repeat(300);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(300);');
+        expect(id.length).assertEqual(300);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050011 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050012
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0012
-     * @tc.desc   Wave form case 5-12.
+     * @tc.desc   Verify a.onFormEvent(\'f-76\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(608); expect(a.onFormEvent('f-76', m) === undefined).assertTrue(); expect(m.length).assertEqual(608);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050012 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(608);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f-76\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('f-76', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(608);');
+        expect(m.length).assertEqual(608);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050012 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050013
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0013
-     * @tc.desc   Wave form case 5-13.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'w'.repeat(308); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(308);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050013 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'w'.repeat(308);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(308);');
+        expect(id.length).assertEqual(308);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050013 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050014
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0014
-     * @tc.desc   Wave form case 5-14.
+     * @tc.desc   Verify a.onFormEvent(\'f-78\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(624); expect(a.onFormEvent('f-78', m) === undefined).assertTrue(); expect(m.length).assertEqual(624);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050014 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(624);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f-78\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('f-78', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(624);');
+        expect(m.length).assertEqual(624);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050014 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050015
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0015
-     * @tc.desc   Wave form case 5-15.
+     * @tc.desc   Verify a.onUpdateForm(id) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const id: string = 'w'.repeat(316); expect(a.onUpdateForm(id) === undefined).assertTrue(); expect(id.length).assertEqual(316);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050015 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const id: string = 'w'.repeat(316);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onUpdateForm(id) === undefined).assertTrue();');
+        expect(a.onUpdateForm(id) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(id.length).assertEqual(316);');
+        expect(id.length).assertEqual(316);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050015 end');
     })
 
     /**
      * @tc.name   testCanvasWaveForm050016
      * @tc.number SUB_CANVAS_WAVE_FORM_05_0016
-     * @tc.desc   Wave form case 5-16.
+     * @tc.desc   Verify a.onFormEvent(\'f-80\', m) is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
     it('testCanvasWaveForm050016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const m: string = 'e'.repeat(640); expect(a.onFormEvent('f-80', m) === undefined).assertTrue(); expect(m.length).assertEqual(640);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050016 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const m: string = 'e'.repeat(640);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'f-80\', m) === undefined).assertTrue();');
+        expect(a.onFormEvent('f-80', m) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m.length).assertEqual(640);');
+        expect(m.length).assertEqual(640);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasWaveForm050016 end');
     })
   })
 }
