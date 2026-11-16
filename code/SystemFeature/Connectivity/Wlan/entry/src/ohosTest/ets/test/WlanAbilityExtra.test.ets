@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import bundleManager from '@ohos.bundle.bundleManager';
+import { bundleManager } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
@@ -35,11 +35,11 @@ export default function wlanAbilityExtraTest() {
     it('testWlanAbilityDesc0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilityDesc0001 begin');
       const ability = info.hapModulesInfo[0].abilitiesInfo[0];
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.description.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.description.length > 0));
       expect(ability.description.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.name).assertEqual(\'EntryAbility\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(ability.name), String('EntryAbility'));
       expect(ability.name).assertEqual('EntryAbility');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.labelId > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.labelId > 0));
       expect(ability.labelId > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilityDesc0001 end');
     })
@@ -55,11 +55,11 @@ export default function wlanAbilityExtraTest() {
     it('testWlanAbilitySkillShape0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilitySkillShape0002 begin');
       const skill = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(skill.entities.length).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(skill.entities.length), String(1));
       expect(skill.entities.length).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(skill.actions.length).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(skill.actions.length), String(1));
       expect(skill.actions.length).assertEqual(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(skill.entities[0]).assertEqual(\'entity.system.home\');');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(skill.entities[0]), String('entity.system.home'));
       expect(skill.entities[0]).assertEqual('entity.system.home');
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilitySkillShape0002 end');
     })
@@ -75,11 +75,11 @@ export default function wlanAbilityExtraTest() {
     it('testWlanAbilityExportScene0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilityExportScene0003 begin');
       const ability = info.hapModulesInfo[0].abilitiesInfo[0];
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(ability.exported).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(ability.exported));
       expect(ability.exported).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[0].usedScene.abilities.includes(\'MainAbility\')).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails[0].usedScene.abilities.includes('MainAbility')));
       expect(info.reqPermissionDetails[0].usedScene.abilities.includes('MainAbility')).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails[0].usedScene.when.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails[0].usedScene.when.length > 0));
       expect(info.reqPermissionDetails[0].usedScene.when.length > 0).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanAbilityExportScene0003 end');
     })

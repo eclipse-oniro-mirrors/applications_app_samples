@@ -14,10 +14,10 @@
  */
 
 import { describe, it, expect } from '@ohos/hypium'
-import { Driver, ON } from '@ohos.UiTest'
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry'
-import hilog from '@ohos.hilog'
-import wifi from '@ohos.wifi'
+import { Driver, ON } from '@kit.TestKit';
+import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { wifiManager as wifi } from '@kit.ConnectivityKit';
 
 const TAG = '[Sample_Wlan]'
 const DOMAIN = 0xFF00
