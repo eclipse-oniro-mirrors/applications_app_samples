@@ -300,12 +300,19 @@ export default function seriesNativeQaTests(): void {
         const nativeStore: preferences.Preferences = preferences.getPreferencesSync(f.context, { name: f.namespace });
         nativeStore.putSync('qa-private-sentinel', '不随state替换');
         nativeStore.flushSync();
-        document.snapFlag = '启用';
+        document.snapFlag = 'enabled';
         document.snapAt = Date.now();
         await new NativeStateStore(f.context, f.namespace).write(JSON.stringify(document));
         await preferences.removePreferencesFromCache(f.context, f.namespace);
         const reopened: SeriesNativeSession = f.open();
-        expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:306 assertEqual actual', reopened.service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:306 assertEqual expected', '启用'));
+        expect(traceParameter(
+          'com.samples.appperformance_SeriesNativeQa_0008 ' +
+            'SeriesNativeQa.test:306 assertEqual actual',
+          reopened.service.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_SeriesNativeQa_0008 ' +
+              'SeriesNativeQa.test:306 assertEqual expected',
+            'enabled'));
         expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:307 assertEqual actual', reopened.service.seriesRecords(start.ownerId)[0].id)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:307 assertEqual expected', firstId));
         expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:308 assertEqual actual', reopened.platform.snapCalls.length)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:308 assertEqual expected', 0));
         expect(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:309 assertEqual actual', reopened.platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_SeriesNativeQa_0008 SeriesNativeQa.test:309 assertEqual expected', 0));

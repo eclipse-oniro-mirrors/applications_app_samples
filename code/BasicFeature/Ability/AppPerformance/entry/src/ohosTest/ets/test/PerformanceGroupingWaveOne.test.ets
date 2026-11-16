@@ -43,7 +43,8 @@ export default function performanceGroupingWaveOneTests(): void {
      * @tc.level Level 2
      */
     it('testPerformanceGroupingWaveOne0001', 0, (): void => {
-      const failed = waveRecord('failed', 9000); failed.stages[2].status = '失败';
+      const failed: ExperimentRecord = waveRecord('failed', 9000);
+      failed.stages[2].status = 'failed';
       const table = ReportTable.build([waveRecord('a', 2), waveRecord('b', 5),
         waveRecord('c', 9), waveRecord('d', 20), failed]);
       const row = table.rows[0];
@@ -83,7 +84,8 @@ export default function performanceGroupingWaveOneTests(): void {
      */
     it('testPerformanceGroupingWaveOne0003', 0, (): void => {
       const ok = waveRecord('ok'); ok.missing = ['  驻留页未观测 ', '', '驻留页未观测'];
-      const bad = waveRecord('bad', 10000); bad.integrity = '不一致';
+      const bad: ExperimentRecord = waveRecord('bad', 10000);
+      bad.integrity = 'inconsistent';
       bad.missing = ['驻留页未观测', ' 系统事件缺失 '];
       const row = ReportTable.build([ok, bad]).rows[0];
       expect(traceParameter('com.samples.appperformance_PerformanceGroupingWaveOne_0003 PerformanceGroupingWaveOne.test:87 assertEqual actual', row.gaps.join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceGroupingWaveOne_0003 PerformanceGroupingWaveOne.test:87 assertEqual expected', '驻留页未观测|系统事件缺失|1 条记录未正常结束或缺条件，不计入 P50/P90/均值'));
@@ -123,7 +125,8 @@ export default function performanceGroupingWaveOneTests(): void {
      * @tc.level Level 2
      */
     it('testPerformanceGroupingWaveOne0005', 0, (): void => {
-      const missing = groupedRecord('missing', 'W-FORM', 1000); missing.integrity = '不一致';
+      const missing: ExperimentRecord = groupedRecord('missing', 'W-FORM', 1000);
+      missing.integrity = 'inconsistent';
       const table = ReportTable.build([
         groupedRecord('a1', 'W-TEXT', 1), groupedRecord('a2', 'W-TEXT', 1), groupedRecord('a3', 'W-TEXT', 100),
         groupedRecord('b1', 'W-NOTES', 50), groupedRecord('b2', 'W-NOTES', 50), groupedRecord('b3', 'W-NOTES', 50),
@@ -145,9 +148,12 @@ export default function performanceGroupingWaveOneTests(): void {
      * @tc.level Level 2
      */
     it('testPerformanceGroupingWaveOne0006', 0, (): void => {
-      const a2 = groupedRecord('a2', 'W-TEXT', 1); a2.integrity = '不一致';
-      const a3 = groupedRecord('a3', 'W-TEXT', 1); a3.stages[0].status = '失败';
-      const b4 = groupedRecord('b4', 'W-NOTES', 1); b4.stages[0].status = '跳过';
+      const a2: ExperimentRecord = groupedRecord('a2', 'W-TEXT', 1);
+      a2.integrity = 'inconsistent';
+      const a3: ExperimentRecord = groupedRecord('a3', 'W-TEXT', 1);
+      a3.stages[0].status = 'failed';
+      const b4: ExperimentRecord = groupedRecord('b4', 'W-NOTES', 1);
+      b4.stages[0].status = 'skipped';
       const table = ReportTable.build([
         groupedRecord('a1', 'W-TEXT', 1), a2, a3,
         groupedRecord('b1', 'W-NOTES', 1), groupedRecord('b2', 'W-NOTES', 1), groupedRecord('b3', 'W-NOTES', 1), b4,
@@ -170,7 +176,8 @@ export default function performanceGroupingWaveOneTests(): void {
     it('testPerformanceGroupingWaveOne0007', 0, (): void => {
       const file = waveRecord('file'); file.mode = 'files';
       const failedFile = waveRecord('failed-file'); failedFile.mode = 'files';
-      failedFile.condition = ''; failedFile.stages[2].status = '失败';
+      failedFile.condition = '';
+      failedFile.stages[2].status = 'failed';
       const other = groupedRecord('other', 'W-NOTES', 10); other.mode = 'files';
       const table = ReportTable.build([waveRecord('control'), file, failedFile, other]);
       expect(traceParameter('com.samples.appperformance_PerformanceGroupingWaveOne_0007 PerformanceGroupingWaveOne.test:174 assertEqual actual', table.filter(new ReportFilter('W-TEXT', 'files', true)).size())).assertEqual(traceParameter('com.samples.appperformance_PerformanceGroupingWaveOne_0007 PerformanceGroupingWaveOne.test:174 assertEqual expected', 1));
@@ -230,7 +237,9 @@ export default function performanceGroupingWaveOneTests(): void {
       const left = waveRecord('left');
       const right = groupedRecord('right', 'W-NOTES', 10);
       right.condition = ''; right.beforeBytes++; right.digestBefore = '12345678';
-      right.stages[2].status = '失败'; right.afterBytes += 500; right.endedAt += 900;
+      right.stages[2].status = 'failed';
+      right.afterBytes += 500;
+      right.endedAt += 900;
       const comparison = compareRecords(left, right);
       expect(traceParameter('com.samples.appperformance_PerformanceGroupingWaveOne_0010 PerformanceGroupingWaveOne.test:233 assertEqual actual', comparison.reasons.join('|'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceGroupingWaveOne_0010 PerformanceGroupingWaveOne.test:233 assertEqual expected', '负载不同|采样条件不同或旧记录缺少条件|样本大小不同|样本内容不同|有记录未正常结束'));
       expect(traceParameter('com.samples.appperformance_PerformanceGroupingWaveOne_0010 PerformanceGroupingWaveOne.test:234 assertEqual actual', comparison.deltaBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceGroupingWaveOne_0010 PerformanceGroupingWaveOne.test:234 assertEqual expected', 0));

@@ -17,7 +17,7 @@ import { businessLabel } from '../../i18n/BusinessLabels';
 import { collectionTitleText, collectionContentText } from '../../i18n/BuiltinText';
 import { uiText } from '../../i18n/Strings';
 import { BG, CARD, TEXT, MUTED, ACCENT, LINE, PageHeader, EmptyState, FieldRow } from '../../components/Ui';
-import { BusinessSnapshot, CollectionItem, businessStore } from '../../business/BusinessStore';
+import { BusinessSnapshot, CollectionCategory, CollectionItem, businessStore } from '../../business/BusinessStore';
 import { PageKey } from '../../model/ShortcutScenes';
 import { appNavigation } from '../../navigation/AppNavigation';
 
@@ -202,7 +202,10 @@ struct CollectionPage {
             .borderRadius(10)
             .onChange((value: string) => businessStore.setCollectionQuery(value))
           Row({ space: 8 }) {
-            ForEach(['全部', '效率', '工作', '阅读'], (category: string) => {
+            ForEach([
+              CollectionCategory.ALL, CollectionCategory.PRODUCTIVITY,
+              CollectionCategory.WORK, CollectionCategory.READING
+            ], (category: CollectionCategory) => {
               Button(businessLabel(category), { type: ButtonType.Normal })
                 .fontSize(14)
                 .height(44)
@@ -211,7 +214,7 @@ struct CollectionPage {
                 .backgroundColor(this.view.collectionCategory === category ? ACCENT : $r('app.color.accent_soft'))
                 .borderRadius(9)
                 .onClick(() => businessStore.setCollectionCategory(category))
-            }, (category: string) => category)
+            }, (category: CollectionCategory) => category)
           }
           .width('100%')
           Button(this.view.favoritesOnly ? uiText('shortcut_text_0754') : uiText('shortcut_text_0753'), { type: ButtonType.Normal })

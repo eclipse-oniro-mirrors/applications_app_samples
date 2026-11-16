@@ -13,13 +13,13 @@
 
 | 完整包名与官方文档 | Kit 导入 | 本示例中的用途 |
 |---|---|---|
-| [@ohos.bundle.shortcutManager](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-shortcutManager.md) | `@kit.AbilityKit` | `isShortcutSupported()` 检测设备能力，`getAllShortcutInfoForSelf()` 查询本应用静态快捷方式，`setShortcutVisibleForSelf()` 设置指定入口显隐。 |
-| [@ohos.app.ability.UIAbility](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-uiAbility.md) 与 [@ohos.app.ability.Want](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-want.md) | `@kit.AbilityKit` | `onCreate()` 和 `onNewWant()` 接收冷启动和热启动入口，校验路由参数。 |
-| [@ohos.data.preferences](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-preferences.md) | `@kit.ArkData` | `getPreferences()`、`get()`、`put()`、`flush()` 保存业务工作区与显隐批次；`removePreferencesFromCache()` 支持不确定写入后的重新读取。 |
-| [@ohos.router](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-router.md)、[@ohos.promptAction](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-promptAction.md) 与 [@ohos.window](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkts-apis-window.md) | `@kit.ArkUI` | 页面跳转、离开编辑确认、提示和加载首页。 |
-| [@ohos.resourceManager](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/js-apis-resource-manager.md) | `@kit.LocalizationKit` | 解析默认英文及 `zh_CN` 中文资源，支持字符串型接口和延迟解析的场景说明。 |
-| [@ohos.hilog](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/js-apis-hilog.md)、[@ohos.hiTraceMeter](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/js-apis-hitracemeter.md) 与 [@ohos.hiAppEvent](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/js-apis-hiviewdfx-hiappevent.md) | `@kit.PerformanceAnalysisKit` | 记录固定诊断阶段、批次异步追踪及脱敏耗时事件。 |
-| [@ohos.systemDateTime](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-date-time.md) 与 [@ohos.base](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-base.md) | `@kit.BasicServicesKit` | 获取系统运行时长，处理系统接口的 `BusinessError`。 |
+| [@ohos.bundle.shortcutManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-shortcutManager.md) | `@kit.AbilityKit` | `isShortcutSupported()` 检测设备能力，`getAllShortcutInfoForSelf()` 查询本应用静态快捷方式，`setShortcutVisibleForSelf()` 设置指定入口显隐。 |
+| [@ohos.app.ability.UIAbility](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-uiAbility.md) 与 [@ohos.app.ability.Want](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ability-kit/js-apis-app-ability-want.md) | `@kit.AbilityKit` | `onCreate()` 和 `onNewWant()` 接收冷启动和热启动入口，校验路由参数。 |
+| [@ohos.data.preferences](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkdata/js-apis-data-preferences.md) | `@kit.ArkData` | `getPreferences()`、`get()`、`put()`、`flush()` 保存业务工作区与显隐批次；`removePreferencesFromCache()` 支持不确定写入后的重新读取。 |
+| [@ohos.router](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-router.md)、[@ohos.promptAction](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/js-apis-promptAction.md) 与 [@ohos.window](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-arkui/arkts-apis-window.md) | `@kit.ArkUI` | 页面跳转、离开编辑确认、提示和加载首页。 |
+| [@ohos.resourceManager](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-localization-kit/js-apis-resource-manager.md) | `@kit.LocalizationKit` | 解析默认英文及 `zh_CN` 中文资源，支持字符串型接口和延迟解析的场景说明。 |
+| [@ohos.hilog](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/js-apis-hilog.md)、[@ohos.hiTraceMeter](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/js-apis-hitracemeter.md) 与 [@ohos.hiAppEvent](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-performance-analysis-kit/js-apis-hiviewdfx-hiappevent.md) | `@kit.PerformanceAnalysisKit` | 记录固定诊断阶段、批次异步追踪及脱敏耗时事件。 |
+| [@ohos.systemDateTime](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-date-time.md) 与 [@ohos.base](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-basic-services-kit/js-apis-base.md) | `@kit.BasicServicesKit` | 获取系统运行时长，处理系统接口的 `BusinessError`。 |
 
 ## 效果预览
 
@@ -80,13 +80,13 @@ Shortcut/
 
 ## 相关权限
 
-主模块 [module.json5](<entry/src/main/module.json5>) 未声明 `requestPermissions`。`ForSelf` 接口管理本应用的静态快捷方式。权限定义与申请方式见[访问控制概述](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/Readme-CN.md)。
+主模块 [module.json5](<entry/src/main/module.json5>) 未声明 `requestPermissions`。`ForSelf` 接口管理本应用的静态快捷方式。权限定义与申请方式见[访问控制概述](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/security/AccessToken/Readme-CN.md)。
 
 ## 依赖
 
 1. 单一 `entry` 模块使用自身本地实现文件，无外部 Sample 依赖或本地特性包依赖。
 2. 系统能力由 SDK 提供，Kit 及对应完整包名见介绍。
-3. 自动化用例依赖 [@ohos/hypium](https://gitee.com/openharmony/testfwk_arkxtest)，版本 `1.0.25`，由 [工程依赖声明](<oh-package.json5>) 管理；设备自动化使用 [@ohos.UiTest](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-test-kit/js-apis-uitest.md) 和 [@ohos.app.ability.abilityDelegatorRegistry](https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-test-kit/js-apis-app-ability-abilityDelegatorRegistry.md)，导入入口为 `@kit.TestKit`。
+3. 自动化用例依赖 [@ohos/hypium](https://gitee.com/openharmony/testfwk_arkxtest)，版本 `1.0.25`，由 [工程依赖声明](<oh-package.json5>) 管理；设备自动化使用 [@ohos.UiTest](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-test-kit/js-apis-uitest.md) 和 [@ohos.app.ability.abilityDelegatorRegistry](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-test-kit/js-apis-app-ability-abilityDelegatorRegistry.md)，导入入口为 `@kit.TestKit`。
 
 ## 约束与限制
 
@@ -112,5 +112,3 @@ git sparse-checkout set code/BasicFeature/ApplicationModels/Shortcut/
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
-
-如工程由其余分支交付，将 `master` 替换为实际包含本工程的分支。

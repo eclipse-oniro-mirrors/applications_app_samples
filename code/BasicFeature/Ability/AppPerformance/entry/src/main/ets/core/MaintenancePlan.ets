@@ -21,6 +21,9 @@
  * 由拓扑排序决定执行顺序，页面只按顺序重放，避免"某一步被跳过"这类问题。
  */
 
+import { message } from './TextMessages';
+import { StepStatus, statusText } from './Types';
+
 /** 步骤类别。 */
 export enum StepKind {
   SCAN = 'scan',
@@ -35,24 +38,26 @@ export enum StepKind {
 export function stepKindLabel(kind: StepKind): string {
   switch (kind) {
     case StepKind.SCAN:
-      return '扫描';
+      return message('ap_dynamic_scan');
     case StepKind.VALIDATE:
-      return '校验';
+      return message('ap_dynamic_validate');
     case StepKind.PREPARE:
-      return '准备';
+      return message('ap_dynamic_prepare');
     case StepKind.EXECUTE:
-      return '执行';
+      return message('ap_dynamic_execute');
     case StepKind.VERIFY:
-      return '回读';
+      return message('ap_dynamic_verify_read');
     default:
-      return '收尾';
+      return message('ap_dynamic_cleanup');
   }
 }
 
 /** 步骤定义。 */
 export class PlanStep {
   public key: string = '';
-  public label: string = '';
+  private labelValue: string = '';
+  public get label(): string { return message(this.labelValue); }
+  public set label(value: string) { this.labelValue = value; }
   public kind: StepKind = StepKind.SCAN;
   /** 依赖的步骤 key。 */
   public dependsOn: string[] = [];
@@ -77,27 +82,34 @@ export class PlanStep {
 
   /** 说明文本。 */
   text(): string {
-    const dep: string = this.dependsOn.length === 0 ? '无依赖' : `依赖 ${this.dependsOn.join(',')}`;
+    const dep: string = this.dependsOn.length === 0 ? message('ap_dynamic_no_dependencies') :
+      message('ap_dynamic_depends_on', [this.dependsOn.join(',')]);
     return `${this.key} ${this.label}｜${stepKindLabel(this.kind)}｜${dep}｜${this.weightMs} ms`;
   }
 }
 
 /** 步骤目录。依赖只能指向目录内已存在的步骤。 */
 export const STEP_CATALOG: PlanStep[] = [
-  new PlanStep('scan-files', '扫描应用文件', StepKind.SCAN, [], 120, true, true),
-  new PlanStep('scan-cache', '扫描缓存目录', StepKind.SCAN, [], 90, true, true),
-  new PlanStep('scan-memory', '读取内存快照', StepKind.SCAN, [], 60, false, true),
-  new PlanStep('validate-files', '校验文件清单', StepKind.VALIDATE, ['scan-files'], 40, true, false),
-  new PlanStep('validate-cache', '校验缓存清单', StepKind.VALIDATE, ['scan-cache'], 40, true, false),
-  new PlanStep('prepare-budget', '计算清理预算', StepKind.PREPARE,
+  new PlanStep('scan-files', 'ap_dynamic_scan_application_files', StepKind.SCAN, [], 120, true, true),
+  new PlanStep('scan-cache', 'ap_dynamic_scan_cache_directory', StepKind.SCAN, [], 90, true, true),
+  new PlanStep('scan-memory', 'ap_dynamic_read_memory_snapshot', StepKind.SCAN, [], 60, false, true),
+  new PlanStep('validate-files', 'ap_dynamic_validate_file_inventory', StepKind.VALIDATE,
+    ['scan-files'], 40, true, false),
+  new PlanStep('validate-cache', 'ap_dynamic_validate_cache_inventory', StepKind.VALIDATE,
+    ['scan-cache'], 40, true, false),
+  new PlanStep('prepare-budget', 'ap_dynamic_calculate_cleanup_budget', StepKind.PREPARE,
     ['validate-files', 'validate-cache'], 50, true, false),
-  new PlanStep('execute-files', '清理过期文件', StepKind.EXECUTE, ['prepare-budget'], 400, true, false),
-  new PlanStep('execute-cache', '清理缓存文件', StepKind.EXECUTE, ['prepare-budget'], 320, true, false),
-  new PlanStep('execute-memory', '回收可释放内存', StepKind.EXECUTE,
+  new PlanStep('execute-files', 'ap_dynamic_clean_expired_files', StepKind.EXECUTE,
+    ['prepare-budget'], 400, true, false),
+  new PlanStep('execute-cache', 'ap_dynamic_clean_cache_files', StepKind.EXECUTE,
+    ['prepare-budget'], 320, true, false),
+  new PlanStep('execute-memory', 'ap_dynamic_reclaim_releasable_memory', StepKind.EXECUTE,
     ['scan-memory', 'prepare-budget'], 260, false, false),
-  new PlanStep('verify-files', '回读文件剩余量', StepKind.VERIFY, ['execute-files'], 70, true, true),
-  new PlanStep('verify-cache', '回读缓存剩余量', StepKind.VERIFY, ['execute-cache'], 70, true, true),
-  new PlanStep('cleanup-report', '生成结果摘要', StepKind.CLEANUP,
+  new PlanStep('verify-files', 'ap_dynamic_verify_remaining_files', StepKind.VERIFY,
+    ['execute-files'], 70, true, true),
+  new PlanStep('verify-cache', 'ap_dynamic_verify_remaining_cache', StepKind.VERIFY,
+    ['execute-cache'], 70, true, true),
+  new PlanStep('cleanup-report', 'ap_dynamic_generate_result_summary', StepKind.CLEANUP,
     ['verify-files', 'verify-cache'], 30, false, false)
 ];
 
@@ -145,9 +157,9 @@ export class PlanGraph {
   /** 摘要文本。 */
   summary(): string {
     if (this.ok()) {
-      return `可执行，顺序：${this.order.join(' -> ')}`;
+      return message('ap_dynamic_executable_order', [this.order.join(' -> ')]);
     }
-    return `存在 ${this.issues.length} 个问题，阻塞 ${this.blocked.length} 步`;
+    return message('ap_dynamic_issues_blocked_steps', [this.issues.length, this.blocked.length]);
   }
 }
 
@@ -158,17 +170,17 @@ function validateDependencies(): PlanIssue[] {
   STEP_CATALOG.forEach((step: PlanStep): void => {
     step.dependsOn.forEach((dep: string): void => {
       if (known.indexOf(dep) < 0) {
-        issues.push(new PlanIssue(step.key, `依赖不存在：${dep}`));
+        issues.push(new PlanIssue(step.key, message('ap_dynamic_missing_dependency', [dep])));
       }
       if (dep === step.key) {
-        issues.push(new PlanIssue(step.key, '依赖自身'));
+        issues.push(new PlanIssue(step.key, message('ap_dynamic_self_dependency')));
       }
     });
     if (step.weightMs < 0) {
-      issues.push(new PlanIssue(step.key, '预计耗时为负'));
+      issues.push(new PlanIssue(step.key, message('ap_dynamic_negative_estimated_duration')));
     }
     if (step.label.length === 0) {
-      issues.push(new PlanIssue(step.key, '缺少名称'));
+      issues.push(new PlanIssue(step.key, message('ap_dynamic_missing_name')));
     }
   });
   return issues;
@@ -236,34 +248,34 @@ export function criticalDuration(keys: string[]): number {
 /** 单步执行结果。 */
 export class StepOutcome {
   public key: string = '';
-  public status: string = '待执行';
+  public status: string = StepStatus.PENDING;
   public elapsed: number = 0;
   public detail: string = '';
 
-  constructor(key: string = '', status: string = '待执行') {
+  constructor(key: string = '', status: string = StepStatus.PENDING) {
     this.key = key;
     this.status = status;
   }
 
   succeeded(): boolean {
-    return this.status === '成功';
+    return this.status === StepStatus.SUCCESS;
   }
 
   failed(): boolean {
-    return this.status === '失败';
+    return this.status === StepStatus.FAILED;
   }
 
   skipped(): boolean {
-    return this.status === '跳过';
+    return this.status === StepStatus.SKIPPED;
   }
 
   /** 是否属于未完成。 */
   pending(): boolean {
-    return this.status === '待执行';
+    return this.status === StepStatus.PENDING;
   }
 
   text(): string {
-    return `${this.key}｜${this.status}｜${this.elapsed} ms｜${this.detail}`;
+    return `${this.key}｜${statusText(this.status)}｜${this.elapsed} ms｜${this.detail}`;
   }
 }
 
@@ -279,13 +291,13 @@ export enum PlanVerdict {
 export function verdictLabel(verdict: PlanVerdict): string {
   switch (verdict) {
     case PlanVerdict.PASS:
-      return '全部完成';
+      return message('ap_dynamic_all_completed');
     case PlanVerdict.PARTIAL:
-      return '部分完成';
+      return message('ap_dynamic_partially_completed');
     case PlanVerdict.FAILED:
-      return '存在关键失败';
+      return message('ap_dynamic_critical_failures_exist');
     default:
-      return '被阻塞';
+      return message('ap_dynamic_blocked_239');
   }
 }
 
@@ -344,8 +356,8 @@ export class PlanRun {
   /** 一句话结论。 */
   headline(): string {
     const verdict: PlanVerdict = this.verdict();
-    return `${verdictLabel(verdict)}｜成功 ${this.succeeded()} 步，失败 ${this.failed()} 步，` +
-      `跳过 ${this.skipped()} 步`;
+    return message('ap_dynamic_successful_failed_skipped_steps',
+      [verdictLabel(verdict), this.succeeded(), this.failed(), this.skipped()]);
   }
 
   /** 失败但可重试的步骤。 */
@@ -380,11 +392,11 @@ export function evaluateRun(order: string[], results: StepOutcome[]): PlanRun {
     const step: PlanStep | undefined = stepOf(key);
     if (step !== undefined && step.dependsOn.some((dep: string): boolean =>
       failedKeys.indexOf(dep) >= 0)) {
-      run.outcomes.push(new StepOutcome(key, '跳过'));
+      run.outcomes.push(new StepOutcome(key, StepStatus.SKIPPED));
       return;
     }
     if (provided === undefined) {
-      run.outcomes.push(new StepOutcome(key, '跳过'));
+      run.outcomes.push(new StepOutcome(key, StepStatus.SKIPPED));
       return;
     }
     run.outcomes.push(provided);
@@ -401,7 +413,8 @@ export class PlanAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '维护步骤表自洽' : this.findings.join('；');
+    return this.ok ? message('ap_dynamic_maintenance_step_catalog_is_consistent') :
+      this.findings.join(message('report_list_separator'));
   }
 }
 
@@ -411,7 +424,7 @@ export function auditPlan(): PlanAudit {
   const seen: string[] = [];
   STEP_CATALOG.forEach((step: PlanStep): void => {
     if (seen.indexOf(step.key) >= 0) {
-      audit.findings.push(`步骤重复：${step.key}`);
+      audit.findings.push(message('ap_dynamic_duplicate_step', [step.key]));
     }
     seen.push(step.key);
   });
@@ -420,17 +433,17 @@ export function auditPlan(): PlanAudit {
     audit.findings.push(graph.summary());
   }
   if (graph.order.length !== STEP_CATALOG.length) {
-    audit.findings.push(`编排未覆盖全部步骤：${graph.order.length}`);
+    audit.findings.push(message('ap_dynamic_schedule_does_not_cover_all_steps', [graph.order.length]));
   }
   if (stepsOfKind(StepKind.VERIFY).length === 0) {
-    audit.findings.push('缺少回读步骤');
+    audit.findings.push(message('ap_dynamic_missing_verification_step'));
   }
   STEP_CATALOG.forEach((step: PlanStep): void => {
     if (step.critical && step.kind === StepKind.EXECUTE) {
       const hasVerify: boolean = STEP_CATALOG.some((item: PlanStep): boolean =>
         item.kind === StepKind.VERIFY && item.dependsOn.indexOf(step.key) >= 0);
       if (!hasVerify) {
-        audit.findings.push(`关键执行步骤缺少回读：${step.key}`);
+        audit.findings.push(message('ap_dynamic_critical_execution_step_lacks_verification', [step.key]));
       }
     }
   });

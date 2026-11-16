@@ -307,7 +307,14 @@ export default function performanceRestoreWaveOneTests(): void {
       raw['note'] = 7; raw['missing'] = 'not-an-array';
       const restored = restoreRecords([raw])[0];
       expect(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0015 PerformanceRestoreWaveOne.test:307 assertEqual actual', restored.requestStatus)).assertEqual(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0015 PerformanceRestoreWaveOne.test:307 assertEqual expected', 'not-observed'));
-      expect(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0015 PerformanceRestoreWaveOne.test:308 assertEqual actual', restored.observability)).assertEqual(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0015 PerformanceRestoreWaveOne.test:308 assertEqual expected', '未观测'));
+      expect(traceParameter(
+        'com.samples.appperformance_PerformanceRestoreWaveOne_0015 ' +
+          'PerformanceRestoreWaveOne.test:308 assertEqual actual',
+        restored.observability))
+        .assertEqual(traceParameter(
+          'com.samples.appperformance_PerformanceRestoreWaveOne_0015 ' +
+            'PerformanceRestoreWaveOne.test:308 assertEqual expected',
+          'unobserved'));
       expect(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0015 PerformanceRestoreWaveOne.test:309 assertEqual actual', restored.note)).assertEqual(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0015 PerformanceRestoreWaveOne.test:309 assertEqual expected', ''));
       expect(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0015 PerformanceRestoreWaveOne.test:310 assertEqual actual', restored.missing.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0015 PerformanceRestoreWaveOne.test:310 assertEqual expected', 0));
     });
@@ -315,20 +322,23 @@ export default function performanceRestoreWaveOneTests(): void {
     /**
      * @tc.number SUB_PERFORMANCE_RESTOREWAVEONE_1600
      * @tc.name testPerformanceRestoreWaveOne0016
-     * @tc.desc 五种终态可恢复，失败与跳过分别计数而未知状态拒绝
+     * @tc.desc 五种终态可恢复，失败与跳过分别计数而非终态拒绝
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level 2
      */
     it('testPerformanceRestoreWaveOne0016', 0, (): void => {
       const mixed = waveRecord('mixed');
-      mixed.stages[1].status = '失败'; mixed.stages[2].status = '跳过';
-      mixed.stages[3].status = '超时'; mixed.stages[4].status = '已取消';
+      mixed.stages[1].status = 'failed';
+      mixed.stages[2].status = 'skipped';
+      mixed.stages[3].status = 'timeout';
+      mixed.stages[4].status = 'cancelled';
       const restored = restoreRecords([mixed])[0];
       expect(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0016 PerformanceRestoreWaveOne.test:326 assertEqual actual', restored.failed())).assertEqual(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0016 PerformanceRestoreWaveOne.test:326 assertEqual expected', 1));
       expect(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0016 PerformanceRestoreWaveOne.test:327 assertEqual actual', restored.skipped())).assertEqual(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0016 PerformanceRestoreWaveOne.test:327 assertEqual expected', 1));
       expect(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0016 PerformanceRestoreWaveOne.test:328 assertFalse actual', restored.complete())).assertFalse();
-      const unknown = waveRecord('unknown'); unknown.stages[0].status = '运行中';
+      const unknown: ExperimentRecord = waveRecord('unknown');
+      unknown.stages[0].status = 'running';
       expect(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0016 PerformanceRestoreWaveOne.test:330 assertEqual actual', restoreRecords([unknown]).length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceRestoreWaveOne_0016 PerformanceRestoreWaveOne.test:330 assertEqual expected', 0));
     });
   });

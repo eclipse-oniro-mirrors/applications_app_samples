@@ -17,7 +17,7 @@ import { Want } from '@kit.AbilityKit';
 import { describe } from '@ohos/hypium';
 import { caseName, expect, it } from '../support/TestCase';
 import { AppNavigation } from '../../../main/ets/navigation/AppNavigation';
-import { BusinessStore } from '../../../main/ets/business/BusinessStore';
+import { BusinessStore, CollectionCategory, TodoFilter } from '../../../main/ets/business/BusinessStore';
 import { PageKey } from '../../../main/ets/model/ShortcutScenes';
 import { CaseScope, runCase } from '../support/CaseScope';
 import { FixedBusinessClock } from '../support/BusinessFixture';
@@ -78,7 +78,8 @@ export default function shortcutNavigationWaveOneTests(): void {
         await waveSettle();
         expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0001'), 'ShortcutNavigationWaveOne.test.ets:A0001').assertEqual('push:scenes/pages/CollectionPage:');
         expect(h.store.snapshot().favoritesOnly, caseName('ShortcutNavigationWaveOne', '0001'), 'ShortcutNavigationWaveOne.test.ets:A0002').assertTrue();
-        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0001'), 'ShortcutNavigationWaveOne.test.ets:A0003').assertEqual('全部');
+        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0001'),
+          'ShortcutNavigationWaveOne.test.ets:A0003').assertEqual('todo_all');
         expect(h.io.writes, caseName('ShortcutNavigationWaveOne', '0001'), 'ShortcutNavigationWaveOne.test.ets:A0004').assertEqual(0);
         expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0001'), 'ShortcutNavigationWaveOne.test.ets:A0005').assertEqual('collection:冷启动:成功');
       });
@@ -100,7 +101,8 @@ export default function shortcutNavigationWaveOneTests(): void {
         h.nav.activate(PageKey.HOME, (): void => {});
         await waveSettle();
         expect(h.routes.calls.join(','), caseName('ShortcutNavigationWaveOne', '0002'), 'ShortcutNavigationWaveOne.test.ets:A0006').assertEqual('push:scenes/pages/TodoPage:');
-        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0002'), 'ShortcutNavigationWaveOne.test.ets:A0007').assertEqual('未完成');
+        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0002'),
+          'ShortcutNavigationWaveOne.test.ets:A0007').assertEqual('todo_open');
         expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0002'), 'ShortcutNavigationWaveOne.test.ets:A0008').assertEqual('启动参数:invalid-parameters:失败,todo:热启动:成功');
         expect(h.store.snapshot().favoritesOnly, caseName('ShortcutNavigationWaveOne', '0002'), 'ShortcutNavigationWaveOne.test.ets:A0009').assertFalse();
       });
@@ -320,18 +322,20 @@ export default function shortcutNavigationWaveOneTests(): void {
       await runCase(caseName('ShortcutNavigationWaveOne', '0011'), async (scope: CaseScope): Promise<void> => {
         const h: NavigationWaveHarness = await navigationWave(scope);
         h.store.selectTodoDate('2026-11-01');
-        h.store.setTodoFilter('已完成');
+        h.store.setTodoFilter(TodoFilter.DONE);
         h.store.setCollectionQuery('阅读');
-        h.store.setCollectionCategory('阅读');
+        h.store.setCollectionCategory(CollectionCategory.READING);
         h.routes.fail = true;
         h.nav.activate(PageKey.COLLECTION, (): void => {});
         h.nav.receiveWant(shortcutWant('todo.list', 'todayOpen'), false);
         await waveSettle();
         expect(h.store.snapshot().todoDate, caseName('ShortcutNavigationWaveOne', '0011'), 'ShortcutNavigationWaveOne.test.ets:A0047').assertEqual('2026-11-01');
         expect(h.store.snapshot().todoFollowToday, caseName('ShortcutNavigationWaveOne', '0011'), 'ShortcutNavigationWaveOne.test.ets:A0048').assertFalse();
-        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0011'), 'ShortcutNavigationWaveOne.test.ets:A0049').assertEqual('已完成');
+        expect(h.store.snapshot().todoFilter, caseName('ShortcutNavigationWaveOne', '0011'),
+          'ShortcutNavigationWaveOne.test.ets:A0049').assertEqual('todo_done');
         expect(h.store.snapshot().collectionQuery, caseName('ShortcutNavigationWaveOne', '0011'), 'ShortcutNavigationWaveOne.test.ets:A0050').assertEqual('阅读');
-        expect(h.store.snapshot().collectionCategory, caseName('ShortcutNavigationWaveOne', '0011'), 'ShortcutNavigationWaveOne.test.ets:A0051').assertEqual('阅读');
+        expect(h.store.snapshot().collectionCategory, caseName('ShortcutNavigationWaveOne', '0011'),
+          'ShortcutNavigationWaveOne.test.ets:A0051').assertEqual('collection_reading');
         expect(h.reports.join(','), caseName('ShortcutNavigationWaveOne', '0011'), 'ShortcutNavigationWaveOne.test.ets:A0052').assertEqual('collection:router-failed:失败');
       });
     });

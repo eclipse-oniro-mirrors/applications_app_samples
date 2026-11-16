@@ -14,6 +14,7 @@
  */
 
 import { ExperimentRecord } from './ExperimentLedger';
+import { message } from './TextMessages';
 
 export const SERIES_MIN_REPETITIONS: number = 1;
 export const SERIES_MAX_REPETITIONS: number = 10;
@@ -168,8 +169,9 @@ export function restoreExperimentSeries(value: Object | undefined,
     state.phase = SeriesPhase.INTERRUPTED;
     state.endedAt = Math.max(state.startedAt, now);
     state.activeIteration = 0;
-    state.message = unknown > 0 ? `进程已结束，第 ${unknown} 次结果未知；系列中断，不会重放` :
-      '进程已结束，系列中断；未执行次数不会自动继续';
+    state.message = unknown > 0 ?
+      message('ap_dynamic_process_ended_result_of_run_is_unknown_the_series_was_interrupted_and_will', [unknown]) :
+      message('ap_dynamic_process_ended_and_the_series_was_interrupted_unexecuted_runs_will_not_resum');
   }
   if (ids.some((id: string): boolean => records.some((record: ExperimentRecord): boolean =>
     record.id === id && (record.workloadId !== state.workloadId || record.mode !== state.mode)))) { return undefined; }

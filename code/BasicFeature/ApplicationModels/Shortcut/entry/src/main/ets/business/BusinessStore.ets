@@ -64,6 +64,19 @@ export class NoteConflict {
   public baseToCurrent: DiffResult = new DiffResult();
 }
 
+export enum TodoFilter {
+  ALL = 'todo_all',
+  OPEN = 'todo_open',
+  DONE = 'todo_done'
+}
+
+export enum CollectionCategory {
+  ALL = 'collection_all',
+  PRODUCTIVITY = 'collection_productivity',
+  WORK = 'collection_work',
+  READING = 'collection_reading'
+}
+
 export class TodoItem {
   public id: string;
   public title: string;
@@ -145,11 +158,11 @@ export class CollectionItem {
 }
 
 const COLLECTIONS: CollectionItem[] = [
-  new CollectionItem('planning', '每日计划清单', '效率',
+  new CollectionItem('planning', '每日计划清单', CollectionCategory.PRODUCTIVITY,
     '1. 写下今天最重要的一件事。\n2. 为任务留出完整时间。\n3. 完成后勾选今日待办。\n4. 下班前整理明日计划。'),
-  new CollectionItem('meeting', '会议记录模板', '工作',
+  new CollectionItem('meeting', '会议记录模板', CollectionCategory.WORK,
     '会议主题：\n会议时间：\n参会人员：\n\n讨论事项：\n\n已定结论：\n\n后续行动：负责人 / 截止日期'),
-  new CollectionItem('reading', '阅读摘录模板', '阅读',
+  new CollectionItem('reading', '阅读摘录模板', CollectionCategory.READING,
     '书名 / 文章：\n作者：\n阅读日期：\n\n重点摘录：\n\n我的想法：\n\n下一步行动：')
 ];
 
@@ -190,14 +203,14 @@ export class BusinessSnapshot {
   public notes: NoteItem[] = [];
   public visibleNotes: NoteItem[] = [];
   public todoDate: string = '';
-  public todoFilter: string = '全部';
+  public todoFilter: TodoFilter = TodoFilter.ALL;
   public todoFollowToday: boolean = true;
   public availableDates: string[] = [];
   public dateSummaries: TodoDateSummary[] = [];
   public todos: TodoItem[] = [];
   public visibleTodos: TodoItem[] = [];
   public collectionQuery: string = '';
-  public collectionCategory: string = '全部';
+  public collectionCategory: CollectionCategory = CollectionCategory.ALL;
   public favoritesOnly: boolean = false;
   public favoriteIds: string[] = [];
   public collections: CollectionItem[] = [];
@@ -207,10 +220,10 @@ export class BusinessSnapshot {
 /** UI selection/editor checkpoint: route errors restore transient context, never undo a successful save. */
 export class BusinessEntryContext {
   public todoDate: string = '';
-  public todoFilter: string = '全部';
+  public todoFilter: TodoFilter = TodoFilter.ALL;
   public favoritesOnly: boolean = false;
   public collectionQuery: string = '';
-  public collectionCategory: string = '全部';
+  public collectionCategory: CollectionCategory = CollectionCategory.ALL;
   public editingNoteId: string = '';
   public draftTitle: string = '';
   public draftBody: string = '';
@@ -508,7 +521,7 @@ export class BusinessStore implements NavigationBusiness {
   private draftBody: string = '';
   private dirty: boolean = false;
   private todoDate: string;
-  private todoFilter: string = '全部';
+  private todoFilter: TodoFilter = TodoFilter.ALL;
   private followToday: boolean = true;
   private todoSequence: number = 0;
   private generation: number = 0;
@@ -518,7 +531,7 @@ export class BusinessStore implements NavigationBusiness {
   private editBaseRevision: string = '';
   private noteQuery: string = '';
   private collectionQuery: string = '';
-  private collectionCategory: string = '全部';
+  private collectionCategory: CollectionCategory = CollectionCategory.ALL;
   private favoritesOnly: boolean = false;
   private recoveryRequired: boolean = false;
   private pendingData: StoredData | undefined = undefined;
@@ -561,13 +574,13 @@ export class BusinessStore implements NavigationBusiness {
     this.dirty = false;
     this.editingNoteId = '';
     this.editBaseRevision = '';
-    this.todoFilter = '全部';
+    this.todoFilter = TodoFilter.ALL;
     this.followToday = true;
     this.favoritesOnly = false;
     this.clearPendingRecovery();
     this.noteQuery = '';
     this.collectionQuery = '';
-    this.collectionCategory = '全部';
+    this.collectionCategory = CollectionCategory.ALL;
     this.message = '';
     this.error = '';
   }
@@ -628,7 +641,7 @@ export class BusinessStore implements NavigationBusiness {
     const day: TodoDay | undefined = this.data.todoDays.find((item: TodoDay) => item.date === this.todoDate);
     result.todos = day === undefined ? [] : day.items.map((item: TodoItem) => copyTodo(item));
     result.visibleTodos = result.todos.filter((item: TodoItem): boolean =>
-      this.todoFilter === '全部' || (this.todoFilter === '已完成' ? item.done : !item.done));
+      this.todoFilter === TodoFilter.ALL || (this.todoFilter === TodoFilter.DONE ? item.done : !item.done));
     result.collectionQuery = this.collectionQuery;
     result.collectionCategory = this.collectionCategory;
     result.favoritesOnly = this.favoritesOnly;
@@ -638,7 +651,7 @@ export class BusinessStore implements NavigationBusiness {
     const collectionQuery: string = this.collectionQuery.trim().toLowerCase();
     result.visibleCollections = result.collections.filter((item: CollectionItem): boolean =>
       (!this.favoritesOnly || this.data.favorites.indexOf(item.id) >= 0) &&
-      (this.collectionCategory === '全部' || item.category === this.collectionCategory) &&
+      (this.collectionCategory === CollectionCategory.ALL || item.category === this.collectionCategory) &&
       (collectionQuery.length === 0 || item.title.toLowerCase().includes(collectionQuery) ||
         item.content.toLowerCase().includes(collectionQuery)));
     return result;
@@ -680,11 +693,11 @@ export class BusinessStore implements NavigationBusiness {
       this.todoDate = localDateKey(this.now());
       this.followToday = true;
       ensureDay(this.data, this.todoDate);
-      this.todoFilter = '未完成';
+      this.todoFilter = TodoFilter.OPEN;
     } else if (filter === 'saved') {
       this.favoritesOnly = true;
       this.collectionQuery = '';
-      this.collectionCategory = '全部';
+      this.collectionCategory = CollectionCategory.ALL;
     }
     this.notify();
   }
@@ -700,7 +713,11 @@ export class BusinessStore implements NavigationBusiness {
   }
 
   setCollectionCategory(value: string): void {
-    this.collectionCategory = value;
+    if (value !== CollectionCategory.ALL && value !== CollectionCategory.PRODUCTIVITY &&
+      value !== CollectionCategory.WORK && value !== CollectionCategory.READING) {
+      return;
+    }
+    this.collectionCategory = value as CollectionCategory;
     this.notify();
   }
 
@@ -1427,10 +1444,10 @@ export class BusinessStore implements NavigationBusiness {
   }
 
   setTodoFilter(filter: string): void {
-    if (filter !== '全部' && filter !== '未完成' && filter !== '已完成') {
+    if (filter !== TodoFilter.ALL && filter !== TodoFilter.OPEN && filter !== TodoFilter.DONE) {
       return;
     }
-    this.todoFilter = filter;
+    this.todoFilter = filter as TodoFilter;
     this.notify();
   }
 

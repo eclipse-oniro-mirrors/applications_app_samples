@@ -18,10 +18,6 @@ import { CallRecord, emptyCallRecord, formatTime } from '../core/Types';
 
 @Component
 export struct InfoField {
-  private display(value: string): string {
-    return displayValue(this.getUIContext().getHostContext(), value);
-  }
-
   @Prop label: string = '';
   @Prop value: string = '';
 
@@ -31,7 +27,7 @@ export struct InfoField {
         .width(72)
         .fontSize(12)
         .fontColor('#667085')
-      Text(this.value.length > 0 ? this.display(this.value) : '—')
+      Text(this.value.length > 0 ? this.value : '—')
         .layoutWeight(1)
         .fontSize(14)
         .fontColor('#182238')
@@ -139,7 +135,7 @@ export struct MemoryResultCard {
             .fontColor('#246BFD')
         }
         .width('100%')
-        Text(this.display(this.record.message))
+        Text(this.record.message)
           .fontSize(14)
           .fontColor('#667085')
           .width('100%')
@@ -192,6 +188,10 @@ export struct CallRecordCard {
   onToggle: (id: number) => void = (id: number): void => {
   };
 
+  private targetText(): string {
+    return this.record.api === 'setHyperSnapEnabled' ? this.display(this.record.target) : this.record.target;
+  }
+
   private statusColor(): string {
     if (this.record.kind === 'success') {
       return '#067647';
@@ -242,7 +242,7 @@ export struct CallRecordCard {
         Text(formatTime(this.record.at))
           .fontSize(12)
           .fontColor('#667085')
-        Text(this.record.target.length > 0 ? this.display(this.record.target) : '—')
+        Text(this.record.target.length > 0 ? this.targetText() : '—')
           .fontSize(14)
           .fontColor('#667085')
           .width('100%')

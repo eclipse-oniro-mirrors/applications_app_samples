@@ -51,11 +51,13 @@ export default function shortcutNavigationWaveTwoTests(): void {
         await waveSettle();
         expect(routes.calls.join(','), caseName('ShortcutNavigationWaveTwo', '0001'), 'ShortcutNavigationWaveTwo.test.ets:A0001').assertEqual('back:true');
         expect(reports.join(','), caseName('ShortcutNavigationWaveTwo', '0001'), 'ShortcutNavigationWaveTwo.test.ets:A0002').assertEqual('home:应用内:成功');
-        expect(store.snapshot().todoFilter, caseName('ShortcutNavigationWaveTwo', '0001'), 'ShortcutNavigationWaveTwo.test.ets:A0003').assertEqual('全部');
+        expect(store.snapshot().todoFilter, caseName('ShortcutNavigationWaveTwo', '0001'),
+          'ShortcutNavigationWaveTwo.test.ets:A0003').assertEqual('todo_all');
         nav.activate(PageKey.HOME, (): void => {});
         await waveSettle();
         expect(routes.calls[1], caseName('ShortcutNavigationWaveTwo', '0001'), 'ShortcutNavigationWaveTwo.test.ets:A0004').assertEqual('push:scenes/pages/TodoPage:');
-        expect(store.snapshot().todoFilter, caseName('ShortcutNavigationWaveTwo', '0001'), 'ShortcutNavigationWaveTwo.test.ets:A0005').assertEqual('未完成');
+        expect(store.snapshot().todoFilter, caseName('ShortcutNavigationWaveTwo', '0001'),
+          'ShortcutNavigationWaveTwo.test.ets:A0005').assertEqual('todo_open');
         expect(io.writes, caseName('ShortcutNavigationWaveTwo', '0001'), 'ShortcutNavigationWaveTwo.test.ets:A0006').assertEqual(0);
       });
     });

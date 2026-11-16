@@ -155,16 +155,37 @@ export default function coreTests(): void {
         service.checkConfig();
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:155 assertEqual actual', platform.configCalls)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:155 assertEqual expected', 1));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:156 assertEqual actual', service.getState().configText)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:156 assertEqual expected', platform.config.trim()));
-        expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:157 assertEqual actual', service.getState().configStatus)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:157 assertEqual expected', '配置有效'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceCore_0003 ' +
+            'Core.test:157 assertEqual actual',
+          service.getState().configStatus))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceCore_0003 ' +
+              'Core.test:157 assertEqual expected',
+            'valid'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:158 assertEqual actual', latest(service, 'getRawFileContentSync').kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:158 assertEqual expected', 'success'));
 
         platform.config = '{"unexpected":[]}';
         service.checkConfig();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:162 assertEqual actual', service.getState().configStatus)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:162 assertEqual expected', '配置无效'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceCore_0003 ' +
+            'Core.test:162 assertEqual actual',
+          service.getState().configStatus))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceCore_0003 ' +
+              'Core.test:162 assertEqual expected',
+            'invalid'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:163 assertEqual actual', latest(service, 'getRawFileContentSync').kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:163 assertEqual expected', 'error'));
         platform.config = '{';
         service.checkConfig();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:166 assertEqual actual', service.getState().configStatus)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:166 assertEqual expected', '配置读取失败'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceCore_0003 ' +
+            'Core.test:166 assertEqual actual',
+          service.getState().configStatus))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceCore_0003 ' +
+              'Core.test:166 assertEqual expected',
+            'config_read_failed'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:167 assertEqual actual', latest(service, 'getRawFileContentSync').kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:167 assertEqual expected', 'error'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:168 assertEqual actual', platform.configCalls)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0003 Core.test:168 assertEqual expected', 3));
 
@@ -252,14 +273,28 @@ export default function coreTests(): void {
         service.setSnapEnabled(true);
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:252 assertEqual actual', platform.snapCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:252 assertEqual expected', 1));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:253 assertTrue actual', platform.snapCalls[0])).assertTrue();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:254 assertEqual actual', service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:254 assertEqual expected', '启用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceCore_0005 ' +
+            'Core.test:254 assertEqual actual',
+          service.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceCore_0005 ' +
+              'Core.test:254 assertEqual expected',
+            'enabled'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:255 assertEqual actual', latest(service, 'setHyperSnapEnabled').kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:255 assertEqual expected', 'success'));
         platform.advance(25);
         service.setSnapEnabled(false);
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:258 assertEqual actual', platform.snapCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:258 assertEqual expected', 2));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:259 assertFalse actual', platform.snapCalls[1])).assertFalse();
         const saved = service.getState();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:261 assertEqual actual', saved.snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:261 assertEqual expected', '禁用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceCore_0005 ' +
+            'Core.test:261 assertEqual actual',
+          saved.snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceCore_0005 ' +
+              'Core.test:261 assertEqual expected',
+            'disabled'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:262 assertEqual actual', saved.snapAt)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:262 assertEqual expected', platform.wallNow()));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:263 assertEqual actual', latest(service, 'setHyperSnapEnabled').kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:263 assertEqual expected', 'success'));
 
@@ -267,7 +302,14 @@ export default function coreTests(): void {
         platform.setErrorCode = 16000150;
         service.setSnapEnabled(true);
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:268 assertEqual actual', platform.snapCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:268 assertEqual expected', 3));
-        expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:269 assertEqual actual', service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:269 assertEqual expected', '禁用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceCore_0005 ' +
+            'Core.test:269 assertEqual actual',
+          service.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceCore_0005 ' +
+              'Core.test:269 assertEqual expected',
+            'disabled'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:270 assertEqual actual', service.getState().snapAt)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:270 assertEqual expected', saved.snapAt));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:271 assertEqual actual', latest(service, 'setHyperSnapEnabled').kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:271 assertEqual expected', 'error'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:272 assertEqual actual', latest(service, 'setHyperSnapEnabled').code)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:272 assertEqual expected', 16000150));
@@ -279,7 +321,14 @@ export default function coreTests(): void {
         const restoredPlatform = new FakePlatform(store);
         const restored = AppService.fromPlatform(restoredPlatform);
         try {
-          expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:281 assertEqual actual', restored.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:281 assertEqual expected', '禁用'));
+          expect(traceParameter(
+            'com.samples.appperformance_AppPerformanceCore_0005 ' +
+              'Core.test:281 assertEqual actual',
+            restored.getState().snapFlag))
+            .assertEqual(traceParameter(
+              'com.samples.appperformance_AppPerformanceCore_0005 ' +
+                'Core.test:281 assertEqual expected',
+              'disabled'));
           expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:282 assertEqual actual', restored.getState().snapAt)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:282 assertEqual expected', saved.snapAt));
           expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:283 assertEqual actual', latest(restored, 'setHyperSnapEnabled').kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:283 assertEqual expected', 'error'));
           expect(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:284 assertEqual actual', latest(restored, 'setHyperSnapEnabled').code)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceCore_0005 Core.test:284 assertEqual expected', 16000150));

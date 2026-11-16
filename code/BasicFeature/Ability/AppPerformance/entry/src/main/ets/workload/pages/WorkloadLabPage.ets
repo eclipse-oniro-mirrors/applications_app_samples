@@ -100,7 +100,7 @@ struct WorkloadLabPage {
     this.records = service.ledgerRecords();
     this.busy = service.isExperimentBusy();
     this.quarantined = service.isQuarantined();
-    this.notice = this.display(state.storageMessage || state.notice);
+    this.notice = state.storageMessage || state.notice;
     const series = service.seriesState();
     const records = series === undefined ? [] : service.seriesRecords(series.ownerId);
     const view = buildSeriesPanelView(series, records, this.repetitions, this.busy, this.quarantined, this.notice);
@@ -116,7 +116,7 @@ struct WorkloadLabPage {
     if (state.maintenance !== undefined && (this.ownsRun ||
       (series !== undefined && series.ownerId === this.seriesOwnerId && series.startedCount > 0))) {
       this.stageLines = state.maintenance.steps.map((step): string =>
-        `${step.label} · ${step.status} · ${step.elapsed} ms · ${step.detail}`);
+        `${step.label} · ${this.display(step.status)} · ${step.elapsed} ms · ${step.detail}`);
     }
   }
 
@@ -141,7 +141,8 @@ struct WorkloadLabPage {
     }
     const lines: string[] = [record.text(), this.text($r('app.string.ap_ui_format_719269605f'),
       [record.asset || this.text($r('app.string.ap_ui_not_recorded_in_legacy_data'))]),
-      this.text($r('app.string.ap_ui_format_fe240eb7a9'), [record.requestStatus, this.display(record.observability)]),
+      this.text($r('app.string.ap_ui_format_fe240eb7a9'),
+        [this.display(record.requestStatus), this.display(record.observability)]),
       this.text($r('app.string.ap_ui_format_b97fc0e2fc'), [record.beforeBytes, record.afterBytes]),
       this.text($r('app.string.ap_ui_format_1020a92250'), [record.digestBefore ||
         this.text($r('app.string.ap_ui_missing')), record.digestAfter || this.text($r('app.string.ap_ui_missing'))]),
@@ -172,7 +173,8 @@ struct WorkloadLabPage {
       }
       this.detailId = record.id;
       this.stageLines = record.stages.map((stage: ExperimentStage): string => stage.text());
-      this.resultLines = [record.text(), this.text($r('app.string.ap_ui_format_571e700029'), [record.requestStatus]),
+      this.resultLines = [record.text(),
+        this.text($r('app.string.ap_ui_format_571e700029'), [this.display(record.requestStatus)]),
         this.text($r('app.string.ap_ui_format_91331090f0'), [this.display(record.observability)]), record.note];
     } finally {
       this.ownsRun = false;
@@ -196,7 +198,7 @@ struct WorkloadLabPage {
     }
     const started = service.startExperimentSeries(WORKLOADS[this.selected].id, MODES[this.mode], this.repetitions);
     if (!started.accepted) {
-      this.notice = this.display(started.message);
+      this.notice = started.message;
       return;
     }
     this.seriesOwnerId = started.ownerId;
@@ -428,7 +430,7 @@ struct WorkloadLabPage {
         .backgroundColor('#FFFFFF')
         .borderRadius(16)
         if (this.notice.length > 0 && this.notice !== this.seriesView.message) {
-          Text(this.display(this.notice))
+          Text(this.notice)
             .fontSize(14)
             .fontColor('#182238')
             .width('100%')

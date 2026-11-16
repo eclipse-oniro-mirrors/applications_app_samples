@@ -22,6 +22,7 @@
  */
 
 import { MetricSample } from './ThresholdCatalog';
+import { message } from './TextMessages';
 
 /** 比较方式。 */
 export enum GateCompare {
@@ -37,7 +38,7 @@ export enum GateLevel {
 
 /** 级别标签。 */
 export function levelLabel(level: GateLevel): string {
-  return level === GateLevel.BLOCKING ? '阻断' : '提示';
+  return level === GateLevel.BLOCKING ? message('ap_dynamic_blocking') : message('ap_dynamic_warning');
 }
 
 /** 一条门禁规则。 */
@@ -49,7 +50,15 @@ export class GateRule {
   public threshold: number = 0;
   public level: GateLevel = GateLevel.BLOCKING;
   /** 规则说明。 */
-  public description: string = '';
+  private descriptionKey: string = '';
+
+  public get description(): string {
+    return message(this.descriptionKey);
+  }
+
+  public set description(value: string) {
+    this.descriptionKey = value;
+  }
 
   constructor(ruleId: string = '', metric: string = '', compare: GateCompare = GateCompare.AT_MOST,
     threshold: number = 0, level: GateLevel = GateLevel.BLOCKING, description: string = '') {
@@ -79,45 +88,45 @@ export class GateRule {
 /** 门禁规则表。 */
 export const GATE_RULES: GateRule[] = [
   new GateRule('GT-01', 'run.failed.count', GateCompare.AT_MOST, 0, GateLevel.BLOCKING,
-    '关键步骤不允许失败'),
+    'ap_dynamic_critical_steps_must_not_fail'),
   new GateRule('GT-02', 'run.total.ms', GateCompare.AT_MOST, 6000, GateLevel.BLOCKING,
-    '整轮维护不超过 6 秒'),
+    'ap_dynamic_the_maintenance_flow_must_not_exceed_6_seconds'),
   new GateRule('GT-03', 'execute.files.ms', GateCompare.AT_MOST, 2000, GateLevel.BLOCKING,
-    '文件清理不超过 2 秒'),
+    'ap_dynamic_file_cleanup_must_not_exceed_2_seconds'),
   new GateRule('GT-04', 'execute.cache.ms', GateCompare.AT_MOST, 1500, GateLevel.BLOCKING,
-    '缓存清理不超过 1.5 秒'),
+    'ap_dynamic_cache_cleanup_must_not_exceed_1_5_seconds'),
   new GateRule('GT-05', 'scan.files.ms', GateCompare.AT_MOST, 400, GateLevel.WARNING,
-    '文件扫描超出视为轻微退化'),
+    'ap_dynamic_excess_file_scanning_time_is_a_minor_regression'),
   new GateRule('GT-06', 'scan.cache.ms', GateCompare.AT_MOST, 300, GateLevel.WARNING,
-    '缓存扫描超出视为轻微退化'),
+    'ap_dynamic_excess_cache_scanning_time_is_a_minor_regression'),
   new GateRule('GT-07', 'validate.files.ms', GateCompare.AT_MOST, 150, GateLevel.WARNING,
-    '清单校验应保持轻量'),
+    'ap_dynamic_inventory_validation_should_remain_lightweight'),
   new GateRule('GT-08', 'prepare.budget.ms', GateCompare.AT_MOST, 100, GateLevel.WARNING,
-    '预算计算应为纯计算'),
+    'ap_dynamic_budget_calculation_should_be_pure_computation'),
   new GateRule('GT-09', 'verify.files.ms', GateCompare.AT_MOST, 200, GateLevel.WARNING,
-    '回读耗时应稳定'),
+    'ap_dynamic_verification_read_duration_should_be_stable'),
   new GateRule('GT-10', 'success.ratio', GateCompare.AT_LEAST, 95, GateLevel.BLOCKING,
-    '步骤成功率不低于 95%'),
+    'ap_dynamic_step_success_rate_must_be_at_least_95'),
   new GateRule('GT-11', 'retry.ratio', GateCompare.AT_MOST, 10, GateLevel.WARNING,
-    '重试比例不超过 10%'),
+    'ap_dynamic_retry_ratio_must_not_exceed_10'),
   new GateRule('GT-12', 'run.skipped.count', GateCompare.AT_MOST, 0, GateLevel.WARNING,
-    '出现跳过说明依赖未满足'),
+    'ap_dynamic_skipped_steps_indicate_unmet_dependencies_360'),
   new GateRule('GT-13', 'launch.cold.p90.ms', GateCompare.AT_MOST, 1200, GateLevel.BLOCKING,
-    '冷启动九成样本预算'),
+    'ap_dynamic_cold_launch_p90_budget_361'),
   new GateRule('GT-14', 'launch.warm.p90.ms', GateCompare.AT_MOST, 800, GateLevel.BLOCKING,
-    '温启动九成样本预算'),
+    'ap_dynamic_warm_launch_p90_budget_362'),
   new GateRule('GT-15', 'launch.hot.p90.ms', GateCompare.AT_MOST, 400, GateLevel.BLOCKING,
-    '热启动九成样本预算'),
+    'ap_dynamic_hot_launch_p90_budget_363'),
   new GateRule('GT-16', 'launch.firstFrame.p90.ms', GateCompare.AT_MOST, 900, GateLevel.WARNING,
-    '首帧预算超出视为提示'),
+    'ap_dynamic_exceeding_the_first_frame_budget_produces_a_warning'),
   new GateRule('GT-17', 'launch.interactive.p90.ms', GateCompare.AT_MOST, 1500,
-    GateLevel.WARNING, '可交互预算超出视为提示'),
+    GateLevel.WARNING, 'ap_dynamic_exceeding_the_interactivity_budget_produces_a_warning'),
   new GateRule('GT-18', 'load.bytes', GateCompare.AT_MOST, 268435456, GateLevel.WARNING,
-    '单次处理字节上限'),
+    'ap_dynamic_byte_limit_per_operation'),
   new GateRule('GT-19', 'execute.batch.count', GateCompare.AT_LEAST, 1, GateLevel.WARNING,
-    '至少应切出一批任务'),
+    'ap_dynamic_at_least_one_task_batch_is_expected'),
   new GateRule('GT-20', 'cleanup.ms', GateCompare.AT_MOST, 80, GateLevel.WARNING,
-    '摘要生成应保持轻量')
+    'ap_dynamic_summary_generation_should_remain_lightweight')
 ];
 
 /** 规则编号列表。 */
@@ -163,10 +172,11 @@ export class GateResult {
 
   text(): string {
     if (this.missing) {
-      return `${this.ruleId} ${this.metric} 缺少观测值`;
+      return message('ap_dynamic_lacks_an_observation', [this.ruleId, this.metric]);
     }
-    const state: string = this.passed ? '通过' : '未通过';
-    return `${this.ruleId} ${this.metric}=${this.observed} ${state}（${this.threshold}）`;
+    const state: string = this.passed ? message('ap_ui_pass') : message('ap_ui_not_passed');
+    return message('ap_dynamic_status_marker_251',
+      [this.ruleId, this.metric, this.observed, state, this.threshold]);
   }
 }
 
@@ -182,13 +192,13 @@ export enum GateVerdict {
 export function verdictLabel(verdict: GateVerdict): string {
   switch (verdict) {
     case GateVerdict.PASS:
-      return '允许合入';
+      return message('ap_dynamic_merge_allowed');
     case GateVerdict.WARN:
-      return '允许合入但有提示';
+      return message('ap_dynamic_merge_allowed_with_warnings');
     case GateVerdict.NOT_EVALUABLE:
-      return '不可评估（不能据此允许合入）';
+      return message('ap_dynamic_not_evaluable_does_not_authorize_merging');
     default:
-      return '禁止合入';
+      return message('ap_dynamic_merge_blocked');
   }
 }
 
@@ -232,8 +242,8 @@ export class GateReport {
 
   /** 逐行文本。 */
   text(): string {
-    const lines: string[] = [`门禁：${verdictLabel(this.verdict())}｜` +
-      `通过 ${this.passed()}，未通过 ${this.failed()}，缺观测 ${this.missing()}`];
+    const lines: string[] = [message('ap_dynamic_gate_passed_not_passed_missing',
+      [verdictLabel(this.verdict()), this.passed(), this.failed(), this.missing()])];
     this.results.forEach((item: GateResult): void => {
       lines.push(item.text());
     });
@@ -322,7 +332,8 @@ export class GateAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '门禁规则表自洽' : this.findings.join('；');
+    return this.ok ? message('ap_dynamic_gate_rule_catalog_is_consistent') :
+      this.findings.join(message('ap_series_reason_separator'));
   }
 }
 
@@ -333,24 +344,24 @@ export function auditGate(): GateAudit {
   GATE_RULES.forEach((rule: GateRule, index: number): void => {
     const expected: string = `GT-${(index + 1).toString().padStart(2, '0')}`;
     if (rule.ruleId !== expected) {
-      audit.findings.push(`编号不连续：期望 ${expected}，实际 ${rule.ruleId}`);
+      audit.findings.push(message('ap_dynamic_nonconsecutive_id_expected_actual', [expected, rule.ruleId]));
     }
     if (rule.metric.length === 0) {
-      audit.findings.push(`缺少指标：${rule.ruleId}`);
+      audit.findings.push(message('ap_dynamic_missing_metric', [rule.ruleId]));
     }
     if (metrics.indexOf(rule.metric) >= 0) {
-      audit.findings.push(`指标重复：${rule.ruleId}`);
+      audit.findings.push(message('ap_dynamic_duplicate_metric', [rule.ruleId]));
     }
     metrics.push(rule.metric);
     if (rule.threshold < 0) {
-      audit.findings.push(`阈值为负：${rule.ruleId}`);
+      audit.findings.push(message('ap_dynamic_negative_threshold', [rule.ruleId]));
     }
     if (rule.description.length === 0) {
-      audit.findings.push(`缺少说明：${rule.ruleId}`);
+      audit.findings.push(message('ap_dynamic_missing_description', [rule.ruleId]));
     }
   });
   if (rulesOf(GateLevel.BLOCKING).length === 0) {
-    audit.findings.push('缺少阻断项');
+    audit.findings.push(message('ap_dynamic_missing_blocking_rule'));
   }
   audit.ok = audit.findings.length === 0;
   return audit;
@@ -365,5 +376,5 @@ export function ruleLines(): string[] {
 export function levelLines(): string[] {
   const levels: GateLevel[] = [GateLevel.BLOCKING, GateLevel.WARNING];
   return levels.map((level: GateLevel): string =>
-    `${levelLabel(level)}：${rulesOf(level).length} 条`);
+    message('ap_dynamic_entries', [levelLabel(level), rulesOf(level).length]));
 }

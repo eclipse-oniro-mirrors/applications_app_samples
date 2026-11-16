@@ -15,7 +15,7 @@
 
 import { describe } from '@ohos/hypium';
 import { caseName, expect, it } from '../support/TestCase';
-import { BusinessStore } from '../../../main/ets/business/BusinessStore';
+import { BusinessStore, TodoFilter } from '../../../main/ets/business/BusinessStore';
 import { CaseScope, getTestContext, runCase } from '../support/CaseScope';
 import { FixedBusinessClock } from '../support/BusinessFixture';
 import { ControlledBusinessStorage, loadBusiness, waitBusiness } from '../support/CoverageFixture';
@@ -122,14 +122,15 @@ export default function shortcutRecoveryWaveTwoTests(): void {
         const clock: FixedBusinessClock = new FixedBusinessClock();
         const store: BusinessStore = await loadBusiness(scope, io, clock.now);
         store.selectTodoDate('2026-11-01');
-        store.setTodoFilter('已完成');
+        store.setTodoFilter(TodoFilter.DONE);
         store.setFavoritesOnly(true);
         store.beginEditNote('a');
         store.dispose();
         store.initialize(getTestContext());
         await waitBusiness(scope, store);
         expect(store.snapshot().todoFollowToday, caseName('ShortcutRecoveryWaveTwo', '0004'), 'ShortcutRecoveryWaveTwo.test.ets:A0021').assertTrue();
-        expect(store.snapshot().todoFilter, caseName('ShortcutRecoveryWaveTwo', '0004'), 'ShortcutRecoveryWaveTwo.test.ets:A0022').assertEqual('全部');
+        expect(store.snapshot().todoFilter, caseName('ShortcutRecoveryWaveTwo', '0004'),
+          'ShortcutRecoveryWaveTwo.test.ets:A0022').assertEqual('todo_all');
         expect(store.snapshot().favoritesOnly, caseName('ShortcutRecoveryWaveTwo', '0004'), 'ShortcutRecoveryWaveTwo.test.ets:A0023').assertFalse();
         expect(store.snapshot().editBaseRevision, caseName('ShortcutRecoveryWaveTwo', '0004'), 'ShortcutRecoveryWaveTwo.test.ets:A0024').assertEqual('');
         const oldId: string = store.snapshot().todos[0].id;

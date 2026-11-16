@@ -135,7 +135,7 @@ export class StageTimingRow {
 
 /** 一个条件组的汇总行。 */
 export class ConditionGroup {
-  /** 稳定标签（条件组1、条件组2…），排序后仍跟随本组。 */
+  /** Stable group code; preserved when sorting or switching locale. */
   public label: string = '';
   public fingerprint: string = '';
   public fields: ConditionFields = new ConditionFields();
@@ -166,9 +166,9 @@ export class ConditionGroup {
     this.mode = mode;
   }
 
-  /** Translate the display label without changing the historical sorting key. */
+  /** Resolve the display label without changing the stable group code. */
   labelText(): string {
-    const match: RegExpMatchArray | null = this.label.match(/^条件组([0-9]+)$/);
+    const match: RegExpMatchArray | null = this.label.match(/^condition-group-([0-9]+)$/);
     return match === null ? localize(this.label) : message('report_group_label', [match[1]]);
   }
 
@@ -337,7 +337,7 @@ export class ReportTable {
     keys.forEach((key: string, index: number): void => {
       const same: ExperimentRecord[] = records.filter((record: ExperimentRecord): boolean =>
         conditionGroupKey(record) === key);
-      table.rows.push(groupOf(same, `条件组${index + 1}`, source));
+      table.rows.push(groupOf(same, `condition-group-${index + 1}`, source));
     });
     return table;
   }

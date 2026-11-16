@@ -67,12 +67,21 @@ export default function seriesStateFeatureTests(): void {
       try {
         await service.whenSeriesFinished(start.ownerId);
         const external = service.seriesRecords(start.ownerId)[0];
-        external.stages[0].status = '失败'; external.beforeBytes = 900; external.missing.push('outside-only');
+        external.stages[0].status = 'failed';
+        external.beforeBytes = 900;
+        external.missing.push('outside-only');
         const actual = service.seriesRecords(start.ownerId)[0];
         expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:70 assertTrue actual', actual.complete())).assertTrue();
         expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:71 assertEqual actual', actual.beforeBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:71 assertEqual expected', 3));
         expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:72 assertEqual actual', actual.missing.indexOf('outside-only'))).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:72 assertEqual expected', -1));
-        expect(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:73 assertEqual actual', service.ledgerRecords()[0].stages[0].status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesStateFeature_0002 SeriesStateFeature.test:73 assertEqual expected', '成功'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceSeriesStateFeature_0002 ' +
+            'SeriesStateFeature.test:73 assertEqual actual',
+          service.ledgerRecords()[0].stages[0].status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceSeriesStateFeature_0002 ' +
+              'SeriesStateFeature.test:73 assertEqual expected',
+            'success'));
       } finally { await finishSeriesFixture(service, platform, start.ownerId); }
     });
 

@@ -41,7 +41,7 @@ function stagesOf(): ExperimentStage[] {
   const values: number[] = [10, 20, 30, 40, 50, 60];
   const stages: ExperimentStage[] = [];
   FLOW_KEYS.forEach((key: string, index: number): void => {
-    stages.push(new ExperimentStage(key, `阶段${index}`, '成功', values[index], ''));
+    stages.push(new ExperimentStage(key, `阶段${index}`, 'success', values[index], ''));
   });
   return stages;
 }
@@ -49,7 +49,7 @@ function stagesOf(): ExperimentStage[] {
 function skippedStages(): ExperimentStage[] {
   const stages: ExperimentStage[] = [];
   FLOW_KEYS.forEach((key: string): void => {
-    stages.push(new ExperimentStage(key, key, '跳过', 0, ''));
+    stages.push(new ExperimentStage(key, key, 'skipped', 0, ''));
   });
   return stages;
 }
@@ -68,7 +68,7 @@ function recordOf(id: string, workloadId: string = 'w1', device: string = ENV): 
   record.afterBytes = 1024;
   record.digestBefore = DIGEST;
   record.digestAfter = DIGEST;
-  record.integrity = '一致';
+  record.integrity = 'consistent';
   record.condition = JSON.stringify([device, '1.0.0', true]);
   return record;
 }
@@ -555,7 +555,8 @@ export default function reportCasesTest(): void {
      */
 
     it('testReportTableCases0004', 0, (): void => {
-      const group: ConditionGroup = new ConditionGroup('条件组1', 'cf-1', 'desc', 'w1', '负载甲', 'files');
+      const group: ConditionGroup = new ConditionGroup('condition-group-1', 'cf-1', 'desc',
+        'w1', '负载甲', 'files');
       group.samples = 5;
       group.validSamples = 4;
       group.failed = 1;
@@ -566,7 +567,7 @@ export default function reportCasesTest(): void {
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:548 assertEqual actual', group.rowText()))
         .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:548 assertEqual expected', '条件组1｜负载甲（w1）｜文件回收｜样本 5（有效 4）｜失败/缺失 1｜P50 210 ms｜' +
           'P90 300 ms｜均值 215 ms｜不可比：缺少设备型号'));
-      const bare: ConditionGroup = new ConditionGroup('条件组2', '', '', 'w2', '', '');
+      const bare: ConditionGroup = new ConditionGroup('condition-group-2', '', '', 'w2', '', '');
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:552 assertEqual actual', bare.modeLabel())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:552 assertEqual expected', '模式未记录'));
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0004 ReportCases.test:553 assertTrue actual', bare.rowText().indexOf('条件组2｜w2｜模式未记录') === 0)).assertTrue();
     });
@@ -593,23 +594,46 @@ export default function reportCasesTest(): void {
     /**
      * @tc.number    SUB_PERFORMANCE_REPORTTABLECASES_0600
      * @tc.name      testReportTableCases0006
-     * @tc.desc      Verify build groups by condition key
+     * @tc.desc      Verify condition grouping and locale-independent group codes
      * @tc.size      SmallTest
      * @tc.type      Function
      * @tc.level     Level 2
      */
 
     it('testReportTableCases0006', 0, (): void => {
-      const table: ReportTable = ReportTable.build([
+      const table: ReportTable = withTestMessages('en', (): ReportTable => ReportTable.build([
         recordOf('r1'), recordOf('r2'),
         recordOf('r3', 'w1', 'Pixel 9 · SampleOS 14')
-      ]);
+      ]));
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:589 assertEqual actual', table.size())).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:589 assertEqual expected', 2));
-      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:590 assertEqual actual', table.rows[0].label)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:590 assertEqual expected', '条件组1'));
-      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:591 assertEqual actual', table.rows[1].label)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:591 assertEqual expected', '条件组2'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ' +
+        'ReportCases.test:590 assertEqual actual', table.rows[0].label))
+        .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ' +
+          'ReportCases.test:590 assertEqual expected', 'condition-group-1'));
+      expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ' +
+        'ReportCases.test:591 assertEqual actual', table.rows[1].label))
+        .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ' +
+          'ReportCases.test:591 assertEqual expected', 'condition-group-2'));
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:592 assertEqual actual', table.rows[0].samples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:592 assertEqual expected', 2));
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:593 assertEqual actual', table.rows[0].validSamples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:593 assertEqual expected', 2));
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:594 assertEqual actual', table.rows[1].samples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 ReportCases.test:594 assertEqual expected', 1));
+      const languages: string[] = ['en', 'zh_CN', 'en'];
+      languages.forEach((language: string): void => {
+        withTestMessages(language, (): void => {
+          const expected: string = language === 'zh_CN' ? '条件组1' : 'Condition group 1';
+          expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 localizedLabel',
+            table.rows[0].labelText()))
+            .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 expectedLabel', expected));
+          expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 localizedRow',
+            table.rows[0].rowText().startsWith(expected + '｜'))).assertTrue();
+          expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 localizedTable',
+            table.text().split('\n')[1].startsWith(expected + '\t'))).assertTrue();
+          expect(traceParameter('com.samples.appperformance_ReportTableCases_0006 codeAfterSwitch',
+            table.rows[0].label))
+            .assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0006 expectedCode',
+              'condition-group-1'));
+        });
+      });
     });
 
     /**
@@ -645,7 +669,7 @@ export default function reportCasesTest(): void {
     it('testReportTableCases0008', 0, (): void => {
       const record: ExperimentRecord = recordOf('r1');
       record.stages = skippedStages();
-      record.integrity = '不一致';
+      record.integrity = 'inconsistent';
       const table: ReportTable = ReportTable.build([record]);
       const group: ConditionGroup = table.rows[0];
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:633 assertEqual actual', group.validSamples)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0008 ReportCases.test:633 assertEqual expected', 0));
@@ -712,7 +736,7 @@ export default function reportCasesTest(): void {
     it('testReportTableCases0011', 0, (): void => {
       const broken: ExperimentRecord = recordOf('r9', 'w9');
       broken.stages = skippedStages();
-      broken.integrity = '不一致';
+      broken.integrity = 'inconsistent';
       const table: ReportTable = ReportTable.build([broken, recordOf('r1')]);
       const sorted: ReportTable = table.sortBy(ReportSort.P50, false);
       expect(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:700 assertEqual actual', sorted.rows.length)).assertEqual(traceParameter('com.samples.appperformance_ReportTableCases_0011 ReportCases.test:700 assertEqual expected', 2));

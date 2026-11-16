@@ -35,7 +35,7 @@ import { LaunchSample } from '../../../main/ets/core/Types';
 
 function outcomes(items: string[]): StepOutcome[] {
   return items.map((key: string): StepOutcome => {
-    const outcome: StepOutcome = new StepOutcome(key, '成功');
+    const outcome: StepOutcome = new StepOutcome(key, 'success');
     outcome.elapsed = 10;
     outcome.detail = '本地预演';
     return outcome;
@@ -134,7 +134,14 @@ export default function planMatrixTest(): void {
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:133 assertTrue actual', run.headline().indexOf('成功 12 步') > 0)).assertTrue();
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:134 assertEqual actual', run.retryables().length)).assertEqual(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:134 assertEqual expected', 0));
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:135 assertEqual actual', run.text().split('\n').length)).assertEqual(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:135 assertEqual expected', 13));
-      expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:136 assertEqual actual', run.outcomeOf('scan-files')?.status)).assertEqual(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:136 assertEqual expected', '成功'));
+      expect(traceParameter(
+        'com.samples.appperformance_MaintenancePlanMatrix_0003 ' +
+          'PlanMatrix.test:136 assertEqual actual',
+        run.outcomeOf('scan-files')?.status))
+        .assertEqual(traceParameter(
+          'com.samples.appperformance_MaintenancePlanMatrix_0003 ' +
+            'PlanMatrix.test:136 assertEqual expected',
+          'success'));
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:137 assertEqual actual', run.outcomeOf('missing'))).assertEqual(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0003 PlanMatrix.test:137 assertEqual expected', undefined));
     });
 
@@ -154,7 +161,7 @@ export default function planMatrixTest(): void {
         item.key === 'execute-files');
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0004 PlanMatrix.test:154 assertTrue actual', execute !== undefined)).assertTrue();
       if (execute !== undefined) {
-        execute.status = '失败';
+        execute.status = 'failed';
       }
       const run: PlanRun = evaluateRun(order, results);
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0004 PlanMatrix.test:159 assertEqual actual', run.verdict())).assertEqual(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0004 PlanMatrix.test:159 assertEqual expected', PlanVerdict.FAILED));
@@ -167,7 +174,7 @@ export default function planMatrixTest(): void {
         item.key === 'scan-files');
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0004 PlanMatrix.test:167 assertTrue actual', scan !== undefined)).assertTrue();
       if (scan !== undefined) {
-        scan.status = '失败';
+        scan.status = 'failed';
       }
       const retryRun: PlanRun = evaluateRun(order, retrySource);
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0004 PlanMatrix.test:172 assertEqual actual', retryRun.retryables().length)).assertEqual(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0004 PlanMatrix.test:172 assertEqual expected', 1));
@@ -194,7 +201,7 @@ export default function planMatrixTest(): void {
       const empty: PlanRun = evaluateRun([], []);
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0005 PlanMatrix.test:194 assertEqual actual', empty.verdict())).assertEqual(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0005 PlanMatrix.test:194 assertEqual expected', PlanVerdict.BLOCKED));
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0005 PlanMatrix.test:195 assertEqual actual', verdictLabel(empty.verdict()))).assertEqual(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0005 PlanMatrix.test:195 assertEqual expected', '被阻塞'));
-      const pending: StepOutcome = new StepOutcome('scan-files', '待执行');
+      const pending: StepOutcome = new StepOutcome('scan-files', 'pending');
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0005 PlanMatrix.test:197 assertTrue actual', pending.pending())).assertTrue();
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0005 PlanMatrix.test:198 assertFalse actual', pending.succeeded())).assertFalse();
       expect(traceParameter('com.samples.appperformance_MaintenancePlanMatrix_0005 PlanMatrix.test:199 assertTrue actual', pending.text().indexOf('scan-files') === 0)).assertTrue();

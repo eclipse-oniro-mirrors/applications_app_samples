@@ -16,6 +16,7 @@
 import { traceParameter } from '../support/TestLog';
 import { describe, expect } from '@ohos/hypium';
 import { loggedIt as it } from '../support/TestLog';
+import { ExperimentRecord } from '../../../main/ets/core/ExperimentLedger';
 import { ReportTable } from '../../../main/ets/core/report/ReportTable';
 import {
   ReportFormat, ReportMeta, buildCsv, buildMarkdown, checkReport, exportReport
@@ -34,7 +35,9 @@ export default function performanceExportWaveTwoTests(): void {
      */
     it('testPerformanceExportWaveTwo0001', 0, (): void => {
       const ok = waveRecord('ok');
-      const bad = waveRecord('bad'); bad.integrity = '不一致'; bad.stages[4].status = '失败';
+      const bad: ExperimentRecord = waveRecord('bad');
+      bad.integrity = 'inconsistent';
+      bad.stages[4].status = 'failed';
       bad.condition = '["fixture-board · next-os","1.0.fixture",true]';
       bad.stages[4].detail = 'PRIVATE-BUSINESS-BODY';
       const text = buildCsv(ReportTable.build([ok, bad]), new ReportMeta('多组', 1700000001000));

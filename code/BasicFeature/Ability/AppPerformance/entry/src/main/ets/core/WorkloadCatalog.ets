@@ -22,6 +22,7 @@
  */
 
 import { util } from '@kit.ArkTS';
+import { message } from './TextMessages';
 
 /** 负载类型。 */
 export enum WorkloadKind {
@@ -35,13 +36,13 @@ export enum WorkloadKind {
 export function workloadKindLabel(kind: WorkloadKind): string {
   switch (kind) {
     case WorkloadKind.TEXT:
-      return '文本';
+      return message('ap_dynamic_text');
     case WorkloadKind.NOTE_LIST:
-      return '笔记列表';
+      return message('ap_ui_note_list');
     case WorkloadKind.IMAGE_INDEX:
-      return '图片索引';
+      return message('ap_ui_image_index');
     default:
-      return '表单草稿';
+      return message('ap_ui_form_draft');
   }
 }
 
@@ -54,19 +55,37 @@ export class WorkloadCheck {
   public entryCount: number = -1;
 
   text(): string {
-    return `${this.ok ? '✓' : '✗'} ${this.headline}${this.entryCount >= 0 ? `（${this.entryCount} 条）` : ''}`;
+    const detail: string = this.entryCount >= 0 ? message('report_workload_named',
+      [this.headline, message('ap_dynamic_entries_321', [this.entryCount])]) : this.headline;
+    return message(this.ok ? 'ap_dynamic_status_marker_322' : 'ap_dynamic_status_marker_323', [detail]);
   }
 }
 
 /** 一个负载定义。 */
 export class WorkloadSpec {
   public id: string = '';
-  public label: string = '';
+  private labelKey: string = '';
   public kind: WorkloadKind = WorkloadKind.TEXT;
   public rawFile: string = '';
-  public description: string = '';
+  private descriptionKey: string = '';
   /** 低于该字节数视为样本缺失。 */
   public minimumBytes: number = 1;
+
+  public get label(): string {
+    return message(this.labelKey);
+  }
+
+  public set label(value: string) {
+    this.labelKey = value;
+  }
+
+  public get description(): string {
+    return message(this.descriptionKey);
+  }
+
+  public set description(value: string) {
+    this.descriptionKey = value;
+  }
 
   constructor(id: string = '', label: string = '', kind: WorkloadKind = WorkloadKind.TEXT,
     rawFile: string = '', description: string = '', minimumBytes: number = 1) {
@@ -152,22 +171,22 @@ export function parseTableRows(text: string): string[][] {
 export function verifyText(bytes: Uint8Array, spec: WorkloadSpec): WorkloadCheck {
   const check: WorkloadCheck = new WorkloadCheck();
   if (bytes.length < spec.minimumBytes) {
-    check.headline = `样本不足 ${spec.minimumBytes} 字节`;
-    check.facts.push(`实际 ${bytes.length} 字节`);
+    check.headline = message('ap_dynamic_sample_smaller_than_bytes', [spec.minimumBytes]);
+    check.facts.push(message('ap_dynamic_actual_bytes', [bytes.length]));
     return check;
   }
   const text: string = decodeText(bytes);
   if (text.length === 0) {
-    check.headline = '文本解码失败';
+    check.headline = message('ap_dynamic_text_decoding_failed');
     return check;
   }
   const lines: number = nonEmptyLines(text);
   check.entryCount = lines;
   check.ok = lines > 0;
-  check.headline = check.ok ? '文本内容可读' : '没有任何有效行';
-  check.facts.push(`${bytes.length} 字节`);
-  check.facts.push(`${lines} 行有效内容`);
-  check.facts.push(`首行：${firstLine(text)}`);
+  check.headline = check.ok ? message('ap_dynamic_text_is_readable') : message('ap_dynamic_no_valid_lines');
+  check.facts.push(message('ap_dynamic_bytes_93', [bytes.length]));
+  check.facts.push(message('ap_dynamic_nonempty_lines', [lines]));
+  check.facts.push(message('ap_dynamic_first_line', [firstLine(text)]));
   return check;
 }
 
@@ -180,14 +199,14 @@ export function firstLine(text: string): string {
       return trimmed.slice(0, 40);
     }
   }
-  return '（空）';
+  return message('ap_dynamic_empty');
 }
 
 /** 校验笔记列表：每行 `标题|正文|更新时间`，条目数与字段数都要对得上。 */
 export function verifyNoteList(bytes: Uint8Array, spec: WorkloadSpec): WorkloadCheck {
   const check: WorkloadCheck = new WorkloadCheck();
   if (bytes.length < spec.minimumBytes) {
-    check.headline = '笔记样本不足';
+    check.headline = message('ap_dynamic_insufficient_note_sample');
     return check;
   }
   const rows: string[][] = parseTableRows(decodeText(bytes));
@@ -204,11 +223,12 @@ export function verifyNoteList(bytes: Uint8Array, spec: WorkloadSpec): WorkloadC
   });
   check.entryCount = rows.length;
   check.ok = rows.length > 0 && malformed === 0 && emptyBody === 0;
-  check.headline = check.ok ? '笔记列表结构完整' : `笔记列表有问题（${malformed} 行字段异常，${emptyBody} 行内容为空）`;
-  check.facts.push(`${rows.length} 条笔记`);
-  check.facts.push(`${bytes.length} 字节`);
+  check.headline = check.ok ? message('ap_dynamic_note_list_structure_is_complete') :
+    message('ap_dynamic_note_list_issues_malformed_rows_empty_rows', [malformed, emptyBody]);
+  check.facts.push(message('ap_dynamic_notes', [rows.length]));
+  check.facts.push(message('ap_dynamic_bytes_93', [bytes.length]));
   if (rows.length > 0) {
-    check.facts.push(`首条：${rows[0][0].slice(0, 24)}`);
+    check.facts.push(message('ap_dynamic_first_entry', [rows[0][0].slice(0, 24)]));
   }
   return check;
 }
@@ -234,9 +254,10 @@ export function verifyImageIndex(bytes: Uint8Array, spec: WorkloadSpec): Workloa
   });
   check.entryCount = rows.length;
   check.ok = rows.length > 0 && badSize === 0;
-  check.headline = check.ok ? '图片索引可解析' : `${badSize} 条索引尺寸非法`;
-  check.facts.push(`${rows.length} 条索引`);
-  check.facts.push(`合计 ${totalPixels} 像素`);
+  check.headline = check.ok ? message('ap_dynamic_image_index_is_parseable') :
+    message('ap_dynamic_index_entries_have_invalid_dimensions', [badSize]);
+  check.facts.push(message('ap_dynamic_index_entries', [rows.length]));
+  check.facts.push(message('ap_dynamic_pixels_in_total', [totalPixels]));
   return check;
 }
 
@@ -254,10 +275,11 @@ export function verifyFormDraft(bytes: Uint8Array, spec: WorkloadSpec): Workload
   const missing: string[] = required.filter((key: string): boolean => found.indexOf(key) < 0);
   check.entryCount = found.length;
   check.ok = missing.length === 0;
-  check.headline = check.ok ? '表单草稿字段齐全' : `缺少字段：${missing.join('、')}`;
-  check.facts.push(`已填 ${found.length}/${required.length} 个必填字段`);
+  check.headline = check.ok ? message('ap_dynamic_form_draft_fields_are_complete') :
+    message('ap_dynamic_missing_fields', [missing.join(message('report_field_separator'))]);
+  check.facts.push(message('ap_dynamic_required_fields_filled', [found.length, required.length]));
   if (found.length > 0) {
-    check.facts.push(`当前步骤：${valueOf(pairs, 'step')}`);
+    check.facts.push(message('ap_dynamic_current_step', [valueOf(pairs, 'step')]));
   }
   return check;
 }
@@ -284,14 +306,14 @@ export function verifyWorkload(spec: WorkloadSpec, bytes: Uint8Array): WorkloadC
 
 /** 负载目录。 */
 export const WORKLOADS: WorkloadSpec[] = [
-  new WorkloadSpec('W-TEXT', '示例文本', WorkloadKind.TEXT, 'sample.txt',
-    '最基础的单文件负载，用于对照既有流程。', 1),
-  new WorkloadSpec('W-NOTES', '笔记列表', WorkloadKind.NOTE_LIST, 'workloads/notes_list.txt',
-    '多行业务数据，覆盖字段解析与空内容判定。', 32),
-  new WorkloadSpec('W-IMAGES', '图片索引', WorkloadKind.IMAGE_INDEX, 'workloads/image_index.txt',
-    '尺寸字段参与校验，能发现截断与非法数值。', 32),
-  new WorkloadSpec('W-FORM', '表单草稿', WorkloadKind.FORM_DRAFT, 'workloads/form_draft.txt',
-    '跨字段完整性，恢复后需要重新校验。', 32)
+  new WorkloadSpec('W-TEXT', 'ap_ui_sample_text', WorkloadKind.TEXT, 'sample.txt',
+    'ap_ui_a_basic_single_file_workload_used_as_a_control_for_the_existing_flow', 1),
+  new WorkloadSpec('W-NOTES', 'ap_ui_note_list', WorkloadKind.NOTE_LIST, 'workloads/notes_list.txt',
+    'ap_ui_multi_line_business_data_covering_field_parsing_and_empty_content_checks', 32),
+  new WorkloadSpec('W-IMAGES', 'ap_ui_image_index', WorkloadKind.IMAGE_INDEX, 'workloads/image_index.txt',
+    'ap_ui_dimension_checks_detect_truncation_and_invalid_values', 32),
+  new WorkloadSpec('W-FORM', 'ap_ui_form_draft', WorkloadKind.FORM_DRAFT, 'workloads/form_draft.txt',
+    'ap_ui_cross_field_integrity_must_be_rechecked_after_restoration', 32)
 ];
 
 /** 按编号查找负载。 */
@@ -310,7 +332,8 @@ export class WorkloadAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '负载目录自洽' : this.findings.join('；');
+    return this.ok ? message('ap_dynamic_workload_catalog_is_consistent') :
+      this.findings.join(message('ap_series_reason_separator'));
   }
 }
 
@@ -320,14 +343,14 @@ export function auditWorkloads(): WorkloadAudit {
   const seen: string[] = [];
   WORKLOADS.forEach((spec: WorkloadSpec): void => {
     if (seen.indexOf(spec.id) >= 0) {
-      audit.findings.push(`负载编号重复：${spec.id}`);
+      audit.findings.push(message('ap_dynamic_duplicate_workload_id', [spec.id]));
     }
     seen.push(spec.id);
     if (spec.rawFile.length === 0) {
-      audit.findings.push(`缺少样本路径：${spec.id}`);
+      audit.findings.push(message('ap_dynamic_missing_sample_path', [spec.id]));
     }
     if (spec.minimumBytes < 0) {
-      audit.findings.push(`字节阈值非法：${spec.id}`);
+      audit.findings.push(message('ap_dynamic_invalid_byte_threshold', [spec.id]));
     }
   });
   audit.ok = audit.findings.length === 0;

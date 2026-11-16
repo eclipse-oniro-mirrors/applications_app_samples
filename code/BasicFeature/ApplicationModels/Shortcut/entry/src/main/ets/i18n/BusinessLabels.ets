@@ -17,6 +17,13 @@ import { uiText } from './Strings';
 
 // Stable enum/filter values are not translated in storage or comparisons. Only display labels change.
 const LABEL_KEYS: Record<string, string> = {
+  'todo_all': 'shortcut_text_0461',
+  'todo_open': 'shortcut_text_0581',
+  'todo_done': 'shortcut_text_0679',
+  'collection_all': 'shortcut_text_0461',
+  'collection_productivity': 'shortcut_text_0615',
+  'collection_work': 'shortcut_text_0248',
+  'collection_reading': 'shortcut_text_0716',
   '高': 'shortcut_text_0244',
   '普通': 'shortcut_text_0429',
   '低': 'shortcut_text_0215',
@@ -68,4 +75,15 @@ const LABEL_KEYS: Record<string, string> = {
 export function businessLabel(value: string): string {
   const key: string = LABEL_KEYS[value];
   return key === undefined ? value : uiText(key);
+}
+
+export function repeatKindLabel(value: string): string {
+  switch (value) {
+    case 'none': return uiText('shortcut_text_0134');
+    case 'daily': return uiText('shortcut_text_0398');
+    case 'weekday': return uiText('shortcut_text_0249');
+    case 'weekly': return uiText('shortcut_text_0400');
+    case 'monthly': return uiText('shortcut_text_0399');
+    default: return value;
+  }
 }

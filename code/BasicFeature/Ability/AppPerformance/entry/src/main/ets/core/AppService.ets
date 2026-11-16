@@ -15,9 +15,10 @@
 
 import { common } from '@kit.AbilityKit';
 import { util } from '@kit.ArkTS';
-import { localize, setTextContext } from './TextMessages';
+import { localize, message, setTextContext } from './TextMessages';
 import { AppState, CallRecord, LaunchSample, MaintenanceFlow, MaintenanceStep, EvictionResult,
-  emptyAppState } from './Types';
+  emptyAppState, SnapFlag, ContentLoadGroup, StepStatus, FlowStatus, ConfigStatus,
+  IntegrityStatus, CallStatus, statusText } from './Types';
 import { WorkloadSpec, workloadOf, verifyWorkload } from './WorkloadCatalog';
 import { ExecutorClock, SafeExecutor } from './SafeExecutor';
 import { AppPlatform, AppStateStore, BundleSnapshot, NativeAppPlatform } from './AppPlatform';
@@ -81,9 +82,10 @@ function errorCode(error: CallError): number {
 
 function errorMessage(error: CallError): string {
   if (error === null || error === undefined) {
-    return '调用失败';
+    return message('ap_ui_call_failed');
   }
-  return typeof error.message === 'string' && error.message.length > 0 ? shortText(error.message) : '调用失败';
+  return typeof error.message === 'string' && error.message.length > 0 ? shortText(error.message) :
+    message('ap_ui_call_failed');
 }
 
 function cloneCall(value: CallRecord): CallRecord {
@@ -139,7 +141,8 @@ function validLaunch(value: LaunchSample): boolean {
     return false;
   }
   return typeof value.id === 'string' && value.id.length > 0 && value.id.length <= 160 &&
-    ['启用', '禁用', '初始'].indexOf(value.group) >= 0 && nonNegative(value.at) &&
+    (value.group === ContentLoadGroup.ENABLED || value.group === ContentLoadGroup.DISABLED ||
+      value.group === ContentLoadGroup.INITIAL) && nonNegative(value.at) &&
     nonNegative(value.contentMs) && typeof value.device === 'string' && value.device.length <= 1024 &&
     typeof value.appVersion === 'string' && value.appVersion.length <= 256;
 }
@@ -201,8 +204,8 @@ export class AppService {
     this.startupMono = platform.now();
     this.startupWall = platform.wallNow();
     this.restore();
-    this.startupGroup = this.state.snapFlag === '启用' ? '启用' :
-      (this.state.snapFlag === '禁用' ? '禁用' : '初始');
+    this.startupGroup = this.state.snapFlag === SnapFlag.ENABLED ? ContentLoadGroup.ENABLED :
+      (this.state.snapFlag === SnapFlag.DISABLED ? ContentLoadGroup.DISABLED : ContentLoadGroup.INITIAL);
     this.launchId = platform.randomId();
     this.environment = platform.environment();
     this.state.deviceText = this.environment;
@@ -226,10 +229,9 @@ export class AppService {
       foreground: this.state.foreground,
       files: this.state.files.slice(),
       modules: this.state.modules.slice(),
-      // Translate descriptive snapshot fields only; canonical state/persistence stays unchanged.
-      targetMessage: localize(this.state.targetMessage),
+      targetMessage: this.state.targetMessage,
       configText: this.state.configText,
-      configStatus: localize(this.state.configStatus),
+      configStatus: this.state.configStatus,
       configTargets: this.state.configTargets.slice(),
       maintenance: this.state.maintenance === undefined ? undefined : this.state.maintenance.clone(),
       maintenanceBusy: this.state.maintenanceBusy,
@@ -244,8 +246,8 @@ export class AppService {
       rebuildWaitSeconds: this.rebuildWaitSeconds(),
       logs: this.state.logs.map((value: CallRecord): CallRecord => cloneCall(value)),
       launches: this.state.launches.map((value: LaunchSample): LaunchSample => cloneLaunch(value)),
-      storageMessage: localize(this.state.storageMessage),
-      notice: localize(this.state.notice)
+      storageMessage: this.state.storageMessage,
+      notice: this.state.notice
     };
   }
 
@@ -327,15 +329,19 @@ export class AppService {
     const state = this.history.find((item: ExperimentSeriesState): boolean => item.ownerId === ownerId);
     if (state === undefined || [ReportFormat.MARKDOWN, ReportFormat.CSV].indexOf(format) < 0) {
       const failure = new ExportOutcome(); failure.format = format;
-      failure.check.findings.push(state === undefined ? '所选系列不存在或元信息已淘汰' : '报告格式无效');
+      failure.check.findings.push(state === undefined ?
+        message('ap_dynamic_the_selected_series_is_absent_or_its_metadata_was_evicted') :
+        message('ap_dynamic_invalid_report_format'));
       return failure;
     }
     const records = this.recordsForSeries(state);
     const missing: number = state.recordIds.length - records.length;
-    return exportReport(records, new ReportMeta('所选系列历史报告', this.platform.wallNow(),
-      `仅所选系列；负载 ${state.workloadId}；模式 ${state.mode}；计划 ${state.repetitions} 次`,
-      `状态 ${state.phase}；实际开始 ${state.startedCount}；已结束 ${state.recordIds.length}；` +
-      `可用 ${records.length}；缺失 ${missing}；${state.message}`), format);
+    return exportReport(records, new ReportMeta(message('ap_dynamic_selected_series_history_report'),
+      this.platform.wallNow(), message('ap_dynamic_selected_series_only_workload_mode_planned_runs',
+        [state.workloadId, localize(state.mode), state.repetitions]),
+      message('ap_dynamic_state_started_finished_available_missing',
+        [localize(state.phase), state.startedCount, state.recordIds.length, records.length, missing, state.message])),
+      format);
   }
 
   /** Historical selection feedback belongs to its controller, never to the current experiment notice. */
@@ -347,18 +353,29 @@ export class AppService {
 
   startExperimentSeries(workloadId: string, mode: string,
     repetitions: number = SERIES_DEFAULT_REPETITIONS): SeriesStartResult {
-    if (this.disposed) { return new SeriesStartResult(false, '', '服务已释放'); }
+    if (this.disposed) {
+      return new SeriesStartResult(false, '', message('ap_dynamic_the_service_has_been_disposed'));
+    }
     if (workloadOf(workloadId) === undefined || ['control', 'files', 'modules'].indexOf(mode) < 0 ||
-      !validSeriesCount(repetitions)) { return new SeriesStartResult(false, '', '负载、模式或重复次数无效（允许1–10次）'); }
-    if (this.isExperimentBusy()) { return new SeriesStartResult(false, '', '已有实验或系统请求在途'); }
-    if (this.store === undefined) { return new SeriesStartResult(false, '', '存储不可用，未开始系列'); }
+      !validSeriesCount(repetitions)) {
+      return new SeriesStartResult(false, '',
+        message('ap_dynamic_invalid_workload_mode_or_repetition_count_1_10_allowed'));
+    }
+    if (this.isExperimentBusy()) {
+      return new SeriesStartResult(false, '',
+        message('ap_dynamic_an_experiment_or_system_request_is_already_in_flight'));
+    }
+    if (this.store === undefined) {
+      return new SeriesStartResult(false, '', message('ap_dynamic_storage_is_unavailable_the_series_was_not_started'));
+    }
     const state = new ExperimentSeriesState();
     state.ownerId = `series-${this.platform.randomId()}`;
     state.workloadId = workloadId;
     state.mode = mode;
     state.repetitions = repetitions;
     state.startedAt = this.platform.wallNow();
-    state.message = '准备保存系列计划；失败或条件变化即停止，不自动重试';
+    state.message =
+      message('ap_dynamic_preparing_to_save_the_series_plan_stop_on_failure_or_changed_conditions_wit');
     this.series = state;
     this.history.unshift(state);
     this.history = this.history.slice(0, SERIES_HISTORY_LIMIT);
@@ -369,7 +386,8 @@ export class AppService {
     const saved = this.persist();
     this.seriesTask = this.driveSeries(state.ownerId, saved);
     this.emit();
-    return new SeriesStartResult(true, state.ownerId, '系列已接受，等待计划保存');
+    return new SeriesStartResult(true, state.ownerId,
+      message('ap_dynamic_series_accepted_waiting_for_the_plan_to_be_saved'));
   }
 
   stopExperimentSeries(ownerId: string): boolean {
@@ -379,7 +397,7 @@ export class AppService {
     }
     state.stopRequested = true;
     state.phase = SeriesPhase.STOPPING;
-    state.message = '已请求本次完成后停止；不取消当前SDK等待';
+    state.message = message('ap_dynamic_stop_requested_after_this_run_the_current_sdk_wait_is_not_cancelled');
     this.persist(); this.emit();
     return true;
   }
@@ -389,7 +407,8 @@ export class AppService {
     if (state === undefined || !seriesActive(state.phase) || state.cancelRequested) { return false; }
     state.cancelRequested = true;
     state.phase = SeriesPhase.CANCELLING;
-    state.message = '已取消本地等待；不会取消SDK或自动继续剩余次数';
+    state.message =
+      message('ap_dynamic_local_waiting_cancelled_the_sdk_request_is_not_cancelled_and_remaining_runs');
     this.executor.cancel();
     this.persist(); this.emit();
     return true;
@@ -404,20 +423,26 @@ export class AppService {
     if (this.disposed) { return false; }
     const state = this.seriesState();
     if (state === undefined || state.ownerId !== ownerId) {
-      this.state.notice = '系列报告未生成：系列不存在或已被新系列替换'; this.emit(); return false;
+      this.state.notice = message('ap_dynamic_series_report_not_generated_the_series_is_absent_or_has_been_replaced');
+      this.emit();
+      return false;
     }
     const records = this.seriesRecords(ownerId);
-    const meta = new ReportMeta('真实重复实验系列报告', this.platform.wallNow(),
-      `仅本系列；负载 ${state.workloadId}；模式 ${state.mode}；计划 ${state.repetitions} 次`,
-      `状态 ${state.phase}；实际开始 ${state.startedCount} 次；已结束 ${state.recordIds.length} 次；` +
-      `可用 ${records.length} 条；缺失 ${state.missingRecordIds.length} 条；保存 ${state.saveState}；${state.message}`);
+    const meta = new ReportMeta(message('ap_dynamic_real_repeated_experiment_series_report'), this.platform.wallNow(),
+      message('ap_dynamic_this_series_only_workload_mode_planned_runs',
+        [state.workloadId, localize(state.mode), state.repetitions]),
+      message('ap_dynamic_state_started_finished_available_missing_save',
+        [localize(state.phase), state.startedCount, state.recordIds.length, records.length,
+          state.missingRecordIds.length, localize(state.saveState), state.message]));
     const report = exportReport(records, meta, ReportFormat.MARKDOWN);
     if (!report.ok) {
-      this.state.notice = `系列报告未生成：${report.check.summary()}`; this.emit(); return false;
+      this.state.notice = message('ap_dynamic_series_report_not_generated', [report.check.summary()]);
+      this.emit();
+      return false;
     }
     const copied = await this.copyTextResult(report.text, ownerId);
     if (copied && this.series?.ownerId === ownerId) {
-      this.state.notice = '已复制本系列分析报告（Markdown）'; this.emit();
+      this.state.notice = message('ap_dynamic_this_series_analysis_report_copied_markdown'); this.emit();
     }
     return copied;
   }
@@ -435,8 +460,9 @@ export class AppService {
       state.phase = SeriesPhase.SAVE_FAILED;
       state.activeIteration = 0;
       state.endedAt = this.platform.wallNow();
-      state.message = saved ? '系列期间曾出现写入失败，已停止后续次数；当前终态快照已保存' :
-        '存储写入失败，已停止后续次数；当前未落盘结果仅保留在内存，可复制报告';
+      state.message = saved ?
+        message('ap_dynamic_a_write_failed_during_the_series_later_runs_were_stopped_and_the_current_te') :
+        message('ap_dynamic_storage_write_failed_later_runs_were_stopped_unsaved_results_remain_in_memo');
       this.state.notice = state.message;
     }
     this.emit();
@@ -462,7 +488,7 @@ export class AppService {
           state.cancelRequested || state.conditionChanged || state.recordIds.length >= state.repetitions) { break; }
         state.phase = SeriesPhase.PREPARING;
         state.activeIteration = state.recordIds.length + 1;
-        state.message = `准备第 ${state.activeIteration} / ${state.repetitions} 次真实实验`;
+        state.message = message('ap_dynamic_preparing_real_experiment', [state.activeIteration, state.repetitions]);
         if (!await this.saveSeries(ownerId)) { break; }
         const current = this.ownedSeries(ownerId);
         if (current === undefined || current.stopRequested || current.cancelRequested ||
@@ -475,7 +501,8 @@ export class AppService {
         this.seriesPermit = '';
         if (record === undefined) {
           current.phase = SeriesPhase.FAILED;
-          current.message = '单次实验未被接受，系列已停止；未制造记录或自动重试';
+          current.message =
+            message('ap_dynamic_a_run_was_not_accepted_the_series_stopped_without_fabricating_a_record_or_r');
           break;
         }
         const committed = await this.seriesCommit;
@@ -486,7 +513,7 @@ export class AppService {
       const state = this.ownedSeries(ownerId);
       if (state !== undefined) {
         state.phase = SeriesPhase.FAILED;
-        state.message = '系列执行异常，已停止；请查看实际阶段记录';
+        state.message = message('ap_dynamic_series_execution_failed_and_stopped_inspect_the_actual_stage_records');
         this.executor.cancel();
       }
     } finally {
@@ -528,7 +555,8 @@ export class AppService {
       state.phase = SeriesPhase.CANCELLED;
     } else if (!record.complete()) {
       state.phase = SeriesPhase.FAILED;
-      state.message = '本次实验失败、超时或缺失，系列已停止；不会自动重试';
+      state.message =
+        message('ap_dynamic_this_run_failed_timed_out_or_is_missing_the_series_stopped_without_automati');
     } else {
       if (state.baselineRecordId.length === 0) {
         state.baselineRecordId = record.id;
@@ -538,14 +566,17 @@ export class AppService {
         if (baseline === undefined || !compareRecords(baseline, record).comparable) {
           state.conditionChanged = true;
           state.phase = SeriesPhase.CONDITION_CHANGED;
-          state.message = '采样条件或资源内容发生变化，已停止；不同条件不会合并为同条件结论';
+          state.message =
+            message('ap_dynamic_sampling_conditions_or_resource_contents_changed_stopped_without_combining');
         }
       }
       if (!state.conditionChanged) {
         state.phase = state.stopRequested ? SeriesPhase.STOPPED :
           state.recordIds.length >= state.repetitions ? SeriesPhase.COMPLETED : SeriesPhase.RUNNING;
-        state.message = state.phase === SeriesPhase.COMPLETED ? '计划次数已完成，所有样本由真实实验生成' :
-          state.stopRequested ? '本次已完成，按请求停止剩余次数' : `已提交第 ${state.recordIds.length} 次，等待保存后继续`;
+        state.message = state.phase === SeriesPhase.COMPLETED ?
+          message('ap_dynamic_all_planned_runs_completed_every_sample_came_from_a_real_experiment') :
+          state.stopRequested ? message('ap_dynamic_this_run_completed_remaining_runs_stopped_as_requested') :
+            message('ap_dynamic_run_committed_waiting_for_save_before_continuing', [state.recordIds.length]);
       }
     }
     if (!seriesActive(state.phase)) { state.endedAt = this.platform.wallNow(); }
@@ -579,9 +610,9 @@ export class AppService {
           this.state.modules.push(module);
         }
       });
-      moduleMessage = `${this.state.modules.length} 个模块`;
+      moduleMessage = message('ap_dynamic_modules', [this.state.modules.length]);
     } else {
-      moduleMessage = '模块读取失败';
+      moduleMessage = message('ap_dynamic_module_discovery_failed');
     }
 
     const id = this.beginCall('listFileSync', 'bundleCodeDir');
@@ -595,11 +626,12 @@ export class AppService {
         }
       });
       this.state.files = files.sort();
-      this.state.targetMessage = `${files.length} 个文件 · ${moduleMessage}`;
-      this.finishCall(id, 'success', 0, `${files.length} 个文件`);
+      this.state.targetMessage = message('ap_dynamic_files', [files.length, moduleMessage]);
+      this.finishCall(id, 'success', 0, message('ap_dynamic_files_35', [files.length]));
     } catch (error) {
       this.state.files = [];
-      this.state.targetMessage = `文件读取失败 · ${moduleMessage} · 可手动输入文件名`;
+      this.state.targetMessage =
+        message('ap_dynamic_file_discovery_failed_file_names_can_be_entered_manually', [moduleMessage]);
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError));
     }
   }
@@ -611,24 +643,24 @@ export class AppService {
       this.state.configText = text.trim();
       const config = JSON.parse(text) as OptimizerConfig;
       if (config === null || typeof config !== 'object' || !Array.isArray(config.evictFilePages)) {
-        this.state.configStatus = '配置无效';
+        this.state.configStatus = ConfigStatus.INVALID;
         this.state.configTargets = [];
-        this.finishCall(id, 'error', LOCAL_ERROR, '缺少 evictFilePages');
+        this.finishCall(id, 'error', LOCAL_ERROR, message('ap_dynamic_missing_evictfilepages'));
         return;
       }
       const names = config.evictFilePages;
       if (names.length === 0 || names.length > TARGET_LIMIT ||
         names.some((name: string): boolean => typeof name !== 'string' || !validFileName(name))) {
-        this.state.configStatus = '配置无效';
+        this.state.configStatus = ConfigStatus.INVALID;
         this.state.configTargets = [];
-        this.finishCall(id, 'error', LOCAL_ERROR, '文件列表无效');
+        this.finishCall(id, 'error', LOCAL_ERROR, message('ap_dynamic_invalid_file_list'));
         return;
       }
-      this.state.configStatus = '配置有效';
+      this.state.configStatus = ConfigStatus.VALID;
       this.state.configTargets = names.slice();
-      this.finishCall(id, 'success', 0, `${names.length} 项`);
+      this.finishCall(id, 'success', 0, message('ap_dynamic_items', [names.length]));
     } catch (error) {
-      this.state.configStatus = '配置读取失败';
+      this.state.configStatus = ConfigStatus.READ_FAILED;
       this.state.configTargets = [];
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError));
     }
@@ -659,7 +691,7 @@ export class AppService {
     if (series !== undefined) {
       series.startedCount++;
       series.phase = SeriesPhase.RUNNING;
-      series.message = `正在第 ${series.startedCount} / ${series.repetitions} 次真实实验`;
+      series.message = message('ap_dynamic_running_real_experiment', [series.startedCount, series.repetitions]);
     }
     this.flowToken = token;
     const flow = new MaintenanceFlow();
@@ -668,9 +700,9 @@ export class AppService {
     try {
       await this.executeFlow(flow, spec, token);
     } catch (error) {
-      this.stopFlow(flow, '已停止：执行异常');
+      this.stopFlow(flow, FlowStatus.EXECUTION_ERROR);
     } finally {
-      if (flow.endedAt === 0) { this.stopFlow(flow, '已停止：执行未结束'); }
+      if (flow.endedAt === 0) { this.stopFlow(flow, FlowStatus.UNFINISHED); }
       this.state.maintenanceBusy = false;
       this.executor.release(token); this.flowToken = 0;
     }
@@ -682,16 +714,16 @@ export class AppService {
   private async executeFlow(flow: MaintenanceFlow, spec: WorkloadSpec, token: number): Promise<void> {
     const normalized: string = flow.mode;
     const foregroundAtStart: boolean = this.state.foreground;
-    flow.status = '运行中';
+    flow.status = FlowStatus.RUNNING;
     flow.startedAt = this.platform.wallNow();
     flow.steps = [
-      this.newStep('discover', '发现目标'),
-      this.newStep('config', '校验配置'),
-      this.newStep('warm', '读取工作负载'),
-      this.newStep('evict', normalized === 'control' ? '对照组（不下发回收）' :
-        (normalized === 'modules' ? '回收模块' : '回收文件页')),
-      this.newStep('reread', '重读业务资源并校验'),
-      this.newStep('configAgain', '回读配置')
+      this.newStep('discover', message('ap_dynamic_discover_targets')),
+      this.newStep('config', message('ap_dynamic_validate_configuration')),
+      this.newStep('warm', message('ap_dynamic_read_workload')),
+      this.newStep('evict', normalized === 'control' ? message('ap_dynamic_control_no_eviction_request') :
+        (normalized === 'modules' ? message('ap_dynamic_evict_modules') : message('ap_ui_evict_file_pages'))),
+      this.newStep('reread', message('ap_dynamic_re_read_and_verify_the_business_resource')),
+      this.newStep('configAgain', message('ap_dynamic_re_read_configuration'))
     ];
     this.state.maintenance = flow;
     this.state.maintenanceBusy = true;
@@ -704,20 +736,24 @@ export class AppService {
       return ok;
     });
     if (!discovered) {
-      this.stopFlow(flow, '已停止：未发现可用目标');
+      this.stopFlow(flow, FlowStatus.NO_TARGETS);
       return;
     }
 
     const configured: boolean = await this.runFlowStep(flow, 1, async (): Promise<boolean> => {
       this.checkConfig();
-      flow.steps[1].detail = `${this.state.configStatus} · ${this.state.configTargets.length} 项`;
+      flow.steps[1].detail =
+        message('ap_dynamic_items_55', [statusText(this.state.configStatus), this.state.configTargets.length]);
       const installed: boolean = normalized !== 'files' || this.state.configTargets.every((name: string): boolean =>
         this.state.files.indexOf(name) >= 0);
-      if (!installed) { flow.steps[1].detail += ' · 配置目标未在安装目录证实'; }
-      return this.state.configStatus === '配置有效' && installed;
+      if (!installed) {
+        flow.steps[1].detail +=
+          message('ap_dynamic_configured_targets_were_not_confirmed_in_the_installation_directory');
+      }
+      return this.state.configStatus === ConfigStatus.VALID && installed;
     });
     if (!configured) {
-      this.stopFlow(flow, '已停止：配置无效，未下发回收');
+      this.stopFlow(flow, FlowStatus.INVALID_CONFIG);
       return;
     }
 
@@ -732,38 +768,40 @@ export class AppService {
         const bytes: Uint8Array = await this.readFlowResource(spec, token);
         flow.beforeBytes = bytes.length;
         flow.digestBefore = this.digest(bytes);
-        flow.steps[2].detail = `${bytes.length} 字节 · FNV ${flow.digestBefore} 已读入`;
+        flow.steps[2].detail = message('ap_dynamic_bytes_fnv_loaded', [bytes.length, flow.digestBefore]);
         return true;
       } catch (error) {
-        flow.steps[2].detail = `读取失败：${errorCode(error as CallError)}`;
+        flow.steps[2].detail = message('ap_dynamic_read_failed', [errorCode(error as CallError)]);
         return false;
       }
     });
     if (!warmed) {
-      this.stopFlow(flow, '已停止：工作负载读取失败，未下发回收');
+      this.stopFlow(flow, FlowStatus.WORKLOAD_FAILED);
       return;
     }
 
     const evicted: boolean = await this.runFlowStep(flow, 3, async (): Promise<boolean> => {
       if (normalized === 'control') {
-        flow.steps[3].detail = '对照组：未调用回收接口，作为同条件参照';
+        flow.steps[3].detail =
+          message('ap_dynamic_control_no_eviction_api_called_used_as_a_reference_under_matching_condition');
         return true;
       }
       const modules: boolean = normalized === 'modules';
       const targets: string[] = modules ? moduleTargets.slice() : fileTargets.slice();
       if (targets.length === 0) {
-        flow.steps[3].detail = modules ? '无可用模块目标' : '无可用文件目标';
+        flow.steps[3].detail = modules ? message('ap_dynamic_no_available_module_targets') :
+          message('ap_dynamic_no_available_file_targets');
         return false;
       }
       const request: EvictionResult = await this.requestEviction(targets, modules, token);
       const ok: boolean = request.status === 'success';
       const latest = this.state.latestMemory;
-      flow.steps[3].detail = latest === undefined ? '无回收结果' :
-        `${modules ? '模块' : '文件'} · ${latest.status} · ${latest.message}`;
+      flow.steps[3].detail = latest === undefined ? message('ap_dynamic_no_eviction_result') :
+        `${message(modules ? 'ap_ui_modules' : 'ap_ui_files')} · ${statusText(latest.status)} · ${latest.message}`;
       return ok;
     });
     if (!evicted) {
-      this.stopFlow(flow, '已停止：回收请求失败或被拦截');
+      this.stopFlow(flow, FlowStatus.EVICTION_FAILED);
       return;
     }
 
@@ -773,12 +811,13 @@ export class AppService {
         flow.afterBytes = bytes.length;
         flow.digestAfter = this.digest(bytes);
         const same: boolean = flow.afterBytes === flow.beforeBytes && flow.digestAfter === flow.digestBefore;
-        flow.integrity = same ? '业务资源校验一致' : '业务资源校验不一致';
-        flow.steps[4].detail = `${flow.afterBytes} 字节 · FNV ${flow.digestAfter} · ${flow.integrity}`;
+        flow.integrity = same ? IntegrityStatus.RESOURCE_MATCH : IntegrityStatus.RESOURCE_MISMATCH;
+        flow.steps[4].detail =
+          message('ap_dynamic_bytes_fnv', [flow.afterBytes, flow.digestAfter, statusText(flow.integrity)]);
         return same;
       } catch (error) {
-        flow.integrity = '业务资源重读失败';
-        flow.steps[4].detail = `重读失败：${errorCode(error as CallError)}`;
+        flow.integrity = IntegrityStatus.RESOURCE_READ_FAILED;
+        flow.steps[4].detail = message('ap_dynamic_re_read_failed', [errorCode(error as CallError)]);
         return false;
       }
     });
@@ -786,23 +825,27 @@ export class AppService {
       try {
         const text: string = this.platform.readConfig().trim();
         const same: boolean = text === configText;
-        flow.steps[5].detail = same ? '配置回读一致；不代表驻留页已下降' : '配置回读与首次不一致';
+        flow.steps[5].detail = same ?
+          message('ap_dynamic_configuration_re_read_matches_this_does_not_prove_fewer_resident_pages') :
+          message('ap_dynamic_configuration_re_read_differs_from_the_first_read');
         return same;
       } catch (error) {
-        flow.steps[5].detail = `回读失败：${errorCode(error as CallError)}`;
+        flow.steps[5].detail = message('ap_dynamic_verification_read_failed', [errorCode(error as CallError)]);
         return false;
       }
     });
-    if (this.executor.reason().length > 0) { this.stopFlow(flow, '已停止'); return; }
-    const complete: boolean = flow.steps.every((step: MaintenanceStep): boolean => step.status === '成功');
-    flow.status = complete ? '已完成' : '已完成（含失败）';
-    const modeText: string = normalized === 'control' ? '对照组' : (normalized === 'modules' ? '模块回收' : '文件回收');
+    if (this.executor.reason().length > 0) { this.stopFlow(flow, FlowStatus.STOPPED); return; }
+    const complete: boolean = flow.steps.every((step: MaintenanceStep): boolean => step.status === StepStatus.SUCCESS);
+    flow.status = complete ? FlowStatus.COMPLETED : FlowStatus.COMPLETED_WITH_FAILURES;
+    const modeText: string = localize(normalized);
     flow.notice = complete ?
-      `${modeText}流程已完成；业务资源长度与校验值已比对，${flow.integrity}；回收效果仍需独立观测。` :
-      `流程已结束（${modeText}），${flow.integrity}；请查看失败阶段，未观测到驻留页变化时不得判定为零回收。`;
+      message('ap_dynamic_flow_completed_business_resource_length_and_checksum_compared_eviction_effe',
+        [modeText, statusText(flow.integrity)]) :
+      message('ap_dynamic_flow_ended_inspect_failed_stages_an_unobserved_resident_page_change_must_no',
+        [modeText, statusText(flow.integrity)]);
     flow.endedAt = this.platform.wallNow();
     this.state.maintenanceBusy = false;
-    this.state.notice = flow.status;
+    this.state.notice = statusText(flow.status);
     this.emit();
   }
 
@@ -821,9 +864,9 @@ export class AppService {
   private recordExperiment(flow: MaintenanceFlow, spec: WorkloadSpec, ownerId: string = ''): ExperimentRecord {
     const missing: string[] = [];
     if (!flowCompleted(flow)) {
-      missing.push('流程未正常结束，结论不作成功样本');
+      missing.push(message('ap_dynamic_the_flow_did_not_finish_normally_and_is_not_a_successful_sample'));
     }
-    missing.push('驻留页不可观测，回收效果不量化');
+    missing.push(message('ap_dynamic_resident_pages_are_not_observable_eviction_effects_are_not_quantified'));
     const record: ExperimentRecord = recordOfFlow(flow, spec.id, spec.label, missing);
     record.id = this.platform.randomId();
     record.asset = spec.rawFile;
@@ -845,7 +888,9 @@ export class AppService {
   /** 追加一条实验记录并落盘。 */
   appendExperiment(record: ExperimentRecord): void {
     if (this.seriesLease.length > 0) {
-      this.state.notice = '系列占用期间不能追加外部记录'; this.emit(); return;
+      this.state.notice = message('ap_dynamic_external_records_cannot_be_appended_while_a_series_holds_the_lease');
+      this.emit();
+      return;
     }
     this.ledger.append(record);
     this.persist();
@@ -859,7 +904,12 @@ export class AppService {
 
   /** 清空账本并落盘。 */
   clearLedger(): void {
-    if (this.isExperimentBusy()) { this.state.notice = '实验或系统请求在途，不能清空账本'; this.emit(); return; }
+    if (this.isExperimentBusy()) {
+      this.state.notice =
+        message('ap_dynamic_the_ledger_cannot_be_cleared_while_an_experiment_or_system_request_is_in_fl');
+      this.emit();
+      return;
+    }
     this.ledger.clear();
     this.persist();
     this.emit();
@@ -876,7 +926,7 @@ export class AppService {
 
   async readResource(): Promise<void> {
     if (this.isExperimentBusy()) {
-      this.block('getRawFileContent', 'sample.txt', '资源读取中');
+      this.block('getRawFileContent', 'sample.txt', message('ap_dynamic_reading_the_resource'));
       return;
     }
     this.state.resourceBusy = true;
@@ -885,30 +935,32 @@ export class AppService {
       const bytes = await this.platform.readResource();
       const text = util.TextDecoder.create('utf-8').decodeToString(bytes);
       this.baseline = new Uint8Array(bytes);
-      this.state.resourceText = `${bytes.length} 字节 · ${text.trim().slice(0, 1000)}`;
+      this.state.resourceText = message('ap_dynamic_bytes', [bytes.length, text.trim().slice(0, 1000)]);
       this.state.resourceBusy = false;
-      this.state.notice = '读取成功';
-      this.finishCall(id, 'success', 0, `${bytes.length} 字节`);
+      this.state.notice = message('ap_dynamic_read_succeeded');
+      this.finishCall(id, 'success', 0, message('ap_dynamic_bytes_93', [bytes.length]));
     } catch (error) {
       this.state.resourceBusy = false;
-      this.state.resourceText = '读取失败';
-      this.state.notice = '读取失败';
+      this.state.resourceText = message('ap_dynamic_read_failed_92');
+      this.state.notice = message('ap_dynamic_read_failed_92');
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError));
     }
   }
 
   async verifyResource(): Promise<void> {
     if (this.isExperimentBusy()) {
-      this.block('getRawFileContent', 'sample.txt · 校验', '资源读取中');
+      this.block('getRawFileContent', message('ap_dynamic_sample_txt_verification'),
+        message('ap_dynamic_reading_the_resource'));
       return;
     }
     const baseline = this.baseline;
     if (baseline === undefined) {
-      this.block('getRawFileContent', 'sample.txt · 校验', '请先读取资源');
+      this.block('getRawFileContent', message('ap_dynamic_sample_txt_verification'),
+        message('ap_dynamic_read_the_resource_first'));
       return;
     }
     this.state.resourceBusy = true;
-    const id = this.beginCall('getRawFileContent', 'sample.txt · 校验');
+    const id = this.beginCall('getRawFileContent', message('ap_dynamic_sample_txt_verification'));
     try {
       const bytes = await this.platform.readResource();
       let same = bytes.length === baseline.length;
@@ -920,15 +972,16 @@ export class AppService {
           }
         }
       }
-      const result = same ? '校验一致' : '校验不一致';
+      const result = same ? message('ap_dynamic_verification_matches') :
+        message('ap_dynamic_verification_does_not_match');
       this.state.resourceBusy = false;
-      this.state.resourceText = `${result} · ${bytes.length} 字节`;
+      this.state.resourceText = message('ap_dynamic_bytes_98', [result, bytes.length]);
       this.state.notice = result;
       this.finishCall(id, 'success', 0, result);
     } catch (error) {
       this.state.resourceBusy = false;
-      this.state.resourceText = '校验失败';
-      this.state.notice = '校验失败';
+      this.state.resourceText = message('ap_dynamic_verification_failed');
+      this.state.notice = message('ap_dynamic_verification_failed');
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError));
     }
   }
@@ -944,7 +997,8 @@ export class AppService {
   private async requestEviction(targets: string[], modules: boolean, owner: number = 0): Promise<EvictionResult> {
     const result = new EvictionResult();
     if (this.disposed || (owner === 0 && this.isExperimentBusy())) {
-      this.block(modules ? 'evictModuleFilePages' : 'evictFilePages', targets.join(','), '上一调用仍在等待');
+      this.block(modules ? 'evictModuleFilePages' : 'evictFilePages', targets.join(','),
+        message('ap_dynamic_the_previous_call_is_still_waiting'));
       return result;
     }
     const token: number = owner === 0 ? this.executor.acquire() : owner;
@@ -962,54 +1016,58 @@ export class AppService {
 
   setSnapEnabled(flag: boolean): void {
     const api = 'setHyperSnapEnabled';
-    const target = flag ? '启用' : '禁用';
+    const target: SnapFlag = flag ? SnapFlag.ENABLED : SnapFlag.DISABLED;
     if (this.seriesLease.length > 0) {
-      this.block(api, target, '实验系列占用期间不能更改快启设置'); return;
+      this.block(api, target,
+        message('ap_dynamic_hypersnap_settings_cannot_be_changed_while_an_experiment_series_holds_the_l'));
+      return;
     }
     if (!this.platform.canSetSnap()) {
-      this.block(api, target, '请升级系统');
+      this.block(api, target, message('ap_dynamic_upgrade_the_system'));
       return;
     }
     const id = this.beginCall(api, target);
     try {
       this.platform.setSnapEnabled(flag);
     } catch (error) {
-      this.state.notice = '设置失败';
+      this.state.notice = message('ap_dynamic_setting_failed');
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError));
       return;
     }
     this.state.snapFlag = target;
     this.state.snapAt = this.platform.wallNow();
-    this.state.notice = `已${target}`;
-    this.finishCall(id, 'success', 0, `已${target}`);
+    this.state.notice = message(flag ? 'ap_dynamic_enabled' : 'ap_dynamic_disabled');
+    this.finishCall(id, 'success', 0, message(flag ? 'ap_dynamic_enabled' : 'ap_dynamic_disabled'));
   }
 
   rebuildSnap(reason: string): void {
     const api = 'requestRebuildHyperSnap';
-    const target = shortText(reason, 200) || '手动重建';
+    const target = shortText(reason, 200) || message('ap_ui_manual_rebuild');
     if (this.seriesLease.length > 0) {
-      this.block(api, target, '实验系列占用期间不能重建快启'); return;
+      this.block(api, target,
+        message('ap_dynamic_hypersnap_cannot_be_rebuilt_while_an_experiment_series_holds_the_lease'));
+      return;
     }
     if (this.rebuildWaitSeconds() > 0) {
-      this.block(api, target, `请等待 ${this.rebuildWaitSeconds()} 秒`);
+      this.block(api, target, message('ap_dynamic_wait_seconds', [this.rebuildWaitSeconds()]));
       return;
     }
     if (!this.platform.canRebuildSnap()) {
-      this.block(api, target, '请升级系统');
+      this.block(api, target, message('ap_dynamic_upgrade_the_system'));
       return;
     }
     const id = this.beginCall(api, target);
     try {
       this.platform.rebuildSnap();
     } catch (error) {
-      this.state.notice = '重建请求失败';
+      this.state.notice = message('ap_dynamic_rebuild_request_failed');
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError));
       return;
     }
     this.lastRebuildMono = this.platform.now();
     this.state.rebuildAt = this.platform.wallNow();
-    this.state.notice = '重建请求成功';
-    this.finishCall(id, 'success', 0, '重建请求成功');
+    this.state.notice = message('ap_dynamic_rebuild_request_succeeded');
+    this.finishCall(id, 'success', 0, message('ap_dynamic_rebuild_request_succeeded'));
     this.startCooldownClock();
   }
 
@@ -1018,14 +1076,14 @@ export class AppService {
     if (this.state.latestMemory !== undefined && !this.activeCalls.has(this.state.latestMemory.id)) {
       this.state.latestMemory = undefined;
     }
-    this.state.notice = '日志已清空';
+    this.state.notice = message('ap_dynamic_call_records_cleared');
     this.persist();
     this.emit();
   }
 
   clearLaunches(): void {
     this.state.launches = [];
-    this.state.notice = '启动记录已清空';
+    this.state.notice = message('ap_dynamic_launch_records_cleared');
     this.persist();
     this.emit();
   }
@@ -1038,20 +1096,21 @@ export class AppService {
     publishNotice: boolean = true): Promise<boolean> {
     if (this.disposed) { return false; }
     if (this.activeCalls.size >= 32) {
-      this.block('setData', '剪贴板', '在途调用过多', publishNotice);
+      this.block('setData', message('ap_dynamic_clipboard'),
+        message('ap_dynamic_too_many_calls_are_in_flight'), publishNotice);
       return false;
     }
-    const id = this.beginCall('setData', '剪贴板');
+    const id = this.beginCall('setData', message('ap_dynamic_clipboard'));
     try {
       await this.platform.copyText(text);
       if (publishNotice && (noticeOwnerId.length === 0 || this.series?.ownerId === noticeOwnerId)) {
-        this.state.notice = '已复制';
+        this.state.notice = message('ap_dynamic_copied');
       }
-      this.finishCall(id, 'success', 0, '已复制');
+      this.finishCall(id, 'success', 0, message('ap_dynamic_copied'));
       return true;
     } catch (error) {
       if (publishNotice && (noticeOwnerId.length === 0 || this.series?.ownerId === noticeOwnerId)) {
-        this.state.notice = '复制失败';
+        this.state.notice = message('ap_dynamic_copy_failed');
       }
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError));
       return false;
@@ -1062,23 +1121,25 @@ export class AppService {
   async copyAnalysisReport(workloadId: string, mode: string, failedOnly: boolean): Promise<boolean> {
     if (this.disposed) { return false; }
     if (workloadOf(workloadId) === undefined || ['control', 'files', 'modules'].indexOf(mode) < 0) {
-      this.state.notice = '报告未生成：负载或模式无效';
+      this.state.notice = message('ap_dynamic_report_not_generated_invalid_workload_or_mode');
       this.emit();
       return false;
     }
     const records = this.ledger.all().filter((record: ExperimentRecord): boolean =>
       record.workloadId === workloadId && record.mode === mode && (!failedOnly || !record.complete()));
-    const meta = new ReportMeta('应用性能实验报告', this.platform.wallNow(),
-      `负载 ${workloadId}；模式 ${mode}；${failedOnly ? '仅失败/缺失记录' : '全部结果'}`, '');
+    const meta = new ReportMeta(message('ap_dynamic_application_performance_experiment_report'),
+      this.platform.wallNow(),
+      message('ap_dynamic_workload_mode', [workloadId, localize(mode),
+        message(failedOnly ? 'ap_ui_failed_missing_records_only' : 'ap_dynamic_all_results')]), '');
     const outcome = exportReport(records, meta, ReportFormat.MARKDOWN);
     if (!outcome.ok) {
-      this.state.notice = `报告未生成：${outcome.check.summary()}`;
+      this.state.notice = message('ap_dynamic_report_not_generated', [outcome.check.summary()]);
       this.emit();
       return false;
     }
     const copied = await this.copyTextResult(outcome.text);
     if (copied) {
-      this.state.notice = '已复制分析报告（Markdown）';
+      this.state.notice = message('ap_dynamic_analysis_report_copied_markdown');
       this.emit();
     }
     return copied;
@@ -1091,7 +1152,8 @@ export class AppService {
       if (series !== undefined && seriesActive(series.phase)) {
         series.conditionChanged = true;
         series.phase = SeriesPhase.CONDITION_CHANGED;
-        series.message = '前后台状态发生变化，已停止系列；当前本地等待已取消，SDK可能仍在途';
+        series.message =
+          message('ap_dynamic_foreground_background_state_changed_series_stopped_and_local_waiting_cancel');
         this.executor.cancel();
         this.persist();
       }
@@ -1114,7 +1176,7 @@ export class AppService {
       at: this.startupWall,
       contentMs: contentMs,
       device: this.environment,
-      appVersion: this.appVersion || '读取失败'
+      appVersion: this.appVersion || 'unavailable'
     };
     this.state.launches.unshift(sample);
     this.state.launches = this.state.launches.slice(0, LAUNCH_LIMIT);
@@ -1123,12 +1185,13 @@ export class AppService {
   }
 
   private readBundleInfo(publish: boolean = true): BundleSnapshot | undefined {
-    const id = this.beginCall('getBundleInfoForSelfSync', '本应用', publish);
+    const id = this.beginCall('getBundleInfoForSelfSync', message('ap_dynamic_this_application'), publish);
     try {
       const info = this.platform.bundleInfo();
       this.appVersion = info.versionName;
       this.state.deviceText = `${this.environment} · APP ${this.appVersion}`;
-      this.finishCall(id, 'success', 0, `${info.modules.length} 个模块 · ${info.versionName}`, publish);
+      this.finishCall(id, 'success', 0,
+        message('ap_dynamic_modules_124', [info.modules.length, info.versionName]), publish);
       return info;
     } catch (error) {
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError), publish);
@@ -1140,23 +1203,30 @@ export class AppService {
     const values: string[] = [];
     for (let index = 0; index < targets.length; index++) {
       if (typeof targets[index] !== 'string') {
-        return { values: [], error: '目标无效' };
+        return { values: [], error: message('ap_dynamic_invalid_target') };
       }
       const value = targets[index].trim();
       if (value.length === 0 || (!modules && !validFileName(value))) {
-        return { values: [], error: modules ? '请选择模块' : '请输入 .so、.hap 或 .hsp 文件名' };
+        return {
+          values: [],
+          error: modules ? message('ap_dynamic_select_a_module') : message('ap_dynamic_enter_a_so_hap_or_hsp_file_name')
+        };
       }
       if (modules && this.state.modules.indexOf(value) < 0) {
-        return { values: [], error: '请选择真实模块' };
+        return { values: [], error: message('ap_dynamic_select_a_discovered_module') };
       }
       if (values.indexOf(value) < 0) {
         values.push(value);
       }
       if (values.length > TARGET_LIMIT) {
-        return { values: [], error: '最多 32 项' };
+        return { values: [], error: message('ap_dynamic_at_most_32_items') };
       }
     }
-    return { values: values, error: values.length === 0 ? (modules ? '请选择模块' : '请输入文件名') : '' };
+    return {
+      values: values,
+      error: values.length === 0 ?
+        (modules ? message('ap_dynamic_select_a_module') : message('ap_dynamic_enter_a_file_name')) : ''
+    };
   }
 
   private async evict(targets: string[], modules: boolean): Promise<boolean> {
@@ -1168,12 +1238,12 @@ export class AppService {
       return false;
     }
     if (this.state.memoryBusy) {
-      this.block(api, validation.values.join(', '), '上一调用仍在等待');
+      this.block(api, validation.values.join(', '), message('ap_dynamic_the_previous_call_is_still_waiting'));
       return false;
     }
     const available = modules ? this.platform.canEvictModules() : this.platform.canEvictFiles();
     if (!available) {
-      this.block(api, validation.values.join(', '), '请升级系统');
+      this.block(api, validation.values.join(', '), message('ap_dynamic_upgrade_the_system'));
       return false;
     }
     this.state.memoryBusy = true;
@@ -1190,12 +1260,12 @@ export class AppService {
         await this.platform.evictFiles(validation.values);
       }
       this.state.memoryBusy = false;
-      this.state.notice = '调用成功';
-      this.finishCall(id, 'success', 0, '调用成功');
+      this.state.notice = message('ap_ui_call_succeeded');
+      this.finishCall(id, 'success', 0, message('ap_ui_call_succeeded'));
       return true;
     } catch (error) {
       this.state.memoryBusy = false;
-      this.state.notice = '调用失败';
+      this.state.notice = message('ap_ui_call_failed');
       this.finishCall(id, 'error', errorCode(error as CallError), errorMessage(error as CallError));
       return false;
     }
@@ -1206,10 +1276,11 @@ export class AppService {
       this.activeCalls.forEach((waiting: ActiveCall): void => {
         if (waiting.record.kind === 'pending' &&
           ['evictFilePages', 'evictModuleFilePages'].indexOf(waiting.record.api) >= 0) {
-          waiting.record.kind = 'timeout'; waiting.record.status = '等待超时';
+          waiting.record.kind = 'timeout'; waiting.record.status = CallStatus.TIMEOUT;
           waiting.record.elapsed = Math.max(0, this.platform.now() - waiting.started);
-          waiting.record.code = LOCAL_ERROR; waiting.record.message = '仍在等待系统返回';
-          this.state.notice = '等待超时'; this.persist();
+          waiting.record.code = LOCAL_ERROR;
+          waiting.record.message = message('ap_dynamic_still_waiting_for_the_system_response');
+          this.state.notice = message('ap_dynamic_wait_timed_out'); this.persist();
         }
       });
     }
@@ -1230,7 +1301,7 @@ export class AppService {
       return false;
     }
     const step: MaintenanceStep = flow.steps[index];
-    step.status = '运行中';
+    step.status = StepStatus.RUNNING;
     this.emit();
     const started: number = this.platform.now();
     let ok: boolean = false;
@@ -1243,24 +1314,25 @@ export class AppService {
       }
     }
     step.elapsed = Math.max(0, this.platform.now() - started);
-    step.status = this.executor.reason() === 'timeout' ? '超时' :
-      this.executor.reason() === 'cancelled' ? '已取消' : ok ? '成功' : '失败';
+    step.status = this.executor.reason() === 'timeout' ? StepStatus.TIMEOUT :
+      this.executor.reason() === 'cancelled' ? StepStatus.CANCELLED : ok ? StepStatus.SUCCESS : StepStatus.FAILED;
     this.emit();
     return ok;
   }
 
-  private stopFlow(flow: MaintenanceFlow, message: string): void {
+  private stopFlow(flow: MaintenanceFlow, status: FlowStatus): void {
     flow.steps.forEach((step: MaintenanceStep): void => {
-      if (step.status === '待执行') {
-        step.status = '跳过';
+      if (step.status === StepStatus.PENDING) {
+        step.status = StepStatus.SKIPPED;
       }
     });
-    flow.status = this.executor.reason() === 'timeout' ? '已超时（系统请求未取消）' :
-      this.executor.reason() === 'cancelled' ? '已取消（仅本地等待）' : message;
+    flow.status = this.executor.reason() === 'timeout' ? FlowStatus.TIMEOUT :
+      this.executor.reason() === 'cancelled' ? FlowStatus.CANCELLED : status;
     flow.endedAt = this.platform.wallNow();
-    flow.notice = '流程未完成；已保留每阶段结果，未执行阶段标记为跳过。';
+    flow.notice =
+      message('ap_dynamic_flow_incomplete_each_stage_result_was_retained_and_unexecuted_stages_marked');
     this.state.maintenanceBusy = false;
-    this.state.notice = message;
+    this.state.notice = statusText(status);
     this.emit();
   }
 
@@ -1271,7 +1343,7 @@ export class AppService {
       id: id,
       api: api,
       target: shortText(target, 4096),
-      status: '调用中',
+      status: CallStatus.CALLING,
       kind: 'pending',
       at: this.platform.wallNow(),
       elapsed: 0,
@@ -1299,7 +1371,7 @@ export class AppService {
     const memory = record.api === 'evictFilePages' || record.api === 'evictModuleFilePages';
     record.late = record.kind === 'timeout' || (memory && record.elapsed >= MEMORY_TIMEOUT_MS);
     record.kind = kind;
-    record.status = kind === 'success' ? '调用成功' : '调用失败';
+    record.status = kind === 'success' ? CallStatus.SUCCEEDED : CallStatus.FAILED;
     record.code = code;
     record.message = shortText(message);
     this.activeCalls.delete(id);
@@ -1315,7 +1387,7 @@ export class AppService {
       id: this.nextCallId++,
       api: api,
       target: shortText(target, 4096),
-      status: '已拦截',
+      status: CallStatus.BLOCKED,
       kind: 'blocked',
       at: this.platform.wallNow(),
       elapsed: 0,
@@ -1386,10 +1458,10 @@ export class AppService {
       }
       const stored = JSON.parse(value) as StoredState;
       if (stored === null || typeof stored !== 'object' || stored.schema !== 2) {
-        this.state.storageMessage = '存储数据已重置';
+        this.state.storageMessage = message('ap_dynamic_stored_data_reset');
         return;
       }
-      if (['启用', '禁用'].indexOf(stored.snapFlag) >= 0 &&
+      if ((stored.snapFlag === SnapFlag.ENABLED || stored.snapFlag === SnapFlag.DISABLED) &&
         nonNegative(stored.snapAt) && stored.snapAt > 0) {
         this.state.snapFlag = stored.snapFlag;
         this.state.snapAt = stored.snapAt;
@@ -1409,9 +1481,9 @@ export class AppService {
           const restored = cloneCall(record);
           if (restored.kind === 'pending' || restored.kind === 'timeout') {
             restored.kind = 'error';
-            restored.status = '进程已结束';
+            restored.status = CallStatus.PROCESS_ENDED;
             restored.code = LOCAL_ERROR;
-            restored.message = '进程已结束';
+            restored.message = message('ap_dynamic_process_ended');
             restored.late = false;
           }
           this.state.logs.push(restored);
@@ -1435,7 +1507,7 @@ export class AppService {
       this.history = restoreSeriesHistory(stored.seriesHistory, this.series, this.ledger.all(),
         this.platform.wallNow(), rejectedOwner);
     } catch (error) {
-      this.state.storageMessage = '存储读取失败';
+      this.state.storageMessage = message('ap_dynamic_storage_read_failed');
     }
   }
 
@@ -1444,7 +1516,7 @@ export class AppService {
     const store = this.store;
     const ownerId = this.seriesLease;
     if (store === undefined) {
-      this.state.storageMessage = '存储不可用';
+      this.state.storageMessage = message('ap_dynamic_storage_unavailable');
       if (ownerId.length > 0) { this.seriesWriteFailed = true; }
       return Promise.resolve(false);
     }
@@ -1465,7 +1537,7 @@ export class AppService {
       };
       snapshot = JSON.stringify(data);
     } catch (error) {
-      this.state.storageMessage = '存储写入失败';
+      this.state.storageMessage = message('ap_dynamic_storage_write_failed');
       if (ownerId.length > 0) { this.seriesWriteFailed = true; }
       return Promise.resolve(false);
     }
@@ -1478,7 +1550,7 @@ export class AppService {
         }
         return true;
       } catch (error) {
-        this.state.storageMessage = '存储写入失败';
+        this.state.storageMessage = message('ap_dynamic_storage_write_failed');
         if (ownerId.length > 0 && this.seriesLease === ownerId) { this.seriesWriteFailed = true; }
         this.emit();
         return false;

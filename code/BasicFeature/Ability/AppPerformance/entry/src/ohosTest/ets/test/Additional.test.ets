@@ -90,7 +90,7 @@ function storedCall(id: number, kind: string = 'success', api: string = 'setHype
 function storedLaunch(id: string): LaunchSample {
   return {
     id: id,
-    group: '初始',
+    group: 'initial',
     at: 1700000000000,
     contentMs: 12,
     device: 'fixture',
@@ -209,19 +209,40 @@ export default function additionalTests(): void {
         }
         platform.config = JSON.stringify({ evictFilePages: names });
         service.checkConfig();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:211 assertEqual actual', service.getState().configStatus)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:211 assertEqual expected', '配置有效'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0004 ' +
+            'Additional.test:211 assertEqual actual',
+          service.getState().configStatus))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0004 ' +
+              'Additional.test:211 assertEqual expected',
+            'valid'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:212 assertEqual actual', latest(service, 'getRawFileContentSync').message)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:212 assertEqual expected', '32 项'));
         const invalid = ['null', '{"evictFilePages":[]}', '{"evictFilePages":[1]}',
           '{"evictFilePages":["../entry.hap"]}', JSON.stringify({ evictFilePages: names.concat(['extra.so']) })];
         invalid.forEach((text: string): void => {
           platform.config = text;
           service.checkConfig();
-          expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:218 assertEqual actual', service.getState().configStatus)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:218 assertEqual expected', '配置无效'));
+          expect(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0004 ' +
+              'Additional.test:218 assertEqual actual',
+            service.getState().configStatus))
+            .assertEqual(traceParameter(
+              'com.samples.appperformance_AppPerformanceAdditional_0004 ' +
+                'Additional.test:218 assertEqual expected',
+              'invalid'));
           expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:219 assertEqual actual', latest(service, 'getRawFileContentSync').kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:219 assertEqual expected', 'error'));
         });
         platform.configErrorCode = 13400001;
         service.checkConfig();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:223 assertEqual actual', service.getState().configStatus)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:223 assertEqual expected', '配置读取失败'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0004 ' +
+            'Additional.test:223 assertEqual actual',
+          service.getState().configStatus))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0004 ' +
+              'Additional.test:223 assertEqual expected',
+            'config_read_failed'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:224 assertEqual actual', latest(service, 'getRawFileContentSync').code)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0004 Additional.test:224 assertEqual expected', 13400001));
       });
     });
@@ -333,7 +354,14 @@ export default function additionalTests(): void {
         service.rebuildSnap('  test  ');
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:333 assertEqual actual', platform.snapCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:333 assertEqual expected', 0));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:334 assertEqual actual', platform.rebuildCalls)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:334 assertEqual expected', 0));
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:335 assertEqual actual', service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:335 assertEqual expected', '尚未设置'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0008 ' +
+            'Additional.test:335 assertEqual actual',
+          service.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0008 ' +
+              'Additional.test:335 assertEqual expected',
+            'unset'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:336 assertEqual actual', service.getState().rebuildWaitSeconds)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:336 assertEqual expected', 0));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:337 assertEqual actual', platform.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0008 Additional.test:337 assertEqual expected', 0));
         platform.rebuildAvailable = true;
@@ -410,7 +438,14 @@ export default function additionalTests(): void {
         service.clearLogs();
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0010 Additional.test:410 assertEqual actual', service.getState().logs.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0010 Additional.test:410 assertEqual expected', 0));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0010 Additional.test:411 assertUndefined actual', service.getState().latestMemory)).assertUndefined();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0010 Additional.test:412 assertEqual actual', service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0010 Additional.test:412 assertEqual expected', '启用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0010 ' +
+            'Additional.test:412 assertEqual actual',
+          service.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0010 ' +
+              'Additional.test:412 assertEqual expected',
+            'enabled'));
       });
     });
 
@@ -461,7 +496,14 @@ export default function additionalTests(): void {
       await withService(new FakePlatform(corrupted), (service: AppService): void => {
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0012 Additional.test:461 assertEqual actual', service.getState().storageMessage)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0012 Additional.test:461 assertEqual expected', '存储读取失败'));
         service.setSnapEnabled(true);
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0012 Additional.test:463 assertEqual actual', service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0012 Additional.test:463 assertEqual expected', '启用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0012 ' +
+            'Additional.test:463 assertEqual actual',
+          service.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0012 ' +
+              'Additional.test:463 assertEqual expected',
+            'enabled'));
       });
       const legacy = new MemoryStore();
       legacy.value = '{"schema":1}';
@@ -500,19 +542,33 @@ export default function additionalTests(): void {
       const badLaunch = storedLaunch('invalid');
       badLaunch.contentMs = -1;
       data.launches = [storedLaunch('kept'), storedLaunch('kept'), badLaunch];
-      data.snapFlag = '启用';
+      data.snapFlag = 'enabled';
       data.snapAt = 1700000000000;
       const store = new MemoryStore();
       store.value = JSON.stringify(data);
       await withService(new FakePlatform(store), (service: AppService): void => {
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:507 assertEqual actual', service.getState().logs.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:507 assertEqual expected', 3));
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:508 assertEqual actual', byId(service, 40).status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:508 assertEqual expected', '进程已结束'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0013 ' +
+            'Additional.test:508 assertEqual actual',
+          byId(service, 40).status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0013 ' +
+              'Additional.test:508 assertEqual expected',
+            'process_ended'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:509 assertEqual actual', byId(service, 39).code)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:509 assertEqual expected', -1));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:510 assertFalse actual', byId(service, 39).late)).assertFalse();
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:511 assertEqual actual', service.getState().latestMemory?.id)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:511 assertEqual expected', 40));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:512 assertEqual actual', service.getState().launches.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:512 assertEqual expected', 1));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:513 assertEqual actual', service.getState().launches[0].id)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:513 assertEqual expected', 'kept'));
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:514 assertEqual actual', service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:514 assertEqual expected', '启用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0013 ' +
+            'Additional.test:514 assertEqual actual',
+          service.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0013 ' +
+              'Additional.test:514 assertEqual expected',
+            'enabled'));
         service.setSnapEnabled(false);
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:516 assertEqual actual', latest(service, 'setHyperSnapEnabled').id)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0013 Additional.test:516 assertEqual expected', 41));
       });
@@ -557,7 +613,7 @@ export default function additionalTests(): void {
 
     scenario('testAppPerformanceAdditional0015', async (): Promise<void> => {
       const data = storedFixture();
-      data.snapFlag = '禁用';
+      data.snapFlag = 'disabled';
       data.snapAt = 1700000000000;
       const store = new MemoryStore();
       store.value = JSON.stringify(data);
@@ -571,7 +627,14 @@ export default function additionalTests(): void {
         service.markContentLoaded();
         const rows = service.getState().launches;
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:572 assertEqual actual', rows.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:572 assertEqual expected', 1));
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:573 assertEqual actual', rows[0].group)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:573 assertEqual expected', '禁用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0015 ' +
+            'Additional.test:573 assertEqual actual',
+          rows[0].group))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0015 ' +
+              'Additional.test:573 assertEqual expected',
+            'disabled'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:574 assertEqual actual', rows[0].contentMs)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:574 assertEqual expected', 45));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:575 assertEqual actual', rows[0].at)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:575 assertEqual expected', startedAt));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:576 assertEqual actual', rows[0].device)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0015 Additional.test:576 assertEqual expected', platform.environmentText));
@@ -596,7 +659,14 @@ export default function additionalTests(): void {
       await withService(platform, async (service: AppService): Promise<void> => {
         platform.advance(5);
         service.markContentLoaded();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0016 Additional.test:598 assertEqual actual', service.getState().launches[0].appVersion)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0016 Additional.test:598 assertEqual expected', '读取失败'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0016 ' +
+            'Additional.test:598 assertEqual actual',
+          service.getState().launches[0].appVersion))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0016 ' +
+              'Additional.test:598 assertEqual expected',
+            'unavailable'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0016 Additional.test:599 assertEqual actual', service.getState().launches[0].contentMs)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0016 Additional.test:599 assertEqual expected', 5));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0016 Additional.test:600 assertEqual actual', latest(service, 'getBundleInfoForSelfSync').code)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0016 Additional.test:600 assertEqual expected', 17700001));
         const count = service.getState().logs.length;
@@ -643,9 +713,23 @@ export default function additionalTests(): void {
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:642 assertEqual actual', store.writeCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:642 assertEqual expected', 4));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:643 assertEqual actual', service.getState().storageMessage)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:643 assertEqual expected', ''));
         const finalState = JSON.parse(store.value) as StoredFixture;
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:645 assertEqual actual', finalState.snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:645 assertEqual expected', '禁用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0017 ' +
+            'Additional.test:645 assertEqual actual',
+          finalState.snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0017 ' +
+              'Additional.test:645 assertEqual expected',
+            'disabled'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:646 assertEqual actual', finalState.logs[0].kind)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:646 assertEqual expected', 'success'));
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:647 assertEqual actual', finalState.logs[0].target)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0017 Additional.test:647 assertEqual expected', '禁用'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0017 ' +
+            'Additional.test:647 assertEqual actual',
+          finalState.logs[0].target))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0017 ' +
+              'Additional.test:647 assertEqual expected',
+            'disabled'));
       } finally {
         service.dispose();
       }
@@ -784,7 +868,7 @@ export default function additionalTests(): void {
 
     scenario('testAppPerformanceAdditional0022', async (): Promise<void> => {
       const data = storedFixture();
-      data.snapFlag = '启用';
+      data.snapFlag = 'enabled';
       data.snapAt = 0;
       data.rebuildAt = -1;
       data.nextId = -100;
@@ -808,7 +892,14 @@ export default function additionalTests(): void {
       const store = new MemoryStore();
       store.value = JSON.stringify(data);
       await withService(new FakePlatform(store), (service: AppService): void => {
-        expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0022 Additional.test:810 assertEqual actual', service.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0022 Additional.test:810 assertEqual expected', '尚未设置'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceAdditional_0022 ' +
+            'Additional.test:810 assertEqual actual',
+          service.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceAdditional_0022 ' +
+              'Additional.test:810 assertEqual expected',
+            'unset'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0022 Additional.test:811 assertEqual actual', service.getState().snapAt)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0022 Additional.test:811 assertEqual expected', 0));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0022 Additional.test:812 assertEqual actual', service.getState().rebuildAt)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0022 Additional.test:812 assertEqual expected', 0));
         expect(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0022 Additional.test:813 assertEqual actual', service.getState().logs.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceAdditional_0022 Additional.test:813 assertEqual expected', 0));

@@ -21,7 +21,8 @@ import {
   flowMetricSamples, evaluateFlowThresholds, evaluateFlowGate, flowThresholds, flowGateRules
 } from '../core/FlowMetrics';
 import {
-  AppState, CallRecord, LaunchSample, MaintenanceFlow, MaintenanceStep, emptyCallRecord, formatTime
+  AppState, CallRecord, LaunchSample, MaintenanceFlow, MaintenanceStep, emptyCallRecord, formatTime,
+  ContentLoadGroup, StepStatus, FAILED_STEP_STATUSES
 } from '../core/Types';
 import {
   PlanRun, StepOutcome, evaluateRun
@@ -479,7 +480,7 @@ struct Index {
       }
 
       if (this.targetMessage.length > 0) {
-        Text(this.display(this.targetMessage))
+        Text(this.targetMessage)
           .fontSize(12)
           .fontColor('#667085')
       }
@@ -573,7 +574,7 @@ struct Index {
       }
       .width('100%')
       if (this.configOpen) {
-        InfoField({ label: this.text($r('app.string.ap_ui_status')), value: this.configStatus })
+        InfoField({ label: this.text($r('app.string.ap_ui_status')), value: this.display(this.configStatus) })
         Text(this.configText.length > 0 ? this.configText : this.text($r('app.string.ap_ui_no_configuration')))
           .fontSize(12)
           .fontColor('#667085')
@@ -656,11 +657,12 @@ struct Index {
                 .layoutWeight(1)
               Text(this.display(step.status))
                 .fontSize(12)
-                .fontColor(step.status === '成功' ? '#11845B' : step.status === '失败' ? '#C23F4A' : '#667085')
+                .fontColor(step.status === StepStatus.SUCCESS ? '#11845B' :
+                  step.status === StepStatus.FAILED ? '#C23F4A' : '#667085')
             }
             .width('100%')
             if (step.detail.length > 0) {
-              Text(this.display(step.detail))
+              Text(step.detail)
                 .fontSize(12)
                 .fontColor('#667085')
                 .width('100%')
@@ -678,7 +680,7 @@ struct Index {
           return step.key;
         })
         if (this.maintenance.notice.length > 0) {
-          Text(this.display(this.maintenance.notice))
+          Text(this.maintenance.notice)
             .fontSize(12)
             .fontColor('#667085')
             .width('100%')
@@ -953,9 +955,9 @@ struct Index {
         .fontSize(16)
         .fontWeight(FontWeight.Medium)
         .fontColor('#182238')
-      this.sampleSummary('启用', this.text($r('app.string.ap_ui_enabled')))
-      this.sampleSummary('禁用', this.text($r('app.string.ap_ui_disabled')))
-      this.sampleSummary('初始', this.text($r('app.string.ap_ui_initial')))
+      this.sampleSummary(ContentLoadGroup.ENABLED, this.text($r('app.string.ap_ui_enabled')))
+      this.sampleSummary(ContentLoadGroup.DISABLED, this.text($r('app.string.ap_ui_disabled')))
+      this.sampleSummary(ContentLoadGroup.INITIAL, this.text($r('app.string.ap_ui_initial')))
       Button(this.metricDetailsOpen ? this.text($r('app.string.ap_ui_hide_sampling_notes')) :
         this.text($r('app.string.ap_ui_sampling_notes')))
         .id('apMetricDetailsToggle')
@@ -1118,8 +1120,8 @@ struct Index {
     const flow: MaintenanceFlow | undefined = this.maintenance;
     if (flow !== undefined) {
       flow.steps.forEach((step: MaintenanceStep): void => {
-        const status: string = step.status === '成功' ? '成功' :
-          (['失败', '超时', '已取消'].indexOf(step.status) >= 0 ? '失败' : '跳过');
+        const status: string = step.status === StepStatus.SUCCESS ? StepStatus.SUCCESS :
+          (FAILED_STEP_STATUSES.indexOf(step.status) >= 0 ? StepStatus.FAILED : StepStatus.SKIPPED);
         const outcome: StepOutcome = new StepOutcome(step.key, status);
         outcome.elapsed = step.elapsed;
         outcome.detail = step.detail;
@@ -1130,7 +1132,9 @@ struct Index {
   }
 
   private planHeadline(): string {
-    return `${this.maintenance === undefined ? this.text($r('app.string.ap_ui_no_maintenance_flow_has_run')) : this.maintenance.status}｜` +
+    const status: string = this.maintenance === undefined ?
+      this.text($r('app.string.ap_ui_no_maintenance_flow_has_run')) : this.display(this.maintenance.status);
+    return `${status}｜` +
       `${gateVerdictLabel(evaluateFlowGate(this.maintenance).verdict())}`;
   }
 

@@ -18,7 +18,7 @@ import { CSV_BOM, ReportFormat, ReportMeta, exportReport } from '../../../main/e
 import { ExperimentSeriesState, SeriesPhase } from '../../../main/ets/core/ExperimentSeries';
 import { SAMPLING_PROTOCOL, fieldsOfRecord, fingerprintOf } from '../../../main/ets/core/report/ConditionFingerprint';
 import { formatMessage, message, withTextResourceResolver } from '../../../main/ets/core/TextMessages';
-import { restoreRecords } from '../../../main/ets/core/ExperimentLedger';
+import { ExperimentRecord, restoreRecords } from '../../../main/ets/core/ExperimentLedger';
 import { buildSeriesPanelView } from '../../../main/ets/core/SeriesPresentation';
 import { displayResourcePreview } from '../../../main/ets/core/UiText';
 import { waveRecord } from '../support/PerformanceWaveOneFixtures';
@@ -93,19 +93,25 @@ export default function localeContractTests(): void {
 
     /** @tc.number SUB_PERFORMANCE_LOCALECONTRACTS_0400
      * @tc.name testLocaleContracts0004
-     * English rendering does not rewrite historical stage/integrity values or restore eligibility.
+     * Both locales preserve canonical English stage/integrity codes and restore eligibility.
      */
     it('testLocaleContracts0004', 0, (): void => {
-      const record = waveRecord('EXP-LOCALE-4');
-      const serialized = JSON.stringify(record);
-      const restored = withTestMessages('en', () => restoreRecords([JSON.parse(serialized) as Object]));
-      expect(traceParameter('com.samples.appperformance_LocaleContracts_0004 restoredCount', restored.length))
-        .assertEqual(traceParameter('com.samples.appperformance_LocaleContracts_0004 expectedCount', 1));
-      expect(traceParameter('com.samples.appperformance_LocaleContracts_0004 complete', restored[0].complete())).assertTrue();
-      expect(traceParameter('com.samples.appperformance_LocaleContracts_0004 integrity', restored[0].integrity))
-        .assertEqual(traceParameter('com.samples.appperformance_LocaleContracts_0004 historicalIntegrity', '一致'));
-      expect(traceParameter('com.samples.appperformance_LocaleContracts_0004 stage', restored[0].stages[0].status))
-        .assertEqual(traceParameter('com.samples.appperformance_LocaleContracts_0004 historicalStage', '成功'));
+      const record: ExperimentRecord = waveRecord('EXP-LOCALE-4');
+      const serialized: string = JSON.stringify(record);
+      const languages: string[] = ['en', 'zh_CN'];
+      languages.forEach((language: string): void => {
+        const restored: ExperimentRecord[] = withTestMessages(language, (): ExperimentRecord[] =>
+          restoreRecords([JSON.parse(serialized) as Object]));
+        expect(traceParameter('com.samples.appperformance_LocaleContracts_0004 restoredCount', restored.length))
+          .assertEqual(traceParameter('com.samples.appperformance_LocaleContracts_0004 expectedCount', 1));
+        expect(traceParameter('com.samples.appperformance_LocaleContracts_0004 complete', restored[0].complete()))
+          .assertTrue();
+        expect(traceParameter('com.samples.appperformance_LocaleContracts_0004 integrity', restored[0].integrity))
+          .assertEqual(traceParameter('com.samples.appperformance_LocaleContracts_0004 historicalIntegrity',
+            'consistent'));
+        expect(traceParameter('com.samples.appperformance_LocaleContracts_0004 stage', restored[0].stages[0].status))
+          .assertEqual(traceParameter('com.samples.appperformance_LocaleContracts_0004 historicalStage', 'success'));
+      });
     });
 
     /** @tc.number SUB_PERFORMANCE_LOCALECONTRACTS_0500

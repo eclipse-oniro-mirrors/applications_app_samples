@@ -17,7 +17,7 @@ import { ExperimentSeriesState, restoreExperimentSeries } from './ExperimentSeri
 import { ExperimentRecord, compareRecords } from './ExperimentLedger';
 import { ReportTable, conditionGroupKey } from './report/ReportTable';
 import { ConditionVerdict, compareRecordConditions } from './report/ConditionFingerprint';
-import { message, localize } from './TextMessages';
+import { message } from './TextMessages';
 
 export const SERIES_HISTORY_LIMIT: number = 10;
 
@@ -62,11 +62,11 @@ export class SeriesGroupComparison {
 
   text(): string {
     if (!this.comparable) {
-      return message('ap_series_comparison_group_incomparable', [localize(this.label),
-        this.reasons.map((reason: string): string => localize(reason)).join(message('ap_series_reason_separator')),
+      return message('ap_series_comparison_group_incomparable', [this.label,
+        this.reasons.join(message('ap_series_reason_separator')),
         this.leftValid, this.leftSamples, this.rightValid, this.rightSamples]);
     }
-    return message('ap_series_comparison_group_comparable', [localize(this.label), this.leftValid, this.rightValid,
+    return message('ap_series_comparison_group_comparable', [this.label, this.leftValid, this.rightValid,
       this.leftP50, this.rightP50, `${this.deltaP50}`, this.leftP90, this.rightP90, `${this.deltaP90}`,
       this.leftMean, this.rightMean, `${this.deltaMean}`]);
   }
@@ -88,8 +88,7 @@ export class SeriesComparison {
 
   headline(): string {
     if (this.reasons.length > 0) {
-      return message('ap_series_comparison_rejected', [this.reasons.map((reason: string): string =>
-        localize(reason)).join(message('ap_series_reason_separator'))]);
+      return message('ap_series_comparison_rejected', [this.reasons.join(message('ap_series_reason_separator'))]);
     }
     if (this.groups.length === 0) { return message('ap_series_comparison_no_samples'); }
     const valid: number = this.comparableGroups();
@@ -153,7 +152,9 @@ export function compareSeriesSamples(left: ExperimentSeriesState | undefined,
     if (group.reasons.length === 0) {
       const facts = compareRecords(leftValid[0], rightValid[0]);
       const conditions = compareRecordConditions(leftValid[0], rightValid[0]);
-      if (!facts.comparable) { group.reasons.push(facts.reasons.join('；')); }
+      if (!facts.comparable) {
+        group.reasons.push(facts.reasons.join(message('ap_series_reason_separator')));
+      }
       if (conditions.verdict !== ConditionVerdict.SAME) { group.reasons.push(conditions.text()); }
       if (group.reasons.length === 0) {
         const leftRow = ReportTable.build(leftRecords).rows[0];

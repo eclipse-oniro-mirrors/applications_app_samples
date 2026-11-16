@@ -60,11 +60,11 @@ export function waveRecord(id: string, elapsed: number = 10): ExperimentRecord {
   record.afterBytes = 32;
   record.digestBefore = 'abcdef12';
   record.digestAfter = 'abcdef12';
-  record.integrity = '一致';
+  record.integrity = 'consistent';
   record.condition = JSON.stringify(['fixture-board · fixture-os', '1.0.fixture', true]);
   record.asset = 'sample.txt';
   record.stages = FLOW_KEYS.map((key: string): ExperimentStage =>
-    new ExperimentStage(key, key, '成功', elapsed, ''));
+    new ExperimentStage(key, key, 'success', elapsed, ''));
   return record;
 }
 

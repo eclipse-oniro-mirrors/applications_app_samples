@@ -48,10 +48,10 @@ function reportRecordB2(id: string, workload: string, mode: string, complete: bo
   record.afterBytes = 32;
   record.digestBefore = 'abcd1234';
   record.digestAfter = 'abcd1234';
-  record.integrity = complete ? '一致' : '不一致';
+  record.integrity = complete ? 'consistent' : 'inconsistent';
   record.condition = JSON.stringify(['fixture-board · fixture-os', '1.0.fixture', true]);
   record.stages = FLOW_KEYS.map((key: string): ExperimentStage =>
-    new ExperimentStage(key, key, !complete && key === 'reread' ? '失败' : '成功', 10, ''));
+    new ExperimentStage(key, key, !complete && key === 'reread' ? 'failed' : 'success', 10, ''));
   return record;
 }
 
@@ -324,7 +324,7 @@ export default function reportDeliveryB2Tests(): void {
      * @tc.level Level 2
      */
     it('testReportDeliveryBatchTwo0012', 0, (): void => {
-      const samples = measuredLaunchB2('启用', 500).concat(measuredLaunchB2('禁用', 700));
+      const samples: LaunchSample[] = measuredLaunchB2('enabled', 500).concat(measuredLaunchB2('disabled', 700));
       const report = evaluateBudgets(samples, CONTENT_LOAD_GROUPS);
       expect(traceParameter('com.samples.appperformance_ReportDeliveryBatchTwo_0012 ReportDeliveryB2.test:327 assertEqual actual', report.measured())).assertEqual(traceParameter('com.samples.appperformance_ReportDeliveryBatchTwo_0012 ReportDeliveryB2.test:327 assertEqual expected', 2));
       expect(traceParameter('com.samples.appperformance_ReportDeliveryBatchTwo_0012 ReportDeliveryB2.test:328 assertEqual actual', allStats(samples, CONTENT_LOAD_GROUPS)[0].p50)).assertEqual(traceParameter('com.samples.appperformance_ReportDeliveryBatchTwo_0012 ReportDeliveryB2.test:328 assertEqual expected', 500));
@@ -358,7 +358,7 @@ export default function reportDeliveryB2Tests(): void {
      * @tc.level Level 2
      */
     it('testReportDeliveryBatchTwo0014', 0, (): void => {
-      const samples = measuredLaunchB2('禁用', 1500).concat(measuredLaunchB2('启用', 1600));
+      const samples: LaunchSample[] = measuredLaunchB2('disabled', 1500).concat(measuredLaunchB2('enabled', 1600));
       const report = evaluateBudgets(samples, CONTENT_LOAD_GROUPS);
       expect(traceParameter('com.samples.appperformance_ReportDeliveryBatchTwo_0014 ReportDeliveryB2.test:361 assertTrue actual', report.results[1].passed)).assertTrue();
       expect(traceParameter('com.samples.appperformance_ReportDeliveryBatchTwo_0014 ReportDeliveryB2.test:362 assertEqual actual', report.passRate())).assertEqual(traceParameter('com.samples.appperformance_ReportDeliveryBatchTwo_0014 ReportDeliveryB2.test:362 assertEqual expected', 50));

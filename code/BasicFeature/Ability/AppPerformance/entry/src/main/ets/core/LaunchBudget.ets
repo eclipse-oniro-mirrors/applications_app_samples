@@ -21,12 +21,15 @@
  * 采样，给出"是否变慢"的结论供页面提示。
  */
 
-import { LaunchSample } from './Types';
+import { LaunchSample, ContentLoadGroup } from './Types';
+import { message } from './TextMessages';
 
 /** 启动分组。 */
 export class LaunchGroup {
   public key: string = '';
-  public label: string = '';
+  private labelValue: string = '';
+  public get label(): string { return message(this.labelValue); }
+  public set label(value: string) { this.labelValue = value; }
   /** 分组预算（毫秒）。 */
   public budgetMs: number = 0;
 
@@ -37,26 +40,26 @@ export class LaunchGroup {
   }
 
   text(): string {
-    return `${this.key}（${this.label}）预算 ${this.budgetMs} ms`;
+    return message('ap_dynamic_budget_ms', [this.key, this.label, this.budgetMs]);
   }
 }
 
 /** 分组表。预算为示例自身设定的体验基线，不代表系统承诺。 */
 export const LAUNCH_GROUPS: LaunchGroup[] = [
-  new LaunchGroup('cold', '冷启动', 1200),
-  new LaunchGroup('warm', '温启动', 800),
-  new LaunchGroup('hot', '热启动', 400),
-  new LaunchGroup('firstFrame', '首帧', 900),
-  new LaunchGroup('interactive', '可交互', 1500)
+  new LaunchGroup('cold', 'ap_dynamic_cold_launch', 1200),
+  new LaunchGroup('warm', 'ap_dynamic_warm_launch', 800),
+  new LaunchGroup('hot', 'ap_dynamic_hot_launch', 400),
+  new LaunchGroup('firstFrame', 'ap_dynamic_first_frame', 900),
+  new LaunchGroup('interactive', 'ap_dynamic_interactive', 1500)
 ];
 
 /** AppService records content-loaded latency by the latest configuration, not cold/warm/hot.
  * The common 1500 ms budget is a sample-app baseline, not a system guarantee or first-frame metric.
  */
 export const CONTENT_LOAD_GROUPS: LaunchGroup[] = [
-  new LaunchGroup('启用', '启用配置·内容加载', 1500),
-  new LaunchGroup('禁用', '禁用配置·内容加载', 1500),
-  new LaunchGroup('初始', '初始配置·内容加载', 1500)
+  new LaunchGroup(ContentLoadGroup.ENABLED, 'ap_dynamic_enabled_configuration_content_loading', 1500),
+  new LaunchGroup(ContentLoadGroup.DISABLED, 'ap_dynamic_disabled_configuration_content_loading', 1500),
+  new LaunchGroup(ContentLoadGroup.INITIAL, 'ap_dynamic_initial_configuration_content_loading', 1500)
 ];
 
 /** 分组 key 列表。 */
@@ -116,8 +119,8 @@ export class GroupStats {
   public mean: number = 0;
 
   text(): string {
-    return `${groupLabel(this.key)}｜${this.count} 条｜P50 ${this.p50} ms｜P90 ${this.p90} ms｜` +
-      `最差 ${this.worst} ms`;
+    return message('ap_dynamic_samples_p50_ms_p90_ms_worst_ms',
+      [groupLabel(this.key), this.count, this.p50, this.p90, this.worst]);
   }
 }
 
@@ -160,10 +163,11 @@ export class BudgetResult {
 
   text(): string {
     if (this.count === 0) {
-      return `${this.label}：暂无样本`;
+      return message('ap_dynamic_no_samples_yet', [this.label]);
     }
-    const state: string = this.passed ? '达标' : `超出 ${this.overshoot()} ms`;
-    return `${this.label}：P90 ${this.p90} ms / 预算 ${this.budgetMs} ms，${state}`;
+    const state: string = this.passed ? message('ap_dynamic_meets_target') :
+      message('ap_dynamic_exceeded_by_ms', [this.overshoot()]);
+    return message('ap_dynamic_p90_ms_budget_ms', [this.label, this.p90, this.budgetMs, state]);
   }
 }
 
@@ -200,12 +204,12 @@ export class BudgetReport {
   /** 结论。 */
   headline(): string {
     if (this.measured() === 0) {
-      return '暂无启动样本';
+      return message('ap_dynamic_no_launch_samples_yet');
     }
     if (this.failed() > 0) {
-      return `${this.failed()} 组超出预算`;
+      return message('ap_dynamic_groups_exceed_the_budget', [this.failed()]);
     }
-    return '全部达标';
+    return message('ap_dynamic_all_targets_met');
   }
 
   /** 未达标的分组。 */
@@ -215,7 +219,7 @@ export class BudgetReport {
 
   /** 逐行文本。 */
   text(): string {
-    const lines: string[] = [`启动预算：${this.headline()}（通过率 ${this.passRate()}%）`];
+    const lines: string[] = [message('ap_dynamic_launch_budget_pass_rate', [this.headline(), this.passRate()])];
     this.results.forEach((item: BudgetResult): void => {
       lines.push(item.text());
     });
@@ -252,13 +256,13 @@ export enum RegressionVerdict {
 export function regressionLabel(verdict: RegressionVerdict): string {
   switch (verdict) {
     case RegressionVerdict.IMPROVED:
-      return '变快';
+      return message('ap_dynamic_faster');
     case RegressionVerdict.STABLE:
-      return '持平';
+      return message('ap_dynamic_stable');
     case RegressionVerdict.REGRESSED:
-      return '变慢';
+      return message('ap_dynamic_slower');
     default:
-      return '无法比较';
+      return message('ap_dynamic_cannot_compare');
   }
 }
 
@@ -278,8 +282,8 @@ export class RegressionResult {
   }
 
   text(): string {
-    return `${groupLabel(this.key)}：${this.beforeP90} -> ${this.afterP90} ms` +
-      `（${regressionLabel(this.verdict)} ${this.changePercent()}%）`;
+    return message('ap_dynamic_ms', [groupLabel(this.key), this.beforeP90, this.afterP90,
+      regressionLabel(this.verdict), this.changePercent()]);
   }
 }
 
@@ -296,18 +300,18 @@ export class RegressionReport {
   /** 结论。 */
   headline(): string {
     if (this.results.length === 0) {
-      return '没有可比样本';
+      return message('ap_dynamic_no_comparable_samples');
     }
     const worse: number = this.regressed().length;
     if (worse > 0) {
-      return `${worse} 组出现回归`;
+      return message('ap_dynamic_groups_regressed', [worse]);
     }
-    return '没有回归';
+    return message('ap_dynamic_no_regressions');
   }
 
   /** 逐行文本。 */
   text(): string {
-    const lines: string[] = [`回归检测：${this.headline()}`];
+    const lines: string[] = [message('ap_dynamic_regression_check', [this.headline()])];
     this.results.forEach((item: RegressionResult): void => {
       lines.push(item.text());
     });
@@ -349,7 +353,8 @@ export class BudgetAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '启动预算表自洽' : this.findings.join('；');
+    return this.ok ? message('ap_dynamic_launch_budget_catalog_is_consistent') :
+      this.findings.join(message('report_list_separator'));
   }
 }
 
@@ -359,14 +364,14 @@ export function auditBudgets(groups: LaunchGroup[] = LAUNCH_GROUPS): BudgetAudit
   const seen: string[] = [];
   groups.forEach((group: LaunchGroup): void => {
     if (seen.indexOf(group.key) >= 0) {
-      audit.findings.push(`分组重复：${group.key}`);
+      audit.findings.push(message('ap_dynamic_duplicate_group', [group.key]));
     }
     seen.push(group.key);
     if (group.budgetMs <= 0) {
-      audit.findings.push(`预算非法：${group.key}`);
+      audit.findings.push(message('ap_dynamic_invalid_budget', [group.key]));
     }
     if (group.label.length === 0) {
-      audit.findings.push(`缺少标签：${group.key}`);
+      audit.findings.push(message('ap_dynamic_missing_label', [group.key]));
     }
   });
   audit.ok = audit.findings.length === 0;

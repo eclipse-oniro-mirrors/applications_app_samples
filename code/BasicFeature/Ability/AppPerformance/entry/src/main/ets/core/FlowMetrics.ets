@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { MaintenanceFlow, MaintenanceStep } from './Types';
+import { MaintenanceFlow, MaintenanceStep, StepStatus, FAILED_STEP_STATUSES, OBSERVED_STEP_STATUSES } from './Types';
 import { MetricSample, ThresholdEntry, ThresholdKind, ThresholdUnit, ThresholdLevel,
   Limit, ThresholdReport, evaluateThresholds } from './ThresholdCatalog';
 import { GateRule, GateCompare, GateLevel, GateReport, evaluateGate } from './RegressionGate';
@@ -26,16 +26,18 @@ export function flowMetricSamples(flow: MaintenanceFlow | undefined): MetricSamp
   const samples: MetricSample[] = [];
   if (flow === undefined || flow.steps.length === 0) { return samples; }
   flow.steps.forEach((step: MaintenanceStep): void => {
-    if (FLOW_KEYS.indexOf(step.key) >= 0 && ['成功', '失败', '超时', '已取消'].indexOf(step.status) >= 0 &&
+    if (FLOW_KEYS.indexOf(step.key) >= 0 && OBSERVED_STEP_STATUSES.indexOf(step.status) >= 0 &&
       Number.isFinite(step.elapsed) && step.elapsed >= 0) {
       samples.push(new MetricSample(`stage.${step.key}.ms`, step.elapsed));
     }
   });
   if (flow.endedAt > 0 && flow.steps.length === FLOW_KEYS.length) {
     const failed: number = flow.steps.filter((step: MaintenanceStep): boolean =>
-      ['失败', '超时', '已取消'].indexOf(step.status) >= 0).length;
-    const skipped: number = flow.steps.filter((step: MaintenanceStep): boolean => step.status === '跳过').length;
-    const succeeded: number = flow.steps.filter((step: MaintenanceStep): boolean => step.status === '成功').length;
+      FAILED_STEP_STATUSES.indexOf(step.status) >= 0).length;
+    const skipped: number = flow.steps.filter((step: MaintenanceStep): boolean =>
+      step.status === StepStatus.SKIPPED).length;
+    const succeeded: number = flow.steps.filter((step: MaintenanceStep): boolean =>
+      step.status === StepStatus.SUCCESS).length;
     const total: number = flow.steps.reduce((sum: number, step: MaintenanceStep): number => sum + step.elapsed, 0);
     samples.push(new MetricSample('run.total.ms', total));
     samples.push(new MetricSample('run.failed.count', failed));
@@ -49,9 +51,11 @@ export function flowMetricSamples(flow: MaintenanceFlow | undefined): MetricSamp
 export function flowThresholds(): ThresholdEntry[] {
   const entries: ThresholdEntry[] = FLOW_KEYS.map((key: string, index: number): ThresholdEntry =>
     new ThresholdEntry(`FLOW-${key}`, `stage.${key}.ms`, ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-      Limit.AT_MOST, FLOW_BUDGETS_MS[index], ThresholdLevel.MUST, '本示例真实阶段预算，不代表系统承诺'));
+      Limit.AT_MOST, FLOW_BUDGETS_MS[index], ThresholdLevel.MUST,
+      'ap_dynamic_this_sample_s_real_stage_budget_is_not_a_system_guarantee'));
   entries.push(new ThresholdEntry('FLOW-success', 'success.ratio', ThresholdKind.RATIO, ThresholdUnit.PERCENT,
-    Limit.AT_LEAST, 100, ThresholdLevel.MUST, '所有真实阶段须成功，早停或缺失不可通过'));
+    Limit.AT_LEAST, 100, ThresholdLevel.MUST,
+    'ap_dynamic_all_actual_stages_must_succeed_early_stops_or_missing_results_cannot_pass'));
   return entries;
 }
 
@@ -63,7 +67,8 @@ export function flowGateRules(): GateRule[] {
   const rules: GateRule[] = flowThresholds().map((entry: ThresholdEntry): GateRule =>
     new GateRule(entry.entryId, entry.key, entry.limit === Limit.AT_LEAST ? GateCompare.AT_LEAST : GateCompare.AT_MOST,
       entry.value, GateLevel.BLOCKING, entry.rationale));
-  rules.push(new GateRule('FLOW-failed', 'run.failed.count', GateCompare.AT_MOST, 0, GateLevel.BLOCKING, '失败不能放行'));
+  rules.push(new GateRule('FLOW-failed', 'run.failed.count', GateCompare.AT_MOST, 0, GateLevel.BLOCKING,
+    'ap_dynamic_failures_must_block_the_gate'));
   return rules;
 }
 

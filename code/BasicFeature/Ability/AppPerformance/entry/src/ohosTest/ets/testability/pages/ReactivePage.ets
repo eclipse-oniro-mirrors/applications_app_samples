@@ -24,7 +24,7 @@ function recordAt(revision: number): CallRecord {
     id: 41,
     api: 'ui.fixture',
     target: 'entry.hap',
-    status: revision % 2 === 1 ? '调用成功' : '调用中',
+    status: revision % 2 === 1 ? 'call_succeeded' : 'calling',
     kind: revision % 2 === 1 ? 'success' : 'pending',
     at: 1700000000000,
     elapsed: revision * 10,

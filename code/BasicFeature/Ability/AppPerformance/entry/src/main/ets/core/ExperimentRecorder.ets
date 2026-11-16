@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import { MaintenanceFlow, MaintenanceStep } from './Types';
+import { MaintenanceFlow, MaintenanceStep, StepStatus, FlowStatus, IntegrityStatus,
+  ObservationStatus, OBSERVED_STEP_STATUSES } from './Types';
 import { ExperimentRecord, ExperimentStage } from './ExperimentLedger';
 
 /**
@@ -33,15 +34,16 @@ export function recordOfFlow(flow: MaintenanceFlow, workloadId: string, workload
   record.afterBytes = flow.afterBytes;
   record.digestBefore = flow.digestBefore;
   record.digestAfter = flow.digestAfter;
-  record.integrity = flow.integrity === '业务资源校验一致' ? '一致' :
-    (flow.integrity === '业务资源重读失败' ? '不一致' : (flow.integrity === '业务资源校验不一致' ? '不一致' : '未校验'));
-  record.observability = '不可观测';
+  record.integrity = flow.integrity === IntegrityStatus.RESOURCE_MATCH ? IntegrityStatus.CONSISTENT :
+    (flow.integrity === IntegrityStatus.RESOURCE_READ_FAILED || flow.integrity === IntegrityStatus.RESOURCE_MISMATCH ?
+      IntegrityStatus.INCONSISTENT : IntegrityStatus.UNCHECKED);
+  record.observability = ObservationStatus.UNOBSERVABLE;
   record.note = flow.notice;
   missing.forEach((item: string): void => {
     record.missing.push(item);
   });
   flow.steps.forEach((step: MaintenanceStep): void => {
-    const status: string = ['成功', '失败', '超时', '已取消'].indexOf(step.status) >= 0 ? step.status : '跳过';
+    const status: string = OBSERVED_STEP_STATUSES.indexOf(step.status) >= 0 ? step.status : StepStatus.SKIPPED;
     record.stages.push(new ExperimentStage(step.key, step.label, status, step.elapsed, step.detail));
   });
   return record;
@@ -49,6 +51,7 @@ export function recordOfFlow(flow: MaintenanceFlow, workloadId: string, workload
 
 /** 正常结束的流程才计入成功；中途停止保留为失败记录。 */
 export function flowCompleted(flow: MaintenanceFlow): boolean {
-  return flow.endedAt > 0 && flow.status.indexOf('已完成') === 0 && flow.steps.every(
-    (step: MaintenanceStep): boolean => step.status === '成功');
+  return flow.endedAt > 0 &&
+    (flow.status === FlowStatus.COMPLETED || flow.status === FlowStatus.COMPLETED_WITH_FAILURES) &&
+    flow.steps.every((step: MaintenanceStep): boolean => step.status === StepStatus.SUCCESS);
 }

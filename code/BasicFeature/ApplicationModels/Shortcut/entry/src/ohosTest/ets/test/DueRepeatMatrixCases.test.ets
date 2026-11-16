@@ -112,11 +112,16 @@ export default function dueRepeatMatrixCasesTest(): void {
      */
 
     it(caseName('DueRuleCases', '0005'), 0, (): void => {
-      expect(RepeatKind.NONE, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0017').assertEqual('不重复');
-      expect(RepeatKind.DAILY, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0018').assertEqual('每天');
-      expect(RepeatKind.WEEKDAY, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0019').assertEqual('工作日');
-      expect(RepeatKind.WEEKLY, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0020').assertEqual('每周');
-      expect(RepeatKind.MONTHLY, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0021').assertEqual('每月');
+      expect(RepeatKind.NONE, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0017')
+        .assertEqual('none');
+      expect(RepeatKind.DAILY, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0018')
+        .assertEqual('daily');
+      expect(RepeatKind.WEEKDAY, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0019')
+        .assertEqual('weekday');
+      expect(RepeatKind.WEEKLY, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0020')
+        .assertEqual('weekly');
+      expect(RepeatKind.MONTHLY, caseName('DueRuleCases', '0005'), 'DueRepeatMatrixCases.test.ets:A0021')
+        .assertEqual('monthly');
     });
 
     /**

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { businessLabel } from '../i18n/BusinessLabels';
+import { businessLabel, repeatKindLabel } from '../i18n/BusinessLabels';
 import { uiText, resourceText } from '../i18n/Strings';
 
 /**
@@ -36,11 +36,11 @@ export enum Priority {
 
 /** 重复方式。 */
 export enum RepeatKind {
-  NONE = '不重复',
-  DAILY = '每天',
-  WEEKDAY = '工作日',
-  WEEKLY = '每周',
-  MONTHLY = '每月'
+  NONE = 'none',
+  DAILY = 'daily',
+  WEEKDAY = 'weekday',
+  WEEKLY = 'weekly',
+  MONTHLY = 'monthly'
 }
 
 /** 逾期判定。 */
@@ -290,5 +290,6 @@ export function repeatText(repeat: RepeatKind, due: TodoDue, now: number): strin
     return uiText('shortcut_text_0134');
   }
   const next: number = nextOccurrence(due, now);
-  return next <= 0 ? uiText('shortcut_text_0023', [businessLabel(repeat as string)]) : uiText('shortcut_text_0022', [businessLabel(repeat as string), String(dateKeyOf(next))]);
+  return next <= 0 ? uiText('shortcut_text_0023', [repeatKindLabel(repeat)]) :
+    uiText('shortcut_text_0022', [repeatKindLabel(repeat), String(dateKeyOf(next))]);
 }

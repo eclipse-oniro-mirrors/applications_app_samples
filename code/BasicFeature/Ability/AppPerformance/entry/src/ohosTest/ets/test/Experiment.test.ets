@@ -58,11 +58,12 @@ async function drain(): Promise<void> {
 
 function completeRecord(id: string = 'EXP-1'): ExperimentRecord {
   const flow = new MaintenanceFlow();
-  flow.mode = 'control'; flow.startedAt = 1000; flow.endedAt = 1100; flow.status = '已完成';
+  flow.mode = 'control'; flow.startedAt = 1000; flow.endedAt = 1100; flow.status = 'completed';
   flow.beforeBytes = 10; flow.afterBytes = 10; flow.digestBefore = 'abc'; flow.digestAfter = 'abc';
-  flow.integrity = '业务资源校验一致';
+  flow.integrity = 'resource_match';
   FLOW_KEYS.forEach((key: string): void => {
-    const step = new MaintenanceStep(); step.key = key; step.label = key; step.status = '成功'; step.elapsed = 10;
+    const step: MaintenanceStep = new MaintenanceStep();
+    step.key = key; step.label = key; step.status = 'success'; step.elapsed = 10;
     flow.steps.push(step);
   });
   const record = recordOfFlow(flow, 'W-NOTES', '列表', []);
@@ -195,14 +196,32 @@ export default function experimentTests(): void {
         const running = service.runExperiment('W-NOTES', 'files'); await drain();
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:195 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:195 assertEqual expected', 1));
         platform.advance(10000); const record = required(await running);
-        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:197 assertEqual actual', record.stages[3].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:197 assertEqual expected', '超时')); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:197 assertFalse actual', record.complete())).assertFalse();
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceExperiments_0005 ' +
+            'Experiment.test:197 assertEqual actual',
+          record.stages[3].status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceExperiments_0005 ' +
+              'Experiment.test:197 assertEqual expected',
+            'timeout'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceExperiments_0005 ' +
+            'Experiment.test:197 assertFalse actual',
+          record.complete())).assertFalse();
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-native-quarantine assertTrue actual', service.isQuarantined())).assertTrue(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-experiment-busy assertTrue actual', service.isExperimentBusy())).assertTrue();
         const blocked = await service.evictFiles(['entry.hap']); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:199 assertFalse actual', blocked.dispatched)).assertFalse();
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:200 assertTrue actual', await service.runExperiment('W-NOTES', 'control') === undefined)).assertTrue();
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-native-file-call-count assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-native-file-call-count assertEqual expected', 1)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-ledger-record-count assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-ledger-record-count assertEqual expected', 1));
         platform.releaseFile(); await drain();
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:203 assertFalse actual', service.isExperimentBusy())).assertFalse(); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:203 assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:203 assertEqual expected', 1));
-        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:204 assertEqual actual', service.ledgerRecords()[0].stages[3].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:204 assertEqual expected', '超时'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceExperiments_0005 ' +
+            'Experiment.test:204 assertEqual actual',
+          service.ledgerRecords()[0].stages[3].status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceExperiments_0005 ' +
+              'Experiment.test:204 assertEqual expected',
+            'timeout'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-resource-read-count assertEqual actual', platform.names.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-resource-read-count assertEqual expected', 1)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-pending-timer-count assertEqual actual', platform.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0005 Experiment.test:timeout-pending-timer-count assertEqual expected', 0));
       } finally { platform.releaseFile(); service.dispose(); }
     });
@@ -223,11 +242,29 @@ export default function experimentTests(): void {
       try {
         const running = service.runExperiment('W-NOTES', 'files'); await drain();
         service.cancelExperiment(); const record = required(await running);
-        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:225 assertEqual actual', record.stages[3].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:225 assertEqual expected', '已取消')); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:225 assertTrue actual', service.isQuarantined())).assertTrue();
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceExperiments_0006 ' +
+            'Experiment.test:225 assertEqual actual',
+          record.stages[3].status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceExperiments_0006 ' +
+              'Experiment.test:225 assertEqual expected',
+            'cancelled'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceExperiments_0006 ' +
+            'Experiment.test:225 assertTrue actual',
+          service.isQuarantined())).assertTrue();
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:cancellation-pending-timer-count assertEqual actual', platform.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:cancellation-pending-timer-count assertEqual expected', 0)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:cancellation-ledger-record-count assertEqual actual', service.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:cancellation-ledger-record-count assertEqual expected', 1));
         platform.releaseFile(); await drain();
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:228 assertFalse actual', service.isExperimentBusy())).assertFalse();
-        expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:229 assertEqual actual', service.ledgerRecords()[0].stages[3].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:229 assertEqual expected', '已取消'));
+        expect(traceParameter(
+          'com.samples.appperformance_AppPerformanceExperiments_0006 ' +
+            'Experiment.test:229 assertEqual actual',
+          service.ledgerRecords()[0].stages[3].status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_AppPerformanceExperiments_0006 ' +
+              'Experiment.test:229 assertEqual expected',
+            'cancelled'));
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0006 Experiment.test:230 assertTrue actual', service.getState().logs.some((row): boolean =>
           row.code === 678 && row.api === 'evictFilePages'))).assertTrue();
       } finally { platform.releaseFile(); service.dispose(); }
@@ -252,9 +289,21 @@ export default function experimentTests(): void {
       expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:251 assertEqual actual', reopened.all().map((record): string => record.id).join('|'))).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:251 assertEqual expected', 'EXP-2|EXP-1'));
       reopened.restore(reopened.all()); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:252 assertEqual actual', reopened.all()[0].id)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:252 assertEqual expected', 'EXP-2'));
       const duplicate = reopened.append(first); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:253 assertFalse actual', duplicate.id === 'EXP-1')).assertFalse();
-      duplicate.stages[0].status = '失败'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:254 assertEqual actual', reopened.all()[0].stages[0].status)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:254 assertEqual expected', '成功'));
+      duplicate.stages[0].status = 'failed';
+      expect(traceParameter(
+        'com.samples.appperformance_AppPerformanceExperiments_0007 ' +
+          'Experiment.test:254 assertEqual actual',
+        reopened.all()[0].stages[0].status))
+        .assertEqual(traceParameter(
+          'com.samples.appperformance_AppPerformanceExperiments_0007 ' +
+            'Experiment.test:254 assertEqual expected',
+          'success'));
       expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:255 assertEqual actual', restoreRecords([first, first]).length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:255 assertEqual expected', 1));
-      first.stages[1].status = '跳过'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:256 assertFalse actual', first.complete())).assertFalse();
+      first.stages[1].status = 'skipped';
+      expect(traceParameter(
+        'com.samples.appperformance_AppPerformanceExperiments_0007 ' +
+          'Experiment.test:256 assertFalse actual',
+        first.complete())).assertFalse();
       for (let index = 0; index < 35; index++) { reopened.append(completeRecord()); }
       expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:258 assertEqual actual', reopened.size())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0007 Experiment.test:258 assertEqual expected', 30));
       const corrupted = completeRecord('bad'); corrupted.stages[0].elapsedMs = Number.NaN;
@@ -278,7 +327,9 @@ export default function experimentTests(): void {
       expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:277 assertTrue actual', comparison.text().indexOf('校验 一致') >= 0)).assertTrue();
       right.mode = 'files'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:278 assertFalse actual', compareRecords(left, right).comparable)).assertFalse(); right.mode = 'control';
       right.condition = 'different'; expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:279 assertFalse actual', compareRecords(left, right).comparable)).assertFalse();
-      right.condition = left.condition; right.stages[1].status = '失败'; right.stages[1].elapsedMs = 9000;
+      right.condition = left.condition;
+      right.stages[1].status = 'failed';
+      right.stages[1].elapsedMs = 9000;
       const groups = digestLedger([left, right]);
       expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:same-condition-group-count assertEqual actual', groups.length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:same-condition-group-count assertEqual expected', 1)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:same-condition-median-duration assertEqual actual', groups[0].medianDuration)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:same-condition-median-duration assertEqual expected', 60));
       expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:same-condition-p90-duration assertEqual actual', groups[0].p90Duration)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:same-condition-p90-duration assertEqual expected', 60)); expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:same-condition-failed-count assertEqual actual', groups[0].failed)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0008 Experiment.test:same-condition-failed-count assertEqual expected', 1));
@@ -307,7 +358,7 @@ export default function experimentTests(): void {
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:306 assertEqual actual', samples.filter((item): boolean => item.key.indexOf('stage.') === 0).length)).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:306 assertEqual expected', 6));
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:307 assertEqual actual', evaluateFlowGate(flow).verdict())).assertEqual(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:307 assertEqual expected', GateVerdict.PASS));
         if (flow === undefined) { throw new Error('Missing completed flow'); }
-        flow.steps[1].status = '跳过';
+        flow.steps[1].status = 'skipped';
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:310 assertFalse actual', flowMetricSamples(flow).some((item): boolean => item.key === 'stage.config.ms'))).assertFalse();
         expect(traceParameter('com.samples.appperformance_AppPerformanceExperiments_0009 Experiment.test:311 assertFalse actual', evaluateFlowGate(flow).verdict() === GateVerdict.PASS)).assertFalse();
       } finally { service.dispose(); }

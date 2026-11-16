@@ -59,7 +59,14 @@ export default function performanceServiceWaveOneTests(): void {
         const running = service.runExperiment('W-TEXT', 'files'); await waveDrain();
         service.cancelExperiment();
         const record = waveRequired(await running);
-        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:60 assertEqual actual', record.stage('warm')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:60 assertEqual expected', '已取消'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceServiceWaveOne_0002 ' +
+            'PerformanceServiceWaveOne.test:60 assertEqual actual',
+          record.stage('warm')?.status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceServiceWaveOne_0002 ' +
+              'PerformanceServiceWaveOne.test:60 assertEqual expected',
+            'cancelled'));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:61 assertEqual actual', record.skipped())).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:61 assertEqual expected', 3));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:62 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:62 assertEqual expected', 0));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0002 PerformanceServiceWaveOne.test:63 assertTrue actual', service.isQuarantined())).assertTrue();
@@ -87,10 +94,24 @@ export default function performanceServiceWaveOneTests(): void {
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:85 assertEqual actual', platform.resourceCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:85 assertEqual expected', 2));
         platform.advance(10000);
         const record = waveRequired(await running);
-        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:88 assertEqual actual', record.stage('reread')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:88 assertEqual expected', '超时'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceServiceWaveOne_0003 ' +
+            'PerformanceServiceWaveOne.test:88 assertEqual actual',
+          record.stage('reread')?.status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceServiceWaveOne_0003 ' +
+              'PerformanceServiceWaveOne.test:88 assertEqual expected',
+            'timeout'));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:89 assertEqual actual', record.beforeBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:89 assertEqual expected', 3));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:90 assertEqual actual', record.afterBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:90 assertEqual expected', 0));
-        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:91 assertEqual actual', record.stage('configAgain')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:91 assertEqual expected', '跳过'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceServiceWaveOne_0003 ' +
+            'PerformanceServiceWaveOne.test:91 assertEqual actual',
+          record.stage('configAgain')?.status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceServiceWaveOne_0003 ' +
+              'PerformanceServiceWaveOne.test:91 assertEqual expected',
+            'skipped'));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:92 assertEqual actual', platform.configCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:92 assertEqual expected', 1));
         platform.reply.resolve(new Uint8Array([65, 66, 67])); await waveDrain();
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:94 assertEqual actual', service.ledgerRecords()[0].digestAfter)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0003 PerformanceServiceWaveOne.test:94 assertEqual expected', ''));
@@ -117,7 +138,14 @@ export default function performanceServiceWaveOneTests(): void {
         service.dispose();
         const afterDispose = notifications;
         const record = waveRequired(await running);
-        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:118 assertEqual actual', record.stage('warm')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:118 assertEqual expected', '已取消'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceServiceWaveOne_0004 ' +
+            'PerformanceServiceWaveOne.test:118 assertEqual actual',
+          record.stage('warm')?.status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceServiceWaveOne_0004 ' +
+              'PerformanceServiceWaveOne.test:118 assertEqual expected',
+            'cancelled'));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:119 assertEqual actual', platform.pendingTimers())).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:119 assertEqual expected', 0));
         platform.reply.reject(new Error('late resource rejection')); await waveDrain();
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:121 assertEqual actual', notifications)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0004 PerformanceServiceWaveOne.test:121 assertEqual expected', afterDispose));
@@ -224,8 +252,22 @@ export default function performanceServiceWaveOneTests(): void {
       const service = AppService.fromPlatform(platform);
       try {
         const record = waveRequired(await service.runExperiment('W-TEXT', 'files'));
-        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:225 assertEqual actual', record.integrity)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:225 assertEqual expected', '一致'));
-        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:226 assertEqual actual', record.stage('configAgain')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:226 assertEqual expected', '失败'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceServiceWaveOne_0008 ' +
+            'PerformanceServiceWaveOne.test:225 assertEqual actual',
+          record.integrity))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceServiceWaveOne_0008 ' +
+              'PerformanceServiceWaveOne.test:225 assertEqual expected',
+            'consistent'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceServiceWaveOne_0008 ' +
+            'PerformanceServiceWaveOne.test:226 assertEqual actual',
+          record.stage('configAgain')?.status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceServiceWaveOne_0008 ' +
+              'PerformanceServiceWaveOne.test:226 assertEqual expected',
+            'failed'));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:227 assertEqual actual', record.stage('configAgain')?.detail)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:227 assertEqual expected', '回读失败：171002'));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:228 assertEqual actual', record.failed())).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:228 assertEqual expected', 1));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:229 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0008 PerformanceServiceWaveOne.test:229 assertEqual expected', 1));
@@ -247,12 +289,26 @@ export default function performanceServiceWaveOneTests(): void {
       try {
         const record = waveRequired(await service.runExperiment('W-TEXT', 'files'));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:247 assertEqual actual', record.stage('reread')?.detail)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:247 assertEqual expected', '重读失败：171001'));
-        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:248 assertEqual actual', record.stage('configAgain')?.status)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:248 assertEqual expected', '成功'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceServiceWaveOne_0009 ' +
+            'PerformanceServiceWaveOne.test:248 assertEqual actual',
+          record.stage('configAgain')?.status))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceServiceWaveOne_0009 ' +
+              'PerformanceServiceWaveOne.test:248 assertEqual expected',
+            'success'));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:249 assertEqual actual', record.beforeBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:249 assertEqual expected', 3));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:250 assertEqual actual', record.afterBytes)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:250 assertEqual expected', 0));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:251 assertEqual actual', platform.fileCalls.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:251 assertEqual expected', 1));
         expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:252 assertEqual actual', platform.configCalls)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:252 assertEqual expected', 2));
-        expect(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:253 assertEqual actual', record.integrity)).assertEqual(traceParameter('com.samples.appperformance_PerformanceServiceWaveOne_0009 PerformanceServiceWaveOne.test:253 assertEqual expected', '不一致'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceServiceWaveOne_0009 ' +
+            'PerformanceServiceWaveOne.test:253 assertEqual actual',
+          record.integrity))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceServiceWaveOne_0009 ' +
+              'PerformanceServiceWaveOne.test:253 assertEqual expected',
+            'inconsistent'));
       } finally { service.dispose(); }
     });
   });

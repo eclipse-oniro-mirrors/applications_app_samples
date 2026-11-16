@@ -20,6 +20,8 @@
  * 划分成可枚举的档位，档位决定并发数与超时，避免页面里散落魔法数字。
  */
 
+import { message } from './TextMessages';
+
 /** 负载档位。 */
 export enum LoadTier {
   IDLE = 'idle',
@@ -33,15 +35,15 @@ export enum LoadTier {
 export function tierLabel(tier: LoadTier): string {
   switch (tier) {
     case LoadTier.IDLE:
-      return '空载';
+      return message('ap_dynamic_idle');
     case LoadTier.LIGHT:
-      return '轻载';
+      return message('ap_dynamic_light');
     case LoadTier.NORMAL:
-      return '常规';
+      return message('ap_dynamic_normal');
     case LoadTier.HEAVY:
-      return '重载';
+      return message('ap_dynamic_heavy');
     default:
-      return '超重载';
+      return message('ap_dynamic_extreme');
   }
 }
 
@@ -87,7 +89,7 @@ export class Workload {
   }
 
   text(): string {
-    return `${this.files} 个文件 / ${this.bytes} 字节 / ${this.modules} 个模块`;
+    return message('ap_dynamic_files_bytes_modules', [this.files, this.bytes, this.modules]);
   }
 }
 
@@ -113,8 +115,8 @@ export class TierBound {
   }
 
   text(): string {
-    return `${tierLabel(this.tier)}：≤${this.maxFiles} 文件，≤${this.maxBytes} 字节，` +
-      `≤${this.maxModules} 模块`;
+    return message('ap_dynamic_files_bytes_modules_168',
+      [tierLabel(this.tier), this.maxFiles, this.maxBytes, this.maxModules]);
   }
 }
 
@@ -201,8 +203,8 @@ export class BatchPlan {
 
   /** 说明文本。 */
   text(): string {
-    return `${tierLabel(this.tier)}｜${this.batchCount} 批 × ${this.batchSize}｜并发 ` +
-      `${this.concurrency}｜超时 ${this.timeoutMs} ms`;
+    return message('ap_dynamic_batches_concurrency_timeout_ms',
+      [tierLabel(this.tier), this.batchCount, this.batchSize, this.concurrency, this.timeoutMs]);
   }
 }
 
@@ -239,7 +241,7 @@ export class BatchRange {
   }
 
   text(): string {
-    return `第 ${this.index + 1} 批：[${this.start}, ${this.end})`;
+    return message('ap_dynamic_batch', [this.index + 1, this.start, this.end]);
   }
 }
 
@@ -300,7 +302,8 @@ export class ProfileAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '负载档位表自洽' : this.findings.join('；');
+    return this.ok ? message('ap_dynamic_load_tier_catalog_is_consistent') :
+      this.findings.join(message('ap_series_reason_separator'));
   }
 }
 
@@ -311,28 +314,28 @@ export function auditProfile(): ProfileAudit {
   let lastFiles: number = -1;
   TIER_BOUNDS.forEach((bound: TierBound): void => {
     if (seen.indexOf(bound.tier) >= 0) {
-      audit.findings.push(`档位重复：${tierLabel(bound.tier)}`);
+      audit.findings.push(message('ap_dynamic_duplicate_load_tier', [tierLabel(bound.tier)]));
     }
     seen.push(bound.tier);
     if (bound.maxFiles < lastFiles) {
-      audit.findings.push(`文件上限非单调：${tierLabel(bound.tier)}`);
+      audit.findings.push(message('ap_dynamic_file_limit_is_not_monotonic', [tierLabel(bound.tier)]));
     }
     lastFiles = bound.maxFiles;
     if (bound.maxModules < 0) {
-      audit.findings.push(`模块上限为负：${tierLabel(bound.tier)}`);
+      audit.findings.push(message('ap_dynamic_negative_module_limit', [tierLabel(bound.tier)]));
     }
   });
   if (seen.length !== 5) {
-    audit.findings.push(`档位数量异常：${seen.length}`);
+    audit.findings.push(message('ap_dynamic_unexpected_load_tier_count', [seen.length]));
   }
   const tiers: LoadTier[] = [LoadTier.IDLE, LoadTier.LIGHT, LoadTier.NORMAL, LoadTier.HEAVY,
     LoadTier.EXTREME];
   tiers.forEach((tier: LoadTier): void => {
     if (recommendedConcurrency(tier) <= 0) {
-      audit.findings.push(`并发数非法：${tierLabel(tier)}`);
+      audit.findings.push(message('ap_dynamic_invalid_concurrency', [tierLabel(tier)]));
     }
     if (recommendedTimeout(tier) <= 0) {
-      audit.findings.push(`超时非法：${tierLabel(tier)}`);
+      audit.findings.push(message('ap_dynamic_invalid_timeout', [tierLabel(tier)]));
     }
   });
   audit.ok = audit.findings.length === 0;

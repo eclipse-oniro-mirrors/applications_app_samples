@@ -21,16 +21,17 @@
  */
 
 import { message } from './TextMessages';
+import { StepStatus, IntegrityStatus, ObservationStatus, RECORDED_STEP_STATUSES, statusText } from './Types';
 
 /** 阶段。 */
 export class ExperimentStage {
   public key: string = '';
   public label: string = '';
-  public status: string = '跳过';
+  public status: string = StepStatus.SKIPPED;
   public elapsedMs: number = 0;
   public detail: string = '';
 
-  constructor(key: string = '', label: string = '', status: string = '跳过',
+  constructor(key: string = '', label: string = '', status: string = StepStatus.SKIPPED,
     elapsedMs: number = 0, detail: string = '') {
     this.key = key;
     this.label = label;
@@ -40,11 +41,11 @@ export class ExperimentStage {
   }
 
   succeeded(): boolean {
-    return this.status === '成功';
+    return this.status === StepStatus.SUCCESS;
   }
 
   failed(): boolean {
-    return this.status === '失败';
+    return this.status === StepStatus.FAILED;
   }
 
   text(): string {
@@ -65,10 +66,10 @@ export class ExperimentRecord {
   public afterBytes: number = 0;
   public digestBefore: string = '';
   public digestAfter: string = '';
-  public integrity: string = '未校验';
+  public integrity: string = IntegrityStatus.UNCHECKED;
   public checkBefore: string = '';
   public checkAfter: string = '';
-  public observability: string = '未观测';
+  public observability: string = ObservationStatus.UNOBSERVED;
   public missing: string[] = [];
   public note: string = '';
   public condition: string = '';
@@ -84,12 +85,12 @@ export class ExperimentRecord {
   }
 
   skipped(): number {
-    return this.stages.filter((stage: ExperimentStage): boolean => stage.status === '跳过').length;
+    return this.stages.filter((stage: ExperimentStage): boolean => stage.status === StepStatus.SKIPPED).length;
   }
 
   complete(): boolean {
     const keys: string[] = ['discover', 'config', 'warm', 'evict', 'reread', 'configAgain'];
-    return this.endedAt >= this.startedAt && this.startedAt > 0 && this.integrity === '一致' &&
+    return this.endedAt >= this.startedAt && this.startedAt > 0 && this.integrity === IntegrityStatus.CONSISTENT &&
       this.stages.length === keys.length && keys.every((key: string): boolean =>
         this.stages.filter((stage: ExperimentStage): boolean => stage.key === key && stage.succeeded()).length === 1);
   }
@@ -100,12 +101,12 @@ export class ExperimentRecord {
 
   modeLabel(): string {
     if (this.mode === 'files') {
-      return '文件回收';
+      return message('ap_ui_file_eviction');
     }
     if (this.mode === 'modules') {
-      return '模块回收';
+      return message('ap_ui_module_eviction');
     }
-    return '对照组';
+    return message('ap_dynamic_control');
   }
 
   clone(): ExperimentRecord {
@@ -135,8 +136,8 @@ export class ExperimentRecord {
   }
 
   text(): string {
-    return `${this.id}｜${this.workloadLabel}｜${this.modeLabel()}｜${this.integrity}｜` +
-      `${this.durationMs()} ms｜失败 ${this.failed()} 阶段`;
+    return message('ap_dynamic_ms_failed_stages', [this.id, this.workloadLabel, this.modeLabel(),
+      statusText(this.integrity), this.durationMs(), this.failed()]);
   }
 }
 
@@ -153,10 +154,11 @@ export class LedgerComparison {
 
   text(): string {
     if (!this.comparable) {
-      return `不可比：${this.reasons.join('；')}`;
+      return message('ap_dynamic_not_comparable', [this.reasons.join(message('report_list_separator'))]);
     }
-    return `同条件阶段耗时可比（非回收量）：校验 ${this.sameContent ? '一致' : '不一致'}，` +
-      `字节差 ${this.deltaBytes}，耗时差 ${this.deltaDurationMs} ms`;
+    const integrity: string = this.sameContent ? IntegrityStatus.CONSISTENT : IntegrityStatus.INCONSISTENT;
+    return message('ap_dynamic_stage_timings_comparable_under_matching_conditions_not_eviction_volume_inte',
+      [statusText(integrity), this.deltaBytes, this.deltaDurationMs]);
   }
 }
 
@@ -185,10 +187,11 @@ export function restoreRecords(value: Object | undefined, now: number = 0): Expe
     record.afterBytes = typeof bag['afterBytes'] === 'number' ? bag['afterBytes'] as number : 0;
     record.digestBefore = typeof bag['digestBefore'] === 'string' ? bag['digestBefore'] as string : '';
     record.digestAfter = typeof bag['digestAfter'] === 'string' ? bag['digestAfter'] as string : '';
-    record.integrity = typeof bag['integrity'] === 'string' ? bag['integrity'] as string : '未校验';
+    record.integrity = typeof bag['integrity'] === 'string' ? bag['integrity'] as string : IntegrityStatus.UNCHECKED;
     record.checkBefore = typeof bag['checkBefore'] === 'string' ? bag['checkBefore'] as string : '';
     record.checkAfter = typeof bag['checkAfter'] === 'string' ? bag['checkAfter'] as string : '';
-    record.observability = typeof bag['observability'] === 'string' ? bag['observability'] as string : '未观测';
+    record.observability = typeof bag['observability'] === 'string' ?
+      bag['observability'] as string : ObservationStatus.UNOBSERVED;
     record.note = typeof bag['note'] === 'string' ? bag['note'] as string : '';
     record.condition = typeof bag['condition'] === 'string' ? bag['condition'] as string : '';
     record.asset = typeof bag['asset'] === 'string' ? bag['asset'] as string : '';
@@ -220,7 +223,7 @@ export function restoreRecords(value: Object | undefined, now: number = 0): Expe
         const stage: ExperimentStage = new ExperimentStage();
         stage.key = typeof stageBag['key'] === 'string' ? stageBag['key'] as string : '';
         stage.label = typeof stageBag['label'] === 'string' ? stageBag['label'] as string : '';
-        stage.status = typeof stageBag['status'] === 'string' ? stageBag['status'] as string : '跳过';
+        stage.status = typeof stageBag['status'] === 'string' ? stageBag['status'] as string : StepStatus.SKIPPED;
         stage.elapsedMs = typeof stageBag['elapsedMs'] === 'number' ? stageBag['elapsedMs'] as number : 0;
         stage.detail = typeof stageBag['detail'] === 'string' ? stageBag['detail'] as string : '';
         if (stage.key.length > 0) {
@@ -231,7 +234,7 @@ export function restoreRecords(value: Object | undefined, now: number = 0): Expe
     if (record.stages.length !== 6 || record.stages.some((stage: ExperimentStage): boolean =>
       !Number.isFinite(stage.elapsedMs) || stage.elapsedMs < 0 || stage.detail.length > 2048 ||
       stage.label.length > 80 || stage.key.length > 40 ||
-      ['成功', '失败', '跳过', '超时', '已取消'].indexOf(stage.status) < 0) ||
+      RECORDED_STEP_STATUSES.indexOf(stage.status) < 0) ||
       new Set<string>(record.stages.map((stage: ExperimentStage): string => stage.key)).size !== 6 ||
       record.missing.length > 16 || record.missing.some((text: string): boolean => text.length > 512)) { return; }
     seen.add(record.id);
@@ -316,7 +319,8 @@ export function latestPairOf(records: ExperimentRecord[], workloadId: string): L
     record.condition === latest.condition && record.mode === latest.mode && record.asset === latest.asset);
   if (same.length < 2) {
     const missing: LedgerComparison = new LedgerComparison();
-    missing.reasons.push(same.length === 0 ? '该负载还没有记录' : '该负载只有一条记录');
+    missing.reasons.push(message(same.length === 0 ?
+      'ap_dynamic_no_records_for_this_workload' : 'ap_dynamic_only_one_record_for_this_workload'));
     return missing;
   }
   return compareRecords(same[1], same[0]);
@@ -328,20 +332,20 @@ export function compareRecords(left: ExperimentRecord, right: ExperimentRecord):
   comparison.before = left.id;
   comparison.after = right.id;
   if (left.workloadId !== right.workloadId) {
-    comparison.reasons.push('负载不同');
+    comparison.reasons.push(message('ap_dynamic_different_workloads'));
   }
   if (left.condition.length === 0 || left.condition !== right.condition ||
     left.mode !== right.mode || left.asset !== right.asset) {
-    comparison.reasons.push('采样条件不同或旧记录缺少条件');
+    comparison.reasons.push(message('ap_dynamic_sampling_conditions_differ_or_legacy_records_lack_conditions'));
   }
   if (left.beforeBytes !== right.beforeBytes) {
-    comparison.reasons.push('样本大小不同');
+    comparison.reasons.push(message('ap_dynamic_different_sample_sizes'));
   }
   if (left.digestBefore !== right.digestBefore) {
-    comparison.reasons.push('样本内容不同');
+    comparison.reasons.push(message('ap_dynamic_different_sample_contents'));
   }
   if (!left.complete() || !right.complete()) {
-    comparison.reasons.push('有记录未正常结束');
+    comparison.reasons.push(message('ap_dynamic_some_records_did_not_finish_normally'));
   }
   comparison.comparable = comparison.reasons.length === 0;
   if (!comparison.comparable) {
@@ -377,9 +381,11 @@ export class WorkloadDigest {
   public p90Duration: number = -1;
 
   text(): string {
-    return `${this.workloadId}｜${this.group}｜${this.runs} 次｜有效 ${this.succeeded}｜失败/缺失 ${this.failed}｜` +
-      `P50 ${this.medianDuration < 0 ? '不可评估' : `${this.medianDuration} ms`}｜` +
-      `P90 ${this.p90Duration < 0 ? '不可评估' : `${this.p90Duration} ms`}｜完整性通过 ${this.integrityOk}`;
+    const median: string = this.medianDuration < 0 ?
+      message('ap_dynamic_not_evaluable') : `${this.medianDuration} ms`;
+    const p90: string = this.p90Duration < 0 ? message('ap_dynamic_not_evaluable') : `${this.p90Duration} ms`;
+    return message('ap_dynamic_runs_valid_failed_missing_p50_p90_integrity_passed',
+      [this.workloadId, this.group, this.runs, this.succeeded, this.failed, median, p90, this.integrityOk]);
   }
 }
 
@@ -397,7 +403,7 @@ export function digestLedger(records: ExperimentRecord[]): WorkloadDigest[] {
       JSON.stringify([record.workloadId, record.mode, record.condition,
         record.digestBefore, record.beforeBytes]) === id);
     digest.workloadId = same[0].workloadId;
-    digest.group = `${same[0].modeLabel()} / 条件组${index + 1}`;
+    digest.group = `${same[0].modeLabel()} / ${message('ap_dynamic_condition_group', [index + 1])}`;
     const valid: ExperimentRecord[] = same.filter((record: ExperimentRecord): boolean =>
       record.complete() && record.condition.length > 0);
     digest.runs = same.length;

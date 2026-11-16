@@ -15,7 +15,8 @@
 
 import { describe } from '@ohos/hypium';
 import { caseName, expect, it } from '../support/TestCase';
-import { BusinessSnapshot, NoteRevision } from '../../../main/ets/business/BusinessStore';
+import { BusinessSnapshot, CollectionCategory, NoteRevision, TodoFilter
+} from '../../../main/ets/business/BusinessStore';
 import { CaseScope, runCase } from '../support/CaseScope';
 import { FixedBusinessClock, MemoryBusinessStorage, startBusiness } from '../support/BusinessFixture';
 import { ControlledBusinessStorage, loadBusiness } from '../support/CoverageFixture';
@@ -110,16 +111,16 @@ export default function noteHistoryTests(): void {
         expect(store.snapshot().visibleNotes.length, caseName('NoteEditingAndHistory', '0002'), 'NoteHistory.test.ets:A0031').assertEqual(2);
 
         expect(store.snapshot().visibleCollections.length, caseName('NoteEditingAndHistory', '0002'), 'NoteHistory.test.ets:A0032').assertEqual(3);
-        store.setCollectionCategory('效率');
+        store.setCollectionCategory(CollectionCategory.PRODUCTIVITY);
         expect(store.snapshot().visibleCollections.length, caseName('NoteEditingAndHistory', '0002'), 'NoteHistory.test.ets:A0033').assertEqual(1);
         expect(store.snapshot().visibleCollections[0].id, caseName('NoteEditingAndHistory', '0002'), 'NoteHistory.test.ets:A0034').assertEqual('planning');
-        store.setCollectionCategory('全部');
+        store.setCollectionCategory(CollectionCategory.ALL);
         store.setCollectionQuery('模板');
         expect(store.snapshot().visibleCollections.length, caseName('NoteEditingAndHistory', '0002'), 'NoteHistory.test.ets:A0035').assertEqual(2);
         store.setCollectionQuery('会议');
         expect(store.snapshot().visibleCollections.length, caseName('NoteEditingAndHistory', '0002'), 'NoteHistory.test.ets:A0036').assertEqual(1);
         store.setCollectionQuery('');
-        store.setCollectionCategory('全部');
+        store.setCollectionCategory(CollectionCategory.ALL);
         expect(store.snapshot().visibleCollections.length, caseName('NoteEditingAndHistory', '0002'), 'NoteHistory.test.ets:A0037').assertEqual(3);
         expect(storage.writeCount, caseName('NoteEditingAndHistory', '0002'), 'NoteHistory.test.ets:A0038').assertEqual(2);
       });
@@ -310,12 +311,12 @@ export default function noteHistoryTests(): void {
         expect(store.snapshot().todos.length, caseName('NoteEditingAndHistory', '0007'), 'NoteHistory.test.ets:A0094').assertEqual(4);
 
         expect(await store.setTodoDone(added.id, true), caseName('NoteEditingAndHistory', '0007'), 'NoteHistory.test.ets:A0095').assertTrue();
-        store.setTodoFilter('已完成');
+        store.setTodoFilter(TodoFilter.DONE);
         expect(store.snapshot().visibleTodos.length, caseName('NoteEditingAndHistory', '0007'), 'NoteHistory.test.ets:A0096').assertEqual(1);
         expect(store.snapshot().visibleTodos[0].id, caseName('NoteEditingAndHistory', '0007'), 'NoteHistory.test.ets:A0097').assertEqual(added.id);
-        store.setTodoFilter('未完成');
+        store.setTodoFilter(TodoFilter.OPEN);
         expect(store.snapshot().visibleTodos.length, caseName('NoteEditingAndHistory', '0007'), 'NoteHistory.test.ets:A0098').assertEqual(3);
-        store.setTodoFilter('全部');
+        store.setTodoFilter(TodoFilter.ALL);
         expect(store.snapshot().visibleTodos.length, caseName('NoteEditingAndHistory', '0007'), 'NoteHistory.test.ets:A0099').assertEqual(4);
 
         expect(await store.updateTodo(added.id, '改后的任务'), caseName('NoteEditingAndHistory', '0007'), 'NoteHistory.test.ets:A0100').assertTrue();
@@ -349,10 +350,10 @@ export default function noteHistoryTests(): void {
         expect(store.snapshot().favoriteIds.length, caseName('NoteEditingAndHistory', '0008'), 'NoteHistory.test.ets:A0112').assertEqual(2);
         store.setFavoritesOnly(true);
         expect(store.snapshot().visibleCollections.length, caseName('NoteEditingAndHistory', '0008'), 'NoteHistory.test.ets:A0113').assertEqual(2);
-        store.setCollectionCategory('效率');
+        store.setCollectionCategory(CollectionCategory.PRODUCTIVITY);
         expect(store.snapshot().visibleCollections.length, caseName('NoteEditingAndHistory', '0008'), 'NoteHistory.test.ets:A0114').assertEqual(1);
         expect(store.snapshot().visibleCollections[0].id, caseName('NoteEditingAndHistory', '0008'), 'NoteHistory.test.ets:A0115').assertEqual('planning');
-        store.setCollectionCategory('全部');
+        store.setCollectionCategory(CollectionCategory.ALL);
         store.setCollectionQuery('摘录');
         expect(store.snapshot().visibleCollections.length, caseName('NoteEditingAndHistory', '0008'), 'NoteHistory.test.ets:A0116').assertEqual(1);
         expect(store.snapshot().visibleCollections[0].id, caseName('NoteEditingAndHistory', '0008'), 'NoteHistory.test.ets:A0117').assertEqual('reading');

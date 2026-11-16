@@ -91,7 +91,8 @@ export default function appNavigationTests(): void {
         await waitBusiness(scope, store);
         await settle();
         expect(routes.calls.length, caseName('ProductionAppNavigation', '0001'), 'AppNavigation.test.ets:A0003').assertEqual(1);
-        expect(store.snapshot().todoFilter, caseName('ProductionAppNavigation', '0001'), 'AppNavigation.test.ets:A0004').assertEqual('未完成');
+        expect(store.snapshot().todoFilter, caseName('ProductionAppNavigation', '0001'),
+          'AppNavigation.test.ets:A0004').assertEqual('todo_open');
         expect(store.snapshot().todoDate, caseName('ProductionAppNavigation', '0001'), 'AppNavigation.test.ets:A0005').assertEqual('2026-11-02');
         expect(io.writes, caseName('ProductionAppNavigation', '0001'), 'AppNavigation.test.ets:A0006').assertEqual(0);
       });

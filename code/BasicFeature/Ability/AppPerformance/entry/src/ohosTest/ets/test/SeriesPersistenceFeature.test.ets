@@ -309,7 +309,7 @@ export default function seriesPersistenceFeatureTests(): void {
     /**
      * @tc.number SUB_PERFORMANCE_SERIESPERSISTENCEFEATURE_1200
      * @tc.name testPerformanceSeriesPersistenceFeature0012
-     * @tc.desc 没有系列字段的旧schema二存档仍保留设置、启动与实验，且可开始新系列
+     * @tc.desc 没有系列字段的存档保留英文状态设置、启动与实验，且可开始新系列
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level 2
@@ -322,7 +322,14 @@ export default function seriesPersistenceFeatureTests(): void {
       const nextPlatform = new SeriesIoPlatform(store); const reopened = AppService.fromPlatform(nextPlatform);
       try {
         expect(traceParameter('com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 SeriesPersistenceFeature.test:322 assertUndefined actual', reopened.seriesState())).assertUndefined();
-        expect(traceParameter('com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 SeriesPersistenceFeature.test:323 assertEqual actual', reopened.getState().snapFlag)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 SeriesPersistenceFeature.test:323 assertEqual expected', '启用'));
+        expect(traceParameter(
+          'com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 ' +
+            'SeriesPersistenceFeature.test:323 assertEqual actual',
+          reopened.getState().snapFlag))
+          .assertEqual(traceParameter(
+            'com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 ' +
+              'SeriesPersistenceFeature.test:323 assertEqual expected',
+            'enabled'));
         expect(traceParameter('com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 SeriesPersistenceFeature.test:324 assertEqual actual', reopened.getState().launches.length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 SeriesPersistenceFeature.test:324 assertEqual expected', 1));
         expect(traceParameter('com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 SeriesPersistenceFeature.test:325 assertEqual actual', reopened.ledgerRecords().length)).assertEqual(traceParameter('com.samples.appperformance_PerformanceSeriesPersistenceFeature_0012 SeriesPersistenceFeature.test:325 assertEqual expected', 1));
         const start = reopened.startExperimentSeries('W-TEXT', 'control', 1);

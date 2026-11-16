@@ -16,6 +16,7 @@
 import { common } from '@kit.AbilityKit';
 import { logWarn } from './Logger';
 import { formatMessage, localize, message, setTextContext } from './TextMessages';
+import { statusText } from './Types';
 
 /** Resolve at the current UI boundary, never while a model module is initialized. */
 export function resolveText(context: common.Context | undefined, resource: Resource,
@@ -37,39 +38,16 @@ export function resolveText(context: common.Context | undefined, resource: Resou
   }
 }
 
-/** Historical serialized status/group values are unchanged; translate only their display. */
+/** Status codes are stable; messages that are already rendered remain unchanged. */
 export function displayValue(context: common.Context | undefined, value: string): string {
   setTextContext(context);
-  switch (value) {
-    case '启用': return resolveText(context, $r('app.string.ap_ui_enabled'));
-    case '禁用': return resolveText(context, $r('app.string.ap_ui_disabled'));
-    case '初始': return resolveText(context, $r('app.string.ap_ui_initial'));
-    case '成功': return resolveText(context, $r('app.string.ap_ui_succeeded'));
-    case '失败': return resolveText(context, $r('app.string.ap_ui_failed'));
-    case '超时': return resolveText(context, $r('app.string.ap_ui_timed_out'));
-    case '已取消': return resolveText(context, $r('app.string.ap_ui_cancelled'));
-    case '跳过': return resolveText(context, $r('app.string.ap_ui_skipped'));
-    case '待执行': return resolveText(context, $r('app.string.ap_ui_pending'));
-    case '未校验': return resolveText(context, $r('app.string.ap_ui_not_verified'));
-    case '一致': return resolveText(context, $r('app.string.ap_ui_consistent'));
-    case '不一致': return resolveText(context, $r('app.string.ap_ui_inconsistent'));
-    case '不可观测': return resolveText(context, $r('app.string.ap_ui_not_observable'));
-    case '未观测': return resolveText(context, $r('app.string.ap_ui_not_observed'));
-    case '未运行': return resolveText(context, $r('app.string.ap_ui_not_run'));
-    case '待读取': return resolveText(context, $r('app.string.ap_ui_not_read_yet'));
-    case '尚未设置': return resolveText(context, $r('app.string.ap_ui_not_set_yet'));
-    case '调用中': return resolveText(context, $r('app.string.ap_ui_calling'));
-    case '调用成功': return resolveText(context, $r('app.string.ap_ui_call_succeeded'));
-    case '调用失败': return resolveText(context, $r('app.string.ap_ui_call_failed'));
-    default: return localize(value);
-  }
+  return statusText(value);
 }
 
-/** A resource body remains opaque, even when it happens to resemble a known UI message. */
+/** The producer formats the preview; its resource body must never be interpreted as a message. */
 export function displayResourcePreview(context: common.Context | undefined, value: string): string {
   setTextContext(context);
-  const preview: RegExpExecArray | null = /^([0-9]+) 字节 · ([\s\S]*)$/.exec(value);
-  return preview === null ? localize(value) : message('ap_resource_preview', [preview[1], preview[2]]);
+  return value;
 }
 
 export function workloadTitle(context: common.Context | undefined, id: string, fallback: string): string {

@@ -17,7 +17,8 @@ import { businessLabel } from '../../i18n/BusinessLabels';
 import { todoTitleText } from '../../i18n/BuiltinText';
 import { uiText } from '../../i18n/Strings';
 import { BG, CARD, TEXT, MUTED, ACCENT, OK, PageHeader, StatusBanner, EmptyState } from '../../components/Ui';
-import { BusinessSnapshot, TodoDateSummary, TodoItem, businessStore, localDateKey } from '../../business/BusinessStore';
+import { BusinessSnapshot, TodoDateSummary, TodoFilter, TodoItem, businessStore, localDateKey
+} from '../../business/BusinessStore';
 import { PageKey } from '../../model/ShortcutScenes';
 import { appNavigation } from '../../navigation/AppNavigation';
 
@@ -330,7 +331,7 @@ struct TodoPage {
           }
           .width('100%')
           Row({ space: 8 }) {
-            ForEach(['全部', '未完成', '已完成'], (filter: string) => {
+            ForEach([TodoFilter.ALL, TodoFilter.OPEN, TodoFilter.DONE], (filter: TodoFilter) => {
               Button(businessLabel(filter), { type: ButtonType.Normal })
                 .layoutWeight(1)
                 .height(44)
@@ -339,11 +340,14 @@ struct TodoPage {
                 .backgroundColor(this.view.todoFilter === filter ? ACCENT : CARD)
                 .borderRadius(9)
                 .onClick(() => businessStore.setTodoFilter(filter))
-            }, (filter: string) => filter)
+            }, (filter: TodoFilter) => filter)
           }
           .width('100%')
           if (this.view.visibleTodos.length === 0 && !this.view.loading) {
-            EmptyState({ title: this.view.todoFilter === '全部' ? uiText('shortcut_text_0720') : uiText('shortcut_text_0392') })
+            EmptyState({
+              title: this.view.todoFilter === TodoFilter.ALL ?
+                uiText('shortcut_text_0720') : uiText('shortcut_text_0392')
+            })
           } else {
             ForEach(this.view.visibleTodos, (item: TodoItem) => {
               this.todoCard(item)

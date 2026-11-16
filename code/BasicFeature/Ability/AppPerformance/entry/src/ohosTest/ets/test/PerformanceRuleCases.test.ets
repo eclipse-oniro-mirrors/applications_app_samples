@@ -49,7 +49,7 @@ function stepIndex(key: string): number {
 
 function allSuccess(): StepOutcome[] {
   return order().map((key: string): StepOutcome => {
-    const outcome: StepOutcome = new StepOutcome(key, '成功');
+    const outcome: StepOutcome = new StepOutcome(key, 'success');
     outcome.elapsed = 5;
     outcome.detail = '本地预演';
     return outcome;
@@ -228,7 +228,7 @@ export default function performanceRuleCasesTest(): void {
       const failedResults: StepOutcome[] = allSuccess();
       const execute = failedResults.find((item): boolean => item.key === 'execute-cache');
       if (execute !== undefined) {
-        execute.status = '失败';
+        execute.status = 'failed';
       }
       const failed = evaluateRun(order(), failedResults);
       expect(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:233 assertEqual actual', failed.verdict())).assertEqual(traceParameter('com.samples.appperformance_MaintenanceStepCases_0009 PerformanceRuleCases.test:233 assertEqual expected', PlanVerdict.FAILED));

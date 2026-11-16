@@ -21,6 +21,8 @@
  * 不重新取数，因此页面、导出与自检看到的是同一份结论。
  */
 
+import { message } from './TextMessages';
+
 /** 阈值类别。 */
 export enum ThresholdKind {
   LATENCY = 'latency',
@@ -47,7 +49,7 @@ export function unitText(unit: ThresholdUnit): string {
     case ThresholdUnit.BYTES:
       return 'byte';
     default:
-      return '条';
+      return message('ap_dynamic_entries_265');
   }
 }
 
@@ -62,11 +64,11 @@ export enum ThresholdLevel {
 export function levelText(level: ThresholdLevel): string {
   switch (level) {
     case ThresholdLevel.MUST:
-      return '必达';
+      return message('ap_dynamic_required');
     case ThresholdLevel.SHOULD:
-      return '应达';
+      return message('ap_dynamic_recommended');
     default:
-      return '参考';
+      return message('ap_dynamic_informational');
   }
 }
 
@@ -81,11 +83,11 @@ export enum Limit {
 export function limitText(limit: Limit): string {
   switch (limit) {
     case Limit.AT_MOST:
-      return '不超过';
+      return message('ap_dynamic_at_most');
     case Limit.AT_LEAST:
-      return '不少于';
+      return message('ap_dynamic_at_least');
     default:
-      return '等于';
+      return message('ap_dynamic_equals');
   }
 }
 
@@ -100,7 +102,15 @@ export class ThresholdEntry {
   public value: number = 0;
   public level: ThresholdLevel = ThresholdLevel.SHOULD;
   /** 依据说明。 */
-  public rationale: string = '';
+  private rationaleKey: string = '';
+
+  public get rationale(): string {
+    return message(this.rationaleKey);
+  }
+
+  public set rationale(value: string) {
+    this.rationaleKey = value;
+  }
 
   constructor(entryId: string = '', key: string = '', kind: ThresholdKind = ThresholdKind.LATENCY,
     unit: ThresholdUnit = ThresholdUnit.MILLIS, limit: Limit = Limit.AT_MOST, value: number = 0,
@@ -117,8 +127,8 @@ export class ThresholdEntry {
 
   /** 规则文本。 */
   text(): string {
-    return `${this.entryId} ${this.key} ${limitText(this.limit)} ${this.value}` +
-      `${unitText(this.unit)}（${levelText(this.level)}）`;
+    return message('ap_dynamic_status_marker_272',
+      [this.entryId, this.key, limitText(this.limit), this.value, unitText(this.unit), levelText(this.level)]);
   }
 
   /** 观测值是否达标。 */
@@ -140,53 +150,55 @@ export class ThresholdEntry {
 /** 阈值表。 */
 export const THRESHOLD_CATALOG: ThresholdEntry[] = [
   new ThresholdEntry('TH-01', 'scan.files.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 400, ThresholdLevel.MUST, '文件扫描应在 400 ms 内完成'),
+    Limit.AT_MOST, 400, ThresholdLevel.MUST, 'ap_dynamic_file_scanning_should_finish_within_400_ms'),
   new ThresholdEntry('TH-02', 'scan.cache.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 300, ThresholdLevel.MUST, '缓存扫描应在 300 ms 内完成'),
+    Limit.AT_MOST, 300, ThresholdLevel.MUST, 'ap_dynamic_cache_scanning_should_finish_within_300_ms'),
   new ThresholdEntry('TH-03', 'scan.memory.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 200, ThresholdLevel.SHOULD, '内存快照读取较快，超过说明有阻塞'),
+    Limit.AT_MOST, 200, ThresholdLevel.SHOULD,
+    'ap_dynamic_memory_snapshot_reads_should_be_quick_exceeding_the_limit_indicates_blockin'),
   new ThresholdEntry('TH-04', 'validate.files.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 150, ThresholdLevel.MUST, '清单校验只做内存比较'),
+    Limit.AT_MOST, 150, ThresholdLevel.MUST, 'ap_dynamic_inventory_validation_only_compares_in_memory_data'),
   new ThresholdEntry('TH-05', 'validate.cache.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 150, ThresholdLevel.MUST, '缓存清单校验同上'),
+    Limit.AT_MOST, 150, ThresholdLevel.MUST,
+    'ap_dynamic_cache_inventory_validation_also_compares_in_memory_data'),
   new ThresholdEntry('TH-06', 'prepare.budget.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 100, ThresholdLevel.SHOULD, '预算计算应为纯计算'),
+    Limit.AT_MOST, 100, ThresholdLevel.SHOULD, 'ap_dynamic_budget_calculation_should_be_pure_computation'),
   new ThresholdEntry('TH-07', 'execute.files.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 2000, ThresholdLevel.MUST, '按 500 个文件估算的清理时间'),
+    Limit.AT_MOST, 2000, ThresholdLevel.MUST, 'ap_dynamic_cleanup_time_estimated_for_500_files'),
   new ThresholdEntry('TH-08', 'execute.cache.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 1500, ThresholdLevel.MUST, '按 500 个缓存文件估算'),
+    Limit.AT_MOST, 1500, ThresholdLevel.MUST, 'ap_dynamic_estimated_for_500_cache_files'),
   new ThresholdEntry('TH-09', 'execute.memory.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 800, ThresholdLevel.SHOULD, '内存回收受系统调度影响'),
+    Limit.AT_MOST, 800, ThresholdLevel.SHOULD, 'ap_dynamic_memory_reclamation_depends_on_system_scheduling'),
   new ThresholdEntry('TH-10', 'execute.batch.count', ThresholdKind.COUNT, ThresholdUnit.COUNT,
-    Limit.AT_LEAST, 1, ThresholdLevel.INFO, '至少应切出一批任务'),
+    Limit.AT_LEAST, 1, ThresholdLevel.INFO, 'ap_dynamic_at_least_one_task_batch_is_expected'),
   new ThresholdEntry('TH-11', 'verify.files.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 200, ThresholdLevel.MUST, '回读只读元数据'),
+    Limit.AT_MOST, 200, ThresholdLevel.MUST, 'ap_dynamic_verification_reads_metadata_only'),
   new ThresholdEntry('TH-12', 'verify.cache.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 200, ThresholdLevel.MUST, '回读同上'),
+    Limit.AT_MOST, 200, ThresholdLevel.MUST, 'ap_dynamic_verification_also_reads_metadata_only'),
   new ThresholdEntry('TH-13', 'cleanup.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 80, ThresholdLevel.INFO, '摘要生成应为字符串拼接'),
+    Limit.AT_MOST, 80, ThresholdLevel.INFO, 'ap_dynamic_summary_generation_should_only_assemble_strings'),
   new ThresholdEntry('TH-14', 'run.total.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 6000, ThresholdLevel.MUST, '整轮维护的总预算'),
+    Limit.AT_MOST, 6000, ThresholdLevel.MUST, 'ap_dynamic_total_budget_for_the_maintenance_flow'),
   new ThresholdEntry('TH-15', 'run.failed.count', ThresholdKind.COUNT, ThresholdUnit.COUNT,
-    Limit.AT_MOST, 0, ThresholdLevel.MUST, '关键步骤不应失败'),
+    Limit.AT_MOST, 0, ThresholdLevel.MUST, 'ap_dynamic_critical_steps_should_not_fail'),
   new ThresholdEntry('TH-16', 'run.skipped.count', ThresholdKind.COUNT, ThresholdUnit.COUNT,
-    Limit.AT_MOST, 0, ThresholdLevel.SHOULD, '跳过说明依赖未满足'),
+    Limit.AT_MOST, 0, ThresholdLevel.SHOULD, 'ap_dynamic_skipped_steps_indicate_unmet_dependencies'),
   new ThresholdEntry('TH-17', 'launch.cold.p90.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 1200, ThresholdLevel.MUST, '冷启动九成样本的预算'),
+    Limit.AT_MOST, 1200, ThresholdLevel.MUST, 'ap_dynamic_cold_launch_p90_budget'),
   new ThresholdEntry('TH-18', 'launch.warm.p90.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 800, ThresholdLevel.MUST, '温启动九成样本的预算'),
+    Limit.AT_MOST, 800, ThresholdLevel.MUST, 'ap_dynamic_warm_launch_p90_budget'),
   new ThresholdEntry('TH-19', 'launch.hot.p90.ms', ThresholdKind.LATENCY, ThresholdUnit.MILLIS,
-    Limit.AT_MOST, 400, ThresholdLevel.MUST, '热启动九成样本的预算'),
+    Limit.AT_MOST, 400, ThresholdLevel.MUST, 'ap_dynamic_hot_launch_p90_budget'),
   new ThresholdEntry('TH-20', 'launch.firstFrame.p90.ms', ThresholdKind.LATENCY,
-    ThresholdUnit.MILLIS, Limit.AT_MOST, 900, ThresholdLevel.MUST, '首帧的预算'),
+    ThresholdUnit.MILLIS, Limit.AT_MOST, 900, ThresholdLevel.MUST, 'ap_dynamic_first_frame_budget'),
   new ThresholdEntry('TH-21', 'launch.interactive.p90.ms', ThresholdKind.LATENCY,
-    ThresholdUnit.MILLIS, Limit.AT_MOST, 1500, ThresholdLevel.MUST, '可交互的预算'),
+    ThresholdUnit.MILLIS, Limit.AT_MOST, 1500, ThresholdLevel.MUST, 'ap_dynamic_interactivity_budget'),
   new ThresholdEntry('TH-22', 'load.bytes', ThresholdKind.SIZE, ThresholdUnit.BYTES,
-    Limit.AT_MOST, 268435456, ThresholdLevel.SHOULD, '单次维护处理的字节上限'),
+    Limit.AT_MOST, 268435456, ThresholdLevel.SHOULD, 'ap_dynamic_byte_limit_per_maintenance_flow'),
   new ThresholdEntry('TH-23', 'success.ratio', ThresholdKind.RATIO, ThresholdUnit.PERCENT,
-    Limit.AT_LEAST, 95, ThresholdLevel.MUST, '维护步骤成功率'),
+    Limit.AT_LEAST, 95, ThresholdLevel.MUST, 'ap_dynamic_maintenance_step_success_rate'),
   new ThresholdEntry('TH-24', 'retry.ratio', ThresholdKind.RATIO, ThresholdUnit.PERCENT,
-    Limit.AT_MOST, 10, ThresholdLevel.SHOULD, '重试比例过高说明初始失败偏多')
+    Limit.AT_MOST, 10, ThresholdLevel.SHOULD, 'ap_dynamic_a_high_retry_ratio_indicates_frequent_initial_failures')
 ];
 
 /** 编号列表。 */
@@ -249,10 +261,10 @@ export class ThresholdResult {
   /** 结论文本。 */
   text(): string {
     if (this.missing) {
-      return `${this.entryId} ${this.key} 缺少观测值`;
+      return message('ap_dynamic_lacks_an_observation', [this.entryId, this.key]);
     }
-    const state: string = this.passed ? '达标' : '未达标';
-    return `${this.entryId} ${this.key}=${this.observed} ${state}（阈值 ${this.threshold}）`;
+    const state: string = this.passed ? message('ap_dynamic_meets_target') : message('ap_dynamic_below_target');
+    return message('ap_dynamic_threshold', [this.entryId, this.key, this.observed, state, this.threshold]);
   }
 
   /** 是否属于必达项失败。 */
@@ -294,18 +306,19 @@ export class ThresholdReport {
   /** 结论。 */
   headline(): string {
     if (this.results.length === 0) {
-      return '没有可评估的阈值';
+      return message('ap_dynamic_no_evaluable_thresholds');
     }
     if (this.criticalFailures() > 0) {
-      return `${this.criticalFailures()} 项必达阈值未达成`;
+      return message('ap_dynamic_required_thresholds_not_met', [this.criticalFailures()]);
     }
     if (this.failed() > 0) {
-      return `${this.failed()} 项参考阈值未达成`;
+      return message('ap_dynamic_informational_thresholds_not_met', [this.failed()]);
     }
     if (this.missing() === this.results.length) {
-      return '全部缺少观测值';
+      return message('ap_dynamic_all_observations_are_missing');
     }
-    return this.missing() > 0 ? '不可评估：部分指标缺少观测值' : '全部达标';
+    return this.missing() > 0 ? message('ap_dynamic_not_evaluable_some_metric_observations_are_missing') :
+      message('ap_dynamic_all_targets_met');
   }
 
   /** 未达标项。 */
@@ -316,7 +329,7 @@ export class ThresholdReport {
 
   /** 逐行文本。 */
   text(): string {
-    const lines: string[] = [`阈值评估：${this.headline()}（通过率 ${this.passRate()}%）`];
+    const lines: string[] = [message('ap_dynamic_threshold_evaluation_pass_rate', [this.headline(), this.passRate()])];
     this.results.forEach((item: ThresholdResult): void => {
       lines.push(item.text());
     });
@@ -383,7 +396,8 @@ export class ThresholdAudit {
   public findings: string[] = [];
 
   summary(): string {
-    return this.ok ? '阈值目录自洽' : this.findings.join('；');
+    return this.ok ? message('ap_dynamic_threshold_catalog_is_consistent') :
+      this.findings.join(message('ap_series_reason_separator'));
   }
 }
 
@@ -394,32 +408,32 @@ export function auditThresholds(): ThresholdAudit {
   const keys: string[] = [];
   THRESHOLD_CATALOG.forEach((entry: ThresholdEntry, index: number): void => {
     if (seen.indexOf(entry.entryId) >= 0) {
-      audit.findings.push(`编号重复：${entry.entryId}`);
+      audit.findings.push(message('ap_dynamic_duplicate_id', [entry.entryId]));
     }
     seen.push(entry.entryId);
     const expected: string = `TH-${(index + 1).toString().padStart(2, '0')}`;
     if (entry.entryId !== expected) {
-      audit.findings.push(`编号不连续：期望 ${expected}，实际 ${entry.entryId}`);
+      audit.findings.push(message('ap_dynamic_nonconsecutive_id_expected_actual', [expected, entry.entryId]));
     }
     if (keys.indexOf(entry.key) >= 0) {
-      audit.findings.push(`键名重复：${entry.key}`);
+      audit.findings.push(message('ap_dynamic_duplicate_key', [entry.key]));
     }
     keys.push(entry.key);
     if (entry.key.length === 0) {
-      audit.findings.push(`键名为空：${entry.entryId}`);
+      audit.findings.push(message('ap_dynamic_empty_key', [entry.entryId]));
     }
     if (entry.value < 0) {
-      audit.findings.push(`阈值为负：${entry.entryId}`);
+      audit.findings.push(message('ap_dynamic_negative_threshold', [entry.entryId]));
     }
     if (entry.rationale.length === 0) {
-      audit.findings.push(`缺少依据：${entry.entryId}`);
+      audit.findings.push(message('ap_dynamic_missing_rationale', [entry.entryId]));
     }
   });
   if (entriesOfLevel(ThresholdLevel.MUST).length === 0) {
-    audit.findings.push('缺少必达项');
+    audit.findings.push(message('ap_dynamic_missing_required_threshold'));
   }
   if (entriesOfLevel(ThresholdLevel.INFO).length === 0) {
-    audit.findings.push('缺少参考项');
+    audit.findings.push(message('ap_dynamic_missing_informational_threshold'));
   }
   audit.ok = audit.findings.length === 0;
   return audit;
@@ -435,7 +449,7 @@ export function levelLines(): string[] {
   const levels: ThresholdLevel[] = [ThresholdLevel.MUST, ThresholdLevel.SHOULD,
     ThresholdLevel.INFO];
   return levels.map((level: ThresholdLevel): string =>
-    `${levelText(level)}：${entriesOfLevel(level).length} 条`);
+    message('ap_dynamic_entries', [levelText(level), entriesOfLevel(level).length]));
 }
 
 /** 类别分布行。 */
@@ -443,5 +457,5 @@ export function kindLines(): string[] {
   const kinds: ThresholdKind[] = [ThresholdKind.LATENCY, ThresholdKind.COUNT,
     ThresholdKind.RATIO, ThresholdKind.SIZE];
   return kinds.map((kind: ThresholdKind): string =>
-    `${kind as string}：${entriesOfKind(kind).length} 条`);
+    message('ap_dynamic_entries', [kind as string, entriesOfKind(kind).length]));
 }
