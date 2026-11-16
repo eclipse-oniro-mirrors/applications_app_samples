@@ -56,6 +56,8 @@ struct Index {
   @State updatePlaceholderLogicalSize: string = '0';
   @State updatePlaceholderCustomInfo: string = '';
   @State updateOnCloudSizeChangeSize: string = '';
+  @State updateOnCloudSizeChangeAtimeMs: string = '0';
+  @State updateOnCloudSizeChangeMtimeMs: string = '0';
   @State convertPlaceholderSyncPath: string = '';
   @State convertPlaceholderFilePath: string = '';
   @State markFileSyncPath: string = '';
@@ -755,6 +757,9 @@ struct Index {
                         });
                       })
                   }.margin(10)
+                  // 云侧文件内容变化后按云侧最新元数据重置占位符：组合"查询占位符水合状态"与
+                  // "更新占位符元数据"两个既有接口。重置会清空本地已水合数据，占位符回到未水合
+                  // 状态，后续打开文件时重新水合获取云侧最新内容。
                   Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
                     Text($r('app.string.new_cloud_size_label'))
                     TextInput({ text: this.updateOnCloudSizeChangeSize, placeholder: $r('app.string.new_cloud_size_placeholder') })
@@ -762,15 +767,36 @@ struct Index {
                       .onChange((value: string) => { this.updateOnCloudSizeChangeSize = value; })
                       .width('75%').margin(10)
                   }
+                  Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center }) {
+                    Text('atimeMs：')
+                    TextInput({ text: this.updateOnCloudSizeChangeAtimeMs, placeholder: $r('app.string.access_time_ms') })
+                      .type(InputType.Number)
+                      .onChange((value: string) => { this.updateOnCloudSizeChangeAtimeMs = value; })
+                      .width('25%').margin(10)
+                    Text('mtimeMs：')
+                    TextInput({ text: this.updateOnCloudSizeChangeMtimeMs, placeholder: $r('app.string.modify_time_ms') })
+                      .type(InputType.Number)
+                      .onChange((value: string) => { this.updateOnCloudSizeChangeMtimeMs = value; })
+                      .width('25%').margin(10)
+                  }
                   Row() {
                     Button($r('app.string.update_on_cloud_size_change_btn'))
                       .id('updateOnCloudSizeChangeBtn')
                       .onClick(() => {
-                        let now = Date.now();
-                        let ret: number = cloudDisk.updatePlaceholderOnCloudSizeChange(
+                        // 步骤1：查询占位符水合状态，确认目标文件未被水合（水合中更新会被拒绝）
+                        let stateRet: PlaceholderStateResult = cloudDisk.getPlaceholderState(
+                          this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath);
+                        if (stateRet.code !== 0) {
+                          this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: this.resStr($r('app.string.error_code_label')) + stateRet.code.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(stateRet.code), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
+                          return;
+                        }
+                        // 步骤2：按云侧最新元数据（大小、时间戳从云侧元数据查询获得，此处由入参模拟）
+                        // 更新占位符：本地已水合数据被清空，占位符回到未水合状态
+                        let ret: number = cloudDisk.updatePlaceholder(
                           this.updatePlaceholderSyncPath, this.updatePlaceholderFilePath,
-                          parseInt(this.updateOnCloudSizeChangeSize) || 0,
-                          now, now
+                          parseInt(this.updateOnCloudSizeChangeAtimeMs) || 0,
+                          parseInt(this.updateOnCloudSizeChangeMtimeMs) || 0,
+                          parseInt(this.updateOnCloudSizeChangeSize) || 0
                         );
                         if (ret === 0) {
                           this.promptAction.showDialog({ title: $r('app.string.update_success'), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
