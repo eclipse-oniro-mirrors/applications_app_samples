@@ -24,7 +24,7 @@ let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator;
 let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs;
 let jsonPath: string = 'mock/mock-config.json';
 let tag: string = 'testTag';
-const UNLOCK_ERROR = -3;
+const UNLOCK_ERROR: number = -3;
 const global: object = globalThis;
 
 async function onAbilityCreateCallback(data: UIAbility) {
@@ -47,7 +47,7 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = abilityDelegatorRegistry.getArguments()
     abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
-    let moduleName = abilityDelegatorArguments.parameters['-m'];
+    let moduleName: string = abilityDelegatorArguments.parameters['-m'];
 
     const savePath: string = '__savePath__';
     const readPath: string = '__readPath__';
@@ -74,12 +74,12 @@ export default class OpenHarmonyTestRunner implements TestRunner {
 }
 
 async function doOnRun(context: common.Context, moduleName: string) {
-  let mResourceManager = context.resourceManager;
+  let mResourceManager: resourceManager.ResourceManager = context.resourceManager;
   await checkMock(abilityDelegator, mResourceManager);
-  const bundleName = abilityDelegatorArguments.bundleName;
+  const bundleName: string = abilityDelegatorArguments.bundleName;
   const testAbilityName: string = 'TestAbility';
-  const parameters = abilityDelegatorArguments.parameters;
-  const isDebug = parameters['-D'] == 'true';
+  const parameters: Record<string, string> = abilityDelegatorArguments.parameters;
+  const isDebug: boolean = parameters['-D'] == 'true';
   let lMonitor: abilityDelegatorRegistry.AbilityMonitor = {
     abilityName: testAbilityName,
     onAbilityCreate: onAbilityCreateCallback,
@@ -91,7 +91,7 @@ async function doOnRun(context: common.Context, moduleName: string) {
 }
 
 async function startAbility(bundleName: string, abilityName: string, moduleName: string, isDebug: boolean) {
-  let command = `aa start -b ${bundleName} -a ${abilityName} -m ${moduleName}`;
+  let command: string = `aa start -b ${bundleName} -a ${abilityName} -m ${moduleName}`;
   if (isDebug) {
     command += ' -D';
   }
@@ -117,18 +117,18 @@ async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDeleg
     try {
       abilityDelegator.setMockList(mockMap)
     } catch (error) {
-      let code = (error as BusinessError).code;
-      let message = (error as BusinessError).message;
+      let code: number = (error as BusinessError).code;
+      let message: string = (error as BusinessError).message;
       hilog.error(0x0000, tag, `abilityDelegator.setMockList failed, error code: ${code}, message: ${message}.`);
     }
   } catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
+    let code: number = (error as BusinessError).code;
+    let message: string = (error as BusinessError).message;
     hilog.error(0x0000, tag, `ResourceManager:callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
   }
 }
 
-function getMockList(jsonStr: string) {
+function getMockList(jsonStr: string): Record<string, string> {
   let jsonObj: Record<string, Object> = JSON.parse(jsonStr);
   let map: Map<string, object> = new Map<string, object>(Object.entries(jsonObj));
   let mockList: Record<string, string> = {};
