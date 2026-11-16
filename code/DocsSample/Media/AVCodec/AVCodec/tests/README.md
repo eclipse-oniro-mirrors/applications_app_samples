@@ -7,7 +7,7 @@
 - Node：DevEco Studio随附版本。脚本使用当前Node运行Host、CodeLinter和Hvigor。
 - `OHOS_SDK_HOME`或`--sdk`：同时包含ets和native的SDK版本目录。
 - `DEVECO_STUDIO_HOME`或`--studio`：包含plugins、tools、jbr的DevEco Studio安装目录。
-- Linux：Clang及系统C++17开发环境。Windows：WSL中的上述环境；用`AVCODEC_WSL_DISTRO`或`--wsl-distro`指定发行版。编译器默认使用`clang++`，可通过`CXX`或`--cxx`指定Linux或WSL内的Clang路径。
+- Linux：LLVM C++编译器及系统C++17开发环境。Windows：WSL中的上述环境；用`AVCODEC_WSL_DISTRO`或`--wsl-distro`指定发行版。用`CXX`或`--cxx`指定编译器在Linux或WSL内的可执行文件路径。
 - HAP构建使用项目已有product=default、entry@default配置，签名配置由本机或CI提供。脚本不改签名设置。
 
 单阶段可用`--only host`、`--only native`、`--only lint`、`--only build`。定位单个Native测试可再传`--native-test TranscodeAudioPipelineTest`；单项通过不能代替完整验证。CI可直接调用默认命令，远端必需检查由仓库维护者设置。
@@ -18,16 +18,16 @@ Host回归使用SDK中的TypeScript转译器和文件/Native替身，覆盖模�
 
 断点续播回归检查默认关闭、显式开启后读取有效历史位置、关闭后保留历史、临近片尾从头播放，以及设置草稿取消/应用、配置保存重载、旧11字段配置恢复和预设默认关闭。
 
-Native入口按[targets.json](native/targets.json)编译并执行全部14个测试，复用生产实现和SDK声明，由测试提供OHOS函数替身。Clang直接解析SDK版本可用性属性，不再通过宏重定义保留标识符。`-Wno-ignored-attributes`仅关闭宿主平台无法应用的SDK属性提示，`--gc-sections`排除测试没有调用的设备代码；运行通过不能代替设备上的编码、图形或驱动验证。测试产物写入已忽略的`.validation/`。
+Native入口按[targets.json](native/targets.json)编译并执行全部14个测试，复用生产实现和SDK声明，由测试提供OHOS函数替身。宿主编译器直接解析SDK版本可用性属性，不再通过宏重定义保留标识符。`-Wno-ignored-attributes`仅关闭宿主平台无法应用的SDK属性提示，`--gc-sections`排除测试没有调用的设备代码；运行通过不能代替设备上的编码、图形或驱动验证。测试产物写入已忽略的`.validation/`。
 
 `AudioCodecBufferTest`直接组合AudioDecoder与AudioOutputPump，检查同步EOS在解码器内调用Free并返回END、异步EOS在输出线程归还、尾部PCM顺序、EOS不进入PCM回调、Buffer归还调用次数，以及查询超时、查询失败和查询期间停止的区别。同步EOS按当前接口约定不检查Free返回值，测试只确认调用一次、清空Buffer且不重复归还；异步EOS和普通PCM归还失败仍按错误处理。同时检查音频编码器Stop前Flush、编解码器Release前Flush/Stop，以及清理失败后仍执行Destroy且不重复销毁。
 
 `VideoFramePacerTest`使用片尾日志中的14帧PTS，检查0.5x、1x和2x的帧间隔与总时长，以及暂停恢复或Seek后重建时钟锚点。`VideoEncoderBufferTest`调用生产音频回调，检查最后一包PCM不足回调长度时的补零、有效帧计数，以及音频结束后的纯补零回调不会覆盖视频推进的播放位置。这些宿主测试覆盖计时器和回调；Player在音频结束时唤醒等待、保留当前视频帧并切换时钟的完整链路仍需按真机用例验证。
 
-也可使用同一份清单运行CMake/CTest（Linux或WSL，CMake至少3.19）：
+也可使用同一份清单运行CMake/CTest（Linux或WSL，CMake至少3.19）。先将`CXX`设为LLVM C++编译器的可执行文件路径；配置时会检查编译器是否支持SDK版本可用性属性：
 
 ```sh
-cmake -S tests/native -B .validation/cmake -DCMAKE_CXX_COMPILER=clang++ -DOHOS_SDK_HOME="$OHOS_SDK_HOME"
+cmake -S tests/native -B .validation/cmake -DCMAKE_CXX_COMPILER="$CXX" -DOHOS_SDK_HOME="$OHOS_SDK_HOME"
 cmake --build .validation/cmake --parallel
 ctest --test-dir .validation/cmake --output-on-failure
 ```

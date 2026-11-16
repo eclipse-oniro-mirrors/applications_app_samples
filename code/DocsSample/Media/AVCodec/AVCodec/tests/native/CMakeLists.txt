@@ -1,7 +1,16 @@
 cmake_minimum_required(VERSION 3.19)
 project(AVCodecHostTests LANGUAGES CXX)
-if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    message(FATAL_ERROR "Use Clang for SDK availability attributes: -DCMAKE_CXX_COMPILER=clang++")
+include(CheckCXXSourceCompiles)
+check_cxx_source_compiles("
+#ifndef __has_attribute
+#error SDK availability attributes are required
+#elif !__has_attribute(availability)
+#error SDK availability attributes are required
+#endif
+int main() { return 0; }
+" AVCODEC_HAS_AVAILABILITY_ATTRIBUTE)
+if(NOT AVCODEC_HAS_AVAILABILITY_ATTRIBUTE)
+    message(FATAL_ERROR "Select a C++ compiler with SDK availability attribute support via CXX or CMAKE_CXX_COMPILER")
 endif()
 enable_testing()
 set(CMAKE_CXX_STANDARD 17)

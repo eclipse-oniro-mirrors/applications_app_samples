@@ -2836,7 +2836,7 @@ git pull origin master
 
 ### 自动验证入口
 
-在当前示例目录运行下列命令。SDK路径应指向同时包含ets和native的版本目录；Windows上的Native宿主测试通过WSL内的Clang执行，可用`CXX`或`--cxx`指定其Linux路径，默认使用`clang++`。
+在当前示例目录运行下列命令。SDK路径应指向同时包含ets和native的版本目录；Windows上的Native宿主测试通过WSL内的LLVM C++编译器执行。用`CXX`或`--cxx`指定其Linux可执行文件路径。
 
 ```powershell
 $env:OHOS_SDK_HOME = '<SDK版本目录>'
