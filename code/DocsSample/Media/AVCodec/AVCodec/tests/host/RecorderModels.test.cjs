@@ -40,8 +40,12 @@ let freeBytes = 1024 * 1024 * 1024;
 const preferenceValues = new Map();
 let failPreferenceWrite = false;
 let failPreferenceOpen = false;
+let failPlaybackAssetLookup = false;
+const playbackUriAccessEvents = [];
 const mocks = {
-  '@kit.ArkData': { preferences: {
+  '@kit.ArkData': { dataSharePredicates: { DataSharePredicates: class {
+    equalTo(key, value) { this.key = key; this.value = value; playbackUriAccessEvents.push('query:' + key + ':' + value); }
+  } }, preferences: {
     getPreferences: async () => {
       if (failPreferenceOpen) { throw new Error('preferences unavailable'); }
       return {
@@ -58,6 +62,14 @@ const mocks = {
   'libplayer.so': { default: { getState: () => playbackState, PlayerState: { IDLE: 0 } } },
   'librecorder.so': { default: { getDiagnostics: () => ({ active: recordingActive }) } },
   '@kit.CoreFileKit': {
+    fileShare: {
+      OperationMode: { READ_MODE: 1 },
+      persistPermission: async (policies) => { playbackUriAccessEvents.push('persist:' + policies[0].uri); },
+      checkPersistentPermission: async (policies) => {
+        playbackUriAccessEvents.push('check:' + policies[0].uri); return [true];
+      },
+      activatePermission: async (policies) => { playbackUriAccessEvents.push('activate:' + policies[0].uri); }
+    },
     picker: {
       DocumentSaveOptions: class {},
       DocumentViewPicker: class {
@@ -86,7 +98,20 @@ const mocks = {
       }
     }
   },
+  '@kit.MediaLibraryKit': { photoAccessHelper: {
+    PhotoKeys: { URI: 'uri' },
+    getPhotoAccessHelper: () => ({ getAssets: async (options) => {
+      playbackUriAccessEvents.push('getAssets:' + options.predicates.value);
+      if (failPlaybackAssetLookup) { throw new Error('media permission unavailable'); }
+      return {
+      getFirstObject: async () => ({ uri: 'file://media/video' }),
+      close: () => { calls.push('photo.close'); }
+      };
+    } })
+  } },
   '@kit.BasicServicesKit': {
+    systemDateTime: { TimeType: { STARTUP: 0 }, getUptime: () => 1000 },
+    deviceInfo: { sdkApiVersion: 26 },
     zlib: {
       CompressLevel: { COMPRESS_LEVEL_NO_COMPRESSION: 0 },
       compressFiles: async (files, archive, options) => {
@@ -106,7 +131,7 @@ function load(file) {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, experimentalDecorators: true }
   });
   vm.runInNewContext(compiled.outputText, {
-    module, exports: module.exports, Observed: (target) => target, Date,
+    module, exports: module.exports, Observed: (target) => target, Date, canIUse: () => true,
     $r: (name) => ({ id: name }),
     require: (name) => {
       if (mocks[name]) { return mocks[name]; }
@@ -269,6 +294,24 @@ async function testConfiguration() {
   UserConfiguration.restore(bufferSnapshot, new PlayerSettingsModel(), restoredBuffer);
   assert.equal(restoredBuffer.bufferInput, true);
   assert.equal(restoredBuffer.cameraHeight, FULL_HD_HEIGHT);
+  bufferCamera.recordAudio = false;
+  bufferCamera.bufferGrayscale = true;
+  bufferCamera.bufferWatermark = true;
+  const effectsSnapshot = UserConfiguration.capture(player, bufferCamera);
+  const restoredEffects = new CameraDataModel();
+  UserConfiguration.restore(effectsSnapshot, new PlayerSettingsModel(), restoredEffects);
+  assert.equal(restoredEffects.recordAudio, false);
+  assert.equal(restoredEffects.bufferGrayscale, true);
+  assert.equal(restoredEffects.bufferWatermark, true);
+  for (const length of [25, 26]) {
+    const legacy = new CameraDataModel();
+    legacy.recordAudio = false;
+    UserConfiguration.restore({ ...effectsSnapshot, recorder: effectsSnapshot.recorder.slice(0, length) },
+      new PlayerSettingsModel(), legacy);
+    assert.equal(legacy.recordAudio, true, 'Old settings retain the original audio recording behavior');
+    assert.equal(legacy.bufferGrayscale, false);
+    assert.equal(legacy.bufferWatermark, false);
+  }
   const legacySurface = new CameraDataModel();
   UserConfiguration.restore({ ...bufferSnapshot,
     recorder: bufferSnapshot.recorder.slice(0, LEGACY_RECORDER_FIELD_COUNT) },
@@ -545,7 +588,10 @@ async function testRecordingLifecycle() {
     unblock();
     const result = await first;
     assert.equal(result.primaryUri, 'file://primary');
-    assert.equal(result.secondaryUri, '');
+    assert.equal(result.secondaryUri, '', 'An empty file is retained but is not offered for playback');
+    assert.equal(result.validation[0].uri, 'file://primary');
+    assert.equal(result.validation[0].status, 'unavailable');
+    assert.ok(result.validation[0].error.length > 0);
     assert.equal(result.complete, true);
     assert.equal(model.outputfd, -1);
     assert.equal(events.filter(x => x === 'stop.end').length, 1);
@@ -686,6 +732,8 @@ async function testRecordingPause() {
   const api = mocks['librecorder.so'].default;
   const originalApi = { ...api };
   const originalNow = Date.now;
+  const uptime = mocks['@kit.BasicServicesKit'].systemDateTime;
+  const originalUptime = uptime.getUptime;
   let now = 1000;
   let unblock;
   let calls = 0;
@@ -698,7 +746,8 @@ async function testRecordingPause() {
     return { code: 0 };
   };
   try {
-    Date.now = () => now;
+    uptime.getUptime = () => now;
+    Date.now = () => -9000000;
     const session = new RecordingSessionController();
     assert.equal(await session.setPaused(true), false, 'Ready state cannot pause');
     session.ready();
@@ -706,10 +755,11 @@ async function testRecordingPause() {
     now = 3000;
     assert.equal(await session.setPaused(true), true);
     now = 13000;
-    assert.equal(session.elapsedSeconds(), 2, 'Paused wall time is excluded');
+    assert.equal(session.elapsedSeconds(), 2, 'Paused monotonic time is excluded');
     assert.equal(session.phase, RecordingPhase.PAUSED);
     assert.equal(await session.setPaused(false), true);
     now = 15000;
+    Date.now = () => 9000000000;
     assert.equal(session.elapsedSeconds(), 4, 'Resume continues the existing timeline');
     let resolve;
     unblock = { promise: new Promise(yes => { resolve = yes; }) };
@@ -726,7 +776,8 @@ async function testRecordingPause() {
     rejected.ready(); rejected.start();
     assert.equal(await rejected.setPaused(true), false);
     assert.equal(rejected.phase, RecordingPhase.RECORDING, 'Native failure preserves the displayed state');
-  } finally { Date.now = originalNow; Object.assign(api, originalApi); delete api.setPaused; }
+  } finally { Date.now = originalNow; uptime.getUptime = originalUptime;
+    Object.assign(api, originalApi); delete api.setPaused; }
   console.info('Recording pause: time exclusion, repeated taps, Native rejection and finish race passed');
 }
 
@@ -756,7 +807,142 @@ function testSubtitleTimeline() {
   console.info('Subtitle timeline: overlaps, 10,000 cues, forward/backward seeks and signed offset validation passed');
 }
 
+async function testOutputValidation() {
+  const { RecordingOutputValidation } = load(path.join(sourceRoot, 'model/RecordingOutputValidation.ets'));
+  const expected = { width: 1920, height: 1080, hasAudio: false, durationMs: 10000, fileBytes: 100 };
+  assert.equal(RecordingOutputValidation.compare('primary', false, expected, { ...expected }).status, 'matched');
+  const changed = RecordingOutputValidation.compare('secondary', true, expected,
+    { width: 1280, height: 720, hasAudio: true, durationMs: 7000, fileBytes: 90 });
+  assert.equal(changed.status, 'different');
+  assert.equal(changed.differences.join(','), 'dimensions,audio,duration,size');
+  assert.equal(RecordingOutputValidation.compare('p', false, expected, { ...expected, durationMs: 11499 }).status, 'matched');
+  assert.equal(RecordingOutputValidation.compare('p', false, expected, { ...expected, hasAudio: undefined }).status, 'unavailable');
+  assert.equal(RecordingOutputValidation.compare('p', false, expected, { ...expected, durationMs: NaN }).status, 'unavailable');
+  const events = [];
+  mocks['@kit.MediaKit'] = { media: { createAVMetadataExtractor: async () => ({
+    set fdSrc(source) { events.push('source:' + source.fd); },
+    fetchMetadataWithTimeout: async () => ({ videoWidth: '1920', videoHeight: '1080', duration: '10000', hasAudio: 'no' }),
+    release: async () => { events.push('extractor.release'); }
+  }) } };
+  const { RecordingMetadataReader } = load(path.join(sourceRoot, 'controller/RecordingMetadataReader.ets'));
+  const failed = await RecordingMetadataReader.validate('primary', false, expected, false);
+  assert.equal(failed.status, 'unavailable');
+  assert.match(failed.error, /close failed/);
+  const io = mocks['@kit.CoreFileKit'].fileIo;
+  const originalClose = io.close;
+  io.close = async (file) => { events.push('file.close:' + file.fd); };
+  stats.set('file://validation', 100);
+  try {
+    const checked = await RecordingMetadataReader.validate('file://validation', true, expected, true);
+    assert.equal(checked.status, 'matched');
+    assert.equal(checked.secondary, true);
+    assert.equal(events.join(','), 'source:file://validation,extractor.release,file.close:file://validation');
+    mocks['@kit.MediaKit'].media.createAVMetadataExtractor = async () => ({
+      fetchMetadataWithTimeout: async () => { throw new Error('extractor error 5400106'); },
+      release: async () => { events.push('extractor.release'); }
+    });
+    const unreadable = await RecordingMetadataReader.validate('file://validation', false, expected, true);
+    assert.equal(unreadable.uri, 'file://validation');
+    assert.match(unreadable.error, /5400106/);
+    assert.equal(unreadable.status, 'unavailable');
+    const { RecorderSegmentController } = load(path.join(sourceRoot, 'controller/RecorderSegmentController.ets'));
+    const segments = new RecorderSegmentController();
+    for (let index = 0; index < 2; index++) {
+      segments.add({ sessionId: 'segment_' + index, recordedAt: 1, durationSeconds: 10, title: 'part',
+        primaryUri: 'primary', secondaryUri: 'secondary', complete: true, validation: [checked, unreadable] });
+    }
+    assert.equal(segments.result('group').segments[1].validation.length, 2);
+  } finally { io.close = originalClose; delete mocks['@kit.MediaKit']; }
+  console.info('Recording output: expected/actual, duration tolerance, missing metadata, cleanup and segment results passed');
+}
+
+async function testPlaybackStartup() {
+  const { PlaybackStartupController } = load(path.join(sourceRoot, 'controller/PlaybackStartupController.ets'));
+  const { MediaTaskCoordinator } = load(path.join(sourceRoot, 'model/MediaTaskCoordinator.ets'));
+  const api = mocks['libplayer.so'].default;
+  const io = mocks['@kit.CoreFileKit'].fileIo;
+  const originalApi = { ...api };
+  const originalIo = { ...io };
+  let completion;
+  let closes = 0;
+  let size = 100;
+  io.openSync = () => ({ fd: 81 });
+  io.statSync = () => ({ size });
+  io.closeSync = () => { closes++; };
+  api.play = (_options, cb) => { completion = cb; playbackState = 4; return false; };
+  try {
+    const result = PlaybackStartupController.launch(undefined, 'file', new PlayerSettingsModel(), false,
+      () => {}, () => {});
+    assert.equal(result.started, false);
+    assert.equal(result.nativeOwnsLease, true);
+    assert.equal(closes, 0, 'Failed Native startup keeps the descriptor until the completion callback');
+    assert.equal(MediaTaskCoordinator.busy(), true);
+    completion({ success: false, reason: 'error' });
+    assert.equal(closes, 1);
+    assert.equal(MediaTaskCoordinator.busy(), false);
+    playbackState = 0;
+    size = 0;
+    assert.equal(PlaybackStartupController.launch(undefined, 'empty', new PlayerSettingsModel(), false,
+      () => { throw new Error('Empty file must not start'); }, () => {}).error, 'empty');
+    assert.equal(closes, 2);
+    assert.equal(MediaTaskCoordinator.busy(), false);
+    size = 100;
+    api.play = () => false;
+    assert.equal(PlaybackStartupController.launch(undefined, 'invalid', new PlayerSettingsModel(), false,
+      () => {}, () => {}).nativeOwnsLease, false);
+    assert.equal(closes, 3);
+    assert.equal(MediaTaskCoordinator.busy(), false);
+  } finally { Object.assign(api, originalApi); Object.assign(io, originalIo); playbackState = 0; }
+  console.info('Playback startup: empty input, rejected startup, delayed Native completion and fd/lease ownership passed');
+}
+
+async function testPlaybackUriAccess() {
+  const { PlaybackUriAccessController } = load(path.join(sourceRoot, 'controller/PlaybackUriAccessController.ets'));
+  const uri = 'file://docs/storage/Users/currentUser/Movies/video.mp4';
+  assert.equal(await PlaybackUriAccessController.persistDocumentUri(uri), true);
+  await PlaybackUriAccessController.prepare(uri, {});
+  assert.deepEqual(playbackUriAccessEvents.slice(0, 3), ['persist:' + uri, 'check:' + uri, 'activate:' + uri]);
+  assert.equal(await PlaybackUriAccessController.persistDocumentUri('file://media/Photo/1/video.mp4'), true);
+  await PlaybackUriAccessController.prepare('file://media/Photo/1/video.mp4', {});
+  assert.equal(playbackUriAccessEvents.includes('query:uri:file://media/Photo/1/video.mp4'), true);
+  assert.equal(playbackUriAccessEvents.includes('getAssets:file://media/Photo/1/video.mp4'), true);
+  assert.equal(calls.includes('photo.close'), true, 'Media asset query is always closed');
+  failPlaybackAssetLookup = true;
+  await PlaybackUriAccessController.prepare('file://media/Photo/1/video.mp4', {});
+  failPlaybackAssetLookup = false;
+  console.info('Playback URI access: persisted documents and PhotoAccessHelper media lookup passed');
+}
+
+async function testVideoOnlyPermissions() {
+  const checked = [];
+  const requested = [];
+  mocks['@kit.AbilityKit'] = {
+    abilityAccessCtrl: { GrantStatus: { PERMISSION_GRANTED: 0 }, createAtManager: () => ({
+      checkAccessToken: async (_token, permission) => { checked.push(permission); return -1; },
+      requestPermissionsFromUser: async (_context, permissions) => {
+        requested.push(...permissions); return { authResults: permissions.map(() => 0) };
+      }
+    }) },
+    bundleManager: { BundleFlag: { GET_BUNDLE_INFO_WITH_APPLICATION: 1 },
+      getBundleInfoForSelf: async () => ({ appInfo: { accessTokenId: 1 } }) }
+  };
+  try {
+    const { requestRecordPermissions } = load(path.join(sourceRoot, 'common/utils/PermissionUtil.ets'));
+    assert.equal(await requestRecordPermissions({}, false), true);
+    assert.equal(checked.join(','), 'ohos.permission.CAMERA');
+    assert.equal(requested.join(','), 'ohos.permission.CAMERA');
+    checked.length = 0; requested.length = 0;
+    assert.equal(await requestRecordPermissions({}, true), true);
+    assert.equal(requested.join(','), 'ohos.permission.CAMERA,ohos.permission.MICROPHONE');
+  } finally { delete mocks['@kit.AbilityKit']; }
+  console.info('Video-only permissions: microphone is neither checked nor requested; audio mode requests both passed');
+}
+
 async function main() {
+  await testVideoOnlyPermissions();
+  await testOutputValidation();
+  await testPlaybackStartup();
+  await testPlaybackUriAccess();
   testSubtitleTimeline();
   await testRecordingPause();
   testLiveDiagnostics();

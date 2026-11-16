@@ -1,5 +1,9 @@
 {
   "string": [
+    {"name":"recorder_record_audio","value":"录制声音"},
+    {"name":"recorder_buffer_grayscale","value":"灰度"},
+    {"name":"recorder_buffer_watermark","value":"AVCODEC水印"},
+    {"name":"recorder_buffer_effect_preview","value":"效果只写入录制文件，相机预览显示原图。水印使用编码图像坐标，随容器旋转显示。"},
     {"name":"rec_segments_limit_reached","value":"录制已保存，已达到单次录制 1000 段的上限。"},
     {"name":"transcode_preview_position","value":"预览位置（所选范围内）"},
     {"name":"transcode_preview_before","value":"原图"},
@@ -102,6 +106,11 @@
     {"name":"rec_result_back","value":"返回"},
     {"name":"rec_result_finalizing","value":"正在收尾…"},
     {"name":"rec_result_metadata_unavailable","value":"无法读取成品文件信息"},
+    {"name":"rec_check_matched","value":"成品参数一致"},
+    {"name":"rec_check_different","value":"成品参数存在差异"},
+    {"name":"rec_check_unavailable","value":"无法完成成品校验"},
+    {"name":"rec_check_expected","value":"预期"},
+    {"name":"rec_check_actual","value":"实际"},
     {"name":"rec_result_metadata_note","value":"这些参数读取自成品文件。HDR Vivid码流元数据需要单独检查。"},
     {"name":"recorder_finalize_failed","value":"录制收尾失败，请检查系统日志。"},
     {"name":"rec_storage_remaining","value":"预计距存储保留线"},

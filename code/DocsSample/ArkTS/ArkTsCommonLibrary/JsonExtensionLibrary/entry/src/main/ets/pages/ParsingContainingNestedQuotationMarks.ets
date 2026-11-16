@@ -33,40 +33,56 @@ interface TestStr {
   // [StartExclude json_nesting_method2]
 let globalLogUpdate: ((msg: string, isError: boolean) => void) | undefined;
 
-function testParsing1() {
+function testParsing1(): boolean {
   // [EndExclude json_nesting_method1]
   /*
    * 将原始JSON字符串`{"info": "{"name": "zhangsan", "age": 18}"}`
    * 修改为`{"info": {"name": "zhangsan", "age": 18}}`。
    * */
   let jsonStr = `{"info": {"name": "zhangsan", "age": 18}}`;
-  let obj1  = JSON.parse(jsonStr) as TestObj;
-  console.info(JSON.stringify(obj1));    // {"info":{"name":"zhangsan","age":18}}
-  // 获取JSON字符串中的name信息
-  console.info(obj1.info.name); // zhangsan
-  // [End json_nesting_method1]
-  let logMsg = 'JSON.stringify(obj1): ' + JSON.stringify(obj1) + '\nobj1.info.name: ' + obj1.info.name;
-  if (globalLogUpdate) {
-    globalLogUpdate(logMsg, false);
+  try {
+    let obj1  = JSON.parse(jsonStr) as TestObj;
+    console.info(JSON.stringify(obj1));    // {"info":{"name":"zhangsan","age":18}}
+    // 获取JSON字符串中的name信息
+    console.info(obj1.info.name); // zhangsan
+    // [End json_nesting_method1]
+    let logMsg = 'JSON.stringify(obj1): ' + JSON.stringify(obj1) + '\nobj1.info.name: ' + obj1.info.name;
+    if (globalLogUpdate) {
+      globalLogUpdate(logMsg, false);
+    }
+    return true;
+  } catch(err) {
+    if (globalLogUpdate) {
+      globalLogUpdate(err, true);
+    }
+    return false;
   }
 }
 
-function testParsing2() {
+function testParsing2(): boolean {
   // [EndExclude json_nesting_method2]
   /*
    * 将原始JSON字符串`{"info": "{"name": "zhangsan", "age": 18}"}`进行双重转义
    * 修改为`{"info": "{\\"name\\": \\"zhangsan\\", \\"age\\": 18}"}`
    * */
   let jsonStr = `{"info": "{\\"name\\": \\"zhangsan\\", \\"age\\": 18}"}`;
-  let obj2 = JSON.parse(jsonStr) as TestStr;
-  console.info(JSON.stringify(obj2));    // {"info":"{\"name\": \"zhangsan\", \"age\": 18}"}
-  // 获取JSON字符串中的name信息
-  let obj3 = JSON.parse(obj2.info) as Info;
-  console.info(obj3.name); // zhangsan
-  // [End json_nesting_method2]
-  let logMsg = 'JSON.stringify(obj2): ' + JSON.stringify(obj2) + '\nobj3.name: ' + obj3.name;
-  if (globalLogUpdate) {
-    globalLogUpdate(logMsg, false);
+  try {
+    let obj2 = JSON.parse(jsonStr) as TestStr;
+    console.info(JSON.stringify(obj2));    // {"info":"{\"name\": \"zhangsan\", \"age\": 18}"}
+    // 获取JSON字符串中的name信息
+    let obj3 = JSON.parse(obj2.info) as Info;
+    console.info(obj3.name); // zhangsan
+    // [End json_nesting_method2]
+    let logMsg = 'JSON.stringify(obj2): ' + JSON.stringify(obj2) + '\nobj3.name: ' + obj3.name;
+    if (globalLogUpdate) {
+      globalLogUpdate(logMsg, false);
+    }
+    return true;
+  } catch(err) {
+    if (globalLogUpdate) {
+      globalLogUpdate(err, true);
+    }
+    return false;
   }
 }
 
@@ -148,8 +164,11 @@ struct IndexArkTs {
         .justifyContent(FlexAlign.Center)
         .margin({ bottom: 12 })
         .onClick(() => {
-          testParsing1();
-          this.currentState = $r('app.string.test_parsing_nested_quotes_method1_complete');
+          if (testParsing1()) {
+            this.currentState = $r('app.string.test_parsing_nested_quotes_method1_complete');
+          } else {
+            this.currentState = 'Error!';
+          }
         })
 
         Column() {
@@ -162,8 +181,11 @@ struct IndexArkTs {
         .justifyContent(FlexAlign.Center)
         .margin({ bottom: 12 })
         .onClick(() => {
-          testParsing2();
-          this.currentState = $r('app.string.test_parsing_nested_quotes_method2_complete');
+          if (testParsing2()) {
+            this.currentState = $r('app.string.test_parsing_nested_quotes_method2_complete');
+          } else {
+            this.currentState = 'Error!';
+          }
         })
       }
       .height('100%')

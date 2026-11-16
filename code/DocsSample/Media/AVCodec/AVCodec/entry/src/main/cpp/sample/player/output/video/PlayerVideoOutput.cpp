@@ -27,8 +27,6 @@
 #define LOG_TAG "samplePlayer"
 
 namespace {
-constexpr int32_t TRIPLE_SPEED_MULTIPLIER = 3;
-constexpr int32_t DOUBLE_SPEED_MULTIPLIER = 2;
 constexpr int64_t US_PER_SECOND = 1000000;
 constexpr int64_t NS_PER_US = 1000;
 constexpr int64_t CODEC_BUFFER_TIMEOUT_US = 100000;
@@ -156,8 +154,31 @@ void Player::VideoDecInputAsyncThread()
     }
 }
 
+bool Player::WaitForVideoPresentation(int64_t ptsUs, VideoFramePacer &pacer)
+{
+    while (isStarted_.load()) {
+        const uint64_t revision = videoTimingRevision_.load();
+        pacer.SetRevision(revision);
+        if (paused_.load() || audioInterrupted_.load()) {
+            pacer.Reset();
+            WaitIfPaused();
+            if (!isStarted_.load()) { return false; }
+        }
+        const float currentSpeed = speed.load();
+        const auto deadline = pacer.Deadline(ptsUs, currentSpeed);
+        std::unique_lock<std::mutex> lock(pauseMutex_);
+        const bool interrupted = pauseCond_.wait_until(lock, deadline, [this, currentSpeed, revision]() {
+            return !isStarted_.load() || videoTimingRevision_.load() != revision || speed.load() != currentSpeed ||
+                ((paused_.load() || audioInterrupted_.load()) && !renderSingleFrameAfterSeek_.load());
+        });
+        if (!interrupted) { return isStarted_.load(); }
+        pacer.Reset();
+    }
+    return false;
+}
+
 bool Player::ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
     bool discarded = false;
     if (!DiscardVideoOutputBeforeSeekTarget(bufferInfo, discarded)) {
@@ -166,21 +187,15 @@ bool Player::ProcessVideoWithoutAudio(CodecBufferInfo& bufferInfo,
     if (discarded) {
         return true;
     }
+    if (!WaitForVideoPresentation(bufferInfo.attr.pts, pacer)) {
+        return videoDecoder_->FreeOutputBuffer(bufferInfo, false) == AVCODEC_SAMPLE_ERR_OK;
+    }
     if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
         playbackFailed_ = true;
         isStarted_ = false;
         return false;
     }
     renderSingleFrameAfterSeek_ = false;
-    const float speedSnapshot = speed.load();
-    sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
-    if (speedSnapshot == DOUBLE_SPEED_MULTIPLIER) {
-        sampleInfo_.video.frameInterval /= DOUBLE_SPEED_MULTIPLIER;
-    } else if (speedSnapshot != 1.0f) {
-        sampleInfo_.video.frameInterval /= TRIPLE_SPEED_MULTIPLIER;
-    }
-    std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.video.frameInterval));
-    lastPushTime = std::chrono::system_clock::now();
     return true;
 }
 
@@ -237,14 +252,23 @@ bool Player::RenderAndRelease(CodecBufferInfo& bufferInfo, int64_t waitTimeUs, b
     const int64_t maxRenderLeadUs = std::min(AvSyncController::renderAheadUs, sourceFrameIntervalUs * 2);
     const int64_t renderLeadUs = std::clamp(waitTimeUs, int64_t { 0 }, maxRenderLeadUs);
     if (waitTimeUs > maxRenderLeadUs) {
-        std::this_thread::sleep_for(std::chrono::microseconds(waitTimeUs - maxRenderLeadUs));
+        const uint64_t revision = videoTimingRevision_.load();
+        std::unique_lock<std::mutex> lock(pauseMutex_);
+        if (pauseCond_.wait_for(lock, std::chrono::microseconds(waitTimeUs - maxRenderLeadUs), [this, revision]() {
+            const bool shouldStopWaiting = !isStarted_.load() || paused_.load() || audioInterrupted_.load();
+            return shouldStopWaiting || videoTimingRevision_.load() != revision;
+        })) {
+            // 时钟状态已变化，归还当前帧，下一帧重新读取音频时间戳。
+            lock.unlock();
+            return PresentAndReleaseVideoBuffer(bufferInfo, false, GetCurrentTime());
+        }
     }
     // 无论送显还是丢帧，该调用都会归还同一bufferIndex；返回后不能访问bufferInfo.buffer。
     return PresentAndReleaseVideoBuffer(bufferInfo, !dropFrame, renderLeadUs * NS_PER_US + GetCurrentTime());
 }
 
 bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
     bool discarded = false;
     if (!DiscardVideoOutputBeforeSeekTarget(bufferInfo, discarded)) {
@@ -254,10 +278,10 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         return true;
     }
     if (audioStartPendingAfterVideoSeek_.load()) {
-        return ProcessVideoAfterSeek(bufferInfo, lastPushTime);
+        return ProcessVideoAfterSeek(bufferInfo, pacer);
     }
     if (audioTrackSwitching_.load()) {
-        return ProcessVideoDuringTrackSwitch(bufferInfo, lastPushTime);
+        return ProcessVideoDuringTrackSwitch(bufferInfo, pacer);
     }
     int64_t framePosition = 0;
     int64_t timestamp = 0;
@@ -266,8 +290,9 @@ bool Player::ProcessVideoWithAudio(CodecBufferInfo& bufferInfo,
         return false;
     }
     if (ret != AUDIOSTREAM_SUCCESS || timestamp == 0 || framePosition == 0) {
-        return ProcessVideoWithAudioWithoutTimestamp(bufferInfo, lastPushTime);
+        return ProcessVideoWithAudioWithoutTimestamp(bufferInfo, pacer);
     }
+    pacer.Reset();
     AvSyncDecision decision;
     if (!CalculateSyncParameters(bufferInfo, framePosition, decision)) {
         // 同步参数无效时没有送显路径会接管该buffer，直接丢弃并归还。
@@ -304,38 +329,39 @@ bool Player::GetAudioTimestampForVideo(CodecBufferInfo& bufferInfo, int64_t& fra
 }
 
 bool Player::ProcessVideoWithAudioWithoutTimestamp(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
+    if (!WaitForVideoPresentation(bufferInfo.attr.pts, pacer)) {
+        return videoDecoder_->FreeOutputBuffer(bufferInfo, false) == AVCODEC_SAMPLE_ERR_OK;
+    }
     if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
         return false;
     }
     StartAudioAfterVideoSeek();
-    std::this_thread::sleep_until(lastPushTime + std::chrono::microseconds(sampleInfo_.video.frameInterval));
-    lastPushTime = std::chrono::system_clock::now();
     return true;
 }
 
 bool Player::ProcessVideoAfterSeek(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
     if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
         return false;
     }
     renderSingleFrameAfterSeek_ = false;
     StartAudioAfterVideoSeek();
-    lastPushTime = std::chrono::system_clock::now();
+    pacer.Reset();
     return true;
 }
 
 bool Player::ProcessVideoDuringTrackSwitch(CodecBufferInfo& bufferInfo,
-    std::chrono::time_point<std::chrono::system_clock>& lastPushTime)
+    VideoFramePacer &pacer)
 {
+    if (!WaitForVideoPresentation(bufferInfo.attr.pts, pacer)) {
+        return videoDecoder_->FreeOutputBuffer(bufferInfo, false) == AVCODEC_SAMPLE_ERR_OK;
+    }
     if (!PresentAndReleaseVideoBuffer(bufferInfo, true, GetCurrentTime())) {
         return false;
     }
-    const auto frameInterval = std::chrono::microseconds(sampleInfo_.video.frameInterval);
-    std::this_thread::sleep_until(lastPushTime + frameInterval);
-    lastPushTime = std::chrono::system_clock::now();
     return true;
 }
 
@@ -377,7 +403,7 @@ void Player::FinishVideoOutput()
 void Player::VideoDecOutputSyncThread()
 {
     sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
-    thread_local auto lastPushTime = std::chrono::system_clock::now();
+    VideoFramePacer pacer;
     // [Start decoder_sync_output_buffer]
     while (isStarted_) {
         // [StartExclude decoder_sync_output_buffer]
@@ -414,8 +440,8 @@ void Player::VideoDecOutputSyncThread()
         AVCODEC_SAMPLE_LOGD_LIMIT(PLAYBACK_LOG_FREQUENCY,
             "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
             videoDecContext_->outputFrameCount, bufferInfo.attr.size, bufferInfo.attr.flags, bufferInfo.attr.pts);
-        const bool success = audioDecContext_ == nullptr ? ProcessVideoWithoutAudio(bufferInfo, lastPushTime) :
-            ProcessVideoWithAudio(bufferInfo, lastPushTime);
+        const bool success = audioDecContext_ == nullptr ? ProcessVideoWithoutAudio(bufferInfo, pacer) :
+            ProcessVideoWithAudio(bufferInfo, pacer);
         if (!success) {
             break;
         }
@@ -428,8 +454,8 @@ void Player::VideoDecOutputSyncThread()
 void Player::VideoDecOutputAsyncThread()
 {
     sampleInfo_.video.frameInterval = US_PER_SECOND / sampleInfo_.video.frameRate;
+    VideoFramePacer pacer;
     while (isStarted_) {
-        thread_local auto lastPushTime = std::chrono::system_clock::now();
         WaitIfPaused();
         CHECK_AND_BREAK_LOG(isStarted_, "VD Decoder output thread out");
         // [Start decoder_output_buffer]
@@ -458,7 +484,7 @@ void Player::VideoDecOutputAsyncThread()
             "Out buffer count: %{public}u, size: %{public}d, flag: %{public}u, pts: %{public}" PRId64,
             videoDecContext_->outputFrameCount, bufferInfo->attr.size, bufferInfo->attr.flags, bufferInfo->attr.pts);
         const bool success = audioDecContext_ == nullptr ?
-            ProcessVideoWithoutAudio(*bufferInfo, lastPushTime) : ProcessVideoWithAudio(*bufferInfo, lastPushTime);
+            ProcessVideoWithoutAudio(*bufferInfo, pacer) : ProcessVideoWithAudio(*bufferInfo, pacer);
         if (!success) {
             break;
         }

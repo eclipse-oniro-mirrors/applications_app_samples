@@ -16,6 +16,7 @@
 // [Start action_menu_after_migrate]
 import { DialogPresenter, DialogResult } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
+// 导入的resource用来把Resource转成字符串
 import resource from '../../common/resource';
 
 @Entry

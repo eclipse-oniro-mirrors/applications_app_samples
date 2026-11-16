@@ -15,10 +15,12 @@
 
 import { preferences } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
+import { RecordingOutputCheck } from './RecordingOutputValidation';
 
 export interface RecordingSegmentInfo {
   sessionId: string; uri: string; title: string; secondaryUri: string;
   recordedAt: number; durationSeconds: number; complete: boolean;
+  validation?: RecordingOutputCheck[];
 }
 
 export interface RecordingHistoryEntry {
@@ -29,6 +31,7 @@ export interface RecordingHistoryEntry {
   recordedAt: number;
   durationSeconds: number;
   complete?: boolean;
+  validation?: RecordingOutputCheck[];
   segments?: RecordingSegmentInfo[];
 }
 
@@ -52,6 +55,7 @@ export class RecordingHistoryModel {
             durationSeconds: entry.durationSeconds,
             sessionId: typeof entry.sessionId === 'string' ? entry.sessionId : '',
             complete: typeof entry.complete === 'boolean' ? entry.complete : undefined,
+            validation: this.validChecks(entry.validation),
             segments: this.validSegments(entry.segments)
           }))
           .slice(0, MAX_RECORDING_ENTRIES);
@@ -74,13 +78,14 @@ export class RecordingHistoryModel {
   }
 
   async add(uri: string, title: string, secondaryUri: string, recordedAt: number,
-    durationSeconds: number, sessionId: string = '', complete?: boolean, groupId: string = ''): Promise<void> {
+    durationSeconds: number, sessionId: string = '', complete?: boolean, groupId: string = '',
+    validation?: RecordingOutputCheck[]): Promise<void> {
     if ((uri.length === 0 && sessionId.length === 0) || title.length === 0 || recordedAt <= 0 || durationSeconds < 0) {
       return;
     }
     if (groupId.length > 0) {
       await this.addSegment({ sessionId: sessionId, uri: uri, title: title, secondaryUri: secondaryUri,
-        recordedAt: recordedAt, durationSeconds: durationSeconds, complete: complete ?? false }, groupId);
+        recordedAt: recordedAt, durationSeconds: durationSeconds, complete: complete ?? false, validation }, groupId);
       return;
     }
     const existingIndex: number = this.entries.findIndex((entry: RecordingHistoryEntry): boolean =>
@@ -88,7 +93,7 @@ export class RecordingHistoryModel {
     if (existingIndex >= 0) {
       this.entries.splice(existingIndex, 1);
     }
-    this.entries.unshift({ uri, title, secondaryUri, recordedAt, durationSeconds, sessionId, complete });
+    this.entries.unshift({ uri, title, secondaryUri, recordedAt, durationSeconds, sessionId, complete, validation });
     if (this.entries.length > MAX_RECORDING_ENTRIES) {
       this.entries.splice(MAX_RECORDING_ENTRIES);
     }
@@ -101,7 +106,27 @@ export class RecordingHistoryModel {
       typeof segment === 'object' && typeof segment.uri === 'string' && typeof segment.title === 'string' &&
       typeof segment.secondaryUri === 'string' && typeof segment.sessionId === 'string' &&
       typeof segment.complete === 'boolean' && Number.isFinite(segment.recordedAt) && segment.recordedAt > 0 &&
-      Number.isFinite(segment.durationSeconds) && segment.durationSeconds >= 0).slice(0, 1000);
+      Number.isFinite(segment.durationSeconds) && segment.durationSeconds >= 0).slice(0, 1000)
+      .map((segment: RecordingSegmentInfo): RecordingSegmentInfo => ({ sessionId: segment.sessionId,
+        uri: segment.uri, title: segment.title, secondaryUri: segment.secondaryUri, recordedAt: segment.recordedAt,
+        durationSeconds: segment.durationSeconds, complete: segment.complete,
+        validation: this.validChecks(segment.validation) }));
+  }
+
+  private validChecks(checks: RecordingOutputCheck[] | undefined): RecordingOutputCheck[] | undefined {
+    if (!Array.isArray(checks)) { return undefined; }
+    return checks.filter((check: RecordingOutputCheck): boolean => check !== null &&
+      typeof check === 'object' && typeof check.uri === 'string' && typeof check.secondary === 'boolean' &&
+      ['matched', 'different', 'unavailable'].includes(check.status) && typeof check.error === 'string' &&
+      Array.isArray(check.differences) && check.differences.every((item: string): boolean => typeof item === 'string') &&
+      check.expected !== null && typeof check.expected === 'object' &&
+      Number.isFinite(check.expected.width) && Number.isFinite(check.expected.height) &&
+      Number.isFinite(check.expected.durationMs) && Number.isFinite(check.expected.fileBytes) &&
+      typeof check.expected.hasAudio === 'boolean' && (check.actual === undefined ||
+      (check.actual !== null && typeof check.actual === 'object' && Number.isFinite(check.actual.width) &&
+      Number.isFinite(check.actual.height) && typeof check.actual.durationMs === 'number' &&
+      Number.isFinite(check.actual.fileBytes) &&
+      (check.actual.hasAudio === undefined || typeof check.actual.hasAudio === 'boolean')))).slice(0, 2);
   }
 
   private async addSegment(segment: RecordingSegmentInfo, groupId: string): Promise<void> {

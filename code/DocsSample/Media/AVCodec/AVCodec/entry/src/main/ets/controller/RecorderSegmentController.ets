@@ -40,7 +40,7 @@ export class RecorderSegmentController {
     this.allComplete = this.allComplete && result.complete;
     this.pieces.push({ sessionId: result.sessionId, uri: result.primaryUri, secondaryUri: result.secondaryUri,
       title: result.title, recordedAt: result.recordedAt, durationSeconds: result.durationSeconds,
-      complete: result.complete });
+      complete: result.complete, validation: result.validation });
   }
   result(groupId: string, failed: boolean = false): RecordingResultInfo | undefined {
     const first: RecordingSegmentInfo | undefined = this.pieces[0];
@@ -48,6 +48,6 @@ export class RecorderSegmentController {
     return { sessionId: groupId || first.sessionId, recordedAt: first.recordedAt,
       durationSeconds: this.pieces.reduce((sum: number, item: RecordingSegmentInfo): number =>
         sum + item.durationSeconds, 0), title: first.title, primaryUri: first.uri, secondaryUri: first.secondaryUri,
-      complete: this.allComplete && !failed, segments: this.pieces.slice() };
+      complete: this.allComplete && !failed, validation: first.validation, segments: this.pieces.slice() };
   }
 }

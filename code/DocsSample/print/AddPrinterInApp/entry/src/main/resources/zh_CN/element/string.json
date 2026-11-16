@@ -1,0 +1,132 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "AddPrinterInApp 模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "AddPrinterInApp 入口能力"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "AddPrinterInApp"
+    },
+    {
+      "name": "page_title",
+      "value": "添加打印机"
+    },
+    {
+      "name": "printer_name_label",
+      "value": "打印机名称（必填）"
+    },
+    {
+      "name": "printer_uri_label",
+      "value": "打印机 URI（必填）"
+    },
+    {
+      "name": "ppd_name_label",
+      "value": "PPD 名称（可选）"
+    },
+    {
+      "name": "printer_uri_placeholder",
+      "value": "例如 ipp://192.168.1.100/ipp/print"
+    },
+    {
+      "name": "ppd_placeholder",
+      "value": "留空由系统匹配"
+    },
+    {
+      "name": "printer_uri_hint",
+      "value": "请使用目标打印机实际支持的 URI，示例地址仅作格式参考。"
+    },
+    {
+      "name": "ppd_hint",
+      "value": "填写已安装驱动注册的实际 PPD 名称（包名_模块名_文件名），不填沙箱路径或 NickName。"
+    },
+    {
+      "name": "button_add",
+      "value": "添加打印机"
+    },
+    {
+      "name": "adding",
+      "value": "添加中…"
+    },
+    {
+      "name": "result_wait_title",
+      "value": "等待添加"
+    },
+    {
+      "name": "result_wait_detail",
+      "value": "填写真实打印机 URI 后，点击“添加打印机”。"
+    },
+    {
+      "name": "result_incomplete_title",
+      "value": "请补全必填信息"
+    },
+    {
+      "name": "result_name_empty_detail",
+      "value": "打印机名称不能为空。"
+    },
+    {
+      "name": "result_uri_empty_detail",
+      "value": "打印机 URI 不能为空。"
+    },
+    {
+      "name": "result_adding_detail",
+      "value": "正在等待系统添加打印机。"
+    },
+    {
+      "name": "result_success_title",
+      "value": "接口返回成功"
+    },
+    {
+      "name": "result_fail_title",
+      "value": "添加失败"
+    },
+    {
+      "name": "result_success_detail",
+      "value": "返回值：true\n打印机：%s\n请在系统已添加打印机列表中确认该设备。"
+    },
+    {
+      "name": "result_fail_detail",
+      "value": "返回值：false\n系统未报告添加成功，请检查打印机 URI 和 PPD 配置。"
+    },
+    {
+      "name": "error_detail_code_only",
+      "value": "code：%s\nmessage：系统未提供错误消息。"
+    },
+    {
+      "name": "error_detail_201",
+      "value": "code：201\nmessage：%s\n请检查 PRINTER_DRIVER 权限声明及当前设备的权限状态。"
+    },
+    {
+      "name": "error_detail_13100003",
+      "value": "code：13100003\nmessage：%s\n请检查真实打印机 URI，以及已安装驱动的实际 PPD 名称。"
+    },
+    {
+      "name": "error_detail_unknown_code",
+      "value": "code：未知\nmessage：%s"
+    },
+    {
+      "name": "error_detail",
+      "value": "code：%1$s\nmessage：%2$s"
+    },
+    {
+      "name": "printer_name_a11y",
+      "value": "打印机名称，必填"
+    },
+    {
+      "name": "printer_uri_a11y",
+      "value": "打印机 URI，必填"
+    },
+    {
+      "name": "ppd_name_a11y",
+      "value": "PPD 名称，可选"
+    },
+    {
+      "name": "footer_note",
+      "value": "本示例仅添加打印机，不执行打印。"
+    }
+  ]
+}
