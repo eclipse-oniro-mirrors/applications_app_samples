@@ -71,7 +71,7 @@ export default function touchInteractionTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'touch_interaction suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: touch_interaction_scenario_6848700_session_start_cycles
     it('touch_interaction_scenario_6848700_session_start_cycles', 0, async () => {
       const caseSeed: number = 6848700;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848700);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: touch_interaction_scenario_6848701_paddle_step_sequence
     it('touch_interaction_scenario_6848701_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 6848701;
       const paddle: PaddleModel = new PaddleModel(1, 101, 8);
@@ -98,7 +98,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848701);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: touch_interaction_scenario_6848702_catalog_lookup_start
     it('touch_interaction_scenario_6848702_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 6848702;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848702);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: touch_interaction_scenario_6848703_pipeline_round_trip
     it('touch_interaction_scenario_6848703_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 6848703;
       const payload: string = '_main.paddle.moveLeft(); // case 6848703';
@@ -122,7 +122,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848703);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: touch_interaction_scenario_6848704_settings_zoom_true
     it('touch_interaction_scenario_6848704_settings_zoom_true', 0, async () => {
       const caseSeed: number = 6848704;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848704);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: touch_interaction_scenario_6848705_layout_custom_columns
     it('touch_interaction_scenario_6848705_layout_custom_columns', 0, async () => {
       const caseSeed: number = 6848705;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848705);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: touch_interaction_scenario_6848706_score_accumulation
     it('touch_interaction_scenario_6848706_score_accumulation', 0, async () => {
       const caseSeed: number = 6848706;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848706);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: touch_interaction_scenario_6848707_brick_grid_progress
     it('touch_interaction_scenario_6848707_brick_grid_progress', 0, async () => {
       const caseSeed: number = 6848707;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -170,7 +170,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848707);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: touch_interaction_scenario_6848708_locale_lookup_en
     it('touch_interaction_scenario_6848708_locale_lookup_en', 0, async () => {
       const caseSeed: number = 6848708;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848708);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: touch_interaction_scenario_6848709_validation_report_count
     it('touch_interaction_scenario_6848709_validation_report_count', 0, async () => {
       const caseSeed: number = 6848709;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848709);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: touch_interaction_scenario_6848710_url_with_query
     it('touch_interaction_scenario_6848710_url_with_query', 0, async () => {
       const caseSeed: number = 6848710;
       const url: string = SAMPLE_GAME_URL + '?case=25';
@@ -206,7 +206,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848710);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: touch_interaction_scenario_6848711_geometry_area
     it('touch_interaction_scenario_6848711_geometry_area', 0, async () => {
       const caseSeed: number = 6848711;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 21);
@@ -217,7 +217,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848711);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: touch_interaction_scenario_6848712_circular_buffer_capacity
     it('touch_interaction_scenario_6848712_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 6848712;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848712);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: touch_interaction_scenario_6848713_command_queue_fifo
     it('touch_interaction_scenario_6848713_command_queue_fifo', 0, async () => {
       const caseSeed: number = 6848713;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848713);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: touch_interaction_scenario_6848714_token_bucket_consume
     it('touch_interaction_scenario_6848714_token_bucket_consume', 0, async () => {
       const caseSeed: number = 6848714;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -254,7 +254,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848714);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: touch_interaction_scenario_6848715_page_load_budget
     it('touch_interaction_scenario_6848715_page_load_budget', 0, async () => {
       const caseSeed: number = 6848715;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848715);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: touch_interaction_scenario_6848716_perf_sampler_bounds
     it('touch_interaction_scenario_6848716_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 6848716;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848716);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: touch_interaction_scenario_6848717_config_api_9
     it('touch_interaction_scenario_6848717_config_api_9', 0, async () => {
       const caseSeed: number = 6848717;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848717);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: touch_interaction_scenario_6848718_retry_attempts
     it('touch_interaction_scenario_6848718_retry_attempts', 0, async () => {
       const caseSeed: number = 6848718;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848718);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: touch_interaction_scenario_6848719_event_recorder_sequence
     it('touch_interaction_scenario_6848719_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 6848719;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848719);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: touch_interaction_scenario_6848720_session_start_cycles
     it('touch_interaction_scenario_6848720_session_start_cycles', 0, async () => {
       const caseSeed: number = 6848720;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848720);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: touch_interaction_scenario_6848721_paddle_step_sequence
     it('touch_interaction_scenario_6848721_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 6848721;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -341,7 +341,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848721);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: touch_interaction_scenario_6848722_catalog_lookup_start
     it('touch_interaction_scenario_6848722_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 6848722;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848722);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: touch_interaction_scenario_6848723_pipeline_round_trip
     it('touch_interaction_scenario_6848723_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 6848723;
       const payload: string = '_main.paddle.moveLeft(); // case 6848723';
@@ -365,7 +365,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848723);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: touch_interaction_scenario_6848724_settings_zoom_true
     it('touch_interaction_scenario_6848724_settings_zoom_true', 0, async () => {
       const caseSeed: number = 6848724;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848724);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: touch_interaction_scenario_6848725_layout_custom_columns
     it('touch_interaction_scenario_6848725_layout_custom_columns', 0, async () => {
       const caseSeed: number = 6848725;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848725);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: touch_interaction_scenario_6848726_score_accumulation
     it('touch_interaction_scenario_6848726_score_accumulation', 0, async () => {
       const caseSeed: number = 6848726;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848726);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: touch_interaction_scenario_6848727_brick_grid_progress
     it('touch_interaction_scenario_6848727_brick_grid_progress', 0, async () => {
       const caseSeed: number = 6848727;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -413,7 +413,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848727);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: touch_interaction_scenario_6848728_locale_lookup_en
     it('touch_interaction_scenario_6848728_locale_lookup_en', 0, async () => {
       const caseSeed: number = 6848728;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848728);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: touch_interaction_scenario_6848729_validation_report_count
     it('touch_interaction_scenario_6848729_validation_report_count', 0, async () => {
       const caseSeed: number = 6848729;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848729);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: touch_interaction_scenario_6848730_url_with_query
     it('touch_interaction_scenario_6848730_url_with_query', 0, async () => {
       const caseSeed: number = 6848730;
       const url: string = SAMPLE_GAME_URL + '?case=45';
@@ -449,7 +449,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848730);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: touch_interaction_scenario_6848731_geometry_area
     it('touch_interaction_scenario_6848731_geometry_area', 0, async () => {
       const caseSeed: number = 6848731;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 41);
@@ -460,7 +460,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848731);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: touch_interaction_scenario_6848732_circular_buffer_capacity
     it('touch_interaction_scenario_6848732_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 6848732;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848732);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: touch_interaction_scenario_6848733_command_queue_fifo
     it('touch_interaction_scenario_6848733_command_queue_fifo', 0, async () => {
       const caseSeed: number = 6848733;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848733);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: touch_interaction_scenario_6848734_token_bucket_consume
     it('touch_interaction_scenario_6848734_token_bucket_consume', 0, async () => {
       const caseSeed: number = 6848734;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -497,7 +497,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848734);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: touch_interaction_scenario_6848735_page_load_budget
     it('touch_interaction_scenario_6848735_page_load_budget', 0, async () => {
       const caseSeed: number = 6848735;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848735);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: touch_interaction_scenario_6848736_perf_sampler_bounds
     it('touch_interaction_scenario_6848736_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 6848736;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -521,7 +521,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848736);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: touch_interaction_scenario_6848737_config_api_9
     it('touch_interaction_scenario_6848737_config_api_9', 0, async () => {
       const caseSeed: number = 6848737;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -532,7 +532,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848737);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: touch_interaction_scenario_6848738_retry_attempts
     it('touch_interaction_scenario_6848738_retry_attempts', 0, async () => {
       const caseSeed: number = 6848738;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -544,7 +544,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848738);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: touch_interaction_scenario_6848739_event_recorder_sequence
     it('touch_interaction_scenario_6848739_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 6848739;
       const recorder: EventRecorder = new EventRecorder();
@@ -557,7 +557,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848739);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: touch_interaction_scenario_6848740_session_start_cycles
     it('touch_interaction_scenario_6848740_session_start_cycles', 0, async () => {
       const caseSeed: number = 6848740;
       const session: GameSession = new GameSession();
@@ -571,7 +571,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848740);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: touch_interaction_scenario_6848741_paddle_step_sequence
     it('touch_interaction_scenario_6848741_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 6848741;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -584,7 +584,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848741);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: touch_interaction_scenario_6848742_catalog_lookup_start
     it('touch_interaction_scenario_6848742_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 6848742;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -596,7 +596,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848742);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: touch_interaction_scenario_6848743_pipeline_round_trip
     it('touch_interaction_scenario_6848743_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 6848743;
       const payload: string = '_main.paddle.moveLeft(); // case 6848743';
@@ -608,7 +608,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848743);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: touch_interaction_scenario_6848744_settings_zoom_true
     it('touch_interaction_scenario_6848744_settings_zoom_true', 0, async () => {
       const caseSeed: number = 6848744;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -619,7 +619,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848744);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: touch_interaction_scenario_6848745_layout_custom_columns
     it('touch_interaction_scenario_6848745_layout_custom_columns', 0, async () => {
       const caseSeed: number = 6848745;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -630,7 +630,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848745);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: touch_interaction_scenario_6848746_score_accumulation
     it('touch_interaction_scenario_6848746_score_accumulation', 0, async () => {
       const caseSeed: number = 6848746;
       const board: ScoreBoard = new ScoreBoard();
@@ -643,7 +643,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848746);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: touch_interaction_scenario_6848747_brick_grid_progress
     it('touch_interaction_scenario_6848747_brick_grid_progress', 0, async () => {
       const caseSeed: number = 6848747;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -656,7 +656,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848747);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: touch_interaction_scenario_6848748_locale_lookup_en
     it('touch_interaction_scenario_6848748_locale_lookup_en', 0, async () => {
       const caseSeed: number = 6848748;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -667,7 +667,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848748);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: touch_interaction_scenario_6848749_validation_report_count
     it('touch_interaction_scenario_6848749_validation_report_count', 0, async () => {
       const caseSeed: number = 6848749;
       const report: ValidationReport = new ValidationReport();
@@ -680,7 +680,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848749);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: touch_interaction_scenario_6848750_url_with_query
     it('touch_interaction_scenario_6848750_url_with_query', 0, async () => {
       const caseSeed: number = 6848750;
       const url: string = SAMPLE_GAME_URL + '?case=65';
@@ -692,7 +692,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848750);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: touch_interaction_scenario_6848751_geometry_area
     it('touch_interaction_scenario_6848751_geometry_area', 0, async () => {
       const caseSeed: number = 6848751;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 61);
@@ -703,7 +703,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848751);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: touch_interaction_scenario_6848752_circular_buffer_capacity
     it('touch_interaction_scenario_6848752_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 6848752;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -716,7 +716,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848752);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: touch_interaction_scenario_6848753_command_queue_fifo
     it('touch_interaction_scenario_6848753_command_queue_fifo', 0, async () => {
       const caseSeed: number = 6848753;
       const queue: CommandQueue = new CommandQueue();
@@ -729,7 +729,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848753);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: touch_interaction_scenario_6848754_token_bucket_consume
     it('touch_interaction_scenario_6848754_token_bucket_consume', 0, async () => {
       const caseSeed: number = 6848754;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -740,7 +740,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848754);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: touch_interaction_scenario_6848755_page_load_budget
     it('touch_interaction_scenario_6848755_page_load_budget', 0, async () => {
       const caseSeed: number = 6848755;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -751,7 +751,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848755);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: touch_interaction_scenario_6848756_perf_sampler_bounds
     it('touch_interaction_scenario_6848756_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 6848756;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -764,7 +764,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848756);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: touch_interaction_scenario_6848757_config_api_9
     it('touch_interaction_scenario_6848757_config_api_9', 0, async () => {
       const caseSeed: number = 6848757;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -775,7 +775,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848757);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: touch_interaction_scenario_6848758_retry_attempts
     it('touch_interaction_scenario_6848758_retry_attempts', 0, async () => {
       const caseSeed: number = 6848758;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -787,7 +787,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848758);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: touch_interaction_scenario_6848759_event_recorder_sequence
     it('touch_interaction_scenario_6848759_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 6848759;
       const recorder: EventRecorder = new EventRecorder();
@@ -800,7 +800,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848759);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: touch_interaction_scenario_6848760_session_start_cycles
     it('touch_interaction_scenario_6848760_session_start_cycles', 0, async () => {
       const caseSeed: number = 6848760;
       const session: GameSession = new GameSession();
@@ -814,7 +814,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848760);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: touch_interaction_scenario_6848761_paddle_step_sequence
     it('touch_interaction_scenario_6848761_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 6848761;
       const paddle: PaddleModel = new PaddleModel(1, 101, 5);
@@ -827,7 +827,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848761);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: touch_interaction_scenario_6848762_catalog_lookup_start
     it('touch_interaction_scenario_6848762_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 6848762;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -839,7 +839,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848762);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: touch_interaction_scenario_6848763_pipeline_round_trip
     it('touch_interaction_scenario_6848763_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 6848763;
       const payload: string = '_main.paddle.moveLeft(); // case 6848763';
@@ -851,7 +851,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848763);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: touch_interaction_scenario_6848764_settings_zoom_true
     it('touch_interaction_scenario_6848764_settings_zoom_true', 0, async () => {
       const caseSeed: number = 6848764;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -862,7 +862,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848764);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: touch_interaction_scenario_6848765_layout_custom_columns
     it('touch_interaction_scenario_6848765_layout_custom_columns', 0, async () => {
       const caseSeed: number = 6848765;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -873,7 +873,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848765);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: touch_interaction_scenario_6848766_score_accumulation
     it('touch_interaction_scenario_6848766_score_accumulation', 0, async () => {
       const caseSeed: number = 6848766;
       const board: ScoreBoard = new ScoreBoard();
@@ -886,7 +886,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848766);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: touch_interaction_scenario_6848767_brick_grid_progress
     it('touch_interaction_scenario_6848767_brick_grid_progress', 0, async () => {
       const caseSeed: number = 6848767;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -899,7 +899,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848767);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: touch_interaction_scenario_6848768_locale_lookup_en
     it('touch_interaction_scenario_6848768_locale_lookup_en', 0, async () => {
       const caseSeed: number = 6848768;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -910,7 +910,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848768);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: touch_interaction_scenario_6848769_validation_report_count
     it('touch_interaction_scenario_6848769_validation_report_count', 0, async () => {
       const caseSeed: number = 6848769;
       const report: ValidationReport = new ValidationReport();
@@ -923,7 +923,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848769);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: touch_interaction_scenario_6848770_url_with_query
     it('touch_interaction_scenario_6848770_url_with_query', 0, async () => {
       const caseSeed: number = 6848770;
       const url: string = SAMPLE_GAME_URL + '?case=85';
@@ -935,7 +935,7 @@ export default function touchInteractionTest() {
       expect(caseSeed).assertEqual(6848770);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: touch_interaction_scenario_6848771_geometry_area
     it('touch_interaction_scenario_6848771_geometry_area', 0, async () => {
       const caseSeed: number = 6848771;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 21);

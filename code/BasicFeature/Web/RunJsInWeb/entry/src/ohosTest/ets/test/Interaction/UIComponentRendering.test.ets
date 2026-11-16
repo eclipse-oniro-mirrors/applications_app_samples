@@ -71,7 +71,7 @@ export default function uIComponentRenderingTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'ui_rendering suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: ui_rendering_scenario_9446400_session_start_cycles
     it('ui_rendering_scenario_9446400_session_start_cycles', 0, async () => {
       const caseSeed: number = 9446400;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446400);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: ui_rendering_scenario_9446401_paddle_step_sequence
     it('ui_rendering_scenario_9446401_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9446401;
       const paddle: PaddleModel = new PaddleModel(1, 101, 2);
@@ -98,7 +98,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446401);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: ui_rendering_scenario_9446402_catalog_lookup_start
     it('ui_rendering_scenario_9446402_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9446402;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446402);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: ui_rendering_scenario_9446403_pipeline_round_trip
     it('ui_rendering_scenario_9446403_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9446403;
       const payload: string = '_main.paddle.moveLeft(); // case 9446403';
@@ -122,7 +122,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446403);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: ui_rendering_scenario_9446404_settings_zoom_true
     it('ui_rendering_scenario_9446404_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9446404;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446404);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: ui_rendering_scenario_9446405_layout_custom_columns
     it('ui_rendering_scenario_9446405_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9446405;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446405);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: ui_rendering_scenario_9446406_score_accumulation
     it('ui_rendering_scenario_9446406_score_accumulation', 0, async () => {
       const caseSeed: number = 9446406;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446406);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: ui_rendering_scenario_9446407_brick_grid_progress
     it('ui_rendering_scenario_9446407_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9446407;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -170,7 +170,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446407);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: ui_rendering_scenario_9446408_locale_lookup_en
     it('ui_rendering_scenario_9446408_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9446408;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446408);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: ui_rendering_scenario_9446409_validation_report_count
     it('ui_rendering_scenario_9446409_validation_report_count', 0, async () => {
       const caseSeed: number = 9446409;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446409);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: ui_rendering_scenario_9446410_url_with_query
     it('ui_rendering_scenario_9446410_url_with_query', 0, async () => {
       const caseSeed: number = 9446410;
       const url: string = SAMPLE_GAME_URL + '?case=65';
@@ -206,7 +206,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446410);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: ui_rendering_scenario_9446411_geometry_area
     it('ui_rendering_scenario_9446411_geometry_area', 0, async () => {
       const caseSeed: number = 9446411;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 21);
@@ -217,7 +217,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446411);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: ui_rendering_scenario_9446412_circular_buffer_capacity
     it('ui_rendering_scenario_9446412_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9446412;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446412);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: ui_rendering_scenario_9446413_command_queue_fifo
     it('ui_rendering_scenario_9446413_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9446413;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446413);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: ui_rendering_scenario_9446414_token_bucket_consume
     it('ui_rendering_scenario_9446414_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9446414;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -254,7 +254,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446414);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: ui_rendering_scenario_9446415_page_load_budget
     it('ui_rendering_scenario_9446415_page_load_budget', 0, async () => {
       const caseSeed: number = 9446415;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446415);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: ui_rendering_scenario_9446416_perf_sampler_bounds
     it('ui_rendering_scenario_9446416_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9446416;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446416);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: ui_rendering_scenario_9446417_config_api_9
     it('ui_rendering_scenario_9446417_config_api_9', 0, async () => {
       const caseSeed: number = 9446417;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446417);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: ui_rendering_scenario_9446418_retry_attempts
     it('ui_rendering_scenario_9446418_retry_attempts', 0, async () => {
       const caseSeed: number = 9446418;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446418);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: ui_rendering_scenario_9446419_event_recorder_sequence
     it('ui_rendering_scenario_9446419_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9446419;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446419);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: ui_rendering_scenario_9446420_session_start_cycles
     it('ui_rendering_scenario_9446420_session_start_cycles', 0, async () => {
       const caseSeed: number = 9446420;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446420);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: ui_rendering_scenario_9446421_paddle_step_sequence
     it('ui_rendering_scenario_9446421_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9446421;
       const paddle: PaddleModel = new PaddleModel(1, 101, 4);
@@ -341,7 +341,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446421);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: ui_rendering_scenario_9446422_catalog_lookup_start
     it('ui_rendering_scenario_9446422_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9446422;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446422);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: ui_rendering_scenario_9446423_pipeline_round_trip
     it('ui_rendering_scenario_9446423_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9446423;
       const payload: string = '_main.paddle.moveLeft(); // case 9446423';
@@ -365,7 +365,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446423);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: ui_rendering_scenario_9446424_settings_zoom_true
     it('ui_rendering_scenario_9446424_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9446424;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446424);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: ui_rendering_scenario_9446425_layout_custom_columns
     it('ui_rendering_scenario_9446425_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9446425;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446425);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: ui_rendering_scenario_9446426_score_accumulation
     it('ui_rendering_scenario_9446426_score_accumulation', 0, async () => {
       const caseSeed: number = 9446426;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446426);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: ui_rendering_scenario_9446427_brick_grid_progress
     it('ui_rendering_scenario_9446427_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9446427;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -413,7 +413,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446427);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: ui_rendering_scenario_9446428_locale_lookup_en
     it('ui_rendering_scenario_9446428_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9446428;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446428);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: ui_rendering_scenario_9446429_validation_report_count
     it('ui_rendering_scenario_9446429_validation_report_count', 0, async () => {
       const caseSeed: number = 9446429;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446429);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: ui_rendering_scenario_9446430_url_with_query
     it('ui_rendering_scenario_9446430_url_with_query', 0, async () => {
       const caseSeed: number = 9446430;
       const url: string = SAMPLE_GAME_URL + '?case=85';
@@ -449,7 +449,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446430);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: ui_rendering_scenario_9446431_geometry_area
     it('ui_rendering_scenario_9446431_geometry_area', 0, async () => {
       const caseSeed: number = 9446431;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 41);
@@ -460,7 +460,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446431);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: ui_rendering_scenario_9446432_circular_buffer_capacity
     it('ui_rendering_scenario_9446432_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9446432;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446432);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: ui_rendering_scenario_9446433_command_queue_fifo
     it('ui_rendering_scenario_9446433_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9446433;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446433);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: ui_rendering_scenario_9446434_token_bucket_consume
     it('ui_rendering_scenario_9446434_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9446434;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -497,7 +497,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446434);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: ui_rendering_scenario_9446435_page_load_budget
     it('ui_rendering_scenario_9446435_page_load_budget', 0, async () => {
       const caseSeed: number = 9446435;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446435);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: ui_rendering_scenario_9446436_perf_sampler_bounds
     it('ui_rendering_scenario_9446436_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9446436;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -521,7 +521,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446436);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: ui_rendering_scenario_9446437_config_api_9
     it('ui_rendering_scenario_9446437_config_api_9', 0, async () => {
       const caseSeed: number = 9446437;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -532,7 +532,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446437);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: ui_rendering_scenario_9446438_retry_attempts
     it('ui_rendering_scenario_9446438_retry_attempts', 0, async () => {
       const caseSeed: number = 9446438;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -544,7 +544,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446438);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: ui_rendering_scenario_9446439_event_recorder_sequence
     it('ui_rendering_scenario_9446439_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9446439;
       const recorder: EventRecorder = new EventRecorder();
@@ -557,7 +557,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446439);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: ui_rendering_scenario_9446440_session_start_cycles
     it('ui_rendering_scenario_9446440_session_start_cycles', 0, async () => {
       const caseSeed: number = 9446440;
       const session: GameSession = new GameSession();
@@ -571,7 +571,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446440);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: ui_rendering_scenario_9446441_paddle_step_sequence
     it('ui_rendering_scenario_9446441_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9446441;
       const paddle: PaddleModel = new PaddleModel(1, 101, 6);
@@ -584,7 +584,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446441);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: ui_rendering_scenario_9446442_catalog_lookup_start
     it('ui_rendering_scenario_9446442_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9446442;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -596,7 +596,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446442);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: ui_rendering_scenario_9446443_pipeline_round_trip
     it('ui_rendering_scenario_9446443_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9446443;
       const payload: string = '_main.paddle.moveLeft(); // case 9446443';
@@ -608,7 +608,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446443);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: ui_rendering_scenario_9446444_settings_zoom_true
     it('ui_rendering_scenario_9446444_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9446444;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -619,7 +619,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446444);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: ui_rendering_scenario_9446445_layout_custom_columns
     it('ui_rendering_scenario_9446445_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9446445;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -630,7 +630,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446445);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: ui_rendering_scenario_9446446_score_accumulation
     it('ui_rendering_scenario_9446446_score_accumulation', 0, async () => {
       const caseSeed: number = 9446446;
       const board: ScoreBoard = new ScoreBoard();
@@ -643,7 +643,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446446);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: ui_rendering_scenario_9446447_brick_grid_progress
     it('ui_rendering_scenario_9446447_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9446447;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -656,7 +656,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446447);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: ui_rendering_scenario_9446448_locale_lookup_en
     it('ui_rendering_scenario_9446448_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9446448;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -667,7 +667,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446448);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: ui_rendering_scenario_9446449_validation_report_count
     it('ui_rendering_scenario_9446449_validation_report_count', 0, async () => {
       const caseSeed: number = 9446449;
       const report: ValidationReport = new ValidationReport();
@@ -680,7 +680,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446449);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: ui_rendering_scenario_9446450_url_with_query
     it('ui_rendering_scenario_9446450_url_with_query', 0, async () => {
       const caseSeed: number = 9446450;
       const url: string = SAMPLE_GAME_URL + '?case=8';
@@ -692,7 +692,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446450);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: ui_rendering_scenario_9446451_geometry_area
     it('ui_rendering_scenario_9446451_geometry_area', 0, async () => {
       const caseSeed: number = 9446451;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 61);
@@ -703,7 +703,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446451);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: ui_rendering_scenario_9446452_circular_buffer_capacity
     it('ui_rendering_scenario_9446452_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9446452;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -716,7 +716,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446452);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: ui_rendering_scenario_9446453_command_queue_fifo
     it('ui_rendering_scenario_9446453_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9446453;
       const queue: CommandQueue = new CommandQueue();
@@ -729,7 +729,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446453);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: ui_rendering_scenario_9446454_token_bucket_consume
     it('ui_rendering_scenario_9446454_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9446454;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -740,7 +740,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446454);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: ui_rendering_scenario_9446455_page_load_budget
     it('ui_rendering_scenario_9446455_page_load_budget', 0, async () => {
       const caseSeed: number = 9446455;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -751,7 +751,7 @@ export default function uIComponentRenderingTest() {
       expect(caseSeed).assertEqual(9446455);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: ui_rendering_scenario_9446456_perf_sampler_bounds
     it('ui_rendering_scenario_9446456_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9446456;
       const sampler: PerformanceSampler = new PerformanceSampler();

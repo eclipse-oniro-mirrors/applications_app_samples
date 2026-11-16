@@ -53,7 +53,7 @@ export default function deviceCompatibilityTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'device_compatibility suite end');
     });
 
-    // 默认设备与平板均受支持，手机不在 deviceTypes 中
+    // Scenario: device_compatibility_device_profile_is_supported
     it('device_compatibility_device_profile_is_supported', 0, async () => {
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
       expect(config.supportsDevice('default')).assertTrue();
@@ -61,7 +61,7 @@ export default function deviceCompatibilityTest() {
       expect(config.supportsDevice('phone')).assertFalse();
     });
 
-    // 应用固定横屏，布局按 10/80/10 分配
+    // Scenario: device_compatibility_landscape_orientation_is_enforced
     it('device_compatibility_landscape_orientation_is_enforced', 0, async () => {
       const layout: LayoutProfile = LayoutProfile.createDefault();
       expect(layout.getOrientation()).assertEqual(ORIENTATION_LANDSCAPE);
@@ -69,21 +69,21 @@ export default function deviceCompatibilityTest() {
       expect(layout.isValid()).assertTrue();
     });
 
-    // 配置 API 版本与工程 compileSdkVersion 一致
+    // Scenario: device_compatibility_api_level_matches_project_sdk
     it('device_compatibility_api_level_matches_project_sdk', 0, async () => {
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
       expect(config.apiVersion).assertEqual(API_VERSION);
       expect(config.apiVersion).assertEqual(9);
     });
 
-    // 长按重复间隔 20ms 应能在 1 秒内产生多次移动
+    // Scenario: device_compatibility_long_press_interval_is_short_enough
     it('device_compatibility_long_press_interval_is_short_enough', 0, async () => {
       const gestures: GestureClassifier = new GestureClassifier(500, 20);
       expect(gestures.repeatCount(1000, LONG_PRESS_DURATION)).assertEqual(50);
       expect(gestures.repeatCount(1000, 0)).assertEqual(0);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: device_compatibility_scenario_5006200_session_start_cycles
     it('device_compatibility_scenario_5006200_session_start_cycles', 0, async () => {
       const caseSeed: number = 5006200;
       const session: GameSession = new GameSession();

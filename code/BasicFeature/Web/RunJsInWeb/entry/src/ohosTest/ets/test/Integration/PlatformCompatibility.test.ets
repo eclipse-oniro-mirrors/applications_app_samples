@@ -71,7 +71,7 @@ export default function platformCompatibilityTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'platform_compatibility suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: platform_compatibility_scenario_5261100_session_start_cycles
     it('platform_compatibility_scenario_5261100_session_start_cycles', 0, async () => {
       const caseSeed: number = 5261100;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261100);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: platform_compatibility_scenario_5261101_paddle_step_sequence
     it('platform_compatibility_scenario_5261101_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 5261101;
       const paddle: PaddleModel = new PaddleModel(1, 101, 8);
@@ -98,7 +98,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261101);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: platform_compatibility_scenario_5261102_catalog_lookup_start
     it('platform_compatibility_scenario_5261102_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 5261102;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261102);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: platform_compatibility_scenario_5261103_pipeline_round_trip
     it('platform_compatibility_scenario_5261103_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 5261103;
       const payload: string = '_main.paddle.moveLeft(); // case 5261103';
@@ -122,7 +122,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261103);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: platform_compatibility_scenario_5261104_settings_zoom_true
     it('platform_compatibility_scenario_5261104_settings_zoom_true', 0, async () => {
       const caseSeed: number = 5261104;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261104);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: platform_compatibility_scenario_5261105_layout_custom_columns
     it('platform_compatibility_scenario_5261105_layout_custom_columns', 0, async () => {
       const caseSeed: number = 5261105;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261105);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: platform_compatibility_scenario_5261106_score_accumulation
     it('platform_compatibility_scenario_5261106_score_accumulation', 0, async () => {
       const caseSeed: number = 5261106;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261106);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: platform_compatibility_scenario_5261107_brick_grid_progress
     it('platform_compatibility_scenario_5261107_brick_grid_progress', 0, async () => {
       const caseSeed: number = 5261107;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -170,7 +170,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261107);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: platform_compatibility_scenario_5261108_locale_lookup_en
     it('platform_compatibility_scenario_5261108_locale_lookup_en', 0, async () => {
       const caseSeed: number = 5261108;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261108);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: platform_compatibility_scenario_5261109_validation_report_count
     it('platform_compatibility_scenario_5261109_validation_report_count', 0, async () => {
       const caseSeed: number = 5261109;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261109);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: platform_compatibility_scenario_5261110_url_with_query
     it('platform_compatibility_scenario_5261110_url_with_query', 0, async () => {
       const caseSeed: number = 5261110;
       const url: string = SAMPLE_GAME_URL + '?case=24';
@@ -206,7 +206,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261110);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: platform_compatibility_scenario_5261111_geometry_area
     it('platform_compatibility_scenario_5261111_geometry_area', 0, async () => {
       const caseSeed: number = 5261111;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 21);
@@ -217,7 +217,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261111);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: platform_compatibility_scenario_5261112_circular_buffer_capacity
     it('platform_compatibility_scenario_5261112_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 5261112;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261112);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: platform_compatibility_scenario_5261113_command_queue_fifo
     it('platform_compatibility_scenario_5261113_command_queue_fifo', 0, async () => {
       const caseSeed: number = 5261113;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261113);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: platform_compatibility_scenario_5261114_token_bucket_consume
     it('platform_compatibility_scenario_5261114_token_bucket_consume', 0, async () => {
       const caseSeed: number = 5261114;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -254,7 +254,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261114);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: platform_compatibility_scenario_5261115_page_load_budget
     it('platform_compatibility_scenario_5261115_page_load_budget', 0, async () => {
       const caseSeed: number = 5261115;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261115);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: platform_compatibility_scenario_5261116_perf_sampler_bounds
     it('platform_compatibility_scenario_5261116_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 5261116;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261116);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: platform_compatibility_scenario_5261117_config_api_9
     it('platform_compatibility_scenario_5261117_config_api_9', 0, async () => {
       const caseSeed: number = 5261117;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261117);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: platform_compatibility_scenario_5261118_retry_attempts
     it('platform_compatibility_scenario_5261118_retry_attempts', 0, async () => {
       const caseSeed: number = 5261118;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261118);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: platform_compatibility_scenario_5261119_event_recorder_sequence
     it('platform_compatibility_scenario_5261119_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 5261119;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261119);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: platform_compatibility_scenario_5261120_session_start_cycles
     it('platform_compatibility_scenario_5261120_session_start_cycles', 0, async () => {
       const caseSeed: number = 5261120;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261120);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: platform_compatibility_scenario_5261121_paddle_step_sequence
     it('platform_compatibility_scenario_5261121_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 5261121;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -341,7 +341,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261121);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: platform_compatibility_scenario_5261122_catalog_lookup_start
     it('platform_compatibility_scenario_5261122_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 5261122;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261122);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: platform_compatibility_scenario_5261123_pipeline_round_trip
     it('platform_compatibility_scenario_5261123_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 5261123;
       const payload: string = '_main.paddle.moveLeft(); // case 5261123';
@@ -365,7 +365,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261123);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: platform_compatibility_scenario_5261124_settings_zoom_true
     it('platform_compatibility_scenario_5261124_settings_zoom_true', 0, async () => {
       const caseSeed: number = 5261124;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261124);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: platform_compatibility_scenario_5261125_layout_custom_columns
     it('platform_compatibility_scenario_5261125_layout_custom_columns', 0, async () => {
       const caseSeed: number = 5261125;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261125);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: platform_compatibility_scenario_5261126_score_accumulation
     it('platform_compatibility_scenario_5261126_score_accumulation', 0, async () => {
       const caseSeed: number = 5261126;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261126);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: platform_compatibility_scenario_5261127_brick_grid_progress
     it('platform_compatibility_scenario_5261127_brick_grid_progress', 0, async () => {
       const caseSeed: number = 5261127;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -413,7 +413,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261127);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: platform_compatibility_scenario_5261128_locale_lookup_en
     it('platform_compatibility_scenario_5261128_locale_lookup_en', 0, async () => {
       const caseSeed: number = 5261128;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261128);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: platform_compatibility_scenario_5261129_validation_report_count
     it('platform_compatibility_scenario_5261129_validation_report_count', 0, async () => {
       const caseSeed: number = 5261129;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261129);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: platform_compatibility_scenario_5261130_url_with_query
     it('platform_compatibility_scenario_5261130_url_with_query', 0, async () => {
       const caseSeed: number = 5261130;
       const url: string = SAMPLE_GAME_URL + '?case=44';
@@ -449,7 +449,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261130);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: platform_compatibility_scenario_5261131_geometry_area
     it('platform_compatibility_scenario_5261131_geometry_area', 0, async () => {
       const caseSeed: number = 5261131;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 41);
@@ -460,7 +460,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261131);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: platform_compatibility_scenario_5261132_circular_buffer_capacity
     it('platform_compatibility_scenario_5261132_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 5261132;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261132);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: platform_compatibility_scenario_5261133_command_queue_fifo
     it('platform_compatibility_scenario_5261133_command_queue_fifo', 0, async () => {
       const caseSeed: number = 5261133;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261133);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: platform_compatibility_scenario_5261134_token_bucket_consume
     it('platform_compatibility_scenario_5261134_token_bucket_consume', 0, async () => {
       const caseSeed: number = 5261134;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -497,7 +497,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261134);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: platform_compatibility_scenario_5261135_page_load_budget
     it('platform_compatibility_scenario_5261135_page_load_budget', 0, async () => {
       const caseSeed: number = 5261135;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261135);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: platform_compatibility_scenario_5261136_perf_sampler_bounds
     it('platform_compatibility_scenario_5261136_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 5261136;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -521,7 +521,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261136);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: platform_compatibility_scenario_5261137_config_api_9
     it('platform_compatibility_scenario_5261137_config_api_9', 0, async () => {
       const caseSeed: number = 5261137;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -532,7 +532,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261137);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: platform_compatibility_scenario_5261138_retry_attempts
     it('platform_compatibility_scenario_5261138_retry_attempts', 0, async () => {
       const caseSeed: number = 5261138;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -544,7 +544,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261138);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: platform_compatibility_scenario_5261139_event_recorder_sequence
     it('platform_compatibility_scenario_5261139_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 5261139;
       const recorder: EventRecorder = new EventRecorder();
@@ -557,7 +557,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261139);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: platform_compatibility_scenario_5261140_session_start_cycles
     it('platform_compatibility_scenario_5261140_session_start_cycles', 0, async () => {
       const caseSeed: number = 5261140;
       const session: GameSession = new GameSession();
@@ -571,7 +571,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261140);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: platform_compatibility_scenario_5261141_paddle_step_sequence
     it('platform_compatibility_scenario_5261141_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 5261141;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -584,7 +584,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261141);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: platform_compatibility_scenario_5261142_catalog_lookup_start
     it('platform_compatibility_scenario_5261142_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 5261142;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -596,7 +596,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261142);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: platform_compatibility_scenario_5261143_pipeline_round_trip
     it('platform_compatibility_scenario_5261143_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 5261143;
       const payload: string = '_main.paddle.moveLeft(); // case 5261143';
@@ -608,7 +608,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261143);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: platform_compatibility_scenario_5261144_settings_zoom_true
     it('platform_compatibility_scenario_5261144_settings_zoom_true', 0, async () => {
       const caseSeed: number = 5261144;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -619,7 +619,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261144);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: platform_compatibility_scenario_5261145_layout_custom_columns
     it('platform_compatibility_scenario_5261145_layout_custom_columns', 0, async () => {
       const caseSeed: number = 5261145;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -630,7 +630,7 @@ export default function platformCompatibilityTest() {
       expect(caseSeed).assertEqual(5261145);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: platform_compatibility_scenario_5261146_score_accumulation
     it('platform_compatibility_scenario_5261146_score_accumulation', 0, async () => {
       const caseSeed: number = 5261146;
       const board: ScoreBoard = new ScoreBoard();

@@ -71,7 +71,7 @@ export default function comprehensiveRegressionTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'comprehensive_regression suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: comprehensive_regression_scenario_9673300_session_start_cycles
     it('comprehensive_regression_scenario_9673300_session_start_cycles', 0, async () => {
       const caseSeed: number = 9673300;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673300);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: comprehensive_regression_scenario_9673301_paddle_step_sequence
     it('comprehensive_regression_scenario_9673301_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9673301;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -98,7 +98,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673301);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: comprehensive_regression_scenario_9673302_catalog_lookup_start
     it('comprehensive_regression_scenario_9673302_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9673302;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673302);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: comprehensive_regression_scenario_9673303_pipeline_round_trip
     it('comprehensive_regression_scenario_9673303_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9673303;
       const payload: string = '_main.paddle.moveLeft(); // case 9673303';
@@ -122,7 +122,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673303);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: comprehensive_regression_scenario_9673304_settings_zoom_true
     it('comprehensive_regression_scenario_9673304_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9673304;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673304);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: comprehensive_regression_scenario_9673305_layout_custom_columns
     it('comprehensive_regression_scenario_9673305_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9673305;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673305);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: comprehensive_regression_scenario_9673306_score_accumulation
     it('comprehensive_regression_scenario_9673306_score_accumulation', 0, async () => {
       const caseSeed: number = 9673306;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673306);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: comprehensive_regression_scenario_9673307_brick_grid_progress
     it('comprehensive_regression_scenario_9673307_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9673307;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -170,7 +170,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673307);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: comprehensive_regression_scenario_9673308_locale_lookup_en
     it('comprehensive_regression_scenario_9673308_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9673308;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673308);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: comprehensive_regression_scenario_9673309_validation_report_count
     it('comprehensive_regression_scenario_9673309_validation_report_count', 0, async () => {
       const caseSeed: number = 9673309;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673309);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: comprehensive_regression_scenario_9673310_url_with_query
     it('comprehensive_regression_scenario_9673310_url_with_query', 0, async () => {
       const caseSeed: number = 9673310;
       const url: string = SAMPLE_GAME_URL + '?case=82';
@@ -206,7 +206,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673310);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: comprehensive_regression_scenario_9673311_geometry_area
     it('comprehensive_regression_scenario_9673311_geometry_area', 0, async () => {
       const caseSeed: number = 9673311;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 61);
@@ -217,7 +217,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673311);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: comprehensive_regression_scenario_9673312_circular_buffer_capacity
     it('comprehensive_regression_scenario_9673312_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9673312;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673312);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: comprehensive_regression_scenario_9673313_command_queue_fifo
     it('comprehensive_regression_scenario_9673313_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9673313;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673313);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: comprehensive_regression_scenario_9673314_token_bucket_consume
     it('comprehensive_regression_scenario_9673314_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9673314;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -254,7 +254,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673314);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: comprehensive_regression_scenario_9673315_page_load_budget
     it('comprehensive_regression_scenario_9673315_page_load_budget', 0, async () => {
       const caseSeed: number = 9673315;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673315);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: comprehensive_regression_scenario_9673316_perf_sampler_bounds
     it('comprehensive_regression_scenario_9673316_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9673316;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673316);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: comprehensive_regression_scenario_9673317_config_api_9
     it('comprehensive_regression_scenario_9673317_config_api_9', 0, async () => {
       const caseSeed: number = 9673317;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673317);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: comprehensive_regression_scenario_9673318_retry_attempts
     it('comprehensive_regression_scenario_9673318_retry_attempts', 0, async () => {
       const caseSeed: number = 9673318;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673318);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: comprehensive_regression_scenario_9673319_event_recorder_sequence
     it('comprehensive_regression_scenario_9673319_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 9673319;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673319);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: comprehensive_regression_scenario_9673320_session_start_cycles
     it('comprehensive_regression_scenario_9673320_session_start_cycles', 0, async () => {
       const caseSeed: number = 9673320;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673320);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: comprehensive_regression_scenario_9673321_paddle_step_sequence
     it('comprehensive_regression_scenario_9673321_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 9673321;
       const paddle: PaddleModel = new PaddleModel(1, 101, 5);
@@ -341,7 +341,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673321);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: comprehensive_regression_scenario_9673322_catalog_lookup_start
     it('comprehensive_regression_scenario_9673322_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 9673322;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673322);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: comprehensive_regression_scenario_9673323_pipeline_round_trip
     it('comprehensive_regression_scenario_9673323_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 9673323;
       const payload: string = '_main.paddle.moveLeft(); // case 9673323';
@@ -365,7 +365,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673323);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: comprehensive_regression_scenario_9673324_settings_zoom_true
     it('comprehensive_regression_scenario_9673324_settings_zoom_true', 0, async () => {
       const caseSeed: number = 9673324;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673324);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: comprehensive_regression_scenario_9673325_layout_custom_columns
     it('comprehensive_regression_scenario_9673325_layout_custom_columns', 0, async () => {
       const caseSeed: number = 9673325;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673325);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: comprehensive_regression_scenario_9673326_score_accumulation
     it('comprehensive_regression_scenario_9673326_score_accumulation', 0, async () => {
       const caseSeed: number = 9673326;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673326);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: comprehensive_regression_scenario_9673327_brick_grid_progress
     it('comprehensive_regression_scenario_9673327_brick_grid_progress', 0, async () => {
       const caseSeed: number = 9673327;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -413,7 +413,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673327);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: comprehensive_regression_scenario_9673328_locale_lookup_en
     it('comprehensive_regression_scenario_9673328_locale_lookup_en', 0, async () => {
       const caseSeed: number = 9673328;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673328);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: comprehensive_regression_scenario_9673329_validation_report_count
     it('comprehensive_regression_scenario_9673329_validation_report_count', 0, async () => {
       const caseSeed: number = 9673329;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673329);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: comprehensive_regression_scenario_9673330_url_with_query
     it('comprehensive_regression_scenario_9673330_url_with_query', 0, async () => {
       const caseSeed: number = 9673330;
       const url: string = SAMPLE_GAME_URL + '?case=5';
@@ -449,7 +449,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673330);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: comprehensive_regression_scenario_9673331_geometry_area
     it('comprehensive_regression_scenario_9673331_geometry_area', 0, async () => {
       const caseSeed: number = 9673331;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 21);
@@ -460,7 +460,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673331);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: comprehensive_regression_scenario_9673332_circular_buffer_capacity
     it('comprehensive_regression_scenario_9673332_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 9673332;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673332);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: comprehensive_regression_scenario_9673333_command_queue_fifo
     it('comprehensive_regression_scenario_9673333_command_queue_fifo', 0, async () => {
       const caseSeed: number = 9673333;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673333);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: comprehensive_regression_scenario_9673334_token_bucket_consume
     it('comprehensive_regression_scenario_9673334_token_bucket_consume', 0, async () => {
       const caseSeed: number = 9673334;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -497,7 +497,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673334);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: comprehensive_regression_scenario_9673335_page_load_budget
     it('comprehensive_regression_scenario_9673335_page_load_budget', 0, async () => {
       const caseSeed: number = 9673335;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function comprehensiveRegressionTest() {
       expect(caseSeed).assertEqual(9673335);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: comprehensive_regression_scenario_9673336_perf_sampler_bounds
     it('comprehensive_regression_scenario_9673336_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 9673336;
       const sampler: PerformanceSampler = new PerformanceSampler();

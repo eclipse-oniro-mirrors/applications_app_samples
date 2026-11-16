@@ -71,7 +71,7 @@ export default function gestureRecognitionTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'gesture_recognition suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: gesture_recognition_scenario_4909200_session_start_cycles
     it('gesture_recognition_scenario_4909200_session_start_cycles', 0, async () => {
       const caseSeed: number = 4909200;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909200);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: gesture_recognition_scenario_4909201_paddle_step_sequence
     it('gesture_recognition_scenario_4909201_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 4909201;
       const paddle: PaddleModel = new PaddleModel(1, 101, 8);
@@ -98,7 +98,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909201);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: gesture_recognition_scenario_4909202_catalog_lookup_start
     it('gesture_recognition_scenario_4909202_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 4909202;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909202);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: gesture_recognition_scenario_4909203_pipeline_round_trip
     it('gesture_recognition_scenario_4909203_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 4909203;
       const payload: string = '_main.paddle.moveLeft(); // case 4909203';
@@ -122,7 +122,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909203);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: gesture_recognition_scenario_4909204_settings_zoom_true
     it('gesture_recognition_scenario_4909204_settings_zoom_true', 0, async () => {
       const caseSeed: number = 4909204;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909204);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: gesture_recognition_scenario_4909205_layout_custom_columns
     it('gesture_recognition_scenario_4909205_layout_custom_columns', 0, async () => {
       const caseSeed: number = 4909205;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909205);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: gesture_recognition_scenario_4909206_score_accumulation
     it('gesture_recognition_scenario_4909206_score_accumulation', 0, async () => {
       const caseSeed: number = 4909206;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909206);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: gesture_recognition_scenario_4909207_brick_grid_progress
     it('gesture_recognition_scenario_4909207_brick_grid_progress', 0, async () => {
       const caseSeed: number = 4909207;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -170,7 +170,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909207);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: gesture_recognition_scenario_4909208_locale_lookup_en
     it('gesture_recognition_scenario_4909208_locale_lookup_en', 0, async () => {
       const caseSeed: number = 4909208;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909208);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: gesture_recognition_scenario_4909209_validation_report_count
     it('gesture_recognition_scenario_4909209_validation_report_count', 0, async () => {
       const caseSeed: number = 4909209;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909209);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: gesture_recognition_scenario_4909210_url_with_query
     it('gesture_recognition_scenario_4909210_url_with_query', 0, async () => {
       const caseSeed: number = 4909210;
       const url: string = SAMPLE_GAME_URL + '?case=40';
@@ -206,7 +206,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909210);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: gesture_recognition_scenario_4909211_geometry_area
     it('gesture_recognition_scenario_4909211_geometry_area', 0, async () => {
       const caseSeed: number = 4909211;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 21);
@@ -217,7 +217,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909211);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: gesture_recognition_scenario_4909212_circular_buffer_capacity
     it('gesture_recognition_scenario_4909212_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 4909212;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909212);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: gesture_recognition_scenario_4909213_command_queue_fifo
     it('gesture_recognition_scenario_4909213_command_queue_fifo', 0, async () => {
       const caseSeed: number = 4909213;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909213);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: gesture_recognition_scenario_4909214_token_bucket_consume
     it('gesture_recognition_scenario_4909214_token_bucket_consume', 0, async () => {
       const caseSeed: number = 4909214;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -254,7 +254,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909214);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: gesture_recognition_scenario_4909215_page_load_budget
     it('gesture_recognition_scenario_4909215_page_load_budget', 0, async () => {
       const caseSeed: number = 4909215;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909215);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: gesture_recognition_scenario_4909216_perf_sampler_bounds
     it('gesture_recognition_scenario_4909216_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 4909216;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909216);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: gesture_recognition_scenario_4909217_config_api_9
     it('gesture_recognition_scenario_4909217_config_api_9', 0, async () => {
       const caseSeed: number = 4909217;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909217);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: gesture_recognition_scenario_4909218_retry_attempts
     it('gesture_recognition_scenario_4909218_retry_attempts', 0, async () => {
       const caseSeed: number = 4909218;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909218);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: gesture_recognition_scenario_4909219_event_recorder_sequence
     it('gesture_recognition_scenario_4909219_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 4909219;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909219);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: gesture_recognition_scenario_4909220_session_start_cycles
     it('gesture_recognition_scenario_4909220_session_start_cycles', 0, async () => {
       const caseSeed: number = 4909220;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909220);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: gesture_recognition_scenario_4909221_paddle_step_sequence
     it('gesture_recognition_scenario_4909221_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 4909221;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -341,7 +341,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909221);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: gesture_recognition_scenario_4909222_catalog_lookup_start
     it('gesture_recognition_scenario_4909222_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 4909222;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909222);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: gesture_recognition_scenario_4909223_pipeline_round_trip
     it('gesture_recognition_scenario_4909223_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 4909223;
       const payload: string = '_main.paddle.moveLeft(); // case 4909223';
@@ -365,7 +365,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909223);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: gesture_recognition_scenario_4909224_settings_zoom_true
     it('gesture_recognition_scenario_4909224_settings_zoom_true', 0, async () => {
       const caseSeed: number = 4909224;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -376,7 +376,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909224);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: gesture_recognition_scenario_4909225_layout_custom_columns
     it('gesture_recognition_scenario_4909225_layout_custom_columns', 0, async () => {
       const caseSeed: number = 4909225;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -387,7 +387,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909225);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: gesture_recognition_scenario_4909226_score_accumulation
     it('gesture_recognition_scenario_4909226_score_accumulation', 0, async () => {
       const caseSeed: number = 4909226;
       const board: ScoreBoard = new ScoreBoard();
@@ -400,7 +400,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909226);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: gesture_recognition_scenario_4909227_brick_grid_progress
     it('gesture_recognition_scenario_4909227_brick_grid_progress', 0, async () => {
       const caseSeed: number = 4909227;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -413,7 +413,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909227);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: gesture_recognition_scenario_4909228_locale_lookup_en
     it('gesture_recognition_scenario_4909228_locale_lookup_en', 0, async () => {
       const caseSeed: number = 4909228;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -424,7 +424,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909228);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: gesture_recognition_scenario_4909229_validation_report_count
     it('gesture_recognition_scenario_4909229_validation_report_count', 0, async () => {
       const caseSeed: number = 4909229;
       const report: ValidationReport = new ValidationReport();
@@ -437,7 +437,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909229);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: gesture_recognition_scenario_4909230_url_with_query
     it('gesture_recognition_scenario_4909230_url_with_query', 0, async () => {
       const caseSeed: number = 4909230;
       const url: string = SAMPLE_GAME_URL + '?case=60';
@@ -449,7 +449,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909230);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: gesture_recognition_scenario_4909231_geometry_area
     it('gesture_recognition_scenario_4909231_geometry_area', 0, async () => {
       const caseSeed: number = 4909231;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 41);
@@ -460,7 +460,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909231);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: gesture_recognition_scenario_4909232_circular_buffer_capacity
     it('gesture_recognition_scenario_4909232_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 4909232;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -473,7 +473,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909232);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: gesture_recognition_scenario_4909233_command_queue_fifo
     it('gesture_recognition_scenario_4909233_command_queue_fifo', 0, async () => {
       const caseSeed: number = 4909233;
       const queue: CommandQueue = new CommandQueue();
@@ -486,7 +486,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909233);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: gesture_recognition_scenario_4909234_token_bucket_consume
     it('gesture_recognition_scenario_4909234_token_bucket_consume', 0, async () => {
       const caseSeed: number = 4909234;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -497,7 +497,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909234);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: gesture_recognition_scenario_4909235_page_load_budget
     it('gesture_recognition_scenario_4909235_page_load_budget', 0, async () => {
       const caseSeed: number = 4909235;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -508,7 +508,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909235);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: gesture_recognition_scenario_4909236_perf_sampler_bounds
     it('gesture_recognition_scenario_4909236_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 4909236;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -521,7 +521,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909236);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: gesture_recognition_scenario_4909237_config_api_9
     it('gesture_recognition_scenario_4909237_config_api_9', 0, async () => {
       const caseSeed: number = 4909237;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -532,7 +532,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909237);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: gesture_recognition_scenario_4909238_retry_attempts
     it('gesture_recognition_scenario_4909238_retry_attempts', 0, async () => {
       const caseSeed: number = 4909238;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -544,7 +544,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909238);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: gesture_recognition_scenario_4909239_event_recorder_sequence
     it('gesture_recognition_scenario_4909239_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 4909239;
       const recorder: EventRecorder = new EventRecorder();
@@ -557,7 +557,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909239);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: gesture_recognition_scenario_4909240_session_start_cycles
     it('gesture_recognition_scenario_4909240_session_start_cycles', 0, async () => {
       const caseSeed: number = 4909240;
       const session: GameSession = new GameSession();
@@ -571,7 +571,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909240);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: gesture_recognition_scenario_4909241_paddle_step_sequence
     it('gesture_recognition_scenario_4909241_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 4909241;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -584,7 +584,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909241);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: gesture_recognition_scenario_4909242_catalog_lookup_start
     it('gesture_recognition_scenario_4909242_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 4909242;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -596,7 +596,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909242);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: gesture_recognition_scenario_4909243_pipeline_round_trip
     it('gesture_recognition_scenario_4909243_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 4909243;
       const payload: string = '_main.paddle.moveLeft(); // case 4909243';
@@ -608,7 +608,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909243);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: gesture_recognition_scenario_4909244_settings_zoom_true
     it('gesture_recognition_scenario_4909244_settings_zoom_true', 0, async () => {
       const caseSeed: number = 4909244;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -619,7 +619,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909244);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: gesture_recognition_scenario_4909245_layout_custom_columns
     it('gesture_recognition_scenario_4909245_layout_custom_columns', 0, async () => {
       const caseSeed: number = 4909245;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -630,7 +630,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909245);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: gesture_recognition_scenario_4909246_score_accumulation
     it('gesture_recognition_scenario_4909246_score_accumulation', 0, async () => {
       const caseSeed: number = 4909246;
       const board: ScoreBoard = new ScoreBoard();
@@ -643,7 +643,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909246);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: gesture_recognition_scenario_4909247_brick_grid_progress
     it('gesture_recognition_scenario_4909247_brick_grid_progress', 0, async () => {
       const caseSeed: number = 4909247;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -656,7 +656,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909247);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: gesture_recognition_scenario_4909248_locale_lookup_en
     it('gesture_recognition_scenario_4909248_locale_lookup_en', 0, async () => {
       const caseSeed: number = 4909248;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -667,7 +667,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909248);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: gesture_recognition_scenario_4909249_validation_report_count
     it('gesture_recognition_scenario_4909249_validation_report_count', 0, async () => {
       const caseSeed: number = 4909249;
       const report: ValidationReport = new ValidationReport();
@@ -680,7 +680,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909249);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: gesture_recognition_scenario_4909250_url_with_query
     it('gesture_recognition_scenario_4909250_url_with_query', 0, async () => {
       const caseSeed: number = 4909250;
       const url: string = SAMPLE_GAME_URL + '?case=80';
@@ -692,7 +692,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909250);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: gesture_recognition_scenario_4909251_geometry_area
     it('gesture_recognition_scenario_4909251_geometry_area', 0, async () => {
       const caseSeed: number = 4909251;
       const box: GeometryBox = new GeometryBox(0, 0, 61, 61);
@@ -703,7 +703,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909251);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: gesture_recognition_scenario_4909252_circular_buffer_capacity
     it('gesture_recognition_scenario_4909252_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 4909252;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -716,7 +716,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909252);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: gesture_recognition_scenario_4909253_command_queue_fifo
     it('gesture_recognition_scenario_4909253_command_queue_fifo', 0, async () => {
       const caseSeed: number = 4909253;
       const queue: CommandQueue = new CommandQueue();
@@ -729,7 +729,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909253);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: gesture_recognition_scenario_4909254_token_bucket_consume
     it('gesture_recognition_scenario_4909254_token_bucket_consume', 0, async () => {
       const caseSeed: number = 4909254;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -740,7 +740,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909254);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: gesture_recognition_scenario_4909255_page_load_budget
     it('gesture_recognition_scenario_4909255_page_load_budget', 0, async () => {
       const caseSeed: number = 4909255;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -751,7 +751,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909255);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: gesture_recognition_scenario_4909256_perf_sampler_bounds
     it('gesture_recognition_scenario_4909256_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 4909256;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -764,7 +764,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909256);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: gesture_recognition_scenario_4909257_config_api_9
     it('gesture_recognition_scenario_4909257_config_api_9', 0, async () => {
       const caseSeed: number = 4909257;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -775,7 +775,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909257);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: gesture_recognition_scenario_4909258_retry_attempts
     it('gesture_recognition_scenario_4909258_retry_attempts', 0, async () => {
       const caseSeed: number = 4909258;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -787,7 +787,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909258);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: gesture_recognition_scenario_4909259_event_recorder_sequence
     it('gesture_recognition_scenario_4909259_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 4909259;
       const recorder: EventRecorder = new EventRecorder();
@@ -800,7 +800,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909259);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: gesture_recognition_scenario_4909260_session_start_cycles
     it('gesture_recognition_scenario_4909260_session_start_cycles', 0, async () => {
       const caseSeed: number = 4909260;
       const session: GameSession = new GameSession();
@@ -814,7 +814,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909260);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: gesture_recognition_scenario_4909261_paddle_step_sequence
     it('gesture_recognition_scenario_4909261_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 4909261;
       const paddle: PaddleModel = new PaddleModel(1, 101, 5);
@@ -827,7 +827,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909261);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: gesture_recognition_scenario_4909262_catalog_lookup_start
     it('gesture_recognition_scenario_4909262_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 4909262;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -839,7 +839,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909262);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: gesture_recognition_scenario_4909263_pipeline_round_trip
     it('gesture_recognition_scenario_4909263_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 4909263;
       const payload: string = '_main.paddle.moveLeft(); // case 4909263';
@@ -851,7 +851,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909263);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: gesture_recognition_scenario_4909264_settings_zoom_true
     it('gesture_recognition_scenario_4909264_settings_zoom_true', 0, async () => {
       const caseSeed: number = 4909264;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -862,7 +862,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909264);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: gesture_recognition_scenario_4909265_layout_custom_columns
     it('gesture_recognition_scenario_4909265_layout_custom_columns', 0, async () => {
       const caseSeed: number = 4909265;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -873,7 +873,7 @@ export default function gestureRecognitionTest() {
       expect(caseSeed).assertEqual(4909265);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: gesture_recognition_scenario_4909266_score_accumulation
     it('gesture_recognition_scenario_4909266_score_accumulation', 0, async () => {
       const caseSeed: number = 4909266;
       const board: ScoreBoard = new ScoreBoard();

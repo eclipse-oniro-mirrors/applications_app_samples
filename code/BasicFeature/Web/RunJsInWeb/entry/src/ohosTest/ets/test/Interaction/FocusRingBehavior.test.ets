@@ -76,7 +76,7 @@ export default function focusRingBehaviorTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'focus_ring suite end');
     });
 
-    // 主题解析器应返回红色控件与橙色网页背景
+    // Scenario: focus_ring_theme_resolves_control_colors
     it('focus_ring_theme_resolves_control_colors', 0, async () => {
       const theme: ThemeResolver = new ThemeResolver();
       expect(theme.resolve('control_red')).assertEqual('#FF0000');
@@ -84,7 +84,7 @@ export default function focusRingBehaviorTest() {
       expect(theme.count()).assertEqual(4);
     });
 
-    // 深色背景应被识别，浅色背景不应被识别
+    // Scenario: focus_ring_dark_theme_is_detected
     it('focus_ring_dark_theme_is_detected', 0, async () => {
       const theme: ThemeResolver = new ThemeResolver();
       expect(theme.isDark('dark_background')).assertTrue();
@@ -92,7 +92,7 @@ export default function focusRingBehaviorTest() {
       expect(theme.has('dark_background')).assertTrue();
     });
 
-    // 亮度计算应满足黑底低于红底、红底低于白底
+    // Scenario: focus_ring_theme_brightness_is_ordered
     it('focus_ring_theme_brightness_is_ordered', 0, async () => {
       const theme: ThemeResolver = new ThemeResolver();
       const dark: number = theme.brightness(theme.resolve('dark_background'));
@@ -102,7 +102,7 @@ export default function focusRingBehaviorTest() {
       expect(red < light).assertTrue();
     });
 
-    // 切换主题模拟后页面仍然可见且四个按钮齐全
+    // Scenario: focus_ring_theme_switch_keeps_page_visible
     it('focus_ring_theme_switch_keeps_page_visible', 0, async () => {
       const theme: ThemeResolver = new ThemeResolver();
       expect(theme.resolve('unknown_color')).assertEqual('#000000');
@@ -110,7 +110,7 @@ export default function focusRingBehaviorTest() {
       expect(await hasAllControls(driver)).assertTrue();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: focus_ring_scenario_7394000_session_start_cycles
     it('focus_ring_scenario_7394000_session_start_cycles', 0, async () => {
       const caseSeed: number = 7394000;
       const session: GameSession = new GameSession();
@@ -124,7 +124,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394000);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: focus_ring_scenario_7394001_paddle_step_sequence
     it('focus_ring_scenario_7394001_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 7394001;
       const paddle: PaddleModel = new PaddleModel(1, 101, 7);
@@ -137,7 +137,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394001);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: focus_ring_scenario_7394002_catalog_lookup_start
     it('focus_ring_scenario_7394002_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 7394002;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -149,7 +149,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394002);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: focus_ring_scenario_7394003_pipeline_round_trip
     it('focus_ring_scenario_7394003_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 7394003;
       const payload: string = '_main.paddle.moveLeft(); // case 7394003';
@@ -161,7 +161,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394003);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: focus_ring_scenario_7394004_settings_zoom_true
     it('focus_ring_scenario_7394004_settings_zoom_true', 0, async () => {
       const caseSeed: number = 7394004;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -172,7 +172,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394004);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: focus_ring_scenario_7394005_layout_custom_columns
     it('focus_ring_scenario_7394005_layout_custom_columns', 0, async () => {
       const caseSeed: number = 7394005;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -183,7 +183,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394005);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: focus_ring_scenario_7394006_score_accumulation
     it('focus_ring_scenario_7394006_score_accumulation', 0, async () => {
       const caseSeed: number = 7394006;
       const board: ScoreBoard = new ScoreBoard();
@@ -196,7 +196,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394006);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: focus_ring_scenario_7394007_brick_grid_progress
     it('focus_ring_scenario_7394007_brick_grid_progress', 0, async () => {
       const caseSeed: number = 7394007;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -209,7 +209,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394007);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: focus_ring_scenario_7394008_locale_lookup_en
     it('focus_ring_scenario_7394008_locale_lookup_en', 0, async () => {
       const caseSeed: number = 7394008;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -220,7 +220,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394008);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: focus_ring_scenario_7394009_validation_report_count
     it('focus_ring_scenario_7394009_validation_report_count', 0, async () => {
       const caseSeed: number = 7394009;
       const report: ValidationReport = new ValidationReport();
@@ -233,7 +233,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394009);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: focus_ring_scenario_7394010_url_with_query
     it('focus_ring_scenario_7394010_url_with_query', 0, async () => {
       const caseSeed: number = 7394010;
       const url: string = SAMPLE_GAME_URL + '?case=88';
@@ -245,7 +245,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394010);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: focus_ring_scenario_7394011_geometry_area
     it('focus_ring_scenario_7394011_geometry_area', 0, async () => {
       const caseSeed: number = 7394011;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 41);
@@ -256,7 +256,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394011);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: focus_ring_scenario_7394012_circular_buffer_capacity
     it('focus_ring_scenario_7394012_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 7394012;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -269,7 +269,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394012);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: focus_ring_scenario_7394013_command_queue_fifo
     it('focus_ring_scenario_7394013_command_queue_fifo', 0, async () => {
       const caseSeed: number = 7394013;
       const queue: CommandQueue = new CommandQueue();
@@ -282,7 +282,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394013);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: focus_ring_scenario_7394014_token_bucket_consume
     it('focus_ring_scenario_7394014_token_bucket_consume', 0, async () => {
       const caseSeed: number = 7394014;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -293,7 +293,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394014);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: focus_ring_scenario_7394015_page_load_budget
     it('focus_ring_scenario_7394015_page_load_budget', 0, async () => {
       const caseSeed: number = 7394015;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -304,7 +304,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394015);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: focus_ring_scenario_7394016_perf_sampler_bounds
     it('focus_ring_scenario_7394016_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 7394016;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -317,7 +317,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394016);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: focus_ring_scenario_7394017_config_api_9
     it('focus_ring_scenario_7394017_config_api_9', 0, async () => {
       const caseSeed: number = 7394017;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -328,7 +328,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394017);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: focus_ring_scenario_7394018_retry_attempts
     it('focus_ring_scenario_7394018_retry_attempts', 0, async () => {
       const caseSeed: number = 7394018;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -340,7 +340,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394018);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: focus_ring_scenario_7394019_event_recorder_sequence
     it('focus_ring_scenario_7394019_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 7394019;
       const recorder: EventRecorder = new EventRecorder();
@@ -353,7 +353,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394019);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: focus_ring_scenario_7394020_session_start_cycles
     it('focus_ring_scenario_7394020_session_start_cycles', 0, async () => {
       const caseSeed: number = 7394020;
       const session: GameSession = new GameSession();
@@ -367,7 +367,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394020);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: focus_ring_scenario_7394021_paddle_step_sequence
     it('focus_ring_scenario_7394021_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 7394021;
       const paddle: PaddleModel = new PaddleModel(1, 101, 9);
@@ -380,7 +380,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394021);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: focus_ring_scenario_7394022_catalog_lookup_start
     it('focus_ring_scenario_7394022_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 7394022;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -392,7 +392,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394022);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: focus_ring_scenario_7394023_pipeline_round_trip
     it('focus_ring_scenario_7394023_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 7394023;
       const payload: string = '_main.paddle.moveLeft(); // case 7394023';
@@ -404,7 +404,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394023);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: focus_ring_scenario_7394024_settings_zoom_true
     it('focus_ring_scenario_7394024_settings_zoom_true', 0, async () => {
       const caseSeed: number = 7394024;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -415,7 +415,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394024);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: focus_ring_scenario_7394025_layout_custom_columns
     it('focus_ring_scenario_7394025_layout_custom_columns', 0, async () => {
       const caseSeed: number = 7394025;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -426,7 +426,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394025);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: focus_ring_scenario_7394026_score_accumulation
     it('focus_ring_scenario_7394026_score_accumulation', 0, async () => {
       const caseSeed: number = 7394026;
       const board: ScoreBoard = new ScoreBoard();
@@ -439,7 +439,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394026);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: focus_ring_scenario_7394027_brick_grid_progress
     it('focus_ring_scenario_7394027_brick_grid_progress', 0, async () => {
       const caseSeed: number = 7394027;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -452,7 +452,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394027);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: focus_ring_scenario_7394028_locale_lookup_en
     it('focus_ring_scenario_7394028_locale_lookup_en', 0, async () => {
       const caseSeed: number = 7394028;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -463,7 +463,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394028);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: focus_ring_scenario_7394029_validation_report_count
     it('focus_ring_scenario_7394029_validation_report_count', 0, async () => {
       const caseSeed: number = 7394029;
       const report: ValidationReport = new ValidationReport();
@@ -476,7 +476,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394029);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: focus_ring_scenario_7394030_url_with_query
     it('focus_ring_scenario_7394030_url_with_query', 0, async () => {
       const caseSeed: number = 7394030;
       const url: string = SAMPLE_GAME_URL + '?case=11';
@@ -488,7 +488,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394030);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: focus_ring_scenario_7394031_geometry_area
     it('focus_ring_scenario_7394031_geometry_area', 0, async () => {
       const caseSeed: number = 7394031;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 61);
@@ -499,7 +499,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394031);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: focus_ring_scenario_7394032_circular_buffer_capacity
     it('focus_ring_scenario_7394032_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 7394032;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -512,7 +512,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394032);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: focus_ring_scenario_7394033_command_queue_fifo
     it('focus_ring_scenario_7394033_command_queue_fifo', 0, async () => {
       const caseSeed: number = 7394033;
       const queue: CommandQueue = new CommandQueue();
@@ -525,7 +525,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394033);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: focus_ring_scenario_7394034_token_bucket_consume
     it('focus_ring_scenario_7394034_token_bucket_consume', 0, async () => {
       const caseSeed: number = 7394034;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -536,7 +536,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394034);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: focus_ring_scenario_7394035_page_load_budget
     it('focus_ring_scenario_7394035_page_load_budget', 0, async () => {
       const caseSeed: number = 7394035;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -547,7 +547,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394035);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: focus_ring_scenario_7394036_perf_sampler_bounds
     it('focus_ring_scenario_7394036_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 7394036;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -560,7 +560,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394036);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: focus_ring_scenario_7394037_config_api_9
     it('focus_ring_scenario_7394037_config_api_9', 0, async () => {
       const caseSeed: number = 7394037;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -571,7 +571,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394037);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: focus_ring_scenario_7394038_retry_attempts
     it('focus_ring_scenario_7394038_retry_attempts', 0, async () => {
       const caseSeed: number = 7394038;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -583,7 +583,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394038);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: focus_ring_scenario_7394039_event_recorder_sequence
     it('focus_ring_scenario_7394039_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 7394039;
       const recorder: EventRecorder = new EventRecorder();
@@ -596,7 +596,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394039);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: focus_ring_scenario_7394040_session_start_cycles
     it('focus_ring_scenario_7394040_session_start_cycles', 0, async () => {
       const caseSeed: number = 7394040;
       const session: GameSession = new GameSession();
@@ -610,7 +610,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394040);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: focus_ring_scenario_7394041_paddle_step_sequence
     it('focus_ring_scenario_7394041_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 7394041;
       const paddle: PaddleModel = new PaddleModel(1, 101, 2);
@@ -623,7 +623,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394041);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: focus_ring_scenario_7394042_catalog_lookup_start
     it('focus_ring_scenario_7394042_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 7394042;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -635,7 +635,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394042);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: focus_ring_scenario_7394043_pipeline_round_trip
     it('focus_ring_scenario_7394043_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 7394043;
       const payload: string = '_main.paddle.moveLeft(); // case 7394043';
@@ -647,7 +647,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394043);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: focus_ring_scenario_7394044_settings_zoom_true
     it('focus_ring_scenario_7394044_settings_zoom_true', 0, async () => {
       const caseSeed: number = 7394044;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -658,7 +658,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394044);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: focus_ring_scenario_7394045_layout_custom_columns
     it('focus_ring_scenario_7394045_layout_custom_columns', 0, async () => {
       const caseSeed: number = 7394045;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -669,7 +669,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394045);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: focus_ring_scenario_7394046_score_accumulation
     it('focus_ring_scenario_7394046_score_accumulation', 0, async () => {
       const caseSeed: number = 7394046;
       const board: ScoreBoard = new ScoreBoard();
@@ -682,7 +682,7 @@ export default function focusRingBehaviorTest() {
       expect(caseSeed).assertEqual(7394046);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: focus_ring_scenario_7394047_brick_grid_progress
     it('focus_ring_scenario_7394047_brick_grid_progress', 0, async () => {
       const caseSeed: number = 7394047;
       const grid: BrickGrid = new BrickGrid(2, 4);

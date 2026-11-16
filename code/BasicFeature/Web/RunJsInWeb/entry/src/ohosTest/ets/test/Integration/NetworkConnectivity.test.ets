@@ -60,7 +60,7 @@ export default function networkConnectivityTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'network_connectivity suite end');
     });
 
-    // 游戏地址必须是 HTTPS 且托管在 github.io 域名
+    // Scenario: network_connectivity_game_url_is_https_on_github_pages
     it('network_connectivity_game_url_is_https_on_github_pages', 0, async () => {
       const parts: UrlParts = UrlParts.parse(SAMPLE_GAME_URL);
       expect(parts.isHttps()).assertTrue();
@@ -68,7 +68,7 @@ export default function networkConnectivityTest() {
       expect(parts.getHost()).assertEqual('yangyunhe369.github.io');
     });
 
-    // 页面加载成功后记录耗时并处于预算内
+    // Scenario: network_connectivity_page_load_success_is_recorded
     it('network_connectivity_page_load_success_is_recorded', 0, async () => {
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 100);
       record.finish(2100);
@@ -77,7 +77,7 @@ export default function networkConnectivityTest() {
       expect(record.isWithinBudget(PAGE_LOAD_BUDGET_MS)).assertTrue();
     });
 
-    // 网络错误应被归类为可恢复错误并允许重试
+    // Scenario: network_connectivity_network_failure_is_recoverable_with_retry
     it('network_connectivity_network_failure_is_recoverable_with_retry', 0, async () => {
       const category: string = ErrorClassifier.classify('network unreachable');
       expect(category).assertEqual(ErrorClassifier.NETWORK);
@@ -87,7 +87,7 @@ export default function networkConnectivityTest() {
       expect(policy.canRetry()).assertTrue();
     });
 
-    // 断网场景下容器控件仍应可见，便于用户重试
+    // Scenario: network_connectivity_offline_page_still_shows_controls
     it('network_connectivity_offline_page_still_shows_controls', 0, async () => {
       expect(await hasAllControls(driver)).assertTrue();
       expect(await isGamePageVisible(driver)).assertTrue();
@@ -96,7 +96,7 @@ export default function networkConnectivityTest() {
       expect(record.isSuccess()).assertFalse();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: network_connectivity_scenario_5697300_session_start_cycles
     it('network_connectivity_scenario_5697300_session_start_cycles', 0, async () => {
       const caseSeed: number = 5697300;
       const session: GameSession = new GameSession();
@@ -110,7 +110,7 @@ export default function networkConnectivityTest() {
       expect(caseSeed).assertEqual(5697300);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: network_connectivity_scenario_5697301_paddle_step_sequence
     it('network_connectivity_scenario_5697301_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 5697301;
       const paddle: PaddleModel = new PaddleModel(1, 101, 5);
@@ -123,7 +123,7 @@ export default function networkConnectivityTest() {
       expect(caseSeed).assertEqual(5697301);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: network_connectivity_scenario_5697302_catalog_lookup_start
     it('network_connectivity_scenario_5697302_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 5697302;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();

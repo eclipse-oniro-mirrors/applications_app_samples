@@ -79,7 +79,7 @@ export default function dataBindingTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'data_binding suite end');
     });
 
-    // 开始脚本应把会话与小球状态同步为运行中
+    // Scenario: data_binding_start_updates_bound_ball_state
     it('data_binding_start_updates_bound_ball_state', 0, async () => {
       const session: GameSession = new GameSession();
       const ball: BallModel = new BallModel();
@@ -89,7 +89,7 @@ export default function dataBindingTest() {
       expect(ball.isFired()).assertTrue();
     });
 
-    // 复位脚本应清空小球发射标记
+    // Scenario: data_binding_reset_clears_bound_ball_state
     it('data_binding_reset_clears_bound_ball_state', 0, async () => {
       const session: GameSession = new GameSession();
       const ball: BallModel = new BallModel();
@@ -102,7 +102,7 @@ export default function dataBindingTest() {
       expect(ball.isFired()).assertFalse();
     });
 
-    // 事件总线应能统计开始与复位事件
+    // Scenario: data_binding_event_bus_tracks_injection_events
     it('data_binding_event_bus_tracks_injection_events', 0, async () => {
       const bus: EventBus = new EventBus();
       bus.on('start');
@@ -114,7 +114,7 @@ export default function dataBindingTest() {
       expect(bus.listenerCount('reset')).assertEqual(1);
     });
 
-    // 页面控件存在时数据层的四个动作均可映射到按钮
+    // Scenario: data_binding_ui_reflects_data_state
     it('data_binding_ui_reflects_data_state', 0, async () => {
       const labels: string[] = await getButtonLabels(driver);
       expect(labels.includes(LABEL_START)).assertTrue();
@@ -122,7 +122,7 @@ export default function dataBindingTest() {
       expect(await isGamePageVisible(driver)).assertTrue();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: data_binding_scenario_2709700_session_start_cycles
     it('data_binding_scenario_2709700_session_start_cycles', 0, async () => {
       const caseSeed: number = 2709700;
       const session: GameSession = new GameSession();
@@ -136,7 +136,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709700);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: data_binding_scenario_2709701_paddle_step_sequence
     it('data_binding_scenario_2709701_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 2709701;
       const paddle: PaddleModel = new PaddleModel(1, 101, 9);
@@ -149,7 +149,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709701);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: data_binding_scenario_2709702_catalog_lookup_start
     it('data_binding_scenario_2709702_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 2709702;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -161,7 +161,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709702);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: data_binding_scenario_2709703_pipeline_round_trip
     it('data_binding_scenario_2709703_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 2709703;
       const payload: string = '_main.paddle.moveLeft(); // case 2709703';
@@ -173,7 +173,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709703);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: data_binding_scenario_2709704_settings_zoom_true
     it('data_binding_scenario_2709704_settings_zoom_true', 0, async () => {
       const caseSeed: number = 2709704;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -184,7 +184,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709704);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: data_binding_scenario_2709705_layout_custom_columns
     it('data_binding_scenario_2709705_layout_custom_columns', 0, async () => {
       const caseSeed: number = 2709705;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -195,7 +195,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709705);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: data_binding_scenario_2709706_score_accumulation
     it('data_binding_scenario_2709706_score_accumulation', 0, async () => {
       const caseSeed: number = 2709706;
       const board: ScoreBoard = new ScoreBoard();
@@ -208,7 +208,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709706);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: data_binding_scenario_2709707_brick_grid_progress
     it('data_binding_scenario_2709707_brick_grid_progress', 0, async () => {
       const caseSeed: number = 2709707;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -221,7 +221,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709707);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: data_binding_scenario_2709708_locale_lookup_en
     it('data_binding_scenario_2709708_locale_lookup_en', 0, async () => {
       const caseSeed: number = 2709708;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -232,7 +232,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709708);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: data_binding_scenario_2709709_validation_report_count
     it('data_binding_scenario_2709709_validation_report_count', 0, async () => {
       const caseSeed: number = 2709709;
       const report: ValidationReport = new ValidationReport();
@@ -245,7 +245,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709709);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: data_binding_scenario_2709710_url_with_query
     it('data_binding_scenario_2709710_url_with_query', 0, async () => {
       const caseSeed: number = 2709710;
       const url: string = SAMPLE_GAME_URL + '?case=15';
@@ -257,7 +257,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709710);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: data_binding_scenario_2709711_geometry_area
     it('data_binding_scenario_2709711_geometry_area', 0, async () => {
       const caseSeed: number = 2709711;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 61);
@@ -268,7 +268,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709711);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: data_binding_scenario_2709712_circular_buffer_capacity
     it('data_binding_scenario_2709712_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 2709712;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -281,7 +281,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709712);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: data_binding_scenario_2709713_command_queue_fifo
     it('data_binding_scenario_2709713_command_queue_fifo', 0, async () => {
       const caseSeed: number = 2709713;
       const queue: CommandQueue = new CommandQueue();
@@ -294,7 +294,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709713);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: data_binding_scenario_2709714_token_bucket_consume
     it('data_binding_scenario_2709714_token_bucket_consume', 0, async () => {
       const caseSeed: number = 2709714;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -305,7 +305,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709714);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: data_binding_scenario_2709715_page_load_budget
     it('data_binding_scenario_2709715_page_load_budget', 0, async () => {
       const caseSeed: number = 2709715;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -316,7 +316,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709715);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: data_binding_scenario_2709716_perf_sampler_bounds
     it('data_binding_scenario_2709716_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 2709716;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -329,7 +329,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709716);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: data_binding_scenario_2709717_config_api_9
     it('data_binding_scenario_2709717_config_api_9', 0, async () => {
       const caseSeed: number = 2709717;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -340,7 +340,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709717);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: data_binding_scenario_2709718_retry_attempts
     it('data_binding_scenario_2709718_retry_attempts', 0, async () => {
       const caseSeed: number = 2709718;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -352,7 +352,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709718);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: data_binding_scenario_2709719_event_recorder_sequence
     it('data_binding_scenario_2709719_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 2709719;
       const recorder: EventRecorder = new EventRecorder();
@@ -365,7 +365,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709719);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: data_binding_scenario_2709720_session_start_cycles
     it('data_binding_scenario_2709720_session_start_cycles', 0, async () => {
       const caseSeed: number = 2709720;
       const session: GameSession = new GameSession();
@@ -379,7 +379,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709720);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: data_binding_scenario_2709721_paddle_step_sequence
     it('data_binding_scenario_2709721_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 2709721;
       const paddle: PaddleModel = new PaddleModel(1, 101, 2);
@@ -392,7 +392,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709721);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: data_binding_scenario_2709722_catalog_lookup_start
     it('data_binding_scenario_2709722_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 2709722;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -404,7 +404,7 @@ export default function dataBindingTest() {
       expect(caseSeed).assertEqual(2709722);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: data_binding_scenario_2709723_pipeline_round_trip
     it('data_binding_scenario_2709723_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 2709723;
       const payload: string = '_main.paddle.moveLeft(); // case 2709723';

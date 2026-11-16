@@ -74,7 +74,7 @@ export default function localizationTestingTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'localization_testing suite end');
     });
 
-    // 英文资源与页面按钮文本保持一致
+    // Scenario: localization_testing_english_resource_labels_match_ui
     it('localization_testing_english_resource_labels_match_ui', 0, async () => {
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
       const labels: string[] = await getButtonLabels(driver);
@@ -83,7 +83,7 @@ export default function localizationTestingTest() {
       expect(catalog.isComplete()).assertTrue();
     });
 
-    // 中文资源六个键齐全且不含空值
+    // Scenario: localization_testing_chinese_resource_is_complete
     it('localization_testing_chinese_resource_is_complete', 0, async () => {
       const catalog: LocaleCatalog = LocaleCatalog.createChinese();
       const keys: string[] = catalog.keys();
@@ -93,7 +93,7 @@ export default function localizationTestingTest() {
       }
     });
 
-    // 切换语言模拟后页面布局与控制按钮保持稳定
+    // Scenario: localization_testing_locale_switch_does_not_break_layout
     it('localization_testing_locale_switch_does_not_break_layout', 0, async () => {
       const english: LocaleCatalog = LocaleCatalog.createEnglish();
       const chinese: LocaleCatalog = LocaleCatalog.createChinese();
@@ -102,7 +102,7 @@ export default function localizationTestingTest() {
       expect(await hasAllControls(driver)).assertTrue();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: localization_testing_scenario_3322700_session_start_cycles
     it('localization_testing_scenario_3322700_session_start_cycles', 0, async () => {
       const caseSeed: number = 3322700;
       const session: GameSession = new GameSession();
@@ -116,7 +116,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322700);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: localization_testing_scenario_3322701_paddle_step_sequence
     it('localization_testing_scenario_3322701_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3322701;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -129,7 +129,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322701);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: localization_testing_scenario_3322702_catalog_lookup_start
     it('localization_testing_scenario_3322702_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3322702;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -141,7 +141,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322702);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: localization_testing_scenario_3322703_pipeline_round_trip
     it('localization_testing_scenario_3322703_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3322703;
       const payload: string = '_main.paddle.moveLeft(); // case 3322703';
@@ -153,7 +153,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322703);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: localization_testing_scenario_3322704_settings_zoom_true
     it('localization_testing_scenario_3322704_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3322704;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -164,7 +164,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322704);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: localization_testing_scenario_3322705_layout_custom_columns
     it('localization_testing_scenario_3322705_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3322705;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -175,7 +175,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322705);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: localization_testing_scenario_3322706_score_accumulation
     it('localization_testing_scenario_3322706_score_accumulation', 0, async () => {
       const caseSeed: number = 3322706;
       const board: ScoreBoard = new ScoreBoard();
@@ -188,7 +188,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322706);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: localization_testing_scenario_3322707_brick_grid_progress
     it('localization_testing_scenario_3322707_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3322707;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -201,7 +201,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322707);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: localization_testing_scenario_3322708_locale_lookup_en
     it('localization_testing_scenario_3322708_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3322708;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -212,7 +212,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322708);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: localization_testing_scenario_3322709_validation_report_count
     it('localization_testing_scenario_3322709_validation_report_count', 0, async () => {
       const caseSeed: number = 3322709;
       const report: ValidationReport = new ValidationReport();
@@ -225,7 +225,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322709);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: localization_testing_scenario_3322710_url_with_query
     it('localization_testing_scenario_3322710_url_with_query', 0, async () => {
       const caseSeed: number = 3322710;
       const url: string = SAMPLE_GAME_URL + '?case=72';
@@ -237,7 +237,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322710);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: localization_testing_scenario_3322711_geometry_area
     it('localization_testing_scenario_3322711_geometry_area', 0, async () => {
       const caseSeed: number = 3322711;
       const box: GeometryBox = new GeometryBox(0, 0, 81, 41);
@@ -248,7 +248,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322711);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: localization_testing_scenario_3322712_circular_buffer_capacity
     it('localization_testing_scenario_3322712_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3322712;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -261,7 +261,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322712);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: localization_testing_scenario_3322713_command_queue_fifo
     it('localization_testing_scenario_3322713_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3322713;
       const queue: CommandQueue = new CommandQueue();
@@ -274,7 +274,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322713);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: localization_testing_scenario_3322714_token_bucket_consume
     it('localization_testing_scenario_3322714_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3322714;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -285,7 +285,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322714);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: localization_testing_scenario_3322715_page_load_budget
     it('localization_testing_scenario_3322715_page_load_budget', 0, async () => {
       const caseSeed: number = 3322715;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -296,7 +296,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322715);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: localization_testing_scenario_3322716_perf_sampler_bounds
     it('localization_testing_scenario_3322716_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3322716;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -309,7 +309,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322716);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: localization_testing_scenario_3322717_config_api_9
     it('localization_testing_scenario_3322717_config_api_9', 0, async () => {
       const caseSeed: number = 3322717;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -320,7 +320,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322717);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: localization_testing_scenario_3322718_retry_attempts
     it('localization_testing_scenario_3322718_retry_attempts', 0, async () => {
       const caseSeed: number = 3322718;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -332,7 +332,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322718);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: localization_testing_scenario_3322719_event_recorder_sequence
     it('localization_testing_scenario_3322719_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3322719;
       const recorder: EventRecorder = new EventRecorder();
@@ -345,7 +345,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322719);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: localization_testing_scenario_3322720_session_start_cycles
     it('localization_testing_scenario_3322720_session_start_cycles', 0, async () => {
       const caseSeed: number = 3322720;
       const session: GameSession = new GameSession();
@@ -359,7 +359,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322720);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: localization_testing_scenario_3322721_paddle_step_sequence
     it('localization_testing_scenario_3322721_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3322721;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -372,7 +372,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322721);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: localization_testing_scenario_3322722_catalog_lookup_start
     it('localization_testing_scenario_3322722_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3322722;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -384,7 +384,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322722);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: localization_testing_scenario_3322723_pipeline_round_trip
     it('localization_testing_scenario_3322723_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3322723;
       const payload: string = '_main.paddle.moveLeft(); // case 3322723';
@@ -396,7 +396,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322723);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: localization_testing_scenario_3322724_settings_zoom_true
     it('localization_testing_scenario_3322724_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3322724;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -407,7 +407,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322724);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: localization_testing_scenario_3322725_layout_custom_columns
     it('localization_testing_scenario_3322725_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3322725;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -418,7 +418,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322725);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: localization_testing_scenario_3322726_score_accumulation
     it('localization_testing_scenario_3322726_score_accumulation', 0, async () => {
       const caseSeed: number = 3322726;
       const board: ScoreBoard = new ScoreBoard();
@@ -431,7 +431,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322726);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: localization_testing_scenario_3322727_brick_grid_progress
     it('localization_testing_scenario_3322727_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3322727;
       const grid: BrickGrid = new BrickGrid(3, 4);
@@ -444,7 +444,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322727);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: localization_testing_scenario_3322728_locale_lookup_en
     it('localization_testing_scenario_3322728_locale_lookup_en', 0, async () => {
       const caseSeed: number = 3322728;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -455,7 +455,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322728);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: localization_testing_scenario_3322729_validation_report_count
     it('localization_testing_scenario_3322729_validation_report_count', 0, async () => {
       const caseSeed: number = 3322729;
       const report: ValidationReport = new ValidationReport();
@@ -468,7 +468,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322729);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: localization_testing_scenario_3322730_url_with_query
     it('localization_testing_scenario_3322730_url_with_query', 0, async () => {
       const caseSeed: number = 3322730;
       const url: string = SAMPLE_GAME_URL + '?case=92';
@@ -480,7 +480,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322730);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: localization_testing_scenario_3322731_geometry_area
     it('localization_testing_scenario_3322731_geometry_area', 0, async () => {
       const caseSeed: number = 3322731;
       const box: GeometryBox = new GeometryBox(0, 0, 21, 61);
@@ -491,7 +491,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322731);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: localization_testing_scenario_3322732_circular_buffer_capacity
     it('localization_testing_scenario_3322732_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 3322732;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -504,7 +504,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322732);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: localization_testing_scenario_3322733_command_queue_fifo
     it('localization_testing_scenario_3322733_command_queue_fifo', 0, async () => {
       const caseSeed: number = 3322733;
       const queue: CommandQueue = new CommandQueue();
@@ -517,7 +517,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322733);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: localization_testing_scenario_3322734_token_bucket_consume
     it('localization_testing_scenario_3322734_token_bucket_consume', 0, async () => {
       const caseSeed: number = 3322734;
       const bucket: TokenBucket = new TokenBucket(10);
@@ -528,7 +528,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322734);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: localization_testing_scenario_3322735_page_load_budget
     it('localization_testing_scenario_3322735_page_load_budget', 0, async () => {
       const caseSeed: number = 3322735;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -539,7 +539,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322735);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: localization_testing_scenario_3322736_perf_sampler_bounds
     it('localization_testing_scenario_3322736_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 3322736;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -552,7 +552,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322736);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: localization_testing_scenario_3322737_config_api_9
     it('localization_testing_scenario_3322737_config_api_9', 0, async () => {
       const caseSeed: number = 3322737;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -563,7 +563,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322737);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: localization_testing_scenario_3322738_retry_attempts
     it('localization_testing_scenario_3322738_retry_attempts', 0, async () => {
       const caseSeed: number = 3322738;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -575,7 +575,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322738);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: localization_testing_scenario_3322739_event_recorder_sequence
     it('localization_testing_scenario_3322739_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 3322739;
       const recorder: EventRecorder = new EventRecorder();
@@ -588,7 +588,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322739);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: localization_testing_scenario_3322740_session_start_cycles
     it('localization_testing_scenario_3322740_session_start_cycles', 0, async () => {
       const caseSeed: number = 3322740;
       const session: GameSession = new GameSession();
@@ -602,7 +602,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322740);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: localization_testing_scenario_3322741_paddle_step_sequence
     it('localization_testing_scenario_3322741_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 3322741;
       const paddle: PaddleModel = new PaddleModel(1, 101, 5);
@@ -615,7 +615,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322741);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: localization_testing_scenario_3322742_catalog_lookup_start
     it('localization_testing_scenario_3322742_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 3322742;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -627,7 +627,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322742);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: localization_testing_scenario_3322743_pipeline_round_trip
     it('localization_testing_scenario_3322743_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 3322743;
       const payload: string = '_main.paddle.moveLeft(); // case 3322743';
@@ -639,7 +639,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322743);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: localization_testing_scenario_3322744_settings_zoom_true
     it('localization_testing_scenario_3322744_settings_zoom_true', 0, async () => {
       const caseSeed: number = 3322744;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -650,7 +650,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322744);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: localization_testing_scenario_3322745_layout_custom_columns
     it('localization_testing_scenario_3322745_layout_custom_columns', 0, async () => {
       const caseSeed: number = 3322745;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -661,7 +661,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322745);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: localization_testing_scenario_3322746_score_accumulation
     it('localization_testing_scenario_3322746_score_accumulation', 0, async () => {
       const caseSeed: number = 3322746;
       const board: ScoreBoard = new ScoreBoard();
@@ -674,7 +674,7 @@ export default function localizationTestingTest() {
       expect(caseSeed).assertEqual(3322746);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: localization_testing_scenario_3322747_brick_grid_progress
     it('localization_testing_scenario_3322747_brick_grid_progress', 0, async () => {
       const caseSeed: number = 3322747;
       const grid: BrickGrid = new BrickGrid(2, 4);

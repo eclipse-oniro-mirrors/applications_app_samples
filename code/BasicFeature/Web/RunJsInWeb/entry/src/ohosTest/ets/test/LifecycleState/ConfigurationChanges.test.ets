@@ -77,7 +77,7 @@ export default function configurationChangesTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'configuration_changes suite end');
     });
 
-    // 模块配置应包含入口 Ability 与网络权限，页面可正常拉起
+    // Scenario: configuration_changes_module_configuration_is_loadable
     it('configuration_changes_module_configuration_is_loadable', 0, async () => {
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
       expect(config.abilityName).assertEqual(ABILITY_NAME);
@@ -85,7 +85,7 @@ export default function configurationChangesTest() {
       expect(await isGamePageVisible(driver)).assertTrue();
     });
 
-    // 入口页面固定为 pages/Index，测试页面为 testability/pages/Index
+    // Scenario: configuration_changes_main_pages_entry_is_consistent
     it('configuration_changes_main_pages_entry_is_consistent', 0, async () => {
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
       expect(config.moduleName).assertEqual(MODULE_NAME);
@@ -93,7 +93,7 @@ export default function configurationChangesTest() {
       expect(config.isLandscape()).assertTrue();
     });
 
-    // 配置变化模拟后控件集合保持不变
+    // Scenario: configuration_changes_configuration_change_keeps_controls
     it('configuration_changes_configuration_change_keeps_controls', 0, async () => {
       const before: string[] = await getButtonLabels(driver);
       await serializedDelay(driver, DELAY_KEY_NAVIGATION);
@@ -102,7 +102,7 @@ export default function configurationChangesTest() {
       expect(after.includes(LABEL_START)).assertTrue();
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: configuration_changes_scenario_4670900_session_start_cycles
     it('configuration_changes_scenario_4670900_session_start_cycles', 0, async () => {
       const caseSeed: number = 4670900;
       const session: GameSession = new GameSession();
@@ -116,7 +116,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670900);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: configuration_changes_scenario_4670901_paddle_step_sequence
     it('configuration_changes_scenario_4670901_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 4670901;
       const paddle: PaddleModel = new PaddleModel(1, 101, 1);
@@ -129,7 +129,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670901);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: configuration_changes_scenario_4670902_catalog_lookup_start
     it('configuration_changes_scenario_4670902_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 4670902;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -141,7 +141,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670902);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: configuration_changes_scenario_4670903_pipeline_round_trip
     it('configuration_changes_scenario_4670903_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 4670903;
       const payload: string = '_main.paddle.moveLeft(); // case 4670903';
@@ -153,7 +153,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670903);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: configuration_changes_scenario_4670904_settings_zoom_true
     it('configuration_changes_scenario_4670904_settings_zoom_true', 0, async () => {
       const caseSeed: number = 4670904;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -164,7 +164,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670904);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: configuration_changes_scenario_4670905_layout_custom_columns
     it('configuration_changes_scenario_4670905_layout_custom_columns', 0, async () => {
       const caseSeed: number = 4670905;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -175,7 +175,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670905);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: configuration_changes_scenario_4670906_score_accumulation
     it('configuration_changes_scenario_4670906_score_accumulation', 0, async () => {
       const caseSeed: number = 4670906;
       const board: ScoreBoard = new ScoreBoard();
@@ -188,7 +188,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670906);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: configuration_changes_scenario_4670907_brick_grid_progress
     it('configuration_changes_scenario_4670907_brick_grid_progress', 0, async () => {
       const caseSeed: number = 4670907;
       const grid: BrickGrid = new BrickGrid(1, 4);
@@ -201,7 +201,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670907);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: configuration_changes_scenario_4670908_locale_lookup_en
     it('configuration_changes_scenario_4670908_locale_lookup_en', 0, async () => {
       const caseSeed: number = 4670908;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -212,7 +212,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670908);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: configuration_changes_scenario_4670909_validation_report_count
     it('configuration_changes_scenario_4670909_validation_report_count', 0, async () => {
       const caseSeed: number = 4670909;
       const report: ValidationReport = new ValidationReport();
@@ -225,7 +225,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670909);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: configuration_changes_scenario_4670910_url_with_query
     it('configuration_changes_scenario_4670910_url_with_query', 0, async () => {
       const caseSeed: number = 4670910;
       const url: string = SAMPLE_GAME_URL + '?case=69';
@@ -237,7 +237,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670910);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: configuration_changes_scenario_4670911_geometry_area
     it('configuration_changes_scenario_4670911_geometry_area', 0, async () => {
       const caseSeed: number = 4670911;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 41);
@@ -248,7 +248,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670911);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: configuration_changes_scenario_4670912_circular_buffer_capacity
     it('configuration_changes_scenario_4670912_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 4670912;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -261,7 +261,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670912);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: configuration_changes_scenario_4670913_command_queue_fifo
     it('configuration_changes_scenario_4670913_command_queue_fifo', 0, async () => {
       const caseSeed: number = 4670913;
       const queue: CommandQueue = new CommandQueue();
@@ -274,7 +274,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670913);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: configuration_changes_scenario_4670914_token_bucket_consume
     it('configuration_changes_scenario_4670914_token_bucket_consume', 0, async () => {
       const caseSeed: number = 4670914;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -285,7 +285,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670914);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: configuration_changes_scenario_4670915_page_load_budget
     it('configuration_changes_scenario_4670915_page_load_budget', 0, async () => {
       const caseSeed: number = 4670915;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -296,7 +296,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670915);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: configuration_changes_scenario_4670916_perf_sampler_bounds
     it('configuration_changes_scenario_4670916_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 4670916;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -309,7 +309,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670916);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: configuration_changes_scenario_4670917_config_api_9
     it('configuration_changes_scenario_4670917_config_api_9', 0, async () => {
       const caseSeed: number = 4670917;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -320,7 +320,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670917);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: configuration_changes_scenario_4670918_retry_attempts
     it('configuration_changes_scenario_4670918_retry_attempts', 0, async () => {
       const caseSeed: number = 4670918;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -332,7 +332,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670918);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: configuration_changes_scenario_4670919_event_recorder_sequence
     it('configuration_changes_scenario_4670919_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 4670919;
       const recorder: EventRecorder = new EventRecorder();
@@ -345,7 +345,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670919);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: configuration_changes_scenario_4670920_session_start_cycles
     it('configuration_changes_scenario_4670920_session_start_cycles', 0, async () => {
       const caseSeed: number = 4670920;
       const session: GameSession = new GameSession();
@@ -359,7 +359,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670920);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: configuration_changes_scenario_4670921_paddle_step_sequence
     it('configuration_changes_scenario_4670921_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 4670921;
       const paddle: PaddleModel = new PaddleModel(1, 101, 3);
@@ -372,7 +372,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670921);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: configuration_changes_scenario_4670922_catalog_lookup_start
     it('configuration_changes_scenario_4670922_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 4670922;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -384,7 +384,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670922);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: configuration_changes_scenario_4670923_pipeline_round_trip
     it('configuration_changes_scenario_4670923_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 4670923;
       const payload: string = '_main.paddle.moveLeft(); // case 4670923';
@@ -396,7 +396,7 @@ export default function configurationChangesTest() {
       expect(caseSeed).assertEqual(4670923);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: configuration_changes_scenario_4670924_settings_zoom_true
     it('configuration_changes_scenario_4670924_settings_zoom_true', 0, async () => {
       const caseSeed: number = 4670924;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();

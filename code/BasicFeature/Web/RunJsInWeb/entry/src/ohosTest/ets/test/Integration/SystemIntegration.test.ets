@@ -71,7 +71,7 @@ export default function systemIntegrationTest() {
       hilog.info(0xF811, 'RunJsInWebTest', '%{public}s', 'system_integration suite end');
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: system_integration_scenario_6302100_session_start_cycles
     it('system_integration_scenario_6302100_session_start_cycles', 0, async () => {
       const caseSeed: number = 6302100;
       const session: GameSession = new GameSession();
@@ -85,7 +85,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302100);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: system_integration_scenario_6302101_paddle_step_sequence
     it('system_integration_scenario_6302101_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 6302101;
       const paddle: PaddleModel = new PaddleModel(1, 101, 5);
@@ -98,7 +98,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302101);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: system_integration_scenario_6302102_catalog_lookup_start
     it('system_integration_scenario_6302102_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 6302102;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -110,7 +110,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302102);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: system_integration_scenario_6302103_pipeline_round_trip
     it('system_integration_scenario_6302103_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 6302103;
       const payload: string = '_main.paddle.moveLeft(); // case 6302103';
@@ -122,7 +122,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302103);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: system_integration_scenario_6302104_settings_zoom_true
     it('system_integration_scenario_6302104_settings_zoom_true', 0, async () => {
       const caseSeed: number = 6302104;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
@@ -133,7 +133,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302104);
     });
 
-    // 自定义三列宽度之和仍为 100%
+    // Scenario: system_integration_scenario_6302105_layout_custom_columns
     it('system_integration_scenario_6302105_layout_custom_columns', 0, async () => {
       const caseSeed: number = 6302105;
       const layout: LayoutProfile = new LayoutProfile(5, 90, 5, 50, 100, ORIENTATION_LANDSCAPE);
@@ -144,7 +144,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302105);
     });
 
-    // 击打得分按次数累加，最高分同步更新
+    // Scenario: system_integration_scenario_6302106_score_accumulation
     it('system_integration_scenario_6302106_score_accumulation', 0, async () => {
       const caseSeed: number = 6302106;
       const board: ScoreBoard = new ScoreBoard();
@@ -157,7 +157,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302106);
     });
 
-    // 砖块按命中次数递减并给出进度
+    // Scenario: system_integration_scenario_6302107_brick_grid_progress
     it('system_integration_scenario_6302107_brick_grid_progress', 0, async () => {
       const caseSeed: number = 6302107;
       const grid: BrickGrid = new BrickGrid(2, 4);
@@ -170,7 +170,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302107);
     });
 
-    // 按语言读取控制标签且资源完整
+    // Scenario: system_integration_scenario_6302108_locale_lookup_en
     it('system_integration_scenario_6302108_locale_lookup_en', 0, async () => {
       const caseSeed: number = 6302108;
       const catalog: LocaleCatalog = LocaleCatalog.createEnglish();
@@ -181,7 +181,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302108);
     });
 
-    // 校验报告累计指定数量的错误
+    // Scenario: system_integration_scenario_6302109_validation_report_count
     it('system_integration_scenario_6302109_validation_report_count', 0, async () => {
       const caseSeed: number = 6302109;
       const report: ValidationReport = new ValidationReport();
@@ -194,7 +194,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302109);
     });
 
-    // 带查询参数的地址解析长度与分段一致
+    // Scenario: system_integration_scenario_6302110_url_with_query
     it('system_integration_scenario_6302110_url_with_query', 0, async () => {
       const caseSeed: number = 6302110;
       const url: string = SAMPLE_GAME_URL + '?case=20';
@@ -206,7 +206,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302110);
     });
 
-    // 矩形面积与包含关系按给定尺寸计算
+    // Scenario: system_integration_scenario_6302111_geometry_area
     it('system_integration_scenario_6302111_geometry_area', 0, async () => {
       const caseSeed: number = 6302111;
       const box: GeometryBox = new GeometryBox(0, 0, 41, 21);
@@ -217,7 +217,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302111);
     });
 
-    // 环形缓冲保持容量并保留最新样本
+    // Scenario: system_integration_scenario_6302112_circular_buffer_capacity
     it('system_integration_scenario_6302112_circular_buffer_capacity', 0, async () => {
       const caseSeed: number = 6302112;
       const buffer: CircularBuffer = new CircularBuffer(5);
@@ -230,7 +230,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302112);
     });
 
-    // 命令队列按序消费指定数量的命令
+    // Scenario: system_integration_scenario_6302113_command_queue_fifo
     it('system_integration_scenario_6302113_command_queue_fifo', 0, async () => {
       const caseSeed: number = 6302113;
       const queue: CommandQueue = new CommandQueue();
@@ -243,7 +243,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302113);
     });
 
-    // 令牌桶消费后余额与补充上限正确
+    // Scenario: system_integration_scenario_6302114_token_bucket_consume
     it('system_integration_scenario_6302114_token_bucket_consume', 0, async () => {
       const caseSeed: number = 6302114;
       const bucket: TokenBucket = new TokenBucket(6);
@@ -254,7 +254,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302114);
     });
 
-    // 加载耗时按预算边界判定
+    // Scenario: system_integration_scenario_6302115_page_load_budget
     it('system_integration_scenario_6302115_page_load_budget', 0, async () => {
       const caseSeed: number = 6302115;
       const record: PageLoadRecord = new PageLoadRecord(SAMPLE_GAME_URL, 0);
@@ -265,7 +265,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302115);
     });
 
-    // 延迟采样器的最大值不小于均值
+    // Scenario: system_integration_scenario_6302116_perf_sampler_bounds
     it('system_integration_scenario_6302116_perf_sampler_bounds', 0, async () => {
       const caseSeed: number = 6302116;
       const sampler: PerformanceSampler = new PerformanceSampler();
@@ -278,7 +278,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302116);
     });
 
-    // 配置快照的 API 版本与设备能力保持自洽
+    // Scenario: system_integration_scenario_6302117_config_api_9
     it('system_integration_scenario_6302117_config_api_9', 0, async () => {
       const caseSeed: number = 6302117;
       const config: ConfigSnapshot = ConfigSnapshot.createDefault();
@@ -289,7 +289,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302117);
     });
 
-    // 重试次数达到上限后拒绝继续重试
+    // Scenario: system_integration_scenario_6302118_retry_attempts
     it('system_integration_scenario_6302118_retry_attempts', 0, async () => {
       const caseSeed: number = 6302118;
       const policy: RetryPolicy = new RetryPolicy(3, 100);
@@ -301,7 +301,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302118);
     });
 
-    // 事件记录器按顺序保存指定数量的事件
+    // Scenario: system_integration_scenario_6302119_event_recorder_sequence
     it('system_integration_scenario_6302119_event_recorder_sequence', 0, async () => {
       const caseSeed: number = 6302119;
       const recorder: EventRecorder = new EventRecorder();
@@ -314,7 +314,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302119);
     });
 
-    // 会话连续开始后保持运行且计数一致
+    // Scenario: system_integration_scenario_6302120_session_start_cycles
     it('system_integration_scenario_6302120_session_start_cycles', 0, async () => {
       const caseSeed: number = 6302120;
       const session: GameSession = new GameSession();
@@ -328,7 +328,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302120);
     });
 
-    // 挡板按给定步长连续右移的位置计算正确
+    // Scenario: system_integration_scenario_6302121_paddle_step_sequence
     it('system_integration_scenario_6302121_paddle_step_sequence', 0, async () => {
       const caseSeed: number = 6302121;
       const paddle: PaddleModel = new PaddleModel(1, 101, 7);
@@ -341,7 +341,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302121);
     });
 
-    // 按脚本标识查询目录并校验业务令牌
+    // Scenario: system_integration_scenario_6302122_catalog_lookup_start
     it('system_integration_scenario_6302122_catalog_lookup_start', 0, async () => {
       const caseSeed: number = 6302122;
       const catalog: ScriptCatalog = ScriptCatalog.createDefault();
@@ -353,7 +353,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302122);
     });
 
-    // 注入地址构建后可被完整还原
+    // Scenario: system_integration_scenario_6302123_pipeline_round_trip
     it('system_integration_scenario_6302123_pipeline_round_trip', 0, async () => {
       const caseSeed: number = 6302123;
       const payload: string = '_main.paddle.moveLeft(); // case 6302123';
@@ -365,7 +365,7 @@ export default function systemIntegrationTest() {
       expect(caseSeed).assertEqual(6302123);
     });
 
-    // 缩放开关变化后游戏配置判定正确
+    // Scenario: system_integration_scenario_6302124_settings_zoom_true
     it('system_integration_scenario_6302124_settings_zoom_true', 0, async () => {
       const caseSeed: number = 6302124;
       const profile: WebSettingsProfile = WebSettingsProfile.createDefault();
