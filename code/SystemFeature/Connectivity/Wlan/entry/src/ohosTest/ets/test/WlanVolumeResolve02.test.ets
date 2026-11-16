@@ -23,15 +23,15 @@ export default function wlanVolumeResolve02Test() {
   describe('WlanVolumeResolve02Test', () => {
 
     /**
-     * @tc.name   testWlanVolume020001
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0001
      * @tc.number SUB_WLAN_VOLUME_02_0001
      * @tc.desc   Verify model.resolveIP(1000020000) equals \'10:00:020:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020001 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0001 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000020000)), String('10:00:020:000'));
       expect(model.resolveIP(1000020000)).assertEqual('10:00:020:000');
@@ -40,19 +40,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000020000).length), String(13));
       expect(model.resolveIP(1000020000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0001 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020002
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0002
      * @tc.number SUB_WLAN_VOLUME_02_0002
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020002 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0002 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000021000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -62,19 +62,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('021'));
       expect(result.split(':')[2]).assertEqual('021');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0002 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020003
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0003
      * @tc.number SUB_WLAN_VOLUME_02_0003
      * @tc.desc   Verify model.resolveIP(1000022000) equals \'10:00:022:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020003 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0003 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000022000)), String('10:00:022:000'));
       expect(model.resolveIP(1000022000)).assertEqual('10:00:022:000');
@@ -83,19 +83,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000022000).length), String(13));
       expect(model.resolveIP(1000022000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0003 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020004
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0004
      * @tc.number SUB_WLAN_VOLUME_02_0004
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020004 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0004 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000023000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -105,19 +105,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('023'));
       expect(result.split(':')[2]).assertEqual('023');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0004 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020005
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0005
      * @tc.number SUB_WLAN_VOLUME_02_0005
      * @tc.desc   Verify model.resolveIP(1000024000) equals \'10:00:024:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020005 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0005 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000024000)), String('10:00:024:000'));
       expect(model.resolveIP(1000024000)).assertEqual('10:00:024:000');
@@ -126,19 +126,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000024000).length), String(13));
       expect(model.resolveIP(1000024000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0005 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020006
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0006
      * @tc.number SUB_WLAN_VOLUME_02_0006
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020006 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0006 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000025000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -148,19 +148,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('025'));
       expect(result.split(':')[2]).assertEqual('025');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0006 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020007
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0007
      * @tc.number SUB_WLAN_VOLUME_02_0007
      * @tc.desc   Verify model.resolveIP(1000026000) equals \'10:00:026:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020007 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0007 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000026000)), String('10:00:026:000'));
       expect(model.resolveIP(1000026000)).assertEqual('10:00:026:000');
@@ -169,19 +169,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000026000).length), String(13));
       expect(model.resolveIP(1000026000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0007 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020008
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0008
      * @tc.number SUB_WLAN_VOLUME_02_0008
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020008 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0008 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000027000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -191,19 +191,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('027'));
       expect(result.split(':')[2]).assertEqual('027');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0008 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020009
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0009
      * @tc.number SUB_WLAN_VOLUME_02_0009
      * @tc.desc   Verify model.resolveIP(1000028000) equals \'10:00:028:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020009 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0009 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000028000)), String('10:00:028:000'));
       expect(model.resolveIP(1000028000)).assertEqual('10:00:028:000');
@@ -212,19 +212,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000028000).length), String(13));
       expect(model.resolveIP(1000028000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0009 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020010
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0010
      * @tc.number SUB_WLAN_VOLUME_02_0010
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020010 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0010 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000029000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -234,19 +234,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('029'));
       expect(result.split(':')[2]).assertEqual('029');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0010 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020011
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0011
      * @tc.number SUB_WLAN_VOLUME_02_0011
      * @tc.desc   Verify model.resolveIP(1000030000) equals \'10:00:030:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020011 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0011 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000030000)), String('10:00:030:000'));
       expect(model.resolveIP(1000030000)).assertEqual('10:00:030:000');
@@ -255,19 +255,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000030000).length), String(13));
       expect(model.resolveIP(1000030000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0011 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020012
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0012
      * @tc.number SUB_WLAN_VOLUME_02_0012
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020012 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0012 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000031000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -277,19 +277,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('031'));
       expect(result.split(':')[2]).assertEqual('031');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0012 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020013
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0013
      * @tc.number SUB_WLAN_VOLUME_02_0013
      * @tc.desc   Verify model.resolveIP(1000032000) equals \'10:00:032:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020013 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0013 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000032000)), String('10:00:032:000'));
       expect(model.resolveIP(1000032000)).assertEqual('10:00:032:000');
@@ -298,19 +298,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000032000).length), String(13));
       expect(model.resolveIP(1000032000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0013 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020014
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0014
      * @tc.number SUB_WLAN_VOLUME_02_0014
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020014 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0014 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000033000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -320,19 +320,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('033'));
       expect(result.split(':')[2]).assertEqual('033');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0014 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020015
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0015
      * @tc.number SUB_WLAN_VOLUME_02_0015
      * @tc.desc   Verify model.resolveIP(1000034000) equals \'10:00:034:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020015 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0015 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000034000)), String('10:00:034:000'));
       expect(model.resolveIP(1000034000)).assertEqual('10:00:034:000');
@@ -341,19 +341,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000034000).length), String(13));
       expect(model.resolveIP(1000034000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020015 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0015 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020016
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0016
      * @tc.number SUB_WLAN_VOLUME_02_0016
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020016 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0016 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000035000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -363,19 +363,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('035'));
       expect(result.split(':')[2]).assertEqual('035');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020016 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0016 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020017
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0017
      * @tc.number SUB_WLAN_VOLUME_02_0017
      * @tc.desc   Verify model.resolveIP(1000036000) equals \'10:00:036:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020017 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0017 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000036000)), String('10:00:036:000'));
       expect(model.resolveIP(1000036000)).assertEqual('10:00:036:000');
@@ -384,19 +384,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000036000).length), String(13));
       expect(model.resolveIP(1000036000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020017 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0017 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020018
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0018
      * @tc.number SUB_WLAN_VOLUME_02_0018
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020018 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0018 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000037000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -406,19 +406,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('037'));
       expect(result.split(':')[2]).assertEqual('037');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020018 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0018 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020019
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0019
      * @tc.number SUB_WLAN_VOLUME_02_0019
      * @tc.desc   Verify model.resolveIP(1000038000) equals \'10:00:038:000\'.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020019 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0019 begin');
       const model: WifiModel = new WifiModel();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000038000)), String('10:00:038:000'));
       expect(model.resolveIP(1000038000)).assertEqual('10:00:038:000');
@@ -427,19 +427,19 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(model.resolveIP(1000038000).length), String(13));
       expect(model.resolveIP(1000038000).length).assertEqual(13);
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020019 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0019 end');
     })
 
     /**
-     * @tc.name   testWlanVolume020020
+     * @tc.name   ohos.samples.wlan_VolumeResolve02_0020
      * @tc.number SUB_WLAN_VOLUME_02_0020
      * @tc.desc   Verify result.startsWith(\'10\').
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testWlanVolume020020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020020 begin');
+    it('ohos.samples.wlan_VolumeResolve02_0020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0020 begin');
       const model: WifiModel = new WifiModel();
       const result: string = model.resolveIP(1000039000);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(result.startsWith('10')));
@@ -449,7 +449,7 @@ export default function wlanVolumeResolve02Test() {
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(result.split(':')[2]), String('039'));
       expect(result.split(':')[2]).assertEqual('039');
       await Promise.resolve();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanVolume020020 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_VolumeResolve02_0020 end');
     })
   })
 }
