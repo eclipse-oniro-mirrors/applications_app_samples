@@ -42,7 +42,7 @@ export default function canvasGameConfigContractTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(m !== undefined));
           expect(m !== undefined).assertTrue();
-        const mod = m as bundleManager.HapModuleInfo;
+        const mod: bundleManager.HapModuleInfo = m as bundleManager.HapModuleInfo;
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(mod.name), String('entry'));
         expect(mod.name).assertEqual('entry');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(mod.installationFree));

@@ -16,6 +16,7 @@
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
+import { formInfo, formBindingData } from '@kit.FormKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 
@@ -33,7 +34,7 @@ export default function canvasGameFormTypesTest() {
     it('testCanvasFormAdd001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormAdd001 begin');
       const ability: EntryFormAbility = new EntryFormAbility();
-        const data = ability.onAddForm({});
+        const data: formBindingData.FormBindingData = ability.onAddForm({});
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));
@@ -52,8 +53,8 @@ export default function canvasGameFormTypesTest() {
     it('testCanvasFormAddTwo002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormAddTwo002 begin');
       const ability: EntryFormAbility = new EntryFormAbility();
-        const first = ability.onAddForm({});
-        const second = ability.onAddForm({});
+        const first: formBindingData.FormBindingData = ability.onAddForm({});
+        const second: formBindingData.FormBindingData = ability.onAddForm({});
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(first !== undefined));
         expect(first !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(second !== undefined));
@@ -74,7 +75,7 @@ export default function canvasGameFormTypesTest() {
     it('testCanvasFormState003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasFormState003 begin');
       const ability: EntryFormAbility = new EntryFormAbility();
-        const state = ability.onAcquireFormState({});
+        const state: formInfo.FormState = ability.onAcquireFormState({});
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(state >= 0));
         expect(state >= 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof state === 'number'));

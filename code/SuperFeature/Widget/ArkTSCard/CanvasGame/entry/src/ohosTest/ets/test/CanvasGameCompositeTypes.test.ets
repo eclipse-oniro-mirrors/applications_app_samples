@@ -17,6 +17,7 @@ import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
 import logger from '../../../main/ets/model/Logger';
+import { formBindingData } from '@kit.FormKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 
@@ -34,7 +35,7 @@ export default function canvasGameCompositeTypesTest() {
     it('testCanvasComposite0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        const data = a.onAddForm({});
+        const data: formBindingData.FormBindingData = a.onAddForm({});
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));
@@ -53,7 +54,7 @@ export default function canvasGameCompositeTypesTest() {
     it('testCanvasComposite0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        const data = a.onAddForm({});
+        const data: formBindingData.FormBindingData = a.onAddForm({});
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));
@@ -72,7 +73,7 @@ export default function canvasGameCompositeTypesTest() {
     it('testCanvasComposite0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        const data = a.onAddForm({});
+        const data: formBindingData.FormBindingData = a.onAddForm({});
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));
@@ -91,7 +92,7 @@ export default function canvasGameCompositeTypesTest() {
     it('testCanvasComposite0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
-        const data = a.onAddForm({});
+        const data: formBindingData.FormBindingData = a.onAddForm({});
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(data !== undefined));
         expect(data !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof data === 'object'));

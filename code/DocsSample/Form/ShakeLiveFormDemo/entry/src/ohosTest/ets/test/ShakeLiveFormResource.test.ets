@@ -16,9 +16,10 @@
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
+import { common } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
-let ctx = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+let ctx: common.Context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 export default function shakeLiveFormResourceTest() {
   describe('ShakeLiveFormResourceTest', () => {

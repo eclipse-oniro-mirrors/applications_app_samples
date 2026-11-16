@@ -14,7 +14,7 @@
  */
 
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
-import { UIAbility, Want } from '@kit.AbilityKit';
+import { common, UIAbility, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { resourceManager } from '@kit.LocalizationKit';
@@ -42,15 +42,15 @@ export default class OpenHarmonyTestRunner implements TestRunner {
   }
 
   async onRun() {
-    let tag = 'testTag';
+    let tag: string = 'testTag';
     hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = abilityDelegatorRegistry.getArguments()
     abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
-    let moduleName = abilityDelegatorArguments.parameters['-m'];
-    let context = abilityDelegator.getAppContext().getApplicationContext().createModuleContext(moduleName);
-    let mResourceManager = context.resourceManager;
+    let moduleName: string = abilityDelegatorArguments.parameters['-m'];
+    let context: common.Context = abilityDelegator.getAppContext().getApplicationContext().createModuleContext(moduleName);
+    let mResourceManager: resourceManager.ResourceManager = context.resourceManager;
     await checkMock(abilityDelegator, mResourceManager);
-    const bundleName = abilityDelegatorArguments.bundleName;
+    const bundleName: string = abilityDelegatorArguments.bundleName;
     const testAbilityName: string = 'TestAbility';
     let lMonitor: abilityDelegatorRegistry.AbilityMonitor = {
       abilityName: testAbilityName,
@@ -85,14 +85,14 @@ async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDeleg
       abilityDelegator.setMockList(mockMap)
     }
       catch (error) {
-      let code = (error as BusinessError).code;
-      let message = (error as BusinessError).message;
+      let code: number = (error as BusinessError).code;
+      let message: string = (error as BusinessError).message;
       hilog.error(0x0000, tag, `abilityDelegator.setMockList failed, error code: ${code}, message: ${message}.`);
     }
   }
     catch (error) {
-    let code = (error as BusinessError).code;
-    let message = (error as BusinessError).message;
+    let code: number = (error as BusinessError).code;
+    let message: string = (error as BusinessError).message;
     hilog.error(0x0000, tag, `ResourceManager:callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
   }
 }

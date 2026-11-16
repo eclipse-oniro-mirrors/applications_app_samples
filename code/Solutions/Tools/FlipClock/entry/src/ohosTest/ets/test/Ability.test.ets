@@ -14,7 +14,7 @@
  */
 
 import { afterEach, beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Component, Driver, ON } from '@kit.TestKit';
+import { Component, Driver, ON, Point } from '@kit.TestKit';
 import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { fileIo } from '@kit.CoreFileKit';
@@ -29,7 +29,7 @@ const TAG: string = 'FlipClockTest';
 const DOMAIN: number = 0xF811;
 const STORAGE_PATH: string = '/data/storage/el2/base/haps/entry/preferences/storage';
 
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const delegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 
 function log(message: string): void {
   hilog.info(DOMAIN, TAG, '%{public}s', message);
@@ -208,7 +208,7 @@ async function clickTab(driver: Driver, index: number): Promise<boolean> {
 
 async function clearAlarms(driver: Driver): Promise<void> {
   for (let i = 0; i < 5; i++) {
-    const buttons = await driver.findComponents(ON.id('deleteAlarmClock'));
+    const buttons: Component[] = await driver.findComponents(ON.id('deleteAlarmClock'));
     if (!buttons || buttons.length === 0) {
       return;
     }
@@ -234,7 +234,7 @@ async function swipePicker(driver: Driver, id: string, count: number): Promise<b
     return false;
   }
   const picker: Component = await driver.findComponent(ON.id(id));
-  const center = await picker.getBoundsCenter();
+  const center: Point = await picker.getBoundsCenter();
   log(`swipePicker id=${id}, center=(${center.x},${center.y})`);
   for (let i = 0; i < count; i++) {
     // 90 px at 2000 px/s reliably advances the wheel; slower/shorter swipes are often ignored at index 0.
@@ -463,7 +463,7 @@ export default function abilityTest() {
           log(`alarm picker found=${pickerFound}`);
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(pickerFound));
           expect(pickerFound).assertTrue();
-          const center = await picker.getBoundsCenter();
+          const center: Point = await picker.getBoundsCenter();
           await driver.swipe(center.x, center.y, center.x, center.y - 60, 600);
           await sleep(800);
           const yesClicked: boolean = await clickId(driver, 'yes', 3000);
@@ -979,7 +979,7 @@ export default function abilityTest() {
           const initialText: string = await getTextById(driver, 'brightnessValue');
           hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(parseInt(initialText, 10)), String(40));
           expect(parseInt(initialText, 10)).assertEqual(40);
-          const center = await slider.getBoundsCenter();
+          const center: Point = await slider.getBoundsCenter();
           await driver.swipe(center.x, center.y, center.x + 80, center.y, 600);
           await sleep(500);
           const valueText: string = await getTextById(driver, 'brightnessValue');

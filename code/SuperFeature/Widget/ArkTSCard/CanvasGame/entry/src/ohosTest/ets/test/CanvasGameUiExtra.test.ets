@@ -15,15 +15,15 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { Driver, ON } from '@kit.TestKit';
-import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { Component, Driver, ON } from '@kit.TestKit';
+import { common, AbilityDelegatorRegistry } from '@kit.AbilityKit';
 import { Want } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
-const B='com.samples.canvasgame';
-  const D=AbilityDelegatorRegistry.getAbilityDelegator();
+const B: string='com.samples.canvasgame';
+  const D: AbilityDelegatorRegistry.AbilityDelegator=AbilityDelegatorRegistry.getAbilityDelegator();
   let drv: Driver;
-  let c= D.getAppContext();
+  let c: common.Context= D.getAppContext();
 function w(ms:number): Promise<void> {
   return new Promise<void>((r:()=>void)=>{ setTimeout(()=>{r();},ms); });
   }
@@ -49,7 +49,7 @@ export default function canvasGameUiExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi001 begin');
       const t: string = c.resourceManager.getStringByNameSync('res_restart');
         await drv.assertComponentExist(ON.text(t));
-        const btn = await drv.findComponent(ON.text(t));
+        const btn: Component = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
@@ -70,7 +70,7 @@ export default function canvasGameUiExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi002 begin');
       const t: string = c.resourceManager.getStringByNameSync('res_fallback');
         await drv.assertComponentExist(ON.text(t));
-        const btn = await drv.findComponent(ON.text(t));
+        const btn: Component = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
@@ -91,7 +91,7 @@ export default function canvasGameUiExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi003 begin');
       const t: string = c.resourceManager.getStringByNameSync('res_restart');
         await drv.assertComponentExist(ON.text(t));
-        const btn = await drv.findComponent(ON.text(t));
+        const btn: Component = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
@@ -112,7 +112,7 @@ export default function canvasGameUiExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi004 begin');
       const t: string = c.resourceManager.getStringByNameSync('res_fallback');
         await drv.assertComponentExist(ON.text(t));
-        const btn = await drv.findComponent(ON.text(t));
+        const btn: Component = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
@@ -133,7 +133,7 @@ export default function canvasGameUiExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi005 begin');
       const t: string = c.resourceManager.getStringByNameSync('res_restart');
         await drv.assertComponentExist(ON.text(t));
-        const btn = await drv.findComponent(ON.text(t));
+        const btn: Component = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
@@ -154,7 +154,7 @@ export default function canvasGameUiExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi006 begin');
       const t: string = c.resourceManager.getStringByNameSync('res_fallback');
         await drv.assertComponentExist(ON.text(t));
-        const btn = await drv.findComponent(ON.text(t));
+        const btn: Component = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
@@ -175,7 +175,7 @@ export default function canvasGameUiExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi007 begin');
       const t: string = c.resourceManager.getStringByNameSync('res_restart');
         await drv.assertComponentExist(ON.text(t));
-        const btn = await drv.findComponent(ON.text(t));
+        const btn: Component = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));
@@ -196,7 +196,7 @@ export default function canvasGameUiExtraTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraUi008 begin');
       const t: string = c.resourceManager.getStringByNameSync('res_fallback');
         await drv.assertComponentExist(ON.text(t));
-        const btn = await drv.findComponent(ON.text(t));
+        const btn: Component = await drv.findComponent(ON.text(t));
         await btn.click();
         await w(300);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(t.length > 0));

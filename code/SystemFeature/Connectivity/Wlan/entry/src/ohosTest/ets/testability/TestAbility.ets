@@ -28,8 +28,8 @@ export default class TestAbility extends UIAbility {
   onCreate(want:Want, launchParam:AbilityConstant.LaunchParam) {
     Logger.info(TAG, 'TestAbility onCreate');
     Logger.info(TAG, `want param: ${JSON.stringify(want)}, launchParam: ${JSON.stringify(launchParam)}`);
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs = AbilityDelegatorRegistry.getArguments();
     Logger.info(TAG, 'start run testcase!!!');
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }

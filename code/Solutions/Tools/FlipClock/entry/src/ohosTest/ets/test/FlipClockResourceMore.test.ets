@@ -15,10 +15,10 @@
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { common, AbilityDelegatorRegistry } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
-let ctx = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+let ctx: common.Context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 export default function flipClockResourceMoreTest() {
   describe('FlipClockResourceMoreTest', () => {

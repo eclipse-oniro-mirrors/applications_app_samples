@@ -15,14 +15,15 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { Driver, ON } from '@kit.TestKit';
+import { Rect, Point, Component, Driver, ON } from '@kit.TestKit';
 import logger from '../util/Logger';
-import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { UIAbility, AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { resourceManager } from '@kit.LocalizationKit';
 
 const TAG: string = '[Sample_CanvasGame]';
 const BUNDLE: string = 'canvasGame_';
-const DRIVER = Driver.create();
-let abilityDelegatorRegistry = AbilityDelegatorRegistry.getAbilityDelegator();
+const DRIVER: Driver = Driver.create();
+let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -30,21 +31,21 @@ export default function abilityTest() {
     /**
      */
     it(BUNDLE + 'OpenFormList_001', 0, async (done: Function) => {
-      let ability = await abilityDelegatorRegistry.getCurrentTopAbility();
-      let manager = ability.context.resourceManager;
+      let ability: UIAbility = await abilityDelegatorRegistry.getCurrentTopAbility();
+      let manager: resourceManager.ResourceManager = ability.context.resourceManager;
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
       logger.info(TAG, `${BUNDLE}OpenFormList_001 begin`);
       await DRIVER.pressBack();
       await DRIVER.delayMs(500);
       await DRIVER.assertComponentExist(ON.text(await manager.getStringValue($r('app.string.EntryAbility_label'))));
-      let app = await DRIVER.findComponent(ON.text(await manager.getStringValue($r('app.string.EntryAbility_label'))));
-      let rect = await app.getBounds();
-      let height = rect.bottom - rect.top;
-      let point = await app.getBoundsCenter();
+      let app: Component = await DRIVER.findComponent(ON.text(await manager.getStringValue($r('app.string.EntryAbility_label'))));
+      let rect: Rect = await app.getBounds();
+      let height: number = rect.bottom - rect.top;
+      let point: Point = await app.getBoundsCenter();
       await DRIVER.longClick(point.x, point.y - height);
       await DRIVER.delayMs(500);
       await DRIVER.assertComponentExist(ON.text(await manager.getStringValue($r('app.string.Card_Button'))));
-      let formBtn = await DRIVER.findComponent(ON.text(await manager.getStringValue($r('app.string.Card_Button'))));
+      let formBtn: Component = await DRIVER.findComponent(ON.text(await manager.getStringValue($r('app.string.Card_Button'))));
       await formBtn.click();
       done();
       logger.info(TAG, `${BUNDLE}OpenFormList_001 end`);
@@ -56,14 +57,14 @@ export default function abilityTest() {
     it(BUNDLE + 'createForm_001', 0, async (done: Function) => {
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
       logger.info(TAG, `${BUNDLE}createForm_001 begin`);
-      let resourceManager = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
+      let resourceManager: resourceManager.ResourceManager = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
       await DRIVER.delayMs(500);
       await DRIVER.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.AddForm'))));
-      let addToDesk = await DRIVER.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.AddForm'))));
+      let addToDesk: Component = await DRIVER.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.AddForm'))));
       await addToDesk.click();
       await DRIVER.delayMs(500);
       await DRIVER.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.EntryAbility_label'))));
-      let resultArray = await DRIVER.findComponents(ON.text(await resourceManager.getStringValue($r('app.string.EntryAbility_label'))));
+      let resultArray: Component[] = await DRIVER.findComponents(ON.text(await resourceManager.getStringValue($r('app.string.EntryAbility_label'))));
       expect(resultArray.length).assertEqual(2);
       done();
       logger.info(TAG, `${BUNDLE}createForm_001 end`);

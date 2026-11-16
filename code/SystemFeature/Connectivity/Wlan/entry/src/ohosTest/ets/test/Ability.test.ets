@@ -14,18 +14,19 @@
  */
 
 import { describe, it, expect } from '@ohos/hypium';
-import { Driver, ON } from '@kit.TestKit';
+import { Component, Driver, ON } from '@kit.TestKit';
 import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { wifiManager as wifi } from '@kit.ConnectivityKit';
+import { resourceManager } from '@kit.LocalizationKit';
 
 const TAG: string = '[Sample_Wlan]'
 const DOMAIN: number = 0xFF00
 const BUNDLE: string = 'Wlan_'
-let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
+let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
 async function getResourceString(resource: Resource): Promise<string> {
-  let manage = abilityDelegator.getAppContext().resourceManager
-  let text = await manage.getStringValue(resource)
+  let manage: resourceManager.ResourceManager = abilityDelegator.getAppContext().resourceManager
+  let text: string = await manage.getStringValue(resource)
   return text
 }
 
@@ -35,7 +36,7 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 begin')
-      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
+      let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
       try {
         await abilityDelegator.startAbility({
           bundleName: 'ohos.samples.wlan',
@@ -56,12 +57,12 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'RequestPermissionFunction_001', 0, async () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'RequestPermissionFunction_001 begin');
-      let driver = Driver.create();
+      let driver: Driver = Driver.create();
       await driver.delayMs(2000);
       hilog.info(DOMAIN, TAG, 'RequestPermissionFunction requestPermission');
       try {
         await driver.assertComponentExist(ON.text(await getResourceString($r('app.string.only_accept_during_use'))));
-        let btnStart = await driver.findComponent(ON.text(await getResourceString($r('app.string.only_accept_during_use'))));
+        let btnStart: Component = await driver.findComponent(ON.text(await getResourceString($r('app.string.only_accept_during_use'))));
         await btnStart.click();
         hilog.info(DOMAIN, TAG, 'RequestPermissionFunction clicked');
       }
@@ -77,11 +78,11 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'EnterAboutFunction_001', 0, async () => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'EnterAboutFunction_001 begin')
-      let driver = Driver.create()
+      let driver: Driver = Driver.create()
       await driver.delayMs(1000)
       hilog.info(DOMAIN, TAG, BUNDLE + 'EnterAboutFunction_001 clickAbout')
       await driver.assertComponentExist(ON.id('about'))
-      let about = await driver.findComponent(ON.id('about'))
+      let about: Component = await driver.findComponent(ON.id('about'))
       await about.click()
       await driver.delayMs(2000)
       await driver.assertComponentExist(ON.id('back'))
@@ -95,13 +96,13 @@ export default function abilityTest() {
     it(BUNDLE + 'ActivateWlanFunction_001', 0, async () => {
       // create Driver
       hilog.info(DOMAIN, TAG, BUNDLE + 'ActivateWlanFunction_001 begin')
-      let driver = await Driver.create()
+      let driver: Driver = await Driver.create()
       await driver.delayMs(1000)
-      let check = await driver.findComponent(ON.text(await getResourceString($r('app.string.available_wlan'))))
+      let check: Component = await driver.findComponent(ON.text(await getResourceString($r('app.string.available_wlan'))))
       if (check === null || check === undefined) {
         hilog.info(DOMAIN, TAG, BUNDLE + 'ActivateWlanFunction_001 clickWlanSwitch')
         await driver.assertComponentExist(ON.id('switch'))
-        let btnToggle = await driver.findComponent(ON.id('switch'))
+        let btnToggle: Component = await driver.findComponent(ON.id('switch'))
         await btnToggle.click()
         await driver.delayMs(5000)
       }
@@ -117,15 +118,15 @@ export default function abilityTest() {
       await driver.delayMs(5000)
       hilog.info(DOMAIN, TAG, BUNDLE + 'ActivateWlanFunction_001 clickAvaliableWlan')
       await driver.assertComponentExist(ON.text(await getResourceString($r('app.string.encrypt'))))
-      let WiFi = await driver.findComponents(ON.text(await getResourceString($r('app.string.encrypt'))))
+      let WiFi: Component[] = await driver.findComponents(ON.text(await getResourceString($r('app.string.encrypt'))))
       await WiFi[0].click()
       await driver.delayMs(1000)
       await driver.assertComponentExist(ON.id('sure'))
       hilog.info(DOMAIN, TAG, BUNDLE + 'ActivateWlanFunction_001 end')
       await driver.assertComponentExist(ON.id('input'))
-      let input = await driver.findComponent(ON.id('input'))
+      let input: Component = await driver.findComponent(ON.id('input'))
       await input.inputText('456');
-      let sureBtn = await driver.findComponent(ON.id('sure'));
+      let sureBtn: Component = await driver.findComponent(ON.id('sure'));
       await sureBtn.click();
       await driver.delayMs(1000);
       await driver.assertComponentExist(ON.text('connecting'));

@@ -15,15 +15,15 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { Driver, ON } from '@kit.TestKit';
-import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { Component, Driver, ON } from '@kit.TestKit';
+import { common, AbilityDelegatorRegistry } from '@kit.AbilityKit';
 import { Want } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 const BUNDLE: string ='com.samples.canvasgame';
-const DEL=AbilityDelegatorRegistry.getAbilityDelegator();
+const DEL: AbilityDelegatorRegistry.AbilityDelegator=AbilityDelegatorRegistry.getAbilityDelegator();
 let driver: Driver;
-  let ctx = DEL.getAppContext();
+  let ctx: common.Context = DEL.getAppContext();
 function wait(ms:number): Promise<void> {
   return new Promise<void>((resolve:()=>void)=>{ setTimeout(()=>{resolve();},ms); });
   }
@@ -83,7 +83,7 @@ export default function canvasGameUiContractTest() {
      */
     it('testCanvasUiRestart003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiRestart003 begin');
-      const restart = await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart')));
+      const restart: Component = await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart')));
         await restart.click();
         await wait(500);
         await driver.assertComponentExist(ON.text(ctx.resourceManager.getStringByNameSync('res_restart')));
@@ -101,7 +101,7 @@ export default function canvasGameUiContractTest() {
      */
     it('testCanvasUiFallback004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasUiFallback004 begin');
-      const fallback = await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback')));
+      const fallback: Component = await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback')));
         await fallback.click();
         await wait(500);
         await driver.assertComponentExist(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback')));
