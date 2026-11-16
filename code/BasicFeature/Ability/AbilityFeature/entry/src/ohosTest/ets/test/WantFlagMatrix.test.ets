@@ -41,7 +41,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0001 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -68,7 +68,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0002 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -95,7 +95,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0003 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -122,7 +122,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0004 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -149,7 +149,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0005 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -176,7 +176,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0006 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -203,7 +203,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0007 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -230,7 +230,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0008 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -257,7 +257,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0009 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -284,7 +284,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0010 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -311,7 +311,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0011 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -338,7 +338,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0012 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -365,7 +365,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0013 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -392,7 +392,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0014 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -419,7 +419,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0015 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -446,7 +446,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0016 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -473,7 +473,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0017 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -500,7 +500,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0018 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -527,7 +527,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0019 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -554,7 +554,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0020 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -581,7 +581,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0021 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -608,7 +608,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0022 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -635,7 +635,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0023 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -662,7 +662,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0024 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -689,7 +689,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0025 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -716,7 +716,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0026 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -743,7 +743,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0027 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -770,7 +770,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0028 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -797,7 +797,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0029 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -824,7 +824,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0030 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -851,7 +851,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0031 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -878,7 +878,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0032 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -905,7 +905,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0033 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -929,7 +929,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0034 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -953,7 +953,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0035 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -977,7 +977,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0036 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1001,7 +1001,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0037 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1025,7 +1025,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0038 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1049,7 +1049,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0039 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1075,7 +1075,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0040 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1101,7 +1101,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0041 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1127,7 +1127,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0042 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1153,7 +1153,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0043 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1179,7 +1179,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0044 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1205,7 +1205,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0045 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1231,7 +1231,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0046 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1257,7 +1257,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0047 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1283,7 +1283,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0048 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1309,7 +1309,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0049 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1335,7 +1335,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0050 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1361,7 +1361,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0051 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1387,7 +1387,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0052 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1413,7 +1413,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0053 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1439,7 +1439,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0054 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1462,7 +1462,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0055 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1485,7 +1485,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0056 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1508,7 +1508,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0057 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1531,7 +1531,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0058 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1554,7 +1554,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0059 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1577,7 +1577,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0060 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1600,7 +1600,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0061 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1623,7 +1623,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0062 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1646,7 +1646,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0063 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1669,7 +1669,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0064 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1692,7 +1692,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0065 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1715,7 +1715,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0066 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertTrue();
@@ -1738,7 +1738,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0067 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1761,7 +1761,7 @@ export default function wantFlagMatrixTest(): void {
       const plain: Want = { flags: flags };
       const implicitWant: Want = buildImplicitViewWant(false);
       implicitWant.flags = flags;
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       explicitWant.flags = flags;
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0068 params: flags=${flags}, plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();
@@ -1782,7 +1782,7 @@ export default function wantFlagMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testWantFlagMatrix0069 begin');
       const plain: Want = {};
       const implicitWant: Want = buildImplicitViewWant(false);
-      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const explicitWant: Want = buildNewAbilityWant('com.samples.abilityfeature');
       hilog.info(DOMAIN, TAG, '%{public}s', `testWantFlagMatrix0069 params: plain=${JSON.stringify(plain)}, implicitWant=${JSON.stringify(implicitWant)}, explicitWant=${JSON.stringify(explicitWant)}`);
       expect(implicitWant.flags === undefined).assertTrue();
       expect(hasStartWithoutTipsFlag(plain)).assertFalse();

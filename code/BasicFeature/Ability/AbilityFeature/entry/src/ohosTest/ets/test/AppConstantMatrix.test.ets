@@ -79,16 +79,16 @@ export default function appConstantMatrixTest(): void {
     /**
      * @tc.number    SUB_ABILITY_FEATURE_CONSTANT_0001
      * @tc.name      testAppConstantMatrix0001
-     * @tc.desc      包名 "com.samples.abilityFeature" 构造的 NewAbility Want 原样保留包名，只带包名与 Ability 名两项
+     * @tc.desc      包名 "com.samples.abilityfeature" 构造的 NewAbility Want 原样保留包名，只带包名与 Ability 名两项
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
     it('testAppConstantMatrix0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0001 begin');
-      const want: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const want: Want = buildNewAbilityWant('com.samples.abilityfeature');
       hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0001 params: want=${JSON.stringify(want)}`);
-      expect(want.bundleName).assertEqual('com.samples.abilityFeature');
+      expect(want.bundleName).assertEqual('com.samples.abilityfeature');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
       expect(want.parameters === undefined).assertTrue();
@@ -319,16 +319,16 @@ export default function appConstantMatrixTest(): void {
     /**
      * @tc.number    SUB_ABILITY_FEATURE_CONSTANT_0013
      * @tc.name      testAppConstantMatrix0013
-     * @tc.desc      包名 "com.samples.abilityFeature.extra" 构造的 NewAbility Want 原样保留包名，只带包名与 Ability 名两项
+     * @tc.desc      包名 "com.samples.abilityfeature.extra" 构造的 NewAbility Want 原样保留包名，只带包名与 Ability 名两项
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL1
      */
     it('testAppConstantMatrix0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0013 begin');
-      const want: Want = buildNewAbilityWant('com.samples.abilityFeature.extra');
+      const want: Want = buildNewAbilityWant('com.samples.abilityfeature.extra');
       hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0013 params: want=${JSON.stringify(want)}`);
-      expect(want.bundleName).assertEqual('com.samples.abilityFeature.extra');
+      expect(want.bundleName).assertEqual('com.samples.abilityfeature.extra');
       expect(want.abilityName).assertEqual('NewAbility');
       expect(want.action === undefined).assertTrue();
       expect(want.parameters === undefined).assertTrue();
@@ -675,7 +675,7 @@ export default function appConstantMatrixTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0032 begin');
       hilog.info(DOMAIN, TAG, '%{public}s', `testAppConstantMatrix0032 params: NEW_ABILITY_NAME=${NEW_ABILITY_NAME}`);
       expect(NEW_ABILITY_NAME).assertEqual('NewAbility');
-      expect(buildNewAbilityWant('com.samples.abilityFeature').abilityName).assertEqual(NEW_ABILITY_NAME);
+      expect(buildNewAbilityWant('com.samples.abilityfeature').abilityName).assertEqual(NEW_ABILITY_NAME);
       expect(NEW_ABILITY_NAME.endsWith('Ability')).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testAppConstantMatrix0032 end');
     })

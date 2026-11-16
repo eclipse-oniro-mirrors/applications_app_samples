@@ -74,6 +74,7 @@ export function hasStartWithoutTipsFlag(want: Want): boolean {
 }
 
 export function formatStartOptions(options: StartOptions): string {
-  return `displayId=${options.displayId}, withAnimation=${options.withAnimation}, ` +
-    `left=${options.windowLeft}, top=${options.windowTop}, width=${options.windowWidth}, height=${options.windowHeight}`;
+  const position: string = `left=${options.windowLeft}, top=${options.windowTop}`;
+  const size: string = `width=${options.windowWidth}, height=${options.windowHeight}`;
+  return `displayId=${options.displayId}, withAnimation=${options.withAnimation}, ${position}, ${size}`;
 }

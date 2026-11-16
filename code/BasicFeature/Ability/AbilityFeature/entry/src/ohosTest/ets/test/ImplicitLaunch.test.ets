@@ -173,7 +173,7 @@ export default function implicitLaunchTest() {
     it('testInvalidBundleNameRejects0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async (done: Function) => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testInvalidBundleNameRejects0005 begin');
       const want: Want = {
-        bundleName: 'com.samples.abilityFeature.nonexistent',
+        bundleName: 'com.samples.abilityfeature.nonexistent',
         abilityName: ENTRY_ABILITY
       };
       const failure: StartFailure = await startAndCapture(want);

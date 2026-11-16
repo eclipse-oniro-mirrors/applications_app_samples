@@ -15,6 +15,7 @@
 
 import { common, StartOptions, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { TOAST_DURATION } from '../common/AppConstants';
 import {
   MENU_ID_ANIMATION_TOGGLE,
   MENU_ID_IMPLICIT_NO_POPUP,
@@ -180,12 +181,18 @@ struct Index {
   }
 
   /**
-   * 隐式启动：不带 flag 时由系统弹“未找到”提示框，带 FLAG_START_WITHOUT_TIPS 时直接返回失败。
+   * 隐式启动：不带 flag 时由系统弹“未找到”提示框，带 FLAG_START_WITHOUT_TIPS 时直接返回失败，由应用自行 Toast 提示。
    */
   private launchImplicit(withoutTips: boolean): void {
     const want: Want = buildImplicitViewWant(withoutTips);
     this.getHostContext().startAbility(want, (err: BusinessError) => {
       logger.info(`${TAG} implicit start withoutTips=${withoutTips}, err=${JSON.stringify(err)}`);
+      if (withoutTips) {
+        this.getUIContext().getPromptAction().showToast({
+          message: $r('app.string.Implicit_Launch_not_Popup'),
+          duration: TOAST_DURATION
+        });
+      }
     });
   }
 

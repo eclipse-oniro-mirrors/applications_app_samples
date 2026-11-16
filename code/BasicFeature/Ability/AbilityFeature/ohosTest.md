@@ -65,7 +65,7 @@ hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap --
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 ```
 
-安装后在 DevEco Studio 中右键 `entry/src/ohosTest` 运行，或通过 `hdc shell` 执行测试命令，参数为 `-b com.samples.abilityFeature -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000`。
+安装后在 DevEco Studio 中右键 `entry/src/ohosTest` 运行，或通过 `hdc shell` 执行测试命令，参数为 `-b com.samples.abilityfeature -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000`。
 
 签名走 `build-profile.json5` 的 `signingConfig: "default"`，`assembleHap` 直接产出 signed hap；换证书后需先 `hdc uninstall` 再装。
 

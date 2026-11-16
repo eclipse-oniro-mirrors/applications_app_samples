@@ -234,9 +234,9 @@ export default function launchIntentTest() {
      */
     it('testNewAbilityWant0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testNewAbilityWant0009 begin');
-      const want: Want = buildNewAbilityWant('com.samples.abilityFeature');
+      const want: Want = buildNewAbilityWant('com.samples.abilityfeature');
       hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWant0009 assert1 want.bundleName=${want.bundleName}`);
-      expect(want.bundleName).assertEqual('com.samples.abilityFeature');
+      expect(want.bundleName).assertEqual('com.samples.abilityfeature');
       hilog.info(DOMAIN, TAG, '%{public}s', `testNewAbilityWant0009 assert2 want.abilityName=${want.abilityName}`);
       expect(want.abilityName).assertEqual(NEW_ABILITY_NAME);
       const actual3: boolean = want.action === undefined;
