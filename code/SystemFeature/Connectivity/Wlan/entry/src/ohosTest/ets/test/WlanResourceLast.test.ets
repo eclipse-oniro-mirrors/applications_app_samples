@@ -15,7 +15,7 @@
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 let appContext = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
@@ -34,11 +34,11 @@ export default function wlanResourceLastTest() {
     it('testWlanResourceLast0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0001 begin');
       const value: string = appContext.resourceManager.getStringByNameSync('GET_WIFI_INFO_INTERNAL');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
       expect(value.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'GET_WIFI_INFO_INTERNAL\').assertFalse();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'GET_WIFI_INFO_INTERNAL'));
       expect(value === 'GET_WIFI_INFO_INTERNAL').assertFalse();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
       expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0001 end');
     })
@@ -54,11 +54,11 @@ export default function wlanResourceLastTest() {
     it('testWlanResourceLast0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0002 begin');
       const value: string = appContext.resourceManager.getStringByNameSync('GET_WIFI_PEERS_MAC');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
       expect(value.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'GET_WIFI_PEERS_MAC\').assertFalse();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'GET_WIFI_PEERS_MAC'));
       expect(value === 'GET_WIFI_PEERS_MAC').assertFalse();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
       expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0002 end');
     })
@@ -74,11 +74,11 @@ export default function wlanResourceLastTest() {
     it('testWlanResourceLast0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0003 begin');
       const value: string = appContext.resourceManager.getStringByNameSync('GET_WIFI_LOCAL_MAC');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
       expect(value.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'GET_WIFI_LOCAL_MAC\').assertFalse();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'GET_WIFI_LOCAL_MAC'));
       expect(value === 'GET_WIFI_LOCAL_MAC').assertFalse();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
       expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0003 end');
     })
@@ -94,11 +94,11 @@ export default function wlanResourceLastTest() {
     it('testWlanResourceLast0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0004 begin');
       const value: string = appContext.resourceManager.getStringByNameSync('GET_WIFI_CONFIG');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
       expect(value.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'GET_WIFI_CONFIG\').assertFalse();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'GET_WIFI_CONFIG'));
       expect(value === 'GET_WIFI_CONFIG').assertFalse();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
       expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0004 end');
     })
@@ -114,11 +114,11 @@ export default function wlanResourceLastTest() {
     it('testWlanResourceLast0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0005 begin');
       const value: string = appContext.resourceManager.getStringByNameSync('SET_WIFI_CONFIG');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
       expect(value.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'SET_WIFI_CONFIG\').assertFalse();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'SET_WIFI_CONFIG'));
       expect(value === 'SET_WIFI_CONFIG').assertFalse();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
       expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0005 end');
     })
@@ -134,11 +134,11 @@ export default function wlanResourceLastTest() {
     it('testWlanResourceLast0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0006 begin');
       const value: string = appContext.resourceManager.getStringByNameSync('description_mainability');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
       expect(value.length > 0).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'description_mainability\').assertFalse();');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'description_mainability'));
       expect(value === 'description_mainability').assertFalse();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
       expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testWlanResourceLast0006 end');
     })
