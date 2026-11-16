@@ -14,7 +14,10 @@
  */
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import bundleManager from '@ohos.bundle.bundleManager';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 let info: bundleManager.BundleInfo;
 
 export default function canvasGameBundleExtraTest() {
@@ -30,7 +33,21 @@ export default function canvasGameBundleExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraModule001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let m: bundleManager.HapModuleInfo | undefined = undefined; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { if (info.hapModulesInfo[i].name === 'entry') { m = info.hapModulesInfo[i]; } } expect(m !== undefined).assertTrue(); const mod: bundleManager.HapModuleInfo = m as bundleManager.HapModuleInfo; expect(mod.name).assertEqual('entry'); expect(mod.installationFree).assertFalse();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModule001 begin');
+      let m: bundleManager.HapModuleInfo | undefined = undefined;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          if (info.hapModulesInfo[i].name === 'entry') {
+          m = info.hapModulesInfo[i];
+        }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(m !== undefined).assertTrue();');
+          expect(m !== undefined).assertTrue();
+        const mod: bundleManager.HapModuleInfo = m as bundleManager.HapModuleInfo;
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.name).assertEqual(\'entry\');');
+        expect(mod.name).assertEqual('entry');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(mod.installationFree).assertFalse();');
+        expect(mod.installationFree).assertFalse();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModule001 end');
     })
 
     /**
@@ -42,7 +59,19 @@ export default function canvasGameBundleExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraExtension002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const e = info.hapModulesInfo[i].extensionAbilitiesInfo; for (let j: number = 0; j < e.length; j++) { if (e[j].name === 'EntryFormAbility') { found = true; } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraExtension002 begin');
+      let found: boolean = false;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          const e = info.hapModulesInfo[i].extensionAbilitiesInfo;
+        for (let j: number = 0; j < e.length; j++) {
+          if (e[j].name === 'EntryFormAbility') {
+          found = true;
+        }
+          }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraExtension002 end');
     })
 
     /**
@@ -54,7 +83,19 @@ export default function canvasGameBundleExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraAbilitySkills003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      let found: boolean = false; for (let i: number = 0; i < info.hapModulesInfo.length; i++) { const a = info.hapModulesInfo[i].abilitiesInfo; for (let j: number = 0; j < a.length; j++) { if (a[j].name === 'EntryAbility') { found = true; } } } expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraAbilitySkills003 begin');
+      let found: boolean = false;
+        for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
+          const a = info.hapModulesInfo[i].abilitiesInfo;
+        for (let j: number = 0; j < a.length; j++) {
+          if (a[j].name === 'EntryAbility') {
+          found = true;
+        }
+          }
+          }
+          hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(found).assertTrue();');
+          expect(found).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraAbilitySkills003 end');
     })
 
     /**
@@ -66,7 +107,14 @@ export default function canvasGameBundleExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraNoPermissions004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.reqPermissionDetails.length).assertEqual(0); expect(info.name).assertEqual('com.samples.canvasgame'); expect(info.versionName).assertEqual('1.0.0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraNoPermissions004 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.reqPermissionDetails.length).assertEqual(0);');
+      expect(info.reqPermissionDetails.length).assertEqual(0);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.name).assertEqual(\'com.samples.canvasgame\');');
+        expect(info.name).assertEqual('com.samples.canvasgame');
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.versionName).assertEqual(\'1.0.0\');');
+        expect(info.versionName).assertEqual('1.0.0');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraNoPermissions004 end');
     })
 
     /**
@@ -78,7 +126,14 @@ export default function canvasGameBundleExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraAppDesc005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.appInfo.labelId > 0).assertTrue(); expect(info.appInfo.iconId > 0).assertTrue(); expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraAppDesc005 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.labelId > 0).assertTrue();');
+      expect(info.appInfo.labelId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.iconId > 0).assertTrue();');
+        expect(info.appInfo.iconId > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.appInfo.name).assertEqual(\'com.samples.canvasgame\');');
+        expect(info.appInfo.name).assertEqual('com.samples.canvasgame');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraAppDesc005 end');
     })
 
     /**
@@ -90,7 +145,14 @@ export default function canvasGameBundleExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraModuleMeta006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta006 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta006 end');
     })
 
     /**
@@ -102,7 +164,14 @@ export default function canvasGameBundleExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraModuleMeta007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta007 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta007 end');
     })
 
     /**
@@ -114,7 +183,14 @@ export default function canvasGameBundleExtraTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasExtraModuleMeta008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(info.hapModulesInfo.length > 0).assertTrue(); expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue(); expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta008 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo.length > 0).assertTrue();');
+      expect(info.hapModulesInfo.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].deviceTypes.length > 0).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(info.hapModulesInfo[0].name.length > 0).assertTrue();');
+        expect(info.hapModulesInfo[0].name.length > 0).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasExtraModuleMeta008 end');
     })
   })
 }

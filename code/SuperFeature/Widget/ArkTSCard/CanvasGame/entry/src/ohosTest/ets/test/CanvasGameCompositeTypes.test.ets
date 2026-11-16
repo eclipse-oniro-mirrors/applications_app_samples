@@ -14,8 +14,11 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import EntryFormAbility from '../../../main/ets/entryformability/EntryFormAbility';
 import logger from '../../../main/ets/model/Logger';
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function canvasGameCompositeTypesTest() {
   describe('CanvasGameCompositeTypesTest', () => {
@@ -29,7 +32,14 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const data = a.onAddForm({}); expect(data !== undefined).assertTrue(); expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0001 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const data = a.onAddForm({});
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        expect(data !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0001 end');
     })
 
     /**
@@ -41,7 +51,14 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const data = a.onAddForm({}); expect(data !== undefined).assertTrue(); expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0002 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const data = a.onAddForm({});
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        expect(data !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0002 end');
     })
 
     /**
@@ -53,7 +70,14 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const data = a.onAddForm({}); expect(data !== undefined).assertTrue(); expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0003 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const data = a.onAddForm({});
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        expect(data !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0003 end');
     })
 
     /**
@@ -65,7 +89,14 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const data = a.onAddForm({}); expect(data !== undefined).assertTrue(); expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0004 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const data = a.onAddForm({});
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(data !== undefined).assertTrue();');
+        expect(data !== undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof data === \'object\').assertTrue();');
+        expect(typeof data === 'object').assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0004 end');
     })
 
     /**
@@ -77,7 +108,14 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const values: string[] = ['a','b','c']; expect(a.onFormEvent('form-5', values.join('-')) === undefined).assertTrue(); expect(values.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0005 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const values: string[] = ['a','b','c'];
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-5\', values.join(\'-\')) === undefined).assertTrue();');
+        expect(a.onFormEvent('form-5', values.join('-')) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        expect(values.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0005 end');
     })
 
     /**
@@ -89,7 +127,14 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const values: string[] = ['a','b','c']; expect(a.onFormEvent('form-6', values.join('-')) === undefined).assertTrue(); expect(values.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0006 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const values: string[] = ['a','b','c'];
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-6\', values.join(\'-\')) === undefined).assertTrue();');
+        expect(a.onFormEvent('form-6', values.join('-')) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        expect(values.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0006 end');
     })
 
     /**
@@ -101,7 +146,14 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const values: string[] = ['a','b','c']; expect(a.onFormEvent('form-7', values.join('-')) === undefined).assertTrue(); expect(values.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0007 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const values: string[] = ['a','b','c'];
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-7\', values.join(\'-\')) === undefined).assertTrue();');
+        expect(a.onFormEvent('form-7', values.join('-')) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        expect(values.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0007 end');
     })
 
     /**
@@ -113,7 +165,14 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const values: string[] = ['a','b','c']; expect(a.onFormEvent('form-8', values.join('-')) === undefined).assertTrue(); expect(values.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0008 begin');
+      const a: EntryFormAbility = new EntryFormAbility();
+        const values: string[] = ['a','b','c'];
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.onFormEvent(\'form-8\', values.join(\'-\')) === undefined).assertTrue();');
+        expect(a.onFormEvent('form-8', values.join('-')) === undefined).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(values.length).assertEqual(3);');
+        expect(values.length).assertEqual(3);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0008 end');
     })
 
     /**
@@ -125,7 +184,15 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d') === undefined).assertTrue(); const tuple: string[] = ['x','y']; expect(tuple.length).assertEqual(2); expect(tuple[0]).assertEqual('x');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0009 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(\'a\',\'b\',\'c\',\'d\') === undefined).assertTrue();');
+      expect(logger.info('a','b','c','d') === undefined).assertTrue();
+        const tuple: string[] = ['x','y'];
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple.length).assertEqual(2);');
+        expect(tuple.length).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple[0]).assertEqual(\'x\');');
+        expect(tuple[0]).assertEqual('x');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0009 end');
     })
 
     /**
@@ -137,7 +204,15 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d') === undefined).assertTrue(); const tuple: string[] = ['x','y']; expect(tuple.length).assertEqual(2); expect(tuple[0]).assertEqual('x');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0010 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(\'a\',\'b\',\'c\',\'d\') === undefined).assertTrue();');
+      expect(logger.info('a','b','c','d') === undefined).assertTrue();
+        const tuple: string[] = ['x','y'];
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple.length).assertEqual(2);');
+        expect(tuple.length).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple[0]).assertEqual(\'x\');');
+        expect(tuple[0]).assertEqual('x');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0010 end');
     })
 
     /**
@@ -149,7 +224,15 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d') === undefined).assertTrue(); const tuple: string[] = ['x','y']; expect(tuple.length).assertEqual(2); expect(tuple[0]).assertEqual('x');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0011 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(\'a\',\'b\',\'c\',\'d\') === undefined).assertTrue();');
+      expect(logger.info('a','b','c','d') === undefined).assertTrue();
+        const tuple: string[] = ['x','y'];
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple.length).assertEqual(2);');
+        expect(tuple.length).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple[0]).assertEqual(\'x\');');
+        expect(tuple[0]).assertEqual('x');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0011 end');
     })
 
     /**
@@ -161,7 +244,15 @@ export default function canvasGameCompositeTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasComposite0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d') === undefined).assertTrue(); const tuple: string[] = ['x','y']; expect(tuple.length).assertEqual(2); expect(tuple[0]).assertEqual('x');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0012 begin');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(logger.info(\'a\',\'b\',\'c\',\'d\') === undefined).assertTrue();');
+      expect(logger.info('a','b','c','d') === undefined).assertTrue();
+        const tuple: string[] = ['x','y'];
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple.length).assertEqual(2);');
+        expect(tuple.length).assertEqual(2);
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(tuple[0]).assertEqual(\'x\');');
+        expect(tuple[0]).assertEqual('x');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testCanvasComposite0012 end');
     })
   })
 }

@@ -56,17 +56,20 @@ export default class OpenHarmonyTestRunner implements TestRunner {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
       moduleName: moduleName
-    };
+    }
+      ;
     abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
     const want: Want = {
       bundleName: bundleName,
       abilityName: testAbilityName,
       moduleName: moduleName
-    };
+    }
+      ;
     abilityDelegator.startAbility(want, (err: BusinessError, data: void) => {
       hilog.info(0x0000, tag, 'startAbility : err : %{public}s', JSON.stringify(err) ?? '');
       hilog.info(0x0000, tag, 'startAbility : data : %{public}s', JSON.stringify(data) ?? '');
-    })
+    }
+      )
     hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner onRun end');
   }
 }
@@ -80,12 +83,14 @@ async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDeleg
     let mockMap: Record<string, string> = getMockList(mockStr);
     try {
       abilityDelegator.setMockList(mockMap)
-    } catch (error) {
+    }
+      catch (error) {
       let code = (error as BusinessError).code;
       let message = (error as BusinessError).message;
       hilog.error(0x0000, tag, `abilityDelegator.setMockList failed, error code: ${code}, message: ${message}.`);
     }
-  } catch (error) {
+  }
+    catch (error) {
     let code = (error as BusinessError).code;
     let message = (error as BusinessError).message;
     hilog.error(0x0000, tag, `ResourceManager:callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
@@ -95,11 +100,14 @@ async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDeleg
 function getMockList(jsonStr: string) {
   let jsonObj: Record<string, Object> = JSON.parse(jsonStr);
   let map: Map<string, object> = new Map<string, object>(Object.entries(jsonObj));
-  let mockList: Record<string, string> = {};
+  let mockList: Record<string, string> = {
+    }
+    ;
   map.forEach((value: object, key: string) => {
     let realValue: string = value['source'].toString();
     mockList[key] = realValue;
-  });
+  }
+    );
   hilog.info(0x0000, tag, '%{public}s', 'mock-json value:' + JSON.stringify(mockList) ?? '');
   return mockList;
 }

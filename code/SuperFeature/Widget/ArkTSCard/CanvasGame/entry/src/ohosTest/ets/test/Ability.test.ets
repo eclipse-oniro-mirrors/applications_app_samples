@@ -55,7 +55,8 @@ export default function abilityTest() {
       await formBtn.click();
       done();
       logger.info(TAG, `${BUNDLE}OpenFormList_001 end`);
-    })
+    }
+      )
 
     /**
      * 创建卡片
@@ -76,6 +77,8 @@ export default function abilityTest() {
       expect(resultArray.length).assertEqual(2);
       done();
       logger.info(TAG, `${BUNDLE}createForm_001 end`);
-    })
-  })
+    }
+      )
+  }
+    )
 }
