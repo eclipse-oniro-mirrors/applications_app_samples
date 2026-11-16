@@ -23,307 +23,307 @@ export default function shakeLiveFormMoreConst07Test() {
   describe('ShakeLiveFormMoreConst07Test', () => {
 
     /**
-     * @tc.name   testShakeMoreConst070001
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0001
      * @tc.number SUB_SHAKE_MORE_CONST_07_0001
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1940 equals 291.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070001 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0001 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 1940), String(291.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 1940).assertEqual(291.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 1940), String(2522.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 1940).assertEqual(2522.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0001 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070002
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0002
      * @tc.number SUB_SHAKE_MORE_CONST_07_0002
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1960 equals 294.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070002 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0002 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 1960), String(294.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 1960).assertEqual(294.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 1960), String(2548.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 1960).assertEqual(2548.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0002 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070003
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0003
      * @tc.number SUB_SHAKE_MORE_CONST_07_0003
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 1980 equals 297.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070003 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0003 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 1980), String(297.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 1980).assertEqual(297.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 1980), String(2574.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 1980).assertEqual(2574.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0003 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070004
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0004
      * @tc.number SUB_SHAKE_MORE_CONST_07_0004
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2000 equals 300.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070004 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0004 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2000), String(300.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2000).assertEqual(300.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2000), String(2600.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2000).assertEqual(2600.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0004 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070005
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0005
      * @tc.number SUB_SHAKE_MORE_CONST_07_0005
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2020 equals 303.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070005 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0005 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2020), String(303.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2020).assertEqual(303.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2020), String(2626.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2020).assertEqual(2626.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0005 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070006
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0006
      * @tc.number SUB_SHAKE_MORE_CONST_07_0006
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2040 equals 306.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070006 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0006 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2040), String(306.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2040).assertEqual(306.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2040), String(2652.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2040).assertEqual(2652.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0006 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070007
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0007
      * @tc.number SUB_SHAKE_MORE_CONST_07_0007
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2060 equals 309.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070007 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0007 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2060), String(309.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2060).assertEqual(309.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2060), String(2678.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2060).assertEqual(2678.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0007 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070008
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0008
      * @tc.number SUB_SHAKE_MORE_CONST_07_0008
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2080 equals 312.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070008 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0008 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2080), String(312.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2080).assertEqual(312.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2080), String(2704.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2080).assertEqual(2704.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0008 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070009
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0009
      * @tc.number SUB_SHAKE_MORE_CONST_07_0009
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2100 equals 315.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070009 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0009 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2100), String(315.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2100).assertEqual(315.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2100), String(2730.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2100).assertEqual(2730.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0009 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070010
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0010
      * @tc.number SUB_SHAKE_MORE_CONST_07_0010
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2120 equals 318.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070010 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0010 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2120), String(318.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2120).assertEqual(318.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2120), String(2756.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2120).assertEqual(2756.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0010 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070011
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0011
      * @tc.number SUB_SHAKE_MORE_CONST_07_0011
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2140 equals 321.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070011 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0011 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2140), String(321.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2140).assertEqual(321.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2140), String(2782.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2140).assertEqual(2782.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0011 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070012
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0012
      * @tc.number SUB_SHAKE_MORE_CONST_07_0012
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2160 equals 324.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070012 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0012 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2160), String(324.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2160).assertEqual(324.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2160), String(2808.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2160).assertEqual(2808.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0012 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070013
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0013
      * @tc.number SUB_SHAKE_MORE_CONST_07_0013
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2180 equals 327.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070013 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0013 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2180), String(327.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2180).assertEqual(327.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2180), String(2834.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2180).assertEqual(2834.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0013 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070014
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0014
      * @tc.number SUB_SHAKE_MORE_CONST_07_0014
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2200 equals 330.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070014 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0014 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2200), String(330.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2200).assertEqual(330.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2200), String(2860.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2200).assertEqual(2860.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0014 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070015
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0015
      * @tc.number SUB_SHAKE_MORE_CONST_07_0015
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2220 equals 333.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070015 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0015 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2220), String(333.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2220).assertEqual(333.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2220), String(2886.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2220).assertEqual(2886.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070015 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0015 end');
     })
 
     /**
-     * @tc.name   testShakeMoreConst070016
+     * @tc.name   com.example.shakeliveformdemo_MoreConst07_0016
      * @tc.number SUB_SHAKE_MORE_CONST_07_0016
      * @tc.desc   Verify Constants.OVERFLOW_TOP_RATIO * 2240 equals 336.0.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreConst070016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070016 begin');
+    it('com.example.shakeliveformdemo_MoreConst07_0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0016 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_TOP_RATIO * 2240), String(336.0));
       expect(Constants.OVERFLOW_TOP_RATIO * 2240).assertEqual(336.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_HEIGHT_RATIO * 2240), String(2912.0));
         expect(Constants.OVERFLOW_HEIGHT_RATIO * 2240).assertEqual(2912.0);
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(Constants.OVERFLOW_DURATION), String(3500));
         expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreConst070016 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreConst07_0016 end');
     })
   })
 }

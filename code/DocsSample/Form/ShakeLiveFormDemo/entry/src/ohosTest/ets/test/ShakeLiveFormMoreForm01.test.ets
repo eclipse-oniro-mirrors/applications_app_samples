@@ -23,15 +23,15 @@ export default function shakeLiveFormMoreForm01Test() {
   describe('ShakeLiveFormMoreForm01Test', () => {
 
     /**
-     * @tc.name   testShakeMoreForm010001
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0001
      * @tc.number SUB_SHAKE_MORE_FORM_01_0001
      * @tc.desc   Verify a.onRemoveForm(\'r-1\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010001 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0001 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-1') === undefined));
         expect(a.onRemoveForm('r-1') === undefined).assertTrue();
@@ -41,19 +41,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-1', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-1', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0001 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010002
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0002
      * @tc.number SUB_SHAKE_MORE_FORM_01_0002
      * @tc.desc   Verify a.onRemoveForm(\'r-2\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010002 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0002 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-2') === undefined));
         expect(a.onRemoveForm('r-2') === undefined).assertTrue();
@@ -63,19 +63,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-2', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-2', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0002 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010003
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0003
      * @tc.number SUB_SHAKE_MORE_FORM_01_0003
      * @tc.desc   Verify a.onRemoveForm(\'r-3\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010003 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0003 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-3') === undefined));
         expect(a.onRemoveForm('r-3') === undefined).assertTrue();
@@ -85,19 +85,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-3', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-3', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0003 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010004
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0004
      * @tc.number SUB_SHAKE_MORE_FORM_01_0004
      * @tc.desc   Verify a.onRemoveForm(\'r-4\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010004 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0004 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-4') === undefined));
         expect(a.onRemoveForm('r-4') === undefined).assertTrue();
@@ -107,19 +107,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-4', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-4', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0004 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010005
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0005
      * @tc.number SUB_SHAKE_MORE_FORM_01_0005
      * @tc.desc   Verify a.onRemoveForm(\'r-5\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010005 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0005 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-5') === undefined));
         expect(a.onRemoveForm('r-5') === undefined).assertTrue();
@@ -129,19 +129,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-5', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-5', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0005 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010006
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0006
      * @tc.number SUB_SHAKE_MORE_FORM_01_0006
      * @tc.desc   Verify a.onRemoveForm(\'r-6\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010006 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0006 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-6') === undefined));
         expect(a.onRemoveForm('r-6') === undefined).assertTrue();
@@ -151,19 +151,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-6', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-6', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0006 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010007
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0007
      * @tc.number SUB_SHAKE_MORE_FORM_01_0007
      * @tc.desc   Verify a.onRemoveForm(\'r-7\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010007 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0007 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-7') === undefined));
         expect(a.onRemoveForm('r-7') === undefined).assertTrue();
@@ -173,19 +173,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-7', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-7', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0007 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010008
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0008
      * @tc.number SUB_SHAKE_MORE_FORM_01_0008
      * @tc.desc   Verify a.onRemoveForm(\'r-8\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010008 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0008 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-8') === undefined));
         expect(a.onRemoveForm('r-8') === undefined).assertTrue();
@@ -195,19 +195,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-8', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-8', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0008 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010009
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0009
      * @tc.number SUB_SHAKE_MORE_FORM_01_0009
      * @tc.desc   Verify a.onRemoveForm(\'r-9\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010009 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0009 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-9') === undefined));
         expect(a.onRemoveForm('r-9') === undefined).assertTrue();
@@ -217,19 +217,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-9', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-9', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0009 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010010
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0010
      * @tc.number SUB_SHAKE_MORE_FORM_01_0010
      * @tc.desc   Verify a.onRemoveForm(\'r-10\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010010 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0010 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-10') === undefined));
         expect(a.onRemoveForm('r-10') === undefined).assertTrue();
@@ -239,19 +239,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-10', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-10', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0010 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010011
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0011
      * @tc.number SUB_SHAKE_MORE_FORM_01_0011
      * @tc.desc   Verify a.onRemoveForm(\'r-11\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010011 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0011 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-11') === undefined));
         expect(a.onRemoveForm('r-11') === undefined).assertTrue();
@@ -261,19 +261,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-11', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-11', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0011 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010012
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0012
      * @tc.number SUB_SHAKE_MORE_FORM_01_0012
      * @tc.desc   Verify a.onRemoveForm(\'r-12\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010012 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0012 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-12') === undefined));
         expect(a.onRemoveForm('r-12') === undefined).assertTrue();
@@ -283,19 +283,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-12', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-12', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0012 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010013
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0013
      * @tc.number SUB_SHAKE_MORE_FORM_01_0013
      * @tc.desc   Verify a.onRemoveForm(\'r-13\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010013 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0013 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-13') === undefined));
         expect(a.onRemoveForm('r-13') === undefined).assertTrue();
@@ -305,19 +305,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-13', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-13', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0013 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010014
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0014
      * @tc.number SUB_SHAKE_MORE_FORM_01_0014
      * @tc.desc   Verify a.onRemoveForm(\'r-14\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010014 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0014 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-14') === undefined));
         expect(a.onRemoveForm('r-14') === undefined).assertTrue();
@@ -327,19 +327,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-14', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-14', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0014 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010015
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0015
      * @tc.number SUB_SHAKE_MORE_FORM_01_0015
      * @tc.desc   Verify a.onRemoveForm(\'r-15\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010015 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0015 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-15') === undefined));
         expect(a.onRemoveForm('r-15') === undefined).assertTrue();
@@ -349,19 +349,19 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-15', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-15', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010015 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0015 end');
     })
 
     /**
-     * @tc.name   testShakeMoreForm010016
+     * @tc.name   com.example.shakeliveformdemo_MoreForm01_0016
      * @tc.number SUB_SHAKE_MORE_FORM_01_0016
      * @tc.desc   Verify a.onRemoveForm(\'r-16\') is undefined.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreForm010016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010016 begin');
+    it('com.example.shakeliveformdemo_MoreForm01_0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0016 begin');
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onRemoveForm('r-16') === undefined));
         expect(a.onRemoveForm('r-16') === undefined).assertTrue();
@@ -371,7 +371,7 @@ export default function shakeLiveFormMoreForm01Test() {
         expect(a.onAddForm({}) !== undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onFormEvent('e-16', '{"message":"other"}') !== undefined));
         expect(a.onFormEvent('e-16', '{"message":"other"}') !== undefined).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreForm010016 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreForm01_0016 end');
     })
   })
 }

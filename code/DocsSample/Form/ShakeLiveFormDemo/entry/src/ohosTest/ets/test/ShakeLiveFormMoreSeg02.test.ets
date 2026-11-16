@@ -23,15 +23,15 @@ export default function shakeLiveFormMoreSeg02Test() {
   describe('ShakeLiveFormMoreSeg02Test', () => {
 
     /**
-     * @tc.name   testShakeMoreSeg020001
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0001
      * @tc.number SUB_SHAKE_MORE_SEG_02_0001
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020001 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0001 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -39,19 +39,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0001 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020002
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0002
      * @tc.number SUB_SHAKE_MORE_SEG_02_0002
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020002 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0002 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -59,19 +59,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0002 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020003
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0003
      * @tc.number SUB_SHAKE_MORE_SEG_02_0003
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020003 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0003 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -79,19 +79,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0003 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020004
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0004
      * @tc.number SUB_SHAKE_MORE_SEG_02_0004
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020004 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0004 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -99,19 +99,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0004 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020005
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0005
      * @tc.number SUB_SHAKE_MORE_SEG_02_0005
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020005 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0005 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -119,19 +119,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0005 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020006
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0006
      * @tc.number SUB_SHAKE_MORE_SEG_02_0006
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020006 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0006 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -139,19 +139,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0006 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020007
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0007
      * @tc.number SUB_SHAKE_MORE_SEG_02_0007
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020007 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0007 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -159,19 +159,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0007 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020008
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0008
      * @tc.number SUB_SHAKE_MORE_SEG_02_0008
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020008 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0008 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -179,19 +179,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0008 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020009
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0009
      * @tc.number SUB_SHAKE_MORE_SEG_02_0009
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020009 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0009 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -199,19 +199,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0009 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020010
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0010
      * @tc.number SUB_SHAKE_MORE_SEG_02_0010
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020010 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0010 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -219,19 +219,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0010 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020011
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0011
      * @tc.number SUB_SHAKE_MORE_SEG_02_0011
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020011 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0011 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -239,19 +239,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020011 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0011 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020012
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0012
      * @tc.number SUB_SHAKE_MORE_SEG_02_0012
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020012 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0012 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -259,19 +259,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020012 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0012 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020013
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0013
      * @tc.number SUB_SHAKE_MORE_SEG_02_0013
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020013 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0013 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -279,19 +279,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020013 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0013 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020014
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0014
      * @tc.number SUB_SHAKE_MORE_SEG_02_0014
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020014 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0014 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -299,19 +299,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020014 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0014 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020015
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0015
      * @tc.number SUB_SHAKE_MORE_SEG_02_0015
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020015 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0015 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -319,19 +319,19 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020015 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0015 end');
     })
 
     /**
-     * @tc.name   testShakeMoreSeg020016
+     * @tc.name   com.example.shakeliveformdemo_MoreSeg02_0016
      * @tc.number SUB_SHAKE_MORE_SEG_02_0016
      * @tc.desc   Verify a === SegmentationUtil.getInstance().
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testShakeMoreSeg020016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020016 begin');
+    it('com.example.shakeliveformdemo_MoreSeg02_0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0016 begin');
       const a: SegmentationUtil = SegmentationUtil.getInstance();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === SegmentationUtil.getInstance()));
         expect(a === SegmentationUtil.getInstance()).assertTrue();
@@ -339,7 +339,7 @@ export default function shakeLiveFormMoreSeg02Test() {
         expect(typeof a.SegmentationImage === 'function').assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof a.loadImage === 'function'));
         expect(typeof a.loadImage === 'function').assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testShakeMoreSeg020016 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_MoreSeg02_0016 end');
     })
   })
 }

@@ -306,14 +306,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0100
-     * @tc.name      testFlipClockLaunch0001
+     * @tc.name      ohos.samples.flipclock_Ability_0001
      * @tc.desc      Start the application and verify the clock page and all four tabs are displayed.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockLaunch0001',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockLaunch0001 begin');
+    it('ohos.samples.flipclock_Ability_0001',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0001 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -339,14 +339,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0200
-     * @tc.name      testFlipClockDigits0002
+     * @tc.name      ohos.samples.flipclock_Ability_0002
      * @tc.desc      Verify the six flip-clock digits are valid and match the system time within tolerance.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockDigits0002',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDigits0002 begin');
+    it('ohos.samples.flipclock_Ability_0002',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0002 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -396,14 +396,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0300
-     * @tc.name      testFlipClockTabSwitch0003
+     * @tc.name      ohos.samples.flipclock_Ability_0003
      * @tc.desc      Switch among the four tabs and verify the page-specific controls are displayed.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockTabSwitch0003',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockTabSwitch0003 begin');
+    it('ohos.samples.flipclock_Ability_0003',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0003 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -439,14 +439,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0400
-     * @tc.name      testFlipClockAlarm0004
+     * @tc.name      ohos.samples.flipclock_Ability_0004
      * @tc.desc      Add an alarm and delete it, verifying the alarm row appears and then disappears.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockAlarm0004',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAlarm0004 begin');
+    it('ohos.samples.flipclock_Ability_0004',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0004 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -500,14 +500,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0500
-     * @tc.name      testFlipClockCountDownZero0005
+     * @tc.name      ohos.samples.flipclock_Ability_0005
      * @tc.desc      Verify the countdown does not start when the selected duration is zero.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockCountDownZero0005',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockCountDownZero0005 begin');
+    it('ohos.samples.flipclock_Ability_0005',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0005 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -537,14 +537,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0600
-     * @tc.name      testFlipClockCountDownFlow0006
+     * @tc.name      ohos.samples.flipclock_Ability_0006
      * @tc.desc      Set a countdown, start it, pause, resume, verify it decreases and reset to zero.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockCountDownFlow0006',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockCountDownFlow0006 begin');
+    it('ohos.samples.flipclock_Ability_0006',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0006 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -587,14 +587,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0700
-     * @tc.name      testFlipClockSetting0007
+     * @tc.name      ohos.samples.flipclock_Ability_0007
      * @tc.desc      Open the setting tab and verify the in-app full screen, screen light and brightness controls.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockSetting0007',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockSetting0007 begin');
+    it('ohos.samples.flipclock_Ability_0007',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0007 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -619,14 +619,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0800
-     * @tc.name      testFlipClockDataSource0008
+     * @tc.name      ohos.samples.flipclock_Ability_0008
      * @tc.desc      Verify MyDataSource push, delete, replace and totalCount operations.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockDataSource0008',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDataSource0008 begin');
+    it('ohos.samples.flipclock_Ability_0008',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0008 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const source: MyDataSource = new MyDataSource([...tabArray]);
@@ -666,14 +666,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_0900
-     * @tc.name      testFlipClockContactSource0009
+     * @tc.name      ohos.samples.flipclock_Ability_0009
      * @tc.desc      Verify ContactSource push, delete, replace and totalCount operations.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockContactSource0009',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactSource0009 begin');
+    it('ohos.samples.flipclock_Ability_0009',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0009 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const first: Contact = new Contact('a', 'A', 1);
@@ -715,14 +715,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_1000
-     * @tc.name      testFlipClockAlarmCancel0010
+     * @tc.name      ohos.samples.flipclock_Ability_0010
      * @tc.desc      Open the alarm picker and cancel it, verifying no alarm is stored or displayed.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockAlarmCancel0010',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockAlarmCancel0010 begin');
+    it('ohos.samples.flipclock_Ability_0010',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0010 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -757,14 +757,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_1100
-     * @tc.name      testFlipClockCountDownReset0011
+     * @tc.name      ohos.samples.flipclock_Ability_0011
      * @tc.desc      Reset a countdown and verify the selected duration is cleared so it cannot start again.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockCountDownReset0011',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockCountDownReset0011 begin');
+    it('ohos.samples.flipclock_Ability_0011',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0011 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -805,14 +805,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_1200
-     * @tc.name      testFlipClockDataSourceBoundary0012
+     * @tc.name      ohos.samples.flipclock_Ability_0012
      * @tc.desc      Verify MyDataSource handles empty, single and replace-empty boundaries.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockDataSourceBoundary0012',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockDataSourceBoundary0012 begin');
+    it('ohos.samples.flipclock_Ability_0012',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0012 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const source: MyDataSource = new MyDataSource([]);
@@ -848,14 +848,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_1300
-     * @tc.name      testFlipClockCountDownFinish0013
+     * @tc.name      ohos.samples.flipclock_Ability_0013
      * @tc.desc      Start a short countdown and verify it resets to zero automatically when it expires.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockCountDownFinish0013',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockCountDownFinish0013 begin');
+    it('ohos.samples.flipclock_Ability_0013',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0013 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -898,14 +898,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_1400
-     * @tc.name      testFlipClockSettingFullScreen0014
+     * @tc.name      ohos.samples.flipclock_Ability_0014
      * @tc.desc      Toggle full screen on and off in the settings tab and verify the switch state.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockSettingFullScreen0014',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockSettingFullScreen0014 begin');
+    it('ohos.samples.flipclock_Ability_0014',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0014 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -929,14 +929,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_1500
-     * @tc.name      testFlipClockSettingScreenLight0015
+     * @tc.name      ohos.samples.flipclock_Ability_0015
      * @tc.desc      Toggle keep-screen-on in the settings tab and verify the switch state.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockSettingScreenLight0015',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockSettingScreenLight0015 begin');
+    it('ohos.samples.flipclock_Ability_0015',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0015 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();
@@ -960,14 +960,14 @@ export default function abilityTest() {
 
     /**
      * @tc.number    SUB_FLIP_CLOCK_APP_1600
-     * @tc.name      testFlipClockSettingBrightness0016
+     * @tc.name      ohos.samples.flipclock_Ability_0016
      * @tc.desc      Drag the brightness slider and verify the displayed value increases.
      * @tc.type      Function
      * @tc.size      MediumTest
      * @tc.level     LEVEL0
      */
-    it('testFlipClockSettingBrightness0016',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockSettingBrightness0016 begin');
+    it('ohos.samples.flipclock_Ability_0016',
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0016 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
         try {
           const driver: Driver = Driver.create();

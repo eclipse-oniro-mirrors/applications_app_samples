@@ -25,34 +25,34 @@ export default function flipClockAppConfigTest() {
     beforeAll(() => { info = bundleManager.getBundleInfoForSelfSync(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_HAP_MODULE | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_ABILITY | bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_REQUESTED_PERMISSION); })
 
     /**
-     * @tc.name   testFlipClockConfigIdentity001
+     * @tc.name   ohos.samples.flipclock_AppConfig_0001
      * @tc.number SUB_FLIP_CLOCK_CONFIG_001
      * @tc.desc   Verify bundle identity.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigIdentity001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigIdentity001 begin');
+    it('ohos.samples.flipclock_AppConfig_0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0001 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.name), String('ohos.samples.flipclock'));
       expect(info.name).assertEqual('ohos.samples.flipclock');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionName), String('1.0.0'));
         expect(info.versionName).assertEqual('1.0.0');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.versionCode), String(1000000));
         expect(info.versionCode).assertEqual(1000000);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigIdentity001 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0001 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigModule002
+     * @tc.name   ohos.samples.flipclock_AppConfig_0002
      * @tc.number SUB_FLIP_CLOCK_CONFIG_002
      * @tc.desc   Verify entry module is present.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigModule002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigModule002 begin');
+    it('ohos.samples.flipclock_AppConfig_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0002 begin');
       let found: boolean = false;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
           if (info.hapModulesInfo[i].name === 'entry') {
@@ -63,19 +63,19 @@ export default function flipClockAppConfigTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigModule002 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0002 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigDevice003
+     * @tc.name   ohos.samples.flipclock_AppConfig_0003
      * @tc.number SUB_FLIP_CLOCK_CONFIG_003
      * @tc.desc   Verify tablet device support.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigDevice003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigDevice003 begin');
+    it('ohos.samples.flipclock_AppConfig_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0003 begin');
       let module: bundleManager.HapModuleInfo | undefined = undefined;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
           if (info.hapModulesInfo[i].name === 'entry') {
@@ -89,19 +89,19 @@ export default function flipClockAppConfigTest() {
         expect(mod.deviceTypes.includes('tablet')).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(mod.deviceTypes.length >= 2));
         expect(mod.deviceTypes.length >= 2).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigDevice003 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0003 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigAbility004
+     * @tc.name   ohos.samples.flipclock_AppConfig_0004
      * @tc.number SUB_FLIP_CLOCK_CONFIG_004
      * @tc.desc   Verify EntryAbility declaration.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigAbility004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigAbility004 begin');
+    it('ohos.samples.flipclock_AppConfig_0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0004 begin');
       let found: boolean = false;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
           const a: Array<bundleManager.AbilityInfo> = info.hapModulesInfo[i].abilitiesInfo;
@@ -115,38 +115,38 @@ export default function flipClockAppConfigTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(found));
           expect(found).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigAbility004 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0004 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigAppIcon005
+     * @tc.name   ohos.samples.flipclock_AppConfig_0005
      * @tc.number SUB_FLIP_CLOCK_CONFIG_005
      * @tc.desc   Verify application label and icon.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigAppIcon005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigAppIcon005 begin');
+    it('ohos.samples.flipclock_AppConfig_0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0005 begin');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.labelId > 0));
       expect(info.appInfo.labelId > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.appInfo.iconId > 0));
         expect(info.appInfo.iconId > 0).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(info.appInfo.name), String('ohos.samples.flipclock'));
         expect(info.appInfo.name).assertEqual('ohos.samples.flipclock');
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigAppIcon005 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0005 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigPermission006
+     * @tc.name   ohos.samples.flipclock_AppConfig_0006
      * @tc.number SUB_FLIP_CLOCK_CONFIG_006
      * @tc.desc   Verify permission PUBLISH_AGENT_REMINDER.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigPermission006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission006 begin');
+    it('ohos.samples.flipclock_AppConfig_0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0006 begin');
       const names: Set<string> = new Set<string>();
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
@@ -155,19 +155,19 @@ export default function flipClockAppConfigTest() {
           expect(names.has('ohos.permission.PUBLISH_AGENT_REMINDER')).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 3));
         expect(info.reqPermissionDetails.length >= 3).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission006 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0006 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigPermission007
+     * @tc.name   ohos.samples.flipclock_AppConfig_0007
      * @tc.number SUB_FLIP_CLOCK_CONFIG_007
      * @tc.desc   Verify permission READ_CALENDAR.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigPermission007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission007 begin');
+    it('ohos.samples.flipclock_AppConfig_0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0007 begin');
       const names: Set<string> = new Set<string>();
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
@@ -176,19 +176,19 @@ export default function flipClockAppConfigTest() {
           expect(names.has('ohos.permission.READ_CALENDAR')).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 3));
         expect(info.reqPermissionDetails.length >= 3).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission007 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0007 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigPermission008
+     * @tc.name   ohos.samples.flipclock_AppConfig_0008
      * @tc.number SUB_FLIP_CLOCK_CONFIG_008
      * @tc.desc   Verify permission WRITE_CALENDAR.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigPermission008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission008 begin');
+    it('ohos.samples.flipclock_AppConfig_0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0008 begin');
       const names: Set<string> = new Set<string>();
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
           names.add(info.reqPermissionDetails[index].name);
@@ -197,19 +197,19 @@ export default function flipClockAppConfigTest() {
           expect(names.has('ohos.permission.WRITE_CALENDAR')).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 3));
         expect(info.reqPermissionDetails.length >= 3).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermission008 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0008 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigPermissionScene009
+     * @tc.name   ohos.samples.flipclock_AppConfig_0009
      * @tc.number SUB_FLIP_CLOCK_CONFIG_009
      * @tc.desc   Verify calendar permissions have scenes.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigPermissionScene009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermissionScene009 begin');
+    it('ohos.samples.flipclock_AppConfig_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0009 begin');
       for (let i: number = 0; i < info.reqPermissionDetails.length; i++) {
         const item: bundleManager.PermissionDef = info.reqPermissionDetails[i];
         if (item.name.includes('CALENDAR')) {
@@ -221,19 +221,19 @@ export default function flipClockAppConfigTest() {
           }
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(info.reqPermissionDetails.length >= 3));
           expect(info.reqPermissionDetails.length >= 3).assertTrue();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigPermissionScene009 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0009 end');
     })
 
     /**
-     * @tc.name   testFlipClockConfigModuleFlags010
+     * @tc.name   ohos.samples.flipclock_AppConfig_0010
      * @tc.number SUB_FLIP_CLOCK_CONFIG_010
      * @tc.desc   Verify entry module packaging flags.
      * @tc.type   FUNCTION
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('testFlipClockConfigModuleFlags010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigModuleFlags010 begin');
+    it('ohos.samples.flipclock_AppConfig_0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0010 begin');
       let module: bundleManager.HapModuleInfo | undefined = undefined;
         for (let i: number = 0; i < info.hapModulesInfo.length; i++) {
           if (info.hapModulesInfo[i].name === 'entry') {
@@ -247,7 +247,7 @@ export default function flipClockAppConfigTest() {
         expect(mod.name).assertEqual('entry');
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(mod.installationFree));
         expect(mod.installationFree).assertFalse();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockConfigModuleFlags010 end');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0010 end');
     })
   })
 }
