@@ -998,3 +998,1034 @@ export default function BuildUrlMatrixTest(): void {
     it('testBuildUrlMatrix0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0049 begin');
       const base: string = "api";
+      const path: string = "中";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0049 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0050
+     * @tc.name      testBuildUrlMatrix0050
+     * @tc.desc      buildUrl concatenates base/path pair #50 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0050 begin');
+      const base: string = "api";
+      const path: string = "/p q";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0050 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0051
+     * @tc.name      testBuildUrlMatrix0051
+     * @tc.desc      buildUrl concatenates base/path pair #51 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0051 begin');
+      const base: string = "localhost:8080";
+      const path: string = "";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0051 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0052
+     * @tc.name      testBuildUrlMatrix0052
+     * @tc.desc      buildUrl concatenates base/path pair #52 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0052 begin');
+      const base: string = "localhost:8080";
+      const path: string = "/p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0052 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0053
+     * @tc.name      testBuildUrlMatrix0053
+     * @tc.desc      buildUrl concatenates base/path pair #53 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0053 begin');
+      const base: string = "localhost:8080";
+      const path: string = "p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0053 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0054
+     * @tc.name      testBuildUrlMatrix0054
+     * @tc.desc      buildUrl concatenates base/path pair #54 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0054 begin');
+      const base: string = "localhost:8080";
+      const path: string = "/api/v1/users";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0054 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0055
+     * @tc.name      testBuildUrlMatrix0055
+     * @tc.desc      buildUrl concatenates base/path pair #55 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0055 begin');
+      const base: string = "localhost:8080";
+      const path: string = "?q=1";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0055 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0056
+     * @tc.name      testBuildUrlMatrix0056
+     * @tc.desc      buildUrl concatenates base/path pair #56 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0056 begin');
+      const base: string = "localhost:8080";
+      const path: string = "#frag";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0056 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0057
+     * @tc.name      testBuildUrlMatrix0057
+     * @tc.desc      buildUrl concatenates base/path pair #57 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0057 begin');
+      const base: string = "localhost:8080";
+      const path: string = "/";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0057 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0058
+     * @tc.name      testBuildUrlMatrix0058
+     * @tc.desc      buildUrl concatenates base/path pair #58 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0058 begin');
+      const base: string = "localhost:8080";
+      const path: string = "//d";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0058 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0059
+     * @tc.name      testBuildUrlMatrix0059
+     * @tc.desc      buildUrl concatenates base/path pair #59 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0059 begin');
+      const base: string = "localhost:8080";
+      const path: string = "中";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0059 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0060
+     * @tc.name      testBuildUrlMatrix0060
+     * @tc.desc      buildUrl concatenates base/path pair #60 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0060 begin');
+      const base: string = "localhost:8080";
+      const path: string = "/p q";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0060 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0061
+     * @tc.name      testBuildUrlMatrix0061
+     * @tc.desc      buildUrl concatenates base/path pair #61 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0061 begin');
+      const base: string = "/root";
+      const path: string = "";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0061 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0062
+     * @tc.name      testBuildUrlMatrix0062
+     * @tc.desc      buildUrl concatenates base/path pair #62 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0062 begin');
+      const base: string = "/root";
+      const path: string = "/p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0062 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0063
+     * @tc.name      testBuildUrlMatrix0063
+     * @tc.desc      buildUrl concatenates base/path pair #63 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0063 begin');
+      const base: string = "/root";
+      const path: string = "p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0063 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0064
+     * @tc.name      testBuildUrlMatrix0064
+     * @tc.desc      buildUrl concatenates base/path pair #64 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0064 begin');
+      const base: string = "/root";
+      const path: string = "/api/v1/users";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0064 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0065
+     * @tc.name      testBuildUrlMatrix0065
+     * @tc.desc      buildUrl concatenates base/path pair #65 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0065 begin');
+      const base: string = "/root";
+      const path: string = "?q=1";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0065 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0066
+     * @tc.name      testBuildUrlMatrix0066
+     * @tc.desc      buildUrl concatenates base/path pair #66 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0066 begin');
+      const base: string = "/root";
+      const path: string = "#frag";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0066 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0067
+     * @tc.name      testBuildUrlMatrix0067
+     * @tc.desc      buildUrl concatenates base/path pair #67 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0067 begin');
+      const base: string = "/root";
+      const path: string = "/";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0067 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0068
+     * @tc.name      testBuildUrlMatrix0068
+     * @tc.desc      buildUrl concatenates base/path pair #68 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0068 begin');
+      const base: string = "/root";
+      const path: string = "//d";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0068 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0069
+     * @tc.name      testBuildUrlMatrix0069
+     * @tc.desc      buildUrl concatenates base/path pair #69 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0069 begin');
+      const base: string = "/root";
+      const path: string = "中";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0069 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0070
+     * @tc.name      testBuildUrlMatrix0070
+     * @tc.desc      buildUrl concatenates base/path pair #70 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0070 begin');
+      const base: string = "/root";
+      const path: string = "/p q";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0070 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0071
+     * @tc.name      testBuildUrlMatrix0071
+     * @tc.desc      buildUrl concatenates base/path pair #71 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0071 begin');
+      const base: string = "a b";
+      const path: string = "";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0071 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0072
+     * @tc.name      testBuildUrlMatrix0072
+     * @tc.desc      buildUrl concatenates base/path pair #72 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0072 begin');
+      const base: string = "a b";
+      const path: string = "/p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0072 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0073
+     * @tc.name      testBuildUrlMatrix0073
+     * @tc.desc      buildUrl concatenates base/path pair #73 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0073 begin');
+      const base: string = "a b";
+      const path: string = "p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0073 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0074
+     * @tc.name      testBuildUrlMatrix0074
+     * @tc.desc      buildUrl concatenates base/path pair #74 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0074 begin');
+      const base: string = "a b";
+      const path: string = "/api/v1/users";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0074 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0075
+     * @tc.name      testBuildUrlMatrix0075
+     * @tc.desc      buildUrl concatenates base/path pair #75 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0075 begin');
+      const base: string = "a b";
+      const path: string = "?q=1";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0075 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0076
+     * @tc.name      testBuildUrlMatrix0076
+     * @tc.desc      buildUrl concatenates base/path pair #76 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0076 begin');
+      const base: string = "a b";
+      const path: string = "#frag";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0076 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0077
+     * @tc.name      testBuildUrlMatrix0077
+     * @tc.desc      buildUrl concatenates base/path pair #77 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0077 begin');
+      const base: string = "a b";
+      const path: string = "/";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0077 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0078
+     * @tc.name      testBuildUrlMatrix0078
+     * @tc.desc      buildUrl concatenates base/path pair #78 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0078 begin');
+      const base: string = "a b";
+      const path: string = "//d";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0078 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0079
+     * @tc.name      testBuildUrlMatrix0079
+     * @tc.desc      buildUrl concatenates base/path pair #79 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0079 begin');
+      const base: string = "a b";
+      const path: string = "中";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0079 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0080
+     * @tc.name      testBuildUrlMatrix0080
+     * @tc.desc      buildUrl concatenates base/path pair #80 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0080 begin');
+      const base: string = "a b";
+      const path: string = "/p q";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0080 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0081
+     * @tc.name      testBuildUrlMatrix0081
+     * @tc.desc      buildUrl concatenates base/path pair #81 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0081 begin');
+      const base: string = "中文";
+      const path: string = "";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0081 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0082
+     * @tc.name      testBuildUrlMatrix0082
+     * @tc.desc      buildUrl concatenates base/path pair #82 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0082 begin');
+      const base: string = "中文";
+      const path: string = "/p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0082 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0083
+     * @tc.name      testBuildUrlMatrix0083
+     * @tc.desc      buildUrl concatenates base/path pair #83 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0083 begin');
+      const base: string = "中文";
+      const path: string = "p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0083 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0084
+     * @tc.name      testBuildUrlMatrix0084
+     * @tc.desc      buildUrl concatenates base/path pair #84 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0084 begin');
+      const base: string = "中文";
+      const path: string = "/api/v1/users";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0084 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0085
+     * @tc.name      testBuildUrlMatrix0085
+     * @tc.desc      buildUrl concatenates base/path pair #85 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0085 begin');
+      const base: string = "中文";
+      const path: string = "?q=1";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0085 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0086
+     * @tc.name      testBuildUrlMatrix0086
+     * @tc.desc      buildUrl concatenates base/path pair #86 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0086 begin');
+      const base: string = "中文";
+      const path: string = "#frag";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0086 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0087
+     * @tc.name      testBuildUrlMatrix0087
+     * @tc.desc      buildUrl concatenates base/path pair #87 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0087 begin');
+      const base: string = "中文";
+      const path: string = "/";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0087 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0088
+     * @tc.name      testBuildUrlMatrix0088
+     * @tc.desc      buildUrl concatenates base/path pair #88 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0088 begin');
+      const base: string = "中文";
+      const path: string = "//d";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0088 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0089
+     * @tc.name      testBuildUrlMatrix0089
+     * @tc.desc      buildUrl concatenates base/path pair #89 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0089 begin');
+      const base: string = "中文";
+      const path: string = "中";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0089 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0090
+     * @tc.name      testBuildUrlMatrix0090
+     * @tc.desc      buildUrl concatenates base/path pair #90 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0090 begin');
+      const base: string = "中文";
+      const path: string = "/p q";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0090 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0091
+     * @tc.name      testBuildUrlMatrix0091
+     * @tc.desc      buildUrl concatenates base/path pair #91 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0091 begin');
+      const base: string = "http://a//";
+      const path: string = "";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0091 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0092
+     * @tc.name      testBuildUrlMatrix0092
+     * @tc.desc      buildUrl concatenates base/path pair #92 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0092 begin');
+      const base: string = "http://a//";
+      const path: string = "/p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0092 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0093
+     * @tc.name      testBuildUrlMatrix0093
+     * @tc.desc      buildUrl concatenates base/path pair #93 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0093 begin');
+      const base: string = "http://a//";
+      const path: string = "p";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0093 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0094
+     * @tc.name      testBuildUrlMatrix0094
+     * @tc.desc      buildUrl concatenates base/path pair #94 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0094 begin');
+      const base: string = "http://a//";
+      const path: string = "/api/v1/users";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0094 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0095
+     * @tc.name      testBuildUrlMatrix0095
+     * @tc.desc      buildUrl concatenates base/path pair #95 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0095 begin');
+      const base: string = "http://a//";
+      const path: string = "?q=1";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0095 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0096
+     * @tc.name      testBuildUrlMatrix0096
+     * @tc.desc      buildUrl concatenates base/path pair #96 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0096 begin');
+      const base: string = "http://a//";
+      const path: string = "#frag";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0096 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0097
+     * @tc.name      testBuildUrlMatrix0097
+     * @tc.desc      buildUrl concatenates base/path pair #97 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0097 begin');
+      const base: string = "http://a//";
+      const path: string = "/";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0097 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0098
+     * @tc.name      testBuildUrlMatrix0098
+     * @tc.desc      buildUrl concatenates base/path pair #98 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0098 begin');
+      const base: string = "http://a//";
+      const path: string = "//d";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0098 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0099
+     * @tc.name      testBuildUrlMatrix0099
+     * @tc.desc      buildUrl concatenates base/path pair #99 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0099 begin');
+      const base: string = "http://a//";
+      const path: string = "中";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0099 end');
+    })
+
+    /**
+     * @tc.number    SUB_ARKTS_GUIDE_BUILDURL_testBuildUrlMatrix0100
+     * @tc.name      testBuildUrlMatrix0100
+     * @tc.desc      buildUrl concatenates base/path pair #100 (base empty: False).
+     * @tc.type      FUNCTION
+     * @tc.size      SMALLTEST
+     * @tc.level     LEVEL0
+     */
+    it('testBuildUrlMatrix0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, () => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0100 begin');
+      const base: string = "http://a//";
+      const path: string = "/p q";
+      const expected: string = base + path;
+      const actual: string = buildUrl(base, path);
+      expect(actual).assertEqual(expected);
+      expect(actual.length).assertEqual(base.length + path.length);
+      expect(typeof actual).assertEqual('string');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'testBuildUrlMatrix0100 end');
+    })
+
+  });
+}
