@@ -29,7 +29,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue(); expect(1 > 0).assertTrue(); expect('1'.length > 0).assertTrue();
+      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
     })
 
     /**
@@ -41,7 +41,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue(); expect(2 > 0).assertTrue(); expect('2'.length > 0).assertTrue();
+      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
     })
 
     /**
@@ -53,7 +53,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue(); expect(3 > 0).assertTrue(); expect('3'.length > 0).assertTrue();
+      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
     })
 
     /**
@@ -65,7 +65,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue(); expect(4 > 0).assertTrue(); expect('4'.length > 0).assertTrue();
+      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
     })
 
     /**
@@ -77,7 +77,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue(); expect(5 > 0).assertTrue(); expect('5'.length > 0).assertTrue();
+      expect(typeof Constants.OVERFLOW_LEFT_RATIO === 'number').assertTrue();
     })
 
     /**
@@ -89,7 +89,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue(); expect(true).assertTrue(); expect(6 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
     })
 
     /**
@@ -101,7 +101,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue(); expect(true).assertTrue(); expect(7 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
     })
 
     /**
@@ -113,7 +113,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue(); expect(true).assertTrue(); expect(8 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
     })
 
     /**
@@ -125,7 +125,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue(); expect(true).assertTrue(); expect(9 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
     })
 
     /**
@@ -137,7 +137,7 @@ export default function shakeLiveFormBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBasic0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue(); expect(true).assertTrue(); expect(10 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onAddForm({}) !== undefined).assertTrue();
     })
   })
 }

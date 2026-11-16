@@ -28,7 +28,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(113 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -40,7 +40,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(114 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -52,7 +52,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(115 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -64,7 +64,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(116 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -76,7 +76,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(117 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -88,7 +88,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(118 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -100,7 +100,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(119 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -112,7 +112,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(120 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -124,7 +124,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(121 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -136,7 +136,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(122 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -148,7 +148,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(123 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -160,7 +160,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(124 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -172,7 +172,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(125 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -184,7 +184,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(126 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -196,7 +196,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(127 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
 
     /**
@@ -208,7 +208,7 @@ export default function shakeLiveFormMaxSeg08Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMaxSeg080016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue(); expect(128 > 0).assertTrue();
+      const a: SegmentationUtil = SegmentationUtil.getInstance(); const b: SegmentationUtil = SegmentationUtil.getInstance(); expect(a === b).assertTrue(); expect(typeof a.SegmentationImage === 'function').assertTrue(); expect(typeof a.loadImage === 'function').assertTrue();
     })
   })
 }

@@ -117,7 +117,7 @@ export default function shakeLiveFormBoundaryTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue(); expect(8 > 0).assertTrue();
+      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
     })
 
     /**
@@ -129,7 +129,7 @@ export default function shakeLiveFormBoundaryTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue(); expect(9 > 0).assertTrue();
+      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
     })
 
     /**
@@ -141,7 +141,7 @@ export default function shakeLiveFormBoundaryTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeBoundary0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue(); expect(10 > 0).assertTrue();
+      expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(Constants.OVERFLOW_DURATION > 0).assertTrue();
     })
   })
 }

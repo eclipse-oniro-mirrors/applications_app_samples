@@ -28,7 +28,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1620).assertEqual(243.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1620).assertEqual(2106.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(81 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1620).assertEqual(243.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1620).assertEqual(2106.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -40,7 +40,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1640).assertEqual(246.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1640).assertEqual(2132.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(82 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1640).assertEqual(246.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1640).assertEqual(2132.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -52,7 +52,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1660).assertEqual(249.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1660).assertEqual(2158.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(83 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1660).assertEqual(249.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1660).assertEqual(2158.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -64,7 +64,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1680).assertEqual(252.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1680).assertEqual(2184.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(84 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1680).assertEqual(252.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1680).assertEqual(2184.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -76,7 +76,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1700).assertEqual(255.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1700).assertEqual(2210.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(85 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1700).assertEqual(255.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1700).assertEqual(2210.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -88,7 +88,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1720).assertEqual(258.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1720).assertEqual(2236.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(86 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1720).assertEqual(258.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1720).assertEqual(2236.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -100,7 +100,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1740).assertEqual(261.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1740).assertEqual(2262.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(87 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1740).assertEqual(261.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1740).assertEqual(2262.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -112,7 +112,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1760).assertEqual(264.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1760).assertEqual(2288.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(88 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1760).assertEqual(264.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1760).assertEqual(2288.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -124,7 +124,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1780).assertEqual(267.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1780).assertEqual(2314.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(89 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1780).assertEqual(267.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1780).assertEqual(2314.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -136,7 +136,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1800).assertEqual(270.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1800).assertEqual(2340.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(90 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1800).assertEqual(270.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1800).assertEqual(2340.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -148,7 +148,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1820).assertEqual(273.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1820).assertEqual(2366.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(91 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1820).assertEqual(273.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1820).assertEqual(2366.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -160,7 +160,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1840).assertEqual(276.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1840).assertEqual(2392.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(92 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1840).assertEqual(276.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1840).assertEqual(2392.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -172,7 +172,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1860).assertEqual(279.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1860).assertEqual(2418.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(93 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1860).assertEqual(279.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1860).assertEqual(2418.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -184,7 +184,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1880).assertEqual(282.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1880).assertEqual(2444.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(94 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1880).assertEqual(282.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1880).assertEqual(2444.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -196,7 +196,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1900).assertEqual(285.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1900).assertEqual(2470.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(95 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1900).assertEqual(285.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1900).assertEqual(2470.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
 
     /**
@@ -208,7 +208,7 @@ export default function shakeLiveFormMoreConst06Test() {
      * @tc.level  LEVEL2
      */
     it('testShakeMoreConst060016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(Constants.OVERFLOW_TOP_RATIO * 1920).assertEqual(288.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1920).assertEqual(2496.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500); expect(96 > 0).assertTrue();
+      expect(Constants.OVERFLOW_TOP_RATIO * 1920).assertEqual(288.0); expect(Constants.OVERFLOW_HEIGHT_RATIO * 1920).assertEqual(2496.0); expect(Constants.OVERFLOW_DURATION).assertEqual(3500);
     })
   })
 }

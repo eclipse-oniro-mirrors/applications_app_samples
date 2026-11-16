@@ -100,7 +100,7 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 1; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 1; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); }
     })
 
     /**
@@ -112,7 +112,7 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 2; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 2; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); }
     })
 
     /**
@@ -124,7 +124,7 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 3; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 3; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); }
     })
 
     /**
@@ -136,7 +136,7 @@ export default function canvasGameFormBoundaryTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormBoundary010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 4; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 4; n++) { expect(a.onChangeFormVisibility(n % 2 === 0) === undefined).assertTrue(); }
     })
   })
 }

@@ -40,7 +40,7 @@ export default function canvasGameVolumeForm05Test() {
      * @tc.level  LEVEL2
      */
     it('testCanvasVolForm050002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 2; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 2; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); }
     })
 
     /**
@@ -76,7 +76,7 @@ export default function canvasGameVolumeForm05Test() {
      * @tc.level  LEVEL2
      */
     it('testCanvasVolForm050005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 5; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 5; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); }
     })
 
     /**
@@ -112,7 +112,7 @@ export default function canvasGameVolumeForm05Test() {
      * @tc.level  LEVEL2
      */
     it('testCanvasVolForm050008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 3; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 3; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); }
     })
 
     /**
@@ -148,7 +148,7 @@ export default function canvasGameVolumeForm05Test() {
      * @tc.level  LEVEL2
      */
     it('testCanvasVolForm050011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 1; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 1; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); }
     })
 
     /**
@@ -184,7 +184,7 @@ export default function canvasGameVolumeForm05Test() {
      * @tc.level  LEVEL2
      */
     it('testCanvasVolForm050014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 4; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let i: number = 0; i < 4; i++) { expect(a.onChangeFormVisibility(i % 2 === 0) === undefined).assertTrue(); }
     })
 
     /**

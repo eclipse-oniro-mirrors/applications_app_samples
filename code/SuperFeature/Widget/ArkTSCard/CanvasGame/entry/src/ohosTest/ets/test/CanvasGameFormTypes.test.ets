@@ -76,7 +76,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormUpdateEmpty005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onUpdateForm('') === undefined).assertTrue(); expect(true).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onUpdateForm('') === undefined).assertTrue();
     })
 
     /**
@@ -88,7 +88,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormUpdateId006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onUpdateForm('form-001') === undefined).assertTrue(); expect('form-001'.length > 0).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onUpdateForm('form-001') === undefined).assertTrue();
     })
 
     /**
@@ -112,7 +112,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormCast008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onCastToNormalForm('') === undefined).assertTrue(); expect(true).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onCastToNormalForm('') === undefined).assertTrue();
     })
 
     /**
@@ -136,7 +136,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue(); expect(true).assertEqual(true);
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
     })
 
     /**
@@ -160,7 +160,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue(); expect(true).assertEqual(true);
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
     })
 
     /**
@@ -184,7 +184,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormVisibility014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue(); expect(true).assertEqual(true);
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onChangeFormVisibility(true) === undefined).assertTrue();
     })
 
     /**
@@ -208,7 +208,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-16', '') === undefined).assertTrue(); expect(''.length >= 0).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-16', '') === undefined).assertTrue();
     })
 
     /**
@@ -220,7 +220,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent017', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-17', 'event-1717') === undefined).assertTrue(); expect('event-1717'.length >= 0).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-17', 'event-1717') === undefined).assertTrue();
     })
 
     /**
@@ -232,7 +232,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent018', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-18', 'event-181818') === undefined).assertTrue(); expect('event-181818'.length >= 0).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-18', 'event-181818') === undefined).assertTrue();
     })
 
     /**
@@ -244,7 +244,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent019', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-19', 'event-19191919') === undefined).assertTrue(); expect('event-19191919'.length >= 0).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-19', 'event-19191919') === undefined).assertTrue();
     })
 
     /**
@@ -256,7 +256,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormEvent020', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-20', 'event-2020202020') === undefined).assertTrue(); expect('event-2020202020'.length >= 0).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onFormEvent('form-20', 'event-2020202020') === undefined).assertTrue();
     })
 
     /**
@@ -268,7 +268,7 @@ export default function canvasGameFormTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasFormRemove021', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onRemoveForm('') === undefined).assertTrue(); expect(true).assertTrue();
+      const ability: EntryFormAbility = new EntryFormAbility(); expect(ability.onRemoveForm('') === undefined).assertTrue();
     })
 
     /**

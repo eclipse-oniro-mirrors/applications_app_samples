@@ -28,7 +28,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(1 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -40,7 +40,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(2 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -52,7 +52,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(3 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -64,7 +64,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(4 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -76,7 +76,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(5 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -88,7 +88,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(6 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -100,7 +100,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(7 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -112,7 +112,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(8 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -124,7 +124,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(9 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -136,7 +136,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(10 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -148,7 +148,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(11 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -160,7 +160,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(12 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -172,7 +172,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(13 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -184,7 +184,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0014', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(14 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -196,7 +196,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(15 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
 
     /**
@@ -208,7 +208,7 @@ export default function canvasGameMoreLoggerTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasMoreLogger0016', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue(); expect(16 > 0).assertTrue();
+      expect(logger.info('a','b','c','d','e') === undefined).assertTrue(); expect(logger.warn('x','y','z') === undefined).assertTrue(); expect(logger.error('e') === undefined).assertTrue();
     })
   })
 }

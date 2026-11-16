@@ -34,7 +34,7 @@ export default function flipClockMyDataSourceReplaceTest() {
       for (let index: number = 0; index < 0; index++) { next.push(tabArray[index % tabArray.length]); }
       source.replaceData(next);
       expect(source.totalCount()).assertEqual(0);
-      if (0 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -52,7 +52,7 @@ export default function flipClockMyDataSourceReplaceTest() {
       for (let index: number = 0; index < 1; index++) { next.push(tabArray[index % tabArray.length]); }
       source.replaceData(next);
       expect(source.totalCount()).assertEqual(1);
-      if (1 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -70,7 +70,7 @@ export default function flipClockMyDataSourceReplaceTest() {
       for (let index: number = 0; index < 2; index++) { next.push(tabArray[index % tabArray.length]); }
       source.replaceData(next);
       expect(source.totalCount()).assertEqual(2);
-      if (2 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -88,7 +88,7 @@ export default function flipClockMyDataSourceReplaceTest() {
       for (let index: number = 0; index < 3; index++) { next.push(tabArray[index % tabArray.length]); }
       source.replaceData(next);
       expect(source.totalCount()).assertEqual(3);
-      if (3 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -106,7 +106,7 @@ export default function flipClockMyDataSourceReplaceTest() {
       for (let index: number = 0; index < 4; index++) { next.push(tabArray[index % tabArray.length]); }
       source.replaceData(next);
       expect(source.totalCount()).assertEqual(4);
-      if (4 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -124,7 +124,7 @@ export default function flipClockMyDataSourceReplaceTest() {
       for (let index: number = 0; index < 5; index++) { next.push(tabArray[index % tabArray.length]); }
       source.replaceData(next);
       expect(source.totalCount()).assertEqual(5);
-      if (5 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -142,7 +142,7 @@ export default function flipClockMyDataSourceReplaceTest() {
       for (let index: number = 0; index < 6; index++) { next.push(tabArray[index % tabArray.length]); }
       source.replaceData(next);
       expect(source.totalCount()).assertEqual(6);
-      if (6 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -160,7 +160,7 @@ export default function flipClockMyDataSourceReplaceTest() {
       for (let index: number = 0; index < 7; index++) { next.push(tabArray[index % tabArray.length]); }
       source.replaceData(next);
       expect(source.totalCount()).assertEqual(7);
-      if (7 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
   })

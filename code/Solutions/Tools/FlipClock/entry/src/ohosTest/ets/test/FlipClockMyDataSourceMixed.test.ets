@@ -32,7 +32,7 @@ export default function flipClockMyDataSourceMixedTest() {
       const source: MyDataSource = new MyDataSource([]);
       source.replaceData(tabArray.slice()); source.deleteData(0);
       expect(source.totalCount()).assertEqual(3);
-      if (3 > 0) { expect(source.getData(0).num).assertEqual(1); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(1); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -48,7 +48,7 @@ export default function flipClockMyDataSourceMixedTest() {
       const source: MyDataSource = new MyDataSource([]);
       source.pushData(tabArray[0]); source.replaceData([]);
       expect(source.totalCount()).assertEqual(0);
-      if (0 > 0) { expect(source.getData(0).num).assertEqual(-1); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(-1); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -64,7 +64,7 @@ export default function flipClockMyDataSourceMixedTest() {
       const source: MyDataSource = new MyDataSource([]);
       source.pushData(tabArray[0]); source.deleteData(0); source.pushData(tabArray[2]);
       expect(source.totalCount()).assertEqual(1);
-      if (1 > 0) { expect(source.getData(0).num).assertEqual(2); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(2); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -80,7 +80,7 @@ export default function flipClockMyDataSourceMixedTest() {
       const source: MyDataSource = new MyDataSource([]);
       source.replaceData([tabArray[1]]); source.pushData(tabArray[2]);
       expect(source.totalCount()).assertEqual(2);
-      if (2 > 0) { expect(source.getData(0).num).assertEqual(1); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(1); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -96,7 +96,7 @@ export default function flipClockMyDataSourceMixedTest() {
       const source: MyDataSource = new MyDataSource([]);
       source.pushData(tabArray[0]); source.pushData(tabArray[1]); source.deleteData(1);
       expect(source.totalCount()).assertEqual(1);
-      if (1 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -112,7 +112,7 @@ export default function flipClockMyDataSourceMixedTest() {
       const source: MyDataSource = new MyDataSource([]);
       source.replaceData(tabArray.slice()); source.deleteData(3);
       expect(source.totalCount()).assertEqual(3);
-      if (3 > 0) { expect(source.getData(0).num).assertEqual(0); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(0); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -128,7 +128,7 @@ export default function flipClockMyDataSourceMixedTest() {
       const source: MyDataSource = new MyDataSource([]);
       source.pushData(tabArray[0]); source.replaceData([tabArray[3]]);
       expect(source.totalCount()).assertEqual(1);
-      if (1 > 0) { expect(source.getData(0).num).assertEqual(3); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(3); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -144,7 +144,7 @@ export default function flipClockMyDataSourceMixedTest() {
       const source: MyDataSource = new MyDataSource([]);
       source.replaceData(tabArray.slice()); source.deleteData(0); source.pushData(tabArray[0]);
       expect(source.totalCount()).assertEqual(4);
-      if (4 > 0) { expect(source.getData(0).num).assertEqual(1); }
+      if (source.totalCount() > 0) { expect(source.getData(0).num).assertEqual(1); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
   })

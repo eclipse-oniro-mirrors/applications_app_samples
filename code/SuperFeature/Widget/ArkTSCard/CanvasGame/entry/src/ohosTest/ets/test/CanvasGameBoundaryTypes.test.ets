@@ -125,7 +125,7 @@ export default function canvasGameBoundaryTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasBoundary0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 10; n++) { expect(a.onAcquireFormState({}) >= 0).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 10; n++) { expect(a.onAcquireFormState({}) >= 0).assertTrue(); }
     })
 
     /**
@@ -137,7 +137,7 @@ export default function canvasGameBoundaryTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasBoundary0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 10; n++) { expect(a.onAcquireFormState({}) >= 0).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 10; n++) { expect(a.onAcquireFormState({}) >= 0).assertTrue(); }
     })
 
     /**
@@ -149,7 +149,7 @@ export default function canvasGameBoundaryTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasBoundary0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 10; n++) { expect(a.onAcquireFormState({}) >= 0).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 10; n++) { expect(a.onAcquireFormState({}) >= 0).assertTrue(); }
     })
 
     /**
@@ -161,7 +161,7 @@ export default function canvasGameBoundaryTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasBoundary0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 10; n++) { expect(a.onAcquireFormState({}) >= 0).assertTrue(); } expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); for (let n: number = 0; n < 10; n++) { expect(a.onAcquireFormState({}) >= 0).assertTrue(); }
     })
   })
 }

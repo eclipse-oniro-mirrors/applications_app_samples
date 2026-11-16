@@ -32,7 +32,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 57; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(56);
-      if (56 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -49,7 +49,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 58; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(57);
-      if (57 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -66,7 +66,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 59; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(58);
-      if (58 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -83,7 +83,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 60; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(59);
-      if (59 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -100,7 +100,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 61; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(60);
-      if (60 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -117,7 +117,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 62; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(61);
-      if (61 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -134,7 +134,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 63; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(62);
-      if (62 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -151,7 +151,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 64; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(63);
-      if (63 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -168,7 +168,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 65; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(64);
-      if (64 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -185,7 +185,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 66; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(65);
-      if (65 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -202,7 +202,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 67; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(66);
-      if (66 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -219,7 +219,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 68; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(67);
-      if (67 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -236,7 +236,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 69; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(68);
-      if (68 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
 
@@ -253,7 +253,7 @@ export default function flipClockContactAux05Test() {
       for (let index: number = 0; index < 70; index++) { source.pushData(new Contact('k' + index, 'v' + index, index)); }
       source.deleteData(0);
       expect(source.totalCount()).assertEqual(69);
-      if (69 > 0) { expect(source.getData(0).key).assertEqual('k1'); }
+      if (source.totalCount() > 0) { expect(source.getData(0).key).assertEqual('k1'); }
       expect(source.getData(source.totalCount()) === undefined).assertTrue();
     })
   })

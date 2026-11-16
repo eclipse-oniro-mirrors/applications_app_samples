@@ -35,7 +35,7 @@ export default function canvasGameUiContractTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasUiStart001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const restart: string = ctx.resourceManager.getStringByNameSync('res_restart'); await driver.assertComponentExist(ON.text(restart)); expect(restart.length > 0).assertTrue(); expect(true).assertTrue();
+      const restart: string = ctx.resourceManager.getStringByNameSync('res_restart'); await driver.assertComponentExist(ON.text(restart)); expect(restart.length > 0).assertTrue();
       await Promise.resolve();
     })
 
@@ -61,7 +61,7 @@ export default function canvasGameUiContractTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasUiRestart003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const restart = await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))); await restart.click(); await wait(500); await driver.assertComponentExist(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))); expect(true).assertTrue();
+      const restart = await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_restart'))); await restart.click(); await wait(500); await driver.assertComponentExist(ON.text(ctx.resourceManager.getStringByNameSync('res_restart')));
       await Promise.resolve();
     })
 
@@ -74,7 +74,7 @@ export default function canvasGameUiContractTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasUiFallback004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
-      const fallback = await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))); await fallback.click(); await wait(500); await driver.assertComponentExist(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))); expect(true).assertTrue();
+      const fallback = await driver.findComponent(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback'))); await fallback.click(); await wait(500); await driver.assertComponentExist(ON.text(ctx.resourceManager.getStringByNameSync('res_fallback')));
       await Promise.resolve();
     })
 

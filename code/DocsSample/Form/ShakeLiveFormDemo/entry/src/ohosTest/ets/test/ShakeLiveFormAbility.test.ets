@@ -28,7 +28,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const d = a.onAddForm({}); expect(d !== undefined).assertTrue(); expect(typeof d === 'object').assertTrue(); expect(1 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); const d = a.onAddForm({}); expect(d !== undefined).assertTrue(); expect(typeof d === 'object').assertTrue();
     })
 
     /**
@@ -40,7 +40,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const d = a.onAddForm({}); expect(d !== undefined).assertTrue(); expect(typeof d === 'object').assertTrue(); expect(2 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); const d = a.onAddForm({}); expect(d !== undefined).assertTrue(); expect(typeof d === 'object').assertTrue();
     })
 
     /**
@@ -52,7 +52,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); const d = a.onAddForm({}); expect(d !== undefined).assertTrue(); expect(typeof d === 'object').assertTrue(); expect(3 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); const d = a.onAddForm({}); expect(d !== undefined).assertTrue(); expect(typeof d === 'object').assertTrue();
     })
 
     /**
@@ -64,7 +64,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onRemoveForm('form-4') === undefined).assertTrue(); expect('form-4'.length > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onRemoveForm('form-4') === undefined).assertTrue();
     })
 
     /**
@@ -76,7 +76,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onRemoveForm('form-5') === undefined).assertTrue(); expect('form-5'.length > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onRemoveForm('form-5') === undefined).assertTrue();
     })
 
     /**
@@ -88,7 +88,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onRemoveForm('form-6') === undefined).assertTrue(); expect('form-6'.length > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onRemoveForm('form-6') === undefined).assertTrue();
     })
 
     /**
@@ -136,7 +136,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('form-10', '{"message":"other"}') !== undefined).assertTrue(); expect(10 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('form-10', '{"message":"other"}') !== undefined).assertTrue();
     })
 
     /**
@@ -148,7 +148,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0011', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('form-11', '{"message":"other"}') !== undefined).assertTrue(); expect(11 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('form-11', '{"message":"other"}') !== undefined).assertTrue();
     })
 
     /**
@@ -160,7 +160,7 @@ export default function shakeLiveFormAbilityTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeFormAbility0012', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('form-12', '{"message":"other"}') !== undefined).assertTrue(); expect(12 > 0).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('form-12', '{"message":"other"}') !== undefined).assertTrue();
     })
   })
 }

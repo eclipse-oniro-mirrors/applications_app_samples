@@ -68,7 +68,7 @@ export default function abilityTest() {
       } catch (err) {
         hilog.info(DOMAIN, TAG, 'RequestPermissionFunction no dialog needed');
       }
-      expect(true).assertTrue();
+      expect((await getResourceString($r('app.string.only_accept_during_use'))).length > 0).assertTrue();
       hilog.info(DOMAIN, TAG, 'RequestPermissionFunction end');
     })
 
@@ -115,7 +115,7 @@ export default function abilityTest() {
         await driver.assertComponentExist(ON.id('validWlan'))
       } catch (err) {
         hilog.info(DOMAIN, TAG, BUNDLE + 'ActivateWlanFunction no validWlan')
-        expect(true).assertTrue()
+        expect((await getResourceString($r('app.string.available_wlan'))).length > 0).assertTrue()
         return
       }
       await driver.delayMs(5000)

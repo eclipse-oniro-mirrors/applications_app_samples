@@ -55,7 +55,7 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('f', '{"message":"other"}') !== undefined).assertTrue(); expect(true).assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onFormEvent('f', '{"message":"other"}') !== undefined).assertTrue();
     })
 
     /**
@@ -67,7 +67,7 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue(); expect(4 > 0).assertTrue();
+      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
     })
 
     /**
@@ -79,7 +79,7 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue(); expect(5 > 0).assertTrue();
+      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
     })
 
     /**
@@ -91,7 +91,7 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue(); expect(6 > 0).assertTrue();
+      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
     })
 
     /**
@@ -103,7 +103,7 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue(); expect(7 > 0).assertTrue();
+      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
     })
 
     /**
@@ -115,7 +115,7 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue(); expect(8 > 0).assertTrue();
+      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
     })
 
     /**
@@ -127,7 +127,7 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue(); expect(9 > 0).assertTrue();
+      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
     })
 
     /**
@@ -139,7 +139,7 @@ export default function shakeLiveFormSpecialTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testShakeSpecial010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue(); expect(10 > 0).assertTrue();
+      const s: SegmentationUtil = SegmentationUtil.getInstance(); expect(s !== undefined).assertTrue(); expect(typeof s.SegmentationImage === 'function').assertTrue();
     })
   })
 }

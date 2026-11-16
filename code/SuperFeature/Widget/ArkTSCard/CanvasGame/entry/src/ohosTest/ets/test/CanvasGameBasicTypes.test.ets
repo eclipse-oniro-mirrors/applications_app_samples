@@ -77,7 +77,7 @@ export default function canvasGameBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasBasic0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onChangeFormVisibility(false) === undefined).assertTrue(); expect(5 > 0).assertTrue(); expect(typeof 5 === 'number').assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onChangeFormVisibility(false) === undefined).assertTrue(); expect(typeof 5 === 'number').assertTrue();
     })
 
     /**
@@ -89,7 +89,7 @@ export default function canvasGameBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasBasic0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onChangeFormVisibility(true) === undefined).assertTrue(); expect(6 > 0).assertTrue(); expect(typeof 6 === 'number').assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onChangeFormVisibility(true) === undefined).assertTrue(); expect(typeof 6 === 'number').assertTrue();
     })
 
     /**
@@ -101,7 +101,7 @@ export default function canvasGameBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasBasic0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onChangeFormVisibility(false) === undefined).assertTrue(); expect(7 > 0).assertTrue(); expect(typeof 7 === 'number').assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onChangeFormVisibility(false) === undefined).assertTrue(); expect(typeof 7 === 'number').assertTrue();
     })
 
     /**
@@ -113,7 +113,7 @@ export default function canvasGameBasicTypesTest() {
      * @tc.level  LEVEL2
      */
     it('testCanvasBasic0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
-      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onChangeFormVisibility(true) === undefined).assertTrue(); expect(8 > 0).assertTrue(); expect(typeof 8 === 'number').assertTrue();
+      const a: EntryFormAbility = new EntryFormAbility(); expect(a.onChangeFormVisibility(true) === undefined).assertTrue(); expect(typeof 8 === 'number').assertTrue();
     })
 
     /**
