@@ -62,9 +62,9 @@ export default function flipClockListenerBoundaryTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary001 begin');
       const source: MyDataSource = new MyDataSource([]);
         source.notifyDataReload();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
         expect(source.totalCount()).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0) === undefined).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(source.getData(0) === undefined));
         expect(source.getData(0) === undefined).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary001 end');
     })
@@ -83,9 +83,9 @@ export default function flipClockListenerBoundaryTest() {
         const l: BoundaryListener = new BoundaryListener();
         source.registerDataChangeListener(l);
         source.notifyDataReload();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(1));
         expect(l.reload).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.add), String(0));
         expect(l.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary002 end');
     })
@@ -106,7 +106,7 @@ export default function flipClockListenerBoundaryTest() {
         source.registerDataChangeListener(l);
         source.registerDataChangeListener(l);
         source.notifyDataReload();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(1));
         expect(l.reload).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary003 end');
     })
@@ -125,7 +125,7 @@ export default function flipClockListenerBoundaryTest() {
         const l: BoundaryListener = new BoundaryListener();
         source.unregisterDataChangeListener(l);
         source.notifyDataReload();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(0));
         expect(l.reload).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary004 end');
     })
@@ -146,7 +146,7 @@ export default function flipClockListenerBoundaryTest() {
         source.unregisterDataChangeListener(l);
         source.unregisterDataChangeListener(l);
         source.notifyDataReload();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(0));
         expect(l.reload).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary005 end');
     })
@@ -167,7 +167,7 @@ export default function flipClockListenerBoundaryTest() {
         source.unregisterDataChangeListener(l);
         source.registerDataChangeListener(l);
         source.notifyDataReload();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.reload).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.reload), String(1));
         expect(l.reload).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary006 end');
     })
@@ -188,9 +188,9 @@ export default function flipClockListenerBoundaryTest() {
         source.registerDataChangeListener(a);
         source.registerDataChangeListener(b);
         source.notifyDataReload();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.reload).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(a.reload), String(1));
         expect(a.reload).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(b.reload).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(b.reload), String(1));
         expect(b.reload).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary007 end');
     })
@@ -212,9 +212,9 @@ export default function flipClockListenerBoundaryTest() {
         source.registerDataChangeListener(b);
         source.unregisterDataChangeListener(a);
         source.notifyDataReload();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.reload).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(a.reload), String(0));
         expect(a.reload).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(b.reload).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(b.reload), String(1));
         expect(b.reload).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockListenerBoundary008 end');
     })

@@ -73,11 +73,11 @@ export default function flipClockNotificationsTest() {
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
         source.notifyDataChange(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.change), String(1));
       expect(listener.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reload).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reload), String(0));
         expect(listener.reload).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.del).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(0));
         expect(listener.del).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyChange001 end');
     })
@@ -96,11 +96,11 @@ export default function flipClockNotificationsTest() {
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
         source.notifyDataDelete(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(1));
       expect(listener.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.change).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.change), String(0));
         expect(listener.change).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.add), String(0));
         expect(listener.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyDelete002 end');
     })
@@ -119,11 +119,11 @@ export default function flipClockNotificationsTest() {
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
         source.notifyDataMove(0, 3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.move).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.move), String(1));
       expect(listener.move).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.add), String(0));
         expect(listener.add).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.del).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(0));
         expect(listener.del).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyMove003 end');
     })
@@ -142,11 +142,11 @@ export default function flipClockNotificationsTest() {
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
         source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reload).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reload), String(1));
       expect(listener.reload).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.change).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.change), String(0));
         expect(listener.change).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.move), String(0));
         expect(listener.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyReload004 end');
     })
@@ -165,11 +165,11 @@ export default function flipClockNotificationsTest() {
         const listener: NotifyListener = new NotifyListener();
         source.registerDataChangeListener(listener);
         source.notifyDataAdd(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.add).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.add), String(1));
       expect(listener.add).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reload).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reload), String(0));
         expect(listener.reload).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.del).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(0));
         expect(listener.del).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyAdd005 end');
     })
@@ -190,11 +190,11 @@ export default function flipClockNotificationsTest() {
         source.registerDataChangeListener(a);
         source.registerDataChangeListener(b);
         source.notifyDataChange(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(a.change), String(1));
       expect(a.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(b.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(b.change), String(1));
         expect(b.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(a.add), String(0));
         expect(a.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyTwo006 end');
     })
@@ -214,9 +214,9 @@ export default function flipClockNotificationsTest() {
         source.registerDataChangeListener(listener);
         source.unregisterDataChangeListener(listener);
         source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reload).assertEqual(0);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reload), String(0));
       expect(listener.reload).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.add), String(0));
         expect(listener.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyUnregister007 end');
     })
@@ -236,11 +236,11 @@ export default function flipClockNotificationsTest() {
         source.registerDataChangeListener(listener);
         source.registerDataChangeListener(listener);
         source.notifyDataReload();
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.reload).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.reload), String(1));
       expect(listener.reload).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.add), String(0));
         expect(listener.add).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(listener.del).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(listener.del), String(0));
         expect(listener.del).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockNotifyDuplicate008 end');
     })

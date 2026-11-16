@@ -15,7 +15,7 @@
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 let ctx = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
@@ -34,11 +34,11 @@ export default function flipClockResourceMoreTest() {
     it('testFlipClockResourceMore0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0001 begin');
       const value: string = ctx.resourceManager.getStringByNameSync('tab1');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
         expect(value.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'tab1\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'tab1'));
         expect(value === 'tab1').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
         expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0001 end');
     })
@@ -54,11 +54,11 @@ export default function flipClockResourceMoreTest() {
     it('testFlipClockResourceMore0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0002 begin');
       const value: string = ctx.resourceManager.getStringByNameSync('tab2');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
         expect(value.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'tab2\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'tab2'));
         expect(value === 'tab2').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
         expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0002 end');
     })
@@ -74,11 +74,11 @@ export default function flipClockResourceMoreTest() {
     it('testFlipClockResourceMore0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0003 begin');
       const value: string = ctx.resourceManager.getStringByNameSync('tab3');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
         expect(value.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'tab3\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'tab3'));
         expect(value === 'tab3').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
         expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0003 end');
     })
@@ -94,11 +94,11 @@ export default function flipClockResourceMoreTest() {
     it('testFlipClockResourceMore0004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0004 begin');
       const value: string = ctx.resourceManager.getStringByNameSync('setting');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
         expect(value.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'setting\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'setting'));
         expect(value === 'setting').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
         expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0004 end');
     })
@@ -114,11 +114,11 @@ export default function flipClockResourceMoreTest() {
     it('testFlipClockResourceMore0005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0005 begin');
       const value: string = ctx.resourceManager.getStringByNameSync('screenLight');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
         expect(value.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'screenLight\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'screenLight'));
         expect(value === 'screenLight').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
         expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0005 end');
     })
@@ -134,11 +134,11 @@ export default function flipClockResourceMoreTest() {
     it('testFlipClockResourceMore0006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0006 begin');
       const value: string = ctx.resourceManager.getStringByNameSync('control_sleepLock');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
         expect(value.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'control_sleepLock\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'control_sleepLock'));
         expect(value === 'control_sleepLock').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
         expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0006 end');
     })
@@ -154,11 +154,11 @@ export default function flipClockResourceMoreTest() {
     it('testFlipClockResourceMore0007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0007 begin');
       const value: string = ctx.resourceManager.getStringByNameSync('sleepLockSwitch');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
         expect(value.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'sleepLockSwitch\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'sleepLockSwitch'));
         expect(value === 'sleepLockSwitch').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
         expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0007 end');
     })
@@ -174,11 +174,11 @@ export default function flipClockResourceMoreTest() {
     it('testFlipClockResourceMore0008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0008 begin');
       const value: string = ctx.resourceManager.getStringByNameSync('init_output');
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value.length > 0).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value.length > 0));
         expect(value.length > 0).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value === \'init_output\').assertFalse();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(value === 'init_output'));
         expect(value === 'init_output').assertFalse();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(value).assertEqual(value.trim());');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(value), String(value.trim()));
         expect(value).assertEqual(value.trim());
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockResourceMore0008 end');
     })

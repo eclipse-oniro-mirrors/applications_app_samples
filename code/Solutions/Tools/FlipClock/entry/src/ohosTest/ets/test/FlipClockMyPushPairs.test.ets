@@ -38,11 +38,11 @@ export default function flipClockMyPushPairsTest() {
         source.pushData(tabArray[index % 4]);
         source.pushData(tabArray[(index + 1) % 4]);
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(2);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(2));
       expect(source.totalCount()).assertEqual(2);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount() - 1).num).assertEqual(1 % 4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(1 % 4));
         expect(source.getData(source.totalCount() - 1).num).assertEqual(1 % 4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockPushPair0000 end');
     })
@@ -62,11 +62,11 @@ export default function flipClockMyPushPairsTest() {
         source.pushData(tabArray[index % 4]);
         source.pushData(tabArray[(index + 1) % 4]);
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(4));
       expect(source.totalCount()).assertEqual(4);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount() - 1).num).assertEqual(2 % 4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(2 % 4));
         expect(source.getData(source.totalCount() - 1).num).assertEqual(2 % 4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockPushPair0001 end');
     })
@@ -86,11 +86,11 @@ export default function flipClockMyPushPairsTest() {
         source.pushData(tabArray[index % 4]);
         source.pushData(tabArray[(index + 1) % 4]);
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(6);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(6));
       expect(source.totalCount()).assertEqual(6);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount() - 1).num).assertEqual(3 % 4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(3 % 4));
         expect(source.getData(source.totalCount() - 1).num).assertEqual(3 % 4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockPushPair0002 end');
     })
@@ -110,11 +110,11 @@ export default function flipClockMyPushPairsTest() {
         source.pushData(tabArray[index % 4]);
         source.pushData(tabArray[(index + 1) % 4]);
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(8);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(8));
       expect(source.totalCount()).assertEqual(8);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount() - 1).num).assertEqual(4 % 4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(4 % 4));
         expect(source.getData(source.totalCount() - 1).num).assertEqual(4 % 4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockPushPair0003 end');
     })
@@ -134,11 +134,11 @@ export default function flipClockMyPushPairsTest() {
         source.pushData(tabArray[index % 4]);
         source.pushData(tabArray[(index + 1) % 4]);
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(10);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(10));
       expect(source.totalCount()).assertEqual(10);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount() - 1).num).assertEqual(5 % 4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(5 % 4));
         expect(source.getData(source.totalCount() - 1).num).assertEqual(5 % 4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockPushPair0004 end');
     })
@@ -158,11 +158,11 @@ export default function flipClockMyPushPairsTest() {
         source.pushData(tabArray[index % 4]);
         source.pushData(tabArray[(index + 1) % 4]);
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(12);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(12));
       expect(source.totalCount()).assertEqual(12);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount() - 1).num).assertEqual(6 % 4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(6 % 4));
         expect(source.getData(source.totalCount() - 1).num).assertEqual(6 % 4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockPushPair0005 end');
     })
@@ -182,11 +182,11 @@ export default function flipClockMyPushPairsTest() {
         source.pushData(tabArray[index % 4]);
         source.pushData(tabArray[(index + 1) % 4]);
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(14);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(14));
       expect(source.totalCount()).assertEqual(14);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount() - 1).num).assertEqual(7 % 4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(7 % 4));
         expect(source.getData(source.totalCount() - 1).num).assertEqual(7 % 4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockPushPair0006 end');
     })
@@ -206,11 +206,11 @@ export default function flipClockMyPushPairsTest() {
         source.pushData(tabArray[index % 4]);
         source.pushData(tabArray[(index + 1) % 4]);
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(16);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(16));
       expect(source.totalCount()).assertEqual(16);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(0).num).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(0).num), String(0));
         expect(source.getData(0).num).assertEqual(0);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(source.totalCount() - 1).num).assertEqual(8 % 4);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(source.totalCount() - 1).num), String(8 % 4));
         expect(source.getData(source.totalCount() - 1).num).assertEqual(8 % 4);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockPushPair0007 end');
     })

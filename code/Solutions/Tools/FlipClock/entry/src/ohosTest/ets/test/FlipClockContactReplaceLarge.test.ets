@@ -38,9 +38,9 @@ export default function flipClockContactReplaceLargeTest() {
           next.push(new Contact('k' + index, 'v', index));
         }
       source.replaceData(next);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(17);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(17));
         expect(source.totalCount()).assertEqual(17);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(16).reminderId).assertEqual(16);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(16).reminderId), String(16));
         expect(source.getData(16).reminderId).assertEqual(16);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0000 end');
     })
@@ -61,9 +61,9 @@ export default function flipClockContactReplaceLargeTest() {
           next.push(new Contact('k' + index, 'v', index));
         }
       source.replaceData(next);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(18);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(18));
         expect(source.totalCount()).assertEqual(18);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(17).reminderId).assertEqual(17);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(17).reminderId), String(17));
         expect(source.getData(17).reminderId).assertEqual(17);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0001 end');
     })
@@ -84,9 +84,9 @@ export default function flipClockContactReplaceLargeTest() {
           next.push(new Contact('k' + index, 'v', index));
         }
       source.replaceData(next);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(19);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(19));
         expect(source.totalCount()).assertEqual(19);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(18).reminderId).assertEqual(18);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(18).reminderId), String(18));
         expect(source.getData(18).reminderId).assertEqual(18);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0002 end');
     })
@@ -107,9 +107,9 @@ export default function flipClockContactReplaceLargeTest() {
           next.push(new Contact('k' + index, 'v', index));
         }
       source.replaceData(next);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(20);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(20));
         expect(source.totalCount()).assertEqual(20);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(19).reminderId).assertEqual(19);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(19).reminderId), String(19));
         expect(source.getData(19).reminderId).assertEqual(19);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0003 end');
     })
@@ -130,9 +130,9 @@ export default function flipClockContactReplaceLargeTest() {
           next.push(new Contact('k' + index, 'v', index));
         }
       source.replaceData(next);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(21);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(21));
         expect(source.totalCount()).assertEqual(21);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(20).reminderId).assertEqual(20);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(20).reminderId), String(20));
         expect(source.getData(20).reminderId).assertEqual(20);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0004 end');
     })
@@ -153,9 +153,9 @@ export default function flipClockContactReplaceLargeTest() {
           next.push(new Contact('k' + index, 'v', index));
         }
       source.replaceData(next);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(22);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(22));
         expect(source.totalCount()).assertEqual(22);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(21).reminderId).assertEqual(21);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(21).reminderId), String(21));
         expect(source.getData(21).reminderId).assertEqual(21);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0005 end');
     })
@@ -176,9 +176,9 @@ export default function flipClockContactReplaceLargeTest() {
           next.push(new Contact('k' + index, 'v', index));
         }
       source.replaceData(next);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(23);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(23));
         expect(source.totalCount()).assertEqual(23);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(22).reminderId).assertEqual(22);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(22).reminderId), String(22));
         expect(source.getData(22).reminderId).assertEqual(22);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0006 end');
     })
@@ -199,9 +199,9 @@ export default function flipClockContactReplaceLargeTest() {
           next.push(new Contact('k' + index, 'v', index));
         }
       source.replaceData(next);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.totalCount()).assertEqual(24);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(24));
         expect(source.totalCount()).assertEqual(24);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(source.getData(23).reminderId).assertEqual(23);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(23).reminderId), String(23));
         expect(source.getData(23).reminderId).assertEqual(23);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockContactReplaceLarge0007 end');
     })

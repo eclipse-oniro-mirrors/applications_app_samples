@@ -75,11 +75,11 @@ export default function flipClockMultiDeleteTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataDelete(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.del), String(1));
       expect(one.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.del).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.del), String(1));
         expect(two.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.move), String(0));
         expect(one.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiDelete0000 end');
     })
@@ -100,11 +100,11 @@ export default function flipClockMultiDeleteTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataDelete(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.del), String(1));
       expect(one.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.del).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.del), String(1));
         expect(two.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.move), String(0));
         expect(one.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiDelete0001 end');
     })
@@ -125,11 +125,11 @@ export default function flipClockMultiDeleteTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataDelete(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.del), String(1));
       expect(one.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.del).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.del), String(1));
         expect(two.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.move), String(0));
         expect(one.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiDelete0002 end');
     })
@@ -150,11 +150,11 @@ export default function flipClockMultiDeleteTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataDelete(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.del), String(1));
       expect(one.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.del).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.del), String(1));
         expect(two.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.move), String(0));
         expect(one.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiDelete0003 end');
     })
@@ -175,11 +175,11 @@ export default function flipClockMultiDeleteTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataDelete(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.del), String(1));
       expect(one.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.del).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.del), String(1));
         expect(two.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.move), String(0));
         expect(one.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiDelete0004 end');
     })
@@ -200,11 +200,11 @@ export default function flipClockMultiDeleteTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataDelete(5);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.del), String(1));
       expect(one.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.del).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.del), String(1));
         expect(two.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.move), String(0));
         expect(one.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiDelete0005 end');
     })
@@ -225,11 +225,11 @@ export default function flipClockMultiDeleteTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataDelete(6);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.del), String(1));
       expect(one.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.del).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.del), String(1));
         expect(two.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.move), String(0));
         expect(one.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiDelete0006 end');
     })
@@ -250,11 +250,11 @@ export default function flipClockMultiDeleteTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataDelete(7);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.del).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.del), String(1));
       expect(one.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.del).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.del), String(1));
         expect(two.del).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.move).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.move), String(0));
         expect(one.move).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiDelete0007 end');
     })

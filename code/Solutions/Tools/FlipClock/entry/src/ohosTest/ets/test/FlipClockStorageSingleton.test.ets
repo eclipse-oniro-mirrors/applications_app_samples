@@ -34,9 +34,9 @@ export default function flipClockStorageSingletonTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton001 begin');
       const first: StorageModel = StorageModel.getInstance();
         const second: StorageModel = StorageModel.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first === second).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(first === second));
         expect(first === second).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(first !== null).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(first !== null));
         expect(first !== null).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton001 end');
     })
@@ -52,11 +52,11 @@ export default function flipClockStorageSingletonTest() {
     it('testFlipClockStorageSingleton002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton002 begin');
       const model: StorageModel = StorageModel.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.getFromStorage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.getFromStorage === 'function'));
         expect(typeof model.getFromStorage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.getStorage === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.getStorage === 'function'));
         expect(typeof model.getStorage === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.putStorageValue === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.putStorageValue === 'function'));
         expect(typeof model.putStorageValue === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton002 end');
     })
@@ -72,11 +72,11 @@ export default function flipClockStorageSingletonTest() {
     it('testFlipClockStorageSingleton003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton003 begin');
       const model: StorageModel = StorageModel.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.deleteSync === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.deleteSync === 'function'));
         expect(typeof model.deleteSync === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.getStorageValue === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.getStorageValue === 'function'));
         expect(typeof model.getStorageValue === 'function').assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(typeof model.putTotalStorageValue === \'function\').assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof model.putTotalStorageValue === 'function'));
         expect(typeof model.putTotalStorageValue === 'function').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton003 end');
     })
@@ -94,9 +94,9 @@ export default function flipClockStorageSingletonTest() {
       const a: StorageModel = StorageModel.getInstance();
         const b: StorageModel = StorageModel.getInstance();
         const c: StorageModel = StorageModel.getInstance();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(a === b).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a === b));
         expect(a === b).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(b === c).assertTrue();');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(b === c));
         expect(b === c).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockStorageSingleton004 end');
     })

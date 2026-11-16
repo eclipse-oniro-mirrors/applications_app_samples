@@ -66,9 +66,9 @@ export default function flipClockListenerReloadSequenceTest() {
       for (let index: number = 0; index < 1; index++) {
         source.notifyDataReload();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.r).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(1));
       expect(l.r).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.a).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
         expect(l.a).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockReloadSeq0000 end');
     })
@@ -89,9 +89,9 @@ export default function flipClockListenerReloadSequenceTest() {
       for (let index: number = 0; index < 2; index++) {
         source.notifyDataReload();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.r).assertEqual(2);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(2));
       expect(l.r).assertEqual(2);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.a).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
         expect(l.a).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockReloadSeq0001 end');
     })
@@ -112,9 +112,9 @@ export default function flipClockListenerReloadSequenceTest() {
       for (let index: number = 0; index < 3; index++) {
         source.notifyDataReload();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.r).assertEqual(3);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(3));
       expect(l.r).assertEqual(3);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.a).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
         expect(l.a).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockReloadSeq0002 end');
     })
@@ -135,9 +135,9 @@ export default function flipClockListenerReloadSequenceTest() {
       for (let index: number = 0; index < 4; index++) {
         source.notifyDataReload();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.r).assertEqual(4);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(4));
       expect(l.r).assertEqual(4);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.a).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
         expect(l.a).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockReloadSeq0003 end');
     })
@@ -158,9 +158,9 @@ export default function flipClockListenerReloadSequenceTest() {
       for (let index: number = 0; index < 5; index++) {
         source.notifyDataReload();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.r).assertEqual(5);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(5));
       expect(l.r).assertEqual(5);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.a).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
         expect(l.a).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockReloadSeq0004 end');
     })
@@ -181,9 +181,9 @@ export default function flipClockListenerReloadSequenceTest() {
       for (let index: number = 0; index < 6; index++) {
         source.notifyDataReload();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.r).assertEqual(6);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(6));
       expect(l.r).assertEqual(6);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.a).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
         expect(l.a).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockReloadSeq0005 end');
     })
@@ -204,9 +204,9 @@ export default function flipClockListenerReloadSequenceTest() {
       for (let index: number = 0; index < 7; index++) {
         source.notifyDataReload();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.r).assertEqual(7);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(7));
       expect(l.r).assertEqual(7);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.a).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
         expect(l.a).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockReloadSeq0006 end');
     })
@@ -227,9 +227,9 @@ export default function flipClockListenerReloadSequenceTest() {
       for (let index: number = 0; index < 8; index++) {
         source.notifyDataReload();
         }
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.r).assertEqual(8);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.r), String(8));
       expect(l.r).assertEqual(8);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(l.a).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(l.a), String(0));
         expect(l.a).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockReloadSeq0007 end');
     })

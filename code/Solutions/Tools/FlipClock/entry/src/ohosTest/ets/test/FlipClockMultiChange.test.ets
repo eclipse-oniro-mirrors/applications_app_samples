@@ -75,11 +75,11 @@ export default function flipClockMultiChangeTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataChange(0);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.change), String(1));
       expect(one.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.change), String(1));
         expect(two.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.add), String(0));
         expect(one.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0000 end');
     })
@@ -100,11 +100,11 @@ export default function flipClockMultiChangeTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataChange(1);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.change), String(1));
       expect(one.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.change), String(1));
         expect(two.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.add), String(0));
         expect(one.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0001 end');
     })
@@ -125,11 +125,11 @@ export default function flipClockMultiChangeTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataChange(2);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.change), String(1));
       expect(one.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.change), String(1));
         expect(two.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.add), String(0));
         expect(one.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0002 end');
     })
@@ -150,11 +150,11 @@ export default function flipClockMultiChangeTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataChange(3);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.change), String(1));
       expect(one.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.change), String(1));
         expect(two.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.add), String(0));
         expect(one.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0003 end');
     })
@@ -175,11 +175,11 @@ export default function flipClockMultiChangeTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataChange(4);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.change), String(1));
       expect(one.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.change), String(1));
         expect(two.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.add), String(0));
         expect(one.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0004 end');
     })
@@ -200,11 +200,11 @@ export default function flipClockMultiChangeTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataChange(5);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.change), String(1));
       expect(one.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.change), String(1));
         expect(two.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.add), String(0));
         expect(one.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0005 end');
     })
@@ -225,11 +225,11 @@ export default function flipClockMultiChangeTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataChange(6);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.change), String(1));
       expect(one.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.change), String(1));
         expect(two.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.add), String(0));
         expect(one.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0006 end');
     })
@@ -250,11 +250,11 @@ export default function flipClockMultiChangeTest() {
       source.registerDataChangeListener(one);
         source.registerDataChangeListener(two);
         source.notifyDataChange(7);
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.change).assertEqual(1);');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.change), String(1));
       expect(one.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(two.change).assertEqual(1);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(two.change), String(1));
         expect(two.change).assertEqual(1);
-        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'assert: expect(one.add).assertEqual(0);');
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(one.add), String(0));
         expect(one.add).assertEqual(0);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testFlipClockMultiChange0007 end');
     })
