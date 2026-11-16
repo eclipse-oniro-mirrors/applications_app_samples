@@ -1,18 +1,83 @@
-# FlipClock 测试用例归档
+# FlipClock 测试用例说明
 
-## 用例表
+## 测试环境
 
-|测试功能|预置条件|输入|预期输出|测试结果|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-|打开应用|安装sample|打开应用|应用启动成功|Pass|
-|检查时钟页面UI|进入首页||首页时间组件展示正常|Pass|
-|检查闹钟UI|进入闹钟页面成功|点击闹钟tab|进入闹钟页面，右侧存在添加闹钟按钮|Pass|
-|添加闹钟弹窗|闹钟页面展示正常|点击+按钮|弹出添加闹钟弹窗|Pass|
-|添加闹钟|添加闹钟弹窗展示正常|向上滑动分钟列表，再点击是|闹钟页面展示刚才添加的闹钟|Pass|
-|删除闹钟|闹钟页面正常展示闹钟列表|点击删除按钮|闹钟被删除|Pass|
-|倒计时页面UI|倒计时按钮展示正常|点击倒计时按钮|进入倒计时页面，并且页面UI展示正常|Pass|
-|添加倒计时|倒计时组件展示正常|向上滑动分钟列表，再点击开始按钮|开始倒计时，获取秒数是大于零的|Pass|
-|暂停倒计时|暂停按钮展示正常|点击暂停按钮|获取两次倒计时时间，两次秒数相等|Pass|
-|继续倒计时|继续按钮展示正常|点击继续按钮|获取两次倒计时时间，第一次获取的秒数大于第二次获取的秒数|Pass|
-|重置倒计时|重置按钮展示正常|点击重置按钮|获取时间，秒数为0|Pass|
-|设置页面UI|设置按钮展示正常|点击设置按钮|设置页面展示正常|Pass|
+- Bundle：`ohos.samples.flipclock`
+- 测试模块：`entry_test`
+- 测试框架：`OpenHarmonyTestRunner`
+- SDK：API version 26.0.0
+
+## 自动化测试套件
+
+| 测试文件 | 用例数 |
+|---|---:|
+| `Ability.test.ets` | 16 |
+| `FlipClockAppConfig.test.ets` | 10 |
+| `FlipClockContactBigReplace.test.ets` | 8 |
+| `FlipClockContactDeleteBoth.test.ets` | 8 |
+| `FlipClockContactDeleteEdge.test.ets` | 8 |
+| `FlipClockContactDeleteLarge.test.ets` | 8 |
+| `FlipClockContactDeleteLast.test.ets` | 8 |
+| `FlipClockContactDeleteSequence.test.ets` | 8 |
+| `FlipClockContactFieldBoundary.test.ets` | 8 |
+| `FlipClockContactFields.test.ets` | 8 |
+| `FlipClockContactMixed.test.ets` | 8 |
+| `FlipClockContactModel.test.ets` | 8 |
+| `FlipClockContactModelMore.test.ets` | 8 |
+| `FlipClockContactMore.test.ets` | 8 |
+| `FlipClockContactNumeric.test.ets` | 8 |
+| `FlipClockContactPairs.test.ets` | 8 |
+| `FlipClockContactProperties.test.ets` | 8 |
+| `FlipClockContactPushEdge.test.ets` | 8 |
+| `FlipClockContactPushLarge.test.ets` | 8 |
+| `FlipClockContactRead.test.ets` | 8 |
+| `FlipClockContactReplaceEdge.test.ets` | 8 |
+| `FlipClockContactReplaceLarge.test.ets` | 8 |
+| `FlipClockContactReplaceSequence.test.ets` | 8 |
+| `FlipClockContactSourceDelete.test.ets` | 8 |
+| `FlipClockContactSourcePush.test.ets` | 8 |
+| `FlipClockContactSourceReplace.test.ets` | 8 |
+| `FlipClockDataSourceDeleteBoundary.test.ets` | 8 |
+| `FlipClockDataSourceIndexBoundary.test.ets` | 8 |
+| `FlipClockListenerAddSequence.test.ets` | 8 |
+| `FlipClockListenerBoundary.test.ets` | 8 |
+| `FlipClockListenerMore.test.ets` | 8 |
+| `FlipClockListenerMultiReload.test.ets` | 8 |
+| `FlipClockListenerReloadSequence.test.ets` | 8 |
+| `FlipClockListenerSequence.test.ets` | 8 |
+| `FlipClockListeners.test.ets` | 8 |
+| `FlipClockModels.test.ets` | 8 |
+| `FlipClockMultiChange.test.ets` | 8 |
+| `FlipClockMultiDelete.test.ets` | 8 |
+| `FlipClockMyAlternate.test.ets` | 8 |
+| `FlipClockMyBigReplace.test.ets` | 8 |
+| `FlipClockMyDataSourceDelete.test.ets` | 8 |
+| `FlipClockMyDataSourceDeleteEdge.test.ets` | 8 |
+| `FlipClockMyDataSourceMixed.test.ets` | 8 |
+| `FlipClockMyDataSourcePush.test.ets` | 8 |
+| `FlipClockMyDataSourcePushEdge.test.ets` | 8 |
+| `FlipClockMyDataSourceRead.test.ets` | 8 |
+| `FlipClockMyDataSourceReplace.test.ets` | 8 |
+| `FlipClockMyDataSourceReplaceEdge.test.ets` | 8 |
+| `FlipClockMyDeleteBoth.test.ets` | 8 |
+| `FlipClockMyDeleteLarge.test.ets` | 8 |
+| `FlipClockMyDeleteSequence.test.ets` | 8 |
+| `FlipClockMyPushPairs.test.ets` | 8 |
+| `FlipClockMyReplaceLarge.test.ets` | 8 |
+| `FlipClockMyReplaceSequence.test.ets` | 8 |
+| `FlipClockNotifications.test.ets` | 8 |
+| `FlipClockResourceContract.test.ets` | 10 |
+| `FlipClockResourceMore.test.ets` | 8 |
+| `FlipClockResourceRemaining.test.ets` | 8 |
+| `FlipClockStorageSingleton.test.ets` | 4 |
+| `FlipClockTabArrayContract.test.ets` | 8 |
+| `FlipClockTabDataFields.test.ets` | 8 |
+| `FlipClockTabType.test.ets` | 8 |
+| `FlipClockTabTypeFieldsMore.test.ets` | 8 |
+| `FlipClockTabTypeMore.test.ets` | 8 |
+| `FlipClockTabTypeNumBoundary.test.ets` | 8 |
+| `FlipClockTabTypeUnique.test.ets` | 8 |
+
+合计：**66 个测试套件，536 条用例**。
+
+> 以上用例数与 `List.test.ets` 中实际注册的套件和用例数一致。
