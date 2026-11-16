@@ -510,7 +510,7 @@ interface InspectorTextNode {
 }
 
 /** Read the production render tree, including zero-width empty/newline Text nodes. */
-/** Accessibility component lookup omits those nodes on the test device. */
+/** UiTest component queries omit these Text nodes on the test device. */
 function inspectTextById(id: string): string | undefined {
   const serialized: string = getInspectorByKey(id);
   if (serialized.length === 0) {
