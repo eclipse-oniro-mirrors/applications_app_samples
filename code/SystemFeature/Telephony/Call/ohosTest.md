@@ -8,5 +8,23 @@
 |主页输入文本|	位于主页|     点击输入框，输入电话号码|输入框正确显示电话号码文本|Pass|
 |主页按钮点击|	位于主页|     点击拨号|  弹出通话框页面 |Pass|
 
+## 自动化执行说明
+
+本工程共 2,899 条用例，其中 2,759 条为数据驱动的 Matrix 套件，已按套件拆分为 14 个 describe
+（单个 describe ≤ 318 条），用于控制单次执行时长。
+
+- **每个 Matrix 用例末尾都会调用 `yieldToMain()`**：每累计 20 条用例执行一次真实的异步调用
+  （`AbilityDelegator.getCurrentTopAbility()`），主动打断 Hypium 的 Promise 微任务链，把主线程交还
+  EventHandler，避免 `THREAD_BLOCK_3S/6S` 冻屏。保留 `await sleep(0)` 无效，因为定时器回调内仍会把
+  后续用例的微任务连续执行完。
+- 全量直跑时每 20 条用例切换一次任务，单段耗时约 120ms，低于 3s 看门狗阈值。
+- 如需进一步缩短单次运行时间，可按套件分批，工程根目录提供脚本：
+  `powershell -ExecutionPolicy Bypass -File run_call_tests.ps1`
+  （脚本会自动查找 `hdc.exe`，也可用 `-HdcPath` 指定；逐个 describe 调用 `-s class <ClassName>`）。
+- 手工执行单批：
+  `hdc shell aa test -b ohos.samples.call -m entry_test -s unittest OpenHarmonyTestRunner -s class CallNumberFormatMatrixA`
+- 用例日志量较大，抓日志建议 `hilog -z 2000`。
+
+
 
 
