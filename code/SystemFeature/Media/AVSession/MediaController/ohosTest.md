@@ -1,16 +1,28 @@
 # MediaController 测试用例归档
 
-## 用例表
+## 测试环境
 
-|测试功能|预置条件|输入|预期输出|测试结果|
-|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
-|拉起应用| 设备正常运行|		|成功拉起应用|Pass|
-|主页信息展示|	位于主页且MediaProvider位于后台|		|展示当前正在播放的音乐信息|Pass|
-|主页按钮展示|	位于主页且MediaProvider位于后台|		|展示上一首、下一首、播放暂停按钮|Pass|
-|播放|	位于主页且MediaProvider处于未在播放状态|	点击播放按钮|	MediaProvider响应了播放事件，进入播放状态|Pass|
-|暂停|	位于主页且MediaProvider处于已在播放状态|	点击暂停按钮|	MediaProvider响应了暂停事件，进入暂停状态|Pass|
-|上一首|	位于主页且MediaProvider位于后台|   点击上一首按钮|   MediaProvider响应了上一首事件，本应用收到并展示出上一首音乐的信息|Pass|
-|下一首|	位于主页且MediaProvider位于后台|   点击下一首按钮|   MediaProvider响应了下一首事件，本应用收到并展示出下一首音乐的信息|Pass|
-|显示歌词|	位于主页且MediaProvider位于后台|   点击歌词按钮|	屏幕出现媒体提供方提供的歌词|Pass|
-|显示歌曲列表|	位于主页且MediaProvider位于后台|   点击列表按钮|	屏幕出现媒体提供方提供的歌曲列表|Pass|
-|通过歌曲列表切换歌曲|	位于主页且MediaProvider位于后台，歌曲列表被展开|   点击歌曲列表中的歌曲|	开始播放指定的音乐|Pass|
+- 开发板：RK3568，OpenHarmony 7.1.0.21，API 26
+- 测试套件：`MediaControllerTest`，共 1624 条，Level 0/2
+- 测试提供方：由 `ohosTest` 在测试进程中创建 AVSession（audio），激活后发布元数据、播放列表、播放状态与歌词事件
+- 运行命令：
+
+```bash
+hdc shell aa test -b com.samples.mediacontroller -m entry_test \
+  -s unittest /ets/TestRunner/OpenHarmonyTestRunner \
+  -s class MediaControllerTest -s timeout 300000
+```
+
+## 用例清单
+
+| 测试文件 | 用例数 | 说明 |
+|---|---:|---|
+| `Ability.test.ets` | 18 | 页面启动、元数据、播放控制、队列、歌词与状态同步 |
+| `MediaControllerContract.test.ets` | 92 | AVMetadata、AVQueueItem、会话 Map、PlaybackState 枚举与 Logger 契约 |
+| `MediaControllerBulk.test.ets` | 204 | 元数据、队列、会话 Map、LoopMode 与命令载荷批量契约 |
+| `MediaControllerEdge.test.ets` | 300 | 空值/长文本/边界、无会话控制方法与枚举组合 |
+| `MediaControllerPlayback.test.ets` | 300 | AVPlaybackState 组合、播放队列、批量 Map |
+| `MediaControllerSession.test.ets` | 300 | AVSessionDescriptor、播放时序、批量 Map 与 AppStorage |
+| `MediaControllerMetadata.test.ets` | 180 | AVMetadata 扩展字段、AVMediaDescription、多会话 Map 与 AppStorage 类型 |
+| `MediaControllerSafe.test.ets` | 300 | 元数据、队列、Map、PlaybackState/LoopMode 枚举安全契约 |
+| **合计** | **1624** | |

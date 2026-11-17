@@ -38,7 +38,7 @@ struct PresentPage {
   @Watch('onMetaDataChangeCallback')
   private metaDataMap: Map<string, AVSessionManager.AVMetadata> = new Map();
   @StorageLink('playStateMap')
-  private playStateMap: Map<string, AVSessionManager.AVMetadata> = new Map();
+  private playStateMap: Map<string, AVSessionManager.PlaybackState> = new Map();
   @StorageLink('queueTitleMap')
   private queueTitleMap: Map<string, string> = new Map();
   @StorageLink('queueItemsMap')
@@ -49,10 +49,29 @@ struct PresentPage {
   private bundleNameMap: Map<string, string> = new Map();
   @StorageLink('sessionArray')
   private sessionArray: Array<string> = new Array();
+  @State
+  private sessionsReady: boolean = false;
+  private hasPageShown: boolean = false;
 
   async aboutToAppear() {
     await this.controller.initLink();
     await this.controller.startControl();
+    this.sessionsReady = true;
+  }
+
+  async refreshSessions(): Promise<void> {
+    this.sessionsReady = false;
+    await this.controller.startControl();
+    this.sessionsReady = true;
+  }
+
+  onPageShow() {
+    if (!this.hasPageShown) {
+      this.hasPageShown = true;
+      return;
+    }
+    Log.info(TAG, 'page show again, refresh media sessions');
+    this.refreshSessions();
   }
 
   onMetaDataChangeCallback() {
@@ -72,7 +91,8 @@ struct PresentPage {
             context!.terminateSelf()
           }
         })
-      Column() {
+      if (this.sessionsReady) {
+        Column() {
         Stack({ alignContent: Alignment.TopStart }) {
           Column() {
           }
@@ -170,8 +190,8 @@ struct PresentPage {
             .height('24vp')
 
             Row() {
-              Text(this.sessionArray[0] && this.lyricMap[this.sessionArray[0]]
-                ? this.lyricMap[this.sessionArray[0]] : $r('app.string.not_in_play'))
+              Text(this.sessionArray[0] && this.lyricMap.get(this.sessionArray[0])
+                ? (this.lyricMap.get(this.sessionArray[0]) ?? '') : $r('app.string.not_in_play'))
                 .id('LyricText')
                 .fontColor('#182431')
                 .maxLines(1)
@@ -192,23 +212,23 @@ struct PresentPage {
               .margin({ top: '12.5vp' })
               .visibility(this.sessionArray?.length > 1 ? Visibility.Visible : Visibility.None)
             Row() {
-              Image(this.sessionArray[1] && this.metaDataMap[this.sessionArray[1]]
-                && this.metaDataMap[this.sessionArray[1]].mediaImage
-                ? (this.metaDataMap[this.sessionArray[1]]).mediaImage : $r('app.media.no_music'))
+              Image(this.sessionArray[1] && this.metaDataMap.get(this.sessionArray[1])
+                && this.metaDataMap.get(this.sessionArray[1])!.mediaImage
+                ? (this.metaDataMap.get(this.sessionArray[1])!).mediaImage : $r('app.media.no_music'))
                 .width('48vp')
                 .height('48vp')
                 .id('HistoryImage')
               Column() {
-                Text(this.sessionArray[1] && this.metaDataMap[this.sessionArray[1]]
-                  ? (this.metaDataMap[this.sessionArray[1]]).title : $r('app.string.not_in_play'))
+                Text(this.sessionArray[1] && this.metaDataMap.get(this.sessionArray[1])
+                  ? (this.metaDataMap.get(this.sessionArray[1])!).title : $r('app.string.not_in_play'))
                   .fontSize('16fp')
                   .maxLines(1)
                   .fontColor('#182431')
                   .id('HistoryTitle')
                   .textOverflow({ overflow: TextOverflow.Ellipsis })
                   .width('228vp')
-                Text(this.sessionArray[1] && this.bundleNameMap[this.sessionArray[1]]
-                  ? (this.bundleNameMap[this.sessionArray[1]]) : '')
+                Text(this.sessionArray[1] && this.bundleNameMap.get(this.sessionArray[1])
+                  ? (this.bundleNameMap.get(this.sessionArray[1]) ?? '') : '')
                   .fontSize('14fp')
                   .fontColor('#182431')
                   .opacity(0.6)
@@ -245,8 +265,8 @@ struct PresentPage {
                   .maxLines(1)
                   .textOverflow({ overflow: TextOverflow.Ellipsis })
                   .width('228vp')
-                Text(this.sessionArray[2] && this.bundleNameMap[this.sessionArray[2]]
-                  ? (this.bundleNameMap[this.sessionArray[2]]) : '')
+                Text(this.sessionArray[2] && this.bundleNameMap.get(this.sessionArray[2])
+                  ? (this.bundleNameMap.get(this.sessionArray[2]) ?? '') : '')
                   .fontSize('14fp')
                   .fontColor('#182431')
                   .opacity(0.6)
@@ -283,26 +303,22 @@ struct PresentPage {
 
           Column() {
             Column() {
-              Text(this.sessionArray[0]
-                && this.queueItemsMap[this.sessionArray[0]]
-                && this.queueItemsMap[this.sessionArray[0]][0]
-                ? this.queueItemsMap[this.sessionArray[0]][0].description.title : 'queue null')
+              Text(this.getQueueTitle(0))
                 .fontSize('16fp')
                 .fontColor('#182431')
                 .maxLines(1)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
+                .id('FirstMusicInQueue')
             }
             .alignItems(HorizontalAlign.Start)
             .height('48vp')
             .justifyContent(FlexAlign.Center)
             .width('100%')
-            .id('FirstMusicInQueue')
             .onClick(() => {
-              if (this.sessionArray[0] &&
-              this.queueItemsMap[this.sessionArray[0]] &&
-                this.queueItemsMap[this.sessionArray[0]][0] !== undefined) {
-                Log.info(TAG, 'pre skip :' + this.queueItemsMap[this.sessionArray[0]][0].itemId);
-                this.controller.skip(this.sessionArray[0], this.queueItemsMap[this.sessionArray[0]][0].itemId);
+              let itemId: number = this.getQueueItemId(0);
+              if (this.sessionArray[0] && itemId >= 0) {
+                Log.info(TAG, 'pre skip :' + itemId);
+                this.controller.skip(this.sessionArray[0], itemId);
               }
             })
 
@@ -313,26 +329,22 @@ struct PresentPage {
               .width('100%')
 
             Column() {
-              Text(this.sessionArray[0]
-                && this.queueItemsMap[this.sessionArray[0]]
-                && this.queueItemsMap[this.sessionArray[0]][1]
-                ? this.queueItemsMap[this.sessionArray[0]][1].description.title : 'queue null')
+              Text(this.getQueueTitle(1))
                 .fontSize('16fp')
                 .fontColor('#182431')
                 .maxLines(1)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
+                .id('SecondMusicInQueue')
             }
             .alignItems(HorizontalAlign.Start)
             .height('48vp')
             .justifyContent(FlexAlign.Center)
             .width('100%')
-            .id('SecondMusicInQueue')
             .onClick(() => {
-              if (this.sessionArray[0] &&
-              this.queueItemsMap[this.sessionArray[0]] &&
-                this.queueItemsMap[this.sessionArray[0]][1] !== undefined) {
-                Log.info(TAG, 'pre skip :' + this.queueItemsMap[this.sessionArray[0]][1].itemId);
-                this.controller.skip(this.sessionArray[0], this.queueItemsMap[this.sessionArray[0]][1].itemId);
+              let itemId: number = this.getQueueItemId(1);
+              if (this.sessionArray[0] && itemId >= 0) {
+                Log.info(TAG, 'pre skip :' + itemId);
+                this.controller.skip(this.sessionArray[0], itemId);
               }
             })
 
@@ -343,25 +355,22 @@ struct PresentPage {
               .width('100%')
 
             Column() {
-              Text(this.sessionArray[0]
-                && this.queueItemsMap[this.sessionArray[0]]
-                && this.queueItemsMap[this.sessionArray[0]][2]
-                ? this.queueItemsMap[this.sessionArray[0]][2].description.title : 'queue null')
+              Text(this.getQueueTitle(2))
                 .fontSize('16fp')
                 .fontColor('#182431')
                 .maxLines(1)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
+                .id('ThirdMusicInQueue')
             }
             .alignItems(HorizontalAlign.Start)
             .height('48vp')
             .justifyContent(FlexAlign.Center)
             .width('100%')
-            .id('ThirdMusicInQueue')
             .onClick(() => {
-              if (this.sessionArray[0] &&
-              this.queueItemsMap[this.sessionArray[0]] &&
-                this.queueItemsMap[this.sessionArray[0]][2] !== undefined) {
-                this.controller.skip(this.sessionArray[0], this.queueItemsMap[this.sessionArray[0]][2].itemId);
+              let itemId: number = this.getQueueItemId(2);
+              if (this.sessionArray[0] && itemId >= 0) {
+                Log.info(TAG, 'pre skip :' + itemId);
+                this.controller.skip(this.sessionArray[0], itemId);
               }
             })
           }
@@ -381,12 +390,36 @@ struct PresentPage {
       .width('312vp')
       .margin({ top: '40vp', left: '24vp', right: '24vp' })
       .backgroundColor('#00000000')
+      }
     }
     .backgroundImage($r('app.media.background'))
     .backgroundImageSize(ImageSize.Cover)
     .alignContent(Alignment.Top)
     .width('100%')
     .height('100%')
+  }
+
+  getQueueTitle(index: number): string {
+    let items: Array<AVSessionManager.AVQueueItem> | undefined =
+      this.sessionArray.length > 0 ? this.queueItemsMap.get(this.sessionArray[0]) : undefined;
+    if (!items || items.length <= index) {
+      return 'queue null';
+    }
+    let item: AVSessionManager.AVQueueItem = items[index];
+    if (!item.description || !item.description.title) {
+      return 'queue null';
+    }
+    return item.description.title;
+  }
+
+  getQueueItemId(index: number): number {
+    let items: Array<AVSessionManager.AVQueueItem> | undefined =
+      this.sessionArray.length > 0 ? this.queueItemsMap.get(this.sessionArray[0]) : undefined;
+    if (!items || items.length <= index) {
+      return -1;
+    }
+    let item: AVSessionManager.AVQueueItem = items[index];
+    return item.itemId;
   }
 
   getMediaCardHeight(): string {

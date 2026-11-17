@@ -14,7 +14,21 @@
 */
 
 import abilityTest from './Ability.test'
+import mediaControllerContractTest from './MediaControllerContract.test'
+import mediaControllerBulkTest from './MediaControllerBulk.test'
+import mediaControllerEdgeTest from './MediaControllerEdge.test'
+import mediaControllerPlaybackTest from './MediaControllerPlayback.test'
+import mediaControllerSessionTest from './MediaControllerSession.test'
+import mediaControllerMetadataTest from './MediaControllerMetadata.test'
+import mediaControllerSafeTest from './MediaControllerSafe.test'
 
 export default function testsuite() {
   abilityTest()
+  mediaControllerContractTest()
+  mediaControllerBulkTest()
+  mediaControllerEdgeTest()
+  mediaControllerPlaybackTest()
+  mediaControllerSessionTest()
+  mediaControllerMetadataTest()
+  mediaControllerSafeTest()
 }
