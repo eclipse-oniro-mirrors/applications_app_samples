@@ -42,8 +42,8 @@ export default function deviceCompatibilityTest() {
     beforeAll(() => {
       hilog.info(0x0000, CASE_LOG_TAG, 'suite start DeviceCompatibility');
     });
-
-    it('combo_case_0', 0, () => {
+    it('combo_case_0__player_transition_case_1', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -58,28 +58,29 @@ export default function deviceCompatibilityTest() {
       expect(source.pushDataArray(createFlowItems(1))).assertEqual(1);
       expect(source.totalCount()).assertEqual(1);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
-    });
-
-    it('player_transition_case_1', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       expect(player.prepare(1000)).assertTrue();
       expect(player.getState()).assertEqual(MediaState.PREPARED);
       expect(player.getDuration()).assertEqual(1000);
+      }
     });
 
-    it('fullscreen_case_2', 0, () => {
+    it('fullscreen_case_2__window_config_case_3', 0, () => {
+      {
       const model: FullscreenModel = new FullscreenModel();
       model.selectVideo('video1');
       expect(model.selectVideo('video2')).assertFalse();
       expect(model.getSelectedVideo()).assertEqual('video1');
-    });
-
-    it('window_config_case_3', 0, () => {
+      }
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       config.enterImmersive();
       config.exitImmersive();
       expect(config.getLayoutFullScreen()).assertFalse();
       expect(config.getBars()).assertEqual(SystemBarMode.BOTH);
+      }
     });
 
     it('data_source_case_4', 0, () => {
