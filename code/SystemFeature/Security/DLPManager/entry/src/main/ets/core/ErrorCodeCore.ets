@@ -14,6 +14,7 @@
  */
 
 import { formatTimestamp } from './FormatCore';
+import { textOf } from './TextCatalog';
 
 export enum ErrorCategory {
   NONE = 'none',
@@ -121,82 +122,82 @@ export function formatCode(code: number): string {
 export function lookupError(code: number): ErrorInfo {
   const normalized: number = normalizeCode(code);
   if (normalized === 0) {
-    return new ErrorInfo(0, ErrorCategory.NONE, ErrorSeverity.INFO, false, '操作成功', '');
+    return new ErrorInfo(0, ErrorCategory.NONE, ErrorSeverity.INFO, false, textOf('dlp_err_0_title'), '');
   }
   if (normalized === 13900001) {
     return new ErrorInfo(normalized, ErrorCategory.PERMISSION_DENIED, ErrorSeverity.ERROR, false,
-      '操作不被允许', '请检查应用权限或文件所属账号');
+      textOf('dlp_err_13900001_title'), textOf('dlp_err_13900001_hint'));
   }
   if (normalized === 13900002) {
     return new ErrorInfo(normalized, ErrorCategory.FILE_NOT_FOUND, ErrorSeverity.ERROR, false,
-      '文件不存在', '请刷新文件列表后重试');
+      textOf('dlp_err_13900002_title'), textOf('dlp_err_13900002_hint'));
   }
   if (normalized === 13900004) {
     return new ErrorInfo(normalized, ErrorCategory.INTERNAL, ErrorSeverity.WARNING, true,
-      '系统调用被中断', '请稍后重试');
+      textOf('dlp_err_13900004_title'), textOf('dlp_err_13900004_hint'));
   }
   if (normalized === 13900005) {
     return new ErrorInfo(normalized, ErrorCategory.INTERNAL, ErrorSeverity.ERROR, true,
-      '读写文件失败', '请重试；多次失败请重新打开文件');
+      textOf('dlp_err_13900005_title'), textOf('dlp_err_13900005_hint'));
   }
   if (normalized === 13900008) {
     return new ErrorInfo(normalized, ErrorCategory.INTERNAL, ErrorSeverity.ERROR, false,
-      '文件句柄无效', '请重新打开文件');
+      textOf('dlp_err_13900008_title'), textOf('dlp_err_13900008_hint'));
   }
   if (normalized === 13900011) {
     return new ErrorInfo(normalized, ErrorCategory.INTERNAL, ErrorSeverity.WARNING, true,
-      '资源暂时不可用', '请稍后重试');
+      textOf('dlp_err_13900011_title'), textOf('dlp_err_13900011_hint'));
   }
   if (normalized === 13900012) {
     return new ErrorInfo(normalized, ErrorCategory.PERMISSION_DENIED, ErrorSeverity.ERROR, false,
-      '没有文件访问权限', '请先通过授权页面申请访问权限');
+      textOf('dlp_err_13900012_title'), textOf('dlp_err_13900012_hint'));
   }
   if (normalized === 13900013) {
     return new ErrorInfo(normalized, ErrorCategory.INVALID_ARGUMENT, ErrorSeverity.ERROR, false,
-      '参数地址无效', '请检查传入的文件地址');
+      textOf('dlp_err_13900013_title'), textOf('dlp_err_13900013_hint'));
   }
   if (normalized === 13900015) {
     return new ErrorInfo(normalized, ErrorCategory.INTERNAL, ErrorSeverity.WARNING, true,
-      '文件正被占用', '请关闭其他正在使用该文件的应用');
+      textOf('dlp_err_13900015_title'), textOf('dlp_err_13900015_hint'));
   }
   if (normalized === 13900019) {
     return new ErrorInfo(normalized, ErrorCategory.INVALID_ARGUMENT, ErrorSeverity.ERROR, false,
-      '目标是目录而非文件', '请重新选择文件');
+      textOf('dlp_err_13900019_title'), textOf('dlp_err_13900019_hint'));
   }
   if (normalized === 13900020) {
     return new ErrorInfo(normalized, ErrorCategory.INVALID_ARGUMENT, ErrorSeverity.ERROR, false,
-      '参数不合法', '请检查输入内容');
+      textOf('dlp_err_13900020_title'), textOf('dlp_err_13900020_hint'));
   }
   if (normalized === 13900025) {
     return new ErrorInfo(normalized, ErrorCategory.STORAGE_FULL, ErrorSeverity.ERROR, false,
-      '存储空间不足', '请清理文件后重试');
+      textOf('dlp_err_13900025_title'), textOf('dlp_err_13900025_hint'));
   }
   if (normalized === 13900030) {
     return new ErrorInfo(normalized, ErrorCategory.INVALID_ARGUMENT, ErrorSeverity.ERROR, false,
-      '文件名过长', '请缩短文件名');
+      textOf('dlp_err_13900030_title'), textOf('dlp_err_13900030_hint'));
   }
   if (normalized === 13900042) {
     return new ErrorInfo(normalized, ErrorCategory.NETWORK, ErrorSeverity.ERROR, true,
-      '操作超时', '请检查网络后重试');
+      textOf('dlp_err_13900042_title'), textOf('dlp_err_13900042_hint'));
   }
   if (normalized === 19100001) {
     return new ErrorInfo(normalized, ErrorCategory.DLP_POLICY, ErrorSeverity.ERROR, false,
-      'DLP 策略配置错误', '请重新编辑加密权限');
+      textOf('dlp_err_19100001_title'), textOf('dlp_err_19100001_hint'));
   }
   if (normalized === 19100002) {
     return new ErrorInfo(normalized, ErrorCategory.ACCOUNT, ErrorSeverity.ERROR, false,
-      '账号不可用', '请登录或切换账号后重试');
+      textOf('dlp_err_19100002_title'), textOf('dlp_err_19100002_hint'));
   }
   if (normalized === 19100003) {
     return new ErrorInfo(normalized, ErrorCategory.DLP_POLICY, ErrorSeverity.ERROR, false,
-      'DLP 权限已过期', '请联系文件所有者重新授权');
+      textOf('dlp_err_19100003_title'), textOf('dlp_err_19100003_hint'));
   }
   if (normalized === 19100004) {
     return new ErrorInfo(normalized, ErrorCategory.PERMISSION_DENIED, ErrorSeverity.ERROR, false,
-      '没有该 DLP 文件的访问权限', '请申请访问权限后重试');
+      textOf('dlp_err_19100004_title'), textOf('dlp_err_19100004_hint'));
   }
   return new ErrorInfo(normalized, ErrorCategory.UNKNOWN, ErrorSeverity.ERROR, false,
-    '未知错误', '请重试，若仍然失败请查看日志');
+    textOf('dlp_err_unknown_title'), textOf('dlp_err_unknown_hint'));
 }
 
 export function categoryOf(code: number): ErrorCategory {

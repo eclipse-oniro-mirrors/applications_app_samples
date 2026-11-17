@@ -65,7 +65,10 @@ import queryMatrix3Test from './QueryMatrix3.test';
 import policyMatrix3Test from './PolicyMatrix3.test';
 import errorCodeMatrix2Test from './ErrorCodeMatrix2.test';
 
+import { applyTestTextResolver } from './TextCatalogFixture';
+
 export default function testsuite() {
+  applyTestTextResolver();
   localUnitTest();
   textCodecCoreTest();
   formatCoreTest();

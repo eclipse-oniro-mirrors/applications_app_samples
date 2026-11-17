@@ -107,6 +107,406 @@
     {
       "name": "app_settings",
       "value": "settings"
+    },
+    {
+      "name": "dlp_perm_read",
+      "value": "Read"
+    },
+    {
+      "name": "dlp_perm_write",
+      "value": "Edit"
+    },
+    {
+      "name": "dlp_perm_print",
+      "value": "Print"
+    },
+    {
+      "name": "dlp_perm_copy",
+      "value": "Copy"
+    },
+    {
+      "name": "dlp_perm_none",
+      "value": "No permission"
+    },
+    {
+      "name": "dlp_perm_separator",
+      "value": "、"
+    },
+    {
+      "name": "dlp_policy_account_id_empty",
+      "value": "Account ID cannot be empty"
+    },
+    {
+      "name": "dlp_policy_account_name_empty",
+      "value": "Account name cannot be empty"
+    },
+    {
+      "name": "dlp_policy_mask_range",
+      "value": "Permission mask is out of range"
+    },
+    {
+      "name": "dlp_policy_mask_empty",
+      "value": "At least one permission is required"
+    },
+    {
+      "name": "dlp_policy_expiry_invalid",
+      "value": "Expiry time is invalid"
+    },
+    {
+      "name": "dlp_policy_watermark_long",
+      "value": "Watermark text is too long"
+    },
+    {
+      "name": "dlp_policy_nickname_long",
+      "value": "Nickname is too long"
+    },
+    {
+      "name": "dlp_policy_version_missing",
+      "value": "Policy version is missing"
+    },
+    {
+      "name": "dlp_policy_version_unsupported",
+      "value": "Policy version is not supported"
+    },
+    {
+      "name": "dlp_policy_field_malformed",
+      "value": "Field format is invalid"
+    },
+    {
+      "name": "dlp_policy_field_encoding",
+      "value": "Field encoding is invalid"
+    },
+    {
+      "name": "dlp_policy_number_empty",
+      "value": "Numeric field is empty"
+    },
+    {
+      "name": "dlp_policy_number_format",
+      "value": "Numeric field format is invalid"
+    },
+    {
+      "name": "dlp_kind_text",
+      "value": "Text"
+    },
+    {
+      "name": "dlp_kind_image",
+      "value": "Image"
+    },
+    {
+      "name": "dlp_kind_video",
+      "value": "Video"
+    },
+    {
+      "name": "dlp_kind_audio",
+      "value": "Audio"
+    },
+    {
+      "name": "dlp_kind_document",
+      "value": "Document"
+    },
+    {
+      "name": "dlp_kind_archive",
+      "value": "Archive"
+    },
+    {
+      "name": "dlp_kind_database",
+      "value": "Database"
+    },
+    {
+      "name": "dlp_kind_program",
+      "value": "Program"
+    },
+    {
+      "name": "dlp_kind_unknown",
+      "value": "Unknown"
+    },
+    {
+      "name": "dlp_time_future",
+      "value": "In the future"
+    },
+    {
+      "name": "dlp_time_just_now",
+      "value": "Just now"
+    },
+    {
+      "name": "dlp_time_minutes_ago",
+      "value": " min ago"
+    },
+    {
+      "name": "dlp_time_hours_ago",
+      "value": " h ago"
+    },
+    {
+      "name": "dlp_time_yesterday",
+      "value": "Yesterday"
+    },
+    {
+      "name": "dlp_time_days_ago",
+      "value": " d ago"
+    },
+    {
+      "name": "dlp_time_permanent",
+      "value": "Permanent"
+    },
+    {
+      "name": "dlp_err_0_title",
+      "value": "Success"
+    },
+    {
+      "name": "dlp_err_13900001_title",
+      "value": "Operation not allowed"
+    },
+    {
+      "name": "dlp_err_13900001_hint",
+      "value": "Check the app permission or the file owner"
+    },
+    {
+      "name": "dlp_err_13900002_title",
+      "value": "File not found"
+    },
+    {
+      "name": "dlp_err_13900002_hint",
+      "value": "Refresh the file list and try again"
+    },
+    {
+      "name": "dlp_err_13900004_title",
+      "value": "System call interrupted"
+    },
+    {
+      "name": "dlp_err_13900004_hint",
+      "value": "Try again later"
+    },
+    {
+      "name": "dlp_err_13900005_title",
+      "value": "Failed to read or write the file"
+    },
+    {
+      "name": "dlp_err_13900005_hint",
+      "value": "Try again; reopen the file if it keeps failing"
+    },
+    {
+      "name": "dlp_err_13900008_title",
+      "value": "Invalid file handle"
+    },
+    {
+      "name": "dlp_err_13900008_hint",
+      "value": "Reopen the file"
+    },
+    {
+      "name": "dlp_err_13900011_title",
+      "value": "Resource temporarily unavailable"
+    },
+    {
+      "name": "dlp_err_13900011_hint",
+      "value": "Try again later"
+    },
+    {
+      "name": "dlp_err_13900012_title",
+      "value": "No file access permission"
+    },
+    {
+      "name": "dlp_err_13900012_hint",
+      "value": "Request access on the authorization page first"
+    },
+    {
+      "name": "dlp_err_13900013_title",
+      "value": "Invalid parameter address"
+    },
+    {
+      "name": "dlp_err_13900013_hint",
+      "value": "Check the file address passed in"
+    },
+    {
+      "name": "dlp_err_13900015_title",
+      "value": "File is in use"
+    },
+    {
+      "name": "dlp_err_13900015_hint",
+      "value": "Close other apps using this file"
+    },
+    {
+      "name": "dlp_err_13900019_title",
+      "value": "Target is a directory"
+    },
+    {
+      "name": "dlp_err_13900019_hint",
+      "value": "Select a file instead"
+    },
+    {
+      "name": "dlp_err_13900020_title",
+      "value": "Invalid parameter"
+    },
+    {
+      "name": "dlp_err_13900020_hint",
+      "value": "Check the input"
+    },
+    {
+      "name": "dlp_err_13900025_title",
+      "value": "Not enough storage"
+    },
+    {
+      "name": "dlp_err_13900025_hint",
+      "value": "Clean up files and try again"
+    },
+    {
+      "name": "dlp_err_13900030_title",
+      "value": "File name is too long"
+    },
+    {
+      "name": "dlp_err_13900030_hint",
+      "value": "Shorten the file name"
+    },
+    {
+      "name": "dlp_err_13900042_title",
+      "value": "Operation timed out"
+    },
+    {
+      "name": "dlp_err_13900042_hint",
+      "value": "Check the network and try again"
+    },
+    {
+      "name": "dlp_err_19100001_title",
+      "value": "DLP policy configuration error"
+    },
+    {
+      "name": "dlp_err_19100001_hint",
+      "value": "Edit the encryption permission again"
+    },
+    {
+      "name": "dlp_err_19100002_title",
+      "value": "Account unavailable"
+    },
+    {
+      "name": "dlp_err_19100002_hint",
+      "value": "Sign in or switch the account and try again"
+    },
+    {
+      "name": "dlp_err_19100003_title",
+      "value": "DLP permission expired"
+    },
+    {
+      "name": "dlp_err_19100003_hint",
+      "value": "Ask the file owner to grant access again"
+    },
+    {
+      "name": "dlp_err_19100004_title",
+      "value": "No access to this DLP file"
+    },
+    {
+      "name": "dlp_err_19100004_hint",
+      "value": "Request access and try again"
+    },
+    {
+      "name": "dlp_err_unknown_title",
+      "value": "Unknown error"
+    },
+    {
+      "name": "dlp_err_unknown_hint",
+      "value": "Try again; check the log if it keeps failing"
+    },
+    {
+      "name": "dlp_template_read_only",
+      "value": "Read only"
+    },
+    {
+      "name": "dlp_template_editable",
+      "value": "Editable"
+    },
+    {
+      "name": "dlp_template_printable",
+      "value": "Printable"
+    },
+    {
+      "name": "dlp_template_copyable",
+      "value": "Copyable"
+    },
+    {
+      "name": "dlp_template_full_control",
+      "value": "Full control"
+    },
+    {
+      "name": "dlp_template_name_empty",
+      "value": "Template name cannot be empty"
+    },
+    {
+      "name": "dlp_template_name_too_long",
+      "value": "Template name cannot exceed 20 characters"
+    },
+    {
+      "name": "dlp_template_name_exists",
+      "value": "Template name already exists"
+    },
+    {
+      "name": "dlp_template_mask_empty",
+      "value": "At least one permission is required"
+    },
+    {
+      "name": "dlp_template_mask_range",
+      "value": "Permission range is invalid"
+    },
+    {
+      "name": "dlp_template_created",
+      "value": "Template created"
+    },
+    {
+      "name": "dlp_template_not_found",
+      "value": "Template does not exist or cannot be modified"
+    },
+    {
+      "name": "dlp_template_updated",
+      "value": "Template updated"
+    },
+    {
+      "name": "dlp_level_debug",
+      "value": "Debug"
+    },
+    {
+      "name": "dlp_level_info",
+      "value": "Info"
+    },
+    {
+      "name": "dlp_level_warn",
+      "value": "Warning"
+    },
+    {
+      "name": "dlp_level_error",
+      "value": "Error"
+    },
+    {
+      "name": "dlp_theme_dark",
+      "value": "Dark"
+    },
+    {
+      "name": "dlp_theme_auto",
+      "value": "Auto"
+    },
+    {
+      "name": "dlp_theme_light",
+      "value": "Light"
+    },
+    {
+      "name": "dlp_settings_level_invalid",
+      "value": "Log level is invalid"
+    },
+    {
+      "name": "dlp_settings_pagesize_range",
+      "value": "Page size is out of range"
+    },
+    {
+      "name": "dlp_settings_theme_invalid",
+      "value": "Theme setting is invalid"
+    },
+    {
+      "name": "dlp_settings_template_empty",
+      "value": "Default permission template cannot be empty"
+    },
+    {
+      "name": "dlp_settings_summary_mid",
+      "value": " · Page "
+    },
+    {
+      "name": "dlp_settings_summary_tail",
+      "value": " items · "
     }
   ]
 }

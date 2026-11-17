@@ -15,6 +15,7 @@
 
 import { extensionOf } from './UriCore';
 import { decodeUtf8, DecodeOutcome } from './TextCodecCore';
+import { textOf } from './TextCatalog';
 
 export const MAX_EDITABLE_BYTES: number = 1048576;
 const DLP_SUFFIX: string = '.dlp';
@@ -287,30 +288,30 @@ export function matchesAnySuffix(name: string, suffixes: string[]): boolean {
 
 export function kindLabel(kind: FileKind): string {
   if (kind === FileKind.TEXT) {
-    return '文本';
+    return textOf('dlp_kind_text');
   }
   if (kind === FileKind.IMAGE) {
-    return '图片';
+    return textOf('dlp_kind_image');
   }
   if (kind === FileKind.AUDIO) {
-    return '音频';
+    return textOf('dlp_kind_video');
   }
   if (kind === FileKind.VIDEO) {
-    return '视频';
+    return textOf('dlp_kind_audio');
   }
   if (kind === FileKind.DOCUMENT) {
-    return '文档';
+    return textOf('dlp_kind_document');
   }
   if (kind === FileKind.ARCHIVE) {
-    return '压缩包';
+    return textOf('dlp_kind_archive');
   }
   if (kind === FileKind.DATABASE) {
-    return '数据库';
+    return textOf('dlp_kind_database');
   }
   if (kind === FileKind.PROGRAM) {
-    return '程序';
+    return textOf('dlp_kind_program');
   }
-  return '未知';
+  return textOf('dlp_kind_unknown');
 }
 
 export function kindResourceKey(kind: FileKind): string {

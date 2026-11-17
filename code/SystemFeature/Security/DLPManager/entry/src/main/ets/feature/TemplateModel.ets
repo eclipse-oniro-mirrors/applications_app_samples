@@ -16,6 +16,7 @@
 import { DlpPolicy, PERMISSION_ALL, PolicyTemplate, builtInTemplates, defaultPolicy, isValidMask,
   permissionSummary } from '../core/DlpPolicyCore';
 import { encodeComponent, decodeComponent, UriDecodeResult } from '../core/UriCore';
+import { textOf } from '../core/TextCatalog';
 
 const MAX_NAME_LENGTH: number = 20;
 
@@ -47,19 +48,19 @@ export class TemplateResult {
 
 export function templateDisplayName(template: PolicyTemplate): string {
   if (template.id === 'read-only') {
-    return '只读';
+    return textOf('dlp_template_read_only');
   }
   if (template.id === 'editable') {
-    return '可编辑';
+    return textOf('dlp_template_editable');
   }
   if (template.id === 'printable') {
-    return '可打印';
+    return textOf('dlp_template_printable');
   }
   if (template.id === 'copyable') {
-    return '可复制';
+    return textOf('dlp_template_copyable');
   }
   if (template.id === 'full') {
-    return '完全控制';
+    return textOf('dlp_template_full_control');
   }
   return template.nameKey;
 }
@@ -111,15 +112,15 @@ export class TemplateModel {
   validateName(name: string, exceptId: string): string {
     const trimmed: string = name.trim();
     if (trimmed.length === 0) {
-      return '模板名称不能为空';
+      return textOf('dlp_template_name_empty');
     }
     if (trimmed.length > MAX_NAME_LENGTH) {
-      return '模板名称不能超过 20 个字符';
+      return textOf('dlp_template_name_too_long');
     }
     for (let index = 0; index < this.customs.length; index++) {
       const existing: CustomTemplate = this.customs[index];
       if (existing.id !== exceptId && existing.name.toLowerCase() === trimmed.toLowerCase()) {
-        return '模板名称已存在';
+        return textOf('dlp_template_name_exists');
       }
     }
     return '';
@@ -127,10 +128,10 @@ export class TemplateModel {
 
   validateMask(mask: number): string {
     if (!isValidMask(mask) || mask === 0) {
-      return '至少需要保留一项权限';
+      return textOf('dlp_template_mask_empty');
     }
     if (mask > PERMISSION_ALL) {
-      return '权限范围不合法';
+      return textOf('dlp_template_mask_range');
     }
     return '';
   }
@@ -146,13 +147,13 @@ export class TemplateModel {
     }
     const id: string = this.nextId(nowSec);
     this.customs.push(new CustomTemplate(id, name.trim(), mask, nowSec));
-    return new TemplateResult(true, id, '模板已创建');
+    return new TemplateResult(true, id, textOf('dlp_template_created'));
   }
 
   update(id: string, name: string, mask: number): TemplateResult {
     const index: number = this.indexOf(id);
     if (index < 0) {
-      return new TemplateResult(false, '', '模板不存在或不可修改');
+      return new TemplateResult(false, '', textOf('dlp_template_not_found'));
     }
     const nameError: string = this.validateName(name, id);
     if (nameError.length > 0) {
@@ -164,7 +165,7 @@ export class TemplateModel {
     }
     const previous: CustomTemplate = this.customs[index];
     this.customs[index] = new CustomTemplate(previous.id, name.trim(), mask, previous.createdAtSec);
-    return new TemplateResult(true, id, '模板已更新');
+    return new TemplateResult(true, id, textOf('dlp_template_updated'));
   }
 
   remove(id: string): boolean {
@@ -192,14 +193,14 @@ export class TemplateModel {
       return null;
     }
     const policy: DlpPolicy = defaultPolicy(accountId, accountName);
-    policy.mask = mask;
+    policy.mask = mask & PERMISSION_ALL;
     return policy;
   }
 
   summaryOf(templateId: string): string {
     const mask: number = this.maskOf(templateId);
     if (mask <= 0) {
-      return '无权限';
+      return textOf('dlp_perm_none');
     }
     return permissionSummary(mask);
   }

@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { textOf } from '../core/TextCatalog';
 
 const LOG_LEVELS: string[] = ['debug', 'info', 'warn', 'error'];
 const THEMES: string[] = ['light', 'dark', 'auto'];
@@ -20,28 +21,28 @@ const MAX_PAGE_SIZE: number = 50;
 
 export function logLevelLabel(level: string): string {
   if (level === 'debug') {
-    return '调试';
+    return textOf('dlp_level_debug');
   }
   if (level === 'info') {
-    return '信息';
+    return textOf('dlp_level_info');
   }
   if (level === 'warn') {
-    return '警告';
+    return textOf('dlp_level_warn');
   }
   if (level === 'error') {
-    return '错误';
+    return textOf('dlp_level_error');
   }
-  return '信息';
+  return textOf('dlp_level_info');
 }
 
 export function themeLabel(theme: string): string {
   if (theme === 'dark') {
-    return '深色';
+    return textOf('dlp_theme_dark');
   }
   if (theme === 'auto') {
-    return '跟随系统';
+    return textOf('dlp_theme_auto');
   }
-  return '浅色';
+  return textOf('dlp_theme_light');
 }
 
 export class SettingsModel {
@@ -105,16 +106,16 @@ export class SettingsModel {
   validate(): string[] {
     const issues: string[] = [];
     if (LOG_LEVELS.indexOf(this.logLevel) < 0) {
-      issues.push('日志级别不合法');
+      issues.push(textOf('dlp_settings_level_invalid'));
     }
     if (this.pageSize < MIN_PAGE_SIZE || this.pageSize > MAX_PAGE_SIZE) {
-      issues.push('每页数量超出范围');
+      issues.push(textOf('dlp_settings_pagesize_range'));
     }
     if (THEMES.indexOf(this.theme) < 0) {
-      issues.push('主题设置不合法');
+      issues.push(textOf('dlp_settings_theme_invalid'));
     }
     if (this.defaultTemplateId.trim().length === 0) {
-      issues.push('默认权限模板不能为空');
+      issues.push(textOf('dlp_settings_template_empty'));
     }
     return issues;
   }
@@ -130,7 +131,7 @@ export class SettingsModel {
   }
 
   summary(): string {
-    return logLevelLabel(this.logLevel) + ' · 每页 ' + this.pageSize.toString() + ' 条 · ' +
+    return logLevelLabel(this.logLevel) + textOf('dlp_settings_summary_mid') + this.pageSize.toString() + textOf('dlp_settings_summary_tail') +
       themeLabel(this.theme);
   }
 

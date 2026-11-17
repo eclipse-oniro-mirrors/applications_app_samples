@@ -14,6 +14,7 @@
  */
 
 import { encodeComponent, decodeComponent, UriDecodeResult } from './UriCore';
+import { textOf } from './TextCatalog';
 
 export enum DlpPermission {
   READ = 1,
@@ -191,16 +192,16 @@ export function maskOfActions(actions: string[]): number {
 export function permissionLabels(mask: number): string[] {
   const labels: string[] = [];
   if ((mask & DlpPermission.READ) === DlpPermission.READ) {
-    labels.push('读取');
+    labels.push(textOf('dlp_perm_read'));
   }
   if ((mask & DlpPermission.WRITE) === DlpPermission.WRITE) {
-    labels.push('编辑');
+    labels.push(textOf('dlp_perm_write'));
   }
   if ((mask & DlpPermission.PRINT) === DlpPermission.PRINT) {
-    labels.push('打印');
+    labels.push(textOf('dlp_perm_print'));
   }
   if ((mask & DlpPermission.COPY) === DlpPermission.COPY) {
-    labels.push('复制');
+    labels.push(textOf('dlp_perm_copy'));
   }
   return labels;
 }
@@ -208,9 +209,9 @@ export function permissionLabels(mask: number): string[] {
 export function permissionSummary(mask: number): string {
   const labels: string[] = permissionLabels(mask);
   if (labels.length === 0) {
-    return '无权限';
+    return textOf('dlp_perm_none');
   }
-  return labels.join('、');
+  return labels.join(textOf('dlp_perm_separator'));
 }
 
 export function defaultPolicy(accountId: string, accountName: string): DlpPolicy {
@@ -251,24 +252,24 @@ export function isExpired(policy: DlpPolicy, nowSec: number): boolean {
 export function validatePolicy(policy: DlpPolicy): PolicyValidation {
   const issues: PolicyIssue[] = [];
   if (policy.accountId.trim().length === 0) {
-    issues.push(new PolicyIssue('accountId', 'empty', '账号标识不能为空'));
+    issues.push(new PolicyIssue('accountId', 'empty', textOf('dlp_policy_account_id_empty')));
   }
   if (policy.accountName.trim().length === 0) {
-    issues.push(new PolicyIssue('accountName', 'empty', '账号名称不能为空'));
+    issues.push(new PolicyIssue('accountName', 'empty', textOf('dlp_policy_account_name_empty')));
   }
   if (!isValidMask(policy.mask)) {
-    issues.push(new PolicyIssue('mask', 'range', '权限掩码超出范围'));
+    issues.push(new PolicyIssue('mask', 'range', textOf('dlp_policy_mask_range')));
   } else if (policy.mask === 0) {
-    issues.push(new PolicyIssue('mask', 'empty', '至少需要保留一项权限'));
+    issues.push(new PolicyIssue('mask', 'empty', textOf('dlp_policy_mask_empty')));
   }
   if (policy.expiredAtSec !== Math.floor(policy.expiredAtSec) || policy.expiredAtSec < 0) {
-    issues.push(new PolicyIssue('expiredAtSec', 'range', '过期时间不合法'));
+    issues.push(new PolicyIssue('expiredAtSec', 'range', textOf('dlp_policy_expiry_invalid')));
   }
   if (policy.watermark.length > MAX_TEXT_LENGTH) {
-    issues.push(new PolicyIssue('watermark', 'length', '水印内容过长'));
+    issues.push(new PolicyIssue('watermark', 'length', textOf('dlp_policy_watermark_long')));
   }
   if (policy.nickname.length > MAX_TEXT_LENGTH) {
-    issues.push(new PolicyIssue('nickname', 'length', '昵称过长'));
+    issues.push(new PolicyIssue('nickname', 'length', textOf('dlp_policy_nickname_long')));
   }
   return new PolicyValidation(issues);
 }
@@ -325,12 +326,12 @@ export function parsePolicy(text: string): PolicyParseResult {
   const issues: PolicyIssue[] = [];
   const trimmed: string = text.trim();
   if (trimmed.length === 0) {
-    issues.push(new PolicyIssue('version', 'missing', '缺少策略版本'));
+    issues.push(new PolicyIssue('version', 'missing', textOf('dlp_policy_version_missing')));
     return new PolicyParseResult(null, new PolicyValidation(issues));
   }
   const fields: string[] = trimmed.split(';');
   if (fields[0] !== POLICY_VERSION) {
-    issues.push(new PolicyIssue('version', 'unsupported', '不支持的策略版本'));
+    issues.push(new PolicyIssue('version', 'unsupported', textOf('dlp_policy_version_unsupported')));
     return new PolicyParseResult(null, new PolicyValidation(issues));
   }
   let accountId: string = '';
@@ -346,7 +347,7 @@ export function parsePolicy(text: string): PolicyParseResult {
     }
     const equalsIndex: number = field.indexOf('=');
     if (equalsIndex <= 0) {
-      issues.push(new PolicyIssue('field', 'malformed', '字段格式错误'));
+      issues.push(new PolicyIssue('field', 'malformed', textOf('dlp_policy_field_malformed')));
       continue;
     }
     const key: string = field.substring(0, equalsIndex);
@@ -376,20 +377,20 @@ export function parsePolicy(text: string): PolicyParseResult {
 function decodeValue(raw: string, field: string, issues: PolicyIssue[]): string {
   const decoded: UriDecodeResult = decodeComponent(raw, false);
   if (!decoded.valid) {
-    issues.push(new PolicyIssue(field, 'encoding', '字段编码不合法'));
+    issues.push(new PolicyIssue(field, 'encoding', textOf('dlp_policy_field_encoding')));
   }
   return decoded.text;
 }
 
 function parseInteger(raw: string, field: string, issues: PolicyIssue[]): number {
   if (raw.length === 0) {
-    issues.push(new PolicyIssue(field, 'empty', '数值字段为空'));
+    issues.push(new PolicyIssue(field, 'empty', textOf('dlp_policy_number_empty')));
     return 0;
   }
   for (let index = 0; index < raw.length; index++) {
     const code: number = raw.charCodeAt(index);
     if (code < 0x30 || code > 0x39) {
-      issues.push(new PolicyIssue(field, 'format', '数值字段格式错误'));
+      issues.push(new PolicyIssue(field, 'format', textOf('dlp_policy_number_format')));
       return 0;
     }
   }

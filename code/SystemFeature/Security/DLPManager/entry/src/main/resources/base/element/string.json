@@ -107,6 +107,406 @@
     {
       "name": "app_settings",
       "value": "设置"
+    },
+    {
+      "name": "dlp_policy_number_format",
+      "value": "数值字段格式错误"
+    },
+    {
+      "name": "dlp_policy_number_empty",
+      "value": "数值字段为空"
+    },
+    {
+      "name": "dlp_policy_field_encoding",
+      "value": "字段编码不合法"
+    },
+    {
+      "name": "dlp_policy_field_malformed",
+      "value": "字段格式错误"
+    },
+    {
+      "name": "dlp_policy_version_unsupported",
+      "value": "不支持的策略版本"
+    },
+    {
+      "name": "dlp_policy_version_missing",
+      "value": "缺少策略版本"
+    },
+    {
+      "name": "dlp_policy_nickname_long",
+      "value": "昵称过长"
+    },
+    {
+      "name": "dlp_policy_watermark_long",
+      "value": "水印内容过长"
+    },
+    {
+      "name": "dlp_policy_expiry_invalid",
+      "value": "过期时间不合法"
+    },
+    {
+      "name": "dlp_policy_mask_empty",
+      "value": "至少需要保留一项权限"
+    },
+    {
+      "name": "dlp_policy_mask_range",
+      "value": "权限掩码超出范围"
+    },
+    {
+      "name": "dlp_policy_account_name_empty",
+      "value": "账号名称不能为空"
+    },
+    {
+      "name": "dlp_policy_account_id_empty",
+      "value": "账号标识不能为空"
+    },
+    {
+      "name": "dlp_perm_separator",
+      "value": "、"
+    },
+    {
+      "name": "dlp_perm_none",
+      "value": "无权限"
+    },
+    {
+      "name": "dlp_perm_copy",
+      "value": "复制"
+    },
+    {
+      "name": "dlp_perm_print",
+      "value": "打印"
+    },
+    {
+      "name": "dlp_perm_write",
+      "value": "编辑"
+    },
+    {
+      "name": "dlp_perm_read",
+      "value": "读取"
+    },
+    {
+      "name": "dlp_kind_unknown",
+      "value": "未知"
+    },
+    {
+      "name": "dlp_kind_program",
+      "value": "程序"
+    },
+    {
+      "name": "dlp_kind_database",
+      "value": "数据库"
+    },
+    {
+      "name": "dlp_kind_archive",
+      "value": "压缩包"
+    },
+    {
+      "name": "dlp_kind_document",
+      "value": "文档"
+    },
+    {
+      "name": "dlp_kind_audio",
+      "value": "视频"
+    },
+    {
+      "name": "dlp_kind_video",
+      "value": "音频"
+    },
+    {
+      "name": "dlp_kind_image",
+      "value": "图片"
+    },
+    {
+      "name": "dlp_kind_text",
+      "value": "文本"
+    },
+    {
+      "name": "dlp_time_permanent",
+      "value": "永久"
+    },
+    {
+      "name": "dlp_time_days_ago",
+      "value": "天前"
+    },
+    {
+      "name": "dlp_time_yesterday",
+      "value": "昨天"
+    },
+    {
+      "name": "dlp_time_hours_ago",
+      "value": "小时前"
+    },
+    {
+      "name": "dlp_time_minutes_ago",
+      "value": "分钟前"
+    },
+    {
+      "name": "dlp_time_just_now",
+      "value": "刚刚"
+    },
+    {
+      "name": "dlp_time_future",
+      "value": "未来"
+    },
+    {
+      "name": "dlp_err_unknown_title",
+      "value": "未知错误"
+    },
+    {
+      "name": "dlp_err_unknown_hint",
+      "value": "请重试，若仍然失败请查看日志"
+    },
+    {
+      "name": "dlp_err_19100004_title",
+      "value": "没有该 DLP 文件的访问权限"
+    },
+    {
+      "name": "dlp_err_19100004_hint",
+      "value": "请申请访问权限后重试"
+    },
+    {
+      "name": "dlp_err_19100003_title",
+      "value": "DLP 权限已过期"
+    },
+    {
+      "name": "dlp_err_19100003_hint",
+      "value": "请联系文件所有者重新授权"
+    },
+    {
+      "name": "dlp_err_19100002_title",
+      "value": "账号不可用"
+    },
+    {
+      "name": "dlp_err_19100002_hint",
+      "value": "请登录或切换账号后重试"
+    },
+    {
+      "name": "dlp_err_19100001_title",
+      "value": "DLP 策略配置错误"
+    },
+    {
+      "name": "dlp_err_19100001_hint",
+      "value": "请重新编辑加密权限"
+    },
+    {
+      "name": "dlp_err_13900042_title",
+      "value": "操作超时"
+    },
+    {
+      "name": "dlp_err_13900042_hint",
+      "value": "请检查网络后重试"
+    },
+    {
+      "name": "dlp_err_13900030_title",
+      "value": "文件名过长"
+    },
+    {
+      "name": "dlp_err_13900030_hint",
+      "value": "请缩短文件名"
+    },
+    {
+      "name": "dlp_err_13900025_title",
+      "value": "存储空间不足"
+    },
+    {
+      "name": "dlp_err_13900025_hint",
+      "value": "请清理文件后重试"
+    },
+    {
+      "name": "dlp_err_13900020_title",
+      "value": "参数不合法"
+    },
+    {
+      "name": "dlp_err_13900020_hint",
+      "value": "请检查输入内容"
+    },
+    {
+      "name": "dlp_err_13900019_title",
+      "value": "目标是目录而非文件"
+    },
+    {
+      "name": "dlp_err_13900019_hint",
+      "value": "请重新选择文件"
+    },
+    {
+      "name": "dlp_err_13900015_title",
+      "value": "文件正被占用"
+    },
+    {
+      "name": "dlp_err_13900015_hint",
+      "value": "请关闭其他正在使用该文件的应用"
+    },
+    {
+      "name": "dlp_err_13900013_title",
+      "value": "参数地址无效"
+    },
+    {
+      "name": "dlp_err_13900013_hint",
+      "value": "请检查传入的文件地址"
+    },
+    {
+      "name": "dlp_err_13900012_title",
+      "value": "没有文件访问权限"
+    },
+    {
+      "name": "dlp_err_13900012_hint",
+      "value": "请先通过授权页面申请访问权限"
+    },
+    {
+      "name": "dlp_err_13900011_title",
+      "value": "资源暂时不可用"
+    },
+    {
+      "name": "dlp_err_13900011_hint",
+      "value": "请稍后重试"
+    },
+    {
+      "name": "dlp_err_13900008_title",
+      "value": "文件句柄无效"
+    },
+    {
+      "name": "dlp_err_13900008_hint",
+      "value": "请重新打开文件"
+    },
+    {
+      "name": "dlp_err_13900005_title",
+      "value": "读写文件失败"
+    },
+    {
+      "name": "dlp_err_13900005_hint",
+      "value": "请重试；多次失败请重新打开文件"
+    },
+    {
+      "name": "dlp_err_13900004_title",
+      "value": "系统调用被中断"
+    },
+    {
+      "name": "dlp_err_13900004_hint",
+      "value": "请稍后重试"
+    },
+    {
+      "name": "dlp_err_13900002_title",
+      "value": "文件不存在"
+    },
+    {
+      "name": "dlp_err_13900002_hint",
+      "value": "请刷新文件列表后重试"
+    },
+    {
+      "name": "dlp_err_13900001_title",
+      "value": "操作不被允许"
+    },
+    {
+      "name": "dlp_err_13900001_hint",
+      "value": "请检查应用权限或文件所属账号"
+    },
+    {
+      "name": "dlp_err_0_title",
+      "value": "操作成功"
+    },
+    {
+      "name": "dlp_template_updated",
+      "value": "模板已更新"
+    },
+    {
+      "name": "dlp_template_not_found",
+      "value": "模板不存在或不可修改"
+    },
+    {
+      "name": "dlp_template_created",
+      "value": "模板已创建"
+    },
+    {
+      "name": "dlp_template_mask_range",
+      "value": "权限范围不合法"
+    },
+    {
+      "name": "dlp_template_mask_empty",
+      "value": "至少需要保留一项权限"
+    },
+    {
+      "name": "dlp_template_name_exists",
+      "value": "模板名称已存在"
+    },
+    {
+      "name": "dlp_template_name_too_long",
+      "value": "模板名称不能超过 20 个字符"
+    },
+    {
+      "name": "dlp_template_name_empty",
+      "value": "模板名称不能为空"
+    },
+    {
+      "name": "dlp_template_full_control",
+      "value": "完全控制"
+    },
+    {
+      "name": "dlp_template_copyable",
+      "value": "可复制"
+    },
+    {
+      "name": "dlp_template_printable",
+      "value": "可打印"
+    },
+    {
+      "name": "dlp_template_editable",
+      "value": "可编辑"
+    },
+    {
+      "name": "dlp_template_read_only",
+      "value": "只读"
+    },
+    {
+      "name": "dlp_settings_summary_mid",
+      "value": " · 每页 "
+    },
+    {
+      "name": "dlp_settings_summary_tail",
+      "value": " 条 · "
+    },
+    {
+      "name": "dlp_settings_template_empty",
+      "value": "默认权限模板不能为空"
+    },
+    {
+      "name": "dlp_settings_theme_invalid",
+      "value": "主题设置不合法"
+    },
+    {
+      "name": "dlp_settings_pagesize_range",
+      "value": "每页数量超出范围"
+    },
+    {
+      "name": "dlp_settings_level_invalid",
+      "value": "日志级别不合法"
+    },
+    {
+      "name": "dlp_theme_light",
+      "value": "浅色"
+    },
+    {
+      "name": "dlp_theme_auto",
+      "value": "跟随系统"
+    },
+    {
+      "name": "dlp_theme_dark",
+      "value": "深色"
+    },
+    {
+      "name": "dlp_level_info",
+      "value": "信息"
+    },
+    {
+      "name": "dlp_level_error",
+      "value": "错误"
+    },
+    {
+      "name": "dlp_level_warn",
+      "value": "警告"
+    },
+    {
+      "name": "dlp_level_debug",
+      "value": "调试"
     }
   ]
 }

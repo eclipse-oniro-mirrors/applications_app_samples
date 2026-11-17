@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { textOf } from './TextCatalog';
 
 const SIZE_UNITS: string[] = ['B', 'KB', 'MB', 'GB', 'TB'];
 const ILLEGAL_NAME_CHARS: string = '/\\:*?"<>|';
@@ -152,22 +153,22 @@ export function formatRelative(sec: number, nowSec: number, useUtc: boolean): st
   }
   const diff: number = Math.floor(nowSec) - Math.floor(sec);
   if (diff < 0) {
-    return '未来';
+    return textOf('dlp_time_future');
   }
   if (diff < 60) {
-    return '刚刚';
+    return textOf('dlp_time_just_now');
   }
   if (diff < 3600) {
-    return Math.floor(diff / 60).toString() + '分钟前';
+    return Math.floor(diff / 60).toString() + textOf('dlp_time_minutes_ago');
   }
   if (diff < 86400) {
-    return Math.floor(diff / 3600).toString() + '小时前';
+    return Math.floor(diff / 3600).toString() + textOf('dlp_time_hours_ago');
   }
   if (diff < 172800) {
-    return '昨天';
+    return textOf('dlp_time_yesterday');
   }
   if (diff < 604800) {
-    return Math.floor(diff / 86400).toString() + '天前';
+    return Math.floor(diff / 86400).toString() + textOf('dlp_time_days_ago');
   }
   return formatDateOnly(sec, useUtc);
 }
@@ -305,7 +306,7 @@ export function maskAccount(accountId: string): string {
 
 export function formatExpiry(expiredAtSec: number, useUtc: boolean): string {
   if (!isFiniteNumber(expiredAtSec) || expiredAtSec <= 0) {
-    return '永久';
+    return textOf('dlp_time_permanent');
   }
   return formatDateOnly(expiredAtSec, useUtc);
 }
