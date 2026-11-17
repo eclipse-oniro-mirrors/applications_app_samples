@@ -1,0 +1,4 @@
+# 图片索引负载：真实rawfile资源名称|宽度|高度
+# 每一项都有实际打包资源，选择时进行解码及尺寸核对。
+workload_mountain.svg|160|96
+workload_river.svg|160|96
