@@ -333,9 +333,12 @@ struct ImageEditPage {
     let uri = fileUri.getUriFromPath(filePath);
     let imageData = await imagePackerApi.packToData(pixelMap, packOption);
     let file = fs.openSync(uri, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
-    let writeLen = fs.writeSync(file.fd, imageData);
-    fs.closeSync(file);
-    console.info(`write texture pixel to file succeed and size is ${writeLen}`);
+    try {
+      let writeLen = fs.writeSync(file.fd, imageData);
+      console.info(`write texture pixel to file succeed and size is ${writeLen}`);
+    } finally {
+      fs.closeSync(file);
+    }
   }
 
   private confirmInfo() {
