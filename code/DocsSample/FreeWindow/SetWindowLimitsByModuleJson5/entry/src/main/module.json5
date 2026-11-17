@@ -1,4 +1,4 @@
-// [Start free_window_setWindowLimitsByModuleJson5]
+// [Start freeWindow_setWindowLimitsByModuleJson5]
 {
   "module": {
     "name": "entry",
@@ -85,4 +85,4 @@
     ]
   }
 }
-// [End free_window_setWindowLimitsByModuleJson5]
+// [End freeWindow_setWindowLimitsByModuleJson5]

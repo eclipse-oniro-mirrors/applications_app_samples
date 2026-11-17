@@ -15,17 +15,16 @@
 @Entry
 @Component
 struct Index {
-  @State message: string = 'setWindowLimits.';
 
   build() {
     RelativeContainer() {
       Row() {
-        Row() {
-          Text(this.message)
-        }.height('50%')
-        .width('100%')
-        .alignItems(VerticalAlign.Center)
-        .justifyContent(FlexAlign.Center)
+        Column() {
+          Text('窗口最小宽度 minWindowWidth: 600px')
+          Text('窗口最小高度 minWindowHeight: 500px')
+          Text('窗口最大宽度 maxWindowWidth: 800px')
+          Text('窗口最大高度 maxWindowHeight: 600px')
+        }
       }
       .height('100%')
       .width('100%')
