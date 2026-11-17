@@ -41,7 +41,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-0-2-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -72,7 +72,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-1-2-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -103,7 +103,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-2-2-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -134,7 +134,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-3-2-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -165,7 +165,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-4-2-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -196,7 +196,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-5-2-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -227,7 +227,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-0-3-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-3',
+        surfaceId: 'render-target-3',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -258,7 +258,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-1-3-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-3',
+        surfaceId: 'render-target-3',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -289,7 +289,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-2-3-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-3',
+        surfaceId: 'render-target-3',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -320,7 +320,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-3-3-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-3',
+        surfaceId: 'render-target-3',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -351,7 +351,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-4-3-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-3',
+        surfaceId: 'render-target-3',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -382,7 +382,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-5-3-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-3',
+        surfaceId: 'render-target-3',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -413,7 +413,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-0-4-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-4',
+        surfaceId: 'render-target-4',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -444,7 +444,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-1-4-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-4',
+        surfaceId: 'render-target-4',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -475,7 +475,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-2-4-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-4',
+        surfaceId: 'render-target-4',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -506,7 +506,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-3-4-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-4',
+        surfaceId: 'render-target-4',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -537,7 +537,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-4-4-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-4',
+        surfaceId: 'render-target-4',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -568,7 +568,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-5-4-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-4',
+        surfaceId: 'render-target-4',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -599,7 +599,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-0-5-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-5',
+        surfaceId: 'render-target-5',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -630,7 +630,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-1-5-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-5',
+        surfaceId: 'render-target-5',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -661,7 +661,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-2-5-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-5',
+        surfaceId: 'render-target-5',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -692,7 +692,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-3-5-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-5',
+        surfaceId: 'render-target-5',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -723,7 +723,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-4-5-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-5',
+        surfaceId: 'render-target-5',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -754,7 +754,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-5-5-3';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-5',
+        surfaceId: 'render-target-5',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -785,7 +785,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-0-0-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-0',
+        surfaceId: 'render-target-0',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -816,7 +816,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-1-0-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-0',
+        surfaceId: 'render-target-0',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -847,7 +847,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-2-0-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-0',
+        surfaceId: 'render-target-0',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -878,7 +878,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-3-0-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-0',
+        surfaceId: 'render-target-0',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -909,7 +909,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-4-0-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-0',
+        surfaceId: 'render-target-0',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -940,7 +940,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-5-0-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-0',
+        surfaceId: 'render-target-0',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -971,7 +971,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-0-1-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-1',
+        surfaceId: 'render-target-1',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1002,7 +1002,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-1-1-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-1',
+        surfaceId: 'render-target-1',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1033,7 +1033,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-2-1-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-1',
+        surfaceId: 'render-target-1',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1064,7 +1064,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-3-1-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-1',
+        surfaceId: 'render-target-1',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1095,7 +1095,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-4-1-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-1',
+        surfaceId: 'render-target-1',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1126,7 +1126,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-5-1-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-1',
+        surfaceId: 'render-target-1',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1157,7 +1157,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-0-2-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1188,7 +1188,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-1-2-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1219,7 +1219,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-2-2-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
@@ -1250,7 +1250,7 @@ export default function EmbedControllerPart29(): void {
       expect(initialId).assertEqual('');
       const expectedId: string = 'nativeSearch-3-2-4';
       const options: NodeControllerParams = {
-        surfaceId: 'surface-2',
+        surfaceId: 'render-target-2',
         type: 'native/component',
         renderType: NodeRenderType.RENDER_TYPE_TEXTURE,
         embedId: expectedId,
