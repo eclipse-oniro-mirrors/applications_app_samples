@@ -91,6 +91,22 @@
     {
       "name": "cancel_retention_sandbox",
       "value": "取消沙箱保留"
+    },
+    {
+      "name": "search_files",
+      "value": "搜索文件"
+    },
+    {
+      "name": "recent_files",
+      "value": "最近与收藏"
+    },
+    {
+      "name": "policy_templates",
+      "value": "权限模板"
+    },
+    {
+      "name": "app_settings",
+      "value": "设置"
     }
   ]
 }

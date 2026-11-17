@@ -91,6 +91,22 @@
     {
       "name": "cancel_retention_sandbox",
       "value": "cancel_retention_sandbox"
+    },
+    {
+      "name": "search_files",
+      "value": "search files"
+    },
+    {
+      "name": "recent_files",
+      "value": "recent and favorites"
+    },
+    {
+      "name": "policy_templates",
+      "value": "policy templates"
+    },
+    {
+      "name": "app_settings",
+      "value": "settings"
     }
   ]
 }
