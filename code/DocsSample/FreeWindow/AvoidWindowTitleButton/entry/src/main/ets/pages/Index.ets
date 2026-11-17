@@ -16,12 +16,14 @@
 // 示例应用的主页面
 import { window } from '@kit.ArkUI';
 
+const DEFAULT_WINDOW_DECOR_HEIGHT: number = 50;
+
 @Entry
 @Component
 struct Index {
   @State message: string = 'Top layout area, do not hide the title bar.';
   private mainWindow: window.Window | null = null;
-  @State private topAreaHeight: number = 50;
+  @State private topAreaHeight: number = DEFAULT_WINDOW_DECOR_HEIGHT;
   @State private topAreaWidth: number | string = '100%';
   @State private titleButtonRect: window.TitleButtonRect = {
     right: 0,
@@ -40,7 +42,7 @@ struct Index {
     try {
       this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
     } catch (error) {
-      this.topAreaHeight = 50;
+      this.topAreaHeight = DEFAULT_WINDOW_DECOR_HEIGHT;
     }
     this.mainWindow.on("windowSizeChange", (data) => {
       this.windowSize = data;
@@ -109,7 +111,7 @@ struct Index {
               try {
                 this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
               } catch (error) {
-                this.topAreaHeight = 50;
+                this.topAreaHeight = DEFAULT_WINDOW_DECOR_HEIGHT;
               }
               this.topAreaWidth = '100%';
             })

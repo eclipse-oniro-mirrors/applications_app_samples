@@ -17,12 +17,15 @@ import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hy
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { bundleManager, common, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import testNapi from 'libentry.so';
 
 const BUNDLE_NAME: string = 'com.dlp.api.test';
 const ENTRY_ABILITY_NAME: string = 'EntryAbility';
 const EXPECTED_VERSION_NAME: string = '1.0.0';
 const EXPECTED_VERSION_CODE: number = 1000000;
+const LOG_DOMAIN: number = 0xF811;
+const LOG_TAG: string = '[SampleTest]';
 
 export default function abilityTest() {
   describe('DlpAbilityTest', () => {
@@ -41,9 +44,12 @@ export default function abilityTest() {
      * @tc.level  LEVEL0
      */
     it('testAppContext0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testAppContext0001 begin');
       expect(appContext !== undefined).assertTrue();
       expect(appContext.resourceManager !== undefined).assertTrue();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'appName=%{public}s', appContext.applicationInfo.name);
       expect(appContext.applicationInfo.name).assertEqual(BUNDLE_NAME);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testAppContext0001 end');
     })
 
     /**
@@ -55,11 +61,15 @@ export default function abilityTest() {
      * @tc.level  LEVEL0
      */
     it('testBundleInfo0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testBundleInfo0001 begin');
       const bundleFlag: number = bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT;
       const bundleInfo: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(bundleFlag);
       expect(bundleInfo.name).assertEqual(BUNDLE_NAME);
       expect(bundleInfo.versionName).assertEqual(EXPECTED_VERSION_NAME);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'bundle=%{public}s version=%{public}s(%{public}d)',
+        bundleInfo.name, bundleInfo.versionName, bundleInfo.versionCode);
       expect(bundleInfo.versionCode).assertEqual(EXPECTED_VERSION_CODE);
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testBundleInfo0001 end');
     })
 
     /**
@@ -71,13 +81,16 @@ export default function abilityTest() {
      * @tc.level  LEVEL0
      */
     it('testNapiExported0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, () => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testNapiExported0001 begin');
       expect(testNapi !== undefined).assertTrue();
       expect(typeof testNapi.GetDlpPermissionInfo).assertEqual('function');
       expect(typeof testNapi.GetOriginalFileName).assertEqual('function');
       expect(typeof testNapi.IsInSandbox).assertEqual('function');
       expect(typeof testNapi.SetSandboxAppConfig).assertEqual('function');
       expect(typeof testNapi.GetSandboxAppConfig).assertEqual('function');
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'libentry loaded=%{public}s', typeof testNapi);
       expect(typeof testNapi.CleanSandboxAppConfig).assertEqual('function');
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testNapiExported0001 end');
     })
 
     /**
@@ -89,18 +102,22 @@ export default function abilityTest() {
      * @tc.level  LEVEL0
      */
     it('testStartEntryAbility0001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testStartEntryAbility0001 begin');
       const want: Want = {
         bundleName: BUNDLE_NAME,
         abilityName: ENTRY_ABILITY_NAME
       };
       const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
         abilityDelegatorRegistry.getAbilityDelegator();
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'bundle=%{public}s ability=%{public}s',
+        want.bundleName, want.abilityName);
       let isFailed: boolean = false;
       abilityDelegator.startAbility(want, (err: BusinessError) => {
         if (err !== undefined && err !== null && err.code !== 0) {
           isFailed = true;
         }
         expect(isFailed).assertFalse();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testStartEntryAbility0001 end');
         done();
       });
     })

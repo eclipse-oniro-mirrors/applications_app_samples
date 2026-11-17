@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2023 Huawei Device Co., Ltd.
+* Copyright (C) 2026 Huawei Device Co., Ltd.
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
 * You may obtain a copy of the License at
@@ -22,40 +22,40 @@ import { window } from '@kit.ArkUI';
 
 export default class TestAbility extends UIAbility {
   onCreate(want:Want, launchParam:AbilityConstant.LaunchParam) {
-    hilog.info(0x0000, '[Sample_Dlp]', '%{public}s', 'TestAbility onCreate');
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'TestAbility onCreate');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
     let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
     let abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'start run testcase!!!');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'start run testcase!!!');
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
   }
 
   onDestroy() {
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'TestAbility onDestroy');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'TestAbility onDestroy');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage) {
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'TestAbility onWindowStageCreate');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
-        hilog.error(0x0000, '[Sample_MediaController]', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        hilog.error(0x0000, '[Sample_AvoidWindowTitleButton]', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
-      hilog.info(0x0000, '[Sample_MediaController]', 'Succeeded in loading the content. Data: %{public}s',
+      hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', 'Succeeded in loading the content. Data: %{public}s',
         JSON.stringify(data) ?? '');
     });
   }
 
   onWindowStageDestroy() {
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'TestAbility onWindowStageDestroy');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'TestAbility onWindowStageDestroy');
   }
 
   onForeground() {
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'TestAbility onForeground');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'TestAbility onForeground');
   }
 
   onBackground() {
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'TestAbility onBackground');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'TestAbility onBackground');
   }
 }

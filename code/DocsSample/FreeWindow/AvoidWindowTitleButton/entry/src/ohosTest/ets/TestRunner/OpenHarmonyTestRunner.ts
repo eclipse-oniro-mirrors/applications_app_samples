@@ -17,8 +17,8 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import TestRunner from '@ohos.application.testRunner';
 import { abilityDelegatorRegistry } from '@kit.TestKit';
 
-var abilityDelegator = undefined
-var abilityDelegatorArguments = undefined
+let abilityDelegator = undefined
+let abilityDelegatorArguments = undefined
 
 async function onAbilityCreateCallback() {
   hilog.info(0x0000, 'testTag', '%{public}s', 'onAbilityCreateCallback');
@@ -40,14 +40,14 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = abilityDelegatorRegistry.getArguments()
     abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
-    var testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility'
+    let testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility'
     let lMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
     };
     abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
-    var cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName
-    var debug = abilityDelegatorArguments.parameters['-D']
+    let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName
+    let debug = abilityDelegatorArguments.parameters['-D']
     if (debug == 'true') {
       cmd += ' -D'
     }
