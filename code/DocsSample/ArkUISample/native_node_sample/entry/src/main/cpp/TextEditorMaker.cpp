@@ -1441,10 +1441,10 @@ void AutoFill()
     Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_STYLED_STRING_CONTROLLER, &controllerItem);
     ArkUI_NumberValue enableAutoFill = {.i32 = false};
     ArkUI_AttributeItem enableAutoFillItem = {&enableAutoFill, 1};
-    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_INPUT_ENABLE_AUTO_FILL, &enableAutoFillItem);
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_ENABLE_AUTO_FILL, &enableAutoFillItem);
     ArkUI_NumberValue enableFillAnimation = {.i32 = false};
     ArkUI_AttributeItem enableFillAnimationItem = {&enableFillAnimation, 1};
-    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_ENABLE_AUTO_FILL, &enableFillAnimationItem);
+    Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_ENABLE_FILL_ANIMATION, &enableFillAnimationItem);
     ArkUI_NumberValue inputContentType = {.i32 = ARKUI_TEXTINPUT_CONTENT_TYPE_PASSWORD};
     ArkUI_AttributeItem inputContentTypeItem = {&inputContentType, 1};
     Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_CONTENT_TYPE, &inputContentTypeItem);
