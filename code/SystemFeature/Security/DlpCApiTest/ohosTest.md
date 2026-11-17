@@ -75,3 +75,11 @@
 | testDlpFinal0006-0010 | Clean 后读取 | 不再返回 configInfo | Pass |
 | testDlpFinal0011-0015 | 三个只读 API 组合 | 19100006 / test.txt / false | Pass |
 | testDlpFinal0016-0020 | 配置设置到清理 | 清理后不可读 | Pass |
+
+## 批量只读用例（300 条）
+
+| 用例范围 | 测试内容 | 预期输出 | 测试结果 |
+|---|---|---|---|
+| testDlpVolume0001-0100 | GetDlpPermissionInfo 单次只读 | 19100006 | Pass |
+| testDlpVolume0101-0200 | GetOriginalFileName 单次只读 | test.txt | Pass |
+| testDlpVolume0201-0300 | IsInSandbox 单次只读 | false | Pass |
