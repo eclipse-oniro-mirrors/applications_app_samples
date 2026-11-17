@@ -593,7 +593,7 @@ export struct Player {
   }
 
   private selectDisplayScaleMode(): void {
-    TextPickerDialog.show({
+    this.getUIContext().showTextPickerDialog({
       range: [
         this.getSettingText($r('app.string.playback_display_scale_fit')),
         this.getSettingText($r('app.string.playback_display_scale_fill'))
@@ -1205,7 +1205,8 @@ export struct Player {
       this.startPlaybackSession();
       const mediaDurationUs = this.currentMediaInfo?.durationUs ?? 0;
       const resumePositionUs = startPositionUs >= 0 ? startPositionUs :
-        this.playbackHistory.getResumePosition(this.selectFilePath ?? '', mediaDurationUs);
+        this.playbackHistory.getResumePosition(this.selectFilePath ?? '', mediaDurationUs,
+          this.playerSettings.resumeLastPosition);
       if (recoverySnapshot !== undefined) {
         this.requestedSpeed = recoverySnapshot.speed;
         player.setVolume(this.audioMuted ? 0 : this.playerSettings.audioVolume / 100);
@@ -1439,6 +1440,7 @@ export struct Player {
       advancedExpanded: this.isAdvancedPlayerSettingsExpanded,
       audioLowLatencyEnabled: this.playerDraft.audioLowLatency,
       autoHideControlsEnabled: this.playerDraft.autoHideControls,
+      resumeLastPositionEnabled: this.playerDraft.resumeLastPosition,
       retainLastFrameEnabled: this.playerDraft.retainLastFrame,
       retainLastFrameAvailable: this.playerDraft.runMode === 0,
       lowLatencyEnabled: this.playerDraft.lowLatency,
@@ -1455,6 +1457,7 @@ export struct Player {
       },
       onAudioLowLatencyChanged: (enabled: boolean): void => { this.playerDraft.audioLowLatency = enabled; },
       onAutoHideControlsChanged: (enabled: boolean): void => { this.playerDraft.autoHideControls = enabled; },
+      onResumeLastPositionChanged: (enabled: boolean): void => { this.playerDraft.resumeLastPosition = enabled; },
       onRetainLastFrameChanged: (enabled: boolean): void => { this.playerDraft.retainLastFrame = enabled; },
       onLowLatencyChanged: (enabled: boolean): void => { this.playerDraft.lowLatency = enabled; },
       onDecodingOrderOutputChanged: (enabled: boolean): void => {
@@ -1822,7 +1825,7 @@ export struct Player {
 
 
   private showPlaybackSpeedPicker(): void {
-    TextPickerDialog.show({
+    this.getUIContext().showTextPickerDialog({
       range: Const.PLAYBACK_SPEED,
       canLoop: false,
       onAccept: (value: TextPickerResult): void => {

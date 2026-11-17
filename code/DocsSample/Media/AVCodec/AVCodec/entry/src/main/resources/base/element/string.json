@@ -58,7 +58,7 @@
     {"name":"task_export_text","value":"Export TXT"},
     {"name":"task_baseline","value":"Performance baseline"},
     {"name":"task_save_baseline","value":"Save as baseline"},
-    {"name":"task_baseline_hint","value":"Compare only matching device/API, configuration and observed pipeline. API wall times are not hardware execution latency. Use the same media and operating conditions."},
+    {"name":"task_baseline_hint","value":"Calculate the source checksum after completion, then save a baseline. Comparisons require the same device, configuration and source."},
     {"name":"task_no_baseline","value":"No matching baseline"},
     {"name":"task_capability_matrix","value":"Capability snapshots"},
     {"name":"task_capability_save","value":"Save device snapshot"},
@@ -810,6 +810,7 @@
     { "name": "diagnostics_audio_interrupt_idle", "value": "Audio interruptions %d (not interrupted)" },
     { "name": "diagnostics_background_paused", "value": "Background: paused; resumes in foreground" },
     { "name": "setting_advanced", "value": "Advanced settings" },
+    { "name": "setting_resume_last_position", "value": "Resume last playback position" },
     { "name": "playback_section_controls", "value": "Playback controls" },
     { "name": "playback_previous_frame_short", "value": "Previous frame" },
     { "name": "playback_next_frame_short", "value": "Next frame" },
@@ -1295,6 +1296,9 @@
     {"name":"recorder_resume","value":"Resume recording"},
     {"name":"recorder_paused","value":"Paused"},
     {"name":"recorder_pause_hint","value":"Pause requires SDR single-output Buffer recording. Camera preview continues while paused; no audio or video is added to the file."},
-    {"name":"recorder_pause_failed","value":"Unable to pause or resume. Retry or end recording."}
+    {"name":"recorder_pause_failed","value":"Unable to pause or resume. Retry or end recording."},
+    {"name":"task_checksum","value":"Calculate source checksum"},
+    {"name":"task_checksum_running","value":"Calculating SHA256. Large files may take a while."},
+    {"name":"task_checksum_failed","value":"Checksum failed. Check that the original file is unchanged and accessible, then retry when media tasks finish. If the file changed, run the task again."}
   ]
 }

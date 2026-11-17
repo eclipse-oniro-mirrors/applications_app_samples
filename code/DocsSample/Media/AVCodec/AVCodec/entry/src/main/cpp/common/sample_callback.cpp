@@ -68,7 +68,8 @@ size_t DrainRenderQueue(CodecUserData *codecUserData, uint8_t *destination, int3
 
 void UpdateAudioPlaybackPosition(CodecUserData *codecUserData, size_t writtenBytes)
 {
-    if (codecUserData->sampleInfo == nullptr) {
+    // 音轨结束后的补零回调不再写媒体进度，避免覆盖尾部视频推进的位置。
+    if (codecUserData->sampleInfo == nullptr || writtenBytes == 0) {
         return;
     }
     const int32_t channelCount = codecUserData->sampleInfo->audio.audioChannelCount;

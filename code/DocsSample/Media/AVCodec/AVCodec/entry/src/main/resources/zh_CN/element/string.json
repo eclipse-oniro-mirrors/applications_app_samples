@@ -58,7 +58,7 @@
     {"name":"task_export_text","value":"导出 TXT"},
     {"name":"task_baseline","value":"性能基线"},
     {"name":"task_save_baseline","value":"设为基线"},
-    {"name":"task_baseline_hint","value":"仅对比设备/API、配置和实际链路一致的报告。API 调用耗时不代表硬件执行时延；对比前请使用相同素材和运行条件。"},
+    {"name":"task_baseline_hint","value":"任务完成后计算素材校验值，再保存基线。仅比较设备、配置和素材一致的已完成任务。"},
     {"name":"task_no_baseline","value":"暂无匹配基线"},
     {"name":"task_capability_matrix","value":"能力快照对比"},
     {"name":"task_capability_save","value":"保存当前快照"},
@@ -798,6 +798,7 @@
     { "name": "diagnostics_audio_interrupt_idle", "value": "音频中断 %d 次（未中断）" },
     { "name": "diagnostics_background_paused", "value": "后台状态：已暂停，返回前台后自动恢复" },
     { "name": "setting_advanced", "value": "高级设置" },
+    { "name": "setting_resume_last_position", "value": "恢复上次播放位置" },
     { "name": "playback_section_controls", "value": "播放控制" },
     { "name": "playback_previous_frame_short", "value": "上一帧" },
     { "name": "playback_next_frame_short", "value": "下一帧" },
@@ -1282,6 +1283,9 @@
     {"name":"recorder_resume","value":"继续录制"},
     {"name":"recorder_paused","value":"已暂停"},
     {"name":"recorder_pause_hint","value":"暂停仅支持SDR单路Buffer录制；暂停期间相机预览继续，音视频不写入文件。"},
-    {"name":"recorder_pause_failed","value":"暂停或继续失败，请重试或结束录制"}
+    {"name":"recorder_pause_failed","value":"暂停或继续失败，请重试或结束录制"},
+    {"name":"task_checksum","value":"计算素材校验值"},
+    {"name":"task_checksum_running","value":"正在计算SHA256，大文件需要一些时间。"},
+    {"name":"task_checksum_failed","value":"校验失败。请确认原文件未改动且可访问，待媒体任务结束后重试；文件已变更时请重新运行任务。"}
   ]
 }

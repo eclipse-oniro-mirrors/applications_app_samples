@@ -17,15 +17,19 @@ import { deviceInfo } from '@kit.BasicServicesKit';
 import { PlaybackInfo, PlaybackTimelineEvent } from 'libplayer.so';
 import { TranscodeStatus, TranscodeMeasurement } from 'libtranscoder.so';
 import { MediaTaskKind } from './MediaTaskCoordinator';
+import { MediaBuildInfo, MediaBuildIdentity } from './MediaBuildInfo';
 
 export type MediaErrorCategory = 'none' | 'cancelled' | 'capability' | 'configuration' | 'permission' |
   'storage' | 'input' | 'codec' | 'graphics' | 'mux' | 'unknown';
 export interface MediaSessionError { category: MediaErrorCategory; stage: string; code: number; detail: string; }
 export interface MediaSessionMetric { name: string; amount: number; unit: string; }
 export interface MediaSessionEvent { elapsedMs: number; stage: string; }
+export interface MediaInputIdentity { bytes: number; modifiedAt: number; sha256?: string; sourceUri?: string; }
 export interface MediaSessionReport {
   version: number; id: string; operation: MediaTaskKind; createdAt: number; device: string; api: number;
   nativeSessionId?: string;
+  build?: MediaBuildIdentity;
+  input?: MediaInputIdentity;
   outcome: string; requested: string; observed: string; error: MediaSessionError;
   metrics: MediaSessionMetric[]; events: MediaSessionEvent[];
 }
@@ -37,6 +41,9 @@ export class MediaReports {
 
   static shareable(report: MediaSessionReport): MediaSessionReport {
     const shared: MediaSessionReport = JSON.parse(JSON.stringify(report)) as MediaSessionReport;
+    if (shared.input !== undefined) {
+      shared.input = { bytes: shared.input.bytes, modifiedAt: shared.input.modifiedAt, sha256: shared.input.sha256 };
+    }
     shared.requested = MediaReports.redact(shared.requested);
     shared.observed = MediaReports.redact(shared.observed);
     shared.error.detail = MediaReports.redact(shared.error.detail);
@@ -62,6 +69,8 @@ export class MediaReports {
       !MediaReports.shortText(report.id, 160) ||
       !['playback', 'recording', 'transcode', 'cleanup'].includes(report.operation) ||
       (report.nativeSessionId !== undefined && !MediaReports.shortText(report.nativeSessionId, 160)) ||
+      (report.build !== undefined && !MediaBuildInfo.valid(report.build)) ||
+      (report.input !== undefined && !MediaReports.validInput(report.input)) ||
       !Number.isFinite(report.createdAt) || report.createdAt <= 0 || !Number.isInteger(report.api) ||
       !MediaReports.shortText(report.device, 1024) || !MediaReports.shortText(report.outcome, 64) ||
       !MediaReports.shortText(report.requested, 16384) || !MediaReports.shortText(report.observed, 16384) ||
@@ -75,6 +84,18 @@ export class MediaReports {
       MediaReports.shortText(metric.unit, 32) && Number.isFinite(metric.amount)) &&
       report.events.every((event: MediaSessionEvent): boolean => event !== null && typeof event === 'object' &&
         Number.isFinite(event.elapsedMs) && event.elapsedMs >= 0 && MediaReports.shortText(event.stage, 1024));
+  }
+
+  static validInput(input: MediaInputIdentity): boolean {
+    return input !== null && typeof input === 'object' && Number.isSafeInteger(input.bytes) && input.bytes > 0 &&
+      Number.isFinite(input.modifiedAt) && input.modifiedAt >= 0 &&
+      (input.sha256 === undefined || (typeof input.sha256 === 'string' && /^[0-9a-f]{64}$/.test(input.sha256))) &&
+      (input.sourceUri === undefined || MediaReports.shortText(input.sourceUri, 16384));
+  }
+
+  static inputSnapshot(uri: string, bytes: number, modifiedAt: number): MediaInputIdentity | undefined {
+    const input: MediaInputIdentity = { sourceUri: uri, bytes: bytes, modifiedAt: modifiedAt };
+    return MediaReports.validInput(input) ? input : undefined;
   }
 
   private static shortText(value: string, limit: number): boolean {
@@ -108,6 +129,7 @@ export class MediaReports {
   static base(id: string, operation: MediaTaskKind, outcome: string): MediaSessionReport {
     return {
       version: 1,
+      build: MediaBuildInfo.current(),
       id: id,
       operation: operation,
       createdAt: Date.now(),
@@ -122,8 +144,9 @@ export class MediaReports {
     };
   }
 
-  static playback(id: string, info: PlaybackInfo, outcome: string): MediaSessionReport {
+  static playback(id: string, info: PlaybackInfo, outcome: string, input?: MediaInputIdentity): MediaSessionReport {
     const report: MediaSessionReport = MediaReports.base(id, 'playback', outcome);
+    report.input = input;
     report.nativeSessionId = info.diagnostics.sessionId;
     report.requested = info.diagnostics.requestedConfiguration;
     report.observed = info.diagnostics.observedConfiguration;
@@ -137,9 +160,11 @@ export class MediaReports {
     return report;
   }
 
-  static transcode(id: string, status: TranscodeStatus, configuration: string): MediaSessionReport {
+  static transcode(id: string, status: TranscodeStatus, configuration: string,
+    input?: MediaInputIdentity): MediaSessionReport {
     const report: MediaSessionReport = MediaReports.base(id, 'transcode',
       status.state === 2 ? 'completed' : status.state === 3 ? 'cancelled' : 'failed');
+    report.input = input;
     report.requested = configuration; report.observed = status.decoderName + ' -> ' + status.encoderName +
       ' / ' + status.outputWidth + 'x' + status.outputHeight +
       ' / validation=' + (status.outputValidation || 'not recorded') +
@@ -163,6 +188,10 @@ export class MediaReports {
   static text(report: MediaSessionReport): string {
     return ['AVCodec session / schema ' + report.version, report.id + ' / ' + report.operation,
       'native session: ' + (report.nativeSessionId ?? ''),
+      'build: ' + (report.build === undefined ? 'not recorded' : report.build.appVersion + ' / ' +
+        report.build.revision + ' / source=' + report.build.sourceDigest + ' / ' + report.build.builtAt),
+      'input: ' + (report.input === undefined ? 'not recorded' : report.input.bytes + ' bytes / SHA256=' +
+        (report.input.sha256 ?? 'not calculated')),
       new Date(report.createdAt).toISOString(), report.device + ' / API ' + report.api, report.outcome,
       'requested: ' + report.requested, 'observed: ' + report.observed,
       'error: ' + report.error.category + ' / ' + report.error.stage + ' / ' + report.error.code,
