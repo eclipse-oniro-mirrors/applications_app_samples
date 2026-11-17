@@ -156,7 +156,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
 ### 依赖
 
-不依赖其他 Sample。本示例使用系统的 `RenderNode` 与 `PixelMap` 完成页面绘制与离屏位图保存。
+不依赖其余 Sample。本示例使用系统的 `RenderNode` 与 `PixelMap` 完成页面绘制与离屏位图保存。
 
 ### 约束与限制
 

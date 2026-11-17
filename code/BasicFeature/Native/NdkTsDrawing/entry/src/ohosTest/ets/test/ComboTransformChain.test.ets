@@ -467,7 +467,7 @@ export default function comboTransformChainTest() {
     /**
      * @tc.number SUB_NdkTsDrawing_COMBO_0301
      * @tc.name testComboChain0001
-     * @tc.desc Verify that translating first and scaling first put the same square at different places.
+     * @tc.desc Verify that translating first and scaling first put the same square at different positions.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level3

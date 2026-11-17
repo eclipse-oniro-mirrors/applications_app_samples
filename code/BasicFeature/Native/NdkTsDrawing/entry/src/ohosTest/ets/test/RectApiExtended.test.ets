@@ -461,7 +461,7 @@ export default function rectApiExtendedTest() {
 
     /** @tc.number SUB_NdkTsDrawing_RECT_0098
      * @tc.name testRectApi0098
-     * @tc.desc Verify offsetTo places the origin at the requested corner.
+     * @tc.desc Verify offsetTo moves the origin to the requested corner.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level2

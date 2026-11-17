@@ -356,7 +356,7 @@ export default function enumPathIterTest() {
 
     /** @tc.number SUB_NdkTsDrawing_ENUM_0232
      * @tc.name testEnumPathIter0232
-     * @tc.desc Verify two line commands surface as two PathIteratorVerb.LINE entries.
+     * @tc.desc Verify two line commands appear as two PathIteratorVerb.LINE entries.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level2
@@ -443,7 +443,7 @@ export default function enumPathIterTest() {
 
     /** @tc.number SUB_NdkTsDrawing_ENUM_0236
      * @tc.name testEnumPathIter0236
-     * @tc.desc Verify a quadratic curve surfaces as a single PathIteratorVerb.QUAD entry.
+     * @tc.desc Verify a quadratic curve appears as a single PathIteratorVerb.QUAD entry.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level2
@@ -530,7 +530,7 @@ export default function enumPathIterTest() {
 
     /** @tc.number SUB_NdkTsDrawing_ENUM_0240
      * @tc.name testEnumPathIter0240
-     * @tc.desc Verify a conic curve surfaces as one PathIteratorVerb.CONIC with one weight.
+     * @tc.desc Verify a conic curve appears as one PathIteratorVerb.CONIC with one weight.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level2
@@ -618,7 +618,7 @@ export default function enumPathIterTest() {
 
     /** @tc.number SUB_NdkTsDrawing_ENUM_0244
      * @tc.name testEnumPathIter0244
-     * @tc.desc Verify a cubic curve surfaces as one PathIteratorVerb.CUBIC entry.
+     * @tc.desc Verify a cubic curve appears as one PathIteratorVerb.CUBIC entry.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level2

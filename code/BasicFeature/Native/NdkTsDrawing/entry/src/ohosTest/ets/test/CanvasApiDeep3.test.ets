@@ -81,7 +81,7 @@ export default function canvasApiDeep3Test() {
   describe('CanvasApiDeep3Test', () => {
     /** @tc.number SUB_NdkTsDrawing_DEEP_0144
      * @tc.name testCanvasDeep0144
-     * @tc.desc Verify a fully painted offscreen canvas still reports a non opaque surface.
+     * @tc.desc Verify a fully painted offscreen canvas still reports isOpaque as false.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level2

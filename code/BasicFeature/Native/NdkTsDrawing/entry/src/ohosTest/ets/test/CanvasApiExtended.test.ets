@@ -1653,7 +1653,7 @@ export default function canvasApiExtendedTest() {
 
     /** @tc.number SUB_NdkTsDrawing_CANVAS_0130
      * @tc.name testCanvasApi0130
-     * @tc.desc Verify the offscreen canvas keeps reporting a non opaque surface while it is painted.
+     * @tc.desc Verify the offscreen canvas keeps isOpaque as false while it is painted.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level1

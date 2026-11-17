@@ -122,18 +122,18 @@
 
 ## 四、自动化用例明细
 
-> 分级说明：全部用例按 L0~L3 四层覆盖（正常链路、边界、异常、组合），下表逐条给出预置条件、输入与预期输出，不再单独标注分层。
+> 分级说明：全部用例按四层覆盖（正常链路、边界、异常、组合），下表逐条给出预置条件、输入与预期输出，不再单独标注层级。
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|
 | `testCanvasApi0001`（`SUB_NdkTsDrawing_CANVAS_0001`） Verify the four edge drawRect overload fills a red frame with exact pixel count. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0002`（`SUB_NdkTsDrawing_CANVAS_0002`） Verify the rect object overload matches the four edge overload on the same frame. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0003`（`SUB_NdkTsDrawing_CANVAS_0003`） Verify a zero width rect paints nothing and leaves the canvas size intact. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0004`（`SUB_NdkTsDrawing_CANVAS_0004`） Verify an inverted rect whose right edge is left of its left edge paints nothing. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0004`（`SUB_NdkTsDrawing_CANVAS_0004`） Verify an inverted rect is normalised into the same 100 by 100 area. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0005`（`SUB_NdkTsDrawing_CANVAS_0005`） Verify a rect crossing the canvas edge keeps only the visible part. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0006`（`SUB_NdkTsDrawing_CANVAS_0006`） Verify a stroked rect inks only its border and leaves the interior empty. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0007`（`SUB_NdkTsDrawing_CANVAS_0007`） Verify attaching both pen and brush fills the frame completely. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、Brush、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0008`（`SUB_NdkTsDrawing_CANVAS_0008`） Verify a full canvas rect inks every pixel and makes the canvas opaque. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0007`（`SUB_NdkTsDrawing_CANVAS_0007`） Verify pen and brush together fill the frame plus a two pixel pen border. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、Brush、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0008`（`SUB_NdkTsDrawing_CANVAS_0008`） Verify a full canvas rect inks every pixel with full alpha. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0009`（`SUB_NdkTsDrawing_CANVAS_0009`） Verify a one pixel high rect inks exactly one row of pixels. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0010`（`SUB_NdkTsDrawing_CANVAS_0010`） Verify a half transparent brush keeps its alpha value on every pixel. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0011`（`SUB_NdkTsDrawing_CANVAS_0011`） Verify drawing the same frame twice does not accumulate extra ink. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
@@ -162,7 +162,7 @@
 | `testCanvasApi0034`（`SUB_NdkTsDrawing_CANVAS_0034`） Verify two isolated points in POINTS mode ink two dots. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0035`（`SUB_NdkTsDrawing_CANVAS_0035`） Verify two points in LINES mode ink a connecting stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0036`（`SUB_NdkTsDrawing_CANVAS_0036`） Verify three points in POLYGON mode ink a closed triangle outline. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0037`（`SUB_NdkTsDrawing_CANVAS_0037`） Verify an empty point array paints nothing. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0037`（`SUB_NdkTsDrawing_CANVAS_0037`） Verify an empty point array is rejected and paints nothing. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0038`（`SUB_NdkTsDrawing_CANVAS_0038`） Verify one point in LINES mode inks nothing because a line needs two points. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0039`（`SUB_NdkTsDrawing_CANVAS_0039`） Verify a horizontal line of ten pixel width inks one full row band. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0040`（`SUB_NdkTsDrawing_CANVAS_0040`） Verify a vertical line of ten pixel width inks one full column band. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
@@ -190,7 +190,7 @@
 | `testCanvasApi0062`（`SUB_NdkTsDrawing_CANVAS_0062`） Verify drawBackground overwrites previously painted content. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0063`（`SUB_NdkTsDrawing_CANVAS_0063`） Verify the color object drawColor overload fills the canvas. | 200 × 200 离屏画布 | drawColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0064`（`SUB_NdkTsDrawing_CANVAS_0064`） Verify the four channel drawColor overload keeps every channel value. | 200 × 200 离屏画布 | drawColor | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0065`（`SUB_NdkTsDrawing_CANVAS_0065`） Verify the packed ARGB drawColor overload matches the packed channel value. | 200 × 200 离屏画布 | drawColor | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0065`（`SUB_NdkTsDrawing_CANVAS_0065`） Verify a packed ARGB colour with an almost zero alpha stays invisible. | 200 × 200 离屏画布 | drawColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0066`（`SUB_NdkTsDrawing_CANVAS_0066`） Verify a CLEAR blend drawColor leaves every pixel transparent. | 200 × 200 离屏画布 | drawColor、isOpaque | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0067`（`SUB_NdkTsDrawing_CANVAS_0067`） Verify save raises the save count by one and restore brings it back. | 200 × 200 离屏画布 | getSaveCount、save、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0068`（`SUB_NdkTsDrawing_CANVAS_0068`） Verify two nested saves raise the count twice and each restore pops one level. | 200 × 200 离屏画布 | getSaveCount、save、restore | 3 条断言全部通过 | 是 | 通过 |
@@ -255,7 +255,7 @@
 | `testCanvasApi0127`（`SUB_NdkTsDrawing_CANVAS_0127`） Verify drawRegion of an empty region paints nothing. | 200 × 200 离屏画布 | Brush、setColor、Region、isEmpty、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0128`（`SUB_NdkTsDrawing_CANVAS_0128`） Verify drawRegion under a pen inks only the region border. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、Region、attachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0129`（`SUB_NdkTsDrawing_CANVAS_0129`） Verify drawColor respects the active clip rect. | 200 × 200 离屏画布 | clipRect、drawColor | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0130`（`SUB_NdkTsDrawing_CANVAS_0130`） Verify isOpaque flips from false to true once the canvas is fully painted. | 200 × 200 离屏画布 | Brush、setColor、isOpaque、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0130`（`SUB_NdkTsDrawing_CANVAS_0130`） Verify the offscreen canvas keeps isOpaque as false while it is painted. | 200 × 200 离屏画布 | Brush、setColor、isOpaque、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0131`（`SUB_NdkTsDrawing_CANVAS_0131`） Verify a non square offscreen canvas reports its own width and height. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0132`（`SUB_NdkTsDrawing_CANVAS_0132`） Verify a background drawn before save survives a save and restore cycle. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawBackground、save | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0133`（`SUB_NdkTsDrawing_CANVAS_0133`） Verify clear with a transparent color empties the canvas. | 无设备依赖（纯对象 API） | clear、isOpaque | 3 条断言全部通过 | 是 | 通过 |
@@ -395,7 +395,7 @@
 | `testCanvasApi0267`（`SUB_NdkTsDrawing_CANVAS_0267`） Verify point lines drawn after a translation land in the shifted area. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、translate、attachPen | 4 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0268`（`SUB_NdkTsDrawing_CANVAS_0268`） Verify a circular clip path trims the painted glyph to the circle. | 200 × 200 离屏画布 | Path、addCircle、Brush、setColor、clipPath | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0269`（`SUB_NdkTsDrawing_CANVAS_0269`） Verify a region clip limits a scaled image to the region size. | 200 × 200 离屏画布 | clear、Region、clipRegion、drawImageRectWithSrc、SamplingOptions | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0270`（`SUB_NdkTsDrawing_CANVAS_0270`） Verify a transparent drawColor with SRC blend clears the opaque flag. | 200 × 200 离屏画布 | drawColor、isOpaque | 4 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0270`（`SUB_NdkTsDrawing_CANVAS_0270`） Verify a transparent drawColor with SRC blend leaves every pixel clear. | 200 × 200 离屏画布 | drawColor、isOpaque | 4 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0271`（`SUB_NdkTsDrawing_CANVAS_0271`） Verify quickRejectRect evaluates the rect in the translated local space. | 200 × 200 离屏画布 | Brush、setColor、translate、quickRejectRect、attachBrush | 4 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0272`（`SUB_NdkTsDrawing_CANVAS_0272`） Verify a layer clip intersects with the enclosing clip and both restores unwind. | 200 × 200 离屏画布 | getSaveCount、save、clipRect、saveLayer、drawColor | 4 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0273`（`SUB_NdkTsDrawing_CANVAS_0273`） Verify a rect far larger than the canvas fills every pixel. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 4 条断言全部通过 | 是 | 通过 |
@@ -406,9 +406,9 @@
 | `testCanvasApi0278`（`SUB_NdkTsDrawing_CANVAS_0278`） Verify a zero sweep arc paints far less than a full ring. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawArc | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0279`（`SUB_NdkTsDrawing_CANVAS_0279`） Verify a hairline pen with zero stroke width still paints the line. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 4 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0280`（`SUB_NdkTsDrawing_CANVAS_0280`） Verify a very thick pen paints an area close to length times width. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 4 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0281`（`SUB_NdkTsDrawing_CANVAS_0281`） Verify setAlpha 254 keeps the canvas non opaque while 255 makes it opaque. | 200 × 200 离屏画布 | Brush、setAlpha、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0281`（`SUB_NdkTsDrawing_CANVAS_0281`） Verify setAlpha 254 keeps the canvas non opaque. | 200 × 200 离屏画布 | Brush、setAlpha、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0282`（`SUB_NdkTsDrawing_CANVAS_0282`） Verify a rect fully in the negative quadrant paints nothing. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasApi0283`（`SUB_NdkTsDrawing_CANVAS_0283`） Verify drawing an empty point array paints nothing in either mode. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasApi0283`（`SUB_NdkTsDrawing_CANVAS_0283`） Verify drawing an empty point array is rejected in either mode. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0284`（`SUB_NdkTsDrawing_CANVAS_0284`） Verify odd point count in LINES mode strokes only the first pair. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0285`（`SUB_NdkTsDrawing_CANVAS_0285`） Verify different horizontal and vertical corner radii round the rect unevenly. | 200 × 200 离屏画布 | Brush、setColor、RoundRect、attachBrush、drawRoundRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasApi0286`（`SUB_NdkTsDrawing_CANVAS_0286`） Verify a round rect with zero radii paints the same area as a plain rect. | 200 × 200 离屏画布 | Brush、setColor、RoundRect、attachBrush、drawRoundRect | 3 条断言全部通过 | 是 | 通过 |
@@ -508,8 +508,8 @@
 | `testPathApi0038`（`SUB_NdkTsDrawing_PATH_0038`） Verify a segment from zero to one hundred of a rect path is a straight run. | 无设备依赖（纯对象 API） | isEmpty、round、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0039`（`SUB_NdkTsDrawing_PATH_0039`） Verify a segment beyond the path length yields an empty path. | 无设备依赖（纯对象 API） | isEmpty、getVerbData、getPointData | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0040`（`SUB_NdkTsDrawing_PATH_0040`） Verify the distance matrix has nine values at the start and none beyond the end. | 无设备依赖（纯对象 API） | round | 3 条断言全部通过 | 是 | 通过 |
-| `testPathApi0041`（`SUB_NdkTsDrawing_PATH_0041`） Verify a circle approximation returns an even array of several points. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testPathApi0042`（`SUB_NdkTsDrawing_PATH_0042`） Verify a straight line approximation keeps a compact even array. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testPathApi0041`（`SUB_NdkTsDrawing_PATH_0041`） Verify a circle approximation returns an array of verb and coordinate triplets. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testPathApi0042`（`SUB_NdkTsDrawing_PATH_0042`） Verify a straight line approximation keeps a compact triplet array. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0043`（`SUB_NdkTsDrawing_PATH_0043`） Verify a half weight interpolation lands midway between two rects. | 无设备依赖（纯对象 API） | isEmpty、round、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0044`（`SUB_NdkTsDrawing_PATH_0044`） Verify weight zero interpolation reproduces the start rect bounds. | 无设备依赖（纯对象 API） | getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0045`（`SUB_NdkTsDrawing_PATH_0045`） Verify two identically built rects are both interpolatable and equal. | 无设备依赖（纯对象 API） | isEqual | 3 条断言全部通过 | 是 | 通过 |
@@ -704,7 +704,7 @@
 | `testPathApi0234`（`SUB_NdkTsDrawing_PATH_0234`） Verify converting an empty path to svg is safe and yields no geometry. | 无设备依赖（纯对象 API） | Path、convertToSvgString、isEmpty、getVerbData | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0235`（`SUB_NdkTsDrawing_PATH_0235`） Verify closing an empty path leaves it empty. | 无设备依赖（纯对象 API） | Path、close、isEmpty、getVerbData、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0236`（`SUB_NdkTsDrawing_PATH_0236`） Verify moving the last point of an empty path adds no geometry. | 无设备依赖（纯对象 API） | Path、setLastPoint、isEmpty、getVerbData、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testPathApi0237`（`SUB_NdkTsDrawing_PATH_0237`） Verify reading the last point of an empty path is safe. | 无设备依赖（纯对象 API） | Path、getLastPoint、isEmpty、getBounds | 3 条断言全部通过 | 是 | 通过 |
+| `testPathApi0237`（`SUB_NdkTsDrawing_PATH_0237`） Verify reading the last point of an empty path yields no point. | 无设备依赖（纯对象 API） | Path、getLastPoint、isEmpty、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0238`（`SUB_NdkTsDrawing_PATH_0238`） Verify appending an empty path changes neither counts nor bounds. | 无设备依赖（纯对象 API） | getVerbData、addPath、Path、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0239`（`SUB_NdkTsDrawing_PATH_0239`） Verify an empty path unioned into a shape leaves the shape intact. | 无设备依赖（纯对象 API） | Path、op、getBounds、contains、round | 4 条断言全部通过 | 是 | 通过 |
 | `testPathApi0240`（`SUB_NdkTsDrawing_PATH_0240`） Verify resetting twice in a row is idempotent. | 无设备依赖（纯对象 API） | reset、isEmpty、getPointData、getBounds | 3 条断言全部通过 | 是 | 通过 |
@@ -729,7 +729,7 @@
 | `testPathApi0259`（`SUB_NdkTsDrawing_PATH_0259`） Verify a thousandth wide rectangle keeps its perimeter to two decimals. | 无设备依赖（纯对象 API） | abs、getLength、getBounds、contains | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0260`（`SUB_NdkTsDrawing_PATH_0260`） Verify coordinates in the ten million range are not clamped. | 无设备依赖（纯对象 API） | getBounds、contains | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0261`（`SUB_NdkTsDrawing_PATH_0261`） Verify a very flat oval keeps its wide bounds and short height. | 无设备依赖（纯对象 API） | Path、addOval、getBounds、round、getLength | 3 条断言全部通过 | 是 | 通过 |
-| `testPathApi0262`（`SUB_NdkTsDrawing_PATH_0262`） Verify a needle thin triangle keeps its apex and no interior width. | 无设备依赖（纯对象 API） | Path、addPolygon、round、getBounds、contains | 3 条断言全部通过 | 是 | 通过 |
+| `testPathApi0262`（`SUB_NdkTsDrawing_PATH_0262`） Verify a needle thin triangle tapers its interior width downwards. | 无设备依赖（纯对象 API） | Path、addPolygon、round、getBounds、contains | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0263`（`SUB_NdkTsDrawing_PATH_0263`） Verify a half pixel radius circle has a pi sized circumference. | 无设备依赖（纯对象 API） | Path、addCircle、abs、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0264`（`SUB_NdkTsDrawing_PATH_0264`） Verify ten small translations add up to one pixel of movement. | 无设备依赖（纯对象 API） | Matrix、setTranslation、transform、abs、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0265`（`SUB_NdkTsDrawing_PATH_0265`） Verify a thousandth scale shrinks a large square to a unit square. | 无设备依赖（纯对象 API） | Matrix、setScale、transform、abs、getBounds | 3 条断言全部通过 | 是 | 通过 |
@@ -755,8 +755,8 @@
 | `testPathApi0285`（`SUB_NdkTsDrawing_PATH_0285`） Verify offset carries the fill type over to the returned path. | 无设备依赖（纯对象 API） | setFillType、offset、getFillType、isInverseFillType、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0286`（`SUB_NdkTsDrawing_PATH_0286`） Verify appending contours does not change the fill type of the target. | 无设备依赖（纯对象 API） | setFillType、addPath、getFillType、isInverseFillType、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0287`（`SUB_NdkTsDrawing_PATH_0287`） Verify a reset path accepts a fresh rectangle right away. | 无设备依赖（纯对象 API） | reset、addRect、getBounds、round、getLength | 3 条断言全部通过 | 是 | 通过 |
-| `testPathApi0288`（`SUB_NdkTsDrawing_PATH_0288`） Verify a rewound path keeps its fill type but loses its geometry. | 无设备依赖（纯对象 API） | setFillType、rewind、getVerbData、getFillType、isEmpty | 3 条断言全部通过 | 是 | 通过 |
-| `testPathApi0289`（`SUB_NdkTsDrawing_PATH_0289`） Verify closing and reopening produces two separate contours. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、close、getVerbData | 3 条断言全部通过 | 是 | 通过 |
+| `testPathApi0288`（`SUB_NdkTsDrawing_PATH_0288`） Verify a rewound path loses both its geometry and its custom fill type. | 无设备依赖（纯对象 API） | setFillType、rewind、getVerbData、getFillType、isEmpty | 3 条断言全部通过 | 是 | 通过 |
+| `testPathApi0289`（`SUB_NdkTsDrawing_PATH_0289`） Verify closing and reopening produces two separate contours and measures the first. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、close、getVerbData | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0290`（`SUB_NdkTsDrawing_PATH_0290`） Verify a closed empty contour does not block later drawing. | 无设备依赖（纯对象 API） | Path、close、addRect、isEmpty、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0291`（`SUB_NdkTsDrawing_PATH_0291`） Verify two copies transformed differently report their own bounds. | 无设备依赖（纯对象 API） | Path、Matrix、setScale、setTranslation、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0292`（`SUB_NdkTsDrawing_PATH_0292`） Verify a carved path still yields a valid flattened outline. | 无设备依赖（纯对象 API） | Path、addCircle、op、approximate、getLength | 3 条断言全部通过 | 是 | 通过 |
@@ -766,17 +766,17 @@
 | `testPathApi0296`（`SUB_NdkTsDrawing_PATH_0296`） Verify a hundred box union ends at the last box edge. | 无设备依赖（纯对象 API） | op、getBounds、contains | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0297`（`SUB_NdkTsDrawing_PATH_0297`） Verify a hundred cubic segments accumulate a positive length. | 无设备依赖（纯对象 API） | Path、moveTo、cubicTo、getVerbData、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0298`（`SUB_NdkTsDrawing_PATH_0298`） Verify fifty appended circles scale the verb count of one circle. | 无设备依赖（纯对象 API） | Path、addCircle、getVerbData、addPath、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testPathApi0299`（`SUB_NdkTsDrawing_PATH_0299`） Verify a hundred short contours hold two hundred verbs and unit length each. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、getVerbData、round | 3 条断言全部通过 | 是 | 通过 |
+| `testPathApi0299`（`SUB_NdkTsDrawing_PATH_0299`） Verify a hundred short contours hold two hundred verbs while length covers the first. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、getVerbData、round | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0300`（`SUB_NdkTsDrawing_PATH_0300`） Verify twenty unit translations accumulate twenty pixels of movement. | 无设备依赖（纯对象 API） | Matrix、setTranslation、transform、getBounds、round | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0301`（`SUB_NdkTsDrawing_PATH_0301`） Verify an svg string with a hundred line commands parses fully. | 无设备依赖（纯对象 API） | getVerbData、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0302`（`SUB_NdkTsDrawing_PATH_0302`） Verify ten chained unions of adjacent boxes span one continuous run. | 无设备依赖（纯对象 API） | op、getBounds、contains、round、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0303`（`SUB_NdkTsDrawing_PATH_0303`） Verify a five hundred point polygon stays just inside the circle it mirrors. | 无设备依赖（纯对象 API） | cos、sin、Path、addPolygon、getVerbData | 3 条断言全部通过 | 是 | 通过 |
 | `testPathApi0304`（`SUB_NdkTsDrawing_PATH_0304`） Verify a middle window of a long path extracts the requested length. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、getSegment、round | 4 条断言全部通过 | 是 | 通过 |
 | `testPathApi0305`（`SUB_NdkTsDrawing_PATH_0305`） Verify a zigzag outline flattens into many points without overflow. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、approximate | 3 条断言全部通过 | 是 | 通过 |
-| `testPathApi0306`（`SUB_NdkTsDrawing_PATH_0306`） Verify a long mixed pipeline keeps its final geometry consistent. | 无设备依赖（纯对象 API）；L4 | addPath、op、Path、Matrix、setScale | 5 条断言全部通过 | 是 | 通过 |
+| `testPathApi0306`（`SUB_NdkTsDrawing_PATH_0306`） Verify a long mixed pipeline keeps its final geometry consistent. | 无设备依赖（纯对象 API） | addPath、op、Path、Matrix、setScale | 5 条断言全部通过 | 是 | 通过 |
 | `testFontApi0001`（`SUB_NdkTsDrawing_FONT_0001`） Verify the size setter round trips for a common body size. | 无设备依赖（纯对象 API） | getSize、measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0002`（`SUB_NdkTsDrawing_FONT_0002`） Verify the smallest positive size still produces a positive advance. | 无设备依赖（纯对象 API） | getSize、measureText | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0003`（`SUB_NdkTsDrawing_FONT_0003`） Verify a zero size collapses the measured advance to zero. | 无设备依赖（纯对象 API） | getSize、measureText、getMetrics | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0003`（`SUB_NdkTsDrawing_FONT_0003`） Verify a zero size keeps an empty advance while metrics fall back to a default. | 无设备依赖（纯对象 API） | getSize、measureText、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0004`（`SUB_NdkTsDrawing_FONT_0004`） Verify a large display size keeps a proportionally wide advance. | 无设备依赖（纯对象 API） | getSize、measureText、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0005`（`SUB_NdkTsDrawing_FONT_0005`） Verify the main helper produces the requested size on a fresh object. | 无设备依赖（纯对象 API） | getSize、isSubpixel、getScaleX | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0006`（`SUB_NdkTsDrawing_FONT_0006`） Verify two font objects keep independent sizes. | 无设备依赖（纯对象 API） | getSize、measureText | 3 条断言全部通过 | 是 | 通过 |
@@ -792,11 +792,11 @@
 | `testFontApi0016`（`SUB_NdkTsDrawing_FONT_0016`） Verify linear metrics can be switched back off. | 无设备依赖（纯对象 API） | enableLinearMetrics、isLinearMetrics、isSubpixel、getSize | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0017`（`SUB_NdkTsDrawing_FONT_0017`） Verify baseline snapping can be switched on. | 无设备依赖（纯对象 API） | setBaselineSnap、isBaselineSnap、isEmbeddedBitmaps、isForceAutoHinting | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0018`（`SUB_NdkTsDrawing_FONT_0018`） Verify baseline snapping can be switched back off. | 无设备依赖（纯对象 API） | setBaselineSnap、isBaselineSnap、isThemeFontFollowed、getSize | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0019`（`SUB_NdkTsDrawing_FONT_0019`） Verify embedded bitmap usage can be switched on. | 无设备依赖（纯对象 API） | setEmbeddedBitmaps、isEmbeddedBitmaps、isBaselineSnap、isForceAutoHinting | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0019`（`SUB_NdkTsDrawing_FONT_0019`） Verify embedded bitmap usage round trips through the getter. | 无设备依赖（纯对象 API） | setEmbeddedBitmaps、isEmbeddedBitmaps、isBaselineSnap、isForceAutoHinting | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0020`（`SUB_NdkTsDrawing_FONT_0020`） Verify embedded bitmap usage can be switched back off. | 无设备依赖（纯对象 API） | setEmbeddedBitmaps、isEmbeddedBitmaps、isBaselineSnap、getSize | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0021`（`SUB_NdkTsDrawing_FONT_0021`） Verify forced auto hinting can be switched on. | 无设备依赖（纯对象 API） | setForceAutoHinting、isForceAutoHinting、isEmbeddedBitmaps、isBaselineSnap | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0022`（`SUB_NdkTsDrawing_FONT_0022`） Verify forced auto hinting can be switched back off. | 无设备依赖（纯对象 API） | setForceAutoHinting、isForceAutoHinting、isEmbeddedBitmaps、measureText | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0023`（`SUB_NdkTsDrawing_FONT_0023`） Verify theme font following defaults to on and can be disabled. | 无设备依赖（纯对象 API） | isThemeFontFollowed、setThemeFontFollowed、isEmbolden | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0023`（`SUB_NdkTsDrawing_FONT_0023`） Verify theme font following round trips through the getter. | 无设备依赖（纯对象 API） | isThemeFontFollowed、setThemeFontFollowed、isEmbolden | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0024`（`SUB_NdkTsDrawing_FONT_0024`） Verify theme font following can be turned back on. | 无设备依赖（纯对象 API） | setThemeFontFollowed、isThemeFontFollowed、isSubpixel、getSize | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0025`（`SUB_NdkTsDrawing_FONT_0025`） Verify three boolean switches keep independent states. | 无设备依赖（纯对象 API） | enableSubpixel、enableEmbolden、enableLinearMetrics、isSubpixel、isEmbolden | 4 条断言全部通过 | 是 | 通过 |
 | `testFontApi0026`（`SUB_NdkTsDrawing_FONT_0026`） Verify all boolean switches on then all off leaves a clean font. | 无设备依赖（纯对象 API） | enableSubpixel、enableEmbolden、enableLinearMetrics、setBaselineSnap、setEmbeddedBitmaps | 4 条断言全部通过 | 是 | 通过 |
@@ -835,7 +835,7 @@
 | `testFontApi0059`（`SUB_NdkTsDrawing_FONT_0059`） Verify the main metrics snapshot mirrors the raw font metrics field by field. | 无设备依赖（纯对象 API） | getMetrics | 4 条断言全部通过 | 是 | 通过 |
 | `testFontApi0060`（`SUB_NdkTsDrawing_FONT_0060`） Verify the metrics box at thirty two px sits in a plausible pixel range. | 无设备依赖（纯对象 API） | getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0061`（`SUB_NdkTsDrawing_FONT_0061`） Verify repeated metrics reads on one font report the same numbers. | 无设备依赖（纯对象 API） | getMetrics、enableSubpixel | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0062`（`SUB_NdkTsDrawing_FONT_0062`） Verify a zero size font reports a flat metrics box. | 无设备依赖（纯对象 API） | getMetrics | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0062`（`SUB_NdkTsDrawing_FONT_0062`） Verify a zero size font falls back to a usable default metrics box. | 无设备依赖（纯对象 API） | getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0063`（`SUB_NdkTsDrawing_FONT_0063`） Verify an empty string measures zero width. | 无设备依赖（纯对象 API） | measureText、getSize | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0064`（`SUB_NdkTsDrawing_FONT_0064`） Verify a single latin letter measures a positive width. | 无设备依赖（纯对象 API） | measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0065`（`SUB_NdkTsDrawing_FONT_0065`） Verify two letters measure wider than one letter. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -851,18 +851,18 @@
 | `testFontApi0075`（`SUB_NdkTsDrawing_FONT_0075`） Verify the main counter agrees with raw glyph conversion on short words. | 无设备依赖（纯对象 API） | countText、textToGlyphs | 4 条断言全部通过 | 是 | 通过 |
 | `testFontApi0076`（`SUB_NdkTsDrawing_FONT_0076`） Verify a four letter word converts into four glyph ids. | 无设备依赖（纯对象 API） | textToGlyphs、countText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0077`（`SUB_NdkTsDrawing_FONT_0077`） Verify a five letter word converts into five glyph ids. | 无设备依赖（纯对象 API） | textToGlyphs、countText | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0078`（`SUB_NdkTsDrawing_FONT_0078`） Verify the glyph count limit truncates the conversion. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0079`（`SUB_NdkTsDrawing_FONT_0079`） Verify a zero glyph limit converts nothing. | 无设备依赖（纯对象 API） | textToGlyphs、countText、getSize | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0080`（`SUB_NdkTsDrawing_FONT_0080`） Verify a limit beyond the text length keeps every glyph. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0078`（`SUB_NdkTsDrawing_FONT_0078`） Verify a glyph count below the text length is rejected while the exact count converts every glyph. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0079`（`SUB_NdkTsDrawing_FONT_0079`） Verify a zero glyph count is rejected because it must match the text length. | 无设备依赖（纯对象 API） | textToGlyphs、countText、getSize | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0080`（`SUB_NdkTsDrawing_FONT_0080`） Verify a glyph count above the text length is rejected. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0081`（`SUB_NdkTsDrawing_FONT_0081`） Verify the same text converts to the same glyph ids twice. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0082`（`SUB_NdkTsDrawing_FONT_0082`） Verify two different letters map to different glyph ids. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0083`（`SUB_NdkTsDrawing_FONT_0083`） Verify letter case maps to distinct glyph ids. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0084`（`SUB_NdkTsDrawing_FONT_0084`） Verify every converted glyph id is a non negative number. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0085`（`SUB_NdkTsDrawing_FONT_0085`） Verify the ten digits convert into ten distinct glyph ids. | 无设备依赖（纯对象 API） | textToGlyphs、countText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0086`（`SUB_NdkTsDrawing_FONT_0086`） Verify the main glyph helper matches the raw conversion. | 无设备依赖（纯对象 API） | textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0087`（`SUB_NdkTsDrawing_FONT_0087`） Verify the limited glyph helper honours the requested cap. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0087`（`SUB_NdkTsDrawing_FONT_0087`） Verify the limited glyph helper rejects a count that differs from the shaped glyphs. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0088`（`SUB_NdkTsDrawing_FONT_0088`） Verify a space still counts as one character and one glyph. | 无设备依赖（纯对象 API） | countText、textToGlyphs、measureText | 3 条断言全部通过 | 是 | 通过 |
-| `testFontApi0089`（`SUB_NdkTsDrawing_FONT_0089`） Verify the limited helper returns nothing for empty text. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFontApi0089`（`SUB_NdkTsDrawing_FONT_0089`） Verify the limited helper rejects counts that differ from the shaped glyph count. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0090`（`SUB_NdkTsDrawing_FONT_0090`） Verify a long run of letters converts one glyph per character. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0091`（`SUB_NdkTsDrawing_FONT_0091`） Verify the width array carries one entry per glyph. | 无设备依赖（纯对象 API） | textToGlyphs、getWidths | 3 条断言全部通过 | 是 | 通过 |
 | `testFontApi0092`（`SUB_NdkTsDrawing_FONT_0092`） Verify every letter advance is positive. | 无设备依赖（纯对象 API） | getWidths、textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
@@ -926,9 +926,9 @@
 | `testFontApi0150`（`SUB_NdkTsDrawing_FONT_0150`） Verify the extreme size keeps glyph, outline and metrics coherent. | 无设备依赖（纯对象 API） | getMetrics、getTextPath、getWidths、textToGlyphs、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0001`（`SUB_NdkTsDrawing_TEXTBLOB_0001`） Verify a blob built from text reports a positive width box. | 无设备依赖（纯对象 API） | bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0002`（`SUB_NdkTsDrawing_TEXTBLOB_0002`） Verify the blob box covers the glyph height. | 无设备依赖（纯对象 API） | bounds | 3 条断言全部通过 | 是 | 通过 |
-| `testTextBlobApi0003`（`SUB_NdkTsDrawing_TEXTBLOB_0003`） Verify a blank string collapses the blob width. | 无设备依赖（纯对象 API） | bounds、uniqueID | 3 条断言全部通过 | 是 | 通过 |
+| `testTextBlobApi0003`（`SUB_NdkTsDrawing_TEXTBLOB_0003`） Verify empty text yields no blob while a single letter does. | 无设备依赖（纯对象 API） | bounds、uniqueID | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0004`（`SUB_NdkTsDrawing_TEXTBLOB_0004`） Verify a blob always carries a positive unique id. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
-| `testTextBlobApi0005`（`SUB_NdkTsDrawing_TEXTBLOB_0005`） Verify two blobs of the same text and size share one id. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
+| `testTextBlobApi0005`（`SUB_NdkTsDrawing_TEXTBLOB_0005`） Verify two blobs of the same text get distinct ids but one box. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0006`（`SUB_NdkTsDrawing_TEXTBLOB_0006`） Verify different texts produce different blob ids. | 无设备依赖（纯对象 API） | uniqueID | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0007`（`SUB_NdkTsDrawing_TEXTBLOB_0007`） Verify the same text at another size gets another id. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0008`（`SUB_NdkTsDrawing_TEXTBLOB_0008`） Verify the blob width stays close to the measured string width. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
@@ -941,7 +941,7 @@
 | `testTextBlobApi0015`（`SUB_NdkTsDrawing_TEXTBLOB_0015`） Verify UTF8 and UTF16 blobs of ascii text agree on width. | 无设备依赖（纯对象 API） | makeFromString、abs、bounds、uniqueID | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0016`（`SUB_NdkTsDrawing_TEXTBLOB_0016`） Verify the flat bounds helper emits four numbers. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0017`（`SUB_NdkTsDrawing_TEXTBLOB_0017`） Verify the flat bounds helper mirrors the blob box field by field. | 无设备依赖（纯对象 API） | bounds | 4 条断言全部通过 | 是 | 通过 |
-| `testTextBlobApi0018`（`SUB_NdkTsDrawing_TEXTBLOB_0018`） Verify the flat bounds helper returns zero size for empty text. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testTextBlobApi0018`（`SUB_NdkTsDrawing_TEXTBLOB_0018`） Verify the flat bounds helper rejects empty text and sizes a letter. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0019`（`SUB_NdkTsDrawing_TEXTBLOB_0019`） Verify a larger font makes a taller blob box. | 无设备依赖（纯对象 API） | bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0020`（`SUB_NdkTsDrawing_TEXTBLOB_0020`） Verify a single space still yields a positive advance box. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0021`（`SUB_NdkTsDrawing_TEXTBLOB_0021`） Verify a positioned blob covers the placed glyphs. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
@@ -993,11 +993,11 @@
 | `testTextBlobApi0067`（`SUB_NdkTsDrawing_TEXTBLOB_0067`） Verify a tiny size still yields a narrow positive box. | 无设备依赖（纯对象 API） | uniqueID | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0068`（`SUB_NdkTsDrawing_TEXTBLOB_0068`） Verify the blob left edge stays stable across sizes. | 无设备依赖（纯对象 API） | bounds、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0069`（`SUB_NdkTsDrawing_TEXTBLOB_0069`） Verify fifty characters produce a very wide box. | 无设备依赖（纯对象 API） | uniqueID | 3 条断言全部通过 | 是 | 通过 |
-| `testTextBlobApi0070`（`SUB_NdkTsDrawing_TEXTBLOB_0070`） Verify three blobs of one text share a single id. | 无设备依赖（纯对象 API） | uniqueID | 3 条断言全部通过 | 是 | 通过 |
+| `testTextBlobApi0070`（`SUB_NdkTsDrawing_TEXTBLOB_0070`） Verify three blobs of one text get distinct growing ids. | 无设备依赖（纯对象 API） | uniqueID | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0071`（`SUB_NdkTsDrawing_TEXTBLOB_0071`） Verify a large positioned size spreads the glyphs widely. | 无设备依赖（纯对象 API） | bounds、uniqueID | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0072`（`SUB_NdkTsDrawing_TEXTBLOB_0072`） Verify a twenty glyph run covers nineteen size steps. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0073`（`SUB_NdkTsDrawing_TEXTBLOB_0073`） Verify four sizes all produce ascending widths and positive ids. | 无设备依赖（纯对象 API） | uniqueID | 3 条断言全部通过 | 是 | 通过 |
-| `testTextBlobApi0074`（`SUB_NdkTsDrawing_TEXTBLOB_0074`） Verify the run buffer blob keeps a stable id across constructions. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
+| `testTextBlobApi0074`（`SUB_NdkTsDrawing_TEXTBLOB_0074`） Verify run buffer blobs of one text get growing ids and equal boxes. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlobApi0075`（`SUB_NdkTsDrawing_TEXTBLOB_0075`） Verify all three constructors agree on a coherent bounding width. | 无设备依赖（纯对象 API） | bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0001`（`SUB_NdkTsDrawing_TYPEFACE_0001`） Verify the default typeface reports a non empty family name. | 无设备依赖（纯对象 API） | getFamilyName、isBold | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0002`（`SUB_NdkTsDrawing_TYPEFACE_0002`） Verify the default typeface is upright and unbolded. | 无设备依赖（纯对象 API） | isBold、isItalic、getFamilyName | 3 条断言全部通过 | 是 | 通过 |
@@ -1021,7 +1021,7 @@
 | `testTypefaceApi0020`（`SUB_NdkTsDrawing_TYPEFACE_0020`） Verify an extreme axis value still derives a usable typeface. | 无设备依赖（纯对象 API） | getFamilyName、isBold、isItalic | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0021`（`SUB_NdkTsDrawing_TYPEFACE_0021`） Verify a negative axis value still derives a usable typeface. | 无设备依赖（纯对象 API） | getFamilyName、isItalic | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0022`（`SUB_NdkTsDrawing_TYPEFACE_0022`） Verify an unknown axis tag does not break the derivation. | 无设备依赖（纯对象 API） | getFamilyName、isBold | 3 条断言全部通过 | 是 | 通过 |
-| `testTypefaceApi0023`（`SUB_NdkTsDrawing_TYPEFACE_0023`） Verify an empty axis tag does not break the derivation. | 无设备依赖（纯对象 API） | getFamilyName、isItalic | 3 条断言全部通过 | 是 | 通过 |
+| `testTypefaceApi0023`（`SUB_NdkTsDrawing_TYPEFACE_0023`） Verify an axis tag shorter than four characters is rejected. | 无设备依赖（纯对象 API） | getFamilyName、isItalic | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0024`（`SUB_NdkTsDrawing_TYPEFACE_0024`） Verify a fractional axis value keeps the family and size. | 无设备依赖（纯对象 API） | getSize、getTypeface、getFamilyName、isItalic | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0025`（`SUB_NdkTsDrawing_TYPEFACE_0025`） Verify the main variation helper derives the default family. | 无设备依赖（纯对象 API） | makeFromCurrent、getFamilyName、isBold、isItalic | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0026`（`SUB_NdkTsDrawing_TYPEFACE_0026`） Verify the main factory derives a typeface of the default family. | 无设备依赖（纯对象 API） | getFamilyName、isBold、isItalic | 3 条断言全部通过 | 是 | 通过 |
@@ -1048,7 +1048,7 @@
 | `testTypefaceApi0047`（`SUB_NdkTsDrawing_TYPEFACE_0047`） Verify a negative slant axis keeps the derived family. | 无设备依赖（纯对象 API） | getFamilyName、isItalic | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0048`（`SUB_NdkTsDrawing_TYPEFACE_0048`） Verify an italic axis keeps the reported upright flag. | 无设备依赖（纯对象 API） | isItalic、isBold、getFamilyName | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0049`（`SUB_NdkTsDrawing_TYPEFACE_0049`） Verify an upper case axis tag keeps a drawable font. | 无设备依赖（纯对象 API） | getFamilyName、getTypeface、measureText | 3 条断言全部通过 | 是 | 通过 |
-| `testTypefaceApi0050`（`SUB_NdkTsDrawing_TYPEFACE_0050`） Verify an over long axis tag does not break the derivation. | 无设备依赖（纯对象 API） | getFamilyName、isItalic | 3 条断言全部通过 | 是 | 通过 |
+| `testTypefaceApi0050`（`SUB_NdkTsDrawing_TYPEFACE_0050`） Verify the four letter weight axis keeps the derived family. | 无设备依赖（纯对象 API） | getFamilyName、isItalic | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0051`（`SUB_NdkTsDrawing_TYPEFACE_0051`） Verify a tiny axis value measures like the default font. | 无设备依赖（纯对象 API） | measureText、abs、getTypeface、getFamilyName | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0052`（`SUB_NdkTsDrawing_TYPEFACE_0052`） Verify two fonts installed separately report the same family. | 无设备依赖（纯对象 API） | getSize、getTypeface、getFamilyName | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0053`（`SUB_NdkTsDrawing_TYPEFACE_0053`） Verify a zero size font still accepts the system typeface. | 无设备依赖（纯对象 API） | getSize、getFamilyName | 3 条断言全部通过 | 是 | 通过 |
@@ -1060,7 +1060,7 @@
 | `testTypefaceApi0059`（`SUB_NdkTsDrawing_TYPEFACE_0059`） Verify a varied font scales its advance with the repeated glyph count. | 无设备依赖（纯对象 API） | measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0060`（`SUB_NdkTsDrawing_TYPEFACE_0060`） Verify glyph advances of a varied font match the glyph count. | 无设备依赖（纯对象 API） | textToGlyphs、getWidths | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0061`（`SUB_NdkTsDrawing_TYPEFACE_0061`） Verify a varied typeface yields a glyph outline with height. | 无设备依赖（纯对象 API） | textToGlyphs、createPathForGlyph、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testTypefaceApi0062`（`SUB_NdkTsDrawing_TYPEFACE_0062`） Verify two blobs of a varied font share one id and one width. | 无设备依赖（纯对象 API） | makeFromString、bounds、uniqueID | 3 条断言全部通过 | 是 | 通过 |
+| `testTypefaceApi0062`（`SUB_NdkTsDrawing_TYPEFACE_0062`） Verify two blobs of a varied font get distinct ids and one width. | 无设备依赖（纯对象 API） | makeFromString、bounds、uniqueID | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0063`（`SUB_NdkTsDrawing_TYPEFACE_0063`） Verify metrics of a varied font keep their sign conventions. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0064`（`SUB_NdkTsDrawing_TYPEFACE_0064`） Verify a size change after installation keeps the installed family. | 无设备依赖（纯对象 API） | setSize、getSize、getTypeface、getFamilyName、measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testTypefaceApi0065`（`SUB_NdkTsDrawing_TYPEFACE_0065`） Verify installing a typeface on one font leaves another font untouched. | 无设备依赖（纯对象 API） | getFamilyName、getTypeface、getSize | 3 条断言全部通过 | 是 | 通过 |
@@ -1126,7 +1126,7 @@
 | `testMatrixApi0050`（`SUB_NdkTsDrawing_MATRIX_0050`） Verify the inverse of a quarter turn rotates backwards. | 无设备依赖（纯对象 API） | isAffine | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0051`（`SUB_NdkTsDrawing_MATRIX_0051`） Verify equality distinguishes different translations. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0052`（`SUB_NdkTsDrawing_MATRIX_0052`） Verify a unit scale matrix equals the identity. | 无设备依赖（纯对象 API） | isIdentity、rectStaysRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0053`（`SUB_NdkTsDrawing_MATRIX_0053`） Verify mapping an empty array yields an empty result. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0053`（`SUB_NdkTsDrawing_MATRIX_0053`） Verify mapping an empty array is rejected. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0054`（`SUB_NdkTsDrawing_MATRIX_0054`） Verify mapping five points returns ten flattened values. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0055`（`SUB_NdkTsDrawing_MATRIX_0055`） Verify mapping keeps the source point array unchanged. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0056`（`SUB_NdkTsDrawing_MATRIX_0056`） Verify mapRadius follows the uniform scale factor. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -1139,23 +1139,23 @@
 | `testMatrixApi0063`（`SUB_NdkTsDrawing_MATRIX_0063`） Verify the snapshot of the identity reports all flags true. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0064`（`SUB_NdkTsDrawing_MATRIX_0064`） Verify the snapshot of a translation carries its offset. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0065`（`SUB_NdkTsDrawing_MATRIX_0065`） Verify the snapshot of a diagonal turn drops rectStaysRect. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0066`（`SUB_NdkTsDrawing_MATRIX_0066`） Verify a perspective matrix is reported as non affine. | 无设备依赖（纯对象 API）；L4 | Matrix、setMatrix | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0066`（`SUB_NdkTsDrawing_MATRIX_0066`） Verify a perspective matrix is reported as non affine. | 无设备依赖（纯对象 API） | Matrix、setMatrix | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0067`（`SUB_NdkTsDrawing_MATRIX_0067`） Verify matrixValueAt reads the identity diagonal. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0068`（`SUB_NdkTsDrawing_MATRIX_0068`） Verify matrixValueAt exposes the scale diagonal of a built matrix. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0069`（`SUB_NdkTsDrawing_MATRIX_0069`） Verify every scale to fit mode accepts a valid rectangle pair. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0070`（`SUB_NdkTsDrawing_MATRIX_0070`） Verify fitting a rectangle onto itself succeeds. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0071`（`SUB_NdkTsDrawing_MATRIX_0071`） Verify a single point polygon mapping behaves as a translation. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0072`（`SUB_NdkTsDrawing_MATRIX_0072`） Verify a three point polygon mapping is accepted. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0073`（`SUB_NdkTsDrawing_MATRIX_0073`） Verify a four point polygon mapping is accepted. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0074`（`SUB_NdkTsDrawing_MATRIX_0074`） Verify mismatched polygon arrays use the shorter length. | 无设备依赖（纯对象 API）；L4 | min | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0073`（`SUB_NdkTsDrawing_MATRIX_0073`） Verify a four point polygon mapping is accepted. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0074`（`SUB_NdkTsDrawing_MATRIX_0074`） Verify mismatched polygon arrays use the shorter length. | 无设备依赖（纯对象 API） | min | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0075`（`SUB_NdkTsDrawing_MATRIX_0075`） Verify a very large scale keeps limited values finite. | 无设备依赖（纯对象 API） | getValue、isAffine | 4 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0076`（`SUB_NdkTsDrawing_MATRIX_0076`） Verify a tiny scale shrinks large coordinates back to one. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0076`（`SUB_NdkTsDrawing_MATRIX_0076`） Verify a tiny scale shrinks large coordinates back to one. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0077`（`SUB_NdkTsDrawing_MATRIX_0077`） Verify a very large translation stays exact. | 无设备依赖（纯对象 API） | rectStaysRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0078`（`SUB_NdkTsDrawing_MATRIX_0078`） Verify a three step chain applies translation last in device space. | 无设备依赖（纯对象 API）；L4 | postScale、postRotate、isIdentity | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0078`（`SUB_NdkTsDrawing_MATRIX_0078`） Verify a three step chain applies translation last in device space. | 无设备依赖（纯对象 API） | postScale、postRotate、isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0079`（`SUB_NdkTsDrawing_MATRIX_0079`） Verify the snapshot of a concatenated matrix stays affine. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0080`（`SUB_NdkTsDrawing_MATRIX_0080`） Verify a negative scale returns a normalised rectangle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0081`（`SUB_NdkTsDrawing_MATRIX_0081`） Verify a horizontal skew widens the mapped rectangle. | 无设备依赖（纯对象 API） | Matrix、setSkew | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0082`（`SUB_NdkTsDrawing_MATRIX_0082`） Verify a hand written nine value matrix maps points as designed. | 无设备依赖（纯对象 API）；L4 | Matrix、setMatrix、isAffine、isIdentity | 4 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0082`（`SUB_NdkTsDrawing_MATRIX_0082`） Verify a hand written nine value matrix maps points as designed. | 无设备依赖（纯对象 API） | Matrix、setMatrix、isAffine、isIdentity | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0083`（`SUB_NdkTsDrawing_MATRIX_0083`） Verify the translate builder applies the offset three times. | 无设备依赖（纯对象 API） | getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0084`（`SUB_NdkTsDrawing_MATRIX_0084`） Verify four translate parameters all grow threefold. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0085`（`SUB_NdkTsDrawing_MATRIX_0085`） Verify a zero translate builder returns the identity. | 无设备依赖（纯对象 API） | isIdentity、getValue | 3 条断言全部通过 | 是 | 通过 |
@@ -1173,32 +1173,32 @@
 | `testMatrixApi0097`（`SUB_NdkTsDrawing_MATRIX_0097`） Verify unequal axes cube independently on each direction. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0098`（`SUB_NdkTsDrawing_MATRIX_0098`） Verify the scale builder multiplies the mapped radius eightfold. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0099`（`SUB_NdkTsDrawing_MATRIX_0099`） Verify the scale builder shrinks the mapped radius to one eighth. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0100`（`SUB_NdkTsDrawing_MATRIX_0100`） Verify the radius of unequal axes follows the determinant root. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0100`（`SUB_NdkTsDrawing_MATRIX_0100`） Verify the radius of unequal axes follows the determinant root. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0101`（`SUB_NdkTsDrawing_MATRIX_0101`） Verify the scale builder snapshot reports an affine matrix. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0102`（`SUB_NdkTsDrawing_MATRIX_0102`） Verify the inverse of the scale builder returns the source edge. | 无设备依赖（纯对象 API） | getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0103`（`SUB_NdkTsDrawing_MATRIX_0103`） Verify the scale builder grows the vertical edge eightfold. | 无设备依赖（纯对象 API） | rectStaysRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0104`（`SUB_NdkTsDrawing_MATRIX_0104`） Verify a singular scale builder collapses one axis onto the pivot. | 无设备依赖（纯对象 API）；L4 | isIdentity | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0104`（`SUB_NdkTsDrawing_MATRIX_0104`） Verify a singular scale builder collapses one axis onto the pivot. | 无设备依赖（纯对象 API） | isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0105`（`SUB_NdkTsDrawing_MATRIX_0105`） Verify a zero degree rotate builder returns the identity. | 无设备依赖（纯对象 API） | isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0106`（`SUB_NdkTsDrawing_MATRIX_0106`） Verify the rotate builder keeps its pivot fixed. | 无设备依赖（纯对象 API） | isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0107`（`SUB_NdkTsDrawing_MATRIX_0107`） Verify the rotate builder accumulates one point seven five turns. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0108`（`SUB_NdkTsDrawing_MATRIX_0108`） Verify a full turn builder lands on a quarter turn. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0108`（`SUB_NdkTsDrawing_MATRIX_0108`） Verify a full turn builder lands on a quarter turn. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0109`（`SUB_NdkTsDrawing_MATRIX_0109`） Verify a negative degree builder rotates the other way. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0110`（`SUB_NdkTsDrawing_MATRIX_0110`） Verify a half turn builder produces a diagonal angle. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0110`（`SUB_NdkTsDrawing_MATRIX_0110`） Verify a half turn builder produces a diagonal angle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0111`（`SUB_NdkTsDrawing_MATRIX_0111`） Verify a quarter turn builder breaks the rectangle property. | 无设备依赖（纯对象 API） | rectStaysRect、isAffine | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0112`（`SUB_NdkTsDrawing_MATRIX_0112`） Verify the rotate builder snapshot keeps nine values. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0113`（`SUB_NdkTsDrawing_MATRIX_0113`） Verify a rotation leaves the mapped radius unchanged. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0114`（`SUB_NdkTsDrawing_MATRIX_0114`） Verify the inverse of the rotate builder unwinds the edge. | 无设备依赖（纯对象 API）；L4 | isAffine | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0114`（`SUB_NdkTsDrawing_MATRIX_0114`） Verify the inverse of the rotate builder unwinds the edge. | 无设备依赖（纯对象 API） | isAffine | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0115`（`SUB_NdkTsDrawing_MATRIX_0115`） Verify two identical rotate builders produce equal matrices. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0116`（`SUB_NdkTsDrawing_MATRIX_0116`） Verify the rotate builder maps a rectangle into a wider box. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0116`（`SUB_NdkTsDrawing_MATRIX_0116`） Verify a rotate builder cannot map a rectangle into a finite box. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0117`（`SUB_NdkTsDrawing_MATRIX_0117`） Verify a zero skew builder returns the identity. | 无设备依赖（纯对象 API） | isIdentity、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0118`（`SUB_NdkTsDrawing_MATRIX_0118`） Verify the skew builder triples a horizontal factor. | 无设备依赖（纯对象 API） | getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0119`（`SUB_NdkTsDrawing_MATRIX_0119`） Verify a quarter vertical skew multiplies the y slot by three. | 无设备依赖（纯对象 API） | getValue、rectStaysRect | 4 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0120`（`SUB_NdkTsDrawing_MATRIX_0120`） Verify two skew factors combine into one cube product. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0121`（`SUB_NdkTsDrawing_MATRIX_0121`） Verify the two factor skew keeps its diagonal at one point seven five. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0120`（`SUB_NdkTsDrawing_MATRIX_0120`） Verify two skew factors combine into one cube product. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0121`（`SUB_NdkTsDrawing_MATRIX_0121`） Verify the two factor skew keeps its diagonal at one point seven five. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0122`（`SUB_NdkTsDrawing_MATRIX_0122`） Verify a negative skew factor shifts the opposite way. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0123`（`SUB_NdkTsDrawing_MATRIX_0123`） Verify the skew snapshot drops the rectangle property. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0124`（`SUB_NdkTsDrawing_MATRIX_0124`） Verify the skew builder widens a mapped rectangle by half its height. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0125`（`SUB_NdkTsDrawing_MATRIX_0125`） Verify the inverse skew removes the horizontal slant. | 无设备依赖（纯对象 API）；L4 | getValue | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0125`（`SUB_NdkTsDrawing_MATRIX_0125`） Verify the inverse skew removes the horizontal slant. | 无设备依赖（纯对象 API） | getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0126`（`SUB_NdkTsDrawing_MATRIX_0126`） Verify skew builds differ when their factors differ. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0127`（`SUB_NdkTsDrawing_MATRIX_0127`） Verify a zero sine and unit cosine pair builds the identity. | 无设备依赖（纯对象 API） | isIdentity、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0128`（`SUB_NdkTsDrawing_MATRIX_0128`） Verify the sine cosine builder keeps the pivot fixed. | 无设备依赖（纯对象 API） | isIdentity | 3 条断言全部通过 | 是 | 通过 |
@@ -1235,8 +1235,8 @@
 | `testMatrixApi0159`（`SUB_NdkTsDrawing_MATRIX_0159`） Verify the mapped radius follows the uniform scale factor. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0160`（`SUB_NdkTsDrawing_MATRIX_0160`） Verify a skewed matrix stretches the mapped radius. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0161`（`SUB_NdkTsDrawing_MATRIX_0161`） Verify the inverse of the scale builder undoes the cubic growth. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0162`（`SUB_NdkTsDrawing_MATRIX_0162`） Verify a post scale then post rotate chain maps the sample point. | 无设备依赖（纯对象 API）；L4 | postScale、postRotate、getValue | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixApi0163`（`SUB_NdkTsDrawing_MATRIX_0163`） Verify a pre scale keeps the translated slot untouched. | 无设备依赖（纯对象 API）；L4 | preScale、getValue | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0162`（`SUB_NdkTsDrawing_MATRIX_0162`） Verify a post scale then post rotate chain maps the sample point. | 无设备依赖（纯对象 API） | postScale、postRotate、getValue | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixApi0163`（`SUB_NdkTsDrawing_MATRIX_0163`） Verify a pre scale keeps the translated slot untouched. | 无设备依赖（纯对象 API） | preScale、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixApi0164`（`SUB_NdkTsDrawing_MATRIX_0164`） Verify a zero degree rotation folded with a shift keeps the shift. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testRectApi0001`（`SUB_NdkTsDrawing_RECT_0001`） Verify the empty rectangle has four zero edges. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testRectApi0002`（`SUB_NdkTsDrawing_RECT_0002`） Verify the empty rectangle snapshot keeps eight zero values. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
@@ -1272,7 +1272,7 @@
 | `testRectApi0032`（`SUB_NdkTsDrawing_RECT_0032`） Verify a rectangle contains its own copy but not a wider one. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0033`（`SUB_NdkTsDrawing_RECT_0033`） Verify a rectangle that overflows only on the right is rejected. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0034`（`SUB_NdkTsDrawing_RECT_0034`） Verify a far away rectangle is neither contained nor intersecting. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testRectApi0035`（`SUB_NdkTsDrawing_RECT_0035`） Verify edge containment accepts a reversed inner rectangle. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testRectApi0035`（`SUB_NdkTsDrawing_RECT_0035`） Verify edge containment accepts a reversed inner rectangle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0036`（`SUB_NdkTsDrawing_RECT_0036`） Verify rectangles sharing one corner are still contained. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0037`（`SUB_NdkTsDrawing_RECT_0037`） Verify a rectangle overflowing on one axis only is rejected. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0038`（`SUB_NdkTsDrawing_RECT_0038`） Verify containment is not symmetric for a smaller and a larger rectangle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -1282,9 +1282,9 @@
 | `testRectApi0042`（`SUB_NdkTsDrawing_RECT_0042`） Verify edge containment accepts the identical edge set. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0043`（`SUB_NdkTsDrawing_RECT_0043`） Verify edge containment rejects an inner rectangle crossing the border. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0044`（`SUB_NdkTsDrawing_RECT_0044`） Verify edge containment inside the negative quadrant. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testRectApi0045`（`SUB_NdkTsDrawing_RECT_0045`） Verify edge containment only compares edges so a reversed set passes. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testRectApi0045`（`SUB_NdkTsDrawing_RECT_0045`） Verify edge containment only compares edges so a reversed set passes. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0046`（`SUB_NdkTsDrawing_RECT_0046`） Verify fractional edges are compared without rounding. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testRectApi0047`（`SUB_NdkTsDrawing_RECT_0047`） Verify a zero area edge set inside the range is still contained. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testRectApi0047`（`SUB_NdkTsDrawing_RECT_0047`） Verify a zero area edge set inside the range is still contained. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0048`（`SUB_NdkTsDrawing_RECT_0048`） Verify five edge containment probes match their expected results. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0049`（`SUB_NdkTsDrawing_RECT_0049`） Verify the intersection of two overlapping rectangles. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testRectApi0050`（`SUB_NdkTsDrawing_RECT_0050`） Verify disjoint rectangles intersect into an empty result. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -1302,7 +1302,7 @@
 | `testRectApi0062`（`SUB_NdkTsDrawing_RECT_0062`） Verify the intersection predicate is symmetric for separated rectangles. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0063`（`SUB_NdkTsDrawing_RECT_0063`） Verify touching edges and touching corners are not intersections. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0064`（`SUB_NdkTsDrawing_RECT_0064`） Verify a contained rectangle always intersects its container. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testRectApi0065`（`SUB_NdkTsDrawing_RECT_0065`） Verify an empty rectangle never intersects another rectangle. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testRectApi0065`（`SUB_NdkTsDrawing_RECT_0065`） Verify an empty rectangle never intersects another rectangle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0066`（`SUB_NdkTsDrawing_RECT_0066`） Verify fractional and unit rectangles still report intersections. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0067`（`SUB_NdkTsDrawing_RECT_0067`） Verify unit squares overlap diagonally but not across a gap. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0068`（`SUB_NdkTsDrawing_RECT_0068`） Verify the intersection predicate agrees with a positive intersection area. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -1335,7 +1335,7 @@
 | `testRectApi0095`（`SUB_NdkTsDrawing_RECT_0095`） Verify containment follows the offset rectangle bounds. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0096`（`SUB_NdkTsDrawing_RECT_0096`） Verify two chained offsets equal one merged offset. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0097`（`SUB_NdkTsDrawing_RECT_0097`） Verify offsetTo moves the origin while keeping the size. | 无设备依赖（纯对象 API） | assertDeepEquals | 3 条断言全部通过 | 是 | 通过 |
-| `testRectApi0098`（`SUB_NdkTsDrawing_RECT_0098`） Verify offsetTo places the origin at the requested corner. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
+| `testRectApi0098`（`SUB_NdkTsDrawing_RECT_0098`） Verify offsetTo moves the origin to the requested corner. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testRectApi0099`（`SUB_NdkTsDrawing_RECT_0099`） Verify offsetTo never mutates the source rectangle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0100`（`SUB_NdkTsDrawing_RECT_0100`） Verify offsetTo accepts a negative target origin. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testRectApi0101`（`SUB_NdkTsDrawing_RECT_0101`） Verify offsetTo with a fractional target keeps the width. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -1463,7 +1463,7 @@
 | `testPenApi0061`（`SUB_NdkTsDrawing_PEN_0061`） Verify two pens keep independent float colors. | 无设备依赖（纯对象 API） | getColor | 4 条断言全部通过 | 是 | 通过 |
 | `testPenApi0062`（`SUB_NdkTsDrawing_PEN_0062`） Verify the copy constructor keeps the float color. | 无设备依赖（纯对象 API） | Pen、getColor4f | 3 条断言全部通过 | 是 | 通过 |
 | `testPenApi0063`（`SUB_NdkTsDrawing_PEN_0063`） Verify setAlpha replaces only the alpha of a float color. | 无设备依赖（纯对象 API） | setAlpha、getColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenApi0064`（`SUB_NdkTsDrawing_PEN_0064`） Verify a tiny float alpha is kept with its precision. | 无设备依赖（纯对象 API）；L4 | getColor4f | 3 条断言全部通过 | 是 | 通过 |
+| `testPenApi0064`（`SUB_NdkTsDrawing_PEN_0064`） Verify a tiny float alpha is kept with its precision. | 无设备依赖（纯对象 API） | getColor4f | 3 条断言全部通过 | 是 | 通过 |
 | `testPenApi0065`（`SUB_NdkTsDrawing_PEN_0065`） Verify changing the blue channel leaves the other channels intact. | 无设备依赖（纯对象 API） | setColor4f、getColor4f、getAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testPenApi0066`（`SUB_NdkTsDrawing_PEN_0066`） Verify changing the alpha channel leaves the color channels intact. | 无设备依赖（纯对象 API） | setColor4f、getColor4f | 4 条断言全部通过 | 是 | 通过 |
 | `testPenApi0067`（`SUB_NdkTsDrawing_PEN_0067`） Verify the packed color and the integer color agree on every channel. | 无设备依赖（纯对象 API） | getColor、getHexColor | 3 条断言全部通过 | 是 | 通过 |
@@ -1571,7 +1571,7 @@
 | `testBrushApi0039`（`SUB_NdkTsDrawing_BRUSH_0039`） Verify a fractional Color4f keeps all four channels on the brush. | 无设备依赖（纯对象 API） | Brush、setColor4f、getColor4f | 3 条断言全部通过 | 是 | 通过 |
 | `testBrushApi0040`（`SUB_NdkTsDrawing_BRUSH_0040`） Verify an all zero Color4f makes the brush transparent black. | 无设备依赖（纯对象 API） | Brush、setColor4f、getHexColor、getAlpha、getColor | 3 条断言全部通过 | 是 | 通过 |
 | `testBrushApi0041`（`SUB_NdkTsDrawing_BRUSH_0041`） Verify an all one Color4f makes the brush opaque white. | 无设备依赖（纯对象 API） | Brush、setColor4f、getHexColor、getAlpha、getColor4f | 3 条断言全部通过 | 是 | 通过 |
-| `testBrushApi0042`（`SUB_NdkTsDrawing_BRUSH_0042`） Verify out of range Color4f channels are clamped. | 无设备依赖（纯对象 API）；L4 | Brush、setColor4f、getColor4f | 3 条断言全部通过 | 是 | 通过 |
+| `testBrushApi0042`（`SUB_NdkTsDrawing_BRUSH_0042`） Verify out of range Color4f channels are clamped. | 无设备依赖（纯对象 API） | Brush、setColor4f、getColor4f | 3 条断言全部通过 | 是 | 通过 |
 | `testBrushApi0043`（`SUB_NdkTsDrawing_BRUSH_0043`） Verify a float color replaces a packed color set earlier. | 无设备依赖（纯对象 API） | Brush、setColor、setColor4f、getColor | 3 条断言全部通过 | 是 | 通过 |
 | `testBrushApi0044`（`SUB_NdkTsDrawing_BRUSH_0044`） Verify the float and integer brush colors agree. | 无设备依赖（纯对象 API） | Brush、setColor4f、getColor4f、getColor | 3 条断言全部通过 | 是 | 通过 |
 | `testBrushApi0045`（`SUB_NdkTsDrawing_BRUSH_0045`） Verify the brush effect preset ends on alpha 160. | 无设备依赖（纯对象 API） | Brush、getAlpha、getColor、getHexColor | 3 条断言全部通过 | 是 | 通过 |
@@ -1809,7 +1809,7 @@
 | `testRegionApi0085`（`SUB_NdkTsDrawing_REGION_0085`） Verify removing a middle column splits the region in two. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0086`（`SUB_NdkTsDrawing_REGION_0086`） Verify intersecting a large region with a small one yields the small one. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0087`（`SUB_NdkTsDrawing_REGION_0087`） Verify the reverse difference of equal regions is empty. | 无设备依赖（纯对象 API） | op、Region | 3 条断言全部通过 | 是 | 通过 |
-| `testRegionApi0088`（`SUB_NdkTsDrawing_REGION_0088`） Verify a four step operation chain lands on the last geometry. | 无设备依赖（纯对象 API）；L4 | op | 3 条断言全部通过 | 是 | 通过 |
+| `testRegionApi0088`（`SUB_NdkTsDrawing_REGION_0088`） Verify a four step operation chain lands on the last geometry. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0089`（`SUB_NdkTsDrawing_REGION_0089`） Verify setEmpty after an operation clears the merged region. | 无设备依赖（纯对象 API） | op、setEmpty | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0090`（`SUB_NdkTsDrawing_REGION_0090`） Verify operations work on regions placed in the negative quadrant. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0091`（`SUB_NdkTsDrawing_REGION_0091`） Verify the bounds of three scattered rectangles cover the extreme edges. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
@@ -1838,14 +1838,14 @@
 | `testRegionApi0114`（`SUB_NdkTsDrawing_REGION_0114`） Verify setRegion from itself keeps the region unchanged. | 无设备依赖（纯对象 API） | setRegion | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0115`（`SUB_NdkTsDrawing_REGION_0115`） Verify replace with an equal region keeps the shape. | 无设备依赖（纯对象 API） | op、Region | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0116`（`SUB_NdkTsDrawing_REGION_0116`） Verify a union after an offset joins the old and new positions. | 无设备依赖（纯对象 API） | offset、op | 4 条断言全部通过 | 是 | 通过 |
-| `testRegionApi0117`（`SUB_NdkTsDrawing_REGION_0117`） Verify a five step operation chain ends on the expected geometry. | 无设备依赖（纯对象 API）；L4 | op | 5 条断言全部通过 | 是 | 通过 |
+| `testRegionApi0117`（`SUB_NdkTsDrawing_REGION_0117`） Verify a five step operation chain ends on the expected geometry. | 无设备依赖（纯对象 API） | op | 5 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0118`（`SUB_NdkTsDrawing_REGION_0118`） Verify the same xor applied twice restores the original region. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0119`（`SUB_NdkTsDrawing_REGION_0119`） Verify opposite offsets cancel out and restore the bounds. | 无设备依赖（纯对象 API） | Region、offset | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0120`（`SUB_NdkTsDrawing_REGION_0120`） Verify modifying a copied region leaves the source untouched. | 无设备依赖（纯对象 API） | op、offset | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0121`（`SUB_NdkTsDrawing_REGION_0121`） Verify two copies of one region stay independent of each other. | 无设备依赖（纯对象 API） | setEmpty、op | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0122`（`SUB_NdkTsDrawing_REGION_0122`） Verify a second setPath replaces the first path region. | 无设备依赖（纯对象 API） | Region、Path、addRect、setPath | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0123`（`SUB_NdkTsDrawing_REGION_0123`） Verify setEmpty clears a region built from a path. | 无设备依赖（纯对象 API） | Path、addRect、setEmpty | 4 条断言全部通过 | 是 | 通过 |
-| `testRegionApi0124`（`SUB_NdkTsDrawing_REGION_0124`） Verify bounds after every step of a four operation chain. | 无设备依赖（纯对象 API）；L4 | op | 6 条断言全部通过 | 是 | 通过 |
+| `testRegionApi0124`（`SUB_NdkTsDrawing_REGION_0124`） Verify bounds after every step of a four operation chain. | 无设备依赖（纯对象 API） | op | 6 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0125`（`SUB_NdkTsDrawing_REGION_0125`） Verify a hole punched by difference is filled back by union. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0126`（`SUB_NdkTsDrawing_REGION_0126`） Verify three nested intersections leave one rectangle. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0127`（`SUB_NdkTsDrawing_REGION_0127`） Verify three offsets accumulate into the final position. | 无设备依赖（纯对象 API） | offset | 4 条断言全部通过 | 是 | 通过 |
@@ -1854,7 +1854,7 @@
 | `testRegionApi0130`（`SUB_NdkTsDrawing_REGION_0130`） Verify a one pixel region contains only its own pixel. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0131`（`SUB_NdkTsDrawing_REGION_0131`） Verify a region crossing the origin keeps both edge exclusions. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0132`（`SUB_NdkTsDrawing_REGION_0132`） Verify two single pixel rectangles joined at the seam turn into one rectangle. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
-| `testRegionApi0133`（`SUB_NdkTsDrawing_REGION_0133`） Verify a union of far apart extremes rejects unrelated bounds. | 无设备依赖（纯对象 API）；L4 | op | 4 条断言全部通过 | 是 | 通过 |
+| `testRegionApi0133`（`SUB_NdkTsDrawing_REGION_0133`） Verify a union of far apart extremes rejects unrelated bounds. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0134`（`SUB_NdkTsDrawing_REGION_0134`） Verify an offset across the origin produces negative bounds. | 无设备依赖（纯对象 API） | offset | 4 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0135`（`SUB_NdkTsDrawing_REGION_0135`） Verify setRect with inverted edges collapses a complex region. | 无设备依赖（纯对象 API） | op、setRect | 3 条断言全部通过 | 是 | 通过 |
 | `testRegionApi0136`（`SUB_NdkTsDrawing_REGION_0136`） Verify a far away path stays inside the automatic clip. | 无设备依赖（纯对象 API） | Path、addRect | 4 条断言全部通过 | 是 | 通过 |
@@ -1954,7 +1954,7 @@
 | `testFilterApi0034`（`SUB_NdkTsDrawing_FILTER_0034`） Verify two blend filters of one color render the same pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0035`（`SUB_NdkTsDrawing_FILTER_0035`） Verify the luma filter turns white into an opaque gray. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0036`（`SUB_NdkTsDrawing_FILTER_0036`） Verify the luma filter turns a saturated red into gray. | 无设备依赖（纯对象 API） | Brush、setColor、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0037`（`SUB_NdkTsDrawing_FILTER_0037`） Verify blue luma is darker than red luma. | 无设备依赖（纯对象 API）；L4 | Brush、setColor、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0037`（`SUB_NdkTsDrawing_FILTER_0037`） Verify blue luma is darker than red luma. | 无设备依赖（纯对象 API） | Brush、setColor、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0038`（`SUB_NdkTsDrawing_FILTER_0038`） Verify the luma filter keeps the painted coverage. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0039`（`SUB_NdkTsDrawing_FILTER_0039`） Verify the identity matrix filter leaves white unchanged. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0040`（`SUB_NdkTsDrawing_FILTER_0040`） Verify the identity matrix filter keeps a colored fill unchanged. | 无设备依赖（纯对象 API） | Brush、setColor、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
@@ -1965,12 +1965,12 @@
 | `testFilterApi0045`（`SUB_NdkTsDrawing_FILTER_0045`） Verify the two gamma filters transform mid gray differently. | 无设备依赖（纯对象 API） | Brush、setColor、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0046`（`SUB_NdkTsDrawing_FILTER_0046`） Verify the gamma filters keep the painted coverage. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0047`（`SUB_NdkTsDrawing_FILTER_0047`） Verify the composed filter applies the inner blend then the outer luma. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0048`（`SUB_NdkTsDrawing_FILTER_0048`） Verify the composed filter output is darker than the blend color. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0048`（`SUB_NdkTsDrawing_FILTER_0048`） Verify the composed filter output is darker than the blend color. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0049`（`SUB_NdkTsDrawing_FILTER_0049`） Verify the composed filter renders twice identically. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0050`（`SUB_NdkTsDrawing_FILTER_0050`） Verify the lighting filter scales white into the highlight color. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0051`（`SUB_NdkTsDrawing_FILTER_0051`） Verify the lighting filter keeps the green above blue on white. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0052`（`SUB_NdkTsDrawing_FILTER_0052`） Verify the lighting filter leaves the additive term on black. | 无设备依赖（纯对象 API） | Brush、setColor、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0053`（`SUB_NdkTsDrawing_FILTER_0053`） Verify the lighting filter additive term grows from red to blue. | 无设备依赖（纯对象 API）；L4 | Brush、setColor、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0053`（`SUB_NdkTsDrawing_FILTER_0053`） Verify the lighting filter additive term grows from red to blue. | 无设备依赖（纯对象 API） | Brush、setColor、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0054`（`SUB_NdkTsDrawing_FILTER_0054`） Verify the lighting filter keeps the painted coverage. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0055`（`SUB_NdkTsDrawing_FILTER_0055`） Verify the blend filter also tints a pen stroke. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0056`（`SUB_NdkTsDrawing_FILTER_0056`） Verify the identity filter keeps a pen stroke white. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
@@ -1984,10 +1984,10 @@
 | `testFilterApi0064`（`SUB_NdkTsDrawing_FILTER_0064`） Verify clearing the path effect restores the solid stroke. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setPathEffect | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0065`（`SUB_NdkTsDrawing_FILTER_0065`） Verify the corner effect changes the polyline coverage. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0066`（`SUB_NdkTsDrawing_FILTER_0066`） Verify the corner effect renders twice identically. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0067`（`SUB_NdkTsDrawing_FILTER_0067`） Verify the discrete effect jitters a solid stroke. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0067`（`SUB_NdkTsDrawing_FILTER_0067`） Verify the discrete effect jitters a solid stroke. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0068`（`SUB_NdkTsDrawing_FILTER_0068`） Verify the path dash effect stamps shapes along the stroke. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0069`（`SUB_NdkTsDrawing_FILTER_0069`） Verify the composed effect differs from the dash effect alone. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0070`（`SUB_NdkTsDrawing_FILTER_0070`） Verify the summed effect overlays both strokes. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0069`（`SUB_NdkTsDrawing_FILTER_0069`） Verify the composed effect differs from the dash effect alone. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0070`（`SUB_NdkTsDrawing_FILTER_0070`） Verify the summed effect overlays both strokes. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0071`（`SUB_NdkTsDrawing_FILTER_0071`） Verify a positive horizontal offset moves the painted block to the right. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0072`（`SUB_NdkTsDrawing_FILTER_0072`） Verify a negative horizontal offset moves the painted block to the left. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0073`（`SUB_NdkTsDrawing_FILTER_0073`） Verify a vertical offset moves the painted block downwards. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2000,19 +2000,19 @@
 | `testFilterApi0080`（`SUB_NdkTsDrawing_FILTER_0080`） Verify a blur produces partially transparent edge pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0081`（`SUB_NdkTsDrawing_FILTER_0081`） Verify a blur does not change the painted color channels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0082`（`SUB_NdkTsDrawing_FILTER_0082`） Verify the same blur filter renders twice identically. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0083`（`SUB_NdkTsDrawing_FILTER_0083`） Verify the composed filter offsets first and blurs second. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0084`（`SUB_NdkTsDrawing_FILTER_0084`） Verify the composed filter covers more than its offset stage alone. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0085`（`SUB_NdkTsDrawing_FILTER_0085`） Verify the composed filter differs from a plain blur of the same sigma. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0086`（`SUB_NdkTsDrawing_FILTER_0086`） Verify the blended image filter paints and repeats identically. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0087`（`SUB_NdkTsDrawing_FILTER_0087`） Verify the blended filter differs from its blur background alone. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0083`（`SUB_NdkTsDrawing_FILTER_0083`） Verify the composed filter offsets first and blurs second. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0084`（`SUB_NdkTsDrawing_FILTER_0084`） Verify the composed filter covers more than its offset stage alone. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0085`（`SUB_NdkTsDrawing_FILTER_0085`） Verify the composed filter differs from a plain blur of the same sigma. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0086`（`SUB_NdkTsDrawing_FILTER_0086`） Verify the blended image filter paints and repeats identically. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0087`（`SUB_NdkTsDrawing_FILTER_0087`） Verify the blended filter differs from its blur background alone. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0088`（`SUB_NdkTsDrawing_FILTER_0088`） Verify an image filter built from the lighting color filter warms white. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0089`（`SUB_NdkTsDrawing_FILTER_0089`） Verify an image filter built from the identity matrix keeps white. | 无设备依赖（纯对象 API） | createFromColorFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0090`（`SUB_NdkTsDrawing_FILTER_0090`） Verify a shader color survives an offset image filter. | 200 × 200 离屏画布；L4 | Brush、setShaderEffect、setImageFilter、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0090`（`SUB_NdkTsDrawing_FILTER_0090`） Verify a shader color survives an offset image filter. | 200 × 200 离屏画布 | Brush、setShaderEffect、setImageFilter、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0091`（`SUB_NdkTsDrawing_FILTER_0091`） Verify clearing the image filter restores the original block. | 200 × 200 离屏画布 | attachBrush、drawRect、detachBrush、setImageFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0092`（`SUB_NdkTsDrawing_FILTER_0092`） Verify an offset image filter also moves a pen stroke. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0093`（`SUB_NdkTsDrawing_FILTER_0093`） Verify the last image filter set on a brush is the one applied. | 200 × 200 离屏画布 | setImageFilter、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0094`（`SUB_NdkTsDrawing_FILTER_0094`） Verify two brushes with different image filters render independently. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0095`（`SUB_NdkTsDrawing_FILTER_0095`） Verify a large blur sigma spreads paint far beyond the block. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0095`（`SUB_NdkTsDrawing_FILTER_0095`） Verify a large blur sigma spreads paint far beyond the block. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0096`（`SUB_NdkTsDrawing_FILTER_0096`） Verify a fractional offset still paints a block. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0097`（`SUB_NdkTsDrawing_FILTER_0097`） Verify a negative diagonal offset moves paint up and left. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0098`（`SUB_NdkTsDrawing_FILTER_0098`） Verify an image filter does not leak into a second canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2022,38 +2022,38 @@
 | `testFilterApi0102`（`SUB_NdkTsDrawing_FILTER_0102`） Verify the masked stroke centre remains fully opaque. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0103`（`SUB_NdkTsDrawing_FILTER_0103`） Verify one mask filter shared by two pens keeps the same coverage. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0104`（`SUB_NdkTsDrawing_FILTER_0104`） Verify clearing the mask filter restores the crisp stroke. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setMaskFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0105`（`SUB_NdkTsDrawing_FILTER_0105`） Verify a mask filter also softens a dashed stroke. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0105`（`SUB_NdkTsDrawing_FILTER_0105`） Verify a mask filter also softens a dashed stroke. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0106`（`SUB_NdkTsDrawing_FILTER_0106`） Verify a mask filter spreads a filled block. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0107`（`SUB_NdkTsDrawing_FILTER_0107`） Verify a thicker masked stroke covers more pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0108`（`SUB_NdkTsDrawing_FILTER_0108`） Verify a translucent stroke keeps its alpha under a mask filter. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0109`（`SUB_NdkTsDrawing_FILTER_0109`） Verify mask filtered strokes render twice identically. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0110`（`SUB_NdkTsDrawing_FILTER_0110`） Verify a tiny mask sigma still covers at least the plain stroke. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0110`（`SUB_NdkTsDrawing_FILTER_0110`） Verify a tiny mask sigma still covers at least the plain stroke. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0111`（`SUB_NdkTsDrawing_FILTER_0111`） Verify a larger mask sigma widens a filled block further. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0112`（`SUB_NdkTsDrawing_FILTER_0112`） Verify a mask filter keeps the stroke color channels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0113`（`SUB_NdkTsDrawing_FILTER_0113`） Verify the outer blur type clears the stroke interior. | 无设备依赖（纯对象 API）；L4 | createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0114`（`SUB_NdkTsDrawing_FILTER_0114`） Verify the inner blur type covers no more than the normal type. | 无设备依赖（纯对象 API）；L4 | createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0115`（`SUB_NdkTsDrawing_FILTER_0115`） Verify a clip rect limits the spread of a masked stroke. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setMaskFilter、clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0116`（`SUB_NdkTsDrawing_FILTER_0116`） Verify a mask filter and an offset image filter act together. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setMaskFilter、setImageFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0113`（`SUB_NdkTsDrawing_FILTER_0113`） Verify the outer blur type clears the stroke interior. | 无设备依赖（纯对象 API） | createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0114`（`SUB_NdkTsDrawing_FILTER_0114`） Verify the inner blur type covers no more than the normal type. | 无设备依赖（纯对象 API） | createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0115`（`SUB_NdkTsDrawing_FILTER_0115`） Verify a clip rect limits the spread of a masked stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setMaskFilter、clipRect | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0116`（`SUB_NdkTsDrawing_FILTER_0116`） Verify a mask filter and an offset image filter act together. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setMaskFilter、setImageFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0117`（`SUB_NdkTsDrawing_FILTER_0117`） Verify a shadow layer paints more pixels than bare text. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0118`（`SUB_NdkTsDrawing_FILTER_0118`） Verify the shadow layer adds dark translucent pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0119`（`SUB_NdkTsDrawing_FILTER_0119`） Verify bare text paints no dark translucent pixel. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0120`（`SUB_NdkTsDrawing_FILTER_0120`） Verify the shadow layer keeps the glyph body opaque white. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0121`（`SUB_NdkTsDrawing_FILTER_0121`） Verify one shadow layer renders twice identically. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0122`（`SUB_NdkTsDrawing_FILTER_0122`） Verify clearing the shadow layer restores bare text. | 200 × 200 离屏画布 | makeFromString、Brush、setColor、setShadowLayer、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0123`（`SUB_NdkTsDrawing_FILTER_0123`） Verify a negative shadow radius is rejected. | 无设备依赖（纯对象 API）；L4 | create | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0123`（`SUB_NdkTsDrawing_FILTER_0123`） Verify a negative shadow radius is rejected. | 无设备依赖（纯对象 API） | create | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0124`（`SUB_NdkTsDrawing_FILTER_0124`） Verify a larger shadow radius spreads the shadow further. | 无设备依赖（纯对象 API） | create | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0125`（`SUB_NdkTsDrawing_FILTER_0125`） Verify opposite shadow offsets paint different pixel sets. | 无设备依赖（纯对象 API）；L4 | create | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0126`（`SUB_NdkTsDrawing_FILTER_0126`） Verify the shadow uses the configured color. | 无设备依赖（纯对象 API）；L4 | create | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0127`（`SUB_NdkTsDrawing_FILTER_0127`） Verify a clip rect limits the shadow spread. | 200 × 200 离屏画布；L4 | makeFromString、Brush、setColor、setShadowLayer、clipRect | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0125`（`SUB_NdkTsDrawing_FILTER_0125`） Verify opposite shadow offsets paint different pixel sets. | 无设备依赖（纯对象 API） | create | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0126`（`SUB_NdkTsDrawing_FILTER_0126`） Verify the shadow uses the configured color. | 无设备依赖（纯对象 API） | create | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0127`（`SUB_NdkTsDrawing_FILTER_0127`） Verify a clip rect limits the shadow spread. | 200 × 200 离屏画布 | makeFromString、Brush、setColor、setShadowLayer、clipRect | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0128`（`SUB_NdkTsDrawing_FILTER_0128`） Verify the shadow does not replace the glyph body. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0129`（`SUB_NdkTsDrawing_FILTER_0129`） Verify two shadow instances with the same parameters match. | 无设备依赖（纯对象 API） | create | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0130`（`SUB_NdkTsDrawing_FILTER_0130`） Verify a zero offset shadow still spreads dark pixels. | 无设备依赖（纯对象 API） | create | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0131`（`SUB_NdkTsDrawing_FILTER_0131`） Verify four pen effects can be stacked at once. | 无设备依赖（纯对象 API）；L4 | Pen、setColor、setStrokeWidth、setShaderEffect、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0132`（`SUB_NdkTsDrawing_FILTER_0132`） Verify an offset image filter moves a dashed stroke down. | 无设备依赖（纯对象 API）；L4 | Pen、setColor、setStrokeWidth、setPathEffect、setImageFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0133`（`SUB_NdkTsDrawing_FILTER_0133`） Verify a shader and a color filter stack on one brush. | 200 × 200 离屏画布；L4 | Brush、setShaderEffect、setColorFilter、setMaskFilter、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0134`（`SUB_NdkTsDrawing_FILTER_0134`） Verify a blur image filter and a blend color filter act together. | 200 × 200 离屏画布；L4 | Brush、setColor、setColorFilter、setImageFilter、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0135`（`SUB_NdkTsDrawing_FILTER_0135`） Verify a pen with a shadow layer also shades text. | 200 × 200 离屏画布；L4 | makeFromString、Pen、setColor、setStrokeWidth、setShadowLayer | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0136`（`SUB_NdkTsDrawing_FILTER_0136`） Verify a fully filtered brush differs from a bare brush. | 200 × 200 离屏画布；L4 | Brush、setColor、setColorFilter、setMaskFilter、setImageFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0131`（`SUB_NdkTsDrawing_FILTER_0131`） Verify four pen effects can be stacked at once. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setShaderEffect、setColorFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0132`（`SUB_NdkTsDrawing_FILTER_0132`） Verify an offset image filter moves a dashed stroke down. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setPathEffect、setImageFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0133`（`SUB_NdkTsDrawing_FILTER_0133`） Verify a shader and a color filter stack on one brush. | 200 × 200 离屏画布 | Brush、setShaderEffect、setColorFilter、setMaskFilter、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0134`（`SUB_NdkTsDrawing_FILTER_0134`） Verify a blur image filter and a blend color filter act together. | 200 × 200 离屏画布 | Brush、setColor、setColorFilter、setImageFilter、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0135`（`SUB_NdkTsDrawing_FILTER_0135`） Verify a pen with a shadow layer also shades text. | 200 × 200 离屏画布 | makeFromString、Pen、setColor、setStrokeWidth、setShadowLayer | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0136`（`SUB_NdkTsDrawing_FILTER_0136`） Verify a fully filtered brush differs from a bare brush. | 200 × 200 离屏画布 | Brush、setColor、setColorFilter、setMaskFilter、setImageFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0137`（`SUB_NdkTsDrawing_FILTER_0137`） Verify the showcase covers the whole canvas and keeps a solid core. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0138`（`SUB_NdkTsDrawing_FILTER_0138`） Verify the showcase keeps every pixel inked and reaches full opacity. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0139`（`SUB_NdkTsDrawing_FILTER_0139`） Verify only part of the showcase canvas becomes fully opaque. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2082,8 +2082,8 @@
 | `testFilterApi0162`（`SUB_NdkTsDrawing_FILTER_0162`） Verify a filtered block and a lattice side by side do not mix. | 200 × 200 离屏画布 | Brush、setColor、setColorFilter、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0163`（`SUB_NdkTsDrawing_FILTER_0163`） Verify a lattice inside a save layer matches the direct lattice result. | 200 × 200 离屏画布 | createImageLattice、saveLayer、drawImageLattice、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0164`（`SUB_NdkTsDrawing_FILTER_0164`） Verify a lattice stretched onto a larger destination keeps the source color. | 200 × 200 离屏画布 | createImageLattice、drawImageLattice | 3 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0165`（`SUB_NdkTsDrawing_FILTER_0165`） Verify the colored lattice from the sample fills several cells with color. | 200 × 200 离屏画布 | drawImageLattice | 4 条断言全部通过 | 是 | 通过 |
-| `testFilterApi0166`（`SUB_NdkTsDrawing_FILTER_0166`） Verify a clip rectangle also limits the colored sample lattice. | 200 × 200 离屏画布 | clipRect、drawImageLattice | 3 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0165`（`SUB_NdkTsDrawing_FILTER_0165`） Verify a lattice fills the whole target with the source colour. | 200 × 200 离屏画布 | drawImageLattice | 4 条断言全部通过 | 是 | 通过 |
+| `testFilterApi0166`（`SUB_NdkTsDrawing_FILTER_0166`） Verify a clip rectangle also limits the coloured lattice. | 200 × 200 离屏画布 | clipRect、drawImageLattice | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0167`（`SUB_NdkTsDrawing_FILTER_0167`） Verify a plus blend over the lattice keeps alpha and lifts the red channel. | 200 × 200 离屏画布 | createImageLattice、drawImageLattice、Brush、setColor、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0168`（`SUB_NdkTsDrawing_FILTER_0168`） Verify an opaque image drawn over the lattice replaces that corner. | 200 × 200 离屏画布 | createImageLattice、drawImageLattice、drawImage、SamplingOptions | 3 条断言全部通过 | 是 | 通过 |
 | `testFilterApi0169`（`SUB_NdkTsDrawing_FILTER_0169`） Verify a translated lattice shifts its pixels by the same offset. | 200 × 200 离屏画布 | createImageLattice、translate、drawImageLattice | 3 条断言全部通过 | 是 | 通过 |
@@ -2321,7 +2321,7 @@
 | `testEnumPathStyle0199`（`SUB_NdkTsDrawing_ENUM_0199`） Verify a wider advance reduces the painted area of a translated dash. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathStyle0200`（`SUB_NdkTsDrawing_ENUM_0200`） Verify a non zero phase removes the first translated dash stamp. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathStyle0201`（`SUB_NdkTsDrawing_ENUM_0201`） Verify PathDashStyle.TRANSLATE works on a closed circle contour. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumPathStyle0202`（`SUB_NdkTsDrawing_ENUM_0202`） Verify a large advance places translated stamps only at the expected columns. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumPathStyle0202`（`SUB_NdkTsDrawing_ENUM_0202`） Verify a large advance paints translated stamps only at the expected columns. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathStyle0203`（`SUB_NdkTsDrawing_ENUM_0203`） Verify PathDashStyle.ROTATE leaves gaps on a diagonal stroke. | 无设备依赖（纯对象 API） | getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathStyle0204`（`SUB_NdkTsDrawing_ENUM_0204`） Verify a wider advance reduces the painted area of a rotated dash. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathStyle0205`（`SUB_NdkTsDrawing_ENUM_0205`） Verify a phase shift moves the first rotated stamp further along the diagonal. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2351,19 +2351,19 @@
 | `testEnumPathIter0229`（`SUB_NdkTsDrawing_ENUM_0229`） Verify peek reports MOVE twice without moving the iterator forward. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、getPathIterator、peek | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0230`（`SUB_NdkTsDrawing_ENUM_0230`） Verify next fills the single MOVE coordinate into the output array. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、getPathIterator、next | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0231`（`SUB_NdkTsDrawing_ENUM_0231`） Verify PathIteratorVerb.MOVE keeps index 0 and opens every new contour. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumPathIter0232`（`SUB_NdkTsDrawing_ENUM_0232`） Verify two line commands surface as two PathIteratorVerb.LINE entries. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumPathIter0232`（`SUB_NdkTsDrawing_ENUM_0232`） Verify two line commands appear as two PathIteratorVerb.LINE entries. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0233`（`SUB_NdkTsDrawing_ENUM_0233`） Verify the iterator advances from MOVE to LINE and still has more data. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、getPathIterator、next | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0234`（`SUB_NdkTsDrawing_ENUM_0234`） Verify PathIteratorVerb.LINE keeps index 1 and leaves the contour open. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、isClosed | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0235`（`SUB_NdkTsDrawing_ENUM_0235`） Verify two line commands build an L contour whose measured length is 200. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、round、getLength | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumPathIter0236`（`SUB_NdkTsDrawing_ENUM_0236`） Verify a quadratic curve surfaces as a single PathIteratorVerb.QUAD entry. | 无设备依赖（纯对象 API） | Path、moveTo、quadTo | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumPathIter0236`（`SUB_NdkTsDrawing_ENUM_0236`） Verify a quadratic curve appears as a single PathIteratorVerb.QUAD entry. | 无设备依赖（纯对象 API） | Path、moveTo、quadTo | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0237`（`SUB_NdkTsDrawing_ENUM_0237`） Verify peek reports QUAD after the leading move has been consumed. | 无设备依赖（纯对象 API） | Path、moveTo、quadTo、getPathIterator、next | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0238`（`SUB_NdkTsDrawing_ENUM_0238`） Verify a quadratic curve is longer than its chord and bows above the baseline. | 无设备依赖（纯对象 API） | Path、moveTo、quadTo、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0239`（`SUB_NdkTsDrawing_ENUM_0239`） Verify a quad followed by a line keeps both verbs in the verb table. | 无设备依赖（纯对象 API） | Path、moveTo、quadTo、lineTo | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumPathIter0240`（`SUB_NdkTsDrawing_ENUM_0240`） Verify a conic curve surfaces as one PathIteratorVerb.CONIC with one weight. | 无设备依赖（纯对象 API） | Path、moveTo、conicTo、getConicWeightData | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumPathIter0240`（`SUB_NdkTsDrawing_ENUM_0240`） Verify a conic curve appears as one PathIteratorVerb.CONIC with one weight. | 无设备依赖（纯对象 API） | Path、moveTo、conicTo、getConicWeightData | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0241`（`SUB_NdkTsDrawing_ENUM_0241`） Verify PathIteratorVerb.CONIC keeps index 3 and stores a positive weight. | 无设备依赖（纯对象 API） | Path、moveTo、conicTo、getConicWeightData | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0242`（`SUB_NdkTsDrawing_ENUM_0242`） Verify the iterator walks MOVE then CONIC then DONE on a conic path. | 无设备依赖（纯对象 API） | Path、moveTo、conicTo、getPathIterator、next | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0243`（`SUB_NdkTsDrawing_ENUM_0243`） Verify the conic weight changes the measured length of the same contour. | 无设备依赖（纯对象 API） | Path、moveTo、conicTo、abs、getLength | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumPathIter0244`（`SUB_NdkTsDrawing_ENUM_0244`） Verify a cubic curve surfaces as one PathIteratorVerb.CUBIC entry. | 无设备依赖（纯对象 API） | Path、moveTo、cubicTo | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumPathIter0244`（`SUB_NdkTsDrawing_ENUM_0244`） Verify a cubic curve appears as one PathIteratorVerb.CUBIC entry. | 无设备依赖（纯对象 API） | Path、moveTo、cubicTo | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0245`（`SUB_NdkTsDrawing_ENUM_0245`） Verify PathIteratorVerb.CUBIC keeps index 4 and is visible through peek. | 无设备依赖（纯对象 API） | Path、moveTo、cubicTo、getPathIterator、next | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0246`（`SUB_NdkTsDrawing_ENUM_0246`） Verify a cubic curve is longer than its chord and stays inside the control box. | 无设备依赖（纯对象 API） | Path、moveTo、cubicTo、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0247`（`SUB_NdkTsDrawing_ENUM_0247`） Verify a closed cubic contour ends with PathIteratorVerb.CLOSE. | 无设备依赖（纯对象 API） | Path、moveTo、cubicTo、close、isClosed | 3 条断言全部通过 | 是 | 通过 |
@@ -2403,7 +2403,7 @@
 | `testEnumPathIter0281`（`SUB_NdkTsDrawing_ENUM_0281`） Verify a four vertex fan fills the two wedges around the first vertex. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0282`（`SUB_NdkTsDrawing_ENUM_0282`） Verify a three vertex fan matches the tile triangle on the same vertices. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0283`（`SUB_NdkTsDrawing_ENUM_0283`） Verify a fifth fan vertex adds another wedge around the hub vertex. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumPathIter0284`（`SUB_NdkTsDrawing_ENUM_0284`） Verify fan and strip join the same five vertices into different areas. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumPathIter0284`（`SUB_NdkTsDrawing_ENUM_0284`） Verify fan and strip join the same five vertices into different areas. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0285`（`SUB_NdkTsDrawing_ENUM_0285`） Verify the fan hub vertex is inked while a far corner stays transparent. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0286`（`SUB_NdkTsDrawing_ENUM_0286`） Verify CornerPos.TOP_LEFT_POS keeps index 0 and reads back the uniform radii. | 无设备依赖（纯对象 API） | RoundRect、getCorner | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumPathIter0287`（`SUB_NdkTsDrawing_ENUM_0287`） Verify setCorner on the top left corner keeps the other corners untouched. | 无设备依赖（纯对象 API） | RoundRect、setCorner、getCorner | 3 条断言全部通过 | 是 | 通过 |
@@ -2428,7 +2428,7 @@
 | `testEnumSampling0306`（`SUB_NdkTsDrawing_ENUM_0306`） Verify linear sampling shrinks a source image into a fifty pixel square. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0307`（`SUB_NdkTsDrawing_ENUM_0307`） Verify the nine patch API stretches a linearly sampled source over the canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0308`（`SUB_NdkTsDrawing_ENUM_0308`） Verify a lattice drawn with linear sampling covers the canvas with the source color. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0309`（`SUB_NdkTsDrawing_ENUM_0309`） Verify linear sampling blends a transparent edge into partial alpha columns. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0309`（`SUB_NdkTsDrawing_ENUM_0309`） Verify linear sampling blends a transparent edge into partial alpha columns. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0310`（`SUB_NdkTsDrawing_ENUM_0310`） Verify two sampling options built from the same filter behave identically. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0311`（`SUB_NdkTsDrawing_ENUM_0311`） Verify a linear sampled lattice keeps quadrant colors at one to one scale. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0312`（`SUB_NdkTsDrawing_ENUM_0312`） Verify TileMode.CLAMP keeps index 0 and replicates the gradient end colors. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
@@ -2443,26 +2443,26 @@
 | `testEnumSampling0321`（`SUB_NdkTsDrawing_ENUM_0321`） Verify a repeated gradient repeats with the span period across the canvas. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0322`（`SUB_NdkTsDrawing_ENUM_0322`） Verify repeat and clamp tile modes give different colors outside one gradient span. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0323`（`SUB_NdkTsDrawing_ENUM_0323`） Verify a repeated vertical gradient repeats along the vertical axis only. | 无设备依赖（纯对象 API） | createLinearGradient、abs | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0324`（`SUB_NdkTsDrawing_ENUM_0324`） Verify a repeated radial gradient repeats every radius distance from the center. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0324`（`SUB_NdkTsDrawing_ENUM_0324`） Verify a repeated radial gradient repeats every radius distance from the center. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0325`（`SUB_NdkTsDrawing_ENUM_0325`） Verify a repeated conical gradient paints the whole canvas with the ramp colors. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0326`（`SUB_NdkTsDrawing_ENUM_0326`） Verify a full circle sweep is unaffected by switching from clamp to repeat. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0327`（`SUB_NdkTsDrawing_ENUM_0327`） Verify a narrow repeated span tiles many times over the canvas width. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0326`（`SUB_NdkTsDrawing_ENUM_0326`） Verify a full circle sweep is unaffected by switching from clamp to repeat. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0327`（`SUB_NdkTsDrawing_ENUM_0327`） Verify a narrow repeated span tiles many times over the canvas width. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0328`（`SUB_NdkTsDrawing_ENUM_0328`） Verify TileMode.MIRROR keeps index 2 and still paints the whole canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0329`（`SUB_NdkTsDrawing_ENUM_0329`） Verify mirroring folds the left start edge back instead of jumping to the end color. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0330`（`SUB_NdkTsDrawing_ENUM_0330`） Verify a mirrored gradient is symmetric around the left edge of its span. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0330`（`SUB_NdkTsDrawing_ENUM_0330`） Verify a mirrored gradient is symmetric around the left edge of its span. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0331`（`SUB_NdkTsDrawing_ENUM_0331`） Verify a mirrored gradient stays darker than the clamped end color on the right side. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0332`（`SUB_NdkTsDrawing_ENUM_0332`） Verify mirror and repeat order the same outside pixel differently on the right side. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0333`（`SUB_NdkTsDrawing_ENUM_0333`） Verify a mirrored vertical gradient folds above its top edge. | 无设备依赖（纯对象 API）；L4 | createLinearGradient、abs | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0334`（`SUB_NdkTsDrawing_ENUM_0334`） Verify a mirrored radial gradient folds around its outer radius boundary. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0332`（`SUB_NdkTsDrawing_ENUM_0332`） Verify mirror and repeat order the same outside pixel differently on the right side. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0333`（`SUB_NdkTsDrawing_ENUM_0333`） Verify a mirrored vertical gradient folds above its top edge. | 无设备依赖（纯对象 API） | createLinearGradient、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0334`（`SUB_NdkTsDrawing_ENUM_0334`） Verify a mirrored radial gradient folds around its outer radius boundary. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0335`（`SUB_NdkTsDrawing_ENUM_0335`） Verify every tile mode keeps full coverage on a conical gradient. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0336`（`SUB_NdkTsDrawing_ENUM_0336`） Verify TileMode.DECAL keeps index 3 and drops pixels outside the gradient span. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0337`（`SUB_NdkTsDrawing_ENUM_0337`） Verify decal paints only the columns covered by its gradient span. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0338`（`SUB_NdkTsDrawing_ENUM_0338`） Verify decal covers less canvas than clamp while keeping the span opaque. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0339`（`SUB_NdkTsDrawing_ENUM_0339`） Verify a decal radial gradient leaves the canvas corners transparent. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0339`（`SUB_NdkTsDrawing_ENUM_0339`） Verify a decal radial gradient leaves the canvas corners transparent. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0340`（`SUB_NdkTsDrawing_ENUM_0340`） Verify a decal sweep gradient needs no tiling and fills the whole canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0341`（`SUB_NdkTsDrawing_ENUM_0341`） Verify a decal blur filter fades the blurred block to transparent at the corners. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0342`（`SUB_NdkTsDrawing_ENUM_0342`） Verify a narrow decal span inks only its own twenty columns. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0343`（`SUB_NdkTsDrawing_ENUM_0343`） Verify a decal gradient drawn inside a small rectangle clips at the span start. | 200 × 200 离屏画布；L4 | Brush、setShaderEffect、setColor、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0341`（`SUB_NdkTsDrawing_ENUM_0341`） Verify a decal blur filter fades the blurred block to transparent at the corners. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0342`（`SUB_NdkTsDrawing_ENUM_0342`） Verify a narrow decal span inks only its own twenty columns. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0343`（`SUB_NdkTsDrawing_ENUM_0343`） Verify a decal gradient drawn inside a small rectangle clips at the span start. | 200 × 200 离屏画布 | Brush、setShaderEffect、setColor、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0344`（`SUB_NdkTsDrawing_ENUM_0344`） Verify SrcRectConstraint.STRICT keeps index 0 and copies a whole image. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0345`（`SUB_NdkTsDrawing_ENUM_0345`） Verify SrcRectConstraint.FAST keeps index 1 and copies a whole image. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0346`（`SUB_NdkTsDrawing_ENUM_0346`） Verify strict and fast constraints match for an unscaled whole image copy. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2472,21 +2472,21 @@
 | `testEnumSampling0350`（`SUB_NdkTsDrawing_ENUM_0350`） Verify a blue quadrant crop drawn into a quarter destination stays in that corner. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0351`（`SUB_NdkTsDrawing_ENUM_0351`） Verify cropping the transparent quadrant with fast sampling paints nothing. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0352`（`SUB_NdkTsDrawing_ENUM_0352`） Verify a strict small crop magnified four times fills the canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0353`（`SUB_NdkTsDrawing_ENUM_0353`） Verify fast and strict constraints agree on a solid magnified crop. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0353`（`SUB_NdkTsDrawing_ENUM_0353`） Verify fast and strict constraints agree on a solid magnified crop. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0354`（`SUB_NdkTsDrawing_ENUM_0354`） Verify a strict crop drawn into a smaller destination leaves the rest untouched. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0355`（`SUB_NdkTsDrawing_ENUM_0355`） Verify strict and fast crops can be combined on one canvas without overlap. | 200 × 200 离屏画布；L4 | SamplingOptions、drawImageRectWithSrc | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0355`（`SUB_NdkTsDrawing_ENUM_0355`） Verify strict and fast crops can be combined on one canvas without overlap. | 200 × 200 离屏画布 | SamplingOptions、drawImageRectWithSrc | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0356`（`SUB_NdkTsDrawing_ENUM_0356`） Verify RectType.DEFAULT keeps index 0 and draws the image into every lattice cell. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0357`（`SUB_NdkTsDrawing_ENUM_0357`） Verify RectType.TRANSPARENT keeps index 1 and leaves the whole lattice empty. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0358`（`SUB_NdkTsDrawing_ENUM_0358`） Verify RectType.FIXEDCOLOR keeps index 2 and fills cells with the palette color. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0359`（`SUB_NdkTsDrawing_ENUM_0359`） Verify the three rectangle types are ordered DEFAULT then TRANSPARENT then FIXEDCOLOR. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0360`（`SUB_NdkTsDrawing_ENUM_0360`） Verify mixing default and transparent cells drops ink from half of the lattice. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0361`（`SUB_NdkTsDrawing_ENUM_0361`） Verify one fixed color cell among transparent cells only inks the palette color. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0362`（`SUB_NdkTsDrawing_ENUM_0362`） Verify a four color palette fills the lattice with all four palette colors. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0363`（`SUB_NdkTsDrawing_ENUM_0363`） Verify a fully transparent palette color leaves a fixed color lattice empty. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0361`（`SUB_NdkTsDrawing_ENUM_0361`） Verify one fixed color cell among transparent cells only inks the palette color. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0362`（`SUB_NdkTsDrawing_ENUM_0362`） Verify a four color palette fills the lattice with all four palette colors. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0363`（`SUB_NdkTsDrawing_ENUM_0363`） Verify a fully transparent palette color leaves a fixed color lattice empty. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumSampling0364`（`SUB_NdkTsDrawing_ENUM_0364`） Verify default and fixed color lattices cover the same area with different colors. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0365`（`SUB_NdkTsDrawing_ENUM_0365`） Verify a six cell lattice with default types draws the image everywhere. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0366`（`SUB_NdkTsDrawing_ENUM_0366`） Verify a six cell lattice of transparent types paints nothing at all. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumSampling0367`（`SUB_NdkTsDrawing_ENUM_0367`） Verify alternating default and transparent cells ink part of a six cell lattice. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0365`（`SUB_NdkTsDrawing_ENUM_0365`） Verify a six cell lattice with default types draws the image everywhere. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0366`（`SUB_NdkTsDrawing_ENUM_0366`） Verify a six cell lattice of transparent types paints nothing at all. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumSampling0367`（`SUB_NdkTsDrawing_ENUM_0367`） Verify alternating default and transparent cells ink part of a six cell lattice. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0368`（`SUB_NdkTsDrawing_ENUM_0368`） Verify JoinStyle.MITER_JOIN keeps index 0 and paints a stroked polyline. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0369`（`SUB_NdkTsDrawing_ENUM_0369`） Verify Pen.getJoinStyle returns the miter style that was set. | 无设备依赖（纯对象 API） | getJoinStyle | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0370`（`SUB_NdkTsDrawing_ENUM_0370`） Verify a mitered elbow covers both arms plus the sharp corner wedge. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2495,7 +2495,7 @@
 | `testEnumStroke0373`（`SUB_NdkTsDrawing_ENUM_0373`） Verify the miter wedge shrinks with a half width pen. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0374`（`SUB_NdkTsDrawing_ENUM_0374`） Verify an obtuse miter corner grows a shorter spike than a right angle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0375`（`SUB_NdkTsDrawing_ENUM_0375`） Verify a closed rectangle with miter joins fills all four sharp corners. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0376`（`SUB_NdkTsDrawing_ENUM_0376`） Verify a tiny miter limit cuts the miter wedge into a bevel. | 无设备依赖（纯对象 API）；L4 | setMiterLimit | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0376`（`SUB_NdkTsDrawing_ENUM_0376`） Verify a tiny miter limit cuts the miter wedge into a bevel. | 无设备依赖（纯对象 API） | setMiterLimit | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0377`（`SUB_NdkTsDrawing_ENUM_0377`） Verify JoinStyle.ROUND_JOIN keeps index 1 and is ordered after miter. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0378`（`SUB_NdkTsDrawing_ENUM_0378`） Verify Pen.getJoinStyle returns the round style that was set. | 无设备依赖（纯对象 API） | Pen、setJoinStyle、getJoinStyle | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0379`（`SUB_NdkTsDrawing_ENUM_0379`） Verify the round corner arc fills a point inside the quarter circle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2503,15 +2503,15 @@
 | `testEnumStroke0381`（`SUB_NdkTsDrawing_ENUM_0381`） Verify the round corner arc never reaches the miter diagonal point. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0382`（`SUB_NdkTsDrawing_ENUM_0382`） Verify the round corner radius follows half of the stroke width. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0383`（`SUB_NdkTsDrawing_ENUM_0383`） Verify a closed rectangle with round joins clips the outer corners. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0384`（`SUB_NdkTsDrawing_ENUM_0384`） Verify a round join covers more ink than a bevel join on the same path. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0384`（`SUB_NdkTsDrawing_ENUM_0384`） Verify a round join covers more ink than a bevel join on the same path. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0385`（`SUB_NdkTsDrawing_ENUM_0385`） Verify JoinStyle.BEVEL_JOIN keeps index 2 and is ordered last. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0386`（`SUB_NdkTsDrawing_ENUM_0386`） Verify Pen.getJoinStyle returns the bevel style that was set. | 无设备依赖（纯对象 API） | Pen、setJoinStyle、getJoinStyle | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0387`（`SUB_NdkTsDrawing_ENUM_0387`） Verify the bevel chord removes the round arc interior point. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0388`（`SUB_NdkTsDrawing_ENUM_0388`） Verify a beveled closed rectangle leaves the outer corner wedge empty. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0389`（`SUB_NdkTsDrawing_ENUM_0389`） Verify the bevel join paints the smallest corner of the three join styles. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0390`（`SUB_NdkTsDrawing_ENUM_0390`） Verify a half width bevel corner keeps the chord but drops the spike point. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0391`（`SUB_NdkTsDrawing_ENUM_0391`） Verify an obtuse bevel corner keeps a wide flat chord at the apex. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0392`（`SUB_NdkTsDrawing_ENUM_0392`） Verify a bevel join does not extend the open ends of the polyline. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0389`（`SUB_NdkTsDrawing_ENUM_0389`） Verify the bevel join paints the smallest corner of the three join styles. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0390`（`SUB_NdkTsDrawing_ENUM_0390`） Verify a half width bevel corner keeps the chord but drops the spike point. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0391`（`SUB_NdkTsDrawing_ENUM_0391`） Verify an obtuse bevel corner keeps a wide flat chord at the apex. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0392`（`SUB_NdkTsDrawing_ENUM_0392`） Verify a bevel join does not extend the open ends of the polyline. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0393`（`SUB_NdkTsDrawing_ENUM_0393`） Verify CapStyle.FLAT_CAP keeps index 0 and strokes an open line. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0394`（`SUB_NdkTsDrawing_ENUM_0394`） Verify Pen.getCapStyle returns the flat style that was set. | 无设备依赖（纯对象 API） | getCapStyle | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0395`（`SUB_NdkTsDrawing_ENUM_0395`） Verify a flat cap cuts the stroke exactly at the first path point. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2528,15 +2528,15 @@
 | `testEnumStroke0406`（`SUB_NdkTsDrawing_ENUM_0406`） Verify the square cap extension is a square corner, not a round one. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0407`（`SUB_NdkTsDrawing_ENUM_0407`） Verify the square cap extension covers one half width rectangle at the top. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0408`（`SUB_NdkTsDrawing_ENUM_0408`） Verify a round cap drops the square corner that a square cap keeps. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0409`（`SUB_NdkTsDrawing_ENUM_0409`） Verify one square cap extension measures exactly half the pen width. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0409`（`SUB_NdkTsDrawing_ENUM_0409`） Verify one square cap extension measures exactly half the pen width. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0410`（`SUB_NdkTsDrawing_ENUM_0410`） Verify CapStyle.ROUND_CAP keeps index 2 and is ordered after square. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0411`（`SUB_NdkTsDrawing_ENUM_0411`） Verify a pen built step by step reports the round cap it holds. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setCapStyle、getCapStyle | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0412`（`SUB_NdkTsDrawing_ENUM_0412`） Verify a round cap bulges past the top end by half the width at the center. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0413`（`SUB_NdkTsDrawing_ENUM_0413`） Verify the round cap arc cuts both top corners of the stroke band. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0414`（`SUB_NdkTsDrawing_ENUM_0414`） Verify the round cap covers less area than the square cap on one line. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0414`（`SUB_NdkTsDrawing_ENUM_0414`） Verify the round cap covers less area than the square cap on one line. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumStroke0415`（`SUB_NdkTsDrawing_ENUM_0415`） Verify the round cap also bulges past the bottom end. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0416`（`SUB_NdkTsDrawing_ENUM_0416`） Verify the round cap fills about a half disc above the top end. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumStroke0417`（`SUB_NdkTsDrawing_ENUM_0417`） Verify the round cap never paints outside the disc around the path end. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0416`（`SUB_NdkTsDrawing_ENUM_0416`） Verify the round cap fills about a half disc above the top end. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumStroke0417`（`SUB_NdkTsDrawing_ENUM_0417`） Verify the round cap never paints outside the disc around the path end. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0418`（`SUB_NdkTsDrawing_ENUM_0418`） Verify the four ShadowFlag members and their ascending order. | 无设备依赖（纯对象 API） |  | 5 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0419`（`SUB_NdkTsDrawing_ENUM_0419`） Verify ShadowFlag.NONE leaves the opaque corner block untouched. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0420`（`SUB_NdkTsDrawing_ENUM_0420`） Verify a NONE shadow bitmap equals the same bitmap drawn without a shadow. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2546,17 +2546,17 @@
 | `testEnumShadow0424`（`SUB_NdkTsDrawing_ENUM_0424`） Verify a translucent occluder shadow keeps the white canvas fully opaque. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0425`（`SUB_NdkTsDrawing_ENUM_0425`） Verify the translucent occluder shadow darkens only the area near the occluder. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0426`（`SUB_NdkTsDrawing_ENUM_0426`） Verify only the flag decides whether a shadow reaches the canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumShadow0427`（`SUB_NdkTsDrawing_ENUM_0427`） Verify the translucent occluder shadow stays away from the top corners. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumShadow0427`（`SUB_NdkTsDrawing_ENUM_0427`） Verify the translucent occluder shadow stays away from the top corners. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0428`（`SUB_NdkTsDrawing_ENUM_0428`） Verify ShadowFlag.GEOMETRIC_ONLY keeps index 2 and is ordered after the transparent flag. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0429`（`SUB_NdkTsDrawing_ENUM_0429`） Verify a geometric only shadow keeps the white canvas opaque behind it. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0430`（`SUB_NdkTsDrawing_ENUM_0430`） Verify a geometric only shadow never clears the opaque corner block. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0431`（`SUB_NdkTsDrawing_ENUM_0431`） Verify a geometric only shadow leaves the far corners of the bitmap empty. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumShadow0432`（`SUB_NdkTsDrawing_ENUM_0432`） Verify three flag values give three different amounts of changed pixels. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumShadow0432`（`SUB_NdkTsDrawing_ENUM_0432`） Verify three flag values give three different amounts of changed pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0433`（`SUB_NdkTsDrawing_ENUM_0433`） Verify ShadowFlag.ALL keeps index 3 and is the last member of the enum. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0434`（`SUB_NdkTsDrawing_ENUM_0434`） Verify a combined shadow keeps every pixel of the white canvas opaque. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0435`（`SUB_NdkTsDrawing_ENUM_0435`） Verify a combined shadow reaches the occluder area but not the far corner. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumShadow0436`（`SUB_NdkTsDrawing_ENUM_0436`） Verify the combined flag differs both from no shadow and from the plain canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumShadow0437`（`SUB_NdkTsDrawing_ENUM_0437`） Verify a combined shadow is drawn above the corner block without erasing it. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumShadow0437`（`SUB_NdkTsDrawing_ENUM_0437`） Verify a combined shadow is drawn above the corner block without erasing it. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0438`（`SUB_NdkTsDrawing_ENUM_0438`） Verify FontEdging.ALIAS keeps index 0 and round trips through the font. | 无设备依赖（纯对象 API） | getEdging | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0439`（`SUB_NdkTsDrawing_ENUM_0439`） Verify an aliased glyph has no partial alpha anywhere on the canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0440`（`SUB_NdkTsDrawing_ENUM_0440`） Verify a small aliased glyph also keeps hard edges. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2564,69 +2564,69 @@
 | `testEnumFontEdge0442`（`SUB_NdkTsDrawing_ENUM_0442`） Verify a display size aliased glyph stays fully hard edged. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0443`（`SUB_NdkTsDrawing_ENUM_0443`） Verify ALIAS paints no more ink than the anti-aliased counterpart. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0444`（`SUB_NdkTsDrawing_ENUM_0444`） Verify switching back from anti-aliasing restores the hard edged raster. | 200 × 200 离屏画布 | setEdging、makeFromString、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0445`（`SUB_NdkTsDrawing_ENUM_0445`） Verify two aliased renders of the same glyph are pixel identical in size. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0446`（`SUB_NdkTsDrawing_ENUM_0446`） Verify ALIAS dominates the raster even when full hinting is requested. | 无设备依赖（纯对象 API）；L4 | getEdging、getHinting | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0447`（`SUB_NdkTsDrawing_ENUM_0447`） Verify edging never changes the measured advance or the font metrics. | 无设备依赖（纯对象 API）；L4 | abs、getEdging | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0445`（`SUB_NdkTsDrawing_ENUM_0445`） Verify two aliased renders of the same glyph are pixel identical in size. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0446`（`SUB_NdkTsDrawing_ENUM_0446`） Verify ALIAS dominates the raster even when full hinting is requested. | 无设备依赖（纯对象 API） | getEdging、getHinting | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0447`（`SUB_NdkTsDrawing_ENUM_0447`） Verify edging never changes the measured advance or the font metrics. | 无设备依赖（纯对象 API） | abs、getEdging | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0448`（`SUB_NdkTsDrawing_ENUM_0448`） Verify FontEdging.ANTI_ALIAS keeps index 1 and round trips through the font. | 无设备依赖（纯对象 API） | getEdging | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0449`（`SUB_NdkTsDrawing_ENUM_0449`） Verify an anti-aliased glyph produces partial alpha pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0450`（`SUB_NdkTsDrawing_ENUM_0450`） Verify the smooth edges stay a small part of the painted glyph. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0451`（`SUB_NdkTsDrawing_ENUM_0451`） Verify a CJK glyph with anti-aliasing keeps opaque interior pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0452`（`SUB_NdkTsDrawing_ENUM_0452`） Verify anti-aliasing covers at least the aliased glyph area. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0452`（`SUB_NdkTsDrawing_ENUM_0452`） Verify anti-aliasing covers at least the aliased glyph area. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0453`（`SUB_NdkTsDrawing_ENUM_0453`） Verify a small anti-aliased glyph still gets smooth edges. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0454`（`SUB_NdkTsDrawing_ENUM_0454`） Verify the smooth glyph keeps both an opaque core and a soft rim. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0455`（`SUB_NdkTsDrawing_ENUM_0455`） Verify two edging switches end on the last value and keep the soft raster. | 无设备依赖（纯对象 API）；L4 | setEdging、getEdging、getHinting | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0456`（`SUB_NdkTsDrawing_ENUM_0456`） Verify smooth edging leaves the advance and metrics of the font untouched. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0455`（`SUB_NdkTsDrawing_ENUM_0455`） Verify two edging switches end on the last value and keep the soft raster. | 无设备依赖（纯对象 API） | setEdging、getEdging、getHinting | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0456`（`SUB_NdkTsDrawing_ENUM_0456`） Verify smooth edging leaves the advance and metrics of the font untouched. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0457`（`SUB_NdkTsDrawing_ENUM_0457`） Verify anti-aliased text stays well inside the canvas area. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0458`（`SUB_NdkTsDrawing_ENUM_0458`） Verify FontEdging.SUBPIXEL_ANTI_ALIAS keeps index 2 and is the last member. | 无设备依赖（纯对象 API） | getEdging | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0459`（`SUB_NdkTsDrawing_ENUM_0459`） Verify sub-pixel anti-aliased glyph also blends its edges. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0460`（`SUB_NdkTsDrawing_ENUM_0460`） Verify sub-pixel edging paints about the same area as plain anti-aliasing. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0460`（`SUB_NdkTsDrawing_ENUM_0460`） Verify sub-pixel edging paints about the same area as plain anti-aliasing. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0461`（`SUB_NdkTsDrawing_ENUM_0461`） Verify a CJK glyph drawn with sub-pixel edging keeps full pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0462`（`SUB_NdkTsDrawing_ENUM_0462`） Verify the three edging members form a strictly increasing sequence. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0463`（`SUB_NdkTsDrawing_ENUM_0463`） Verify two sub-pixel switches end on the last value and keep blended edges. | 无设备依赖（纯对象 API）；L4 | setEdging、getEdging、getHinting | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0463`（`SUB_NdkTsDrawing_ENUM_0463`） Verify two sub-pixel switches end on the last value and keep blended edges. | 无设备依赖（纯对象 API） | setEdging、getEdging、getHinting | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0464`（`SUB_NdkTsDrawing_ENUM_0464`） Verify a small sub-pixel glyph also blends its edges. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0465`（`SUB_NdkTsDrawing_ENUM_0465`） Verify all three edging modes measure the same advance for the same text. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontEdge0466`（`SUB_NdkTsDrawing_ENUM_0466`） Verify the font metrics stay identical under all three edging modes. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0465`（`SUB_NdkTsDrawing_ENUM_0465`） Verify all three edging modes measure the same advance for the same text. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontEdge0466`（`SUB_NdkTsDrawing_ENUM_0466`） Verify the font metrics stay identical under all three edging modes. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontEdge0467`（`SUB_NdkTsDrawing_ENUM_0467`） Verify sub-pixel edging leaves the size and hinting setters intact. | 无设备依赖（纯对象 API） | getEdging、getHinting、getSize | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0468`（`SUB_NdkTsDrawing_ENUM_0468`） Verify FontHinting.NONE keeps index 0 and round trips through the font. | 无设备依赖（纯对象 API） | getHinting | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0469`（`SUB_NdkTsDrawing_ENUM_0469`） Verify un-hinted text still paints a solid glyph and keeps its advance. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0470`（`SUB_NdkTsDrawing_ENUM_0470`） Verify the four hinting modes measure exactly the same advance. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0470`（`SUB_NdkTsDrawing_ENUM_0470`） Verify the four hinting modes measure exactly the same advance. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0471`（`SUB_NdkTsDrawing_ENUM_0471`） Verify switching from full hinting back to NONE is reflected by the font. | 无设备依赖（纯对象 API） | setHinting、getHinting | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0472`（`SUB_NdkTsDrawing_ENUM_0472`） Verify NONE keeps the same metrics as FULL hinting. | 无设备依赖（纯对象 API）；L4 | abs、getMetrics | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0472`（`SUB_NdkTsDrawing_ENUM_0472`） Verify NONE keeps the same metrics as FULL hinting. | 无设备依赖（纯对象 API） | abs、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0473`（`SUB_NdkTsDrawing_ENUM_0473`） Verify FontHinting.SLIGHT keeps index 1 and round trips through the font. | 无设备依赖（纯对象 API） | getHinting | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0474`（`SUB_NdkTsDrawing_ENUM_0474`） Verify lightly hinted text paints a smooth glyph inside a small area. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0475`（`SUB_NdkTsDrawing_ENUM_0475`） Verify SLIGHT stays close to the un-hinted painted area. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0475`（`SUB_NdkTsDrawing_ENUM_0475`） Verify SLIGHT stays close to the un-hinted painted area. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0476`（`SUB_NdkTsDrawing_ENUM_0476`） Verify SLIGHT counts the same glyphs and advance as the un-hinted font. | 无设备依赖（纯对象 API） | countText、abs、getHinting | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0477`（`SUB_NdkTsDrawing_ENUM_0477`） Verify SLIGHT keeps the metric span of normal hinting. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0477`（`SUB_NdkTsDrawing_ENUM_0477`） Verify SLIGHT keeps the metric span of normal hinting. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0478`（`SUB_NdkTsDrawing_ENUM_0478`） Verify FontHinting.NORMAL keeps index 2 and round trips through the font. | 无设备依赖（纯对象 API） | getHinting | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0479`（`SUB_NdkTsDrawing_ENUM_0479`） Verify normally hinted text paints a solid smooth glyph. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0480`（`SUB_NdkTsDrawing_ENUM_0480`） Verify every hinting mode paints and normal stays near the un-hinted area. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0480`（`SUB_NdkTsDrawing_ENUM_0480`） Verify every hinting mode paints and normal stays near the un-hinted area. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0481`（`SUB_NdkTsDrawing_ENUM_0481`） Verify two hinting switches end on the last value and keep a smooth glyph. | 无设备依赖（纯对象 API） | setHinting、getHinting | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0482`（`SUB_NdkTsDrawing_ENUM_0482`） Verify normal hinting keeps the advance and metrics of full hinting. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0482`（`SUB_NdkTsDrawing_ENUM_0482`） Verify normal hinting keeps the advance and metrics of full hinting. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0483`（`SUB_NdkTsDrawing_ENUM_0483`） Verify FontHinting.FULL keeps index 3 and is the last member. | 无设备依赖（纯对象 API） | getHinting | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0484`（`SUB_NdkTsDrawing_ENUM_0484`） Verify fully hinted text paints a smooth glyph inside a small area. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0485`（`SUB_NdkTsDrawing_ENUM_0485`） Verify full hinting keeps the painted area near the un-hinted glyph. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0485`（`SUB_NdkTsDrawing_ENUM_0485`） Verify full hinting keeps the painted area near the un-hinted glyph. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0486`（`SUB_NdkTsDrawing_ENUM_0486`） Verify all four hinting modes shape the same number of glyphs and width. | 无设备依赖（纯对象 API） | countText、abs、getHinting | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0487`（`SUB_NdkTsDrawing_ENUM_0487`） Verify full hinting leaves the font size and metrics untouched. | 无设备依赖（纯对象 API）；L4 | abs、getSize | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0487`（`SUB_NdkTsDrawing_ENUM_0487`） Verify full hinting leaves the font size and metrics untouched. | 无设备依赖（纯对象 API） | abs、getSize | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0488`（`SUB_NdkTsDrawing_ENUM_0488`） Verify UNDERLINE_THICKNESS_VALID is bit 0 of the metric flag mask. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0489`（`SUB_NdkTsDrawing_ENUM_0489`） Verify the underline thickness flag shares no bit with the other flags. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0490`（`SUB_NdkTsDrawing_ENUM_0490`） Verify the thickness flag contributes one bit to the combined masks. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0491`（`SUB_NdkTsDrawing_ENUM_0491`） Verify a valid underline thickness flag comes with a positive thickness. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0491`（`SUB_NdkTsDrawing_ENUM_0491`） Verify a valid underline thickness flag comes with a positive thickness. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0492`（`SUB_NdkTsDrawing_ENUM_0492`） Verify UNDERLINE_POSITION_VALID is bit 1 and above the thickness flag. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0493`（`SUB_NdkTsDrawing_ENUM_0493`） Verify the underline position flag is disjoint from the strike flags. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0494`（`SUB_NdkTsDrawing_ENUM_0494`） Verify a valid underline position flag comes with a positive position. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0494`（`SUB_NdkTsDrawing_ENUM_0494`） Verify a valid underline position flag comes with a positive position. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0495`（`SUB_NdkTsDrawing_ENUM_0495`） Verify the metric flags of one font are stable across repeated reads. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0496`（`SUB_NdkTsDrawing_ENUM_0496`） Verify STRIKETHROUGH_THICKNESS_VALID is bit 2 and disjoint from bounds. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0497`（`SUB_NdkTsDrawing_ENUM_0497`） Verify the two strike flags combine into bits 2 and 3. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0498`（`SUB_NdkTsDrawing_ENUM_0498`） Verify a valid strike thickness flag comes with a positive thickness. | 无设备依赖（纯对象 API）；L4 | getEdging | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0499`（`SUB_NdkTsDrawing_ENUM_0499`） Verify the metric flags do not depend on the edging or hinting mode. | 无设备依赖（纯对象 API）；L4 | setEdging、getEdging | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0498`（`SUB_NdkTsDrawing_ENUM_0498`） Verify a valid strike thickness flag comes with a positive thickness. | 无设备依赖（纯对象 API） | getEdging | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0499`（`SUB_NdkTsDrawing_ENUM_0499`） Verify the metric flags do not depend on the edging or hinting mode. | 无设备依赖（纯对象 API） | setEdging、getEdging | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0500`（`SUB_NdkTsDrawing_ENUM_0500`） Verify STRIKETHROUGH_POSITION_VALID is bit 3 and below the bounds flag. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0501`（`SUB_NdkTsDrawing_ENUM_0501`） Verify the strike position flag combines with bounds into bit 4. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0502`（`SUB_NdkTsDrawing_ENUM_0502`） Verify a valid strike position flag comes with a negative position. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0502`（`SUB_NdkTsDrawing_ENUM_0502`） Verify a valid strike position flag comes with a negative position. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0503`（`SUB_NdkTsDrawing_ENUM_0503`） Verify the strike position flag never overlaps the underline flags. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0504`（`SUB_NdkTsDrawing_ENUM_0504`） Verify BOUNDS_INVALID is bit 4 and the highest metric flag. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0505`（`SUB_NdkTsDrawing_ENUM_0505`） Verify the five flags together form the full mask of 31. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumFontHint0506`（`SUB_NdkTsDrawing_ENUM_0506`） Verify the metric flags stay within five bits for two font sizes. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumFontHint0507`（`SUB_NdkTsDrawing_ENUM_0507`） Verify an invalid bounds flag is the only reason bounds are unusable. | 无设备依赖（纯对象 API）；L4 | getMetrics | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumFontHint0507`（`SUB_NdkTsDrawing_ENUM_0507`） Verify an invalid bounds flag is the only reason bounds are unusable. | 无设备依赖（纯对象 API） | getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0508`（`SUB_NdkTsDrawing_ENUM_0508`） Verify TextEncoding.TEXT_ENCODING_UTF8 keeps index 0 and measures ASCII. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0509`（`SUB_NdkTsDrawing_ENUM_0509`） Verify TextEncoding.TEXT_ENCODING_UTF16 keeps index 1 and measures ASCII. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0510`（`SUB_NdkTsDrawing_ENUM_0510`） Verify TextEncoding.TEXT_ENCODING_UTF32 keeps index 2 and measures a CJK glyph. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
@@ -2635,68 +2635,68 @@
 | `testEnumTextEnc0513`（`SUB_NdkTsDrawing_ENUM_0513`） Verify UTF8 and UTF16 agree on the advance of an ASCII word. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0514`（`SUB_NdkTsDrawing_ENUM_0514`） Verify UTF16 and UTF32 agree on the advance of an ASCII word. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0515`（`SUB_NdkTsDrawing_ENUM_0515`） Verify all three Unicode encodings measure one word as a positive advance. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0516`（`SUB_NdkTsDrawing_ENUM_0516`） Verify one letter keeps the same advance under all three Unicode encodings. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0517`（`SUB_NdkTsDrawing_ENUM_0517`） Verify two letters advance twice as far as one letter under UTF8. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0516`（`SUB_NdkTsDrawing_ENUM_0516`） Verify one letter keeps the same advance under all three Unicode encodings. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0517`（`SUB_NdkTsDrawing_ENUM_0517`） Verify two letters advance twice as far as one letter under UTF8. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0518`（`SUB_NdkTsDrawing_ENUM_0518`） Verify an empty string measures zero under UTF8. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0519`（`SUB_NdkTsDrawing_ENUM_0519`） Verify an empty string measures zero under UTF16 and UTF32 as well. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0520`（`SUB_NdkTsDrawing_ENUM_0520`） Verify an empty string measures zero under the glyph id encoding. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0521`（`SUB_NdkTsDrawing_ENUM_0521`） Verify a single space keeps one narrow advance under all three encodings. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0522`（`SUB_NdkTsDrawing_ENUM_0522`） Verify mixed ASCII and CJK text keeps its advance across encodings. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0523`（`SUB_NdkTsDrawing_ENUM_0523`） Verify one CJK glyph keeps its advance across encodings and stays wider than ASCII. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0524`（`SUB_NdkTsDrawing_ENUM_0524`） Verify two CJK glyphs advance twice as far as one under UTF8. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0522`（`SUB_NdkTsDrawing_ENUM_0522`） Verify mixed ASCII and CJK text keeps its advance across encodings. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0523`（`SUB_NdkTsDrawing_ENUM_0523`） Verify one CJK glyph keeps its advance across encodings and stays wider than ASCII. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0524`（`SUB_NdkTsDrawing_ENUM_0524`） Verify two CJK glyphs advance twice as far as one under UTF8. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0525`（`SUB_NdkTsDrawing_ENUM_0525`） Verify a digit run keeps its advance across encodings and counts every digit. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0526`（`SUB_NdkTsDrawing_ENUM_0526`） Verify punctuated text keeps its advance across encodings. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0527`（`SUB_NdkTsDrawing_ENUM_0527`） Verify a long ASCII word keeps its advance across encodings. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0528`（`SUB_NdkTsDrawing_ENUM_0528`） Verify UTF8 and UTF16 paint one letter into identical pixels. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0529`（`SUB_NdkTsDrawing_ENUM_0529`） Verify UTF16 and UTF32 paint one letter with the same peak opacity. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0530`（`SUB_NdkTsDrawing_ENUM_0530`） Verify the upper and lower halves of one letter match across UTF8 and UTF16. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0531`（`SUB_NdkTsDrawing_ENUM_0531`） Verify a letter drawn through UTF16 and UTF32 keeps the same ink rectangle. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0532`（`SUB_NdkTsDrawing_ENUM_0532`） Verify a whole word is painted identically through UTF8 and UTF16. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0533`（`SUB_NdkTsDrawing_ENUM_0533`） Verify a CJK glyph is painted identically through UTF8 and UTF16. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0534`（`SUB_NdkTsDrawing_ENUM_0534`） Verify a CJK glyph keeps its peak opacity across UTF16 and UTF32. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0535`（`SUB_NdkTsDrawing_ENUM_0535`） Verify a CJK glyph covers the same rows through UTF8 and UTF32. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0536`（`SUB_NdkTsDrawing_ENUM_0536`） Verify mixed text paints identical pixels through UTF8 and UTF16. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0527`（`SUB_NdkTsDrawing_ENUM_0527`） Verify a long ASCII word keeps its advance across encodings. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0528`（`SUB_NdkTsDrawing_ENUM_0528`） Verify UTF8 and UTF16 paint one letter into identical pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0529`（`SUB_NdkTsDrawing_ENUM_0529`） Verify UTF16 and UTF32 paint one letter with the same peak opacity. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0530`（`SUB_NdkTsDrawing_ENUM_0530`） Verify the upper and lower halves of one letter match across UTF8 and UTF16. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0531`（`SUB_NdkTsDrawing_ENUM_0531`） Verify a letter drawn through UTF16 and UTF32 keeps the same ink rectangle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0532`（`SUB_NdkTsDrawing_ENUM_0532`） Verify a whole word is painted identically through UTF8 and UTF16. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0533`（`SUB_NdkTsDrawing_ENUM_0533`） Verify a CJK glyph is painted identically through UTF8 and UTF16. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0534`（`SUB_NdkTsDrawing_ENUM_0534`） Verify a CJK glyph keeps its peak opacity across UTF16 and UTF32. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0535`（`SUB_NdkTsDrawing_ENUM_0535`） Verify a CJK glyph covers the same rows through UTF8 and UTF32. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0536`（`SUB_NdkTsDrawing_ENUM_0536`） Verify mixed text paints identical pixels through UTF8 and UTF16. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0537`（`SUB_NdkTsDrawing_ENUM_0537`） Verify one UTF8 letter paints a solid glyph well inside the canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0538`（`SUB_NdkTsDrawing_ENUM_0538`） Verify an empty UTF8 string paints nothing at all. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0539`（`SUB_NdkTsDrawing_ENUM_0539`） Verify an empty string paints nothing through UTF16 and UTF32 either. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0538`（`SUB_NdkTsDrawing_ENUM_0538`） Verify an empty UTF8 string yields no blob so the canvas stays blank. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0539`（`SUB_NdkTsDrawing_ENUM_0539`） Verify empty UTF16 and UTF32 strings yield no blob either. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0540`（`SUB_NdkTsDrawing_ENUM_0540`） Verify the glyph id encoding returns a finite non-negative advance. | 无设备依赖（纯对象 API） | isFinite | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0541`（`SUB_NdkTsDrawing_ENUM_0541`） Verify the glyph id encoding measures a word and a letter as finite values. | 无设备依赖（纯对象 API） | isFinite | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0542`（`SUB_NdkTsDrawing_ENUM_0542`） Verify a glyph id blob draws without leaving the canvas bounds. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0542`（`SUB_NdkTsDrawing_ENUM_0542`） Verify a glyph id blob draws without leaving the canvas bounds. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0543`（`SUB_NdkTsDrawing_ENUM_0543`） Verify the glyph id encoding stays finite for repeated glyph indices. | 无设备依赖（纯对象 API） | isFinite | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0544`（`SUB_NdkTsDrawing_ENUM_0544`） Verify every encoding measures one word as a finite non-negative value. | 无设备依赖（纯对象 API）；L4 | isFinite | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0545`（`SUB_NdkTsDrawing_ENUM_0545`） Verify the measured advance scales with the font size under UTF8. | 无设备依赖（纯对象 API）；L4 | abs | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0544`（`SUB_NdkTsDrawing_ENUM_0544`） Verify every encoding measures one word as a finite non-negative value. | 无设备依赖（纯对象 API） | isFinite | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0545`（`SUB_NdkTsDrawing_ENUM_0545`） Verify the measured advance scales with the font size under UTF8. | 无设备依赖（纯对象 API） | abs | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumTextEnc0546`（`SUB_NdkTsDrawing_ENUM_0546`） Verify glyph counting ignores the text encoding used for measuring. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumTextEnc0547`（`SUB_NdkTsDrawing_ENUM_0547`） Verify all three Unicode encodings paint a visible word with equal ink. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumTextEnc0547`（`SUB_NdkTsDrawing_ENUM_0547`） Verify all three Unicode encodings paint a visible word with equal ink. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0548`（`SUB_NdkTsDrawing_ENUM_0548`） Verify BlurType.NORMAL keeps index 0 and blurs past the shape edge. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0549`（`SUB_NdkTsDrawing_ENUM_0549`） Verify a normal blur keeps the interior painted and produces soft edges. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0550`（`SUB_NdkTsDrawing_ENUM_0550`） Verify the outer band stays empty without a filter and is painted with NORMAL. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0551`（`SUB_NdkTsDrawing_ENUM_0551`） Verify NORMAL differs from the unfiltered rectangle and widens its painted area. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0551`（`SUB_NdkTsDrawing_ENUM_0551`） Verify NORMAL differs from the unfiltered rectangle and widens its painted area. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0552`（`SUB_NdkTsDrawing_ENUM_0552`） Verify a normal blur leaves a wide soft rim while the far background stays clear. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0553`（`SUB_NdkTsDrawing_ENUM_0553`） Verify a larger sigma widens the normal blur reach. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0554`（`SUB_NdkTsDrawing_ENUM_0554`） Verify NORMAL spreads outside the shape like SOLID but never keeps a harder core. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0553`（`SUB_NdkTsDrawing_ENUM_0553`） Verify a larger sigma widens the normal blur reach. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0554`（`SUB_NdkTsDrawing_ENUM_0554`） Verify NORMAL spreads outside the shape like SOLID but never keeps a harder core. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0555`（`SUB_NdkTsDrawing_ENUM_0555`） Verify BlurType.SOLID keeps index 1 and an opaque core. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0556`（`SUB_NdkTsDrawing_ENUM_0556`） Verify a solid blur keeps full opacity inside and a soft rim outside. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0557`（`SUB_NdkTsDrawing_ENUM_0557`） Verify SOLID changes the pixels of the unfiltered rectangle on both sides of the edge. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0558`（`SUB_NdkTsDrawing_ENUM_0558`） Verify SOLID leaves the interior count untouched while adding an outer rim. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0559`（`SUB_NdkTsDrawing_ENUM_0559`） Verify SOLID widens its rim with sigma and keeps the core opaque. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0558`（`SUB_NdkTsDrawing_ENUM_0558`） Verify SOLID leaves the interior count untouched while adding an outer rim. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0559`（`SUB_NdkTsDrawing_ENUM_0559`） Verify SOLID widens its rim with sigma and keeps the core opaque. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0560`（`SUB_NdkTsDrawing_ENUM_0560`） Verify the whole inner square of a solid blur stays fully opaque. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0561`（`SUB_NdkTsDrawing_ENUM_0561`） Verify SOLID and OUTER disagree on the shape interior. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0561`（`SUB_NdkTsDrawing_ENUM_0561`） Verify SOLID and OUTER disagree on the shape interior. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0562`（`SUB_NdkTsDrawing_ENUM_0562`） Verify BlurType.OUTER keeps index 2 and leaves the shape interior transparent. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0563`（`SUB_NdkTsDrawing_ENUM_0563`） Verify an outer blur paints only the rim and nothing inside the shape. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0564`（`SUB_NdkTsDrawing_ENUM_0564`） Verify the outer blur reaches outside the edge but not the middle of the shape. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0565`（`SUB_NdkTsDrawing_ENUM_0565`） Verify OUTER removes the interior that the unfiltered rectangle keeps. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0566`（`SUB_NdkTsDrawing_ENUM_0566`） Verify a larger sigma widens the outer rim while the interior stays clear. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0567`（`SUB_NdkTsDrawing_ENUM_0567`） Verify OUTER and NORMAL both blur but only NORMAL paints the core. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0565`（`SUB_NdkTsDrawing_ENUM_0565`） Verify OUTER removes the interior that the unfiltered rectangle keeps. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0566`（`SUB_NdkTsDrawing_ENUM_0566`） Verify a larger sigma widens the outer rim while the interior stays clear. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0567`（`SUB_NdkTsDrawing_ENUM_0567`） Verify OUTER and NORMAL both blur but only NORMAL paints the core. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0568`（`SUB_NdkTsDrawing_ENUM_0568`） Verify the outer blur is strongest just outside the edge and empty further out. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0569`（`SUB_NdkTsDrawing_ENUM_0569`） Verify BlurType.INNER keeps index 3 and keeps the outer edge sharp. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0570`（`SUB_NdkTsDrawing_ENUM_0570`） Verify an inner blur paints the shape and never spreads outside it. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumBlurType0571`（`SUB_NdkTsDrawing_ENUM_0571`） Verify none of the four bands around an inner blur carries paint. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0572`（`SUB_NdkTsDrawing_ENUM_0572`） Verify INNER changes the pixels inside the shape while keeping the rim sharp. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0573`（`SUB_NdkTsDrawing_ENUM_0573`） Verify INNER and OUTER are mirror images of each other. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0574`（`SUB_NdkTsDrawing_ENUM_0574`） Verify an inner blur fades towards the inner side of the shape edge. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0575`（`SUB_NdkTsDrawing_ENUM_0575`） Verify a larger sigma keeps an inner blur inside the shape and raises its soft rim. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0576`（`SUB_NdkTsDrawing_ENUM_0576`） Verify only INNER keeps the band outside the shape empty. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumBlurType0577`（`SUB_NdkTsDrawing_ENUM_0577`） Verify only OUTER leaves the middle of the shape empty. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0572`（`SUB_NdkTsDrawing_ENUM_0572`） Verify INNER changes the pixels inside the shape while keeping the rim sharp. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0573`（`SUB_NdkTsDrawing_ENUM_0573`） Verify INNER and OUTER are mirror images of each other. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0574`（`SUB_NdkTsDrawing_ENUM_0574`） Verify an inner blur fades towards the inner side of the shape edge. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0575`（`SUB_NdkTsDrawing_ENUM_0575`） Verify a larger sigma keeps an inner blur inside the shape and raises its soft rim. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0576`（`SUB_NdkTsDrawing_ENUM_0576`） Verify only INNER keeps the band outside the shape empty. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
+| `testEnumBlurType0577`（`SUB_NdkTsDrawing_ENUM_0577`） Verify only OUTER leaves the middle of the shape empty. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumScaleToFit0578`（`SUB_NdkTsDrawing_ENUM_0578`） Verify the four fit modes hold the documented values. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumScaleToFit0579`（`SUB_NdkTsDrawing_ENUM_0579`） Verify the fill mode builds a matrix that stretches both axes independently. | 无设备依赖（纯对象 API） | isIdentity | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumScaleToFit0580`（`SUB_NdkTsDrawing_ENUM_0580`） Verify the fill mode maps the whole source square onto the whole destination rectangle. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
@@ -2715,8 +2715,8 @@
 | `testEnumScaleToFit0593`（`SUB_NdkTsDrawing_ENUM_0593`） Verify the end mode is the last value of the enumeration. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumScaleToFit0594`（`SUB_NdkTsDrawing_ENUM_0594`） Verify the end mode pushes the source left edge to the right half. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumScaleToFit0595`（`SUB_NdkTsDrawing_ENUM_0595`） Verify the end mode box covers the right half of the destination rectangle. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumScaleToFit0596`（`SUB_NdkTsDrawing_ENUM_0596`） Verify the end mode center sits one full gap right of the center mode center. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumScaleToFit0597`（`SUB_NdkTsDrawing_ENUM_0597`） Verify the end mode keeps the source size and touches the right and bottom edges. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumScaleToFit0596`（`SUB_NdkTsDrawing_ENUM_0596`） Verify the end mode center sits one full gap right of the center mode center. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumScaleToFit0597`（`SUB_NdkTsDrawing_ENUM_0597`） Verify the end mode keeps the source size and touches the right and bottom edges. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0598`（`SUB_NdkTsDrawing_ENUM_0598`） Verify the blend mode values keep their documented positions. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0599`（`SUB_NdkTsDrawing_ENUM_0599`） Verify the vertex mode values. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0600`（`SUB_NdkTsDrawing_ENUM_0600`） Verify the path direction values differ by one. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2752,15 +2752,15 @@
 | `testEnumValueTable0630`（`SUB_NdkTsDrawing_ENUM_0630`） Verify the iterator done sentinel sits one step above the region replace value. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0631`（`SUB_NdkTsDrawing_ENUM_0631`） Verify the widest enumeration outruns the bit mask ceiling. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0632`（`SUB_NdkTsDrawing_ENUM_0632`） Verify every font metrics flag doubles the previous one. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
-| `testEnumValueTable0633`（`SUB_NdkTsDrawing_ENUM_0633`） Verify the font metrics flags combine bitwise without overlapping. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumValueTable0634`（`SUB_NdkTsDrawing_ENUM_0634`） Verify neighbouring blend modes step by one at three places. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumValueTable0633`（`SUB_NdkTsDrawing_ENUM_0633`） Verify the font metrics flags combine bitwise without overlapping. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumValueTable0634`（`SUB_NdkTsDrawing_ENUM_0634`） Verify neighbouring blend modes step by one for three consecutive values. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0635`（`SUB_NdkTsDrawing_ENUM_0635`） Verify the iterator verbs advance by one between the curve verbs. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumValueTable0636`（`SUB_NdkTsDrawing_ENUM_0636`） Verify the blend mode ladder keeps a two step and a one step gap. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumValueTable0636`（`SUB_NdkTsDrawing_ENUM_0636`） Verify the blend mode ladder keeps a two step and a one step gap. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0637`（`SUB_NdkTsDrawing_ENUM_0637`） Verify the region op ladder is a gap free run from difference to replace. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0638`（`SUB_NdkTsDrawing_ENUM_0638`） Verify the corner positions follow each other clockwise by one. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumValueTable0639`（`SUB_NdkTsDrawing_ENUM_0639`） Verify the scale to fit and the tile mode share the same four step span. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumValueTable0640`（`SUB_NdkTsDrawing_ENUM_0640`） Verify the path fill type and the shadow flag share the same four step ladder. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testEnumValueTable0641`（`SUB_NdkTsDrawing_ENUM_0641`） Verify the text encoding and the font hinting share the same four step ladder. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumValueTable0639`（`SUB_NdkTsDrawing_ENUM_0639`） Verify the scale to fit and the tile mode share the same four step span. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumValueTable0640`（`SUB_NdkTsDrawing_ENUM_0640`） Verify the path fill type and the shadow flag share the same four step ladder. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testEnumValueTable0641`（`SUB_NdkTsDrawing_ENUM_0641`） Verify the text encoding and the font hinting share the same four step ladder. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0642`（`SUB_NdkTsDrawing_ENUM_0642`） Verify the three member enumerations start at the same value. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0643`（`SUB_NdkTsDrawing_ENUM_0643`） Verify the join style and the cap style agree member by member. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testEnumValueTable0644`（`SUB_NdkTsDrawing_ENUM_0644`） Verify the text encoding and the blur type agree on three members. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -2775,37 +2775,37 @@
 | `testComboPaintStack0006`（`SUB_NdkTsDrawing_COMBO_0006`） Verify a vertical only scale doubles the screen stroke width. | 无设备依赖（纯对象 API） | scale、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0007`（`SUB_NdkTsDrawing_COMBO_0007`） Verify the painted area grows with the stroke width on the same canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0008`（`SUB_NdkTsDrawing_COMBO_0008`） Verify a translation moves the stroke without changing its width. | 无设备依赖（纯对象 API） | translate、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0009`（`SUB_NdkTsDrawing_COMBO_0009`） Verify a quarter turn around the center swaps the measured spans. | 无设备依赖（纯对象 API）；L4 | rotate、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0009`（`SUB_NdkTsDrawing_COMBO_0009`） Verify a quarter turn around the center swaps the measured spans. | 无设备依赖（纯对象 API） | rotate、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0010`（`SUB_NdkTsDrawing_COMBO_0010`） Verify the pen keeps its configured width while the canvas scales. | 无设备依赖（纯对象 API） | scale、attachPen、drawLine、detachPen、getWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0011`（`SUB_NdkTsDrawing_COMBO_0011`） Verify a half canvas clip removes the stroke on the clipped side. | 无设备依赖（纯对象 API） | clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0012`（`SUB_NdkTsDrawing_COMBO_0012`） Verify a full canvas clip leaves the stroke identical to the plain stroke. | 无设备依赖（纯对象 API） | clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0013`（`SUB_NdkTsDrawing_COMBO_0013`） Verify the clip edge cuts a stroke that crosses it. | 无设备依赖（纯对象 API） | clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0014`（`SUB_NdkTsDrawing_COMBO_0014`） Verify two nested clips intersect before the stroke is drawn. | 无设备依赖（纯对象 API） | clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0015`（`SUB_NdkTsDrawing_COMBO_0015`） Verify a circular path clip keeps only the stroke segment inside the disc. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、clipPath、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0015`（`SUB_NdkTsDrawing_COMBO_0015`） Verify a circular path clip keeps only the stroke segment inside the disc. | 无设备依赖（纯对象 API） | Path、addCircle、clipPath、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0016`（`SUB_NdkTsDrawing_COMBO_0016`） Verify a right side clip keeps the right half of the stroke only. | 无设备依赖（纯对象 API） | clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0017`（`SUB_NdkTsDrawing_COMBO_0017`） Verify a restore drops the clip so the next stroke is painted in full. | 无设备依赖（纯对象 API） | save、clipRect、attachPen、drawLine、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0018`（`SUB_NdkTsDrawing_COMBO_0018`） Verify a clipped wide stroke fills only the clipped half. | 无设备依赖（纯对象 API）；L4 | clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0019`（`SUB_NdkTsDrawing_COMBO_0019`） Verify a clip applied after a translation moves together with the transform. | 无设备依赖（纯对象 API）；L4 | translate、clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0018`（`SUB_NdkTsDrawing_COMBO_0018`） Verify a clipped wide stroke fills only the clipped half. | 无设备依赖（纯对象 API） | clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0019`（`SUB_NdkTsDrawing_COMBO_0019`） Verify a clip applied after a translation moves together with the transform. | 无设备依赖（纯对象 API） | translate、clipRect、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0020`（`SUB_NdkTsDrawing_COMBO_0020`） Verify a detached pen leaves the clipped canvas empty. | 无设备依赖（纯对象 API） | clipRect、attachPen、detachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0021`（`SUB_NdkTsDrawing_COMBO_0021`） Verify a half transparent layer attenuates a stroke drawn inside it. | 无设备依赖（纯对象 API） | saveLayer、attachPen、drawLine、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0022`（`SUB_NdkTsDrawing_COMBO_0022`） Verify the same stroke stays opaque without a layer. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0023`（`SUB_NdkTsDrawing_COMBO_0023`） Verify the stroke after a layer restore is painted again at full alpha. | 无设备依赖（纯对象 API） | saveLayer、attachPen、drawLine、restore、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0024`（`SUB_NdkTsDrawing_COMBO_0024`） Verify two nested half transparent layers compose into about a quarter alpha. | 无设备依赖（纯对象 API）；L4 | saveLayer、attachPen、drawLine、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0024`（`SUB_NdkTsDrawing_COMBO_0024`） Verify two nested half transparent layers compose into about a quarter alpha. | 无设备依赖（纯对象 API） | saveLayer、attachPen、drawLine、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0025`（`SUB_NdkTsDrawing_COMBO_0025`） Verify a bounded layer drops the stroke outside its bounds. | 无设备依赖（纯对象 API） | saveLayer、attachPen、drawLine、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0026`（`SUB_NdkTsDrawing_COMBO_0026`） Verify a filled rectangle inside a layer survives a stroke drawn after restore. | 无设备依赖（纯对象 API） | saveLayer、attachBrush、drawRect、detachBrush、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0027`（`SUB_NdkTsDrawing_COMBO_0027`） Verify a fully transparent layer discards the stroke inside it. | 无设备依赖（纯对象 API） | saveLayer、attachPen、drawLine、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0028`（`SUB_NdkTsDrawing_COMBO_0028`） Verify an opaque layer keeps the stroke identical to the plain stroke. | 无设备依赖（纯对象 API） | saveLayer、attachPen、drawLine、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0029`（`SUB_NdkTsDrawing_COMBO_0029`） Verify strokes drawn in nested layers keep their own rows. | 无设备依赖（纯对象 API）；L4 | saveLayer、attachPen、drawLine、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0029`（`SUB_NdkTsDrawing_COMBO_0029`） Verify strokes drawn in nested layers keep their own rows. | 无设备依赖（纯对象 API） | saveLayer、attachPen、drawLine、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0030`（`SUB_NdkTsDrawing_COMBO_0030`） Verify restoreToCount closes every layer before the next stroke. | 无设备依赖（纯对象 API） | saveLayer、restoreToCount、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0031`（`SUB_NdkTsDrawing_COMBO_0031`） Verify a pen attached inside a save block is still bound after the restore. | 无设备依赖（纯对象 API） | save、attachPen、restore、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0032`（`SUB_NdkTsDrawing_COMBO_0032`） Verify a detach inside a save block survives the restore as well. | 无设备依赖（纯对象 API） | attachPen、save、detachPen、restore、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0033`（`SUB_NdkTsDrawing_COMBO_0033`） Verify the pen attached last defines the color of the next stroke. | 无设备依赖（纯对象 API） | attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0034`（`SUB_NdkTsDrawing_COMBO_0034`） Verify a detach performed inside a save block is not rolled back. | 无设备依赖（纯对象 API）；L4 | attachPen、save、detachPen、restore、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0034`（`SUB_NdkTsDrawing_COMBO_0034`） Verify a detach performed inside a save block is not rolled back. | 无设备依赖（纯对象 API） | attachPen、save、detachPen、restore、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0035`（`SUB_NdkTsDrawing_COMBO_0035`） Verify attaching or detaching a pen never changes the save count. | 无设备依赖（纯对象 API） | getSaveCount、attachPen、save、detachPen、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0036`（`SUB_NdkTsDrawing_COMBO_0036`） Verify restoreToCount does not unbind a pen attached inside the popped block. | 无设备依赖（纯对象 API）；L4 | save、attachPen、restoreToCount、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0037`（`SUB_NdkTsDrawing_COMBO_0037`） Verify a pen attached inside a layer stays bound after the layer restore. | 无设备依赖（纯对象 API）；L4 | saveLayer、attachPen、restore、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0036`（`SUB_NdkTsDrawing_COMBO_0036`） Verify restoreToCount does not unbind a pen attached inside the popped block. | 无设备依赖（纯对象 API） | save、attachPen、restoreToCount、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0037`（`SUB_NdkTsDrawing_COMBO_0037`） Verify a pen attached inside a layer stays bound after the layer restore. | 无设备依赖（纯对象 API） | saveLayer、attachPen、restore、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0038`（`SUB_NdkTsDrawing_COMBO_0038`） Verify two canvases keep their own bound pen. | 无设备依赖（纯对象 API） | attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0039`（`SUB_NdkTsDrawing_COMBO_0039`） Verify the last pen attached inside nested blocks wins after a bulk close. | 无设备依赖（纯对象 API）；L4 | save、attachPen、restoreToCount、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0039`（`SUB_NdkTsDrawing_COMBO_0039`） Verify the last pen attached inside nested blocks wins after a bulk close. | 无设备依赖（纯对象 API） | save、attachPen、restoreToCount、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0040`（`SUB_NdkTsDrawing_COMBO_0040`） Verify a brush attached inside a save block still fills after the restore. | 无设备依赖（纯对象 API） | save、attachBrush、restore、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0041`（`SUB_NdkTsDrawing_COMBO_0041`） Verify one pen painting two canvases yields the same pixels. | 无设备依赖（纯对象 API） | attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0042`（`SUB_NdkTsDrawing_COMBO_0042`） Verify a color change reaches the second canvas through the shared pen. | 无设备依赖（纯对象 API） | attachPen、drawLine、detachPen、setColor | 3 条断言全部通过 | 是 | 通过 |
@@ -2816,143 +2816,143 @@
 | `testComboPaintStack0047`（`SUB_NdkTsDrawing_COMBO_0047`） Verify three canvases painted by one pen agree with each other. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0048`（`SUB_NdkTsDrawing_COMBO_0048`） Verify one pen attached to two canvases in turn paints both of them. | 无设备依赖（纯对象 API） | attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0049`（`SUB_NdkTsDrawing_COMBO_0049`） Verify the save stack of one canvas is independent from the other. | 无设备依赖（纯对象 API） | save、saveLayer、getSaveCount、restoreToCount | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0050`（`SUB_NdkTsDrawing_COMBO_0050`） Verify a canvas that already carries content accepts the shared pen without blending loss. | 无设备依赖（纯对象 API）；L4 | attachBrush、drawRect、detachBrush、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0050`（`SUB_NdkTsDrawing_COMBO_0050`） Verify a canvas that already carries content accepts the shared pen without blending loss. | 无设备依赖（纯对象 API） | attachBrush、drawRect、detachBrush、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0051`（`SUB_NdkTsDrawing_COMBO_0051`） Verify a pen recolored after attach paints the new color. | 无设备依赖（纯对象 API） | attachPen、drawLine、setColor、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0052`（`SUB_NdkTsDrawing_COMBO_0052`） Verify a pen widened after attach paints a thicker stroke. | 无设备依赖（纯对象 API） | attachPen、drawLine、setStrokeWidth、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0053`（`SUB_NdkTsDrawing_COMBO_0053`） Verify a pen switched to the square cap after attach extends the stroke ends. | 无设备依赖（纯对象 API）；L4 | attachPen、drawLine、setCapStyle、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0053`（`SUB_NdkTsDrawing_COMBO_0053`） Verify a pen switched to the square cap after attach extends the stroke ends. | 无设备依赖（纯对象 API） | attachPen、drawLine、setCapStyle、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0054`（`SUB_NdkTsDrawing_COMBO_0054`） Verify a pen dimmed after attach paints a translucent stroke. | 无设备依赖（纯对象 API） | attachPen、drawLine、setAlpha、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0055`（`SUB_NdkTsDrawing_COMBO_0055`） Verify anti aliasing enabled after attach softens a diagonal stroke. | 无设备依赖（纯对象 API）；L4 | attachPen、drawLine、setAntiAlias、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0055`（`SUB_NdkTsDrawing_COMBO_0055`） Verify anti aliasing enabled after attach softens a diagonal stroke. | 无设备依赖（纯对象 API） | attachPen、drawLine、setAntiAlias、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0056`（`SUB_NdkTsDrawing_COMBO_0056`） Verify a brush recolored after attach fills with the new color. | 无设备依赖（纯对象 API） | Brush、setColor、setAntiAlias、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0057`（`SUB_NdkTsDrawing_COMBO_0057`） Verify a brush dimmed after attach fills at the new alpha. | 无设备依赖（纯对象 API） | attachBrush、drawRect、setAlpha、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPaintStack0058`（`SUB_NdkTsDrawing_COMBO_0058`） Verify two rectangles filled by one brush keep their own colors. | 无设备依赖（纯对象 API） | Brush、setAntiAlias、attachBrush、setColor、drawRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0059`（`SUB_NdkTsDrawing_COMBO_0059`） Verify a pen reconfigured while detached paints with the new width after attach. | 无设备依赖（纯对象 API）；L4 | attachPen、drawLine、detachPen、setStrokeWidth、getWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPaintStack0060`（`SUB_NdkTsDrawing_COMBO_0060`） Verify a pen and a brush attached at the same time each drive their own draw call. | 无设备依赖（纯对象 API）；L4 | attachPen、attachBrush、drawLine、drawRect、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0059`（`SUB_NdkTsDrawing_COMBO_0059`） Verify a pen reconfigured while detached paints with the new width after attach. | 无设备依赖（纯对象 API） | attachPen、drawLine、detachPen、setStrokeWidth、getWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPaintStack0060`（`SUB_NdkTsDrawing_COMBO_0060`） Verify a pen and a brush attached at the same time each drive their own draw call. | 无设备依赖（纯对象 API） | attachPen、attachBrush、drawLine、drawRect、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0001`（`SUB_NdkTsDrawing_COMBO_0061`） Verify an opaque layer painted with SRC_OVER reproduces the plain square. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0002`（`SUB_NdkTsDrawing_COMBO_0062`） Verify a layer painted with CLEAR drops the square drawn inside it. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0003`（`SUB_NdkTsDrawing_COMBO_0063`） Verify a layer painted with DST keeps the destination and drops the layer. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0004`（`SUB_NdkTsDrawing_COMBO_0064`） Verify a layer painted with SRC replaces the background by the layer content. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0005`（`SUB_NdkTsDrawing_COMBO_0065`） Verify a layer painted with MODULATE matches the same mode used by the brush. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0004`（`SUB_NdkTsDrawing_COMBO_0064`） Verify a layer painted with SRC replaces the background by the layer content. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0005`（`SUB_NdkTsDrawing_COMBO_0065`） Verify a layer painted with MODULATE matches the same mode used by the brush. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0006`（`SUB_NdkTsDrawing_COMBO_0066`） Verify a layer painted with MULTIPLY darkens the square only. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0007`（`SUB_NdkTsDrawing_COMBO_0067`） Verify a layer painted with DST_OUT erases the destination under the square. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0007`（`SUB_NdkTsDrawing_COMBO_0067`） Verify a layer painted with DST_OUT erases the destination under the square. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0008`（`SUB_NdkTsDrawing_COMBO_0068`） Verify a layer painted with PLUS brightens the square without touching the rest. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0009`（`SUB_NdkTsDrawing_COMBO_0069`） Verify a layer painted with SRC_IN keeps the square because the base is opaque. | 无设备依赖（纯对象 API）；L4 |  | 4 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0010`（`SUB_NdkTsDrawing_COMBO_0070`） Verify a layer painted with LIGHTEN keeps the larger channel of base and square. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0011`（`SUB_NdkTsDrawing_COMBO_0071`） Verify two adjacent squares darken and brighten their own side only. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0012`（`SUB_NdkTsDrawing_COMBO_0072`） Verify two overlapping MULTIPLY squares make the overlap darker than each side. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0013`（`SUB_NdkTsDrawing_COMBO_0073`） Verify two overlapping SCREEN squares brighten the overlap further. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0014`（`SUB_NdkTsDrawing_COMBO_0074`） Verify two overlapping DIFFERENCE squares leave a distinct overlap color. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0009`（`SUB_NdkTsDrawing_COMBO_0069`） Verify a layer painted with SRC_IN keeps the square because the base is opaque. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0010`（`SUB_NdkTsDrawing_COMBO_0070`） Verify a layer painted with LIGHTEN keeps the larger channel of base and square. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0011`（`SUB_NdkTsDrawing_COMBO_0071`） Verify two adjacent squares darken and brighten their own side only. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0012`（`SUB_NdkTsDrawing_COMBO_0072`） Verify two overlapping MULTIPLY squares make the overlap darker than each side. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0013`（`SUB_NdkTsDrawing_COMBO_0073`） Verify two overlapping SCREEN squares brighten the overlap further. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0014`（`SUB_NdkTsDrawing_COMBO_0074`） Verify two overlapping DIFFERENCE squares leave a distinct overlap color. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0015`（`SUB_NdkTsDrawing_COMBO_0075`） Verify two overlapping PLUS squares saturate the overlap channels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0016`（`SUB_NdkTsDrawing_COMBO_0076`） Verify two overlapping DST_OUT squares erase both the sides and the overlap. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0017`（`SUB_NdkTsDrawing_COMBO_0077`） Verify three side by side strips keep the channel order set by their modes. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0018`（`SUB_NdkTsDrawing_COMBO_0078`） Verify two vertically overlapping MULTIPLY squares darken their shared rows. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0019`（`SUB_NdkTsDrawing_COMBO_0079`） Verify the darkened column count matches the covered width of both squares. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0016`（`SUB_NdkTsDrawing_COMBO_0076`） Verify two overlapping DST_OUT squares erase both the sides and the overlap. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0017`（`SUB_NdkTsDrawing_COMBO_0077`） Verify three side by side strips keep the channel order set by their modes. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0018`（`SUB_NdkTsDrawing_COMBO_0078`） Verify two vertically overlapping MULTIPLY squares darken their shared rows. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0019`（`SUB_NdkTsDrawing_COMBO_0079`） Verify the darkened column count matches the covered width of both squares. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0020`（`SUB_NdkTsDrawing_COMBO_0080`） Verify a blended strip keeps the ink area of the unblended strip. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0021`（`SUB_NdkTsDrawing_COMBO_0081`） Verify swapping a SCREEN and a MULTIPLY pass changes the result. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0021`（`SUB_NdkTsDrawing_COMBO_0081`） Verify swapping a SCREEN and a MULTIPLY pass changes the result. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0022`（`SUB_NdkTsDrawing_COMBO_0082`） Verify a second MULTIPLY pass darkens the result of the first one. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0023`（`SUB_NdkTsDrawing_COMBO_0083`） Verify two PLUS passes saturate every channel to white. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0024`（`SUB_NdkTsDrawing_COMBO_0084`） Verify the alpha of two translucent SRC_OVER passes exceeds one pass. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0025`（`SUB_NdkTsDrawing_COMBO_0085`） Verify DST_OVER never changes a canvas that is already opaque. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0026`（`SUB_NdkTsDrawing_COMBO_0086`） Verify a second DIFFERENCE pass differs from a single one. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0026`（`SUB_NdkTsDrawing_COMBO_0086`） Verify a second DIFFERENCE pass differs from a single one. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0027`（`SUB_NdkTsDrawing_COMBO_0087`） Verify a SRC pass followed by SRC_OVER keeps the second color only. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0028`（`SUB_NdkTsDrawing_COMBO_0088`） Verify MULTIPLY then SCREEN ends brighter than SCREEN then MULTIPLY. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0029`（`SUB_NdkTsDrawing_COMBO_0089`） Verify LIGHTEN then DARKEN ends darker than the reversed order. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0030`（`SUB_NdkTsDrawing_COMBO_0090`） Verify a three pass chain depends on the order of its modes. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0028`（`SUB_NdkTsDrawing_COMBO_0088`） Verify MULTIPLY then SCREEN ends brighter than SCREEN then MULTIPLY. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0029`（`SUB_NdkTsDrawing_COMBO_0089`） Verify LIGHTEN then DARKEN ends darker than the reversed order. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0030`（`SUB_NdkTsDrawing_COMBO_0090`） Verify a three pass chain depends on the order of its modes. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0031`（`SUB_NdkTsDrawing_COMBO_0091`） Verify a clipped MULTIPLY square darkens the clipped half only. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0032`（`SUB_NdkTsDrawing_COMBO_0092`） Verify a scaled MULTIPLY square covers four times the blended area. | 无设备依赖（纯对象 API）；L4 | scale | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0032`（`SUB_NdkTsDrawing_COMBO_0092`） Verify a scaled MULTIPLY square covers four times the blended area. | 无设备依赖（纯对象 API） | scale | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0033`（`SUB_NdkTsDrawing_COMBO_0093`） Verify a translated MULTIPLY square moves its darkened area to the right. | 无设备依赖（纯对象 API） | translate | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0034`（`SUB_NdkTsDrawing_COMBO_0094`） Verify a quarter turn moves the blended square to the mirrored position. | 无设备依赖（纯对象 API）；L4 | rotate | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0035`（`SUB_NdkTsDrawing_COMBO_0095`） Verify a circular clip confines a MULTIPLY square to the disc. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、clipPath | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0036`（`SUB_NdkTsDrawing_COMBO_0096`） Verify two nested clips restrict SCREEN to their intersection. | 无设备依赖（纯对象 API）；L4 | clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0037`（`SUB_NdkTsDrawing_COMBO_0097`） Verify a restore drops the clip before the next blended square is drawn. | 无设备依赖（纯对象 API）；L4 | save、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0038`（`SUB_NdkTsDrawing_COMBO_0098`） Verify a scaled MULTIPLY pen thickens the darkened rows of its stroke. | 无设备依赖（纯对象 API）；L4 | scale、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0039`（`SUB_NdkTsDrawing_COMBO_0099`） Verify a clipped layer painted with MULTIPLY stays inside the clip. | 无设备依赖（纯对象 API）；L4 | clipRect、saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0034`（`SUB_NdkTsDrawing_COMBO_0094`） Verify a quarter turn moves the blended square to the mirrored position. | 无设备依赖（纯对象 API） | rotate | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0035`（`SUB_NdkTsDrawing_COMBO_0095`） Verify a circular clip confines a MULTIPLY square to the disc. | 无设备依赖（纯对象 API） | Path、addCircle、clipPath | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0036`（`SUB_NdkTsDrawing_COMBO_0096`） Verify two nested clips restrict SCREEN to their intersection. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0037`（`SUB_NdkTsDrawing_COMBO_0097`） Verify a restore drops the clip before the next blended square is drawn. | 无设备依赖（纯对象 API） | save、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0038`（`SUB_NdkTsDrawing_COMBO_0098`） Verify a scaled MULTIPLY pen thickens the darkened rows of its stroke. | 无设备依赖（纯对象 API） | scale、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0039`（`SUB_NdkTsDrawing_COMBO_0099`） Verify a clipped layer painted with MULTIPLY stays inside the clip. | 无设备依赖（纯对象 API） | clipRect、saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0040`（`SUB_NdkTsDrawing_COMBO_0100`） Verify a clipped blended square keeps the clipped ink area. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0041`（`SUB_NdkTsDrawing_COMBO_0101`） Verify a translucent SRC_OVER lands between the background and the source. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0042`（`SUB_NdkTsDrawing_COMBO_0102`） Verify a translucent SRC keeps the source color at its own alpha. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0043`（`SUB_NdkTsDrawing_COMBO_0103`） Verify a translucent SRC_IN scales the source alpha by the opaque destination. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0044`（`SUB_NdkTsDrawing_COMBO_0104`） Verify a translucent DST_IN keeps the destination color at the source alpha. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0045`（`SUB_NdkTsDrawing_COMBO_0105`） Verify a translucent SRC_OUT yields nothing over an opaque destination. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0046`（`SUB_NdkTsDrawing_COMBO_0106`） Verify a translucent DST_OUT dims the destination by the source alpha. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0047`（`SUB_NdkTsDrawing_COMBO_0107`） Verify a translucent SRC_ATOP keeps the destination alpha. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0048`（`SUB_NdkTsDrawing_COMBO_0108`） Verify a translucent DST_ATOP fades the destination while SRC_ATOP tints it. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0049`（`SUB_NdkTsDrawing_COMBO_0109`） Verify a translucent XOR drops the alpha below both operands. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0043`（`SUB_NdkTsDrawing_COMBO_0103`） Verify a translucent SRC_IN scales the source alpha by the opaque destination. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0044`（`SUB_NdkTsDrawing_COMBO_0104`） Verify a translucent DST_IN keeps the destination color at the source alpha. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0045`（`SUB_NdkTsDrawing_COMBO_0105`） Verify a translucent SRC_OUT yields nothing over an opaque destination. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0046`（`SUB_NdkTsDrawing_COMBO_0106`） Verify a translucent DST_OUT dims the destination by the source alpha. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0047`（`SUB_NdkTsDrawing_COMBO_0107`） Verify a translucent SRC_ATOP keeps the destination alpha. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0048`（`SUB_NdkTsDrawing_COMBO_0108`） Verify a translucent DST_ATOP fades the destination while SRC_ATOP tints it. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0049`（`SUB_NdkTsDrawing_COMBO_0109`） Verify a translucent XOR drops the alpha below both operands. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0050`（`SUB_NdkTsDrawing_COMBO_0110`） Verify a translucent PLUS adds the scaled source to the destination. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0051`（`SUB_NdkTsDrawing_COMBO_0111`） Verify an inner SCREEN layer does not change the result of the outer MULTIPLY layer. | 无设备依赖（纯对象 API）；L4 | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0051`（`SUB_NdkTsDrawing_COMBO_0111`） Verify an inner SCREEN layer does not change the result of the outer MULTIPLY layer. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0052`（`SUB_NdkTsDrawing_COMBO_0112`） Verify restoreToCount closes a CLEAR layer and a DST layer at once. | 无设备依赖（纯对象 API） | saveLayer、restoreToCount、getSaveCount | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0053`（`SUB_NdkTsDrawing_COMBO_0113`） Verify a clip inside the layer bounds the area that the layer blends. | 无设备依赖（纯对象 API）；L4 | saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0054`（`SUB_NdkTsDrawing_COMBO_0114`） Verify a layer blend and a pen blend coexist on the same canvas. | 无设备依赖（纯对象 API）；L4 | saveLayer、restore、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0055`（`SUB_NdkTsDrawing_COMBO_0115`） Verify a CLEAR layer bounded to the left half also wipes what was painted there. | 无设备依赖（纯对象 API）；L4 | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0056`（`SUB_NdkTsDrawing_COMBO_0116`） Verify a translucent MULTIPLY layer darkens less than an opaque one. | 无设备依赖（纯对象 API）；L4 | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0057`（`SUB_NdkTsDrawing_COMBO_0117`） Verify two sequentially restored layers clear only the bounded left half. | 无设备依赖（纯对象 API）；L4 | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0058`（`SUB_NdkTsDrawing_COMBO_0118`） Verify a translated square inside a MULTIPLY layer blends at its new place. | 无设备依赖（纯对象 API）；L4 | saveLayer、translate、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboBlend0059`（`SUB_NdkTsDrawing_COMBO_0119`） Verify rebinding a brush inside a MULTIPLY layer keeps the layer mode. | 无设备依赖（纯对象 API）；L4 | saveLayer、attachBrush、drawRect、detachBrush、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0053`（`SUB_NdkTsDrawing_COMBO_0113`） Verify a clip inside the layer bounds the area that the layer blends. | 无设备依赖（纯对象 API） | saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0054`（`SUB_NdkTsDrawing_COMBO_0114`） Verify a layer blend and a pen blend coexist on the same canvas. | 无设备依赖（纯对象 API） | saveLayer、restore、attachPen、drawLine、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0055`（`SUB_NdkTsDrawing_COMBO_0115`） Verify a CLEAR layer bounded to the left half also wipes what was painted there. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0056`（`SUB_NdkTsDrawing_COMBO_0116`） Verify a translucent MULTIPLY layer darkens less than an opaque one. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0057`（`SUB_NdkTsDrawing_COMBO_0117`） Verify two sequentially restored layers clear only the bounded left half. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0058`（`SUB_NdkTsDrawing_COMBO_0118`） Verify a translated square inside a MULTIPLY layer blends at its new place. | 无设备依赖（纯对象 API） | saveLayer、translate、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboBlend0059`（`SUB_NdkTsDrawing_COMBO_0119`） Verify rebinding a brush inside a MULTIPLY layer keeps the layer mode. | 无设备依赖（纯对象 API） | saveLayer、attachBrush、drawRect、detachBrush、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboBlend0060`（`SUB_NdkTsDrawing_COMBO_0120`） Verify a blended layer on one canvas leaves a second canvas untouched. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0001`（`SUB_NdkTsDrawing_COMBO_0121`） Verify a filled rectangle path inks exactly its pixel area. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0002`（`SUB_NdkTsDrawing_COMBO_0122`） Verify a filled circle path inks about pi times the squared radius. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0003`（`SUB_NdkTsDrawing_COMBO_0123`） Verify EVEN_ODD turns two same direction circles into a ring. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、setFillType | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0004`（`SUB_NdkTsDrawing_COMBO_0124`） Verify INVERSE_WINDING inks the canvas around the circle instead of the circle. | 无设备依赖（纯对象 API）；L4 | setFillType | 4 条断言全部通过 | 是 | 通过 |
+| `testComboPath0003`（`SUB_NdkTsDrawing_COMBO_0123`） Verify EVEN_ODD turns two same direction circles into a ring. | 无设备依赖（纯对象 API） | Path、addCircle、setFillType | 4 条断言全部通过 | 是 | 通过 |
+| `testComboPath0004`（`SUB_NdkTsDrawing_COMBO_0124`） Verify INVERSE_WINDING inks the canvas around the circle instead of the circle. | 无设备依赖（纯对象 API） | setFillType | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0005`（`SUB_NdkTsDrawing_COMBO_0125`） Verify the filled triangle agrees with Path.contains at three points. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、close、contains | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0006`（`SUB_NdkTsDrawing_COMBO_0126`） Verify two overlapping clockwise rectangles fill their union once. | 无设备依赖（纯对象 API）；L4 | Path、addRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0007`（`SUB_NdkTsDrawing_COMBO_0127`） Verify a counter clockwise inner rectangle punches a hole under WINDING. | 无设备依赖（纯对象 API）；L4 | Path、addRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0008`（`SUB_NdkTsDrawing_COMBO_0128`） Verify a nested clockwise rectangle adds no hole because the winding is two. | 无设备依赖（纯对象 API）；L4 | Path、addRect、getFillType | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0006`（`SUB_NdkTsDrawing_COMBO_0126`） Verify two overlapping clockwise rectangles fill their union once. | 无设备依赖（纯对象 API） | Path、addRect | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0007`（`SUB_NdkTsDrawing_COMBO_0127`） Verify a counter clockwise inner rectangle punches a hole under WINDING. | 无设备依赖（纯对象 API） | Path、addRect | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0008`（`SUB_NdkTsDrawing_COMBO_0128`） Verify a nested clockwise rectangle adds no hole because the winding is two. | 无设备依赖（纯对象 API） | Path、addRect、getFillType | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0009`（`SUB_NdkTsDrawing_COMBO_0129`） Verify a half transparent path fill blends between the background and the source. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0010`（`SUB_NdkTsDrawing_COMBO_0130`） Verify a zero alpha path fill leaves the background untouched. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0011`（`SUB_NdkTsDrawing_COMBO_0131`） Verify a stroked horizontal path inks its width times its length plus nothing else. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0012`（`SUB_NdkTsDrawing_COMBO_0132`） Verify doubling the stroke width roughly doubles the inked pixels. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0013`（`SUB_NdkTsDrawing_COMBO_0133`） Verify SQUARE_CAP extends an open stroke beyond its end points. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、setCapStyle | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0014`（`SUB_NdkTsDrawing_COMBO_0134`） Verify MITER_JOIN fills the outer corner that ROUND_JOIN leaves empty. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、setJoinStyle | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0015`（`SUB_NdkTsDrawing_COMBO_0135`） Verify a miter limit below the corner ratio falls back to a flat join. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、setJoinStyle、setMiterLimit | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0016`（`SUB_NdkTsDrawing_COMBO_0136`） Verify a dash path effect cuts the inked length of a stroked path. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0013`（`SUB_NdkTsDrawing_COMBO_0133`） Verify SQUARE_CAP extends an open stroke beyond its end points. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、setCapStyle | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0014`（`SUB_NdkTsDrawing_COMBO_0134`） Verify MITER_JOIN fills the outer corner that ROUND_JOIN leaves empty. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、setJoinStyle | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0015`（`SUB_NdkTsDrawing_COMBO_0135`） Verify a miter limit below the corner ratio falls back to a flat join. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、setJoinStyle、setMiterLimit | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0016`（`SUB_NdkTsDrawing_COMBO_0136`） Verify a dash path effect cuts the inked length of a stroked path. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0017`（`SUB_NdkTsDrawing_COMBO_0137`） Verify a stroked circle inks its circumference but not its centre. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0018`（`SUB_NdkTsDrawing_COMBO_0138`） Verify a stroke drawn after a fill keeps the fill centre and paints the rim. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0019`（`SUB_NdkTsDrawing_COMBO_0139`） Verify a half transparent stroke blends with the background. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0020`（`SUB_NdkTsDrawing_COMBO_0140`） Verify a scaled canvas doubles both the stroke length and its width. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、scale | 4 条断言全部通过 | 是 | 通过 |
+| `testComboPath0020`（`SUB_NdkTsDrawing_COMBO_0140`） Verify a scaled canvas doubles both the stroke length and its width. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、scale | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0021`（`SUB_NdkTsDrawing_COMBO_0141`） Verify UNION keeps both disjoint rectangles and nothing between them. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0022`（`SUB_NdkTsDrawing_COMBO_0142`） Verify INTERSECT keeps exactly the overlapping area of two rectangles. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0023`（`SUB_NdkTsDrawing_COMBO_0143`） Verify DIFFERENCE removes the overlap from the left rectangle. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0024`（`SUB_NdkTsDrawing_COMBO_0144`） Verify XOR keeps both rectangles but drops their overlap. | 无设备依赖（纯对象 API）；L4 | op | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0025`（`SUB_NdkTsDrawing_COMBO_0145`） Verify REVERSE_DIFFERENCE removes the overlap from the right rectangle. | 无设备依赖（纯对象 API）；L4 | op | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0026`（`SUB_NdkTsDrawing_COMBO_0146`） Verify an empty path takes the other operand for UNION and nothing for INTERSECT. | 无设备依赖（纯对象 API）；L4 | Path、isEmpty、op | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0024`（`SUB_NdkTsDrawing_COMBO_0144`） Verify XOR keeps both rectangles but drops their overlap. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
+| `testComboPath0025`（`SUB_NdkTsDrawing_COMBO_0145`） Verify REVERSE_DIFFERENCE removes the overlap from the right rectangle. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0026`（`SUB_NdkTsDrawing_COMBO_0146`） Verify an empty path takes the other operand for UNION and nothing for INTERSECT. | 无设备依赖（纯对象 API） | Path、isEmpty、op | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0027`（`SUB_NdkTsDrawing_COMBO_0147`） Verify the DIFFERENCE result agrees with Path.contains at both sides. | 无设备依赖（纯对象 API） | op、contains | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0028`（`SUB_NdkTsDrawing_COMBO_0148`） Verify a UNION followed by an INTERSECT leaves only the middle band. | 无设备依赖（纯对象 API）；L4 | op | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0029`（`SUB_NdkTsDrawing_COMBO_0149`） Verify a circle intersected with a square loses its four corners. | 无设备依赖（纯对象 API）；L4 | op | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0030`（`SUB_NdkTsDrawing_COMBO_0150`） Verify the union result only changes the pixels outside the first rectangle. | 无设备依赖（纯对象 API）；L4 | op | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0028`（`SUB_NdkTsDrawing_COMBO_0148`） Verify a UNION followed by an INTERSECT leaves only the middle band. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0029`（`SUB_NdkTsDrawing_COMBO_0149`） Verify a circle intersected with a square loses its four corners. | 无设备依赖（纯对象 API） | op | 4 条断言全部通过 | 是 | 通过 |
+| `testComboPath0030`（`SUB_NdkTsDrawing_COMBO_0150`） Verify the union result only changes the pixels outside the first rectangle. | 无设备依赖（纯对象 API） | op | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0031`（`SUB_NdkTsDrawing_COMBO_0151`） Verify a translated path fills the shifted rectangle and leaves the old one empty. | 无设备依赖（纯对象 API） | Matrix、setTranslation、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0032`（`SUB_NdkTsDrawing_COMBO_0152`） Verify a path scaled by two covers four times its own area. | 无设备依赖（纯对象 API） | Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0033`（`SUB_NdkTsDrawing_COMBO_0153`） Verify a scaled canvas paints the same pixels as a scaled path. | 无设备依赖（纯对象 API）；L4 | scale、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0034`（`SUB_NdkTsDrawing_COMBO_0154`） Verify a quarter turn swaps the width and the height of the filled area. | 无设备依赖（纯对象 API）；L4 | rotate | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0033`（`SUB_NdkTsDrawing_COMBO_0153`） Verify a scaled canvas paints the same pixels as a scaled path. | 无设备依赖（纯对象 API） | scale、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0034`（`SUB_NdkTsDrawing_COMBO_0154`） Verify a quarter turn swaps the width and the height of the filled area. | 无设备依赖（纯对象 API） | rotate | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0035`（`SUB_NdkTsDrawing_COMBO_0155`） Verify offset returns a new path and leaves the original in place. | 无设备依赖（纯对象 API） | offset | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0036`（`SUB_NdkTsDrawing_COMBO_0156`） Verify a concatenated scale matrix enlarges the drawn path on the canvas. | 无设备依赖（纯对象 API） | Matrix、setScale、concatMatrix | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0037`（`SUB_NdkTsDrawing_COMBO_0157`） Verify a half scale matrix shrinks the filled area to a quarter. | 无设备依赖（纯对象 API） | Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0038`（`SUB_NdkTsDrawing_COMBO_0158`） Verify a clip cuts the part of the transformed path that leaves the clip. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、transform、clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0039`（`SUB_NdkTsDrawing_COMBO_0159`） Verify setMatrix replaces the canvas transform instead of combining. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、setMatrix | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0040`（`SUB_NdkTsDrawing_COMBO_0160`） Verify a transformed circle matches a circle built at the target centre. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0038`（`SUB_NdkTsDrawing_COMBO_0158`） Verify a clip cuts the part of the transformed path that leaves the clip. | 无设备依赖（纯对象 API） | Matrix、setTranslation、transform、clipRect | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0039`（`SUB_NdkTsDrawing_COMBO_0159`） Verify setMatrix replaces the canvas transform instead of combining. | 无设备依赖（纯对象 API） | Matrix、setTranslation、setMatrix | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0040`（`SUB_NdkTsDrawing_COMBO_0160`） Verify a transformed circle matches a circle built at the target centre. | 无设备依赖（纯对象 API） | Matrix、setTranslation、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0041`（`SUB_NdkTsDrawing_COMBO_0161`） Verify getBounds reports the painted rectangle of a filled path. | 无设备依赖（纯对象 API） | getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0042`（`SUB_NdkTsDrawing_COMBO_0162`） Verify Path.contains agrees with the painted pixels inside and outside. | 无设备依赖（纯对象 API） | contains | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0043`（`SUB_NdkTsDrawing_COMBO_0163`） Verify a closed rectangle path reports its four hundred pixel perimeter. | 无设备依赖（纯对象 API） | getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0044`（`SUB_NdkTsDrawing_COMBO_0164`） Verify isRect holds for a rectangular path and the fill matches its area. | 无设备依赖（纯对象 API） | isRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0045`（`SUB_NdkTsDrawing_COMBO_0165`） Verify switching the fill type between EVEN_ODD and WINDING adds the hole back. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、setFillType、getFillType | 4 条断言全部通过 | 是 | 通过 |
+| `testComboPath0045`（`SUB_NdkTsDrawing_COMBO_0165`） Verify switching the fill type between EVEN_ODD and WINDING adds the hole back. | 无设备依赖（纯对象 API） | Path、addCircle、setFillType、getFillType | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0046`（`SUB_NdkTsDrawing_COMBO_0166`） Verify an empty path reports itself empty and paints nothing. | 无设备依赖（纯对象 API） | Path、isEmpty | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0047`（`SUB_NdkTsDrawing_COMBO_0167`） Verify a copied path reports equality and paints identical pixels. | 无设备依赖（纯对象 API） | Path、isEqual | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0048`（`SUB_NdkTsDrawing_COMBO_0168`） Verify getSegment extracts a shorter sub path with a positive length. | 无设备依赖（纯对象 API）；L4 | Path、getSegment、getBounds、isEmpty、getLength | 4 条断言全部通过 | 是 | 通过 |
+| `testComboPath0048`（`SUB_NdkTsDrawing_COMBO_0168`） Verify getSegment extracts a shorter sub path with a positive length. | 无设备依赖（纯对象 API） | Path、getSegment、getBounds、isEmpty、getLength | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0049`（`SUB_NdkTsDrawing_COMBO_0169`） Verify iterating the verbs of a rectangle yields verbs and that it still fills. | 无设备依赖（纯对象 API） | PathIterator、hasNext、next | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0050`（`SUB_NdkTsDrawing_COMBO_0170`） Verify an svg built path paints the same pixels as the same rectangle path. | 无设备依赖（纯对象 API）；L4 | Path、buildFromSvgString | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0050`（`SUB_NdkTsDrawing_COMBO_0170`） Verify an svg built path paints the same pixels as the same rectangle path. | 无设备依赖（纯对象 API） | Path、buildFromSvgString | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0051`（`SUB_NdkTsDrawing_COMBO_0171`） Verify a half transparent layer keeps the path ink area but halves its alpha. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0052`（`SUB_NdkTsDrawing_COMBO_0172`） Verify a circular clip confines a full canvas rectangle fill to the disc. | 无设备依赖（纯对象 API） | clipPath | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0053`（`SUB_NdkTsDrawing_COMBO_0173`） Verify a DIFFERENCE clip punches a hole that a full canvas fill cannot cover. | 无设备依赖（纯对象 API）；L4 | clipPath | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0054`（`SUB_NdkTsDrawing_COMBO_0174`） Verify a clipped path inside a translucent layer keeps both effects. | 无设备依赖（纯对象 API）；L4 | saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0055`（`SUB_NdkTsDrawing_COMBO_0175`） Verify two nested translucent layers quarter the alpha of the path ink. | 无设备依赖（纯对象 API）；L4 | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboPath0056`（`SUB_NdkTsDrawing_COMBO_0176`） Verify restoreToCount closes two path layers and returns to the first save count. | 无设备依赖（纯对象 API）；L4 | saveLayer、restoreToCount、getSaveCount | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0053`（`SUB_NdkTsDrawing_COMBO_0173`） Verify a DIFFERENCE clip punches a hole that a full canvas fill cannot cover. | 无设备依赖（纯对象 API） | clipPath | 4 条断言全部通过 | 是 | 通过 |
+| `testComboPath0054`（`SUB_NdkTsDrawing_COMBO_0174`） Verify a clipped path inside a translucent layer keeps both effects. | 无设备依赖（纯对象 API） | saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0055`（`SUB_NdkTsDrawing_COMBO_0175`） Verify two nested translucent layers quarter the alpha of the path ink. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0056`（`SUB_NdkTsDrawing_COMBO_0176`） Verify restoreToCount closes two path layers and returns to the first save count. | 无设备依赖（纯对象 API） | saveLayer、restoreToCount、getSaveCount | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0057`（`SUB_NdkTsDrawing_COMBO_0177`） Verify a clip cuts a stroked path at the clip edge. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、clipRect | 4 条断言全部通过 | 是 | 通过 |
 | `testComboPath0058`（`SUB_NdkTsDrawing_COMBO_0178`） Verify a zero alpha layer drops the path drawn inside it. | 无设备依赖（纯对象 API） | saveLayer、restore、getSaveCount | 3 条断言全部通过 | 是 | 通过 |
 | `testComboPath0059`（`SUB_NdkTsDrawing_COMBO_0179`） Verify two canvases keep their own path drawings apart. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
-| `testComboPath0060`（`SUB_NdkTsDrawing_COMBO_0180`） Verify an op result drawn in a clipped translucent layer keeps both effects. | 无设备依赖（纯对象 API）；L4 | op、saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboPath0060`（`SUB_NdkTsDrawing_COMBO_0180`） Verify an op result drawn in a clipped translucent layer keeps both effects. | 无设备依赖（纯对象 API） | op、saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboText0001`（`SUB_NdkTsDrawing_COMBO_0181`） Verify a filled text blob paints ink inside a plausible bounding box. | 无设备依赖（纯对象 API） |  | 4 条断言全部通过 | 是 | 通过 |
 | `testComboText0002`（`SUB_NdkTsDrawing_COMBO_0182`） Verify a doubled text size inks clearly more pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboText0003`（`SUB_NdkTsDrawing_COMBO_0183`） Verify the brush color reaches the glyph pixels channel by channel. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboText0004`（`SUB_NdkTsDrawing_COMBO_0184`） Verify a half transparent brush caps every glyph pixel below full alpha. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboText0005`（`SUB_NdkTsDrawing_COMBO_0185`） Verify a fully transparent brush leaves the canvas untouched. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboText0006`（`SUB_NdkTsDrawing_COMBO_0186`） Verify an empty string blob paints nothing. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testComboText0006`（`SUB_NdkTsDrawing_COMBO_0186`） Verify empty text yields no blob so the canvas stays blank. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboText0007`（`SUB_NdkTsDrawing_COMBO_0187`） Verify a blob and the matching text outline path ink a similar area. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、attachBrush、drawPath | 3 条断言全部通过 | 是 | 通过 |
 | `testComboText0008`（`SUB_NdkTsDrawing_COMBO_0188`） Verify painting one opaque blob twice equals painting it once. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboText0009`（`SUB_NdkTsDrawing_COMBO_0189`） Verify moving the baseline keeps the ink area but shifts the rows. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -3067,15 +3067,15 @@
 | `testComboMatrix0058`（`SUB_NdkTsDrawing_COMBO_0298`） Verify a half transparent stroke under a matrix stays below full alpha. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setAntiAlias、setMatrix | 3 条断言全部通过 | 是 | 通过 |
 | `testComboMatrix0059`（`SUB_NdkTsDrawing_COMBO_0299`） Verify a half turn equals a double mirror about the same pivot. | 无设备依赖（纯对象 API） | Matrix、setRotation、setScale、setMatrix | 3 条断言全部通过 | 是 | 通过 |
 | `testComboMatrix0060`（`SUB_NdkTsDrawing_COMBO_0300`） Verify a saved transform stack unwinds fully after a layered stroke. | 无设备依赖（纯对象 API） | getSaveCount、save、translate、scale、setMatrix | 4 条断言全部通过 | 是 | 通过 |
-| `testComboChain0001`（`SUB_NdkTsDrawing_COMBO_0301`） Verify that translating first and scaling first put the same square at different places. | 无设备依赖（纯对象 API） | translate、scale | 5 条断言全部通过 | 是 | 通过 |
+| `testComboChain0001`（`SUB_NdkTsDrawing_COMBO_0301`） Verify that translating first and scaling first put the same square at different positions. | 无设备依赖（纯对象 API） | translate、scale | 5 条断言全部通过 | 是 | 通过 |
 | `testComboChain0002`（`SUB_NdkTsDrawing_COMBO_0302`） Verify two chained translations equal one translation by the summed offset. | 无设备依赖（纯对象 API） | translate | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0003`（`SUB_NdkTsDrawing_COMBO_0303`） Verify two quarter turns equal one half turn around the same pivot. | 无设备依赖（纯对象 API） | rotate | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0004`（`SUB_NdkTsDrawing_COMBO_0304`） Verify scaling the canvas about the origin equals doubling the drawn coordinates. | 无设备依赖（纯对象 API） | translate、scale | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0005`（`SUB_NdkTsDrawing_COMBO_0305`） Verify translate-then-rotate differs from rotate-then-translate by the rotation of the offset. | 无设备依赖（纯对象 API）；L4 | translate、rotate | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0005`（`SUB_NdkTsDrawing_COMBO_0305`） Verify translate-then-rotate differs from rotate-then-translate by the rotation of the offset. | 无设备依赖（纯对象 API） | translate、rotate | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0006`（`SUB_NdkTsDrawing_COMBO_0306`） Verify a horizontal skew keeps the filled area while sliding columns rightwards. | 无设备依赖（纯对象 API） | skew | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0007`（`SUB_NdkTsDrawing_COMBO_0307`） Verify a non uniform scale stretches only the horizontal axis. | 无设备依赖（纯对象 API） | scale | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0008`（`SUB_NdkTsDrawing_COMBO_0308`） Verify a mirrored canvas flips the square to the left of the translation anchor. | 无设备依赖（纯对象 API） | translate、scale | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0009`（`SUB_NdkTsDrawing_COMBO_0309`） Verify four quarter turns bring the canvas back to the untransformed state. | 无设备依赖（纯对象 API）；L4 | rotate | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0009`（`SUB_NdkTsDrawing_COMBO_0309`） Verify four quarter turns bring the canvas back to the untransformed state. | 无设备依赖（纯对象 API） | rotate | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0010`（`SUB_NdkTsDrawing_COMBO_0310`） Verify identity operations inside a chain leave the rendering untouched. | 无设备依赖（纯对象 API） | translate、scale、rotate、skew | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0011`（`SUB_NdkTsDrawing_COMBO_0311`） Verify transforming the path itself equals translating the canvas. | 无设备依赖（纯对象 API） | translate、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0012`（`SUB_NdkTsDrawing_COMBO_0312`） Verify two successive path translations equal one summed translation. | 无设备依赖（纯对象 API） | transform | 3 条断言全部通过 | 是 | 通过 |
@@ -3084,49 +3084,49 @@
 | `testComboChain0015`（`SUB_NdkTsDrawing_COMBO_0315`） Verify a skew matrix on the path keeps the area and shifts the left edge. | 无设备依赖（纯对象 API） | Matrix、setSkew、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0016`（`SUB_NdkTsDrawing_COMBO_0316`） Verify a quarter of a turn around the center preserves the painted area. | 无设备依赖（纯对象 API） | transform | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0017`（`SUB_NdkTsDrawing_COMBO_0317`） Verify a scale then translate chain on the path lands on the expected columns. | 无设备依赖（纯对象 API） | transform | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0018`（`SUB_NdkTsDrawing_COMBO_0318`） Verify transforming a path by a matrix and its inverse restores the original pixels. | 无设备依赖（纯对象 API）；L4 | Matrix、invert、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0019`（`SUB_NdkTsDrawing_COMBO_0319`） Verify a canvas rotation chain and the same chain on the path agree pixel by pixel. | 无设备依赖（纯对象 API）；L4 | translate、rotate、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0018`（`SUB_NdkTsDrawing_COMBO_0318`） Verify transforming a path by a matrix and its inverse restores the original pixels. | 无设备依赖（纯对象 API） | Matrix、invert、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0019`（`SUB_NdkTsDrawing_COMBO_0319`） Verify a canvas rotation chain and the same chain on the path agree pixel by pixel. | 无设备依赖（纯对象 API） | translate、rotate、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0020`（`SUB_NdkTsDrawing_COMBO_0320`） Verify restore rewinds a translation so a second fill lands untransformed. | 无设备依赖（纯对象 API） | save、translate、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0021`（`SUB_NdkTsDrawing_COMBO_0321`） Verify a doubled canvas scale also doubles the stroke width on screen. | 无设备依赖（纯对象 API） | scale | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0022`（`SUB_NdkTsDrawing_COMBO_0322`） Verify a scaled thin pen equals a double width pen on the pre-scaled path. | 无设备依赖（纯对象 API）；L4 | scale、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0022`（`SUB_NdkTsDrawing_COMBO_0322`） Verify a scaled thin pen equals a double width pen on the pre-scaled path. | 无设备依赖（纯对象 API） | scale、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0023`（`SUB_NdkTsDrawing_COMBO_0323`） Verify a dashed outline paints clearly less than a solid outline of the same width. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0024`（`SUB_NdkTsDrawing_COMBO_0324`） Verify tilting the canvas keeps the stroke ink within a quarter of the upright value. | 无设备依赖（纯对象 API）；L4 | rotate | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0025`（`SUB_NdkTsDrawing_COMBO_0325`） Verify a miter corner of a wide pen covers more than a round corner. | 无设备依赖（纯对象 API）；L4 | setJoinStyle | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0024`（`SUB_NdkTsDrawing_COMBO_0324`） Verify tilting the canvas keeps the stroke ink within a quarter of the upright value. | 无设备依赖（纯对象 API） | rotate | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0025`（`SUB_NdkTsDrawing_COMBO_0325`） Verify a miter corner of a wide pen covers more than a round corner. | 无设备依赖（纯对象 API） | setJoinStyle | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0026`（`SUB_NdkTsDrawing_COMBO_0326`） Verify round caps add ink beyond the flat caps of the same segment. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、setCapStyle | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0027`（`SUB_NdkTsDrawing_COMBO_0327`） Verify a clip taken before the scale chain keeps cutting the enlarged stroke. | 无设备依赖（纯对象 API）；L4 | clipRect、scale | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0027`（`SUB_NdkTsDrawing_COMBO_0327`） Verify a clip taken before the scale chain keeps cutting the enlarged stroke. | 无设备依赖（纯对象 API） | clipRect、scale | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0028`（`SUB_NdkTsDrawing_COMBO_0328`） Verify a dashed rotated outline is thinner than a solid rotated outline. | 无设备依赖（纯对象 API） | rotate | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0029`（`SUB_NdkTsDrawing_COMBO_0329`） Verify a horizontal stretch fattens the vertical legs of a stroked rectangle. | 无设备依赖（纯对象 API） | scale | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0030`（`SUB_NdkTsDrawing_COMBO_0330`） Verify stroking the same outline twice with one opaque pen changes nothing. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0031`（`SUB_NdkTsDrawing_COMBO_0331`） Verify translating the canvas before drawing text equals moving the baseline origin. | 无设备依赖（纯对象 API） | translate | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0032`（`SUB_NdkTsDrawing_COMBO_0332`） Verify a doubled canvas scale paints a much heavier glyph than the plain one. | 无设备依赖（纯对象 API） | scale | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0033`（`SUB_NdkTsDrawing_COMBO_0333`） Verify glyph outlines moved by the canvas and by the path transform agree. | 无设备依赖（纯对象 API）；L4 | Font、setSize、translate、getTextPath、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0033`（`SUB_NdkTsDrawing_COMBO_0333`） Verify glyph outlines moved by the canvas and by the path transform agree. | 无设备依赖（纯对象 API） | Font、setSize、translate、getTextPath、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0034`（`SUB_NdkTsDrawing_COMBO_0334`） Verify a small rotation changes the glyph pixels without doubling the ink. | 无设备依赖（纯对象 API） | rotate | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0035`（`SUB_NdkTsDrawing_COMBO_0335`） Verify the measured advance of doubled text matches the ink width of a scaled draw. | 无设备依赖（纯对象 API）；L4 | Font、setSize、measureText、scale | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0035`（`SUB_NdkTsDrawing_COMBO_0335`） Verify the measured advance of doubled text matches the ink width of a scaled draw. | 无设备依赖（纯对象 API） | Font、setSize、measureText、scale | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0036`（`SUB_NdkTsDrawing_COMBO_0336`） Verify a horizontal skew stretches the text to the right without erasing it. | 无设备依赖（纯对象 API） | skew | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0037`（`SUB_NdkTsDrawing_COMBO_0337`） Verify a translate, rotate and scale chain still lands a single glyph on the bitmap. | 无设备依赖（纯对象 API）；L4 | translate、rotate、scale | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0037`（`SUB_NdkTsDrawing_COMBO_0337`） Verify a translate, rotate and scale chain still lands a single glyph on the bitmap. | 无设备依赖（纯对象 API） | translate、rotate、scale | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0038`（`SUB_NdkTsDrawing_COMBO_0338`） Verify a zero scale suppresses the glyph and restore brings it back. | 无设备依赖（纯对象 API） | scale、save、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0039`（`SUB_NdkTsDrawing_COMBO_0339`） Verify two texts drawn with two brushes keep their own colors on one bitmap. | 无设备依赖（纯对象 API） | attachBrush、drawTextBlob、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0040`（`SUB_NdkTsDrawing_COMBO_0340`） Verify a half width clip cuts away the right part of a long glyph string. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0041`（`SUB_NdkTsDrawing_COMBO_0341`） Verify a clip taken before a translation stays where it was taken. | 无设备依赖（纯对象 API）；L4 | clipRect、translate | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0042`（`SUB_NdkTsDrawing_COMBO_0342`） Verify a clip taken after a translation moves along with the canvas. | 无设备依赖（纯对象 API）；L4 | translate、clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0043`（`SUB_NdkTsDrawing_COMBO_0343`） Verify a circular clip under a translation equals the same circle at shifted coords. | 无设备依赖（纯对象 API）；L4 | translate、clipPath | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0044`（`SUB_NdkTsDrawing_COMBO_0344`） Verify a clip rectangle drawn under a doubled scale covers four times the area. | 无设备依赖（纯对象 API）；L4 | scale、clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0045`（`SUB_NdkTsDrawing_COMBO_0345`） Verify a half transparent layer under a scale chain keeps the layer alpha. | 无设备依赖（纯对象 API）；L4 | saveLayer、scale、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0046`（`SUB_NdkTsDrawing_COMBO_0346`） Verify an opaque layer around a translated fill produces the direct pixels. | 无设备依赖（纯对象 API）；L4 | saveLayer、translate、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0047`（`SUB_NdkTsDrawing_COMBO_0347`） Verify a clip set inside a saved layer is dropped when the layer is restored. | 无设备依赖（纯对象 API）；L4 | saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0048`（`SUB_NdkTsDrawing_COMBO_0348`） Verify two nested clips taken after a translation intersect on the shifted band. | 无设备依赖（纯对象 API）；L4 | translate、clipRect、save、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0041`（`SUB_NdkTsDrawing_COMBO_0341`） Verify a clip taken before a translation stays where it was taken. | 无设备依赖（纯对象 API） | clipRect、translate | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0042`（`SUB_NdkTsDrawing_COMBO_0342`） Verify a clip taken after a translation moves along with the canvas. | 无设备依赖（纯对象 API） | translate、clipRect | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0043`（`SUB_NdkTsDrawing_COMBO_0343`） Verify a circular clip under a translation equals the same circle at shifted coords. | 无设备依赖（纯对象 API） | translate、clipPath | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0044`（`SUB_NdkTsDrawing_COMBO_0344`） Verify a clip rectangle drawn under a doubled scale covers four times the area. | 无设备依赖（纯对象 API） | scale、clipRect | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0045`（`SUB_NdkTsDrawing_COMBO_0345`） Verify a half transparent layer under a scale chain keeps the layer alpha. | 无设备依赖（纯对象 API） | saveLayer、scale、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0046`（`SUB_NdkTsDrawing_COMBO_0346`） Verify an opaque layer around a translated fill produces the direct pixels. | 无设备依赖（纯对象 API） | saveLayer、translate、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0047`（`SUB_NdkTsDrawing_COMBO_0347`） Verify a clip set inside a saved layer is dropped when the layer is restored. | 无设备依赖（纯对象 API） | saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0048`（`SUB_NdkTsDrawing_COMBO_0348`） Verify two nested clips taken after a translation intersect on the shifted band. | 无设备依赖（纯对象 API） | translate、clipRect、save、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0049`（`SUB_NdkTsDrawing_COMBO_0349`） Verify a clip trims the right half of a wide stroked rectangle. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0050`（`SUB_NdkTsDrawing_COMBO_0350`） Verify a veil layer, a clip and a translation compose into one bounded painted square. | 无设备依赖（纯对象 API）；L4 | saveLayer、clipRect、translate、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0051`（`SUB_NdkTsDrawing_COMBO_0351`） Verify a hundredfold scale turns a two pixel square into a full bitmap. | 无设备依赖（纯对象 API）；L4 | scale | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0052`（`SUB_NdkTsDrawing_COMBO_0352`） Verify a hundredth scale shrinks a full bitmap rectangle to a few pixels. | 无设备依赖（纯对象 API）；L4 | scale | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0053`（`SUB_NdkTsDrawing_COMBO_0353`） Verify a zero scale paints nothing and a restore makes the next fill visible again. | 无设备依赖（纯对象 API）；L4 | scale、getSaveCount、save、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0054`（`SUB_NdkTsDrawing_COMBO_0354`） Verify a double mirror flips the square around the translation anchor point. | 无设备依赖（纯对象 API）；L4 | translate、scale | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0055`（`SUB_NdkTsDrawing_COMBO_0355`） Verify a full turn around the center behaves like no rotation at all. | 无设备依赖（纯对象 API）；L4 | rotate | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0050`（`SUB_NdkTsDrawing_COMBO_0350`） Verify a veil layer, a clip and a translation compose into one bounded painted square. | 无设备依赖（纯对象 API） | saveLayer、clipRect、translate、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0051`（`SUB_NdkTsDrawing_COMBO_0351`） Verify a hundredfold scale turns a two pixel square into a full bitmap. | 无设备依赖（纯对象 API） | scale | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0052`（`SUB_NdkTsDrawing_COMBO_0352`） Verify a hundredth scale shrinks a full bitmap rectangle to a few pixels. | 无设备依赖（纯对象 API） | scale | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0053`（`SUB_NdkTsDrawing_COMBO_0353`） Verify a zero scale paints nothing and a restore makes the next fill visible again. | 无设备依赖（纯对象 API） | scale、getSaveCount、save、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0054`（`SUB_NdkTsDrawing_COMBO_0354`） Verify a double mirror flips the square around the translation anchor point. | 无设备依赖（纯对象 API） | translate、scale | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0055`（`SUB_NdkTsDrawing_COMBO_0355`） Verify a full turn around the center behaves like no rotation at all. | 无设备依赖（纯对象 API） | rotate | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0056`（`SUB_NdkTsDrawing_COMBO_0356`） Verify ten small translations of the same axis sum into one hundred pixel shift. | 无设备依赖（纯对象 API） | translate | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0057`（`SUB_NdkTsDrawing_COMBO_0357`） Verify a twenty step two axis chain matches one diagonal translation. | 无设备依赖（纯对象 API）；L4 | translate | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0058`（`SUB_NdkTsDrawing_COMBO_0358`） Verify a far translation empties the bitmap and restore brings the shape back. | 无设备依赖（纯对象 API）；L4 | translate、getSaveCount、save、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0057`（`SUB_NdkTsDrawing_COMBO_0357`） Verify a twenty step two axis chain matches one diagonal translation. | 无设备依赖（纯对象 API） | translate | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0058`（`SUB_NdkTsDrawing_COMBO_0358`） Verify a far translation empties the bitmap and restore brings the shape back. | 无设备依赖（纯对象 API） | translate、getSaveCount、save、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testComboChain0059`（`SUB_NdkTsDrawing_COMBO_0359`） Verify two horizontal mirrors cancel out and leave the fill unchanged. | 无设备依赖（纯对象 API） | scale | 3 条断言全部通过 | 是 | 通过 |
-| `testComboChain0060`（`SUB_NdkTsDrawing_COMBO_0360`） Verify eight balanced save blocks leave the canvas ready for a plain fill. | 无设备依赖（纯对象 API）；L4 | getSaveCount、save、translate、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testComboChain0060`（`SUB_NdkTsDrawing_COMBO_0360`） Verify eight balanced save blocks leave the canvas ready for a plain fill. | 无设备依赖（纯对象 API） | getSaveCount、save、translate、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0001`（`SUB_NdkTsDrawing_STATE_0001`） Verify attaching a brush paints the path and detaching it releases the paint state. | 无设备依赖（纯对象 API） | attachBrush、drawPath、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0002`（`SUB_NdkTsDrawing_STATE_0002`） Verify drawing again after detaching the brush leaves the bitmap untouched. | 无设备依赖（纯对象 API） | drawPath | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0003`（`SUB_NdkTsDrawing_STATE_0003`） Verify a canvas without any attached paint produces no pixels at all. | 无设备依赖（纯对象 API） | drawPath | 3 条断言全部通过 | 是 | 通过 |
@@ -3160,19 +3160,19 @@
 | `testStateCanvas0031`（`SUB_NdkTsDrawing_STATE_0031`） Verify drawing text requires an attached brush just like drawing a path. | 无设备依赖（纯对象 API） | drawTextBlob、attachBrush、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0032`（`SUB_NdkTsDrawing_STATE_0032`） Verify a layer brush with zero alpha swallows everything drawn inside it. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0033`（`SUB_NdkTsDrawing_STATE_0033`） Verify two sequential halftransparent layers compose to a higher alpha. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testStateCanvas0034`（`SUB_NdkTsDrawing_STATE_0034`） Verify a layer nested in another halftransparent layer halves the alpha twice. | 无设备依赖（纯对象 API）；L4 | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testStateCanvas0034`（`SUB_NdkTsDrawing_STATE_0034`） Verify a layer nested in another halftransparent layer halves the alpha twice. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0035`（`SUB_NdkTsDrawing_STATE_0035`） Verify a layer opened inside a clip cannot paint outside that clip. | 无设备依赖（纯对象 API） | clipRect、saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testStateCanvas0036`（`SUB_NdkTsDrawing_STATE_0036`） Verify a clip opened inside a layer is forgotten once the layer is restored. | 无设备依赖（纯对象 API）；L4 | getSaveCount、saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testStateCanvas0036`（`SUB_NdkTsDrawing_STATE_0036`） Verify a clip opened inside a layer is forgotten once the layer is restored. | 无设备依赖（纯对象 API） | getSaveCount、saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0037`（`SUB_NdkTsDrawing_STATE_0037`） Verify a fully opaque layer renders exactly like drawing without any layer. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testStateCanvas0038`（`SUB_NdkTsDrawing_STATE_0038`） Verify balanced save blocks inside a layer do not disturb the layer stack. | 无设备依赖（纯对象 API）；L4 | getSaveCount、saveLayer、save、translate、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testStateCanvas0038`（`SUB_NdkTsDrawing_STATE_0038`） Verify balanced save blocks inside a layer do not disturb the layer stack. | 无设备依赖（纯对象 API） | getSaveCount、saveLayer、save、translate、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0039`（`SUB_NdkTsDrawing_STATE_0039`） Verify drawing after the layer is restored is fully opaque again. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0040`（`SUB_NdkTsDrawing_STATE_0040`） Verify a clip opened before the layer keeps limiting the drawing inside it. | 无设备依赖（纯对象 API） | clipRect、saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testStateCanvas0041`（`SUB_NdkTsDrawing_STATE_0041`） Verify painting right of a restored layer clip proves the clip is gone. | 无设备依赖（纯对象 API）；L4 | saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testStateCanvas0041`（`SUB_NdkTsDrawing_STATE_0041`） Verify painting right of a restored layer clip proves the clip is gone. | 无设备依赖（纯对象 API） | saveLayer、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0042`（`SUB_NdkTsDrawing_STATE_0042`） Verify a layer alpha of two hundred keeps a slight transparency. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testStateCanvas0043`（`SUB_NdkTsDrawing_STATE_0043`） Verify three nested halftransparent layers leave a faint but visible shape. | 无设备依赖（纯对象 API）；L4 | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testStateCanvas0043`（`SUB_NdkTsDrawing_STATE_0043`） Verify three nested halftransparent layers leave a faint but visible shape. | 无设备依赖（纯对象 API） | saveLayer、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0044`（`SUB_NdkTsDrawing_STATE_0044`） Verify a translation inside a halftransparent layer still moves the paint. | 无设备依赖（纯对象 API） | saveLayer、translate、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0045`（`SUB_NdkTsDrawing_STATE_0045`） Verify a scale inside an opaque layer enlarges the paint by four times. | 无设备依赖（纯对象 API） | saveLayer、scale、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testStateCanvas0046`（`SUB_NdkTsDrawing_STATE_0046`） Verify a translated clip inside a layer bounds the paint on the shifted area. | 无设备依赖（纯对象 API）；L4 | saveLayer、translate、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testStateCanvas0046`（`SUB_NdkTsDrawing_STATE_0046`） Verify a translated clip inside a layer bounds the paint on the shifted area. | 无设备依赖（纯对象 API） | saveLayer、translate、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0047`（`SUB_NdkTsDrawing_STATE_0047`） Verify three identical opaque fills leave exactly the pixels of one fill. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0048`（`SUB_NdkTsDrawing_STATE_0048`） Verify a dashed outline drawn twice equals the same outline drawn once. | 无设备依赖（纯对象 API） | setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
 | `testStateCanvas0049`（`SUB_NdkTsDrawing_STATE_0049`） Verify clipping to the same rectangle twice behaves like clipping once. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
@@ -3198,7 +3198,7 @@
 | `testStatePaint0011`（`SUB_NdkTsDrawing_STATE_0069`） Verify three pen colors land in three clearly separated color classes. | 无设备依赖（纯对象 API） | setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0012`（`SUB_NdkTsDrawing_STATE_0070`） Verify enabling anti alias on a pen keeps the stroke visible with soft edges. | 无设备依赖（纯对象 API） | setAntiAlias、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0013`（`SUB_NdkTsDrawing_STATE_0071`） Verify clearing the path effect turns a dashed pen back into a solid pen. | 无设备依赖（纯对象 API） | setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0014`（`SUB_NdkTsDrawing_STATE_0072`） Verify a mask filter state left on a pen stops applying once it is set to null. | 无设备依赖（纯对象 API）；L4 | setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0014`（`SUB_NdkTsDrawing_STATE_0072`） Verify a mask filter state left on a pen stops applying once it is set to null. | 无设备依赖（纯对象 API） | setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0015`（`SUB_NdkTsDrawing_STATE_0073`） Verify a pen keeps its width and color while only the alpha is changed. | 无设备依赖（纯对象 API） | setAlpha、getWidth、getColor、getAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0016`（`SUB_NdkTsDrawing_STATE_0074`） Verify setting a new pen color replaces the alpha carried by the old color. | 无设备依赖（纯对象 API） | setColor、getAlpha、getColor | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0017`（`SUB_NdkTsDrawing_STATE_0075`） Verify every brush color channel written by setColor can be read back. | 无设备依赖（纯对象 API） | Brush、setColor、getColor | 4 条断言全部通过 | 是 | 通过 |
@@ -3207,10 +3207,10 @@
 | `testStatePaint0020`（`SUB_NdkTsDrawing_STATE_0078`） Verify a brush with zero alpha leaves the bitmap completely empty. | 无设备依赖（纯对象 API） | setAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0021`（`SUB_NdkTsDrawing_STATE_0079`） Verify a quarter alpha brush produces a faint but complete rectangle. | 无设备依赖（纯对象 API） | setAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0022`（`SUB_NdkTsDrawing_STATE_0080`） Verify setColor followed by setAlpha keeps the later alpha value. | 无设备依赖（纯对象 API） | Brush、setColor、setAlpha、getAlpha、getColor | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0023`（`SUB_NdkTsDrawing_STATE_0081`） Verify a multiply blended brush darkens the rectangle painted below it. | 无设备依赖（纯对象 API）；L4 | setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0024`（`SUB_NdkTsDrawing_STATE_0082`） Verify a source blended brush replaces the rectangle below it completely. | 无设备依赖（纯对象 API）；L4 | setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0025`（`SUB_NdkTsDrawing_STATE_0083`） Verify a source in color filter replaces the painted color with the filter color. | 无设备依赖（纯对象 API）；L4 | setColorFilter、createBlendModeColorFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0026`（`SUB_NdkTsDrawing_STATE_0084`） Verify a blurred brush spreads ink beyond the rectangle edge. | 无设备依赖（纯对象 API）；L4 | setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0023`（`SUB_NdkTsDrawing_STATE_0081`） Verify a multiply blended brush darkens the rectangle painted below it. | 无设备依赖（纯对象 API） | setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0024`（`SUB_NdkTsDrawing_STATE_0082`） Verify a source blended brush replaces the rectangle below it completely. | 无设备依赖（纯对象 API） | setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0025`（`SUB_NdkTsDrawing_STATE_0083`） Verify a source in color filter replaces the painted color with the filter color. | 无设备依赖（纯对象 API） | setColorFilter、createBlendModeColorFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0026`（`SUB_NdkTsDrawing_STATE_0084`） Verify a blurred brush spreads ink beyond the rectangle edge. | 无设备依赖（纯对象 API） | setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0027`（`SUB_NdkTsDrawing_STATE_0085`） Verify two brushes keep their own alpha values without interfering. | 无设备依赖（纯对象 API） | setAlpha、getAlpha、getColor | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0028`（`SUB_NdkTsDrawing_STATE_0086`） Verify a reset brush repaints correctly once a new color is assigned. | 无设备依赖（纯对象 API） | Brush、setColor、reset、setAntiAlias、getAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0029`（`SUB_NdkTsDrawing_STATE_0087`） Verify an existing brush still works after the canvas is cleared. | 无设备依赖（纯对象 API） | clear | 3 条断言全部通过 | 是 | 通过 |
@@ -3226,34 +3226,34 @@
 | `testStatePaint0039`（`SUB_NdkTsDrawing_STATE_0097`） Verify a brush alpha lowered between two cycles dims only the second block. | 无设备依赖（纯对象 API） | setAlpha | 4 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0040`（`SUB_NdkTsDrawing_STATE_0098`） Verify a pen widened between two strokes thickens only the second outline. | 无设备依赖（纯对象 API） | setStrokeWidth、getWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0041`（`SUB_NdkTsDrawing_STATE_0099`） Verify a half transparent brush drawn twice accumulates more alpha than once. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0042`（`SUB_NdkTsDrawing_STATE_0100`） Verify repeated fills on one target raise the pixel alpha step by step. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0042`（`SUB_NdkTsDrawing_STATE_0100`） Verify repeated fills on one target raise the pixel alpha step by step. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0043`（`SUB_NdkTsDrawing_STATE_0101`） Verify a pen alpha lowered between strokes dims only the second outline. | 无设备依赖（纯对象 API） | setAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0044`（`SUB_NdkTsDrawing_STATE_0102`） Verify re-attaching the same pen after a detach reproduces the same stroke weight. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0045`（`SUB_NdkTsDrawing_STATE_0103`） Verify a pen applied over a filled block covers the border but not the interior. | 无设备依赖（纯对象 API） | setAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0046`（`SUB_NdkTsDrawing_STATE_0104`） Verify attaching one brush three times still paints a single opaque block. | 无设备依赖（纯对象 API） | attachBrush、drawPath、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0047`（`SUB_NdkTsDrawing_STATE_0105`） Verify a dashed pen leaves less ink than the same solid pen. | 无设备依赖（纯对象 API） | setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0048`（`SUB_NdkTsDrawing_STATE_0106`） Verify changing the dash phase shifts which pixels of the outline are painted. | 无设备依赖（纯对象 API）；L4 | setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0048`（`SUB_NdkTsDrawing_STATE_0106`） Verify changing the dash phase shifts which pixels of the outline are painted. | 无设备依赖（纯对象 API） | setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0049`（`SUB_NdkTsDrawing_STATE_0107`） Verify a larger blur sigma spreads a filled block over more pixels. | 无设备依赖（纯对象 API） | setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0050`（`SUB_NdkTsDrawing_STATE_0108`） Verify a blend mode color filter replaces the brush color channels. | 无设备依赖（纯对象 API） | setColorFilter、createBlendModeColorFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0051`（`SUB_NdkTsDrawing_STATE_0109`） Verify a multiply blend darkens a block painted by another brush. | 无设备依赖（纯对象 API） | setBlendMode | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0052`（`SUB_NdkTsDrawing_STATE_0110`） Verify clearing the mask filter restores the sharp block ink count. | 无设备依赖（纯对象 API） | setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0053`（`SUB_NdkTsDrawing_STATE_0111`） Verify clearing the path effect turns a dashed pen back into a solid one. | 无设备依赖（纯对象 API） | setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0054`（`SUB_NdkTsDrawing_STATE_0112`） Verify a darken blend keeps the darker channel of both brushes. | 无设备依赖（纯对象 API）；L4 | setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0055`（`SUB_NdkTsDrawing_STATE_0113`） Verify a half transparent multiply layer keeps the page alpha and dims the block. | 无设备依赖（纯对象 API）；L4 | setAlpha、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0056`（`SUB_NdkTsDrawing_STATE_0114`） Verify a blur added on top of a dashed pen spreads ink beyond the dashes. | 无设备依赖（纯对象 API）；L4 | setPathEffect、createDashPathEffect、setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0054`（`SUB_NdkTsDrawing_STATE_0112`） Verify a darken blend keeps the darker channel of both brushes. | 无设备依赖（纯对象 API） | setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0055`（`SUB_NdkTsDrawing_STATE_0113`） Verify a half transparent multiply layer keeps the page alpha and dims the block. | 无设备依赖（纯对象 API） | setAlpha、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0056`（`SUB_NdkTsDrawing_STATE_0114`） Verify a blur added on top of a dashed pen spreads ink beyond the dashes. | 无设备依赖（纯对象 API） | setPathEffect、createDashPathEffect、setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0057`（`SUB_NdkTsDrawing_STATE_0115`） Verify a dashed pen keeps its dash pattern across two separate strokes. | 无设备依赖（纯对象 API） | setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0058`（`SUB_NdkTsDrawing_STATE_0116`） Verify a reset pen drops the dash and blur effects it carried before. | 无设备依赖（纯对象 API）；L4 | setPathEffect、createDashPathEffect、setMaskFilter、createBlurMaskFilter、reset | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0058`（`SUB_NdkTsDrawing_STATE_0116`） Verify a reset pen drops the dash and blur effects it carried before. | 无设备依赖（纯对象 API） | setPathEffect、createDashPathEffect、setMaskFilter、createBlurMaskFilter、reset | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0059`（`SUB_NdkTsDrawing_STATE_0117`） Verify a reset pen accepts a new width and paints with it. | 无设备依赖（纯对象 API） | reset、setStrokeWidth、setColor、setAntiAlias、getWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0060`（`SUB_NdkTsDrawing_STATE_0118`） Verify a reset path draws nothing until a new contour is added. | 无设备依赖（纯对象 API） | reset、addRect | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0061`（`SUB_NdkTsDrawing_STATE_0119`） Verify a reset matrix falls back to the identity values. | 无设备依赖（纯对象 API） | Matrix、setScale、getValue、reset、isIdentity | 4 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0062`（`SUB_NdkTsDrawing_STATE_0120`） Verify a reset brush paints correctly once color and alpha are assigned again. | 无设备依赖（纯对象 API） | reset、setColor、setAlpha、setAntiAlias、getAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0063`（`SUB_NdkTsDrawing_STATE_0121`） Verify a reset pen still stores the join and cap styles set after the reset. | 无设备依赖（纯对象 API） | reset、setJoinStyle、setCapStyle、setStrokeWidth、getJoinStyle | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0064`（`SUB_NdkTsDrawing_STATE_0122`） Verify a reset path drops the offset applied before the reset. | 无设备依赖（纯对象 API）；L4 | offset、reset、addRect | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0064`（`SUB_NdkTsDrawing_STATE_0122`） Verify a reset path drops the offset applied before the reset. | 无设备依赖（纯对象 API） | offset、reset、addRect | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0065`（`SUB_NdkTsDrawing_STATE_0123`） Verify two brushes on two canvases keep their own colors. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0066`（`SUB_NdkTsDrawing_STATE_0124`） Verify two pens of different widths stay independent of each other. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStatePaint0067`（`SUB_NdkTsDrawing_STATE_0125`） Verify one brush paints the same pixels on two separate canvases. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0068`（`SUB_NdkTsDrawing_STATE_0126`） Verify repainting a brush later does not change pixels already committed. | 无设备依赖（纯对象 API）；L4 | setAlpha、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testStatePaint0069`（`SUB_NdkTsDrawing_STATE_0127`） Verify repainting a pen later does not change the stroke already committed. | 无设备依赖（纯对象 API）；L4 | setStrokeWidth、setColor、setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0068`（`SUB_NdkTsDrawing_STATE_0126`） Verify repainting a brush later does not change pixels already committed. | 无设备依赖（纯对象 API） | setAlpha、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testStatePaint0069`（`SUB_NdkTsDrawing_STATE_0127`） Verify repainting a pen later does not change the stroke already committed. | 无设备依赖（纯对象 API） | setStrokeWidth、setColor、setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0001`（`SUB_NdkTsDrawing_STATE_0128`） Verify a font size written to a font is readable back and widens the measured text. | 无设备依赖（纯对象 API） | getSize、measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0002`（`SUB_NdkTsDrawing_STATE_0129`） Verify an empty string measures zero while a longer string measures more. | 无设备依赖（纯对象 API） | measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0003`（`SUB_NdkTsDrawing_STATE_0130`） Verify growing a font size after a measurement enlarges the next measurement. | 无设备依赖（纯对象 API） | measureText、setSize、getSize | 3 条断言全部通过 | 是 | 通过 |
@@ -3264,17 +3264,17 @@
 | `testStateResource0008`（`SUB_NdkTsDrawing_STATE_0135`） Verify a glyph path reports a positive width and paints ink once filled. | 无设备依赖（纯对象 API） | getTextPath、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0009`（`SUB_NdkTsDrawing_STATE_0136`） Verify a filled glyph path covers more pixels than the same path stroked. | 无设备依赖（纯对象 API） | getTextPath | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0010`（`SUB_NdkTsDrawing_STATE_0137`） Verify a blob built from a larger font paints more pixels than a small one. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0011`（`SUB_NdkTsDrawing_STATE_0138`） Verify resizing a font after a blob was built leaves that blob unchanged. | 无设备依赖（纯对象 API）；L4 | makeFromString、setSize、getSize | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0011`（`SUB_NdkTsDrawing_STATE_0138`） Verify resizing a font after a blob was built leaves that blob unchanged. | 无设备依赖（纯对象 API） | makeFromString、setSize、getSize | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0012`（`SUB_NdkTsDrawing_STATE_0139`） Verify two blobs built from one font render the same pixels. | 无设备依赖（纯对象 API） | makeFromString | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0013`（`SUB_NdkTsDrawing_STATE_0140`） Verify drawing one blob twice with a half transparent brush raises its coverage. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0013`（`SUB_NdkTsDrawing_STATE_0140`） Verify drawing one blob twice with a half transparent brush raises its coverage. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0014`（`SUB_NdkTsDrawing_STATE_0141`） Verify a canvas clip trims the painted part of a text blob. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0015`（`SUB_NdkTsDrawing_STATE_0142`） Verify recoloring the brush between two text draws colors only the second one. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0016`（`SUB_NdkTsDrawing_STATE_0143`） Verify two colored blobs stay in separate color classes on one canvas. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0017`（`SUB_NdkTsDrawing_STATE_0144`） Verify drawing one blob at two positions paints two separated clusters. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0018`（`SUB_NdkTsDrawing_STATE_0145`） Verify an empty text blob paints nothing while a glyph blob paints ink. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0019`（`SUB_NdkTsDrawing_STATE_0146`） Verify a blob built from positioned text lands near the requested point. | 无设备依赖（纯对象 API）；L4 | makeFromPosText | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0018`（`SUB_NdkTsDrawing_STATE_0145`） Verify empty text yields no blob while a glyph blob paints ink. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0019`（`SUB_NdkTsDrawing_STATE_0146`） Verify a blob built from positioned text lands near the requested point. | 无设备依赖（纯对象 API） | makeFromPosText | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0020`（`SUB_NdkTsDrawing_STATE_0147`） Verify a half width clip removes the right side of a text blob. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0021`（`SUB_NdkTsDrawing_STATE_0148`） Verify a semi transparent text draw keeps a peak alpha below the full value. | 无设备依赖（纯对象 API）；L4 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0021`（`SUB_NdkTsDrawing_STATE_0148`） Verify a semi transparent text draw keeps a peak alpha below the full value. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0022`（`SUB_NdkTsDrawing_STATE_0149`） Verify a text path stroked by a pen keeps the pen color on its outline. | 无设备依赖（纯对象 API） | getTextPath、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0023`（`SUB_NdkTsDrawing_STATE_0150`） Verify the later of two overlapping text draws owns the shared pixels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0024`（`SUB_NdkTsDrawing_STATE_0151`） Verify a translated canvas moves the text blob with the origin shift. | 无设备依赖（纯对象 API） | translate | 3 条断言全部通过 | 是 | 通过 |
@@ -3286,12 +3286,12 @@
 | `testStateResource0030`（`SUB_NdkTsDrawing_STATE_0157`） Verify closing a polyline lengthens its measured length. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0031`（`SUB_NdkTsDrawing_STATE_0158`） Verify path containment answers inside and outside points correctly. | 无设备依赖（纯对象 API） | contains | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0032`（`SUB_NdkTsDrawing_STATE_0159`） Verify the boundary path of a region reports the region edges. | 无设备依赖（纯对象 API） | Region、getBoundaryPath、getBounds、isEmpty | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0033`（`SUB_NdkTsDrawing_STATE_0160`） Verify transforming a path with a scale matrix doubles its bounds. | 无设备依赖（纯对象 API）；L4 | Matrix、setScale、transform、getBounds | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0033`（`SUB_NdkTsDrawing_STATE_0160`） Verify transforming a path with a scale matrix doubles its bounds. | 无设备依赖（纯对象 API） | Matrix、setScale、transform、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0034`（`SUB_NdkTsDrawing_STATE_0161`） Verify offsetting a path shifts every reported edge. | 无设备依赖（纯对象 API） | offset、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0035`（`SUB_NdkTsDrawing_STATE_0162`） Verify offsetting one path leaves a second identically built path untouched. | 无设备依赖（纯对象 API） | offset、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0036`（`SUB_NdkTsDrawing_STATE_0163`） Verify a reset path drops its fill type and contour length. | 无设备依赖（纯对象 API） | setFillType、reset、isEmpty、getFillType、getLength | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0037`（`SUB_NdkTsDrawing_STATE_0164`） Verify even odd fill leaves a hole where winding fill keeps the overlap. | 无设备依赖（纯对象 API）；L4 | Path、addRect、setFillType | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0038`（`SUB_NdkTsDrawing_STATE_0165`） Verify stroking ignores the inverse fill type and paints only the outline. | 无设备依赖（纯对象 API）；L4 | setFillType | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0037`（`SUB_NdkTsDrawing_STATE_0164`） Verify even odd fill leaves a hole where winding fill keeps the overlap. | 无设备依赖（纯对象 API） | Path、addRect、setFillType | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0038`（`SUB_NdkTsDrawing_STATE_0165`） Verify stroking ignores the inverse fill type and paints only the outline. | 无设备依赖（纯对象 API） | setFillType | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0039`（`SUB_NdkTsDrawing_STATE_0166`） Verify changing the fill type later does not repaint committed pixels. | 无设备依赖（纯对象 API） | setFillType | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0040`（`SUB_NdkTsDrawing_STATE_0167`） Verify a region built from setRect reports the assigned edges. | 无设备依赖（纯对象 API） | Region、isEmpty、setRect、getBounds | 4 条断言全部通过 | 是 | 通过 |
 | `testStateResource0041`（`SUB_NdkTsDrawing_STATE_0168`） Verify point containment is true inside the region and false outside it. | 无设备依赖（纯对象 API） | Region、isPointContained | 3 条断言全部通过 | 是 | 通过 |
@@ -3312,7 +3312,7 @@
 | `testStateResource0056`（`SUB_NdkTsDrawing_STATE_0183`） Verify the rectangle helper answers point containment against the edges. | 无设备依赖（纯对象 API） | contains | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0057`（`SUB_NdkTsDrawing_STATE_0184`） Verify rounding the corners removes pixels from a filled block. | 无设备依赖（纯对象 API） | Path、addRoundRect、RoundRect | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0058`（`SUB_NdkTsDrawing_STATE_0185`） Verify a zero radius round rectangle matches a plain rectangle fill. | 无设备依赖（纯对象 API） | Path、addRoundRect、RoundRect | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0059`（`SUB_NdkTsDrawing_STATE_0186`） Verify a gradient shader assigned to a brush blends from warm to cool. | 无设备依赖（纯对象 API）；L4 | Brush、setShaderEffect、createLinearGradient | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0059`（`SUB_NdkTsDrawing_STATE_0186`） Verify a gradient shader assigned to a brush blends from warm to cool. | 无设备依赖（纯对象 API） | Brush、setShaderEffect、createLinearGradient | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0060`（`SUB_NdkTsDrawing_STATE_0187`） Verify clearing the shader falls back to the brush color. | 无设备依赖（纯对象 API） | Brush、setShaderEffect、createLinearGradient、setColor、setAntiAlias | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0061`（`SUB_NdkTsDrawing_STATE_0188`） Verify the rectangle helper compares a whole rectangle against another. | 无设备依赖（纯对象 API） | contains | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0062`（`SUB_NdkTsDrawing_STATE_0189`） Verify resizing one font leaves a second font and its measurements alone. | 无设备依赖（纯对象 API） | setSize、getSize、measureText | 3 条断言全部通过 | 是 | 通过 |
@@ -3320,12 +3320,12 @@
 | `testStateResource0064`（`SUB_NdkTsDrawing_STATE_0191`） Verify a region operation on one region leaves a second region untouched. | 无设备依赖（纯对象 API） | Region、op、getBounds、isPointContained | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0065`（`SUB_NdkTsDrawing_STATE_0192`） Verify translating one matrix leaves a second matrix at the identity. | 无设备依赖（纯对象 API） | Matrix、setTranslation、mapPoints、isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0066`（`SUB_NdkTsDrawing_STATE_0193`） Verify a reset matrix drops the translation it carried before. | 无设备依赖（纯对象 API） | Matrix、setTranslation、mapPoints、reset | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0067`（`SUB_NdkTsDrawing_STATE_0194`） Verify an image filter added to a brush does not repaint committed pixels. | 无设备依赖（纯对象 API）；L4 | setImageFilter、createBlurImageFilter、getAlpha | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0067`（`SUB_NdkTsDrawing_STATE_0194`） Verify an image filter added to a brush does not repaint committed pixels. | 无设备依赖（纯对象 API） | setImageFilter、createBlurImageFilter、getAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0068`（`SUB_NdkTsDrawing_STATE_0195`） Verify clearing the brush image filter restores the exact solid color. | 无设备依赖（纯对象 API） | setImageFilter、createBlurImageFilter、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0069`（`SUB_NdkTsDrawing_STATE_0196`） Verify an image filter added to a pen does not repaint the committed stroke. | 无设备依赖（纯对象 API）；L4 | setImageFilter、createBlurImageFilter、getWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0069`（`SUB_NdkTsDrawing_STATE_0196`） Verify an image filter added to a pen does not repaint the committed stroke. | 无设备依赖（纯对象 API） | setImageFilter、createBlurImageFilter、getWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0070`（`SUB_NdkTsDrawing_STATE_0197`） Verify one blob drawn with two brushes takes each brush color. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0071`（`SUB_NdkTsDrawing_STATE_0198`） Verify a clip on one canvas leaves a second canvas unclipped. | 无设备依赖（纯对象 API） | clipRect | 3 条断言全部通过 | 是 | 通过 |
-| `testStateResource0072`（`SUB_NdkTsDrawing_STATE_0199`） Verify a gradient brush capped by alpha keeps both the blend and the alpha cap. | 无设备依赖（纯对象 API）；L4 | Brush、setShaderEffect、createLinearGradient、setAlpha | 3 条断言全部通过 | 是 | 通过 |
+| `testStateResource0072`（`SUB_NdkTsDrawing_STATE_0199`） Verify a gradient brush capped by alpha keeps both the blend and the alpha cap. | 无设备依赖（纯对象 API） | Brush、setShaderEffect、createLinearGradient、setAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testStateResource0073`（`SUB_NdkTsDrawing_STATE_0200`） Verify a reset brush accepts a new color before a text draw. | 无设备依赖（纯对象 API） | reset、setColor、setAntiAlias | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0001`（`SUB_NdkTsDrawing_DEEP_0001`） Verify a rect covering the canvas fills every pixel with opaque red. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0002`（`SUB_NdkTsDrawing_DEEP_0002`） Verify an inset rect paints exactly its own area. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
@@ -3352,7 +3352,7 @@
 | `testCanvasDeep0023`（`SUB_NdkTsDrawing_DEEP_0023`） Verify oversized radii are clamped to a pill shape. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、RoundRect、drawRoundRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0024`（`SUB_NdkTsDrawing_DEEP_0024`） Verify the corner radii of a round rect are readable before drawing. | 200 × 200 离屏画布 | Brush、setColor、RoundRect、getCorner、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0025`（`SUB_NdkTsDrawing_DEEP_0025`） Verify a nested round rect leaves the inner area empty. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、RoundRect、drawNestedRoundRect | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0026`（`SUB_NdkTsDrawing_DEEP_0026`） Verify a nested round rect made of identical shapes paints nothing. | 200 × 200 离屏画布；L4 | Brush、setColor、attachBrush、RoundRect、drawNestedRoundRect | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0026`（`SUB_NdkTsDrawing_DEEP_0026`） Verify a nested round rect made of identical shapes paints nothing. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、RoundRect、drawNestedRoundRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0027`（`SUB_NdkTsDrawing_DEEP_0027`） Verify shifting a round rect with offset paints a second copy. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、RoundRect、drawRoundRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0028`（`SUB_NdkTsDrawing_DEEP_0028`） Verify a round rect with one pixel radii nearly fills its box. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、RoundRect、drawRoundRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0029`（`SUB_NdkTsDrawing_DEEP_0029`） Verify a circle of radius fifty covers a disc. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawCircle、detachBrush | 3 条断言全部通过 | 是 | 通过 |
@@ -3376,7 +3376,7 @@
 | `testCanvasDeep0047`（`SUB_NdkTsDrawing_DEEP_0047`） Verify four points in lines mode paint two segments. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0048`（`SUB_NdkTsDrawing_DEEP_0048`） Verify three points in polygon mode paint a filled triangle. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawPoints、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0049`（`SUB_NdkTsDrawing_DEEP_0049`） Verify four points in polygon mode paint a square. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawPoints、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0050`（`SUB_NdkTsDrawing_DEEP_0050`） Verify an empty point array paints nothing. | 200 × 200 离屏画布 | Pen、setColor、attachPen、drawPoints、detachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0050`（`SUB_NdkTsDrawing_DEEP_0050`） Verify an empty point array is rejected and paints nothing. | 200 × 200 离屏画布 | Pen、setColor、attachPen、drawPoints、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0051`（`SUB_NdkTsDrawing_DEEP_0051`） Verify one point in point mode paints one dot. | 200 × 200 离屏画布 | Pen、setColor、attachPen、drawPoints、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0052`（`SUB_NdkTsDrawing_DEEP_0052`） Verify duplicated points paint a single dot. | 200 × 200 离屏画布 | Pen、setColor、attachPen、drawPoints、detachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0053`（`SUB_NdkTsDrawing_DEEP_0053`） Verify points outside the canvas paint nothing. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawPoints | 3 条断言全部通过 | 是 | 通过 |
@@ -3396,7 +3396,7 @@
 | `testCanvasDeep0067`（`SUB_NdkTsDrawing_DEEP_0067`） Verify repeated identical draws produce identical buffers. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0068`（`SUB_NdkTsDrawing_DEEP_0068`） Verify different colors produce different buffers. | 200 × 200 离屏画布 | clear | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0069`（`SUB_NdkTsDrawing_DEEP_0069`） Verify ten small rects paint one thousand pixels. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0070`（`SUB_NdkTsDrawing_DEEP_0070`） Verify a source blend with a transparent color punches a hole. | 200 × 200 离屏画布；L4 | clear、Brush、setBlendMode、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0070`（`SUB_NdkTsDrawing_DEEP_0070`） Verify a source blend with a transparent color punches a hole. | 200 × 200 离屏画布 | clear、Brush、setBlendMode、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0071`（`SUB_NdkTsDrawing_DEEP_0071`） Verify a quarter arc paints a small piece of the disc. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArc、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0072`（`SUB_NdkTsDrawing_DEEP_0072`） Verify a half arc paints half of the disc. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArc、detachBrush | 4 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0073`（`SUB_NdkTsDrawing_DEEP_0073`） Verify a full arc equals a full circle. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArc、detachBrush | 4 条断言全部通过 | 是 | 通过 |
@@ -3410,7 +3410,7 @@
 | `testCanvasDeep0081`（`SUB_NdkTsDrawing_DEEP_0081`） Verify an arc centred on the origin paints a small wedge. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArc、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0082`（`SUB_NdkTsDrawing_DEEP_0082`） Verify an arc from ninety to one eighty paints the lower left. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArc、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0083`（`SUB_NdkTsDrawing_DEEP_0083`） Verify four quarter arcs paint a full disc. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArc、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0084`（`SUB_NdkTsDrawing_DEEP_0084`） Verify a three hundred forty degree arc falls short of a full disc. | 200 × 200 离屏画布；L4 | Brush、setColor、attachBrush、drawArc、detachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0084`（`SUB_NdkTsDrawing_DEEP_0084`） Verify a three hundred forty degree arc falls short of a full disc. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArc、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0085`（`SUB_NdkTsDrawing_DEEP_0085`） Verify the pie mode quarter arc fills a wedge. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArcWithCenter、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0086`（`SUB_NdkTsDrawing_DEEP_0086`） Verify the chord mode quarter arc fills less than the pie. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArcWithCenter、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0087`（`SUB_NdkTsDrawing_DEEP_0087`） Verify the pie mode with zero sweep paints nothing. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArcWithCenter、detachBrush | 3 条断言全部通过 | 是 | 通过 |
@@ -3470,7 +3470,7 @@
 | `testCanvasDeep0141`（`SUB_NdkTsDrawing_DEEP_0141`） Verify a semi transparent background keeps its alpha. | 200 × 200 离屏画布 | Brush、setColor、drawBackground | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0142`（`SUB_NdkTsDrawing_DEEP_0142`） Verify drawColor over existing content blends. | 200 × 200 离屏画布 | clear、drawColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0143`（`SUB_NdkTsDrawing_DEEP_0143`） Verify a source blend replaces the existing content. | 200 × 200 离屏画布 | clear、drawColor | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0144`（`SUB_NdkTsDrawing_DEEP_0144`） Verify an opaque canvas reports itself opaque. | 200 × 200 离屏画布 | clear、isOpaque | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0144`（`SUB_NdkTsDrawing_DEEP_0144`） Verify a fully painted offscreen canvas still reports isOpaque as false. | 200 × 200 离屏画布 | clear、isOpaque | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0145`（`SUB_NdkTsDrawing_DEEP_0145`） Verify a transparent canvas does not report itself opaque. | 200 × 200 离屏画布 | clear、isOpaque | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0146`（`SUB_NdkTsDrawing_DEEP_0146`） Verify a clip rect trims a full canvas fill to its own box. | 200 × 200 离屏画布 | clipRect、Brush、setColor、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0147`（`SUB_NdkTsDrawing_DEEP_0147`） Verify restoring a clip brings the full canvas back. | 200 × 200 离屏画布 | Brush、setColor、save、clipRect、attachBrush | 3 条断言全部通过 | 是 | 通过 |
@@ -3531,19 +3531,19 @@
 | `testCanvasDeep0202`（`SUB_NdkTsDrawing_DEEP_0202`） Verify a rotation about the centre turns a square into a diamond. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、rotate、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0203`（`SUB_NdkTsDrawing_DEEP_0203`） Verify a skew shifts the painted rows without resizing them. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、skew、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0204`（`SUB_NdkTsDrawing_DEEP_0204`） Verify a clip inside save does not outlive the restore. | 200 × 200 离屏画布 | Brush、setColor、save、clipRect、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0205`（`SUB_NdkTsDrawing_DEEP_0205`） Verify two difference clips leave two separate holes. | 200 × 200 离屏画布；L4 | clipRegion、Region、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0205`（`SUB_NdkTsDrawing_DEEP_0205`） Verify two difference clips leave two separate holes. | 200 × 200 离屏画布 | clipRegion、Region、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0206`（`SUB_NdkTsDrawing_DEEP_0206`） Verify an intersect clip region narrows the default clip. | 200 × 200 离屏画布 | clipRegion、Region、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0207`（`SUB_NdkTsDrawing_DEEP_0207`） Verify a round rect clip also limits a stroked border. | 200 × 200 离屏画布 | clipRoundRect、RoundRect、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0208`（`SUB_NdkTsDrawing_DEEP_0208`） Verify a half transparent text blob keeps its soft edges. | 200 × 200 离屏画布 | Font、setSize、makeFromString、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0209`（`SUB_NdkTsDrawing_DEEP_0209`） Verify an oval and a rect in one path paint both areas. | 200 × 200 离屏画布 | Path、addOval、addRect、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0210`（`SUB_NdkTsDrawing_DEEP_0210`） Verify moving a circle by offset paints the shifted disc. | 200 × 200 离屏画布 | Path、addCircle、offset、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0211`（`SUB_NdkTsDrawing_DEEP_0211`） Verify a pie arc paints a bigger wedge than a chord arc. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawArcWithCenter、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0212`（`SUB_NdkTsDrawing_DEEP_0212`） Verify a clip inside a save layer is dropped with the layer. | 200 × 200 离屏画布；L4 | saveLayer、clipRect、restore、getLocalClipBounds、isClipEmpty | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0212`（`SUB_NdkTsDrawing_DEEP_0212`） Verify a clip inside a save layer is dropped with the layer. | 200 × 200 离屏画布 | saveLayer、clipRect、restore、getLocalClipBounds、isClipEmpty | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0213`（`SUB_NdkTsDrawing_DEEP_0213`） Verify setMatrix with the identity keeps the drawing unshifted. | 200 × 200 离屏画布 | setMatrix、Matrix、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0214`（`SUB_NdkTsDrawing_DEEP_0214`） Verify a concatenated rotation matrix turns the box. | 200 × 200 离屏画布 | Matrix、setRotation、concatMatrix、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0215`（`SUB_NdkTsDrawing_DEEP_0215`） Verify a region built from setRect fills the new rectangle. | 200 × 200 离屏画布 | Region、setRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0216`（`SUB_NdkTsDrawing_DEEP_0216`） Verify a clip still applies to vertices painting. | 200 × 200 离屏画布 | clipRect、drawVertices、getLocalClipBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0217`（`SUB_NdkTsDrawing_DEEP_0217`） Verify a full pipeline combines clip, path and pen safely. | 200 × 200 离屏画布；L4 | save、clipRect、translate、Path、addRect | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0217`（`SUB_NdkTsDrawing_DEEP_0217`） Verify a full pipeline combines clip, path and pen safely. | 200 × 200 离屏画布 | save、clipRect、translate、Path、addRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0218`（`SUB_NdkTsDrawing_DEEP_0218`） Verify a wide pen outlines a rect as a ring. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0219`（`SUB_NdkTsDrawing_DEEP_0219`） Verify a pen stroke paints over an attached brush fill. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0220`（`SUB_NdkTsDrawing_DEEP_0220`） Verify one save layer matches a direct draw pixel for pixel. | 200 × 200 离屏画布 | Brush、setColor、saveLayer、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
@@ -3592,7 +3592,7 @@
 | `testCanvasDeep0263`（`SUB_NdkTsDrawing_DEEP_0263`） Verify a path union of two bars paints both bars. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0264`（`SUB_NdkTsDrawing_DEEP_0264`） Verify a path intersect keeps only the overlap box. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0265`（`SUB_NdkTsDrawing_DEEP_0265`） Verify a path difference removes the right operand. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0266`（`SUB_NdkTsDrawing_DEEP_0266`） Verify a path xor drops the shared overlap twice. | 200 × 200 离屏画布；L4 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0266`（`SUB_NdkTsDrawing_DEEP_0266`） Verify a path xor drops the shared overlap twice. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0267`（`SUB_NdkTsDrawing_DEEP_0267`） Verify EVEN_ODD fill type turns nested rects into a ring. | 200 × 200 离屏画布 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0268`（`SUB_NdkTsDrawing_DEEP_0268`） Verify WINDING fill type fills nested rects solid. | 200 × 200 离屏画布 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0269`（`SUB_NdkTsDrawing_DEEP_0269`） Verify a closed polygon fills a triangle. | 200 × 200 离屏画布 | Path、addPolygon、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
@@ -3608,7 +3608,7 @@
 | `testCanvasDeep0279`（`SUB_NdkTsDrawing_DEEP_0279`） Verify drawImageRectWithSrc magnifies a source window. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0280`（`SUB_NdkTsDrawing_DEEP_0280`） Verify a linear gradient brush fades across the canvas. | 200 × 200 离屏画布 | createLinearGradient、Brush、setShaderEffect、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0281`（`SUB_NdkTsDrawing_DEEP_0281`） Verify a radial gradient keeps its centre colour focal. | 200 × 200 离屏画布 | createRadialGradient、Brush、setShaderEffect、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0282`（`SUB_NdkTsDrawing_DEEP_0282`） Verify a sweep gradient varies its colour around the centre. | 200 × 200 离屏画布；L4 | createSweepGradient、Brush、setShaderEffect、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0282`（`SUB_NdkTsDrawing_DEEP_0282`） Verify a sweep gradient varies its colour around the centre. | 200 × 200 离屏画布 | createSweepGradient、Brush、setShaderEffect、attachBrush、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0283`（`SUB_NdkTsDrawing_DEEP_0283`） Verify a blend colour filter repaints the brush colour. | 200 × 200 离屏画布 | createBlendModeColorFilter、Brush、setColor、setColorFilter、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0284`（`SUB_NdkTsDrawing_DEEP_0284`） Verify a blur mask filter spreads the filled edges. | 200 × 200 离屏画布 | Brush、setColor、setMaskFilter、createBlurMaskFilter、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0285`（`SUB_NdkTsDrawing_DEEP_0285`） Verify a blurred pen stroke widens the painted band. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
@@ -3624,9 +3624,9 @@
 | `testCanvasDeep0295`（`SUB_NdkTsDrawing_DEEP_0295`） Verify nested save and scale restore the original frame. | 200 × 200 离屏画布 | getSaveCount、save、translate、scale、restore | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0296`（`SUB_NdkTsDrawing_DEEP_0296`） Verify a translation preserves the painted area of a rect. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0297`（`SUB_NdkTsDrawing_DEEP_0297`） Verify a brush fill survives detaching the brush. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0298`（`SUB_NdkTsDrawing_DEEP_0298`） Verify a full save clip fill and stroke pipeline lands inside the clip. | 200 × 200 离屏画布；L4 | save、clipRect、translate、Brush、setColor | 4 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0298`（`SUB_NdkTsDrawing_DEEP_0298`） Verify a full save clip fill and stroke pipeline lands inside the clip. | 200 × 200 离屏画布 | save、clipRect、translate、Brush、setColor | 4 条断言全部通过 | 是 | 通过 |
 | `testCanvasDeep0299`（`SUB_NdkTsDrawing_DEEP_0299`） Verify a save layer keeps a stroked outline inside its bounds. | 200 × 200 离屏画布 | getSaveCount、saveLayer、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasDeep0300`（`SUB_NdkTsDrawing_DEEP_0300`） Verify a rotated clip keeps its local coordinates. | 200 × 200 离屏画布；L4 | save、rotate、clipRect、getLocalClipBounds、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasDeep0300`（`SUB_NdkTsDrawing_DEEP_0300`） Verify a rotated clip keeps its local coordinates. | 200 × 200 离屏画布 | save、rotate、clipRect、getLocalClipBounds、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0301`（`SUB_NdkTsDrawing_DEEP_0301`） Verify a filled rect path covers exactly one hundred square pixels. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0302`（`SUB_NdkTsDrawing_DEEP_0302`） Verify a rect path crossing the right edge is clipped to the canvas. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0303`（`SUB_NdkTsDrawing_DEEP_0303`） Verify a rect path with negative edges keeps only the visible quarter. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
@@ -3645,7 +3645,7 @@
 | `testPathDeep0316`（`SUB_NdkTsDrawing_DEEP_0316`） Verify a union of two rect paths fills their combined area. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0317`（`SUB_NdkTsDrawing_DEEP_0317`） Verify an intersection of two rect paths fills only the overlap. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0318`（`SUB_NdkTsDrawing_DEEP_0318`） Verify a difference of two rect paths removes the overlap. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0319`（`SUB_NdkTsDrawing_DEEP_0319`） Verify a reverse difference keeps only the right operand tail. | 200 × 200 离屏画布；L4 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0319`（`SUB_NdkTsDrawing_DEEP_0319`） Verify a reverse difference keeps only the right operand tail. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0320`（`SUB_NdkTsDrawing_DEEP_0320`） Verify contains agrees with the painted pixels inside a rect path. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0321`（`SUB_NdkTsDrawing_DEEP_0321`） Verify contains rejects a point outside the rect path. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0322`（`SUB_NdkTsDrawing_DEEP_0322`） Verify contains follows the disc of a circle path. | 200 × 200 离屏画布 | Path、addCircle、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
@@ -3662,117 +3662,117 @@
 | `testPathDeep0333`（`SUB_NdkTsDrawing_DEEP_0333`） Verify rewind keeps a path usable for the next contour. | 200 × 200 离屏画布 | Path、addRect、rewind、addCircle、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0334`（`SUB_NdkTsDrawing_DEEP_0334`） Verify addPath with a matrix shifts only the appended contour. | 200 × 200 离屏画布 | Path、addRect、Matrix、setTranslation、addPath | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0335`（`SUB_NdkTsDrawing_DEEP_0335`） Verify nested circles stay solid under the winding rule. | 200 × 200 离屏画布 | Path、addCircle、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0336`（`SUB_NdkTsDrawing_DEEP_0336`） Verify inverse winding fills everything outside the rect contour. | 200 × 200 离屏画布；L4 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0337`（`SUB_NdkTsDrawing_DEEP_0337`） Verify inverse even odd leaves the inner rect transparent. | 200 × 200 离屏画布；L4 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0336`（`SUB_NdkTsDrawing_DEEP_0336`） Verify inverse winding fills everything outside the rect contour. | 200 × 200 离屏画布 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0337`（`SUB_NdkTsDrawing_DEEP_0337`） Verify inverse even odd leaves the inner rect transparent. | 200 × 200 离屏画布 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0338`（`SUB_NdkTsDrawing_DEEP_0338`） Verify a circle path reports winding fill and non rect contours. | 无设备依赖（纯对象 API） | Path、addCircle、getFillType、isRect、approximate | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0339`（`SUB_NdkTsDrawing_DEEP_0339`） Verify the measured length of a rect path matches its perimeter. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0340`（`SUB_NdkTsDrawing_DEEP_0340`） Verify isRect reports the contour bounds of a painted rect path. | 200 × 200 离屏画布 | Path、addRect、isRect、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0341`（`SUB_NdkTsDrawing_DEEP_0341`） Verify a tangent arc stroke starts at the current point. | 200 × 200 离屏画布；L4 | Path、moveTo、arcTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0341`（`SUB_NdkTsDrawing_DEEP_0341`） Verify a tangent arc stroke starts at the current point. | 200 × 200 离屏画布 | Path、moveTo、arcTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0342`（`SUB_NdkTsDrawing_DEEP_0342`） Verify a quadratic curve stroke passes through its apex. | 200 × 200 离屏画布 | Path、moveTo、quadTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0343`（`SUB_NdkTsDrawing_DEEP_0343`） Verify a negative sweep arc keeps the contour in the upper half. | 200 × 200 离屏画布 | Path、addArc、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0344`（`SUB_NdkTsDrawing_DEEP_0344`） Verify a large corner radius rounds a canvas rect path. | 200 × 200 离屏画布 | Path、addRoundRect、RoundRect、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0345`（`SUB_NdkTsDrawing_DEEP_0345`） Verify a scale matrix enlarges a rect path in place. | 200 × 200 离屏画布 | Path、addRect、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0346`（`SUB_NdkTsDrawing_DEEP_0346`） Verify addPath without a matrix keeps the contour position. | 200 × 200 离屏画布 | Path、addRect、addPath、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0347`（`SUB_NdkTsDrawing_DEEP_0347`） Verify a circle and oval on the same box cancel under even odd. | 200 × 200 离屏画布；L4 | Path、addCircle、addOval、setFillType、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0347`（`SUB_NdkTsDrawing_DEEP_0347`） Verify a circle and oval on the same box cancel under even odd. | 200 × 200 离屏画布 | Path、addCircle、addOval、setFillType、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0348`（`SUB_NdkTsDrawing_DEEP_0348`） Verify a closed manual triangle paints its interior. | 200 × 200 离屏画布 | Path、moveTo、lineTo、close、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0349`（`SUB_NdkTsDrawing_DEEP_0349`） Verify a cubic curve stroke spans the whole width. | 200 × 200 离屏画布；L4 | Path、moveTo、cubicTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0349`（`SUB_NdkTsDrawing_DEEP_0349`） Verify a cubic curve stroke spans the whole width. | 200 × 200 离屏画布 | Path、moveTo、cubicTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0350`（`SUB_NdkTsDrawing_DEEP_0350`） Verify a sweep beyond a full turn clamps to one ellipse. | 200 × 200 离屏画布 | Path、addArc、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0351`（`SUB_NdkTsDrawing_DEEP_0351`） Verify rLineTo paints the same band as the absolute lineTo chain. | 200 × 200 离屏画布 | Path、moveTo、lineTo、rLineTo、Pen | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0352`（`SUB_NdkTsDrawing_DEEP_0352`） Verify rMoveTo opens a relative second contour at the expected origin. | 200 × 200 离屏画布 | Path、addRect、rMoveTo、rLineTo、close | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0353`（`SUB_NdkTsDrawing_DEEP_0353`） Verify rQuadTo matches the absolute quadTo curve pixel for pixel. | 200 × 200 离屏画布 | Path、moveTo、quadTo、rQuadTo、Pen | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0354`（`SUB_NdkTsDrawing_DEEP_0354`） Verify rCubicTo matches the absolute cubic curve pixel for pixel. | 200 × 200 离屏画布 | Path、moveTo、cubicTo、rCubicTo、Pen | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0355`（`SUB_NdkTsDrawing_DEEP_0355`） Verify rConicTo matches the absolute conic curve pixel for pixel. | 200 × 200 离屏画布；L4 | Path、moveTo、conicTo、rConicTo、Pen | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0355`（`SUB_NdkTsDrawing_DEEP_0355`） Verify rConicTo matches the absolute conic curve pixel for pixel. | 200 × 200 离屏画布 | Path、moveTo、conicTo、rConicTo、Pen | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0356`（`SUB_NdkTsDrawing_DEEP_0356`） Verify a relative contour fills the same box as an added rect. | 200 × 200 离屏画布 | Path、rMoveTo、rLineTo、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0357`（`SUB_NdkTsDrawing_DEEP_0357`） Verify a relative contour continues from the tail of an added rect. | 200 × 200 离屏画布 | Path、addRect、rMoveTo、rLineTo、Pen | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0358`（`SUB_NdkTsDrawing_DEEP_0358`） Verify a mixed relative inner ring hollows out the outer rect. | 200 × 200 离屏画布；L4 | Path、addRect、rMoveTo、rLineTo、close | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0359`（`SUB_NdkTsDrawing_DEEP_0359`） Verify a conic with unit weight fills close to the quad curve. | 200 × 200 离屏画布；L4 | Path、moveTo、conicTo、close、quadTo | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0358`（`SUB_NdkTsDrawing_DEEP_0358`） Verify a mixed relative inner ring hollows out the outer rect. | 200 × 200 离屏画布 | Path、addRect、rMoveTo、rLineTo、close | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0359`（`SUB_NdkTsDrawing_DEEP_0359`） Verify a conic with unit weight fills close to the quad curve. | 200 × 200 离屏画布 | Path、moveTo、conicTo、close、quadTo | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0360`（`SUB_NdkTsDrawing_DEEP_0360`） Verify a half weight conic bends the chord into a filled lens. | 200 × 200 离屏画布 | Path、moveTo、conicTo、close、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0361`（`SUB_NdkTsDrawing_DEEP_0361`） Verify two conic commands record both weights in order. | 无设备依赖（纯对象 API） | Path、moveTo、conicTo、getConicWeightData、round | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0362`（`SUB_NdkTsDrawing_DEEP_0362`） Verify a conic closed triangle paints a filled wedge. | 200 × 200 离屏画布 | Path、moveTo、conicTo、close、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0363`（`SUB_NdkTsDrawing_DEEP_0363`） Verify a zero weight conic degenerates into a flat segment. | 200 × 200 离屏画布；L4 | Path、moveTo、conicTo、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0363`（`SUB_NdkTsDrawing_DEEP_0363`） Verify a zero weight conic records no weight and paints nothing while a normal conic paints ink. | 200 × 200 离屏画布 | Path、moveTo、conicTo、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0364`（`SUB_NdkTsDrawing_DEEP_0364`） Verify setLastPoint moves the tail before a stroked lineTo. | 200 × 200 离屏画布 | Path、moveTo、setLastPoint、lineTo、Pen | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0365`（`SUB_NdkTsDrawing_DEEP_0365`） Verify getLastPoint reports the tail after a lineTo command. | 200 × 200 离屏画布 | Path、moveTo、lineTo、getLastPoint、Pen | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0366`（`SUB_NdkTsDrawing_DEEP_0366`） Verify setLastPoint on an empty path starts a fresh contour. | 200 × 200 离屏画布 | Path、setLastPoint、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0367`（`SUB_NdkTsDrawing_DEEP_0367`） Verify setLastPoint after close restarts from the new tail. | 200 × 200 离屏画布；L4 | Path、addRect、close、setLastPoint、lineTo | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0367`（`SUB_NdkTsDrawing_DEEP_0367`） Verify setLastPoint after close restarts from the new tail. | 200 × 200 离屏画布 | Path、addRect、close、setLastPoint、lineTo | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0368`（`SUB_NdkTsDrawing_DEEP_0368`） Verify isClosed flips only after an explicit close command. | 200 × 200 离屏画布 | Path、moveTo、lineTo、isClosed、close | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0369`（`SUB_NdkTsDrawing_DEEP_0369`） Verify a repeated close leaves the verb table unchanged. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、close、getVerbData | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0369`（`SUB_NdkTsDrawing_DEEP_0369`） Verify a repeated close leaves the verb table unchanged. | 200 × 200 离屏画布 | Path、moveTo、lineTo、close、getVerbData | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0370`（`SUB_NdkTsDrawing_DEEP_0370`） Verify an added rect is reported as a closed contour. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0371`（`SUB_NdkTsDrawing_DEEP_0371`） Verify getSegment extracts the top edge as a strokable sub path. | 200 × 200 离屏画布 | Path、addRect、getSegment、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0372`（`SUB_NdkTsDrawing_DEEP_0372`） Verify startWithMoveTo only adds one leading move verb. | 200 × 200 离屏画布 | Path、addRect、getSegment、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0373`（`SUB_NdkTsDrawing_DEEP_0373`） Verify a reversed segment range strokes the same contour. | 200 × 200 离屏画布；L4 | Path、addRect、getSegment、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0374`（`SUB_NdkTsDrawing_DEEP_0374`） Verify a forced closed segment turns a corner of the rect. | 200 × 200 离屏画布；L4 | Path、addRect、getSegment、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0375`（`SUB_NdkTsDrawing_DEEP_0375`） Verify a segment appended to a filled path keeps both contours. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、addRect、getSegment | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0373`（`SUB_NdkTsDrawing_DEEP_0373`） Verify a reversed segment range strokes the same contour. | 200 × 200 离屏画布 | Path、addRect、getSegment、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0374`（`SUB_NdkTsDrawing_DEEP_0374`） Verify a forced closed segment turns a corner of the rect. | 200 × 200 离屏画布 | Path、addRect、getSegment、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0375`（`SUB_NdkTsDrawing_DEEP_0375`） Verify a segment appended to a filled path keeps both contours. | 200 × 200 离屏画布 | Path、moveTo、lineTo、addRect、getSegment | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0376`（`SUB_NdkTsDrawing_DEEP_0376`） Verify an out of range segment start reports failure. | 无设备依赖（纯对象 API） | Path、addRect、getSegment、isEmpty、getLength | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0377`（`SUB_NdkTsDrawing_DEEP_0377`） Verify the position matrix at distance zero sits on the path start. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Matrix、getMatrix | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0378`（`SUB_NdkTsDrawing_DEEP_0378`） Verify the position matrix at the midpoint reports the half way point. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Matrix、getMatrix | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0379`（`SUB_NdkTsDrawing_DEEP_0379`） Verify the tangent matrix translation matches position sampling. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、Matrix、getMatrix、getPositionAndTangent | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0380`（`SUB_NdkTsDrawing_DEEP_0380`） Verify a quarter length sample lands on the circle rim. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、getLength、getPositionAndTangent、round | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0381`（`SUB_NdkTsDrawing_DEEP_0381`） Verify a forced closed measurement wraps onto the closing leg. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、Matrix、getMatrix | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0379`（`SUB_NdkTsDrawing_DEEP_0379`） Verify the tangent matrix translation matches position sampling. | 无设备依赖（纯对象 API） | Path、addCircle、Matrix、getMatrix、getPositionAndTangent | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0380`（`SUB_NdkTsDrawing_DEEP_0380`） Verify a quarter length sample lands on the circle rim. | 无设备依赖（纯对象 API） | Path、addCircle、getLength、getPositionAndTangent、round | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0381`（`SUB_NdkTsDrawing_DEEP_0381`） Verify a forced closed measurement wraps onto the closing leg. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Matrix、getMatrix | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0382`（`SUB_NdkTsDrawing_DEEP_0382`） Verify an svg triangle paints the same pixels as the manual contour. | 200 × 200 离屏画布 | Path、buildFromSvgString、moveTo、lineTo、close | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0383`（`SUB_NdkTsDrawing_DEEP_0383`） Verify the upper and lower case close commands paint alike. | 200 × 200 离屏画布 | Path、buildFromSvgString、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0384`（`SUB_NdkTsDrawing_DEEP_0384`） Verify an svg round trip restores the same raster. | 200 × 200 离屏画布；L4 | Path、addRect、convertToSvgString、buildFromSvgString、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0384`（`SUB_NdkTsDrawing_DEEP_0384`） Verify an svg round trip restores the same raster. | 200 × 200 离屏画布 | Path、addRect、convertToSvgString、buildFromSvgString、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0385`（`SUB_NdkTsDrawing_DEEP_0385`） Verify a relative svg square matches the absolute square raster. | 200 × 200 离屏画布 | Path、buildFromSvgString、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0386`（`SUB_NdkTsDrawing_DEEP_0386`） Verify an svg quadratic command fills a curved wedge. | 200 × 200 离屏画布 | Path、buildFromSvgString、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0387`（`SUB_NdkTsDrawing_DEEP_0387`） Verify a line path exposes both end points in the point table. | 200 × 200 离屏画布 | Path、moveTo、lineTo、getPointData、Pen | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0388`（`SUB_NdkTsDrawing_DEEP_0388`） Verify the verb table of a quad curve lists move then quad. | 无设备依赖（纯对象 API） | Path、moveTo、quadTo、getVerbData | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0389`（`SUB_NdkTsDrawing_DEEP_0389`） Verify a heavier conic weight bulges the filled wedge further. | 200 × 200 离屏画布；L4 | Path、moveTo、conicTo、close、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0389`（`SUB_NdkTsDrawing_DEEP_0389`） Verify a heavier conic weight bulges the filled wedge further. | 200 × 200 离屏画布 | Path、moveTo、conicTo、close、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0390`（`SUB_NdkTsDrawing_DEEP_0390`） Verify the iterator peeks before consuming the first verb. | 200 × 200 离屏画布 | Path、moveTo、lineTo、getPathIterator、peek | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0391`（`SUB_NdkTsDrawing_DEEP_0391`） Verify the iterator walk count equals the verb table length. | 无设备依赖（纯对象 API） | Path、addRect、getPathIterator、hasNext、next | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0392`（`SUB_NdkTsDrawing_DEEP_0392`） Verify two shifted rects stay interpolatable. | 无设备依赖（纯对象 API） | Path、addRect、isInterpolate、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0393`（`SUB_NdkTsDrawing_DEEP_0393`） Verify interpolating at weight zero reproduces the start path. | 200 × 200 离屏画布；L4 | Path、addRect、interpolate、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0394`（`SUB_NdkTsDrawing_DEEP_0394`） Verify interpolating at weight one reproduces the end path. | 200 × 200 离屏画布；L4 | Path、addRect、interpolate、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0393`（`SUB_NdkTsDrawing_DEEP_0393`） Verify interpolating at weight zero reproduces the start path. | 200 × 200 离屏画布 | Path、addRect、interpolate、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0394`（`SUB_NdkTsDrawing_DEEP_0394`） Verify interpolating at weight one reproduces the end path. | 200 × 200 离屏画布 | Path、addRect、interpolate、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0395`（`SUB_NdkTsDrawing_DEEP_0395`） Verify a half weight interpolation lifts the box half way. | 200 × 200 离屏画布 | Path、addRect、interpolate、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0396`（`SUB_NdkTsDrawing_DEEP_0396`） Verify a rect and a circle refuse to interpolate. | 无设备依赖（纯对象 API） | Path、addRect、addCircle、isInterpolate、isClosed | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0397`（`SUB_NdkTsDrawing_DEEP_0397`） Verify a fresh rect path uses the plain winding fill type. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0398`（`SUB_NdkTsDrawing_DEEP_0398`） Verify toggling the inverse flag paints the rect complement. | 200 × 200 离屏画布 | Path、addRect、toggleInverseFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0399`（`SUB_NdkTsDrawing_DEEP_0399`） Verify toggling the inverse flag twice restores the raster. | 200 × 200 离屏画布 | Path、addRect、toggleInverseFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0400`（`SUB_NdkTsDrawing_DEEP_0400`） Verify toggling an inverse even odd path yields even odd raster. | 200 × 200 离屏画布；L4 | Path、addRect、setFillType、toggleInverseFillType、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0400`（`SUB_NdkTsDrawing_DEEP_0400`） Verify toggling an inverse even odd path yields even odd raster. | 200 × 200 离屏画布 | Path、addRect、setFillType、toggleInverseFillType、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0401`（`SUB_NdkTsDrawing_DEEP_0401`） Verify two identically built rects compare equal. | 无设备依赖（纯对象 API） | Path、addRect、isEqual、getVerbData | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0402`（`SUB_NdkTsDrawing_DEEP_0402`） Verify an offset path no longer equals the original. | 无设备依赖（纯对象 API） | Path、addRect、offset、isEqual、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0403`（`SUB_NdkTsDrawing_DEEP_0403`） Verify offset and matrix translate paint the same pixels. | 200 × 200 离屏画布 | Path、addRect、offset、Matrix、setTranslation | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0404`（`SUB_NdkTsDrawing_DEEP_0404`） Verify bounds ignore the ink that a wide pen adds outside. | 200 × 200 离屏画布；L4 | Path、addRect、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0404`（`SUB_NdkTsDrawing_DEEP_0404`） Verify bounds ignore the ink that a wide pen adds outside. | 200 × 200 离屏画布 | Path、addRect、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0405`（`SUB_NdkTsDrawing_DEEP_0405`） Verify a wide pen turns an extracted segment into a thick band. | 200 × 200 离屏画布 | Path、addCircle、getSegment、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0406`（`SUB_NdkTsDrawing_DEEP_0406`） Verify the oval start angle does not change the painted raster. | 200 × 200 离屏画布 | Path、addOval、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0407`（`SUB_NdkTsDrawing_DEEP_0407`） Verify clockwise and counter clockwise circles paint alike. | 200 × 200 离屏画布 | Path、addCircle、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0408`（`SUB_NdkTsDrawing_DEEP_0408`） Verify opposite circle directions build a hollow ring in one path. | 200 × 200 离屏画布；L4 | Path、addCircle、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0408`（`SUB_NdkTsDrawing_DEEP_0408`） Verify opposite circle directions build a hollow ring in one path. | 200 × 200 离屏画布 | Path、addCircle、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0409`（`SUB_NdkTsDrawing_DEEP_0409`） Verify force closed length adds the closing chord. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、round、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0410`（`SUB_NdkTsDrawing_DEEP_0410`） Verify an empty svg string leaves the path untouched. | 无设备依赖（纯对象 API） | Path、buildFromSvgString、isEmpty、getVerbData | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0411`（`SUB_NdkTsDrawing_DEEP_0411`） Verify clipping with a path keeps the fill inside the same path. | 200 × 200 离屏画布 | Path、addCircle、clipPath、addRect、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0412`（`SUB_NdkTsDrawing_DEEP_0412`） Verify a difference clip punches a hole in the filled rect. | 200 × 200 离屏画布 | Path、addRect、clipPath、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0413`（`SUB_NdkTsDrawing_DEEP_0413`） Verify intersecting clips with two circles keep only the lens. | 200 × 200 离屏画布；L4 | Path、addCircle、clipPath、addRect、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0413`（`SUB_NdkTsDrawing_DEEP_0413`） Verify intersecting clips with two circles keep only the lens. | 200 × 200 离屏画布 | Path、addCircle、clipPath、addRect、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0414`（`SUB_NdkTsDrawing_DEEP_0414`） Verify a stroked path stays inside its own clip region. | 200 × 200 离屏画布 | Path、addCircle、clipPath、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0415`（`SUB_NdkTsDrawing_DEEP_0415`） Verify quickRejectPath answers inside and outside the clip. | 200 × 200 离屏画布 | Path、addRect、clipPath、quickRejectPath、getWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0416`（`SUB_NdkTsDrawing_DEEP_0416`） Verify restoring the canvas drops the temporary clip. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、save | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0417`（`SUB_NdkTsDrawing_DEEP_0417`） Verify an even odd ring clip leaves a hollow centre. | 200 × 200 离屏画布；L4 | Path、addCircle、setFillType、clipPath、addRect | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0418`（`SUB_NdkTsDrawing_DEEP_0418`） Verify a clip plus saveLayer keeps the clip after restore. | 200 × 200 离屏画布；L4 | Path、addRect、clipPath、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0417`（`SUB_NdkTsDrawing_DEEP_0417`） Verify an even odd ring clip leaves a hollow centre. | 200 × 200 离屏画布 | Path、addCircle、setFillType、clipPath、addRect | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0418`（`SUB_NdkTsDrawing_DEEP_0418`） Verify a clip plus saveLayer keeps the clip after restore. | 200 × 200 离屏画布 | Path、addRect、clipPath、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0419`（`SUB_NdkTsDrawing_DEEP_0419`） Verify a rotated path lands on the expected diagonal band. | 200 × 200 离屏画布 | Path、addRect、Matrix、setRotation、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0420`（`SUB_NdkTsDrawing_DEEP_0420`） Verify a half scale matrix quarters the filled area. | 200 × 200 离屏画布 | Path、addRect、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0421`（`SUB_NdkTsDrawing_DEEP_0421`） Verify a skew matrix slants the rect into a parallelogram. | 200 × 200 离屏画布；L4 | Path、addRect、Matrix、setSkew、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0421`（`SUB_NdkTsDrawing_DEEP_0421`） Verify a skew matrix slants the rect into a parallelogram. | 200 × 200 离屏画布 | Path、addRect、Matrix、setSkew、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0422`（`SUB_NdkTsDrawing_DEEP_0422`） Verify a canvas rotation matches an equivalent path transform. | 200 × 200 离屏画布 | Path、addRect、Matrix、setRotation、set | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0423`（`SUB_NdkTsDrawing_DEEP_0423`） Verify preScale and postScale place the same rect differently. | 无设备依赖（纯对象 API）；L4 | Path、addRect、Matrix、setTranslation、preScale | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0424`（`SUB_NdkTsDrawing_DEEP_0424`） Verify nested canvas transforms compose before drawing a path. | 200 × 200 离屏画布；L4 | Path、addRect、Brush、setColor、save | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0423`（`SUB_NdkTsDrawing_DEEP_0423`） Verify preScale and postScale place the same rect differently. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setTranslation、preScale | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0424`（`SUB_NdkTsDrawing_DEEP_0424`） Verify nested canvas transforms compose before drawing a path. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、save | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0425`（`SUB_NdkTsDrawing_DEEP_0425`） Verify transforming with the identity matrix changes nothing. | 200 × 200 离屏画布 | Path、addCircle、getBounds、Matrix、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0426`（`SUB_NdkTsDrawing_DEEP_0426`） Verify inverting a translate matrix restores the original bounds. | 无设备依赖（纯对象 API）；L4 | Path、addRect、Matrix、setTranslation、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0426`（`SUB_NdkTsDrawing_DEEP_0426`） Verify inverting a translate matrix restores the original bounds. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setTranslation、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0427`（`SUB_NdkTsDrawing_DEEP_0427`） Verify a dashed pen paints less than the solid pen. | 200 × 200 离屏画布 | Path、addRect、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0428`（`SUB_NdkTsDrawing_DEEP_0428`） Verify a dash phase shift moves the ink but keeps the total. | 200 × 200 离屏画布；L4 | Path、addRect、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0428`（`SUB_NdkTsDrawing_DEEP_0428`） Verify a dash phase shift moves the ink but keeps the total. | 200 × 200 离屏画布 | Path、addRect、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0429`（`SUB_NdkTsDrawing_DEEP_0429`） Verify a round cap extends the stroked line past its end. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0430`（`SUB_NdkTsDrawing_DEEP_0430`） Verify a square cap adds a box beyond the line end. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0431`（`SUB_NdkTsDrawing_DEEP_0431`） Verify a miter join grows a spike at the path corner. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0432`（`SUB_NdkTsDrawing_DEEP_0432`） Verify a round join softens the corner into an arc. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0433`（`SUB_NdkTsDrawing_DEEP_0433`） Verify a blur mask filter enlarges the stroked footprint. | 200 × 200 离屏画布；L4 | Path、addCircle、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0431`（`SUB_NdkTsDrawing_DEEP_0431`） Verify a miter join grows a spike at the path corner. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0432`（`SUB_NdkTsDrawing_DEEP_0432`） Verify a round join softens the corner into an arc. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0433`（`SUB_NdkTsDrawing_DEEP_0433`） Verify a blur mask filter enlarges the stroked footprint. | 200 × 200 离屏画布 | Path、addCircle、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0434`（`SUB_NdkTsDrawing_DEEP_0434`） Verify a half alpha pen keeps the stroke colour partial. | 200 × 200 离屏画布 | Path、addRect、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0435`（`SUB_NdkTsDrawing_DEEP_0435`） Verify two overlapping alpha strokes double the coverage alpha. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0435`（`SUB_NdkTsDrawing_DEEP_0435`） Verify two overlapping alpha strokes double the coverage alpha. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0436`（`SUB_NdkTsDrawing_DEEP_0436`） Verify a three rect union chain fills the whole span. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0437`（`SUB_NdkTsDrawing_DEEP_0437`） Verify op with an empty path keeps the original contour. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0438`（`SUB_NdkTsDrawing_DEEP_0438`） Verify an op result survives a later transform. | 200 × 200 离屏画布 | Path、addRect、op、Matrix、setTranslation | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0439`（`SUB_NdkTsDrawing_DEEP_0439`） Verify an op result can be sampled as a segment. | 无设备依赖（纯对象 API）；L4 | Path、addRect、op、getSegment、isEmpty | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0440`（`SUB_NdkTsDrawing_DEEP_0440`） Verify a circle minus a rect keeps the crescent pixels. | 200 × 200 离屏画布；L4 | Path、addCircle、addRect、op、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0441`（`SUB_NdkTsDrawing_DEEP_0441`） Verify three nested circles under even odd leave two rings. | 200 × 200 离屏画布；L4 | Path、addCircle、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0439`（`SUB_NdkTsDrawing_DEEP_0439`） Verify an op result can be sampled as a segment. | 无设备依赖（纯对象 API） | Path、addRect、op、getSegment、isEmpty | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0440`（`SUB_NdkTsDrawing_DEEP_0440`） Verify a circle minus a rect keeps the crescent pixels. | 200 × 200 离屏画布 | Path、addCircle、addRect、op、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0441`（`SUB_NdkTsDrawing_DEEP_0441`） Verify three nested circles under even odd leave two rings. | 200 × 200 离屏画布 | Path、addCircle、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0442`（`SUB_NdkTsDrawing_DEEP_0442`） Verify two touching rects under even odd drop the seam. | 200 × 200 离屏画布 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0443`（`SUB_NdkTsDrawing_DEEP_0443`） Verify three concentric rects under even odd leave two frames. | 200 × 200 离屏画布；L4 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0444`（`SUB_NdkTsDrawing_DEEP_0444`） Verify a rect plus circle under even odd keeps the outside band. | 200 × 200 离屏画布；L4 | Path、addRect、addCircle、setFillType、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0443`（`SUB_NdkTsDrawing_DEEP_0443`） Verify three concentric rects under even odd leave two frames. | 200 × 200 离屏画布 | Path、addRect、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0444`（`SUB_NdkTsDrawing_DEEP_0444`） Verify a rect plus circle under even odd keeps the outside band. | 200 × 200 离屏画布 | Path、addRect、addCircle、setFillType、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0445`（`SUB_NdkTsDrawing_DEEP_0445`） Verify same direction rings stay solid under the winding rule. | 200 × 200 离屏画布 | Path、addCircle、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0446`（`SUB_NdkTsDrawing_DEEP_0446`） Verify inverse fill over nested rings keeps the outer field. | 200 × 200 离屏画布；L4 | Path、addCircle、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0446`（`SUB_NdkTsDrawing_DEEP_0446`） Verify inverse fill over nested rings keeps the outer field. | 200 × 200 离屏画布 | Path、addCircle、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0447`（`SUB_NdkTsDrawing_DEEP_0447`） Verify bounds follow a chain of path offsets. | 无设备依赖（纯对象 API） | Path、addRect、offset、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0448`（`SUB_NdkTsDrawing_DEEP_0448`） Verify a scaled circle keeps its vertex count but doubles the length. | 无设备依赖（纯对象 API） | Path、addCircle、getLength、getVerbData、Matrix | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0449`（`SUB_NdkTsDrawing_DEEP_0449`） Verify the bounds of an arc exclude the missing cap area. | 无设备依赖（纯对象 API） | Path、addArc、getBounds、round、getLength | 3 条断言全部通过 | 是 | 通过 |
@@ -3784,40 +3784,40 @@
 | `testPathDeep0455`（`SUB_NdkTsDrawing_DEEP_0455`） Verify drawing the same path twice with one brush is idempotent. | 200 × 200 离屏画布 | Path、addCircle、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0456`（`SUB_NdkTsDrawing_DEEP_0456`） Verify a half alpha brush leaves partial coverage inside the path. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0457`（`SUB_NdkTsDrawing_DEEP_0457`） Verify a stroke over a fill keeps both inks in place. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0458`（`SUB_NdkTsDrawing_DEEP_0458`） Verify a SRC blend overwrites the path pixels entirely. | 200 × 200 离屏画布；L4 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0458`（`SUB_NdkTsDrawing_DEEP_0458`） Verify a SRC blend overwrites the path pixels entirely. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0459`（`SUB_NdkTsDrawing_DEEP_0459`） Verify a rewound path can be rebuilt and painted again. | 200 × 200 离屏画布 | Path、addRect、rewind、addCircle、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0460`（`SUB_NdkTsDrawing_DEEP_0460`） Verify an isEqual check ignores paint and only compares geometry. | 无设备依赖（纯对象 API） | Path、addCircle、setFillType、isEqual、getFillType | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0461`（`SUB_NdkTsDrawing_DEEP_0461`） Verify a path built twice at different scales stays unequal. | 无设备依赖（纯对象 API） | Path、buildFromSvgString、isEqual、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0462`（`SUB_NdkTsDrawing_DEEP_0462`） Verify a transformed path keeps its verb table intact. | 无设备依赖（纯对象 API） | Path、addRoundRect、RoundRect、getVerbData、getPointData | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0463`（`SUB_NdkTsDrawing_DEEP_0463`） Verify a path offset does not change its verb count. | 无设备依赖（纯对象 API） | Path、addPolygon、getVerbData、offset、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0464`（`SUB_NdkTsDrawing_DEEP_0464`） Verify opacity blending two path layers keeps both colours visible. | 200 × 200 离屏画布；L4 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0464`（`SUB_NdkTsDrawing_DEEP_0464`） Verify opacity blending two path layers keeps both colours visible. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0465`（`SUB_NdkTsDrawing_DEEP_0465`） Verify a clip rect combined with a path fill respects both limits. | 200 × 200 离屏画布 | clipRect、Path、addCircle、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0466`（`SUB_NdkTsDrawing_DEEP_0466`） Verify a path measured after reset reports zero length again. | 无设备依赖（纯对象 API） | Path、addRect、getLength、reset、getVerbData | 4 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0467`（`SUB_NdkTsDrawing_DEEP_0467`） Verify a difference clip trims the outer half of a stroked rect. | 200 × 200 离屏画布；L4 | Path、addCircle、clipPath、addRect、Pen | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0467`（`SUB_NdkTsDrawing_DEEP_0467`） Verify a difference clip trims the outer half of a stroked rect. | 200 × 200 离屏画布 | Path、addCircle、clipPath、addRect、Pen | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0468`（`SUB_NdkTsDrawing_DEEP_0468`） Verify a negatively offset path keeps only the visible corner. | 200 × 200 离屏画布 | Path、addRect、offset、clipRect、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0469`（`SUB_NdkTsDrawing_DEEP_0469`） Verify a reverse difference of two circles keeps the right disc. | 200 × 200 离屏画布；L4 | Path、addCircle、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0470`（`SUB_NdkTsDrawing_DEEP_0470`） Verify a quarter segment of a circle stays short. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、getLength、getSegment、isEmpty | 4 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0469`（`SUB_NdkTsDrawing_DEEP_0469`） Verify a reverse difference of two circles keeps the right disc. | 200 × 200 离屏画布 | Path、addCircle、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0470`（`SUB_NdkTsDrawing_DEEP_0470`） Verify a quarter segment of a circle stays short. | 无设备依赖（纯对象 API） | Path、addCircle、getLength、getSegment、isEmpty | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0471`（`SUB_NdkTsDrawing_DEEP_0471`） Verify set copies the geometry so later source edits stay invisible. | 200 × 200 离屏画布 | Path、addRect、set、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0472`（`SUB_NdkTsDrawing_DEEP_0472`） Verify set carries the fill type of the source path. | 200 × 200 离屏画布 | Path、addRect、addCircle、setFillType、set | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0473`（`SUB_NdkTsDrawing_DEEP_0473`） Verify approximate returns flat point pairs whose chords trace the circle. | 无设备依赖（纯对象 API） | Path、addCircle、approximate、sqrt、getLength | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0473`（`SUB_NdkTsDrawing_DEEP_0473`） Verify approximate returns verb and coordinate triplets whose chords trace the circle. | 无设备依赖（纯对象 API） | Path、addCircle、approximate、sqrt、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0474`（`SUB_NdkTsDrawing_DEEP_0474`） Verify getPositionAndTangent reports the top edge of a rect outline. | 无设备依赖（纯对象 API） | Path、addRect、getPositionAndTangent、round、abs | 4 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0475`（`SUB_NdkTsDrawing_DEEP_0475`） Verify the position matrix translation equals getPositionAndTangent. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、getLength、Matrix、getMatrix | 4 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0475`（`SUB_NdkTsDrawing_DEEP_0475`） Verify the position matrix translation equals getPositionAndTangent. | 无设备依赖（纯对象 API） | Path、addCircle、getLength、Matrix、getMatrix | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0476`（`SUB_NdkTsDrawing_DEEP_0476`） Verify the path iterator opens a rect with a move verb then lines. | 无设备依赖（纯对象 API） | Path、addRect、getPathIterator、next、peek | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0477`（`SUB_NdkTsDrawing_DEEP_0477`） Verify a full iterator walk converges to the done verb. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、close、getPathIterator | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0478`（`SUB_NdkTsDrawing_DEEP_0478`） Verify an svg round trip keeps geometry and repaints the same ink. | 200 × 200 离屏画布；L4 | Path、addRect、addCircle、convertToSvgString、buildFromSvgString | 4 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0478`（`SUB_NdkTsDrawing_DEEP_0478`） Verify an svg round trip keeps geometry and repaints the same ink. | 200 × 200 离屏画布 | Path、addRect、addCircle、convertToSvgString、buildFromSvgString | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0479`（`SUB_NdkTsDrawing_DEEP_0479`） Verify an svg quadratic command keeps a curved verb and its span. | 无设备依赖（纯对象 API） | Path、buildFromSvgString、getVerbData、getLength、getBounds | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0480`（`SUB_NdkTsDrawing_DEEP_0480`） Verify an unparsable svg string is rejected and leaves the path empty. | 无设备依赖（纯对象 API） | Path、buildFromSvgString、isEmpty、getLength | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0481`（`SUB_NdkTsDrawing_DEEP_0481`） Verify toggling the inverse flag twice restores the original pixels. | 200 × 200 离屏画布；L4 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0481`（`SUB_NdkTsDrawing_DEEP_0481`） Verify toggling the inverse flag twice restores the original pixels. | 200 × 200 离屏画布 | Path、addRect、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0482`（`SUB_NdkTsDrawing_DEEP_0482`） Verify isInverseFillType follows both inverse fill enumerators. | 无设备依赖（纯对象 API） | Path、addRect、setFillType、isInverseFillType | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0483`（`SUB_NdkTsDrawing_DEEP_0483`） Verify a closed polygon strokes one more edge than an open one. | 200 × 200 离屏画布 | Path、addPolygon、Pen、setColor、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0484`（`SUB_NdkTsDrawing_DEEP_0484`） Verify a five point star fills its core under the winding rule. | 200 × 200 离屏画布 | Path、addPolygon、setFillType、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0485`（`SUB_NdkTsDrawing_DEEP_0485`） Verify addPath with a scale matrix matches a transform of a copy. | 200 × 200 离屏画布；L4 | Path、addRect、Matrix、setScale、addPath | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0485`（`SUB_NdkTsDrawing_DEEP_0485`） Verify addPath with a scale matrix matches a transform of a copy. | 200 × 200 离屏画布 | Path、addRect、Matrix、setScale、addPath | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0486`（`SUB_NdkTsDrawing_DEEP_0486`） Verify offset returns a shifted copy and leaves the source in place. | 无设备依赖（纯对象 API） | Path、addRect、offset、getBounds、isEqual | 4 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0487`（`SUB_NdkTsDrawing_DEEP_0487`） Verify intersecting two offset circles keeps only the lens. | 200 × 200 离屏画布；L4 | Path、addCircle、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0487`（`SUB_NdkTsDrawing_DEEP_0487`） Verify intersecting two offset circles keeps only the lens. | 200 × 200 离屏画布 | Path、addCircle、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0488`（`SUB_NdkTsDrawing_DEEP_0488`） Verify the exclusive or of two rects drops their overlap. | 200 × 200 离屏画布 | Path、addRect、op、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0489`（`SUB_NdkTsDrawing_DEEP_0489`） Verify a segment over the full length reproduces the whole circle. | 无设备依赖（纯对象 API） | Path、addCircle、getLength、getSegment、isEmpty | 4 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0490`（`SUB_NdkTsDrawing_DEEP_0490`） Verify four quarter segments accumulate to the circle length. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、getLength、getSegment | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0491`（`SUB_NdkTsDrawing_DEEP_0491`） Verify the mid weight interpolation stays between both endpoints. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、interpolate、getBounds、isEmpty | 4 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0490`（`SUB_NdkTsDrawing_DEEP_0490`） Verify four quarter segments accumulate to the circle length. | 无设备依赖（纯对象 API） | Path、addCircle、getLength、getSegment | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0491`（`SUB_NdkTsDrawing_DEEP_0491`） Verify the mid weight interpolation stays between both endpoints. | 无设备依赖（纯对象 API） | Path、addCircle、interpolate、getBounds、isEmpty | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0492`（`SUB_NdkTsDrawing_DEEP_0492`） Verify the endpoint weights of interpolate land on each source. | 无设备依赖（纯对象 API） | Path、addCircle、interpolate、round、getBounds | 4 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0493`（`SUB_NdkTsDrawing_DEEP_0493`） Verify isInterpolate discriminates matching and mismatching verb shapes. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、addRect、isInterpolate | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0494`（`SUB_NdkTsDrawing_DEEP_0494`） Verify a second contour doubles the point and verb data counts. | 无设备依赖（纯对象 API） | Path、addRect、getPointData、getVerbData | 3 条断言全部通过 | 是 | 通过 |
@@ -3826,19 +3826,19 @@
 | `testPathDeep0497`（`SUB_NdkTsDrawing_DEEP_0497`） Verify setLastPoint discards the pending segment of a stroke. | 200 × 200 离屏画布 | Path、moveTo、lineTo、setLastPoint、Pen | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0498`（`SUB_NdkTsDrawing_DEEP_0498`） Verify contains honours the inverse winding fill of a rect. | 无设备依赖（纯对象 API） | Path、addRect、setFillType、contains、isInverseFillType | 3 条断言全部通过 | 是 | 通过 |
 | `testPathDeep0499`（`SUB_NdkTsDrawing_DEEP_0499`） Verify a quarter turn swaps the width and height of the bounds. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setRotation、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testPathDeep0500`（`SUB_NdkTsDrawing_DEEP_0500`） Verify a union plus scale plus clip composes into one visible shape. | 200 × 200 离屏画布；L4 | Path、addRect、op、Matrix、setScale | 3 条断言全部通过 | 是 | 通过 |
+| `testPathDeep0500`（`SUB_NdkTsDrawing_DEEP_0500`） Verify a union plus scale plus clip composes into one visible shape. | 200 × 200 离屏画布 | Path、addRect、op、Matrix、setScale | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0501`（`SUB_NdkTsDrawing_DEEP_0501`） Verify the metrics of a body font keep the canonical ordering. | 无设备依赖（纯对象 API） | Font、setSize、getMetrics | 4 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0502`（`SUB_NdkTsDrawing_DEEP_0502`） Verify the metrics window widens when the size triples. | 无设备依赖（纯对象 API） | Font、setSize、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0503`（`SUB_NdkTsDrawing_DEEP_0503`） Verify per character advances sum to the whole string width. | 无设备依赖（纯对象 API） | Font、setSize、measureText、measureSingleCharacter、charAt | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0504`（`SUB_NdkTsDrawing_DEEP_0504`） Verify an empty string yields zero width and zero glyphs. | 无设备依赖（纯对象 API） | Font、setSize、measureText、countText、textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0505`（`SUB_NdkTsDrawing_DEEP_0505`） Verify counting and glyph conversion agree for a plain ASCII word. | 无设备依赖（纯对象 API） | Font、setSize、countText、textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0506`（`SUB_NdkTsDrawing_DEEP_0506`） Verify textToGlyphs honours the glyph count limit. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0506`（`SUB_NdkTsDrawing_DEEP_0506`） Verify textToGlyphs requires a glyph count that matches the text. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0507`（`SUB_NdkTsDrawing_DEEP_0507`） Verify every glyph of a word reports a positive advance width. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、getWidths | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0508`（`SUB_NdkTsDrawing_DEEP_0508`） Verify summed glyph widths stay close to the measured text width. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、getWidths、measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0509`（`SUB_NdkTsDrawing_DEEP_0509`） Verify the feature aware single character measurement stays close. | 无设备依赖（纯对象 API） | Font、setSize、measureSingleCharacter、measureSingleCharacterWithFeatures、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0510`（`SUB_NdkTsDrawing_DEEP_0510`） Verify two ligature and kerning features are accepted at once. | 无设备依赖（纯对象 API） | Font、setSize、measureSingleCharacterWithFeatures、measureSingleCharacter、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0511`（`SUB_NdkTsDrawing_DEEP_0511`） Verify the glyph bound list mirrors the glyph count and is non degenerate. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0512`（`SUB_NdkTsDrawing_DEEP_0512`） Verify an outlined glyph produces a drawable path with real bounds. | 无设备依赖（纯对象 API）；L4 | Font、setSize、textToGlyphs、createPathForGlyph、getBounds | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0512`（`SUB_NdkTsDrawing_DEEP_0512`） Verify an outlined glyph produces a drawable path with real bounds. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、createPathForGlyph、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0513`（`SUB_NdkTsDrawing_DEEP_0513`） Verify the text path of two letters starts at the requested origin. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getBounds、isEmpty | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0514`（`SUB_NdkTsDrawing_DEEP_0514`） Verify the fallback text path also materialises an outline. | 无设备依赖（纯对象 API） | Font、setSize、getTextPathWithFallback、isEmpty、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0515`（`SUB_NdkTsDrawing_DEEP_0515`） Verify a longer text outline spans a wider box than a shorter one. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getBounds、isEmpty | 3 条断言全部通过 | 是 | 通过 |
@@ -3860,7 +3860,7 @@
 | `testFontDeep0531`（`SUB_NdkTsDrawing_DEEP_0531`） Verify the embedded bitmap switch round trips. | 无设备依赖（纯对象 API） | Font、setSize、isEmbeddedBitmaps、setEmbeddedBitmaps、measureSingleCharacter | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0532`（`SUB_NdkTsDrawing_DEEP_0532`） Verify the force auto hinting switch round trips. | 无设备依赖（纯对象 API） | Font、setSize、isForceAutoHinting、setForceAutoHinting、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0533`（`SUB_NdkTsDrawing_DEEP_0533`） Verify the theme following switch round trips. | 无设备依赖（纯对象 API） | Font、setSize、isThemeFontFollowed、setThemeFontFollowed、measureText | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0534`（`SUB_NdkTsDrawing_DEEP_0534`） Verify all six style switches read back after one configuration run. | 无设备依赖（纯对象 API）；L4 | Font、setSize、enableSubpixel、enableEmbolden、enableLinearMetrics | 8 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0534`（`SUB_NdkTsDrawing_DEEP_0534`） Verify all six style switches read back after one configuration run. | 无设备依赖（纯对象 API） | Font、setSize、enableSubpixel、enableEmbolden、enableLinearMetrics | 8 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0535`（`SUB_NdkTsDrawing_DEEP_0535`） Verify the default typeface reports a usable family name. | 无设备依赖（纯对象 API） | Font、setSize、getTypeface、getFamilyName、isBold | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0536`（`SUB_NdkTsDrawing_DEEP_0536`） Verify applying the current typeface keeps the family name intact. | 无设备依赖（纯对象 API） | Font、setSize、getTypeface、getFamilyName、setTypeface | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0537`（`SUB_NdkTsDrawing_DEEP_0537`） Verify the UTF16 and UTF8 encodings agree for ASCII text. | 无设备依赖（纯对象 API） | Font、setSize、measureText、abs、countText | 3 条断言全部通过 | 是 | 通过 |
@@ -3869,14 +3869,14 @@
 | `testFontDeep0540`（`SUB_NdkTsDrawing_DEEP_0540`） Verify an out of range glyph index yields an empty outline. | 无设备依赖（纯对象 API） | Font、setSize、createPathForGlyph、isEmpty、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0541`（`SUB_NdkTsDrawing_DEEP_0541`） Verify a zero byte text path stays empty. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、isEmpty、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0542`（`SUB_NdkTsDrawing_DEEP_0542`） Verify the text outline origin shifts with the requested x value. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、round、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0543`（`SUB_NdkTsDrawing_DEEP_0543`） Verify an empty glyph list yields no widths and no boxes. | 无设备依赖（纯对象 API） | Font、setSize、getWidths、getBounds、getSize | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0544`（`SUB_NdkTsDrawing_DEEP_0544`） Verify a zero glyph count limit returns no glyph ids. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0543`（`SUB_NdkTsDrawing_DEEP_0543`） Verify an empty string yields no glyphs while a pair reports two widths. | 无设备依赖（纯对象 API） | Font、setSize、getWidths、getBounds、getSize | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0544`（`SUB_NdkTsDrawing_DEEP_0544`） Verify a zero glyph count limit is rejected as a parameter error. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0545`（`SUB_NdkTsDrawing_DEEP_0545`） Verify a proportional size step keeps the advance ratio near four. | 无设备依赖（纯对象 API） | Font、setSize、measureText、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0546`（`SUB_NdkTsDrawing_DEEP_0546`） Verify repeated size reads stay stable without extra setters. | 无设备依赖（纯对象 API） | Font、setSize、getSize、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0547`（`SUB_NdkTsDrawing_DEEP_0547`） Verify the metrics of two fonts of equal size match. | 无设备依赖（纯对象 API） | Font、setSize、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0548`（`SUB_NdkTsDrawing_DEEP_0548`） Verify the leading value is non negative for a normal size. | 无设备依赖（纯对象 API） | Font、setSize、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0549`（`SUB_NdkTsDrawing_DEEP_0549`） Verify the measured advance survives a scale reset to one. | 无设备依赖（纯对象 API） | Font、setSize、measureText、setScaleX、getScaleX | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0550`（`SUB_NdkTsDrawing_DEEP_0550`） Verify a skew plus scale combination keeps both factors readable. | 无设备依赖（纯对象 API）；L4 | Font、setSize、setSkewX、setScaleX、measureText | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0550`（`SUB_NdkTsDrawing_DEEP_0550`） Verify a skew plus scale combination keeps both factors readable. | 无设备依赖（纯对象 API） | Font、setSize、setSkewX、setScaleX、measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0551`（`SUB_NdkTsDrawing_DEEP_0551`） Verify subpixel rendering never changes the measured advance. | 无设备依赖（纯对象 API） | Font、setSize、enableSubpixel、measureText、isSubpixel | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0552`（`SUB_NdkTsDrawing_DEEP_0552`） Verify embolden keeps the metrics window of a plain font. | 无设备依赖（纯对象 API） | Font、setSize、enableEmbolden、getMetrics、isEmbolden | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0553`（`SUB_NdkTsDrawing_DEEP_0553`） Verify all three edging modes measure the same advance. | 无设备依赖（纯对象 API） | Font、setSize、setEdging、measureText、getEdging | 3 条断言全部通过 | 是 | 通过 |
@@ -3885,11 +3885,11 @@
 | `testFontDeep0556`（`SUB_NdkTsDrawing_DEEP_0556`） Verify two fonts can hold opposite embedded bitmap states. | 无设备依赖（纯对象 API） | Font、setSize、setEmbeddedBitmaps、isEmbeddedBitmaps、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0557`（`SUB_NdkTsDrawing_DEEP_0557`） Verify force auto hinting combines with anti alias edging. | 无设备依赖（纯对象 API） | Font、setSize、setForceAutoHinting、setEdging、isForceAutoHinting | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0558`（`SUB_NdkTsDrawing_DEEP_0558`） Verify theme following leaves the applied typeface family alone. | 无设备依赖（纯对象 API） | Font、setSize、getTypeface、getFamilyName、setThemeFontFollowed | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0559`（`SUB_NdkTsDrawing_DEEP_0559`） Verify disabling every style switch restores all defaults. | 无设备依赖（纯对象 API）；L4 | Font、setSize、enableSubpixel、enableEmbolden、enableLinearMetrics | 4 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0559`（`SUB_NdkTsDrawing_DEEP_0559`） Verify disabling every style switch restores all defaults. | 无设备依赖（纯对象 API） | Font、setSize、enableSubpixel、enableEmbolden、enableLinearMetrics | 4 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0560`（`SUB_NdkTsDrawing_DEEP_0560`） Verify two fresh fonts share the same default typeface family. | 无设备依赖（纯对象 API） | Font、setSize、getTypeface、getFamilyName、isBold | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0561`（`SUB_NdkTsDrawing_DEEP_0561`） Verify a glyph outline widens when the font size doubles. | 无设备依赖（纯对象 API） | Font、setSize、createPathForGlyph、textToGlyphs、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0562`（`SUB_NdkTsDrawing_DEEP_0562`） Verify the text path length grows with the requested size. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0563`（`SUB_NdkTsDrawing_DEEP_0563`） Verify the glyph outline and the single character path agree in height. | 无设备依赖（纯对象 API）；L4 | Font、setSize、textToGlyphs、createPathForGlyph、getTextPath | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0563`（`SUB_NdkTsDrawing_DEEP_0563`） Verify the glyph outline and the single character path agree in height. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、createPathForGlyph、getTextPath | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0564`（`SUB_NdkTsDrawing_DEEP_0564`） Verify a glyph box stays inside the vertical metrics window. | 无设备依赖（纯对象 API） | Font、setSize、getBounds、textToGlyphs、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0565`（`SUB_NdkTsDrawing_DEEP_0565`） Verify digit counting matches the glyph conversion for five digits. | 无设备依赖（纯对象 API） | Font、setSize、countText、textToGlyphs、measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0566`（`SUB_NdkTsDrawing_DEEP_0566`） Verify a space glyph keeps a positive advance width. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、getWidths、measureText | 3 条断言全部通过 | 是 | 通过 |
@@ -3910,46 +3910,46 @@
 | `testFontDeep0581`（`SUB_NdkTsDrawing_DEEP_0581`） Verify drawing a single character paints a non empty pixel area. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0582`（`SUB_NdkTsDrawing_DEEP_0582`） Verify the feature aware single character draw also paints ink. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0583`（`SUB_NdkTsDrawing_DEEP_0583`） Verify drawing two glyphs at explicit positions paints ink. | 200 × 200 离屏画布 | Font、setSize、textToGlyphs、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0584`（`SUB_NdkTsDrawing_DEEP_0584`） Verify a one glyph draw covers no more ink than the full run. | 200 × 200 离屏画布；L4 | Font、setSize、textToGlyphs、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0584`（`SUB_NdkTsDrawing_DEEP_0584`） Verify a one glyph draw covers no more ink than the full run. | 200 × 200 离屏画布 | Font、setSize、textToGlyphs、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0585`（`SUB_NdkTsDrawing_DEEP_0585`） Verify a text blob draw paints ink inside the canvas. | 200 × 200 离屏画布 | Font、setSize、makeFromString、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0586`（`SUB_NdkTsDrawing_DEEP_0586`） Verify a clip confines the painted text blob. | 200 × 200 离屏画布；L4 | Path、addRect、clipPath、Font、setSize | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0586`（`SUB_NdkTsDrawing_DEEP_0586`） Verify a clip confines the painted text blob. | 200 × 200 离屏画布 | Path、addRect、clipPath、Font、setSize | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0587`（`SUB_NdkTsDrawing_DEEP_0587`） Verify a larger font paints more ink than a smaller one. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0588`（`SUB_NdkTsDrawing_DEEP_0588`） Verify a translated canvas moves the text ink to the right half. | 200 × 200 离屏画布；L4 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0589`（`SUB_NdkTsDrawing_DEEP_0589`） Verify drawing the same character twice keeps the same pixel count. | 200 × 200 离屏画布；L4 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0588`（`SUB_NdkTsDrawing_DEEP_0588`） Verify a translated canvas moves the text ink to the right half. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0589`（`SUB_NdkTsDrawing_DEEP_0589`） Verify drawing the same character twice keeps the same pixel count. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0590`（`SUB_NdkTsDrawing_DEEP_0590`） Verify a character drawn below the canvas paints nothing. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0591`（`SUB_NdkTsDrawing_DEEP_0591`） Verify an empty glyph id list draws nothing. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0592`（`SUB_NdkTsDrawing_DEEP_0592`） Verify a text blob made from an empty string paints nothing. | 200 × 200 离屏画布 | Font、setSize、makeFromString、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0593`（`SUB_NdkTsDrawing_DEEP_0593`） Verify filling a text outline path paints a solid glyph shape. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0594`（`SUB_NdkTsDrawing_DEEP_0594`） Verify stroking a text outline path leaves a thin inked trace. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0595`（`SUB_NdkTsDrawing_DEEP_0595`） Verify a doubled matrix doubles the glyph outline bounds. | 无设备依赖（纯对象 API）；L4 | Font、setSize、textToGlyphs、createPathForGlyph、getBounds | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0596`（`SUB_NdkTsDrawing_DEEP_0596`） Verify the text blob box matches the measured advance closely. | 无设备依赖（纯对象 API）；L4 | Font、setSize、makeFromString、bounds、measureText | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0591`（`SUB_NdkTsDrawing_DEEP_0591`） Verify an empty glyph id list is rejected as a parameter error. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0592`（`SUB_NdkTsDrawing_DEEP_0592`） Verify a text blob made from an empty string is rejected and paints nothing. | 200 × 200 离屏画布 | Font、setSize、makeFromString、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0593`（`SUB_NdkTsDrawing_DEEP_0593`） Verify filling a text outline path paints a solid glyph shape. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0594`（`SUB_NdkTsDrawing_DEEP_0594`） Verify stroking a text outline path leaves a thin inked trace. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0595`（`SUB_NdkTsDrawing_DEEP_0595`） Verify a doubled matrix doubles the glyph outline bounds. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、createPathForGlyph、getBounds | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0596`（`SUB_NdkTsDrawing_DEEP_0596`） Verify the text blob box matches the measured advance closely. | 无设备依赖（纯对象 API） | Font、setSize、makeFromString、bounds、measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0597`（`SUB_NdkTsDrawing_DEEP_0597`） Verify a text blob reports a non negative unique identifier. | 无设备依赖（纯对象 API） | Font、setSize、makeFromString、uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0598`（`SUB_NdkTsDrawing_DEEP_0598`） Verify three glyph ids each report their own bounding box. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0599`（`SUB_NdkTsDrawing_DEEP_0599`） Verify the narrow letter outline stays narrower than the wide one. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getBounds、isEmpty | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0600`（`SUB_NdkTsDrawing_DEEP_0600`） Verify a styled font measures and paints on one shared pipeline. | 200 × 200 离屏画布；L4 | Font、setSize、enableSubpixel、enableEmbolden、setEdging | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0600`（`SUB_NdkTsDrawing_DEEP_0600`） Verify a styled font measures and paints on one shared pipeline. | 200 × 200 离屏画布 | Font、setSize、enableSubpixel、enableEmbolden、setEdging | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0601`（`SUB_NdkTsDrawing_DEEP_0601`） Verify a character drawn near the left edge inks the left band. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0602`（`SUB_NdkTsDrawing_DEEP_0602`） Verify a character drawn near the right edge leaves the left band clear. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0603`（`SUB_NdkTsDrawing_DEEP_0603`） Verify two characters placed far apart ink both halves. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0604`（`SUB_NdkTsDrawing_DEEP_0604`） Verify a position offset skips the first glyph slot. | 200 × 200 离屏画布；L4 | Font、setSize、textToGlyphs、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0605`（`SUB_NdkTsDrawing_DEEP_0605`） Verify a zero glyph count paints an empty frame. | 200 × 200 离屏画布 | Font、setSize、textToGlyphs、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0606`（`SUB_NdkTsDrawing_DEEP_0606`） Verify text drawn on a rotated canvas is still inked. | 200 × 200 离屏画布；L4 | rotate、Font、setSize、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0607`（`SUB_NdkTsDrawing_DEEP_0607`） Verify a half scale canvas paints less text ink than the plain frame. | 200 × 200 离屏画布；L4 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0608`（`SUB_NdkTsDrawing_DEEP_0608`） Verify a doubled canvas paints more text ink than the plain frame. | 200 × 200 离屏画布；L4 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0609`（`SUB_NdkTsDrawing_DEEP_0609`） Verify translate plus rotate keeps the drawn text inside the canvas. | 200 × 200 离屏画布；L4 | translate、rotate、Font、setSize、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0610`（`SUB_NdkTsDrawing_DEEP_0610`） Verify a right half clip hides the left half of a centred character. | 200 × 200 离屏画布；L4 | Path、addRect、clipPath、Font、setSize | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0611`（`SUB_NdkTsDrawing_DEEP_0611`） Verify two stacked clips confine text to their intersection box. | 200 × 200 离屏画布；L4 | Path、addRect、clipPath、Font、setSize | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0612`（`SUB_NdkTsDrawing_DEEP_0612`） Verify a translucent layer keeps the drawn text visible. | 200 × 200 离屏画布；L4 | Brush、setColor、saveLayer、Font、setSize | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0613`（`SUB_NdkTsDrawing_DEEP_0613`） Verify drawing translucent text twice keeps the same covered pixels. | 200 × 200 离屏画布；L4 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0604`（`SUB_NdkTsDrawing_DEEP_0604`） Verify a position offset skips the first glyph slot. | 200 × 200 离屏画布 | Font、setSize、textToGlyphs、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0605`（`SUB_NdkTsDrawing_DEEP_0605`） Verify drawing zero of the available glyphs is rejected as out of range. | 200 × 200 离屏画布 | Font、setSize、textToGlyphs、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0606`（`SUB_NdkTsDrawing_DEEP_0606`） Verify text drawn on a rotated canvas is still inked. | 200 × 200 离屏画布 | rotate、Font、setSize、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0607`（`SUB_NdkTsDrawing_DEEP_0607`） Verify a half scale canvas paints less text ink than the plain frame. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0608`（`SUB_NdkTsDrawing_DEEP_0608`） Verify a doubled canvas paints more text ink than the plain frame. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0609`（`SUB_NdkTsDrawing_DEEP_0609`） Verify translate plus rotate keeps the drawn text inside the canvas. | 200 × 200 离屏画布 | translate、rotate、Font、setSize、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0610`（`SUB_NdkTsDrawing_DEEP_0610`） Verify a right half clip hides the left half of a centred character. | 200 × 200 离屏画布 | Path、addRect、clipPath、Font、setSize | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0611`（`SUB_NdkTsDrawing_DEEP_0611`） Verify two stacked clips confine text to their intersection box. | 200 × 200 离屏画布 | Path、addRect、clipPath、Font、setSize | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0612`（`SUB_NdkTsDrawing_DEEP_0612`） Verify a translucent layer keeps the drawn text visible. | 200 × 200 离屏画布 | Brush、setColor、saveLayer、Font、setSize | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0613`（`SUB_NdkTsDrawing_DEEP_0613`） Verify drawing translucent text twice keeps the same covered pixels. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0614`（`SUB_NdkTsDrawing_DEEP_0614`） Verify the two canvas halves partition the inked text pixels. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0615`（`SUB_NdkTsDrawing_DEEP_0615`） Verify a filled glyph outline covers more than its stroke. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0615`（`SUB_NdkTsDrawing_DEEP_0615`） Verify a filled glyph outline covers more than its stroke. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0616`（`SUB_NdkTsDrawing_DEEP_0616`） Verify a thicker pen inks more of the glyph outline. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0617`（`SUB_NdkTsDrawing_DEEP_0617`） Verify a wide letter outline runs longer than a narrow one. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0618`（`SUB_NdkTsDrawing_DEEP_0618`） Verify a two letter outline carries more verbs than one letter. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getVerbData、isEmpty | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0619`（`SUB_NdkTsDrawing_DEEP_0619`） Verify appending two glyph outlines doubles the covered ink. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、Path、addPath | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0620`（`SUB_NdkTsDrawing_DEEP_0620`） Verify a translated outline moves its ink into the shifted band. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、Matrix、setTranslation | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0621`（`SUB_NdkTsDrawing_DEEP_0621`） Verify a quarter turn swaps the outline bounds width and height. | 无设备依赖（纯对象 API）；L4 | Font、setSize、getTextPath、getBounds、Matrix | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0622`（`SUB_NdkTsDrawing_DEEP_0622`） Verify a half scale matrix halves the outline length. | 无设备依赖（纯对象 API）；L4 | Font、setSize、getTextPath、getLength、Matrix | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0623`（`SUB_NdkTsDrawing_DEEP_0623`） Verify the even odd fill of a ring letter differs from the winding fill. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、setFillType、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0619`（`SUB_NdkTsDrawing_DEEP_0619`） Verify appending two glyph outlines doubles the covered ink. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Path、addPath | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0620`（`SUB_NdkTsDrawing_DEEP_0620`） Verify a translated outline moves its ink into the shifted band. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Matrix、setTranslation | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0621`（`SUB_NdkTsDrawing_DEEP_0621`） Verify a quarter turn swaps the outline bounds width and height. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getBounds、Matrix | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0622`（`SUB_NdkTsDrawing_DEEP_0622`） Verify a half scale matrix halves the outline length. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getLength、Matrix | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0623`（`SUB_NdkTsDrawing_DEEP_0623`） Verify the even odd fill of a ring letter differs from the winding fill. | 200 × 200 离屏画布 | Font、setSize、getTextPath、setFillType、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0624`（`SUB_NdkTsDrawing_DEEP_0624`） Verify the measured advance bounds the glyph outline width. | 无设备依赖（纯对象 API） | Font、setSize、measureText、getTextPath、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0625`（`SUB_NdkTsDrawing_DEEP_0625`） Verify the glyph box height doubles with the font size. | 无设备依赖（纯对象 API） | Font、setSize、getBounds、textToGlyphs、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0626`（`SUB_NdkTsDrawing_DEEP_0626`） Verify a run of wide letters outlines wider than a run of narrow ones. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getBounds、getLength | 3 条断言全部通过 | 是 | 通过 |
@@ -3957,20 +3957,20 @@
 | `testFontDeep0628`（`SUB_NdkTsDrawing_DEEP_0628`） Verify a tiny font still produces a non empty outline. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、createPathForGlyph、isEmpty | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0629`（`SUB_NdkTsDrawing_DEEP_0629`） Verify a very large font produces a tall glyph outline. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、createPathForGlyph、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0630`（`SUB_NdkTsDrawing_DEEP_0630`） Verify a small font still paints visible ink on the canvas. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0631`（`SUB_NdkTsDrawing_DEEP_0631`） Verify a text blob drawn on a rotated canvas still inks pixels. | 200 × 200 离屏画布；L4 | rotate、Font、setSize、makeFromString、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0632`（`SUB_NdkTsDrawing_DEEP_0632`） Verify a translated text blob moves its ink out of the left band. | 200 × 200 离屏画布；L4 | translate、Font、setSize、makeFromString、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0631`（`SUB_NdkTsDrawing_DEEP_0631`） Verify a text blob drawn on a rotated canvas still inks pixels. | 200 × 200 离屏画布 | rotate、Font、setSize、makeFromString、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0632`（`SUB_NdkTsDrawing_DEEP_0632`） Verify a translated text blob moves its ink out of the left band. | 200 × 200 离屏画布 | translate、Font、setSize、makeFromString、Brush | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0633`（`SUB_NdkTsDrawing_DEEP_0633`） Verify a longer text blob inks more pixels than a short one. | 200 × 200 离屏画布 | Font、setSize、makeFromString、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0634`（`SUB_NdkTsDrawing_DEEP_0634`） Verify the brush alpha level does not change the covered pixel count. | 200 × 200 离屏画布 | Font、setSize、Brush、setColor、attachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0635`（`SUB_NdkTsDrawing_DEEP_0635`） Verify an identity matrix outline draw matches the plain draw. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、Path、addPath | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0636`（`SUB_NdkTsDrawing_DEEP_0636`） Verify a dashed pen inks less of the glyph outline than a solid pen. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0637`（`SUB_NdkTsDrawing_DEEP_0637`） Verify a blur mask filter still inks the glyph outline. | 200 × 200 离屏画布；L4 | Font、setSize、getTextPath、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0638`（`SUB_NdkTsDrawing_DEEP_0638`） Verify hinting toggles keep the painted ink within a narrow band. | 200 × 200 离屏画布；L4 | Font、setSize、setHinting、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0639`（`SUB_NdkTsDrawing_DEEP_0639`） Verify an emboldened font paints more ink than the plain text. | 200 × 200 离屏画布；L4 | Font、setSize、enableEmbolden、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0640`（`SUB_NdkTsDrawing_DEEP_0640`） Verify a widened font paints ink further to the right. | 200 × 200 离屏画布；L4 | Font、setSize、setScaleX、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0641`（`SUB_NdkTsDrawing_DEEP_0641`） Verify a skewed font still paints ink in the expected band. | 200 × 200 离屏画布；L4 | Font、setSize、setSkewX、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0635`（`SUB_NdkTsDrawing_DEEP_0635`） Verify an identity matrix outline draw matches the plain draw. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Path、addPath | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0636`（`SUB_NdkTsDrawing_DEEP_0636`） Verify a dashed pen inks less of the glyph outline than a solid pen. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0637`（`SUB_NdkTsDrawing_DEEP_0637`） Verify a blur mask filter still inks the glyph outline. | 200 × 200 离屏画布 | Font、setSize、getTextPath、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0638`（`SUB_NdkTsDrawing_DEEP_0638`） Verify hinting toggles keep the painted ink within a narrow band. | 200 × 200 离屏画布 | Font、setSize、setHinting、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0639`（`SUB_NdkTsDrawing_DEEP_0639`） Verify an emboldened font paints more ink than the plain text. | 200 × 200 离屏画布 | Font、setSize、enableEmbolden、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0640`（`SUB_NdkTsDrawing_DEEP_0640`） Verify a widened font paints ink further to the right. | 200 × 200 离屏画布 | Font、setSize、setScaleX、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0641`（`SUB_NdkTsDrawing_DEEP_0641`） Verify a skewed font still paints ink in the expected band. | 200 × 200 离屏画布 | Font、setSize、setSkewX、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0642`（`SUB_NdkTsDrawing_DEEP_0642`） Verify a merged outline of two letters spans a wider box than one. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、Path、addPath | 3 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0643`（`SUB_NdkTsDrawing_DEEP_0643`） Verify a full text pipeline measures outlines transforms and paints. | 200 × 200 离屏画布；L4 | Font、setSize、setEdging、measureText、getTextPath | 4 条断言全部通过 | 是 | 通过 |
-| `testFontDeep0644`（`SUB_NdkTsDrawing_DEEP_0644`） Verify a zero glyph limit converts no characters at all. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、countText、measureText | 3 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0643`（`SUB_NdkTsDrawing_DEEP_0643`） Verify a full text pipeline measures outlines transforms and paints. | 200 × 200 离屏画布 | Font、setSize、setEdging、measureText、getTextPath | 4 条断言全部通过 | 是 | 通过 |
+| `testFontDeep0644`（`SUB_NdkTsDrawing_DEEP_0644`） Verify a zero glyph limit is rejected as a parameter error. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、countText、measureText | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0645`（`SUB_NdkTsDrawing_DEEP_0645`） Verify two glyph conversions of the same word stay identical. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、getWidths | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0646`（`SUB_NdkTsDrawing_DEEP_0646`） Verify three glyph boxes keep the glyph order and stay non degenerate. | 无设备依赖（纯对象 API） | Font、setSize、textToGlyphs、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0647`（`SUB_NdkTsDrawing_DEEP_0647`） Verify a period outline is far shorter than a capital ring outline. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
@@ -3978,255 +3978,255 @@
 | `testFontDeep0649`（`SUB_NdkTsDrawing_DEEP_0649`） Verify the last assigned size wins over earlier assignments. | 无设备依赖（纯对象 API） | Font、setSize、measureText、getSize、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testFontDeep0650`（`SUB_NdkTsDrawing_DEEP_0650`） Verify two sizes keep the metrics sign pattern and grow downward. | 无设备依赖（纯对象 API） | Font、setSize、getMetrics | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0651`（`SUB_NdkTsDrawing_DEEP_0651`） Verify a translation matrix applied to the canvas moves rectangle ink right. | 200 × 200 离屏画布 | Matrix、setTranslation、setMatrix、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0652`（`SUB_NdkTsDrawing_DEEP_0652`） Verify a half scale matrix quarters the filled area on the canvas. | 200 × 200 离屏画布；L4 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0653`（`SUB_NdkTsDrawing_DEEP_0653`） Verify a doubled scale matrix quadruples the filled area. | 200 × 200 离屏画布；L4 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0654`（`SUB_NdkTsDrawing_DEEP_0654`） Verify a quarter turn turns a flat strip into a vertical strip. | 200 × 200 离屏画布；L4 | Matrix、setRotation、setMatrix、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0655`（`SUB_NdkTsDrawing_DEEP_0655`） Verify a horizontal skew shears the rectangle without changing its area. | 200 × 200 离屏画布；L4 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0656`（`SUB_NdkTsDrawing_DEEP_0656`） Verify concat after setMatrix applies the shift in device space. | 200 × 200 离屏画布；L4 | Matrix、setScale、setMatrix、setTranslation、concatMatrix | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0657`（`SUB_NdkTsDrawing_DEEP_0657`） Verify a restored save slot drops the matrix set inside it. | 200 × 200 离屏画布；L4 | save、Matrix、setTranslation、concatMatrix、restore | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0658`（`SUB_NdkTsDrawing_DEEP_0658`） Verify resetMatrix brings the canvas back to the plain frame. | 200 × 200 离屏画布；L4 | Matrix、setTranslation、setMatrix、resetMatrix、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0659`（`SUB_NdkTsDrawing_DEEP_0659`） Verify the canvas honours an inverted translation matrix. | 200 × 200 离屏画布；L4 | Matrix、setTranslation、invert、setMatrix、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0660`（`SUB_NdkTsDrawing_DEEP_0660`） Verify the centre fit mode centres a square inside a larger box. | 200 × 200 离屏画布；L4 | Matrix、setRectToRect、setMatrix、Brush、setColor | 4 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0661`（`SUB_NdkTsDrawing_DEEP_0661`） Verify the start fit mode pins the square against the left edge. | 200 × 200 离屏画布；L4 | Matrix、setRectToRect、setMatrix、Brush、setColor | 4 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0662`（`SUB_NdkTsDrawing_DEEP_0662`） Verify the end fit mode pins the square against the right edge. | 200 × 200 离屏画布；L4 | Matrix、setRectToRect、setMatrix、Brush、setColor | 4 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0652`（`SUB_NdkTsDrawing_DEEP_0652`） Verify a half scale matrix quarters the filled area on the canvas. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0653`（`SUB_NdkTsDrawing_DEEP_0653`） Verify a doubled scale matrix quadruples the filled area. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0654`（`SUB_NdkTsDrawing_DEEP_0654`） Verify a quarter turn turns a flat strip into a vertical strip. | 200 × 200 离屏画布 | Matrix、setRotation、setMatrix、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0655`（`SUB_NdkTsDrawing_DEEP_0655`） Verify a horizontal skew shears the rectangle without changing its area. | 200 × 200 离屏画布 | Brush、setColor、attachBrush、drawRect、detachBrush | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0656`（`SUB_NdkTsDrawing_DEEP_0656`） Verify concat after setMatrix applies the shift in device space. | 200 × 200 离屏画布 | Matrix、setScale、setMatrix、setTranslation、concatMatrix | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0657`（`SUB_NdkTsDrawing_DEEP_0657`） Verify a restored save slot drops the matrix set inside it. | 200 × 200 离屏画布 | save、Matrix、setTranslation、concatMatrix、restore | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0658`（`SUB_NdkTsDrawing_DEEP_0658`） Verify resetMatrix brings the canvas back to the plain frame. | 200 × 200 离屏画布 | Matrix、setTranslation、setMatrix、resetMatrix、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0659`（`SUB_NdkTsDrawing_DEEP_0659`） Verify the canvas honours an inverted translation matrix. | 200 × 200 离屏画布 | Matrix、setTranslation、invert、setMatrix、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0660`（`SUB_NdkTsDrawing_DEEP_0660`） Verify the centre fit mode centres a square inside a larger box. | 200 × 200 离屏画布 | Matrix、setRectToRect、setMatrix、Brush、setColor | 4 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0661`（`SUB_NdkTsDrawing_DEEP_0661`） Verify the start fit mode pins the square against the left edge. | 200 × 200 离屏画布 | Matrix、setRectToRect、setMatrix、Brush、setColor | 4 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0662`（`SUB_NdkTsDrawing_DEEP_0662`） Verify the end fit mode pins the square against the right edge. | 200 × 200 离屏画布 | Matrix、setRectToRect、setMatrix、Brush、setColor | 4 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0663`（`SUB_NdkTsDrawing_DEEP_0663`） Verify a two point polygon mapping behaves as a pure translation. | 无设备依赖（纯对象 API） | Matrix、setPolyToPoly、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0664`（`SUB_NdkTsDrawing_DEEP_0664`） Verify a four point polygon mapping scales a unit square onto a box. | 无设备依赖（纯对象 API）；L4 | Matrix、setPolyToPoly、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0664`（`SUB_NdkTsDrawing_DEEP_0664`） Verify a four point polygon mapping scales a unit square onto a box. | 无设备依赖（纯对象 API） | Matrix、setPolyToPoly、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0665`（`SUB_NdkTsDrawing_DEEP_0665`） Verify a doubled path transform doubles every bounds edge. | 无设备依赖（纯对象 API） | Path、addRect、getBounds、Matrix、setScale | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0666`（`SUB_NdkTsDrawing_DEEP_0666`） Verify a quarter turn swaps the width and height of a path box. | 无设备依赖（纯对象 API）；L4 | Path、addRect、getBounds、Matrix、setRotation | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0666`（`SUB_NdkTsDrawing_DEEP_0666`） Verify a quarter turn swaps the width and height of a path box. | 无设备依赖（纯对象 API） | Path、addRect、getBounds、Matrix、setRotation | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0667`（`SUB_NdkTsDrawing_DEEP_0667`） Verify a horizontal skew widens the path bounds on the right. | 无设备依赖（纯对象 API） | Path、addRect、getBounds、Matrix、setSkew | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0668`（`SUB_NdkTsDrawing_DEEP_0668`） Verify transforming a path inverts back onto its original bounds. | 无设备依赖（纯对象 API）；L4 | Path、addRect、getBounds、Matrix、setRotation | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0668`（`SUB_NdkTsDrawing_DEEP_0668`） Verify transforming a path inverts back onto its original bounds. | 无设备依赖（纯对象 API） | Path、addRect、getBounds、Matrix、setRotation | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0669`（`SUB_NdkTsDrawing_DEEP_0669`） Verify mapRect shifts a path box by the translation offsets. | 无设备依赖（纯对象 API） | Path、addRect、getBounds、Matrix、setTranslation | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0670`（`SUB_NdkTsDrawing_DEEP_0670`） Verify mapPoints scales three points with independent axes. | 无设备依赖（纯对象 API） | Matrix、setScale、mapPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0671`（`SUB_NdkTsDrawing_DEEP_0671`） Verify mapRadius follows a uniform scale factor of three. | 无设备依赖（纯对象 API） | Matrix、setScale、abs、mapRadius、rectStaysRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0672`（`SUB_NdkTsDrawing_DEEP_0672`） Verify mapRadius under unequal axes follows the determinant root. | 无设备依赖（纯对象 API）；L4 | Matrix、setScale、mapRadius、isAffine | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0672`（`SUB_NdkTsDrawing_DEEP_0672`） Verify mapRadius under unequal axes follows the determinant root. | 无设备依赖（纯对象 API） | Matrix、setScale、mapRadius、isAffine | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0673`（`SUB_NdkTsDrawing_DEEP_0673`） Verify the nine values of a quarter turn carry the sine cosine slots. | 无设备依赖（纯对象 API） | Matrix、setRotation、getAll、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0674`（`SUB_NdkTsDrawing_DEEP_0674`） Verify the skew slots expose both factors independently. | 无设备依赖（纯对象 API） | Matrix、setSkew、getValue、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0675`（`SUB_NdkTsDrawing_DEEP_0675`） Verify equality rejects two rotations with different angles. | 无设备依赖（纯对象 API） | Matrix、setRotation、isEqual、abs、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0676`（`SUB_NdkTsDrawing_DEEP_0676`） Verify a zero sine unit cosine pair keeps the identity state. | 无设备依赖（纯对象 API） | Matrix、setSinCos、isIdentity、abs、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0677`（`SUB_NdkTsDrawing_DEEP_0677`） Verify only right angle preserving builders report rectangles as stable. | 无设备依赖（纯对象 API） | Matrix、setRotation、setScale、rectStaysRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0678`（`SUB_NdkTsDrawing_DEEP_0678`） Verify a perspective matrix row is reported as not affine. | 无设备依赖（纯对象 API）；L4 | Matrix、setMatrix、isAffine、getValue | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0679`（`SUB_NdkTsDrawing_DEEP_0679`） Verify inverting a collapsed matrix falls back to the identity. | 无设备依赖（纯对象 API）；L4 | Matrix、setScale、invert、isIdentity、getValue | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0680`（`SUB_NdkTsDrawing_DEEP_0680`） Verify the inverse of a quarter turn rotates the edge backwards. | 无设备依赖（纯对象 API）；L4 | Matrix、setRotation、invert、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0681`（`SUB_NdkTsDrawing_DEEP_0681`） Verify the concat operand order changes the mapped coordinate. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、setScale、setConcat、mapPoints | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0682`（`SUB_NdkTsDrawing_DEEP_0682`） Verify postConcat and preConcat place the shift on opposite sides. | 无设备依赖（纯对象 API）；L4 | Matrix、setScale、setTranslation、postConcat、preConcat | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0678`（`SUB_NdkTsDrawing_DEEP_0678`） Verify a perspective matrix row is reported as not affine. | 无设备依赖（纯对象 API） | Matrix、setMatrix、isAffine、getValue | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0679`（`SUB_NdkTsDrawing_DEEP_0679`） Verify inverting a collapsed matrix falls back to the identity. | 无设备依赖（纯对象 API） | Matrix、setScale、invert、isIdentity、getValue | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0680`（`SUB_NdkTsDrawing_DEEP_0680`） Verify the inverse of a quarter turn rotates the edge backwards. | 无设备依赖（纯对象 API） | Matrix、setRotation、invert、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0681`（`SUB_NdkTsDrawing_DEEP_0681`） Verify the concat operand order changes the mapped coordinate. | 无设备依赖（纯对象 API） | Matrix、setTranslation、setScale、setConcat、mapPoints | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0682`（`SUB_NdkTsDrawing_DEEP_0682`） Verify postConcat and preConcat place the shift on opposite sides. | 无设备依赖（纯对象 API） | Matrix、setScale、setTranslation、postConcat、preConcat | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0683`（`SUB_NdkTsDrawing_DEEP_0683`） Verify postTranslate keeps the offset unscaled by the diagonal. | 无设备依赖（纯对象 API） | Matrix、setScale、postTranslate、mapPoints、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0684`（`SUB_NdkTsDrawing_DEEP_0684`） Verify preTranslate is amplified by the existing scale. | 无设备依赖（纯对象 API） | Matrix、setScale、preTranslate、mapPoints、getValue | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0685`（`SUB_NdkTsDrawing_DEEP_0685`） Verify postRotate turns the translated point in device space. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、postRotate、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0686`（`SUB_NdkTsDrawing_DEEP_0686`） Verify preRotate turns the point before the translation applies. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、preRotate、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0685`（`SUB_NdkTsDrawing_DEEP_0685`） Verify postRotate turns the translated point in device space. | 无设备依赖（纯对象 API） | Matrix、setTranslation、postRotate、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0686`（`SUB_NdkTsDrawing_DEEP_0686`） Verify preRotate turns the point before the translation applies. | 无设备依赖（纯对象 API） | Matrix、setTranslation、preRotate、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0687`（`SUB_NdkTsDrawing_DEEP_0687`） Verify preScale keeps the existing translation in device space. | 无设备依赖（纯对象 API） | Matrix、setTranslation、preScale、mapPoints、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0688`（`SUB_NdkTsDrawing_DEEP_0688`） Verify postScale multiplies the existing translation too. | 无设备依赖（纯对象 API） | Matrix、setTranslation、postScale、mapPoints、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0689`（`SUB_NdkTsDrawing_DEEP_0689`） Verify postSkew shears a path rectangle to the right. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、postSkew、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0690`（`SUB_NdkTsDrawing_DEEP_0690`） Verify preSkew shears before the translation is added. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、preSkew、mapPoints、getValue | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0690`（`SUB_NdkTsDrawing_DEEP_0690`） Verify preSkew shears before the translation is added. | 无设备依赖（纯对象 API） | Matrix、setTranslation、preSkew、mapPoints、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0691`（`SUB_NdkTsDrawing_DEEP_0691`） Verify reset clears a three step transform chain. | 无设备依赖（纯对象 API） | Matrix、setTranslation、postRotate、postScale、reset | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0692`（`SUB_NdkTsDrawing_DEEP_0692`） Verify the copy constructor keeps its values when the source resets. | 无设备依赖（纯对象 API） | Matrix、setTranslation、reset、isIdentity、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0693`（`SUB_NdkTsDrawing_DEEP_0693`） Verify setMatrix snapshots another matrix instead of aliasing it. | 无设备依赖（纯对象 API） | Matrix、setScale、setMatrix、reset、getValue | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0694`（`SUB_NdkTsDrawing_DEEP_0694`） Verify a translate scale rotate chain writes the expected slots. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、postScale、postRotate、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0694`（`SUB_NdkTsDrawing_DEEP_0694`） Verify a translate scale rotate chain writes the expected slots. | 无设备依赖（纯对象 API） | Matrix、setTranslation、postScale、postRotate、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0695`（`SUB_NdkTsDrawing_DEEP_0695`） Verify the identity mapping keeps a single point in place. | 无设备依赖（纯对象 API） | Matrix、mapPoints | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0696`（`SUB_NdkTsDrawing_DEEP_0696`） Verify mapRect under the identity returns the source edges. | 无设备依赖（纯对象 API） | Matrix、mapRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0697`（`SUB_NdkTsDrawing_DEEP_0697`） Verify a mirrored scale returns a normalised rectangle. | 无设备依赖（纯对象 API）；L4 | Matrix、setScale、mapRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0698`（`SUB_NdkTsDrawing_DEEP_0698`） Verify a three point polygon mapping pins the source origin. | 无设备依赖（纯对象 API）；L4 | Matrix、setPolyToPoly、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0699`（`SUB_NdkTsDrawing_DEEP_0699`） Verify a diagonal rotated path paints inside the canvas edges. | 200 × 200 离屏画布；L4 | Path、addRect、Matrix、setRotation、transform | 4 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0700`（`SUB_NdkTsDrawing_DEEP_0700`） Verify a device space clip still bounds a translated rectangle. | 200 × 200 离屏画布；L4 | Path、addRect、clipPath、Matrix、setTranslation | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0701`（`SUB_NdkTsDrawing_DEEP_0701`） Verify a scaled then shifted matrix lands the rectangle in the centre band. | 200 × 200 离屏画布；L4 | Matrix、setScale、postTranslate、setMatrix、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0702`（`SUB_NdkTsDrawing_DEEP_0702`） Verify a scaled path outline keeps its stroke inside the shrunk box. | 200 × 200 离屏画布；L4 | Path、addRect、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0697`（`SUB_NdkTsDrawing_DEEP_0697`） Verify a mirrored scale returns a normalised rectangle. | 无设备依赖（纯对象 API） | Matrix、setScale、mapRect | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0698`（`SUB_NdkTsDrawing_DEEP_0698`） Verify a three point polygon mapping pins the source origin. | 无设备依赖（纯对象 API） | Matrix、setPolyToPoly、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0699`（`SUB_NdkTsDrawing_DEEP_0699`） Verify a diagonal rotated path paints inside the canvas edges. | 200 × 200 离屏画布 | Path、addRect、Matrix、setRotation、transform | 4 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0700`（`SUB_NdkTsDrawing_DEEP_0700`） Verify a device space clip still bounds a translated rectangle. | 200 × 200 离屏画布 | Path、addRect、clipPath、Matrix、setTranslation | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0701`（`SUB_NdkTsDrawing_DEEP_0701`） Verify a scaled then shifted matrix lands the rectangle in the centre band. | 200 × 200 离屏画布 | Matrix、setScale、postTranslate、setMatrix、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0702`（`SUB_NdkTsDrawing_DEEP_0702`） Verify a scaled path outline keeps its stroke inside the shrunk box. | 200 × 200 离屏画布 | Path、addRect、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0703`（`SUB_NdkTsDrawing_DEEP_0703`） Verify the identity mapping keeps every radius unchanged. | 无设备依赖（纯对象 API） | Matrix、abs、mapRadius、isIdentity | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0704`（`SUB_NdkTsDrawing_DEEP_0704`） Verify a unit skew stretches the mapped radius but stays affine. | 无设备依赖（纯对象 API）；L4 | Matrix、setSkew、mapRadius、isAffine | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0704`（`SUB_NdkTsDrawing_DEEP_0704`） Verify a unit skew stretches the mapped radius but stays affine. | 无设备依赖（纯对象 API） | Matrix、setSkew、mapRadius、isAffine | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0705`（`SUB_NdkTsDrawing_DEEP_0705`） Verify one matrix transform keeps the gap between two paths. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0706`（`SUB_NdkTsDrawing_DEEP_0706`） Verify a half turn keeps the box size and moves it to negative space. | 无设备依赖（纯对象 API）；L4 | Path、addRect、getBounds、Matrix、setRotation | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0707`（`SUB_NdkTsDrawing_DEEP_0707`） Verify a 270 degree build matches a minus 90 degree build. | 无设备依赖（纯对象 API）；L4 | Matrix、setRotation、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0708`（`SUB_NdkTsDrawing_DEEP_0708`） Verify a zero scale collapses the path into an empty shape. | 无设备依赖（纯对象 API）；L4 | Path、addRect、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0706`（`SUB_NdkTsDrawing_DEEP_0706`） Verify a half turn keeps the box size and moves it to negative space. | 无设备依赖（纯对象 API） | Path、addRect、getBounds、Matrix、setRotation | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0707`（`SUB_NdkTsDrawing_DEEP_0707`） Verify a 270 degree build matches a minus 90 degree build. | 无设备依赖（纯对象 API） | Matrix、setRotation、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0708`（`SUB_NdkTsDrawing_DEEP_0708`） Verify a zero scale collapses the path into an empty shape. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0709`（`SUB_NdkTsDrawing_DEEP_0709`） Verify a mirrored scale flips the path box across the origin. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setScale、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0710`（`SUB_NdkTsDrawing_DEEP_0710`） Verify a doubled matrix doubles the text outline length. | 无设备依赖（纯对象 API）；L4 | Font、setSize、getTextPath、getLength、Matrix | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0710`（`SUB_NdkTsDrawing_DEEP_0710`） Verify a doubled matrix doubles the text outline length. | 无设备依赖（纯对象 API） | Font、setSize、getTextPath、getLength、Matrix | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0711`（`SUB_NdkTsDrawing_DEEP_0711`） Verify the inverse of a fourfold scale quarters the mapped radius. | 无设备依赖（纯对象 API） | Matrix、setScale、invert、abs、mapRadius | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0712`（`SUB_NdkTsDrawing_DEEP_0712`） Verify inverting twice maps the sample point back to itself. | 无设备依赖（纯对象 API）；L4 | Matrix、setRotation、invert、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0712`（`SUB_NdkTsDrawing_DEEP_0712`） Verify inverting twice maps the sample point back to itself. | 无设备依赖（纯对象 API） | Matrix、setRotation、invert、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0713`（`SUB_NdkTsDrawing_DEEP_0713`） Verify concat with the identity on either side keeps the operand. | 无设备依赖（纯对象 API） | Matrix、setScale、setConcat、isEqual | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0714`（`SUB_NdkTsDrawing_DEEP_0714`） Verify postConcat with the identity leaves the scale untouched. | 无设备依赖（纯对象 API） | Matrix、setScale、postConcat、getValue、isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0715`（`SUB_NdkTsDrawing_DEEP_0715`） Verify preConcat with the identity leaves the mapped point untouched. | 无设备依赖（纯对象 API） | Matrix、setScale、preConcat、mapPoints、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0716`（`SUB_NdkTsDrawing_DEEP_0716`） Verify reset only clears the matrix it is called on. | 无设备依赖（纯对象 API） | Matrix、setTranslation、setScale、reset、isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0717`（`SUB_NdkTsDrawing_DEEP_0717`） Verify a double skew drops the rectangle property but stays affine. | 无设备依赖（纯对象 API） | Matrix、setSkew、rectStaysRect、isAffine、isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0718`（`SUB_NdkTsDrawing_DEEP_0718`） Verify fitting a rectangle onto itself builds the identity. | 无设备依赖（纯对象 API） | Matrix、setRectToRect、isIdentity、getValue | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0719`（`SUB_NdkTsDrawing_DEEP_0719`） Verify the fill mode stretches a wide box onto a square box. | 无设备依赖（纯对象 API）；L4 | Matrix、setRectToRect、mapPoints、abs、getValue | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0720`（`SUB_NdkTsDrawing_DEEP_0720`） Verify a two point polygon mapping shifts a whole path box. | 无设备依赖（纯对象 API）；L4 | Matrix、setPolyToPoly、Path、addRect、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0721`（`SUB_NdkTsDrawing_DEEP_0721`） Verify identical polygon corners leave the centre in place. | 无设备依赖（纯对象 API）；L4 | Matrix、setPolyToPoly、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0722`（`SUB_NdkTsDrawing_DEEP_0722`） Verify an identity transformed path paints the same frame bytes. | 200 × 200 离屏画布；L4 | Path、addRect、addPath、Matrix、Brush | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0723`（`SUB_NdkTsDrawing_DEEP_0723`） Verify a canvas matrix paints the same area as a transformed path. | 200 × 200 离屏画布；L4 | Matrix、setTranslation、setMatrix、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0719`（`SUB_NdkTsDrawing_DEEP_0719`） Verify the fill mode stretches a wide box onto a square box. | 无设备依赖（纯对象 API） | Matrix、setRectToRect、mapPoints、abs、getValue | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0720`（`SUB_NdkTsDrawing_DEEP_0720`） Verify a two point polygon mapping shifts a whole path box. | 无设备依赖（纯对象 API） | Matrix、setPolyToPoly、Path、addRect、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0721`（`SUB_NdkTsDrawing_DEEP_0721`） Verify identical polygon corners leave the centre in place. | 无设备依赖（纯对象 API） | Matrix、setPolyToPoly、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0722`（`SUB_NdkTsDrawing_DEEP_0722`） Verify an identity transformed path paints the same frame bytes. | 200 × 200 离屏画布 | Path、addRect、addPath、Matrix、Brush | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0723`（`SUB_NdkTsDrawing_DEEP_0723`） Verify a canvas matrix paints the same area as a transformed path. | 200 × 200 离屏画布 | Matrix、setTranslation、setMatrix、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0724`（`SUB_NdkTsDrawing_DEEP_0724`） Verify the total matrix reports the translated offsets. | 200 × 200 离屏画布 | translate、getTotalMatrix、getValue、isIdentity | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0725`（`SUB_NdkTsDrawing_DEEP_0725`） Verify two concatenated shifts accumulate on the canvas matrix. | 200 × 200 离屏画布 | Matrix、setTranslation、concatMatrix、getTotalMatrix、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0726`（`SUB_NdkTsDrawing_DEEP_0726`） Verify a second setMatrix replaces the first instead of composing. | 200 × 200 离屏画布 | Matrix、setTranslation、setMatrix、getTotalMatrix、getValue | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0727`（`SUB_NdkTsDrawing_DEEP_0727`） Verify a scaled canvas keeps the gap between two painted rectangles. | 200 × 200 离屏画布；L4 | Matrix、setScale、setMatrix、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0728`（`SUB_NdkTsDrawing_DEEP_0728`） Verify a quarter scale shortens the path length fourfold. | 无设备依赖（纯对象 API）；L4 | Path、addRect、getLength、Matrix、setScale | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0729`（`SUB_NdkTsDrawing_DEEP_0729`） Verify two quarter turns match a single half turn on a path box. | 无设备依赖（纯对象 API）；L4 | Path、addRect、Matrix、setRotation、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0730`（`SUB_NdkTsDrawing_DEEP_0730`） Verify four quarter turns return the path box to its origin. | 无设备依赖（纯对象 API）；L4 | Path、addRect、getBounds、Matrix、setRotation | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0727`（`SUB_NdkTsDrawing_DEEP_0727`） Verify a scaled canvas keeps the gap between two painted rectangles. | 200 × 200 离屏画布 | Matrix、setScale、setMatrix、Brush、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0728`（`SUB_NdkTsDrawing_DEEP_0728`） Verify a quarter scale shortens the path length fourfold. | 无设备依赖（纯对象 API） | Path、addRect、getLength、Matrix、setScale | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0729`（`SUB_NdkTsDrawing_DEEP_0729`） Verify two quarter turns match a single half turn on a path box. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setRotation、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0730`（`SUB_NdkTsDrawing_DEEP_0730`） Verify four quarter turns return the path box to its origin. | 无设备依赖（纯对象 API） | Path、addRect、getBounds、Matrix、setRotation | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0731`（`SUB_NdkTsDrawing_DEEP_0731`） Verify a vertical skew pushes the path box downwards. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setSkew、transform | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0732`（`SUB_NdkTsDrawing_DEEP_0732`） Verify a double axis skew widens and deepens the path box. | 无设备依赖（纯对象 API）；L4 | Path、addRect、Matrix、setSkew、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0732`（`SUB_NdkTsDrawing_DEEP_0732`） Verify a double axis skew widens and deepens the path box. | 无设备依赖（纯对象 API） | Path、addRect、Matrix、setSkew、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0733`（`SUB_NdkTsDrawing_DEEP_0733`） Verify mapping an empty rectangle keeps all four edges equal. | 无设备依赖（纯对象 API） | Matrix、setTranslation、mapRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0734`（`SUB_NdkTsDrawing_DEEP_0734`） Verify a scale composed with its inverse returns the unit diagonal. | 无设备依赖（纯对象 API）；L4 | Matrix、setScale、invert、postConcat、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0734`（`SUB_NdkTsDrawing_DEEP_0734`） Verify a scale composed with its inverse returns the unit diagonal. | 无设备依赖（纯对象 API） | Matrix、setScale、invert、postConcat、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0735`（`SUB_NdkTsDrawing_DEEP_0735`） Verify the translation slots sit at the third and sixth index. | 无设备依赖（纯对象 API） | Matrix、setTranslation、getAll | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0736`（`SUB_NdkTsDrawing_DEEP_0736`） Verify two matrices built from the same values compare equal. | 无设备依赖（纯对象 API） | Matrix、setMatrix、isEqual、getValue | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0737`（`SUB_NdkTsDrawing_DEEP_0737`） Verify changing the perspective slot breaks matrix equality. | 无设备依赖（纯对象 API） | Matrix、setMatrix、isEqual、isIdentity | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0738`（`SUB_NdkTsDrawing_DEEP_0738`） Verify a clip set in local space is scaled with the matrix. | 200 × 200 离屏画布；L4 | Matrix、setScale、setMatrix、Path、addRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0739`（`SUB_NdkTsDrawing_DEEP_0739`） Verify a rotated clip turns the painted region into a vertical strip. | 200 × 200 离屏画布；L4 | Matrix、setRotation、setMatrix、Path、addRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0740`（`SUB_NdkTsDrawing_DEEP_0740`） Verify a full turn build keeps the unit diagonal within tolerance. | 无设备依赖（纯对象 API）；L4 | Matrix、setRotation、getAll、abs | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0738`（`SUB_NdkTsDrawing_DEEP_0738`） Verify a clip set in local space is scaled with the matrix. | 200 × 200 离屏画布 | Matrix、setScale、setMatrix、Path、addRect | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0739`（`SUB_NdkTsDrawing_DEEP_0739`） Verify a rotated clip turns the painted region into a vertical strip. | 200 × 200 离屏画布 | Matrix、setRotation、setMatrix、Path、addRect | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0740`（`SUB_NdkTsDrawing_DEEP_0740`） Verify a full turn build keeps the unit diagonal within tolerance. | 无设备依赖（纯对象 API） | Matrix、setRotation、getAll、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0741`（`SUB_NdkTsDrawing_DEEP_0741`） Verify a unit scale build reports the identity state. | 无设备依赖（纯对象 API） | Matrix、setScale、isIdentity、getValue、getAll | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0742`（`SUB_NdkTsDrawing_DEEP_0742`） Verify a scale about a pivot leaves the pivot coordinate alone. | 无设备依赖（纯对象 API） | Matrix、setScale、mapPoints、abs | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0743`（`SUB_NdkTsDrawing_DEEP_0743`） Verify a rotation about a pivot keeps the pivot coordinate alone. | 无设备依赖（纯对象 API） | Matrix、setRotation、mapPoints、abs、rectStaysRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0744`（`SUB_NdkTsDrawing_DEEP_0744`） Verify a translated stroked path keeps its band clear on the left. | 200 × 200 离屏画布；L4 | Path、addRect、Matrix、setTranslation、transform | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0744`（`SUB_NdkTsDrawing_DEEP_0744`） Verify a translated stroked path keeps its band clear on the left. | 200 × 200 离屏画布 | Path、addRect、Matrix、setTranslation、transform | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0745`（`SUB_NdkTsDrawing_DEEP_0745`） Verify a matrix built from values maps the radius by its diagonal. | 无设备依赖（纯对象 API） | Matrix、setMatrix、abs、mapRadius、rectStaysRect | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0746`（`SUB_NdkTsDrawing_DEEP_0746`） Verify a shifted then scaled chain maps a box onto doubled edges. | 无设备依赖（纯对象 API）；L4 | Matrix、setTranslation、setScale、postConcat、mapRect | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0746`（`SUB_NdkTsDrawing_DEEP_0746`） Verify a shifted then scaled chain maps a box onto doubled edges. | 无设备依赖（纯对象 API） | Matrix、setTranslation、setScale、postConcat、mapRect | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrixDeep0747`（`SUB_NdkTsDrawing_DEEP_0747`） Verify the nine value snapshot survives every matrix mutation. | 无设备依赖（纯对象 API） | Matrix、getAll、setRotation、postSkew | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0748`（`SUB_NdkTsDrawing_DEEP_0748`） Verify a full matrix pipeline builds inverts and paints a path. | 200 × 200 离屏画布；L4 | Matrix、setTranslation、setRotation、postConcat、invert | 5 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0749`（`SUB_NdkTsDrawing_DEEP_0749`） Verify mapRect under a skew widens the box by half its height. | 无设备依赖（纯对象 API）；L4 | Matrix、setSkew、mapRect | 4 条断言全部通过 | 是 | 通过 |
-| `testMatrixDeep0750`（`SUB_NdkTsDrawing_DEEP_0750`） Verify a scaled canvas confines a stroked rectangle to its centre. | 200 × 200 离屏画布；L4 | Matrix、setScale、setMatrix、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0748`（`SUB_NdkTsDrawing_DEEP_0748`） Verify a full matrix pipeline builds inverts and paints a path. | 200 × 200 离屏画布 | Matrix、setTranslation、setRotation、postConcat、invert | 5 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0749`（`SUB_NdkTsDrawing_DEEP_0749`） Verify mapRect under a skew widens the box by half its height. | 无设备依赖（纯对象 API） | Matrix、setSkew、mapRect | 4 条断言全部通过 | 是 | 通过 |
+| `testMatrixDeep0750`（`SUB_NdkTsDrawing_DEEP_0750`） Verify a scaled canvas confines a stroked rectangle to its centre. | 200 × 200 离屏画布 | Matrix、setScale、setMatrix、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0751`（`SUB_NdkTsDrawing_DEEP_0751`） Verify a two pixel stroke covers a narrow band on the offscreen canvas. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAntiAlias、attachPen | 4 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0752`（`SUB_NdkTsDrawing_DEEP_0752`） Verify an eight pixel horizontal stroke fills its band and nothing below it. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 4 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0753`（`SUB_NdkTsDrawing_DEEP_0753`） Verify doubling the stroke width roughly doubles the painted area. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0754`（`SUB_NdkTsDrawing_DEEP_0754`） Verify a zero width stroke keeps the hairline thin and the width getter at zero. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0754`（`SUB_NdkTsDrawing_DEEP_0754`） Verify a zero width stroke keeps the hairline thin and the width getter at zero. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0755`（`SUB_NdkTsDrawing_DEEP_0755`） Verify a stroked rectangle leaves its interior completely empty. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0756`（`SUB_NdkTsDrawing_DEEP_0756`） Verify a doubled outline width raises the border ring area. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0756`（`SUB_NdkTsDrawing_DEEP_0756`） Verify a doubled outline width raises the border ring area. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0757`（`SUB_NdkTsDrawing_DEEP_0757`） Verify a stroked circle keeps its inner disc untouched. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawCircle | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0758`（`SUB_NdkTsDrawing_DEEP_0758`） Verify the fill outline of a thick stroke grows by half the width. | 无设备依赖（纯对象 API）；L4 | Path、addRect、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0759`（`SUB_NdkTsDrawing_DEEP_0759`） Verify a forty pixel outline extends the box by twenty on each far side. | 无设备依赖（纯对象 API）；L4 | Path、addRect、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0760`（`SUB_NdkTsDrawing_DEEP_0760`） Verify a centred stroke paints the same pixel count on both halves. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setAntiAlias、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0758`（`SUB_NdkTsDrawing_DEEP_0758`） Verify the fill outline of a thick stroke grows by half the width. | 无设备依赖（纯对象 API） | Path、addRect、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0759`（`SUB_NdkTsDrawing_DEEP_0759`） Verify a forty pixel outline extends the box by twenty on each far side. | 无设备依赖（纯对象 API） | Path、addRect、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0760`（`SUB_NdkTsDrawing_DEEP_0760`） Verify a centred stroke paints the same pixel count on both halves. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAntiAlias、attachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0761`（`SUB_NdkTsDrawing_DEEP_0761`） Verify a flat cap stops the stroke exactly at the line end. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0762`（`SUB_NdkTsDrawing_DEEP_0762`） Verify a square cap adds a half width block beyond the line end. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0763`（`SUB_NdkTsDrawing_DEEP_0763`） Verify a round cap covers less area than a square cap. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0764`（`SUB_NdkTsDrawing_DEEP_0764`） Verify the square cap adds one width squared of paint over the flat cap. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0765`（`SUB_NdkTsDrawing_DEEP_0765`） Verify the round cap adds roughly three quarters of one width squared. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0766`（`SUB_NdkTsDrawing_DEEP_0766`） Verify the outline bounds follow the cap style at the segment ends. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0767`（`SUB_NdkTsDrawing_DEEP_0767`） Verify a round cap outline reaches half the width past the flat cap outline. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0763`（`SUB_NdkTsDrawing_DEEP_0763`） Verify a round cap covers less area than a square cap. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0764`（`SUB_NdkTsDrawing_DEEP_0764`） Verify the square cap adds one width squared of paint over the flat cap. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0765`（`SUB_NdkTsDrawing_DEEP_0765`） Verify the round cap adds roughly three quarters of one width squared. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0766`（`SUB_NdkTsDrawing_DEEP_0766`） Verify the outline bounds follow the cap style at the segment ends. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0767`（`SUB_NdkTsDrawing_DEEP_0767`） Verify a round cap outline reaches half the width past the flat cap outline. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0768`（`SUB_NdkTsDrawing_DEEP_0768`） Verify the cap style getter returns every enumeration member. | 无设备依赖（纯对象 API） | Pen、setCapStyle、getCapStyle | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0769`（`SUB_NdkTsDrawing_DEEP_0769`） Verify three lines with different caps keep independent end blocks. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0770`（`SUB_NdkTsDrawing_DEEP_0770`） Verify the cap style has no effect on a closed rectangle outline. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0771`（`SUB_NdkTsDrawing_DEEP_0771`） Verify a miter join grows a spike above the corner of a right angle. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0772`（`SUB_NdkTsDrawing_DEEP_0772`） Verify a bevel join cuts the spike off the same right angle corner. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0773`（`SUB_NdkTsDrawing_DEEP_0773`） Verify the painted area grows from bevel through round to miter on one corner. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setJoinStyle、Path | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0769`（`SUB_NdkTsDrawing_DEEP_0769`） Verify three lines with different caps keep independent end blocks. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0770`（`SUB_NdkTsDrawing_DEEP_0770`） Verify the cap style has no effect on a closed rectangle outline. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0771`（`SUB_NdkTsDrawing_DEEP_0771`） Verify a miter join grows a spike above the corner of a right angle. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0772`（`SUB_NdkTsDrawing_DEEP_0772`） Verify a bevel join cuts the spike off the same right angle corner. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0773`（`SUB_NdkTsDrawing_DEEP_0773`） Verify the painted area grows from bevel through round to miter on one corner. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setJoinStyle、Path | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0774`（`SUB_NdkTsDrawing_DEEP_0774`） Verify the join style getter returns every enumeration member. | 无设备依赖（纯对象 API） | Pen、setJoinStyle、getJoinStyle | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0775`（`SUB_NdkTsDrawing_DEEP_0775`） Verify the outline bounds rank miter above bevel above round at the corner. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0776`（`SUB_NdkTsDrawing_DEEP_0776`） Verify the right angle miter outline stops about fourteen pixels above the corner. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0777`（`SUB_NdkTsDrawing_DEEP_0777`） Verify a tight miter limit bevels a sharp corner that a loose limit keeps spiked. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0775`（`SUB_NdkTsDrawing_DEEP_0775`） Verify the outline bounds rank miter above bevel above round at the corner. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0776`（`SUB_NdkTsDrawing_DEEP_0776`） Verify the right angle miter outline stops about fourteen pixels above the corner. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0777`（`SUB_NdkTsDrawing_DEEP_0777`） Verify a tight miter limit bevels a sharp corner that a loose limit keeps spiked. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0778`（`SUB_NdkTsDrawing_DEEP_0778`） Verify a hundredfold miter limit paints the same pixels as a tenfold limit. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0779`（`SUB_NdkTsDrawing_DEEP_0779`） Verify the join style is irrelevant on a single straight segment. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setCapStyle、setJoinStyle | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0780`（`SUB_NdkTsDrawing_DEEP_0780`） Verify every corner of a zigzag polyline reacts to the join style. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0779`（`SUB_NdkTsDrawing_DEEP_0779`） Verify the join style is irrelevant on a single straight segment. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、setJoinStyle | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0780`（`SUB_NdkTsDrawing_DEEP_0780`） Verify every corner of a zigzag polyline reacts to the join style. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0781`（`SUB_NdkTsDrawing_DEEP_0781`） Verify the miter limit getter reports the stored value and leaves other traits alone. | 无设备依赖（纯对象 API） | Pen、setMiterLimit、getMiterLimit、getWidth、getAlpha | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0782`（`SUB_NdkTsDrawing_DEEP_0782`） Verify a negative miter limit paints like the documented fallback of four. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0783`（`SUB_NdkTsDrawing_DEEP_0783`） Verify raising the miter limit on a sharp corner adds the spike back. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0782`（`SUB_NdkTsDrawing_DEEP_0782`） Verify a negative miter limit paints like the documented fallback of four. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0783`（`SUB_NdkTsDrawing_DEEP_0783`） Verify raising the miter limit on a sharp corner adds the spike back. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0784`（`SUB_NdkTsDrawing_DEEP_0784`） Verify a limit of one and a limit of zero bevel the corner identically. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0785`（`SUB_NdkTsDrawing_DEEP_0785`） Verify a fractional miter limit survives a round trip on the pen. | 无设备依赖（纯对象 API） | Pen、setMiterLimit、setStrokeWidth、setAlpha、getMiterLimit | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0786`（`SUB_NdkTsDrawing_DEEP_0786`） Verify the outline length and top bound both grow with the miter limit. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0786`（`SUB_NdkTsDrawing_DEEP_0786`） Verify the outline length and top bound both grow with the miter limit. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0787`（`SUB_NdkTsDrawing_DEEP_0787`） Verify touching the miter limit keeps width colour and alpha untouched. | 无设备依赖（纯对象 API） | Pen、setStrokeWidth、setColor、setMiterLimit、getWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0788`（`SUB_NdkTsDrawing_DEEP_0788`） Verify a fresh pen joins miters like an explicit limit of four. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0789`（`SUB_NdkTsDrawing_DEEP_0789`） Verify the miter limit has no effect once the join style is round. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0788`（`SUB_NdkTsDrawing_DEEP_0788`） Verify a fresh pen joins miters like an explicit limit of four. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0789`（`SUB_NdkTsDrawing_DEEP_0789`） Verify the miter limit has no effect once the join style is round. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0790`（`SUB_NdkTsDrawing_DEEP_0790`） Verify the last miter limit written wins over earlier writes. | 无设备依赖（纯对象 API） | Pen、setMiterLimit、setStrokeWidth、getMiterLimit、getJoinStyle | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0791`（`SUB_NdkTsDrawing_DEEP_0791`） Verify an empty source path produces an empty outline. | 无设备依赖（纯对象 API） | Path、Pen、setStrokeWidth、getFillPath、isEmpty | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0792`（`SUB_NdkTsDrawing_DEEP_0792`） Verify a flat cap segment outline spans exactly the source end points. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0793`（`SUB_NdkTsDrawing_DEEP_0793`） Verify a round cap lengthens the segment outline by the two end arcs. | 无设备依赖（纯对象 API）；L4 | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0794`（`SUB_NdkTsDrawing_DEEP_0794`） Verify the rectangle outline length matches its outer and inner perimeters. | 无设备依赖（纯对象 API）；L4 | Path、addRect、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0795`（`SUB_NdkTsDrawing_DEEP_0795`） Verify a circle outline keeps its centre while growing by the half width. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0796`（`SUB_NdkTsDrawing_DEEP_0796`） Verify the circle outline box grows by eight on every side. | 无设备依赖（纯对象 API）；L4 | Path、addCircle、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0797`（`SUB_NdkTsDrawing_DEEP_0797`） Verify filling the outline reproduces the directly stroked band. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0792`（`SUB_NdkTsDrawing_DEEP_0792`） Verify a flat cap segment outline spans exactly the source end points. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0793`（`SUB_NdkTsDrawing_DEEP_0793`） Verify a round cap lengthens the segment outline by the two end arcs. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0794`（`SUB_NdkTsDrawing_DEEP_0794`） Verify the rectangle outline length matches its outer and inner perimeters. | 无设备依赖（纯对象 API） | Path、addRect、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0795`（`SUB_NdkTsDrawing_DEEP_0795`） Verify a circle outline keeps its centre while growing by the half width. | 无设备依赖（纯对象 API） | Path、addCircle、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0796`（`SUB_NdkTsDrawing_DEEP_0796`） Verify the circle outline box grows by eight on every side. | 无设备依赖（纯对象 API） | Path、addCircle、Pen、setStrokeWidth、getFillPath | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0797`（`SUB_NdkTsDrawing_DEEP_0797`） Verify filling the outline reproduces the directly stroked band. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0798`（`SUB_NdkTsDrawing_DEEP_0798`） Verify two destinations filled from the same source share their bounds. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0799`（`SUB_NdkTsDrawing_DEEP_0799`） Verify the segment outline length rises with the stroke width. | 无设备依赖（纯对象 API） | Path、moveTo、lineTo、Pen、setStrokeWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0800`（`SUB_NdkTsDrawing_DEEP_0800`） Verify a square capped miter polyline matches across pixels outline and traits. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 5 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0800`（`SUB_NdkTsDrawing_DEEP_0800`） Verify a square capped miter polyline matches across pixels outline and traits. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 5 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0801`（`SUB_NdkTsDrawing_DEEP_0801`） Verify a half alpha stroke writes the matching alpha channel value. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAntiAlias、setAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0802`（`SUB_NdkTsDrawing_DEEP_0802`） Verify a zero alpha stroke paints nothing at all. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAlpha、attachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0803`（`SUB_NdkTsDrawing_DEEP_0803`） Verify a lower alpha leaves a weaker alpha channel behind. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAlpha、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0804`（`SUB_NdkTsDrawing_DEEP_0804`） Verify the alpha value changes no pixel coverage count. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0804`（`SUB_NdkTsDrawing_DEEP_0804`） Verify the alpha value changes no pixel coverage count. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0805`（`SUB_NdkTsDrawing_DEEP_0805`） Verify the four argument colour setter fills every channel of the getter. | 无设备依赖（纯对象 API） | Pen、setColor、getColor | 4 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0806`（`SUB_NdkTsDrawing_DEEP_0806`） Verify the packed colour setter round trips through the hex getter. | 无设备依赖（纯对象 API） | Pen、setColor、getColor、getHexColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0807`（`SUB_NdkTsDrawing_DEEP_0807`） Verify a later alpha setter overrides the alpha packed in the colour. | 无设备依赖（纯对象 API） | Pen、setColor、setAlpha、getAlpha、getColor | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0808`（`SUB_NdkTsDrawing_DEEP_0808`） Verify a later colour setter overrides the previous alpha setter. | 无设备依赖（纯对象 API） | Pen、setAlpha、setColor、getAlpha、getHexColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0809`（`SUB_NdkTsDrawing_DEEP_0809`） Verify two translucent strokes over one spot stack to a darker alpha. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setAntiAlias、setAlpha | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0809`（`SUB_NdkTsDrawing_DEEP_0809`） Verify two translucent strokes over one spot stack to a darker alpha. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAntiAlias、setAlpha | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0810`（`SUB_NdkTsDrawing_DEEP_0810`） Verify a fresh pen reports full alpha and miter joins. | 无设备依赖（纯对象 API） | Pen、getAlpha、getJoinStyle、getCapStyle、isAntiAlias | 4 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0811`（`SUB_NdkTsDrawing_DEEP_0811`） Verify alpha can be driven to zero and restored to full strength. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAlpha、attachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0812`（`SUB_NdkTsDrawing_DEEP_0812`） Verify the float colour setter keeps its channels in the float getter. | 无设备依赖（纯对象 API） | Pen、setColor4f、getColor4f、abs、getAlpha | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0813`（`SUB_NdkTsDrawing_DEEP_0813`） Verify the source blend mode replaces the backdrop under the stroke. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0814`（`SUB_NdkTsDrawing_DEEP_0814`） Verify the destination blend mode leaves the backdrop untouched. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0815`（`SUB_NdkTsDrawing_DEEP_0815`） Verify multiplying blue over red darkens the overlap to black. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0816`（`SUB_NdkTsDrawing_DEEP_0816`） Verify screening blue over red produces magenta. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0817`（`SUB_NdkTsDrawing_DEEP_0817`） Verify the plus blend saturates both channels on the overlap. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0818`（`SUB_NdkTsDrawing_DEEP_0818`） Verify the xor blend cancels two opaque layers to transparency. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0819`（`SUB_NdkTsDrawing_DEEP_0819`） Verify the clear blend erases the whole stroke band. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0820`（`SUB_NdkTsDrawing_DEEP_0820`） Verify destination over keeps every pixel of the opaque backdrop. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0821`（`SUB_NdkTsDrawing_DEEP_0821`） Verify an explicit source over pen paints like the default pen. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0822`（`SUB_NdkTsDrawing_DEEP_0822`） Verify the blend mode touches only the pixels covered by the pen. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0823`（`SUB_NdkTsDrawing_DEEP_0823`） Verify two canvases with different blend modes disagree on the overlap. | 200 × 200 离屏画布；L4 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0824`（`SUB_NdkTsDrawing_DEEP_0824`） Verify dithering a solid stroke changes no pixel of the result. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0813`（`SUB_NdkTsDrawing_DEEP_0813`） Verify the source blend mode replaces the backdrop under the stroke. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0814`（`SUB_NdkTsDrawing_DEEP_0814`） Verify the destination blend mode leaves the backdrop untouched. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0815`（`SUB_NdkTsDrawing_DEEP_0815`） Verify multiplying blue over red darkens the overlap to black. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0816`（`SUB_NdkTsDrawing_DEEP_0816`） Verify screening blue over red produces magenta. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0817`（`SUB_NdkTsDrawing_DEEP_0817`） Verify the plus blend saturates both channels on the overlap. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0818`（`SUB_NdkTsDrawing_DEEP_0818`） Verify the xor blend cancels two opaque layers to transparency. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0819`（`SUB_NdkTsDrawing_DEEP_0819`） Verify the clear blend erases the whole stroke band. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0820`（`SUB_NdkTsDrawing_DEEP_0820`） Verify destination over keeps every pixel of the opaque backdrop. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0821`（`SUB_NdkTsDrawing_DEEP_0821`） Verify an explicit source over pen paints like the default pen. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0822`（`SUB_NdkTsDrawing_DEEP_0822`） Verify the blend mode touches only the pixels covered by the pen. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0823`（`SUB_NdkTsDrawing_DEEP_0823`） Verify two canvases with different blend modes disagree on the overlap. | 200 × 200 离屏画布 | drawColor、Pen、setColor、setStrokeWidth、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0824`（`SUB_NdkTsDrawing_DEEP_0824`） Verify dithering a solid stroke changes no pixel of the result. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0825`（`SUB_NdkTsDrawing_DEEP_0825`） Verify the dither flag leaves width alpha and colour alone. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setDither、getWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0826`（`SUB_NdkTsDrawing_DEEP_0826`） Verify switching dithering on and off again restores the plain stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setDither、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0827`（`SUB_NdkTsDrawing_DEEP_0827`） Verify dithering a translucent stroke keeps the same alpha byte. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setAlpha、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0827`（`SUB_NdkTsDrawing_DEEP_0827`） Verify dithering a translucent stroke keeps the same alpha byte. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAlpha、attachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0828`（`SUB_NdkTsDrawing_DEEP_0828`） Verify the dash effect removes ink compared with a solid stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0829`（`SUB_NdkTsDrawing_DEEP_0829`） Verify an even on off dash interval halves the painted band. | 200 × 200 离屏画布；L4 | createDashPathEffect、Pen、setColor、setStrokeWidth、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0830`（`SUB_NdkTsDrawing_DEEP_0830`） Verify the dash phase shifts where the gaps land on the line. | 200 × 200 离屏画布；L4 | createDashPathEffect、Pen、setColor、setStrokeWidth、setPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0831`（`SUB_NdkTsDrawing_DEEP_0831`） Verify a long on interval paints more than a short on interval. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0832`（`SUB_NdkTsDrawing_DEEP_0832`） Verify the dash effect breaks the ring of a stroked rectangle. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0833`（`SUB_NdkTsDrawing_DEEP_0833`） Verify the corner effect cuts the spike off a right angle. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0834`（`SUB_NdkTsDrawing_DEEP_0834`） Verify round caps fatten every dash segment compared with flat caps. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setCapStyle、setPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0835`（`SUB_NdkTsDrawing_DEEP_0835`） Verify clearing the path effect restores the solid stroke. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0836`（`SUB_NdkTsDrawing_DEEP_0836`） Verify the second path effect replaces the first one. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0837`（`SUB_NdkTsDrawing_DEEP_0837`） Verify two dash phases keep comparable ink totals but differ locally. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0838`（`SUB_NdkTsDrawing_DEEP_0838`） Verify a blur mask filter spreads the stroke beyond its sharp edges. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0839`（`SUB_NdkTsDrawing_DEEP_0839`） Verify a larger blur sigma widens the painted halo. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setMaskFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0840`（`SUB_NdkTsDrawing_DEEP_0840`） Verify the blurred core stays opaque while the halo fades out. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setMaskFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0841`（`SUB_NdkTsDrawing_DEEP_0841`） Verify clearing the mask filter restores the sharp stroke. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0842`（`SUB_NdkTsDrawing_DEEP_0842`） Verify the blurred halo count stays within a bounded multiple. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0843`（`SUB_NdkTsDrawing_DEEP_0843`） Verify the outer blur type clears the core of the stroke. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0844`（`SUB_NdkTsDrawing_DEEP_0844`） Verify a blend colour filter repaints the stroke in the filter colour. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setColorFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0845`（`SUB_NdkTsDrawing_DEEP_0845`） Verify clearing the colour filter restores the pen colour. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0846`（`SUB_NdkTsDrawing_DEEP_0846`） Verify a luma filter flattens the blue stroke into grey. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setColorFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0847`（`SUB_NdkTsDrawing_DEEP_0847`） Verify the shader effect wins over the plain pen colour. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0848`（`SUB_NdkTsDrawing_DEEP_0848`） Verify a colour filter still applies on top of a shader effect. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、setColorFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0829`（`SUB_NdkTsDrawing_DEEP_0829`） Verify an even on off dash interval halves the painted band. | 200 × 200 离屏画布 | createDashPathEffect、Pen、setColor、setStrokeWidth、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0830`（`SUB_NdkTsDrawing_DEEP_0830`） Verify the dash phase shifts where the gaps land on the line. | 200 × 200 离屏画布 | createDashPathEffect、Pen、setColor、setStrokeWidth、setPathEffect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0831`（`SUB_NdkTsDrawing_DEEP_0831`） Verify a long on interval paints more than a short on interval. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0832`（`SUB_NdkTsDrawing_DEEP_0832`） Verify the dash effect breaks the ring of a stroked rectangle. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0833`（`SUB_NdkTsDrawing_DEEP_0833`） Verify the corner effect cuts the spike off a right angle. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0834`（`SUB_NdkTsDrawing_DEEP_0834`） Verify round caps fatten every dash segment compared with flat caps. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setCapStyle、setPathEffect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0835`（`SUB_NdkTsDrawing_DEEP_0835`） Verify clearing the path effect restores the solid stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0836`（`SUB_NdkTsDrawing_DEEP_0836`） Verify the second path effect replaces the first one. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0837`（`SUB_NdkTsDrawing_DEEP_0837`） Verify two dash phases keep comparable ink totals but differ locally. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setPathEffect、createDashPathEffect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0838`（`SUB_NdkTsDrawing_DEEP_0838`） Verify a blur mask filter spreads the stroke beyond its sharp edges. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0839`（`SUB_NdkTsDrawing_DEEP_0839`） Verify a larger blur sigma widens the painted halo. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setMaskFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0840`（`SUB_NdkTsDrawing_DEEP_0840`） Verify the blurred core stays opaque while the halo fades out. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setMaskFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0841`（`SUB_NdkTsDrawing_DEEP_0841`） Verify clearing the mask filter restores the sharp stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0842`（`SUB_NdkTsDrawing_DEEP_0842`） Verify the blurred halo count stays within a bounded multiple. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawRect | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0843`（`SUB_NdkTsDrawing_DEEP_0843`） Verify the outer blur type clears the core of the stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setMaskFilter、createBlurMaskFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0844`（`SUB_NdkTsDrawing_DEEP_0844`） Verify a blend colour filter repaints the stroke in the filter colour. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setColorFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0845`（`SUB_NdkTsDrawing_DEEP_0845`） Verify clearing the colour filter restores the pen colour. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0846`（`SUB_NdkTsDrawing_DEEP_0846`） Verify a luma filter flattens the blue stroke into grey. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setColorFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0847`（`SUB_NdkTsDrawing_DEEP_0847`） Verify the shader effect wins over the plain pen colour. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0848`（`SUB_NdkTsDrawing_DEEP_0848`） Verify a colour filter still applies on top of a shader effect. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、setColorFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0849`（`SUB_NdkTsDrawing_DEEP_0849`） Verify resetting a fully configured pen restores every default trait. | 无设备依赖（纯对象 API） | Pen、setStrokeWidth、setAlpha、setCapStyle、setJoinStyle | 4 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0850`（`SUB_NdkTsDrawing_DEEP_0850`） Verify a reset pen accepts fresh settings that change the pixels again. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setAlpha、reset | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0850`（`SUB_NdkTsDrawing_DEEP_0850`） Verify a reset pen accepts fresh settings that change the pixels again. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setAlpha、reset | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0851`（`SUB_NdkTsDrawing_DEEP_0851`） Verify a single colour shader paints the stroke in that colour. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0852`（`SUB_NdkTsDrawing_DEEP_0852`） Verify a single colour shader overrides the colour set on the pen. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0853`（`SUB_NdkTsDrawing_DEEP_0853`） Verify clearing the shader falls back to the pen colour again. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0854`（`SUB_NdkTsDrawing_DEEP_0854`） Verify a red to blue linear gradient splits the stroke end colours. | 200 × 200 离屏画布；L4 | createLinearGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0855`（`SUB_NdkTsDrawing_DEEP_0855`） Verify the middle of a two colour gradient blends both channels. | 200 × 200 离屏画布；L4 | createLinearGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0856`（`SUB_NdkTsDrawing_DEEP_0856`） Verify swapping the gradient end points swaps the painted ends. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、createLinearGradient、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0857`（`SUB_NdkTsDrawing_DEEP_0857`） Verify a three stop gradient hits the middle colour at the centre. | 200 × 200 离屏画布；L4 | createLinearGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0858`（`SUB_NdkTsDrawing_DEEP_0858`） Verify a vertical linear gradient varies along the y axis. | 200 × 200 离屏画布；L4 | createLinearGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0859`（`SUB_NdkTsDrawing_DEEP_0859`） Verify a radial gradient shows its inner colour at the centre. | 200 × 200 离屏画布；L4 | createRadialGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0860`（`SUB_NdkTsDrawing_DEEP_0860`） Verify the clamp tile mode keeps the last colour past the radius. | 200 × 200 离屏画布；L4 | createRadialGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0861`（`SUB_NdkTsDrawing_DEEP_0861`） Verify an off centre radial gradient moves its bright core. | 200 × 200 离屏画布；L4 | createRadialGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0862`（`SUB_NdkTsDrawing_DEEP_0862`） Verify a sweep gradient paints the zero degree ray in the first colour. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0863`（`SUB_NdkTsDrawing_DEEP_0863`） Verify a sweep gradient and a linear gradient paint the same area differently. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0864`（`SUB_NdkTsDrawing_DEEP_0864`） Verify a conical gradient brightens between its two circles. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0865`（`SUB_NdkTsDrawing_DEEP_0865`） Verify a composed shader paints both of its source colours. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0866`（`SUB_NdkTsDrawing_DEEP_0866`） Verify a blur image filter spreads the stroke beyond its sharp edges. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0867`（`SUB_NdkTsDrawing_DEEP_0867`） Verify a stronger image blur sigma widens the halo. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setImageFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0868`（`SUB_NdkTsDrawing_DEEP_0868`） Verify an offset image filter shifts the stroke twenty pixels right. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0869`（`SUB_NdkTsDrawing_DEEP_0869`） Verify a negative offset image filter shifts the stroke left. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setImageFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0870`（`SUB_NdkTsDrawing_DEEP_0870`） Verify a composed blur and offset filter spreads and shifts at once. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0871`（`SUB_NdkTsDrawing_DEEP_0871`） Verify a zero sigma image blur behaves like no filter at all. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0872`（`SUB_NdkTsDrawing_DEEP_0872`） Verify clearing the image filter restores the sharp stroke. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0873`（`SUB_NdkTsDrawing_DEEP_0873`） Verify image blur and mask blur both spread ink but differently. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0852`（`SUB_NdkTsDrawing_DEEP_0852`） Verify a single colour shader overrides the colour set on the pen. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0853`（`SUB_NdkTsDrawing_DEEP_0853`） Verify clearing the shader falls back to the pen colour again. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0854`（`SUB_NdkTsDrawing_DEEP_0854`） Verify a red to blue linear gradient splits the stroke end colours. | 200 × 200 离屏画布 | createLinearGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0855`（`SUB_NdkTsDrawing_DEEP_0855`） Verify the middle of a two colour gradient blends both channels. | 200 × 200 离屏画布 | createLinearGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0856`（`SUB_NdkTsDrawing_DEEP_0856`） Verify swapping the gradient end points swaps the painted ends. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、createLinearGradient、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0857`（`SUB_NdkTsDrawing_DEEP_0857`） Verify a three stop gradient hits the middle colour at the centre. | 200 × 200 离屏画布 | createLinearGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0858`（`SUB_NdkTsDrawing_DEEP_0858`） Verify a vertical linear gradient varies along the y axis. | 200 × 200 离屏画布 | createLinearGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0859`（`SUB_NdkTsDrawing_DEEP_0859`） Verify a radial gradient shows its inner colour at the centre. | 200 × 200 离屏画布 | createRadialGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0860`（`SUB_NdkTsDrawing_DEEP_0860`） Verify the clamp tile mode keeps the last colour past the radius. | 200 × 200 离屏画布 | createRadialGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0861`（`SUB_NdkTsDrawing_DEEP_0861`） Verify an off centre radial gradient moves its bright core. | 200 × 200 离屏画布 | createRadialGradient、Pen、setStrokeWidth、setShaderEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0862`（`SUB_NdkTsDrawing_DEEP_0862`） Verify a sweep gradient paints the zero degree ray in the first colour. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0863`（`SUB_NdkTsDrawing_DEEP_0863`） Verify a sweep gradient and a linear gradient paint the same area differently. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0864`（`SUB_NdkTsDrawing_DEEP_0864`） Verify a conical gradient brightens between its two circles. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0865`（`SUB_NdkTsDrawing_DEEP_0865`） Verify a composed shader paints both of its source colours. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0866`（`SUB_NdkTsDrawing_DEEP_0866`） Verify a blur image filter spreads the stroke beyond its sharp edges. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0867`（`SUB_NdkTsDrawing_DEEP_0867`） Verify a stronger image blur sigma widens the halo. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setImageFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0868`（`SUB_NdkTsDrawing_DEEP_0868`） Verify an offset image filter shifts the stroke twenty pixels right. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0869`（`SUB_NdkTsDrawing_DEEP_0869`） Verify a negative offset image filter shifts the stroke left. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setImageFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0870`（`SUB_NdkTsDrawing_DEEP_0870`） Verify a composed blur and offset filter spreads and shifts at once. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0871`（`SUB_NdkTsDrawing_DEEP_0871`） Verify a zero sigma image blur is rejected while a plain pen still paints. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0872`（`SUB_NdkTsDrawing_DEEP_0872`） Verify clearing the image filter restores the sharp stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0873`（`SUB_NdkTsDrawing_DEEP_0873`） Verify image blur and mask blur both spread ink but differently. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0874`（`SUB_NdkTsDrawing_DEEP_0874`） Verify the image filter leaves every pen trait unchanged. | 无设备依赖（纯对象 API） | Pen、setColor、setStrokeWidth、setImageFilter、getWidth | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0875`（`SUB_NdkTsDrawing_DEEP_0875`） Verify a shader and a dash effect combine on one stroke. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0876`（`SUB_NdkTsDrawing_DEEP_0876`） Verify a shader and a mask filter combine on one stroke. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0877`（`SUB_NdkTsDrawing_DEEP_0877`） Verify the pen alpha still limits a shader backed stroke. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、setAlpha、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0878`（`SUB_NdkTsDrawing_DEEP_0878`） Verify a colour filter and a mask filter work together. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setColorFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0879`（`SUB_NdkTsDrawing_DEEP_0879`） Verify a blend mode applies on top of a shader stroke. | 200 × 200 离屏画布；L4 | drawColor、Pen、setStrokeWidth、setShaderEffect、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0880`（`SUB_NdkTsDrawing_DEEP_0880`） Verify a dash effect and a blur filter combine on one stroke. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、setPathEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0881`（`SUB_NdkTsDrawing_DEEP_0881`） Verify every pen style set at once still produces a visible stroke. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setShaderEffect、setPathEffect、setMaskFilter | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0882`（`SUB_NdkTsDrawing_DEEP_0882`） Verify cap join and dash settings coexist on a polyline. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0883`（`SUB_NdkTsDrawing_DEEP_0883`） Verify a tight miter limit still trims the corner under a dash effect. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0884`（`SUB_NdkTsDrawing_DEEP_0884`） Verify two pens attached in turn keep their own stroke colours. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0885`（`SUB_NdkTsDrawing_DEEP_0885`） Verify three attach and detach cycles leave three separate bands. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0875`（`SUB_NdkTsDrawing_DEEP_0875`） Verify a shader and a dash effect combine on one stroke. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0876`（`SUB_NdkTsDrawing_DEEP_0876`） Verify a shader and a mask filter combine on one stroke. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0877`（`SUB_NdkTsDrawing_DEEP_0877`） Verify the pen alpha still limits a shader backed stroke. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、setAlpha、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0878`（`SUB_NdkTsDrawing_DEEP_0878`） Verify a colour filter and a mask filter work together. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setColorFilter、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0879`（`SUB_NdkTsDrawing_DEEP_0879`） Verify a blend mode applies on top of a shader stroke. | 200 × 200 离屏画布 | drawColor、Pen、setStrokeWidth、setShaderEffect、setBlendMode | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0880`（`SUB_NdkTsDrawing_DEEP_0880`） Verify a dash effect and a blur filter combine on one stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、setPathEffect、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0881`（`SUB_NdkTsDrawing_DEEP_0881`） Verify every pen style set at once still produces a visible stroke. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setShaderEffect、setPathEffect、setMaskFilter | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0882`（`SUB_NdkTsDrawing_DEEP_0882`） Verify cap join and dash settings coexist on a polyline. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0883`（`SUB_NdkTsDrawing_DEEP_0883`） Verify a tight miter limit still trims the corner under a dash effect. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0884`（`SUB_NdkTsDrawing_DEEP_0884`） Verify two pens attached in turn keep their own stroke colours. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0885`（`SUB_NdkTsDrawing_DEEP_0885`） Verify three attach and detach cycles leave three separate bands. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0886`（`SUB_NdkTsDrawing_DEEP_0886`） Verify one pen draws two bands inside a single attach. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0887`（`SUB_NdkTsDrawing_DEEP_0887`） Verify a pen border and a brush fill cover one rectangle. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、Brush、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0888`（`SUB_NdkTsDrawing_DEEP_0888`） Verify a width change between two attaches changes the painted band. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0889`（`SUB_NdkTsDrawing_DEEP_0889`） Verify a gradient dash and round cap combine into a dotted line. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setAntiAlias、setCapStyle、setShaderEffect | 4 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0890`（`SUB_NdkTsDrawing_DEEP_0890`） Verify a two hundred pixel wide stroke covers the whole bitmap. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0891`（`SUB_NdkTsDrawing_DEEP_0891`） Verify a half pixel width draws like a one pixel width. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0892`（`SUB_NdkTsDrawing_DEEP_0892`） Verify a negative width paints a thin hairline like a zero width. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0887`（`SUB_NdkTsDrawing_DEEP_0887`） Verify a pen border and a brush fill cover one rectangle. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、Brush、attachPen | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0888`（`SUB_NdkTsDrawing_DEEP_0888`） Verify a width change between two attaches changes the painted band. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0889`（`SUB_NdkTsDrawing_DEEP_0889`） Verify a gradient dash and round cap combine into a dotted line. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setAntiAlias、setCapStyle、setShaderEffect | 4 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0890`（`SUB_NdkTsDrawing_DEEP_0890`） Verify a two hundred pixel wide stroke covers the whole bitmap. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0891`（`SUB_NdkTsDrawing_DEEP_0891`） Verify a half pixel width draws like a one pixel width. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0892`（`SUB_NdkTsDrawing_DEEP_0892`） Verify a negative width paints a thin hairline like a zero width. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
 | `testPenDeep0893`（`SUB_NdkTsDrawing_DEEP_0893`） Verify a full bitmap width with full alpha fills every channel. | 200 × 200 离屏画布 | Pen、setColor、setAlpha、setStrokeWidth、attachPen | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0894`（`SUB_NdkTsDrawing_DEEP_0894`） Verify a dash interval longer than the line keeps it solid. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0895`（`SUB_NdkTsDrawing_DEEP_0895`） Verify a very short dash interval keeps roughly half the ink. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0896`（`SUB_NdkTsDrawing_DEEP_0896`） Verify a one pixel dash pattern still breaks the stroke. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0897`（`SUB_NdkTsDrawing_DEEP_0897`） Verify an extreme miter limit matches a very large one. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0898`（`SUB_NdkTsDrawing_DEEP_0898`） Verify a zero sigma mask blur behaves like no mask filter. | 200 × 200 离屏画布；L4 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0899`（`SUB_NdkTsDrawing_DEEP_0899`） Verify a fully styled dashed polyline reaches pixels and outline together. | 200 × 200 离屏画布；L4 | Path、moveTo、lineTo、Pen、setStrokeWidth | 4 条断言全部通过 | 是 | 通过 |
-| `testPenDeep0900`（`SUB_NdkTsDrawing_DEEP_0900`） Verify anti-aliasing softens a shader stroke along a diagonal line. | 200 × 200 离屏画布；L4 | Pen、setStrokeWidth、setAntiAlias、setShaderEffect、attachPen | 4 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0894`（`SUB_NdkTsDrawing_DEEP_0894`） Verify a dash interval longer than the line keeps it solid. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0895`（`SUB_NdkTsDrawing_DEEP_0895`） Verify a very short dash interval keeps roughly half the ink. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0896`（`SUB_NdkTsDrawing_DEEP_0896`） Verify a one pixel dash pattern still breaks the stroke. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0897`（`SUB_NdkTsDrawing_DEEP_0897`） Verify an extreme miter limit matches a very large one. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setColor | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0898`（`SUB_NdkTsDrawing_DEEP_0898`） Verify a zero sigma mask blur is rejected while a plain pen still paints. | 200 × 200 离屏画布 | Pen、setColor、setStrokeWidth、attachPen、drawLine | 3 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0899`（`SUB_NdkTsDrawing_DEEP_0899`） Verify a fully styled dashed polyline reaches pixels and outline together. | 200 × 200 离屏画布 | Path、moveTo、lineTo、Pen、setStrokeWidth | 4 条断言全部通过 | 是 | 通过 |
+| `testPenDeep0900`（`SUB_NdkTsDrawing_DEEP_0900`） Verify anti-aliasing softens a shader stroke along a diagonal line. | 200 × 200 离屏画布 | Pen、setStrokeWidth、setAntiAlias、setShaderEffect、attachPen | 4 条断言全部通过 | 是 | 通过 |
 | `testCanvasBasic0001`（`SUB_CANVAS_BASIC_0100`） Query the size and save count of a fresh offscreen canvas. | 200 × 200 离屏画布 | getWidth、getHeight、getSaveCount | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasBasic0002`（`SUB_CANVAS_BASIC_0200`） Verify a fresh canvas holds no painted pixel. | 200 × 200 离屏画布 | isClipEmpty | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasBasic0003`（`SUB_CANVAS_BASIC_0300`） Verify two offscreen canvases keep independent sizes. | 200 × 200 离屏画布 | getWidth、getHeight | 3 条断言全部通过 | 是 | 通过 |
@@ -4295,7 +4295,7 @@
 | `testCanvasClip0022`（`SUB_CANVAS_CLIP_2200`） Reset a region clip and verify the full canvas is available again. | 200 × 200 离屏画布 | isClipEmpty | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasClip0023`（`SUB_CANVAS_CLIP_2300`） Clip a rounded rectangle larger than a small canvas. | 200 × 200 离屏画布 |  | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasClip0024`（`SUB_CANVAS_CLIP_2400`） Read the size of a minimal one pixel canvas. | 200 × 200 离屏画布 | isClipEmpty | 3 条断言全部通过 | 是 | 通过 |
-| `testCanvasClip0025`（`SUB_CANVAS_CLIP_2500`） Verify the opaque probe fills a 240 square canvas. | 200 × 200 离屏画布 |  | 3 条断言全部通过 | 是 | 通过 |
+| `testCanvasClip0025`（`SUB_CANVAS_CLIP_2500`） Verify the fixed probe rectangle paints 200 square pixels inside a 240 square canvas. | 200 × 200 离屏画布 |  | 3 条断言全部通过 | 是 | 通过 |
 | `testCanvasClip0026`（`SUB_CANVAS_CLIP_2600`） Clip a small canvas with the default rectangle clip. | 200 × 200 离屏画布 | getSaveCount | 3 条断言全部通过 | 是 | 通过 |
 | `testPenBrush0001`（`SUB_PEN_BRUSH_0100`） Verify the stroke pen keeps the requested width and color channels. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testPenBrush0002`（`SUB_PEN_BRUSH_0200`） Verify the stroke pen blue channel and anti alias flag. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -4340,13 +4340,13 @@
 | `testMatrix0011`（`SUB_MATRIX_1100`） Invert a scale matrix and verify the reciprocal diagonal. | 无设备依赖（纯对象 API） | Matrix、setScale | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0012`（`SUB_MATRIX_1200`） Verify a singular matrix falls back to the identity matrix. | 无设备依赖（纯对象 API） | Matrix、setMatrix | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0013`（`SUB_MATRIX_1300`） Map two points with a translation matrix. | 无设备依赖（纯对象 API） | Matrix、setTranslation | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrix0014`（`SUB_MATRIX_1400`） Map an empty point array and verify the result is empty. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrix0014`（`SUB_MATRIX_1400`） Verify mapping an empty point array is rejected while one point still maps. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0015`（`SUB_MATRIX_1500`） Map a radius with a scale matrix. | 无设备依赖（纯对象 API） | Matrix、setScale | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0016`（`SUB_MATRIX_1600`） Map a rectangle with a scale matrix. | 无设备依赖（纯对象 API） | Matrix、setScale | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0017`（`SUB_MATRIX_1700`） Fit one rectangle into another with the fill mode. | 无设备依赖（纯对象 API） | Matrix | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0018`（`SUB_MATRIX_1800`） Verify the start mode of the rectangle fitting keeps the aspect ratio. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0019`（`SUB_MATRIX_1900`） Map a three point polygon onto another polygon. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testMatrix0020`（`SUB_MATRIX_2000`） Verify a single point polygon cannot build the matrix. | 无设备依赖（纯对象 API） | Matrix | 3 条断言全部通过 | 是 | 通过 |
+| `testMatrix0020`（`SUB_MATRIX_2000`） Verify a single point polygon cannot build the matrix and more than four points are rejected. | 无设备依赖（纯对象 API） | Matrix | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0021`（`SUB_MATRIX_2100`） Read one value of the identity matrix by index. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0022`（`SUB_MATRIX_2200`） Compare equal and different matrices. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testMatrix0023`（`SUB_MATRIX_2300`） Build a matrix from a nine value array and read it back. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
@@ -4435,14 +4435,14 @@
 | `testFontText0014`（`SUB_FONT_TEXT_1400`） Verify the single character measurement with font features. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0015`（`SUB_FONT_TEXT_1500`） Verify the character count of a plain string. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0016`（`SUB_FONT_TEXT_1600`） Verify the glyph ids of a plain string. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFontText0017`（`SUB_FONT_TEXT_1700`） Verify the limited glyph id conversion. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFontText0017`（`SUB_FONT_TEXT_1700`） Verify the limited glyph id conversion rejects a count that does not match the text. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0018`（`SUB_FONT_TEXT_1800`） Verify the glyph advance widths. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0019`（`SUB_FONT_TEXT_1900`） Verify the glyph bounding boxes are flattened to four numbers each. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0020`（`SUB_FONT_TEXT_2000`） Verify the text outline path of a plain string. | 无设备依赖（纯对象 API） | isEmpty、getLength、getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0021`（`SUB_FONT_TEXT_2100`） Verify the fallback text outline path. | 无设备依赖（纯对象 API） | isEmpty、getLength | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0022`（`SUB_FONT_TEXT_2200`） Verify the glyph outline of a valid and invalid index. | 无设备依赖（纯对象 API） | isEmpty | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0023`（`SUB_FONT_TEXT_2300`） Verify the text blob bounds of a plain string. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testFontText0024`（`SUB_FONT_TEXT_2400`） Verify two text blobs of the same text share the same unique id. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
+| `testFontText0024`（`SUB_FONT_TEXT_2400`） Verify two text blobs of the same text report distinct ids but one box. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0025`（`SUB_FONT_TEXT_2500`） Verify the text blob built from a run buffer. | 无设备依赖（纯对象 API） | bounds、uniqueID | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0026`（`SUB_FONT_TEXT_2600`） Verify the text blob built from explicit points. | 无设备依赖（纯对象 API） | bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testFontText0027`（`SUB_FONT_TEXT_2700`） Verify drawing a single character paints pixels. | 200 × 200 离屏画布 | getSaveCount、getWidth | 3 条断言全部通过 | 是 | 通过 |
@@ -4454,7 +4454,7 @@
 | `testTextBlob0003`（`SUB_TEXT_BLOB_0300`） Verify a longer string produces a wider text blob. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlob0004`（`SUB_TEXT_BLOB_0400`） Verify the text blob bounds stay inside a reasonable range. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlob0005`（`SUB_TEXT_BLOB_0500`） Verify two blobs of the same text report the same unique id. | 无设备依赖（纯对象 API） |  | 3 条断言全部通过 | 是 | 通过 |
-| `testTextBlob0006`（`SUB_TEXT_BLOB_0600`） Verify the text blob object keeps a stable id and non empty bounds. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
+| `testTextBlob0006`（`SUB_TEXT_BLOB_0600`） Verify a text blob reports a positive id and non empty bounds. | 无设备依赖（纯对象 API） | uniqueID、bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlob0007`（`SUB_TEXT_BLOB_0700`） Verify the bounds supplied to the run buffer blob are kept. | 无设备依赖（纯对象 API） | bounds | 4 条断言全部通过 | 是 | 通过 |
 | `testTextBlob0008`（`SUB_TEXT_BLOB_0800`） Verify a single glyph run buffer blob covers one advance width. | 无设备依赖（纯对象 API） | bounds | 3 条断言全部通过 | 是 | 通过 |
 | `testTextBlob0009`（`SUB_TEXT_BLOB_0900`） Verify the blob built from positioned text has valid bounds. | 无设备依赖（纯对象 API） | bounds | 3 条断言全部通过 | 是 | 通过 |
@@ -4486,7 +4486,7 @@
 | `testEffect0023`（`SUB_EFFECT_2300`） Verify the composed path effect keeps the stroke visible. | 无设备依赖（纯对象 API） | setPathEffect | 4 条断言全部通过 | 是 | 通过 |
 | `testEffect0024`（`SUB_EFFECT_2400`） Verify the summed path effect keeps the stroke visible. | 无设备依赖（纯对象 API） | setPathEffect | 4 条断言全部通过 | 是 | 通过 |
 | `testEffect0025`（`SUB_EFFECT_2500`） Verify the shadow layer adds pixels around the stroke. | 无设备依赖（纯对象 API） | setStrokeWidth、setShadowLayer | 4 条断言全部通过 | 是 | 通过 |
-| `testEffect0026`（`SUB_EFFECT_2600`） Verify two image lattices are separate objects. | 200 × 200 离屏画布 | drawColor、drawImageLattice | 3 条断言全部通过 | 是 | 通过 |
+| `testEffect0026`（`SUB_EFFECT_2600`） Verify a lattice carrying an ARGB colour array covers the whole target. | 200 × 200 离屏画布 | drawColor、drawImageLattice | 3 条断言全部通过 | 是 | 通过 |
 | `testEffect0027`（`SUB_EFFECT_2700`） Verify the effect showcase fills the whole canvas. | 200 × 200 离屏画布 | getWidth | 3 条断言全部通过 | 是 | 通过 |
 | `testEffect0028`（`SUB_EFFECT_2800`） Verify the effect showcase covers a small canvas completely. | 200 × 200 离屏画布 | getWidth、getHeight | 3 条断言全部通过 | 是 | 通过 |
 | `testEffect0029`（`SUB_EFFECT_2900`） Verify the effect showcase covers a single pixel canvas. | 200 × 200 离屏画布 | getWidth、getHeight | 3 条断言全部通过 | 是 | 通过 |
@@ -4575,7 +4575,7 @@
 | `testIndexGallery0020`（`SUB_NdkTsDrawing_UI_1020`） Verify the pen brush entry reports a button type and an empty hint. | 无设备依赖（纯对象 API） | findComponent、text、getType、getHint、getText | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0021`（`SUB_NdkTsDrawing_UI_1021`） Verify the text blob entry box has a positive height. | 无设备依赖（纯对象 API） | getBounds、getText、isClickable | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0022`（`SUB_NdkTsDrawing_UI_1022`） Verify a contains match for glyph returns exactly the single glyph entry. | 无设备依赖（纯对象 API） | findComponents、text、getText、getId | 3 条断言全部通过 | 是 | 通过 |
-| `testIndexGallery0023`（`SUB_NdkTsDrawing_UI_1023`） Verify the effect entry survives a long press without losing its label. | 无设备依赖（纯对象 API） | isLongClickable、longClick、delayMs、getText、getId | 3 条断言全部通过 | 是 | 通过 |
+| `testIndexGallery0023`（`SUB_NdkTsDrawing_UI_1023`） Verify the effect entry stays clickable and keeps its label after a press. | 无设备依赖（纯对象 API） | isLongClickable、longClick、delayMs、getText、getId | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0024`（`SUB_NdkTsDrawing_UI_1024`） Verify a suffix match over the draw entries finds the matrix draw button. | 无设备依赖（纯对象 API） | findComponents、text、getText、getId | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0025`（`SUB_NdkTsDrawing_UI_1025`） Verify a rects press keeps both the preview canvas and the entry on the page. | 无设备依赖（纯对象 API） | click、delayMs、assertComponentExist、id、getText | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0026`（`SUB_NdkTsDrawing_UI_1026`） Verify pressing the round rect entry twice keeps its id stable. | 无设备依赖（纯对象 API） | click、delayMs、getId、isEnabled、getText | 3 条断言全部通过 | 是 | 通过 |
@@ -4599,7 +4599,7 @@
 | `testIndexGallery0044`（`SUB_NdkTsDrawing_UI_1044`） Verify the pen brush entry keeps its label and type after a press. | 无设备依赖（纯对象 API） | click、delayMs、getText、getType、getId | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0045`（`SUB_NdkTsDrawing_UI_1045`） Verify a text blob press keeps both the canvas and the entry on the page. | 无设备依赖（纯对象 API） | click、delayMs、getText | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0046`（`SUB_NdkTsDrawing_UI_1046`） Verify the glyph entry keeps a positive height after a press. | 无设备依赖（纯对象 API） | click、delayMs、getBounds、getText、getId | 3 条断言全部通过 | 是 | 通过 |
-| `testIndexGallery0047`（`SUB_NdkTsDrawing_UI_1047`） Verify the effect entry stays long clickable after a press. | 无设备依赖（纯对象 API） | click、delayMs、isLongClickable、getText、isClickable | 3 条断言全部通过 | 是 | 通过 |
+| `testIndexGallery0047`（`SUB_NdkTsDrawing_UI_1047`） Verify the effect entry stays clickable but not long clickable after a press. | 无设备依赖（纯对象 API） | click、delayMs、isLongClickable、getText、isClickable | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0048`（`SUB_NdkTsDrawing_UI_1048`） Verify the matrix draw entry keeps its id and label after a press. | 无设备依赖（纯对象 API） | click、delayMs、getId、getText、isEnabled | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0049`（`SUB_NdkTsDrawing_UI_1049`） Verify pressing rects then round rect updates both labels in order. | 无设备依赖（纯对象 API） | click、delayMs、getText、getId | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexGallery0050`（`SUB_NdkTsDrawing_UI_1050`） Verify pressing arc then circle keeps both entries enabled. | 无设备依赖（纯对象 API） | click、delayMs、isEnabled、getText | 3 条断言全部通过 | 是 | 通过 |
@@ -4672,7 +4672,7 @@
 | `testIndexCanvas0057`（`SUB_NdkTsDrawing_UI_1117`） Verify a punctuation only label query matches nothing and leaves the button set as is. | 无设备依赖（纯对象 API） | findComponents、type、text、isClickable | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexCanvas0058`（`SUB_NdkTsDrawing_UI_1118`） Verify a single space label query matches nothing. | 无设备依赖（纯对象 API） | findComponents、text、getText | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexCanvas0059`（`SUB_NdkTsDrawing_UI_1119`） Verify a common prefix selects both clip entries. | 无设备依赖（纯对象 API） | findComponents、text、getText、isClickable | 3 条断言全部通过 | 是 | 通过 |
-| `testIndexCanvas0060`（`SUB_NdkTsDrawing_UI_1120`） Verify a malformed regular expression does not break the driver. | 无设备依赖（纯对象 API）；L4 | findComponents、text、getText | 3 条断言全部通过 | 是 | 通过 |
+| `testIndexCanvas0060`（`SUB_NdkTsDrawing_UI_1120`） Verify a malformed regular expression does not break the driver. | 无设备依赖（纯对象 API） | findComponents、text、getText | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexState0001`（`SUB_NdkTsDrawing_UI_1121`） Verify three presses of the rects entry keep the entry intact. | 无设备依赖（纯对象 API） | getId、getText | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexState0002`（`SUB_NdkTsDrawing_UI_1122`） Verify four presses of the round rect entry keep the label unchanged. | 无设备依赖（纯对象 API） | getText、isEnabled | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexState0003`（`SUB_NdkTsDrawing_UI_1123`） Verify two presses of the circle entry leave its box untouched. | 无设备依赖（纯对象 API） | getBounds、isClickable | 3 条断言全部通过 | 是 | 通过 |
@@ -4719,7 +4719,7 @@
 | `testIndexState0044`（`SUB_NdkTsDrawing_UI_1164`） Verify two consecutive launches keep the three legacy button ids. | 无设备依赖（纯对象 API） | getId | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexState0045`（`SUB_NdkTsDrawing_UI_1165`） Verify three consecutive canvas queries all succeed on one page. | 无设备依赖（纯对象 API） | findComponents、id | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexState0046`（`SUB_NdkTsDrawing_UI_1166`） Verify two consecutive launches keep the rects label identical. | 无设备依赖（纯对象 API） | getText | 3 条断言全部通过 | 是 | 通过 |
-| `testIndexState0047`（`SUB_NdkTsDrawing_UI_1167`） Verify the scrollable gallery filter resolves and the last entry stays a button after scrolling. | 无设备依赖（纯对象 API） | findComponents、type、scrollable、scrollToBottom、delayMs | 3 条断言全部通过 | 是 | 通过 |
+| `testIndexState0047`（`SUB_NdkTsDrawing_UI_1167`） Verify the gallery scroll container resolves and the last entry stays a button after scrolling. | 无设备依赖（纯对象 API） | findComponents、type、scrollable、scrollToBottom、delayMs | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexState0048`（`SUB_NdkTsDrawing_UI_1168`） Verify the display size stays stable across two launches. | 无设备依赖（纯对象 API） | getDisplaySize | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexState0049`（`SUB_NdkTsDrawing_UI_1169`） Verify the canvas stays above the container across two launches. | 无设备依赖（纯对象 API） | getBounds | 3 条断言全部通过 | 是 | 通过 |
 | `testIndexState0050`（`SUB_NdkTsDrawing_UI_1170`） Verify the gallery stays scrollable after a press on the canvas. | 无设备依赖（纯对象 API） | getBoundsCenter、click、delayMs、findComponents、type | 3 条断言全部通过 | 是 | 通过 |
@@ -4765,7 +4765,7 @@
 | `assertTrue` 实测为 false | 192 | 已清零 | 逐例复核被断言表达式，改为设备真实语义（如 `isOpaque()` 不随绘制改变） |
 | 非法入参直接抛错（401） | 23 | 已清零 | 改为「预期抛错」断言，或改用合法入参验证边界 |
 | `assertFalse` 实测为 true | 23 | 已清零 | 按真实语义改写断言方向 |
-| 其他运行时异常 | 36 | 已清零 | UI 调用串行化、空输入先判空、lattice 参数按设备实测类型构造 |
+| 其余运行时异常 | 36 | 已清零 | UI 调用串行化、空输入先判空、lattice 参数按设备实测类型构造 |
 | 字符串断言不符 | 13 | 已清零 | float32 精度类改 `assertClose`；字体族名按设备返回值校正 |
 | `assertLarger` 未达阈值 | 5 | 已清零 | 阈值按实测回拉（689/688 → 500，6400 → 5000） |
 
@@ -4777,7 +4777,7 @@
 4. **像素/属性预期错误**：`canvas.isOpaque()` 不随绘制内容改变；`getLocalClipBounds()` 因抗锯齿外扩返回 201（画布 200）；`attachBrush` 后未 `detachBrush` 再 `drawRect` 会填充而非描边；倒置矩形 `drawRect(150,10,50,110)` 会被规范化后正常填充。
 5. **`Lattice` 颜色参数类型不兼容**：`createImageLattice` 第 7 参传 `common2D.Color[]` 报 `401 Incorrect parameter7 type`；改传 `number[]`（ARGB）被接受但**颜色不生效**，绘制结果仍为源图颜色，且数组长度需为 `(xDivs+1)*(yDivs+1)`。测试侧改为本地构造 `coloredLattice()`。
 6. **`PathIterator` 数组长度与 `peek()` 语义**：`next(points)` 要求 `points.length >= offset + 4`（少于 4 点报 401）；`peek()` 对 `moveTo + lineTo` 路径返回 `LINE(1)` 而非 `MOVE(0)`。
-7. **字体与矩阵的边界返回**：`font.getWidths([])` 传空数组报 `401 Param[0] type mismatch`；`Matrix.mapRect` 对退化矩阵返回 `false`，helper 据此返回空数组（`length = 0`）；`TextBlob.uniqueID()` 每次新建递增，不能断言绝对数值。
+7. **字体与矩阵的边界返回**：`font.getWidths([])` 传空数组报 `401 Param[0] type mismatch`；`Matrix.mapRect` 对退化矩阵返回 `false`，helper 据此返回空数组（`length = 0`）；`TextBlob.uniqueID()` 每次新建递增，不能断言固定数值。
 8. **UI 选择器语义**：`Scroll` 组件 `isScrollable()` 为 `false`，`ON.type('Scroll').scrollable(true)` 匹配到 0 个，需去掉 `scrollable` 过滤。
 
 ### 5.5 复跑与回归方式

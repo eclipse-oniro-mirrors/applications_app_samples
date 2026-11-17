@@ -1249,7 +1249,7 @@ export default function enumPathStyleTest() {
 
     /** @tc.number SUB_NdkTsDrawing_ENUM_0202
      * @tc.name testEnumPathStyle0202
-     * @tc.desc Verify a large advance places translated stamps only at the expected columns.
+     * @tc.desc Verify a large advance paints translated stamps only at the expected columns.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level3

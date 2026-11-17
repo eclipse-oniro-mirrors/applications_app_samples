@@ -697,7 +697,7 @@ export default function enumValueTableTest() {
     /**
      * @tc.number SUB_NdkTsDrawing_ENUM_0634
      * @tc.name testEnumValueTable0634
-     * @tc.desc Verify neighbouring blend modes step by one at three places.
+     * @tc.desc Verify neighbouring blend modes step by one for three consecutive values.
      * @tc.size SmallTest
      * @tc.type Function
      * @tc.level Level3
