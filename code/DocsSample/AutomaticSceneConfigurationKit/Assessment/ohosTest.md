@@ -131,7 +131,7 @@ hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
 1. **评估核心流程无自动化覆盖**：开始评估、答题、交卷、超时中断、白名单限制等场景依赖设备侧提供评估配置服务，并需人工确认系统弹窗、能力限制与白名单生效情况，当前标记为"否"（待真机执行），共 11 条。
 2. **接口能力类用例仅验证跳过分支**：当前回填镜像未集成 SystemCapability.Customization.AssessmentConfiguration，isActive / getConfiguration 的功能正确性（返回值、201/801 错误码）需在支持该能力的镜像上重新回填。
-3. **hypium 弃用例记账污染**：hypium 会把被弃用例的 expect 记账到 currentRunningSpec（service.js:1117），若后续新增超时用例仍可能污染其他用例的记账结果。
+3. **hypium 弃用例记账污染**：hypium 会把被弃用例的 expect 记账到 currentRunningSpec（service.js:1117），若后续新增超时用例仍可能污染其余用例的记账结果。
 
 ## 测试覆盖总结
 
