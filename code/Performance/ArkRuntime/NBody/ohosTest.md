@@ -67,7 +67,7 @@ entry/src/ohosTest/ets/
 - 重复读取终点能量，确认读取操作没有改变模型状态。
 - 检查返回步数、时间步、Worker 请求次数、有限数值和误差阈值。
 
-数值回归的绝对误差阈值为 `2e-11`。预期值由独立向量积分基准生成，不从被测模块读取。
+数值回归要求计算值与预期值之差的模小于 `2e-11`。预期值由独立向量积分基准生成，不从被测模块读取。
 
 ### 2. 平台与业务流程
 
@@ -115,9 +115,7 @@ entry-ohosTest-signed.hap
 
 ### 执行
 
-```text
-hdc shell aa test -b com.example.nbody -m entry_test -s unittest OpenHarmonyTestRunner
-```
+在 DevEco Studio 中选择已连接的测试设备，打开 `entry/src/ohosTest/ets/test/List.test.ets`，通过测试运行入口执行全部套件。运行配置使用应用包名 `com.example.nbody`、测试模块 `entry_test` 和测试运行器 `OpenHarmonyTestRunner`。
 
 测试结果以 `OHOS_REPORT_STATUS_CODE` 为准：`0` 为通过，负数为失败或错误。
 
