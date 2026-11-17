@@ -75,6 +75,12 @@ std::atomic<uint64_t> g_ultraFastReadBytes{0};
 std::atomic<OH_AudioStream_FastStatus> g_ultraFastStatus{AUDIOSTREAM_FASTSTATUS_NORMAL};
 // [End UltraFastGlobalState]
 
+// 低时延（Fast）流的状态记录变量，独立于超低时延流，避免两种流的状态互相覆盖。
+std::atomic<OH_AudioStream_FastStatus> g_fastStatus{AUDIOSTREAM_FASTSTATUS_NORMAL};
+
+// 注册低时延状态变化回调，函数定义见下文，在创建低时延流的函数中调用。
+void RegisterFastStatusChangeCallback(OH_AudioStreamBuilder* builder);
+
 const char* FastStatusToText(OH_AudioStream_FastStatus status)
 {
     switch (status) {
@@ -486,6 +492,9 @@ napi_value CreateLowLatencyModeCapturer(napi_env env, napi_callback_info info)
     OH_AudioStreamBuilder_SetCapturerReadDataCallback(builder, readDataCb, nullptr);
     // [End SetCapturerReadDataCallback]
 
+    // 在创建音频流之前注册低时延状态变化回调。
+    RegisterFastStatusChangeCallback(builder);
+
     OH_AudioCapturer* audioCapturer;
     OH_AudioStreamBuilder_GenerateCapturer(builder, &audioCapturer);
     OH_AudioStreamBuilder_Destroy(builder);
@@ -525,8 +534,8 @@ void MyOnUltraFastStatusChange(OH_AudioCapturer* capturer, void* userData, OH_Au
 // [Start OnFastStatusChange]
 void MyOnFastStatusChange(OH_AudioCapturer* capturer, void* userData, OH_AudioStream_FastStatus status)
 {
-    // 通过状态变化回调记录录制流当前的实际运行状态
-    g_ultraFastStatus.store(status);
+    // 通过状态变化回调记录低时延流当前的实际运行状态
+    g_fastStatus.store(status);
 }
 // [End OnFastStatusChange]
 
@@ -550,13 +559,15 @@ napi_value QueryFastSupport(napi_env env, napi_callback_info info)
     // [Start IsFastRecordingSupported]
     // 构造与待创建录制流一致的音频流参数。
     OH_AudioStreamInfo streamInfo;
-    const int SAMPLING_RATE_48K = 48000;
+    const int32_t SAMPLING_RATE_48K = 48000;
     streamInfo.samplingRate = SAMPLING_RATE_48K;
     streamInfo.channelLayout = CH_LAYOUT_STEREO;
     streamInfo.encodingType = AUDIOSTREAM_ENCODING_TYPE_RAW;
     streamInfo.sampleFormat = AUDIOSTREAM_SAMPLE_S16LE;
 
     // 查询当前设备是否支持低时延录制。
+    // 说明：OH_AudioStreamManager_IsFastRecordingSupported 直接返回bool（与超低时延查询接口
+    // OH_AudioStreamManager_IsUltraFastRecordingSupported 通过出参返回结果的API形态不同）。
     bool supported = false;
     supported = OH_AudioStreamManager_IsFastRecordingSupported(
         streamManager, &streamInfo, AUDIOSTREAM_SOURCE_TYPE_MIC);
@@ -581,7 +592,7 @@ napi_value QueryUltraFastSupport(napi_env env, napi_callback_info info)
     // [Start IsUltraFastRecordingSupported]
     // 构造与待创建录制流一致的音频流参数。
     OH_AudioStreamInfo streamInfo;
-    const int SAMPLING_RATE_48K = 48000;
+    const int32_t SAMPLING_RATE_48K = 48000;
     streamInfo.samplingRate = SAMPLING_RATE_48K;
     streamInfo.channelLayout = CH_LAYOUT_STEREO;
     streamInfo.encodingType = AUDIOSTREAM_ENCODING_TYPE_RAW;
