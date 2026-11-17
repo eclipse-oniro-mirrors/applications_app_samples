@@ -164,7 +164,7 @@ export default function errorCenterMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testCategoryKeys0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const keys: Array<string> = ErrorCenterModel.categoryKeys();
+      const keys: string[] = ErrorCenterModel.categoryKeys();
       expect(keys.join('|')).assertEqual('all|file_not_found|permission_denied|dlp_policy|storage_full');
     })
 
@@ -231,7 +231,7 @@ export default function errorCenterMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testEntriesCopy0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const first: Array<ErrorInfo> = ErrorCenterModel.entries();
+      const first: ErrorInfo[] = ErrorCenterModel.entries();
       first.pop();
       expect(ErrorCenterModel.entries().length).assertEqual(19);
     })
@@ -245,7 +245,7 @@ export default function errorCenterMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testKnownCodesCopy0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const first: Array<number> = ErrorCenterModel.knownCodes();
+      const first: number[] = ErrorCenterModel.knownCodes();
       first.push(1);
       expect(ErrorCenterModel.knownCodes().length).assertEqual(19);
     })
@@ -259,9 +259,9 @@ export default function errorCenterMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testCategorySweep0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const keys: Array<string> = ['file_not_found', 'permission_denied', 'dlp_policy', 'storage_full'];
+      const keys: string[] = ['file_not_found', 'permission_denied', 'dlp_policy', 'storage_full'];
       for (let index = 0; index < keys.length; index++) {
-        const result: Array<ErrorInfo> = ErrorCenterModel.filter('', keys[index]);
+        const result: ErrorInfo[] = ErrorCenterModel.filter('', keys[index]);
         for (let item = 0; item < result.length; item++) {
           expect(result[item].category.toString()).assertEqual(keys[index]);
         }
@@ -277,7 +277,7 @@ export default function errorCenterMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testFirstEntry00019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const entries: Array<ErrorInfo> = ErrorCenterModel.entries();
+      const entries: ErrorInfo[] = ErrorCenterModel.entries();
       expect(entries[0].code).assertEqual(0);
       expect(entries[0].category).assertEqual(ErrorCategory.NONE);
     })
@@ -317,7 +317,7 @@ export default function errorCenterMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testDecimalSingle0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const result: Array<ErrorInfo> = ErrorCenterModel.filter('13900025', 'all');
+      const result: ErrorInfo[] = ErrorCenterModel.filter('13900025', 'all');
       expect(result.length).assertEqual(1);
       expect(result[0].message).assertEqual('存储空间不足');
     })

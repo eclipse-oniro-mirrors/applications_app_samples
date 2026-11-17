@@ -26,8 +26,8 @@ function repeatChar(ch: string, count: number): string {
 }
 
 function namesOf(model: TemplateModel): string {
-  const parts: Array<string> = [];
-  const items: Array<CustomTemplate> = model.customTemplates();
+  const parts: string[] = [];
+  const items: CustomTemplate[] = model.customTemplates();
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }
@@ -152,7 +152,7 @@ export default function templateMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testDisplayNames0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const all: Array<PolicyTemplate> = new TemplateModel().allTemplates();
+      const all: PolicyTemplate[] = new TemplateModel().allTemplates();
       expect(templateDisplayName(all[0])).assertEqual('只读');
       expect(templateDisplayName(all[1])).assertEqual('可编辑');
       expect(templateDisplayName(all[3])).assertEqual('可复制');

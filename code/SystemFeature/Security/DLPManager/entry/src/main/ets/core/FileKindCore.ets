@@ -54,9 +54,9 @@ export class FileDescriptor {
 
 export class KindGroup {
   public readonly kind: FileKind;
-  public readonly descriptors: Array<FileDescriptor>;
+  public readonly descriptors: FileDescriptor[];
 
-  constructor(kind: FileKind, descriptors: Array<FileDescriptor>) {
+  constructor(kind: FileKind, descriptors: FileDescriptor[]) {
     this.kind = kind;
     this.descriptors = descriptors;
   }
@@ -109,7 +109,7 @@ export function kindOfExtension(extension: string): FileKind {
   if (ext === 'db' || ext === 'sqlite' || ext === 'sqlite3' || ext === 'mdb') {
     return FileKind.DATABASE;
   }
-  if (ext === 'apk' || ext === 'hap' || ext === 'exe' || ext === 'so' || ext === 'dll' || ext === 'bin' ||
+  if (ext === 'hap' || ext === 'exe' || ext === 'so' || ext === 'dll' || ext === 'bin' ||
     ext === 'abc') {
     return FileKind.PROGRAM;
   }
@@ -244,8 +244,8 @@ export function mimeOfExtension(extension: string): string {
   if (ext === 'db' || ext === 'sqlite' || ext === 'sqlite3') {
     return 'application/vnd.sqlite3';
   }
-  if (ext === 'apk' || ext === 'hap') {
-    return 'application/vnd.harmonyos.package';
+  if (ext === 'hap') {
+    return 'application/vnd.ohos.package';
   }
   return 'application/octet-stream';
 }
@@ -268,7 +268,7 @@ export function isEditableText(descriptor: FileDescriptor): boolean {
     descriptor.sizeBytes <= MAX_EDITABLE_BYTES;
 }
 
-export function matchesAnySuffix(name: string, suffixes: Array<string>): boolean {
+export function matchesAnySuffix(name: string, suffixes: string[]): boolean {
   const lowerName: string = name.toLowerCase();
   for (let index = 0; index < suffixes.length; index++) {
     let suffix: string = suffixes[index].toLowerCase();
@@ -345,8 +345,8 @@ export function kindPriority(kind: FileKind): number {
   return 9;
 }
 
-export function groupByKind(descriptors: Array<FileDescriptor>): Array<KindGroup> {
-  const groups: Array<KindGroup> = [];
+export function groupByKind(descriptors: FileDescriptor[]): KindGroup[] {
+  const groups: KindGroup[] = [];
   for (let index = 0; index < descriptors.length; index++) {
     const descriptor: FileDescriptor = descriptors[index];
     let target: number = -1;
@@ -374,7 +374,7 @@ export function groupByKind(descriptors: Array<FileDescriptor>): Array<KindGroup
   return groups;
 }
 
-function hasMagic(bytes: Uint8Array, signature: Array<number>): boolean {
+function hasMagic(bytes: Uint8Array, signature: number[]): boolean {
   if (bytes.length < signature.length) {
     return false;
   }

@@ -30,7 +30,7 @@ function repeatChar(ch: string, count: number): string {
   return result;
 }
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
@@ -231,7 +231,7 @@ export default function policyMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testFindAllTemplates0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const ids: Array<string> = ['read-only', 'editable', 'printable', 'copyable', 'full'];
+      const ids: string[] = ['read-only', 'editable', 'printable', 'copyable', 'full'];
       for (let index = 0; index < ids.length; index++) {
         expect(findTemplate(ids[index]) !== null).assertTrue();
       }

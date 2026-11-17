@@ -19,7 +19,7 @@ import { MAX_EDITABLE_BYTES, FileKind, FileDescriptor, KindGroup, isDlpName, str
   matchesAnySuffix, kindLabel, kindResourceKey, kindPriority, groupByKind, detectByContent
 } from '../main/ets/core/FileKindCore';
 
-function toBytes(codes: Array<number>): Uint8Array {
+function toBytes(codes: number[]): Uint8Array {
   const output: Uint8Array = new Uint8Array(codes.length);
   for (let index = 0; index < codes.length; index++) {
     output[index] = codes[index];
@@ -35,8 +35,8 @@ function asciiBytes(text: string): Uint8Array {
   return output;
 }
 
-function namesOf(descriptors: Array<FileDescriptor>): string {
-  const parts: Array<string> = [];
+function namesOf(descriptors: FileDescriptor[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < descriptors.length; index++) {
     parts.push(descriptors[index].name);
   }
@@ -277,7 +277,6 @@ export default function fileKindCoreTest(): void {
       console.info('testKindDatabaseProgram0015 begin');
       console.info('testKindDatabaseProgram0015 begin');
       expect(kindOfExtension('db')).assertEqual(FileKind.DATABASE);
-      expect(kindOfExtension('apk')).assertEqual(FileKind.PROGRAM);
       expect(kindOfExtension('hap')).assertEqual(FileKind.PROGRAM);
     })
 
@@ -404,7 +403,7 @@ export default function fileKindCoreTest(): void {
       console.info('testMimeOther0023 begin');
       console.info('testMimeOther0023 begin');
       expect(mimeOfExtension('sqlite3')).assertEqual('application/vnd.sqlite3');
-      expect(mimeOfExtension('hap')).assertEqual('application/vnd.harmonyos.package');
+      expect(mimeOfExtension('hap')).assertEqual('application/vnd.ohos.package');
       expect(mimeOfExtension('unknown')).assertEqual('application/octet-stream');
     })
 
@@ -878,7 +877,7 @@ export default function fileKindCoreTest(): void {
     it('testGroupSingleKind0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGroupSingleKind0054 begin');
       console.info('testGroupSingleKind0054 begin');
-      const groups: Array<KindGroup> = groupByKind([describeFile('a.txt', 1), describeFile('b.txt', 1)]);
+      const groups: KindGroup[] = groupByKind([describeFile('a.txt', 1), describeFile('b.txt', 1)]);
       expect(groups.length).assertEqual(1);
       expect(groups[0].descriptors.length).assertEqual(2);
     })
@@ -894,7 +893,7 @@ export default function fileKindCoreTest(): void {
     it('testGroupOrder0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGroupOrder0055 begin');
       console.info('testGroupOrder0055 begin');
-      const groups: Array<KindGroup> = groupByKind([describeFile('a.png', 1), describeFile('b.txt', 1)]);
+      const groups: KindGroup[] = groupByKind([describeFile('a.png', 1), describeFile('b.txt', 1)]);
       expect(groups.length).assertEqual(2);
       expect(groups[0].kind).assertEqual(FileKind.TEXT);
       expect(groups[1].kind).assertEqual(FileKind.IMAGE);
@@ -911,7 +910,7 @@ export default function fileKindCoreTest(): void {
     it('testGroupUnknownLast0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGroupUnknownLast0056 begin');
       console.info('testGroupUnknownLast0056 begin');
-      const groups: Array<KindGroup> = groupByKind([describeFile('a.xyz', 1), describeFile('b.docx', 1)]);
+      const groups: KindGroup[] = groupByKind([describeFile('a.xyz', 1), describeFile('b.docx', 1)]);
       expect(groups[0].kind).assertEqual(FileKind.DOCUMENT);
       expect(groups[1].kind).assertEqual(FileKind.UNKNOWN);
     })
@@ -927,7 +926,7 @@ export default function fileKindCoreTest(): void {
     it('testGroupKeepsNames0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGroupKeepsNames0057 begin');
       console.info('testGroupKeepsNames0057 begin');
-      const groups: Array<KindGroup> = groupByKind([describeFile('b.txt', 1), describeFile('a.txt', 1)]);
+      const groups: KindGroup[] = groupByKind([describeFile('b.txt', 1), describeFile('a.txt', 1)]);
       expect(namesOf(groups[0].descriptors)).assertEqual('b.txt|a.txt');
     })
 

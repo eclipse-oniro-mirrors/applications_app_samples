@@ -18,7 +18,7 @@ import { ErrorCategory, ErrorInfo, ErrorReport, ErrorSeverity, describeError, fo
   formatErrorReport, hintOf, isRetryable, isSuccess, lookupError, normalizeCode, parseErrorCode,
   severityOf } from '../main/ets/core/ErrorCodeCore';
 
-const CODES: Array<number> = [0, 13900001, 13900002, 13900004, 13900005, 13900008, 13900011, 13900012,
+const CODES: number[] = [0, 13900001, 13900002, 13900004, 13900005, 13900008, 13900011, 13900012,
   13900013, 13900025, 13900042, 19100001, 19100002, 19100003, 19100004];
 
 export default function errorCodeMatrix2Test(): void {
@@ -106,7 +106,7 @@ export default function errorCodeMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testRetryableLoop0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const retryable: Array<number> = [13900004, 13900005, 13900011, 13900015, 13900042];
+      const retryable: number[] = [13900004, 13900005, 13900011, 13900015, 13900042];
       for (let index = 0; index < retryable.length; index++) {
         expect(isRetryable(retryable[index])).assertTrue();
       }
@@ -123,7 +123,7 @@ export default function errorCodeMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testReportLoop0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const codes: Array<number> = [13900001, 13900002, 13900025];
+      const codes: number[] = [13900001, 13900002, 13900025];
       for (let index = 0; index < codes.length; index++) {
         const text: string = formatErrorReport(new ErrorReport(codes[index], '', '', 0), true);
         expect(text.indexOf('code=' + formatCode(codes[index])) === 0).assertTrue();
@@ -181,7 +181,7 @@ export default function errorCodeMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testParseInvalidLoop0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const invalid: Array<string> = ['', 'abc', '0x', '1.5', '01'];
+      const invalid: string[] = ['', 'abc', '0x', '1.5', '01'];
       for (let index = 0; index < invalid.length; index++) {
         expect(parseErrorCode(invalid[index])).assertEqual(-1);
       }

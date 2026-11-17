@@ -65,22 +65,22 @@ export function templateDisplayName(template: PolicyTemplate): string {
 }
 
 export class TemplateModel {
-  private customs: Array<CustomTemplate> = [];
+  private customs: CustomTemplate[] = [];
 
-  setCustoms(items: Array<CustomTemplate>): void {
+  setCustoms(items: CustomTemplate[]): void {
     this.customs = [];
     for (let index = 0; index < items.length; index++) {
       this.customs.push(items[index]);
     }
   }
 
-  customTemplates(): Array<CustomTemplate> {
+  customTemplates(): CustomTemplate[] {
     return this.customs;
   }
 
-  allTemplates(): Array<PolicyTemplate> {
-    const result: Array<PolicyTemplate> = [];
-    const builtIn: Array<PolicyTemplate> = builtInTemplates();
+  allTemplates(): PolicyTemplate[] {
+    const result: PolicyTemplate[] = [];
+    const builtIn: PolicyTemplate[] = builtInTemplates();
     for (let index = 0; index < builtIn.length; index++) {
       result.push(builtIn[index]);
     }
@@ -177,7 +177,7 @@ export class TemplateModel {
   }
 
   maskOf(templateId: string): number {
-    const all: Array<PolicyTemplate> = this.allTemplates();
+    const all: PolicyTemplate[] = this.allTemplates();
     for (let index = 0; index < all.length; index++) {
       if (all[index].id === templateId) {
         return all[index].mask;
@@ -205,7 +205,7 @@ export class TemplateModel {
   }
 
   serialize(): string {
-    const lines: Array<string> = [];
+    const lines: string[] = [];
     for (let index = 0; index < this.customs.length; index++) {
       const custom: CustomTemplate = this.customs[index];
       lines.push(encodeComponent(custom.id, false) + '|' + encodeComponent(custom.name, false) + '|' +
@@ -240,10 +240,10 @@ export function parseTemplateText(text: string): TemplateModel {
   if (text.length === 0) {
     return model;
   }
-  const lines: Array<string> = text.split('\n');
-  const items: Array<CustomTemplate> = [];
+  const lines: string[] = text.split('\n');
+  const items: CustomTemplate[] = [];
   for (let index = 0; index < lines.length; index++) {
-    const fields: Array<string> = lines[index].split('|');
+    const fields: string[] = lines[index].split('|');
     if (fields.length !== 4) {
       continue;
     }

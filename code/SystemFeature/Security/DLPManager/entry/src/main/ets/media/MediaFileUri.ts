@@ -34,10 +34,10 @@ class ListFileOption {
 export default class MediaFileUri {
   content: string = '';
   private commonFd: number = COMMON_FD;
-  private fileNameList: Array<string> = [];
-  private fileUriList: Array<string> = [];
+  private fileNameList: string[] = [];
+  private fileUriList: string[] = [];
   private fileAccessHelper: fileAccess.FileAccessHelper;
-  private fileInfos: Array<fileAccess.FileInfo> = [];
+  private fileInfos: fileAccess.FileInfo[] = [];
 
   constructor() {
   }
@@ -160,7 +160,7 @@ export default class MediaFileUri {
   async getListFile(pathDir): Promise<void> {
     let option = new ListFileOption();
     option.filter.suffix = ['.txt', '.doc', '.docx', '.dlp'];
-    fs.listFile(pathDir, option, (err: BusinessError, filenames: Array<string>) => {
+    fs.listFile(pathDir, option, (err: BusinessError, filenames: string[]) => {
       if (err) {
         Logger.info(TAG, 'list file failed with error message: ' + err.message + ', error code: ' + err.code);
       } else {

@@ -18,7 +18,7 @@ import { FileDescriptor, FileKind, KindGroup, describeFile, detectByContent, gro
   isSampleSupported, kindLabel, kindOfExtension, kindPriority, kindResourceKey, matchesAnySuffix,
   mimeOfExtension } from '../main/ets/core/FileKindCore';
 
-function toBytes(codes: Array<number>): Uint8Array {
+function toBytes(codes: number[]): Uint8Array {
   const output: Uint8Array = new Uint8Array(codes.length);
   for (let index = 0; index < codes.length; index++) {
     output[index] = codes[index];
@@ -34,8 +34,8 @@ function asciiBytes(text: string): Uint8Array {
   return output;
 }
 
-function kindsOf(groups: Array<KindGroup>): string {
-  const parts: Array<string> = [];
+function kindsOf(groups: KindGroup[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < groups.length; index++) {
     parts.push(groups[index].kind.toString());
   }
@@ -99,7 +99,6 @@ export default function fileKindMatrix2Test(): void {
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       expect(mimeOfExtension('pptx')).assertEqual(
         'application/vnd.openxmlformats-officedocument.presentationml.presentation');
-      expect(mimeOfExtension('apk')).assertEqual('application/vnd.harmonyos.package');
     })
 
     /**
@@ -256,7 +255,7 @@ export default function fileKindMatrix2Test(): void {
      * @tc.level    LEVEL0
      */
     it('testGroupAllKinds0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const groups: Array<KindGroup> = groupByKind([
+      const groups: KindGroup[] = groupByKind([
         describeFile('a.zip', 1),
         describeFile('b.png', 1),
         describeFile('c.docx', 1),
@@ -274,7 +273,7 @@ export default function fileKindMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testPriorityOrder0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const order: Array<FileKind> = [FileKind.TEXT, FileKind.DOCUMENT, FileKind.IMAGE, FileKind.VIDEO,
+      const order: FileKind[] = [FileKind.TEXT, FileKind.DOCUMENT, FileKind.IMAGE, FileKind.VIDEO,
         FileKind.AUDIO, FileKind.ARCHIVE, FileKind.DATABASE, FileKind.PROGRAM, FileKind.UNKNOWN];
       for (let index = 1; index < order.length; index++) {
         expect(kindPriority(order[index - 1]) < kindPriority(order[index])).assertTrue();
@@ -359,7 +358,7 @@ export default function fileKindMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testGroupSingleKind0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const groups: Array<KindGroup> = groupByKind([
+      const groups: KindGroup[] = groupByKind([
         describeFile('a.txt', 1),
         describeFile('b.md', 1),
         describeFile('c.json', 1)
@@ -392,7 +391,7 @@ export default function fileKindMatrix2Test(): void {
     it('testDescribeHap0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const descriptor: FileDescriptor = describeFile('app.hap', 10);
       expect(descriptor.kind).assertEqual(FileKind.PROGRAM);
-      expect(descriptor.mimeType).assertEqual('application/vnd.harmonyos.package');
+      expect(descriptor.mimeType).assertEqual('application/vnd.ohos.package');
     })
   });
 }

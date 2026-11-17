@@ -24,7 +24,7 @@ function item(id: string, name: string, kind: FileKind, size: number, modified: 
   return new FileEntry(id, name, 'file:///docs/' + name, kind, size, modified, isDlp, isFavorite);
 }
 
-function sample(): Array<FileEntry> {
+function sample(): FileEntry[] {
   return [
     item('1', 'Beta.txt', FileKind.TEXT, 300, 3000, false, true),
     item('2', 'alpha.PDF', FileKind.DOCUMENT, 100, 1000, true, false),
@@ -33,32 +33,32 @@ function sample(): Array<FileEntry> {
   ];
 }
 
-function idsOf(entries: Array<FileEntry>): string {
-  const parts: Array<string> = [];
+function idsOf(entries: FileEntry[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < entries.length; index++) {
     parts.push(entries[index].id);
   }
   return parts.join('|');
 }
 
-function namesOf(entries: Array<FileEntry>): string {
-  const parts: Array<string> = [];
+function namesOf(entries: FileEntry[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < entries.length; index++) {
     parts.push(entries[index].name);
   }
   return parts.join('|');
 }
 
-function spansText(spans: Array<TextSpan>): string {
-  const parts: Array<string> = [];
+function spansText(spans: TextSpan[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < spans.length; index++) {
     parts.push(spans[index].text);
   }
   return parts.join('|');
 }
 
-function matchedText(spans: Array<TextSpan>): string {
-  const parts: Array<string> = [];
+function matchedText(spans: TextSpan[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < spans.length; index++) {
     if (spans[index].matched) {
       parts.push(spans[index].text);
@@ -137,7 +137,7 @@ export default function queryMatrixTest(): void {
     it('testOptionsDefault0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsDefault0005 begin');
       const options: QueryOptions = new QueryOptions();
-      const entries: Array<FileEntry> = sample();
+      const entries: FileEntry[] = sample();
       for (let index = 0; index < entries.length; index++) {
         expect(matchesOptions(entries[index], options)).assertTrue();
       }
@@ -372,7 +372,7 @@ export default function queryMatrixTest(): void {
      */
     it('testSortTie0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortTie0021 begin');
-      const entries: Array<FileEntry> = [
+      const entries: FileEntry[] = [
         item('b', 'same.txt', FileKind.TEXT, 1, 1, false, false),
         item('a', 'same.txt', FileKind.TEXT, 1, 1, false, false)
       ];
@@ -402,7 +402,7 @@ export default function queryMatrixTest(): void {
      */
     it('testSortNoMutation0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortNoMutation0023 begin');
-      const entries: Array<FileEntry> = sample();
+      const entries: FileEntry[] = sample();
       sortEntries(entries, SortField.SIZE, false);
       expect(entries[0].id).assertEqual('1');
     })
@@ -553,7 +553,7 @@ export default function queryMatrixTest(): void {
      */
     it('testCountKinds0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCountKinds0032 begin');
-      const counts: Array<KindCount> = countByKind(sample());
+      const counts: KindCount[] = countByKind(sample());
       expect(counts.length).assertEqual(3);
       expect(counts[1].kind).assertEqual(FileKind.DOCUMENT);
       expect(counts[1].count).assertEqual(2);
@@ -582,7 +582,7 @@ export default function queryMatrixTest(): void {
      */
     it('testDistinctKinds0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDistinctKinds0034 begin');
-      const kinds: Array<FileKind> = distinctKinds(sample());
+      const kinds: FileKind[] = distinctKinds(sample());
       expect(kinds.length).assertEqual(3);
       expect(kinds[0]).assertEqual(FileKind.TEXT);
     })
@@ -597,7 +597,7 @@ export default function queryMatrixTest(): void {
      */
     it('testHighlightEmptyKeyword0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightEmptyKeyword0035 begin');
-      const spans: Array<TextSpan> = highlight('abcdef', '');
+      const spans: TextSpan[] = highlight('abcdef', '');
       expect(spans.length).assertEqual(1);
       expect(spans[0].matched).assertFalse();
     })
@@ -641,7 +641,7 @@ export default function queryMatrixTest(): void {
      */
     it('testHighlightOverlap0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightOverlap0038 begin');
-      const spans: Array<TextSpan> = highlight('abcd', 'ab bc cd');
+      const spans: TextSpan[] = highlight('abcd', 'ab bc cd');
       expect(spans.length).assertEqual(1);
       expect(spans[0].text).assertEqual('abcd');
     })
@@ -656,7 +656,7 @@ export default function queryMatrixTest(): void {
      */
     it('testHighlightChinese0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightChinese0039 begin');
-      const spans: Array<TextSpan> = highlight('年度报告.txt', '报告');
+      const spans: TextSpan[] = highlight('年度报告.txt', '报告');
       expect(spansText(spans)).assertEqual('年度|报告|.txt');
     })
 
@@ -671,7 +671,7 @@ export default function queryMatrixTest(): void {
     it('testHighlightReconstruct0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightReconstruct0040 begin');
       const source: string = '2026 年度 Report-final.txt';
-      const spans: Array<TextSpan> = highlight(source, '年度 report');
+      const spans: TextSpan[] = highlight(source, '年度 report');
       let rebuilt: string = '';
       for (let index = 0; index < spans.length; index++) {
         rebuilt += spans[index].text;

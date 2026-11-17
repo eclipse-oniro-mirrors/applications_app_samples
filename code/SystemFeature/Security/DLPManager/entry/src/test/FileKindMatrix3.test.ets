@@ -17,7 +17,7 @@ import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { FileDescriptor, FileKind, describeFile, detectByContent, extensionOfName, kindOfExtension, kindPriority,
   mimeOfExtension, isSampleSupported, matchesAnySuffix } from '../main/ets/core/FileKindCore';
 
-function toBytes(codes: Array<number>): Uint8Array {
+function toBytes(codes: number[]): Uint8Array {
   const output: Uint8Array = new Uint8Array(codes.length);
   for (let index = 0; index < codes.length; index++) {
     output[index] = codes[index];
@@ -44,7 +44,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testExtensionConsistency0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const names: Array<string> = ['a.txt', 'b.DOCX', 'c.tar.gz', 'd.txt.dlp', 'README', '.hidden'];
+      const names: string[] = ['a.txt', 'b.DOCX', 'c.tar.gz', 'd.txt.dlp', 'README', '.hidden'];
       for (let index = 0; index < names.length; index++) {
         const descriptor: FileDescriptor = describeFile(names[index], 1);
         expect(descriptor.extension).assertEqual(extensionOfName(names[index]));
@@ -77,7 +77,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testAudioMimeAlignment0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const extensions: Array<string> = ['mp3', 'wav', 'aac', 'flac', 'ogg', 'm4a'];
+      const extensions: string[] = ['mp3', 'wav', 'aac', 'flac', 'ogg', 'm4a'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.AUDIO);
         expect(mimeOfExtension(extensions[index]).startsWith('audio/')).assertTrue();
@@ -93,7 +93,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testPriorityMonotonic0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const order: Array<FileKind> = [FileKind.TEXT, FileKind.DOCUMENT, FileKind.IMAGE, FileKind.VIDEO,
+      const order: FileKind[] = [FileKind.TEXT, FileKind.DOCUMENT, FileKind.IMAGE, FileKind.VIDEO,
         FileKind.AUDIO, FileKind.ARCHIVE, FileKind.DATABASE, FileKind.PROGRAM, FileKind.UNKNOWN];
       for (let index = 1; index < order.length; index++) {
         expect(kindPriority(order[index]) > kindPriority(order[index - 1])).assertTrue();
@@ -109,7 +109,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSampleSupportedLoop0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const supported: Array<string> = ['a.txt', 'a.doc', 'a.docx', 'a.TXT', 'a.docx.dlp'];
+      const supported: string[] = ['a.txt', 'a.doc', 'a.docx', 'a.TXT', 'a.docx.dlp'];
       for (let index = 0; index < supported.length; index++) {
         expect(isSampleSupported(supported[index])).assertTrue();
       }
@@ -126,7 +126,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSuffixLoop0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const names: Array<string> = ['a.TXT', 'a.Txt', 'a.txt'];
+      const names: string[] = ['a.TXT', 'a.Txt', 'a.txt'];
       for (let index = 0; index < names.length; index++) {
         expect(matchesAnySuffix(names[index], ['.txt'])).assertTrue();
         expect(matchesAnySuffix(names[index], ['txt'])).assertTrue();
@@ -187,8 +187,8 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level    LEVEL0
      */
     it('testDlpFlagLoop0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const names: Array<string> = ['a.txt.dlp', 'b.dlp', 'c.DLP', 'd.dlp.txt'];
-      const expected: Array<boolean> = [true, true, true, false];
+      const names: string[] = ['a.txt.dlp', 'b.dlp', 'c.DLP', 'd.dlp.txt'];
+      const expected: boolean[] = [true, true, true, false];
       for (let index = 0; index < names.length; index++) {
         expect(describeFile(names[index], 1).isDlp).assertEqual(expected[index]);
       }
@@ -203,7 +203,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSizePreserved0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const names: Array<string> = ['a.txt', 'a.png', 'a.mp4', 'a.zip', 'a.apk'];
+      const names: string[] = ['a.txt', 'a.png', 'a.mp4', 'a.zip', 'a.hap'];
       for (let index = 0; index < names.length; index++) {
         expect(describeFile(names[index], 2048).sizeBytes).assertEqual(2048);
       }
@@ -218,8 +218,8 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testDisplayNameLoop0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const names: Array<string> = ['a.txt.dlp', 'a.tar.gz.dlp', 'a.dlp'];
-      const expected: Array<string> = ['a.txt', 'a.tar.gz', 'a'];
+      const names: string[] = ['a.txt.dlp', 'a.tar.gz.dlp', 'a.dlp'];
+      const expected: string[] = ['a.txt', 'a.tar.gz', 'a'];
       for (let index = 0; index < names.length; index++) {
         expect(describeFile(names[index], 1).displayName).assertEqual(expected[index]);
       }
@@ -234,7 +234,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testMimeFallbackLoop0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const extensions: Array<string> = ['xyz', 'unknown', '', 'dlp'];
+      const extensions: string[] = ['xyz', 'unknown', '', 'dlp'];
       for (let index = 0; index < extensions.length; index++) {
         expect(mimeOfExtension(extensions[index])).assertEqual('application/octet-stream');
       }
@@ -249,7 +249,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testKindUnknownFallback0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const extensions: Array<string> = ['xyz', 'zzz', '', 'dlp'];
+      const extensions: string[] = ['xyz', 'zzz', '', 'dlp'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.UNKNOWN);
       }
@@ -293,7 +293,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testZipAndTarKinds0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const extensions: Array<string> = ['zip', 'rar', '7z', 'gz', 'tar', 'bz2', 'xz'];
+      const extensions: string[] = ['zip', 'rar', '7z', 'gz', 'tar', 'bz2', 'xz'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.ARCHIVE);
       }
@@ -308,7 +308,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testOfficeKinds0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const extensions: Array<string> = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+      const extensions: string[] = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.DOCUMENT);
       }
@@ -323,7 +323,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testImageKinds0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const extensions: Array<string> = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'svg', 'heic'];
+      const extensions: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'svg', 'heic'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.IMAGE);
       }
@@ -338,7 +338,7 @@ export default function fileKindMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testProgramKinds0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const extensions: Array<string> = ['apk', 'hap', 'exe', 'so', 'dll', 'bin'];
+      const extensions: string[] = ['hap', 'exe', 'so', 'dll', 'bin'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.PROGRAM);
       }

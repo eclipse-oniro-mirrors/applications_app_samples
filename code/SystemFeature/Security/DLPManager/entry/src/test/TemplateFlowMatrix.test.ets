@@ -26,8 +26,8 @@ function repeatChar(ch: string, count: number): string {
 }
 
 function namesOf(model: TemplateModel): string {
-  const parts: Array<string> = [];
-  const items: Array<CustomTemplate> = model.customTemplates();
+  const parts: string[] = [];
+  const items: CustomTemplate[] = model.customTemplates();
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }
@@ -444,7 +444,7 @@ export default function templateFlowMatrixTest(): void {
       const model: TemplateModel = new TemplateModel();
       model.add('one', 1, 100);
       model.add('two', 2, 200);
-      const all: Array<PolicyTemplate> = model.allTemplates();
+      const all: PolicyTemplate[] = model.allTemplates();
       expect(all.length).assertEqual(7);
       expect(all[5].id).assertEqual('custom-100');
       expect(all[6].id).assertEqual('custom-200');
@@ -460,7 +460,7 @@ export default function templateFlowMatrixTest(): void {
      */
     it('testMaskSweep0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const model: TemplateModel = new TemplateModel();
-      const masks: Array<number> = [1, 2, 4, 8, 7, 11, 13, 14, 15];
+      const masks: number[] = [1, 2, 4, 8, 7, 11, 13, 14, 15];
       for (let index = 0; index < masks.length; index++) {
         const result = model.add('m' + masks[index].toString(), masks[index], index + 1);
         expect(result.ok).assertTrue();

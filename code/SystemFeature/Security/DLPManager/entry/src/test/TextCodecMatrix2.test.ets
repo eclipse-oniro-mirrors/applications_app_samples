@@ -17,7 +17,7 @@ import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { DecodeOutcome, HexOutcome, countCodePoints, decodeUtf8, decodeUtf8Prefix, encodeUtf8, fromHex,
   normalizeEol, splitLines, toHex, truncateToByteLength, utf8ByteLength, utf8BomLength } from '../main/ets/core/TextCodecCore';
 
-function toBytes(codes: Array<number>): Uint8Array {
+function toBytes(codes: number[]): Uint8Array {
   const output: Uint8Array = new Uint8Array(codes.length);
   for (let index = 0; index < codes.length; index++) {
     output[index] = codes[index];
@@ -26,7 +26,7 @@ function toBytes(codes: Array<number>): Uint8Array {
 }
 
 function joinBytes(values: Uint8Array): string {
-  const parts: Array<string> = [];
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     parts.push(values[index].toString());
   }
@@ -100,7 +100,7 @@ export default function textCodecMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testThreeByteRange0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const samples: Array<number> = [0x800, 0x1000, 0x4E00, 0x9FA5, 0xFFFF];
+      const samples: number[] = [0x800, 0x1000, 0x4E00, 0x9FA5, 0xFFFF];
       for (let index = 0; index < samples.length; index++) {
         const source: string = String.fromCharCode(samples[index]);
         expect(decodeUtf8(encodeUtf8(source)).text).assertEqual(source);
@@ -116,7 +116,7 @@ export default function textCodecMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testFourByteRange0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const samples: Array<number> = [0x1F600, 0x1F680, 0x1F4A9];
+      const samples: number[] = [0x1F600, 0x1F680, 0x1F4A9];
       for (let index = 0; index < samples.length; index++) {
         const source: string = String.fromCodePoint(samples[index]);
         expect(decodeUtf8(encodeUtf8(source)).text).assertEqual(source);
@@ -218,7 +218,7 @@ export default function textCodecMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSplitMixedEndings0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const lines: Array<string> = splitLines('a\r\nb\rc\nd');
+      const lines: string[] = splitLines('a\r\nb\rc\nd');
       expect(lines.length).assertEqual(4);
       expect(lines[0]).assertEqual('a');
       expect(lines[3]).assertEqual('d');
@@ -260,7 +260,7 @@ export default function textCodecMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testHexRoundTripSweep0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const buffers: Array<Uint8Array> = [
+      const buffers: Uint8Array[] = [
         toBytes([0]),
         toBytes([1, 2, 3]),
         toBytes([0xEF, 0xBB, 0xBF]),

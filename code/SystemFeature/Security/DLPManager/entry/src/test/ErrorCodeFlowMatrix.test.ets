@@ -17,7 +17,7 @@ import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { ErrorCategory, ErrorInfo, ErrorReport, ErrorSeverity, categoryOf, describeError, formatCode,
   formatErrorReport, hintOf, isRetryable, lookupError, parseErrorCode, severityOf } from '../main/ets/core/ErrorCodeCore';
 
-const CODES: Array<number> = [0, 13900001, 13900002, 13900004, 13900005, 13900008, 13900011, 13900012,
+const CODES: number[] = [0, 13900001, 13900002, 13900004, 13900005, 13900008, 13900011, 13900012,
   13900013, 13900015, 13900019, 13900020, 13900025, 13900030, 13900042, 19100001, 19100002, 19100003,
   19100004];
 const SAMPLE_SEC: number = 1700000000;
@@ -211,7 +211,7 @@ export default function errorCodeFlowMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRetryableSweep0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const retryable: Array<number> = [13900004, 13900005, 13900011, 13900015, 13900042];
+      const retryable: number[] = [13900004, 13900005, 13900011, 13900015, 13900042];
       for (let index = 0; index < retryable.length; index++) {
         expect(isRetryable(retryable[index])).assertTrue();
       }
@@ -226,7 +226,7 @@ export default function errorCodeFlowMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNonRetryableSweep0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const permanent: Array<number> = [13900001, 13900002, 13900012, 13900020, 13900025, 19100001, 19100002,
+      const permanent: number[] = [13900001, 13900002, 13900012, 13900020, 13900025, 19100001, 19100002,
         19100003, 19100004];
       for (let index = 0; index < permanent.length; index++) {
         expect(isRetryable(permanent[index])).assertFalse();
@@ -242,7 +242,7 @@ export default function errorCodeFlowMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSeverityWarnings0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const warnings: Array<number> = [13900004, 13900011, 13900015];
+      const warnings: number[] = [13900004, 13900011, 13900015];
       for (let index = 0; index < warnings.length; index++) {
         expect(severityOf(warnings[index])).assertEqual(ErrorSeverity.WARNING);
       }
@@ -257,7 +257,7 @@ export default function errorCodeFlowMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSeverityErrors0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const errors: Array<number> = [13900002, 13900012, 13900025, 19100001];
+      const errors: number[] = [13900002, 13900012, 13900025, 19100001];
       for (let index = 0; index < errors.length; index++) {
         expect(severityOf(errors[index])).assertEqual(ErrorSeverity.ERROR);
       }
@@ -286,7 +286,7 @@ export default function errorCodeFlowMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseInvalidSet0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const invalid: Array<string> = ['', 'abc', '0x', '1.5', '01', '--1'];
+      const invalid: string[] = ['', 'abc', '0x', '1.5', '01', '--1'];
       for (let index = 0; index < invalid.length; index++) {
         expect(parseErrorCode(invalid[index])).assertEqual(-1);
       }

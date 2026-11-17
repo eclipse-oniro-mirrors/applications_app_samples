@@ -73,7 +73,7 @@ export class PermissionSet {
     return total;
   }
 
-  static fromActions(actions: Array<string>): PermissionSet {
+  static fromActions(actions: string[]): PermissionSet {
     return new PermissionSet(maskOfActions(actions));
   }
 }
@@ -110,9 +110,9 @@ export class PolicyIssue {
 }
 
 export class PolicyValidation {
-  public readonly issues: Array<PolicyIssue>;
+  public readonly issues: PolicyIssue[];
 
-  constructor(issues: Array<PolicyIssue>) {
+  constructor(issues: PolicyIssue[]) {
     this.issues = issues;
   }
 
@@ -154,8 +154,8 @@ export function isValidMask(mask: number): boolean {
   return mask >= 0 && mask <= PERMISSION_ALL;
 }
 
-export function actionsOfMask(mask: number): Array<string> {
-  const actions: Array<string> = [];
+export function actionsOfMask(mask: number): string[] {
+  const actions: string[] = [];
   if ((mask & DlpPermission.READ) === DlpPermission.READ) {
     actions.push('read');
   }
@@ -171,7 +171,7 @@ export function actionsOfMask(mask: number): Array<string> {
   return actions;
 }
 
-export function maskOfActions(actions: Array<string>): number {
+export function maskOfActions(actions: string[]): number {
   let mask: number = 0;
   for (let index = 0; index < actions.length; index++) {
     const action: string = actions[index].toLowerCase();
@@ -188,8 +188,8 @@ export function maskOfActions(actions: Array<string>): number {
   return mask;
 }
 
-export function permissionLabels(mask: number): Array<string> {
-  const labels: Array<string> = [];
+export function permissionLabels(mask: number): string[] {
+  const labels: string[] = [];
   if ((mask & DlpPermission.READ) === DlpPermission.READ) {
     labels.push('读取');
   }
@@ -206,7 +206,7 @@ export function permissionLabels(mask: number): Array<string> {
 }
 
 export function permissionSummary(mask: number): string {
-  const labels: Array<string> = permissionLabels(mask);
+  const labels: string[] = permissionLabels(mask);
   if (labels.length === 0) {
     return '无权限';
   }
@@ -249,7 +249,7 @@ export function isExpired(policy: DlpPolicy, nowSec: number): boolean {
 }
 
 export function validatePolicy(policy: DlpPolicy): PolicyValidation {
-  const issues: Array<PolicyIssue> = [];
+  const issues: PolicyIssue[] = [];
   if (policy.accountId.trim().length === 0) {
     issues.push(new PolicyIssue('accountId', 'empty', '账号标识不能为空'));
   }
@@ -289,7 +289,7 @@ export function mergePolicies(base: DlpPolicy, override: DlpPolicy): DlpPolicy {
   return new DlpPolicy(base.accountId, base.accountName, override.mask, expire, watermark, nickname);
 }
 
-export function builtInTemplates(): Array<PolicyTemplate> {
+export function builtInTemplates(): PolicyTemplate[] {
   return [
     new PolicyTemplate('read-only', 'template_read_only', DlpPermission.READ),
     new PolicyTemplate('editable', 'template_editable', DlpPermission.READ | DlpPermission.WRITE),
@@ -300,7 +300,7 @@ export function builtInTemplates(): Array<PolicyTemplate> {
 }
 
 export function findTemplate(id: string): PolicyTemplate | null {
-  const templates: Array<PolicyTemplate> = builtInTemplates();
+  const templates: PolicyTemplate[] = builtInTemplates();
   for (let index = 0; index < templates.length; index++) {
     if (templates[index].id === id) {
       return templates[index];
@@ -310,7 +310,7 @@ export function findTemplate(id: string): PolicyTemplate | null {
 }
 
 export function serializePolicy(policy: DlpPolicy): string {
-  const fields: Array<string> = [];
+  const fields: string[] = [];
   fields.push(POLICY_VERSION);
   fields.push('accountId=' + encodeComponent(policy.accountId, false));
   fields.push('accountName=' + encodeComponent(policy.accountName, false));
@@ -322,13 +322,13 @@ export function serializePolicy(policy: DlpPolicy): string {
 }
 
 export function parsePolicy(text: string): PolicyParseResult {
-  const issues: Array<PolicyIssue> = [];
+  const issues: PolicyIssue[] = [];
   const trimmed: string = text.trim();
   if (trimmed.length === 0) {
     issues.push(new PolicyIssue('version', 'missing', '缺少策略版本'));
     return new PolicyParseResult(null, new PolicyValidation(issues));
   }
-  const fields: Array<string> = trimmed.split(';');
+  const fields: string[] = trimmed.split(';');
   if (fields[0] !== POLICY_VERSION) {
     issues.push(new PolicyIssue('version', 'unsupported', '不支持的策略版本'));
     return new PolicyParseResult(null, new PolicyValidation(issues));
@@ -373,7 +373,7 @@ export function parsePolicy(text: string): PolicyParseResult {
   return new PolicyParseResult(policy, new PolicyValidation(issues));
 }
 
-function decodeValue(raw: string, field: string, issues: Array<PolicyIssue>): string {
+function decodeValue(raw: string, field: string, issues: PolicyIssue[]): string {
   const decoded: UriDecodeResult = decodeComponent(raw, false);
   if (!decoded.valid) {
     issues.push(new PolicyIssue(field, 'encoding', '字段编码不合法'));
@@ -381,7 +381,7 @@ function decodeValue(raw: string, field: string, issues: Array<PolicyIssue>): st
   return decoded.text;
 }
 
-function parseInteger(raw: string, field: string, issues: Array<PolicyIssue>): number {
+function parseInteger(raw: string, field: string, issues: PolicyIssue[]): number {
   if (raw.length === 0) {
     issues.push(new PolicyIssue(field, 'empty', '数值字段为空'));
     return 0;

@@ -18,7 +18,7 @@ import { DecodeOutcome, HexOutcome, utf8BomLength, hasUtf8Bom, decodeUtf8, decod
   encodeUtf8, utf8ByteLength, truncateToByteLength, countCodePoints, isAsciiOnly, normalizeEol,
   splitLines, toHex, fromHex } from '../main/ets/core/TextCodecCore';
 
-function toBytes(codes: Array<number>): Uint8Array {
+function toBytes(codes: number[]): Uint8Array {
   const output: Uint8Array = new Uint8Array(codes.length);
   for (let index = 0; index < codes.length; index++) {
     output[index] = codes[index];
@@ -35,20 +35,20 @@ function asciiBytes(text: string): Uint8Array {
 }
 
 function joinBytes(values: Uint8Array): string {
-  const parts: Array<string> = [];
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     parts.push(values[index].toString());
   }
   return parts.join(',');
 }
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
-const BOM: Array<number> = [0xEF, 0xBB, 0xBF];
-const CHINESE_BYTES: Array<number> = [0xE4, 0xBD, 0xA0, 0xE5, 0xA5, 0xBD];
-const SMILE_BYTES: Array<number> = [0xF0, 0x9F, 0x98, 0x80];
+const BOM: number[] = [0xEF, 0xBB, 0xBF];
+const CHINESE_BYTES: number[] = [0xE4, 0xBD, 0xA0, 0xE5, 0xA5, 0xBD];
+const SMILE_BYTES: number[] = [0xF0, 0x9F, 0x98, 0x80];
 
 export default function textCodecCoreTest(): void {
   describe('TextCodecCoreTest', () => {
@@ -1007,7 +1007,7 @@ export default function textCodecCoreTest(): void {
     it('testByteLengthMatchesEncoding0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testByteLengthMatchesEncoding0061 begin');
       console.info('testByteLengthMatchesEncoding0061 begin');
-      const samples: Array<string> = ['', 'a', '你好', '😀', 'a你好😀z'];
+      const samples: string[] = ['', 'a', '你好', '😀', 'a你好😀z'];
       for (let index = 0; index < samples.length; index++) {
         expect(utf8ByteLength(samples[index])).assertEqual(encodeUtf8(samples[index]).length);
       }
@@ -1451,7 +1451,7 @@ export default function textCodecCoreTest(): void {
     it('testSplitLinesTrailing0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesTrailing0092 begin');
       console.info('testSplitLinesTrailing0092 begin');
-      const lines: Array<string> = splitLines('a\nb\n');
+      const lines: string[] = splitLines('a\nb\n');
       expect(lines.length).assertEqual(2);
       expect(joinTexts(lines)).assertEqual('a|b');
     })
@@ -1481,7 +1481,7 @@ export default function textCodecCoreTest(): void {
     it('testSplitLinesEmptyLines0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesEmptyLines0094 begin');
       console.info('testSplitLinesEmptyLines0094 begin');
-      const lines: Array<string> = splitLines('a\n\nb');
+      const lines: string[] = splitLines('a\n\nb');
       expect(lines.length).assertEqual(3);
       expect(lines[1]).assertEqual('');
     })
@@ -1497,7 +1497,7 @@ export default function textCodecCoreTest(): void {
     it('testSplitLinesOnlyNewline0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesOnlyNewline0095 begin');
       console.info('testSplitLinesOnlyNewline0095 begin');
-      const lines: Array<string> = splitLines('\n');
+      const lines: string[] = splitLines('\n');
       expect(lines.length).assertEqual(1);
       expect(lines[0]).assertEqual('');
     })
@@ -1513,7 +1513,7 @@ export default function textCodecCoreTest(): void {
     it('testSplitLinesOnlyCr0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesOnlyCr0096 begin');
       console.info('testSplitLinesOnlyCr0096 begin');
-      const lines: Array<string> = splitLines('\r');
+      const lines: string[] = splitLines('\r');
       expect(lines.length).assertEqual(1);
       expect(lines[0]).assertEqual('');
     })

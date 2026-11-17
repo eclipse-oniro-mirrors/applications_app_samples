@@ -20,8 +20,8 @@ function mkItem(id: string, name: string, opened: number, favorite: boolean): Re
   return new RecentItem(id, name, 'file:///docs/' + name, false, opened, favorite);
 }
 
-function namesOf(items: Array<RecentItem>): string {
-  const parts: Array<string> = [];
+function namesOf(items: RecentItem[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }
@@ -455,7 +455,7 @@ export default function recentFlowMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSetItemsCopy0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const source: Array<RecentItem> = [mkItem('a', 'a.txt', 100, false)];
+      const source: RecentItem[] = [mkItem('a', 'a.txt', 100, false)];
       const model: RecentModel = new RecentModel();
       model.setItems(source);
       source.push(mkItem('b', 'b.txt', 200, false));

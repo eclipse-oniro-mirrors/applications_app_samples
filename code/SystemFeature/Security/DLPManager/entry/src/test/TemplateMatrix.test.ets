@@ -27,8 +27,8 @@ function repeatChar(ch: string, count: number): string {
 }
 
 function namesOf(model: TemplateModel): string {
-  const parts: Array<string> = [];
-  const items: Array<CustomTemplate> = model.customTemplates();
+  const parts: string[] = [];
+  const items: CustomTemplate[] = model.customTemplates();
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }
@@ -47,7 +47,7 @@ export default function templateMatrixTest(): void {
      */
     it('testBuiltInOrder0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuiltInOrder0001 begin');
-      const templates: Array<PolicyTemplate> = new TemplateModel().allTemplates();
+      const templates: PolicyTemplate[] = new TemplateModel().allTemplates();
       expect(templates[0].id).assertEqual('read-only');
       expect(templates[1].id).assertEqual('editable');
       expect(templates[2].id).assertEqual('printable');
@@ -394,7 +394,7 @@ export default function templateMatrixTest(): void {
      */
     it('testDisplayMatrix0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDisplayMatrix0022 begin');
-      const templates: Array<PolicyTemplate> = new TemplateModel().allTemplates();
+      const templates: PolicyTemplate[] = new TemplateModel().allTemplates();
       expect(templateDisplayName(templates[0])).assertEqual('只读');
       expect(templateDisplayName(templates[1])).assertEqual('可编辑');
       expect(templateDisplayName(templates[2])).assertEqual('可打印');

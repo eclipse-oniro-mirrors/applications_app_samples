@@ -17,7 +17,7 @@ import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { DecodeOutcome, HexOutcome, countCodePoints, decodeUtf8, decodeUtf8Prefix, encodeUtf8, fromHex,
   normalizeEol, splitLines, toHex, truncateToByteLength, utf8ByteLength, utf8BomLength } from '../main/ets/core/TextCodecCore';
 
-function toBytes(codes: Array<number>): Uint8Array {
+function toBytes(codes: number[]): Uint8Array {
   const output: Uint8Array = new Uint8Array(codes.length);
   for (let index = 0; index < codes.length; index++) {
     output[index] = codes[index];
@@ -26,7 +26,7 @@ function toBytes(codes: Array<number>): Uint8Array {
 }
 
 function joinBytes(values: Uint8Array): string {
-  const parts: Array<string> = [];
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     parts.push(values[index].toString());
   }
@@ -59,7 +59,7 @@ export default function textCodecMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testCjkSweep0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const samples: Array<number> = [0x4E00, 0x5F00, 0x6D4B, 0x8BD5, 0x9FA5];
+      const samples: number[] = [0x4E00, 0x5F00, 0x6D4B, 0x8BD5, 0x9FA5];
       for (let index = 0; index < samples.length; index++) {
         const source: string = String.fromCharCode(samples[index]);
         expect(utf8ByteLength(source)).assertEqual(3);
@@ -76,7 +76,7 @@ export default function textCodecMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testEmojiSweep0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const samples: Array<string> = ['😀', '🚀', '🔥'];
+      const samples: string[] = ['😀', '🚀', '🔥'];
       for (let index = 0; index < samples.length; index++) {
         expect(utf8ByteLength(samples[index])).assertEqual(4);
         expect(countCodePoints(samples[index])).assertEqual(1);
@@ -122,8 +122,8 @@ export default function textCodecMatrix3Test(): void {
      */
     it('testTruncateEmojiMatrix0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const source: string = '😀你a';
-      const budgets: Array<number> = [1, 3, 4, 5, 8];
-      const expected: Array<string> = ['', '', '😀', '😀', '😀你a'];
+      const budgets: number[] = [1, 3, 4, 5, 8];
+      const expected: string[] = ['', '', '😀', '😀', '😀你a'];
       for (let index = 0; index < budgets.length; index++) {
         expect(truncateToByteLength(source, budgets[index])).assertEqual(expected[index]);
       }
@@ -167,7 +167,7 @@ export default function textCodecMatrix3Test(): void {
      */
     it('testHexSweep0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       for (let length = 1; length <= 5; length++) {
-        const codes: Array<number> = [];
+        const codes: number[] = [];
         for (let index = 0; index < length; index++) {
           codes.push(index * 51);
         }
@@ -202,7 +202,7 @@ export default function textCodecMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testByteLengthLoop0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const samples: Array<string> = ['', 'a', 'abc', '中文', '😀', 'a中😀b', '100%'];
+      const samples: string[] = ['', 'a', 'abc', '中文', '😀', 'a中😀b', '100%'];
       for (let index = 0; index < samples.length; index++) {
         expect(utf8ByteLength(samples[index])).assertEqual(encodeUtf8(samples[index]).length);
       }
@@ -287,7 +287,7 @@ export default function textCodecMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSplitWindowsFile0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const lines: Array<string> = splitLines('年度\r\n报告\r\n');
+      const lines: string[] = splitLines('年度\r\n报告\r\n');
       expect(lines.length).assertEqual(2);
       expect(lines[0]).assertEqual('年度');
       expect(lines[1]).assertEqual('报告');

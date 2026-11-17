@@ -24,7 +24,7 @@ function item(id: string, name: string, kind: FileKind, size: number, modified: 
   return new FileEntry(id, name, 'file:///docs/' + name, kind, size, modified, isDlp, isFavorite);
 }
 
-function sample(): Array<FileEntry> {
+function sample(): FileEntry[] {
   return [
     item('1', 'a.txt', FileKind.TEXT, 100, 1000, false, true),
     item('2', 'b.docx', FileKind.DOCUMENT, 200, 2000, true, false),
@@ -33,15 +33,15 @@ function sample(): Array<FileEntry> {
   ];
 }
 
-function idsOf(values: Array<FileEntry>): string {
-  const parts: Array<string> = [];
+function idsOf(values: FileEntry[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     parts.push(values[index].id);
   }
   return parts.join('|');
 }
 
-function reconstruct(spans: Array<TextSpan>): string {
+function reconstruct(spans: TextSpan[]): string {
   let result: string = '';
   for (let index = 0; index < spans.length; index++) {
     result += spans[index].text;
@@ -126,7 +126,7 @@ export default function queryMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightReconstructLoop0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const samples: Array<string> = ['abc', '年度报告.txt', 'a-b_c.docx', '😀文件.txt', ''];
+      const samples: string[] = ['abc', '年度报告.txt', 'a-b_c.docx', '😀文件.txt', ''];
       for (let index = 0; index < samples.length; index++) {
         expect(reconstruct(highlight(samples[index], '报告 a'))).assertEqual(samples[index]);
       }
@@ -188,7 +188,7 @@ export default function queryMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testFindIdLoop0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const ids: Array<string> = ['1', '2', '3', '4'];
+      const ids: string[] = ['1', '2', '3', '4'];
       for (let index = 0; index < ids.length; index++) {
         expect(findEntryById(sample(), ids[index]) !== null).assertTrue();
       }
@@ -221,7 +221,7 @@ export default function queryMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testOptionsDefaultLoop0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const entries: Array<FileEntry> = sample();
+      const entries: FileEntry[] = sample();
       for (let index = 0; index < entries.length; index++) {
         expect(matchesOptions(entries[index], new QueryOptions())).assertTrue();
       }
@@ -236,7 +236,7 @@ export default function queryMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testFilterNoMutation0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const entries: Array<FileEntry> = sample();
+      const entries: FileEntry[] = sample();
       const options: QueryOptions = new QueryOptions();
       options.keyword = 'docx';
       filterEntries(entries, options);
@@ -280,7 +280,7 @@ export default function queryMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightBoundary0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const spans: Array<TextSpan> = highlight('abc', 'a');
+      const spans: TextSpan[] = highlight('abc', 'a');
       expect(spans.length).assertEqual(2);
       expect(spans[0].matched).assertTrue();
       expect(spans[1].text).assertEqual('bc');
@@ -354,7 +354,7 @@ export default function queryMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testKeywordCaseLoop0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const variants: Array<string> = ['A.TXT', 'a.txt', 'A.Txt'];
+      const variants: string[] = ['A.TXT', 'a.txt', 'A.Txt'];
       for (let index = 0; index < variants.length; index++) {
         expect(matchesKeyword(item('9', variants[index], FileKind.TEXT, 1, 1, false, false), 'txt'))
           .assertTrue();

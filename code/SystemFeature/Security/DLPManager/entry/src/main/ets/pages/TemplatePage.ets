@@ -22,8 +22,8 @@ import { TemplateStore } from '../feature/PreferenceStore';
 @Entry
 @Component
 struct TemplatePage {
-  @State builtIns: Array<PolicyTemplate> = [];
-  @State customs: Array<CustomTemplate> = [];
+  @State builtIns: PolicyTemplate[] = [];
+  @State customs: CustomTemplate[] = [];
   @State name: string = '';
   @State selectedMask: number = DlpPermission.READ;
   @State editingId: string = '';
@@ -45,8 +45,8 @@ struct TemplatePage {
   }
 
   private refreshCustoms(): void {
-    const source: Array<CustomTemplate> = this.model.customTemplates();
-    const copy: Array<CustomTemplate> = [];
+    const source: CustomTemplate[] = this.model.customTemplates();
+    const copy: CustomTemplate[] = [];
     for (let index = 0; index < source.length; index++) {
       copy.push(source[index]);
     }
@@ -58,7 +58,11 @@ struct TemplatePage {
   }
 
   private toggleBit(permission: number): void {
-    this.selectedMask = (this.selectedMask & permission) === permission ? (this.selectedMask ^ permission) : (this.selectedMask | permission);
+    if ((this.selectedMask & permission) === permission) {
+      this.selectedMask = this.selectedMask ^ permission;
+    } else {
+      this.selectedMask = this.selectedMask | permission;
+    }
   }
 
   private resetForm(): void {

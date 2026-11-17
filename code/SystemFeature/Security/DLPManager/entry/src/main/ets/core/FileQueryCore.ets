@@ -47,7 +47,7 @@ export enum SortField {
 
 export class QueryOptions {
   public keyword: string = '';
-  public kinds: Array<FileKind> = [];
+  public kinds: FileKind[] = [];
   public onlyDlp: boolean = false;
   public onlyFavorite: boolean = false;
   public minSize: number = -1;
@@ -61,12 +61,12 @@ export class QueryOptions {
 }
 
 export class QueryResult {
-  public readonly items: Array<FileEntry>;
+  public readonly items: FileEntry[];
   public readonly total: number;
   public readonly offset: number;
   public readonly hasMore: boolean;
 
-  constructor(items: Array<FileEntry>, total: number, offset: number, hasMore: boolean) {
+  constructor(items: FileEntry[], total: number, offset: number, hasMore: boolean) {
     this.items = items;
     this.total = total;
     this.offset = offset;
@@ -105,8 +105,8 @@ class TextRange {
 }
 
 export function normalizeKeyword(keyword: string): string {
-  const parts: Array<string> = keyword.toLowerCase().split(' ');
-  const tokens: Array<string> = [];
+  const parts: string[] = keyword.toLowerCase().split(' ');
+  const tokens: string[] = [];
   for (let index = 0; index < parts.length; index++) {
     if (parts[index].length > 0) {
       tokens.push(parts[index]);
@@ -115,7 +115,7 @@ export function normalizeKeyword(keyword: string): string {
   return tokens.join(' ');
 }
 
-export function tokenizeKeyword(keyword: string): Array<string> {
+export function tokenizeKeyword(keyword: string): string[] {
   const normalized: string = normalizeKeyword(keyword);
   if (normalized.length === 0) {
     return [];
@@ -128,7 +128,7 @@ function containsIgnoreCase(text: string, token: string): boolean {
 }
 
 export function matchesKeyword(entry: FileEntry, keyword: string): boolean {
-  const tokens: Array<string> = tokenizeKeyword(keyword);
+  const tokens: string[] = tokenizeKeyword(keyword);
   if (tokens.length === 0) {
     return true;
   }
@@ -140,7 +140,7 @@ export function matchesKeyword(entry: FileEntry, keyword: string): boolean {
   return true;
 }
 
-function matchesKinds(entry: FileEntry, kinds: Array<FileKind>): boolean {
+function matchesKinds(entry: FileEntry, kinds: FileKind[]): boolean {
   if (kinds.length === 0) {
     return true;
   }
@@ -191,8 +191,8 @@ export function matchesOptions(entry: FileEntry, options: QueryOptions): boolean
   return matchesTimeRange(entry.modifiedAtSec, options.fromSec, options.toSec);
 }
 
-export function filterEntries(entries: Array<FileEntry>, options: QueryOptions): Array<FileEntry> {
-  const result: Array<FileEntry> = [];
+export function filterEntries(entries: FileEntry[], options: QueryOptions): FileEntry[] {
+  const result: FileEntry[] = [];
   for (let index = 0; index < entries.length; index++) {
     const entry: FileEntry = entries[index];
     if (matchesOptions(entry, options)) {
@@ -243,8 +243,8 @@ function compareByField(left: FileEntry, right: FileEntry, field: SortField): nu
   return compareStrings(left.id, right.id);
 }
 
-export function sortEntries(entries: Array<FileEntry>, field: SortField, descending: boolean): Array<FileEntry> {
-  const result: Array<FileEntry> = [];
+export function sortEntries(entries: FileEntry[], field: SortField, descending: boolean): FileEntry[] {
+  const result: FileEntry[] = [];
   for (let index = 0; index < entries.length; index++) {
     result.push(entries[index]);
   }
@@ -258,12 +258,12 @@ export function sortEntries(entries: Array<FileEntry>, field: SortField, descend
   return result;
 }
 
-export function queryEntries(entries: Array<FileEntry>, options: QueryOptions): QueryResult {
-  const filtered: Array<FileEntry> = filterEntries(entries, options);
-  const sorted: Array<FileEntry> = sortEntries(filtered, options.sortField, options.descending);
+export function queryEntries(entries: FileEntry[], options: QueryOptions): QueryResult {
+  const filtered: FileEntry[] = filterEntries(entries, options);
+  const sorted: FileEntry[] = sortEntries(filtered, options.sortField, options.descending);
   const total: number = sorted.length;
   const offset: number = options.offset > 0 ? options.offset : 0;
-  const items: Array<FileEntry> = [];
+  const items: FileEntry[] = [];
   if (offset < total) {
     const end: number = options.limit > 0 ? Math.min(total, offset + options.limit) : total;
     for (let index = offset; index < end; index++) {
@@ -273,8 +273,8 @@ export function queryEntries(entries: Array<FileEntry>, options: QueryOptions): 
   return new QueryResult(items, total, offset, offset + items.length < total);
 }
 
-export function countByKind(entries: Array<FileEntry>): Array<KindCount> {
-  const counts: Array<KindCount> = [];
+export function countByKind(entries: FileEntry[]): KindCount[] {
+  const counts: KindCount[] = [];
   for (let index = 0; index < entries.length; index++) {
     const entry: FileEntry = entries[index];
     let found: number = -1;
@@ -297,17 +297,17 @@ export function countByKind(entries: Array<FileEntry>): Array<KindCount> {
   return counts;
 }
 
-export function distinctKinds(entries: Array<FileEntry>): Array<FileKind> {
-  const counts: Array<KindCount> = countByKind(entries);
-  const kinds: Array<FileKind> = [];
+export function distinctKinds(entries: FileEntry[]): FileKind[] {
+  const counts: KindCount[] = countByKind(entries);
+  const kinds: FileKind[] = [];
   for (let index = 0; index < counts.length; index++) {
     kinds.push(counts[index].kind);
   }
   return kinds;
 }
 
-function findOccurrences(lowerText: string, token: string): Array<TextRange> {
-  const ranges: Array<TextRange> = [];
+function findOccurrences(lowerText: string, token: string): TextRange[] {
+  const ranges: TextRange[] = [];
   if (token.length === 0) {
     return ranges;
   }
@@ -319,14 +319,14 @@ function findOccurrences(lowerText: string, token: string): Array<TextRange> {
   return ranges;
 }
 
-function mergeRanges(ranges: Array<TextRange>): Array<TextRange> {
+function mergeRanges(ranges: TextRange[]): TextRange[] {
   if (ranges.length === 0) {
     return ranges;
   }
   ranges.sort((left: TextRange, right: TextRange) => {
     return compareNumbers(left.start, right.start);
   });
-  const merged: Array<TextRange> = [];
+  const merged: TextRange[] = [];
   let current: TextRange = ranges[0];
   for (let index = 1; index < ranges.length; index++) {
     const next: TextRange = ranges[index];
@@ -341,18 +341,18 @@ function mergeRanges(ranges: Array<TextRange>): Array<TextRange> {
   return merged;
 }
 
-export function highlight(text: string, keyword: string): Array<TextSpan> {
-  const tokens: Array<string> = tokenizeKeyword(keyword);
+export function highlight(text: string, keyword: string): TextSpan[] {
+  const tokens: string[] = tokenizeKeyword(keyword);
   const lowerText: string = text.toLowerCase();
-  let ranges: Array<TextRange> = [];
+  let ranges: TextRange[] = [];
   for (let index = 0; index < tokens.length; index++) {
-    const found: Array<TextRange> = findOccurrences(lowerText, tokens[index]);
+    const found: TextRange[] = findOccurrences(lowerText, tokens[index]);
     for (let foundIndex = 0; foundIndex < found.length; foundIndex++) {
       ranges.push(found[foundIndex]);
     }
   }
   ranges = mergeRanges(ranges);
-  const spans: Array<TextSpan> = [];
+  const spans: TextSpan[] = [];
   if (ranges.length === 0) {
     spans.push(new TextSpan(text, false));
     return spans;
@@ -372,7 +372,7 @@ export function highlight(text: string, keyword: string): Array<TextSpan> {
   return spans;
 }
 
-export function findEntryById(entries: Array<FileEntry>, id: string): FileEntry | null {
+export function findEntryById(entries: FileEntry[], id: string): FileEntry | null {
   for (let index = 0; index < entries.length; index++) {
     if (entries[index].id === id) {
       return entries[index];

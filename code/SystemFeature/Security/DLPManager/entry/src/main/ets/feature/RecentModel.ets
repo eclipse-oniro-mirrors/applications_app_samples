@@ -36,7 +36,7 @@ export class RecentItem {
 }
 
 export class RecentModel {
-  private items: Array<RecentItem> = [];
+  private items: RecentItem[] = [];
   private capacity: number = RECENT_CAPACITY;
 
   setCapacity(capacity: number): void {
@@ -54,7 +54,7 @@ export class RecentModel {
     return this.capacity;
   }
 
-  setItems(items: Array<RecentItem>): void {
+  setItems(items: RecentItem[]): void {
     this.items = [];
     for (let index = 0; index < items.length; index++) {
       this.items.push(items[index]);
@@ -121,12 +121,12 @@ export class RecentModel {
     return this.items[index];
   }
 
-  recents(): Array<RecentItem> {
+  recents(): RecentItem[] {
     return this.items;
   }
 
-  favorites(): Array<RecentItem> {
-    const result: Array<RecentItem> = [];
+  favorites(): RecentItem[] {
+    const result: RecentItem[] = [];
     for (let index = 0; index < this.items.length; index++) {
       if (this.items[index].favorite) {
         result.push(this.items[index]);
@@ -135,8 +135,8 @@ export class RecentModel {
     return result;
   }
 
-  nonFavorites(): Array<RecentItem> {
-    const result: Array<RecentItem> = [];
+  nonFavorites(): RecentItem[] {
+    const result: RecentItem[] = [];
     for (let index = 0; index < this.items.length; index++) {
       if (!this.items[index].favorite) {
         result.push(this.items[index]);
@@ -146,7 +146,7 @@ export class RecentModel {
   }
 
   clearRecents(): number {
-    const kept: Array<RecentItem> = this.favorites();
+    const kept: RecentItem[] = this.favorites();
     const removed: number = this.items.length - kept.length;
     this.items = kept;
     return removed;
@@ -169,7 +169,7 @@ export class RecentModel {
   }
 
   serialize(): string {
-    const lines: Array<string> = [];
+    const lines: string[] = [];
     for (let index = 0; index < this.items.length; index++) {
       const item: RecentItem = this.items[index];
       lines.push(encodeComponent(item.id, false) + '|' + encodeComponent(item.name, false) + '|' +
@@ -212,10 +212,10 @@ export function parseRecentText(text: string, capacity: number): RecentModel {
   if (text.length === 0) {
     return model;
   }
-  const lines: Array<string> = text.split('\n');
-  const items: Array<RecentItem> = [];
+  const lines: string[] = text.split('\n');
+  const items: RecentItem[] = [];
   for (let index = 0; index < lines.length; index++) {
-    const fields: Array<string> = lines[index].split('|');
+    const fields: string[] = lines[index].split('|');
     if (fields.length !== 6) {
       continue;
     }

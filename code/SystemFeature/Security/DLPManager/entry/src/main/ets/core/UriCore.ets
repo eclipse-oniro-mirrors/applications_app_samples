@@ -69,10 +69,10 @@ export class QueryParam {
 }
 
 export class QueryParseResult {
-  public readonly params: Array<QueryParam>;
+  public readonly params: QueryParam[];
   public readonly valid: boolean;
 
-  constructor(params: Array<QueryParam>, valid: boolean) {
+  constructor(params: QueryParam[], valid: boolean) {
     this.params = params;
     this.valid = valid;
   }
@@ -198,7 +198,7 @@ export function buildUri(parts: UriParts): string {
 
 export function encodeComponent(text: string, keepSlash: boolean): string {
   const bytes: Uint8Array = encodeUtf8(text);
-  const chunks: Array<string> = [];
+  const chunks: string[] = [];
   for (let index = 0; index < bytes.length; index++) {
     const value: number = bytes[index];
     if (isUnreserved(value) || (keepSlash && value === 0x2F)) {
@@ -213,7 +213,7 @@ export function encodeComponent(text: string, keepSlash: boolean): string {
 }
 
 export function decodeComponent(text: string, plusAsSpace: boolean): UriDecodeResult {
-  const bytes: Array<number> = [];
+  const bytes: number[] = [];
   let valid: boolean = true;
   let index: number = 0;
   while (index < text.length) {
@@ -265,12 +265,12 @@ export function decodeComponent(text: string, plusAsSpace: boolean): UriDecodeRe
 }
 
 export function parseQuery(query: string): QueryParseResult {
-  const params: Array<QueryParam> = [];
+  const params: QueryParam[] = [];
   let valid: boolean = true;
   if (query.length === 0) {
     return new QueryParseResult(params, valid);
   }
-  const fields: Array<string> = query.split('&');
+  const fields: string[] = query.split('&');
   for (let index = 0; index < fields.length; index++) {
     const field: string = fields[index];
     if (field.length === 0) {
@@ -291,8 +291,8 @@ export function parseQuery(query: string): QueryParseResult {
   return new QueryParseResult(params, valid);
 }
 
-export function buildQuery(params: Array<QueryParam>): string {
-  const chunks: Array<string> = [];
+export function buildQuery(params: QueryParam[]): string {
+  const chunks: string[] = [];
   for (let index = 0; index < params.length; index++) {
     const param: QueryParam = params[index];
     chunks.push(encodeComponent(param.key, false) + '=' + encodeComponent(param.value, false));
@@ -328,7 +328,7 @@ export function upsertQuery(uri: string, key: string, value: string): string {
     return uri;
   }
   const existing: QueryParseResult = parseQuery(parsed.parts.query);
-  const params: Array<QueryParam> = [];
+  const params: QueryParam[] = [];
   let replaced: boolean = false;
   for (let index = 0; index < existing.params.length; index++) {
     const param: QueryParam = existing.params[index];
@@ -346,8 +346,8 @@ export function upsertQuery(uri: string, key: string, value: string): string {
   return buildUri(parsed.parts);
 }
 
-export function joinPath(segments: Array<string>): string {
-  const parts: Array<string> = [];
+export function joinPath(segments: string[]): string {
+  const parts: string[] = [];
   let absolute: boolean = false;
   for (let index = 0; index < segments.length; index++) {
     let segment: string = segments[index];
@@ -379,8 +379,8 @@ export function normalizePath(path: string): string {
     return '';
   }
   const absolute: boolean = path.startsWith('/');
-  const raw: Array<string> = path.split('/');
-  const stack: Array<string> = [];
+  const raw: string[] = path.split('/');
+  const stack: string[] = [];
   for (let index = 0; index < raw.length; index++) {
     const segment: string = raw[index];
     if (segment.length === 0 || segment === '.') {
@@ -403,9 +403,9 @@ export function normalizePath(path: string): string {
   return joined;
 }
 
-export function segmentsOf(path: string): Array<string> {
-  const raw: Array<string> = path.split('/');
-  const parts: Array<string> = [];
+export function segmentsOf(path: string): string[] {
+  const raw: string[] = path.split('/');
+  const parts: string[] = [];
   for (let index = 0; index < raw.length; index++) {
     if (raw[index].length > 0) {
       parts.push(raw[index]);

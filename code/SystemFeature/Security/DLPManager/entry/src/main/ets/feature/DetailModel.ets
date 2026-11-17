@@ -28,8 +28,8 @@ export class DetailRow {
 
 export class DetailModel {
   static build(name: string, uri: string, sizeBytes: number, modifiedAtSec: number,
-    useUtc: boolean): Array<DetailRow> {
-    const rows: Array<DetailRow> = [];
+    useUtc: boolean): DetailRow[] {
+    const rows: DetailRow[] = [];
     const descriptor: FileDescriptor = describeFile(name, sizeBytes);
     rows.push(new DetailRow('名称', name));
     rows.push(new DetailRow('类型', kindLabel(descriptor.kind)));

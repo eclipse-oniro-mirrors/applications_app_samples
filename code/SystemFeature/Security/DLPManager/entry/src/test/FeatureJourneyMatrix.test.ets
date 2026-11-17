@@ -157,7 +157,7 @@ export default function featureJourneyMatrixTest(): void {
      */
     it('testErrorReportAndCenter0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const info: ErrorInfo = lookupError(13900002);
-      const result: Array<ErrorInfo> = ErrorCenterModel.filter(formatCode(info.code), 'all');
+      const result: ErrorInfo[] = ErrorCenterModel.filter(formatCode(info.code), 'all');
       expect(result.length).assertEqual(1);
       expect(info.category).assertEqual(categoryOf(13900002));
       expect(describeError(13900002)).assertEqual('文件不存在');
@@ -385,7 +385,7 @@ export default function featureJourneyMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testHintsJourney0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const codes: Array<number> = [13900001, 13900002, 13900012, 13900025, 13900042, 19100001, 19100004];
+      const codes: number[] = [13900001, 13900002, 13900012, 13900025, 13900042, 19100001, 19100004];
       for (let index = 0; index < codes.length; index++) {
         expect(lookupError(codes[index]).hint.length > 0).assertTrue();
       }

@@ -108,7 +108,7 @@ export default class EntryAbility extends UIAbility {
    * getPermission：执行 getPermission 相关逻辑。
    */
   getPermission( want: Want ): void {
-    let array: Array<Permissions> = [
+    let array: Permissions[] = [
       'ohos.permission.ACCESS_DLP_FILE',
       'ohos.permission.MEDIA_LOCATION',
       'ohos.permission.FILE_ACCESS_MANAGER',
@@ -116,7 +116,7 @@ export default class EntryAbility extends UIAbility {
     ];
     let context = this.context;
     let atManager = abilityAccessCtrl.createAtManager();
-    let missing: Array<Permissions> = [];
+    let missing: Permissions[] = [];
     try {
       let tokenId: number = context.applicationInfo.accessTokenId;
       for (let index = 0; index < array.length; index++) {

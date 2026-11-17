@@ -47,7 +47,7 @@ export default function settingsMatrixTest(): void {
     it('testLogLevels0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLogLevels0002 begin');
       const model: SettingsModel = new SettingsModel();
-      const levels: Array<string> = ['debug', 'info', 'warn', 'error'];
+      const levels: string[] = ['debug', 'info', 'warn', 'error'];
       for (let index = 0; index < levels.length; index++) {
         expect(model.setLogLevel(levels[index])).assertTrue();
         expect(model.logLevel).assertEqual(levels[index]);
@@ -97,7 +97,7 @@ export default function settingsMatrixTest(): void {
     it('testThemes0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testThemes0005 begin');
       const model: SettingsModel = new SettingsModel();
-      const themes: Array<string> = ['light', 'dark', 'auto'];
+      const themes: string[] = ['light', 'dark', 'auto'];
       for (let index = 0; index < themes.length; index++) {
         expect(model.setTheme(themes[index])).assertTrue();
         expect(model.theme).assertEqual(themes[index]);

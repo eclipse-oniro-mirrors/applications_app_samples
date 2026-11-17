@@ -21,18 +21,18 @@ export const DEFAULT_PAGE_SIZE: number = 10;
 const MAX_PAGE_SIZE: number = 50;
 
 export class SearchModel {
-  private entries: Array<FileEntry> = [];
-  private selectedIds: Array<string> = [];
+  private entries: FileEntry[] = [];
+  private selectedIds: string[] = [];
   private pageIndex: number = 0;
   private pageSize: number = DEFAULT_PAGE_SIZE;
   private keyword: string = '';
-  private kinds: Array<FileKind> = [];
+  private kinds: FileKind[] = [];
   private onlyDlp: boolean = false;
   private onlyFavorite: boolean = false;
   private sortField: SortField = SortField.NAME;
   private descending: boolean = false;
 
-  setEntries(entries: Array<FileEntry>): void {
+  setEntries(entries: FileEntry[]): void {
     this.entries = [];
     for (let index = 0; index < entries.length; index++) {
       this.entries.push(entries[index]);
@@ -41,7 +41,7 @@ export class SearchModel {
     this.selectedIds = [];
   }
 
-  getEntries(): Array<FileEntry> {
+  getEntries(): FileEntry[] {
     return this.entries;
   }
 
@@ -74,7 +74,7 @@ export class SearchModel {
     this.pageIndex = 0;
   }
 
-  getKinds(): Array<FileKind> {
+  getKinds(): FileKind[] {
     return this.kinds;
   }
 
@@ -165,8 +165,8 @@ export class SearchModel {
     return options;
   }
 
-  results(): Array<FileEntry> {
-    const filtered: Array<FileEntry> = filterEntries(this.entries, this.buildOptions());
+  results(): FileEntry[] {
+    const filtered: FileEntry[] = filterEntries(this.entries, this.buildOptions());
     return sortEntries(filtered, this.sortField, this.descending);
   }
 
@@ -247,7 +247,7 @@ export class SearchModel {
   }
 
   selectAllResults(): void {
-    const results: Array<FileEntry> = this.results();
+    const results: FileEntry[] = this.results();
     for (let index = 0; index < results.length; index++) {
       this.select(results[index].id);
     }
@@ -261,12 +261,12 @@ export class SearchModel {
     return this.selectedIds.length;
   }
 
-  getSelectedIds(): Array<string> {
+  getSelectedIds(): string[] {
     return this.selectedIds;
   }
 
-  selectedEntries(): Array<FileEntry> {
-    const result: Array<FileEntry> = [];
+  selectedEntries(): FileEntry[] {
+    const result: FileEntry[] = [];
     for (let index = 0; index < this.entries.length; index++) {
       if (this.isSelected(this.entries[index].id)) {
         result.push(this.entries[index]);

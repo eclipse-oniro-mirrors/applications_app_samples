@@ -19,12 +19,12 @@ import { UriParts, UriParseResult, UriDecodeResult, QueryParam, QueryParseResult
   joinPath, normalizePath, segmentsOf, fileNameOf, extensionOf, baseNameOf, stripExtension,
   replaceExtension, isScheme, isFileLikeUri } from '../main/ets/core/UriCore';
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
-function joinParams(values: Array<QueryParam>): string {
-  const parts: Array<string> = [];
+function joinParams(values: QueryParam[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     parts.push(values[index].key + '=' + values[index].value);
   }
@@ -1039,7 +1039,7 @@ export default function uriCoreTest(): void {
     it('testBuildQueryBasic0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQueryBasic0065 begin');
       console.info('testBuildQueryBasic0065 begin');
-      const params: Array<QueryParam> = [new QueryParam('a', '1'), new QueryParam('b', '2')];
+      const params: QueryParam[] = [new QueryParam('a', '1'), new QueryParam('b', '2')];
       expect(buildQuery(params)).assertEqual('a=1&b=2');
     })
 
@@ -1054,7 +1054,7 @@ export default function uriCoreTest(): void {
     it('testBuildQuerySpace0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQuerySpace0066 begin');
       console.info('testBuildQuerySpace0066 begin');
-      const params: Array<QueryParam> = [new QueryParam('k', 'a b')];
+      const params: QueryParam[] = [new QueryParam('k', 'a b')];
       expect(buildQuery(params)).assertEqual('k=a%20b');
     })
 
@@ -1069,7 +1069,7 @@ export default function uriCoreTest(): void {
     it('testBuildQueryChinese0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQueryChinese0067 begin');
       console.info('testBuildQueryChinese0067 begin');
-      const params: Array<QueryParam> = [new QueryParam('k', '中')];
+      const params: QueryParam[] = [new QueryParam('k', '中')];
       expect(buildQuery(params)).assertEqual('k=%E4%B8%AD');
     })
 
@@ -1084,7 +1084,7 @@ export default function uriCoreTest(): void {
     it('testBuildQueryRoundTrip0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQueryRoundTrip0068 begin');
       console.info('testBuildQueryRoundTrip0068 begin');
-      const params: Array<QueryParam> = [new QueryParam('a b', '中 文'), new QueryParam('c', '1')];
+      const params: QueryParam[] = [new QueryParam('a b', '中 文'), new QueryParam('c', '1')];
       expect(joinParams(parseQuery(buildQuery(params)).params)).assertEqual('a b=中 文|c=1');
     })
 

@@ -305,7 +305,7 @@ struct DlpPage {
     // try 语句
     try {
       // let 语句
-      let docUris: Array<string> = [this.dlpUri];
+      let docUris: string[] = [this.dlpUri];
       dlpPermission.setRetentionState(docUris); // 设置沙箱保留
       promptAction.showToast({ message: 'set success', duration: 2000 });
     } catch (err) {
@@ -319,7 +319,7 @@ struct DlpPage {
   async cancelSandboxFile(): Promise<void> {
     // try 语句
     try {
-      let docUris: Array<string> = [this.dlpUri];
+      let docUris: string[] = [this.dlpUri];
       dlpPermission.cancelRetentionState(docUris); // 设置沙箱保留
       promptAction.showToast({ message: 'cancel success', duration: 2000 });
     } catch (err) {

@@ -18,7 +18,7 @@ import { FileDescriptor, FileKind, KindGroup, MAX_EDITABLE_BYTES, describeFile, 
   extensionOfName, groupByKind, isDlpName, isEditableText, isSampleSupported, kindLabel, kindOfExtension,
   kindPriority, kindResourceKey, matchesAnySuffix, mimeOfExtension, stripDlpSuffix } from '../main/ets/core/FileKindCore';
 
-function toBytes(codes: Array<number>): Uint8Array {
+function toBytes(codes: number[]): Uint8Array {
   const output: Uint8Array = new Uint8Array(codes.length);
   for (let index = 0; index < codes.length; index++) {
     output[index] = codes[index];
@@ -34,7 +34,7 @@ function asciiBytes(text: string): Uint8Array {
   return output;
 }
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
@@ -50,7 +50,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testTextKinds0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTextKinds0001 begin');
-      const extensions: Array<string> = ['txt', 'md', 'log', 'csv', 'json', 'xml', 'html', 'css', 'js', 'ts',
+      const extensions: string[] = ['txt', 'md', 'log', 'csv', 'json', 'xml', 'html', 'css', 'js', 'ts',
         'ets', 'yml', 'yaml', 'ini', 'conf', 'sh', 'bat'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.TEXT);
@@ -67,7 +67,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testImageKinds0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testImageKinds0002 begin');
-      const extensions: Array<string> = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'svg', 'heic'];
+      const extensions: string[] = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'svg', 'heic'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.IMAGE);
       }
@@ -83,7 +83,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testAudioKinds0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testAudioKinds0003 begin');
-      const extensions: Array<string> = ['mp3', 'wav', 'aac', 'flac', 'ogg', 'm4a'];
+      const extensions: string[] = ['mp3', 'wav', 'aac', 'flac', 'ogg', 'm4a'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.AUDIO);
       }
@@ -99,7 +99,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testVideoKinds0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testVideoKinds0004 begin');
-      const extensions: Array<string> = ['mp4', 'mkv', 'mov', 'avi', 'webm', '3gp'];
+      const extensions: string[] = ['mp4', 'mkv', 'mov', 'avi', 'webm', '3gp'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.VIDEO);
       }
@@ -115,7 +115,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testDocumentKinds0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDocumentKinds0005 begin');
-      const extensions: Array<string> = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'rtf'];
+      const extensions: string[] = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'rtf'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.DOCUMENT);
       }
@@ -131,7 +131,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testArchiveKinds0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testArchiveKinds0006 begin');
-      const extensions: Array<string> = ['zip', 'rar', '7z', 'gz', 'tar', 'bz2', 'xz'];
+      const extensions: string[] = ['zip', 'rar', '7z', 'gz', 'tar', 'bz2', 'xz'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.ARCHIVE);
       }
@@ -147,7 +147,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testDatabaseKinds0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDatabaseKinds0007 begin');
-      const extensions: Array<string> = ['db', 'sqlite', 'sqlite3', 'mdb'];
+      const extensions: string[] = ['db', 'sqlite', 'sqlite3', 'mdb'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.DATABASE);
       }
@@ -163,7 +163,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testProgramKinds0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testProgramKinds0008 begin');
-      const extensions: Array<string> = ['apk', 'hap', 'exe', 'so', 'dll', 'bin', 'abc'];
+      const extensions: string[] = ['hap', 'exe', 'so', 'dll', 'bin', 'abc'];
       for (let index = 0; index < extensions.length; index++) {
         expect(kindOfExtension(extensions[index])).assertEqual(FileKind.PROGRAM);
       }
@@ -447,7 +447,7 @@ export default function fileKindMatrixTest(): void {
      */
     it('testGroupMatrix0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGroupMatrix0025 begin');
-      const groups: Array<KindGroup> = groupByKind([
+      const groups: KindGroup[] = groupByKind([
         describeFile('a.png', 1),
         describeFile('b.txt', 1),
         describeFile('c.md', 1),

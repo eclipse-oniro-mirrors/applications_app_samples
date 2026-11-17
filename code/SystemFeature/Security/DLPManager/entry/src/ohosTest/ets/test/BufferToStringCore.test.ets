@@ -893,7 +893,7 @@ export default function bufferToStringCoreTest(): void {
     /**
      * @tc.number    SUB_DLP_MANAGER_BUFFERTOSTRING_0260
      * @tc.name      testBufferToString0260
-     * @tc.desc      Verify the CJK word for HarmonyOS decodes correctly.
+     * @tc.desc      Verify CJK sample text decodes correctly.
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0

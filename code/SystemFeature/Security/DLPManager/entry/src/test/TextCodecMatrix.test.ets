@@ -18,7 +18,7 @@ import { DecodeOutcome, HexOutcome, countCodePoints, decodeUtf8, decodeUtf8Prefi
   hasUtf8Bom, isAsciiOnly, normalizeEol, splitLines, toHex, truncateToByteLength, utf8ByteLength,
   utf8BomLength } from '../main/ets/core/TextCodecCore';
 
-function toBytes(codes: Array<number>): Uint8Array {
+function toBytes(codes: number[]): Uint8Array {
   const output: Uint8Array = new Uint8Array(codes.length);
   for (let index = 0; index < codes.length; index++) {
     output[index] = codes[index];
@@ -27,7 +27,7 @@ function toBytes(codes: Array<number>): Uint8Array {
 }
 
 function joinBytes(values: Uint8Array): string {
-  const parts: Array<string> = [];
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     parts.push(values[index].toString());
   }
@@ -361,7 +361,7 @@ export default function textCodecMatrixTest(): void {
      */
     it('testByteLengthSweep0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testByteLengthSweep0022 begin');
-      const samples: Array<string> = ['', 'a', 'ab', '你', '你好', '😀', 'a你😀'];
+      const samples: string[] = ['', 'a', 'ab', '你', '你好', '😀', 'a你😀'];
       for (let index = 0; index < samples.length; index++) {
         expect(utf8ByteLength(samples[index])).assertEqual(encodeUtf8(samples[index]).length);
       }

@@ -917,7 +917,7 @@ export default function errorCodeCoreTest(): void {
     it('testMessagesNonEmpty0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMessagesNonEmpty0059 begin');
       console.info('testMessagesNonEmpty0059 begin');
-      const codes: Array<number> = [0, 13900001, NOT_FOUND, 13900004, 13900005, EACCES, 13900020, ENOSPC,
+      const codes: number[] = [0, 13900001, NOT_FOUND, 13900004, 13900005, EACCES, 13900020, ENOSPC,
         13900042, 19100001, 19100002, 19100003, 19100004, 999];
       for (let index = 0; index < codes.length; index++) {
         expect(describeError(codes[index]).length > 0).assertTrue();
@@ -935,7 +935,7 @@ export default function errorCodeCoreTest(): void {
     it('testNonRetryableSet0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNonRetryableSet0060 begin');
       console.info('testNonRetryableSet0060 begin');
-      const codes: Array<number> = [NOT_FOUND, EACCES, ENOSPC, 13900020, 19100001, 19100004];
+      const codes: number[] = [NOT_FOUND, EACCES, ENOSPC, 13900020, 19100001, 19100004];
       for (let index = 0; index < codes.length; index++) {
         expect(isRetryable(codes[index])).assertFalse();
       }

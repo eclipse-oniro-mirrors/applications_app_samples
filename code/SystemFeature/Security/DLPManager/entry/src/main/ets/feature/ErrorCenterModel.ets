@@ -15,7 +15,7 @@
 
 import { ErrorCategory, ErrorInfo, formatCode, lookupError } from '../core/ErrorCodeCore';
 
-const KNOWN_CODES: Array<number> = [0, 13900001, 13900002, 13900004, 13900005, 13900008, 13900011, 13900012,
+const KNOWN_CODES: number[] = [0, 13900001, 13900002, 13900004, 13900005, 13900008, 13900011, 13900012,
   13900013, 13900015, 13900019, 13900020, 13900025, 13900030, 13900042, 19100001, 19100002, 19100003, 19100004];
 
 export function categoryLabel(category: ErrorCategory): string {
@@ -53,25 +53,25 @@ export function categoryLabel(category: ErrorCategory): string {
 }
 
 export class ErrorCenterModel {
-  static knownCodes(): Array<number> {
-    const copy: Array<number> = [];
+  static knownCodes(): number[] {
+    const copy: number[] = [];
     for (let index = 0; index < KNOWN_CODES.length; index++) {
       copy.push(KNOWN_CODES[index]);
     }
     return copy;
   }
 
-  static entries(): Array<ErrorInfo> {
-    const result: Array<ErrorInfo> = [];
+  static entries(): ErrorInfo[] {
+    const result: ErrorInfo[] = [];
     for (let index = 0; index < KNOWN_CODES.length; index++) {
       result.push(lookupError(KNOWN_CODES[index]));
     }
     return result;
   }
 
-  static filter(keyword: string, categoryKey: string): Array<ErrorInfo> {
-    const all: Array<ErrorInfo> = ErrorCenterModel.entries();
-    const result: Array<ErrorInfo> = [];
+  static filter(keyword: string, categoryKey: string): ErrorInfo[] {
+    const all: ErrorInfo[] = ErrorCenterModel.entries();
+    const result: ErrorInfo[] = [];
     const needle: string = keyword.trim().toLowerCase();
     for (let index = 0; index < all.length; index++) {
       const info: ErrorInfo = all[index];
@@ -91,12 +91,12 @@ export class ErrorCenterModel {
     return result;
   }
 
-  static categoryKeys(): Array<string> {
+  static categoryKeys(): string[] {
     return ['all', ErrorCategory.FILE_NOT_FOUND.toString(), ErrorCategory.PERMISSION_DENIED.toString(),
       ErrorCategory.DLP_POLICY.toString(), ErrorCategory.STORAGE_FULL.toString()];
   }
 
-  static retryableCount(entries: Array<ErrorInfo>): number {
+  static retryableCount(entries: ErrorInfo[]): number {
     let count: number = 0;
     for (let index = 0; index < entries.length; index++) {
       if (entries[index].retryable) {

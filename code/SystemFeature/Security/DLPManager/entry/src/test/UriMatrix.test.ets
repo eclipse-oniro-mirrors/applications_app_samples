@@ -19,7 +19,7 @@ import { QueryParam, QueryParseResult, UriDecodeResult, UriParseResult, UriParts
   isFileLikeUri, isScheme, joinPath, normalizePath, parseQuery, parseUri, replaceExtension, segmentsOf,
   stripExtension, upsertQuery } from '../main/ets/core/UriCore';
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
@@ -636,7 +636,7 @@ export default function uriMatrixTest(): void {
     it('testBuildQueryBasic0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQueryBasic0041 begin');
       console.info('testBuildQueryBasic0041 begin');
-      const params: Array<QueryParam> = [new QueryParam('a', '1'), new QueryParam('b', '2')];
+      const params: QueryParam[] = [new QueryParam('a', '1'), new QueryParam('b', '2')];
       expect(buildQuery(params)).assertEqual('a=1&b=2');
     })
 
@@ -651,7 +651,7 @@ export default function uriMatrixTest(): void {
     it('testBuildQueryEncoded0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQueryEncoded0042 begin');
       console.info('testBuildQueryEncoded0042 begin');
-      const params: Array<QueryParam> = [new QueryParam('k', '中 文')];
+      const params: QueryParam[] = [new QueryParam('k', '中 文')];
       expect(buildQuery(params)).assertEqual('k=%E4%B8%AD%20%E6%96%87');
     })
 
@@ -999,7 +999,7 @@ export default function uriMatrixTest(): void {
     it('testBuildQueryRoundTrip0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQueryRoundTrip0065 begin');
       console.info('testBuildQueryRoundTrip0065 begin');
-      const params: Array<QueryParam> = [new QueryParam('a b', '中 文'), new QueryParam('x', '1')];
+      const params: QueryParam[] = [new QueryParam('a b', '中 文'), new QueryParam('x', '1')];
       const parsed: QueryParseResult = parseQuery(buildQuery(params));
       expect(parsed.params[0].key).assertEqual('a b');
       expect(parsed.params[0].value).assertEqual('中 文');

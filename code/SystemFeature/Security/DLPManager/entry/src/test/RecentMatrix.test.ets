@@ -20,8 +20,8 @@ function mkItem(id: string, name: string, opened: number, favorite: boolean): Re
   return new RecentItem(id, name, 'file:///docs/' + name, false, opened, favorite);
 }
 
-function namesOf(items: Array<RecentItem>): string {
-  const parts: Array<string> = [];
+function namesOf(items: RecentItem[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }
@@ -316,7 +316,7 @@ export default function recentMatrixTest(): void {
      */
     it('testSetItemsCopy0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSetItemsCopy0023 begin');
-      const source: Array<RecentItem> = [mkItem('id1', 'a.txt', 100, false)];
+      const source: RecentItem[] = [mkItem('id1', 'a.txt', 100, false)];
       const model: RecentModel = new RecentModel();
       model.setItems(source);
       source.push(mkItem('id2', 'b.txt', 200, false));
@@ -335,7 +335,7 @@ export default function recentMatrixTest(): void {
       console.info('testFavoritesCopy0024 begin');
       const model: RecentModel = new RecentModel();
       model.addRecent(mkItem('id1', 'a.txt', 100, true));
-      const favorites: Array<RecentItem> = model.favorites();
+      const favorites: RecentItem[] = model.favorites();
       favorites.push(mkItem('id2', 'b.txt', 200, true));
       expect(model.count()).assertEqual(1);
       expect(model.favoriteCount()).assertEqual(1);

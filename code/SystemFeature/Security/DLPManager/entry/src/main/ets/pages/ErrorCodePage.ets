@@ -20,7 +20,7 @@ import { ErrorCenterModel, categoryLabel } from '../feature/ErrorCenterModel';
 @Entry
 @Component
 struct ErrorCodePage {
-  @State entries: Array<ErrorInfo> = [];
+  @State entries: ErrorInfo[] = [];
   @State keyword: string = '';
   @State catKey: string = 'all';
 

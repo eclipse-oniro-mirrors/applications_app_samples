@@ -20,7 +20,7 @@ import { DlpPermission, DlpPolicy, PERMISSION_ALL, PermissionSet, PolicyParseRes
   serializePolicy, validatePolicy, withPermission, withoutPermission, togglePermission
 } from '../main/ets/core/DlpPolicyCore';
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
@@ -249,7 +249,7 @@ export default function policyMatrixTest(): void {
      */
     it('testValidMasks0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testValidMasks0015 begin');
-      const masks: Array<number> = [1, 3, 5, 9, 15];
+      const masks: number[] = [1, 3, 5, 9, 15];
       for (let index = 0; index < masks.length; index++) {
         const validation: PolicyValidation = validatePolicy(policy(masks[index]));
         expect(validation.valid).assertTrue();
@@ -428,7 +428,7 @@ export default function policyMatrixTest(): void {
      */
     it('testBuiltInTemplates0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuiltInTemplates0027 begin');
-      const templates: Array<PolicyTemplate> = builtInTemplates();
+      const templates: PolicyTemplate[] = builtInTemplates();
       expect(templates.length).assertEqual(5);
       expect(templates[0].mask).assertEqual(1);
       expect(templates[1].mask).assertEqual(3);
@@ -491,7 +491,7 @@ export default function policyMatrixTest(): void {
      */
     it('testRoundTripMasks0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRoundTripMasks0031 begin');
-      const masks: Array<number> = [1, 3, 5, 9, 15];
+      const masks: number[] = [1, 3, 5, 9, 15];
       for (let index = 0; index < masks.length; index++) {
         const source: DlpPolicy = policy(masks[index]);
         const parsed: PolicyParseResult = parsePolicy(serializePolicy(source));

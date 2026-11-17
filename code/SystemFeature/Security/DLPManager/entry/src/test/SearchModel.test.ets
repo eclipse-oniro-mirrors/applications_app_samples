@@ -23,7 +23,7 @@ function item(id: string, name: string, kind: FileKind, size: number, modified: 
   return new FileEntry(id, name, 'file:///docs/' + name, kind, size, modified, isDlp, isFavorite);
 }
 
-function sampleEntries(): Array<FileEntry> {
+function sampleEntries(): FileEntry[] {
   return [
     item('1', 'Beta.txt', FileKind.TEXT, 300, 3000, false, true),
     item('2', 'alpha.PDF', FileKind.DOCUMENT, 100, 1000, true, false),
@@ -33,8 +33,8 @@ function sampleEntries(): Array<FileEntry> {
   ];
 }
 
-function idsOf(entries: Array<FileEntry>): string {
-  const parts: Array<string> = [];
+function idsOf(entries: FileEntry[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < entries.length; index++) {
     parts.push(entries[index].id);
   }

@@ -44,7 +44,7 @@ export default function errorCenterModelTest(): void {
     it('testEntries0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEntries0002 begin');
       console.info('testEntries0002 begin');
-      const entries: Array<ErrorInfo> = ErrorCenterModel.entries();
+      const entries: ErrorInfo[] = ErrorCenterModel.entries();
       expect(entries.length).assertEqual(19);
       expect(entries[0].code).assertEqual(0);
       expect(entries[0].message).assertEqual('操作成功');
@@ -75,7 +75,7 @@ export default function errorCenterModelTest(): void {
     it('testFilterDecimal0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFilterDecimal0004 begin');
       console.info('testFilterDecimal0004 begin');
-      const result: Array<ErrorInfo> = ErrorCenterModel.filter('13900002', 'all');
+      const result: ErrorInfo[] = ErrorCenterModel.filter('13900002', 'all');
       expect(result.length).assertEqual(1);
       expect(result[0].code).assertEqual(13900002);
     })
@@ -147,7 +147,7 @@ export default function errorCenterModelTest(): void {
     it('testFilterPermission0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFilterPermission0009 begin');
       console.info('testFilterPermission0009 begin');
-      const result: Array<ErrorInfo> = ErrorCenterModel.filter('', 'permission_denied');
+      const result: ErrorInfo[] = ErrorCenterModel.filter('', 'permission_denied');
       expect(result.length).assertEqual(3);
       for (let index = 0; index < result.length; index++) {
         expect(result[index].category).assertEqual(ErrorCategory.PERMISSION_DENIED);
@@ -222,7 +222,7 @@ export default function errorCenterModelTest(): void {
     it('testCategoryKeys0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCategoryKeys0014 begin');
       console.info('testCategoryKeys0014 begin');
-      const keys: Array<string> = ErrorCenterModel.categoryKeys();
+      const keys: string[] = ErrorCenterModel.categoryKeys();
       expect(keys.length).assertEqual(5);
       expect(keys[0]).assertEqual('all');
     })
@@ -341,7 +341,7 @@ export default function errorCenterModelTest(): void {
     it('testKnownCodesCopy0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKnownCodesCopy0022 begin');
       console.info('testKnownCodesCopy0022 begin');
-      const first: Array<number> = ErrorCenterModel.knownCodes();
+      const first: number[] = ErrorCenterModel.knownCodes();
       first.push(12345);
       expect(ErrorCenterModel.knownCodes().length).assertEqual(19);
     })

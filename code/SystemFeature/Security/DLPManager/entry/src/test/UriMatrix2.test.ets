@@ -19,7 +19,7 @@ import { QueryParam, QueryParseResult, UriDecodeResult, UriParseResult, UriParts
   isFileLikeUri, isScheme, joinPath, normalizePath, parseQuery, parseUri, replaceExtension,
   stripExtension, upsertQuery } from '../main/ets/core/UriCore';
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
@@ -174,7 +174,7 @@ export default function uriMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testBuildQueryUnicode0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const params: Array<QueryParam> = [new QueryParam('k', '中 文')];
+      const params: QueryParam[] = [new QueryParam('k', '中 文')];
       expect(buildQuery(params)).assertEqual('k=%E4%B8%AD%20%E6%96%87');
     })
 
@@ -399,7 +399,7 @@ export default function uriMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testQueryRoundTripRepeated0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const params: Array<QueryParam> = [new QueryParam('a', '1'), new QueryParam('a', '2')];
+      const params: QueryParam[] = [new QueryParam('a', '1'), new QueryParam('a', '2')];
       const parsed: QueryParseResult = parseQuery(buildQuery(params));
       expect(parsed.params.length).assertEqual(2);
       expect(parsed.params[1].value).assertEqual('2');

@@ -52,7 +52,7 @@ export default function errorCodeMatrixTest(): void {
      */
     it('testLookupPermissionSweep0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupPermissionSweep0002 begin');
-      const codes: Array<number> = [13900001, 13900012, 19100004];
+      const codes: number[] = [13900001, 13900012, 19100004];
       for (let index = 0; index < codes.length; index++) {
         const info: ErrorInfo = lookupError(codes[index]);
         expect(info.category).assertEqual(ErrorCategory.PERMISSION_DENIED);
@@ -71,7 +71,7 @@ export default function errorCodeMatrixTest(): void {
      */
     it('testLookupInvalidSweep0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupInvalidSweep0003 begin');
-      const codes: Array<number> = [13900013, 13900019, 13900020, 13900030];
+      const codes: number[] = [13900013, 13900019, 13900020, 13900030];
       for (let index = 0; index < codes.length; index++) {
         expect(lookupError(codes[index]).category).assertEqual(ErrorCategory.INVALID_ARGUMENT);
       }
@@ -87,7 +87,7 @@ export default function errorCodeMatrixTest(): void {
      */
     it('testLookupInternalSweep0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupInternalSweep0004 begin');
-      const codes: Array<number> = [13900004, 13900005, 13900008, 13900011, 13900015];
+      const codes: number[] = [13900004, 13900005, 13900008, 13900011, 13900015];
       for (let index = 0; index < codes.length; index++) {
         expect(lookupError(codes[index]).category).assertEqual(ErrorCategory.INTERNAL);
       }

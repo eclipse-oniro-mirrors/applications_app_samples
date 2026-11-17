@@ -24,7 +24,7 @@ function entry(id: string, name: string, kind: FileKind, size: number, modified:
   return new FileEntry(id, name, 'file:///docs/' + name, kind, size, modified, isDlp, isFavorite);
 }
 
-function sampleEntries(): Array<FileEntry> {
+function sampleEntries(): FileEntry[] {
   return [
     entry('1', 'Beta.txt', FileKind.TEXT, 300, 3000, false, true),
     entry('2', 'alpha.PDF', FileKind.DOCUMENT, 100, 1000, true, false),
@@ -33,32 +33,32 @@ function sampleEntries(): Array<FileEntry> {
   ];
 }
 
-function namesOf(entries: Array<FileEntry>): string {
-  const parts: Array<string> = [];
+function namesOf(entries: FileEntry[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < entries.length; index++) {
     parts.push(entries[index].name);
   }
   return parts.join('|');
 }
 
-function idsOf(entries: Array<FileEntry>): string {
-  const parts: Array<string> = [];
+function idsOf(entries: FileEntry[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < entries.length; index++) {
     parts.push(entries[index].id);
   }
   return parts.join('|');
 }
 
-function spansText(spans: Array<TextSpan>): string {
-  const parts: Array<string> = [];
+function spansText(spans: TextSpan[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < spans.length; index++) {
     parts.push(spans[index].text);
   }
   return parts.join('|');
 }
 
-function matchedText(spans: Array<TextSpan>): string {
-  const parts: Array<string> = [];
+function matchedText(spans: TextSpan[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < spans.length; index++) {
     if (spans[index].matched) {
       parts.push(spans[index].text);
@@ -270,7 +270,7 @@ export default function fileQueryCoreTest(): void {
     it('testOptionsDefaultMatch0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsDefaultMatch0013 begin');
       console.info('testOptionsDefaultMatch0013 begin');
-      const entries: Array<FileEntry> = sampleEntries();
+      const entries: FileEntry[] = sampleEntries();
       for (let index = 0; index < entries.length; index++) {
         expect(matchesOptions(entries[index], options())).assertTrue();
       }
@@ -455,7 +455,7 @@ export default function fileQueryCoreTest(): void {
     it('testFilterAll0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFilterAll0024 begin');
       console.info('testFilterAll0024 begin');
-      const filtered: Array<FileEntry> = filterEntries(sampleEntries(), options());
+      const filtered: FileEntry[] = filterEntries(sampleEntries(), options());
       expect(namesOf(filtered)).assertEqual('Beta.txt|alpha.PDF|gamma.png|delta.docx');
     })
 
@@ -502,7 +502,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortNameAsc0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortNameAsc0027 begin');
       console.info('testSortNameAsc0027 begin');
-      const sorted: Array<FileEntry> = sortEntries(sampleEntries(), SortField.NAME, false);
+      const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.NAME, false);
       expect(namesOf(sorted)).assertEqual('alpha.PDF|Beta.txt|delta.docx|gamma.png');
     })
 
@@ -517,7 +517,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortNameDesc0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortNameDesc0028 begin');
       console.info('testSortNameDesc0028 begin');
-      const sorted: Array<FileEntry> = sortEntries(sampleEntries(), SortField.NAME, true);
+      const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.NAME, true);
       expect(sorted[0].name).assertEqual('gamma.png');
       expect(sorted[3].name).assertEqual('alpha.PDF');
     })
@@ -533,7 +533,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortSizeAsc0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortSizeAsc0029 begin');
       console.info('testSortSizeAsc0029 begin');
-      const sorted: Array<FileEntry> = sortEntries(sampleEntries(), SortField.SIZE, false);
+      const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.SIZE, false);
       expect(idsOf(sorted)).assertEqual('2|4|1|3');
     })
 
@@ -548,7 +548,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortSizeDesc0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortSizeDesc0030 begin');
       console.info('testSortSizeDesc0030 begin');
-      const sorted: Array<FileEntry> = sortEntries(sampleEntries(), SortField.SIZE, true);
+      const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.SIZE, true);
       expect(idsOf(sorted)).assertEqual('3|1|4|2');
     })
 
@@ -563,7 +563,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortModified0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortModified0031 begin');
       console.info('testSortModified0031 begin');
-      const sorted: Array<FileEntry> = sortEntries(sampleEntries(), SortField.MODIFIED, false);
+      const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.MODIFIED, false);
       expect(idsOf(sorted)).assertEqual('2|3|1|4');
     })
 
@@ -578,7 +578,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortKind0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortKind0032 begin');
       console.info('testSortKind0032 begin');
-      const sorted: Array<FileEntry> = sortEntries(sampleEntries(), SortField.KIND, false);
+      const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.KIND, false);
       expect(sorted[0].kind).assertEqual(FileKind.TEXT);
       expect(sorted[1].kind).assertEqual(FileKind.DOCUMENT);
       expect(sorted[3].kind).assertEqual(FileKind.IMAGE);
@@ -595,7 +595,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortStableTie0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortStableTie0033 begin');
       console.info('testSortStableTie0033 begin');
-      const items: Array<FileEntry> = [
+      const items: FileEntry[] = [
         entry('b', 'same.txt', FileKind.TEXT, 1, 1, false, false),
         entry('a', 'same.txt', FileKind.TEXT, 1, 1, false, false)
       ];
@@ -627,7 +627,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortSingle0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortSingle0035 begin');
       console.info('testSortSingle0035 begin');
-      const items: Array<FileEntry> = [entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false)];
+      const items: FileEntry[] = [entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false)];
       expect(sortEntries(items, SortField.SIZE, true).length).assertEqual(1);
     })
 
@@ -642,8 +642,8 @@ export default function fileQueryCoreTest(): void {
     it('testSortNoMutation0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortNoMutation0036 begin');
       console.info('testSortNoMutation0036 begin');
-      const items: Array<FileEntry> = sampleEntries();
-      const sorted: Array<FileEntry> = sortEntries(items, SortField.SIZE, false);
+      const items: FileEntry[] = sampleEntries();
+      const sorted: FileEntry[] = sortEntries(items, SortField.SIZE, false);
       expect(sorted.length).assertEqual(4);
       expect(items[0].name).assertEqual('Beta.txt');
     })
@@ -659,7 +659,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortKindTieName0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortKindTieName0037 begin');
       console.info('testSortKindTieName0037 begin');
-      const items: Array<FileEntry> = [
+      const items: FileEntry[] = [
         entry('1', 'b.txt', FileKind.TEXT, 1, 1, false, false),
         entry('2', 'a.txt', FileKind.TEXT, 1, 1, false, false)
       ];
@@ -900,7 +900,7 @@ export default function fileQueryCoreTest(): void {
     it('testCountBasic0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCountBasic0051 begin');
       console.info('testCountBasic0051 begin');
-      const counts: Array<KindCount> = countByKind(sampleEntries());
+      const counts: KindCount[] = countByKind(sampleEntries());
       expect(counts.length).assertEqual(3);
       expect(counts[0].kind).assertEqual(FileKind.TEXT);
       expect(counts[1].kind).assertEqual(FileKind.DOCUMENT);
@@ -918,7 +918,7 @@ export default function fileQueryCoreTest(): void {
     it('testCountOrder0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCountOrder0052 begin');
       console.info('testCountOrder0052 begin');
-      const counts: Array<KindCount> = countByKind(sampleEntries());
+      const counts: KindCount[] = countByKind(sampleEntries());
       expect(counts[2].kind).assertEqual(FileKind.IMAGE);
     })
 
@@ -933,11 +933,11 @@ export default function fileQueryCoreTest(): void {
     it('testCountUnknownLast0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCountUnknownLast0053 begin');
       console.info('testCountUnknownLast0053 begin');
-      const items: Array<FileEntry> = [
+      const items: FileEntry[] = [
         entry('1', 'a.xyz', FileKind.UNKNOWN, 1, 1, false, false),
         entry('2', 'b.txt', FileKind.TEXT, 1, 1, false, false)
       ];
-      const counts: Array<KindCount> = countByKind(items);
+      const counts: KindCount[] = countByKind(items);
       expect(counts[0].kind).assertEqual(FileKind.TEXT);
       expect(counts[1].kind).assertEqual(FileKind.UNKNOWN);
     })
@@ -953,7 +953,7 @@ export default function fileQueryCoreTest(): void {
     it('testCountSingle0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCountSingle0054 begin');
       console.info('testCountSingle0054 begin');
-      const counts: Array<KindCount> = countByKind([entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false)]);
+      const counts: KindCount[] = countByKind([entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false)]);
       expect(counts.length).assertEqual(1);
       expect(counts[0].count).assertEqual(1);
     })
@@ -983,7 +983,7 @@ export default function fileQueryCoreTest(): void {
     it('testDistinctBasic0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDistinctBasic0056 begin');
       console.info('testDistinctBasic0056 begin');
-      const kinds: Array<FileKind> = distinctKinds(sampleEntries());
+      const kinds: FileKind[] = distinctKinds(sampleEntries());
       expect(kinds.length).assertEqual(3);
       expect(kinds[0]).assertEqual(FileKind.TEXT);
       expect(kinds[2]).assertEqual(FileKind.IMAGE);
@@ -1000,7 +1000,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightEmptyKeyword0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightEmptyKeyword0057 begin');
       console.info('testHighlightEmptyKeyword0057 begin');
-      const spans: Array<TextSpan> = highlight('abcdef', '');
+      const spans: TextSpan[] = highlight('abcdef', '');
       expect(spans.length).assertEqual(1);
       expect(spans[0].matched).assertFalse();
       expect(spans[0].text).assertEqual('abcdef');
@@ -1017,7 +1017,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightStart0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightStart0058 begin');
       console.info('testHighlightStart0058 begin');
-      const spans: Array<TextSpan> = highlight('abcdef', 'ab');
+      const spans: TextSpan[] = highlight('abcdef', 'ab');
       expect(spansText(spans)).assertEqual('ab|cdef');
       expect(matchedText(spans)).assertEqual('ab');
     })
@@ -1033,7 +1033,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightMiddle0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightMiddle0059 begin');
       console.info('testHighlightMiddle0059 begin');
-      const spans: Array<TextSpan> = highlight('abcdef', 'cd');
+      const spans: TextSpan[] = highlight('abcdef', 'cd');
       expect(spansText(spans)).assertEqual('ab|cd|ef');
     })
 
@@ -1048,7 +1048,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightEnd0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightEnd0060 begin');
       console.info('testHighlightEnd0060 begin');
-      const spans: Array<TextSpan> = highlight('abcdef', 'ef');
+      const spans: TextSpan[] = highlight('abcdef', 'ef');
       expect(spansText(spans)).assertEqual('abcd|ef');
     })
 
@@ -1063,7 +1063,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightFull0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightFull0061 begin');
       console.info('testHighlightFull0061 begin');
-      const spans: Array<TextSpan> = highlight('abc', 'abc');
+      const spans: TextSpan[] = highlight('abc', 'abc');
       expect(spans.length).assertEqual(1);
       expect(spans[0].matched).assertTrue();
     })
@@ -1079,7 +1079,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightMultiple0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightMultiple0062 begin');
       console.info('testHighlightMultiple0062 begin');
-      const spans: Array<TextSpan> = highlight('abab', 'ab');
+      const spans: TextSpan[] = highlight('abab', 'ab');
       expect(spans.length).assertEqual(1);
       expect(matchedText(spans)).assertEqual('abab');
     })
@@ -1095,7 +1095,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightCase0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightCase0063 begin');
       console.info('testHighlightCase0063 begin');
-      const spans: Array<TextSpan> = highlight('ABCdef', 'abc');
+      const spans: TextSpan[] = highlight('ABCdef', 'abc');
       expect(matchedText(spans)).assertEqual('ABC');
     })
 
@@ -1110,7 +1110,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightOverlap0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightOverlap0064 begin');
       console.info('testHighlightOverlap0064 begin');
-      const spans: Array<TextSpan> = highlight('abc', 'ab bc');
+      const spans: TextSpan[] = highlight('abc', 'ab bc');
       expect(spans.length).assertEqual(1);
       expect(spans[0].text).assertEqual('abc');
       expect(spans[0].matched).assertTrue();
@@ -1127,7 +1127,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightAdjacent0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightAdjacent0065 begin');
       console.info('testHighlightAdjacent0065 begin');
-      const spans: Array<TextSpan> = highlight('abcd', 'ab cd');
+      const spans: TextSpan[] = highlight('abcd', 'ab cd');
       expect(spans.length).assertEqual(1);
       expect(matchedText(spans)).assertEqual('abcd');
     })
@@ -1143,7 +1143,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightChinese0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightChinese0066 begin');
       console.info('testHighlightChinese0066 begin');
-      const spans: Array<TextSpan> = highlight('年度报告.txt', '报告');
+      const spans: TextSpan[] = highlight('年度报告.txt', '报告');
       expect(matchedText(spans)).assertEqual('报告');
       expect(spansText(spans)).assertEqual('年度|报告|.txt');
     })
@@ -1159,7 +1159,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightNoMatch0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightNoMatch0067 begin');
       console.info('testHighlightNoMatch0067 begin');
-      const spans: Array<TextSpan> = highlight('abcdef', 'zz');
+      const spans: TextSpan[] = highlight('abcdef', 'zz');
       expect(spans.length).assertEqual(1);
       expect(spans[0].matched).assertFalse();
     })
@@ -1176,7 +1176,7 @@ export default function fileQueryCoreTest(): void {
       console.info('testHighlightReconstruct0068 begin');
       console.info('testHighlightReconstruct0068 begin');
       const source: string = '2026年度报告-final.txt';
-      const spans: Array<TextSpan> = highlight(source, '年度 final');
+      const spans: TextSpan[] = highlight(source, '年度 final');
       let rebuilt: string = '';
       for (let index = 0; index < spans.length; index++) {
         rebuilt += spans[index].text;
@@ -1195,7 +1195,7 @@ export default function fileQueryCoreTest(): void {
     it('testHighlightEmptyText0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightEmptyText0069 begin');
       console.info('testHighlightEmptyText0069 begin');
-      const spans: Array<TextSpan> = highlight('', 'ab');
+      const spans: TextSpan[] = highlight('', 'ab');
       expect(spans.length).assertEqual(1);
       expect(spans[0].text).assertEqual('');
       expect(spans[0].matched).assertFalse();
@@ -1245,7 +1245,7 @@ export default function fileQueryCoreTest(): void {
     it('testFindByIdFirst0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFindByIdFirst0072 begin');
       console.info('testFindByIdFirst0072 begin');
-      const items: Array<FileEntry> = [
+      const items: FileEntry[] = [
         entry('1', 'first.txt', FileKind.TEXT, 1, 1, false, false),
         entry('1', 'second.txt', FileKind.TEXT, 1, 1, false, false)
       ];
@@ -1333,7 +1333,7 @@ export default function fileQueryCoreTest(): void {
     it('testSortDescTie0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortDescTie0077 begin');
       console.info('testSortDescTie0077 begin');
-      const items: Array<FileEntry> = [
+      const items: FileEntry[] = [
         entry('a', 'same.txt', FileKind.TEXT, 1, 1, false, false),
         entry('b', 'same.txt', FileKind.TEXT, 1, 1, false, false)
       ];

@@ -22,8 +22,8 @@ import { formatRelative } from '../core/FormatCore';
 @Entry
 @Component
 struct RecentsPage {
-  @State favorites: Array<RecentItem> = [];
-  @State recents: Array<RecentItem> = [];
+  @State favorites: RecentItem[] = [];
+  @State recents: RecentItem[] = [];
   @State empty: boolean = true;
   @State status: string = '';
   private nowSec: number = 0;

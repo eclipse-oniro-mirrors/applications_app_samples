@@ -221,7 +221,7 @@ export function hintOf(code: number): string {
 
 export function formatErrorReport(report: ErrorReport, useUtc: boolean): string {
   const info: ErrorInfo = lookupError(report.code);
-  const chunks: Array<string> = [];
+  const chunks: string[] = [];
   chunks.push('code=' + formatCode(report.code));
   chunks.push('category=' + info.category.toString());
   chunks.push('severity=' + info.severity.toString());
@@ -235,7 +235,7 @@ export function formatErrorReport(report: ErrorReport, useUtc: boolean): string 
   return chunks.join(', ');
 }
 
-function contentPushTime(chunks: Array<string>, occurredAtSec: number, useUtc: boolean): void {
+function contentPushTime(chunks: string[], occurredAtSec: number, useUtc: boolean): void {
   const formatted: string = formatTimestamp(occurredAtSec, useUtc);
   if (formatted.length > 0) {
     chunks.push('time=' + formatted);

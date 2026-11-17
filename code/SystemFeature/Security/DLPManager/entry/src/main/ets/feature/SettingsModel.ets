@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-const LOG_LEVELS: Array<string> = ['debug', 'info', 'warn', 'error'];
-const THEMES: Array<string> = ['light', 'dark', 'auto'];
+const LOG_LEVELS: string[] = ['debug', 'info', 'warn', 'error'];
+const THEMES: string[] = ['light', 'dark', 'auto'];
 const MIN_PAGE_SIZE: number = 5;
 const MAX_PAGE_SIZE: number = 50;
 
@@ -102,8 +102,8 @@ export class SettingsModel {
     this.confirmBeforeDelete = true;
   }
 
-  validate(): Array<string> {
-    const issues: Array<string> = [];
+  validate(): string[] {
+    const issues: string[] = [];
     if (LOG_LEVELS.indexOf(this.logLevel) < 0) {
       issues.push('日志级别不合法');
     }
@@ -120,7 +120,7 @@ export class SettingsModel {
   }
 
   serialize(): string {
-    const fields: Array<string> = [];
+    const fields: string[] = [];
     fields.push('logLevel=' + this.logLevel);
     fields.push('pageSize=' + this.pageSize.toString());
     fields.push('theme=' + this.theme);
@@ -139,7 +139,7 @@ export class SettingsModel {
     if (text.length === 0) {
       return model;
     }
-    const fields: Array<string> = text.split(';');
+    const fields: string[] = text.split(';');
     for (let index = 0; index < fields.length; index++) {
       const field: string = fields[index];
       const equalsIndex: number = field.indexOf('=');

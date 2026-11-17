@@ -20,12 +20,12 @@ import { DlpPermission, PERMISSION_ALL, POLICY_VERSION, PermissionSet, DlpPolicy
   hasPermission, isExpired, validatePolicy, mergePolicies, builtInTemplates, findTemplate, serializePolicy,
   parsePolicy } from '../main/ets/core/DlpPolicyCore';
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
 function issueFields(validation: PolicyValidation): string {
-  const parts: Array<string> = [];
+  const parts: string[] = [];
   for (let index = 0; index < validation.issues.length; index++) {
     parts.push(validation.issues[index].field + ':' + validation.issues[index].code);
   }
@@ -1474,7 +1474,7 @@ export default function dlpPolicyCoreTest(): void {
     it('testTemplateFields0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTemplateFields0090 begin');
       console.info('testTemplateFields0090 begin');
-      const templates: Array<PolicyTemplate> = builtInTemplates();
+      const templates: PolicyTemplate[] = builtInTemplates();
       expect(templates[0].id).assertEqual('read-only');
       expect(templates[0].nameKey).assertEqual('template_read_only');
     })

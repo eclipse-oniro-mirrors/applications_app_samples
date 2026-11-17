@@ -20,8 +20,8 @@ function mkItem(id: string, name: string, opened: number, favorite: boolean): Re
   return new RecentItem(id, name, 'file:///docs/' + name, false, opened, favorite);
 }
 
-function namesOf(items: Array<RecentItem>): string {
-  const parts: Array<string> = [];
+function namesOf(items: RecentItem[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }
@@ -233,7 +233,7 @@ export default function recentMatrix2Test(): void {
     it('testFavoritesCopy0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const model: RecentModel = new RecentModel();
       model.addRecent(mkItem('id1', 'a.txt', 100, true));
-      const favorites: Array<RecentItem> = model.favorites();
+      const favorites: RecentItem[] = model.favorites();
       favorites.pop();
       expect(model.favoriteCount()).assertEqual(1);
     })

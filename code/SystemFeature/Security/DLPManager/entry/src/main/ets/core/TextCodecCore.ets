@@ -99,7 +99,7 @@ function acceptsSecondByte(first: number, second: number): boolean {
 }
 
 function decodeRange(bytes: Uint8Array, start: number, end: number, stopAtNul: boolean): DecodeOutcome {
-  const chunks: Array<string> = [];
+  const chunks: string[] = [];
   let index: number = start;
   let consumed: number = start;
   let replacements: number = 0;
@@ -299,7 +299,7 @@ export function isAsciiOnly(text: string): boolean {
 }
 
 export function normalizeEol(text: string, useCrlf: boolean): string {
-  const chunks: Array<string> = [];
+  const chunks: string[] = [];
   for (let index = 0; index < text.length; index++) {
     const code: number = text.charCodeAt(index);
     if (code === 0x0D) {
@@ -316,12 +316,12 @@ export function normalizeEol(text: string, useCrlf: boolean): string {
   return chunks.join('');
 }
 
-export function splitLines(text: string): Array<string> {
-  const lines: Array<string> = [];
+export function splitLines(text: string): string[] {
+  const lines: string[] = [];
   if (text.length === 0) {
     return lines;
   }
-  let current: Array<string> = [];
+  let current: string[] = [];
   for (let index = 0; index < text.length; index++) {
     const code: number = text.charCodeAt(index);
     if (code === 0x0D || code === 0x0A) {
@@ -341,7 +341,7 @@ export function splitLines(text: string): Array<string> {
 }
 
 export function toHex(bytes: Uint8Array, upperCase: boolean): string {
-  const chunks: Array<string> = [];
+  const chunks: string[] = [];
   for (let index = 0; index < bytes.length; index++) {
     const value: number = bytes[index];
     const high: string = HEX_LOWER.charAt((value >> 4) & 0x0F);

@@ -19,8 +19,8 @@ import { CustomTemplate, TemplateModel, TemplateResult, templateDisplayName,
   parseTemplateText } from '../main/ets/feature/TemplateModel';
 
 function customNames(model: TemplateModel): string {
-  const parts: Array<string> = [];
-  const items: Array<CustomTemplate> = model.customTemplates();
+  const parts: string[] = [];
+  const items: CustomTemplate[] = model.customTemplates();
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }
@@ -380,7 +380,7 @@ export default function templateModelTest(): void {
     it('testDisplayNames0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDisplayNames0020 begin');
       console.info('testDisplayNames0020 begin');
-      const builtIn: Array<PolicyTemplate> = new TemplateModel().allTemplates();
+      const builtIn: PolicyTemplate[] = new TemplateModel().allTemplates();
       expect(templateDisplayName(builtIn[0])).assertEqual('只读');
       expect(templateDisplayName(builtIn[4])).assertEqual('完全控制');
     })
@@ -398,7 +398,7 @@ export default function templateModelTest(): void {
       console.info('testDisplayCustom0021 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('工作模板', 1, 100);
-      const all: Array<PolicyTemplate> = model.allTemplates();
+      const all: PolicyTemplate[] = model.allTemplates();
       expect(templateDisplayName(all[5])).assertEqual('工作模板');
     })
 

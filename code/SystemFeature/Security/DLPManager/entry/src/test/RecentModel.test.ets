@@ -16,8 +16,8 @@
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { RecentItem, RecentModel, RECENT_CAPACITY, buildId, parseRecentText } from '../main/ets/feature/RecentModel';
 
-function namesOf(items: Array<RecentItem>): string {
-  const parts: Array<string> = [];
+function namesOf(items: RecentItem[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }

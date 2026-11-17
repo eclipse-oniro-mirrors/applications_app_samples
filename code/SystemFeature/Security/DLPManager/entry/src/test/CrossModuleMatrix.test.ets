@@ -30,7 +30,7 @@ function item(id: string, name: string, kind: FileKind, size: number, modified: 
   return new FileEntry(id, name, 'file:///docs/' + name, kind, size, modified, isDlp, isFavorite);
 }
 
-function entries(): Array<FileEntry> {
+function entries(): FileEntry[] {
   return [
     item('1', 'Beta.txt', FileKind.TEXT, 300, 3000, false, true),
     item('2', 'alpha.PDF', FileKind.DOCUMENT, 100, 1000, true, false),
@@ -44,7 +44,7 @@ function search(): SearchModel {
   return value;
 }
 
-function valueOf(rows: Array<DetailRow>, label: string): string {
+function valueOf(rows: DetailRow[], label: string): string {
   for (let index = 0; index < rows.length; index++) {
     if (rows[index].label === label) {
       return rows[index].value;
@@ -82,7 +82,7 @@ export default function crossModuleMatrixTest(): void {
       const model: SearchModel = search();
       model.setOnlyDlp(true);
       const matched: FileEntry = model.results()[0];
-      const rows: Array<DetailRow> = DetailModel.build(matched.name + '.dlp', matched.uri, matched.sizeBytes,
+      const rows: DetailRow[] = DetailModel.build(matched.name + '.dlp', matched.uri, matched.sizeBytes,
         matched.modifiedAtSec, true);
       expect(matched.name).assertEqual('alpha.PDF');
       expect(rows.length).assertEqual(8);
@@ -114,7 +114,7 @@ export default function crossModuleMatrixTest(): void {
      */
     it('testDetailTime0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const matched: FileEntry = entries()[0];
-      const rows: Array<DetailRow> = DetailModel.build(matched.name, matched.uri, matched.sizeBytes,
+      const rows: DetailRow[] = DetailModel.build(matched.name, matched.uri, matched.sizeBytes,
         matched.modifiedAtSec, true);
       expect(valueOf(rows, '修改时间')).assertEqual('1970/01/01 00:50:00');
     })
@@ -129,7 +129,7 @@ export default function crossModuleMatrixTest(): void {
      */
     it('testDetailUri0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const matched: FileEntry = entries()[1];
-      const rows: Array<DetailRow> = DetailModel.build(matched.name, matched.uri, matched.sizeBytes,
+      const rows: DetailRow[] = DetailModel.build(matched.name, matched.uri, matched.sizeBytes,
         matched.modifiedAtSec, true);
       expect(valueOf(rows, '访问路径')).assertEqual('file:///docs/alpha.PDF');
     })
@@ -143,7 +143,7 @@ export default function crossModuleMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetailInner0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('report.docx.dlp', '', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('report.docx.dlp', '', 10, 0, true);
       expect(valueOf(rows, '容器内文件')).assertEqual('report.docx');
       expect(valueOf(rows, '类型')).assertEqual('文档');
     })
@@ -375,7 +375,7 @@ export default function crossModuleMatrixTest(): void {
      */
     it('testErrorCenterByFormattedCode0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const codeText: string = formatCode(13900025);
-      const result: Array<ErrorInfo> = ErrorCenterModel.filter(codeText, 'all');
+      const result: ErrorInfo[] = ErrorCenterModel.filter(codeText, 'all');
       expect(result.length).assertEqual(1);
       expect(result[0].code).assertEqual(13900025);
     })
@@ -402,7 +402,7 @@ export default function crossModuleMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testErrorRetryableCount0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const entries: Array<ErrorInfo> = ErrorCenterModel.entries();
+      const entries: ErrorInfo[] = ErrorCenterModel.entries();
       let expected: number = 0;
       for (let index = 0; index < entries.length; index++) {
         if (entries[index].retryable) {
@@ -519,7 +519,7 @@ export default function crossModuleMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUnknownDetail0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('README', '', 0, 0, true);
+      const rows: DetailRow[] = DetailModel.build('README', '', 0, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('未知');
       expect(valueOf(rows, '大小')).assertEqual('0 B');
     })
@@ -556,7 +556,7 @@ export default function crossModuleMatrixTest(): void {
      */
     it('testBestTemplate0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const templates: TemplateModel = new TemplateModel();
-      const all: Array<PolicyTemplate> = templates.allTemplates();
+      const all: PolicyTemplate[] = templates.allTemplates();
       expect(all[0].mask).assertEqual(1);
       expect(templates.maskOf(all[2].id)).assertEqual(5);
     })
@@ -573,7 +573,7 @@ export default function crossModuleMatrixTest(): void {
       const model: SearchModel = search();
       model.setKind(FileKind.DOCUMENT);
       model.selectAllResults();
-      const selected: Array<FileEntry> = model.selectedEntries();
+      const selected: FileEntry[] = model.selectedEntries();
       expect(selected[0].id).assertEqual('2');
       expect(selected[1].id).assertEqual('4');
     })
@@ -633,7 +633,7 @@ export default function crossModuleMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDlpSummaryMatchesRows0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.docx.dlp', '', 2048, 0, true);
+      const rows: DetailRow[] = DetailModel.build('a.docx.dlp', '', 2048, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('文档');
       expect(DetailModel.summary('a.docx.dlp', 2048)).assertEqual('文档 · 2 KB');
     })

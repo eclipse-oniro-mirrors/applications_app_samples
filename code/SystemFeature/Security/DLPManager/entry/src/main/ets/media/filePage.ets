@@ -167,7 +167,7 @@ struct FilePage {
     // try 语句
     try {
       // let 语句
-      let info: Array<dlpPermission.AccessedDLPFileInfo> = await dlpPermission.getDLPFileAccessRecords();
+      let info: dlpPermission.AccessedDLPFileInfo[] = await dlpPermission.getDLPFileAccessRecords();
       promptAction.showToast({ message: 'getDLPFile:' + decodeURIComponent(JSON.stringify(info)), duration: 2000 });
       Logger.info(TAG, 'getDLPFile:', JSON.stringify(info));
     } catch (err) {
@@ -182,7 +182,7 @@ struct FilePage {
     // try 语句
     try {
       // let 语句
-      let res: Array<dlpPermission.RetentionSandboxInfo> = await dlpPermission.getRetentionSandboxList(); // 获取沙箱保留列表
+      let res: dlpPermission.RetentionSandboxInfo[] = await dlpPermission.getRetentionSandboxList(); // 获取沙箱保留列表
       Logger.info(TAG, 'res', JSON.stringify(res));
       promptAction.showToast({ message: 'getSandboxList:' + decodeURIComponent(JSON.stringify(res)), duration: 2000 });
     } catch (err) {
@@ -232,7 +232,7 @@ struct FilePage {
     // try 语句
     try {
       // let 语句
-      let res: Array<string> = await dlpPermission.getDLPSupportedFileTypes(); // 获取支持DLP的文件类型
+      let res: string[] = await dlpPermission.getDLPSupportedFileTypes(); // 获取支持DLP的文件类型
       Logger.info(TAG, 'file extension support permission :' + JSON.stringify(res));
       Logger.info(TAG, 'file extension is:' + fileSuffix);
       // 更新 fileSuffixIncludes

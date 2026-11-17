@@ -17,7 +17,7 @@ import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { ErrorCategory, ErrorInfo, lookupError } from '../main/ets/core/ErrorCodeCore';
 import { ErrorCenterModel, categoryLabel } from '../main/ets/feature/ErrorCenterModel';
 
-function joinTexts(values: Array<string>): string {
+function joinTexts(values: string[]): string {
   return values.join('|');
 }
 
@@ -37,7 +37,7 @@ export default function errorCenterMatrixTest(): void {
      */
     it('testKnownCodes0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKnownCodes0001 begin');
-      const codes: Array<number> = ErrorCenterModel.knownCodes();
+      const codes: number[] = ErrorCenterModel.knownCodes();
       expect(codes.length).assertEqual(19);
       expect(codes[0]).assertEqual(0);
       expect(codes[18]).assertEqual(19100004);
@@ -53,7 +53,7 @@ export default function errorCenterMatrixTest(): void {
      */
     it('testEntries0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEntries0002 begin');
-      const entries: Array<ErrorInfo> = ErrorCenterModel.entries();
+      const entries: ErrorInfo[] = ErrorCenterModel.entries();
       expect(entries.length).assertEqual(19);
       expect(entries[0].message).assertEqual('操作成功');
       expect(entries[19 - 1].code).assertEqual(19100004);
@@ -212,7 +212,7 @@ export default function errorCenterMatrixTest(): void {
      */
     it('testFilterHexValue0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFilterHexValue0014 begin');
-      const result: Array<ErrorInfo> = ErrorCenterModel.filter('D418F9', 'all');
+      const result: ErrorInfo[] = ErrorCenterModel.filter('D418F9', 'all');
       expect(result.length).assertEqual(1);
       expect(result[0].code).assertEqual(13900025);
     })
@@ -227,7 +227,7 @@ export default function errorCenterMatrixTest(): void {
      */
     it('testFilterMessage0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFilterMessage0015 begin');
-      const result: Array<ErrorInfo> = ErrorCenterModel.filter('空间', 'all');
+      const result: ErrorInfo[] = ErrorCenterModel.filter('空间', 'all');
       expect(result.length).assertEqual(1);
       expect(result[0].code).assertEqual(13900025);
     })
@@ -364,7 +364,7 @@ export default function errorCenterMatrixTest(): void {
      */
     it('testEntriesCopy0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEntriesCopy0024 begin');
-      const first: Array<ErrorInfo> = ErrorCenterModel.entries();
+      const first: ErrorInfo[] = ErrorCenterModel.entries();
       first.pop();
       expect(ErrorCenterModel.entries().length).assertEqual(19);
     })
@@ -379,7 +379,7 @@ export default function errorCenterMatrixTest(): void {
      */
     it('testKnownCodesCopy0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKnownCodesCopy0025 begin');
-      const first: Array<number> = ErrorCenterModel.knownCodes();
+      const first: number[] = ErrorCenterModel.knownCodes();
       first.push(1);
       expect(ErrorCenterModel.knownCodes().length).assertEqual(19);
     })
@@ -394,10 +394,10 @@ export default function errorCenterMatrixTest(): void {
      */
     it('testCategorySweep0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCategorySweep0026 begin');
-      const keys: Array<string> = ['file_not_found', 'permission_denied', 'dlp_policy', 'storage_full',
+      const keys: string[] = ['file_not_found', 'permission_denied', 'dlp_policy', 'storage_full',
         'invalid_argument', 'internal', 'network', 'account'];
       for (let index = 0; index < keys.length; index++) {
-        const result: Array<ErrorInfo> = ErrorCenterModel.filter('', keys[index]);
+        const result: ErrorInfo[] = ErrorCenterModel.filter('', keys[index]);
         for (let item = 0; item < result.length; item++) {
           expect(result[item].category.toString()).assertEqual(keys[index]);
         }

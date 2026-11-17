@@ -105,7 +105,7 @@ export default function policyMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testValidateLoop0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const fields: Array<DlpPolicy> = [
+      const fields: DlpPolicy[] = [
         new DlpPolicy('', 'n', 1, 0, '', ''),
         new DlpPolicy('u', '', 1, 0, '', ''),
         new DlpPolicy('u', 'n', 0, 0, '', ''),
@@ -126,8 +126,8 @@ export default function policyMatrix3Test(): void {
      */
     it('testMergeExpiryLoop0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const base: DlpPolicy = new DlpPolicy('u', 'n', 1, 300, '', '');
-      const overrides: Array<number> = [0, 100, 300, 500];
-      const expected: Array<number> = [300, 100, 300, 300];
+      const overrides: number[] = [0, 100, 300, 500];
+      const expected: number[] = [300, 100, 300, 300];
       for (let index = 0; index < overrides.length; index++) {
         const override: DlpPolicy = new DlpPolicy('u2', 'n2', 3, overrides[index], '', '');
         expect(mergePolicies(base, override).expiredAtSec).assertEqual(expected[index]);
@@ -143,8 +143,8 @@ export default function policyMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testTemplateMasks0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const templates: Array<PolicyTemplate> = builtInTemplates();
-      const expected: Array<number> = [1, 3, 5, 9, 15];
+      const templates: PolicyTemplate[] = builtInTemplates();
+      const expected: number[] = [1, 3, 5, 9, 15];
       for (let index = 0; index < templates.length; index++) {
         expect(templates[index].mask).assertEqual(expected[index]);
       }
@@ -159,7 +159,7 @@ export default function policyMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testPermissionSetLoop0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const permissions: Array<DlpPermission> = [DlpPermission.READ, DlpPermission.WRITE,
+      const permissions: DlpPermission[] = [DlpPermission.READ, DlpPermission.WRITE,
         DlpPermission.PRINT, DlpPermission.COPY];
       let set: PermissionSet = new PermissionSet(0);
       for (let index = 0; index < permissions.length; index++) {
@@ -212,7 +212,7 @@ export default function policyMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testParseMalformedLoop0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const payloads: Array<string> = ['', 'v2;mask=1', 'accountId=a', 'v1;mask=abc', 'v1;accountId=a;accountName=n;mask=1;x'];
+      const payloads: string[] = ['', 'v2;mask=1', 'accountId=a', 'v1;mask=abc', 'v1;accountId=a;accountName=n;mask=1;x'];
       for (let index = 0; index < payloads.length; index++) {
         expect(parsePolicy(payloads[index]).valid).assertFalse();
       }
@@ -242,7 +242,7 @@ export default function policyMatrix3Test(): void {
      */
     it('testExpiryLoop0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const expiring: DlpPolicy = new DlpPolicy('u', 'n', 1, 100, '', '');
-      const checks: Array<boolean> = [isExpired(expiring, 0), isExpired(expiring, 99),
+      const checks: boolean[] = [isExpired(expiring, 0), isExpired(expiring, 99),
         isExpired(expiring, 100), isExpired(expiring, 101)];
       expect(checks[0]).assertFalse();
       expect(checks[1]).assertFalse();
@@ -259,7 +259,7 @@ export default function policyMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testFindTemplateLoop0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const ids: Array<string> = ['read-only', 'editable', 'printable', 'copyable', 'full'];
+      const ids: string[] = ['read-only', 'editable', 'printable', 'copyable', 'full'];
       for (let index = 0; index < ids.length; index++) {
         expect(findTemplate(ids[index]) !== null).assertTrue();
       }
@@ -316,7 +316,7 @@ export default function policyMatrix3Test(): void {
      * @tc.level     LEVEL0
      */
     it('testParseVersionLoop0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const versions: Array<string> = ['v2', 'v0', 'V1', 'v1.0'];
+      const versions: string[] = ['v2', 'v0', 'V1', 'v1.0'];
       for (let index = 0; index < versions.length; index++) {
         expect(parsePolicy(versions[index] + ';accountId=a;accountName=n;mask=1').policy).assertNull();
       }

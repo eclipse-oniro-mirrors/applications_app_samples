@@ -18,15 +18,15 @@ import { DetailModel, DetailRow } from '../main/ets/feature/DetailModel';
 
 const SAMPLE_SEC: number = 1700000000;
 
-function labelsOf(rows: Array<DetailRow>): string {
-  const parts: Array<string> = [];
+function labelsOf(rows: DetailRow[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < rows.length; index++) {
     parts.push(rows[index].label);
   }
   return parts.join('|');
 }
 
-function valueOf(rows: Array<DetailRow>, label: string): string {
+function valueOf(rows: DetailRow[], label: string): string {
   for (let index = 0; index < rows.length; index++) {
     if (rows[index].label === label) {
       return rows[index].value;
@@ -35,7 +35,7 @@ function valueOf(rows: Array<DetailRow>, label: string): string {
   return '';
 }
 
-function countLabel(rows: Array<DetailRow>, label: string): number {
+function countLabel(rows: DetailRow[], label: string): number {
   let count: number = 0;
   for (let index = 0; index < rows.length; index++) {
     if (rows[index].label === label) {
@@ -80,7 +80,7 @@ export default function detailModelMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPlainLabels0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt', '', 10, SAMPLE_SEC, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt', '', 10, SAMPLE_SEC, true);
       expect(labelsOf(rows)).assertEqual('名称|类型|MIME|大小|修改时间|加密文件|访问路径');
     })
 
@@ -93,7 +93,7 @@ export default function detailModelMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDlpLabels0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt.dlp', '', 10, SAMPLE_SEC, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt.dlp', '', 10, SAMPLE_SEC, true);
       expect(labelsOf(rows)).assertEqual('名称|类型|MIME|大小|修改时间|加密文件|容器内文件|访问路径');
     })
 
@@ -106,7 +106,7 @@ export default function detailModelMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUniqueLabels0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt.dlp', '', 10, SAMPLE_SEC, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt.dlp', '', 10, SAMPLE_SEC, true);
       expect(countLabel(rows, '名称')).assertEqual(1);
       expect(countLabel(rows, '访问路径')).assertEqual(1);
     })
@@ -120,7 +120,7 @@ export default function detailModelMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNameValue0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('shared/report.txt', '', 10, SAMPLE_SEC, true);
+      const rows: DetailRow[] = DetailModel.build('shared/report.txt', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '名称')).assertEqual('shared/report.txt');
     })
 
@@ -346,7 +346,7 @@ export default function detailModelMatrixTest(): void {
         name += 'a';
       }
       name += '.txt';
-      const rows: Array<DetailRow> = DetailModel.build(name, '', 1, 0, true);
+      const rows: DetailRow[] = DetailModel.build(name, '', 1, 0, true);
       expect(valueOf(rows, '名称')).assertEqual(name);
       expect(valueOf(rows, '类型')).assertEqual('文本');
     })
@@ -360,7 +360,7 @@ export default function detailModelMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testValuesNonEmpty0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt.dlp', 'file:///a', 1536, SAMPLE_SEC, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt.dlp', 'file:///a', 1536, SAMPLE_SEC, true);
       for (let index = 0; index < rows.length; index++) {
         expect(rows[index].value.length > 0).assertTrue();
       }

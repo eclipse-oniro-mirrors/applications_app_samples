@@ -16,7 +16,7 @@
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { DetailModel, DetailRow } from '../main/ets/feature/DetailModel';
 
-function valueOf(rows: Array<DetailRow>, label: string): string {
+function valueOf(rows: DetailRow[], label: string): string {
   for (let index = 0; index < rows.length; index++) {
     if (rows[index].label === label) {
       return rows[index].value;
@@ -25,8 +25,8 @@ function valueOf(rows: Array<DetailRow>, label: string): string {
   return '';
 }
 
-function labelsOf(rows: Array<DetailRow>): string {
-  const parts: Array<string> = [];
+function labelsOf(rows: DetailRow[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < rows.length; index++) {
     parts.push(rows[index].label);
   }
@@ -44,7 +44,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testKindLog0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('app.log', '', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('app.log', '', 10, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('文本');
       expect(valueOf(rows, 'MIME')).assertEqual('text/plain');
     })
@@ -58,7 +58,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testKindXlsx0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('data.xlsx', '', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('data.xlsx', '', 10, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('文档');
       expect(valueOf(rows, 'MIME')).assertEqual(
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -66,16 +66,16 @@ export default function detailMatrix2Test(): void {
 
     /**
      * @tc.number    SUB_DLP_MANAGER_DETAILMATRIX2_0003
-     * @tc.name      testKindApk0003
+     * @tc.name      testKindHap0003
      * @tc.desc      packages are described as programs
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testKindApk0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('tool.apk', '', 10, 0, true);
+    it('testKindHap0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+      const rows: DetailRow[] = DetailModel.build('tool.hap', '', 10, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('程序');
-      expect(valueOf(rows, 'MIME')).assertEqual('application/vnd.harmonyos.package');
+      expect(valueOf(rows, 'MIME')).assertEqual('application/vnd.ohos.package');
     })
 
     /**
@@ -87,7 +87,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testKindArchive0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('backup.tar.gz', '', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('backup.tar.gz', '', 10, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('压缩包');
     })
 
@@ -113,7 +113,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testTime20380006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt', '', 1, 2147483647, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt', '', 1, 2147483647, true);
       expect(valueOf(rows, '修改时间')).assertEqual('2038/01/19 03:14:07');
     })
 
@@ -126,7 +126,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testDlpOnlyUnknown0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('secret.dlp', '', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('secret.dlp', '', 10, 0, true);
       expect(valueOf(rows, '加密文件')).assertEqual('是');
       expect(valueOf(rows, '类型')).assertEqual('未知');
       expect(valueOf(rows, '容器内文件')).assertEqual('secret');
@@ -141,7 +141,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testDlpInnerArchive0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.zip.dlp', '', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('a.zip.dlp', '', 10, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('压缩包');
       expect(valueOf(rows, '容器内文件')).assertEqual('a.zip');
     })
@@ -155,7 +155,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testUriWithQuery0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt', 'file:///a?x=1', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt', 'file:///a?x=1', 10, 0, true);
       expect(valueOf(rows, '访问路径')).assertEqual('file:///a?x=1');
     })
 
@@ -196,7 +196,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testLabelsDlp0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt.dlp', '', 1, 0, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt.dlp', '', 1, 0, true);
       expect(labelsOf(rows)).assertEqual('名称|类型|MIME|大小|修改时间|加密文件|容器内文件|访问路径');
     })
 
@@ -209,7 +209,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testValuesNonEmpty0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt', 'file:///a', 0, 946684800, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt', 'file:///a', 0, 946684800, true);
       for (let index = 0; index < rows.length; index++) {
         expect(rows[index].value.length > 0).assertTrue();
       }
@@ -229,7 +229,7 @@ export default function detailMatrix2Test(): void {
         name += 'x';
       }
       name += '.docx.dlp';
-      const rows: Array<DetailRow> = DetailModel.build(name, '', 1, 0, true);
+      const rows: DetailRow[] = DetailModel.build(name, '', 1, 0, true);
       expect(valueOf(rows, '容器内文件').endsWith('.docx')).assertTrue();
       expect(valueOf(rows, '类型')).assertEqual('文档');
     })
@@ -243,7 +243,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testMimeFallback0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.custom', '', 1, 0, true);
+      const rows: DetailRow[] = DetailModel.build('a.custom', '', 1, 0, true);
       expect(valueOf(rows, 'MIME')).assertEqual('application/octet-stream');
     })
 
@@ -271,7 +271,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testDateOnlyTime0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('a.txt', '', 1, 946684800, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt', '', 1, 946684800, true);
       expect(valueOf(rows, '修改时间')).assertEqual('2000/01/01 00:00:00');
     })
 
@@ -297,7 +297,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testKindMp40019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('clip.mp4', '', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('clip.mp4', '', 10, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('视频');
       expect(valueOf(rows, 'MIME')).assertEqual('video/mp4');
     })
@@ -311,7 +311,7 @@ export default function detailMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testKindSvg0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const rows: Array<DetailRow> = DetailModel.build('icon.svg', '', 10, 0, true);
+      const rows: DetailRow[] = DetailModel.build('icon.svg', '', 10, 0, true);
       expect(valueOf(rows, '类型')).assertEqual('图片');
       expect(valueOf(rows, 'MIME')).assertEqual('image/svg+xml');
     })

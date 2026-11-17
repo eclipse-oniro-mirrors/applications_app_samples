@@ -24,7 +24,7 @@ function item(id: string, name: string, kind: FileKind, size: number, modified: 
   return new FileEntry(id, name, 'file:///docs/' + name, kind, size, modified, isDlp, isFavorite);
 }
 
-function sample(): Array<FileEntry> {
+function sample(): FileEntry[] {
   return [
     item('1', 'delta.txt', FileKind.TEXT, 300, 3000, false, false),
     item('2', 'beta.docx', FileKind.DOCUMENT, 100, 1000, true, false),
@@ -33,24 +33,24 @@ function sample(): Array<FileEntry> {
   ];
 }
 
-function idsOf(values: Array<FileEntry>): string {
-  const parts: Array<string> = [];
+function idsOf(values: FileEntry[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     parts.push(values[index].id);
   }
   return parts.join('|');
 }
 
-function spansText(values: Array<TextSpan>): string {
-  const parts: Array<string> = [];
+function spansText(values: TextSpan[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     parts.push(values[index].text);
   }
   return parts.join('|');
 }
 
-function matchedText(values: Array<TextSpan>): string {
-  const parts: Array<string> = [];
+function matchedText(values: TextSpan[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < values.length; index++) {
     if (values[index].matched) {
       parts.push(values[index].text);
@@ -70,7 +70,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSortSizeTie0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const sorted: Array<FileEntry> = sortEntries(sample(), SortField.SIZE, false);
+      const sorted: FileEntry[] = sortEntries(sample(), SortField.SIZE, false);
       expect(idsOf(sorted)).assertEqual('2|4|1|3');
     })
 
@@ -83,7 +83,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSortKindTie0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const sorted: Array<FileEntry> = sortEntries(sample(), SortField.KIND, false);
+      const sorted: FileEntry[] = sortEntries(sample(), SortField.KIND, false);
       expect(idsOf(sorted)).assertEqual('1|2|4|3');
     })
 
@@ -96,7 +96,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSortNameTie0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const entries: Array<FileEntry> = [
+      const entries: FileEntry[] = [
         item('z', 'same.txt', FileKind.TEXT, 1, 1, false, false),
         item('a', 'same.txt', FileKind.TEXT, 1, 1, false, false)
       ];
@@ -112,7 +112,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testSortDescTie0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const entries: Array<FileEntry> = [
+      const entries: FileEntry[] = [
         item('b', 'x.txt', FileKind.TEXT, 5, 1, false, false),
         item('a', 'y.txt', FileKind.TEXT, 5, 1, false, false)
       ];
@@ -215,7 +215,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightDuplicateTokens0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const spans: Array<TextSpan> = highlight('abcdef', 'cd cd');
+      const spans: TextSpan[] = highlight('abcdef', 'cd cd');
       expect(matchedText(spans)).assertEqual('cd');
       expect(spansText(spans)).assertEqual('ab|cd|ef');
     })
@@ -229,7 +229,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightAdjacentTokens0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const spans: Array<TextSpan> = highlight('abcd', 'ab bc');
+      const spans: TextSpan[] = highlight('abcd', 'ab bc');
       expect(spansText(spans)).assertEqual('abc|d');
       expect(matchedText(spans)).assertEqual('abc');
     })
@@ -243,7 +243,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightFullText0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const spans: Array<TextSpan> = highlight('年度报告', '年度报告');
+      const spans: TextSpan[] = highlight('年度报告', '年度报告');
       expect(spans.length).assertEqual(1);
       expect(spans[0].matched).assertTrue();
     })
@@ -257,7 +257,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightEmptyText0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const spans: Array<TextSpan> = highlight('', 'abc');
+      const spans: TextSpan[] = highlight('', 'abc');
       expect(spans.length).assertEqual(1);
       expect(spans[0].text).assertEqual('');
     })
@@ -322,7 +322,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testCountUnknownOrder0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const counts: Array<KindCount> = countByKind([
+      const counts: KindCount[] = countByKind([
         item('1', 'a.xyz', FileKind.UNKNOWN, 1, 1, false, false),
         item('2', 'b.zip', FileKind.ARCHIVE, 1, 1, false, false),
         item('3', 'c.txt', FileKind.TEXT, 1, 1, false, false)
@@ -340,7 +340,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testCountMultiples0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const counts: Array<KindCount> = countByKind(sample());
+      const counts: KindCount[] = countByKind(sample());
       expect(counts[1].kind).assertEqual(FileKind.DOCUMENT);
       expect(counts[1].count).assertEqual(2);
     })
@@ -354,7 +354,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testDistinctOrder0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const kinds: Array<FileKind> = distinctKinds(sample());
+      const kinds: FileKind[] = distinctKinds(sample());
       expect(kinds.length).assertEqual(3);
       expect(kinds[0]).assertEqual(FileKind.TEXT);
       expect(kinds[2]).assertEqual(FileKind.IMAGE);
@@ -369,7 +369,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testFindFirst0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const entries: Array<FileEntry> = [
+      const entries: FileEntry[] = [
         item('1', 'first.txt', FileKind.TEXT, 1, 1, false, false),
         item('1', 'second.txt', FileKind.TEXT, 1, 1, false, false)
       ];
@@ -452,7 +452,7 @@ export default function queryMatrix2Test(): void {
      * @tc.level     LEVEL0
      */
     it('testEmptyHighlight0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      const spans: Array<TextSpan> = highlight('', '');
+      const spans: TextSpan[] = highlight('', '');
       expect(spans.length).assertEqual(1);
       expect(spans[0].matched).assertFalse();
     })

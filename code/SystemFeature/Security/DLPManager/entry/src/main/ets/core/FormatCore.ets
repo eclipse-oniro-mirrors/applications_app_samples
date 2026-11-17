@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-const SIZE_UNITS: Array<string> = ['B', 'KB', 'MB', 'GB', 'TB'];
+const SIZE_UNITS: string[] = ['B', 'KB', 'MB', 'GB', 'TB'];
 const ILLEGAL_NAME_CHARS: string = '/\\:*?"<>|';
-const RESERVED_NAMES: Array<string> = ['con', 'prn', 'aux', 'nul', 'com1', 'com2', 'lpt1', 'lpt2'];
+const RESERVED_NAMES: string[] = ['con', 'prn', 'aux', 'nul', 'com1', 'com2', 'lpt1', 'lpt2'];
 const MAX_NAME_LENGTH: number = 255;
 
 export function padLeft(value: number, width: number): string {
@@ -61,14 +61,14 @@ export function formatSize(bytes: number, decimals: number): string {
   if (unitIndex === 0) {
     return sign + Math.round(value).toString() + ' B';
   }
-  let places: number = decimals;
-  if (places < 0) {
-    places = 0;
+  let fracDigits: number = decimals;
+  if (fracDigits < 0) {
+    fracDigits = 0;
   }
-  if (places > 3) {
-    places = 3;
+  if (fracDigits > 3) {
+    fracDigits = 3;
   }
-  const fixed: string = value.toFixed(places);
+  const fixed: string = value.toFixed(fracDigits);
   return sign + trimTrailingZeros(fixed) + ' ' + SIZE_UNITS[unitIndex];
 }
 
@@ -190,15 +190,15 @@ export function formatPercent(value: number, total: number, decimals: number): s
   if (!isFiniteNumber(value) || !isFiniteNumber(total) || total <= 0) {
     return '0%';
   }
-  let places: number = decimals;
-  if (places < 0) {
-    places = 0;
+  let fracDigits: number = decimals;
+  if (fracDigits < 0) {
+    fracDigits = 0;
   }
-  if (places > 2) {
-    places = 2;
+  if (fracDigits > 2) {
+    fracDigits = 2;
   }
   const percent: number = value / total * 100;
-  return trimTrailingZeros(percent.toFixed(places)) + '%';
+  return trimTrailingZeros(percent.toFixed(fracDigits)) + '%';
 }
 
 export function truncateEnd(text: string, maxWidth: number, marker: string): string {
@@ -231,7 +231,7 @@ export function truncateMiddle(text: string, maxWidth: number, marker: string): 
 }
 
 export function sanitizeFileName(name: string): string {
-  const chunks: Array<string> = [];
+  const chunks: string[] = [];
   for (let index = 0; index < name.length; index++) {
     const ch: string = name.charAt(index);
     const code: number = name.charCodeAt(index);

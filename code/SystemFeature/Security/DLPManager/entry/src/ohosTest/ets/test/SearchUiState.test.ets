@@ -66,7 +66,7 @@ async function clickId(driver: Driver, id: string): Promise<boolean> {
   }
 }
 
-const ALLOW_TEXTS: Array<string> = ['允许', '允许本次使用', '仅使用期间允许', '始终允许', 'Allow'];
+const ALLOW_TEXTS: string[] = ['允许', '允许本次使用', '仅使用期间允许', '始终允许', 'Allow'];
 
 async function clickAllowIfPresent(driver: Driver): Promise<boolean> {
   for (let index = 0; index < ALLOW_TEXTS.length; index++) {

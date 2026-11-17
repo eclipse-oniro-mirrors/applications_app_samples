@@ -26,7 +26,7 @@ import { RecentStore } from '../feature/PreferenceStore';
 @Entry
 @Component
 struct SearchPage {
-  @State items: Array<FileEntry> = [];
+  @State items: FileEntry[] = [];
   @State keyword: string = '';
   @State kindKey: string = 'all';
   @State sortKey: string = 'name';
@@ -44,9 +44,9 @@ struct SearchPage {
   }
 
   private loadEntries(): void {
-    const names: Array<string> | undefined = AppStorage.get<Array<string>>('fileNameList');
-    const uris: Array<string> | undefined = AppStorage.get<Array<string>>('fileUriList');
-    const entries: Array<FileEntry> = [];
+    const names: string[] | undefined = AppStorage.get<string[]>('fileNameList');
+    const uris: string[] | undefined = AppStorage.get<string[]>('fileUriList');
+    const entries: FileEntry[] = [];
     if (names !== undefined) {
       for (let index = 0; index < names.length; index++) {
         let uri: string = '';

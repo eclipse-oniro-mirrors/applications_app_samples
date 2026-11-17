@@ -132,19 +132,19 @@ export struct Index {
   @StorageLink('pathDir') pathDir: string = '';
 
   // @State fileInfoList：组件内部状态
-  @State fileInfoList: Array<FileInfo> = [];
+  @State fileInfoList: FileInfo[] = [];
 
   // @StorageLink fileUriList：与 AppStorage 双向绑定
-  @StorageLink('fileUriList') fileUriList: Array<string> = [];
+  @StorageLink('fileUriList') fileUriList: string[] = [];
 
   // @StorageLink fileNameList：与 AppStorage 双向绑定
-  @StorageLink('fileNameList') fileNameList: Array<string> = [];
+  @StorageLink('fileNameList') fileNameList: string[] = [];
 
   // @StorageLink filePathList：与 AppStorage 双向绑定
-  @StorageLink('filePathList') filePathList: Array<string> = [];
+  @StorageLink('filePathList') filePathList: string[] = [];
 
   // @StorageLink fileTimeList：与 AppStorage 双向绑定
-  @StorageLink('fileTimeList') fileTimeList: Array<string> = [];
+  @StorageLink('fileTimeList') fileTimeList: string[] = [];
 
   // 字段 scroller：声明并维护该成员的状态
   scroller: Scroller = new Scroller();
@@ -230,7 +230,7 @@ export struct Index {
     // let 语句
     let uuidList: string[] = [];
     option.filter.suffix = ['.txt', '.doc', '.docx', '.dlp'];
-    fs.listFile(this.pathDir, option).then((filenames: Array<string>) => {
+    fs.listFile(this.pathDir, option).then((filenames: string[]) => {
       Logger.info(TAG, 'listFile succeed');
       // for 语句
       for (let i = 0; i < filenames.length && this.fileInfoList.length < filenames.length && i < RECENT_MAX; i++) {
@@ -291,7 +291,7 @@ export struct Index {
     // try 语句
     try {
       // let 语句
-      let info: Array<dlpPermission.AccessedDLPFileInfo> = await dlpPermission.getDLPFileAccessRecords();
+      let info: dlpPermission.AccessedDLPFileInfo[] = await dlpPermission.getDLPFileAccessRecords();
       Logger.info(TAG, 'getRecentFile：' + JSON.stringify(info));
       // if 语句
       if (info.length === 0) {
@@ -352,7 +352,7 @@ export struct Index {
     // try 语句
     try {
       // let 语句
-      let info: Array<dlpPermission.AccessedDLPFileInfo> = await dlpPermission.getDLPFileAccessRecords(); // 获取DLP访问列表
+      let info: dlpPermission.AccessedDLPFileInfo[] = await dlpPermission.getDLPFileAccessRecords(); // 获取DLP访问列表
       promptAction.showToast({ message: "getDLPFile：" + decodeURIComponent(JSON.stringify(info)), duration: 2000 });
       Logger.info(TAG, 'getDLPFile:', JSON.stringify(info));
     } catch (err) {
@@ -363,7 +363,7 @@ export struct Index {
   /**
    * 设置沙箱保留
    */
-  async setSandboxFile(docUris: Array<string>): Promise<void> {
+  async setSandboxFile(docUris: string[]): Promise<void> {
     // try 语句
     try {
       dlpPermission.setRetentionState(docUris); // 设置沙箱保留
@@ -375,7 +375,7 @@ export struct Index {
   /**
    * 取消沙箱保留
    */
-  async cancelSandboxFile(docUris: Array<string>): Promise<void> {
+  async cancelSandboxFile(docUris: string[]): Promise<void> {
     // try 语句
     try {
       dlpPermission.cancelRetentionState(docUris); // 取消沙箱保留
@@ -391,7 +391,7 @@ export struct Index {
     // try 语句
     try {
       // let 语句
-      let res: Array<dlpPermission.RetentionSandboxInfo> = await dlpPermission.getRetentionSandboxList(); // 获取沙箱保留列表
+      let res: dlpPermission.RetentionSandboxInfo[] = await dlpPermission.getRetentionSandboxList(); // 获取沙箱保留列表
       Logger.info(TAG, 'getRetentionSandboxList:' + JSON.stringify(res));
       promptAction.showToast({
         message: 'getRetentionSandboxList:' + decodeURIComponent(JSON.stringify(res)),

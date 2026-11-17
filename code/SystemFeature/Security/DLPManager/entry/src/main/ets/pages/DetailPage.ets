@@ -19,7 +19,7 @@ import { DetailModel, DetailRow } from '../feature/DetailModel';
 @Entry
 @Component
 struct DetailPage {
-  @State rows: Array<DetailRow> = [];
+  @State rows: DetailRow[] = [];
 
   aboutToAppear(): void {
     const name: string | undefined = AppStorage.get<string>('detailName');

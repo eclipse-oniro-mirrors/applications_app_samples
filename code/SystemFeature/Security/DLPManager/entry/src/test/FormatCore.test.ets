@@ -970,7 +970,7 @@ export default function formatCoreTest(): void {
     /**
      * @tc.number    SUB_DLP_MANAGER_FORMAT_0067
      * @tc.name      testPercentRepeating0067
-     * @tc.desc      repeating decimals are rounded to two places
+     * @tc.desc      repeating decimals are rounded to two fractional digits
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0

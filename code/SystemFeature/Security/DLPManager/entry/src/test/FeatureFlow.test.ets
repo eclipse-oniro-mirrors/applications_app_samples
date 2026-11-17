@@ -28,7 +28,7 @@ function entry(id: string, name: string, kind: FileKind, size: number, modified:
   return new FileEntry(id, name, 'file:///docs/' + name, kind, size, modified, isDlp, false);
 }
 
-function sampleEntries(): Array<FileEntry> {
+function sampleEntries(): FileEntry[] {
   return [
     entry('1', 'a.txt', FileKind.TEXT, 1536, 3000, false),
     entry('2', 'b.docx', FileKind.DOCUMENT, 2048, 2000, true),
@@ -36,16 +36,16 @@ function sampleEntries(): Array<FileEntry> {
   ];
 }
 
-function namesOf(items: Array<RecentItem>): string {
-  const parts: Array<string> = [];
+function namesOf(items: RecentItem[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < items.length; index++) {
     parts.push(items[index].name);
   }
   return parts.join('|');
 }
 
-function labelsOf(rows: Array<DetailRow>): string {
-  const parts: Array<string> = [];
+function labelsOf(rows: DetailRow[]): string {
+  const parts: string[] = [];
   for (let index = 0; index < rows.length; index++) {
     parts.push(rows[index].label);
   }
@@ -322,7 +322,7 @@ export default function featureFlowTest(): void {
      */
     it('testDetailRowsPlain0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetailRowsPlain0016 begin');
-      const rows: Array<DetailRow> = DetailModel.build('a.txt', 'file:///docs/a.txt', 1536, 3000, true);
+      const rows: DetailRow[] = DetailModel.build('a.txt', 'file:///docs/a.txt', 1536, 3000, true);
       expect(rows.length).assertEqual(7);
       expect(labelsOf(rows)).assertEqual('名称|类型|MIME|大小|修改时间|加密文件|访问路径');
     })
@@ -337,7 +337,7 @@ export default function featureFlowTest(): void {
      */
     it('testDetailRowsDlp0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetailRowsDlp0017 begin');
-      const rows: Array<DetailRow> = DetailModel.build('b.docx.dlp', 'file:///docs/b.docx.dlp', 2048, 2000, true);
+      const rows: DetailRow[] = DetailModel.build('b.docx.dlp', 'file:///docs/b.docx.dlp', 2048, 2000, true);
       expect(rows.length).assertEqual(8);
       expect(labelsOf(rows)).assertEqual('名称|类型|MIME|大小|修改时间|加密文件|容器内文件|访问路径');
     })
@@ -406,7 +406,7 @@ export default function featureFlowTest(): void {
       console.info('testTemplateDisplay0021 begin');
       const templates: TemplateModel = new TemplateModel();
       templates.add('审阅', 3, 100);
-      const customs: Array<CustomTemplate> = templates.customTemplates();
+      const customs: CustomTemplate[] = templates.customTemplates();
       expect(customs[0].name).assertEqual('审阅');
       expect(templateDisplayName(templates.allTemplates()[5])).assertEqual('审阅');
     })
@@ -578,7 +578,7 @@ export default function featureFlowTest(): void {
      */
     it('testJournalDetailThenRecent0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testJournalDetailThenRecent0031 begin');
-      const rows: Array<DetailRow> = DetailModel.build('b.docx.dlp', 'file:///docs/b.docx.dlp', 2048, 2000, true);
+      const rows: DetailRow[] = DetailModel.build('b.docx.dlp', 'file:///docs/b.docx.dlp', 2048, 2000, true);
       const recent: RecentModel = new RecentModel();
       recent.addOpen(rows[0].value, 'file:///docs/b.docx.dlp', true, 2000);
       expect(rows[0].value).assertEqual('b.docx.dlp');
