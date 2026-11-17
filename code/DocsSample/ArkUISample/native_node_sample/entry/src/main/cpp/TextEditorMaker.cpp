@@ -896,9 +896,9 @@ void SetTextEditorCancelButton()
     }
     cancelButtonEditor = textEditor;
     // 添加交互按钮
-    AddButton("SetCancelButton", BTN_SET_CANCEL_BUTTON, controller);
-    AddButton("GetCancelButton", BTN_GET_CANCEL_BUTTON, controller);
-    AddButton("ResetCancelButton", BTN_RESET_CANCEL_BUTTON, controller);
+    AddButton("SetCancelButton", BTN_SET_CANCEL_BUTTON, textEditor);
+    AddButton("GetCancelButton", BTN_GET_CANCEL_BUTTON, textEditor);
+    AddButton("ResetCancelButton", BTN_RESET_CANCEL_BUTTON, textEditor);
 }
 
 void DoLayoutManager(ArkUI_NodeEvent* event)
