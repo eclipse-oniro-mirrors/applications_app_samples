@@ -13,31 +13,57 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/entryability/OpenLinkUIAbility.ets
+ * 文件职责：OpenLinkUIAbility 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：OpenLinkUIAbility。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { BusinessError } from '@kit.BasicServicesKit';
 import { UIAbility, UIExtensionContentSession, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 
 const TAG: string = '[OpenLinkUIAbility]';
+
 const DOMAIN: number = 0xFF00;
 
+/**
+ * OpenLinkUIAbility：类定义，承载本文件对应的逻辑与数据。
+ */
 export default class OpenLinkUIAbility extends UIAbility {
+  /**
+   * onCreate：Ability 创建时回调。
+   */
   onCreate() {
     hilog.info(DOMAIN, TAG, 'UIExtAbility onCreate');
   }
 
+  /**
+   * onForeground：应用进入前台时回调。
+   */
   onForeground() {
     hilog.info(DOMAIN, TAG, `UIExtAbility onForeground`);
   }
 
+  /**
+   * onBackground：应用退到后台时回调。
+   */
   onBackground() {
     hilog.info(DOMAIN, TAG, `UIExtAbility onBackground`);
   }
 
+  /**
+   * onDestroy：Ability 销毁时回调。
+   */
   onDestroy() {
     hilog.info(DOMAIN, TAG, `UIExtAbility onDestroy`);
   }
 
+  /**
+   * onWindowStageCreate：窗口舞台创建时回调。
+   */
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN, TAG, '%{public}s', 'Ability onWindowStageCreate');
@@ -79,6 +105,9 @@ export default class OpenLinkUIAbility extends UIAbility {
     });
   }
 
+  /**
+   * onSessionCreate：执行 onSessionCreate 相关逻辑。
+   */
   onSessionCreate(want: Want, session: UIExtensionContentSession) {
     hilog.info(DOMAIN, TAG, `UIExtAbility onSessionCreate, want: ${JSON.stringify(want)}`);
 
@@ -90,6 +119,9 @@ export default class OpenLinkUIAbility extends UIAbility {
     session.loadContent('uiextensionpages/UIExtensionContextPage', storage);
   }
 
+  /**
+   * onSessionDestroy：执行 onSessionDestroy 相关逻辑。
+   */
   onSessionDestroy(session: UIExtensionContentSession) {
     hilog.info(DOMAIN, TAG, `UIExtAbility onSessionDestroy`);
   }
