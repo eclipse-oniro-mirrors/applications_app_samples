@@ -18,7 +18,7 @@
  * They mirror the behaviour of entry/src/main/ets (AVPlayer state machine,
  * fullscreen/orientation switching, immersive window configuration, the
  * waterfall data source and the time formatter) so test cases can validate
- * the same rules without a real UI surface or video decoder.
+ * the same rules without the real rendering pipeline or a video decoder.
  */
 
 export enum MediaState {
