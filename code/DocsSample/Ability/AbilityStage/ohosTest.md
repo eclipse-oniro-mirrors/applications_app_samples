@@ -62,7 +62,7 @@
 - 备份扩展（`entrybackupability/EntryBackupAbility.ets`，`extensionAbilities` 中 `type: backup`、`exported: false`、`metadata: ohos.extension.backup → $profile:backup_config`）：`onBackup` / `onRestore(bundleVersion)` 备份扩展生命周期
 - 被测首页（`pages/Index.ets`）：`RelativeContainer` + `Text`（`id = 'HelloWorld'`，`@State message` 初始 `Hello World`、加粗、`app.float.page_text_font_size`，水平垂直居中），`onClick` 后变为 `Welcome`
 - 模块契约（`module.json5`）：`entry` 类型、`deviceTypes: default + tablet`、`deliveryWithInstall: true`、`installationFree: false`、`EntryAbility` exported 且技能为 `entity.system.home` + `ohos.want.action.home`
-- 测试承载（`ohosTest/module.json5`、`testrunner/OpenHarmonyTestRunner.ets`、`testability/TestAbility.ets` 及其 `pages/Index.ets`）：`entry_test` feature 模块，`aa test` 拉起测试 Ability 后执行 Hypium 套件
+- 测试承载（`ohosTest/module.json5`、`testrunner/OpenHarmonyTestRunner.ets`、`testability/TestAbility.ets` 及其 `pages/Index.ets`）：`entry_test` feature 模块，通过 `aa test`（`aa` 即 ability assistant，OpenHarmony 命令行工具）拉起测试 Ability 后执行 Hypium 套件
 
 ### 3.2 关键风险点
 
