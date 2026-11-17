@@ -62,49 +62,47 @@ function stringToUint8Array(str: string): Uint8Array {
   return new Uint8Array(arr);
 }
 
-function testPkcs7SignBySync() {
+async function testPkcs7SignBySync() {
   let certEncodingBlob: cert.EncodingBlob = {
     data: stringToUint8Array(certData),
     // 根据encodingData的格式进行赋值，支持FORMAT_PEM和FORMAT_DER。
     encodingFormat: cert.EncodingFormat.FORMAT_PEM
   };
-  cert.createX509Cert(certEncodingBlob, (error, x509Cert) => {
-    if (error) {
-      console.error(`createX509Cert failed: errCode: ${error.code}, message: ${error.message}`);
-    } else {
-      try {
-        let cmsContentType = cert.CmsContentType.SIGNED_DATA;
-        let cmsGenerator = cert.createCmsGenerator(cmsContentType);
-        console.info('testPkcs7SignBySync createCmsGenerator success.');
-        let privateKeyInfo: cert.PrivateKeyInfo = {
-          key: rsaStr1024,
-          password: '123456'
-        };
-        // addCert设置为true时，第二次addSigner或者addCert增加相同的证书，会报错。
-        let config: cert.CmsSignerConfig = {
-          mdName:'SHA256',
-          addCert:false,
-          addAttr:false,
-          addSmimeCapAttr:false
-        }
-        cmsGenerator.addSigner(x509Cert, privateKeyInfo, config);
-        console.info('testPkcs7SignBySync addSigner result: success.');
-        cmsGenerator.addCert(x509Cert);
-        console.info('testPkcs7SignBySync addCert result: success.');
-        let content = new Uint8Array([1,2,3,4]);
-        let optionsFinal: cert.CmsGeneratorOptions = {
-          contentDataFormat : cert.CmsContentDataFormat.BINARY,
-          outFormat : cert.CmsFormat.DER,
-          isDetached : false
-        };
-        let output = cmsGenerator.doFinalSync(content, optionsFinal);
-        console.info('testPkcs7SignBySync doFinalSync result: success, output = %s.', output);
-      } catch (err) {
-        let e: BusinessError = err as BusinessError;
-        console.error(`testPkcs7SignBySync failed: errCode: ${e.code}, message: ${e.message}`);
-      }
+  try {
+    let x509Cert = await cert.createX509Cert(certEncodingBlob);
+    let cmsContentType = cert.CmsContentType.SIGNED_DATA;
+    let cmsGenerator = cert.createCmsGenerator(cmsContentType);
+    console.info('testPkcs7SignBySync createCmsGenerator success.');
+    let privateKeyInfo: cert.PrivateKeyInfo = {
+      key: rsaStr1024,
+      password: '123456'
+    };
+    // addCert设置为true时，第二次addSigner或者addCert增加相同的证书，会报错。
+    let config: cert.CmsSignerConfig = {
+      mdName:'SHA256',
+      addCert:false,
+      addAttr:false,
+      addSmimeCapAttr:false
     }
-  });
+    cmsGenerator.addSigner(x509Cert, privateKeyInfo, config);
+    console.info('testPkcs7SignBySync addSigner result: success.');
+    cmsGenerator.addCert(x509Cert);
+    console.info('testPkcs7SignBySync addCert result: success.');
+    let content = new Uint8Array([1,2,3,4]);
+    let optionsFinal: cert.CmsGeneratorOptions = {
+      contentDataFormat : cert.CmsContentDataFormat.BINARY,
+      outFormat : cert.CmsFormat.DER,
+      isDetached : false
+    };
+    let output = cmsGenerator.doFinalSync(content, optionsFinal);
+    console.info('testPkcs7SignBySync doFinalSync result: success, output = %s.', output);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`testPkcs7SignBySync failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude create-cms-sign-object-sync]
+    throw new Error(`testPkcs7SignBySync failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude create-cms-sign-object-sync]
+  }
 }
 
 // [End create-cms-sign-object-sync]
@@ -120,9 +118,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateCmsSignObjectSync')
         .width('70%')
-        .onClick(()=>{
+        .onClick(async ()=>{
           try {
-            testPkcs7SignBySync();
+            await testPkcs7SignBySync();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

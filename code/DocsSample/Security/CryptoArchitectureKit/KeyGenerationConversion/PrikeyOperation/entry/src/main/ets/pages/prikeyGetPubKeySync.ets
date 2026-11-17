@@ -76,6 +76,9 @@ function generateAsyKey() {
     console.info('result: ' + ret);
   } catch (e) {
     console.error(`get pubkey from prikey failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude prikey_get_pubkey_sync]
+    throw new Error(`get pubkey from prikey failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude prikey_get_pubkey_sync]
   }
 }
 // [End prikey_get_pubkey_sync]

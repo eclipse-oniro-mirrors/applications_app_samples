@@ -16,6 +16,7 @@
 // [Start pss_verify_rsa_keypair_sign_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // 根据密钥参数属性构造RSA非对称密钥对密钥参数
 function genRsaKeyPairSpec(nIn: bigint, eIn: bigint, dIn: bigint) {
@@ -53,53 +54,64 @@ function genRsa2048KeyPairSpec(): cryptoFramework.RSAKeyPairSpec {
 }
 
 function verifyMessagePSSSync() {
-  // 完整的明文被拆分为input1和input2
-  let messagePart1 = 'This is Sign test plan1';
-  let messagePart2 = 'This is Sign test plan2';
-  let input1: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(messagePart1, 'utf-8').buffer) };
-  let input2: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(messagePart2, 'utf-8').buffer) };
-  // 获得RSA密钥对密钥参数对象
-  let rsaKeyPairSpec = genRsa2048KeyPairSpec();
-  // 构造RSA密钥对生成器
-  let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaKeyPairSpec);
-  // sign和verfiy均支持RSA密钥带长度/不带长度的写法
-  let signer = cryptoFramework.createSign('RSA|PSS|SHA256|MGF1_SHA256');
-  let verifier = cryptoFramework.createVerify('RSA2048|PSS|SHA256|MGF1_SHA256');
-  let keyPair = rsaGeneratorSpec.generateKeyPairSync();
-  signer.initSync(keyPair.priKey);
-  // 在签名初始化后，对PSS参数进行set和get操作
-  let setN = 32;
-  signer.setSignSpec(cryptoFramework.SignSpecItem.PSS_SALT_LEN_NUM, setN);
-  let saltLen = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_SALT_LEN_NUM);
-  console.info('SaltLen: ' + saltLen);
-  let tf = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_TRAILER_FIELD_NUM);
-  console.info('trailer field: ' + tf);
-  let md = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_MD_NAME_STR);
-  console.info('md: ' + md);
-  let mgf = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_MGF_NAME_STR);
-  console.info('mgf: ' + mgf);
-  let mgf1Md = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_MGF1_MD_STR);
-  console.info('mgf1Md: ' + mgf1Md);
-  signer.updateSync(input1);
-  let signMessageBlob = signer.signSync(input2);
-  // 在验签初始化前，对PSS参数进行set和get操作
-  verifier.setVerifySpec(cryptoFramework.SignSpecItem.PSS_SALT_LEN_NUM, setN);
-  saltLen = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_SALT_LEN_NUM);
-  console.info('SaltLen: ' + saltLen);
-  tf = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_TRAILER_FIELD_NUM);
-  console.info('trailer field: ' + tf);
-  md = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_MD_NAME_STR);
-  console.info('md: ' + md);
-  mgf = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_MGF_NAME_STR);
-  console.info('mgf: ' + mgf);
-  mgf1Md = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_MGF1_MD_STR);
-  verifier.initSync(keyPair.pubKey);
-  verifier.updateSync(input1);
-  let verifyResult = verifier.verifySync(input2, signMessageBlob);
-  if (verifyResult === true) {
-    console.info('verify result: success.');
-  } else {
-    console.error('verify result: failed.');
+  try {
+    // 完整的明文被拆分为input1和input2
+    let messagePart1 = 'This is Sign test plan1';
+    let messagePart2 = 'This is Sign test plan2';
+    let input1: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(messagePart1, 'utf-8').buffer) };
+    let input2: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(messagePart2, 'utf-8').buffer) };
+    // 获得RSA密钥对密钥参数对象
+    let rsaKeyPairSpec = genRsa2048KeyPairSpec();
+    // 构造RSA密钥对生成器
+    let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaKeyPairSpec);
+    // sign和verify均支持RSA密钥带长度/不带长度的写法
+    let signer = cryptoFramework.createSign('RSA|PSS|SHA256|MGF1_SHA256');
+    let verifier = cryptoFramework.createVerify('RSA2048|PSS|SHA256|MGF1_SHA256');
+    let keyPair = rsaGeneratorSpec.generateKeyPairSync();
+    signer.initSync(keyPair.priKey);
+    // 在签名初始化后，对PSS参数进行set和get操作
+    let setN = 32;
+    signer.setSignSpec(cryptoFramework.SignSpecItem.PSS_SALT_LEN_NUM, setN);
+    let saltLen = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_SALT_LEN_NUM);
+    console.info('SaltLen: ' + saltLen);
+    let tf = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_TRAILER_FIELD_NUM);
+    console.info('trailer field: ' + tf);
+    let md = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_MD_NAME_STR);
+    console.info('md: ' + md);
+    let mgf = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_MGF_NAME_STR);
+    console.info('mgf: ' + mgf);
+    let mgf1Md = signer.getSignSpec(cryptoFramework.SignSpecItem.PSS_MGF1_MD_STR);
+    console.info('mgf1Md: ' + mgf1Md);
+    signer.updateSync(input1);
+    let signMessageBlob = signer.signSync(input2);
+    // 在验签初始化前，对PSS参数进行set和get操作
+    verifier.setVerifySpec(cryptoFramework.SignSpecItem.PSS_SALT_LEN_NUM, setN);
+    saltLen = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_SALT_LEN_NUM);
+    console.info('SaltLen: ' + saltLen);
+    tf = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_TRAILER_FIELD_NUM);
+    console.info('trailer field: ' + tf);
+    md = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_MD_NAME_STR);
+    console.info('md: ' + md);
+    mgf = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_MGF_NAME_STR);
+    console.info('mgf: ' + mgf);
+    mgf1Md = verifier.getVerifySpec(cryptoFramework.SignSpecItem.PSS_MGF1_MD_STR);
+    verifier.initSync(keyPair.pubKey);
+    verifier.updateSync(input1);
+    let verifyResult = verifier.verifySync(input2, signMessageBlob);
+    if (verifyResult === true) {
+      console.info('verify result: success.');
+    } else {
+      console.error('verify result: failed.');
+      // [StartExclude pss_verify_rsa_keypair_sign_sync]
+      throw new Error('verify result: failed.');
+      // [EndExclude pss_verify_rsa_keypair_sign_sync]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude pss_verify_rsa_keypair_sign_sync]
+    throw new Error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude pss_verify_rsa_keypair_sign_sync]
   }
 }
 

@@ -27,6 +27,9 @@ function testSm2SignDataDerToRs() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`ecc failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude sm2_sign_data_der_to_rs]
+    throw new Error(`ecc failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude sm2_sign_data_der_to_rs]
   }
 }
 // [End sm2_sign_data_der_to_rs]

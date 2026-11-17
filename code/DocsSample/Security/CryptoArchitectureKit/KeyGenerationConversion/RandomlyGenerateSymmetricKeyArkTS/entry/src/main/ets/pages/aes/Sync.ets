@@ -29,6 +29,9 @@ function testSyncGenerateAesKey() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`testSyncGenerateAesKey failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude generate_aes_key_sync]
+    throw new Error(`testSyncGenerateAesKey failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude generate_aes_key_sync]
   }
 }
 // [End generate_aes_key_sync]

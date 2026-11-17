@@ -17,6 +17,7 @@
 
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -69,9 +70,16 @@ async function main() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed.');
+      // [StartExclude encrypt_decrypt_chacha20_async]
+      throw new Error('decrypt failed.');
+      // [EndExclude encrypt_decrypt_chacha20_async]
     }
   } catch (error) {
-    console.error(`decrypt failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`decrypt failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude encrypt_decrypt_chacha20_async]
+    throw new Error(`decrypt failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude encrypt_decrypt_chacha20_async]
   }
 }
 
@@ -87,9 +95,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_chacha20_async'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            main();
+            await main();
             this.message = 'ChaCha20 Async Success';
           } catch {
             this.message = 'ChaCha20 Async Fail';

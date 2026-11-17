@@ -46,6 +46,9 @@ async function eccPointCompressedToPoint() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`eccPointCompressedToPoint failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude specify_ecc_uncompressed_point_get_keypair]
+    throw new Error(`eccPointCompressedToPoint failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude specify_ecc_uncompressed_point_get_keypair]
   }
 }
 // [End specify_ecc_uncompressed_point_get_keypair]

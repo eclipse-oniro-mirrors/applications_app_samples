@@ -34,7 +34,7 @@ let extData = new Uint8Array([
 ]);
 
 // 证书扩展示例
-function certExtensionSample(): void {
+async function certExtensionSample() {
   let textEncoder = new util.TextEncoder();
   let encodingBlob: cert.EncodingBlob = {
     data: extData,
@@ -42,32 +42,28 @@ function certExtensionSample(): void {
     encodingFormat: cert.EncodingFormat.FORMAT_DER
   };
 
-  // 创建一个证书扩展实例。
-  cert.createCertExtension(encodingBlob, (err, certExtension) => {
-    if (err != null) {
-      // 证书扩展实例创建失败。
-      console.error(`createCertExtension failed, errCode:${err.code}, errMsg:${err.message}`);
-      return;
-    }
+  try {
+    // 创建一个证书扩展实例。
+    let certExtension = await cert.createCertExtension(encodingBlob);
     // 证书扩展实例创建成功。
     console.info('createCertExtension result: success.');
-
-    try {
-      // 根据OID获取证书扩展信息。
-      let oidData = '2.5.29.14';
-      let oid: cert.DataBlob = {
-        data: textEncoder.encodeInto(oidData),
-      }
-      let entry = certExtension.getEntry(cert.ExtensionEntryType.EXTENSION_ENTRY_TYPE_ENTRY, oid);
-
-      // 检查证书是否为CA证书。
-      let pathLen = certExtension.checkCA();
-      console.info('checkCA result: success.');
-    } catch (err) {
-      let e: BusinessError = err as BusinessError;
-      console.error(`operation failed, errCode:${e.code}, errMsg:${e.message}`);
+    // 根据OID获取证书扩展信息。
+    let oidData = '2.5.29.14';
+    let oid: cert.DataBlob = {
+      data: textEncoder.encodeInto(oidData),
     }
-  });
+    let entry = certExtension.getEntry(cert.ExtensionEntryType.EXTENSION_ENTRY_TYPE_ENTRY, oid);
+
+    // 检查证书是否为CA证书。
+    let pathLen = certExtension.checkCA();
+    console.info('checkCA result: success.');
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`operation failed, errCode:${e.code}, errMsg:${e.message}`);
+    // [StartExclude create_parse_validate_certificate_extension_info_objects]
+    throw new Error(`operation failed, errCode:${e.code}, errMsg:${e.message}`);
+    // [EndExclude create_parse_validate_certificate_extension_info_objects]
+  }
 }
 
 
@@ -85,9 +81,9 @@ struct Index {
         .fontWeight(FontWeight.Bold)
       Button('Call CreateParseVerifyCertextensionObject')
         .width('70%')
-        .onClick(()=>{
+        .onClick(async ()=>{
           try {
-            certExtensionSample();
+            await certExtensionSample();
             this.message = 'Call Success';
           } catch {
             this.message = 'Call Fail';

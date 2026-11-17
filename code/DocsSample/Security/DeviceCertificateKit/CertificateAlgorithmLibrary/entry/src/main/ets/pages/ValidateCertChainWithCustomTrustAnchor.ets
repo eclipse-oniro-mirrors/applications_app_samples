@@ -93,6 +93,9 @@ async function createX509Cert(certData: string): Promise<cert.X509Cert> {
   } catch (error) {
     let e: BusinessError = error as BusinessError;
     console.error(`createX509Cert failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude certificate_chain_validation_with_custom_trust_anchor]
+    throw new Error(`createX509Cert failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude certificate_chain_validation_with_custom_trust_anchor]
   }
   return x509Cert;
 }
