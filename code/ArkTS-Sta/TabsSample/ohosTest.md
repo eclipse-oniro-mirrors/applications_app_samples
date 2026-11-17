@@ -110,7 +110,7 @@
 | tabAppVersionTest_add_contains_0 | 应用已启动 | 新增后查询 | 数据包含新增项 | 是 | 待执行 |
 | tabInterruptionRecovery 系列用例 | 操作中断 | 恢复执行 | 中断后可恢复到一致状态 | 是 | 待执行 |
 
-### 集成与其他（Integration/、Security/ 等，12 个套件，378 条）
+### 集成、安全与补充套件（Integration/、Security/ 等，12 个套件，378 条）
 
 | 测试功能 | 预置条件 | 输入 | 预期输出 | 是否自动 | 测试结果 |
 |---|---|---|---|---|---|
