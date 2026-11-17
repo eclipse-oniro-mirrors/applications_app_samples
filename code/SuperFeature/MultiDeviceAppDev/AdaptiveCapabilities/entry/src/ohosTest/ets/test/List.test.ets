@@ -13,8 +13,26 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test'
+import abilityTest from './Ability.test';
+import breakpointConcurrencySuite from './Core/BreakpointConcurrency.test';
+import breakpointItemInfoModelSuite from './Core/BreakpointItemInfoModel.test';
+import breakpointDialogStateManagerValidationSuite from './Validation/BreakpointDialogStateManagerValidation.test';
+import breakpointEventToolValidationSuite from './Validation/BreakpointEventToolValidation.test';
+import breakpointContentScalingSuite from './Interaction/BreakpointContentScaling.test';
+import breakpointTouchInteractionSuite from './Interaction/BreakpointTouchInteraction.test';
+import breakpointDeviceCompatibilitySuite from './Integration/BreakpointDeviceCompatibility.test';
+import breakpointResourceManagementSuite from './LifecycleState/BreakpointResourceManagement.test';
+import breakpointPowerConsumptionSuite from './PerformanceStability/BreakpointPowerConsumption.test';
 
 export default function testsuite() {
-  abilityTest()
+  abilityTest();
+  breakpointConcurrencySuite();
+  breakpointItemInfoModelSuite();
+  breakpointDialogStateManagerValidationSuite();
+  breakpointEventToolValidationSuite();
+  breakpointContentScalingSuite();
+  breakpointTouchInteractionSuite();
+  breakpointDeviceCompatibilitySuite();
+  breakpointResourceManagementSuite();
+  breakpointPowerConsumptionSuite();
 }
