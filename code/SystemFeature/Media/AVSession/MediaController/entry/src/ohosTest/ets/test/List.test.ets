@@ -38,6 +38,16 @@ import mediaControllerSafePart02Test from './MediaControllerSafePart02.test'
 import mediaControllerSafePart03Test from './MediaControllerSafePart03.test'
 import mediaControllerSafePart04Test from './MediaControllerSafePart04.test'
 
+import mediaControllerVolumePart01Test from './MediaControllerVolumePart01.test';
+import mediaControllerVolumePart02Test from './MediaControllerVolumePart02.test';
+import mediaControllerVolumePart03Test from './MediaControllerVolumePart03.test';
+import mediaControllerVolumePart04Test from './MediaControllerVolumePart04.test';
+import mediaControllerVolumePart05Test from './MediaControllerVolumePart05.test';
+import mediaControllerVolumePart06Test from './MediaControllerVolumePart06.test';
+import mediaControllerVolumePart07Test from './MediaControllerVolumePart07.test';
+import mediaControllerVolumePart08Test from './MediaControllerVolumePart08.test';
+import mediaControllerVolumePart09Test from './MediaControllerVolumePart09.test';
+
 export default function testsuite() {
   abilityTest()
   mediaControllerContractTest()
@@ -63,4 +73,13 @@ export default function testsuite() {
   mediaControllerSafePart02Test()
   mediaControllerSafePart03Test()
   mediaControllerSafePart04Test()
+  mediaControllerVolumePart01Test();
+  mediaControllerVolumePart02Test();
+  mediaControllerVolumePart03Test();
+  mediaControllerVolumePart04Test();
+  mediaControllerVolumePart05Test();
+  mediaControllerVolumePart06Test();
+  mediaControllerVolumePart07Test();
+  mediaControllerVolumePart08Test();
+  mediaControllerVolumePart09Test();
 }
