@@ -12,10 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
+const TAG: string = 'AvoidWindowTitleButton_Layout';
+const DOMAIN: number = 0xF811;
 const DELAY_UI_READY: number = 1000;
 const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
@@ -41,13 +44,15 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_001', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_001 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const title = await driver.findComponent(ON.text('Top layout area, do not hide the title bar.'));
       const rect = await title.getBounds();
       expect((rect.right - rect.left) > 0).assertTrue();
       expect((rect.bottom - rect.top) > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_001 end');
       done();
     });
 
@@ -59,13 +64,15 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_002', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_002 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const btn = await driver.findComponent(ON.text('hide the title bar and avoid the three buttons.'));
       const rect = await btn.getBounds();
       expect((rect.right - rect.left) > 0).assertTrue();
       expect((rect.bottom - rect.top) > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_002 end');
       done();
     });
 
@@ -77,13 +84,15 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_003', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_003 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const btn = await driver.findComponent(ON.text('do not hide the title bar.'));
       const rect = await btn.getBounds();
       expect((rect.right - rect.left) > 0).assertTrue();
       expect((rect.bottom - rect.top) > 0).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_003 end');
       done();
     });
 
@@ -95,7 +104,8 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_004', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_004 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const btn = await driver.findComponent(ON.text('hide the title bar and avoid the three buttons.'));
@@ -105,6 +115,7 @@ export default function avoidWindowTitleButtonLayoutTest() {
       }
       await driver.delayMs(DELAY_UI_READY);
       await driver.assertComponentExist(ON.text('Top layout area, hide the title bar and avoid the three buttons.'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_004 end');
       done();
     });
 
@@ -116,7 +127,8 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_005', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_005 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const hide = await driver.findComponent(ON.text('hide the title bar and avoid the three buttons.'));
@@ -129,6 +141,7 @@ export default function avoidWindowTitleButtonLayoutTest() {
       }
       await driver.delayMs(DELAY_UI_READY);
       await driver.assertComponentExist(ON.text('Top layout area, do not hide the title bar.'));
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_005 end');
       done();
     });
 
@@ -140,7 +153,8 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_006', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_006 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       for (let i: number = 0; i < 3; i++) {
@@ -149,6 +163,7 @@ export default function avoidWindowTitleButtonLayoutTest() {
       }
       const name = await getTopAbilityName();
       expect(name).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_006 end');
       done();
     });
 
@@ -160,7 +175,8 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_007', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_007 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const hide = await driver.findComponent(ON.text('hide the title bar and avoid the three buttons.'));
@@ -169,6 +185,7 @@ export default function avoidWindowTitleButtonLayoutTest() {
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       expect(await getTopAbilityName()).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_007 end');
       done();
     });
 
@@ -180,7 +197,8 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_008', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_008 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const show = await driver.findComponent(ON.text('do not hide the title bar.'));
@@ -189,6 +207,7 @@ export default function avoidWindowTitleButtonLayoutTest() {
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       expect(await getTopAbilityName()).assertEqual('EntryAbility');
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_008 end');
       done();
     });
 
@@ -200,7 +219,8 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_009', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_009 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const hide = await driver.findComponent(ON.text('hide the title bar and avoid the three buttons.'));
@@ -210,6 +230,7 @@ export default function avoidWindowTitleButtonLayoutTest() {
       expect(show !== undefined && show !== null).assertTrue();
       await show.click();
       await driver.delayMs(300);
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_009 end');
       done();
     });
 
@@ -221,7 +242,8 @@ export default function avoidWindowTitleButtonLayoutTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_layout_010', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_layout_010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_010 begin');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
       const show = await driver.findComponent(ON.text('do not hide the title bar.'));
@@ -229,6 +251,7 @@ export default function avoidWindowTitleButtonLayoutTest() {
       await driver.delayMs(DELAY_UI_READY);
       const title = await driver.findComponent(ON.text('Top layout area, do not hide the title bar.'));
       expect(title !== undefined && title !== null).assertTrue();
+      hilog.info(DOMAIN, TAG, '%{public}s', 'AvoidWindowTitleButton_layout_010 end');
       done();
     });
   })

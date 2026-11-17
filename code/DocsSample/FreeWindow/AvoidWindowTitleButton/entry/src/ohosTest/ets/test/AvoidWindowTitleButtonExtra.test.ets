@@ -12,13 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, it, expect } from '@ohos/hypium';
+import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { abilityDelegatorRegistry, Driver, ON } from '@kit.TestKit';
 import { UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const TAG: string = 'AvoidWindowTitleButton_Extra';
-const DOMAIN: number = 0x0000;
+const DOMAIN: number = 0xF811;
 const DELAY_UI_READY: number = 1000;
 const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 const bundleName: string = abilityDelegatorRegistry.getArguments().bundleName;
@@ -44,7 +44,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_001', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_001 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -61,7 +61,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_002', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_002 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -78,7 +78,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_003', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_003 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -95,7 +95,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_004', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_004', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_004 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -116,7 +116,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_005', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_005', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_005 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -139,7 +139,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_006', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_006', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_006 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -161,7 +161,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_007', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_007', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_007 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -183,7 +183,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_008', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_008', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_008 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -208,7 +208,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_009', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_009 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);
@@ -234,7 +234,7 @@ export default function avoidWindowTitleButtonExtraTest() {
      * @tc.size   MEDIUMTEST
      * @tc.level  LEVEL2
      */
-    it('AvoidWindowTitleButton_extra_010', 0, async (done: Function) => {
+    it('AvoidWindowTitleButton_extra_010', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (done: Function) => {
       hilog.info(DOMAIN, TAG, 'extra_010 start');
       await launchEntryAbility();
       await driver.delayMs(DELAY_UI_READY);

@@ -39,7 +39,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        // 接口成功时返回原始文件名，失败时返回错误码
+        // Returns the original file name on success, or an error code on failure
         const result: string | number = testNapi.GetOriginalFileName();
         this.message = result.toString();
       })
@@ -48,7 +48,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        // 接口成功时返回沙箱状态，失败时返回错误码
+        // Returns the sandbox state on success, or an error code on failure
         const result: boolean | number = testNapi.IsInSandbox();
         this.message = result.toString();
       })
@@ -65,7 +65,7 @@ struct CApiTest {
       .height(40)
       .margin(20)
       .onClick(() => {
-        // 接口成功时返回配置信息，失败时返回错误码
+        // Returns the config info on success, or an error code on failure
         const result: string | number = testNapi.GetSandboxAppConfig();
         this.message = result.toString();
       })

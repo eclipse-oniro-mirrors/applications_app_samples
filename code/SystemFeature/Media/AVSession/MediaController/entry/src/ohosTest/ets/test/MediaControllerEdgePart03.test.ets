@@ -14,7 +14,7 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
-import AVSessionManager from '@ohos.multimedia.avsession';
+import { avSession as AVSessionManager } from '@kit.AVSessionKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
@@ -1373,7 +1373,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0281 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_PREPARE;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SINGLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_PREPARE);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SINGLE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0281 end');
@@ -1390,7 +1390,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0282 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_PLAY;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_LIST;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_PLAY);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_LIST);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0282 end');
@@ -1407,7 +1407,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0283 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_PAUSE;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_PAUSE);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0283 end');
@@ -1424,7 +1424,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0284 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_STOP;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_CUSTOM;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_STOP);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_CUSTOM);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0284 end');
@@ -1441,7 +1441,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0285 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_COMPLETED;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_COMPLETED);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0285 end');
@@ -1458,7 +1458,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0286 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_RELEASED;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SINGLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_RELEASED);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SINGLE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0286 end');
@@ -1475,7 +1475,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0287 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_ERROR;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_LIST;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_ERROR);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_LIST);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0287 end');
@@ -1492,7 +1492,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0288 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_IDLE;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_IDLE);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0288 end');
@@ -1509,7 +1509,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0289 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_BUFFERING;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_CUSTOM;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_BUFFERING);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_CUSTOM);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0289 end');
@@ -1526,7 +1526,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0290 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_INITIAL;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_INITIAL);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0290 end');
@@ -1543,7 +1543,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0291 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_PREPARE;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SINGLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_PREPARE);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SINGLE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0291 end');
@@ -1560,7 +1560,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0292 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_PLAY;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_LIST;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_PLAY);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_LIST);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0292 end');
@@ -1577,7 +1577,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0293 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_PAUSE;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_PAUSE);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0293 end');
@@ -1594,7 +1594,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0294 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_STOP;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_CUSTOM;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_STOP);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_CUSTOM);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0294 end');
@@ -1611,7 +1611,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0295 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_COMPLETED;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_COMPLETED);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0295 end');
@@ -1628,7 +1628,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0296 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_RELEASED;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SINGLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_RELEASED);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SINGLE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0296 end');
@@ -1645,7 +1645,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0297 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_ERROR;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_LIST;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_ERROR);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_LIST);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0297 end');
@@ -1662,7 +1662,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0298 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_IDLE;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_IDLE);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SHUFFLE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0298 end');
@@ -1679,7 +1679,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0299 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_BUFFERING;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_CUSTOM;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_BUFFERING);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_CUSTOM);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0299 end');
@@ -1696,7 +1696,7 @@ export default function mediaControllerEdgeTestPart03() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0300 begin');
       const state: AVSessionManager.PlaybackState = AVSessionManager.PlaybackState.PLAYBACK_STATE_INITIAL;
       const mode: AVSessionManager.LoopMode = AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE;
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=%%{public}d', state, state);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=%{public}d', state, state);
       expect(state).assertEqual(AVSessionManager.PlaybackState.PLAYBACK_STATE_INITIAL);
       expect(mode).assertEqual(AVSessionManager.LoopMode.LOOP_MODE_SEQUENCE);
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.mediacontroller_Edge_0300 end');

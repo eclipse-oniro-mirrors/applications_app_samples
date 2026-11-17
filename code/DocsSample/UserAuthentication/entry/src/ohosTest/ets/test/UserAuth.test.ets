@@ -14,21 +14,20 @@
  */
 
 import { beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Component, Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
 const BUNDLE: string = 'com.example.userauth';
 const ABILITY: string = 'EntryAbility';
 const TAG: string = 'UserAuthTest';
-const DOMAIN: number = 0xF816;
+const DOMAIN: number = 0xF811;
 
 const TAB_IDS: string[] = [
   'queryCapability', 'exampleTab1', 'exampleTab2', 'exampleTab3', 'exampleTab5',
   'exampleTab4', 'credentialQueries', 'simulationValidation', 'queryAuthLockState', 'userRecognition'
 ];
 
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 function log(message: string): void {
   hilog.info(DOMAIN, TAG, '%{public}s', message);

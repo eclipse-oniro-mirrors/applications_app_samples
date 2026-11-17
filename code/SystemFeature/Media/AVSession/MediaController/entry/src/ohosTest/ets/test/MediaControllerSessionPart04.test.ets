@@ -14,7 +14,7 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
-import AVSessionManager from '@ohos.multimedia.avsession';
+import { avSession as AVSessionManager } from '@kit.AVSessionKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
@@ -42,7 +42,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-024-08', 2408);
       map.set('bulk-024-09', 2409);
       map.set('bulk-024-10', 2410);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-024-10')).assertEqual(2410);
       map.delete('bulk-024-10');
@@ -72,7 +72,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-025-08', 2508);
       map.set('bulk-025-09', 2509);
       map.set('bulk-025-10', 2510);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-025-10')).assertEqual(2510);
       map.delete('bulk-025-10');
@@ -102,7 +102,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-026-08', 2608);
       map.set('bulk-026-09', 2609);
       map.set('bulk-026-10', 2610);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-026-10')).assertEqual(2610);
       map.delete('bulk-026-10');
@@ -132,7 +132,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-027-08', 2708);
       map.set('bulk-027-09', 2709);
       map.set('bulk-027-10', 2710);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-027-10')).assertEqual(2710);
       map.delete('bulk-027-10');
@@ -162,7 +162,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-028-08', 2808);
       map.set('bulk-028-09', 2809);
       map.set('bulk-028-10', 2810);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-028-10')).assertEqual(2810);
       map.delete('bulk-028-10');
@@ -192,7 +192,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-029-08', 2908);
       map.set('bulk-029-09', 2909);
       map.set('bulk-029-10', 2910);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-029-10')).assertEqual(2910);
       map.delete('bulk-029-10');
@@ -222,7 +222,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-030-08', 3008);
       map.set('bulk-030-09', 3009);
       map.set('bulk-030-10', 3010);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-030-10')).assertEqual(3010);
       map.delete('bulk-030-10');
@@ -252,7 +252,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-031-08', 3108);
       map.set('bulk-031-09', 3109);
       map.set('bulk-031-10', 3110);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-031-10')).assertEqual(3110);
       map.delete('bulk-031-10');
@@ -282,7 +282,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-032-08', 3208);
       map.set('bulk-032-09', 3209);
       map.set('bulk-032-10', 3210);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-032-10')).assertEqual(3210);
       map.delete('bulk-032-10');
@@ -312,7 +312,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-033-08', 3308);
       map.set('bulk-033-09', 3309);
       map.set('bulk-033-10', 3310);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-033-10')).assertEqual(3310);
       map.delete('bulk-033-10');
@@ -342,7 +342,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-034-08', 3408);
       map.set('bulk-034-09', 3409);
       map.set('bulk-034-10', 3410);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-034-10')).assertEqual(3410);
       map.delete('bulk-034-10');
@@ -372,7 +372,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-035-08', 3508);
       map.set('bulk-035-09', 3509);
       map.set('bulk-035-10', 3510);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-035-10')).assertEqual(3510);
       map.delete('bulk-035-10');
@@ -402,7 +402,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-036-08', 3608);
       map.set('bulk-036-09', 3609);
       map.set('bulk-036-10', 3610);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-036-10')).assertEqual(3610);
       map.delete('bulk-036-10');
@@ -432,7 +432,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-037-08', 3708);
       map.set('bulk-037-09', 3709);
       map.set('bulk-037-10', 3710);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-037-10')).assertEqual(3710);
       map.delete('bulk-037-10');
@@ -462,7 +462,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-038-08', 3808);
       map.set('bulk-038-09', 3809);
       map.set('bulk-038-10', 3810);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-038-10')).assertEqual(3810);
       map.delete('bulk-038-10');
@@ -492,7 +492,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-039-08', 3908);
       map.set('bulk-039-09', 3909);
       map.set('bulk-039-10', 3910);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-039-10')).assertEqual(3910);
       map.delete('bulk-039-10');
@@ -522,7 +522,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-040-08', 4008);
       map.set('bulk-040-09', 4009);
       map.set('bulk-040-10', 4010);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-040-10')).assertEqual(4010);
       map.delete('bulk-040-10');
@@ -552,7 +552,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-041-08', 4108);
       map.set('bulk-041-09', 4109);
       map.set('bulk-041-10', 4110);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-041-10')).assertEqual(4110);
       map.delete('bulk-041-10');
@@ -582,7 +582,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-042-08', 4208);
       map.set('bulk-042-09', 4209);
       map.set('bulk-042-10', 4210);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-042-10')).assertEqual(4210);
       map.delete('bulk-042-10');
@@ -612,7 +612,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-043-08', 4308);
       map.set('bulk-043-09', 4309);
       map.set('bulk-043-10', 4310);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-043-10')).assertEqual(4310);
       map.delete('bulk-043-10');
@@ -642,7 +642,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-044-08', 4408);
       map.set('bulk-044-09', 4409);
       map.set('bulk-044-10', 4410);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-044-10')).assertEqual(4410);
       map.delete('bulk-044-10');
@@ -672,7 +672,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-045-08', 4508);
       map.set('bulk-045-09', 4509);
       map.set('bulk-045-10', 4510);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-045-10')).assertEqual(4510);
       map.delete('bulk-045-10');
@@ -702,7 +702,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-046-08', 4608);
       map.set('bulk-046-09', 4609);
       map.set('bulk-046-10', 4610);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-046-10')).assertEqual(4610);
       map.delete('bulk-046-10');
@@ -732,7 +732,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-047-08', 4708);
       map.set('bulk-047-09', 4709);
       map.set('bulk-047-10', 4710);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-047-10')).assertEqual(4710);
       map.delete('bulk-047-10');
@@ -762,7 +762,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-048-08', 4808);
       map.set('bulk-048-09', 4809);
       map.set('bulk-048-10', 4810);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-048-10')).assertEqual(4810);
       map.delete('bulk-048-10');
@@ -792,7 +792,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-049-08', 4908);
       map.set('bulk-049-09', 4909);
       map.set('bulk-049-10', 4910);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-049-10')).assertEqual(4910);
       map.delete('bulk-049-10');
@@ -822,7 +822,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-050-08', 5008);
       map.set('bulk-050-09', 5009);
       map.set('bulk-050-10', 5010);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-050-10')).assertEqual(5010);
       map.delete('bulk-050-10');
@@ -852,7 +852,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-051-08', 5108);
       map.set('bulk-051-09', 5109);
       map.set('bulk-051-10', 5110);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-051-10')).assertEqual(5110);
       map.delete('bulk-051-10');
@@ -882,7 +882,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-052-08', 5208);
       map.set('bulk-052-09', 5209);
       map.set('bulk-052-10', 5210);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-052-10')).assertEqual(5210);
       map.delete('bulk-052-10');
@@ -912,7 +912,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-053-08', 5308);
       map.set('bulk-053-09', 5309);
       map.set('bulk-053-10', 5310);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-053-10')).assertEqual(5310);
       map.delete('bulk-053-10');
@@ -942,7 +942,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-054-08', 5408);
       map.set('bulk-054-09', 5409);
       map.set('bulk-054-10', 5410);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-054-10')).assertEqual(5410);
       map.delete('bulk-054-10');
@@ -972,7 +972,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-055-08', 5508);
       map.set('bulk-055-09', 5509);
       map.set('bulk-055-10', 5510);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-055-10')).assertEqual(5510);
       map.delete('bulk-055-10');
@@ -1002,7 +1002,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-056-08', 5608);
       map.set('bulk-056-09', 5609);
       map.set('bulk-056-10', 5610);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-056-10')).assertEqual(5610);
       map.delete('bulk-056-10');
@@ -1032,7 +1032,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-057-08', 5708);
       map.set('bulk-057-09', 5709);
       map.set('bulk-057-10', 5710);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-057-10')).assertEqual(5710);
       map.delete('bulk-057-10');
@@ -1062,7 +1062,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-058-08', 5808);
       map.set('bulk-058-09', 5809);
       map.set('bulk-058-10', 5810);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-058-10')).assertEqual(5810);
       map.delete('bulk-058-10');
@@ -1092,7 +1092,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-059-08', 5908);
       map.set('bulk-059-09', 5909);
       map.set('bulk-059-10', 5910);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-059-10')).assertEqual(5910);
       map.delete('bulk-059-10');
@@ -1122,7 +1122,7 @@ export default function mediaControllerSessionTestPart04() {
       map.set('bulk-060-08', 6008);
       map.set('bulk-060-09', 6009);
       map.set('bulk-060-10', 6010);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=10', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=10', map.size);
       expect(map.size).assertEqual(10);
       expect(map.get('bulk-060-10')).assertEqual(6010);
       map.delete('bulk-060-10');

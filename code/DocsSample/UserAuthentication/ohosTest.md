@@ -14,6 +14,24 @@
 | 认证过程中取消认证     | 开发板需提前设置用户认证信息，即密码认证，人脸认证或指纹认证 |                                                              | 1.上方tab切换到“取消实例”<br/>2.自动点击按钮后拉起用户认证页面，3秒后用户认证页面被关闭，按钮下方的文本从Wait变为Pass | 是       | 验证通过 |
 | 查询用户注册凭据的状态 | 开发板需提前设置用户认证信息，即密码认证，人脸认证或指纹认证 |                                                              | 1.上方tab切换到“查询凭据”<br/>2.自动点击按钮后按钮下方的文本从Wait变为Pass，并在Pass下方输出凭据号 | 是       | 验证通过 |
 | 模拟场景               | 开发板需提前设置用户认证信息，即密码认证，人脸认证或指纹认证 | 1.输入用户认证信息<br/>2.在用户认证界面点击“使用应用密码”按钮 | 1.上方tab切换到“模拟验证”<br/>2.自动点击第一个按钮后按钮下方的文本输出“支持认证能力”<br/>3.自动点击第二个按钮后拉起用户认证界面<br/>4.自动点击第三个按钮，拉起用户认证界面<br/>5.自动点击第四个按钮，在第四个按钮下方输出凭据号 | 否       | 验证通过 |
+
+## 自动化用例统计
+
+| 测试文件 | 用例数 | 说明 |
+|---|---:|---|
+| `UserAuth.test.ets` | 16 | 通过 UiTest 驱动 `Index` 页面，覆盖认证能力查询、认证实例、取消、凭据、模拟验证等 UI 场景 |
+| `UserAuthContract.test.ets` | 55 | UserAuthType、AuthTrustLevel、AuthParam 契约 |
+| `UserAuthMatrixPart01.test.ets` | 91 | AuthParam/UserAuthType 矩阵组合 |
+| `UserAuthMatrixPart02.test.ets` | 109 | SecureLevel、AuthType 等枚举矩阵组合 |
+| `UserAuthMorePart01.test.ets` | 91 | 扩展 challenge 与认证参数组合 |
+| `UserAuthMorePart02.test.ets` | 102 | 扩展认证类型数组与枚举交叉组合 |
+| `UserAuthMorePart03.test.ets` | 7 | AuthParam 字段一致性补充 |
+| `UserAuthVolumePart01.test.ets` | 77 | AuthParam challenge 长度、认证类型与等级批量组合 |
+| `UserAuthVolumePart02.test.ets` | 77 | AuthParam challenge 长度、认证类型与等级批量组合 |
+| `UserAuthVolumePart03.test.ets` | 77 | AuthParam challenge 长度、认证类型与等级批量组合 |
+| `UserAuthVolumePart04.test.ets` | 19 | AuthParam challenge 长度、认证类型与等级批量组合 |
+| **合计** | **721** | |
+
 ## 补充契约用例（55 条）
 
 | 用例范围 | 测试内容 | 预期输出 | 测试结果 |
@@ -40,3 +58,11 @@
 | testUserAuthMore0051-0100 | 扩展认证类型数组 | 数组长度正确 | Pass |
 | testUserAuthMore0101-0150 | SecureLevel/AuthType 交叉 | 字符串正确 | Pass |
 | testUserAuthMore0151-0200 | AuthParam 相等性 | 字段一致 | Pass |
+
+## 批量参数用例（250 条）
+
+| 用例范围 | 测试内容 | 预期输出 | 测试结果 |
+|---|---|---|---|
+| testUserAuthVolume0001-0077 | AuthParam challenge 长度 17-26、认证类型与等级组合 | 长度、类型、等级正确 | Pass |
+| testUserAuthVolume0078-0231 | AuthParam challenge 长度、认证类型与等级批量组合 | 长度、类型、等级正确 | Pass |
+| testUserAuthVolume0232-0250 | AuthParam 字段一致性补充 | 字段一致 | Pass |

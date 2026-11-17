@@ -14,9 +14,8 @@
  */
 
 import { afterAll, beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Component, Driver, ON } from '@ohos.UiTest';
-import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import AVSessionManager from '@ohos.multimedia.avsession';
+import { Component, Driver, ON, abilityDelegatorRegistry } from '@kit.TestKit';
+import { avSession as AVSessionManager } from '@kit.AVSessionKit';
 import { getTestAbilityContext } from '../testability/AbilityContextStore';
 import Log from './Logger';
 
@@ -29,7 +28,7 @@ const LYRIC_LINE: string = 'Test lyric line';
 const TRACKS: string[] = ['Track One', 'Track Two', 'Track Three'];
 const ARTISTS: string[] = ['Artist One', 'Artist Two', 'Artist Three'];
 
-const delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const delegator = abilityDelegatorRegistry.getAbilityDelegator();
 let driver: Driver = Driver.create();
 let provider: AVSessionManager.AVSession | undefined = undefined;
 let currentIndex: number = 0;

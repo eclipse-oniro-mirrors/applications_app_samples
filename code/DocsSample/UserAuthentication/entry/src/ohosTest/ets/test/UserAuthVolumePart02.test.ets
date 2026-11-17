@@ -16,7 +16,7 @@
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import { userAuth } from '@kit.UserAuthenticationKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-const LOG_DOMAIN: number = 0xF816;
+const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 
 export default function userAuthVolumeTestPart02() {

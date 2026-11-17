@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import common from '@ohos.app.ability.common';
+import { common } from '@kit.AbilityKit';
 
 let testAbilityContext: common.UIAbilityContext | undefined = undefined;
 

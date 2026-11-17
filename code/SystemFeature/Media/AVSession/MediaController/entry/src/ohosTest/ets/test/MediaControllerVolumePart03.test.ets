@@ -14,7 +14,7 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
-import AVSessionManager from '@ohos.multimedia.avsession';
+import { avSession as AVSessionManager } from '@kit.AVSessionKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';

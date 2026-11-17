@@ -1,31 +1,31 @@
 # DLPCApiTest 测试用例归档
 
-用例位于 `entry/src/ohosTest`，共六个测试文件 278 条用例。编号规则：`@tc.name` 后缀四位数字按文件内顺序从 0001 起步长 1，`@tc.number` 四位数字在每个文件内从 0100 起步长 100，`@tc.desc` 为英文描述。
+用例位于 `entry/src/ohosTest`，共十个测试文件 578 条用例。编号规则：`@tc.name` 后缀四位数字按文件内顺序从 0001 开始逐 1 递增；`@tc.number` 前缀按文件区分（`SUB_DLP_C_API_ABILITY_`、`SUB_DLP_C_API_DLPSANDBOX_`、`SUB_DLP_C_API_CONTRACT_`、`SUB_DLP_C_API_READONLY_`、`SUB_DLP_C_API_STATE_`、`SUB_DLP_C_API_FINAL_`、`SUB_DLP_C_API_VOLUME_`），序号按文件内顺序递增；`@tc.desc` 为英文描述。
 
 执行方式：DevEco Studio 中选中 entry 模块右键 `Run 'test'`，或命令行 `hvigorw --mode module -p module=entry@ohosTest -p product=default test`。
 
-## 一、Ability.test.ets（应用信息与 native 库导出）
+## 一、Ability.test.ets（应用信息与 native 库导出，4 条）
 
 | 用例编号 | 用例名 | 预置条件 | 测试点 | 预期输出 | 测试结果 |
 |:---:|---|---|---|---|:---:|
-| SUB_DLP_C_API_0100 | testAppContext0001 | 测试进程已启动 | 应用上下文、资源管理器可用，应用名与包名一致 | 断言通过 | Pass |
-| SUB_DLP_C_API_0200 | testBundleInfo0002 | 应用已安装 | 包名、versionName、versionCode 与 app.json5 一致 | 断言通过 | Pass |
-| SUB_DLP_C_API_0300 | testNapiExported0003 | native 库已编译打包 | libentry.so 导出 6 个 CAPI 封装函数 | 6 个均为 function 类型 | Pass |
-| SUB_DLP_C_API_0400 | testStartEntryAbility0004 | 应用已安装 | 入口 Ability 可被正常拉起 | startAbility 回调无错误 | Pass |
+| SUB_DLP_C_API_ABILITY_0100 | testAppContext0001 | 测试进程已启动 | 应用上下文、资源管理器可用，应用名与包名一致 | 断言通过 | Pass |
+| SUB_DLP_C_API_ABILITY_0200 | testBundleInfo0001 | 应用已安装 | 包名、versionName、versionCode 与 app.json5 一致 | 断言通过 | Pass |
+| SUB_DLP_C_API_ABILITY_0300 | testNapiExported0001 | native 库已编译打包 | libentry.so 导出 6 个 CAPI 封装函数 | 6 个均为 function 类型 | Pass |
+| SUB_DLP_C_API_ABILITY_0400 | testStartEntryAbility0001 | 应用已安装 | 入口 Ability 可被正常拉起 | startAbility 回调无错误 | Pass |
 
-## 二、DlpSandbox.test.ets（DLP CAPI 行为）
+## 二、DlpSandbox.test.ets（DLP CAPI 行为，9 条）
 
 | 用例编号 | 用例名 | 预置条件 | 测试点 | 预期输出 | 测试结果 |
 |:---:|---|---|---|---|:---:|
-| SUB_DLP_C_API_0100 | testGetDlpPermissionInfo0001 | 应用处于非 DLP 沙箱环境 | OH_DLP_GetDlpPermissionInfo 返回值 | 返回 19100006 | Pass |
-| SUB_DLP_C_API_0200 | testGetDlpPermissionInfoRepeat0002 | 同上 | 重复调用的结果稳定性 | 两次返回值相同 | Pass |
-| SUB_DLP_C_API_0300 | testGetOriginalFileName0003 | 设备正常运行 | OH_DLP_GetOriginalFileName 对 test.txt.dlp 的处理 | 返回 test.txt | Pass |
-| SUB_DLP_C_API_0400 | testGetOriginalFileNameRepeat0004 | 同上 | 重复调用的结果稳定性 | 两次返回值相同且为 test.txt | Pass |
-| SUB_DLP_C_API_0500 | testIsInSandbox0005 | 应用处于非 DLP 沙箱环境 | OH_DLP_IsInSandbox 返回值类型与内容 | 返回 boolean false | Pass |
-| SUB_DLP_C_API_0600 | testIsInSandboxRepeat0006 | 同上 | 重复调用的沙箱状态一致性 | 两次返回值相同 | Pass |
-| SUB_DLP_C_API_0700 | testSetSandboxAppConfig0007 | 设备正常运行 | OH_DLP_SetSandboxAppConfig 设置配置信息 | 返回 0 | Pass |
-| SUB_DLP_C_API_0800 | testGetSandboxAppConfig0008 | 设备正常运行 | 设置后读取沙箱应用配置信息 | 返回 configInfo | Pass |
-| SUB_DLP_C_API_0900 | testSandboxAppConfigLifecycle0009 | 设备正常运行 | 设置-读取-清理的完整生命周期 | 设置 0、读取 configInfo、清理 0、清理后不可读到 configInfo | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0100 | testGetDlpPermissionInfo0001 | 应用处于非 DLP 沙箱环境 | OH_DLP_GetDlpPermissionInfo 返回值 | 返回 19100006 | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0200 | testGetDlpPermissionInfoRepeat0001 | 同上 | 重复调用的结果稳定性 | 两次返回值相同 | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0300 | testGetOriginalFileName0001 | 设备正常运行 | OH_DLP_GetOriginalFileName 对 test.txt.dlp 的处理 | 返回 test.txt | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0400 | testGetOriginalFileNameRepeat0001 | 同上 | 重复调用的结果稳定性 | 两次返回值相同且为 test.txt | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0500 | testIsInSandbox0001 | 应用处于非 DLP 沙箱环境 | OH_DLP_IsInSandbox 返回值类型与内容 | 返回 boolean false | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0600 | testIsInSandboxRepeat0001 | 同上 | 重复调用的沙箱状态一致性 | 两次返回值相同 | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0700 | testSetSandboxAppConfig0001 | 设备正常运行 | OH_DLP_SetSandboxAppConfig 设置配置信息 | 返回 0 | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0800 | testGetSandboxAppConfig0001 | 设备正常运行 | 设置后读取沙箱应用配置信息 | 返回 configInfo | Pass |
+| SUB_DLP_C_API_DLPSANDBOX_0900 | testSandboxAppConfigLifecycle0001 | 设备正常运行 | 设置-读取-清理的完整生命周期 | 设置 0、读取 configInfo、清理 0、清理后不可读到 configInfo | Pass |
 
 ## 三、手工 UI 用例
 
@@ -50,8 +50,7 @@
 | testDlpContract0116-0145 | 配置设置/读取/清理压力循环 | 每轮均成功且清理后不可读 | Pass |
 | testDlpContract0146-0165 | 六个 API 返回类型校验 | number/string/boolean 类型正确 | Pass |
 
-
-## 六、DlpApiReadOnly.test.ets（120 条）
+## 五、DlpApiReadOnly.test.ets（DlpApiReadOnlyPart01/02，120 条）
 
 | 用例范围 | 测试内容 | 预期输出 | 测试结果 |
 |---|---|---|---|
@@ -59,7 +58,7 @@
 | testDlpReadOnly0041-0080 | GetOriginalFileName 2-41 次只读重复 | 始终返回 test.txt | Pass |
 | testDlpReadOnly0081-0120 | IsInSandbox 2-41 次只读重复 | 始终返回 false | Pass |
 
-## 七、DlpApiState.test.ets（30 条）
+## 六、DlpApiState.test.ets（30 条）
 
 | 用例范围 | 测试内容 | 预期输出 | 测试结果 |
 |---|---|---|---|
@@ -67,7 +66,7 @@
 | testDlpState0011-0020 | Clean 后读取 | 不再返回 configInfo | Pass |
 | testDlpState0021-0030 | 配置与三个只读 API 混合 | 各接口返回值稳定 | Pass |
 
-## 八、DlpApiFinal.test.ets（20 条）
+## 七、DlpApiFinal.test.ets（20 条）
 
 | 用例范围 | 测试内容 | 预期输出 | 测试结果 |
 |---|---|---|---|
@@ -76,7 +75,7 @@
 | testDlpFinal0011-0015 | 三个只读 API 组合 | 19100006 / test.txt / false | Pass |
 | testDlpFinal0016-0020 | 配置设置到清理 | 清理后不可读 | Pass |
 
-## 批量只读用例（300 条）
+## 八、DlpApiVolume.test.ets（DlpApiVolumePart01/02/03，300 条）
 
 | 用例范围 | 测试内容 | 预期输出 | 测试结果 |
 |---|---|---|---|

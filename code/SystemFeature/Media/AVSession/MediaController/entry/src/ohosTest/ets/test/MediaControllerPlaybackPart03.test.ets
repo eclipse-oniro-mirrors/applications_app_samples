@@ -14,7 +14,7 @@
  */
 
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
-import AVSessionManager from '@ohos.multimedia.avsession';
+import { avSession as AVSessionManager } from '@kit.AVSessionKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
@@ -904,7 +904,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-001-03', 13);
       map.set('playback-001-04', 14);
       map.set('playback-001-05', 15);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-001-05')).assertEqual(15);
       map.delete('playback-001-01');
@@ -927,7 +927,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-002-03', 23);
       map.set('playback-002-04', 24);
       map.set('playback-002-05', 25);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-002-05')).assertEqual(25);
       map.delete('playback-002-01');
@@ -950,7 +950,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-003-03', 33);
       map.set('playback-003-04', 34);
       map.set('playback-003-05', 35);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-003-05')).assertEqual(35);
       map.delete('playback-003-01');
@@ -973,7 +973,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-004-03', 43);
       map.set('playback-004-04', 44);
       map.set('playback-004-05', 45);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-004-05')).assertEqual(45);
       map.delete('playback-004-01');
@@ -996,7 +996,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-005-03', 53);
       map.set('playback-005-04', 54);
       map.set('playback-005-05', 55);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-005-05')).assertEqual(55);
       map.delete('playback-005-01');
@@ -1019,7 +1019,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-006-03', 63);
       map.set('playback-006-04', 64);
       map.set('playback-006-05', 65);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-006-05')).assertEqual(65);
       map.delete('playback-006-01');
@@ -1042,7 +1042,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-007-03', 73);
       map.set('playback-007-04', 74);
       map.set('playback-007-05', 75);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-007-05')).assertEqual(75);
       map.delete('playback-007-01');
@@ -1065,7 +1065,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-008-03', 83);
       map.set('playback-008-04', 84);
       map.set('playback-008-05', 85);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-008-05')).assertEqual(85);
       map.delete('playback-008-01');
@@ -1088,7 +1088,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-009-03', 93);
       map.set('playback-009-04', 94);
       map.set('playback-009-05', 95);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-009-05')).assertEqual(95);
       map.delete('playback-009-01');
@@ -1111,7 +1111,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-010-03', 103);
       map.set('playback-010-04', 104);
       map.set('playback-010-05', 105);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-010-05')).assertEqual(105);
       map.delete('playback-010-01');
@@ -1134,7 +1134,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-011-03', 113);
       map.set('playback-011-04', 114);
       map.set('playback-011-05', 115);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-011-05')).assertEqual(115);
       map.delete('playback-011-01');
@@ -1157,7 +1157,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-012-03', 123);
       map.set('playback-012-04', 124);
       map.set('playback-012-05', 125);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-012-05')).assertEqual(125);
       map.delete('playback-012-01');
@@ -1180,7 +1180,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-013-03', 133);
       map.set('playback-013-04', 134);
       map.set('playback-013-05', 135);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-013-05')).assertEqual(135);
       map.delete('playback-013-01');
@@ -1203,7 +1203,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-014-03', 143);
       map.set('playback-014-04', 144);
       map.set('playback-014-05', 145);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-014-05')).assertEqual(145);
       map.delete('playback-014-01');
@@ -1226,7 +1226,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-015-03', 153);
       map.set('playback-015-04', 154);
       map.set('playback-015-05', 155);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-015-05')).assertEqual(155);
       map.delete('playback-015-01');
@@ -1249,7 +1249,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-016-03', 163);
       map.set('playback-016-04', 164);
       map.set('playback-016-05', 165);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-016-05')).assertEqual(165);
       map.delete('playback-016-01');
@@ -1272,7 +1272,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-017-03', 173);
       map.set('playback-017-04', 174);
       map.set('playback-017-05', 175);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-017-05')).assertEqual(175);
       map.delete('playback-017-01');
@@ -1295,7 +1295,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-018-03', 183);
       map.set('playback-018-04', 184);
       map.set('playback-018-05', 185);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-018-05')).assertEqual(185);
       map.delete('playback-018-01');
@@ -1318,7 +1318,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-019-03', 193);
       map.set('playback-019-04', 194);
       map.set('playback-019-05', 195);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-019-05')).assertEqual(195);
       map.delete('playback-019-01');
@@ -1341,7 +1341,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-020-03', 203);
       map.set('playback-020-04', 204);
       map.set('playback-020-05', 205);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-020-05')).assertEqual(205);
       map.delete('playback-020-01');
@@ -1364,7 +1364,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-021-03', 213);
       map.set('playback-021-04', 214);
       map.set('playback-021-05', 215);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-021-05')).assertEqual(215);
       map.delete('playback-021-01');
@@ -1387,7 +1387,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-022-03', 223);
       map.set('playback-022-04', 224);
       map.set('playback-022-05', 225);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-022-05')).assertEqual(225);
       map.delete('playback-022-01');
@@ -1410,7 +1410,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-023-03', 233);
       map.set('playback-023-04', 234);
       map.set('playback-023-05', 235);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-023-05')).assertEqual(235);
       map.delete('playback-023-01');
@@ -1433,7 +1433,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-024-03', 243);
       map.set('playback-024-04', 244);
       map.set('playback-024-05', 245);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-024-05')).assertEqual(245);
       map.delete('playback-024-01');
@@ -1456,7 +1456,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-025-03', 253);
       map.set('playback-025-04', 254);
       map.set('playback-025-05', 255);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-025-05')).assertEqual(255);
       map.delete('playback-025-01');
@@ -1479,7 +1479,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-026-03', 263);
       map.set('playback-026-04', 264);
       map.set('playback-026-05', 265);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-026-05')).assertEqual(265);
       map.delete('playback-026-01');
@@ -1502,7 +1502,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-027-03', 273);
       map.set('playback-027-04', 274);
       map.set('playback-027-05', 275);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-027-05')).assertEqual(275);
       map.delete('playback-027-01');
@@ -1525,7 +1525,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-028-03', 283);
       map.set('playback-028-04', 284);
       map.set('playback-028-05', 285);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-028-05')).assertEqual(285);
       map.delete('playback-028-01');
@@ -1548,7 +1548,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-029-03', 293);
       map.set('playback-029-04', 294);
       map.set('playback-029-05', 295);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-029-05')).assertEqual(295);
       map.delete('playback-029-01');
@@ -1571,7 +1571,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-030-03', 303);
       map.set('playback-030-04', 304);
       map.set('playback-030-05', 305);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-030-05')).assertEqual(305);
       map.delete('playback-030-01');
@@ -1594,7 +1594,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-031-03', 313);
       map.set('playback-031-04', 314);
       map.set('playback-031-05', 315);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-031-05')).assertEqual(315);
       map.delete('playback-031-01');
@@ -1617,7 +1617,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-032-03', 323);
       map.set('playback-032-04', 324);
       map.set('playback-032-05', 325);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-032-05')).assertEqual(325);
       map.delete('playback-032-01');
@@ -1640,7 +1640,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-033-03', 333);
       map.set('playback-033-04', 334);
       map.set('playback-033-05', 335);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-033-05')).assertEqual(335);
       map.delete('playback-033-01');
@@ -1663,7 +1663,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-034-03', 343);
       map.set('playback-034-04', 344);
       map.set('playback-034-05', 345);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-034-05')).assertEqual(345);
       map.delete('playback-034-01');
@@ -1686,7 +1686,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-035-03', 353);
       map.set('playback-035-04', 354);
       map.set('playback-035-05', 355);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-035-05')).assertEqual(355);
       map.delete('playback-035-01');
@@ -1709,7 +1709,7 @@ export default function mediaControllerPlaybackTestPart03() {
       map.set('playback-036-03', 363);
       map.set('playback-036-04', 364);
       map.set('playback-036-05', 365);
-      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%%{public}d expected=5', map.size);
+      hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}d expected=5', map.size);
       expect(map.size).assertEqual(5);
       expect(map.get('playback-036-05')).assertEqual(365);
       map.delete('playback-036-01');
