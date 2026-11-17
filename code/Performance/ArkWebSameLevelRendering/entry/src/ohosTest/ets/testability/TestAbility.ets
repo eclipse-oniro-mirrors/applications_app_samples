@@ -37,13 +37,10 @@ export default class TestAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
     hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
     let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator;
-     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-     let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs;
-     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-     // DevEco launches without `-s timeout`, while ArkTS UI/Web tests need time
-     // for the embedded surface, keyboard and resource tree to settle.
-     // Keep an explicit default so the result does not depend on the launcher.
-     abilityDelegatorArguments.parameters.timeout = '30000';
+    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs;
+    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+    abilityDelegatorArguments.parameters.timeout = '30000';
     hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
     setTimeout(() => {
       hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
