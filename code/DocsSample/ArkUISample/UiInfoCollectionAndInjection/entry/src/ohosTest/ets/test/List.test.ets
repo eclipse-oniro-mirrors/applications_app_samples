@@ -14,9 +14,11 @@
  */
 
 import abilityTest from './Ability.test';
+import ImageTest from './Image.test';
 import IndexTest from './Index.test';
 
 export default function testsuite() {
   abilityTest();
   IndexTest();
+  ImageTest();
 }
