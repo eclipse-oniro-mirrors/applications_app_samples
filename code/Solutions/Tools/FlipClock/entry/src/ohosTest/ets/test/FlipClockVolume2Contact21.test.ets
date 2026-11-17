@@ -42,7 +42,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1000).reminderId), String(1000));
       expect(source.getData(1000).reminderId).assertEqual(1000);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0001 end');
     })
 
@@ -66,7 +65,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1001).reminderId), String(1001));
       expect(source.getData(1001).reminderId).assertEqual(1001);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0002 end');
     })
 
@@ -90,7 +88,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1002).reminderId), String(1002));
       expect(source.getData(1002).reminderId).assertEqual(1002);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0003 end');
     })
 
@@ -114,7 +111,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1003).reminderId), String(1003));
       expect(source.getData(1003).reminderId).assertEqual(1003);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0004 end');
     })
 
@@ -138,7 +134,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1004).reminderId), String(1004));
       expect(source.getData(1004).reminderId).assertEqual(1004);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0005 end');
     })
 
@@ -162,7 +157,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1005).reminderId), String(1005));
       expect(source.getData(1005).reminderId).assertEqual(1005);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0006 end');
     })
 
@@ -186,7 +180,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1006).reminderId), String(1006));
       expect(source.getData(1006).reminderId).assertEqual(1006);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0007 end');
     })
 
@@ -210,7 +203,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1007).reminderId), String(1007));
       expect(source.getData(1007).reminderId).assertEqual(1007);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0008 end');
     })
 
@@ -234,7 +226,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1008).reminderId), String(1008));
       expect(source.getData(1008).reminderId).assertEqual(1008);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0009 end');
     })
 
@@ -258,7 +249,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1009).reminderId), String(1009));
       expect(source.getData(1009).reminderId).assertEqual(1009);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0010 end');
     })
 
@@ -282,7 +272,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1010).reminderId), String(1010));
       expect(source.getData(1010).reminderId).assertEqual(1010);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0011 end');
     })
 
@@ -306,7 +295,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1011).reminderId), String(1011));
       expect(source.getData(1011).reminderId).assertEqual(1011);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0012 end');
     })
 
@@ -330,7 +318,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1012).reminderId), String(1012));
       expect(source.getData(1012).reminderId).assertEqual(1012);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0013 end');
     })
 
@@ -354,7 +341,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1013).reminderId), String(1013));
       expect(source.getData(1013).reminderId).assertEqual(1013);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0014 end');
     })
 
@@ -378,7 +364,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1014).reminderId), String(1014));
       expect(source.getData(1014).reminderId).assertEqual(1014);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0015 end');
     })
 
@@ -402,7 +387,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1015).reminderId), String(1015));
       expect(source.getData(1015).reminderId).assertEqual(1015);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0016 end');
     })
 
@@ -426,7 +410,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1016).reminderId), String(1016));
       expect(source.getData(1016).reminderId).assertEqual(1016);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0017 end');
     })
 
@@ -450,7 +433,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1017).reminderId), String(1017));
       expect(source.getData(1017).reminderId).assertEqual(1017);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0018 end');
     })
 
@@ -474,7 +456,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1018).reminderId), String(1018));
       expect(source.getData(1018).reminderId).assertEqual(1018);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0019 end');
     })
 
@@ -498,7 +479,6 @@ export default function flipClockVolume2Contact21Test() {
       expect(source.getData(0).key).assertEqual('key0');
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.getData(1019).reminderId), String(1019));
       expect(source.getData(1019).reminderId).assertEqual(1019);
-      await Promise.resolve();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Volume2Contact21_0020 end');
     })
   })

@@ -135,8 +135,7 @@ export default function abilityTest() {
       const want: Want = {
         bundleName: BUNDLE_NAME,
         abilityName: ENTRY_ABILITY_NAME
-      }
-        ;
+      };
       const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
         abilityDelegatorRegistry.getAbilityDelegator();
       let isFailed: boolean = false;

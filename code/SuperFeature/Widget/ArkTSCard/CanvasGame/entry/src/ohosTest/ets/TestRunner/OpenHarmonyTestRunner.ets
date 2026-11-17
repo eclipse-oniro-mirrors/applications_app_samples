@@ -26,7 +26,7 @@ let jsonPath: string = 'mock/mock-config.json';
 let tag: string = 'testTag';
 
 async function onAbilityCreateCallback(data: UIAbility) {
-  hilog.info(0x0000, 'testTag', 'onAbilityCreateCallback, data: ${}', JSON.stringify(data));
+  hilog.info(0x0000, 'testTag', 'onAbilityCreateCallback, data: %{public}s', JSON.stringify(data));
 }
 
 async function addAbilityMonitorCallback(err: BusinessError) {
@@ -56,20 +56,17 @@ export default class OpenHarmonyTestRunner implements TestRunner {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
       moduleName: moduleName
-    }
-      ;
+    };
     abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
     const want: Want = {
       bundleName: bundleName,
       abilityName: testAbilityName,
       moduleName: moduleName
-    }
-      ;
+    };
     abilityDelegator.startAbility(want, (err: BusinessError, data: void) => {
       hilog.info(0x0000, tag, 'startAbility : err : %{public}s', JSON.stringify(err) ?? '');
       hilog.info(0x0000, tag, 'startAbility : data : %{public}s', JSON.stringify(data) ?? '');
-    }
-      )
+    })
     hilog.info(0x0000, tag, '%{public}s', 'OpenHarmonyTestRunner onRun end');
   }
 }
@@ -101,8 +98,7 @@ function getMockList(jsonStr: string) {
   let jsonObj: Record<string, Object> = JSON.parse(jsonStr);
   let map: Map<string, object> = new Map<string, object>(Object.entries(jsonObj));
   let mockList: Record<string, string> = {
-    }
-    ;
+    };
   map.forEach((value: object, key: string) => {
     let realValue: string = value['source'].toString();
     mockList[key] = realValue;

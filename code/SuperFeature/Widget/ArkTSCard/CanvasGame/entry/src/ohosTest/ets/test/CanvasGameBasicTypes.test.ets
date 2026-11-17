@@ -112,8 +112,6 @@ export default function canvasGameBasicTypesTest() {
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(false) === undefined));
         expect(a.onChangeFormVisibility(false) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof 5 === 'number'));
-        expect(typeof 5 === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_BasicTypes_0005 end');
     })
 
@@ -130,8 +128,6 @@ export default function canvasGameBasicTypesTest() {
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(true) === undefined));
         expect(a.onChangeFormVisibility(true) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof 6 === 'number'));
-        expect(typeof 6 === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_BasicTypes_0006 end');
     })
 
@@ -148,8 +144,6 @@ export default function canvasGameBasicTypesTest() {
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(false) === undefined));
         expect(a.onChangeFormVisibility(false) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof 7 === 'number'));
-        expect(typeof 7 === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_BasicTypes_0007 end');
     })
 
@@ -166,8 +160,6 @@ export default function canvasGameBasicTypesTest() {
       const a: EntryFormAbility = new EntryFormAbility();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(a.onChangeFormVisibility(true) === undefined));
         expect(a.onChangeFormVisibility(true) === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof 8 === 'number'));
-        expect(typeof 8 === 'number').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_BasicTypes_0008 end');
     })
 
@@ -185,8 +177,6 @@ export default function canvasGameBasicTypesTest() {
       expect(logger.log('x') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info('x','y') === undefined));
         expect(logger.info('x','y') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof 'x' === 'string'));
-        expect(typeof 'x' === 'string').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_BasicTypes_0009 end');
     })
 
@@ -204,8 +194,6 @@ export default function canvasGameBasicTypesTest() {
       expect(logger.log('x') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info('x','y') === undefined));
         expect(logger.info('x','y') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof 'x' === 'string'));
-        expect(typeof 'x' === 'string').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_BasicTypes_0010 end');
     })
 
@@ -223,8 +211,6 @@ export default function canvasGameBasicTypesTest() {
       expect(logger.log('x') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info('x','y') === undefined));
         expect(logger.info('x','y') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof 'x' === 'string'));
-        expect(typeof 'x' === 'string').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_BasicTypes_0011 end');
     })
 
@@ -242,8 +228,6 @@ export default function canvasGameBasicTypesTest() {
       expect(logger.log('x') === undefined).assertTrue();
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(logger.info('x','y') === undefined));
         expect(logger.info('x','y') === undefined).assertTrue();
-        hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(typeof 'x' === 'string'));
-        expect(typeof 'x' === 'string').assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.samples.canvasgame_BasicTypes_0012 end');
     })
   })
