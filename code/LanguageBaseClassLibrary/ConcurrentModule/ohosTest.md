@@ -210,7 +210,10 @@
 
 ## 测试执行说明
 
+使用 OpenHarmony Ability Assistant（`aa`，系统自带测试命令）执行全量自动化测试：
+
 ```sh
+# aa = OpenHarmony Ability Assistant
 hdc shell aa test -b com.samples.concurrentmodule -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 60000
 ```
 
