@@ -41,10 +41,16 @@ async function x25519Await() {
       console.info('x25519 output: ' + secret1.data);
     } else {
       console.error('x25519 result is not equal.');
+      // [StartExclude use_x25519a_for_key_negotiation_async]
+      throw new Error('x25519 result is not equal.');
+      // [EndExclude use_x25519a_for_key_negotiation_async]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude use_x25519a_for_key_negotiation_async]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude use_x25519a_for_key_negotiation_async]
   }
 }
 // [End use_x25519a_for_key_negotiation_async]

@@ -32,9 +32,12 @@ function kdfSync() {
     let kdf = cryptoFramework.createKdf('SCRYPT');
     let secret = kdf.generateSecretSync(spec);
     console.info('[Sync]key derivation output: ' + secret.data);
-  } catch(error) {
+  } catch (error) {
     let e: BusinessError = error as BusinessError;
     console.error('key derivation failed, errCode: ' + e.code + ', errMsg: ' + e.message);
+    // [StartExclude use_scrypt_for_key_derivation_sync]
+    throw new Error('key derivation failed, errCode: ' + e.code + ', errMsg: ' + e.message);
+    // [EndExclude use_scrypt_for_key_derivation_sync]
   }
 }
 

@@ -57,10 +57,16 @@ async function main() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed');
+      // [StartExclude async_symmetry_encrypt_decrypt]
+      throw new Error('decrypt failed');
+      // [EndExclude async_symmetry_encrypt_decrypt]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude async_symmetry_encrypt_decrypt]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude async_symmetry_encrypt_decrypt]
   }
 }
 // [End async_symmetry_encrypt_decrypt]
@@ -75,9 +81,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_3des_ecb_asynchronous'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            main();
+            await main();
             this.message = '3DES_ECBSuccess';
           } catch {
             this.message = '3DES_ECBFail';

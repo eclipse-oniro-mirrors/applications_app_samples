@@ -102,10 +102,16 @@ async function rsaUseSpecDecryptOAEPPromise() {
       console.info('oaep decrypt result: success.');
     } else {
       console.error('oaep decrypt result: fail.');
+      // [StartExclude pss_verify_rsa_keypair_sign_async]
+      throw new Error('oaep decrypt result: fail.');
+      // [EndExclude pss_verify_rsa_keypair_sign_async]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude pss_verify_rsa_keypair_sign_async]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude pss_verify_rsa_keypair_sign_async]
   }
 }
 // [End pss_verify_rsa_keypair_sign_async]

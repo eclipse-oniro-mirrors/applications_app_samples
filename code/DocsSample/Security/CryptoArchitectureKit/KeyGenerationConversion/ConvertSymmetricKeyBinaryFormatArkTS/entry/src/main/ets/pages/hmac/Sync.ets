@@ -32,6 +32,9 @@ function testConvertKeySync() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude generate_hmac_key_sync]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude generate_hmac_key_sync]
   }
 }
 // [End generate_hmac_key_sync]

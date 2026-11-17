@@ -16,6 +16,7 @@
 // [Start pkcs1_seg_verify_rsa_keypair_sign_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 async function signMessageBySegment(priKey: cryptoFramework.PriKey, plainText: Uint8Array) {
   let signAlg = 'RSA1024|PKCS1|SHA256';
@@ -52,24 +53,35 @@ async function verifyMessageBySegment(pubKey: cryptoFramework.PubKey, plainText:
 }
 
 async function rsaSignatureBySegment() {
-  let message = 'This is a long plainText! This is a long plainText! This is a long plainText!' +
-    'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
-    'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
-    'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
-    'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
-    'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
-    'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
-    'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!';
-  let keyGenAlg = 'RSA1024';
-  let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
-  let keyPair = await generator.generateKeyPair();
-  let messageData = new Uint8Array(buffer.from(message, 'utf-8').buffer);
-  let signData = await signMessageBySegment(keyPair.priKey, messageData);
-  let verifyResult = await verifyMessageBySegment(keyPair.pubKey, messageData, signData);
-  if (verifyResult === true) {
-    console.info('verify result: success.');
-  } else {
-    console.error('verify result: failed.');
+  try {
+    let message = 'This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!' +
+      'This is a long plainText! This is a long plainText! This is a long plainText! This is a long plainText!';
+    let keyGenAlg = 'RSA1024';
+    let generator = cryptoFramework.createAsyKeyGenerator(keyGenAlg);
+    let keyPair = await generator.generateKeyPair();
+    let messageData = new Uint8Array(buffer.from(message, 'utf-8').buffer);
+    let signData = await signMessageBySegment(keyPair.priKey, messageData);
+    let verifyResult = await verifyMessageBySegment(keyPair.pubKey, messageData, signData);
+    if (verifyResult === true) {
+      console.info('verify result: success.');
+    } else {
+      console.error('verify result: failed.');
+      // [StartExclude pkcs1_seg_verify_rsa_keypair_sign_async]
+      throw new Error('verify result: failed.');
+      // [EndExclude pkcs1_seg_verify_rsa_keypair_sign_async]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude pkcs1_seg_verify_rsa_keypair_sign_async]
+    throw new Error(`verify failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude pkcs1_seg_verify_rsa_keypair_sign_async]
   }
 }
 

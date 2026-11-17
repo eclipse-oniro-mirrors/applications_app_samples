@@ -16,6 +16,7 @@
 // [Start encrypt_decrypt_rc4_asynchronous]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 
 // 加密消息
@@ -43,17 +44,28 @@ async function genSymKeyByData(symKeyData: Uint8Array) {
 }
 
 async function rc4EncryptionDecryption() {
-  let keyData = new Uint8Array([83, 217, 231, 76, 28, 113, 23, 219, 250, 71, 209, 210, 205, 97, 32, 159]);
-  let symKey = await genSymKeyByData(keyData);
-  let message = 'This is a test';
-  let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
-  let encryptText = await encryptMessagePromise(symKey, plainText);
-  let decryptText = await decryptMessagePromise(symKey, encryptText);
-  if (plainText.data.toString() === decryptText.data.toString()) {
-    console.info('decrypt ok.');
-    console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
-  } else {
-    console.error('decrypt failed.');
+  try {
+    let keyData = new Uint8Array([83, 217, 231, 76, 28, 113, 23, 219, 250, 71, 209, 210, 205, 97, 32, 159]);
+    let symKey = await genSymKeyByData(keyData);
+    let message = 'This is a test';
+    let plainText: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(message, 'utf-8').buffer) };
+    let encryptText = await encryptMessagePromise(symKey, plainText);
+    let decryptText = await decryptMessagePromise(symKey, encryptText);
+    if (plainText.data.toString() === decryptText.data.toString()) {
+      console.info('decrypt ok.');
+      console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
+    } else {
+      console.error('decrypt failed.');
+      // [StartExclude encrypt_decrypt_rc4_asynchronous]
+      throw new Error('decrypt failed.');
+      // [EndExclude encrypt_decrypt_rc4_asynchronous]
+    }
+  } catch (error) {
+    let e: BusinessError = error as BusinessError;
+    console.error(`RC4 failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude encrypt_decrypt_rc4_asynchronous]
+    throw new Error(`RC4 failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude encrypt_decrypt_rc4_asynchronous]
   }
 }
 // [End encrypt_decrypt_rc4_asynchronous]
@@ -68,9 +80,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_rc4_encryption_decryption_asynchronous'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            rc4EncryptionDecryption();
+            await rc4EncryptionDecryption();
             this.message = 'RC4_EncryptionDecryptionAsynchronousSuccess';
           } catch {
             this.message = 'RC4_EncryptionDecryptionAsynchronousFail';

@@ -16,6 +16,7 @@
 // [Start cbc_encrypt_decrypt_rc2_symkey_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -71,9 +72,16 @@ function rc2CBC() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed.');
+      // [StartExclude cbc_encrypt_decrypt_rc2_symkey_sync]
+      throw new Error('decrypt failed.');
+      // [EndExclude cbc_encrypt_decrypt_rc2_symkey_sync]
     }
   } catch (error) {
-    console.error(`RC2 CBC failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`RC2 CBC failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude cbc_encrypt_decrypt_rc2_symkey_sync]
+    throw new Error(`RC2 CBC failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude cbc_encrypt_decrypt_rc2_symkey_sync]
   }
 }
 // [End cbc_encrypt_decrypt_rc2_symkey_sync]

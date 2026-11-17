@@ -16,6 +16,7 @@
 // [Start cbc_encrypt_decrypt_aes_symkey_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function generateRandom(len: number) {
   let rand = cryptoFramework.createRandom();
@@ -71,9 +72,16 @@ async function aesCBC() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed');
+      // [StartExclude cbc_encrypt_decrypt_aes_symkey_async]
+      throw new Error('decrypt failed');
+      // [EndExclude cbc_encrypt_decrypt_aes_symkey_async]
     }
   } catch (error) {
-    console.error(`AES CBC failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`AES CBC failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude cbc_encrypt_decrypt_aes_symkey_async]
+    throw new Error(`AES CBC failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude cbc_encrypt_decrypt_aes_symkey_async]
   }
 }
 // [End cbc_encrypt_decrypt_aes_symkey_async]
@@ -88,9 +96,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_aes_cbc_asynchronous'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            aesCBC();
+            await aesCBC();
             this.message = 'AES_CBCAsynchronousSuccess';
           } catch {
             this.message = 'AES_CBCAsynchronousFail';
