@@ -13,8 +13,20 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import userAuthTest from './UserAuth.test';
+import userAuthContractTest from './UserAuthContract.test';
+import userAuthMatrixPart01Test from './UserAuthMatrixPart01.test';
+import userAuthMatrixPart02Test from './UserAuthMatrixPart02.test';
+import userAuthMorePart01Test from './UserAuthMorePart01.test';
+import userAuthMorePart02Test from './UserAuthMorePart02.test';
+import userAuthMorePart03Test from './UserAuthMorePart03.test';
 
 export default function testsuite() {
-  abilityTest();
+  userAuthTest();
+  userAuthContractTest();
+  userAuthMatrixPart01Test();
+  userAuthMatrixPart02Test();
+  userAuthMorePart01Test();
+  userAuthMorePart02Test();
+  userAuthMorePart03Test();
 }
