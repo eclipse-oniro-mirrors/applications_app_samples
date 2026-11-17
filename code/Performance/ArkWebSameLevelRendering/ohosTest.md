@@ -35,7 +35,7 @@
 
 ### 2. 部署与运行
 
-使用 DevEco Studio 的 OpenHarmony Test 运行配置部署应用包和测试包；或使用 HDC 安装签名后的两个 HAP，再执行：
+使用 DevEco Studio 的 OpenHarmony Test 运行配置部署应用包和测试包；或使用 HDC 安装签名后的两个 HAP，再执行。下方 `aa` 是 OpenHarmony 系统提供的 Ability Assistant（元能力助手）命令行工具，`test` 子命令用于启动自动化测试：
 
 ```shell
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
