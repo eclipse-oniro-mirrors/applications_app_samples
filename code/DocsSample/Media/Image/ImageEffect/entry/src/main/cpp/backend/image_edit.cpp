@@ -965,14 +965,18 @@ void UploadGradientTexture(RenderTexture *texture)
         LOG_E("invalid texture size, width=%{public}d, height=%{public}d", width, height);
         return;
     }
+    // 宽度和高度为0时无法生成渐变，直接返回；后面的除法使用此处取到的非零分母。
+    GLsizei divisorWidth = (width > 0) ? width : 1;
+    GLsizei divisorHeight = (height > 0) ? height : 1;
     std::vector<uint8_t> pixels(static_cast<size_t>(width) * static_cast<size_t>(height) * RGBA_BYTES);
     for (GLsizei y = 0; y < height; y++) {
         for (GLsizei x = 0; x < width; x++) {
             size_t index = (static_cast<size_t>(y) * static_cast<size_t>(width) + static_cast<size_t>(x)) *
                            RGBA_BYTES;
-            pixels[index] = static_cast<uint8_t>(x * RGBA_CHANNEL_MAX / width);
-            pixels[index + 1] = static_cast<uint8_t>(y * RGBA_CHANNEL_MAX / height);
-            pixels[index + RGB_IDX_TWO] = static_cast<uint8_t>(RGBA_CHANNEL_MAX - x * RGBA_CHANNEL_MAX / width);
+            pixels[index] = static_cast<uint8_t>(x * RGBA_CHANNEL_MAX / divisorWidth);
+            pixels[index + 1] = static_cast<uint8_t>(y * RGBA_CHANNEL_MAX / divisorHeight);
+            pixels[index + RGB_IDX_TWO] =
+                static_cast<uint8_t>(RGBA_CHANNEL_MAX - x * RGBA_CHANNEL_MAX / divisorWidth);
             pixels[index + RGB_IDX_THREE] = RGBA_CHANNEL_MAX;
         }
     }
