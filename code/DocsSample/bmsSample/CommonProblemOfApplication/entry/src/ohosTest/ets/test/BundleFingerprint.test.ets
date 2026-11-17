@@ -1,0 +1,84 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, beforeEach, it, expect, TestType, Size, Level } from '@ohos/hypium';
+import { bundleManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { paceTurn } from './shared/TestPace';
+import { SELF_BUNDLE_NAME } from './shared/BundleProbe';
+import {
+  FLAG_APPLICATION,
+  FLAG_ABILITY,
+  FLAG_EXTENSION,
+  FLAG_HAP_MODULE,
+  FLAG_SIGNATURE,
+  flagsForIndex,
+  hasFlag
+} from './shared/FlagMatrix';
+
+const DOMAIN: number = 0xF811;
+const TAG: string = '[Sample_CommonProblem_BundleFingerprint]';
+const EXPECTED_VERSION_CODE: number = 1000000;
+const EXPECTED_VERSION_NAME: string = '1.0.0';
+
+
+export default function bundleFingerprintTest() {
+  describe('bundleFingerprintTest', () => {
+    beforeEach(async () => {
+      await paceTurn();
+    });
+
+    // 数据驱动生成：偶数下标走同步接口，奇数下标走异步接口，覆盖 256 种 BundleFlag 组合。
+    for (let index: number = 0; index <= 255; index += 2) {
+      const caseNo: string = `${index + 1}`.padStart(4, '0');
+      const caseName: string = `testFingerprint${caseNo}`;
+      it(caseName, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, () => {
+        hilog.info(DOMAIN, TAG, '%{public}s', `${caseName} begin`);
+        const flags: number = flagsForIndex(index);
+        const info: bundleManager.BundleInfo = bundleManager.getBundleInfoForSelfSync(flags);
+        expect(info.name).assertEqual(SELF_BUNDLE_NAME);
+        expect(info.versionCode).assertEqual(EXPECTED_VERSION_CODE);
+        expect(info.versionName).assertEqual(EXPECTED_VERSION_NAME);
+        if (hasFlag(flags, FLAG_SIGNATURE)) {
+          expect(info.signatureInfo !== undefined).assertTrue();
+          const fingerprint: string = info.signatureInfo.fingerprint;
+          expect(fingerprint.length).assertEqual(64);
+          expect(/^[0-9A-F]+$/.test(fingerprint)).assertTrue();
+        }
+        hilog.info(DOMAIN, TAG, '%{public}s', `${caseName} end`);
+      });
+    }
+
+    for (let index: number = 1; index <= 255; index += 2) {
+      const caseNo: string = `${index + 1}`.padStart(4, '0');
+      const caseName: string = `testFingerprint${caseNo}`;
+      it(caseName, TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
+        hilog.info(DOMAIN, TAG, '%{public}s', `${caseName} begin`);
+        const flags: number = flagsForIndex(index);
+        const info: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(flags);
+        expect(info.name).assertEqual(SELF_BUNDLE_NAME);
+        expect(info.versionCode).assertEqual(EXPECTED_VERSION_CODE);
+        expect(info.versionName).assertEqual(EXPECTED_VERSION_NAME);
+        if (hasFlag(flags, FLAG_SIGNATURE)) {
+          expect(info.signatureInfo !== undefined).assertTrue();
+          const fingerprint: string = info.signatureInfo.fingerprint;
+          expect(fingerprint.length).assertEqual(64);
+          expect(/^[0-9A-F]+$/.test(fingerprint)).assertTrue();
+        }
+        hilog.info(DOMAIN, TAG, '%{public}s', `${caseName} end`);
+      });
+    }
+  })
+}
