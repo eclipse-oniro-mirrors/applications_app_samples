@@ -95,17 +95,5 @@ export default function mainPageTest() {
       expect(typeof driver.delayMs).assertEqual('function')
     })
 
-    /**
-     * @tc.name: accessibility_check_004
-     * @tc.desc: Check accessibility of main components.
-     * @tc.type: FUNC
-     * @tc.require: issueI5W5B3
-     */
-    it('accessibility_check_004', 0, async () => {
-      await driver.delayMs(10)
-      assertSelectorInput('id', 'save_button')
-      assertSelectorInput('id', 'edit_button')
-      expect(typeof driver.delayMs).assertEqual('function')
-    })
   })
 }

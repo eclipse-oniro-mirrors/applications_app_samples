@@ -14,10 +14,12 @@
  */
 
 import { describe, beforeEach, it, expect } from '@ohos/hypium'
+import { hilog } from '@kit.PerformanceAnalysisKit'
 import { screenShotModel } from 'screenshot_tv'
 import viewModel from '../../../main/ets/vm/ViewModel'
 import { resetCaptureSessionStorage } from './TestHelper'
 
+const DOMAIN = 0x55EE
 const TAG = 'PerformanceDeepTest'
 
 /**
@@ -53,7 +55,7 @@ export default function performanceDeepTest() {
       await screenShotModel.saveImage()
       
       const duration = Date.now() - startTime
-      console.info(`${TAG}, Encoding duration: ${duration}ms`)
+      hilog.info(DOMAIN, TAG, '%{public}s', `Encoding duration: ${duration}ms`)
 
       // 验证点：总耗时（含逻辑损耗）必须小于 300ms。
       // 这是保证应用在电视端不会产生明显系统“抽搐”的关键。
@@ -95,7 +97,7 @@ export default function performanceDeepTest() {
       await screenShotModel.saveImage()
 
       const duration = Date.now() - startTime
-      console.info(`${TAG}, I/O Write duration: ${duration}ms`)
+      hilog.info(DOMAIN, TAG, '%{public}s', `I/O Write duration: ${duration}ms`)
 
       // 验证点：写入 5MB 数据的逻辑层开销必须小于 100ms。
       // 确保 I/O 阻塞被控制在合理范围内，不会导致 UI 渲染线程假死。
