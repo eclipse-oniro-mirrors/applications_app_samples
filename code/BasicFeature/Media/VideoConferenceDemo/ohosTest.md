@@ -18,14 +18,15 @@
 
 ## 套件总览
 
-`List.test.ets` 共注册 **20 个套件、1,056 条用例、约 29,000 行测试代码**。
+`List.test.ets` 共注册 **20 个套件、992 条用例、约 29,000 行测试代码**。
+- 另有 UIAutoTest（4 条 UI 用例：麦克风权限、录制开/关语音、离开会议），未注册在 List.test.ets，需联网并在应用可启动的设备上单独执行。
 
 | 套件 | 用例数 | 验证点 |
 |---|---:|---|
 | `ConstantsContractPart1` | 12 | `DOMAIN`、子窗口名/宽高、`RENDERER_INFO` usage/flags |
 | `BackgroundGuardPart1` | 6 | `start/stopContinuousTask(undefined)` 安全返回 |
 | `PermissionStatusPart1` | 18 | 18 个权限的 `checkPermission` 返回合法 `GrantStatus` |
-| `LoggerVariadicPart1..4` | 320 | 4 个日志级别 × 80 组变参调用不抛异常 |
+| LoggerVariadicPart1..4 | 256 | 代表性参数组合：空串/2 参数/多参数/中文/emoji/长字符串 |
 | `ToolBarItemMatrixPart1..13` | 700 | 构造参数组合、默认值、可选字段、自定义 `onClick` 透传 |
 
 - 用例元数据：`@tc.number` = 序号 × 100（如 `..._0100`），`@tc.name` = 4 位序号；`it` 名与 `@tc.name` 一致。

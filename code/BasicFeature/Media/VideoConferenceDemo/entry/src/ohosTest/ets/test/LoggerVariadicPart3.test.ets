@@ -1232,7 +1232,7 @@ export default function LoggerVariadicPart3Test(): void {
     /**
      * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6100
      * @tc.name      testLoggerVariadic0221
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
+     * @tc.desc      Verify Logger.warn accepts representative argument set 1.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1241,7 +1241,7 @@ export default function LoggerVariadicPart3Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0221 begin');
       let threw: boolean = false;
       try {
-        Logger.warn('arg1', 'value1');
+        Logger.warn('');
       } catch (err) {
         threw = true;
       }
@@ -1252,7 +1252,7 @@ export default function LoggerVariadicPart3Test(): void {
     /**
      * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6200
      * @tc.name      testLoggerVariadic0222
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
+     * @tc.desc      Verify Logger.warn accepts representative argument set 2.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1261,7 +1261,7 @@ export default function LoggerVariadicPart3Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0222 begin');
       let threw: boolean = false;
       try {
-        Logger.warn('arg2', 'value2');
+        Logger.warn('tag', 'value');
       } catch (err) {
         threw = true;
       }
@@ -1272,7 +1272,7 @@ export default function LoggerVariadicPart3Test(): void {
     /**
      * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6300
      * @tc.name      testLoggerVariadic0223
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
+     * @tc.desc      Verify Logger.warn accepts representative argument set 3.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1281,7 +1281,7 @@ export default function LoggerVariadicPart3Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0223 begin');
       let threw: boolean = false;
       try {
-        Logger.warn('arg3', 'value3');
+        Logger.warn('a', 'b', 'c', 'd', 'e');
       } catch (err) {
         threw = true;
       }
@@ -1292,7 +1292,7 @@ export default function LoggerVariadicPart3Test(): void {
     /**
      * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6400
      * @tc.name      testLoggerVariadic0224
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
+     * @tc.desc      Verify Logger.warn accepts representative argument set 4.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1301,332 +1301,12 @@ export default function LoggerVariadicPart3Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0224 begin');
       let threw: boolean = false;
       try {
-        Logger.warn('arg4', 'value4');
+        Logger.warn('中文', 'emoji🙂', 'long_value_0123456789');
       } catch (err) {
         threw = true;
       }
       expect(threw).assertFalse();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0224 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6500
-     * @tc.name      testLoggerVariadic0225
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0225', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0225 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg5', 'value5');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0225 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6600
-     * @tc.name      testLoggerVariadic0226
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0226', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0226 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg6', 'value6');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0226 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6700
-     * @tc.name      testLoggerVariadic0227
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0227', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0227 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg7', 'value7');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0227 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6800
-     * @tc.name      testLoggerVariadic0228
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0228', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0228 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg8', 'value8');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0228 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_6900
-     * @tc.name      testLoggerVariadic0229
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0229', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0229 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg9', 'value9');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0229 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7000
-     * @tc.name      testLoggerVariadic0230
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0230', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0230 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg10', 'value10');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0230 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7100
-     * @tc.name      testLoggerVariadic0231
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0231', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0231 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg11', 'value11');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0231 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7200
-     * @tc.name      testLoggerVariadic0232
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0232', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0232 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg12', 'value12');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0232 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7300
-     * @tc.name      testLoggerVariadic0233
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0233', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0233 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg13', 'value13');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0233 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7400
-     * @tc.name      testLoggerVariadic0234
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0234', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0234 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg14', 'value14');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0234 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7500
-     * @tc.name      testLoggerVariadic0235
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0235', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0235 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg15', 'value15');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0235 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7600
-     * @tc.name      testLoggerVariadic0236
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0236', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0236 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg16', 'value16');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0236 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7700
-     * @tc.name      testLoggerVariadic0237
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0237', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0237 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg17', 'value17');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0237 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7800
-     * @tc.name      testLoggerVariadic0238
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0238', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0238 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg18', 'value18');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0238 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_7900
-     * @tc.name      testLoggerVariadic0239
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0239', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0239 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg19', 'value19');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0239 end');
-    })
-
-    /**
-     * @tc.number    SUB_VIDEO_CONF_LOGVARP3_ONE_8000
-     * @tc.name      testLoggerVariadic0240
-     * @tc.desc      Verify Logger.warn accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0240', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0240 begin');
-      let threw: boolean = false;
-      try {
-        Logger.warn('arg20', 'value20');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0240 end');
     })
 
   })
