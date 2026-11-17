@@ -20,6 +20,7 @@ import { UIContext, NodeController, FrameNode, RenderNode, DrawContext} from '@k
 // [End arkts_graphics_draw_import_ui]
 import { image } from '@kit.ImageKit';
 import { taskpool } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 // [Start arkts_graphics_draw_import_graphics2d]
 import { drawing } from '@kit.ArkGraphics2D';
 // [End arkts_graphics_draw_import_graphics2d]
@@ -44,6 +45,7 @@ class MyRenderNodeDirectDisplay extends RenderNode {
       brush.setColor({red: 255, blue: 0, green: 0, alpha: 255});
       canvas.attachBrush(brush);
       canvas.drawRect({left: 0, right: 300, top: 0, bottom: 300});
+      canvas.detachBrush();
     }
   }
   // [End arkts_graphics_draw_direct_canvas_api_rewrite]
@@ -94,6 +96,7 @@ export class MyRenderNodeIndirectDisplay extends RenderNode {
       brush.setColor({ alpha: 255, red: 0, green: 0, blue: 255 });
       canvas_.attachBrush(brush);
       canvas_.drawRect({ left: 150, right: 575, top: 0, bottom: 600 });
+      canvas_.detachBrush();
 
       // 5.3 将离屏Canvas的绘制结果交给RenderNode
       canvas.drawImage(this.pixelMap, 0, 0);
@@ -121,6 +124,8 @@ export class MyNodeControllerIndirectDisplay extends NodeController {
     taskpool.execute(task).then((pixel:Object)=>{
       this.myRenderNode.setPixelMap(pixel as image.PixelMap);
       this.myRenderNode.invalidate();
+    }).catch((err:BusinessError)=>{
+      console.error(`Failed to create pixelMap. Code is ${err.code}, message is ${err.message}`);
     })
   }
 

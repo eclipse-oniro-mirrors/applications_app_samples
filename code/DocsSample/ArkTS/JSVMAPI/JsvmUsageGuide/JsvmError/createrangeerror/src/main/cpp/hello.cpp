@@ -76,7 +76,7 @@ static JSVM_Value JsVmCreateRangeError(JSVM_Env env, JSVM_CallbackInfo info)
     if (status == JSVM_OK) {
         OH_LOG_INFO(LOG_APP, "JSVM API CreateRangeError SUCCESS");
     } else {
-        OH_LOG_INFO(LOG_APP, "JSVM API CreateRangeError FAILED");
+        OH_LOG_ERROR(LOG_APP, "JSVM API CreateRangeError FAILED");
     }
     return result;
 }

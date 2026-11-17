@@ -15,7 +15,7 @@
 
 // [Start ChangeLayoutWithMediaQuery]
 import {
-  DynamicLayout, DynamicLayoutAttribute, ColumnLayoutAlgorithm, LayoutAlgorithm, LengthMetrics, mediaquery,
+  DynamicLayout, ColumnLayoutAlgorithm, LayoutAlgorithm, LengthMetrics, mediaquery,
   GridLayoutAlgorithm
 } from '@kit.ArkUI';
 

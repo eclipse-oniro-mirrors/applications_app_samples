@@ -47,7 +47,7 @@ struct DisConnectAppServiceExt {
           // [EndExclude app_ext_service_four_start]
           .onClick(() => {
             let context = this.getUIContext().getHostContext() as common.UIAbilityContext; // UIAbilityContext
-            // connectionId为调用connectServiceExtensionAbility接口时的返回值，需开发者自行维护
+            // connectionId为调用connectAppServiceExtensionAbility接口时的返回值，需开发者自行维护
             context.disconnectAppServiceExtensionAbility(connectionId).then(() => {
               hilog.info(DOMAIN_NUMBER, TAG, 'disconnectAppServiceExtensionAbility success');
               // 成功断连后台服务

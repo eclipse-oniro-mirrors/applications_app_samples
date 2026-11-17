@@ -31,7 +31,7 @@ export struct Scene2 {
     icon: SaveIconStyle.FULL_FILLED,
     text: SaveDescription.SAVE_IMAGE,
     buttonType: ButtonType.Capsule
-  }// Set properties of SaveButton.
+  }// 设置保存按钮的属性。
 
  // [StartExclude Creating_Media_Asset]
   async prepareTestImage() {
@@ -111,7 +111,7 @@ export struct Scene2 {
           })
         // [EndExclude Creating_Media_Asset]
 
-        SaveButton(this.saveButtonOptions) // Create a button with SaveButton.
+        SaveButton(this.saveButtonOptions) // 创建一个带有“保存”按钮的按钮。
           .onClick(async (event, result: SaveButtonOnClickResult) => {
             if (result == SaveButtonOnClickResult.SUCCESS) {
               try {

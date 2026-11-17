@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -25,7 +25,7 @@ interface FlashItem {
   title: ResourceStr;
   toast: ResourceStr;
 }
-// 闪关灯页面
+// 闪光灯页面。
 @Component
 export struct FlashingLightComponent {
 
@@ -66,7 +66,7 @@ export struct FlashingLightComponent {
     camera.FlashMode.FLASH_MODE_ALWAYS_OPEN
   ];
 
-  // 闪光灯模式
+  // 闪光灯模式。
   @Link @Watch('flashModeChange') flashMode: camera.FlashMode;
   @State flashIconResource: Resource = $r('app.media.ic_camera_public_flash_off');
 

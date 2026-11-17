@@ -34,7 +34,7 @@ public:
             OH_ArkUI_ListItemSwipeActionItem_Dispose(swipeItem_);
         }
     }
-    void SetSwiperAction(std::shared_ptr<ArkUINode> node)
+    void SetSwipeAction(std::shared_ptr<ArkUINode> node)
     {
         swipeContent_ = node;
         // 创建ListItemSwipeActionItem接口设置的配置项

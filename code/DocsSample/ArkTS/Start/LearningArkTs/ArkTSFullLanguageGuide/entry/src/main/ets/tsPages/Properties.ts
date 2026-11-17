@@ -378,7 +378,7 @@ class Child extends Parent {
     return this.getPrivateProp();  // 可访问
   }
 
-  // 重写父类属性（隐藏）
+  // 覆盖父类属性（隐藏）
   public publicProp: string = 'child override';
 
   testOverride(): void {
@@ -394,7 +394,7 @@ console.info(`${child.childProp}`);            // 'child'
 console.info(`${child.getParentPrivate()}`);   // 'private'
 
 // 属性继承总结：
-// public：完全继承，可重写
+// public：完全继承，可覆盖
 // protected：继承，子类可访问
 // private：不继承，子类不可直接访问
 // [End ts_property_inheritance]

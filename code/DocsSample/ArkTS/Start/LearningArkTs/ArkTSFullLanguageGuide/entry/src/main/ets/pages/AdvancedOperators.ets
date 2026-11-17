@@ -667,7 +667,7 @@ function greet(greeting: string, ...names: string[]): string {
   return `${greeting}, ${names.join(', ')}!`;
 }
 
-console.info(`${greet('Hello', 'Alice', 'Bob', 'Charlie')}`);  // Hello, Alice, Bob, Charlie!
+console.info(`${greet('Hello', 'Alice', 'Bob', 'Charlie')}`);  // 'Hello, Alice, Bob, Charlie!'
 
 // 数组解构中的剩余元素
 let arr: number[] = [1, 2, 3, 4, 5];
@@ -735,57 +735,6 @@ function request(url: string, options: RequestOptions): void {
   console.info(`Request to ${url} with timeout=${timeout}, retries=${retries}`);
 }
 // [End object_rest_properties]
-
-// ===== shallow_vs_deep_copy =====
-// [Start shallow_vs_deep_copy]
-// 浅拷贝
-interface NestedNumber {
-  c: number;
-}
-
-interface NumberBox {
-  a: number;
-  b: NestedNumber;
-}
-
-function copyNumberBox(source: NumberBox): NumberBox {
-  return {
-    a: source.a,
-    b: source.b
-  };
-}
-
-let obj1: NumberBox = {
-  a: 1,
-  b: { c: 2 }
-};
-
-let obj2: NumberBox = copyNumberBox(obj1);
-obj2.a = 10;
-obj2.b.c = 20;
-
-console.info(`${obj1.a}`);    // 1（基本类型，独立）
-console.info(`${obj1.b.c}`);  // 20（引用类型，共享）
-
-// 面向已声明类型实现深拷贝
-function cloneNumberBox(source: NumberBox): NumberBox {
-  return {
-    a: source.a,
-    b: {
-      c: source.b.c
-    }
-  };
-}
-
-let obj3: NumberBox = {
-  a: 1,
-  b: { c: 2 }
-};
-
-let obj4: NumberBox = cloneNumberBox(obj3);
-obj4.b.c = 20;
-console.info(`${obj3.b.c}`);  // 2（独立，不受影响）
-// [End shallow_vs_deep_copy]
 
 // ===== simulated_operator_overloading =====
 // [Start simulated_operator_overloading]
@@ -944,9 +893,9 @@ class Matrix {
   constructor(rows: number, cols: number) {
     this.rows = rows;
     this.cols = cols;
-    for (let i: number = 0; i < rows; i++) {
+    for (let i = 0; i < rows; i++) {
       let row: number[] = [];
-      for (let j: number = 0; j < cols; j++) {
+      for (let j = 0; j < cols; j++) {
         row.push(0);
       }
       this.data.push(row);
@@ -970,8 +919,8 @@ class Matrix {
 
   add(other: Matrix): Matrix {
     let result: Matrix = new Matrix(this.rows, this.cols);
-    for (let i: number = 0; i < this.rows; i++) {
-      for (let j: number = 0; j < this.cols; j++) {
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < this.cols; j++) {
         result.setValue(i, j, this.getValue(i, j) + other.getValue(i, j));
       }
     }
@@ -1308,3 +1257,18 @@ let licenseStatus: string =
 let compactLicenseStatus: string = applicantAge >= 18 && hasDrivingLicense
   ? 'eligible' : applicantAge >= 18 ? 'no license' : 'underage';
 // [End ternary_best_practices]
+
+// ===== logical_operation_compound_assignment =====
+// [Start logical_operation_compound_assignment]
+// ??= 仅在左侧为null或undefined时赋值
+let logicAssignConfig: string | null = null;
+logicAssignConfig ??= 'default';  // "default"
+
+// ||= 仅在左侧为falsy值时赋值
+let logicAssignLabel: string = '';
+logicAssignLabel ||= 'unnamed';  // "unnamed"
+
+// &&= 仅在左侧为truthy值时赋值
+let logicAssignCount: number = 10;
+logicAssignCount &&= logicAssignCount * 2;  // 20
+// [End logical_operation_compound_assignment]

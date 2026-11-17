@@ -163,7 +163,7 @@ struct Index {
         // [Start document_writesync]
         let writeLen: number = fileIo.writeSync(file.fd, 'hello, world');
         console.info('write data to file succeed and size is:' + writeLen);
-        fileIo.closeSync(file);
+        fileIo.closeSync(file.fd);
         // [End document_writesync]
       }
       // [End document_open_mode]
@@ -201,7 +201,7 @@ struct Index {
       let readLen = fileIo.readSync(file.fd, buffer);
       console.info('readSync data to file succeed and buffer size is:' + readLen);
       this.documentResult = 'Successfully read the file';
-      fileIo.closeSync(file);
+      fileIo.closeSync(file.fd);
     } catch (error) {
       let err: BusinessError = error as BusinessError;
       console.error(`DocumentViewPicker failed with err, code is: ${err.code}, message is: ${err.message}`);
@@ -246,7 +246,7 @@ struct Index {
         // [Start audio_write_sync]
         let writeLen = fileIo.writeSync(file.fd, 'hello, world');
         console.info('write data to file succeed and size is:' + writeLen);
-        fileIo.closeSync(file);
+        fileIo.closeSync(file.fd);
         // [End audio_write_sync]
       }
       // [End audio_open_mode]

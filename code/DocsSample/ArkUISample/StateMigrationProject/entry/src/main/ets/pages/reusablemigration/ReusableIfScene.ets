@@ -59,7 +59,7 @@ struct Child {
 
   // 组件复用时回调，如无需对状态变量做额外修改可移除
   aboutToReuse() {
-    console.info('Recycle====Child==');
+    console.info('Reuse====Child==');
   }
 
   build() {

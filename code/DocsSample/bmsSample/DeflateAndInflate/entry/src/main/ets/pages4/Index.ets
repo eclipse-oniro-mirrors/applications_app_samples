@@ -68,7 +68,7 @@ async function deflateGzipFile(src: fs.File, dest: fs.File) {
       zlib.CompressStrategy.COMPRESS_STRATEGY_DEFAULT_STRATEGY);
     console.info('deflateInit2 ret: ' + (await initStatus).valueOf());
   } catch (err) {
-    console.info('deflateInit2 err: ' + JSON.stringify(err));
+    console.error('deflateInit2 err: ' + JSON.stringify(err));
   }
   do {
     try {
@@ -80,7 +80,7 @@ async function deflateGzipFile(src: fs.File, dest: fs.File) {
       strm.availableIn = readLen;
       strm.nextIn = inBuf;
     } catch (err) {
-      console.info('readSync err: ' + JSON.stringify(err));
+      console.error('readSync err: ' + JSON.stringify(err));
     }
     do {
       // 设置输出缓冲区
@@ -114,7 +114,7 @@ async function deflateGzipFile(src: fs.File, dest: fs.File) {
     // 释放资源
     zip.deflateEnd(strm);
   } catch (err) {
-    console.info('deflateEnd err: ' + JSON.stringify(err));
+    console.error('deflateEnd err: ' + JSON.stringify(err));
   }
 }
 
@@ -133,7 +133,7 @@ async function inflateGzipFile(src: fs.File, dest: fs.File) {
     let initStatus = zip.inflateInit2(strm, windowBits);
     console.info('inflateInit2 ret: ' + (await initStatus).valueOf());
   } catch (err) {
-    console.info('inflateInit2 err: ' + JSON.stringify(err));
+    console.error('inflateInit2 err: ' + JSON.stringify(err));
   }
   do {
     try {
@@ -147,7 +147,7 @@ async function inflateGzipFile(src: fs.File, dest: fs.File) {
       strm.availableIn = readLen;
       strm.nextIn = inBuf;
     } catch (err) {
-      console.info('readSync err: ' + JSON.stringify(err));
+      console.error('readSync err: ' + JSON.stringify(err));
     }
     do {
       // 设置输出缓冲区
@@ -182,7 +182,7 @@ async function inflateGzipFile(src: fs.File, dest: fs.File) {
     // 释放资源
     zip.inflateEnd(strm);
   } catch (err) {
-    console.info('inflateEnd err: ' + JSON.stringify(err));
+    console.error('inflateEnd err: ' + JSON.stringify(err));
   }
 }
 // [End deflate_and_inflate_005]

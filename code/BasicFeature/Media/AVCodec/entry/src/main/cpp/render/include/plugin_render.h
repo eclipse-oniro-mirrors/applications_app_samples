@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -33,6 +33,8 @@ public:
     std::string id_;
 
 private:
+    // 回调表由 PluginRender 持有。XComponent 销毁回调会释放对应的 PluginRender，
+    // 因此其他线程不能在销毁通知后继续保存或调用此回调表。
     OH_NativeXComponent_Callback renderCallback_;
 };
 }

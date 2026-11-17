@@ -75,7 +75,7 @@ static JSVM_Value JsVmIsError(JSVM_Env env, JSVM_CallbackInfo info)
     if (status == JSVM_OK) {
         OH_LOG_INFO(LOG_APP, "JSVM API call OH_JSVM_IsError success, result is %{public}d", result);
     } else {
-        OH_LOG_INFO(LOG_APP, "JSVM API call OH_JSVM_IsError failed");
+        OH_LOG_ERROR(LOG_APP, "JSVM API call OH_JSVM_IsError failed");
     }
     // 取出result通过OH_JSVM_GetBoolean接口将取出的bool值转换为JSVM_Value类型的值返回出去
     JSVM_Value returnValue = nullptr;

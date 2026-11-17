@@ -8,7 +8,7 @@
 
 <!--
 
-【示例贡献温馨提示】感谢您关注OpenHarmony，如果您希望提交代码样例/示例/Demo，请参考知识体系的[《如何共建开发样例》](https://gitee.com/openharmony-sig/knowledge/blob/master/docs/co-construct_demos/README_zh.md)，首先提交到SIG（兴趣组）仓，知识体系SIG仓中的提交也是有效贡献。再次感谢您的关注！)  
+【示例贡献温馨提示】感谢您关注OpenHarmony，如果您希望提交代码样例/示例/Demo，请参考知识体系的[《如何共建开发样例》](https://gitee.com/openharmony-sig/knowledge/blob/master/docs/co-construct_demos/README_zh.md)，首先提交到SIG（兴趣组）仓，知识体系SIG仓中的提交也是有效贡献。再次感谢您的关注！)
 
 -->
 
@@ -219,7 +219,7 @@
   <tr height="18" style='height:13.50pt;'>
   <td x:str><a href="code/BasicFeature/Native/XComponent">XComponent</a></td>
   <td x:str><a href="code/BasicFeature/Native/XComponent3D">XComponent3D</a></td>
-  <td ></td>
+  <td x:str><a href="code/BasicFeature/Native/GewuService">Gewu Service</a></td>
   <td ></td>
  </tr>
  <tr height="18" style='height:13.50pt;'>
@@ -317,7 +317,7 @@
    <td ></td>
   </tr>
  <tr height="18" style='height:13.50pt;'>
-<td height="90" align="center" rowspan="26" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
+<td height="90" align="center" rowspan="27" style='height:67.50pt;' x:str><strong>系统特性（仅对系统应用开放）</strong></td>
   <td x:str><strong>能力增强</strong></td>
   <td x:str><a href="code/SystemFeature/Ability/AbilityFeatureSystem">基础能力增强</a></td>
   <td ></td>
@@ -346,7 +346,14 @@
  <tr height="18" style='height:13.50pt;'>
   <td x:str><strong>自动填充</strong></td>
   <td x:str><a href="code/SystemFeature/AutoFill/AutoFill">AutoFill自动填充能力</a></td>
-  <td x:str><a href="code/SystemFeature/AutoFill/AutoFillScenarioization">情景化自动填充能力</a></td>
+   <td x:str><a href="code/SystemFeature/AutoFill/AutoFillScenarioization">情景化自动填充能力</a></td>
+   <td ></td>
+   <td ></td>
+  </tr>
+ <tr height="18" style='height:13.50pt;'>
+  <td x:str><strong>兼容</strong></td>
+  <td x:str><a href="code/SystemFeature/Compatibility/CompConfigCenter">兼容配置中心CompConfigCenter</a></td>
+  <td ></td>
   <td ></td>
   <td ></td>
  </tr>
@@ -686,15 +693,16 @@ code
 |---SystemFeature              # 系统特性
   |---Ability                      # 能力增强
   |---ApplicationModels            # 应用模型
-  |---AutoFill                     # 自动填充
-  |---Connectivity                 # 网络与连接
+|---AutoFill                     # 自动填充
+|---Compatibility                 # 兼容
+|---Connectivity                 # 网络与连接
   |---DataManagement               # 数据管理
   |---DeviceManagement             # 设备管理
   |---DeviceUsageStatistics        # 设备使用信息
   |---DistributedAppDev            # 分布式
   |---FileManagement               # 文件管理
   |---FullScreenStart              # 全屏原子化服务
-  |---IDL                          # IDL 
+  |---IDL                          # IDL
   |---Internationalnation          # 国际化
   |---Media                        # 媒体
   |---Notification                 # 通知

@@ -15,6 +15,7 @@
 import { router, PromptAction } from '@kit.ArkUI';
 import { AudioStreamController } from '../common/utils/AudioStreamController';
 import { InterruptMode, StreamUsageType, AudioStreamState } from '../common/constants/AudioConstants';
+import { StreamCardView } from '../common/components/StreamCardView';
 
 const TOAST_DURATION = 2000; // Toast display duration (ms)
 const STREAM_A_FREQ = 440; // Default frequency for MUSIC stream A (Hz)
@@ -133,6 +134,7 @@ struct MusicVsMusicPage {
           .fontWeight(FontWeight.Bold)
         Blank()
         Text(this.modeLabel)
+          .id('pageModeLabelMM')
           .fontSize(12)
           .fontColor(this.currentMode === InterruptMode.SHARE_MODE ? '#4CAF50' : '#F44336')
       }
@@ -145,6 +147,7 @@ struct MusicVsMusicPage {
             .fontSize(14)
             .fontWeight(FontWeight.Medium)
           Toggle({ type: ToggleType.Switch, isOn: this.appControl })
+            .id('appControlToggleMM')
             .onChange((isOn: boolean) => {
               this.appControl = isOn;
             })
@@ -170,13 +173,23 @@ struct MusicVsMusicPage {
         .fontColor('#666')
         .padding({ left: 16, right: 16, top: 8, bottom: 16 })
 
-      this.StreamCard(`Stream A - MUSIC (${STREAM_A_FREQ}Hz)`, this.streamAPlaying, this.streamALog,
-        () => { this.toggleStreamA(); },
-        () => { this.streamA.clearInterruptLog(); this.streamALog = []; })
+      StreamCardView({
+        title: `Stream A - MUSIC (${STREAM_A_FREQ}Hz)`,
+        isPlaying: this.streamAPlaying,
+        logs: this.streamALog,
+        idPrefix: 'A',
+        onPlayStop: () => { this.toggleStreamA(); },
+        onClearLog: () => { this.streamA.clearInterruptLog(); this.streamALog = []; }
+      })
 
-      this.StreamCard(`Stream B - MUSIC (${STREAM_B_FREQ}Hz)`, this.streamBPlaying, this.streamBLog,
-        () => { this.toggleStreamB(); },
-        () => { this.streamB.clearInterruptLog(); this.streamBLog = []; })
+      StreamCardView({
+        title: `Stream B - MUSIC (${STREAM_B_FREQ}Hz)`,
+        isPlaying: this.streamBPlaying,
+        logs: this.streamBLog,
+        idPrefix: 'B',
+        onPlayStop: () => { this.toggleStreamB(); },
+        onClearLog: () => { this.streamB.clearInterruptLog(); this.streamBLog = []; }
+      })
 
       if (this.currentMode === InterruptMode.SHARE_MODE) {
         Column() {
@@ -204,55 +217,4 @@ struct MusicVsMusicPage {
     .backgroundColor('#F0F0F0')
   }
 
-  @Builder
-  StreamCard(title: string, isPlaying: boolean, logs: string[], onPlayStop: () => void, onClearLog: () => void) {
-    Column() {
-      Text(title)
-        .fontSize(16)
-        .fontWeight(FontWeight.Medium)
-        .margin({ bottom: 8 })
-
-      Row() {
-        Button(isPlaying ? $r('app.string.stop_btn') : $r('app.string.play_btn'))
-          .fontSize(14)
-          .height(40)
-          .backgroundColor(isPlaying ? '#F44336' : '#4CAF50')
-          .fontColor('#FFFFFF')
-          .borderRadius(8)
-          .onClick(onPlayStop)
-
-        Button($r('app.string.clear_log_btn'))
-          .fontSize(14)
-          .height(40)
-          .backgroundColor('#E0E0E0')
-          .fontColor('#333')
-          .borderRadius(8)
-          .margin({ left: 12 })
-          .onClick(onClearLog)
-      }
-      .margin({ bottom: 8 })
-
-      Scroll() {
-        Column() {
-          ForEach(logs, (log: string, index: number) => {
-            Text(log)
-              .fontSize(12)
-              .fontColor('#F44336')
-              .width('100%')
-              .padding(4)
-          }, (log: string, index: number) => `${index}`)
-        }
-      }
-      .width('100%')
-      .height(80)
-      .backgroundColor('#F5F5F5')
-      .borderRadius(8)
-      .padding(8)
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#FFFFFF')
-    .borderRadius(12)
-    .margin({ left: 16, right: 16, bottom: 12 })
-  }
 }

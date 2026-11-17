@@ -14,7 +14,7 @@
  */
 
 // [Start CombineWithFlexGrow]
-import {ContainerReader, ContainerReaderAttribute, Size} from '@kit.ArkUI';
+import {ContainerReader,  Size} from '@kit.ArkUI';
 @Entry
 @Component
 struct Page8 {

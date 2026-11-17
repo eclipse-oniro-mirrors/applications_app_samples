@@ -49,6 +49,10 @@ struct Index {
           buttonName: resource.resourceToString($r('app.string.Resident_task_guide').id),
           buttonUrl: 'managers/ResidentTaskGuide'
         });
+        CommonButton({
+          buttonName: resource.resourceToString($r('app.string.Worker_send').id),
+          buttonUrl: 'managers/WorkerManager'
+        });
       }
       .padding('20vp')
       .width('100%')

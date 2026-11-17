@@ -42,7 +42,7 @@ export default class EntryAbility extends UIAbility {
       Logger.info(`checkAccessToken success`);
       return grantStatus;
     } catch (e) {
-      Logger.info(`checkAccessToken failed,code is ${e.code},message is ${e.message}`);
+      Logger.error(`checkAccessToken failed,code is ${e.code},message is ${e.message}`);
       return abilityAccessCtrl.GrantStatus.PERMISSION_DENIED;
     }
   }

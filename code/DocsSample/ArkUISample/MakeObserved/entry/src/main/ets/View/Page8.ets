@@ -36,7 +36,7 @@ struct Page8 {
   // 当message.id发生变化时，触发该函数调用
   @Monitor('message.id')
   onStrChange(monitor: IMonitor) {
-    hilog.info(DOMAIN, TAG, `name change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
+    hilog.info(DOMAIN, TAG, `id change from ${monitor.value()?.before} to ${monitor.value()?.now}`);
   }
 
   // 当message.id和message.age发生变化，需要重新计算时，触发该函数调用
@@ -70,7 +70,7 @@ struct Page8 {
         .fontSize(30)
         .margin(5)
         .onClick(() => {
-          // 返回类实例本身，并赋值给message，触发@Computed和@Monitor
+          // 返回可观察对象，并赋值给message，触发@Computed和@Monitor
           this.message = UIUtils.makeObserved(new Info(200));
         })
       Child({ message: this.message })

@@ -1,0 +1,9 @@
+NOTICE: bundled demo font
+
+File: DroidSerif-Regular.ttf
+Source: DevEco Studio bundled runtime fonts (Droid Serif)
+License: Apache License 2.0
+
+The font is bundled only for the font registration preview in this demo.
+It is installed into the application sandbox and registered at runtime; it is
+not used to replace system fonts.

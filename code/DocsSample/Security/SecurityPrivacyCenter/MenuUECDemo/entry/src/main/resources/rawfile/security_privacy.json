@@ -1,0 +1,7 @@
+{
+  "displayedMode": "list",
+  "mainTitleResource": "$string:main_title",
+  "dstAbilityMode": 1,
+  "dstAbilityName": "EntryUIExtensionAbility",
+  "dstBundleName": "com.example.menuuecdemo"
+}

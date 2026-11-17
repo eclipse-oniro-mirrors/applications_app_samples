@@ -1,0 +1,10 @@
+{
+  "name": "feature",
+  "version": "1.0.0",
+  "description": "Feature HSP for NavPushPathHelper demo.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+  }
+}

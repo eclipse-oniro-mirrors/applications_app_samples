@@ -43,11 +43,11 @@ struct Index {
         hilog.info(DOMAIN, 'testTag', `usbDevice.productId = ${usbDevice.productId}, usbDevice.vendorId = ${usbDevice.vendorId}`);
         return usbDevice.productId === productId && usbDevice.vendorId === vendorId;
       });
-      hilog.info(DOMAIN, 'testTag', `queryTargetDeviceId index = ${index}, deviceId = ${devices[index].deviceId}`);
       if (index < 0) {
         hilog.error(DOMAIN, 'testTag', 'can not find device');
         return -1;
       }
+      hilog.info(DOMAIN, 'testTag', `queryTargetDeviceId index = ${index}, deviceId = ${devices[index].deviceId}`);
       return devices[index].deviceId;
     } catch (error) {
       hilog.error(DOMAIN, 'testTag', `queryDevice failed, err: ${JSON.stringify(error)}`);
@@ -59,9 +59,9 @@ struct Index {
   // [Start driver_ui_step5]
   private async getDriverRemote(deviceId: number): Promise<rpc.IRemoteObject | null> {
     try {
-      let remoteDeviceDriver: deviceManager.RemoteDeviceDriver = await deviceManager.bindDeviceDriver(deviceId,
+      let remoteDeviceDriver: deviceManager.RemoteDeviceDriver = await deviceManager.bindDriverWithDeviceId(deviceId,
         (err: BusinessError, id: number) => {
-          hilog.info(DOMAIN, 'testTag', `device[${id}] id disconnect, err: ${JSON.stringify(err)}`);
+          hilog.error(DOMAIN, 'testTag', `device[${id}] id disconnect, err: ${JSON.stringify(err)}`);
         });
       return remoteDeviceDriver.remote;
     } catch (error) {
@@ -89,11 +89,11 @@ struct Index {
     let data = new rpc.MessageSequence();
     let reply = new rpc.MessageSequence();
 
-    // 向驱动发送信息"Hello"
-    hilog.info(DOMAIN, 'testTag', `communicateWithRemote, message=${this.message}`);
-    data.writeString(this.message);
-
     try {
+      // 向驱动发送信息"Hello"
+      hilog.info(DOMAIN, 'testTag', `communicateWithRemote, message=${this.message}`);
+      data.writeString(this.message);
+
       await this.remote.sendMessageRequest(REQUEST_CODE, data, reply, option);
       // 获取驱动返回信息"Hello world"
       this.message = reply.readString();

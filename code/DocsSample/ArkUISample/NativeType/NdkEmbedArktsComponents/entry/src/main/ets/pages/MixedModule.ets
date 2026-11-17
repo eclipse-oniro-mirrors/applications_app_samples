@@ -70,9 +70,9 @@ function mixedRefresh(attribute: RefreshAttribute) {
 // 定义创建函数的返回值，用于ArkTS侧和Native侧的交互。
 interface MixedModuleResult {
   // 定义针对Refresh构建函数的封装对象，用于Native侧转化为ArkUI_NodeHandle对象。
-  content?: ComponentContent<RefreshAttribute>;
+  content: ComponentContent<RefreshAttribute>;
   // Refresh作为容器组件，需要使用ContentSlot机制挂载Native侧的子组件。
-  childSlot?: NodeContent;
+  childSlot: NodeContent;
 }
 
 // 提供创建ArkTS组件的入口函数。
@@ -81,19 +81,19 @@ export function createMixedRefresh(value: NativeRefreshAttribute): MixedModuleRe
   // 通过AppStorage对象在Ability启动的时候保持UI上下文对象。
   let uiContent = AppStorage.get<UIContext>('context');
   let modifier = new RefreshModifier();
-  if (value.width) {
+  if (value.width !== undefined) {
     modifier.width(value.width);
   }
-  if (value.height) {
+  if (value.height !== undefined) {
     modifier.height(value.height);
   }
-  if (value.backgroundColor) {
+  if (value.backgroundColor !== undefined) {
     modifier.backgroundColor(value.backgroundColor);
   }
-  if (value.pullToRefresh) {
+  if (value.pullToRefresh !== undefined) {
     modifier.pullToRefresh(value.pullToRefresh);
   }
-  if (value.refreshOffset) {
+  if (value.refreshOffset !== undefined) {
     modifier.refreshOffset(value.refreshOffset);
   }
   // 创建NodeContent插槽对象用于Refresh子组件挂载。
@@ -112,23 +112,23 @@ export function createMixedRefresh(value: NativeRefreshAttribute): MixedModuleRe
 }
 
 // 定义Refresh组件的更新函数，用于Native侧更新。
-// 在更新场景下，需要将Refresh组件的封装对象及其子组件插槽对象返回，防止组件重新创建。
+// 在更新场景下，需要将Refresh组件的封装对象及其子组件插槽对象传入更新函数并复用，防止组件重新创建。
 export function updateMixedRefresh(refresh: ComponentContent<RefreshAttribute>, childSlot: NodeContent,
   value: NativeRefreshAttribute): void {
   let modifier = new RefreshModifier();
-  if (value.width) {
+  if (value.width !== undefined) {
     modifier.width(value.width);
   }
-  if (value.height) {
+  if (value.height !== undefined) {
     modifier.height(value.height);
   }
-  if (value.backgroundColor) {
+  if (value.backgroundColor !== undefined) {
     modifier.backgroundColor(value.backgroundColor);
   }
-  if (value.pullToRefresh) {
+  if (value.pullToRefresh !== undefined) {
     modifier.pullToRefresh(value.pullToRefresh);
   }
-  if (value.refreshOffset) {
+  if (value.refreshOffset !== undefined) {
     modifier.refreshOffset(value.refreshOffset);
   }
   // 调用ComponentContent的update接口进行更新。
@@ -140,5 +140,4 @@ export function updateMixedRefresh(refresh: ComponentContent<RefreshAttribute>, 
     onOffsetChange: value.onOffsetChange
   });
 }
-
 // [End mixed_module]

@@ -17,6 +17,7 @@ import { camera } from '@kit.CameraKit';
 import { CommonConstants as Const } from '../common/CommonConstants';
 
 export class CameraDataModel {
+  public useNativeCamera: boolean = false;
   public surfaceId: string = '';
   public cameraWidth: number = Const.DEFAULT_WIDTH;
   public cameraHeight: number = Const.DEFAULT_HEIGHT;
@@ -48,6 +49,7 @@ export class CameraDataModel {
   }
 
   reset(){
+    this.useNativeCamera = false;
     this.surfaceId = '';
     this.cameraWidth = Const.DEFAULT_WIDTH;
     this.cameraHeight = Const.DEFAULT_HEIGHT;

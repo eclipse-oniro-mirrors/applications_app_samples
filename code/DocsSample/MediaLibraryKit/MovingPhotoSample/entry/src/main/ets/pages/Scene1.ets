@@ -31,7 +31,7 @@ export struct Scene1 {
     icon: SaveIconStyle.FULL_FILLED,
     text: SaveDescription.SAVE_IMAGE,
     buttonType: ButtonType.Capsule
-  }// Set properties of SaveButton.
+  }// 设置保存按钮的属性。
 
   // [StartExclude Save_Button]
   async prepareTestFiles() {
@@ -97,13 +97,13 @@ export struct Scene1 {
           })
         // [EndExclude Save_Button]
 
-        SaveButton(this.saveButtonOptions) // Create a button with SaveButton.
+        SaveButton(this.saveButtonOptions) // 创建一个带有“保存”按钮的按钮。
           .onClick(async (event, result: SaveButtonOnClickResult) => {
             if (result == SaveButtonOnClickResult.SUCCESS) {
               try {
                 let context: Context = this.getUIContext().getHostContext() as common.UIAbilityContext;
                 let phAccessHelper = photoAccessHelper.getPhotoAccessHelper(context);
-                // Ensure that the assets specified by imageFileUri and videoFileUri exist.
+                // 确保imageFileUri和videoFileUri指定的资产存在。
                 let photoPath = context.filesDir;
                 let imageFileUri = fileUri.getUriFromPath(photoPath) + '/create_moving_photo.jpg';
                 let videoFileUri = fileUri.getUriFromPath(photoPath) + '/create_moving_photo.mp4';

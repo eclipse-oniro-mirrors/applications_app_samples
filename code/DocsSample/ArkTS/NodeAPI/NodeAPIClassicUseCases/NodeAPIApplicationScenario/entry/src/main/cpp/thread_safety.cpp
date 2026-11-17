@@ -40,7 +40,7 @@ static void ExecuteWork(napi_env env, void *data)
         auto result = future.get();
         OH_LOG_INFO(LOG_APP, "XXX, Result from JS %{public}s", result.c_str());
     } catch (const std::exception &e) {
-        OH_LOG_INFO(LOG_APP, "XXX, Result from JS %{public}s", e.what());
+        OH_LOG_ERROR(LOG_APP, "XXX, Result from JS %{public}s", e.what());
     }
 }
 
@@ -140,7 +140,7 @@ struct ThreadData {
 void NativeThread(void* arg)
 {
     auto* data = static_cast<ThreadData*>(arg);
-    OH_LOG_INFO(LOG_APP, "[C++ SubThread] Received from Worker: %{public}s\n", data->inputStr.c_str());
+    OH_LOG_INFO(LOG_APP, "[C++ SubThread] Received from %{public}s\n", data->inputStr.c_str());
     std::string str = "Hello from C++!";
     std::string msg = "Echo of " + str;
     char* cstr = strdup(msg.c_str());

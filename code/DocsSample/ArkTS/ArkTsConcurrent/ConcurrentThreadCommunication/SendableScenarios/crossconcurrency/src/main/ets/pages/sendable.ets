@@ -15,7 +15,7 @@
 
 // [Start across_concurrent_instance_pass_class_method]
 // 定义模拟类Test，模仿开发过程中需传递带方法的class
-import { lang, collections } from '@kit.ArkTS'
+import { lang, collections } from '@kit.ArkTS';
 
 export type ISendable = lang.ISendable;
 

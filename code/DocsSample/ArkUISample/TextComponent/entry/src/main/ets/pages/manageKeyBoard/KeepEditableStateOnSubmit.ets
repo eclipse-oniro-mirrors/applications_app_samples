@@ -16,7 +16,7 @@
 @Entry
 @Component
 // [Start keepEditableState_OnSubmit]
-struct keepEditableStateOnSubmit {
+struct KeepEditableStateOnSubmit {
   build() {
     NavDestination() {
       Column({ space: 20 }) {
@@ -39,4 +39,4 @@ struct keepEditableStateOnSubmit {
 }
 // [End keepEditableState_OnSubmit]
 
-export { keepEditableStateOnSubmit };
+export { KeepEditableStateOnSubmit };

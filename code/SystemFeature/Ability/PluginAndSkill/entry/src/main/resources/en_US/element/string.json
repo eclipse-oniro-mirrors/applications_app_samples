@@ -1,0 +1,637 @@
+{
+    "string": [
+        {
+            "name": "module_desc",
+            "value": "Local plugin management sample"
+        },
+        {
+            "name": "EntryAbility_desc",
+            "value": "Local plugin management entry"
+        },
+        {
+            "name": "EntryAbility_label",
+            "value": "PluginAndSkill"
+        },
+        {
+            "name": "home_description",
+            "value": "Select a feature page."
+        },
+        {
+            "name": "operation_ready",
+            "value": "Ready"
+        },
+        {
+            "name": "plugin_tab_title",
+            "value": "Plugins"
+        },
+        {
+            "name": "skill_tab_title",
+            "value": "Skills"
+        },
+        {
+            "name": "skill_page_title",
+            "value": "Skill Management"
+        },
+        {
+            "name": "skill_page_description",
+            "value": "Query skills for this application, a specified application, or the device."
+        },
+        {
+            "name": "self_skill_query_title",
+            "value": "Query Own Skills"
+        },
+        {
+            "name": "bundle_skill_query_title",
+            "value": "Query Application Skills"
+        },
+        {
+            "name": "all_skills_query_title",
+            "value": "Query All Device Skills"
+        },
+        {
+            "name": "skill_bundle_placeholder",
+            "value": "Application bundle name"
+        },
+        {
+            "name": "skill_module_placeholder",
+            "value": "Module name"
+        },
+        {
+            "name": "skill_name_placeholder",
+            "value": "Skill name"
+        },
+        {
+            "name": "skill_empty_option",
+            "value": "Not set (empty value)"
+        },
+        {
+            "name": "query_self_skill_button",
+            "value": "Query own skill"
+        },
+        {
+            "name": "query_self_skills_button",
+            "value": "Query all own skills"
+        },
+        {
+            "name": "query_bundle_skill_button",
+            "value": "Query application skill"
+        },
+        {
+            "name": "query_bundle_skills_button",
+            "value": "Query application skills"
+        },
+        {
+            "name": "query_all_skills_button",
+            "value": "Query all device skills"
+        },
+        {
+            "name": "skill_results_title",
+            "value": "Skill information"
+        },
+        {
+            "name": "no_skills",
+            "value": "No skill information found."
+        },
+        {
+            "name": "skill_query_success",
+            "value": "Skill information refreshed."
+        },
+        {
+            "name": "skill_bundle_required",
+            "value": "Enter an application bundle name."
+        },
+        {
+            "name": "skill_module_required",
+            "value": "Enter a module name."
+        },
+        {
+            "name": "skill_name_required",
+            "value": "Enter a skill name."
+        },
+        {
+            "name": "skill_bundle_label",
+            "value": "Bundle"
+        },
+        {
+            "name": "skill_module_label",
+            "value": "Module"
+        },
+        {
+            "name": "skill_name_label",
+            "value": "Skill"
+        },
+        {
+            "name": "skill_type_label",
+            "value": "Type"
+        },
+        {
+            "name": "skill_path_label",
+            "value": "Path"
+        },
+        {
+            "name": "skill_ability_label",
+            "value": "Ability"
+        },
+        {
+            "name": "skill_version_code_label",
+            "value": "Version code"
+        },
+        {
+            "name": "skill_version_label",
+            "value": "Version"
+        },
+        {
+            "name": "skill_visibility_label",
+            "value": "Visibility"
+        },
+        {
+            "name": "skill_description_label",
+            "value": "Description"
+        },
+        {
+            "name": "skill_src_entries_label",
+            "value": "Source entries"
+        },
+        {
+            "name": "skill_permissions_label",
+            "value": "Permissions"
+        },
+        {
+            "name": "skill_request_permissions_label",
+            "value": "Requested permissions"
+        },
+        {
+            "name": "skill_flag_placeholder",
+            "value": "Query flags"
+        },
+        {
+            "name": "skill_execution_title",
+            "value": "Execute Skill"
+        },
+        {
+            "name": "skill_execution_description",
+            "value": "Select a skill and execute it to view the result."
+        },
+        {
+            "name": "execute_skill_button",
+            "value": "Execute"
+        },
+        {
+            "name": "execution_result_title",
+            "value": "Execution Result"
+        },
+        {
+            "name": "execution_no_result",
+            "value": "No execution result yet."
+        },
+        {
+            "name": "execution_success",
+            "value": "Execution completed successfully."
+        },
+        {
+            "name": "execution_failed",
+            "value": "Execution failed."
+        },
+        {
+            "name": "plugin_detail_title",
+            "value": "Plugin Details"
+        },
+        {
+            "name": "plugin_detail_description",
+            "value": "View detailed information about installed plugins."
+        },
+        {
+            "name": "refresh_plugins_button",
+            "value": "Refresh Plugin List"
+        },
+        {
+            "name": "plugin_detail_label",
+            "value": "Label"
+        },
+        {
+            "name": "plugin_detail_bundle",
+            "value": "Bundle Name"
+        },
+        {
+            "name": "plugin_detail_version",
+            "value": "Version"
+        },
+        {
+            "name": "plugin_detail_module_count",
+            "value": "Module Count"
+        },
+        {
+            "name": "skill_compare_title",
+            "value": "Compare Skills"
+        },
+        {
+            "name": "skill_compare_description",
+            "value": "Select two skills to compare their properties side by side."
+        },
+        {
+            "name": "compare_skill_a_label",
+            "value": "Skill A"
+        },
+        {
+            "name": "compare_skill_b_label",
+            "value": "Skill B"
+        },
+        {
+            "name": "compare_button",
+            "value": "Compare"
+        },
+        {
+            "name": "compare_result_title",
+            "value": "Comparison Result"
+        },
+        {
+            "name": "compare_same_bundle",
+            "value": "Same Bundle"
+        },
+        {
+            "name": "compare_diff_bundle",
+            "value": "Different Bundle"
+        },
+        {
+            "name": "compare_same_module",
+            "value": "Same Module"
+        },
+        {
+            "name": "compare_diff_module",
+            "value": "Different Module"
+        },
+        {
+            "name": "skill_execution_button",
+            "value": "Execute Skill"
+        },
+        {
+            "name": "plugin_detail_button",
+            "value": "Plugin Details"
+        },
+        {
+            "name": "skill_compare_button",
+            "value": "Compare Skills"
+        },
+        {
+            "name": "plugin_compare_title",
+            "value": "Compare Plugins"
+        },
+        {
+            "name": "plugin_compare_description",
+            "value": "Select two installed plugins to compare their properties."
+        },
+        {
+            "name": "plugin_compare_select_a",
+            "value": "Select Plugin A"
+        },
+        {
+            "name": "plugin_compare_select_b",
+            "value": "Select Plugin B"
+        },
+        {
+            "name": "skill_history_title",
+            "value": "Skill Query History"
+        },
+        {
+            "name": "skill_history_description",
+            "value": "View history of skill queries with statistics."
+        },
+        {
+            "name": "history_query_all",
+            "value": "Query All"
+        },
+        {
+            "name": "history_clear",
+            "value": "Clear"
+        },
+        {
+            "name": "history_filter_title",
+            "value": "Filter"
+        },
+        {
+            "name": "history_statistics_title",
+            "value": "Statistics"
+        },
+        {
+            "name": "history_records_title",
+            "value": "Query Records"
+        },
+        {
+            "name": "plugin_search_title",
+            "value": "Search Plugins"
+        },
+        {
+            "name": "plugin_search_description",
+            "value": "Search installed plugins by keyword and filters."
+        },
+        {
+            "name": "plugin_search_options",
+            "value": "Search Options"
+        },
+        {
+            "name": "plugin_search_button",
+            "value": "Search"
+        },
+        {
+            "name": "plugin_search_results_title",
+            "value": "Search Results"
+        },
+        {
+            "name": "skill_batch_title",
+            "value": "Batch Skill Operations"
+        },
+        {
+            "name": "skill_batch_description",
+            "value": "Select skills and execute batch queries."
+        },
+        {
+            "name": "skill_batch_select_skills",
+            "value": "Select Skills"
+        },
+        {
+            "name": "skill_batch_execute",
+            "value": "Execute Batch"
+        },
+        {
+            "name": "skill_batch_summary",
+            "value": "Batch Summary"
+        },
+        {
+            "name": "skill_batch_records_title",
+            "value": "Batch Records"
+        },
+        {
+            "name": "plugin_compare_button",
+            "value": "Compare Plugins"
+        },
+        {
+            "name": "skill_history_button",
+            "value": "Query History"
+        },
+        {
+            "name": "plugin_search_button_nav",
+            "value": "Search Plugins"
+        },
+        {
+            "name": "skill_batch_button",
+            "value": "Batch Operations"
+        },
+        {
+            "name": "execution_label_module",
+            "value": "Module:"
+        },
+        {
+            "name": "execution_label_duration",
+            "value": "Duration:"
+        },
+        {
+            "name": "execution_label_result",
+            "value": "Result:"
+        },
+        {
+            "name": "execution_label_error",
+            "value": "Error:"
+        },
+        {
+            "name": "status_success",
+            "value": "SUCCESS"
+        },
+        {
+            "name": "status_failed",
+            "value": "FAILED"
+        },
+        {
+            "name": "status_running",
+            "value": "RUNNING"
+        },
+        {
+            "name": "status_idle",
+            "value": "IDLE"
+        },
+        {
+            "name": "status_pending",
+            "value": "PENDING"
+        },
+        {
+            "name": "batch_label_select_all",
+            "value": "Select All"
+        },
+        {
+            "name": "batch_label_bundle",
+            "value": "Bundle:"
+        },
+        {
+            "name": "batch_label_type",
+            "value": "Type:"
+        },
+        {
+            "name": "batch_label_path",
+            "value": "Path:"
+        },
+        {
+            "name": "batch_label_total",
+            "value": "Total:"
+        },
+        {
+            "name": "batch_label_success",
+            "value": "Success:"
+        },
+        {
+            "name": "batch_label_failed",
+            "value": "Failed:"
+        },
+        {
+            "name": "batch_label_total_time",
+            "value": "Total Time:"
+        },
+        {
+            "name": "history_label_bundle",
+            "value": "Bundle:",
+            "description": "Bundle label in history record"
+        },
+        {
+            "name": "history_label_module",
+            "value": "Module:",
+            "description": "Module label in history record"
+        },
+        {
+            "name": "history_label_time",
+            "value": "Time:",
+            "description": "Time label in history record"
+        },
+        {
+            "name": "history_label_duration",
+            "value": "Duration:",
+            "description": "Duration label in history record"
+        },
+        {
+            "name": "history_label_type",
+            "value": "Type:",
+            "description": "Type label in history record"
+        },
+        {
+            "name": "history_label_path",
+            "value": "Path:",
+            "description": "Path label in history record"
+        },
+        {
+            "name": "history_label_error",
+            "value": "Error:",
+            "description": "Error label in history record"
+        },
+        {
+            "name": "history_filter_success",
+            "value": "Success",
+            "description": "Success filter label in history page"
+        },
+        {
+            "name": "history_filter_failed",
+            "value": "Failed",
+            "description": "Failed filter label in history page"
+        },
+        {
+            "name": "history_stats_total",
+            "value": "Total Queries:",
+            "description": "Total queries label in history statistics"
+        },
+        {
+            "name": "history_stats_successful",
+            "value": "Successful:",
+            "description": "Successful label in history statistics"
+        },
+        {
+            "name": "history_stats_failed",
+            "value": "Failed:",
+            "description": "Failed label in history statistics"
+        },
+        {
+            "name": "history_stats_avg_duration",
+            "value": "Avg Duration:",
+            "description": "Average duration label in history statistics"
+        },
+        {
+            "name": "compare_stats_total_fields",
+            "value": "Total Fields:",
+            "description": "Total fields label in compare summary"
+        },
+        {
+            "name": "compare_stats_same",
+            "value": "Same:",
+            "description": "Same count label in compare summary"
+        },
+        {
+            "name": "compare_stats_different",
+            "value": "Different:",
+            "description": "Different count label in compare summary"
+        },
+        {
+            "name": "compare_stats_match_rate",
+            "value": "Match Rate:",
+            "description": "Match rate label in compare summary"
+        },
+        {
+            "name": "skill_flag_all",
+            "value": "All flags"
+        },
+        {
+            "name": "skill_flag_default",
+            "value": "Default"
+        },
+        {
+            "name": "skill_flag_description",
+            "value": "+ Description"
+        },
+        {
+            "name": "skill_flag_src_entries",
+            "value": "+ SrcEntries"
+        },
+        {
+            "name": "skill_flag_permissions",
+            "value": "+ Permissions"
+        },
+        {
+            "name": "skill_flag_request_permissions",
+            "value": "+ RequestPermissions"
+        },
+        {
+            "name": "compare_field_skill_name",
+            "value": "Skill Name"
+        },
+        {
+            "name": "compare_field_bundle_name",
+            "value": "Bundle Name"
+        },
+        {
+            "name": "compare_field_module_name",
+            "value": "Module Name"
+        },
+        {
+            "name": "compare_field_skill_type",
+            "value": "Skill Type"
+        },
+        {
+            "name": "compare_field_skill_path",
+            "value": "Skill Path"
+        },
+        {
+            "name": "compare_field_ability_name",
+            "value": "Ability Name"
+        },
+        {
+            "name": "compare_field_version_code",
+            "value": "Version Code"
+        },
+        {
+            "name": "compare_field_version",
+            "value": "Version"
+        },
+        {
+            "name": "compare_field_visibility",
+            "value": "Visibility"
+        },
+        {
+            "name": "compare_field_description",
+            "value": "Description"
+        },
+        {
+            "name": "compare_field_source_entries",
+            "value": "Source Entries"
+        },
+        {
+            "name": "compare_field_permissions",
+            "value": "Permissions"
+        },
+        {
+            "name": "compare_field_requested_permissions",
+            "value": "Requested Permissions"
+        },
+        {
+            "name": "compare_both_not_found",
+            "value": "Both skills could not be found."
+        },
+        {
+            "name": "compare_skill_a_not_found",
+            "value": "Skill A (%s) not found. Skill B loaded."
+        },
+        {
+            "name": "compare_skill_b_not_found",
+            "value": "Skill B (%s) not found. Skill A loaded."
+        },
+        {
+            "name": "execution_found_format",
+            "value": "Skill '%s' found at path: %s"
+        },
+        {
+            "name": "execution_failed_format",
+            "value": "Execution failed: %d: %s"
+        },
+        {
+            "name": "batch_completed_format",
+            "value": "Batch completed: %d success, %d failed in %dms"
+        },
+        {
+            "name": "batch_error_format",
+            "value": "Batch error: %d: %s"
+        }
+    ]
+}

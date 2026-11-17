@@ -28,7 +28,9 @@ struct Index {
     };
     // 定义一个事件的回调处理函数，当收到对应的事件后执行回调函数
     let callback: Callback<emitter.EventData> = (eventData: emitter.EventData) => {
-      this.messageOn = eventData.data!.content
+      if (eventData.data) {
+        this.messageOn = eventData.data.content
+      }
       console.info(`eventData: ${JSON.stringify(eventData)}`);
     }
     // [StartExclude emitter_on]

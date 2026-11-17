@@ -55,7 +55,9 @@ struct WebComponent {
               secondaryButton: {
                 value: 'onConfirm',
                 action: () => {
-                  event.request.grant(event.request.getAccessibleResource());
+                  let resources = event.request.getAccessibleResource();
+                  console.info('Granting permissions for resources: ' + JSON.stringify(resources));
+                  event.request.grant(resources);
                 }
               },
               cancel: () => {

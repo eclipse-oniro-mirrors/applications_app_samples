@@ -19,11 +19,13 @@
 #include <arkui/native_interface.h>
 #include <arkui/styled_string.h>
 #include <arkui/drag_and_drop.h>
+#include <arkui/text.h>
 #include <hilog/log.h>
 #include <native_drawing/drawing_brush.h>
 #include <native_drawing/drawing_color.h>
 #include <native_drawing/drawing_color_filter.h>
 #include <native_drawing/drawing_font_collection.h>
+#include <native_drawing/drawing_lattice.h>
 #include <native_drawing/drawing_rect.h>
 #include <native_drawing/drawing_round_rect.h>
 #include <native_drawing/drawing_text_blob.h>
@@ -48,6 +50,7 @@ constexpr uint32_t TEXT_DECORATION_COLOR = 0xFF00FFFF;
 #define VALUE_3 3
 #define VALUE_4 4
 #define VALUE_5 5
+#define VALUE_7 7
 #define VALUE_8 8
 #define VALUE_10 10
 #define VALUE_11 11
@@ -521,9 +524,11 @@ void setText1(ArkUI_NodeHandle &text)
                 {.f32 = 5.0f},       // 左上角半径
                 {.f32 = 5.0f},       // 右上角半径
                 {.f32 = 5.0f},       // 左下角半径
-                {.f32 = 5.0f}        // 右下角半径
+                {.f32 = 5.0f},       // 右下角半径
+                {.f32 = 2.0f},       // 边框宽度
+                {.u32 = COLOR_RED}   // 边框颜色
             };
-            ArkUI_AttributeItem spanBackgroundItem = {.value = spanBackground, .size = VALUE_5};
+            ArkUI_AttributeItem spanBackgroundItem = {.value = spanBackground, .size = VALUE_7};
             Manager::nodeAPI_->setAttribute(span, NODE_SPAN_TEXT_BACKGROUND_STYLE, &spanBackgroundItem);
 
             // 文本基线的偏移量属性
@@ -1597,7 +1602,33 @@ void setText6(ArkUI_NodeHandle &text6)
     ArkUI_NumberValue baselineOffset = {.f32 = VALUE_10};
     ArkUI_AttributeItem baselineOffsetItem = {&baselineOffset, VALUE_1};
     Manager::nodeAPI_->setAttribute(imageSpan, NODE_IMAGE_SPAN_BASELINE_OFFSET, &baselineOffsetItem);
+    // 使用slice设置ImageSpan的四边拉伸区域，顺序为left、top、right、bottom。
+    ArkUI_NumberValue resizableSlice[] = {
+        {.f32 = 10.0f}, {.f32 = 10.0f}, {.f32 = 10.0f}, {.f32 = 10.0f}};
+    ArkUI_AttributeItem resizableSliceItem = {.value = resizableSlice, .size = VALUE_4};
+    Manager::nodeAPI_->setAttribute(imageSpan, NODE_IMAGE_SPAN_RESIZABLE, &resizableSliceItem);
     Manager::nodeAPI_->addChild(text6, imageSpan);
+
+    // lattice与slice分别设置在不同的ImageSpan上；同一节点同时设置时优先使用lattice。
+    ArkUI_NodeHandle latticeImageSpan = Manager::nodeAPI_->createNode(ARKUI_NODE_IMAGE_SPAN);
+    Manager::nodeAPI_->setAttribute(latticeImageSpan, NODE_WIDTH, &width);
+    Manager::nodeAPI_->setAttribute(latticeImageSpan, NODE_HEIGHT, &height);
+    Manager::nodeAPI_->setAttribute(latticeImageSpan, NODE_IMAGE_SPAN_SRC, &spanUrl);
+    const int32_t xDivs[] = {20, 30};
+    const int32_t yDivs[] = {30, 60};
+    constexpr uint32_t xCount = sizeof(xDivs) / sizeof(xDivs[0]);
+    constexpr uint32_t yCount = sizeof(yDivs) / sizeof(yDivs[0]);
+    OH_Drawing_Rect* bounds = OH_Drawing_RectCreate(0, 0, 100, 100);
+    OH_Drawing_Lattice* resizableLattice = nullptr;
+    OH_Drawing_ErrorCode errorCode = OH_Drawing_LatticeCreate(
+        xDivs, yDivs, xCount, yCount, bounds, nullptr, 0, nullptr, 0, &resizableLattice);
+    OH_Drawing_RectDestroy(bounds);
+    if (errorCode == OH_DRAWING_SUCCESS) {
+        ArkUI_AttributeItem resizableLatticeItem = {.object = resizableLattice};
+        Manager::nodeAPI_->setAttribute(
+            latticeImageSpan, NODE_IMAGE_SPAN_RESIZABLE, &resizableLatticeItem);
+    }
+    Manager::nodeAPI_->addChild(text6, latticeImageSpan);
 }
 // [End text_add_imagespan]
 
@@ -2667,6 +2698,186 @@ void setTextTailIndents(ArkUI_NodeHandle &textContainer)
     Manager::nodeAPI_->addChild(textContainer, text2);
 }
 
+static void createTextLineSpacingWithOptions(ArkUI_NodeHandle &textContainer)
+{
+    auto lineSpacingText = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    ArkUI_NumberValue textWidthVal = {.f32 = VALUE_380};
+    ArkUI_AttributeItem textWidthItem = {&textWidthVal, VALUE_1};
+    Manager::nodeAPI_->setAttribute(lineSpacingText, NODE_WIDTH, &textWidthItem);
+    ArkUI_NumberValue borderWidthVal = {.f32 = VALUE_1};
+    ArkUI_AttributeItem borderWidthItem = {&borderWidthVal, VALUE_1};
+    Manager::nodeAPI_->setAttribute(lineSpacingText, NODE_BORDER_WIDTH, &borderWidthItem);
+
+    if (lineSpacingText != nullptr) {
+        const char *textContent = "这是第一行文本\n这是第二行文本\n这是第三行文本\n这是第四行文本";
+        ArkUI_AttributeItem contentItem = {.string = textContent};
+        Manager::nodeAPI_->setAttribute(lineSpacingText, NODE_TEXT_CONTENT, &contentItem);
+
+        OH_ArkUI_NativeModule_LineSpacingOptions *lineSpacingOptions =
+            OH_ArkUI_NativeModule_LineSpacingOptions_Create();
+        if (lineSpacingOptions != nullptr) {
+            bool onlyBetweenLines = false;
+            ArkUI_ErrorCode setRet =
+                OH_ArkUI_NativeModule_LineSpacingOptions_SetOnlyBetweenLines(lineSpacingOptions, true);
+            ArkUI_ErrorCode getRet =
+                OH_ArkUI_NativeModule_LineSpacingOptions_GetOnlyBetweenLines(lineSpacingOptions, &onlyBetweenLines);
+            if (setRet == ARKUI_ERROR_CODE_NO_ERROR && getRet == ARKUI_ERROR_CODE_NO_ERROR) {
+                OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextMaker",
+                             "LineSpacing onlyBetweenLines: %{public}d", onlyBetweenLines);
+            }
+
+            ArkUI_NumberValue lineSpacingVal = {.f32 = 10.0f};
+            ArkUI_AttributeItem lineSpacingItem = {
+                .value = &lineSpacingVal, .size = VALUE_1, .object = lineSpacingOptions};
+            Manager::nodeAPI_->setAttribute(lineSpacingText, NODE_TEXT_LINE_SPACING, &lineSpacingItem);
+
+            OH_ArkUI_NativeModule_LineSpacingOptions_Destroy(lineSpacingOptions);
+        }
+
+        Manager::nodeAPI_->addChild(textContainer, lineSpacingText);
+    }
+}
+
+static void createTextNormalLineSpacing(ArkUI_NodeHandle &textContainer)
+{
+    ArkUI_NumberValue textWidthVal = {.f32 = VALUE_380};
+    ArkUI_AttributeItem textWidthItem = {&textWidthVal, VALUE_1};
+    ArkUI_NumberValue borderWidthVal = {.f32 = VALUE_1};
+    ArkUI_AttributeItem borderWidthItem = {&borderWidthVal, VALUE_1};
+
+    auto normalLineSpacingText = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    Manager::nodeAPI_->setAttribute(normalLineSpacingText, NODE_WIDTH, &textWidthItem);
+    Manager::nodeAPI_->setAttribute(normalLineSpacingText, NODE_BORDER_WIDTH, &borderWidthItem);
+
+    if (normalLineSpacingText != nullptr) {
+        const char *normalContent = "这是第一行文本\n这是第二行文本\n这是第三行文本\n这是第四行文本";
+        ArkUI_AttributeItem normalContentItem = {.string = normalContent};
+        Manager::nodeAPI_->setAttribute(normalLineSpacingText, NODE_TEXT_CONTENT, &normalContentItem);
+
+        ArkUI_NumberValue normalLineSpacingVal = {.f32 = 10.0f};
+        ArkUI_AttributeItem normalLineSpacingItem = {.value = &normalLineSpacingVal, .size = VALUE_1};
+        Manager::nodeAPI_->setAttribute(normalLineSpacingText, NODE_TEXT_LINE_SPACING, &normalLineSpacingItem);
+
+        Manager::nodeAPI_->addChild(textContainer, normalLineSpacingText);
+    }
+}
+
+void setTextLineSpacingWithOptions(ArkUI_NodeHandle &textContainer)
+{
+    auto lineSpacingLabel = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *labelText = "行间距选项示例（首尾行不加行间距）：";
+    ArkUI_AttributeItem labelItem = {.string = labelText};
+    Manager::nodeAPI_->setAttribute(lineSpacingLabel, NODE_TEXT_CONTENT, &labelItem);
+    Manager::nodeAPI_->addChild(textContainer, lineSpacingLabel);
+
+    createTextLineSpacingWithOptions(textContainer);
+
+    auto normalLineSpacingLabel = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *normalLabelText = "普通行间距示例（首尾行也有行间距）：";
+    ArkUI_AttributeItem normalLabelItem = {.string = normalLabelText};
+    Manager::nodeAPI_->setAttribute(normalLineSpacingLabel, NODE_TEXT_CONTENT, &normalLabelItem);
+    Manager::nodeAPI_->addChild(textContainer, normalLineSpacingLabel);
+
+    createTextNormalLineSpacing(textContainer);
+}
+
+static void createStrokeTextWithRoundJoin(ArkUI_NodeHandle &textContainer)
+{
+    ArkUI_NumberValue textWidthVal = {.f32 = VALUE_380};
+    ArkUI_AttributeItem textWidthItem = {&textWidthVal, VALUE_1};
+    ArkUI_NumberValue borderWidthVal = {.f32 = VALUE_1};
+    ArkUI_AttributeItem borderWidthItem = {&borderWidthVal, VALUE_1};
+
+    auto strokeText = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    Manager::nodeAPI_->setAttribute(strokeText, NODE_WIDTH, &textWidthItem);
+    Manager::nodeAPI_->setAttribute(strokeText, NODE_BORDER_WIDTH, &borderWidthItem);
+
+    if (strokeText != nullptr) {
+        const char *textContent = "设置描边宽度和颜色的文本";
+        ArkUI_AttributeItem contentItem = {.string = textContent};
+        Manager::nodeAPI_->setAttribute(strokeText, NODE_TEXT_CONTENT, &contentItem);
+
+        // [Start text_stroke]
+        // 设置文本描边宽度：大于0时显示空心字
+        ArkUI_NumberValue strokeWidthVal = {.f32 = 2.0f};
+        ArkUI_AttributeItem strokeWidthItem = {&strokeWidthVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(strokeText, NODE_TEXT_STROKE_WIDTH, &strokeWidthItem);
+
+        // 设置文本描边颜色：0xARGB格式，红色
+        ArkUI_NumberValue strokeColorVal = {.u32 = 0xFFFF0000};
+        ArkUI_AttributeItem strokeColorItem = {&strokeColorVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(strokeText, NODE_TEXT_STROKE_COLOR, &strokeColorItem);
+
+        // 设置文本描边拐角样式：圆角样式
+        ArkUI_NumberValue strokeJoinStyleVal = {.i32 = OH_ARKUI_STROKE_JOIN_STYLE_ROUND_JOIN};
+        ArkUI_AttributeItem strokeJoinStyleItem = {&strokeJoinStyleVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(strokeText, NODE_TEXT_STROKE_JOIN_STYLE, &strokeJoinStyleItem);
+        // [End text_stroke]
+
+        // 获取文本描边属性值
+        OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextMaker", "NODE_TEXT_STROKE_WIDTH: %{public}f",
+            Manager::nodeAPI_->getAttribute(strokeText, NODE_TEXT_STROKE_WIDTH)->value[VALUE_0].f32);
+        OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextMaker", "NODE_TEXT_STROKE_COLOR: 0x%{public}X",
+            Manager::nodeAPI_->getAttribute(strokeText, NODE_TEXT_STROKE_COLOR)->value[VALUE_0].u32);
+        OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "TextMaker", "NODE_TEXT_STROKE_JOIN_STYLE: %{public}d",
+            Manager::nodeAPI_->getAttribute(strokeText, NODE_TEXT_STROKE_JOIN_STYLE)->value[VALUE_0].i32);
+
+        Manager::nodeAPI_->addChild(textContainer, strokeText);
+    }
+}
+
+static void createStrokeTextWithMiterJoin(ArkUI_NodeHandle &textContainer)
+{
+    ArkUI_NumberValue textWidthVal = {.f32 = VALUE_380};
+    ArkUI_AttributeItem textWidthItem = {&textWidthVal, VALUE_1};
+    ArkUI_NumberValue borderWidthVal = {.f32 = VALUE_1};
+    ArkUI_AttributeItem borderWidthItem = {&borderWidthVal, VALUE_1};
+
+    auto miterJoinText = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    Manager::nodeAPI_->setAttribute(miterJoinText, NODE_WIDTH, &textWidthItem);
+    Manager::nodeAPI_->setAttribute(miterJoinText, NODE_BORDER_WIDTH, &borderWidthItem);
+
+    if (miterJoinText != nullptr) {
+        const char *miterContent = "描边拐角样式为尖角";
+        ArkUI_AttributeItem miterContentItem = {.string = miterContent};
+        Manager::nodeAPI_->setAttribute(miterJoinText, NODE_TEXT_CONTENT, &miterContentItem);
+
+        ArkUI_NumberValue strokeWidthVal = {.f32 = 2.0f};
+        ArkUI_AttributeItem strokeWidthItem = {&strokeWidthVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(miterJoinText, NODE_TEXT_STROKE_WIDTH, &strokeWidthItem);
+
+        ArkUI_NumberValue strokeColorVal = {.u32 = 0xFF0000FF};
+        ArkUI_AttributeItem strokeColorItem = {&strokeColorVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(miterJoinText, NODE_TEXT_STROKE_COLOR, &strokeColorItem);
+
+        // 设置文本描边拐角样式：尖角样式（默认值）
+        ArkUI_NumberValue strokeJoinStyleVal = {.i32 = OH_ARKUI_STROKE_JOIN_STYLE_MITER_JOIN};
+        ArkUI_AttributeItem strokeJoinStyleItem = {&strokeJoinStyleVal, VALUE_1};
+        Manager::nodeAPI_->setAttribute(miterJoinText, NODE_TEXT_STROKE_JOIN_STYLE, &strokeJoinStyleItem);
+
+        Manager::nodeAPI_->addChild(textContainer, miterJoinText);
+    }
+}
+
+void setTextStroke(ArkUI_NodeHandle &textContainer)
+{
+    auto strokeLabel = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *labelText = "文本描边示例（空心字效果）：";
+    ArkUI_AttributeItem labelItem = {.string = labelText};
+    Manager::nodeAPI_->setAttribute(strokeLabel, NODE_TEXT_CONTENT, &labelItem);
+    Manager::nodeAPI_->addChild(textContainer, strokeLabel);
+
+    createStrokeTextWithRoundJoin(textContainer);
+
+    auto miterJoinLabel = Manager::nodeAPI_->createNode(ARKUI_NODE_TEXT);
+    const char *miterJoinLabelText = "描边拐角样式对比（尖角）：";
+    ArkUI_AttributeItem miterJoinLabelItem = {.string = miterJoinLabelText};
+    Manager::nodeAPI_->setAttribute(miterJoinLabel, NODE_TEXT_CONTENT, &miterJoinLabelItem);
+    Manager::nodeAPI_->addChild(textContainer, miterJoinLabel);
+
+    createStrokeTextWithMiterJoin(textContainer);
+}
+
 void setTextArea3(ArkUI_NodeHandle &textArea3)
 {
     // 多行文本输入框的默认提示文本内容属性
@@ -3307,6 +3518,8 @@ void setAllTextPart2(ArkUI_NodeHandle &textContainer)
     setBasicText2(textContainer);
     setCustomSpanText(textContainer);
     setTextTailIndents(textContainer);
+    setTextLineSpacingWithOptions(textContainer);
+    setTextStroke(textContainer);
 }
 
 /**

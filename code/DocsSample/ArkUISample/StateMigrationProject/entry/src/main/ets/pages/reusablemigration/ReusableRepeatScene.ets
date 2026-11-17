@@ -61,7 +61,6 @@ export struct CardViewV2 {
       // 显示当前列表项序号
       Text(`#${this.item}`)
         .fontSize(20)
-        .fontColor('#007dffa')
         .fontWeight(FontWeight.Bold)
 
       // 显示列表项内容

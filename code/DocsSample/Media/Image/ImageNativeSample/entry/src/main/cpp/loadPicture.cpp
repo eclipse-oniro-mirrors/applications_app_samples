@@ -253,7 +253,7 @@ napi_value PackToFileFromPicture(napi_env env, napi_callback_info info)
     size_t argc = 2;
     napi_value args[2] = {nullptr};
     if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok) {
-    OH_LOG_ERROR(LOG_APP, "napi_get_cb_info failed!");
+        OH_LOG_ERROR(LOG_APP, "napi_get_cb_info failed!");
         return GetJsResult(env, g_thisPicture->errorCode);
     }
     uint32_t fd = 0;

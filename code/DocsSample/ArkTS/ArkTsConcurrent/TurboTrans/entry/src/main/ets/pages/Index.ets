@@ -23,7 +23,7 @@ import { UIUtils } from '@kit.ArkUI';
 struct Index {
   @Local message: string = 'Hello World';
   // 替换成 pb: test_pb = test_pb.create(); 则用于observeProtobuf返回Sendable对象的场景
-  // @Local test_pb = test_pb.create();
+  // @Local pb: test_pb = test_pb.create();
   @Local layout: LayoutS = new LayoutS();
 
   build() {
@@ -72,7 +72,9 @@ struct Index {
   runTests() {
     taskpool.execute(observeJSON1).then((res) => {
       this.layout = UIUtils.makeObserved(res as LayoutS);
-    })
+    }).catch((e: BusinessError) => {
+      console.error(`taskpool execute error, code: ${e.code}, message is: ${e.message}`);
+    });
   }
 // [End transferableObject_makeObserved]
 // [EndExclude transferableObject_Text]

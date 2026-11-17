@@ -1919,6 +1919,78 @@
     {
       "name": "How_To_Disable_Text_Long_Press_description",
       "value": "设置触发时间小于系统菜单触发时间的自定义长按手势使长按不生效"
+    },
+    {
+      "name": "GradientTextFlowEffect_title",
+      "value": "渐变文本流式显示效果"
+    },
+    {
+      "name": "GradientTextFlowEffect_description",
+      "value": "实现渐变文本的流式显示效果"
+    },
+    {
+      "name": "GradientTextFlowEffect_replay",
+      "value": "重新播放"
+    },
+    {
+      "name": "MarqueeRerun_title",
+      "value": "跑马灯重跑"
+    },
+    {
+      "name": "MarqueeRerun_description",
+      "value": "实现跑马灯重跑效果"
+    },
+    {
+      "name": "MarqueeRerun_button",
+      "value": "重跑"
+    },
+    {
+      "name": "SelectionContainer_Demo",
+      "value": "跨节点选中文本"
+    },
+    {
+      "name": "SelectionContainer_title",
+      "value": "跨节点选中"
+    },
+    {
+      "name": "SelectionContainer_description",
+      "value": "通过SelectionContainer组件实现跨多个Text组件的文本选中、复制及菜单扩展能力"
+    },
+    {
+      "name": "SelectionContainer_Demo_description",
+      "value": "通过SelectionContainer实现跨多个Text组件的文本选中、复制及选中样式自定义"
+    },
+    {
+      "name": "SelectionContainer_JoinStyle",
+      "value": "配置文本拼接方式"
+    },
+    {
+      "name": "SelectionContainer_JoinStyle_description",
+      "value": "通过textJoinStyle设置跨节点选中文本的拼接方式"
+    },
+    {
+      "name": "SelectionContainer_CustomMenu",
+      "value": "绑定自定义选择菜单"
+    },
+    {
+      "name": "SelectionContainer_CustomMenu_description",
+      "value": "通过bindSelectionMenu绑定跨节点选中自定义菜单"
+    },
+    {
+      "name": "SelectionContainer_ExtendMenu",
+      "value": "扩展系统菜单选项"
+    },
+    {
+      "name": "SelectionContainer_ExtendMenu_description",
+      "value": "通过editMenuOptions扩展系统菜单并添加自定义菜单项"
+    },
+    {
+      "name": "SelectionContainer_Controller",
+      "value": "控制器管理选中状态"
+    },
+    {
+      "name": "SelectionContainer_Controller_description",
+      "value": "通过控制器关闭选择菜单与清除文本选中"
     }
   ]
 }

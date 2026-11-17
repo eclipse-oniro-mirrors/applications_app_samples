@@ -199,10 +199,10 @@ export default function abilityRecoveryRecentStressTest(): void {
       assertContains(recent[0], 'good_1');
     });
 
-    it('AbilityRecovery_RecoverAlwaysLeavesStoppedSurface_007', 0, () => {
+    it('AbilityRecovery_RecoverAlwaysLeavesStoppedState_007', 0, () => {
       const harness = new AbilityRecoveryHarness();
       for (let round = 0; round < 30; round++) {
-        harness.tryStart(round % 3 === 0 ? -1 : 0, `surface_${round}.mp4`);
+        harness.tryStart(round % 3 === 0 ? -1 : 0, `clip_${round}.mp4`);
         if (harness.isStarted()) {
           harness.tryStop(round % 5 === 0 ? -2 : 0);
         }

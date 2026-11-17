@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import hilog from '@ohos.hilog';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 // 日志对应的领域标识，范围是0x0~0xFFFF。
 const DOMAIN: number = 0xF811;

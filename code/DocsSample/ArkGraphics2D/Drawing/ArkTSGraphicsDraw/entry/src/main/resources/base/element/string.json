@@ -175,6 +175,22 @@
     {
       "name": "ChineseStrokeText",
       "value": "中文文字描边"
+    },
+    {
+      "name": "TextBlobStringFallback",
+      "value": "字体回退(字符串)"
+    },
+    {
+      "name": "TextBlobPosTextFallback",
+      "value": "字体回退(坐标文本)"
+    },
+    {
+      "name": "GlyphsFallback",
+      "value": "字形转换字体回退"
+    },
+    {
+      "name": "MeasureFallback",
+      "value": "文本测量字体回退"
     }
   ]
 }

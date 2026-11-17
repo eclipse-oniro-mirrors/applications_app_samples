@@ -199,9 +199,9 @@
 
 1. 本示例仅支持标准系统上运行，支持设备：RK3568。
 
-2. 本示例为Stage模型，支持API15版本SDK，SDK版本号(API Version 15 5.0.3.130),镜像版本号(5.0.3.130)
+2. 本示例为Stage模型，支持API 26 版本 SDK，SDK 版本号：26.0.0.25。
 
-3. 本示例需要使用DevEco Studio NEXT Release 版本号(Build Version: 5.0.3.900)及以上版本才可编译运行。需要配置"apl":"system_basic"才可安装成功；
+3. 本示例需要使用DevEco Studio及以上版本才可编译运行。需要配置"apl":"system_basic"才可安装成功；
 
 ### 下载
 

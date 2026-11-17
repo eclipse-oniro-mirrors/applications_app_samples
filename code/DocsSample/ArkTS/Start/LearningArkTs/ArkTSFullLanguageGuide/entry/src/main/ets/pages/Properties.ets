@@ -329,57 +329,6 @@ observable.value = 20;  // 输出: Value changed to 20
 observable.value = 20;  // 不输出（值相同）
 // [End property_observer_simulation]
 
-// ===== property_change_detection =====
-// [Start property_change_detection]
-class WatchedProperty {
-  private _data: string = '';
-  
-  get data(): string {
-    return this._data;
-  }
-  
-  set data(value: string) {
-    if (this._data !== value) {
-      console.info(`Property changed from '${this._data}' to '${value}'`);
-      this._data = value;
-    }
-  }
-  
-  // 手动触发变更检测
-  checkChange(): void {
-    console.info(`Current value: ${this._data}`);
-  }
-}
-
-let watched: WatchedProperty = new WatchedProperty();
-watched.data = 'Hello';  // 输出: Property changed from '' to 'Hello'
-watched.data = 'Hello';  // 不输出（值相同）
-watched.data = 'World';  // 输出: Property changed from 'Hello' to 'World'
-
-// 批量更新时触发
-class BatchUpdate {
-  private _items: string[] = [];
-  
-  get items(): string[] {
-    return [...this._items];  // 返回副本
-  }
-  
-  set items(value: string[]) {
-    let oldLength: number = this._items.length;
-    this._items = [...value];
-    
-    if (oldLength !== this._items.length) {
-      console.info(`Items count changed from ${oldLength} to ${this._items.length}`);
-    }
-  }
-  
-  addItem(item: string): void {
-    this._items.push(item);
-    console.info(`Added item: ${item}`);
-  }
-}
-// [End property_change_detection]
-
 // ===== manual_property_observation =====
 // [Start manual_property_observation]
 // 属性观察者：在set方法中比较新旧值并触发回调
@@ -637,7 +586,7 @@ class DclDogHouse extends DclAnimalHouse {
 
 let dclDog: DclDog = { dateOfBirth: new Date(), breed: 'Labrador' };
 let dclHouse: DclDogHouse = new DclDogHouse(dclDog);
-console.info(`${dclHouse.resident.breed}`);  // Labrador
+console.info(`${dclHouse.resident.breed}`);  // 'Labrador'
 // [End declare_field]
 
 

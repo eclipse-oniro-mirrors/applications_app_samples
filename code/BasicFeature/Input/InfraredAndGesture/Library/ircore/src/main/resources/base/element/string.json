@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "transmit_ok",
+      "value": "Sent successfully"
+    },
+    {
+      "name": "transmit_no_permission",
+      "value": "Infrared emission permission is missing"
+    },
+    {
+      "name": "transmit_param_error",
+      "value": "Invalid infrared code parameters"
+    },
+    {
+      "name": "transmit_no_emitter",
+      "value": "This device cannot emit infrared"
+    },
+    {
+      "name": "transmit_busy",
+      "value": "A previous transmission is running, try again later"
+    },
+    {
+      "name": "transmit_failed",
+      "value": "Sending failed, please retry"
+    }
+  ]
+}

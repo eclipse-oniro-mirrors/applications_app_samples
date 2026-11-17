@@ -169,6 +169,10 @@
       "value": "RenderingRepeat19"
     },
     {
+      "name": "RenderingRepeat_label20",
+      "value": "RenderingRepeat20"
+    },
+    {
       "name": "RenderingLazyForeach",
       "value": "RenderingLazyForeach"
     },
@@ -251,6 +255,10 @@
     {
       "name": "RenderingLazyForeach_label20",
       "value": "UnexpectedRenderingResults"
+    },
+    {
+      "name": "RenderingLazyForeach_label21",
+      "value": "LazyForEachClearCache"
     },
     {
       "name": "RepeatMigration",

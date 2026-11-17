@@ -16,6 +16,7 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import testNapi from 'libentry.so';
 import { getVectorStore } from './crud/vectorStoreCTUD';
+import { common } from '@kit.AbilityKit';
 
 const DOMAIN = 0x0000;
 
@@ -41,7 +42,8 @@ struct Index {
       .height('8%')
       .backgroundColor('#0D9FFB')
       .onClick(() => {
-        getVectorStore();
+        const context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+        getVectorStore(context);
       })
 
       Button() {

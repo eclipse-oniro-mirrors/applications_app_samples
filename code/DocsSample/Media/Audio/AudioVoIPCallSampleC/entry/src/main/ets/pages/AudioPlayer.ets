@@ -19,8 +19,8 @@ import { audio } from '@kit.AudioKit';
 import { router } from  '@kit.ArkUI';
 // [Start background_task]
 import { BusinessError } from '@kit.BasicServicesKit';
-import { backgroundTaskManager } from '@kit.BackgroundTasksKit'
-import { wantAgent, WantAgent } from '@kit.AbilityKit'
+import { backgroundTaskManager } from '@kit.BackgroundTasksKit';
+import { wantAgent, WantAgent } from '@kit.AbilityKit';
 // [StartExclude background_task]
 export class AudioPlayer {
   private  player: media.AVPlayer | null = null;
@@ -201,7 +201,7 @@ export class AudioPlayer {
       // 通过wantAgent模块下getWantAgent方法获取WantAgent对象。
       wantAgent.getWantAgent(wantAgentInfo).then((wantAgentObj: WantAgent) => {
         try {
-          let list: string[] = ['audioPlayback'];
+          let list: string[] = ['audioPlayback', 'audioRecording'];
           backgroundTaskManager.startBackgroundRunning(context, list, wantAgentObj)
             .then(() => {
               console.info('Operate startBackgroundRunning succeeded');

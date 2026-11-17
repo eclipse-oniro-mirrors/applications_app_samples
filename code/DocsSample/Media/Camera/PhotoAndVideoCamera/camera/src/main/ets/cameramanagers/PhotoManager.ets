@@ -41,6 +41,11 @@ export class PhotoManager implements OutputManager {
   private callback: (pixelMap: image.PixelMap, url: string) => void = () => {
   };
 
+  private signature: camera.C2PASignatureConfig = {
+    authorName: 'wang',
+    authorID: '9527'
+  };
+
   constructor(context: Context, isActive = true, isSingle: boolean) {
     this.context = context;
     this.isActive = isActive;
@@ -400,6 +405,14 @@ export class PhotoManager implements OutputManager {
   // [End enable_moving_photo]
   // [EndExclude hdr_shooting_case]
   // [EndExclude camera_shooting_case]
+
+  // [Start enable_c2pa]
+  public configC2PA() {
+    if (this.output && this.output.isC2PASignatureSupported()) {
+      this.output.configureC2PASignature(true, this.signature);
+    }
+  }
+  // [End enable_c2pa]
 
   // [Start photo_release]
   async release() {

@@ -121,11 +121,11 @@ typeGuardProcessValue(true);     // 布尔值: 真
 // [Start instanceof_type_guard]
 class TypeGuardDog {
   public name: string;
-  
+
   constructor(name: string) {
     this.name = name;
   }
-  
+
   public bark(): void {
     console.info(`${this.name} barks: Woof!`);
   }
@@ -133,11 +133,11 @@ class TypeGuardDog {
 
 class Cat {
   public name: string;
-  
+
   constructor(name: string) {
     this.name = name;
   }
-  
+
   public meow(): void {
     console.info(`${this.name} meows: Meow!`);
   }
@@ -145,7 +145,7 @@ class Cat {
 
 function makeSound(pet: TypeGuardDog | Cat): void {
   console.info(`Pet name: ${pet.name}`);
-  
+
   if (pet instanceof TypeGuardDog) {
     // 编译器知道pet是TypeGuardDog类型
     pet.bark();
@@ -997,3 +997,344 @@ let strContainer: Empty<string> = { value: 'hello' };
 let numContainer: Empty<number> = { value: 42 };
 // strContainer和numContainer不兼容，因为T参与了成员结构
 // [End generic_type_compatibility]
+
+// ===== builtin_primitive_types =====
+// [Start builtin_primitive_types]
+// number：整数与浮点数统一表示
+let age: number = 25;
+let price: number = 9.99;
+let hex: number = 0xFF; // 十六进制字面量
+
+// boolean：逻辑值
+let enabled: boolean = true;
+
+// string：字符串
+let appName: string = 'ArkTS';
+// [End builtin_primitive_types]
+
+// ===== void_type_basic =====
+// [Start void_type_basic]
+function log(message: string): void {
+  console.info(`${message}`);
+}
+// [End void_type_basic]
+
+// ===== null_undefined_types_basic =====
+// [Start null_undefined_types_basic]
+// null：明确表示空值
+let nickname: string | null = null;
+
+// undefined：未定义值，可选属性的隐含类型为T | undefined
+interface NullableUserProfile {
+  name: string;
+  email?: string;
+}
+
+let nullableUser: NullableUserProfile = { name: 'Alice' };
+// [End null_undefined_types_basic]
+
+// ===== literal_type_basic =====
+// [Start literal_type_basic]
+type TaskState = 'pending' | 'running' | 'done';
+
+let state: TaskState = 'pending';
+// state = 'finished'; // 编译错误：'finished'不是TaskState的成员
+// [End literal_type_basic]
+
+// ===== object_object_type =====
+// [Start object_object_type]
+interface Point {
+  x: number;
+  y: number;
+}
+
+// object：非原始类型
+let point: Point = { x: 1, y: 2 };
+let ref: object = point;
+
+// Object：所有非空类型的根类型
+let boxed: Object = 'hello';
+let boxedObj: Object = point;
+
+// Object类型的值访问具体成员前，需要先收窄
+if (typeof boxed === 'string') {
+  console.info(`${boxed.length}`); // 5
+}
+// [End object_object_type]
+
+// ===== type_alias_basic =====
+// [Start type_alias_basic]
+// 为原始类型起别名，增强语义
+type AccountId = number;
+let accountId: AccountId = 1001;
+
+// 为字面量联合类型起别名，约束取值范围
+type SortOrder = 'asc' | 'desc';
+let order: SortOrder = 'asc';
+
+console.info(`${accountId}`);  // 1001
+console.info(`${order}`);      // 'asc'
+// [End type_alias_basic]
+
+// ===== union_type_basic =====
+// [Start union_type_basic]
+type ID = string | number;
+
+let userId: ID = 'A-001';
+userId = 100; // 也可以是number
+
+function printId(id: ID): void {
+  if (typeof id === 'string') {
+    console.info(`${id.toUpperCase()}`); // string特有成员
+  } else {
+    console.info(`${id.toFixed(0)}`);    // number特有成员
+  }
+}
+// [End union_type_basic]
+
+// ===== function_type_basic =====
+// [Start function_type_basic]
+type Comparator = (a: number, b: number) => number;
+
+let ascending: Comparator = (a: number, b: number): number => {
+  return a - b;
+};
+
+console.info(`${ascending(3, 1)}`); // 2
+// [End function_type_basic]
+
+// ===== enum_type_basic =====
+// [Start enum_type_basic]
+enum MyColor {
+  Red,
+  Green,
+  Blue
+}
+
+let favorite: MyColor = MyColor.Blue;
+// [End enum_type_basic]
+
+// ===== interface_type_basic =====
+// [Start interface_type_basic]
+interface MyPosition {
+  x: number;
+  y: number;
+}
+
+let origin: MyPosition = { x: 0, y: 0 };
+// [End interface_type_basic]
+
+// ===== class_type_basic =====
+// [Start class_type_basic]
+class MyRectangle {
+  public width: number;
+  public height: number;
+
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+  }
+
+  public getArea(): number {
+    return this.width * this.height;
+  }
+}
+
+let rect: MyRectangle = new MyRectangle(3, 4);
+console.info(`${rect.getArea()}`); // 12
+// [End class_type_basic]
+
+// ===== value_reference_assignment =====
+// [Start value_reference_assignment]
+// 值类型：赋值复制值，两个变量相互独立
+let countA: number = 10;
+let countB: number = countA;
+countB = 20;
+console.info(`${countA}`); // 10（不受countB影响）
+
+// 引用类型：赋值复制引用，两个变量指向同一个对象
+interface Score {
+  value: number;
+}
+
+let scoreA: Score = { value: 90 };
+let scoreB: Score = scoreA;
+scoreB.value = 95;
+console.info(`${scoreA.value}`); // 95（scoreA随之改变）
+// [End value_reference_assignment]
+
+// ===== value_reference_mutation =====
+// [Start value_reference_mutation]
+class Task {
+  public status: string = 'pending';
+}
+
+// 引用类型作为参数：函数内修改原对象的状态
+function start(task: Task): void {
+  task.status = 'running';
+}
+
+let myTask: Task = new Task();
+start(myTask);
+console.info(`${myTask.status}`); // running（原对象被修改）
+
+// 值类型作为参数：函数内只修改副本
+function double(value: number): number {
+  value = value * 2; // 仅修改副本
+  return value;
+}
+
+let count: number = 10;
+double(count);
+console.info(`${count}`); // 10（不变）
+// [End value_reference_mutation]
+
+// ===== partial_required_types =====
+// [Start partial_required_types]
+interface UserProfile {
+  id: number;
+  name: string;
+  email: string;
+}
+
+// Partial<T>：所有属性变为可选
+let patch: Partial<UserProfile> = { name: 'Alice' };
+
+interface PageQuery {
+  keyword?: string;
+  pageSize?: number;
+}
+
+// Required<T>：所有属性变为必选
+let strictQuery: Required<PageQuery> = { keyword: 'arkts', pageSize: 20 };
+// [End partial_required_types]
+
+// ===== readonly_type_operator =====
+// [Start readonly_type_operator]
+interface AppConfig {
+  appId: string;
+  version: string;
+}
+
+let config: Readonly<AppConfig> = { appId: 'com.example.app', version: '1.0.0' };
+// config.version = '1.0.1'; // 编译错误：属性为只读
+// [End readonly_type_operator]
+
+// ===== record_type_operator =====
+// [Start record_type_operator]
+interface CityInfo {
+  country: string;
+  population: number;
+}
+
+let cityMap: Record<string, CityInfo> = {
+  'Beijing': { country: 'China', population: 21860000 }
+};
+
+let info: CityInfo | undefined = cityMap['Beijing']; // 索引访问结果包含undefined
+// [End record_type_operator]
+
+// ===== subtype_class_hierarchy =====
+// [Start subtype_class_hierarchy]
+class Creature {
+  public name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  public speak(): void {
+    console.info(`${this.name} makes a sound`);
+  }
+}
+
+class Hound extends Creature {
+  public breed: string;
+
+  constructor(name: string, breed: string) {
+    super(name);
+    this.breed = breed;
+  }
+
+  public bark(): void {
+    console.info(`${this.name} barks: Woof!`);
+  }
+}
+
+// 向上转型：子类实例可隐式赋给父类类型变量
+let hound: Hound = new Hound('Buddy', 'Golden Retriever');
+let creature: Creature = hound;
+creature.speak(); // 'Buddy makes a sound'
+// creature.bark(); // 编译错误：父类类型变量不能访问子类特有成员
+
+// 向下转型：需先确认实际类型
+if (creature instanceof Hound) {
+  let myHound: Hound = creature; // 守卫分支内自动收窄
+  myHound.bark();            // 'Buddy barks: Woof!'
+}
+// [End subtype_class_hierarchy]
+
+// ===== subtype_function_type =====
+// [Start subtype_function_type]
+class BaseType {}
+class SubType extends BaseType {}
+
+// 目标函数类型：(SubType) => BaseType
+type Handler = (input: SubType) => BaseType;
+
+// 参数为父类型（逆变）、返回值为子类型（协变），满足子类型规则
+let handler: Handler = (input: BaseType): SubType => {
+  return new SubType();
+};
+
+// 参数更少的函数可赋给参数更多的函数类型
+type BinaryOp = (a: number, b: number) => number;
+let doubleFn: BinaryOp = (a: number): number => a * 2;
+// [End subtype_function_type]
+
+// ===== subtype_union_type =====
+// [Start subtype_union_type]
+type Identifier = string | number;
+
+// string和number都是Identifier的子类型
+let id: Identifier = 'A-001';
+id = 100;
+
+let displayName: string = 'Alice';
+id = displayName;    // OK：string是string | number的子类型
+// displayName = id; // 编译错误：string | number不是string的子类型
+// [End subtype_union_type]
+
+// ===== as_type_assertion =====
+// [Start as_type_assertion]
+interface UserInfo {
+  id: number;
+  name: string;
+}
+
+let user: UserInfo = { id: 1, name: 'Alice' };
+
+// 向上转型：子类型到超类型，隐式完成
+let obj: Object = user;
+
+// 向下转型：超类型到子类型，使用as断言
+let restored: UserInfo = obj as UserInfo;
+console.info(`${restored.name}`); // 'Alice'
+
+// 断言为联合类型
+let mixed: Object = 42;
+let unionValue: number | string = mixed as number | string;
+// [End as_type_assertion]
+
+// ===== assertion_vs_conversion =====
+// [Start assertion_vs_conversion]
+let convValue: Object = '123';
+
+// 类型断言：不改变值，仅按目标类型使用
+let text: string = convValue as string; // 运行时值确实是string，断言成功
+console.info(`${text.length}`);     // 3
+
+// 数据转换：运行时真正转换数据类型
+let num: number = Number('123');
+console.info(`${num.toFixed(2)}`); // 123.00
+// [End assertion_vs_conversion]

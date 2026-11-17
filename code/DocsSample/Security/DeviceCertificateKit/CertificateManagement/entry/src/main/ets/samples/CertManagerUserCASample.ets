@@ -13,10 +13,12 @@
  * limitations under the License.
  */
 // [Start certificate_management_user_ca]
+// [Start certificate_management_user_ca_import]
 import { certificateManager, certificateManagerDialog } from '@kit.DeviceCertificateKit';
 import { util } from '@kit.ArkTS';
 import { common } from '@kit.AbilityKit';
 import { UIContext } from '@kit.ArkUI';
+// [End certificate_management_user_ca_import]
 
 async function userCASample(): Promise<void> {
   /* 安装的用户CA证书数据需要业务赋值。 */

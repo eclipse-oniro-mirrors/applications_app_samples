@@ -15,7 +15,7 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
-import { window } from '@kit.ArkUI';
+import { window, UIContext } from '@kit.ArkUI';
 
 const DOMAIN = 0x0000;
 
@@ -33,7 +33,8 @@ export default class EntryBackupAbility extends BackupExtensionAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
     // 在loadContent前调用，此时无UI实例，vp2px会根据屏幕默认像素密度返回计算结果。
-    let pxValue = vp2px(20);
+    let resolvedUIContext = UIContext.resolveUIContext();
+    let pxValue = resolvedUIContext.vp2px(20);
     hilog.info(DOMAIN, 'testTag', `20vp equals to ${pxValue}px`);
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
@@ -41,11 +42,12 @@ export default class EntryBackupAbility extends BackupExtensionAbility {
         return;
       }
       // 在loadContent异步回调中调用，此时有UI实例，但上下文不明确，此时会根据主窗的像素密度返回计算结果。
-      let pxValue = vp2px(20);
+      let resolvedUIContext = UIContext.resolveUIContext();
+      let pxValue = resolvedUIContext.vp2px(20);
       hilog.info(DOMAIN, 'testTag', `20vp equals to ${pxValue}px`);
     });
     // loadContent是异步接口，在此处调用不能保证UI实例已经创建成功。
-    pxValue = vp2px(20);
+    pxValue = UIContext.resolveUIContext().vp2px(20);
     hilog.info(DOMAIN, 'testTag', `20vp equals to ${pxValue}px`);
   }
 }

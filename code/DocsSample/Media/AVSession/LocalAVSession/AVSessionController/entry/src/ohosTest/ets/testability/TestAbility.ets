@@ -24,13 +24,17 @@ import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 
 export default class TestAbility extends UIAbility {
   onCreate(want:Want, launchParam:AbilityConstant.LaunchParam) {
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'TestAbility onCreate');
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite)
+    try {
+      hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'TestAbility onCreate');
+      hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
+      hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+      let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+      let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+      hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'start run testcase!!!');
+      Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    } catch (error) {
+      hilog.error(0x0000, '[Sample_MediaController]', 'Failed to create. Cause: %{public}s', JSON.stringify(error) ?? '');
+    }
   }
 
   onDestroy() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,6 +19,8 @@ export enum PlayerState {
   READY = 2,
   PLAYING = 3,
   STOPPING = 4,
+  SEEKING = 5,
+  PAUSED = 6,
 }
 
 export type PlaybackCompletionReason = 'completed' | 'stopped' | 'error'
@@ -32,6 +34,16 @@ export interface PlayOptions {
   videoDecoderSyncMode: number;
   isSmartFluencySupported: boolean;
   enableVideoDump: boolean;
+  retainLastFrame?: boolean;
+  enableLowLatency?: boolean;
+  outputInDecodingOrder?: boolean;
+  convertHdrVividToBt709?: boolean;
+  /** 播放音量，取值范围为 [0, 1]。 */
+  audioVolume?: number;
+  /** 创建播放任务的音频渲染器时生效。 */
+  enableAudioLowLatency?: boolean;
+  /** 容器中的音轨索引；-1 表示选择第一条音轨。 */
+  audioTrackIndex?: number;
 }
 
 export interface PlaybackResult {
@@ -58,7 +70,38 @@ export const playNative: (
 
 export const stop: () => boolean
 
+export const pause: () => boolean
+
+export const resume: () => boolean
+
+export const seekTo: (positionUs: number) => boolean
+
+/** 在工作线程重建编解码器；同一时刻只接受一个异步跳转请求。
+ * 可继续查询状态和进度，其他控制操作应在跳转完成后执行。
+ */
+export const seekToAsync: (positionUs: number) => Promise<boolean>
+
+export const selectAudioTrack: (trackIndex: number) => boolean
+
 export const getState: () => PlayerState
+
+export interface PlaybackDiagnostics {
+  syncAvailable: boolean;
+  avOffsetUs: number;
+  averageAbsoluteOffsetUs: number;
+  maxAbsoluteOffsetUs: number;
+  audioDevicePendingUs: number;
+  audioQueueDurationUs: number;
+  audioUnderruns: number;
+  syncDrops: number;
+  /** 跳转重建成功且目标帧可输出前为 -1。 */
+  seekRebuildUs: number;
+  seekFirstOutputUs: number;
+  audioInterrupted: boolean;
+  audioInterruptions: number;
+  lastAudioInterruptHint: number;
+  backgroundPaused: boolean;
+}
 
 export interface PlaybackInfo {
   state: PlayerState;
@@ -69,6 +112,33 @@ export interface PlaybackInfo {
   hasAudio: boolean;
   isSmartFluencyAvailable: boolean;
   isHdrVividConfirmed: boolean;
+  isSoftwareDecoderFallbackUsed: boolean;
+  isBufferMode: boolean;
+  videoOutputFrames: number;
+  videoRenderedFrames: number;
+  videoDroppedFrames: number;
+  audioOutputBuffers: number;
+  bufferPresentFrames: number;
+  bufferPresentFailures: number;
+  bufferPresentAverageUs: number;
+  videoSinkDiagnostics: VideoSinkDiagnostics;
+  diagnostics: PlaybackDiagnostics;
+}
+
+export interface VideoSinkDiagnostics {
+  available: boolean;
+  frames: number;
+  failures: number;
+  cacheHits: number;
+  cacheMisses: number;
+  averageFrameUs: number;
+  averageNativeImageWaitUs: number;
+  averageNativeImageAcquireUs: number;
+  averageAcquireFenceWaitUs: number;
+  averageImportUs: number;
+  averageGpuWaitUs: number;
+  averageCommandRecordUs: number;
+  averageSubmitUs: number;
 }
 
 export const getPlaybackInfo: () => PlaybackInfo
@@ -101,11 +171,16 @@ export interface DecoderInfo {
   runMode: number;
   syncMode: number;
   videoDumpEnabled: boolean;
+  softwareDecoderFallbackUsed: boolean;
 }
 
 export interface MediaTrackInfo {
   index: number;
   type: number;
+  codecMime: string;
+  audioSampleRate: number;
+  audioChannelCount: number;
+  bitrate: number;
   formatDump: string;
 }
 
@@ -129,6 +204,10 @@ export const setPlaybackSpeed: (
   speed: number,
 ) => void
 
+export const setVolume: (
+  volume: number,
+) => void
+
 export const setTransform: (
   transformHint: number,
 ) => void
@@ -142,3 +221,9 @@ export const onThermalWarningReceived: (
 ) => void
 
 export const onThermalLevelRecovered: () => void
+
+/** 设置应用进入后台后是否继续播放。 */
+export const setBackgroundPlaybackEnabled: (enabled: boolean) => void
+
+/** 通知 Native 播放器 Ability 前后台状态变化。 */
+export const setAppBackground: (background: boolean) => void

@@ -64,6 +64,7 @@ struct renderingControl {
         { name: 'RepeatVirtualScrollOnMove', label: $r('app.string.RenderingRepeat_label17') },
         { name: 'RepeatAnimation', label: $r('app.string.RenderingRepeat_label18') },
         { name: 'RepeatKeyGeneration', label: $r('app.string.RenderingRepeat_label19') },
+        { name: 'RepeatClearCache', label: $r('app.string.RenderingRepeat_label20') },
       ]
     },
     {
@@ -119,6 +120,7 @@ struct renderingControl {
         { name: 'SwappingData', label: $r('app.string.RenderingLazyForeach_label18') },
         { name: 'UINotRerenderedWhenObjectLinkIsChanged', label: $r('app.string.RenderingLazyForeach_label19') },
         { name: 'UnexpectedRenderingResults', label: $r('app.string.RenderingLazyForeach_label20') },
+        { name: 'LazyForEachClearCache', label: $r('app.string.RenderingLazyForeach_label21') },
       ]
     },
     {

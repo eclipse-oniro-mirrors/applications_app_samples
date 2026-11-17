@@ -13,8 +13,44 @@
  * limitations under the License.
  */
 
-import abilityTest from './Ability.test';
+import StationaryAppTest from './StationaryAppTest.test';
+import stationEnumCoreTest from './StationaryEnumCore.test';
+import stationApiShapeCoreTest from './StationaryApiShapeCore.test';
+import stationApiOutcomeMatrixTest from './StationaryApiOutcomeMatrix.test';
+import stationApiBoundaryTest from './StationaryApiBoundary.test';
+import stationViewContractTest from './StationaryViewContract.test';
+import stationStateTransitionTest from './StationaryStateTransition.test';
+import stationaryManifestTest from './StationaryManifest.test';
+import stationaryApiContractTest from './StationaryApiContract.test';
+import stationaryApiRobustTest from './StationaryApiRobust.test';
+import stationaryApiInterleaveTest from './StationaryApiInterleave.test';
+import stationaryUiMatrixTest from './StationaryUiMatrix.test';
+import stationaryUiSequenceMatrixTest from './StationaryUiSequenceMatrix.test';
+import stationaryUiRepeatTest from './StationaryUiRepeat.test';
+import stationaryUiLabelTest from './StationaryUiLabel.test';
+import stationaryPerfTest from './StationaryPerf.test';
+import stationaryLifecycleTest from './StationaryLifecycle.test';
+import stationaryAbilityContractTest from './StationaryAbilityContract.test';
+import stationaryAppContextTest from './StationaryAppContext.test';
 
 export default function testsuite() {
-  abilityTest();
+  StationaryAppTest();
+  stationEnumCoreTest();
+  stationApiShapeCoreTest();
+  stationApiOutcomeMatrixTest();
+  stationApiBoundaryTest();
+  stationViewContractTest();
+  stationStateTransitionTest();
+  stationaryManifestTest();
+  stationaryApiContractTest();
+  stationaryApiRobustTest();
+  stationaryApiInterleaveTest();
+  stationaryUiMatrixTest();
+  stationaryUiSequenceMatrixTest();
+  stationaryUiRepeatTest();
+  stationaryUiLabelTest();
+  stationaryPerfTest();
+  stationaryLifecycleTest();
+  stationaryAbilityContractTest();
+  stationaryAppContextTest();
 }

@@ -32,12 +32,12 @@ export default class Entry1Ability extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     windowStage.loadContent('pages/Index', (err, data) => {
       if (err && err.code) {
-        console.info('loadContent failed. errorCode: ' + err.code);
+        console.error('loadContent failed. errorCode: ' + err.code);
         return;
       }
       let windowClass: window.Window = windowStage.getMainWindowSync(); // Obtain the main window of the application.
       if (!windowClass) {
-        console.info('windowClass is null');
+        console.error('windowClass is null');
         return;
       }
       // 创建空的Web动态组件（需传入UIContext），loadContent之后的任意时机均可创建

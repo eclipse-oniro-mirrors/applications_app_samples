@@ -45,7 +45,10 @@ MyObject::~MyObject() {}
 void MyObject::Destructor(napi_env env, void *nativeObject, [[maybe_unused]] void *finalizeHint)
 {
     OH_LOG_INFO(LOG_APP, "MyObject::Destructor called");
-    reinterpret_cast<MyObject *>(nativeObject)->~MyObject();
+    MyObject *obj = reinterpret_cast<MyObject *>(nativeObject);
+    if (obj != nullptr) {
+        delete obj;
+    }
 }
 
 // 在构造函数中绑定ArkTS Sendable对象与C++对象

@@ -24,7 +24,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude start_AudioCapturer]
 // [StartExclude stop_AudioCapturer]
 // [StartExclude release_AudioCapturer]
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
 
 // [StartExclude listen_AudioCapturer]
@@ -65,8 +65,8 @@ let audioRendererOptions: audio.AudioRendererOptions = {
   rendererInfo: audioRendererInfo
 };
 
-let file: fs.File;
-let recordingFile: fs.File;
+let file: fileIo.File;
+let recordingFile: fileIo.File;
 let onReadData: Callback<ArrayBuffer>;
 let writeDataCallback: audio.AudioRendererWriteDataCallback;
 let pendingRecordingWrite: Promise<void> = Promise.resolve();
@@ -87,7 +87,7 @@ async function initRecordingResources(context: common.UIAbilityContext): Promise
   pendingRecordingWrite = Promise.resolve();
   let path = context.cacheDir;
   let filePath = path + '/S16LE_2_48000.pcm';
-  recordingFile = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
+  recordingFile = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
   onReadData = (buffer: ArrayBuffer) => {
     let recordingBuffer = buffer.slice(0);
     let writeOffset = writtenBytes;
@@ -97,7 +97,7 @@ async function initRecordingResources(context: common.UIAbilityContext): Promise
       length: recordingBuffer.byteLength
     }
     pendingRecordingWrite = pendingRecordingWrite.then(async () => {
-      await fs.write(recordingFile.fd, recordingBuffer, options);
+      await fileIo.write(recordingFile.fd, recordingBuffer, options);
     }).catch((error: BusinessError) => {
       console.error(`${TAG}: Write recording data failed, code: ${error.code}, message: ${error.message}`);
     });
@@ -110,7 +110,7 @@ async function initRender(context: common.UIAbilityContext) {
   let path = context.cacheDir;
   // 此处仅作示例，实际使用时需要将文件替换为应用要播放的PCM文件。
   let filePath = path + '/S16LE_2_48000.pcm';
-  file = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
+  file = fileIo.openSync(filePath, fileIo.OpenMode.READ_ONLY);
   writeDataCallback = (buffer: ArrayBuffer) => {
     let options: Options = {
       offset: bufferSize,
@@ -118,13 +118,13 @@ async function initRender(context: common.UIAbilityContext) {
     };
 
     try {
-      let bufferLength = fs.readSync(file.fd, buffer, options);
+      let bufferLength = fileIo.readSync(file.fd, buffer, options);
       bufferSize += buffer.byteLength;
       // 如果当前回调传入的数据不足一帧，空白区域需要使用静音数据填充，否则会导致播放出现杂音。
       if (bufferLength < buffer.byteLength) {
         let view = new DataView(buffer);
         for (let i = bufferLength; i < buffer.byteLength; i++) {
-          // 空白区域填充静音数据。当使用音频采样格式为SAMPLE_FORMAT_U8时0x7F为静音数据，使用其他采样格式时0为静音数据。
+          // 空白区域填充静音数据。当使用音频采样格式为SAMPLE_FORMAT_U8时0x80为静音数据，使用其他采样格式时0为静音数据。本示例采样格式为SAMPLE_FORMAT_S16LE，因此静音数据填充0。
           view.setUint8(i, 0);
         }
       }
@@ -145,7 +145,7 @@ async function initRender(context: common.UIAbilityContext) {
         audioRenderer.on('writeData', writeDataCallback);
       }
     } else {
-      console.info(`${TAG}: creating AudioRenderer failed, error: ${err.message}`);
+      console.error(`${TAG}: creating AudioRenderer failed, error: ${err.message}`);
     }
   });
 }
@@ -175,7 +175,7 @@ async function stopRender(updateCallback?: (msg: string, isError: boolean) => vo
     // 只有渲染器状态为running或paused的时候才可以停止。
     if (audioRenderer.state.valueOf() !== audio.AudioState.STATE_RUNNING &&
       audioRenderer.state.valueOf() !== audio.AudioState.STATE_PAUSED) {
-      console.info('Renderer is not running or paused.');
+      console.error('Renderer is not running or paused.');
       return;
     }
     // 停止渲染。
@@ -194,7 +194,7 @@ async function releaseRender(updateCallback?: (msg: string, isError: boolean) =>
   if (audioRenderer !== undefined) {
     // 渲染器状态不是released状态，才能release。
     if (audioRenderer.state.valueOf() === audio.AudioState.STATE_RELEASED) {
-      console.info('Renderer already released');
+      console.error('Renderer already released');
       return;
     }
     // 释放资源。
@@ -202,7 +202,7 @@ async function releaseRender(updateCallback?: (msg: string, isError: boolean) =>
       if (err) {
         console.error('Renderer release failed.');
       } else {
-        fs.closeSync(file.fd);
+        fileIo.closeSync(file.fd);
         console.info('Renderer release success.');
       }
     });
@@ -348,7 +348,7 @@ async function stop(updateCallback?: (msg: string, isError: boolean) => void): P
     // 只有采集器状态为STATE_RUNNING或STATE_PAUSED的时候才可以停止。
     if (audioCapturer.state.valueOf() !== audio.AudioState.STATE_RUNNING &&
       audioCapturer.state.valueOf() !== audio.AudioState.STATE_PAUSED) {
-      console.info(`${TAG}: Capturer is not running or paused`);
+      console.error(`${TAG}: Capturer is not running or paused`);
       // [StartExclude all_audioCapturer]
       const infoMsg = `${TAG}: Capturer is not running or paused`;
       if (updateCallback) {
@@ -393,7 +393,7 @@ async function release(updateCallback?: (msg: string, isError: boolean) => void)
     // 采集器状态不是STATE_RELEASED或STATE_NEW状态,才能release。
     if (audioCapturer.state.valueOf() === audio.AudioState.STATE_RELEASED ||
       audioCapturer.state.valueOf() === audio.AudioState.STATE_NEW) {
-      console.info(`${TAG}: Capturer already released`);
+      console.error(`${TAG}: Capturer already released`);
       // [StartExclude all_audioCapturer]
       const infoMsg = `${TAG}: Capturer already released`;
       if (updateCallback) {
@@ -430,7 +430,7 @@ async function release(updateCallback?: (msg: string, isError: boolean) => void)
       console.error(`${TAG}: Capturer release failed, code: ${error.code}, message: ${error.message}`);
     } finally {
       await pendingRecordingWrite;
-      fs.closeSync(recordingFile.fd);
+      fileIo.closeSync(recordingFile.fd);
     }
     // [End release_AudioCapturer]
   }
@@ -450,9 +450,6 @@ async function viewAudioCapturerState(updateCallback?: (msg: string, isError: bo
   }
 }
 
-// [EndExclude all_audioCapturer]
-
-// [StartExclude all_audioCapturer]
 async function listenAudioCapturerState(callbackUpdate?: (msg: string) => void): Promise<void> {
   if (audioCapturer !== undefined) {
     // [Start listen_AudioCapturerState]

@@ -302,6 +302,10 @@ class UserProfile {
 }
 
 let profile: UserProfile = new UserProfile('Alice');
+
+// age尚未赋值，??提供默认值
+console.info(`${profile.getAge()}`);  // 0
+
 profile.setAge(25);
 console.info(`${profile.getAge()}`);  // 25
 
@@ -311,8 +315,8 @@ if (profile.email !== undefined) {
 }
 
 // 使用可选链
-let bio: string | undefined = profile.bio;
-console.info(`${bio}`);  // undefined
+let bioLength: number | undefined = profile.bio?.length;
+console.info(`${bioLength}`);  // undefined
 // [End optional_properties]
 
 // ===== inheritance_chain =====
@@ -387,7 +391,7 @@ class Derived extends Base {
 let derived: Derived = new Derived();
 derived.method();  // 'Derived method'
 
-// 重写带返回值的方法
+// 覆盖带返回值的方法
 class OverrideCalculator {
   calculate(a: number, b: number): number {
     return a + b;
@@ -403,7 +407,7 @@ class AdvancedCalculator extends OverrideCalculator {
 let overrideCalc: OverrideCalculator = new AdvancedCalculator();
 console.info(`${overrideCalc.calculate(3, 4)}`);  // 12
 
-// 重写时保持签名一致
+// 覆盖时保持签名一致
 class Logger {
   log(message: string): void {
     console.info(`${message}`);
@@ -493,17 +497,7 @@ let person2: CopyPerson = person1;  // 引用赋值，指向同一对象
 person2.name = 'Bob';
 console.info(`${person1.name}`);  // 'Bob'（person1也被修改）
 
-// 深拷贝需要手动实现
-function copyPerson(source: CopyPerson): CopyPerson {
-  return new CopyPerson(source.name, source.age);
-}
-
-let person3: CopyPerson = copyPerson(person1);
-person3.name = 'Charlie';
-console.info(`${person1.name}`);  // 'Bob'（不影响person1）
-console.info(`${person3.name}`);  // 'Charlie'
-
-// 实现拷贝方法
+// 深拷贝需要手动实现，可在类中提供拷贝方法
 class CopyUser {
   public id: number;
   public name: string;
@@ -520,7 +514,57 @@ class CopyUser {
 
 let user1: CopyUser = new CopyUser(1, 'Alice');
 let user2: CopyUser = user1.copy();
+user2.name = 'Bob';
+console.info(`${user1.name}`);  // 'Alice'（深拷贝，修改user2不影响user1）
+console.info(`${user2.name}`);  // 'Bob'
 // [End object_reference_copy]
+
+// ===== shallow_vs_deep_copy =====
+// [Start shallow_vs_deep_copy]
+// 属性为引用类型时，浅拷贝与深拷贝的差异
+class ContactInfo {
+  public email: string;
+  
+  constructor(email: string) {
+    this.email = email;
+  }
+}
+
+class Employee {
+  public id: number;
+  public contact: ContactInfo;
+  
+  constructor(id: number, contact: ContactInfo) {
+    this.id = id;
+    this.contact = contact;
+  }
+  
+  // 浅拷贝：contact仍与原对象共享
+  shallowCopy(): Employee {
+    return new Employee(this.id, this.contact);
+  }
+  
+  // 深拷贝：contact也复制为新实例
+  deepCopy(): Employee {
+    return new Employee(this.id, new ContactInfo(this.contact.email));
+  }
+}
+
+let employee1: Employee = new Employee(1, new ContactInfo('alice@example.com'));
+
+// 浅拷贝：基本类型属性独立，引用类型属性共享
+let employee2: Employee = employee1.shallowCopy();
+employee2.id = 100;
+employee2.contact.email = 'bob@example.com';
+console.info(`${employee1.id}`);              // 1（基本类型，独立）
+console.info(`${employee1.contact.email}`);   // 'bob@example.com'（引用类型，共享）
+
+// 深拷贝：嵌套的引用类型属性也不受影响
+let employee3: Employee = new Employee(2, new ContactInfo('carol@example.com'));
+let employee4: Employee = employee3.deepCopy();
+employee4.contact.email = 'dave@example.com';
+console.info(`${employee3.contact.email}`);   // 'carol@example.com'（引用类型，独立）
+// [End shallow_vs_deep_copy]
 
 // ===== object_comparison =====
 // [Start object_comparison]
@@ -1534,7 +1578,7 @@ class DecoConfig {
 }
 
 let decoConfig: DecoConfig = new DecoConfig();
-console.info(`${decoConfig.name}`); // default
+console.info(`${decoConfig.name}`); // 'default'
 // [End property_decorator_usage]
 
 // ===== parameter_decorator_usage =====
@@ -1550,7 +1594,7 @@ class DecoProcessor {
 }
 
 let decoProc: DecoProcessor = new DecoProcessor();
-console.info(`${decoProc.process('hello')}`); // HELLO
+console.info(`${decoProc.process('hello')}`); // 'HELLO'
 // [End parameter_decorator_usage]
 
 // ===== decorator_factory_usage =====
@@ -1639,7 +1683,7 @@ class MixinService {
 }
 
 let mixinService: MixinService = new MixinService(new MixinConsoleLogger());
-mixinService.processData('test'); // [LOG] Processing: test
+mixinService.processData('test'); // '[LOG] Processing: test'
 // [End mixin_composition_alternative]
 
 // ===== mixin_interface_alternative =====
@@ -1689,5 +1733,5 @@ class StringBuilder {
 
 let sb: StringBuilder = new StringBuilder();
 let sbResult: string = sb.append('Hello').append(', ').append('World').toString();
-console.info(`${sbResult}`); // Hello, World
+console.info(`${sbResult}`); // 'Hello, World'
 // [End string_builder_explicit_return]

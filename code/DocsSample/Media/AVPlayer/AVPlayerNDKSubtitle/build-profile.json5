@@ -17,9 +17,8 @@
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
         "compileSdkVersion": "26.0.0",
-        "targetSdkVersion": 23,
+        "targetSdkVersion": "26.0.0",
         "compatibleSdkVersion": "26.0.0",
         "runtimeOS": "OpenHarmony"
       }
@@ -32,6 +31,7 @@
         "name": "release"
       }
     ],
+    "signingConfigs": []
   },
   "modules": [
     {

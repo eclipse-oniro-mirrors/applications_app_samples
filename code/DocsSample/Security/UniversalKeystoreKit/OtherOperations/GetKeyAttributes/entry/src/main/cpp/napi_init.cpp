@@ -54,7 +54,7 @@ static OH_Huks_Result GenerateKeyHelper(const char *alias)
         if (ohResult.errorCode != OH_HUKS_SUCCESS) {
             break;
         }
-        /* 1.生成密钥 */
+        /* 2.生成密钥 */
         ohResult = OH_Huks_GenerateKeyItem(&aliasBlob, testGenerateKeyParamSet, nullptr);
     } while (0);
     OH_Huks_FreeParamSet(&testGenerateKeyParamSet);

@@ -52,18 +52,6 @@ if (chainScore >= 90) {
   console.info('不及格');
 }
 
-let chainAge: number = 25;
-
-if (chainAge < 13) {
-  console.info('儿童');
-} else if (chainAge < 18) {
-  console.info('青少年');
-} else if (chainAge < 60) {
-  console.info('成年人');
-} else {
-  console.info('老年人');
-}
-
 // 多条件组合
 let role: string = 'admin';
 let hasPermission: boolean = true;
@@ -86,11 +74,9 @@ if (value > 0) {
   console.info('正数');
 }
 
-// else分支为空可省略
+// else分支为空时可直接省略
 if (value < 0) {
   console.info('负数');
-} else {
-  // 空分支可以省略
 }
 
 // 简洁写法
@@ -150,9 +136,6 @@ switch (status) {
 // [Start switch_case_fallthrough]
 let fallValue: number = 5;
 
-// TypeScript不支持：case 1, 2, 3:
-// 需要分开写
-
 switch (fallValue) {
   case 1:
   case 2:
@@ -166,23 +149,6 @@ switch (fallValue) {
     break;
   default:
     console.info('大数值');
-}
-
-let color: string = 'red';
-
-switch (color) {
-  case 'red':
-  case 'yellow':
-  case 'orange':
-    console.info('暖色调');
-    break;
-  case 'blue':
-  case 'green':
-  case 'purple':
-    console.info('冷色调');
-    break;
-  default:
-    console.info('其他颜色');
 }
 // [End switch_case_fallthrough]
 
@@ -291,38 +257,6 @@ let text: string = 'Hello';
 for (let char of text) {
   console.info(`${char}`);
 }
-
-// 遍历Set
-let set: Set<number> = new Set<number>();
-set.add(1);
-set.add(2);
-set.add(3);
-for (let value of set) {
-  console.info(`${value}`);
-}
-
-// 遍历Map
-let map: Map<string, number> = new Map<string, number>();
-map.set('a', 1);
-map.set('b', 2);
-map.set('c', 3);
-
-for (let key of map.keys()) {
-  let mapValue: number | undefined = map.get(key);
-  if (mapValue !== undefined) {
-    console.info(`键: ${key}, 值: ${mapValue}`);
-  }
-}
-
-// 遍历Map的值
-for (let value of map.values()) {
-  console.info(`${value}`);
-}
-
-// 遍历Map的键
-for (let key of map.keys()) {
-  console.info(`${key}`);
-}
 // [End for_of_iteration]
 
 // ===== for_of_key_value_pairs =====
@@ -353,32 +287,31 @@ for (let pair of pairs) {
 // ===== traditional_for_loop =====
 // [Start traditional_for_loop]
 // 基本结构
-for (let i: number = 0; i < 5; i++) {
-  console.info(`${i}`);
-}
-
 // 初始化：let i = 0
 // 条件：i < 5
 // 增量：i++
+for (let i = 0; i < 5; i++) {
+  console.info(`${i}`);
+}
 
 // 倒序循环
-for (let i: number = 5; i >= 0; i--) {
+for (let i = 5; i >= 0; i--) {
   console.info(`${i}`);
 }
 
 // 步长为2
-for (let i: number = 0; i < 10; i += 2) {
+for (let i = 0; i < 10; i += 2) {
   console.info(`${i}`);
 }
 
 // 遍历数组索引
 let arr: number[] = [10, 20, 30, 40, 50];
-for (let i: number = 0; i < arr.length; i++) {
+for (let i = 0; i < arr.length; i++) {
   console.info(`索引 ${i}: ${arr[i] ?? 0}`);
 }
 
 // 多变量循环
-for (let i: number = 0, j = 10; i < j; i++, j--) {
+for (let i = 0, j = 10; i < j; i++, j--) {
   console.info(`i=${i}, j=${j}`);
 }
 // [End traditional_for_loop]
@@ -388,7 +321,7 @@ for (let i: number = 0, j = 10; i < j; i++, j--) {
 // 遍历指定范围
 function range(start: number, end: number): number[] {
   let result: number[] = [];
-  for (let i: number = start; i < end; i++) {
+  for (let i = start; i < end; i++) {
     result.push(i);
   }
   return result;
@@ -400,12 +333,12 @@ for (let num of numsNumbers) {
 }
 
 // 遍历范围内的奇数
-for (let i: number = 1; i <= 20; i += 2) {
+for (let i = 1; i <= 20; i += 2) {
   console.info(`${i}`);
 }
 
 // 遍历范围内的偶数
-for (let i: number = 2; i <= 20; i += 2) {
+for (let i = 2; i <= 20; i += 2) {
   console.info(`${i}`);
 }
 // [End iterate_range_numbers]
@@ -490,7 +423,7 @@ function tryConnect(): boolean {
 // ===== break_statement =====
 // [Start break_statement]
 // 跳出for循环
-for (let i: number = 0; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
   if (i === 5) {
     break;  // 跳出循环
   }
@@ -540,8 +473,8 @@ switch (switchValue) {
 // ===== nested_loop_break =====
 // [Start nested_loop_break]
 // 带标签的break：跳出外层循环
-outerLoop: for (let i: number = 0; i < 10; i++) {
-  for (let j: number = 0; j < 10; j++) {
+outerLoop: for (let i = 0; i < 10; i++) {
+  for (let j = 0; j < 10; j++) {
     if (i + j === 15) {
       console.info(`找到: i=${i}, j=${j}`);
       break outerLoop;
@@ -553,7 +486,7 @@ outerLoop: for (let i: number = 0; i < 10; i++) {
 // ===== continue_statement =====
 // [Start continue_statement]
 // 跳过偶数
-for (let i: number = 0; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
   if (i % 2 === 0) {
     continue;  // 跳过偶数
   }
@@ -588,8 +521,8 @@ function processItem(item: string): void {
 // ===== nested_loop_continue =====
 // [Start nested_loop_continue]
 // 带标签的continue：跳过外层循环当前迭代
-outerLoop: for (let i: number = 0; i < 5; i++) {
-  for (let j: number = 0; j < 5; j++) {
+outerLoop: for (let i = 0; i < 5; i++) {
+  for (let j = 0; j < 5; j++) {
     if (j === 2) {
       continue outerLoop;
     }
@@ -926,7 +859,7 @@ for (let value of guideArr) {
 }
 
 // 需要索引：使用for
-for (let i: number = 0; i < guideArr.length; i++) {
+for (let i = 0; i < guideArr.length; i++) {
   console.info(`索引 ${i}: ${guideArr[i]}`);
 }
 
@@ -980,14 +913,14 @@ interface NestedData {
 // ===== clear_exit_condition =====
 // [Start clear_exit_condition]
 // 推荐：清晰的退出条件
-for (let i: number = 0; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
   if (i === 5) {
     break;  // 找到目标后退出
   }
 }
 
 // 反例：复杂的跳转逻辑（即使使用大括号也难以理解）
-for (let i: number = 0; i < 100; i++) {
+for (let i = 0; i < 100; i++) {
   if (i % 3 === 0) {
     continue;
   }
@@ -1005,8 +938,8 @@ for (let i: number = 0; i < 100; i++) {
 // [Start flag_variable_nested_loop]
 // 推荐：使用标志变量
 let loopFound: boolean = false;
-for (let i: number = 0; i < 10 && !loopFound; i++) {
-  for (let j: number = 0; j < 10; j++) {
+for (let i = 0; i < 10 && !loopFound; i++) {
+  for (let j = 0; j < 10; j++) {
     if (checkCondition(i, j)) {
       loopFound = true;
       break;

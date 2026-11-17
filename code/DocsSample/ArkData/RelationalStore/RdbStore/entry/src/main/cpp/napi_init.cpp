@@ -776,7 +776,7 @@ void RdbStoreTest()
         return;
     }
     if (errCode != OH_Rdb_ErrCode::RDB_OK) {
-        OH_LOG_ERROR(LOG_APP, "Create attachStore failed, errCode: %{public}d", errCode);
+        OH_LOG_ERROR(LOG_APP, "Create store failed, errCode: %{public}d", errCode);
         OH_Rdb_DestroyConfig(config);
         OH_Rdb_CloseStore(store_);
         return;

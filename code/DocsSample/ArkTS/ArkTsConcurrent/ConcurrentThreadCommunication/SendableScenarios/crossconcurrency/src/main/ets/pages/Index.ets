@@ -59,10 +59,10 @@ struct Index {
           center: { anchor: '__container__', align: VerticalAlign.Center },
           middle: { anchor: '__container__', align: HorizontalAlign.Center }
         })
-        .onClick(() => {
+        .onClick(async () => {
           await test();
           this.message = 'success';
-        })
+        });
     }
     .height('100%')
     .width('100%')

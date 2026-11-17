@@ -15,8 +15,7 @@
 
 // [Start head]
 // 导入usbManager模块
-import { usbManager } from '@kit.BasicServicesKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { usbManager, BusinessError } from '@kit.BasicServicesKit';
 import { JSON } from '@kit.ArkTS';
 
 // [End head]
@@ -27,6 +26,7 @@ struct Index {
   @State deviceList_: usbManager.USBDevice[] = [];
   @State pipe_: usbManager.USBDevicePipe | undefined = undefined;
   @State interface_: usbManager.USBInterface | undefined = undefined;
+  @State isExclusiveClaim_: boolean = false;
 
   private getDevices() {
     // [Start getDevices]
@@ -35,8 +35,9 @@ struct Index {
     try {
       deviceList = usbManager.getDevices();
     } catch (error) {
-        console.error(`USB getDevices failed: ${error}`);
-        this.logInfo_ += '\n[ERROR] USB getDevices failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB getDevices failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB getDevices failed: code=' + errorObj.code + ', message=' + errorObj.message;
     }
 
     console.info(`deviceList: ${deviceList}`);
@@ -115,8 +116,8 @@ struct Index {
       console.info('usb device request right result: ' + hasRight);
       this.logInfo_ += '\n[INFO] usb device request right result: ' + JSON.stringify(hasRight);
     }).catch((error: BusinessError) => {
-      console.error(`usb device request right failed : ${error}`);
-      this.logInfo_ += '\n[ERROR] usb device request right failed: ' + JSON.stringify(error);
+      console.error(`usb device request right failed : code=${error.code}, message=${error.message}`);
+      this.logInfo_ += '\n[ERROR] usb device request right failed: code=' + error.code + ', message=' + error.message;
     });
     // [End requestRight]
   }
@@ -124,7 +125,7 @@ struct Index {
   private connectDevice() {
     // [Start connectDevice]
     if (this.deviceList_ === undefined || this.deviceList_.length === 0) {
-      console.error('deviceList_ is empty');
+      console.error('deviceList is empty');
       this.logInfo_ += '\n[ERROR] deviceList is empty';
       return;
     }
@@ -137,6 +138,11 @@ struct Index {
       }
       // 打开设备，获取数据传输通道。
       let pipe: usbManager.USBDevicePipe = usbManager.connectDevice(deviceList[0]);
+      if (!pipe) {
+        console.error('connectDevice failed, pipe is undefined');
+        this.logInfo_ += '\n[ERROR] connectDevice failed, pipe is undefined';
+        return;
+      }
       if (!deviceList?.[0]?.configs?.[0]?.interfaces?.[0]) {
         console.error('invalid interface');
         this.logInfo_ += '\n[ERROR] invalid interface';
@@ -146,15 +152,35 @@ struct Index {
       /*
         打开对应接口，在设备信息（deviceList）中选取对应的interface。
         interface1为设备配置中的一个接口。
+        开关关闭时调用claimInterface（共享式占用，返回0成功），
+        开关打开时调用claimInterfaceExclusive（独占式占用，失败抛出BusinessError）。
        */
-      usbManager.claimInterface(pipe, interface1, true);
+      if (this.isExclusiveClaim_) {
+        usbManager.claimInterfaceExclusive(pipe, interface1, true, (conflict: usbManager.InterfaceConflictInfo) => {
+          // 其他应用claim同一接口时的异步冲突通知
+          const conflictMsg = `busNum = ${conflict.busNum}, devAddr = ${conflict.devAddr}, ` +
+            `interfaceId = ${conflict.interfaceId}`;
+          console.info(`interface conflict: ${conflictMsg}`);
+          this.logInfo_ += `\n[INFO] interface conflict: ${conflictMsg}`;
+        });
+        console.info('claimInterfaceExclusive success');
+        this.logInfo_ += '\n[INFO] claimInterfaceExclusive success';
+      } else {
+        let claimInterfaceResult: number = usbManager.claimInterface(pipe, interface1, true);
+        if (claimInterfaceResult !== 0) {
+          console.error(`claimInterface error = ${claimInterfaceResult}`);
+          this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
+          return;
+        }
+      }
       this.pipe_ = pipe;
       this.interface_ = interface1;
       console.info('open device success');
       this.logInfo_ += '\n[INFO] open device success';
     } catch (error) {
-      console.error(`USB hasRight failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] USB hasRight failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB hasRight failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB hasRight failed: code=' + errorObj.code + ', message=' + errorObj.message;
     }
     // [End connectDevice]
   }
@@ -185,8 +211,8 @@ struct Index {
           this.logInfo_ += '\n[ERROR] usb readData failed';
         }
       }).catch((error: BusinessError) => {
-        console.error(`usb readData error : ${error}`);
-        this.logInfo_ += '\n[ERROR] usb readData error: ' + JSON.stringify(error);
+        console.error(`usb readData error : code=${error.code}, message=${error.message}`);
+        this.logInfo_ += '\n[ERROR] usb readData error: code=' + error.code + ', message=' + error.message;
       });
     }
 
@@ -201,8 +227,8 @@ struct Index {
           this.logInfo_ += '\n[ERROR] usb writeData failed';
         }
       }).catch((error: BusinessError) => {
-        console.error(`usb writeData error : ${error}`);
-        this.logInfo_ += '\n[ERROR] usb writeData error: ' + JSON.stringify(error);
+        console.error(`usb writeData error : code=${error.code}, message=${error.message}`);
+        this.logInfo_ += '\n[ERROR] usb writeData error: code=' + error.code + ', message=' + error.message;
       });
     }
     // [End bulkTransfer]
@@ -232,8 +258,8 @@ struct Index {
       console.info(`usbControlTransfer = ${ret}`);
       this.logInfo_ += '\n[INFO] usbControlTransfer = ' + JSON.stringify(ret);
     }).catch((error: BusinessError) => {
-      console.error(`usbControlTransfer error : ${error}`);
-      this.logInfo_ += '\n[ERROR] usbControlTransfer error: ' + JSON.stringify(error);
+      console.error(`usbControlTransfer error : code=${error.code}, message=${error.message}`);
+      this.logInfo_ += '\n[ERROR] usbControlTransfer error: code=' + error.code + ', message=' + error.message;
     });
     // [End controlTransfer]
   }
@@ -241,8 +267,8 @@ struct Index {
   private interruptTransfer() {
     // [Start interruptTransfer_getEndpoint]
     if (this.deviceList_ === undefined || this.deviceList_.length === 0) {
-      console.error('deviceList_ is empty');
-      this.logInfo_ += '\n[ERROR] deviceList_ is empty';
+      console.error('deviceList is empty');
+      this.logInfo_ += '\n[ERROR] deviceList is empty';
       return;
     }
     let usbDevice: usbManager.USBDevice = this.deviceList_[0];
@@ -253,17 +279,24 @@ struct Index {
         return;
       }
     } catch (error) {
-      console.error(`USB hasRight failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] USB hasRight failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB hasRight failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB hasRight failed: code=' + errorObj.code + ', message=' + errorObj.message;
       return;
     }
 
     let devicePipe: usbManager.USBDevicePipe;
     try {
       devicePipe = usbManager.connectDevice(usbDevice);
+      if (!devicePipe) {
+        console.error('connectDevice failed, pipe is undefined');
+        this.logInfo_ += '\n[ERROR] connectDevice failed, pipe is undefined';
+        return;
+      }
     } catch (error) {
-      console.error(`USB connectDevice failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] USB connectDevice failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB connectDevice failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB connectDevice failed: code=' + errorObj.code + ', message=' + errorObj.message;
       return;
     }
 
@@ -290,19 +323,38 @@ struct Index {
       this.logInfo_ += '\n[ERROR] get usbEndpoint error';
       return;
     }
+    if (usbInterface === undefined) {
+      console.error(`get usbInterface error`)
+      this.logInfo_ += '\n[ERROR] get usbInterface error';
+      return;
+    }
     // [End interruptTransfer_getEndpoint]
     // [Start interruptTransfer_claimInterface]
     // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
     try {
-      let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
-      if (claimInterfaceResult !== 0) {
-        console.error(`claimInterface error = ${claimInterfaceResult}`)
-        this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
-        return;
+      if (this.isExclusiveClaim_) {
+        usbManager.claimInterfaceExclusive(devicePipe, usbInterface, true,
+          (conflict: usbManager.InterfaceConflictInfo) => {
+          // 其他应用claim同一接口时的异步冲突通知
+          const conflictMsg = `busNum = ${conflict.busNum}, devAddr = ${conflict.devAddr}, ` +
+            `interfaceId = ${conflict.interfaceId}`;
+          console.info(`interface conflict: ${conflictMsg}`);
+          this.logInfo_ += `\n[INFO] interface conflict: ${conflictMsg}`;
+        });
+        console.info('claimInterfaceExclusive success');
+        this.logInfo_ += '\n[INFO] claimInterfaceExclusive success';
+      } else {
+        let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
+        if (claimInterfaceResult !== 0) {
+          console.error(`claimInterface error = ${claimInterfaceResult}`)
+          this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
+          return;
+        }
       }
     } catch (error) {
-      console.error(`USB claimInterface failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] USB claimInterface failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB claimInterface failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB claimInterface failed: code=' + errorObj.code + ', message=' + errorObj.message;
       return;
     }
 
@@ -318,35 +370,53 @@ struct Index {
         type: usbManager.UsbEndpointTransferType.TRANSFER_TYPE_INTERRUPT,
         timeout: 2000,
         length: 10,
-        callback: () => {
+        callback: (err: BusinessError , callBackData: usbManager.SubmitTransferCallback) => {
+          if (err) {
+            console.error(`transfer error: ${err}`);
+            this.logInfo_ += '\n[ERROR] transfer error: ' + JSON.stringify(err);
+            return;
+          }
+          console.info(`callBackData = ${callBackData}`);
+          this.logInfo_ += '\n[INFO] callBackData = ' + JSON.stringify(callBackData);
+          console.info(`transfer success,result = ${transferParams?.buffer}`);
+          this.logInfo_ += '\n[INFO] transfer success,result = ' + JSON.stringify(transferParams?.buffer);
         },
         userData: new Uint8Array(10),
         buffer: new Uint8Array(10),
         isoPacketCount: 2,
       };
-
-      transferParams.callback = (err: Error, callBackData: usbManager.SubmitTransferCallback) => {
-        console.info(`callBackData = ${callBackData}`);
-        this.logInfo_ += '\n[INFO] callBackData = ' + JSON.stringify(callBackData);
-        console.info(`transfer success,result = ${transferParams?.buffer}`);
-        this.logInfo_ += '\n[INFO] transfer success,result = ' + JSON.stringify(transferParams?.buffer);
-      }
       usbManager.usbSubmitTransfer(transferParams);
       console.info('USB transfer request submitted.');
       this.logInfo_ += '\n[INFO] USB transfer request submitted.';
     } catch (error) {
-      console.error(`USB transfer failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] USB transfer failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB transfer failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB transfer failed: code=' + errorObj.code + ', message=' + errorObj.message;
     }
     // [End interruptTransfer_interruptTransfer]
     // [Start interruptTransfer_release]
     try {
-      usbManager.usbCancelTransfer(transferParams);
+      if (transferParams) {
+        usbManager.usbCancelTransfer(transferParams);
+      }
+    } catch (error) {
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`usbCancelTransfer failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] usbCancelTransfer failed: code=' + errorObj.code + ', message=' + errorObj.message;
+    }
+    try {
       usbManager.releaseInterface(devicePipe, usbInterface);
+    } catch (error) {
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`releaseInterface failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] releaseInterface failed: code=' + errorObj.code + ', message=' + errorObj.message;
+    }
+    try {
       usbManager.closePipe(devicePipe);
     } catch (error) {
-      console.error(`release failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] release failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`closePipe failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] closePipe failed: code=' + errorObj.code + ', message=' + errorObj.message;
     }
     // [End interruptTransfer_release]
   }
@@ -354,8 +424,8 @@ struct Index {
   private isochronousTransfer() {
     // [Start isochronousTransfer_getEndpoint]
     if (this.deviceList_ === undefined || this.deviceList_.length === 0) {
-      console.error('deviceList_ is empty');
-      this.logInfo_ += '\n[ERROR] deviceList_ is empty';
+      console.error('deviceList is empty');
+      this.logInfo_ += '\n[ERROR] deviceList is empty';
       return;
     }
     let usbDevice: usbManager.USBDevice = this.deviceList_[0];
@@ -366,17 +436,24 @@ struct Index {
         return;
       }
     } catch (error) {
-      console.error(`USB hasRight failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] USB hasRight failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB hasRight failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB hasRight failed: code=' + errorObj.code + ', message=' + errorObj.message;
       return;
     }
 
     let devicePipe: usbManager.USBDevicePipe;
     try {
       devicePipe = usbManager.connectDevice(usbDevice);
+      if (!devicePipe) {
+        console.error('connectDevice failed, pipe is undefined');
+        this.logInfo_ += '\n[ERROR] connectDevice failed, pipe is undefined';
+        return;
+      }
     } catch (error) {
-      console.error(`connectDevice failed ${error}`);
-      this.logInfo_ += '\n[ERROR] connectDevice: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`connectDevice failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] connectDevice: code=' + errorObj.code + ', message=' + errorObj.message;
       return
     }
     let usbConfigs: usbManager.USBConfiguration[] = usbDevice.configs;
@@ -403,19 +480,38 @@ struct Index {
       this.logInfo_ += '\n[ERROR] get usbEndpoint error';
       return;
     }
+    if (usbInterface === undefined) {
+      console.error(`get usbInterface error`);
+      this.logInfo_ += '\n[ERROR] get usbInterface error';
+      return;
+    }
     // [End isochronousTransfer_getEndpoint]
     // [Start isochronousTransfer_claimInterface]
     // 注册通信接口，注册成功返回0，注册失败返回其他错误码。
     try {
-      let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
-      if (claimInterfaceResult !== 0) {
-        console.error(`claimInterface error = ${claimInterfaceResult}`)
-        this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
-        return;
+      if (this.isExclusiveClaim_) {
+        usbManager.claimInterfaceExclusive(devicePipe, usbInterface, true,
+          (conflict: usbManager.InterfaceConflictInfo) => {
+          // 其他应用claim同一接口时的异步冲突通知
+          const conflictMsg = `busNum = ${conflict.busNum}, devAddr = ${conflict.devAddr}, ` +
+            `interfaceId = ${conflict.interfaceId}`;
+          console.info(`interface conflict: ${conflictMsg}`);
+          this.logInfo_ += `\n[INFO] interface conflict: ${conflictMsg}`;
+        });
+        console.info('claimInterfaceExclusive success');
+        this.logInfo_ += '\n[INFO] claimInterfaceExclusive success';
+      } else {
+        let claimInterfaceResult: number = usbManager.claimInterface(devicePipe, usbInterface, true);
+        if (claimInterfaceResult !== 0) {
+          console.error(`claimInterface error = ${claimInterfaceResult}`)
+          this.logInfo_ += '\n[ERROR] claimInterface error = ' + JSON.stringify(claimInterfaceResult);
+          return;
+        }
       }
     } catch (error) {
-      console.error(`USB claimInterface failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] USB claimInterface failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB claimInterface failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB claimInterface failed: code=' + errorObj.code + ', message=' + errorObj.message;
       return;
     }
 
@@ -429,8 +525,9 @@ struct Index {
           return;
         }
       } catch (error) {
-        console.error(`USB setInterface failed: ${error}`);
-        this.logInfo_ += '\n[ERROR] USB setInterface failed: ' + JSON.stringify(error);
+        let errorObj: BusinessError = error as BusinessError;
+        console.error(`USB setInterface failed: code=${errorObj.code}, message=${errorObj.message}`);
+        this.logInfo_ += '\n[ERROR] USB setInterface failed: code=' + errorObj.code + ', message=' + errorObj.message;
         return;
       }
     }
@@ -446,35 +543,53 @@ struct Index {
         type: usbManager.UsbEndpointTransferType.TRANSFER_TYPE_ISOCHRONOUS,
         timeout: 2000,
         length: 10,
-        callback: () => {
+        callback: (err: BusinessError , callBackData: usbManager.SubmitTransferCallback) => {
+          if (err) {
+            console.error(`transfer error: ${err}`);
+            this.logInfo_ += '\n[ERROR] transfer error: ' + JSON.stringify(err);
+            return;
+          }
+          console.info(`callBackData = ${callBackData}`);
+          this.logInfo_ += '\n[INFO] callBackData = ' + JSON.stringify(callBackData);
+          console.info('transfer success,result = ' + transferParams?.buffer.toString());
+          this.logInfo_ += '\n[INFO] transfer success,result = ' + transferParams?.buffer.toString();
         },
         userData: new Uint8Array(10),
         buffer: new Uint8Array(10),
         isoPacketCount: 2,
       };
-
-      transferParams.callback = (err: Error, callBackData: usbManager.SubmitTransferCallback) => {
-        console.info(`callBackData = ${callBackData}`);
-        this.logInfo_ += '\n[INFO] callBackData = ' + JSON.stringify(callBackData);
-        console.info('transfer success,result = ' + transferParams?.buffer.toString());
-        this.logInfo_ += '\n[INFO] transfer success,result = ' + transferParams?.buffer.toString();
-      }
       usbManager.usbSubmitTransfer(transferParams);
       console.info('USB transfer request submitted.');
       this.logInfo_ += '\n[INFO] USB transfer request submitted.';
     } catch (error) {
-      console.error(`USB transfer failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] USB transfer failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`USB transfer failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] USB transfer failed: code=' + errorObj.code + ', message=' + errorObj.message;
     }
     // [End isochronousTransfer_isochronousTransfer]
     // [Start isochronousTransfer_release]
     try {
-      usbManager.usbCancelTransfer(transferParams);
+      if (transferParams) {
+        usbManager.usbCancelTransfer(transferParams);
+      }
+    } catch (error) {
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`usbCancelTransfer failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] usbCancelTransfer failed: code=' + errorObj.code + ', message=' + errorObj.message;
+    }
+    try {
       usbManager.releaseInterface(devicePipe, usbInterface);
+    } catch (error) {
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`releaseInterface failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] releaseInterface failed: code=' + errorObj.code + ', message=' + errorObj.message;
+    }
+    try {
       usbManager.closePipe(devicePipe);
     } catch (error) {
-      console.error(`release failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] release failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`closePipe failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] closePipe failed: code=' + errorObj.code + ', message=' + errorObj.message;
     }
     // [End isochronousTransfer_release]
   }
@@ -492,8 +607,9 @@ struct Index {
       usbManager.releaseInterface(pipe, interface1);
       usbManager.closePipe(pipe);
     } catch (error) {
-      console.error(`failed: ${error}`);
-      this.logInfo_ += '\n[ERROR] failed: ' + JSON.stringify(error);
+      let errorObj: BusinessError = error as BusinessError;
+      console.error(`failed: code=${errorObj.code}, message=${errorObj.message}`);
+      this.logInfo_ += '\n[ERROR] failed: code=' + errorObj.code + ', message=' + errorObj.message;
     }
 
     this.pipe_ = undefined;
@@ -535,8 +651,21 @@ struct Index {
           .onClick(() => {
             this.requestRight();
           })
-          .width('100%')
-      }.padding({ top: 10 })
+          .layoutWeight(1)
+        Text('独占式claim接口')
+          .fontSize(14)
+          .fontColor(0x333333)
+          .margin({ left: 12 })
+        Toggle({ type: ToggleType.Switch, isOn: this.isExclusiveClaim_ })
+          .margin({ left: 6 })
+          .onChange((isOn: boolean) => {
+            this.isExclusiveClaim_ = isOn;
+            console.info(`exclusive claim mode: ${isOn}`);
+            this.logInfo_ += '\n[INFO] 独占式占用: ' + (isOn ? 'claimInterfaceExclusive' : 'claimInterface');
+          })
+      }
+      .width('100%')
+      .padding({ top: 10 })
 
       Row() {
         Button('打开设备', { type: ButtonType.Normal, stateEffect: true })

@@ -15,18 +15,29 @@
 
 // [Start quick_start]
 import { display, window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
 struct SpecificSceneSetOrientationIndex {
-  mainWindow: window.Window = AppStorage.get('mainWindow_SetOrientation') as window.Window;
+  mainWindow: window.Window | undefined;
+
+  aboutToAppear() {
+    // 在 EntryAbility.ets 中通过 windowStage.getMainWindowSync() 保存主窗
+    this.mainWindow = AppStorage.get('mainWindow_SetOrientation') as window.Window;
+  }
+
   setOrientationByDisplay() {
+    if (!this.mainWindow) {
+      console.error('Main window is not available.');
+      return;
+    }
     try {
       // 1.获取当前默认Display
       const disp = display.getDefaultDisplaySync();
       const displayOrientation = disp.orientation; // 当前屏幕方向（0/1/2/3）
 
-      console.info('Current display orientation = ' + displayOrientation);
+      console.info(`Succeeded in getting display orientation, orientation is ${displayOrientation}`);
       // 2.将displayOrientation转换为windowOrientation
       let windowOrientation: number =
         this.mainWindow.convertOrientationAndRotation(
@@ -54,13 +65,14 @@ struct SpecificSceneSetOrientationIndex {
           throw new Error('Invalid orientation value');
       }
       // 4.设置旋转策略锁定窗口方向
-      this.mainWindow.setPreferredOrientation(orientation, (err) => {
-        if (err && err.code) {
-          console.error('setPreferredOrientation failed: ' + JSON.stringify(err));
-        }
+      this.mainWindow.setPreferredOrientation(orientation).then(() => {
+        console.info('Succeeded in setting preferred orientation.');
+      }).catch((err: BusinessError) => {
+        console.error(`Failed to set preferred orientation. Code is ${err.code}, message is ${err.message}`);
       });
-    } catch (exception) {
-      console.error('Exception in setOrientationByDisplay: ' + JSON.stringify(exception));
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      console.error(`Failed to set orientation by display. Code is ${err.code}, message is ${err.message}`);
     }
   }
   build() {

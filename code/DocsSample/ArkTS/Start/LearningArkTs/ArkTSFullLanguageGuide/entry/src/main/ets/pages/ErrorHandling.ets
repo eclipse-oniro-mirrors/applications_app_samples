@@ -217,11 +217,11 @@ try {
 // ===== try_catch_finally_syntax =====
 // [Start try_catch_finally_syntax]
 try {
-  // 可能抛出异常的代码
+  // 可能抛出错误的代码
 } catch (error) {
-  // 异常处理代码
+  // 错误处理代码
 } finally {
-  // 无论是否发生异常都会执行的代码（可选）
+  // 无论是否发生错误都会执行的代码（可选）
 }
 // [End try_catch_finally_syntax]
 
@@ -376,8 +376,8 @@ function testFinally(): string {
 let result: string = testFinally();
 console.info(`返回值: ${result}`);
 // 输出:
-// try块
-// finally块
+// try 块
+// finally 块
 // 返回值: return from try
 // [End finally_with_return]
 
@@ -497,9 +497,9 @@ function parseJSONSafe(jsonStr: string): Result<Object> {
 let parseResult: Result<Object> = parseJSONSafe('{"name": "Alice"}');
 
 if (parseResult.error !== null) {
-    console.error('解析失败:', parseResult.error.message);
+  console.error('解析失败:', parseResult.error.message);
 } else {
-    console.info(`解析成功: ${parseResult.data}`);
+  console.info(`解析成功: ${parseResult.data}`);
 }
 
 // 另一个示例
@@ -518,9 +518,9 @@ function patternDivideNumbers(a: number, b: number): Result<number> {
 
 let divideResult: Result<number> = patternDivideNumbers(10, 2);
 if (divideResult.error !== null) {
-    console.error('计算失败:', divideResult.error.message);
+  console.error('计算失败:', divideResult.error.message);
 } else {
-    console.info(`计算结果: ${divideResult.data}`);
+  console.info(`计算结果: ${divideResult.data}`);
 }
 // [End result_type_pattern]
 
@@ -583,7 +583,7 @@ async function handleAsyncOperation(): Promise<void> {
   try {
     let result = await asyncOperation();
     console.info(`结果: ${result}`);
-    } catch (error) {
+  } catch (error) {
     console.error('捕获异步错误:', (error as Error).message);
   }
 }
@@ -723,7 +723,7 @@ interface FallbackDataService {
 
 class PrimaryDataService implements FallbackDataService {
   async getData(): Promise<string> {
-        // 模拟主服务可能失败
+    // 模拟主服务可能失败
     throw new Error('主服务不可用');
   }
 }
@@ -976,10 +976,10 @@ function safeParseJSON(jsonStr: string, defaultValue: FallbackData | null = null
 }
 
 let fbData1: FallbackData | null = safeParseJSON('{"name": "Alice"}', { name: 'Unknown' });
-console.info(`${JSON.stringify(fbData1)}`);  // {"name":"Alice"}
+console.info(`${JSON.stringify(fbData1)}`);  // '{"name":"Alice"}'
 
 let fbData2: FallbackData | null = safeParseJSON('invalid json', { name: 'Unknown' });
-console.info(`${JSON.stringify(fbData2)}`);  // {"name":"Unknown"}
+console.info(`${JSON.stringify(fbData2)}`);  // '{"name":"Unknown"}'
 
 function safeArrayAccess<T>(arr: T[], index: number, defaultValue: T): T {
   try {
@@ -1019,7 +1019,7 @@ class ApiClient {
     let url: string = `${this.baseUrl}${endpoint}`;
     let lastError: Error | null = null;
 
-    for (let attempt: number = 0; attempt <= this.maxRetries; attempt++) {
+    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
         let result: string = await this.mockRequest(url);
         return result;

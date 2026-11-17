@@ -57,7 +57,7 @@ export struct PageOne {
                 const DOMAIN = 0x0000;
                 this.pageStack.pushDestination({
                   name: 'pageTwo', param: 'PageTwo Param'}).catch((error: BusinessError) => {
-                  hilog.info(DOMAIN, 'testTag', '[pushDestination]failed', 'error code = ', error.code,
+                  hilog.error(DOMAIN, 'testTag', '[pushDestination]failed', 'error code = ', error.code,
                     'error.message = ', error.message);
                 }).then(() => {
                   hilog.info(DOMAIN, 'testTag', '[pushDestination]success.');
@@ -71,7 +71,7 @@ export struct PageOne {
                 // [Start PushDestinationByName]
                 const DOMAIN = 0x0000;
                 this.pageStack.pushDestinationByName('pageTwo', 'PageTwo Param').catch((error: BusinessError) => {
-                  hilog.info(DOMAIN, 'testTag', '[pushDestinationByName]failed', 'error code = ', error.code,
+                  hilog.error(DOMAIN, 'testTag', '[pushDestinationByName]failed', 'error code = ', error.code,
                     'error.message = ', error.message);
                 }).then(() => {
                   hilog.info(DOMAIN, 'testTag', '[pushDestinationByName]success.');
@@ -152,7 +152,7 @@ export struct PageOne {
                 // 带错误码的替换，跳转结束会触发异步回调，返回错误码信息
                 this.pageStack.replaceDestination({ name: 'pageTwo', param: 'PageTwo Param' })
                   .catch((error: BusinessError) => {
-                    hilog.info(DOMAIN, 'testTag', '[replaceDestination]failed', 'error code = ', error.code,
+                    hilog.error(DOMAIN, 'testTag', '[replaceDestination]failed', 'error code = ', error.code,
                       'error.message = ', error.message);
                   }).then(() => {
                   hilog.info(DOMAIN, 'testTag', '[replaceDestination]success.');

@@ -45,7 +45,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude print_session_info]
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
 // [EndExclude print_session_info]
-import { fileIo as fs } from '@kit.CoreFileKit';
+import { fileIo } from '@kit.CoreFileKit';
 // [StartExclude print_session_info]
 
 // 全局UI更新回调
@@ -85,8 +85,8 @@ let writeDataCallback: audio.AudioRendererWriteDataCallback;
 let readDataCallback: Callback<ArrayBuffer> = (_buffer: ArrayBuffer) => {};
 // [EndExclude renderer_interrupt]
 
-let isPlaying: boolean; // 是否正在播放，实际开发中，对应与音频播放状态相关的模块。
-let isDucked: boolean; // 是否降低音量，实际开发中，对应与音频音量相关的模块。
+let isPlaying: boolean; // 是否正在播放，实际开发中，对应于音频播放状态相关的模块。
+let isDucked: boolean; // 是否降低音量，实际开发中，对应于音频音量相关的模块。
 let started: boolean; // 标识符，记录“开始播放（start）”操作是否成功。
 
 async function onAudioInterrupt(): Promise<void> {
@@ -173,7 +173,7 @@ async function initArguments(context: common.UIAbilityContext) {
       return audio.AudioDataCallbackResult.INVALID;
     }
     try {
-      let bufferLength = fs.readSync(file.fd, buffer, options);
+      let bufferLength = fileIo.readSync(file.fd, buffer, options);
       bufferSize += buffer.byteLength;
       if (bufferSize > file.length) {
         let view = new DataView(buffer);
@@ -202,7 +202,7 @@ async function init() {
         audioRenderer.on('writeData', writeDataCallback);
       }
     } else {
-      console.info(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
+      console.error(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
       if (globalLogUpdate) {
         globalLogUpdate(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`, true);
       }
@@ -466,7 +466,9 @@ async function useAudioSessionV1(){
   // [StartExclude set_default_output_device]
   // [Start is_audio_session_activated]
   // 查询音频会话是否已激活。
+  // [Start audiosession_checkisactivated]
   let isActivated = audioSessionManager.isAudioSessionActivated();
+  // [End audiosession_checkisactivated]
   // [End is_audio_session_activated]
   // [EndExclude on_audio_session_deactivated]
 
@@ -569,6 +571,7 @@ async function useAudioSessionV2(){
         break;
       case audio.AudioSessionStateChangeHint.AUDIO_SESSION_STATE_CHANGE_HINT_UNDUCK:
         // 此分支表示系统已将应用所有播放音频流音量恢复正常。
+        break;
       case audio.AudioSessionStateChangeHint.AUDIO_SESSION_STATE_CHANGE_HINT_MUTE_SUGGESTION:
         // 此分支表示其他应用开始播放非混音音频，系统可自行决定是否静音。
         break;
@@ -629,7 +632,9 @@ async function deactivateAudioSession(){
   // [EndExclude audio_session_v1]
 
   // 取消监听音频会话停用事件。
+  // [Start cancellisten_audiosessiondeactiveevent]
   audioSessionManager.off('audioSessionDeactivated');
+  // [End cancellisten_audiosessiondeactiveevent]
 
   // [StartExclude audio_session_v1]
   // [EndExclude audio_session_v2]
@@ -733,10 +738,10 @@ async function printAudioSessionInfo(context: common.UIAbilityContext){
 
   // fd 文件描述符，实际使用时请根据具体情况获取
   let filePath = context.filesDir + '/audio_session_info.txt';
-  let fd = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY | fs.OpenMode.TRUNC).fd;
+  let fd = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.WRITE_ONLY | fileIo.OpenMode.TRUNC).fd;
   // 输出到文件。
   audioDebuggingManager.printSessionInfo(audioSessionManager, fd);
-  fs.closeSync(fd);
+  fileIo.closeSync(fd);
   // [End print_session_info]
   console.info('print audio session info filePath: ' + filePath);
 }

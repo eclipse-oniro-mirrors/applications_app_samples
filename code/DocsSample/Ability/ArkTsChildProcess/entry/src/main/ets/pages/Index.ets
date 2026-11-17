@@ -12,10 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start arkts_child_process_arg]
 // [Start arkts_child_process_noarg_one]
 // [Start arkts_child_process_noarg_two]
+// [Start arkts_child_process_arg]
 import { childProcessManager } from '@kit.AbilityKit';
+// [StartExclude arkts_child_process_noarg_one]
+// [StartExclude arkts_child_process_noarg_two]
+import { common, ChildProcessArgs, ChildProcessOptions } from '@kit.AbilityKit';
+// [EndExclude arkts_child_process_noarg_one]
+// [EndExclude arkts_child_process_noarg_two]
 import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude arkts_child_process_arg]
 import DemoProcessNoArg from '../process/DemoProcessNoArg';
@@ -24,7 +29,6 @@ import DemoProcessNoArg from '../process/DemoProcessNoArg';
 // [EndExclude arkts_child_process_arg]
 import DemoProcessArg from  '../process/DemoProcessArg';
 import { fileIo } from '@kit.CoreFileKit';
-import { common, ChildProcessArgs, ChildProcessOptions } from '@kit.AbilityKit';
 // [EndExclude arkts_child_process_noarg_one]
 // [EndExclude arkts_child_process_noarg_two]
 @Entry
@@ -104,7 +108,7 @@ struct Index {
               let options: ChildProcessOptions = {
                 isolationMode: false
               };
-              childProcessManager.startArkChildProcess("module1/ets/process/DemoProcess.ets", args, options)
+              childProcessManager.startArkChildProcess("module1/ets/process/DemoProcessArg.ets", args, options)
                 .then((pid) => {
                   console.info(`startArkChildProcess success, pid: ${pid}`);
                 })

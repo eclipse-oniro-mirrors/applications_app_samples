@@ -20,10 +20,12 @@
         "name": "default",
         "signingConfig": "default",
 
+        "targetSdkVersion": "26.0.0",
+        "arkTSVersion": "1.1",
         "compileSdkVersion": "26.0.0",
-        "targetSdkVersion": 20,
         "compatibleSdkVersion": "26.0.0",
         "runtimeOS": "OpenHarmony",
+        
         "buildOption": {
           "strictMode": {
             "caseSensitiveCheck": true,

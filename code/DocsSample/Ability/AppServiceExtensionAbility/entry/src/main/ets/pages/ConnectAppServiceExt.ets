@@ -31,7 +31,7 @@ let options: common.ConnectOptions = {
   onConnect(elementName, remote: rpc.IRemoteObject): void {
     hilog.info(DOMAIN_NUMBER, TAG, 'onConnect callback');
     if (remote === null) {
-      hilog.info(DOMAIN_NUMBER, TAG, `onConnect remote is null`);
+      hilog.error(DOMAIN_NUMBER, TAG, `onConnect remote is null`);
       return;
     }
     // 通过remote进行通信
@@ -40,7 +40,7 @@ let options: common.ConnectOptions = {
     hilog.info(DOMAIN_NUMBER, TAG, 'onDisconnect callback');
   },
   onFailed(code: number): void {
-    hilog.info(DOMAIN_NUMBER, TAG, 'onFailed callback', JSON.stringify(code));
+    hilog.error(DOMAIN_NUMBER, TAG, 'onFailed callback', JSON.stringify(code));
   }
 };
 

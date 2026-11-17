@@ -98,7 +98,7 @@ struct Index {
               }
               // [EndExclude adaptingToBluetoothMethodOne]
               // 如暂不支持该指令，请勿注册；或在注册后但暂不使用时，通过session.off('play')取消监听。
-              // 处理完毕后，请使用setAVPlayState上报播放状态。
+              // 处理完毕后，请使用setAVPlaybackState上报播放状态。
             });
             session.on('pause', () => {
               console.info(`on pause , do pause task`);
@@ -108,7 +108,7 @@ struct Index {
               }
               // [EndExclude adaptingToBluetoothMethodOne]
               // 如暂不支持该指令，请勿注册；或在注册后但暂不使用时，通过session.off('pause')取消监听。
-              // 处理完毕后，请使用setAVPlayState上报播放状态。
+              // 处理完毕后，请使用setAVPlaybackState上报播放状态。
             });
             // [StartExclude adaptingToBluetoothMethodOne]
             try {

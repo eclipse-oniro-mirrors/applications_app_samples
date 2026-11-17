@@ -77,7 +77,7 @@ struct Index {
               }
             }
           })
-          .backgroundColor(0xcccccc)
+          .backgroundColor('#cccccc')
         Text('logout')
           .fontSize(50)
           .fontWeight(FontWeight.Bold)
@@ -95,7 +95,7 @@ struct Index {
               }
             }
           })
-          .backgroundColor(0xcccccc)
+          .backgroundColor('#cccccc')
         Text(this.wifiState)
           .fontSize(50)
           .fontWeight(FontWeight.Bold)

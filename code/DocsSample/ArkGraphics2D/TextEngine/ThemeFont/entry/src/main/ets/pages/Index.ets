@@ -14,8 +14,7 @@
  */
 
 // /pages/Index.ets
-import { NodeController, FrameNode, RenderNode, DrawContext } from '@kit.ArkUI';
-import { UIContext } from '@kit.ArkUI';
+import { NodeController, FrameNode, RenderNode, DrawContext, UIContext } from '@kit.ArkUI';
 // [Start arkts_theme_font_import]
 import { text } from '@kit.ArkGraphics2D';
 // [End arkts_theme_font_import]
@@ -38,7 +37,7 @@ class MyRenderNode extends RenderNode {
     // 创建一个段落样式对象，以设置排版风格
     let myParagraphStyle: text.ParagraphStyle = {
       textStyle: myTextStyle,
-      align: 3,
+      align: text.TextAlign.JUSTIFY,
       wordBreak: text.WordBreak.NORMAL
     };
     // 创建一个段落生成器

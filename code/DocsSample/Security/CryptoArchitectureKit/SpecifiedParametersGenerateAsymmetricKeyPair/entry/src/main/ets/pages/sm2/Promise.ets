@@ -15,6 +15,7 @@
 
 // [Start specify_parameter_generate_sm2_keypair]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 function genSM2KeyPairSpec() {
   let sm2CommonParamsSpec = cryptoFramework.ECCKeyUtil.genECCCommonParamsSpec('NID_sm2');
@@ -32,11 +33,16 @@ function genSM2KeyPairSpec() {
 }
 
 async function sm2Test() {
-  let sm2KeyPairSpec = genSM2KeyPairSpec();
-  let generatorBySpec = cryptoFramework.createAsyKeyGeneratorBySpec(sm2KeyPairSpec);
-  let keyPair = await generatorBySpec.generateKeyPair();
-  let sm2CurveName = keyPair.priKey.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.ECC_CURVE_NAME_STR);
-  console.info('ECC_CURVE_NAME_STR: ' + sm2CurveName); // NID_sm2
+  try {
+    let sm2KeyPairSpec = genSM2KeyPairSpec();
+    let generatorBySpec = cryptoFramework.createAsyKeyGeneratorBySpec(sm2KeyPairSpec);
+    let keyPair = await generatorBySpec.generateKeyPair();
+    let sm2CurveName = keyPair.priKey.getAsyKeySpec(cryptoFramework.AsyKeySpecItem.ECC_CURVE_NAME_STR);
+    console.info('ECC_CURVE_NAME_STR: ' + sm2CurveName); // NID_sm2
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+  }
 }
 // [End specify_parameter_generate_sm2_keypair]
 

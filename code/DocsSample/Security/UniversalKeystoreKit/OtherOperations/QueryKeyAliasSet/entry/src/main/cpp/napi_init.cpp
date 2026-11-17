@@ -18,7 +18,6 @@
 #include "huks/native_huks_api.h"
 #include "huks/native_huks_param.h"
 #include "napi/native_api.h"
-#include <string.h>
 
 OH_Huks_Result InitParamSet(
    struct OH_Huks_ParamSet **paramSet,

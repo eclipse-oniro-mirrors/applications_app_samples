@@ -1,4 +1,3 @@
-'use static'
 
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
@@ -15,19 +14,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  StorageLink,
-  Flex,
-  Consume,
-  ItemAlign,
-  FlexDirection,
-  Padding,
-  Resource,
-  ForEach,
-  FlexAlign,
-  FlexOptions
-} from '@kit.ArkUI';
 import { DeleteItem } from './DeleteItem';
 import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
 import { KeyItem } from './KeyItem';

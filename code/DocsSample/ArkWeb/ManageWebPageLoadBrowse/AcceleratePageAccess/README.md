@@ -30,7 +30,7 @@
 
 ##### 介绍
 
-1. 本示例主要介绍加速Web页面的访问，可以通过initializeBrowserEngine()来提前初始化内核，然后在初始化内核后调用 prepareForPageLoad()对即将要加载的页面进行预解析、预连接。
+1. 本示例主要介绍加速Web页面的访问，可以通过initializeWebEngine()来提前初始化内核，然后在初始化内核后调用 prepareForPageLoad()对即将要加载的页面进行预解析、预连接。
 ##### 效果预览
 
 | 主页                                                         | loadDate                                                     |
@@ -95,7 +95,7 @@
 
 ##### 介绍
 
-1. 本示例主要介绍加速Web页面的访问，通过initializeBrowserEngine()提前初始化内核，然后在初始化内核后调用prefetchResource()预获取将要加载页面中的post请求。这种方式适合提前预获取首页的post请求。
+1. 本示例主要介绍加速Web页面的访问，通过initializeWebEngine()提前初始化内核，然后在初始化内核后调用prefetchResource()预获取将要加载页面中的post请求。这种方式适合提前预获取首页的post请求。
 
 ##### 效果预览
 
@@ -105,7 +105,8 @@
 
 使用说明
 
-1. 在Ability的onCreate中，提前初始化Web内核并预获取首页的post请求。
+1. 启动entry2时，在EntryAbility的onCreate中提前初始化Web内核并预获取首页的POST请求。源码参考[EntryAbility.ets](./entry2/src/main/ets/entryability/EntryAbility.ets)。
+2. 点击PrefetchingAPOSTRequest_three进入页面；点击菜单不会再次触发onCreate。验证启动预获取场景前，需要结束该Ability后重新启动，并将示例网址替换为真实业务地址。
 
 ### Entry3:
 
@@ -224,7 +225,7 @@ entry4/src/main/
 ### 具体实现
 * 加速Web页面的访问
   * 调用prepareForPageLoad接口对目标URL进行预处理。参考源码：[Index.ets](./entry/src/main/ets/pages/Index.ets)
-  * 在Web组件的onAppear或onPageEnd生命周期进行预加载，调用prefetchPage对预测的下一个页面URL进行后台预下载，或通过prefetchResource实现请求的预获取。参考源码：[Index.ets](./entry1/src/main/ets/pages/Index.ets)
+  * 在Web组件的onAppear或onPageEnd生命周期进行预加载，调用prefetchPage对预测的下一个页面URL进行后台预下载，或通过prefetchResource实现请求的预获取。参考源码：[Index.ets](./entry2/src/main/ets/pages/Index.ets)
   * 使用离线的Web组件用于生成字节码缓存，并在适当的时机加载业务用Web组件使用这些字节码缓存。参考源码：[Index.ets](./entry3/src/main/ets/pages/Index.ets)
   * 使用离线的Web组件用于将资源注入到内核的内存缓存中，并在适当的时机加载业务用Web组件使用这些资源。参考源码：[Index.ets](./entry4/src/main/ets/pages/Index.ets)
 

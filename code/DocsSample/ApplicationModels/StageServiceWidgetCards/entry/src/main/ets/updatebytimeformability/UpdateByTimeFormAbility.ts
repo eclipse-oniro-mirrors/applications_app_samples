@@ -63,7 +63,7 @@ export default class UpdateByTimeFormAbility extends FormExtensionAbility {
             `Failed to setFormNextRefreshTime. Code: ${err.code}, message: ${err.message}`);
           return;
         } else {
-          hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in setFormNextRefreshTiming.');
+          hilog.info(DOMAIN_NUMBER, TAG, 'Succeeded in setFormNextRefreshTime.');
         }
       });
     } catch (err) {

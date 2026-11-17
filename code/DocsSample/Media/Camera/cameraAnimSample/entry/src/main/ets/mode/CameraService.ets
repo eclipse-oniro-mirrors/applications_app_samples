@@ -211,7 +211,7 @@ class CameraService {
           return;
         }
         this.photoProfileObj = photoProfile;
-        // 创建photoOutPut输出对象
+        // 创建photoOutput输出对象
         this.photoOutput = this.createPhotoOutputFn(this.cameraManager, this.photoProfileObj);
         if (this.photoOutput === undefined) {
           Logger.error(TAG, 'Failed to create the photo stream.');
@@ -231,7 +231,7 @@ class CameraService {
         }
         await this.prepareAVRecorder();
         let videoSurfaceId = await this.avRecorder.getInputSurface();
-        // 创建videoOutPut输出对象
+        // 创建videoOutput输出对象
         this.videoOutput = this.createVideoOutputFn(this.cameraManager, this.videoProfileObj, videoSurfaceId);
         if (this.videoOutput === undefined) {
           Logger.error(TAG, 'Failed to create the video stream.');
@@ -436,7 +436,7 @@ class CameraService {
   }
 
   /**
-   * 创建photoOutPut输出对象
+   * 创建photoOutput输出对象
    */
   createPhotoOutputFn(cameraManager: camera.CameraManager,
     photoProfileObj: camera.Profile): camera.PhotoOutput | undefined {
@@ -452,7 +452,7 @@ class CameraService {
   }
 
   /**
-   * 创建videoOutPut输出对象
+   * 创建videoOutput输出对象
    */
   createVideoOutputFn(cameraManager: camera.CameraManager, videoProfileObj: camera.VideoProfile,
     surfaceId: string): camera.VideoOutput | undefined {
@@ -530,13 +530,13 @@ class CameraService {
         }
         // 拍照监听事件
         this.photoOutputCallBack(photoOutput);
-        // 把photoOutPut加入到会话
+        // 把photoOutput加入到会话
         this.session.addOutput(photoOutput);
       } else if (this.curSceneMode === camera.SceneMode.NORMAL_VIDEO) {
         if (videoOutput === undefined) {
           return;
         }
-        // 把photoOutPut加入到会话
+        // 把photoOutput加入到会话
         this.session.addOutput(videoOutput);
       }
       // 提交配置信息
@@ -608,7 +608,7 @@ class CameraService {
       // [Start photoOutput_error]
       // 监听拍照异常
       photoOutput.on('error', (data: BusinessError): void => {
-        Logger.info(TAG, `photoOutPut data: ${JSON.stringify(data)}`);
+        Logger.info(TAG, `photoOutput data: ${JSON.stringify(data)}`);
       });
       // [End photoOutput_error]
       photoOutput.on('photoAssetAvailable', (err: BusinessError, photoAsset: photoAccessHelper.PhotoAsset) => {

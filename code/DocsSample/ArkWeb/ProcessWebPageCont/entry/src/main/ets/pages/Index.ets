@@ -50,6 +50,10 @@ struct Index {
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/PdfEvent' });
         })
+      Button('ImmersiveWeb')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/ImmersiveWeb' });
+        })
     }.height('100%')
     .width('100%')
   }

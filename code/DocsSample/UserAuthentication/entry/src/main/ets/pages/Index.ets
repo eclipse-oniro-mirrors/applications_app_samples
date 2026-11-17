@@ -73,6 +73,7 @@ enum PageIndex {
   CREDENTIAL_QUERIES = 6, // 查询凭据页面的索引值
   SIMULATION_VALIDATION = 7, // 模拟认证页面的索引值
   AUTH_LOCK_STATE_QUERIES = 8, // 查询认证冻结状态页面的索引值
+  USER_RECOGNITION = 9, // 用户识别页面的索引值
 };
 
 enum ResultIndex {
@@ -84,18 +85,20 @@ enum ResultIndex {
   CANCEL = 5, // 实例5结果的索引值
   CUSTOMIZE = 6, // 实例6结果的索引值
   QUERY_CREDENTIALS = 7, // 能力查询结果的索引值
-  PERCEIVE_ADJUST = 8 // 感知和调整认证过程的索引值
+  PERCEIVE_ADJUST = 8, // 感知和调整认证过程的索引值
+  USER_RECOGNITION = 9 // 用户识别的索引值
 };
 
 @Entry
 @Component
 struct Index {
   @State currentIndex: number = 0; // 最开始索引页面为第一页
-  @State result: string[] = new Array(8).fill('wait');
+  @State result: string[] = new Array(10).fill('wait');
   @State credentialDigest: string = '';
   @State whetherSupport: Resource = $r('app.string.waitQuery');
   @State credentialValue: string = '';
   @State authLockStateContent : string = '';
+  @State recognitionResult : string = '';
   SPACE_GAP: number = 5; // Row组件间隙
 
   /*
@@ -578,6 +581,41 @@ struct Index {
   }
 
   // [End obtain_auth_lock_state_capabilities]
+
+  /*
+   * obtain-user-recognition-result.md
+   * 查询和订阅用户识别结果
+   * */
+  // [Start user_recognition_result]
+  async obtainingUserRecognitionResult(): Promise<string> {
+    try {
+      // 获取实例
+      let mgr = userAuth.getUserRecognitionMgr();
+      if (!mgr) {
+        Logger.error('the device does not support user recognition.');
+        return 'the device does not support user recognition.';
+      }
+      // 获取最新识别结果
+      let result = await mgr.getUserRecognitionResult();
+      Logger.info(`status: ${result.status}, userId: ${result.userId}`);
+      // 订阅识别结果变化
+      let callback: userAuth.UserRecognitionResultCallback = (recognitionResult: userAuth.UserRecognitionResult) => {
+        Logger.info(`status: ${recognitionResult.status}, userId: ${recognitionResult.userId}`);
+      };
+      mgr.onUserRecognitionChange(callback);
+      // 取消订阅
+      mgr.offUserRecognitionChange(callback);
+      return `status: ${result.status}, userId: ${result.userId}`;
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      const errMessage: string = `getUserRecognitionResult failed, Code: ${err?.code}, message: ${err?.message}`;
+      Logger.error(errMessage);
+      return errMessage;
+    }
+  }
+
+  // [End user_recognition_result]
+
   comprehensiveFeatures() {
     let reuseUnlockResult: userAuth.ReuseUnlockResult = {
       reuseMode: userAuth.ReuseMode.AUTH_TYPE_RELEVANT,
@@ -845,6 +883,24 @@ struct Index {
               .textAlign(TextAlign.Center)
           }
         }.tabBar(this.tabBuilder($r('app.string.queryAuthLockStateTitle'), PageIndex.AUTH_LOCK_STATE_QUERIES, 'queryAuthLockState'))
+
+        TabContent() {
+          Column() {
+            Text($r('app.string.userRecognition'))
+              .width('70%')
+              .textAlign(TextAlign.Center)
+              .fontSize($r('app.float.size_20'))
+            Button($r('app.string.query'))
+              .onClick(() => {
+                this.obtainingUserRecognitionResult().then((result : string) => {
+                  this.recognitionResult = result;
+                })
+              })
+            Text(this.recognitionResult)
+              .fontSize($r('app.float.size_40'))
+              .textAlign(TextAlign.Center)
+          }
+        }.tabBar(this.tabBuilder($r('app.string.userRecognitionTitle'), PageIndex.USER_RECOGNITION, 'userRecognition'))
       }
       .vertical(false)
       .barMode(BarMode.Fixed)

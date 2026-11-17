@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Sample of playing DRM content with AVPlayer."
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "DrmAVPlayer entry ability."
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "DrmAVPlayer"
+    },
+    {
+      "name": "result_section_title",
+      "value": "Result"
+    },
+    {
+      "name": "avplayer_page_title",
+      "value": "Playing DRM Content with AVPlayer"
+    },
+    {
+      "name": "avplayer_url_hint",
+      "value": "Enter the URL of the DRM content"
+    },
+    {
+      "name": "avplayer_play",
+      "value": "Play"
+    },
+    {
+      "name": "avplayer_release",
+      "value": "Release"
+    }
+  ]
+}

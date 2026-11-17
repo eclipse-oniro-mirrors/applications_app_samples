@@ -54,10 +54,10 @@ function genRsa2048KeyPairSpec(): cryptoFramework.RSAKeyPairSpec {
 
 function verifyMessagePSSSync() {
   // 完整的明文被拆分为input1和input2
-  let plan1 = 'This is Sign test plan1';
-  let plan2 = 'This is Sign test plan2';
-  let input1: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(plan1, 'utf-8').buffer) };
-  let input2: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(plan2, 'utf-8').buffer) };
+  let messagePart1 = 'This is Sign test plan1';
+  let messagePart2 = 'This is Sign test plan2';
+  let input1: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(messagePart1, 'utf-8').buffer) };
+  let input2: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(messagePart2, 'utf-8').buffer) };
   // 获得RSA密钥对密钥参数对象
   let rsaKeyPairSpec = genRsa2048KeyPairSpec();
   // 构造RSA密钥对生成器

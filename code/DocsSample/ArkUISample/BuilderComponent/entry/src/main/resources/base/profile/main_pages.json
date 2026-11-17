@@ -29,6 +29,7 @@
     "pages/ChangingIncorrectUsage",
     "pages/ChangingCorrectUsage",
     "pages/WatchIncorrectUsage",
-    "pages/WatchCorrectUsage"
+    "pages/WatchCorrectUsage",
+    "pages/BuilderPlaceholderList"
   ]
 }

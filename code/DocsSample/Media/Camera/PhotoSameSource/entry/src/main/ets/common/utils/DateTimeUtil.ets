@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
- * Licensed under the Apache License, Version 2.0 ("the License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -14,12 +14,12 @@
  */
 
 /**
- * @file 日期工具
+ * @file 日期工具。
  */
 export default class DateTimeUtil {
 
   /**
-   * 时分秒
+   * 时分秒。
    */
   getTime(): string {
     const DATETIME = new Date();
@@ -27,7 +27,7 @@ export default class DateTimeUtil {
   }
 
   /**
-   * 年月日
+   * 年月日。
    */
   getDate(): string {
     const DATETIME = new Date();
@@ -35,16 +35,16 @@ export default class DateTimeUtil {
   }
 
   /**
-   * 日期不足两位补充0
-   * @param value-数据值
+   * 日期不足两位补充0。
+   * @param value - 需要补零的数据值。
    */
   fill(value: number): string {
     let maxNumber = 9;
     return (value > maxNumber ? '' : '0') + value;
   }
   /**
-   * 录制时间定时器
-   * @param millisecond-数据值
+   * 录制时间定时器。
+   * @param millisecond - 需要转换的毫秒数。
    */
   getVideoTime(millisecond: number): string {
     let millisecond2minute = 60000;
@@ -54,17 +54,17 @@ export default class DateTimeUtil {
     return `${this.fill(minute)} : ${this.fill(second)}`;
   }
   /**
-   * 年月日格式修饰
-   * @param year
-   * @param month
-   * @param date
+   * 年月日格式修饰。
+   * @param year - 年份。
+   * @param month - 月份。
+   * @param date - 日期。
    */
   concatDate(year: number, month: number, date: number): string {
     return `${year}${this.fill(month)}${this.fill(date)}`;
   }
 
   /**
-   * 时分秒格式修饰
+   * 时分秒格式修饰。
    * @param hours
    * @param minutes
    * @param seconds

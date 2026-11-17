@@ -169,10 +169,12 @@ void SampleBitMap::DrawText()
     OH_Drawing_FontCollection *fontCollection = OH_Drawing_GetFontCollectionGlobalInstance();
 
     // [Start c_text_metrics_create_paragraph]
-    // 创建文本样式，设置文本颜色为黑色并设置字体大小为50
+    // 设置字体大小为50
+    constexpr double fontSize = 50.0;
+    // 创建文本样式，设置文本颜色为黑色
     OH_Drawing_TextStyle *myTextStyle = OH_Drawing_CreateTextStyle();
     OH_Drawing_SetTextStyleColor(myTextStyle, OH_Drawing_ColorSetArgb(0xFF, 0x00, 0x00, 0x00));
-    OH_Drawing_SetTextStyleFontSize(myTextStyle, 50.0);
+    OH_Drawing_SetTextStyleFontSize(myTextStyle, fontSize);
     // 创建一个段落样式对象，以设置排版风格
     OH_Drawing_TypographyStyle *typographyStyle = OH_Drawing_CreateTypographyStyle();
     // 设置段落样式的对齐方式为左对齐
@@ -186,6 +188,9 @@ void SampleBitMap::DrawText()
     OH_Drawing_TypographyHandlerAddText(handler, text);
     // 通过段落生成器生成段落
     OH_Drawing_Typography *typography = OH_Drawing_CreateTypography(handler);
+    // 段落生成完成后，释放段落生成器和段落样式
+    OH_Drawing_DestroyTypographyHandler(handler);
+    OH_Drawing_DestroyTypographyStyle(typographyStyle);
     // [End c_text_metrics_create_paragraph]
 
     // 设置maxWidth为页面最大宽度
@@ -194,10 +199,17 @@ void SampleBitMap::DrawText()
     // 对段落进行塑形排版，设置排版宽度为maxWidth
     OH_Drawing_TypographyLayout(typography, maxWidth);
     // [End c_text_metrics_layout]
+    // 设置文本绘制起始位置
+    constexpr double paintX = 0.0;
+    constexpr double paintY = 100.0;
     // 将文本绘制到画布上
-    OH_Drawing_TypographyPaint(typography, cCanvas_, 0, 100);
+    OH_Drawing_TypographyPaint(typography, cCanvas_, paintX, paintY);
 
     PrintMetricsAndLayout(typography, myTextStyle);
+
+    // 释放段落对象和文本样式对象
+    OH_Drawing_DestroyTypography(typography);
+    OH_Drawing_DestroyTextStyle(myTextStyle);
 }
 
 void SampleBitMap::PrintMetricsAndLayout(OH_Drawing_Typography *typography, OH_Drawing_TextStyle *myTextStyle)
@@ -221,6 +233,8 @@ void SampleBitMap::PrintMetricsAndLayout(OH_Drawing_Typography *typography, OH_D
         DRAWING_LOGI("第%{public}d行 lineMetrics ascender: %{public}f", i + 1, curLineAscender);
         DRAWING_LOGI("第%{public}d行 lineMetrics width: %{public}f", i + 1, curLineWidth);
     }
+    // 释放行度量信息对象
+    OH_Drawing_DestroyLineMetrics(lineMetrics);
 
     // case4:获取段落最长行宽度与带缩进最长行行宽
     double longestLineWithIndent = OH_Drawing_TypographyGetLongestLineWithIndent(typography);
@@ -405,6 +419,7 @@ void SampleBitMap::Destroy()
     cCanvas_ = nullptr;
     // 销毁bitmap对象
     OH_Drawing_BitmapDestroy(cBitmap_);
+    cBitmap_ = nullptr;
 }
 
 void SampleBitMap::Release(std::string &id)

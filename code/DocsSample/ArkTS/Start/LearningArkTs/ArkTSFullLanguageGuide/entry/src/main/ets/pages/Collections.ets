@@ -74,7 +74,7 @@ for (let value of iterArr) {
 }
 
 // 获取索引和值
-for (let i: number = 0; i < iterArr.length; i++) {
+for (let i = 0; i < iterArr.length; i++) {
   console.info(`Index ${i}: ${iterArr[i]}`);
 }
 // [End array_for_loop_iteration]
@@ -92,7 +92,7 @@ forEachArr.forEach((value: number, index: number): void => {
 // [Start array_indexed_iteration]
 let iterArr2: number[] = [1, 2, 3];
 
-for (let i: number = 0; i < iterArr2.length; i++) {
+for (let i = 0; i < iterArr2.length; i++) {
   console.info(`${iterArr2[i]}`);
 }
 // [End array_indexed_iteration]
@@ -139,8 +139,8 @@ let arr2: number[] = [3, 4];
 // concat：拼接数组
 let combined: number[] = arr1.concat(arr2);
 console.info(`${combined.join(', ')}`);  // 1, 2, 3, 4
-let sliceExtended: number[] = arr1.concat(3, 4, [5, 6]);
-console.info(`${sliceExtended.join(', ')}`);  // 1, 2, 3, 4, 5, 6
+let concatExtended: number[] = arr1.concat(3, 4, [5, 6]);
+console.info(`${concatExtended.join(', ')}`);  // 1, 2, 3, 4, 5, 6
 
 // slice：拆分/截取
 let sliceArr: number[] = [1, 2, 3, 4, 5];
@@ -190,14 +190,9 @@ console.info(`${greaterThan3.join(', ')}`);  // 4, 5, 6
 
 // ===== tuple_basics =====
 // [Start tuple_basics]
-// TypeScript中的元组
 let tuple: [number, string] = [1, 'hello'];
 let coordinate: [number, number] = [10, 20];
 let user: [number, string, boolean] = [1, 'Alice', true];
-
-// 在ArkTS中，元组通常用数组表示
-let pair: number[] = [1, 2];  // 两元素数组模拟元组
-let triple: [number, string, boolean] = [1, 'text', true];  // 类型标注
 // [End tuple_basics]
 
 // ===== tuple_element_access =====
@@ -211,14 +206,6 @@ let str: string = accessTuple[1];    // 'hello'
 let accessPair: number[] = [10, 20];
 let accessFirst: number = accessPair[0];   // 10
 let accessSecond: number = accessPair[1];  // 20
-
-// 安全访问（带类型检查）
-function getPairElement(arr: number[], index: number): number | undefined {
-  if (arr.length === 2 && index >= 0 && index < 2) {
-    return arr[index];
-  }
-  return undefined;
-}
 // [End tuple_element_access]
 
 // ===== tuple_vs_array =====
@@ -231,7 +218,7 @@ let tupleNumbers: number[] = [1, 2, 3, 4, 5];  // 可添加更多number
 
 // 元组表示固定结构
 let userTuple: [number, string, boolean] = [1, 'Alice', true];
-console.info(`${userTuple.join(', ')}`);  // 1, Alice, true
+console.info(`${userTuple.join(', ')}`);  // '1, Alice, true'
 
 // 数组表示动态集合
 let userIds: number[] = [1, 2, 3, 4, 5];
@@ -437,9 +424,9 @@ for (let entry of iterMap.entries()) {
 // ===== map_vs_object =====
 // [Start map_vs_object]
 // Map：任意键类型
-let objMap2: Map<number, string> = new Map();
-objMap2.set(1, 'one');
-objMap2.set(2, 'two');
+let numKeyMap: Map<number, string> = new Map();
+numKeyMap.set(1, 'one');
+numKeyMap.set(2, 'two');
 
 class KeyObject {
   public id: number;
@@ -498,26 +485,38 @@ let staff: Record<string, PersonInfo> = {
 };
 // [End record_type_complex]
 
+// ===== readonly_array_usage =====
+// [Start readonly_array_usage]
+// readonly number[] 与 ReadonlyArray<number> 是等价写法
+let readonlyArr: readonly number[] = [1, 2, 3];
+let sameArr: ReadonlyArray<number> = readonlyArr;
+
+// 不可修改
+// readonlyArr.push(4);   // 编译错误
+// readonlyArr[0] = 10;   // 编译错误
+
+// 可以读取
+let roFirst: number = readonlyArr[0];       // 1
+let roLength: number = readonlyArr.length;  // 3
+
+// 可变数组可以赋值给只读数组（单向）
+let mutableNums: number[] = [1, 2, 3];
+let readonlyNums: readonly number[] = mutableNums;
+// [End readonly_array_usage]
+
 // ===== readonly_map_set_interfaces =====
 // [Start readonly_map_set_interfaces]
-interface ReadonlyMap<K, V> {
-  get(key: K): V | undefined;
-  has(key: K): boolean;
-  size: number;
-  forEach(callback: (value: V, key: K) => void): void;
-}
-
-interface ReadonlySet<T> {
-  has(value: T): boolean;
-  size: number;
-  forEach(callback: (value: T) => void): void;
-}
-
-// 使用时返回只读接口
+// 使用内置的ReadonlyMap返回只读视图
 function getReadOnlyMap(): ReadonlyMap<string, number> {
   let map: Map<string, number> = new Map();
   map.set('a', 1);
   return map;  // 返回只读视图
+}
+
+// 使用内置的ReadonlySet返回只读视图
+function getReadOnlySet(): ReadonlySet<number> {
+  let set: Set<number> = new Set([1, 2, 3]);
+  return set;  // 返回只读视图
 }
 // [End readonly_map_set_interfaces]
 
@@ -713,7 +712,7 @@ let amDoubled: number[] = amNumbers.map((n: number): number => n * 2);
 console.info(`${amDoubled.join(', ')}`);  // 2, 4, 6, 8, 10
 
 let amStrings: string[] = amNumbers.map((n: number): string => `Item ${n}`);
-console.info(`${amStrings.join(', ')}`);  // Item 1, Item 2, Item 3, Item 4, Item 5
+console.info(`${amStrings.join(', ')}`);  // 'Item 1, Item 2, Item 3, Item 4, Item 5'
 // [End array_map]
 
 // ===== array_filter =====
@@ -735,7 +734,7 @@ console.info(`${ffnFlat.join(', ')}`); // 1, 2, 3, 4, 5, 6
 // flatMap：对每个元素映射后展平一级
 let ffnWords: string[] = ['hello world', 'foo bar'];
 let ffnFlatMapped: string[] = ffnWords.flatMap((s: string): string[] => s.split(' '));
-console.info(`${ffnFlatMapped.join(', ')}`); // hello, world, foo, bar
+console.info(`${ffnFlatMapped.join(', ')}`); // 'hello, world, foo, bar'
 
 // reduce和展开运算符替代flat
 let ffnFlatReduce: number[] = ffnNested.reduce((acc: number[], arr: number[]): number[] => {
@@ -771,23 +770,103 @@ console.info(`${asReversed.join(', ')}`);  // 6, 2, 9, 5, 1, 4, 1, 3
 
 // ===== array_chain =====
 // [Start array_chain]
-interface AcProduct {
-  name: string;
-  price: number;
-  category: string;
-}
+let acPrices: number[] = [999, 25, 15, 75];
 
-let acProducts: AcProduct[] = [
-  { name: 'Laptop', price: 999, category: 'Electronics' },
-  { name: 'Mouse', price: 25, category: 'Electronics' },
-  { name: 'Book', price: 15, category: 'Books' },
-  { name: 'Keyboard', price: 75, category: 'Electronics' }
-];
+// 筛选大于50的价格，打八折后求和
+let acTotal: number = acPrices
+  .filter((price: number): boolean => price > 50)
+  .map((price: number): number => Math.round(price * 0.8))
+  .reduce((acc: number, price: number): number => acc + price, 0);
 
-let acTotal: number = acProducts
-  .filter((p) => p.category === 'Electronics')
-  .map((p) => p.price)
-  .reduce((acc: number, price: number) => acc + price, 0);
-
-console.info(`Electronics total: ${acTotal}`);  // 1099
+console.info(`${acTotal}`);  // 859
 // [End array_chain]
+
+// ===== array_iterator_manual =====
+// [Start array_iterator_manual]
+let manualArr: number[] = [1, 2, 3];
+let arrIter: IterableIterator<number> = manualArr.values();
+
+let iterResult: IteratorResult<number> = arrIter.next();
+while (!iterResult.done) {
+  console.info(`${iterResult.value}`);  // 依次输出 1, 2, 3
+  iterResult = arrIter.next();
+}
+// [End array_iterator_manual]
+
+// ===== set_basic_operations =====
+// [Start set_basic_operations]
+let opsSet: Set<number> = new Set([1, 2, 3]);
+
+// add：添加元素（重复添加无效）
+opsSet.add(4);
+let opsAddedSet: Set<number> = opsSet.add(5);  // 返回Set本身
+
+// delete：删除元素，返回是否成功删除
+let opsDeleteResult: boolean = opsSet.delete(2);  // true（成功删除）
+let opsRemoveResult: boolean = opsSet.delete(10); // false（不存在）
+
+// has：检查元素是否存在
+let opsHas1: boolean = opsSet.has(1);   // true
+let opsHas10: boolean = opsSet.has(10); // false
+
+console.info(`${opsSet.size}`);  // 4（元素为1、3、4、5）
+// [End set_basic_operations]
+
+// ===== set_iterator_manual =====
+// [Start set_iterator_manual]
+let manualSet: Set<number> = new Set([1, 2, 3]);
+let setIter: IterableIterator<number> = manualSet.values();
+
+let setResult: IteratorResult<number> = setIter.next();
+while (!setResult.done) {
+  console.info(`${setResult.value}`);  // 依次输出 1, 2, 3
+  setResult = setIter.next();
+}
+// [End set_iterator_manual]
+
+// ===== set_high_order_usage =====
+// [Start set_high_order_usage]
+let hoSet: Set<number> = new Set([1, 2, 3, 4, 5]);
+
+// 筛选偶数：Set转数组→filter→转回Set
+let hoEvens: Set<number> = new Set(
+  Array.from(hoSet).filter((n: number): boolean => n % 2 === 0)
+);
+console.info(`${hoEvens.size}`);  // 2（元素为2、4）
+// [End set_high_order_usage]
+
+// ===== map_iterator_manual =====
+// [Start map_iterator_manual]
+let manualMap: Map<string, number> = new Map([['a', 1], ['b', 2]]);
+let mapIter: IterableIterator<[string, number]> = manualMap.entries();
+
+let mapResult: IteratorResult<[string, number]> = mapIter.next();
+while (!mapResult.done) {
+  let entry: [string, number] = mapResult.value;
+  console.info(`${entry[0]}: ${entry[1]}`);  // 依次输出 a: 1, b: 2
+  mapResult = mapIter.next();
+}
+// [End map_iterator_manual]
+
+// ===== map_high_order_usage =====
+// [Start map_high_order_usage]
+let hoMap: Map<string, number> = new Map([['a', 1], ['b', 2], ['c', 3]]);
+
+// 筛选值大于1的键值对：Map转数组→filter→转回Map
+let hoFiltered: Map<string, number> = new Map(
+  Array.from(hoMap).filter((entry: [string, number]): boolean => entry[1] > 1)
+);
+console.info(`${hoFiltered.size}`);  // 2（'b'、'c'）
+
+// 对所有值求和
+let hoTotal: number = Array.from(hoMap.values()).reduce(
+  (acc: number, value: number): number => acc + value, 0
+);
+console.info(`${hoTotal}`);  // 6
+// [End map_high_order_usage]
+
+// ===== readonly_tuple =====
+// [Start readonly_tuple]
+let readonlyTuple: readonly [number, string] = [1, 'hello'];
+// readonlyTuple[0] = 2;  // 编译错误
+// [End readonly_tuple]

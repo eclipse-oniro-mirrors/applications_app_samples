@@ -29,7 +29,7 @@ struct PageTransitionSrc4 {
         Button('pushUrl')
           .onClick(() => {
             // 路由到下一个页面，push操作
-            this.getUIContext().getRouter().pushUrl({ url: 'pages/pageTransition/template6/pageB' });
+            this.getUIContext().getRouter().pushUrl({ url: 'pages/pageTransition/template6/PageTransitionDst4' });
           })
         Button('back')
           .onClick(() => {

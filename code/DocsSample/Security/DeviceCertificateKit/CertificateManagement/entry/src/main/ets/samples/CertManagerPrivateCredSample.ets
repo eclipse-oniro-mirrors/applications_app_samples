@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 // [Start certificate_management_development_guidance]
+// [Start certificate_management_development_guidance_import]
 import { certificateManager } from '@kit.DeviceCertificateKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { util } from '@kit.ArkTS';
+// [End certificate_management_development_guidance_import]
 
 async function privateCredSample() {
   /* 安装的凭据数据需要业务赋值，本例数据非凭据数据。 */

@@ -80,7 +80,7 @@ export const createDataView: (arraybuffer:ArrayBuffer) => DataView | undefined; 
 // [End napi_create_data_view_api]
 
 // [Start napi_is_data_view_api]
-export const isDataView: (date: DataView | string) => boolean | undefined; // 使用Node-API接口进行array相关开发 napi_is_dataview
+export const isDataView: (data: DataView | string) => boolean | undefined; // 使用Node-API接口进行array相关开发 napi_is_dataview
 // [End napi_is_data_view_api]
 
 // [Start napi_get_data_view_info_api]

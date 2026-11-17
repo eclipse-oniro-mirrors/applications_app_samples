@@ -68,10 +68,10 @@ struct Index {
             artist: 'ARTIST'
           };
           session.setAVMetadata(metadata).then(() => {
-            console.info(`SetAVMetadata successfully`);
+            console.info(`setAVMetadata successfully`);
             // [StartExclude setAVSessionInformation]
             if (globalLogUpdate) {
-              globalLogUpdate('SetAVMetadata successfully', false);
+              globalLogUpdate('setAVMetadata successfully', false);
             }
             // [EndExclude setAVSessionInformation]
           }).catch((err: BusinessError) => {
@@ -96,10 +96,10 @@ struct Index {
               }
               // [EndExclude setAVSessionInformation]
             } else {
-              console.info(`SetAVPlaybackState successfully`);
+              console.info(`setAVPlaybackState successfully`);
               // [StartExclude setAVSessionInformation]
               if (globalLogUpdate) {
-                globalLogUpdate('SetAVPlaybackState successfully', false);
+                globalLogUpdate('setAVPlaybackState successfully', false);
               }
               // [EndExclude setAVSessionInformation]
             }

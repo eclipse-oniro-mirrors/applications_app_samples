@@ -16,24 +16,30 @@
 // [Start message_digest_sha3_segmentation_sync]
 
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 
 function doLoopMdBySync() {
-  let mdAlgName = 'SHA3-256'; // 摘要算法名。
-  let md = cryptoFramework.createMd(mdAlgName);
-  // 假设信息总共43字节，根据utf-8解码后，也是43字节。
-  let messageText = 'aaaaa.....bbbbb.....ccccc.....ddddd.....eee';
-  let messageData = new Uint8Array(buffer.from(messageText, 'utf-8').buffer);
-  let updateLength = 20; // 假设以20字节为单位进行分段update，实际并无要求。
-  for (let i = 0; i < messageData.length; i += updateLength) {
-    let updateMessage = messageData.subarray(i, i + updateLength);
-    let updateMessageBlob: cryptoFramework.DataBlob = { data: updateMessage };
-    md.updateSync(updateMessageBlob);
+  try {
+    let mdAlgName = 'SHA3-256'; // 摘要算法名。
+    let md = cryptoFramework.createMd(mdAlgName);
+    // 假设信息总共43字节，根据utf-8解码后，也是43字节。
+    let messageText = 'aaaaa.....bbbbb.....ccccc.....ddddd.....eee';
+    let messageData = new Uint8Array(buffer.from(messageText, 'utf-8').buffer);
+    let updateLength = 20; // 假设以20字节为单位进行分段update，实际并无要求。
+    for (let i = 0; i < messageData.length; i += updateLength) {
+      let updateMessage = messageData.subarray(i, i + updateLength);
+      let updateMessageBlob: cryptoFramework.DataBlob = { data: updateMessage };
+      md.updateSync(updateMessageBlob);
+    }
+    let mdOutput = md.digestSync();
+    console.info('[Sync]:md result: ' + mdOutput.data);
+    let mdLen = md.getMdLength();
+    console.info('md len: ' + mdLen);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
   }
-  let mdOutput = md.digestSync();
-  console.info('[Sync]:md result: ' + mdOutput.data);
-  let mdLen = md.getMdLength();
-  console.info('md len: ' + mdLen);
 }
 // [End message_digest_sha3_segmentation_sync]
 @Entry

@@ -15,7 +15,7 @@
 
 // [Start GridLayoutAlgorithm]
 import {
-  DynamicLayout, DynamicLayoutAttribute, GridLayoutAlgorithm, LengthMetrics
+  DynamicLayout, GridLayoutAlgorithm, LengthMetrics
 } from '@kit.ArkUI';
 
 export class GridDataSource implements IDataSource {

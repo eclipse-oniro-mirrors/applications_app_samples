@@ -36,7 +36,7 @@ struct FormEditIndex {
     if (!formId) {
       return;
     }
-    console.info(TAG, `doy: formId: ${formId}, message: ${message}`)
+    console.info(TAG, `formId: ${formId}, message: ${message}`)
     let param: Record<string, string> = {
       'message': message
     }
@@ -44,7 +44,7 @@ struct FormEditIndex {
     try {
       formProvider.updateForm(formId, obj, (error: BusinessError) => {
         if (error) {
-          console.error(TAG, `callback error, code: ${error.code}, message: ${error.message})`);
+          console.error(TAG, `callback error, code: ${error.code}, message: ${error.message}`);
           return;
         }
         console.info(TAG, `formProvider updateForm success`);

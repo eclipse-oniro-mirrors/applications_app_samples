@@ -15,13 +15,12 @@
 
 // [Start import_the_metadata_binding_module]
 import { metadataBinding } from '@kit.MultimodalAwarenessKit';
-import { BusinessError } from '@kit.BasicServicesKit';
-import { Callback } from '@kit.BasicServicesKit';
+import { BusinessError, Callback } from '@kit.BasicServicesKit';
 // [End import_the_metadata_binding_module]
 
 // [Start metadata_binding_parameter]
 let callback : Callback<number> = (event: number) => {};
-let bundleName: string = '';
+let bundleName: string = 'com.example.app';
 // [End metadata_binding_parameter]
 
 @Entry
@@ -49,7 +48,7 @@ struct Index {
 
   private submitData() {
     // [Start metadata_binding_submit]
-    let metadata: string = '';
+    let metadata: string = 'sample metadata';
     try {
       metadataBinding.submitMetadata(metadata);
       // [StartExclude metadata_binding_submit]

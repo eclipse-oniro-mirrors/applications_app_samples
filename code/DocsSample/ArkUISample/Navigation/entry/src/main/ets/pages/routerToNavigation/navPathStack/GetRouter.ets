@@ -32,16 +32,16 @@ struct Index {
 
   getRouter(){
     // [Start get_router]
-    // push page
-    this.getUIContext().getRouter().pushUrl({ url:'pages/pageOne', params: null });
+    // 跳转页面
+    this.getUIContext().getRouter().pushUrl({ url:'pages/PageOne', params: null });
 
-    // pop page
-    this.getUIContext().getRouter().back({ url: 'pages/pageOne' });
+    // 返回页面
+    this.getUIContext().getRouter().back({ url: 'pages/PageOne' });
 
-    // replace page
-    this.getUIContext().getRouter().replaceUrl({ url: 'pages/pageOne' });
+    // 替换当前页面
+    this.getUIContext().getRouter().replaceUrl({ url: 'pages/PageOne' });
 
-    // clear all page
+    // 清空所有页面
     this.getUIContext().getRouter().clear();
 
     // 获取页面栈大小

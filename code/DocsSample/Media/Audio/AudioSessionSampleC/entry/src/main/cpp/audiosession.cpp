@@ -206,11 +206,11 @@ napi_value AudioSessionDeactive(napi_env env, napi_callback_info info)
     // [StartExclude cdeactive_audiosession]
     // [EndExclude csessionactive_process]
     // 取消监听音频会话停用事件。
-    result = OH_AudioSessionManager_UnregisterStateChangeCallback(audioSessionManager,
-                                                                  AudioSessionStateChangedCallback);
+    result = OH_AudioSessionManager_UnregisterSessionDeactivatedCallback(audioSessionManager,
+                                                                         MyAudioSessionDeactivatedCallback);
     // [StartExclude csessionactive_process]
     OH_LOG_Print(LOG_APP, LOG_INFO, g_audioSessionVariable->globalResmgr, SESSION_TAG,
-                 " OH_AudioSessionManager_UnregisterStateChangeCallback return: %{public}d! ", result);
+                 " OH_AudioSessionManager_UnregisterSessionDeactivatedCallback return: %{public}d! ", result);
     // [EndExclude csessionactive_process]
     // 停用音频会话。
     // [EndExclude cdeactive_audiosession]

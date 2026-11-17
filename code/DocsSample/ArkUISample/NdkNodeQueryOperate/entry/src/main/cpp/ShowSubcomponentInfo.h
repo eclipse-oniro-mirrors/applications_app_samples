@@ -29,14 +29,15 @@ std::shared_ptr<ArkUIBaseNode> ShowSubcomponentInfo()
 {
     // [Start ndknodequeryoperate9_start]
     ArkUI_NodeHandle childNode = nullptr;
-    OH_ArkUI_NodeUtils_GetAttachedNodeHandleById("N3", &childNode);
+    // ArkTS侧List已设置.id("LazyForEachList")。
+    OH_ArkUI_NodeUtils_GetAttachedNodeHandleById("LazyForEachList", &childNode);
     
     uint32_t index = 0;
     OH_ArkUI_NodeUtils_GetFirstChildIndexWithoutExpand(childNode, &index);
     uint32_t index1 = 0;
     OH_ArkUI_NodeUtils_GetLastChildIndexWithoutExpand(childNode, &index1);
     ArkUI_NodeHandle child = nullptr;
-    auto result = OH_ArkUI_NodeUtils_GetChildWithExpandMode(childNode, 3, &child, 0);
+    auto result = OH_ArkUI_NodeUtils_GetChildWithExpandMode(childNode, 3, &child, ARKUI_LAZY_EXPAND);
     OH_LOG_Print(LOG_APP, LOG_INFO, 0xFF00, "Manager",
         "firstChildIndex - lastChildIndex == %{public}d -- %{public}d, -- getResult = %{public}d",
         index, index1, result);

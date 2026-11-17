@@ -32,7 +32,9 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
         ArkUI_NodeHandle node;
         ArkUI_NodeHandle targetParent;
     };
-    A* a = new A;
+    // 本示例只创建一个节点树，使用静态存储保证事件回调数据在节点销毁前仍然有效。
+    static A eventData{};
+    A* a = &eventData;
 
     // 创建根节点Scroll
     ArkUI_NodeHandle scroll = nodeAPI->createNode(ARKUI_NODE_SCROLL);
@@ -137,7 +139,6 @@ std::shared_ptr<ArkUIBaseNode> CreateMoveToExample()
             if (a != nullptr) {
                 OH_ArkUI_NodeUtils_MoveTo(a->node, a->targetParent, 2);
                 nodeAPI->unregisterNodeEvent(eventNode, NODE_ON_CLICK);
-                delete a;
             }
         }
     };

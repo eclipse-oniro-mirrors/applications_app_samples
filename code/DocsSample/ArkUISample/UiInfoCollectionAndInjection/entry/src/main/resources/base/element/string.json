@@ -1,0 +1,172 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "UI info collection and command injection"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "UI info collection and command injection"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "UIInfoCollection"
+    },
+    {
+      "name": "index_title",
+      "value": "UI Info Collection and Injection"
+    },
+    {
+      "name": "index_intro",
+      "value": "This sample demonstrates ArkUI NDK UI tree collection and high-level command injection. Use it together with the development guides."
+    },
+    {
+      "name": "nav_tree",
+      "value": "Collect UI Tree"
+    },
+    {
+      "name": "nav_command",
+      "value": "Inject Commands"
+    },
+    {
+      "name": "tree_page_title",
+      "value": "Collect UI Tree"
+    },
+    {
+      "name": "tree_input_placeholder",
+      "value": "Target input"
+    },
+    {
+      "name": "tree_hidden_node",
+      "value": "Hidden node"
+    },
+    {
+      "name": "option_visible_only",
+      "value": "Visible tree only"
+    },
+    {
+      "name": "option_filter_layout",
+      "value": "Filter pure layout nodes"
+    },
+    {
+      "name": "option_interaction",
+      "value": "Interaction info"
+    },
+    {
+      "name": "option_accessibility",
+      "value": "Accessibility info"
+    },
+    {
+      "name": "option_visual",
+      "value": "Advanced visual properties"
+    },
+    {
+      "name": "option_functional",
+      "value": "Advanced functional properties"
+    },
+    {
+      "name": "tree_sync_button",
+      "value": "Collect synchronously"
+    },
+    {
+      "name": "tree_async_button",
+      "value": "Collect asynchronously"
+    },
+    {
+      "name": "command_page_title",
+      "value": "Inject Commands"
+    },
+    {
+      "name": "target_input",
+      "value": "Input"
+    },
+    {
+      "name": "command_input_placeholder",
+      "value": "Text editing target"
+    },
+    {
+      "name": "command_input_state",
+      "value": "Target text: %s"
+    },
+    {
+      "name": "command_swiper_state",
+      "value": "Current Swiper index: %d"
+    },
+    {
+      "name": "command_tabs_state",
+      "value": "Current Tabs index: %d"
+    },
+    {
+      "name": "command_json_placeholder",
+      "value": "Command JSON"
+    },
+    {
+      "name": "preset_set_text",
+      "value": "setText"
+    },
+    {
+      "name": "preset_add_text",
+      "value": "addText"
+    },
+    {
+      "name": "preset_delete_text",
+      "value": "deleteText"
+    },
+    {
+      "name": "preset_select_text",
+      "value": "selectText"
+    },
+    {
+      "name": "preset_copy",
+      "value": "copy"
+    },
+    {
+      "name": "preset_swiper_switch",
+      "value": "swiperSwitch"
+    },
+    {
+      "name": "preset_tabs_switch",
+      "value": "tabsSwitch"
+    },
+    {
+      "name": "command_submit",
+      "value": "Submit"
+    },
+    {
+      "name": "target_swiper",
+      "value": "Swiper"
+    },
+    {
+      "name": "target_tabs",
+      "value": "Tabs"
+    },
+    {
+      "name": "swiper_item_0",
+      "value": "Swiper 0"
+    },
+    {
+      "name": "swiper_item_1",
+      "value": "Swiper 1"
+    },
+    {
+      "name": "swiper_item_2",
+      "value": "Swiper 2"
+    },
+    {
+      "name": "tabs_item_0",
+      "value": "Tabs 0"
+    },
+    {
+      "name": "tabs_item_1",
+      "value": "Tabs 1"
+    },
+    {
+      "name": "tabs_item_2",
+      "value": "Tabs 2"
+    },
+    {
+      "name": "tree_target_a11y",
+      "value": "Tree collection target input"
+    }
+  ]
+}

@@ -77,7 +77,7 @@ static void GetLastErrorAndClean(JSVM_Env env)
     char codeStr[maxCodeLength];
     OH_JSVM_GetValueStringUtf8(env, message, messagestr, maxMessageLength, nullptr);
     OH_JSVM_GetValueStringUtf8(env, errorCode, codeStr, maxCodeLength, nullptr);
-    OH_LOG_INFO(LOG_APP, "JSVM error message: %{public}s, error code: %{public}s", messagestr, codeStr);
+    OH_LOG_ERROR(LOG_APP, "JSVM error message: %{public}s, error code: %{public}s", messagestr, codeStr);
 }
 
 // [Start oh_jsvm_throw_error]

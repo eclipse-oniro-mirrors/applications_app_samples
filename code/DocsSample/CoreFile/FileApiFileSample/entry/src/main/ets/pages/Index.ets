@@ -352,7 +352,7 @@ struct Index {
         Button($r('app.string.setSecurityLabel'))
           .onClick(async () => {
             // [Start set_security_label]
-            // 获取需要设备数据等级的文件沙箱路径，请在组件内获取context，确保this.getUIContext().getHostContext()返回结果为UIAbilityContext
+            // 获取需要设置数据等级的文件沙箱路径，请在组件内获取context，确保this.getUIContext().getHostContext()返回结果为UIAbilityContext
             let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
             let pathDir = context.filesDir;
             let filePath = pathDir + '/test.txt';

@@ -13,9 +13,13 @@
  * limitations under the License.
  */
 
+import { UIContext } from '@kit.ArkUI';
+
 export class ResourceManager {
   public resourceToString(resource: Resource): string {
-    return getContext(this).resourceManager.getStringSync(resource);
+    const resolvedUIContext = UIContext.resolveUIContext();
+    const context = resolvedUIContext.getHostContext();
+    return context?.resourceManager.getStringSync(resource.id) ?? '';
   }
 }
 

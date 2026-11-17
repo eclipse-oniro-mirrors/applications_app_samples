@@ -46,8 +46,8 @@ void OpenFile(std::string fileName)
 void OpenFile02()
 {
     // 获取沙箱路径。
-    char *fileDirPath;
-    int32_t bufferSize = 1000;
+    char fileDirPath[1000] = {0};
+    int32_t bufferSize = sizeof(fileDirPath);
     int32_t writeLength = 0;
     AbilityRuntime_ErrorCode result = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
         bufferSize, &writeLength);
@@ -110,7 +110,7 @@ void CloseFile(void)
 void OnError(OH_AVScreenCapture *capture, int32_t errorCode, void *userData)
 {
     (void)capture;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}d", errorCode);
+    OH_LOG_ERROR(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}d", errorCode);
     (void)userData;
 }
 
@@ -163,7 +163,7 @@ void HandleVideoBuffer(OH_AVBuffer *buffer)
     }
     OH_NativeBuffer_Unreference(nativebuffer);
     buffer = nullptr;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable inner audio");
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnBufferAvailable Video");
 }
 
 void HandleAudioBuffer(OH_AVBuffer *buffer, FILE *file, const char *logMsg)
@@ -205,7 +205,7 @@ void OnBufferAvailable(OH_AVScreenCapture *capture, OH_AVBuffer *buffer, OH_AVSc
 void OnDisplaySelected(struct OH_AVScreenCapture *capture, uint64_t displayId, void *userData)
 {
     (void)capture;
-    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== ScreenCapture OnError errorCode is %{public}uld", displayId);
+    OH_LOG_INFO(LOG_APP, "==ScreenCaptureSample== OnDisplaySelected displayId is %{public}uld", displayId);
     (void)userData;
 }
 
@@ -500,6 +500,22 @@ void SetSpecifiedWindowScreenConfigBuffer2(OH_AVScreenCaptureConfig &config)
     // [End SetPCSpecifiedWindowScreenConfigBuffer2]
 }
 
+void virtualExtendedScreenConfig(OH_AVScreenCaptureConfig &config)
+{
+    // [Start screenCapture_virtualExtendedScreen]
+    // 在config中配置待录制的虚拟扩展屏幕的宽度、高度。
+    int32_t width = 1920;
+    int32_t height = 1080;
+    config.videoInfo.videoCapInfo.videoFrameWidth = width;
+    config.videoInfo.videoCapInfo.videoFrameHeight = height;
+
+    // 设置录屏模式为虚拟扩展屏幕录制。
+    config.captureMode = OH_CAPTURE_VIRTUAL_EXTENDED_SCREEN;
+    // 创建的虚拟扩展屏幕绑定到displayId为0的屏幕上。
+    config.videoInfo.videoCapInfo.displayId = 0;
+    // [End screenCapture_virtualExtendedScreen]
+}
+
 void SetStrategyForKeepCaptureDuringCall(OH_AVScreenCapture *capture)
 {
     // [Start screenCapture_buffer_strategy_keepCaptureDuringCall]
@@ -702,8 +718,8 @@ static napi_value StartScreenCapture_02(napi_env env, napi_callback_info info)
     }
     OH_AVScreenCaptureConfig config_;
     // 获取沙箱路径。
-    char *fileDirPath;
-    int32_t bufferSize = 1000;
+    char fileDirPath[1000] = {0};
+    int32_t bufferSize = sizeof(fileDirPath);
     int32_t writeLength = 0;
     AbilityRuntime_ErrorCode resultFile = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
         bufferSize, &writeLength);
@@ -933,8 +949,8 @@ static napi_value StartScreenCapture_04(napi_env env, napi_callback_info info)
         OH_LOG_ERROR(LOG_APP, "create screen capture failed");
     }
     OH_AVScreenCaptureConfig config_;
-    char *fileDirPath;
-    int32_t bufferSize = 1000;
+    char fileDirPath[1000] = {0};
+    int32_t bufferSize = sizeof(fileDirPath);
     int32_t writeLength = 0;
     AbilityRuntime_ErrorCode resultWindow = OH_AbilityRuntime_ApplicationContextGetFilesDir(fileDirPath,
         bufferSize, &writeLength);
@@ -1040,7 +1056,7 @@ static napi_value StartScreenCapture_05(napi_env env, napi_callback_info info)
     }
     OpenFile("Demo");
     SetCallback(g_avCapture);
-    // 初始化录屏，传入配置信息OH_AVScreenRecorderConfig。
+    // 初始化录屏，传入配置信息OH_AVScreenCaptureConfig。
     OH_AVScreenCaptureConfig config;
     SetConfig05(config);
     OH_AVSCREEN_CAPTURE_ErrCode result = OH_AVScreenCapture_Init(g_avCapture, config);

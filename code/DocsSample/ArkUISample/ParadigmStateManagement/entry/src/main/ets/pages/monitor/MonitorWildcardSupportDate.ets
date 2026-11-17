@@ -40,7 +40,7 @@ struct MonitorWildcardDate {
         .width(300)
         .margin(10)
         .onClick(() => {
-          this.date.setTime(1000000);
+          this.date.setTime(1000);
         })
       // API调用触发onDateChanged
       Button(`Assign new Date`)

@@ -21,6 +21,8 @@
 #include <ohaudio/native_audio_resource_manager.h>
 #include <cstdint>
 #include <sstream>
+#include <ohaudiosuite/native_audio_suite_base.h>
+#include <ohaudiosuite/native_audio_suite_engine.h>
 #include "./manual_rendering.h"
 #include "pcm_file_utils.h"
 #include "hilog/log.h"
@@ -654,6 +656,26 @@ napi_value DestroyAudioRender(napi_env env, napi_callback_info info)
     return retVal;
 }
 
+static napi_value CheckNodeSupport(napi_env env, napi_callback_info info)
+{
+    size_t argc = 1;
+    napi_value argv[1];
+    napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
+
+    int32_t nodeType = 0;
+    napi_get_value_int32(env, argv[0], &nodeType);
+
+    bool isSupported = false;
+    OH_AudioSuiteEngine_IsNodeTypeSupported(static_cast<OH_AudioNode_Type>(nodeType), &isSupported);
+
+    OH_LOG_Print(LOG_APP, LOG_INFO, GLOBAL_RESMGR, TAG,
+                 "CheckNodeSupport nodeType: %{public}d, isSupported: %{public}d", nodeType, isSupported);
+
+    napi_value result;
+    napi_get_boolean(env, isSupported, &result);
+    return result;
+}
+
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports)
 {
@@ -669,6 +691,7 @@ static napi_value Init(napi_env env, napi_value exports)
          nullptr},
         {"TestPrintInfoToFile", nullptr, TestPrintInfoToFile, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"SpaceRenderRotationNapi", nullptr, SpaceRenderRotationNapi, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"CheckNodeSupport", nullptr, CheckNodeSupport, nullptr, nullptr, nullptr, napi_default, nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;

@@ -1,7 +1,7 @@
 # SimpleKeyboard输入法应用
 
 ### 介绍
-本示例使用[inputMethodEngine](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethodengine.md)实现一个轻量级输入法应用SimpleKeyboard，支持在运行OpenHarmony OS的智能终端上。
+本示例使用[inputMethodEngine](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethodengine.md)实现一个轻量级输入法应用SimpleKeyboard，支持在运行OpenHarmony OS的智能终端上。
 
 ### 效果预览
 
@@ -48,11 +48,11 @@ SimpleKeyboard
   * 键盘布局
     * 在Index中完成键盘的总体布局。在components中自定不同的按键组件。
     * 源码链接：[Index.ets](./entry/src/main/ets/pages/Index.ets)，[components](./entry/src/main/ets/components)
-    * 参考接口：[ArkTs声明式开发范式](https://gitee.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-arkui)
+    * 参考接口：[ArkTs声明式开发范式](https://gitcode.com/openharmony/docs/tree/master/zh-cn/application-dev/reference/apis-arkui)
   * 输入法控制
     * 创建输入法窗口，实现文本插入、删除、选中功能。
     * 源码链接：[KeyboardController.ets](entry/src/main/ets/model/KeyboardController.ets)
-    * 参考接口：[@ohos.inputMethodEngine](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethodengine.md)
+    * 参考接口：[@ohos.inputMethodEngine](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-ime-kit/js-apis-inputmethodengine.md)
 
 ### 相关权限
 
@@ -66,7 +66,8 @@ SimpleKeyboard
 
 1.本示例仅支持标准系统上运行。
 
-2.本示例需要使用DevEco Studio 版本号(DevEco Studio 6.0.0 Canary1)及以上版本才可编译运行。
+2. 本示例为 Stage 模型，支持 API 26 版本 SDK（26.0.0）。
+3. 本示例需要使用 DevEco Studio 26.0.0 Release 及以上版本才可编译运行。
 
 ###  下载
 

@@ -17,7 +17,7 @@
 #ifndef MYAPPLICATION_TESTASYNCCONTEXT_H
 #define MYAPPLICATION_TESTASYNCCONTEXT_H
 
-// 测试异步上下文管理接口，构造A->B->C最小三方异步调用链。
+// 测试异步上下文管理接口，构造A->B最小三方异步调用。
 void TestAsyncContextChain();
 
 #endif // MYAPPLICATION_TESTASYNCCONTEXT_H

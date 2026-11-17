@@ -12,10 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { UIContext } from '@kit.ArkUI';
 
 export class ResourceManager {
   public resourceToString(resource: Resource): string {
-    return getContext(this).resourceManager.getStringSync(resource);
+    let uiContext = UIContext.getCallingScopeUIContext();
+    try {
+      return uiContext?.getHostContext()?.resourceManager.getStringSync(resource.id)!;
+    } catch (error) {
+      let code = (error as BusinessError).code;
+      let message = (error as BusinessError).message;
+      console.error(`getStringSync failed, error code:${code}, message: ${message}.`);
+      return '';
+    }
   }
 }
 

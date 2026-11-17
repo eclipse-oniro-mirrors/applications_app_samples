@@ -76,8 +76,9 @@ export class CustomDataSource extends BasicDataSource {
     return this.dataArray[index];
   }
 
-  public addData(index: number, data: string): void {
-    this.dataArray.splice(index, 0);
-    this.notifyDataAdd(index);
+  public addData(index: number, data: FileModel): void {
+    const insertIndex: number = Math.max(0, Math.min(index, this.dataArray.length));
+    this.dataArray.splice(insertIndex, 0, data);
+    this.notifyDataAdd(insertIndex);
   }
 }

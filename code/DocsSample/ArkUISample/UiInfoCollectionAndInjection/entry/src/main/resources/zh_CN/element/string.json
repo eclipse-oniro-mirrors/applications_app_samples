@@ -1,0 +1,172 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "UI信息采集与高阶指令注入"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "UI信息采集与高阶指令注入"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "UI信息采集"
+    },
+    {
+      "name": "index_title",
+      "value": "UI信息采集与交互注入"
+    },
+    {
+      "name": "index_intro",
+      "value": "本示例演示ArkUI NDK的控件树采集与高阶指令注入能力，配合开发指南使用。"
+    },
+    {
+      "name": "nav_tree",
+      "value": "采集控件树信息"
+    },
+    {
+      "name": "nav_command",
+      "value": "注入交互与高阶指令"
+    },
+    {
+      "name": "tree_page_title",
+      "value": "采集控件树信息"
+    },
+    {
+      "name": "tree_input_placeholder",
+      "value": "普通输入框，作为采集目标"
+    },
+    {
+      "name": "tree_hidden_node",
+      "value": "隐藏节点"
+    },
+    {
+      "name": "option_visible_only",
+      "value": "仅可见树"
+    },
+    {
+      "name": "option_filter_layout",
+      "value": "过滤纯布局节点"
+    },
+    {
+      "name": "option_interaction",
+      "value": "补充交互信息"
+    },
+    {
+      "name": "option_accessibility",
+      "value": "补充无障碍信息"
+    },
+    {
+      "name": "option_visual",
+      "value": "补充高阶视觉属性"
+    },
+    {
+      "name": "option_functional",
+      "value": "补充高阶功能属性"
+    },
+    {
+      "name": "tree_sync_button",
+      "value": "同步采集"
+    },
+    {
+      "name": "tree_async_button",
+      "value": "异步采集"
+    },
+    {
+      "name": "command_page_title",
+      "value": "注入交互与高阶指令"
+    },
+    {
+      "name": "target_input",
+      "value": "输入框"
+    },
+    {
+      "name": "command_input_placeholder",
+      "value": "文本修改目标"
+    },
+    {
+      "name": "command_input_state",
+      "value": "目标文本：%s"
+    },
+    {
+      "name": "command_swiper_state",
+      "value": "当前Swiper索引：%d"
+    },
+    {
+      "name": "command_tabs_state",
+      "value": "当前Tabs索引：%d"
+    },
+    {
+      "name": "command_json_placeholder",
+      "value": "指令JSON"
+    },
+    {
+      "name": "preset_set_text",
+      "value": "设置文本"
+    },
+    {
+      "name": "preset_add_text",
+      "value": "追加文本"
+    },
+    {
+      "name": "preset_delete_text",
+      "value": "删除文本"
+    },
+    {
+      "name": "preset_select_text",
+      "value": "选择文本"
+    },
+    {
+      "name": "preset_copy",
+      "value": "复制"
+    },
+    {
+      "name": "preset_swiper_switch",
+      "value": "切换Swiper"
+    },
+    {
+      "name": "preset_tabs_switch",
+      "value": "切换Tabs"
+    },
+    {
+      "name": "command_submit",
+      "value": "提交指令"
+    },
+    {
+      "name": "target_swiper",
+      "value": "Swiper"
+    },
+    {
+      "name": "target_tabs",
+      "value": "Tabs"
+    },
+    {
+      "name": "swiper_item_0",
+      "value": "Swiper 0"
+    },
+    {
+      "name": "swiper_item_1",
+      "value": "Swiper 1"
+    },
+    {
+      "name": "swiper_item_2",
+      "value": "Swiper 2"
+    },
+    {
+      "name": "tabs_item_0",
+      "value": "Tabs 0"
+    },
+    {
+      "name": "tabs_item_1",
+      "value": "Tabs 1"
+    },
+    {
+      "name": "tabs_item_2",
+      "value": "Tabs 2"
+    },
+    {
+      "name": "tree_target_a11y",
+      "value": "控件树采集目标输入框"
+    }
+  ]
+}

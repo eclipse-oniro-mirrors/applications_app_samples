@@ -22,6 +22,7 @@ import { ObservedV2ClassUserFunc as ObservedV2ClassUser } from './ObservedV2Clas
 import { ComputingPropertyResolution } from './ComputingPropertyResolution';
 import { ComputedInitParam } from './ComputedInitParam';
 import { ComputedProperty } from './ComputedProperty';
+import { ComputedSyncAccessFunc as ComputedSyncAccess } from './ComputedSyncAccess';
 
 const routes: Route[] = [
   {
@@ -56,6 +57,12 @@ const routes: Route[] = [
     title: resource.resourceToString($r('app.string.computed_property_title')),
     description: ''
   },
+  {
+    name: 'ComputedSyncAccess',
+    // 请将$r('app.string.computed_title_4')替换为实际资源文件，在本示例中该资源文件的value值为"去除@Computed同步获取计算值"
+    title: resource.resourceToString($r('app.string.computed_title_4')),
+    description: ''
+  },
 
 ];
 
@@ -71,6 +78,8 @@ function computedDestination(name: string) {
     ComputedInitParam();
   } else if (name.startsWith('ComputedProperty')) {
     ComputedProperty();
+  } else if (name.startsWith('ComputedSyncAccess')) {
+    ComputedSyncAccess();
   }
 }
 

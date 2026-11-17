@@ -109,7 +109,7 @@ async function init() {
         audioRenderer.on('writeData', writeDataCallback);
       }
     } else {
-      console.info(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
+      console.error(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`);
       if (globalLogUpdate) {
         globalLogUpdate(`Failed to create audio renderer. Code: ${err.code}, message: ${err.message}`, true);
       }
@@ -148,7 +148,7 @@ async function stop() {
   if (audioRenderer !== undefined) {
     if (audioRenderer.state.valueOf() !== audio.AudioState.STATE_RUNNING &&
       audioRenderer.state.valueOf() !== audio.AudioState.STATE_PAUSED) {
-      console.info('Audio renderer state is not running or paused.');
+      console.error('Audio renderer state is not running or paused.');
       if (globalLogUpdate) {
         globalLogUpdate('Audio renderer state is not running or paused.', true);
       }

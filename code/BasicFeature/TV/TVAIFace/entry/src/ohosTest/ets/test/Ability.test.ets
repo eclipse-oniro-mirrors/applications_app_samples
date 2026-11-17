@@ -15,37 +15,82 @@
 
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import abilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
+import Want from '@ohos.app.ability.Want';
+
+const TAG: string = 'AIFaceAbilityTest';
+const TARGET_BUNDLE: string = 'com.ohos.aiface';
+const TARGET_ABILITY: string = 'MainAbility';
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+    let delegator: abilityDelegatorRegistry.AbilityDelegator;
+
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
+      hilog.info(0x0000, TAG, '%{public}s', 'ActsAbilityTest beforeAll');
+      delegator = abilityDelegatorRegistry.getAbilityDelegator();
     });
+
     beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
+      hilog.info(0x0000, TAG, '%{public}s', 'ActsAbilityTest beforeEach');
     });
+
     afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
+      hilog.info(0x0000, TAG, '%{public}s', 'ActsAbilityTest afterEach');
     });
+
     afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
+      hilog.info(0x0000, TAG, '%{public}s', 'ActsAbilityTest afterAll');
     });
+
     it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.isLoggable(0x0000, 'testTag', hilog.LogLevel.INFO);
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
+      hilog.info(0x0000, TAG, '%{public}s', 'assertContain begin');
+      let a: string = 'abc';
+      let b: string = 'b';
       expect(a).assertContain(b);
       expect(a).assertEqual(a);
+    });
+
+    it('ability_delegator_should_be_available', 0, () => {
+      expect(delegator !== undefined).assertTrue();
+    });
+
+    it('test_arguments_should_expose_bundle_name', 0, () => {
+      const args: abilityDelegatorRegistry.AbilityDelegatorArgs = abilityDelegatorRegistry.getArguments();
+      expect(args !== undefined).assertTrue();
+      expect(typeof args.bundleName).assertEqual('string');
+      expect(args.bundleName.length).assertLarger(0);
+      hilog.info(0x0000, TAG, '%{public}s', 'bundle name resolved');
+    });
+
+    it('bundle_name_should_target_aiface', 0, () => {
+      const args: abilityDelegatorRegistry.AbilityDelegatorArgs = abilityDelegatorRegistry.getArguments();
+      expect(args.bundleName.indexOf('aiface') >= 0 || args.bundleName === TARGET_BUNDLE).assertTrue();
+    });
+
+    it('app_context_should_be_accessible', 0, () => {
+      const context = delegator.getAppContext();
+      expect(context !== undefined).assertTrue();
+    });
+
+    it('app_context_should_expose_resource_manager', 0, () => {
+      const context = delegator.getAppContext();
+      const manager = context.resourceManager;
+      expect(manager !== undefined).assertTrue();
+      expect(typeof manager.getStringValue).assertEqual('function');
+    });
+
+    it('app_context_should_expose_files_dir', 0, () => {
+      const context = delegator.getAppContext();
+      expect(typeof context.filesDir).assertEqual('string');
+      expect(context.filesDir.length).assertLarger(0);
+    });
+
+
+    it('target_constants_should_be_non_empty', 0, () => {
+      expect(TARGET_BUNDLE.length).assertLarger(0);
+      expect(TARGET_ABILITY.length).assertLarger(0);
+      expect(TARGET_BUNDLE).assertContain('aiface');
     });
   });
 }

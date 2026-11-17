@@ -1,0 +1,24 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "Long list placeholder and prefetch sample" },
+    { "name": "EntryAbility_desc", "value": "List performance sample" },
+    { "name": "EntryAbility_label", "value": "List Performance" },
+    { "name": "page_title", "value": "List Performance" },
+    { "name": "breakpoint_label", "value": "Current layout" },
+    { "name": "hub_placeholder_title", "value": "Placeholder list" },
+    { "name": "hub_placeholder_desc", "value": "Skeleton placeholders before data loads" },
+    { "name": "hub_prefetch_title", "value": "Prefetch list" },
+    { "name": "hub_prefetch_desc", "value": "BasicPrefetcher loads items ahead of scroll" },
+    { "name": "placeholder_title", "value": "PlaceholderList demo" },
+    { "name": "prefetch_title", "value": "Prefetch demo" },
+    { "name": "back", "value": "Back" },
+    { "name": "load_more", "value": "Load more" },
+    { "name": "reset", "value": "Reset" },
+    { "name": "placeholder_hint", "value": "Unloaded rows show skeletons; load more to replace them." },
+    { "name": "prefetch_hint", "value": "Scroll the list to let BasicPrefetcher load upcoming items." },
+    { "name": "prefetch_one", "value": "Prefetch next" },
+    { "name": "prefetch_clear", "value": "Clear stats" },
+    { "name": "placeholder_row", "value": "Loading item" },
+    { "name": "prefetch_status", "value": "prefetched=0, loaded=20" }
+  ]
+}

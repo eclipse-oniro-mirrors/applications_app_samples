@@ -17,7 +17,7 @@
 @Component
 struct FlexAlignCenterFlexAlignSpaceEvenly {
   build() {
-    //[Start FlexAlignCenterFlexAlignSpaceBetween_start]
+    //[Start FlexAlignCenterFlexAlignSpaceEvenly_start]
     Flex({ justifyContent: FlexAlign.SpaceBetween, wrap: FlexWrap.Wrap, alignContent: FlexAlign.SpaceEvenly }) {
       Text('1').width('30%').height(20).backgroundColor('#F5DEB3')
       Text('2').width('60%').height(20).backgroundColor('#D2B48C')
@@ -28,6 +28,6 @@ struct FlexAlignCenterFlexAlignSpaceEvenly {
     .width('90%')
     .height(100)
     .backgroundColor('#AFEEEE')
-    // [End FlexAlignCenterFlexAlignSpaceBetween_start]
+    // [End FlexAlignCenterFlexAlignSpaceEvenly_start]
   }
 }

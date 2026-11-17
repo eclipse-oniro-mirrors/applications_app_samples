@@ -111,7 +111,7 @@ interface TsUserInfo {
 
 let tsUser: TsUserInfo = { name: 'Alice', age: 25 };
 let { name: userName, age: userAge } = tsUser;
-console.info(`${userName}, ${userAge}`); // Alice, 25
+console.info(`${userName}, ${userAge}`); // 'Alice, 25'
 // [End ts_object_destructuring]
 
 // ===== ts_var_declaration =====
@@ -154,5 +154,5 @@ interface TsConfig {
 
 let original: TsConfig = { host: 'localhost', port: 8080 };
 let copy: TsConfig = { ...original, port: 3000 };
-console.info(`${copy.host}, ${copy.port}`); // localhost, 3000
+console.info(`${copy.host}, ${copy.port}`); // 'localhost, 3000'
 // [End ts_object_spread]

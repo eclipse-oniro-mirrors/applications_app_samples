@@ -55,3 +55,5 @@ export const AudioFormatConverterNapi: (callback: (result: string) => void) => v
 export const TestPrintInfoToFile: () => boolean;
 
 export const SpaceRenderRotationNapi: () => string;
+
+export const CheckNodeSupport: (nodeType: number) => boolean;

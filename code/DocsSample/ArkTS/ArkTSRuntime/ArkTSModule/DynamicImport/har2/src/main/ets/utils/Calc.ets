@@ -28,7 +28,9 @@ export class ClassHar2 {
       import(harName).then((ns: ESObject) => {
         ClassHar2.isImportedHar1 = true;
         console.info('[DynamicImport] har2 -> har1, 2 + 1 = ' + ns.ClassHar1.add(2, 1));
-      })
+      }).catch((error: BusinessError) => {
+        console.error(`DynamicImport failed to import ${harName}. Code: ${error.code}, message: ${error.message}`);
+      });
     }
 
     if (!ClassHar2.isImportedHar3) {
@@ -36,7 +38,9 @@ export class ClassHar2 {
       import(harName).then((ns: ESObject) => {
         ClassHar2.isImportedHar3 = true;
         console.info('[DynamicImport] har2 -> har3, 2 + 3 = ' + ns.ClassHar3.add(2, 3));
-      })
+      }).catch((error: BusinessError) => {
+        console.error(`DynamicImport failed to import ${harName}. Code: ${error.code}, message: ${error.message}`);
+      });
     }
 
     return c;

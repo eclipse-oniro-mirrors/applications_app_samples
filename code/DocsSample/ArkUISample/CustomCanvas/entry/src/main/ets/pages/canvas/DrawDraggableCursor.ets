@@ -18,7 +18,7 @@
 struct CursorMoving {
   // 监听是否按下，刷新光标颜色
   @State @Watch('drawCursor') isTouchDown: boolean = false;
-  // 监听位置变化，刷新页面
+  // 监听位置变化，刷新光标位置
   @State @Watch('drawCursor') cursorPosition: RectPosition = {
     x: 0,
     y: 0,
@@ -153,7 +153,7 @@ struct CursorMoving {
     this.canvasContext.strokeStyle = this.isTouchDown ? '#ff1a5cae' : '#ff9ba59b';
     this.canvasContext.fillStyle = this.isTouchDown ? '#ff1a5cae' : '#ff9ba59b';
     this.canvasContext.arc(this.cursorPosition.x + this.cursorPosition.width / 2,
-      this.cursorPosition.y + this.cursorPosition.width / 2, this.arcRadius, 0, 2 * Math.PI);
+      this.cursorPosition.y + this.cursorPosition.height / 2, this.arcRadius, 0, 2 * Math.PI);
     this.canvasContext.fill();
     this.canvasContext.stroke();
 

@@ -26,7 +26,7 @@ import {
   assertNumberEqual,
   assertStringEqual
 } from '../foundation/TestAsserts';
-import { DesktopLayoutHarness } from './AccessibilityLayoutHarness';
+import { DesktopLayoutHarness } from './FocusLayoutHarness';
 
 export default function focusNavigationAndRenderMatrixTest(): void {
   describe('FocusNavigationAndRenderMatrixTest', () => {

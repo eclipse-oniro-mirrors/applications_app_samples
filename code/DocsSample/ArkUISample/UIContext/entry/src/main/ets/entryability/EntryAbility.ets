@@ -52,6 +52,7 @@ export default class EntryAbility extends UIAbility {
 
   onDestroy(): void {
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onDestroy');
+    ContextUtils.context = undefined;
   }
   // [EndExclude Common_LocalStorage]
   // [EndExclude Common_registerWindowCallback]
@@ -68,15 +69,14 @@ export default class EntryAbility extends UIAbility {
     WindowUIContextUtils.registerWindowCallback(window);
     // 在loadContent前调用getUIContext时，UI实例未创建，存在异常。
     // [EndExclude Common_LocalStorage]
+    // 调用loadContent后，UI实例的创建与初始化为异步进行。因此，UIContext的获取应在loadContent的完成回调中，而不是在调用loadContent之后。
     windowStage.loadContent('pages/Index', localStorage, (err) => {
-      // 需要在loadContent完成后获取UIContext。
       if (err.code) {
         hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
         return;
       }
       hilog.info(DOMAIN, 'testTag', `loadContent success.`);
       // [StartExclude Common_LocalStorage]
-      // 需要在回调中调用。
       try {
         let uiContext = window.getUIContext();
         PixelUtils.setUIContext(uiContext);
@@ -91,7 +91,7 @@ export default class EntryAbility extends UIAbility {
       } catch (e) {
         hilog.error(DOMAIN, 'testTag', `Can't get UIContext, ${e}`);
       }
-      // loadContent是异步接口，在此处调用不能保证UI实例已经创建成功。
+      // loadContent是异步接口，在loadContent之后并不能保证UI实例已经创建并初始化。此时调用例如vp2px等依赖UI实例的函数，可能应实例不正确导致结果不符合预期。
       // [EndExclude Common_LocalStorage]
     });
   }
@@ -111,7 +111,7 @@ export default class EntryAbility extends UIAbility {
   onWindowStageDestroy(): void {
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
     // 在窗口销毁时需要移除失效的UIContext
-    PixelUtil.removeUIContext();
+    PixelUtils.removeUIContext();
   }
 
   // [StartExclude Common_UIContext]

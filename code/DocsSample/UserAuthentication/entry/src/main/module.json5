@@ -34,6 +34,14 @@
         "provisionEnable": true,
         "distributedSceneEnable": false,
         "label": "$string:EntryAbility_label"
+      },
+      {
+        "name": "ohos.permission.ACCESS_USER_PASSIVE_RECOGNITION",
+        "grantMode": "system_grant",
+        "availableLevel": "normal",
+        "provisionEnable": false,
+        "distributedSceneEnable": false,
+        "label": "$string:EntryAbility_label"
       }
     ],
     "abilities": [
@@ -85,6 +93,9 @@
       },
       {
         "name": "ohos.access.permission.SECURITY_RESTRICTIONS"
+      },
+      {
+        "name": "ohos.permission.ACCESS_USER_PASSIVE_RECOGNITION"
       }
     ]
   }

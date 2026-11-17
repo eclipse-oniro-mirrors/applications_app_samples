@@ -71,7 +71,7 @@ async function init() {
   // 创建AudioCapturer实例。
   audio.createAudioCapturer(audioCapturerOptions, (err, capturer) => {
     if (err) {
-      console.info(`Failed to create audio capturer. Code: ${err.code}, message: ${err.message}`);
+      console.error(`Failed to create audio capturer. Code: ${err.code}, message: ${err.message}`);
       if (globalLogUpdate) {
         globalLogUpdate(`Failed to create audio capturer. Code: ${err.code}, message: ${err.message}`, true);
       }
@@ -140,7 +140,7 @@ async function stop() {
     // 只有采集器状态为STATE_RUNNING或STATE_PAUSED的时候才可以停止。
     if (audioCapturer.state.valueOf() !== audio.AudioState.STATE_RUNNING && audioCapturer.state.valueOf() !==
       audio.AudioState.STATE_PAUSED) {
-      console.info('Audio capturer state is not running or paused.');
+      console.error('Audio capturer state is not running or paused.');
       if (globalLogUpdate) {
         globalLogUpdate('Audio capturer state is not running or paused.', true);
       }

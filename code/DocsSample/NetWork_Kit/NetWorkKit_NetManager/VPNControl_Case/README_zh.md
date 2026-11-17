@@ -55,7 +55,7 @@ entry/src/main/ets/
 |---vpnability
 |   |---DestroyVpnTest.ets         // 断开VPN
 |   |---GetVpnIdTest.ets           // 生成VPN Id
-|   |---VPNExtentionAbility.ets    // VPN扩展能力
+|   |---VPNExtensionAbility.ets    // VPN扩展能力
 |---model
 |   |---Logger.ets                 // 日志
 |   |---ShowToast.ets              // 输出气泡

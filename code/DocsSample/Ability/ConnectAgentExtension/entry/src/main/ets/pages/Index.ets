@@ -28,7 +28,7 @@ struct Index {
       console.info(`onData, data: ${data}.`);
     },
     onAuth: (handShakeData: string): void => {
-      console.info(`onData, data: ${handShakeData}.`);
+      console.info(`onAuth, handShakeData: ${handShakeData}.`);
     },
     onDisconnect: () => {
       console.info(`onDisconnect.`);
@@ -72,7 +72,7 @@ struct Index {
                   } catch (err) {
                     let code = (err as BusinessError).code;
                     let msg = (err as BusinessError).message;
-                    console.error(`sendData failed, err code: ${code}, err msg: ${msg}.`);
+                    console.error(`authorize failed, err code: ${code}, err msg: ${msg}.`);
                   }
                   // [EndExclude  agent_manager_three]
                   // [EndExclude  agent_manager_one]
@@ -95,7 +95,7 @@ struct Index {
           .enabled(true)
           .onClick(() => {
             try{
-              // this.agentProxy是连接时保存的proxy对象
+              // this.comProxy是连接时保存的proxy对象
               agentManager.disconnectAgentExtensionAbility(this.comProxy).then(() => {
                 console.info(`disconnectAgentExtensionAbility success.`);
               }).catch((error: BusinessError) => {
@@ -104,7 +104,7 @@ struct Index {
             } catch (err) {
               let code = (err as BusinessError).code;
               let msg = (err as BusinessError).message;
-              console.error(`connectAgentExtensionAbility failed, err code: ${code}, err msg: ${msg}.`);
+              console.error(`disconnectAgentExtensionAbility failed, err code: ${code}, err msg: ${msg}.`);
             }
           })
         // [EndExclude  agent_manager_four]

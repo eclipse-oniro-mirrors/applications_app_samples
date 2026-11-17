@@ -52,7 +52,7 @@ export default class HideSplashScreenAbility extends UIAbility {
   // [EndExclude startOptions_hidesplash]
 
   onForeground(): void {
-    // Ability has brought to foreground
+    // Ability切到前台
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
 
     let want: Want = {

@@ -47,13 +47,6 @@ enum Mixed {
 
 // [Start ts_enum_member_types]
 // 枚举成员是唯一类型
-enum Direction {
-  Up,
-  Down,
-  Left,
-  Right
-}
-
 let up: Direction.Up = Direction.Up;  // Direction.Up类型
 let down: Direction.Down = Direction.Down;
 
@@ -186,6 +179,14 @@ enum MixedResult {
 console.info(`${MixedResult.No}`);   // 0
 console.info(`${MixedResult.Yes}`);  // YES
 // [End ts_heterogeneous_enum]
+
+// ===== enum_mixed_type_error =====
+// [Start enum_mixed_type_error]
+enum Mixed {
+  No = 0,
+  Yes = 'YES'  // 编译错误：关联值类型不一致
+}
+// [End enum_mixed_type_error]
 
 // ===== ts_computed_enum_member =====
 // [Start ts_computed_enum_member]

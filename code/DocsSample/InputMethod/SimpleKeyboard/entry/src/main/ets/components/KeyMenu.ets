@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,27 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  StorageLink,
-  Stack,
-  Resource,
-  ForEach,
-  Flex,
-  Consume,
-  State,
-  Provide,
-  StateStyles,
-  FlexDirection,
-  ItemAlign,
-  FlexAlign,
-  ShadowOptions,
-  Padding,
-  FlexOptions,
-  Image,
-  $rawfile,
-  $r
-} from '@kit.ArkUI';
 import { DeleteItem } from './DeleteItem';
 import {
   MenuKey,
@@ -63,7 +41,7 @@ export struct KeyMenu {
   // 如果是沉浸模式，设置新样式
   aboutToAppear(): void {
 
-    inputMethodEngine.getKeyboardDelegate()?.onEditorAttributeChanged(
+    inputMethodEngine.getKeyboardDelegate()?.on('editorAttributeChanged', 
       (attr: inputMethodEngine.EditorAttribute | undefined): void => {
         if (attr?.immersiveMode == inputMethodEngine.ImmersiveMode.IMMERSIVE) {
           this.styleMode = 0;
@@ -71,6 +49,16 @@ export struct KeyMenu {
           this.styleMode = 1;
         }
       });
+  }
+
+  @Styles
+  normalStyle(): void {
+    .backgroundColor($r('app.color.key_item_gray'))
+  }
+
+  @Styles
+  pressedStyle(): void {
+    .backgroundColor($r('app.color.key_item_gray_pressed'))
   }
 
   build(): void {
@@ -107,6 +95,7 @@ export struct KeyMenu {
         }
         .backgroundColor($r('app.color.key_item_gray'))
         .borderRadius(4)
+        .id('shiftKey')
         .onClick(() => {
           if (this.keyState === KeyState.LOWER_CASE) {
             this.keyState = KeyState.ONCE_UPPER_CASE;
@@ -119,14 +108,7 @@ export struct KeyMenu {
         .height('100%')
         .width(this.inputStyle.switchButtonWidth)
         .shadow({ radius: 1, color: $r('app.color.shadow'), offsetY: 3 } as ShadowOptions)
-        .stateStyles({
-          normal: () => {
-            this.backgroundColor($r('app.color.key_item_gray'))
-          },
-          pressed: () => {
-            this.backgroundColor($r('app.color.key_item_gray_pressed'))
-          }
-        } as StateStyles)
+        .stateStyles({ normal: this.normalStyle, pressed: this.pressedStyle })
 
         ForEach(this.keyList.slice(19), (item: keySourceListType) => {
           KeyItemNumber({ keyValue: item })

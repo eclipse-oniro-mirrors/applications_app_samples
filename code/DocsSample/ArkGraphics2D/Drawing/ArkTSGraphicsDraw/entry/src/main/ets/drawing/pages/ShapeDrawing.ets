@@ -73,7 +73,7 @@ function drawArc(canvas: drawing.Canvas) {
     right: VALUE_1000,
     bottom: VALUE_600
   };
-  // 绘制矩形
+  // 绘制圆弧
   canvas.drawArc(rect, 0, 180);
   // 去除描边效果
   canvas.detachPen();

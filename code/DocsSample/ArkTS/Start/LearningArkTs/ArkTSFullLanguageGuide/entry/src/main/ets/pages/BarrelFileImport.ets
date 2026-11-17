@@ -16,7 +16,7 @@
 export {}
 
 // [Start barrel_file_import]
-import { User, UserService } from '../common/User';
+import { User, UserService } from './ModuleSystem';
 
 let service: UserService = new UserService();
 let user: User | null = service.findById(1);

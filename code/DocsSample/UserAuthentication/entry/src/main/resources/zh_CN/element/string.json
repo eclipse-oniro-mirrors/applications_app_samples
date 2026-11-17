@@ -167,6 +167,14 @@
     {
       "name": "example6",
       "value": "拉起认证"
+    },
+    {
+      "name": "userRecognitionTitle",
+      "value": "用户识别"
+    },
+    {
+      "name": "userRecognition",
+      "value": "查询最新的用户识别结果，并订阅识别结果变化事件"
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "devices": {
+    "general": [
+      "default",
+      "tablet"
+    ]
+  },
+  "development": {
+    "addedSysCaps": [
+      "SystemCapability.Communication.NearLink.Base"
+    ]
+  },
+  "production": {
+    "addedSysCaps": [
+      "SystemCapability.Communication.NearLink.Base"
+    ],
+    "removedSysCaps": []
+  }
+}

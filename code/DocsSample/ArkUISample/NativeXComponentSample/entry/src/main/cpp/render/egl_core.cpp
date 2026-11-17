@@ -466,7 +466,7 @@ bool EGLCore::ExecuteDrawStar(
         return false;
     }
 
-    // The gl function has no return value.
+    // 该gl函数没有返回值。
     glVertexAttribPointer(position, POINTER_SIZE, GL_FLOAT, GL_FALSE, 0, shapeVertices);
     glVertexAttribPointer(1, POINTER_SIZE, GL_FLOAT, GL_FALSE, 0, color);
     glEnableVertexAttribArray(position);

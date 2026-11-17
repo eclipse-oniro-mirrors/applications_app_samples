@@ -28,7 +28,7 @@
 #include "ohcamera/camera_manager.h"
 
 #include <mutex>
-#include <shared_mutex> // C++17以上使用
+#include <shared_mutex> // C++17以上使用。
 #include <condition_variable>
 // [End receiver_import]
 
@@ -146,7 +146,7 @@ static void OnCallback(OH_ImageReceiverNative* receiver)
 {
     OH_LOG_INFO(LOG_APP, "ImageReceiverNativeCTest buffer available.");
 
-    // 共享锁（读）
+    // 共享锁（读）。
     std::shared_lock<std::shared_mutex> lock(shared_receiver_mutex);
     OH_ImageNative* image = nullptr;
     Image_ErrorCode errCode = OH_ImageReceiverNative_ReadNextImage(receiver, &image);
@@ -595,7 +595,7 @@ static napi_value ReleaseImageReceiver(napi_env env, napi_callback_info info)
         OH_LOG_ERROR(LOG_APP, "ImageReceiverNativeCTest image receiver off failed, errCode: %{public}d.", errCode);
     }
 
-    // 独占锁（写）
+    // 独占锁（写）。
     std::unique_lock<std::shared_mutex> lock(shared_receiver_mutex);
     errCode = OH_ImageReceiverNative_Release(g_receiver);
     if (errCode != IMAGE_SUCCESS) {

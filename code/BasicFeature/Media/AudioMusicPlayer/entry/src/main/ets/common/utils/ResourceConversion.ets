@@ -29,6 +29,9 @@ export class ResourceConversion {
     if (!res || !res.id) {
       return;
     }
-    return this.context.resourceManager.getStringSync(res.id);
+    // Pass the full Resource object so cross-module resources can be routed
+    // by their moduleName/bundleName; an id-only lookup may fail in some
+    // multi-module environments (e.g. ohosTest processes).
+    return this.context.resourceManager.getStringSync(res);
   }
 }

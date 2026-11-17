@@ -54,22 +54,6 @@ namespace UserModule {
 }
 // [End ts_namespace_not_module]
 
-// ===== ts_export_equals_import_equals =====
-// [Start ts_export_equals_import_equals]
-// TypeScript/CommonJS对照写法，ArkTS不支持
-class TsCalculator {
-  add(a: number, b: number): number {
-    return a + b;
-  }
-}
-
-export = TsCalculator;
-// 导入方（另一文件）：
-// import Calculator = require('calculator');
-// let calc = new Calculator();
-// console.info(calc.add(1, 2)); // 3
-// [End ts_export_equals_import_equals]
-
 // ===== ts_triple_slash_directives =====
 // [Start ts_triple_slash_directives]
 // TypeScript声明文件写法，ArkTS不支持
@@ -93,3 +77,13 @@ namespace App {
 import ver = App.Config.version;
 console.info(`${ver}`); // 1.0
 // [End ts_namespace_alias]
+
+// ===== lazy_import =====
+// [Start lazy_import]
+// main.ts
+import lazy { a } from './mod1';  // 冷启动时不执行mod1.ts的顶层代码
+
+export function loadOnDemand(): string {
+  return a;  // a首次被使用时，才触发mod1.ts的加载与执行
+}
+// [End lazy_import]

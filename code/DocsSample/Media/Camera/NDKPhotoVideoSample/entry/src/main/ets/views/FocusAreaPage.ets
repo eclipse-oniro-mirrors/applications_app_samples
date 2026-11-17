@@ -47,16 +47,16 @@ export struct FocusAreaPage {
     .onTouch((e: TouchEvent) => {
       if (e.type === TouchType.Down) {
         this.focusPointBol = true;
-        this.focusPointVal[0] = e.touches[0].screenX;
-        this.focusPointVal[1] = e.touches[0].screenY;
+        this.focusPointVal[0] = e.touches[0].windowX;
+        this.focusPointVal[1] = e.touches[0].windowY;
         // Focus point
         cameraDemo.isFocusPoint(
-          e.touches[0].screenX / this.xComponentWidth,
-          e.touches[0].screenY / this.xComponentHeight
+          e.touches[0].windowX / this.xComponentWidth,
+          e.touches[0].windowY / this.xComponentHeight
         );
         cameraDemo.isMeteringPoint(
-          e.touches[0].screenX / this.xComponentWidth,
-          e.touches[0].screenY / this.xComponentHeight + 50
+          e.touches[0].windowX / this.xComponentWidth,
+          e.touches[0].windowY / this.xComponentHeight + 50
         );
       }
       if (e.type === TouchType.Up) {

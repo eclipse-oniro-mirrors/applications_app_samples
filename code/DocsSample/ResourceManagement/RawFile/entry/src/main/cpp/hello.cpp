@@ -203,7 +203,7 @@ napi_value GetRawFileDescriptor(napi_env env, napi_callback_info info)
     }
     // 获取rawfile的描述符RawFileDescriptor {fd, offset, length}
     RawFileDescriptor descriptor;
-    OH_ResourceManager_GetRawFileDescriptor(rawFile, descriptor);
+    OH_ResourceManager_GetRawFileDescriptorData(rawFile, &descriptor);
     // 关闭打开的指针对象
     OH_ResourceManager_CloseRawFile(rawFile);
     OH_ResourceManager_ReleaseNativeResourceManager(mNativeResMgr);

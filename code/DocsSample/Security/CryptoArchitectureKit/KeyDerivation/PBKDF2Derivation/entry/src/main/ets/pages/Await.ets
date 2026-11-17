@@ -14,18 +14,24 @@
  */
 // [Start use_pbkdf2_for_key_derivation_await]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 async function kdfAwait() {
-  let spec: cryptoFramework.PBKDF2Spec = {
-    algName: 'PBKDF2',
-    password: '123456',
-    salt: new Uint8Array(16),
-    iterations: 10000,
-    keySize: 32
-  };
-  let kdf = cryptoFramework.createKdf('PBKDF2|SHA256');
-  let secret = await kdf.generateSecret(spec);
-  console.info('key derivation output: ' + secret.data);
+  try {
+    let spec: cryptoFramework.PBKDF2Spec = {
+      algName: 'PBKDF2',
+      password: '123456',
+      salt: new Uint8Array(16),
+      iterations: 10000,
+      keySize: 32
+    };
+    let kdf = cryptoFramework.createKdf('PBKDF2|SHA256');
+    let secret = await kdf.generateSecret(spec);
+    console.info('key derivation output: ' + secret.data);
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+  }
 }
 
 // [End use_pbkdf2_for_key_derivation_await]

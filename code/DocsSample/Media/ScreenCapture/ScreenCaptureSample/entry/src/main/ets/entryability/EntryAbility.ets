@@ -19,6 +19,8 @@ import { window } from '@kit.ArkUI';
 import common from '@ohos.app.ability.common';
 import abilityAccessCtrl, { Permissions } from '@ohos.abilityAccessCtrl';
 import { BusinessError } from '@ohos.base';
+import { backgroundTaskManager } from '@kit.BackgroundTasksKit';
+import { wantAgent, WantAgent } from '@kit.AbilityKit';
 
 const DOMAIN = 0x0000;
 
@@ -84,6 +86,7 @@ export default class EntryAbility extends UIAbility {
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
+    this.stopBackgroundTask();
   }
 
   onForeground(): void {
@@ -94,5 +97,38 @@ export default class EntryAbility extends UIAbility {
   onBackground(): void {
     // Ability has back to background
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
+    this.requestBackgroundRunning();
+  }
+
+  private async requestBackgroundRunning(): Promise<void> {
+    const wantAgentInfo: wantAgent.WantAgentInfo = {
+      wants: [
+        {
+          bundleName: 'com.sample.screencapturesample',
+          abilityName: 'EntryAbility'
+        }
+      ],
+      actionType: wantAgent.OperationType.START_ABILITY,
+      requestCode: 0,
+      wantAgentFlags: [wantAgent.WantAgentFlags.UPDATE_PRESENT_FLAG]
+    };
+
+    const wantAgentObj: WantAgent = await wantAgent.getWantAgent(wantAgentInfo);
+
+    // AUDIO_RECORDING 类型专用于录音、录屏退后台场景
+    await backgroundTaskManager.startBackgroundRunning(
+      this.context,
+      backgroundTaskManager.BackgroundMode.AUDIO_RECORDING,
+      wantAgentObj
+    );
+  }
+
+  stopBackgroundTask(): void {
+    backgroundTaskManager.stopBackgroundRunning(this.context).then(() => {
+      hilog.info(DOMAIN, 'testTag', '%{public}s', 'cancelBackgroundRunning succeeded');
+    }).catch((err: BusinessError) => {
+      hilog.error(DOMAIN, 'testTag', 'cancelBackgroundRunning failed, code: %{public}d, msg: %{public}s',
+        err.code, err.message);
+    });
   }
 }

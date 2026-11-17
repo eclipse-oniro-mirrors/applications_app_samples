@@ -167,6 +167,14 @@
     {
       "name": "example6",
       "value": "Pull up the certification"
+    },
+    {
+      "name": "userRecognitionTitle",
+      "value": "User recognition"
+    },
+    {
+      "name": "userRecognition",
+      "value": "Query the latest user recognition result and subscribe to recognition change events"
     }
   ]
 }

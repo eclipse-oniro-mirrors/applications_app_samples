@@ -19,7 +19,7 @@ import { VALUE_100, VALUE_400, VALUE_800 } from '../../pages/Index';
 
 function drawFilling(canvas: drawing.Canvas) {
   // [Start arkts_graphics_draw_create_brush]
-  // 设置画刷
+  // 创建画刷
   const brush = new drawing.Brush();
   // [End arkts_graphics_draw_create_brush]
   // [Start arkts_graphics_draw_brush_set_color]

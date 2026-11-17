@@ -92,7 +92,7 @@ static JSVM_PropertyDescriptor descriptor[] = {
     {"getValueInt64", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };
 
-// 样例测试js
+// 样例测试JS
 const char* SRC_CALL_NATIVE = R"JS(getValueInt64(-123))JS";
 // [End oh_jsvm_get_value_int64]
 

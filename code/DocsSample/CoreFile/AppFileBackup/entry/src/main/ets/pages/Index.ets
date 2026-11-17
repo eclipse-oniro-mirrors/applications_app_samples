@@ -14,6 +14,7 @@
  */
 
 import { getLocalCapabilities, sessionBackup, sessionRestore, release } from '../backuprestore/BackupRestore';
+import { common } from '@kit.AbilityKit';
 
 let MARGIN = 12; // 组件间的间隔
 
@@ -36,14 +37,16 @@ struct FileBackup {
           .height('100%')
           .margin(MARGIN)
           .onClick(() => {
-            sessionBackup();
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            sessionBackup(context.filesDir);
           })
         Button($r('app.string.applicationTriggersDataReStore'))
           .width('40%')
           .height('100%')
           .margin(MARGIN)
           .onClick(() => {
-            sessionRestore();
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            sessionRestore(context.filesDir);
           })
       }
       .width('80%')
@@ -63,7 +66,8 @@ struct FileBackup {
           .height('100%')
           .margin(MARGIN)
           .onClick(() => {
-            getLocalCapabilities();
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            getLocalCapabilities(context.filesDir);
           })
       }
       .width('80%')

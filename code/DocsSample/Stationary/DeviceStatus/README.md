@@ -2,7 +2,7 @@
 
 ### 介绍
 
-1.DeviceStatus（设备状态感知）模块提供设备状态感知能力，可以获取到设备的状态感知信息，例如：获取设备静止姿态感知状态（支架态）。
+1.DeviceStatus（设备状态感知）模块提供设备状态感知能力，可以获取到设备的状态感知信息，例如：获取设备静止姿态感知状态（支架态）和手机跌落检测状态。
 
 详细的接口介绍请参考[deviceStatus接口](https://gitcode.com/openharmony/docs/blob/master/zh-cn/application-dev/reference/apis-multimodalawareness-kit/js-apis-awareness-deviceStatus.md)。
 
@@ -16,11 +16,15 @@
 |      **订阅**      | <img src="./screenshots/MultimodalAwareness_02.jpg" width="360" style="zoom:33%;" /> |
 |      **取消全部订阅**      | <img src="./screenshots/MultimodalAwareness_03.jpg" width="360" style="zoom:33%;" /> |
 |      **取消单个订阅**      | <img src="./screenshots/MultimodalAwareness_04.jpg" width="360" style="zoom:33%;" /> |
+|      **订阅跌落**      | <img src="./screenshots/MultimodalAwareness_05.jpg" width="360" style="zoom:33%;" /> |
+|      **取消全部跌落订阅**      | <img src="./screenshots/MultimodalAwareness_06.jpg" width="360" style="zoom:33%;" /> |
+|      **取消单个跌落订阅**      | <img src="./screenshots/MultimodalAwareness_07.jpg" width="360" style="zoom:33%;" /> |
 
 
 ### 使用说明
 
-1. 在主界面，点击订阅按钮使能功能，点击取消全部订阅按钮去使能全部订阅，点击取消单个订阅按钮去使能单个订阅。
+1. 在主界面，点击订阅按钮使能设备静止姿态感知（支架态）功能，点击取消全部订阅按钮去使能全部订阅，点击取消单个订阅按钮去使能单个订阅；
+   点击订阅跌落按钮使能手机跌落检测功能，点击取消全部跌落按钮去使能全部跌落订阅，点击取消单个跌落按钮去使能单个跌落订阅。
 
 ### 工程目录
 
@@ -50,6 +54,8 @@ entry/src/
 
 ### 约束与限制
 
+#### 静止姿态感知
+
 1.本示例仅支持标准系统上运行，支持设备：Phone;
 
 2.本示例为Stage模型，支持API18版本SDK，SDK版本号(API Version 18)。
@@ -57,6 +63,16 @@ entry/src/
 3.本示例需要使用DevEco Studio 版本号(5.0.5 Release)版本才可编译运行。
 
 4.设备需要支持加速度计。
+
+#### 手机跌落检测
+
+1.本示例仅支持标准系统上运行，支持设备：Phone;
+
+2.本示例为Stage模型，支持API26版本SDK，SDK版本号(API Version 26)。
+
+3.本示例需要使用DevEco Studio 版本号(6.0.0 Release)版本才可编译运行。
+
+4.设备需要支持手机跌落检测能力。
 
 ### 下载
 

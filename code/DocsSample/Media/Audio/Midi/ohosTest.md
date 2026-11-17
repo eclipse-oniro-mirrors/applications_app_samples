@@ -267,3 +267,51 @@ import display from '@ohos.display';
 - **无需外部设备**：TC001-TC010、TC015-TC019 可在无MIDI设备环境下运行
 - **需要MIDI设备**：TC011-TC014、TC020-TC022 涉及设备相关功能，部分断言使用条件判断
 - **坐标依赖**：TC021、TC022 的钢琴键点击位置基于屏幕比例计算，需确保应用布局正确
+
+## 新增逻辑覆盖
+
+新增 4 个 MIDI 业务逻辑套件，工程测试用例合计约 **326** 条。
+
+| 测试套件 | 覆盖点 | 用例数 |
+| -------- | ------ | ------ |
+| MidiKeyLayoutCore | 白键/黑键音符、数量与顺序 | 80 |
+| MidiMessageCore | 音高、力度、通道、频率换算 | 80 |
+| MidiBufferCapacityCore | 日志、MIDI 输入、最近设备容量裁剪 | 80 |
+| MidiDeviceStateCore | 客户端、设备选择、打开与弹奏状态守卫 | 60 |
+
+## 新增逻辑覆盖（二）
+
+新增 5 个 MIDI 业务逻辑套件，工程测试用例合计约 **731** 条。
+
+| 测试套件 | 覆盖点 | 用例数 |
+| -------- | ------ | ------ |
+| MidiMessageCodecCore | Note On/Off、CC、Program Change 状态字节与通道 | 80 |
+| MidiBleAddressCore | BLE MAC 归一化、分段与最近设备容量 | 80 |
+| MidiPianoGeometryCore | 黑白键数量、位置与触摸命中 | 80 |
+| MidiPortStateCore | 客户端/设备/输入输出端口状态守卫 | 80 |
+| MidiUiContractCore | 按钮文案与事件 ID 契约 | 80 |
+
+## 新增逻辑覆盖（三）
+
+新增 5 个 MIDI 业务逻辑套件，工程测试用例合计约 **1,136** 条。
+
+| 测试套件 | 覆盖点 | 用例数 |
+| -------- | ------ | ------ |
+| MidiBleRecentCore | 最近 BLE 设备去重、置顶与 5 条裁剪 | 80 |
+| MidiUmpParserCore | UMP Note On/Off、CC 字段与通道 | 80 |
+| MidiNoteFrequencyCore | 音名、八度与频率换算 | 80 |
+| MidiPortTransitionCore | 端口打开/关闭/重开状态流 | 80 |
+| MidiBufferUiCore | 日志/输入缓冲裁剪与按钮点击计数 | 80 |
+
+## 新增逻辑覆盖（四）
+
+新增 4 个 MIDI 业务逻辑套件，工程测试用例合计约 **1,420** 条。
+
+| 测试套件 | 覆盖点 | 用例数 |
+| -------- | ------ | ------ |
+| MidiBleScanFilterCore | BLE 扫描名称/地址/RSSI 过滤 | 80 |
+| MidiDataByteBoundaryCore | 通道 0–15、数据字节 0–127、状态字节 | 80 |
+| MidiPianoMultiTouchCore | 多键按下/释放与活动音符集合 | 60 |
+| MidiReconnectFlowCore | 断连、重连、设备与端口恢复 | 60 |
+
+> 当前工程测试用例总数：**1729** 条。

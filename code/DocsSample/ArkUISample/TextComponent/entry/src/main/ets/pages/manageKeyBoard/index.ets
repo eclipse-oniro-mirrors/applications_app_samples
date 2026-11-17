@@ -17,16 +17,16 @@ import { CompletedRoutableCard } from '../../common/Card';
 
 import { Route } from '../../common/Route';
 import resource from '../../common/resource';
-import { textInputControllerCloseKeyboard } from './TextInputControllerCloseKeyboard';
-import { requestFocusCloseKeyBoard } from './RequestFocusCloseKeyBoard';
-import { requestFocusShowKeyboard } from './RequestFocusShowKeyboard';
-import { tabKeyFocusShowKeyboard } from './TabKeyFocusShowKeyboard';
-import { closeButtonClickKeyboard } from './CloseButtonClickKeyboard';
-import { dragTextCloseKeyboard } from './DragTextCloseKeyboard';
-import { pageChangeSource } from './PageChangeSource';
-import { listScrollClearFocus } from './ListScrollClearFocus';
-import { emptyCustomKeyboard } from './EmptyCustomKeyboard';
-import { keepEditableStateOnSubmit } from './KeepEditableStateOnSubmit';
+import { TextInputControllerCloseKeyboard } from './TextInputControllerCloseKeyboard';
+import { RequestFocusCloseKeyBoard } from './RequestFocusCloseKeyBoard';
+import { RequestFocusShowKeyboard } from './RequestFocusShowKeyboard';
+import { TabKeyFocusShowKeyboard } from './TabKeyFocusShowKeyboard';
+import { CloseButtonClickKeyboard } from './CloseButtonClickKeyboard';
+import { DragTextCloseKeyboard } from './DragTextCloseKeyboard';
+import { PageChangeSource } from './PageChangeSource';
+import { ListScrollClearFocus } from './ListScrollClearFocus';
+import { EmptyCustomKeyboard } from './EmptyCustomKeyboard';
+import { KeepEditableStateOnSubmit } from './KeepEditableStateOnSubmit';
 
 export const KEYBOARD_ROUTE_PREFIX: string = 'KeyBoard';
 
@@ -88,25 +88,25 @@ export function ManageKeyBoardDestination(name: string) {
   if (name === KEYBOARD_ROUTE_PREFIX) {
     ManageKeyBoardExample();
   } else if (name === routes[0].name) {
-    textInputControllerCloseKeyboard();
+    TextInputControllerCloseKeyboard();
   } else if (name === routes[1].name) {
-    requestFocusCloseKeyBoard();
+    RequestFocusCloseKeyBoard();
   } else if (name === routes[2].name) {
-    requestFocusShowKeyboard();
+    RequestFocusShowKeyboard();
   } else if (name === routes[3].name) {
-    tabKeyFocusShowKeyboard();
+    TabKeyFocusShowKeyboard();
   } else if (name === routes[4].name) {
-    closeButtonClickKeyboard();
+    CloseButtonClickKeyboard();
   } else if (name === routes[5].name) {
-    dragTextCloseKeyboard();
+    DragTextCloseKeyboard();
   } else if (name === routes[6].name) {
-    pageChangeSource();
+    PageChangeSource();
   } else if (name === routes[7].name) {
-    listScrollClearFocus();
+    ListScrollClearFocus();
   } else if (name === routes[8].name) {
-    emptyCustomKeyboard();
+    EmptyCustomKeyboard();
   } else if (name === routes[9].name) {
-    keepEditableStateOnSubmit();
+    KeepEditableStateOnSubmit();
   }
 }
 

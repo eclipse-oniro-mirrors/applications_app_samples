@@ -84,7 +84,7 @@ static JSVM_Value DeleteProperty(JSVM_Env env, JSVM_CallbackInfo info)
     } else {
         OH_LOG_INFO(LOG_APP, "JSVM OH_JSVM_DeleteProperty success:%{public}d", result);
     }
-    // 将bool结果转换为JSVM_value并返回
+    // 将bool结果转换为JSVM_Value并返回
     JSVM_Value ret;
     OH_JSVM_GetBoolean(env, result, &ret);
     return ret;

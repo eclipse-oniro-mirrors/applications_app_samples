@@ -15,7 +15,7 @@
 
 // ===== promise_all_error_handling =====
 // [Start promise_all_error_handling]
-import http from '@ohos.net.http';
+import { http } from '@kit.NetworkKit';
 
 async function parallelErrorHandling(): Promise<void> {
   try {

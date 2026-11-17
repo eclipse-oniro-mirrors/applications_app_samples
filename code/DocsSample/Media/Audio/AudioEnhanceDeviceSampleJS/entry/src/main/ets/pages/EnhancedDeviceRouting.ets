@@ -27,16 +27,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 // [StartExclude select_InputDeviceForAudioCapturer]
 // [StartExclude isEnhancedRoutingSupported]
 import { common, abilityAccessCtrl, PermissionRequestResult } from '@kit.AbilityKit';
-// [EndExclude select_OutputDevice]
-// [EndExclude select_InputDevice]
-// [EndExclude select_OutputDeviceForAudioRenderer]
-// [EndExclude select_InputDeviceForAudioCapturer]
-
 let audioSessionManager = audio.getAudioManager().getSessionManager();
-// [StartExclude select_OutputDevice]
-// [StartExclude select_InputDevice]
-// [StartExclude select_OutputDeviceForAudioRenderer]
-// [StartExclude select_InputDeviceForAudioCapturer]
+
 let audioStreamInfo: audio.AudioStreamInfo = {
   samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_48000,
   channels: audio.AudioChannel.CHANNEL_2,
@@ -77,6 +69,7 @@ function checkEnhancedRoutingSupported() {
   // [EndExclude isEnhancedRoutingSupported]
   let audioManager = audio.getAudioManager();
   let audioDeviceEnhanceManager: audio.AudioDeviceEnhanceManager = audioManager.getDeviceEnhanceManager();
+  // 查询系统是否支持当前管理器提供的增强路由能力。
   let isSupported: boolean = audioDeviceEnhanceManager.isEnhancedRoutingSupported();
   console.info(`Succeeded in querying whether enhanced routing is supported. Result: ${isSupported}.`);
   // [End isEnhancedRoutingSupported]
@@ -105,6 +98,7 @@ async function selectOutputDevice(device: audio.AudioDeviceDescriptor) {
   // [EndExclude select_OutputDevice]
   let audioManager = audio.getAudioManager();
   let audioDeviceEnhanceManager: audio.AudioDeviceEnhanceManager = audioManager.getDeviceEnhanceManager();
+  // 为应用选择输出设备，此处device可通过ArkTS完整示例查看获取方式。
   audioDeviceEnhanceManager.selectOutputDevice(device).then(() => {
     console.info('Succeeded in selecting output device.');
     // [StartExclude select_OutputDevice]
@@ -133,6 +127,7 @@ async function selectInputDevice(device: audio.AudioDeviceDescriptor) {
   // [EndExclude select_InputDevice]
   let audioManager = audio.getAudioManager();
   let audioDeviceEnhanceManager: audio.AudioDeviceEnhanceManager = audioManager.getDeviceEnhanceManager();
+  // 为应用选择输入设备，此处device可通过ArkTS完整示例查看获取方式。
   audioDeviceEnhanceManager.selectInputDevice(device).then(() => {
     console.info('Succeeded in selecting input device.');
     // [StartExclude select_InputDevice]
@@ -162,6 +157,7 @@ async function selectOutputDeviceForAudioRenderer(renderer: audio.AudioRenderer,
   // [EndExclude select_OutputDeviceForAudioRenderer]
   let audioManager = audio.getAudioManager();
   let audioDeviceEnhanceManager: audio.AudioDeviceEnhanceManager = audioManager.getDeviceEnhanceManager();
+  // 为指定音频播放流设置首选输出设备，此处renderer和outputDevice可通过ArkTS完整示例查看获取方式。
   audioDeviceEnhanceManager.selectOutputDeviceForAudioRenderer(renderer, outputDevice).then(() => {
     console.info('Succeeded in selecting output device for audio renderer.');
     // [StartExclude select_OutputDeviceForAudioRenderer]
@@ -191,6 +187,7 @@ async function selectInputDeviceForAudioCapturer(capturer: audio.AudioCapturer,
   // [EndExclude select_InputDeviceForAudioCapturer]
   let audioManager = audio.getAudioManager();
   let audioDeviceEnhanceManager: audio.AudioDeviceEnhanceManager = audioManager.getDeviceEnhanceManager();
+  // 为指定音频录制流设置首选输入设备，此处capturer和inputDevice可通过ArkTS完整示例查看获取方式。
   audioDeviceEnhanceManager.selectInputDeviceForAudioCapturer(capturer, inputDevice).then(() => {
     console.info('Succeeded in selecting input device for audio capturer.');
     // [StartExclude select_InputDeviceForAudioCapturer]

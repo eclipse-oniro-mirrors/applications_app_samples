@@ -62,7 +62,7 @@ static int g_aa = 0;
 #define JSVM_CALL(theCall) JSVM_CALL_BASE(env, theCall, nullptr)
 
 // [Start oh_jsvm_create_error]
-// 捕获清除并打印错误,该函数作为公共函数，在本文档后续样例中不再声明和定义
+// 捕获清除并打印错误，该函数作为公共函数，在本文档后续样例中不再声明和定义
 static void GetLastErrorAndClean(JSVM_Env env)
 {
     // 调用OH_JSVM_GetAndClearLastException接口获取并清除最后一个未处理的异常。即使存在挂起的JavaScript异常，也可以调用此API
@@ -79,7 +79,7 @@ static void GetLastErrorAndClean(JSVM_Env env)
     char codeStr[maxCodeLength];
     OH_JSVM_GetValueStringUtf8(env, message, messageStr, maxMessageLength, nullptr);
     OH_JSVM_GetValueStringUtf8(env, errorCode, codeStr, maxCodeLength, nullptr);
-    OH_LOG_INFO(LOG_APP, "JSVM error message: %{public}s, error code: %{public}s", messageStr, codeStr);
+    OH_LOG_ERROR(LOG_APP, "JSVM error message: %{public}s, error code: %{public}s", messageStr, codeStr);
 }
 
 // OH_JSVM_CreateError的样例方法

@@ -15,6 +15,7 @@
 | 列表滚动-ListItemGroup使用场景页面 | 设备正常运行 | 点击"ReusableForListItemGroupUsageScenario"，上下滑动 | 页面加载成功，上下滑动页面正常显示，无卡顿，与预期结果一致    | Pass     |
 | 复用组件间存在差异，但类型有限页面 | 设备正常运行 | 点击"ReusableForLimitedVariation"，上下滑动 | 页面加载成功，上下滑动页面正常显示，无卡顿，与预期结果一致    | Pass     |
 | 复用组件间存在多种差异，但通常具备共同的子组件页面 | 设备正常运行 | 点击"ReusableForComposite"，上下滑动 | 页面加载成功，上下滑动页面正常显示，无卡顿，与预期结果一致    | Pass     |
+| 主动清理默认复用池页面 | 设备正常运行 | 点击"DefaultReusePoolClearCache"，依次点击"Recycle A"、"Recycle B"回收子组件，再依次点击"Clear All"、"Clear A" | 页面加载成功，子组件正常回收进默认复用池，点击后分别清理复用池中的全部组件及reuseId为A的组件，页面显示正常    | Pass     |
 
 
 

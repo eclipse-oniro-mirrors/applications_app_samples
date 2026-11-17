@@ -15,8 +15,9 @@
 
 // [Start CustomEnvDeepWatch]
 import { WithEnv } from '@ohos.arkui.WithEnv';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
-const customDeepWatch = CustomEnvKey.create<number[][]>()
+const customDeepWatch = CustomEnvKey.create<number[][]>();
 
 @Entry
 @Component
@@ -25,8 +26,8 @@ struct BuildIn_Watch {
 
   build() {
     Column() {
-      Button('ss').onClick(() => {
-        this.message[0][0]++
+      Button('change message').onClick(() => {
+        this.message[0][0]++;
       })
       WithEnv() {
         Child()
@@ -39,15 +40,15 @@ struct BuildIn_Watch {
 
 @Component
 struct Child {
-  @Watch('update') @CustomEnv(customDeepWatch) msg: number[][] = [[3, 4]]
+  @CustomEnv(customDeepWatch) @Watch('update') msg: number[][] = [[3, 4]];
 
   update() {
-    console.info(`TabContent message callback func ${this.msg}`)
+    hilog.info(0x0000, 'testTag', `DeepWatch message callback func ${this.msg}`);
   }
 
   build() {
     Column() {
-      Text(this.msg[0][0] + '')
+      Text(`message: ${this.msg[0][0]}`)
     }
   }
 }

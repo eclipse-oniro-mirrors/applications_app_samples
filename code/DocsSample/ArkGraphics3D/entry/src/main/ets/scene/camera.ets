@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,31 +22,31 @@ let globalScene: Scene | null = null;
 
 function createCameraPromise(): Promise<Camera> {
   return new Promise((resolve, reject) => {
-    // Switched from .gltf to .glb; same content, different format
+    // 从 .gltf 切换为 .glb；内容相同，格式不同
     // [Start cam_load_and_factory]
     let scene: Promise<Scene> = Scene.load($rawfile('gltf/CubeWithFloor/glTF/AnimatedCube.glb'));
     scene.then(async (result: Scene) => {
       // [StartExclude cam_load_and_factory]
-      // Save loaded scene globally for reuse (e.g., in CameraPage)
+      // 将加载的场景全局保存以便复用（例如在 CameraPage 中）
       globalScene = result;
       // [EndExclude cam_load_and_factory]
       let sceneFactory: SceneResourceFactory = result.getResourceFactory();
       let sceneCameraParameter: SceneNodeParameters = { name: 'camera' };
       // [StartExclude cam_load_and_factory]
-      // Create a Camera.
+      // 创建一个相机。
       // [Start cam_create_and_config]
       let camera: Promise<Camera> = sceneFactory.createCamera(sceneCameraParameter);
       camera.then(async (cameraEntity: Camera) => {
-        // Enable the camera node.
+        // 启用相机节点。
         cameraEntity.enabled = true;
 
-        // Set the camera position.
+        // 设置相机位置。
         cameraEntity.position.z = 5;
 
-        // Set the FoV.
+        // 设置视场角（FoV）。
         cameraEntity.fov = 60 * Math.PI / 180;
 
-        // Set other camera parameters.
+        // 设置其他相机参数。
         // ...
         // [StartExclude cam_create_and_config]
         resolve(cameraEntity);
@@ -109,7 +109,7 @@ struct CameraPage {
       Column() {
         Column() {
           if (this.sceneOpt) {
-            // Use Component3D to display the 3D scenario.
+            // 使用 Component3D 显示 3D 场景。
             Component3D(this.sceneOpt);
           } else {
             Text('Loading···');

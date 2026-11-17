@@ -117,7 +117,7 @@ if (flag) {
 // [End optionExample_removeLog1]
 
 // [Start optionExample_removeLog2]
-console.info('in tolevel');
+console.info('in toplevel');
 // [End optionExample_removeLog2]
 
 // [Start optionExample_removeLog3]

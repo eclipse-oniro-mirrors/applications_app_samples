@@ -60,7 +60,7 @@ struct FormEditExtension {
       // 刷新被编辑卡片的信息
       formProvider.updateForm(this.formId, obj, (error: BusinessError) => {
         if (error) {
-          console.error(TAG, `callback error, code: ${error.code}, message: ${error.message})`);
+          console.error(TAG, `callback error, code: ${error.code}, message: ${error.message}`);
           return;
         }
         console.info(TAG, `formProvider updateForm success`);
@@ -76,7 +76,7 @@ struct FormEditExtension {
       // 刷新预览卡片的信息
       formProvider.updateForm(this.previewFormId, obj, (error: BusinessError) => {
         if (error) {
-          console.error(TAG, `callback error, code: ${error.code}, message: ${error.message})`);
+          console.error(TAG, `callback error, code: ${error.code}, message: ${error.message}`);
           return;
         }
         console.info(TAG, `formProvider updateForm success`);

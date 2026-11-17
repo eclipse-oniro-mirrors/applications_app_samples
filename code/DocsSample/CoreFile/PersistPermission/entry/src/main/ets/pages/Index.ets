@@ -16,6 +16,7 @@
 import { persistPermissionExample } from '../persistpermission/PersistPermission';
 import { revokePermissionExample } from '../persistpermission/PersistPermission';
 import { activatePermissionExample } from '../persistpermission/PersistPermission';
+import { common } from '@kit.AbilityKit';
 
 @Entry
 @Component
@@ -33,21 +34,24 @@ struct Index {
           .height('10%') // 设置按钮高度为 10%
           .margin({ top: $r('app.float.size_20') }) // 设置按钮上边距为 20
           .onClick(() => {
-            persistPermissionExample();
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            persistPermissionExample(context);
           })
         Button($r('app.string.invokeInterfaceButton2'))
           .width('80%') // 设置按钮宽度为 80%
           .height('10%') // 设置按钮高度为 10%
           .margin({ top: $r('app.float.size_20') }) // 设置按钮上边距为 20
           .onClick(() => {
-            revokePermissionExample();
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            revokePermissionExample(context);
           })
         Button($r('app.string.invokeInterfaceButton3'))
           .width('80%') // 设置按钮宽度为 80%
           .height('10%') // 设置按钮高度为 10%
           .margin({ top: $r('app.float.size_20') }) // 设置按钮上边距为 20
           .onClick(() => {
-            activatePermissionExample();
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            activatePermissionExample(context);
           })
       }
       .width('100%')

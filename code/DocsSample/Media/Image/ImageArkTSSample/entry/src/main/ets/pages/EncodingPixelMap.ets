@@ -25,7 +25,7 @@ import { ImageInterfaceCalled } from '../tools/CodecUtility';
 import { Router } from '@ohos.arkui.UIContext';
 
 const router = new Router();
-let fileName: string = 'test.jpeg'; // 根据解码需求选择不同的解码资源进行解码
+let fileName: string = 'test.jpeg'; // 根据解码需求选择不同的解码资源进行解码。
 
 @Entry
 @Component

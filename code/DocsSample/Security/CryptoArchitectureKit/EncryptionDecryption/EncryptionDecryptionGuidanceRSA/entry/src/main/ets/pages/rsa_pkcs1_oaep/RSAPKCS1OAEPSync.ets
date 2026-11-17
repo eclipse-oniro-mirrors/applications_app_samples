@@ -15,6 +15,7 @@
 
 // [Start pss_verify_rsa_keypair_sign_sync]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { buffer } from '@kit.ArkTS';
 // 根据密钥参数属性构造RSA非对称密钥对密钥参数
 function genRsaKeyPairSpec(nIn: bigint, eIn: bigint, dIn: bigint) {
@@ -40,61 +41,66 @@ function genRsa2048KeyPairSpec(): cryptoFramework.RSAKeyPairSpec {
   return genRsaKeyPairSpec(nIn, eIn, dIn);
 }
 function main() {
-  let plan = 'This is a test';
-  // 获得RSA密钥对密钥参数对象
-  let rsaKeyPairSpec = genRsa2048KeyPairSpec();
-  // 根据RSA密钥对参数生成RSA密钥对
-  let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaKeyPairSpec);
-  let cipher = cryptoFramework.createCipher('RSA2048|PKCS1_OAEP|SHA256|MGF1_SHA1');
-  let decoder = cryptoFramework.createCipher('RSA2048|PKCS1_OAEP|SHA256|MGF1_SHA1');
-  // RSA加解密PKCS1-OAEP模式填充字节流P
-  let pSource = new Uint8Array([1, 2, 3, 4]);
-  let input: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(plan, 'utf-8').buffer) };
-  // 生成密钥对
-  let keyPair = rsaGeneratorSpec.generateKeyPairSync();
-  // 进行加密操作初始化
-  cipher.initSync(cryptoFramework.CryptoMode.ENCRYPT_MODE, keyPair.pubKey, null);
-  // get和set操作可以放在Cipher对象init之后，此处对cipher进行set和get操作
-  cipher.setCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_PSRC_UINT8ARR, pSource);
-  let retP = cipher.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_PSRC_UINT8ARR);
-  // 比较get出来的P字节流与set进去的P字节流是否一致
-  if (retP.toString() != pSource.toString()) {
-    console.error('error init pSource ' + retP);
-  } else {
-    console.info('pSource changed == ' + retP);
-  }
-  // 进行OAEP其他参数的get操作
-  let md = cipher.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MD_NAME_STR);
-  console.info('md == ' + md);
-  let mgf = cipher.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF_NAME_STR);
-  console.info('mgf == ' + mgf);
-  let mgf1Md = cipher.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_MD_STR);
-  console.info('mgf1Md == ' + mgf1Md);
-  let cipherDataBlob = cipher.doFinalSync(input);
-  // get和set操作可以放在Cipher对象init之前，且与init之后等价，此处对decoder进行set和get操作
-  decoder.setCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_PSRC_UINT8ARR, pSource);
-  retP = decoder.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_PSRC_UINT8ARR);
-  // 比较get出来的P字节流与set进去的P字节流是否一致
-  if (retP.toString() != pSource.toString()) {
-    console.error('error init pSource ' + retP);
-  } else {
-    console.info('pSource changed == ' + retP);
-  }
-  // 进行OAEP其他参数的get操作
-  md = decoder.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MD_NAME_STR);
-  console.info('md == ' + md);
-  mgf = decoder.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF_NAME_STR);
-  console.info('mgf == ' + mgf);
-  mgf1Md = decoder.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_MD_STR);
-  console.info('mgf1Md == ' + mgf1Md);
-  // 初始化解密操作
-  decoder.initSync(cryptoFramework.CryptoMode.DECRYPT_MODE, keyPair.priKey, null);
-  let decodeData = decoder.doFinalSync(cipherDataBlob);
-  // 解密成功
-  if (decodeData.data.toString() === input.data.toString()) {
-    console.info('oaep decrypt result: success.');
-  } else {
-    console.error('oaep decrypt result: fail.');
+  try {
+    let plan = 'This is a test';
+    // 获得RSA密钥对密钥参数对象
+    let rsaKeyPairSpec = genRsa2048KeyPairSpec();
+    // 根据RSA密钥对参数生成RSA密钥对
+    let rsaGeneratorSpec = cryptoFramework.createAsyKeyGeneratorBySpec(rsaKeyPairSpec);
+    let cipher = cryptoFramework.createCipher('RSA2048|PKCS1_OAEP|SHA256|MGF1_SHA1');
+    let decoder = cryptoFramework.createCipher('RSA2048|PKCS1_OAEP|SHA256|MGF1_SHA1');
+    // RSA加解密PKCS1-OAEP模式填充字节流P
+    let pSource = new Uint8Array([1, 2, 3, 4]);
+    let input: cryptoFramework.DataBlob = { data: new Uint8Array(buffer.from(plan, 'utf-8').buffer) };
+    // 生成密钥对
+    let keyPair = rsaGeneratorSpec.generateKeyPairSync();
+    // 进行加密操作初始化
+    cipher.initSync(cryptoFramework.CryptoMode.ENCRYPT_MODE, keyPair.pubKey, null);
+    // get和set操作可以放在Cipher对象init之后，此处对cipher进行set和get操作
+    cipher.setCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_PSRC_UINT8ARR, pSource);
+    let retP = cipher.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_PSRC_UINT8ARR);
+    // 比较get出来的P字节流与set进去的P字节流是否一致
+    if (retP.toString() != pSource.toString()) {
+      console.error('error init pSource ' + retP);
+    } else {
+      console.info('pSource changed == ' + retP);
+    }
+    // 进行OAEP其他参数的get操作
+    let md = cipher.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MD_NAME_STR);
+    console.info('md == ' + md);
+    let mgf = cipher.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF_NAME_STR);
+    console.info('mgf == ' + mgf);
+    let mgf1Md = cipher.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_MD_STR);
+    console.info('mgf1Md == ' + mgf1Md);
+    let cipherDataBlob = cipher.doFinalSync(input);
+    // get和set操作可以放在Cipher对象init之前，且与init之后等价，此处对decoder进行set和get操作
+    decoder.setCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_PSRC_UINT8ARR, pSource);
+    retP = decoder.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_PSRC_UINT8ARR);
+    // 比较get出来的P字节流与set进去的P字节流是否一致
+    if (retP.toString() != pSource.toString()) {
+      console.error('error init pSource ' + retP);
+    } else {
+      console.info('pSource changed == ' + retP);
+    }
+    // 进行OAEP其他参数的get操作
+    md = decoder.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MD_NAME_STR);
+    console.info('md == ' + md);
+    mgf = decoder.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF_NAME_STR);
+    console.info('mgf == ' + mgf);
+    mgf1Md = decoder.getCipherSpec(cryptoFramework.CipherSpecItem.OAEP_MGF1_MD_STR);
+    console.info('mgf1Md == ' + mgf1Md);
+    // 初始化解密操作
+    decoder.initSync(cryptoFramework.CryptoMode.DECRYPT_MODE, keyPair.priKey, null);
+    let decodeData = decoder.doFinalSync(cipherDataBlob);
+    // 解密成功
+    if (decodeData.data.toString() === input.data.toString()) {
+      console.info('oaep decrypt result: success.');
+    } else {
+      console.error('oaep decrypt result: fail.');
+    }
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
   }
 }
 // [End pss_verify_rsa_keypair_sign_sync]

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AtomicServiceWeb 第二页</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: "HarmonyOS Sans", "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #eef7f1 0%, #f7faff 45%, #e7f0ff 100%);
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+    .card {
+      max-width: 680px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 8px 30px rgba(10, 89, 247, 0.12);
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    .sub { margin: 0 0 18px; color: #666; font-size: 13px; line-height: 1.6; }
+    .badge {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 6px 14px;
+      border-radius: 16px;
+      background: #eef7f1;
+      color: #1f8a4c;
+      font-size: 12px;
+    }
+    button {
+      border: 0;
+      border-radius: 20px;
+      padding: 10px 18px;
+      font-size: 14px;
+      cursor: pointer;
+      margin: 4px 8px 4px 0;
+    }
+    .primary { background: #0a59f7; color: #fff; }
+    .secondary { background: #e8f0fe; color: #0a59f7; }
+    #status {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: #f7f8fa;
+      color: #555;
+      font-size: 12px;
+      line-height: 1.6;
+      min-height: 38px;
+    }
+    .footer { margin-top: 14px; color: #999; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">历史记录第 2 条</span>
+    <h1>第二页</h1>
+    <p class="sub">
+      这是 <code>resources/rawfile/page2.html</code>。从第一页跳转过来后，
+      Web 内核的历史栈里就有了两条记录，返回第一页即产生第三条。
+      此时点页面上方的“后退 / 前进”，可以看到 WebView 在历史记录之间来回切换。
+    </p>
+
+    <button class="primary" onclick="location.href = 'index.html'">返回第一页</button>
+    <button class="secondary" onclick="history.back()">history.back()</button>
+
+    <div id="status">刚才的跳转已写入浏览历史，可继续用页面顶部按钮后退或前进。</div>
+    <div class="footer">AtomicServiceComponents 示例 · 本地 H5 页面</div>
+  </div>
+</body>
+</html>

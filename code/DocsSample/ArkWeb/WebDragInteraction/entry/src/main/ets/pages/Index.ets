@@ -26,7 +26,7 @@ struct Index {
           })
             .catch((error: BusinessError) => {
               console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
-            })
+            });
         })
 
       Button('SetUAPageButton')
@@ -36,7 +36,7 @@ struct Index {
           })
             .catch((error: BusinessError) => {
               console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
-            })
+            });
         })
 
       Button('ForbidDragPageButton')
@@ -46,7 +46,7 @@ struct Index {
           })
             .catch((error: BusinessError) => {
               console.error(`pushUrl failed, code is ${error.code}, message is ${error.message}`);
-            })
+            });
         })
 
     }.height('100%')

@@ -50,7 +50,7 @@ static void *CreateArkRuntimeFunc(void *arg)
     ret = napi_load_module_with_info(env, "entry/src/main/ets/pages/ObjectUtils", "com.example.myapplication/entry",
                                      &objUtils);
     if (ret != napi_ok) {
-        OH_LOG_INFO(LOG_APP, "Failed to load module");
+        OH_LOG_ERROR(LOG_APP, "Failed to load module");
         napi_close_handle_scope(env, scope);
         napi_destroy_ark_runtime(&env);
         return nullptr;
@@ -76,7 +76,7 @@ static void *CreateArkRuntimeFunc(void *arg)
     // 4. 销毁ArkTS环境
     ret = napi_destroy_ark_runtime(&env);
     if (ret != napi_ok) {
-        OH_LOG_INFO(LOG_APP, "Failed to destroy ark runtime");
+        OH_LOG_ERROR(LOG_APP, "Failed to destroy ark runtime");
     }
 
     return nullptr;
@@ -155,7 +155,7 @@ static void *RunEventLoopFunc(void *arg)
     ret = napi_load_module_with_info(env, "entry/src/main/ets/pages/ObjectUtils", "com.example.myapplication/entry",
                                      &objectUtils);
     if (ret != napi_ok) {
-        OH_LOG_INFO(LOG_APP, "Failed to load module");
+        OH_LOG_ERROR(LOG_APP, "Failed to load module");
         napi_close_handle_scope(env, scope);
         napi_destroy_ark_runtime(&env);
         return nullptr;
@@ -190,7 +190,7 @@ static void *RunEventLoopFunc(void *arg)
     if (env != nullptr) {
         napi_status destroy_ret = napi_destroy_ark_runtime(&env);
         if (destroy_ret != napi_ok) {
-            OH_LOG_INFO(LOG_APP, "Failed to destroy ark runtime");
+            OH_LOG_ERROR(LOG_APP, "Failed to destroy ark runtime");
         }
         env = nullptr;
     }

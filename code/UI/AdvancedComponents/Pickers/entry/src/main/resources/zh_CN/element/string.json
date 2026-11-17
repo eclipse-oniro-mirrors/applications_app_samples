@@ -1,0 +1,27 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "日历、日期与容器选择器示例" },
+    { "name": "EntryAbility_desc", "value": "选择器组件示例" },
+    { "name": "EntryAbility_label", "value": "选择器" },
+    { "name": "page_title", "value": "选择器" },
+    { "name": "breakpoint_label", "value": "当前布局" },
+    { "name": "hub_calendar_title", "value": "CalendarPicker" },
+    { "name": "hub_calendar_desc", "value": "下拉日历，快速选择日期" },
+    { "name": "hub_date_title", "value": "DatePickerComponent" },
+    { "name": "hub_date_desc", "value": "日期、时间与日期时间选择" },
+    { "name": "hub_ui_title", "value": "UIPickerComponent" },
+    { "name": "hub_ui_desc", "value": "滚轮式单选容器" },
+    { "name": "calendar_title", "value": "CalendarPicker 示例" },
+    { "name": "date_title", "value": "DatePickerComponent 示例" },
+    { "name": "ui_title", "value": "UIPickerComponent 示例" },
+    { "name": "back", "value": "返回" },
+    { "name": "selected_label", "value": "已选择" },
+    { "name": "today", "value": "今天" },
+    { "name": "mode_date", "value": "日期" },
+    { "name": "mode_time", "value": "时间" },
+    { "name": "mode_datetime", "value": "日期+时间" },
+    { "name": "previous", "value": "上一个" },
+    { "name": "next", "value": "下一个" },
+    { "name": "ui_options", "value": "选项" }
+  ]
+}

@@ -15,7 +15,7 @@
 
 // [Start Main_Index]
 import nativeNode from 'libentry.so';
-import { NodeContent } from '@kit.ArkUI';
+import { NodeContent, router } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -41,6 +41,16 @@ struct Index {
         this.showNative = !this.showNative
       })
         .id('btn')
+      Button('CrossLanguage')
+        .margin({ top: 15 })
+        .onClick(() => {
+          // 跳转前销毁已挂载的Native组件，避免与跨语言示例页面争用Native根节点。
+          if (this.showNative) {
+            this.showNative = false;
+          }
+          router.pushUrl({ url: 'pages/CrossLanguage' });
+        })
+        .id('crossLanguageBtn')
       Row() {
         // 将NodeContent和ContentSlot占位组件绑定
         ContentSlot(this.rootSlot)

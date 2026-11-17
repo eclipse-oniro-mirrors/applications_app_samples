@@ -15,7 +15,7 @@
 
 // [Start ChangeLayoutWithConditionVariable]
 import {
-  DynamicLayout, DynamicLayoutAttribute, RowLayoutAlgorithm, ColumnLayoutAlgorithm, LengthMetrics
+  DynamicLayout, RowLayoutAlgorithm, ColumnLayoutAlgorithm, LengthMetrics
 } from '@kit.ArkUI';
 
 @Entry

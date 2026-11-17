@@ -23,24 +23,25 @@ import { Reminder } from '../common/Reminder';
 import TimeConversion from './TimeConversion';
 import { notificationManager } from '@kit.NotificationKit';
 import { UIContext } from '@kit.ArkUI';
+import { common } from '@kit.AbilityKit';
 
 const TAG: string = 'CalendarReminder';
 
 class CalendarReminder {
   public calendarReminders: Reminder[] = [];
 
-  setCalendarReminder() {
-  }
-
-  async setCalendar(date: Date) {
+  async setCalendar(date: Date, hostContext?: common.Context) {
     try {
-      let context = UIContext.getCallingScopeUIContext()?.getHostContext()
+      let context = hostContext ?? UIContext.getCallingScopeUIContext()?.getHostContext()
+      Logger.info(TAG, `setCalendar context=${context === undefined ? 'undefined' : 'defined'}`)
       if (context == undefined) {
         return
       }
+      let resourceContext = context.createModuleContext(Constant.ENTRY_MODULE_NAME)
       let selectCalendar: string =
         `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
       let isExistName = this.calendarReminders.find(element => element.reminderName === selectCalendar) !== undefined;
+      Logger.info(TAG, `calendar select=${selectCalendar}, isExistName=${isExistName}`)
       if (!isExistName) {
         let reminder: Reminder = {
           audioSrc: '',
@@ -69,17 +70,14 @@ class CalendarReminder {
           },
           actionButton: // 设置弹出的提醒通知信息上显示的按钮类型和标题
           [{
-            title: context.resourceManager.getStringSync($r('app.string.calendar_close')
-              .id), // "app.string.calendar_close"资源文件中的value值为"关闭日历提醒"
+            title: resourceContext.resourceManager.getStringByNameSync('calendar_close'), // "app.string.calendar_close"资源文件中的value值为"关闭日历提醒"
             type: reminderAgentManager.ActionButtonType.ACTION_BUTTON_TYPE_CLOSE
           }],
           // 点击提醒通知后跳转的目标UIAbility信息
           wantAgent: { pkgName: 'com.example.reminderagentmanager', abilityName: 'EntryAbility' },
           ringDuration: Constant.REMINDER_DURATION, // 指明响铃时长和振动时长（单位：秒）
-          title: context.resourceManager.getStringSync($r('app.string.calendar')
-            .id), // 指明提醒标题, "app.string.calendar"资源文件中的value值为"日历"
-          content: context.resourceManager.getStringSync($r('app.string.calendar_reach')
-            .id), // 指明提醒内容, "app.string.calendar_reach"资源文件中的value值为"日历提醒时间到了"
+          title: resourceContext.resourceManager.getStringByNameSync('calendar'), // 指明提醒标题, "app.string.calendar"资源文件中的value值为"日历"
+          content: resourceContext.resourceManager.getStringByNameSync('calendar_reach'), // 指明提醒内容, "app.string.calendar_reach"资源文件中的value值为"日历提醒时间到了"
           slotType: notificationManager.SlotType.CONTENT_INFORMATION  // 指明提醒的Slot类型
         }
         // [End calendar_reminder]
@@ -87,16 +85,18 @@ class CalendarReminder {
         reminder.reminderRequestCalendar = calendar
         reminder.isStart = false
         this.calendarReminders.push(reminder)
+        Logger.info(TAG, `setCalendar pushed, length=${this.calendarReminders.length}`)
         Logger.info(TAG, `setCalendar this all calendar is ${JSON.stringify(this.calendarReminders)}`);
         await PreferencesDataManager.putData('Calendar', this.calendarReminders)
-        this.setCalendarReminder();
       } else {
         UIContext.getCallingScopeUIContext()?.getPromptAction().showToast({
-          message: context.resourceManager.getStringSync($r('app.string.calendar_existence').id),
+          message: resourceContext.resourceManager.getStringByNameSync('calendar_existence'),
           duration: Constant.PROMPT_DURATION
         })
       }
-    } catch(err) {}
+    } catch(err) {
+      Logger.error(TAG, `setCalendar error: ${JSON.stringify(err)}`)
+    }
   }
 
   async setToggle(isOn: boolean, index: number) {
@@ -165,7 +165,9 @@ class CalendarReminder {
         // [End cancel_reminder]
         await vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
       }
-    } catch(err) {}
+    } catch(err) {
+      Logger.error(TAG, `setToggle error: ${JSON.stringify(err)}`)
+    }
   }
 
   async openDialog(dialog: CustomDialogController, index: number) {

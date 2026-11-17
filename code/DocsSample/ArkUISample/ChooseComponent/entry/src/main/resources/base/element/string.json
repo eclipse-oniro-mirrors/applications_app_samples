@@ -248,6 +248,14 @@
       "value": "单选框示例2，模拟单选框应用效果。"
     },
     {
+      "name": "RadioSwiper_title",
+      "value": "单选框与滑动容器联动示例"
+    },
+    {
+      "name": "RadioSwiper_description",
+      "value": "Radio 组件与 Swiper 组件结合使用示例，滑动容器每页内包含一组独立的单选框，不同页面的单选框分组互不影响。"
+    },
+    {
       "name": "return_value",
       "value": "返回值"
     }

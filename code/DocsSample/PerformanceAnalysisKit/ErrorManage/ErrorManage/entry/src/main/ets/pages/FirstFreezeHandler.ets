@@ -15,16 +15,19 @@
 
 // [Start first_freeze_handler]
 import { errorManager } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+
+const DOMAIN = 0x0000;
 
 let firstHandler: errorManager.FreezeObserver = () => {};
 const firstFreezeHandler: errorManager.FreezeObserver = () => {
     // 自定义的第一个FreezeHandler实现逻辑
-    console.info('[FirstHandler] First freeze handler invoked.');
+    hilog.info(DOMAIN, 'testErrorManage', '%{public}s', '[FirstHandler] First freeze handler invoked.');
     if (firstHandler) {
         firstHandler();
     } else {
-        console.info('[FirstHandler] First freeze handler end.');
+        hilog.info(DOMAIN, 'testErrorManage', '%{public}s', '[FirstHandler] First freeze handler end.');
     }
 };
 
@@ -34,8 +37,8 @@ export function setFirstFreezeHandler() {
     } catch (paramError) {
         let code = (paramError as BusinessError).code;
         let message = (paramError as BusinessError).message;
-        console.error('setFirstFreezeHandler',`error: ${code}, ${message}`);
+        hilog.error(DOMAIN, 'testErrorManage', 'error: %{public}s, %{public}s', `${code}`, `${message}`);
     }
-    console.info('Registered First freeze Handler.');
+    hilog.info(DOMAIN, 'testErrorManage', '%{public}s', 'Registered First freeze Handler.');
 }
 // [End first_freeze_handler]

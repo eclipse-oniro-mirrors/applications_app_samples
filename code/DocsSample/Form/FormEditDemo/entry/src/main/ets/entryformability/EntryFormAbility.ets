@@ -41,18 +41,6 @@ export default class EntryFormAbility extends FormExtensionAbility {
     return formBindingData.createFormBindingData('');
   }
 
-  onCastToNormalForm(formId: string) {
-  }
-
-  onUpdateForm(formId: string) {
-  }
-
-  onFormEvent(formId: string, message: string) {
-  }
-
-  onRemoveForm(formId: string) {
-  }
-
   onAcquireFormState(want: Want) {
     return formInfo.FormState.READY;
   }

@@ -34,7 +34,7 @@ struct Index {
   build() {
     Row() {
       Column() {
-        // 针对本地index.html,使用http或者https协议代替file协议或者resource协议，并且构造一个属于自己的域名。
+        // 针对本地index.html，使用http或者https协议代替file协议或者resource协议，并且构造一个属于自己的域名。
         // 本例中构造www.example.com为例。
         Web({ src: 'https://www.example.com/index.html', controller: this.webviewController })
           .javaScriptAccess(true)

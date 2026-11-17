@@ -396,10 +396,10 @@ struct Index {
     }
     .width('100%')
     .height('100%')
+  // [EndExclude Snapshot_start]
+  // [EndExclude SnapshotMore_start]
+  // [EndExclude SnapshotScreen_start]
   }
-// [EndExclude Snapshot_start]
-// [EndExclude SnapshotMore_start]
-// [EndExclude SnapshotScreen_start]
 }
 // [End Snapshot_start]
 // [End SnapshotMore_start]

@@ -25,7 +25,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 
 // [Start main_running_info]
 console.info('main executed');
-while (false) {
+function useModules(): void {
   let xx = a;
   let yy = c;
   let zz = b;

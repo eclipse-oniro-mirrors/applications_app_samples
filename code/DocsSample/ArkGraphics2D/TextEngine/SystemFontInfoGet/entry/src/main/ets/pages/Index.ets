@@ -14,10 +14,8 @@
  */
 
 // Index.ets
-import { NodeController, FrameNode, RenderNode, DrawContext } from '@kit.ArkUI';
-import { UIContext } from '@kit.ArkUI';
+import { NodeController, FrameNode, RenderNode, DrawContext, UIContext, font } from '@kit.ArkUI';
 import { text } from '@kit.ArkGraphics2D';
-import { font } from '@kit.ArkUI';
 
 // 创建一个自定义的渲染节点类，用于绘制文本
 class MyRenderNode extends RenderNode {
@@ -45,7 +43,7 @@ class MyRenderNode extends RenderNode {
     // 创建一个段落样式对象，以设置排版风格
     let myParagraphStyle: text.ParagraphStyle = {
       textStyle: textStyle1,
-      align: 3,
+      align: text.TextAlign.JUSTIFY,
       wordBreak: text.WordBreak.NORMAL
     };
     // 获取全局字体集实例
@@ -76,7 +74,7 @@ class MyRenderNode extends RenderNode {
 
 // 创建 MyRenderNode 对象实例
 const textNode = new MyRenderNode();
-// 定义newNode的大小和位置
+// 定义textNode的大小和位置
 textNode.frame = { x: 0, y: 0, width: 400, height: 600 };
 
 

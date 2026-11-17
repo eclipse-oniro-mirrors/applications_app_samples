@@ -90,7 +90,7 @@ static JSVM_PropertyDescriptor descriptor[] = {
     {"getDouble", nullptr, method++, nullptr, nullptr, nullptr, JSVM_DEFAULT},
 };
 
-// 样例测试js
+// 样例测试JS
 const char* SRC_CALL_NATIVE = R"JS(getDouble(-110.0456))JS";
 // [End oh_jsvm_get_value_double]
 

@@ -49,7 +49,7 @@ napi_value TestGetThreadCpuUsage(napi_env env, napi_callback_info info)
             "GetAppThreadCpuUsage: threadId %{public}d, cpuUsage: %{public}f", cpuUsage->threadId, cpuUsage->cpuUsage);
         cpuUsage = cpuUsage->next; // 获取下一个线程的cpu使用率对象指针。
     }
-    OH_HiDebug_FreeThreadCpuUsage(&cpuUsage); // 释放内存，防止内存泄露。
+    OH_HiDebug_FreeThreadCpuUsage(&cpuUsage); // 释放内存，防止内存泄漏。
     return nullptr;
 }
 

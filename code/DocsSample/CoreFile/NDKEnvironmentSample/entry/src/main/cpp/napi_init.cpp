@@ -36,10 +36,10 @@ void GetUserDownloadDirExample()
     FileManagement_ErrCode ret = OH_Environment_GetUserDownloadDir(&downloadPath);
     if (ret == 0) {
         OH_LOG_INFO(LOG_APP, "Succeeded in getting user download directory, download path=%{public}s", downloadPath);
-        free(downloadPath);
     } else {
         OH_LOG_ERROR(LOG_APP, "Failed to get download path, error code is %{public}d", ret);
     }
+    free(downloadPath);
 }
 // [End get_user_download_dir_example]
 
@@ -128,10 +128,10 @@ void GetUserDownloadDirPathExample()
     FileManagement_ErrCode ret = OH_Environment_GetUserDownloadDir(&downloadPath);
     if (ret == 0) {
         OH_LOG_INFO(LOG_APP, "Succeeded in getting user download directory, path=%{public}s", downloadPath);
-        free(downloadPath);
     } else {
         OH_LOG_ERROR(LOG_APP, "Failed to get download path, error code is %{public}d", ret);
     }
+    free(downloadPath);
 }
 // [End get_user_download_dir_path_example]
 
@@ -148,10 +148,10 @@ void GetUserDesktopDirPathExample()
     FileManagement_ErrCode ret = OH_Environment_GetUserDesktopDir(&desktopPath);
     if (ret == 0) {
         OH_LOG_INFO(LOG_APP, "Succeeded in getting user desktop directory, path=%{public}s", desktopPath);
-        free(desktopPath);
     } else {
         OH_LOG_ERROR(LOG_APP, "Failed to get user desktop path, error code is %{public}d", ret);
     }
+    free(desktopPath);
 }
 // [End get_user_desktop_dir_path_example]
 static napi_value DoGetUserDesktopDirPathExample(napi_env env, napi_callback_info info)
@@ -167,10 +167,10 @@ void GetUserDocumentDirPathExample()
     FileManagement_ErrCode ret = OH_Environment_GetUserDocumentDir(&documentPath);
     if (ret == 0) {
         OH_LOG_INFO(LOG_APP, "Succeeded in getting user document directory, path=%{public}s", documentPath);
-        free(documentPath);
     } else {
         OH_LOG_ERROR(LOG_APP, "Failed to get user document path, error code is %{public}d", ret);
     }
+    free(documentPath);
 }
 // [End get_user_document_dir_path_example]
 
@@ -194,10 +194,10 @@ void GetUserDownloadDirSizeExample()
         } else {
             OH_LOG_ERROR(LOG_APP, "Failed to stat user document directory, error code is %{public}d", result);
         }
-        free(documentPath);
     } else {
         OH_LOG_ERROR(LOG_APP, "Failed to get user document directory, error code is %{public}d", ret);
     }
+    free(documentPath);
 }
 // [End get_user_download_dir_size_example]
 

@@ -71,7 +71,7 @@ static JSVM_Value JsVmGetAndClearLastException(JSVM_Env env, JSVM_CallbackInfo i
     JSVM_Value result = nullptr;
     JSVM_Status status = OH_JSVM_GetAndClearLastException(env, &result);
     if (status != JSVM_OK) {
-        OH_LOG_INFO(LOG_APP, "JSVM API OH_JSVM_GetAndClearLastException FAILED");
+        OH_LOG_ERROR(LOG_APP, "JSVM API OH_JSVM_GetAndClearLastException FAILED");
     } else {
         OH_LOG_INFO(LOG_APP, "JSVM API OH_JSVM_GetAndClearLastException SUCCESS");
     }

@@ -18,7 +18,7 @@ import { FormEditExtensionAbility } from '@kit.FormKit';
 import { UIExtensionContentSession, Want } from '@kit.AbilityKit';
 import { ExtensionEvent } from '../model/ExtensionEvent';
 
-const TAG: string = 'FormEditExtensionAbility';
+const TAG: string = 'FormEditSecPageAbility';
 
 export default class FormEditSecPageAbility extends FormEditExtensionAbility {
   public storage: LocalStorage = new LocalStorage();
@@ -46,9 +46,9 @@ export default class FormEditSecPageAbility extends FormEditExtensionAbility {
 
     try {
       session.loadContent('pages/FormEditSecPage', this.storage);
-      console.info(TAG, `loadContent first edit page success`);
+      console.info(TAG, 'loadContent second edit page success');
     } catch (e) {
-      console.error(TAG, `EntryFormEditAbility loadContent err, want: ${e?.message}`);
+      console.error(TAG, `FormEditSecPageAbility loadContent err, want: ${e?.message}`);
     }
   }
 

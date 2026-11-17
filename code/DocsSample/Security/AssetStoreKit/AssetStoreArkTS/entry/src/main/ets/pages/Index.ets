@@ -17,7 +17,7 @@ import {
   addAsset, removeAsset, updateAsset, queryAssetPlaintext, queryAssetAttribute, queryBatchAssetAttributes,
   addUserAuthAsset, removeUserAuthAsset, queryUserAuthAsset,
   addGroupAsset, removeGroupAsset, updateGroupAsset, queryGroupAssetPlaintext, queryGroupAssetAttribute,
-  addSyncAsset, querySyncResult
+  addSyncAsset, querySyncResult, requestToolTicket
 } from '../operations';
 
 @Entry
@@ -42,6 +42,8 @@ struct Index {
 
   @State message15: string = 'Add Sync Asset';
   @State message16: string = 'Query Sync Result';
+
+  @State message17: string = 'Request tool ticket';
 
   build() {
     Column() {
@@ -108,6 +110,10 @@ struct Index {
       Button(this.message16).width('70%').margin(3)
         .onClick(async () => {
           querySyncResult().then(str => this.message16 = str);
+        })
+      Button(this.message17).width('70%').margin(3)
+        .onClick(async () => {
+          requestToolTicket().then(str => this.message17 = str);
         })
     }
     .height('100%')

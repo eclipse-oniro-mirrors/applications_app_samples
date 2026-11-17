@@ -13,6 +13,7 @@
  * limitations under the License.
  */
  
+// [Start EntryAbility]
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
@@ -24,7 +25,7 @@ export default class EntryAbility extends UIAbility {
        GlobalContext.getContext().setObject('filesDir', this.context.filesDir);	
        console.info('Sandbox path is ' + GlobalContext.getContext().getObject('filesDir'));	
      }
-
+  // [StartExclude EntryAbility]
   onDestroy(): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
   }
@@ -56,4 +57,6 @@ export default class EntryAbility extends UIAbility {
     // Ability has back to background
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
   }
+  // [EndExclude EntryAbility]
 }
+// [End EntryAbility]

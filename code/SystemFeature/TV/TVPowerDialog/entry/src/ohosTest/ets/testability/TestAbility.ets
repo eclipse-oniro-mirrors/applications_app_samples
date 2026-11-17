@@ -21,6 +21,16 @@ import window from '@ohos.window';
 import Want from '@ohos.app.ability.Want';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 
+async function startPowerDialogApp(): Promise<void> {
+  let delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+  let args = AbilityDelegatorRegistry.getArguments();
+  let want: Want = {
+    bundleName: args.bundleName,
+    abilityName: 'MainAbility'
+  };
+  await delegator.startAbility(want);
+}
+
 export default class TestAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
@@ -31,7 +41,17 @@ export default class TestAbility extends UIAbility {
     let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs;
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
     hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
-    Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+    setTimeout(() => {
+      hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
+      startPowerDialogApp().then(() => {
+        hilog.info(0x0000, 'testTag', '%{public}s', 'PowerDialog app launched');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      }).catch((err: Error) => {
+        hilog.error(0x0000, 'testTag', 'Failed to launch PowerDialog app: %{public}s', JSON.stringify(err) ?? '');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      });
+    }, 1000);
+
   }
 
   onDestroy() {

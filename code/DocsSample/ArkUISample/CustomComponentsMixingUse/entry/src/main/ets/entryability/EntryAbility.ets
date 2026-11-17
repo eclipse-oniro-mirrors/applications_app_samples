@@ -15,6 +15,7 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { display, uiObserver, window } from '@kit.ArkUI';
+import resource from '../common/Resource';
 
 const DOMAIN = 0x0000;
 
@@ -32,6 +33,7 @@ export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     try {
       this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+      resource.initContext(this.context);
     } catch (e) {
       hilog.error(0x0000, 'testTag', 'Failed to set color mode: %{public}s', JSON.stringify(e) ?? '');
     }

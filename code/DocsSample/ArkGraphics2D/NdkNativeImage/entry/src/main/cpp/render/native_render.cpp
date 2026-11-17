@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -88,7 +88,7 @@ bool OHNativeRender::SetSurfaceWidthAndHeight(OH_NativeImage* image, uint64_t su
     // [End nativeimage_acquire_nativewindow]
     //方式二： 从 SurfaceId 创建 NativeWindow 
     int ret = OH_NativeWindow_CreateNativeWindowFromSurfaceId(surfaceId, &nativeWindow_);
-    if (ret != SUCCESS) {
+    if (ret != NATIVE_ERROR_OK) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "OHNativeRender",
             "Failed to create NativeWindow from SurfaceId.");
         return false;
@@ -99,7 +99,7 @@ bool OHNativeRender::SetSurfaceWidthAndHeight(OH_NativeImage* image, uint64_t su
     // [Start set_buffer_geometry]
     int32_t result = OH_NativeWindow_NativeWindowHandleOpt(nativeWindow_, SET_BUFFER_GEOMETRY,
         static_cast<int32_t>(width_), static_cast<int32_t>(height_));
-    if (result != SUCCESS) {
+    if (result != NATIVE_ERROR_OK) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "OHNativeRender", "Failed to set buffer geometry.");
         return false;
     }
@@ -114,7 +114,7 @@ void OHNativeRender::RenderFrame()
     OHNativeWindowBuffer *buffer = nullptr;
     int releaseFenceFd = INVALID_FD;
     int32_t result = OH_NativeWindow_NativeWindowRequestBuffer(nativeWindow_, &buffer, &releaseFenceFd);
-    if (result != SUCCESS || buffer == nullptr) {
+    if (result != NATIVE_ERROR_OK || buffer == nullptr) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN,
                      "OHNativeRender", "Failed to request buffer, ret : %{public}d.", result);
         return;
@@ -179,7 +179,7 @@ void OHNativeRender::RenderFrame()
     Region region{nullptr, 0};
     // 提交给消费者
     result = OH_NativeWindow_NativeWindowFlushBuffer(nativeWindow_, buffer, NO_FENCE, region);
-    if (result != SUCCESS) {
+    if (result != NATIVE_ERROR_OK) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN,
                      "OHNativeRender", "Failed to flush buffer, result : %{public}d.", result);
     }

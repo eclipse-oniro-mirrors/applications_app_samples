@@ -16,6 +16,11 @@
 {
   "apiType": "stageMode",
   "buildOption": {
+    "sourceOption": {
+      "workers": [
+        './src/main/ets/workers/Worker.ets'
+      ]
+    }
   },
   "buildOptionSet": [
     {

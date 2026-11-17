@@ -27,6 +27,7 @@
 #include <native_drawing/drawing_pixel_map.h>
 // [End ndk_graphics_draw_include_drawing_pixel_map]
 #include <native_drawing/drawing_text_blob.h>
+#include <native_drawing/drawing_typeface.h>
 #include <native_drawing/drawing_shader_effect.h>
 // [Start ndk_graphics_draw_include_native_drawing_surface_and_gpu_context]
 #include <native_drawing/drawing_gpu_context.h>
@@ -130,7 +131,7 @@ int32_t SampleGraphics::InitializeEglContext()
         return -1;
     }
 
-    SAMPLE_LOGE("Init success.");
+    SAMPLE_LOGI("Init success.");
     return 0;
 }
 // [End ndk_graphics_draw_initialize_egl_context]
@@ -280,8 +281,9 @@ void SampleGraphics::CreateByCPU()
     
     // 创建一个bitmap对象
     cScreenBitmap_ = OH_Drawing_BitmapCreate();
-    // 构造对应格式的bitmap
-    OH_Drawing_BitmapBuild(cScreenBitmap_, width_, height_, &cFormat);
+    // 构造对应格式的bitmap，宽度使用 stride/RGBA_SIZE，与窗口缓冲区行像素数对齐，避免拷贝时行错位导致花屏
+    uint32_t screenWidth = static_cast<uint32_t>(bufferHandle_->stride / RGBA_SIZE);
+    OH_Drawing_BitmapBuild(cScreenBitmap_, screenWidth, height_, &cFormat);
     // 创建一个canvas对象
     cScreenCanvas_ = OH_Drawing_CanvasCreate();
     // 将Canvas与bitmap绑定，Canvas绘制的内容会输出到绑定的bitmap内存中
@@ -294,8 +296,9 @@ void SampleGraphics::CreateByGPU()
     cScreenBitmap_ = OH_Drawing_BitmapCreate();
     // 定义bitmap的像素格式
     OH_Drawing_BitmapFormat cFormat{COLOR_FORMAT_RGBA_8888, ALPHA_FORMAT_OPAQUE};
-    // 构造对应格式的bitmap
-    OH_Drawing_BitmapBuild(cScreenBitmap_, width_, height_, &cFormat);
+    // 构造对应格式的bitmap，宽度使用 stride/RGBA_SIZE，与窗口缓冲区行像素数对齐，避免拷贝时行错位导致花屏
+    uint32_t screenWidth = static_cast<uint32_t>(bufferHandle_->stride / RGBA_SIZE);
+    OH_Drawing_BitmapBuild(cScreenBitmap_, screenWidth, height_, &cFormat);
     // 创建一个canvas对象
     cScreenCanvas_ = OH_Drawing_CanvasCreate();
     // 将画布与bitmap绑定，画布画的内容会输出到绑定的bitmap内存中
@@ -338,8 +341,10 @@ void SampleGraphics::DisPlay()
         SAMPLE_LOGE("value is null");
         return;
     }
-    for (uint32_t x = 0; x < width_; x++) {
-        for (uint32_t y = 0; y < height_; y++) {
+    // 按窗口缓冲区的行像素数(stride/4)逐行拷贝，避免行步长不一致导致花屏
+    uint32_t rowPixels = static_cast<uint32_t>(bufferHandle_->stride / RGBA_SIZE);
+    for (uint32_t y = 0; y < height_; y++) {
+        for (uint32_t x = 0; x < rowPixels; x++) {
             *pixel++ = *value++;
         }
     }
@@ -380,6 +385,8 @@ void SampleGraphics::DisPlayGPU()
     OH_Drawing_CanvasDrawBitmap(cScreenCanvas_, cOffScreenBitmap_, 0, 0);
     // [End ndk_graphics_draw_drawing_to_window_canvas_gpu]
     DisPlay();
+    OH_Drawing_BitmapDestroy(cOffScreenBitmap_);
+    free(dstPixels);
 }
 
 void SampleGraphics::DrawClipOperation(OH_Drawing_Canvas *canvas)
@@ -393,7 +400,7 @@ void SampleGraphics::DrawClipOperation(OH_Drawing_Canvas *canvas)
     OH_Drawing_CanvasAttachBrush(canvas, brush);
     OH_Drawing_Rect *rect = OH_Drawing_RectCreate(value400_, value400_, value1200_, value1200_);
     // 裁剪矩形区域
-    OH_Drawing_CanvasClipRect(canvas, rect, OH_Drawing_CanvasClipOp::INTERSECT, true);
+    OH_Drawing_CanvasClipRect(canvas, rect, INTERSECT, true);
     OH_Drawing_Point *point = OH_Drawing_PointCreate(value600_, value600_);
     // 绘制圆形
     OH_Drawing_CanvasDrawCircle(canvas, point, value600_);
@@ -401,6 +408,8 @@ void SampleGraphics::DrawClipOperation(OH_Drawing_Canvas *canvas)
     OH_Drawing_CanvasDetachBrush(canvas);
     // 销毁画刷对象并收回其占的内存
     OH_Drawing_BrushDestroy(brush);
+    OH_Drawing_PointDestroy(point);
+    OH_Drawing_RectDestroy(rect);
     // [End ndk_graphics_draw_canvas_clip]
 }
 
@@ -424,6 +433,7 @@ void SampleGraphics::DrawTranslationOperation(OH_Drawing_Canvas *canvas)
     OH_Drawing_CanvasDetachBrush(canvas);
     OH_Drawing_RectDestroy(rect);
     OH_Drawing_MatrixDestroy(matrix);
+    OH_Drawing_BrushDestroy(brush);
     // [End ndk_graphics_draw_canvas_translation]
 }
 
@@ -447,6 +457,7 @@ void SampleGraphics::DrawRotationOperation(OH_Drawing_Canvas *canvas)
     OH_Drawing_CanvasDetachBrush(canvas);
     OH_Drawing_RectDestroy(rect);
     OH_Drawing_MatrixDestroy(matrix);
+    OH_Drawing_BrushDestroy(brush);
     // [End ndk_graphics_draw_canvas_rotation]
 }
 
@@ -469,6 +480,8 @@ void SampleGraphics::DrawScaleOperation(OH_Drawing_Canvas *canvas)
     // 去除画布中的画刷
     OH_Drawing_CanvasDetachBrush(canvas);
     OH_Drawing_RectDestroy(rect);
+    OH_Drawing_MatrixDestroy(matrix);
+    OH_Drawing_BrushDestroy(brush);
     // [End ndk_graphics_draw_canvas_scale]
 }
 
@@ -559,11 +572,11 @@ void SampleGraphics::DrawStroke(OH_Drawing_Canvas *canvas)
     // [End ndk_graphics_draw_pen_set_antialias]
     // [Start ndk_graphics_draw_pen_set_cap_style]
     // 设置画笔线帽样式
-    OH_Drawing_PenSetCap(pen, OH_Drawing_PenLineCapStyle::LINE_ROUND_CAP);
+    OH_Drawing_PenSetCap(pen, LINE_ROUND_CAP);
     // [End ndk_graphics_draw_pen_set_cap_style]
     // [Start ndk_graphics_draw_pen_set_join_style]
     // 设置画笔转角样式
-    OH_Drawing_PenSetJoin(pen, OH_Drawing_PenLineJoinStyle::LINE_BEVEL_JOIN);
+    OH_Drawing_PenSetJoin(pen, LINE_BEVEL_JOIN);
     // [End ndk_graphics_draw_pen_set_join_style]
     // [Start ndk_graphics_draw_canvas_attach_pen]
     // 设置画布的画笔
@@ -615,7 +628,7 @@ void SampleGraphics::DrawMixedMode(OH_Drawing_Canvas *canvas)
     // 设置源像素颜色
     OH_Drawing_BrushSetColor(brush, OH_Drawing_ColorSetArgb(RGBA_MAX, RGBA_MIN, RGBA_MIN, 0xFF));
     // 设置混合模式为叠加模式
-    OH_Drawing_BrushSetBlendMode(brush, OH_Drawing_BlendMode::BLEND_MODE_PLUS);
+    OH_Drawing_BrushSetBlendMode(brush, BLEND_MODE_PLUS);
     // 将源像素的画刷效果设置到Canvas中
     OH_Drawing_CanvasAttachBrush(canvas, brush);
     // 创建圆心的点对象
@@ -673,7 +686,7 @@ void SampleGraphics::DrawLinearGradient(OH_Drawing_Canvas *canvas)
     float pos[] = {0.0f, 0.5f, 1.0f};
     // 创建线性渐变着色器效果
     OH_Drawing_ShaderEffect *colorShaderEffect =
-        OH_Drawing_ShaderEffectCreateLinearGradient(startPt, endPt, colors, pos, 3, OH_Drawing_TileMode::CLAMP);
+        OH_Drawing_ShaderEffectCreateLinearGradient(startPt, endPt, colors, pos, 3, CLAMP);
     // 创建画刷对象
     OH_Drawing_Brush* brush = OH_Drawing_BrushCreate();
     // 基于画刷设置着色器效果
@@ -707,7 +720,7 @@ void SampleGraphics::DrawPathGradient(OH_Drawing_Canvas *canvas)
     float_t gPos[] = {0.0f, 0.25f, 0.75f};
     // 创建径向渐变着色器效果
     OH_Drawing_ShaderEffect *colorShaderEffect =
-        OH_Drawing_ShaderEffectCreateRadialGradient(centerPt, radius, gColors, gPos, 3, OH_Drawing_TileMode::REPEAT);
+        OH_Drawing_ShaderEffectCreateRadialGradient(centerPt, radius, gColors, gPos, 3, REPEAT);
     // 创建画刷对象
     OH_Drawing_Brush* brush = OH_Drawing_BrushCreate();
     // 基于画刷设置着色器效果
@@ -738,7 +751,7 @@ void SampleGraphics::DrawSectorGradient(OH_Drawing_Canvas *canvas)
     float pos[3] = {0.0f, 0.5f, 1.0f};
     // 创建扇形渐变着色器效果
     OH_Drawing_ShaderEffect* colorShaderEffect =
-        OH_Drawing_ShaderEffectCreateSweepGradient(centerPt, colors, pos, 3, OH_Drawing_TileMode::CLAMP);
+        OH_Drawing_ShaderEffectCreateSweepGradient(centerPt, colors, pos, 3, CLAMP);
     // 创建画刷对象
     OH_Drawing_Brush* brush = OH_Drawing_BrushCreate();
     // 基于画刷设置着色器效果
@@ -775,7 +788,7 @@ void SampleGraphics::DrawColorFilter(OH_Drawing_Canvas *canvas)
         0, 0, 0.5f, 0.5f, 0
     };
     
-    // 创建滤波器颜色
+    // 创建颜色滤波器
     OH_Drawing_ColorFilter* colorFilter = OH_Drawing_ColorFilterCreateMatrix(matrix);
     // 创建一个滤波器对象
     OH_Drawing_Filter *filter = OH_Drawing_FilterCreate();
@@ -812,7 +825,7 @@ void SampleGraphics::DrawImageFilter(OH_Drawing_Canvas *canvas)
     OH_Drawing_PenSetWidth(pen, 20);
     // 创建图像滤波器实现模糊效果
     OH_Drawing_ImageFilter *imageFilter =
-        OH_Drawing_ImageFilterCreateBlur(20.0f, 20.0f, OH_Drawing_TileMode::CLAMP, nullptr);
+        OH_Drawing_ImageFilterCreateBlur(20.0f, 20.0f, CLAMP, nullptr);
     // 创建一个滤波器对象
     OH_Drawing_Filter *filter = OH_Drawing_FilterCreate();
     // 为滤波器对象设置图像滤波器
@@ -847,7 +860,7 @@ void SampleGraphics::DrawMaskFilter(OH_Drawing_Canvas *canvas)
     // 设置画笔线宽为20
     OH_Drawing_PenSetWidth(pen, 20);
     // 创建蒙版滤波器
-    OH_Drawing_MaskFilter *maskFilter = OH_Drawing_MaskFilterCreateBlur(OH_Drawing_BlurType::NORMAL, 20, true);
+    OH_Drawing_MaskFilter *maskFilter = OH_Drawing_MaskFilterCreateBlur(NORMAL, 20, true);
     // 创建一个滤波器对象
     OH_Drawing_Filter *filter = OH_Drawing_FilterCreate();
     // 为滤波器对象设置蒙版滤波器
@@ -883,7 +896,6 @@ void SampleGraphics::DrawPoint(OH_Drawing_Canvas *canvas)
     // 设置画布的画笔
     OH_Drawing_CanvasAttachPen(canvas, pen);
     // 绘制5个点
-    AdaptationUtil* adaptationUtil = AdaptationUtil::GetInstance();
     OH_Drawing_Point2D point1 = {value200_, value200_};
     OH_Drawing_CanvasDrawPoint(canvas, &point1);
     OH_Drawing_Point2D point2 = {value400_, value400_};
@@ -1017,7 +1029,7 @@ void SampleGraphics::DrawRegion(OH_Drawing_Canvas *canvas)
     OH_Drawing_Rect *rect2 = OH_Drawing_RectCreate(value300_, value300_, value900_, value900_);
     OH_Drawing_RegionSetRect(region2, rect2);
     // 两个矩形区域组合
-    OH_Drawing_RegionOp(region1, region2, OH_Drawing_RegionOpMode::REGION_OP_MODE_XOR);
+    OH_Drawing_RegionOp(region1, region2, REGION_OP_MODE_XOR);
     OH_Drawing_CanvasDrawRegion(canvas, region1);
     // 去除掉画布中的画刷
     OH_Drawing_CanvasDetachBrush(canvas);
@@ -1099,7 +1111,7 @@ void SampleGraphics::DrawPixelMap(OH_Drawing_Canvas *canvas)
             pixels[i * RGBA_SIZE + 2] = 0xFF; // +2表示蓝色通道赋值，其余通道为0，颜色显蓝色
         }
     }
-    // 设置位图格式（长、宽、颜色类型、透明度类型）
+    // 设置位图格式（宽、高、颜色类型、透明度类型）
     OH_Pixelmap_InitializationOptions *createOps = nullptr;
     OH_PixelmapInitializationOptions_Create(&createOps);
     OH_PixelmapInitializationOptions_SetWidth(createOps, width);
@@ -1120,12 +1132,17 @@ void SampleGraphics::DrawPixelMap(OH_Drawing_Canvas *canvas)
     OH_Drawing_Rect *dst = OH_Drawing_RectCreate(value200_, value200_, value800_, value600_);
     // 采样选项对象
     OH_Drawing_SamplingOptions* samplingOptions = OH_Drawing_SamplingOptionsCreate(
-        OH_Drawing_FilterMode::FILTER_MODE_LINEAR, OH_Drawing_MipmapMode::MIPMAP_MODE_LINEAR);
+        FILTER_MODE_LINEAR, MIPMAP_MODE_LINEAR);
     // 绘制PixelMap
     OH_Drawing_CanvasDrawPixelMapRect(canvas, pixelMap, src, dst, samplingOptions);
     // [End ndk_graphics_draw_image_to_canvas]
     // [Start ndk_graphics_draw_release_pixelmap]
     OH_PixelmapNative_Release(pixelMapNative);
+    OH_PixelmapInitializationOptions_Release(createOps);
+    OH_Drawing_PixelMapDissolve(pixelMap);
+    OH_Drawing_RectDestroy(src);
+    OH_Drawing_RectDestroy(dst);
+    OH_Drawing_SamplingOptionsDestroy(samplingOptions);
     delete[] pixels;
     // [End ndk_graphics_draw_release_pixelmap]
     // [End ndk_graphics_draw_image]
@@ -1142,7 +1159,7 @@ void SampleGraphics::DrawBaseText(OH_Drawing_Canvas *canvas)
     const char *str = "Hello world";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 释放字块对象
@@ -1172,7 +1189,7 @@ void SampleGraphics::DrawStrokeText(OH_Drawing_Canvas *canvas)
     const char *str = "Hello world";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 去除描边效果
@@ -1193,7 +1210,7 @@ void SampleGraphics::DrawChineseStrokeText(OH_Drawing_Canvas *canvas)
     OH_Drawing_Pen *pen = OH_Drawing_PenCreate();
     // 设置画刷抗锯齿
     OH_Drawing_BrushSetAntiAlias(brush, true);
-    // 设置画刷描边颜色
+    // 设置画刷填充颜色
     OH_Drawing_BrushSetColor(brush, OH_Drawing_ColorSetArgb(0xFF, 0xFF, 0xFF, 0xFF));
     // 设置画笔抗锯齿
     OH_Drawing_PenSetAntiAlias(pen, true);
@@ -1210,14 +1227,16 @@ void SampleGraphics::DrawChineseStrokeText(OH_Drawing_Canvas *canvas)
     const char *str = "你好";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 去除描边效果
     OH_Drawing_CanvasDetachPen(canvas);
-    // 设置画刷描边效果
+    // 设置画刷填充效果
     OH_Drawing_CanvasAttachBrush(canvas, brush);
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
+    // 去除画布中的画刷
+    OH_Drawing_CanvasDetachBrush(canvas);
 
     // 销毁各类对象
     OH_Drawing_TextBlobDestroy(textBlob);
@@ -1240,7 +1259,7 @@ void SampleGraphics::DrawGradientText(OH_Drawing_Canvas *canvas)
     float pos[] = {0.0f, 0.5f, 1.0f};
     // 创建线性渐变着色器效果
     OH_Drawing_ShaderEffect *colorShaderEffect =
-        OH_Drawing_ShaderEffectCreateLinearGradient(startPt, endPt, colors, pos, 3, OH_Drawing_TileMode::CLAMP);
+        OH_Drawing_ShaderEffectCreateLinearGradient(startPt, endPt, colors, pos, 3, CLAMP);
     // 创建画刷对象
     OH_Drawing_Brush *brush = OH_Drawing_BrushCreate();
     // 基于画刷设置着色器效果
@@ -1254,7 +1273,7 @@ void SampleGraphics::DrawGradientText(OH_Drawing_Canvas *canvas)
     const char *str = "Hello world";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 取消填充效果
@@ -1263,6 +1282,9 @@ void SampleGraphics::DrawGradientText(OH_Drawing_Canvas *canvas)
     OH_Drawing_TextBlobDestroy(textBlob);
     OH_Drawing_FontDestroy(font);
     OH_Drawing_BrushDestroy(brush);
+    OH_Drawing_ShaderEffectDestroy(colorShaderEffect);
+    OH_Drawing_PointDestroy(startPt);
+    OH_Drawing_PointDestroy(endPt);
     // [End ndk_graphics_draw_gradient_text]
 }
 
@@ -1279,7 +1301,7 @@ void SampleGraphics::DrawThemeText(OH_Drawing_Canvas *canvas)
     const char *str = "Hello World";
     // 创建字块对象
     OH_Drawing_TextBlob *textBlob =
-        OH_Drawing_TextBlobCreateFromString(str, font, OH_Drawing_TextEncoding::TEXT_ENCODING_UTF8);
+        OH_Drawing_TextBlobCreateFromString(str, font, TEXT_ENCODING_UTF8);
     // 绘制字块
     OH_Drawing_CanvasDrawTextBlob(canvas, textBlob, value200_, value800_);
     // 释放字块对象
@@ -1342,6 +1364,320 @@ void SampleGraphics::DrawFeatureText(OH_Drawing_Canvas *canvas)
     // [End ndk_graphics_draw_feature_text]
 }
 
+void SampleGraphics::DrawTextBlobStringFallback(OH_Drawing_Canvas *canvas)
+{
+    // [Start ndk_graphics_draw_textblob_string_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
+    // 创建字型对象
+    OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
+    // 设置字体大小
+    OH_Drawing_FontSetTextSize(font, value100_);
+    // 需要绘制的文字
+    const char *str = "Hello世界";
+    // 声明输出参数
+    OH_Drawing_TextBlob **textBlobs = nullptr;
+    uint32_t textBlobsCount = 0;
+    // 创建支持字体回退的字块数组
+    OH_Drawing_TextBlobCreateFromStringWithFallback(str, font, TEXT_ENCODING_UTF8,
+        &textBlobs, &textBlobsCount);
+    // 遍历字块数组并绘制，每个TextBlob绘制在相同原点
+    for (uint32_t i = 0; i < textBlobsCount; i++) {
+        OH_Drawing_CanvasDrawTextBlob(canvas, textBlobs[i], value200_, value800_);
+    }
+    // 销毁字块数组
+    OH_Drawing_TextBlobsArrayDestroy(textBlobs, textBlobsCount);
+    // 释放字型对象
+    OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
+    // [End ndk_graphics_draw_textblob_string_fallback]
+}
+
+void SampleGraphics::DrawTextBlobTextFallback(OH_Drawing_Canvas *canvas)
+{
+    // [Start ndk_graphics_draw_textblob_text_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
+    // 创建字型对象
+    OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
+    // 设置字体大小
+    OH_Drawing_FontSetTextSize(font, value100_);
+    // 需要绘制的文字
+    const char *text = "Hello世界";
+    uint32_t byteLength = strlen(text);
+    // 声明输出参数
+    OH_Drawing_TextBlob **textBlobs = nullptr;
+    uint32_t textBlobsCount = 0;
+    // 创建支持字体回退的字块数组
+    OH_Drawing_TextBlobCreateFromTextWithFallback(text, byteLength, font, TEXT_ENCODING_UTF8,
+        &textBlobs, &textBlobsCount);
+    // 遍历字块数组并绘制
+    for (uint32_t i = 0; i < textBlobsCount; i++) {
+        OH_Drawing_CanvasDrawTextBlob(canvas, textBlobs[i], value200_, value800_);
+    }
+    // 销毁字块数组
+    OH_Drawing_TextBlobsArrayDestroy(textBlobs, textBlobsCount);
+    // 释放字型对象
+    OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
+    // [End ndk_graphics_draw_textblob_text_fallback]
+}
+
+void SampleGraphics::DrawTextBlobPosTextFallback(OH_Drawing_Canvas *canvas)
+{
+    // [Start ndk_graphics_draw_textblob_postext_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
+    // 创建字型对象
+    OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
+    // 设置字体大小
+    OH_Drawing_FontSetTextSize(font, value100_);
+    // 需要绘制的文字
+    const char *text = "Hello世界";
+    uint32_t byteLength = strlen(text);
+    // 获取glyph数量
+    int glyphCount = OH_Drawing_FontCountText(font, text, byteLength, TEXT_ENCODING_UTF8);
+    // 校验glyph数量合法性，避免申请非法大小的内存
+    if (glyphCount <= 0) {
+        SAMPLE_LOGE("DrawTextBlobPosTextFallback: glyphCount is invalid");
+        OH_Drawing_FontDestroy(font);
+        OH_Drawing_TypefaceDestroy(typeface);
+        return;
+    }
+    // 为每个字符指定坐标位置
+    OH_Drawing_Point2D *points = new OH_Drawing_Point2D[glyphCount];
+    float xOffset = 0;
+    for (int i = 0; i < glyphCount; i++) {
+        points[i].x = value200_ + xOffset;
+        points[i].y = value800_;
+        xOffset += value100_;
+    }
+    // 声明输出参数
+    OH_Drawing_TextBlob **textBlobs = nullptr;
+    uint32_t textBlobsCount = 0;
+    // 创建支持字体回退的字块数组
+    OH_Drawing_TextBlobCreateFromPosTextWithFallback(text, byteLength, points, font,
+        TEXT_ENCODING_UTF8, &textBlobs, &textBlobsCount);
+    // 遍历字块数组并绘制
+    for (uint32_t i = 0; i < textBlobsCount; i++) {
+        OH_Drawing_CanvasDrawTextBlob(canvas, textBlobs[i], 0, 0);
+    }
+    // 销毁字块数组
+    OH_Drawing_TextBlobsArrayDestroy(textBlobs, textBlobsCount);
+    // 释放坐标点数组
+    delete[] points;
+    // 释放字型对象
+    OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
+    // [End ndk_graphics_draw_textblob_postext_fallback]
+}
+
+void SampleGraphics::DrawFontTextToGlyphsFallback(OH_Drawing_Canvas *canvas)
+{
+    // [Start ndk_graphics_draw_font_text_to_glyphs_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
+    // 创建字型对象
+    OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
+    // 设置字体大小
+    OH_Drawing_FontSetTextSize(font, value100_);
+    // 需要转换的文本
+    const char *text = "Hello世界";
+    uint32_t byteLength = strlen(text);
+    // 声明输出参数
+    OH_Drawing_TypefaceFallbackInfo *fallbackInfos = nullptr;
+    uint32_t infosCount = 0;
+    // 将文本转换为glyph索引，支持字体回退
+    OH_Drawing_FontTextToGlyphsWithFallback(font, text, byteLength, TEXT_ENCODING_UTF8,
+        &fallbackInfos, &infosCount);
+    // 遍历回退信息，每个元素包含相同typeface的glyph ID数组
+    float xOffset = 0;
+    for (uint32_t i = 0; i < infosCount; i++) {
+        uint32_t glyphCount = fallbackInfos[i].glyphCount;
+        // 为该回退组设置typeface
+        OH_Drawing_FontSetTypeface(font, fallbackInfos[i].typeface);
+        // 获取每个字形的宽度，用于根据字形宽度计算位置
+        float *glyphWidths = new float[glyphCount];
+        OH_Drawing_FontGetWidths(font, fallbackInfos[i].glyphIds, glyphCount, glyphWidths);
+        // 将uint16_t的glyphIds转换为int数组
+        int *intGlyphIds = new int[glyphCount];
+        for (uint32_t j = 0; j < glyphCount; j++) {
+            intGlyphIds[j] = fallbackInfos[i].glyphIds[j];
+        }
+        // 为每个字形指定坐标位置，根据字形宽度累加横坐标
+        OH_Drawing_Point2D *positions = new OH_Drawing_Point2D[glyphCount];
+        for (uint32_t j = 0; j < glyphCount; j++) {
+            positions[j].x = value200_ + xOffset;
+            positions[j].y = value800_;
+            xOffset += glyphWidths[j];
+        }
+        // 绘制字形数组
+        OH_Drawing_CanvasDrawGlyphs(canvas, intGlyphIds, glyphCount, 0,
+            positions, glyphCount, 0, glyphCount, font);
+        delete[] intGlyphIds;
+        delete[] positions;
+        delete[] glyphWidths;
+    }
+    // 释放回退信息数组
+    OH_Drawing_FontTypefaceFallbackInfoDestroy(fallbackInfos, infosCount);
+    // 释放字型对象
+    OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
+    // [End ndk_graphics_draw_font_text_to_glyphs_fallback]
+}
+
+void SampleGraphics::DrawFontMeasureTextFallback(OH_Drawing_Canvas *canvas)
+{
+    // [Start ndk_graphics_draw_font_measure_text_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
+    // 创建字型对象
+    OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
+    // 设置字体大小
+    OH_Drawing_FontSetTextSize(font, value100_);
+    // 需要测量的文本
+    const char *text = "Hello世界";
+    uint32_t byteLength = strlen(text);
+    // 创建矩形对象用于接收边界框
+    OH_Drawing_Rect *bounds = OH_Drawing_RectCreate(0, 0, 0, 0);
+    float textWidth = 0;
+    // 测量文本宽度，支持字体回退
+    OH_Drawing_FontMeasureTextWithFallback(font, text, byteLength, TEXT_ENCODING_UTF8,
+        bounds, &textWidth);
+    SAMPLE_LOGI("DrawFontMeasureTextFallback: textWidth = %{public}f, bounds left = %{public}f, "
+        "top = %{public}f, right = %{public}f, bottom = %{public}f",
+        textWidth, OH_Drawing_RectGetLeft(bounds), OH_Drawing_RectGetTop(bounds),
+        OH_Drawing_RectGetRight(bounds), OH_Drawing_RectGetBottom(bounds));
+    // 绘制文本的起点
+    float startX = value200_;
+    float startY = value800_;
+    // 创建支持字体回退的字块数组并绘制文本
+    OH_Drawing_TextBlob **textBlobs = nullptr;
+    uint32_t textBlobsCount = 0;
+    OH_Drawing_TextBlobCreateFromStringWithFallback(text, font, TEXT_ENCODING_UTF8,
+        &textBlobs, &textBlobsCount);
+    SAMPLE_LOGI("DrawFontMeasureTextFallback: textBlobsCount = %{public}u", textBlobsCount);
+    for (uint32_t i = 0; i < textBlobsCount; i++) {
+        OH_Drawing_CanvasDrawTextBlob(canvas, textBlobs[i], startX, startY);
+    }
+    OH_Drawing_TextBlobsArrayDestroy(textBlobs, textBlobsCount);
+    // 获取边界框坐标，并平移到文本绘制起点
+    float left = OH_Drawing_RectGetLeft(bounds) + startX;
+    float top = OH_Drawing_RectGetTop(bounds) + startY;
+    float right = OH_Drawing_RectGetRight(bounds) + startX;
+    float bottom = OH_Drawing_RectGetBottom(bounds) + startY;
+    // 创建画笔用于绘制边界框
+    OH_Drawing_Pen *pen = OH_Drawing_PenCreate();
+    OH_Drawing_PenSetAntiAlias(pen, true);
+    OH_Drawing_PenSetColor(pen, OH_Drawing_ColorSetArgb(RGBA_MAX, RGBA_MAX, RGBA_MIN, RGBA_MIN));
+    OH_Drawing_CanvasAttachPen(canvas, pen);
+    // 绘制边界框矩形
+    OH_Drawing_Rect *measureBounds = OH_Drawing_RectCreate(left, top, right, bottom);
+    OH_Drawing_CanvasDrawRect(canvas, measureBounds);
+    OH_Drawing_CanvasDetachPen(canvas);
+    // 销毁各类对象
+    OH_Drawing_RectDestroy(measureBounds);
+    OH_Drawing_PenDestroy(pen);
+    // 释放矩形对象
+    OH_Drawing_RectDestroy(bounds);
+    // 释放字型对象
+    OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
+    // [End ndk_graphics_draw_font_measure_text_fallback]
+}
+
+void SampleGraphics::DrawFontMeasureTextWithBrushOrPenFallback(OH_Drawing_Canvas *canvas)
+{
+    // [Start ndk_graphics_draw_font_measure_text_with_brush_or_pen_fallback]
+    // 通过文件创建字体对象
+    OH_Drawing_Typeface *typeface = OH_Drawing_TypefaceCreateFromFile(
+        "/system/fonts/NotoSansArmenian[wdth,wght].ttf", 0);
+    // 创建字型对象
+    OH_Drawing_Font *font = OH_Drawing_FontCreate();
+    // 为字型设置字体
+    OH_Drawing_FontSetTypeface(font, typeface);
+    // 设置字体大小
+    OH_Drawing_FontSetTextSize(font, value100_);
+    // 需要测量的文本
+    const char *text = "Hello世界";
+    uint32_t byteLength = strlen(text);
+    // 创建画刷对象
+    OH_Drawing_Brush *brush = OH_Drawing_BrushCreate();
+    OH_Drawing_BrushSetAntiAlias(brush, true);
+    OH_Drawing_BrushSetColor(brush, OH_Drawing_ColorSetArgb(RGBA_MAX, RGBA_MAX, RGBA_MIN, RGBA_MIN));
+    // 创建画笔对象
+    OH_Drawing_Pen *pen = OH_Drawing_PenCreate();
+    OH_Drawing_PenSetAntiAlias(pen, true);
+    OH_Drawing_PenSetColor(pen, OH_Drawing_ColorSetArgb(RGBA_MAX, RGBA_MAX, 0x00, 0x00));
+    // 绘制文本的起点
+    float startX = value200_;
+    float startY = value800_;
+    // 设置画刷填充效果并绘制文本
+    OH_Drawing_CanvasAttachBrush(canvas, brush);
+    OH_Drawing_TextBlob **textBlobs = nullptr;
+    uint32_t textBlobsCount = 0;
+    OH_Drawing_TextBlobCreateFromStringWithFallback(text, font, TEXT_ENCODING_UTF8,
+        &textBlobs, &textBlobsCount);
+    SAMPLE_LOGI("DrawFontMeasureTextWithBrushOrPenFallback: textBlobsCount = %{public}u", textBlobsCount);
+    for (uint32_t i = 0; i < textBlobsCount; i++) {
+        OH_Drawing_CanvasDrawTextBlob(canvas, textBlobs[i], startX, startY);
+    }
+    OH_Drawing_TextBlobsArrayDestroy(textBlobs, textBlobsCount);
+    OH_Drawing_CanvasDetachBrush(canvas);
+    // 创建矩形对象用于接收边界框
+    OH_Drawing_Rect *bounds = OH_Drawing_RectCreate(0, 0, 0, 0);
+    float textWidth = 0;
+    // 使用画刷测量文本宽度，支持字体回退（brush和pen不能同时传入）
+    OH_Drawing_FontMeasureTextWithBrushOrPenWithFallback(font, text, byteLength,
+        TEXT_ENCODING_UTF8, brush, nullptr, bounds, &textWidth);
+    SAMPLE_LOGI("DrawFontMeasureTextWithBrushOrPenFallback: textWidth = %{public}f, bounds left = "
+        "%{public}f, top = %{public}f, right = %{public}f, bottom = %{public}f",
+        textWidth, OH_Drawing_RectGetLeft(bounds), OH_Drawing_RectGetTop(bounds),
+        OH_Drawing_RectGetRight(bounds), OH_Drawing_RectGetBottom(bounds));
+    // 获取边界框坐标，并平移到文本绘制起点
+    float left = OH_Drawing_RectGetLeft(bounds) + startX;
+    float top = OH_Drawing_RectGetTop(bounds) + startY;
+    float right = OH_Drawing_RectGetRight(bounds) + startX;
+    float bottom = OH_Drawing_RectGetBottom(bounds) + startY;
+    // 设置画笔描边效果并绘制边界框矩形
+    OH_Drawing_CanvasAttachPen(canvas, pen);
+    OH_Drawing_Rect *measureBounds = OH_Drawing_RectCreate(left, top, right, bottom);
+    OH_Drawing_CanvasDrawRect(canvas, measureBounds);
+    OH_Drawing_CanvasDetachPen(canvas);
+    // 销毁各类对象
+    OH_Drawing_RectDestroy(measureBounds);
+    OH_Drawing_PenDestroy(pen);
+    // 释放矩形对象
+    OH_Drawing_RectDestroy(bounds);
+    // 释放画刷对象
+    OH_Drawing_BrushDestroy(brush);
+    // 释放字型对象
+    OH_Drawing_FontDestroy(font);
+    // 释放字体对象
+    OH_Drawing_TypefaceDestroy(typeface);
+    // [End ndk_graphics_draw_font_measure_text_with_brush_or_pen_fallback]
+}
+
 void SampleGraphics::InitDrawFunction(std::string id)
 {
     if (strcmp(id.c_str(), "canvasGetResultXComponent") == 0) {
@@ -1384,6 +1720,13 @@ void SampleGraphics::InitDrawFunction(std::string id)
         this->drawFunctionMap_.insert({"ThemeText", &SampleGraphics::DrawThemeText});
         this->drawFunctionMap_.insert({"SingleText", &SampleGraphics::DrawSingleText});
         this->drawFunctionMap_.insert({"FeatureText", &SampleGraphics::DrawFeatureText});
+        this->drawFunctionMap_.insert({"TextBlobStringFallback", &SampleGraphics::DrawTextBlobStringFallback});
+        this->drawFunctionMap_.insert({"TextBlobTextFallback", &SampleGraphics::DrawTextBlobTextFallback});
+        this->drawFunctionMap_.insert({"TextBlobPosTextFallback", &SampleGraphics::DrawTextBlobPosTextFallback});
+        this->drawFunctionMap_.insert({"FontTextToGlyphsFallback", &SampleGraphics::DrawFontTextToGlyphsFallback});
+        this->drawFunctionMap_.insert({"FontMeasureTextFallback", &SampleGraphics::DrawFontMeasureTextFallback});
+        this->drawFunctionMap_.insert({"FontMeasureTextWithBrushOrPenFallback",
+            &SampleGraphics::DrawFontMeasureTextWithBrushOrPenFallback});
     }
 }
 
@@ -1469,7 +1812,7 @@ napi_value SampleGraphics::Draw(napi_env env, napi_callback_info info)
     napi_get_value_string_utf8(env, args[0], canvasType, sizeof(canvasType), nullptr);
     
     // 获取形状参数
-    char shapeType[32] = {0};
+    char shapeType[64] = {0};
     napi_get_value_string_utf8(env, args[1], shapeType, sizeof(shapeType), nullptr);
     
     SampleGraphics *render = SampleGraphics().GetInstance(id);

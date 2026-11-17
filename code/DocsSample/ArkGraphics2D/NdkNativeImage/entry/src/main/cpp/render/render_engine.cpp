@@ -135,7 +135,6 @@ void RenderEngine::WaitForVsync()
     if (vSyncCnt_ > 0) {
         vSyncCnt_--;
         (void)OH_NativeVSync_RequestFrame(nativeVsync_, &RenderEngine::OnVsync, this);
-        OH_NativeVSync_GetPeriod(nativeVsync_, &period);
     }
     // [End request_vsync]
 }

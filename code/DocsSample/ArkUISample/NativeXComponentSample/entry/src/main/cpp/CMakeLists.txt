@@ -1,5 +1,5 @@
 # [Start cmake_lists]
-# the minimum version of CMake.
+# CMake最低版本要求。
 cmake_minimum_required(VERSION 3.4.1)
 project(XComponent)
 

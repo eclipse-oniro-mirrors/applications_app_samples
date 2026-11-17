@@ -50,7 +50,7 @@ function move() {
     let p: Sample = PersistenceV2.connect(Sample, 'connect3', () => new Sample())!;
     PersistenceV2.remove('connect3');
     let p1 = PersistenceV2.globalConnect({ type: Sample, key: 'connect4', defaultCreator: () => p })!; // 使用默认构造函数也可以
-    // 赋值数据，@Trace修饰的会自动保存
+    // 赋值数据，@Trace装饰的属性会自动保存
     p1.father = p.father;
     // 将迁移标志设置为true
     movingState.isCompleteMoving = true;
@@ -79,10 +79,10 @@ struct Page1 {
         .fontColor(Color.Red)
 
       // save接口
-      // 未被@Trace装饰的变量需要借助状态变量refresh才能刷新
+      // 未被@Trace装饰的属性需要借助状态变量refresh才能刷新
       Text('save key connect4: ' + this.p.father.groupId.toString() + ' refresh:' + this.refresh)
         .onClick(() => {
-          // 未被@Trace保存的对象无法自动存储，需要调用save存储
+          // 未被@Trace装饰的属性无法自动存储，需要调用save存储
           this.p.father.groupId += 1;
           PersistenceV2.save('connect4');
           this.refresh += 1;

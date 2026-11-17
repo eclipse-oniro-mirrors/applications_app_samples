@@ -175,6 +175,14 @@ struct ApiTestPage {
   scroller: Scroller = new Scroller();
   controller: TextInputController = new TextInputController();
 
+  private isControlSupported(): boolean {
+    // [Start is_control_supported]
+    let isSupported: boolean = mechanicManager.isControlSupported();
+    console.info(`'isSupported:' ${isSupported}`);
+    // [End is_control_supported]
+    return isSupported;
+  }
+
   private getMechDevices(): number[] | undefined {
     // [Start get_mechDevices]
     let savedMechanicIds: number[] = [];
@@ -250,6 +258,10 @@ struct ApiTestPage {
 
   onPageShow(): void {
     logger.info(`${TAG} onPageShow start.`);
+    let isControlSupported: boolean = this.isControlSupported();
+    if (!isControlSupported) {
+      return;
+    }
     let mechDevices = this.getMechDevices();
     if (mechDevices === undefined) {
       return;

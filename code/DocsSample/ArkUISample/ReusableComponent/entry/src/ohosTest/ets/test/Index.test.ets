@@ -416,5 +416,53 @@ export default function IndexTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + 'ReusableForLimitedVariationTest_001, end');
       done();
     })
+
+    /**
+     * @tc.number: DefaultReusePoolClearCacheTest_001
+     * @tc.name: Default reuse pool clear cache
+     * @tc.desc: Test default reuse pool clear cache
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level Level 1
+     */
+    it('DefaultReusePoolClearCacheTest_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1,
+      async (done: Function) => {
+      hilog.info(DOMAIN, TAG, BUNDLE + 'DefaultReusePoolClearCacheTest_001, begin');
+      want = {
+        bundleName: bundleName,
+        abilityName: 'EntryAbility'
+      };
+      await delegator.startAbility(want);
+      await sleep(ONE_SECONDS_TIME);
+      let driver = Driver.create();
+      let indexList = await driver.findComponent(ON.type('Column'));
+      await indexList.scrollToBottom(30000);
+      let button_list = await driver.findComponent(ON.text('DefaultReusePoolClearCache', MatchPattern.CONTAINS));
+      expect(button_list === null).assertFalse();
+      await button_list.click();
+      await driver.delayMs(ONE_SECONDS_TIME);
+      // 回收子组件进入默认复用池
+      let button_recycle_a = await driver.findComponent(ON.text('Recycle A', MatchPattern.CONTAINS));
+      expect(button_recycle_a === null).assertFalse();
+      await button_recycle_a.click();
+      await driver.delayMs(ONE_SECONDS_TIME);
+      let button_recycle_b = await driver.findComponent(ON.text('Recycle B', MatchPattern.CONTAINS));
+      expect(button_recycle_b === null).assertFalse();
+      await button_recycle_b.click();
+      await driver.delayMs(ONE_SECONDS_TIME);
+      // 分别清理复用池中的全部组件和指定reuseId的组件
+      let button_clear_all = await driver.findComponent(ON.text('Clear All', MatchPattern.CONTAINS));
+      expect(button_clear_all === null).assertFalse();
+      await button_clear_all.click();
+      await driver.delayMs(ONE_SECONDS_TIME);
+      let button_clear_a = await driver.findComponent(ON.text('Clear A', MatchPattern.CONTAINS));
+      expect(button_clear_a === null).assertFalse();
+      await button_clear_a.click();
+      await driver.delayMs(ONE_SECONDS_TIME);
+      await driver.pressBack();
+      await driver.delayMs(ONE_SECONDS_TIME);
+      hilog.info(DOMAIN, TAG, BUNDLE + 'DefaultReusePoolClearCacheTest_001, end');
+      done();
+    })
   })
 }

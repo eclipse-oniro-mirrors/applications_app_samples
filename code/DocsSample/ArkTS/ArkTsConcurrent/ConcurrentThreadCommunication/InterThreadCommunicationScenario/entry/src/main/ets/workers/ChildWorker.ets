@@ -15,8 +15,8 @@
  
 // [Start child_worker]
 // ChildWorker.ets
-import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS'
-import { CopyEntry } from '../Sendable/CopyEntry'
+import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
+import { CopyEntry } from '../Sendable/CopyEntry';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
@@ -25,13 +25,13 @@ workerPort.onmessage = (e: MessageEvents) => {
   // 中间copy操作省略
   console.info(data.filePath);
   workerPort.postMessageWithSharedSendable('done');
-}
+};
 
 workerPort.onmessageerror = (e: MessageEvents) => {
   console.error('onmessageerror:' + e.data);
-}
+};
 
 workerPort.onerror = (e: ErrorEvent) => {
   console.error('onerror:' + e.message);
-}
+};
 // [End child_worker]

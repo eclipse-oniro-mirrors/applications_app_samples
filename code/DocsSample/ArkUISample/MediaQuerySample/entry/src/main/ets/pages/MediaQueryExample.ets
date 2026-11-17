@@ -19,6 +19,7 @@ import { mediaquery } from '@kit.ArkUI';
 // [End obtain_mediaquery_import]
 import { window } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 @Entry
 @Component
@@ -29,6 +30,7 @@ struct MediaQueryExample {
   // [Start obtain_mediaquery_listener]
   listener: mediaquery.MediaQueryListener =
     this.getUIContext().getMediaQuery().matchMediaSync('(orientation: landscape)');
+
   // [End obtain_mediaquery_listener]
 
   // 当满足媒体查询条件时，触发回调
@@ -59,6 +61,7 @@ struct MediaQueryExample {
     });
     // [StartExclude obtain_mediaquery_Portrait]
   }
+
   // [EndExclude obtain_mediaquery_Portrait]
   // [End obtain_mediaquery_Portrait]
 
@@ -72,9 +75,15 @@ struct MediaQueryExample {
     // 获取UIAbility实例的上下文信息
     let context: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
     // 调用该接口手动改变设备横竖屏状态
-    window.getLastWindow(context).then((lastWindow) => {
-      lastWindow.setPreferredOrientation(isLandscape ? window.Orientation.LANDSCAPE : window.Orientation.PORTRAIT)
-    });
+    try {
+      window.getLastWindow(context).then((lastWindow) => {
+        lastWindow.setPreferredOrientation(isLandscape ? window.Orientation.LANDSCAPE : window.Orientation.PORTRAIT)
+      }).catch((err: BusinessError) => {
+        console.error(`Failed to obtain the top window. Cause code: ${err.code}, message: ${err.message}`)
+      });
+    } catch (exception) {
+      console.error(`Failed to obtain the top window. Cause code: ${exception.code}, message: ${exception.message}`)
+    }
   }
 
   build() {
@@ -92,4 +101,5 @@ struct MediaQueryExample {
     .width('100%').height('100%')
   }
 }
+
 // [End obtain_mediaquery_all]

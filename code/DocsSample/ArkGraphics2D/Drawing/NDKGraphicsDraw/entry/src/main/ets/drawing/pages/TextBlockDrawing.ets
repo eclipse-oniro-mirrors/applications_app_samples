@@ -28,7 +28,7 @@ struct TextBlockDrawing {
         })
         .backgroundColor(Color.White)
         .width('100%')
-        .height('80%')
+        .height('62%')
       Row() {
         Button($r('app.string.BaseText'))
           .onClick((): void => {
@@ -51,7 +51,7 @@ struct TextBlockDrawing {
       }
       .justifyContent(FlexAlign.SpaceEvenly)
       .width('100%')
-      .height('7%')
+      .height('8%')
       Row() {
         Button($r('app.string.GradientText'))
           .onClick((): void => {
@@ -80,7 +80,71 @@ struct TextBlockDrawing {
       }
       .justifyContent(FlexAlign.SpaceEvenly)
       .width('100%')
-      .height('7%')
+      .height('8%')
+      Row() {
+        Button($r('app.string.TextBlobStringFallback'))
+          .layoutWeight(1)
+          .fontSize(11)
+          .padding({ left: 4, right: 4 })
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'TextBlobStringFallback');
+            }
+          })
+        Button($r('app.string.TextBlobTextFallback'))
+          .layoutWeight(1)
+          .fontSize(11)
+          .padding({ left: 4, right: 4 })
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'TextBlobTextFallback');
+            }
+          })
+        Button($r('app.string.TextBlobPosTextFallback'))
+          .layoutWeight(1)
+          .fontSize(11)
+          .padding({ left: 4, right: 4 })
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'TextBlobPosTextFallback');
+            }
+          })
+      }
+      .justifyContent(FlexAlign.SpaceEvenly)
+      .width('100%')
+      .height('8%')
+      Row() {
+        Button($r('app.string.FontTextToGlyphsFallback'))
+          .layoutWeight(1)
+          .fontSize(11)
+          .padding({ left: 4, right: 4 })
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'FontTextToGlyphsFallback');
+            }
+          })
+        Button($r('app.string.FontMeasureTextFallback'))
+          .layoutWeight(1)
+          .fontSize(11)
+          .padding({ left: 4, right: 4 })
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'FontMeasureTextFallback');
+            }
+          })
+        Button($r('app.string.FontMeasureTextWithBrushOrPenFallback'))
+          .layoutWeight(1)
+          .fontSize(11)
+          .padding({ left: 4, right: 4 })
+          .onClick((): void => {
+            if (this.xComponentContext) {
+              this.xComponentContext.draw('CanvasGet', 'FontMeasureTextWithBrushOrPenFallback');
+            }
+          })
+      }
+      .justifyContent(FlexAlign.SpaceEvenly)
+      .width('100%')
+      .height('8%')
     }
   }
 }

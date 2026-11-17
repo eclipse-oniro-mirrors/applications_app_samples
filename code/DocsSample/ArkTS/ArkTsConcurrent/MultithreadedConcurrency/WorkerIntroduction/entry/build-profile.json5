@@ -38,6 +38,7 @@
       "name": "ohosTest",
     }
   ],
+  // [Start manual_create_worker]
   "buildOption": {
     "sourceOption": {
       "workers": [
@@ -48,9 +49,14 @@
         "./src/main/ets/notrecommendedtwoworker/parentworker.ets",
         "./src/main/ets/notrecommendedtwoworker/childworker.ets",
         './src/main/ets/workers/ChildWorker.ets',
+        // [StartExclude manual_create_worker]
+        './src/main/ets/workers/DataWorker.ets',
+        './src/main/ets/workers/DataWorker2.ets',
+        // [EndExclude manual_create_worker]
         './src/main/ets/workers/ParentWorker.ets',
         './src/main/ets/workers/worker.ets'
       ]
     }
   }
+  // [End manual_create_worker]
 }

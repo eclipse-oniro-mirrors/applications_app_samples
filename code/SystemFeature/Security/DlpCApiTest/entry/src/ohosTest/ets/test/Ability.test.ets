@@ -48,7 +48,7 @@ export default function localUnitTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + "GetDlpPermissionInfo_001, begin");
 
 
-      const result = testNapi.GetDlpPermissionInfo();
+      const result: number = testNapi.GetDlpPermissionInfo();
       let message: string = result.toString();
 
       hilog.info(DOMAIN, TAG, BUNDLE + "GetDlpPermissionInfo_001, message" + message);
@@ -63,7 +63,7 @@ export default function localUnitTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, begin");
 
 
-      const result = testNapi.GetOriginalFileName();
+      const result: number = testNapi.GetOriginalFileName();
       let message: string = result.toString();
 
       hilog.info(DOMAIN, TAG, BUNDLE + "GetOriginalFileName_001, message" + message);
@@ -78,7 +78,7 @@ export default function localUnitTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + "IsInSandbox_001, begin");
 
 
-      const result = testNapi.IsInSandbox();
+      const result: boolean = testNapi.IsInSandbox();
       let message: string = result.toString();
 
       hilog.info(DOMAIN, TAG, BUNDLE + "IsInSandbox_001, message" + message);
@@ -93,7 +93,7 @@ export default function localUnitTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + "SetSandboxAppConfig_001, begin");
 
 
-      const result = testNapi.SetSandboxAppConfig();
+      const result: number = testNapi.SetSandboxAppConfig();
       let message: string = result.toString();
 
       hilog.info(DOMAIN, TAG, BUNDLE + "SetSandboxAppConfig_001, message" + message);
@@ -108,7 +108,7 @@ export default function localUnitTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + "GetSandboxAppConfig_001, begin");
 
 
-      const result = testNapi.GetSandboxAppConfig();
+      const result: number = testNapi.GetSandboxAppConfig();
       let message: string = result.toString();
 
       hilog.info(DOMAIN, TAG, BUNDLE + "GetSandboxAppConfig_001, message" + message);
@@ -123,7 +123,7 @@ export default function localUnitTest() {
       hilog.info(DOMAIN, TAG, BUNDLE + "CleanSandboxAppConfig_001, begin");
 
 
-      const result = testNapi.CleanSandboxAppConfig();
+      const result: number = testNapi.CleanSandboxAppConfig();
       let message: string = result.toString();
 
       hilog.info(DOMAIN, TAG, BUNDLE + "CleanSandboxAppConfig_001, message" + message);

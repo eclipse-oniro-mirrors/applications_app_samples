@@ -1,4 +1,3 @@
-'use static'
 /*
  * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,26 +13,6 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  Grid,
-  GridItem,
-  Column,
-  Text,
-  Image,
-  FlexAlign,
-  List,
-  ListItem,
-  Resource,
-  ForEach,
-  Blank,
-  Row,
-  HorizontalAlign,
-  State,
-  StorageLink,
-  ImageFit,
-  $r
-} from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { KeyStyle, StyleConfiguration } from '../common/StyleConfiguration';
 import { SubMenuType } from '../InputMethodExtensionAbility/pages/KeyboardKeyData';
@@ -130,7 +109,7 @@ export struct Submenu {
       GridItem() {
         Column() {
           List() {
-            ForEach(this.inputMethods, (item: inputMethod.InputMethodProperty, index: int) => {
+            ForEach(this.inputMethods, (item: inputMethod.InputMethodProperty, index: number) => {
               ListItem() {
                 Column() {
                   Row() {

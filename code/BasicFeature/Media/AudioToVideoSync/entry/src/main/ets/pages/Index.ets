@@ -68,19 +68,32 @@ struct Player {
 
   }
 
-  play() {
-    let inputFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
-    if (!inputFile) {
-      hilog.error(0x0000, TAG, 'player inputFile is null');
+  async play() {
+    if (this.selectFilePath === null) {
+      hilog.error(0x0000, TAG, 'player selectFilePath is null');
+      return;
+    }
+    let inputFile: fileIo.File | undefined = undefined;
+    hilog.info(0x0000, TAG, `player openSync begin, path: ${this.selectFilePath}`);
+    try {
+      // The picker returns a media-library URI, which fileIo cannot open directly.
+      inputFile = fileIo.openSync(this.selectFilePath, fileIo.OpenMode.READ_ONLY);
+      hilog.info(0x0000, TAG, `player openSync done, fd: ${inputFile.fd}`);
+    } catch (e) {
+      hilog.error(0x0000, TAG, `player openSync failed, path: ${this.selectFilePath}, err: ${JSON.stringify(e)}`);
+      return;
     }
     let inputFileState = fileIo.statSync(inputFile.fd);
+    hilog.info(0x0000, TAG, `player file size: ${inputFileState.size}`);
     if (inputFileState.size <= 0) {
       hilog.error(0x0000, TAG, 'player inputFile size is 0');
     }
     this.buttonEnabled = false;
     player.playNative(inputFile.fd, Const.DEFAULT_VALUE, inputFileState.size, () => {
       this.buttonEnabled = true;
-      fileIo.close(inputFile);
+      if (inputFile !== undefined) {
+        fileIo.close(inputFile);
+      }
     });
   }
 

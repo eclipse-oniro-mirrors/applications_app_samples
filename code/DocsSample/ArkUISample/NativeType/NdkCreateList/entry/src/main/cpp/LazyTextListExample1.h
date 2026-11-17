@@ -95,7 +95,7 @@ std::shared_ptr<ArkUIListItemNode> BuildListItemNode(const std::string &item,
     swipeNode->SetTextAlign(ARKUI_TEXT_ALIGNMENT_CENTER);
     // [EndExclude SetCallBack]
     RegisterDeleteClick(swipeNode, adapterWeakHolder, item);
-    listItem->SetSwiperAction(swipeNode);
+    listItem->SetSwipeAction(swipeNode);
     return listItem;
 }
 

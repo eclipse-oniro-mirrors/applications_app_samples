@@ -82,8 +82,8 @@ entry/src/main/
 ```
 entry2/src/main/
 |---ets
-|---|---entry2ability
-|---|---|---Entry2Ability.ets
+|---|---entryability
+|---|---|---EntryAbility.ets
 |---|---pages
 |---|---|---Index.ets						// 首页
 |---resources								// 静态资源
@@ -94,7 +94,7 @@ entry2/src/main/
 ```
 
 ##### 具体实现
-* 在调用initializeWebEngine初始化ArkWeb内核之前调用enableBackForwardCache来开启BFCache。源码参考[Entry2Ability.ets](./entry2/src/main/ets/entry2ability/Entry2Ability.ets)
+* 在调用initializeWebEngine初始化ArkWeb内核之前调用enableBackForwardCache来开启BFCache。源码参考[EntryAbility.ets](./entry2/src/main/ets/entryability/EntryAbility.ets)
 * 调用setBackForwardCacheOptions设置每个Web实例的前进后退缓存策略。源码参考[Index.ets](./entry2/src/main/ets/pages/Index.ets)
 
 ##### 相关权限

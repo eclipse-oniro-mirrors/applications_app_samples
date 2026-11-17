@@ -14,8 +14,8 @@
  */
 
 export class P2PManager {
-  public resourceToString(resource: Resource): string {
-    return getContext(this).resourceManager.getStringSync(resource);
+  public resourceToString(resource: Resource, uiContext: UIContext): string {
+    return uiContext.getHostContext().resourceManager.getStringSync(resource.id);
   }
 }
 

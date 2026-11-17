@@ -13,6 +13,7 @@ configuration methods and their application in live streaming scenarios.
   corresponding shaders, such as beauty and filter operators, to the live streaming scenario by referring to the process.
 - This sample demonstrates three ROI encoding configuration methods: NativeBuffer Metadata Config, Parameter Callback Config,
   and Buffer Frame Data Config.
+- Camera capture supports ArkTS (default) and Native (C/C++) APIs. Both paths query and enable in-frame camera ROI metadata after committing the session, and share the existing ROI encoding pipeline.
 
 ### Atomic Capability Specifications Supported for Recording
 
@@ -35,7 +36,7 @@ configuration methods and their application in live streaming scenarios.
 
 ### Starting Live Stream
 
-1. Select an ROI encoding configuration method (NativeBuffer Metadata Config, Parameter Callback Config, or Buffer Frame Data Config), and tap the corresponding button.
+1. Select the camera API (ArkTS or Native), then select an ROI encoding configuration method (NativeBuffer Metadata Config, Parameter Callback Config, or Buffer Frame Data Config), and tap the corresponding button.
 
 2. Confirm to allow the recorded files to be saved to distributed files.
 
@@ -46,6 +47,9 @@ configuration methods and their application in live streaming scenarios.
 ```       
 ├──entry/src/main/cpp                 // Native layer 
 │  ├──capbilities                     // Capability APIs and implementation 
+│  │  ├──camera                       // Native camera capture, in-frame ROI metadata and cleanup
+│  │  │  ├──NativeCamera.h
+│  │  │  └──NativeCamera.cpp
 │  │  ├──render                       // APIs and implementation of the display module 
 │  │  │  ├──include                   // Display module APIs 
 │  │  │  │  ├──egl_render_context.h   // EGL rendering context APIs 
@@ -169,8 +173,8 @@ configuration methods and their application in live streaming scenarios.
 
 1. This sample is only supported on standard systems. Supported devices: default (phone), tablet.
 
-2. OpenHarmony API version: API 26 or later.
+2. OpenHarmony API version: API 26.0.1 or later.
 
 3. DevEco Studio version: DevEco Studio 5.0.5 Release or later.
 
-4. OpenHarmony SDK version: OpenHarmony SDK 26.0.0 or later.
+4. OpenHarmony SDK version: OpenHarmony SDK 26.0.1 or later, including the ArkTS and C/C++ in-frame metadata APIs. The device system must also implement these APIs. Unsupported devices log a warning and cannot provide camera ROI metadata.

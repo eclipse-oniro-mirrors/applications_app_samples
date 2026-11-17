@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 // [Start dynamic_isolation_process]
-import AbilityStage from '@ohos.app.ability.AbilityStage';
-import { Want } from '@kit.AbilityKit';
+import { AbilityStage, Want } from '@kit.AbilityKit';
 
 export default class MyAbilityStage extends AbilityStage {
 // [StartExclude dynamic_isolation_process]

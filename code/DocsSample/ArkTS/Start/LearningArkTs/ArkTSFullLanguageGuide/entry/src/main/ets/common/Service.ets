@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
+// [Start submodule_export_class]
 import { User, Product } from './Types';
 
-// [Start submodule_export_class]
 export class UserService {
   findById(id: number): User | null {
     if (id <= 0) {

@@ -15,8 +15,8 @@
  
 // [Start parent_worker]
 // ParentWorker.ets
-import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker, collections, ArkTSUtils } from '@kit.ArkTS'
-import { CopyEntry } from '../Sendable/CopyEntry'
+import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker, collections, ArkTSUtils } from '@kit.ArkTS';
+import { CopyEntry } from '../Sendable/CopyEntry';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
@@ -47,7 +47,7 @@ workerPort.onmessage = (e: MessageEvents) => {
       copyWorker2.postMessageWithSharedSendable(entry);
     }
   }
-}
+};
 
 copyWorker1.onmessage = async (e: MessageEvents) => {
   console.info('copyWorker1 onmessage:' + e.data);
@@ -63,7 +63,7 @@ copyWorker1.onmessage = async (e: MessageEvents) => {
       // 如果所有任务全部完成，则关闭父Worker
       workerPort.close();
     }
-  })
+  });
 }
 
 copyWorker2.onmessage = async (e: MessageEvents) => {
@@ -80,7 +80,7 @@ copyWorker2.onmessage = async (e: MessageEvents) => {
       // 如果所有任务全部完成，则关闭父Worker
       workerPort.close();
     }
-  })
+  });
 }
 
 workerPort.onmessageerror = (e: MessageEvents) => {

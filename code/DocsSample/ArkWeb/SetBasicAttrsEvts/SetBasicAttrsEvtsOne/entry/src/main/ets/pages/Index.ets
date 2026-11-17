@@ -80,6 +80,10 @@ struct Index {
         .onClick(() => {
           this.getUIContext().getRouter().pushUrl({ url: 'pages/ManageLocPerms' });
         })
+      Button('GeolocationPermissions')
+        .onClick(() => {
+          this.getUIContext().getRouter().pushUrl({ url: 'pages/GeolocationPermissions' });
+        })
     }.height('100%')
     .width('100%')
   }

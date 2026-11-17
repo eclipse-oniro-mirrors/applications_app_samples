@@ -1,0 +1,128 @@
+{
+  "color": [
+    {
+      "name": "light_gray",
+      "value": "#33000000"
+    },
+    {
+      "name": "text_normal",
+      "value": "#182431"
+    },
+    {
+      "name": "edit_blue",
+      "value": "#007dff"
+    },
+    {
+      "name": "circle_black",
+      "value": "#979797"
+    },
+    {
+      "name": "edit_black",
+      "value": "#6A000000"
+    },
+    {
+      "name": "key_item_gray",
+      "value": "#8F8591"
+    },
+    {
+      "name": "key_item_gray_pressed",
+      "value": "#868b95"
+    },
+    {
+      "name": "shadow",
+      "value": "#76787c"
+    },
+    {
+      "name": "key_item_normal",
+      "value": "#3c3940"
+    },
+    {
+      "name": "key_item_normal_pressed",
+      "value": "#AEB3BD"
+    },
+    {
+      "name": "key_item_normal_text",
+      "value": "#606060"
+    },
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "key_item_focus",
+      "value": "#0091fd"
+    },
+    {
+      "name": "button_BG",
+      "value": "#5f5e63"
+    },
+    {
+      "name": "button_border",
+      "value": "#A3A3A3"
+    },
+    {
+      "name": "kip_button_BG",
+      "value": "#EB69606B"
+    },
+    {
+      "name": "button_white",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "pressed_BG",
+      "value": "#AEB3BD"
+    },
+    {
+      "name": "normal_BG",
+      "value": "#ffffff"
+    },
+    {
+      "name": "pinyin_BG",
+      "value": "#2b2646"
+    },
+    {
+      "name": "normal1_BG",
+      "value": "#888f"
+    },
+    {
+      "name": "fill_color_1",
+      "value": "#333333"
+    },
+    {
+      "name": "fill_color_0",
+      "value": "#0000FF"
+    },
+    {
+      "name": "setView_BG",
+      "value": "#eeeeee"
+    },
+    {
+      "name": "symbolColor",
+      "value": "#a8abb7"
+    },
+    {
+      "name": "pressedStyles_BG",
+      "value": "#eee"
+    },
+    {
+      "name": "normalStyles_BG",
+      "value": "#fff"
+    },
+    {
+      "name": "color_border",
+      "value": "#aaaaaa"
+    },
+    {
+      "name": "color_PinYIn_BG",
+      "value": "#00ffffff"
+    },
+    {
+      "name": "color_select_BG",
+      "value": "#363744"
+    },
+    {
+      "name": "BG_Key",
+      "value": "#3d3741"
+    }
+  ]
+}

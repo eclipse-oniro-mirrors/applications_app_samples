@@ -1,0 +1,9 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "NearLink Sample",
+      "description": "Application name shown in system settings."
+    }
+  ]
+}
