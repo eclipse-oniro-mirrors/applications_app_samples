@@ -18,16 +18,6 @@
 | TaskpoolExtraMatrixPart1 | 更多数量档、URL 变体、100 URL、已有数据执行空任务 | 19 | 是 | pass |
 | 合计 |  | 492 |  |  |
 
-运行命令：
-
-```
-aa test -b com.samples.decodeheifimage -m entry_test -s unittest OpenHarmonyTestRunner \
-  -s class FlowOperationMatrixPart1,FlowOperationMatrixPart2,FlowOperationMatrixPart3,\
-FlowOperationMatrixPart4,FlowOperationMatrixPart5,FlowOperationMatrixPart6,FlowOperationMatrixPart7,\
-FlowSpliceMatrixPart1,FlowSpliceMatrixPart2,ListenerLifecycleMatrixPart1,ListenerLifecycleMatrixPart2,\
-NotifyMatrixPart1,WaterFlowDataMatrixPart1,WaterFlowDataMatrixPart2,TaskpoolMatrixPart1,\
-ImageInfoMatrixPart1,TaskpoolExtraMatrixPart1 -s timeout 20000
-```
 
 ## 手工用例
 
