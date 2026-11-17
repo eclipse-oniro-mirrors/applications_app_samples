@@ -15,9 +15,9 @@
 
 #include <algorithm>
 #include <chrono>
-#include <cstdarg>
-#include <cstdio>
-#include <cstring>
+#include <array>
+#include <iomanip>
+#include <locale>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -30,6 +30,24 @@
 #include "hilog/log.h"
 #include "mock_api.h"
 
+constexpr int DEFAULT_ERROR_CODE = 401;
+constexpr int DEFAULT_DATA_LENGTH = 3;
+constexpr int DEFAULT_ACCURACY = 2;
+constexpr uint32_t NAME_CAPACITY = 64;
+constexpr int MAX_SENSOR_COUNT = 128;
+constexpr int MAX_DATA_LENGTH = 64;
+constexpr int MAX_SEED = 1000000;
+constexpr float RESOLUTION_SCALE = 1024.0f;
+constexpr float EVENT_DATA_SCALE = 4.0f;
+constexpr int64_t MIN_INTERVAL_STEP = 1000;
+constexpr int64_t NANOSECONDS_PER_SECOND = 1000000000;
+constexpr size_t MAX_SCENARIO_LENGTH = 1024;
+constexpr int LOG_DECIMAL_PLACES = 6;
+constexpr int STANDALONE_ARG_COUNT = 2;
+constexpr int EXIT_ARGUMENT_ERROR = 2;
+constexpr int EXIT_OPEN_ERROR = 3;
+constexpr int EXIT_READ_ERROR = 4;
+
 struct Scenario {
     std::string mode;
     int count = 1;
@@ -37,9 +55,9 @@ struct Scenario {
     int failAt = 0;
     // Used by the standalone lifecycle probe; not exposed through scenario input.
     bool persistentFailure = false;
-    int errorCode = 401;
-    int length = 3;
-    int accuracy = 2;
+    int errorCode = DEFAULT_ERROR_CODE;
+    int length = DEFAULT_DATA_LENGTH;
+    int accuracy = DEFAULT_ACCURACY;
     int type = 1;
     int seed = 0;
     int nullEvent = 0;
@@ -59,132 +77,182 @@ struct Observation {
     int callbacks = 0;
     Sensor_EventCallback callback = nullptr;
 };
-static Scenario scenario;
-static Observation observation;
-static std::mutex scenarioMutex;
-static Sensor_Info **allocatedInfos = nullptr;
-static std::vector<int> sensorIndexes;
-static std::vector<float> eventData;
-static int fakeEvent = 0;
+static Scenario g_scenario;
+static Observation g_observation;
+static std::mutex g_scenarioMutex;
+static Sensor_Info **g_allocatedInfos = nullptr;
+static std::vector<int> g_sensorIndexes;
+static std::vector<float> g_eventData;
+static int g_fakeEvent = 0;
 
 static bool Record(const std::string &name, const std::string &detail = "")
 {
-    int occurrence = observation.calls[name]++;
-    observation.trace.push_back(name + detail);
-    return scenario.fault == name && (scenario.persistentFailure || occurrence == scenario.failAt);
+    int occurrence = g_observation.calls[name]++;
+    g_observation.trace.push_back(name + detail);
+    return g_scenario.fault == name && (g_scenario.persistentFailure || occurrence == g_scenario.failAt);
 }
 static void *Allocate(const std::string &kind)
 {
     void *value = new int(0);
-    observation.resources[value] = kind;
+    g_observation.resources[value] = kind;
     return value;
 }
 static void Release(void *value, const std::string &kind)
 {
-    auto found = observation.resources.find(value);
-    if (found == observation.resources.end() || found->second != kind) {
-        observation.violations++;
+    auto found = g_observation.resources.find(value);
+    if (found == g_observation.resources.end() || found->second != kind) {
+        g_observation.violations++;
         return;
     }
-    if (kind == "subscriber" && observation.active != 0) {
-        observation.violations++;
+    if (kind == "subscriber" && g_observation.active != 0) {
+        g_observation.violations++;
     }
-    observation.resources.erase(found);
+    g_observation.resources.erase(found);
     delete static_cast<int *>(value);
 }
 static void CheckResource(const void *value, const std::string &kind)
 {
-    auto found = observation.resources.find(const_cast<void *>(value));
-    if (found == observation.resources.end() || found->second != kind) {
-        observation.violations++;
+    auto found = g_observation.resources.find(const_cast<void *>(value));
+    if (found == g_observation.resources.end() || found->second != kind) {
+        g_observation.violations++;
     }
 }
-static int SampleLog(LogType, LogLevel level, unsigned int, const char *, const char *format, ...)
+namespace SensorTestStandard
 {
-    std::string normalized(format);
-    const std::string visibility = "%{public}";
-    size_t position = 0;
-    while ((position = normalized.find(visibility, position)) != std::string::npos) {
-        normalized.replace(position, visibility.size(), "%");
-        position++;
+using namespace ::std;
+namespace this_thread
+{
+static void sleep_for(::std::chrono::milliseconds duration)
+{
+    Record("wait", ":" + ::std::to_string(duration.count()));
+    g_observation.waitMs += static_cast<int>(duration.count());
+}
+} // namespace this_thread
+} // namespace SensorTestStandard
+
+namespace SensorSampleUnderTest
+{
+namespace std = SensorTestStandard;
+
+template <typename T> static ::std::string LogValue(const T &value)
+{
+    ::std::ostringstream output;
+    output.imbue(::std::locale::classic());
+    output << ::std::fixed << ::std::setprecision(LOG_DECIMAL_PLACES) << value;
+    return output.str();
+}
+
+// The included sample uses public decimal integers and fixed-point values only.
+// Reject unsupported formats so a sample logging change fails the observation checks.
+template <typename... Args>
+static int SampleLog(LogType, LogLevel level, unsigned int, const char *, const char *format, const Args &...args)
+{
+    const ::std::array<::std::string, sizeof...(Args)> values = {LogValue(args)...};
+    const ::std::string text(format);
+    const ::std::string marker = "%{public}";
+    ::std::string message;
+    size_t argument = 0;
+    for (size_t index = 0; index < text.size();) {
+        if (text[index] != '%') {
+            message += text[index++];
+            continue;
+        }
+        if (text.compare(index, marker.size(), marker) != 0 || index + marker.size() >= text.size() ||
+            (text[index + marker.size()] != 'd' && text[index + marker.size()] != 'f') || argument >= values.size()) {
+            g_observation.violations++;
+            return -1;
+        }
+        message += values[argument++];
+        index += marker.size() + 1;
     }
-    char buffer[2048] = {};
-    va_list arguments;
-    va_start(arguments, format);
-    vsnprintf(buffer, sizeof(buffer), normalized.c_str(), arguments);
-    va_end(arguments);
+    if (argument != values.size()) {
+        g_observation.violations++;
+        return -1;
+    }
     if (level == LOG_ERROR) {
-        observation.errors.emplace_back(buffer);
+        g_observation.errors.push_back(message);
     } else {
-        observation.messages.emplace_back(buffer);
+        g_observation.messages.push_back(message);
     }
     return 0;
 }
-static void IgnoreSampleRegistration(napi_module *) {}
-namespace std { namespace this_thread {
-static void SampleSleepFor(std::chrono::milliseconds duration)
+
+static void IgnoreSampleRegistration(napi_module *)
 {
-    Record("wait", ":" + std::to_string(duration.count()));
-    observation.waitMs += static_cast<int>(duration.count());
 }
-}}
-#define OH_LOG_Print SampleLog
-#define napi_module_register IgnoreSampleRegistration
-#define sleep_for SampleSleepFor
-#define RegisterEntryModule IgnoredProductionRegistration
+
+inline constexpr auto OH_LOG_Print = [](auto... arguments) {
+    return SampleLog(arguments...);
+};
+inline constexpr auto napi_module_register = IgnoreSampleRegistration;
+
+// Keep the sample constructor local to the test library. Its registration is ignored above.
+#pragma GCC visibility push(hidden)
 #include "../../main/cpp/oh_sensor_capi.cpp"
-#undef RegisterEntryModule
-#undef sleep_for
-#undef napi_module_register
-#undef OH_LOG_Print
+#pragma GCC visibility pop
+} // namespace SensorSampleUnderTest
 
 static int ReadInfo(Sensor_Info *sensor, const std::string &operation)
 {
     int index = *reinterpret_cast<int *>(sensor);
-    if (index < 0 || index >= scenario.count) {
-        observation.violations++;
+    if (index < 0 || index >= g_scenario.count) {
+        g_observation.violations++;
     }
-    return Record(operation, ":" + std::to_string(index)) ? scenario.errorCode : 0;
+    return Record(operation, ":" + std::to_string(index)) ? g_scenario.errorCode : 0;
 }
 Sensor_Result Mock_OH_Sensor_GetInfos(Sensor_Info **infos, uint32_t *count)
 {
     bool failed = Record(infos == nullptr ? "count" : "infos");
-    if (failed) return static_cast<Sensor_Result>(scenario.errorCode);
-    if (infos != nullptr && (*count != static_cast<uint32_t>(scenario.count) || infos != allocatedInfos)) {
-        observation.violations++;
+    if (failed) {
+        return static_cast<Sensor_Result>(g_scenario.errorCode);
     }
-    *count = static_cast<uint32_t>(scenario.count);
+    if (infos != nullptr && (*count != static_cast<uint32_t>(g_scenario.count) || infos != g_allocatedInfos)) {
+        g_observation.violations++;
+    }
+    *count = static_cast<uint32_t>(g_scenario.count);
     return SENSOR_SUCCESS;
 }
 Sensor_Info **Mock_OH_Sensor_CreateInfos(uint32_t count)
 {
-    if (Record("createInfos", ":" + std::to_string(count))) return nullptr;
-    sensorIndexes.resize(count);
-    allocatedInfos = new Sensor_Info *[std::max(1u, count)];
-    observation.resources[allocatedInfos] = "infos";
-    for (uint32_t index = 0; index < count; index++) {
-        sensorIndexes[index] = static_cast<int>(index);
-        allocatedInfos[index] = reinterpret_cast<Sensor_Info *>(&sensorIndexes[index]);
+    if (Record("createInfos", ":" + std::to_string(count))) {
+        return nullptr;
     }
-    return allocatedInfos;
+    g_sensorIndexes.resize(count);
+    g_allocatedInfos = new Sensor_Info *[std::max(1u, count)];
+    g_observation.resources[g_allocatedInfos] = "infos";
+    for (uint32_t index = 0; index < count; index++) {
+        g_sensorIndexes[index] = static_cast<int>(index);
+        g_allocatedInfos[index] = reinterpret_cast<Sensor_Info *>(&g_sensorIndexes[index]);
+    }
+    return g_allocatedInfos;
 }
 int32_t Mock_OH_Sensor_DestroyInfos(Sensor_Info **infos, uint32_t count)
 {
     Record("destroyInfos", ":" + std::to_string(count));
-    if (infos != allocatedInfos || count != static_cast<uint32_t>(scenario.count)) observation.violations++;
-    observation.resources.erase(infos);
+    if (infos != g_allocatedInfos || count != static_cast<uint32_t>(g_scenario.count)) {
+        g_observation.violations++;
+    }
+    g_observation.resources.erase(infos);
     delete[] infos;
-    allocatedInfos = nullptr;
+    g_allocatedInfos = nullptr;
     return 0;
 }
 static int ReadName(Sensor_Info *sensor, char *value, uint32_t *length, const std::string &operation)
 {
     int status = ReadInfo(sensor, operation);
-    if (*length != 64) observation.violations++;
-    if (status != 0) return status;
-    std::string text(static_cast<size_t>(1 + scenario.seed % 63), operation == "name" ? 'S' : 'V');
-    if (*length < text.size() + 1) { observation.violations++; return 401; }
-    std::memcpy(value, text.c_str(), text.size() + 1);
+    if (*length != NAME_CAPACITY) {
+        g_observation.violations++;
+    }
+    if (status != 0) {
+        return status;
+    }
+    std::string text(static_cast<size_t>(1 + g_scenario.seed % (NAME_CAPACITY - 1)), operation == "name" ? 'S' : 'V');
+    if (*length < text.size() + 1) {
+        g_observation.violations++;
+        return DEFAULT_ERROR_CODE;
+    }
+    std::copy(text.begin(), text.end(), value);
+    value[text.size()] = '\0';
     *length = static_cast<uint32_t>(text.size() + 1);
     return 0;
 }
@@ -199,73 +267,94 @@ int32_t Mock_OH_SensorInfo_GetVendorName(Sensor_Info *sensor, char *value, uint3
 int32_t Mock_OH_SensorInfo_GetType(Sensor_Info *sensor, Sensor_Type *value)
 {
     int status = ReadInfo(sensor, "infoType");
-    if (status == 0) *value = static_cast<Sensor_Type>(scenario.type);
+    if (status == 0) {
+        *value = static_cast<Sensor_Type>(g_scenario.type);
+    }
     return status;
 }
 int32_t Mock_OH_SensorInfo_GetResolution(Sensor_Info *sensor, float *value)
 {
     int status = ReadInfo(sensor, "resolution");
-    if (status == 0) *value = static_cast<float>(scenario.seed + 1) / 1024.0f;
+    if (status == 0) {
+        *value = static_cast<float>(g_scenario.seed + 1) / RESOLUTION_SCALE;
+    }
     return status;
 }
 int32_t Mock_OH_SensorInfo_GetMinSamplingInterval(Sensor_Info *sensor, int64_t *value)
 {
     int status = ReadInfo(sensor, "minimum");
-    if (status == 0) *value = static_cast<int64_t>(scenario.seed + 1) * 1000;
+    if (status == 0) {
+        *value = static_cast<int64_t>(g_scenario.seed + 1) * MIN_INTERVAL_STEP;
+    }
     return status;
 }
 int32_t Mock_OH_SensorInfo_GetMaxSamplingInterval(Sensor_Info *sensor, int64_t *value)
 {
     int status = ReadInfo(sensor, "maximum");
-    if (status == 0) *value = static_cast<int64_t>(scenario.seed + 1) * 1000000000;
+    if (status == 0) {
+        *value = static_cast<int64_t>(g_scenario.seed + 1) * NANOSECONDS_PER_SECOND;
+    }
     return status;
 }
 Sensor_Subscriber *Mock_OH_Sensor_CreateSubscriber(void)
 {
-    if (Record("createSubscriber")) return nullptr;
+    if (Record("createSubscriber")) {
+        return nullptr;
+    }
     return reinterpret_cast<Sensor_Subscriber *>(Allocate("subscriber"));
 }
 int32_t Mock_OH_SensorSubscriber_SetCallback(Sensor_Subscriber *subscriber, const Sensor_EventCallback callback)
 {
     CheckResource(subscriber, "subscriber");
-    if (Record("setCallback")) return scenario.errorCode;
-    if (callback == nullptr) observation.violations++;
-    observation.callback = callback;
+    if (Record("setCallback")) {
+        return g_scenario.errorCode;
+    }
+    if (callback == nullptr) {
+        g_observation.violations++;
+    }
+    g_observation.callback = callback;
     return 0;
 }
 Sensor_SubscriptionId *Mock_OH_Sensor_CreateSubscriptionId(void)
 {
-    if (Record("createId")) return nullptr;
+    if (Record("createId")) {
+        return nullptr;
+    }
     return reinterpret_cast<Sensor_SubscriptionId *>(Allocate("id"));
 }
 int32_t Mock_OH_SensorSubscriptionId_SetType(Sensor_SubscriptionId *id, const Sensor_Type type)
 {
     CheckResource(id, "id");
-    observation.configuredType = static_cast<int>(type);
-    return Record("setType", ":" + std::to_string(type)) ? scenario.errorCode : 0;
+    g_observation.configuredType = static_cast<int>(type);
+    return Record("setType", ":" + std::to_string(type)) ? g_scenario.errorCode : 0;
 }
 Sensor_SubscriptionAttribute *Mock_OH_Sensor_CreateSubscriptionAttribute(void)
 {
-    if (Record("createAttribute")) return nullptr;
+    if (Record("createAttribute")) {
+        return nullptr;
+    }
     return reinterpret_cast<Sensor_SubscriptionAttribute *>(Allocate("attribute"));
 }
-int32_t Mock_OH_SensorSubscriptionAttribute_SetSamplingInterval(Sensor_SubscriptionAttribute *attribute, const int64_t interval)
+int32_t Mock_OH_SensorSubscriptionAttribute_SetSamplingInterval(Sensor_SubscriptionAttribute *attribute,
+                                                                const int64_t interval)
 {
     CheckResource(attribute, "attribute");
-    observation.configuredInterval = interval;
-    return Record("setInterval", ":" + std::to_string(interval)) ? scenario.errorCode : 0;
+    g_observation.configuredInterval = interval;
+    return Record("setInterval", ":" + std::to_string(interval)) ? g_scenario.errorCode : 0;
 }
-Sensor_Result Mock_OH_Sensor_Subscribe(const Sensor_SubscriptionId *id,
-    const Sensor_SubscriptionAttribute *attribute, const Sensor_Subscriber *subscriber)
+Sensor_Result Mock_OH_Sensor_Subscribe(const Sensor_SubscriptionId *id, const Sensor_SubscriptionAttribute *attribute,
+                                       const Sensor_Subscriber *subscriber)
 {
     CheckResource(id, "id");
     CheckResource(attribute, "attribute");
     CheckResource(subscriber, "subscriber");
-    if (Record("subscribe")) return static_cast<Sensor_Result>(scenario.errorCode);
-    observation.active++;
-    if (observation.callback != nullptr) {
-        observation.callbacks++;
-        observation.callback(scenario.nullEvent ? nullptr : reinterpret_cast<Sensor_Event *>(&fakeEvent));
+    if (Record("subscribe")) {
+        return static_cast<Sensor_Result>(g_scenario.errorCode);
+    }
+    g_observation.active++;
+    if (g_observation.callback != nullptr) {
+        g_observation.callbacks++;
+        g_observation.callback(g_scenario.nullEvent ? nullptr : reinterpret_cast<Sensor_Event *>(&g_fakeEvent));
     }
     return SENSOR_SUCCESS;
 }
@@ -273,8 +362,10 @@ Sensor_Result Mock_OH_Sensor_Unsubscribe(const Sensor_SubscriptionId *id, const 
 {
     CheckResource(id, "id");
     CheckResource(subscriber, "subscriber");
-    if (Record("unsubscribe")) return static_cast<Sensor_Result>(scenario.errorCode);
-    observation.active--;
+    if (Record("unsubscribe")) {
+        return static_cast<Sensor_Result>(g_scenario.errorCode);
+    }
+    g_observation.active--;
     return SENSOR_SUCCESS;
 }
 int32_t Mock_OH_Sensor_DestroySubscriptionAttribute(Sensor_SubscriptionAttribute *attribute)
@@ -297,38 +388,56 @@ int32_t Mock_OH_Sensor_DestroySubscriber(Sensor_Subscriber *subscriber)
 }
 int32_t Mock_OH_SensorEvent_GetTimestamp(Sensor_Event *event, int64_t *value)
 {
-    if (event == nullptr) observation.violations++;
-    if (Record("timestamp")) return scenario.errorCode;
-    *value = static_cast<int64_t>(scenario.seed) * 1000000000;
+    if (event == nullptr) {
+        g_observation.violations++;
+    }
+    if (Record("timestamp")) {
+        return g_scenario.errorCode;
+    }
+    *value = static_cast<int64_t>(g_scenario.seed) * NANOSECONDS_PER_SECOND;
     return 0;
 }
 int32_t Mock_OH_SensorEvent_GetType(Sensor_Event *event, Sensor_Type *value)
 {
-    if (event == nullptr) observation.violations++;
-    if (Record("eventType")) return scenario.errorCode;
-    *value = static_cast<Sensor_Type>(scenario.type);
+    if (event == nullptr) {
+        g_observation.violations++;
+    }
+    if (Record("eventType")) {
+        return g_scenario.errorCode;
+    }
+    *value = static_cast<Sensor_Type>(g_scenario.type);
     return 0;
 }
 int32_t Mock_OH_SensorEvent_GetAccuracy(Sensor_Event *event, Sensor_Accuracy *value)
 {
-    if (event == nullptr) observation.violations++;
-    if (Record("accuracy")) return scenario.errorCode;
-    *value = static_cast<Sensor_Accuracy>(scenario.accuracy);
+    if (event == nullptr) {
+        g_observation.violations++;
+    }
+    if (Record("accuracy")) {
+        return g_scenario.errorCode;
+    }
+    *value = static_cast<Sensor_Accuracy>(g_scenario.accuracy);
     return 0;
 }
 int32_t Mock_OH_SensorEvent_GetData(Sensor_Event *event, float **value, uint32_t *length)
 {
-    if (event == nullptr) observation.violations++;
-    if (Record("data")) return scenario.errorCode;
-    *value = scenario.nullData ? nullptr : eventData.data();
-    *length = static_cast<uint32_t>(scenario.length);
+    if (event == nullptr) {
+        g_observation.violations++;
+    }
+    if (Record("data")) {
+        return g_scenario.errorCode;
+    }
+    *value = g_scenario.nullData ? nullptr : g_eventData.data();
+    *length = static_cast<uint32_t>(g_scenario.length);
     return 0;
 }
 static std::string Join(const std::vector<std::string> &parts)
 {
     std::string result;
     for (const std::string &part : parts) {
-        if (!result.empty()) result += "|";
+        if (!result.empty()) {
+            result += "|";
+        }
         result += part;
     }
     return result;
@@ -337,63 +446,85 @@ static std::string Quote(const std::string &text)
 {
     std::string result = "\"";
     for (char ch : text) {
-        if (ch == '\\' || ch == '"') result += '\\';
+        if (ch == '\\' || ch == '"') {
+            result += '\\';
+        }
         result += ch;
     }
     return result + "\"";
 }
 static std::string RunScenario(const std::string &input)
 {
-    std::lock_guard<std::mutex> guard(scenarioMutex);
-    scenario = Scenario();
-    observation = Observation();
+    std::lock_guard<std::mutex> guard(g_scenarioMutex);
+    g_scenario = Scenario();
+    g_observation = Observation();
     std::istringstream stream(input);
-    stream >> scenario.mode >> scenario.count >> scenario.fault >> scenario.failAt >> scenario.errorCode
-        >> scenario.length >> scenario.accuracy >> scenario.type >> scenario.seed >> scenario.nullEvent >> scenario.nullData;
+    stream >> g_scenario.mode >> g_scenario.count >> g_scenario.fault >> g_scenario.failAt >> g_scenario.errorCode >>
+        g_scenario.length >> g_scenario.accuracy >> g_scenario.type >> g_scenario.seed >> g_scenario.nullEvent >>
+        g_scenario.nullData;
     std::string trailing;
-    if (!stream || (stream >> trailing) || scenario.count < 0 || scenario.count > 128 ||
-        scenario.length < 0 || scenario.length > 64 || scenario.seed < 0 || scenario.seed > 1000000 ||
-        (scenario.mode != "info" && scenario.mode != "subscription" && scenario.mode != "callback")) {
+    if (!stream || (stream >> trailing) || g_scenario.count < 0 || g_scenario.count > MAX_SENSOR_COUNT ||
+        g_scenario.length < 0 || g_scenario.length > MAX_DATA_LENGTH || g_scenario.seed < 0 ||
+        g_scenario.seed > MAX_SEED ||
+        (g_scenario.mode != "info" && g_scenario.mode != "subscription" && g_scenario.mode != "callback")) {
         return "{\"inputError\":true}";
     }
-    eventData.resize(std::max(1, scenario.length));
-    for (int i = 0; i < scenario.length; i++) eventData[i] = static_cast<float>(scenario.seed - i) / 4.0f;
-    if (scenario.mode == "info") GetSensorInfos(nullptr, nullptr);
-    if (scenario.mode == "subscription") Subscriber(nullptr, nullptr);
-    if (scenario.mode == "callback") {
-        observation.callbacks++;
-        SensorDataCallbackImpl(scenario.nullEvent ? nullptr : reinterpret_cast<Sensor_Event *>(&fakeEvent));
+    g_eventData.resize(std::max(1, g_scenario.length));
+    for (int i = 0; i < g_scenario.length; i++) {
+        g_eventData[i] = static_cast<float>(g_scenario.seed - i) / EVENT_DATA_SCALE;
+    }
+    if (g_scenario.mode == "info") {
+        SensorSampleUnderTest::GetSensorInfos(nullptr, nullptr);
+    }
+    if (g_scenario.mode == "subscription") {
+        SensorSampleUnderTest::Subscriber(nullptr, nullptr);
+    }
+    if (g_scenario.mode == "callback") {
+        g_observation.callbacks++;
+        SensorSampleUnderTest::SensorDataCallbackImpl(
+            g_scenario.nullEvent ? nullptr : reinterpret_cast<Sensor_Event *>(&g_fakeEvent));
     }
     std::ostringstream result;
-    result << "{\"trace\":" << Quote(Join(observation.trace))
-        << ",\"errors\":" << Quote(Join(observation.errors))
-        << ",\"messages\":" << Quote(Join(observation.messages))
-        << ",\"liveResources\":" << observation.resources.size()
-        << ",\"activeSubscriptions\":" << observation.active
-        << ",\"violations\":" << observation.violations
-        << ",\"waitMs\":" << observation.waitMs
-        << ",\"configuredType\":" << observation.configuredType
-        << ",\"configuredInterval\":" << observation.configuredInterval
-        << ",\"callbacks\":" << observation.callbacks << "}";
-    for (auto &resource : observation.resources) {
-        if (resource.second == "infos") delete[] reinterpret_cast<Sensor_Info **>(resource.first);
-        else delete static_cast<int *>(resource.first);
+    result << "{\"trace\":" << Quote(Join(g_observation.trace));
+    result << ",\"errors\":" << Quote(Join(g_observation.errors));
+    result << ",\"messages\":" << Quote(Join(g_observation.messages));
+    result << ",\"liveResources\":" << g_observation.resources.size();
+    result << ",\"activeSubscriptions\":" << g_observation.active;
+    result << ",\"violations\":" << g_observation.violations;
+    result << ",\"waitMs\":" << g_observation.waitMs;
+    result << ",\"configuredType\":" << g_observation.configuredType;
+    result << ",\"configuredInterval\":" << g_observation.configuredInterval;
+    result << ",\"callbacks\":" << g_observation.callbacks << "}";
+    for (auto &resource : g_observation.resources) {
+        if (resource.second == "infos") {
+            delete[] reinterpret_cast<Sensor_Info **>(resource.first);
+        } else {
+            delete static_cast<int *>(resource.first);
+        }
     }
-    allocatedInfos = nullptr;
+    g_allocatedInfos = nullptr;
     return result.str();
 }
 #ifdef SENSOR_STANDALONE
 int main(int argc, char **argv)
 {
-    if (argc != 2) return 2;
+    if (argc != STANDALONE_ARG_COUNT) {
+        return EXIT_ARGUMENT_ERROR;
+    }
     std::ifstream inputs(argv[1]);
-    if (!inputs) return 3;
+    if (!inputs) {
+        return EXIT_OPEN_ERROR;
+    }
     std::string line;
     while (std::getline(inputs, line)) {
-        if (!line.empty() && line.back() == '\r') line.pop_back();
-        if (!line.empty()) std::cout << RunScenario(line) << std::endl;
+        if (!line.empty() && line.back() == '\r') {
+            line.pop_back();
+        }
+        if (!line.empty()) {
+            std::cout << RunScenario(line) << std::endl;
+        }
     }
-    return inputs.bad() ? 4 : 0;
+    return inputs.bad() ? EXIT_READ_ERROR : 0;
 }
 #else
 static napi_value RunBridge(napi_env env, napi_callback_info info)
@@ -405,28 +536,38 @@ static napi_value RunBridge(napi_env env, napi_callback_info info)
         return nullptr;
     }
     size_t length = 0;
-    if (napi_get_value_string_utf8(env, argument, nullptr, 0, &length) != napi_ok || length > 1024) {
+    if (napi_get_value_string_utf8(env, argument, nullptr, 0, &length) != napi_ok || length > MAX_SCENARIO_LENGTH) {
         napi_throw_type_error(env, nullptr, "A bounded scenario string is required");
         return nullptr;
     }
     std::vector<char> input(length + 1);
-    napi_get_value_string_utf8(env, argument, input.data(), input.size(), &length);
+    if (napi_get_value_string_utf8(env, argument, input.data(), input.size(), &length) != napi_ok) {
+        napi_throw_type_error(env, nullptr, "Cannot read scenario string");
+        return nullptr;
+    }
     std::string result = RunScenario(std::string(input.data(), length));
     napi_value output;
-    napi_create_string_utf8(env, result.c_str(), result.size(), &output);
+    if (napi_create_string_utf8(env, result.c_str(), result.size(), &output) != napi_ok) {
+        napi_throw_error(env, nullptr, "Cannot create scenario result");
+        return nullptr;
+    }
     return output;
 }
 EXTERN_C_START
 static napi_value TestInit(napi_env env, napi_value exports)
 {
-    napi_property_descriptor method = {"runScenario", nullptr, RunBridge, nullptr, nullptr, nullptr, napi_default, nullptr};
-    napi_define_properties(env, exports, 1, &method);
+    napi_property_descriptor method = {"runScenario", nullptr, RunBridge,    nullptr,
+                                       nullptr,       nullptr, napi_default, nullptr};
+    if (napi_define_properties(env, exports, 1, &method) != napi_ok) {
+        napi_throw_error(env, nullptr, "Cannot define scenario method");
+        return nullptr;
+    }
     return exports;
 }
 EXTERN_C_END
-static napi_module testModule = {1, 0, nullptr, TestInit, "sensor_test", nullptr, {0}};
+static napi_module g_testModule = {1, 0, nullptr, TestInit, "sensor_test", nullptr, {0}};
 extern "C" __attribute__((constructor)) void RegisterSensorTest(void)
 {
-    napi_module_register(&testModule);
+    napi_module_register(&g_testModule);
 }
 #endif

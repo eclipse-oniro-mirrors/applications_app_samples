@@ -231,7 +231,6 @@ export async function launchSensorApp(): Promise<void> {
   };
   await delegator.startAbility(want);
   await waitForSensorPageStable(driver);
-  /* Empty Text nodes are absent from the accessibility tree until the first operation. */
   if (!(await componentExists(driver, SENSOR_RESULT))) {
     await invokeSensorOperation(driver, new ScenarioStepModel(SENSOR_INFO_BUTTON, 'getSensorInfos:success'));
   }

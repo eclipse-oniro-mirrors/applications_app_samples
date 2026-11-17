@@ -178,10 +178,15 @@
 - Compass Pipeline 和 Compass Behavior 用例使用内存测试替身，可覆盖异常、边界和异步回放场景。
 - 测试结果列统一使用“待执行”，执行完成后根据实际设备报告更新为 `Pass` 或 `Fail`。
 
-## 建议执行命令
+## 建议执行方式
 
-```text
-hdc shell aa test -b com.example.sensor -m entry_test -s unittest /ets/TestRunner/OpenHarmonyTestRunner -s class NativeSensor,CompassBehavior,CompassPipelinePart01,CompassPipelinePart02,CompassPipelinePart03,CompassPipelinePart04,CompassPipelinePart05,CompassPipelinePart06,CompassPipelinePart07,CompassPipelinePart08,CompassPipelinePart09,CompassPipelinePart10,CompassPipelinePart11,CompassPipelinePart12,CompassPipelinePart13,CompassPipelinePart14,CompassPipelinePart15,CompassPipelinePart16,CompassPipelinePart17,CompassPipelinePart18,CompassPipelinePart19,CompassPipelinePart20,CompassPipelinePart21,CompassPipelinePart22,CompassPipelinePart23,CompassPipelinePart24,CompassPipelinePart25,CompassPipelinePart26,CompassPipelinePart27,CompassPipelinePart28,CompassPipelinePart29,CompassPipelinePart30,CompassPipelinePart31,CompassPipelinePart32,CompassPipelinePart33,CompassPipelinePart34,CompassPipelinePart35,CompassPipelinePart36,CompassPipelinePart37,CompassPipelinePart38,CompassPipelinePart39,CompassPipelinePart40,CompassPipelinePart41,CompassPipelinePart42,CompassPipelinePart43,CompassPipelinePart44,CompassPipelinePart45,CompassPipelinePart46,CompassPipelinePart47,CompassPipelinePart48,CompassPipelinePart49,CompassPipelinePart50,CompassPipelinePart51,CompassPipelinePart52,CompassPipelinePart53,CompassPipelinePart54,CompassPipelinePart55,CompassPipelinePart56,CompassPipelinePart57,CompassPipelinePart58,CompassPipelinePart59,CompassPipelinePart60,CompassPipelinePart61,CompassPipelinePart62,CompassPipelinePart63,CompassPipelinePart64,CompassPipelinePart65,CompassPipelinePart66,CompassPipelinePart67,CompassPipelinePart68,CompassPipelinePart69,CompassPipelinePart70,CompassPipelinePart71,CompassPipelinePart72,CompassPipelinePart73,CompassPipelinePart74,CompassPipelinePart75,CompassPipelinePart76,CompassPipelinePart77,CompassPipelinePart78,SensorAbility -s timeout 15000 -s coverage true
-```
+在 DevEco Studio 中连接目标设备，选择 entry 的测试运行配置，执行
+`entry/src/ohosTest/ets/test/List.test.ets` 中注册的全部套件。测试包安装并启动后，
+确认报告包含 `NativeSensor`、`CompassBehavior`、`CompassPipelinePart01` 至
+`CompassPipelinePart78` 和 `SensorAbility`。
+
+运行配置使用包名 `com.example.sensor`、测试模块 `entry_test`，
+测试运行器为 `/ets/TestRunner/OpenHarmonyTestRunner`。单次用例超时设为 15000 毫秒，
+启用覆盖率采集。UI 套件运行期间保持设备可交互。
 
 覆盖率报告以 DevEco Studio 或测试执行工具生成的 `index.html` 为准。
