@@ -13,10 +13,6 @@
 
 ## 执行方式
 
-在 DevEco Studio 中运行 [PageText.test.ets](entry/src/ohosTest/ets/test/PageText.test.ets)，或在安装应用与测试 HAP 后执行：
-
-```shell
-hdc shell aa test -b com.samples.uiagentpagetext -m entry_test -s unittest OpenHarmonyTestRunner -s timeout 60000 -w 60
-```
+在 DevEco Studio 中运行 [PageText.test.ets](entry/src/ohosTest/ets/test/PageText.test.ets)。
 
 自动化测试结果：4 项通过，0 项失败，0 项错误。
