@@ -13,6 +13,20 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/entryability/FuncAbility.ets
+ * 文件职责：FuncAbility 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：FuncAbility。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
+ * @file entry/src/main/ets/entryability/FuncAbility.ets
+ * 文件职责：FuncAbility 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：FuncAbility。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import Want from '@ohos.app.ability.Want';
@@ -21,9 +35,15 @@ import Logger from '../utils/Logger';
 
 const TAG = '[dlpmanager_FuncAbility]';
 
+/**
+ * FuncAbility：类定义，承载本文件对应的逻辑与数据。
+ */
 export default class FuncAbility extends UIAbility {
   private storage: LocalStorage = new LocalStorage();
 
+  /**
+   * onCreate：Ability 创建时回调。
+   */
   onCreate( want: Want , launchParam: AbilityConstant.LaunchParam ) {
     // 接收调用方UIAbility传过来的参数
     Logger.info( TAG , '%{public}s' , 'Ability onCreate' );
@@ -35,6 +55,9 @@ export default class FuncAbility extends UIAbility {
     this.getWantInfo( want );
   }
 
+  /**
+   * onWindowStageCreate：窗口舞台创建时回调。
+   */
   onWindowStageCreate( windowStage: window.WindowStage ): void {
     Logger.info( TAG , 'testTag' , '%{public}s' , 'Ability onWindowStageCreate' );
     windowStage.loadContent( 'media/dlpPage' , this.storage , ( err , data ) => {
@@ -50,11 +73,17 @@ export default class FuncAbility extends UIAbility {
     Logger.info( TAG , 'context type:' + typeof ( this.context ) );
   }
 
+  /**
+   * onWindowStageDestroy：窗口舞台销毁时回调。
+   */
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
     Logger.info( TAG , 'testTag' , '%{public}s' , 'Ability onWindowStageDestroy' );
   }
 
+  /**
+   * getWantInfo：执行 getWantInfo 相关逻辑。
+   */
   getWantInfo( want: Want ): void {
     if ( want === null || want === undefined ) {
       Logger.info( TAG , 'getWantInfo want is null' );

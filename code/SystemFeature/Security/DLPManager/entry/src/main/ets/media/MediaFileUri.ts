@@ -46,14 +46,15 @@ export default class MediaFileUri {
     try {
       let result = fs.writeSync(fd, content);
       Logger.info(TAG, 'myWriteSync: write result = ' + result);
+      if (isClose) {
+        this.closeSync(fd);
+        this.commonFd = COMMON_FD;
+      } else {
+        this.commonFd = fd;
+      }
     } catch (err) {
       Logger.error(TAG, 'myWriteSync： write failed with error:' + err);
-    }
-    if (isClose) {
-      this.closeSync(fd);
       this.commonFd = COMMON_FD;
-    } else {
-      this.commonFd = fd;
     }
   }
 
@@ -179,5 +180,8 @@ export function bufferToString(buffer: ArrayBuffer): string {
   let resultPut = textDecoder.decodeWithStream(new Uint8Array(buffer), {
     stream: true
   });
+  if (resultPut === undefined || resultPut === null) {
+    return '';
+  }
   return resultPut;
 }

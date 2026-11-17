@@ -13,6 +13,20 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/media/filePage.ets
+ * 文件职责：filePage 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：myParams、FilePage。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
+ * @file entry/src/main/ets/media/filePage.ets
+ * 文件职责：filePage 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：myParams、FilePage。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import common from '@ohos.app.ability.common';
 import Want from '@ohos.app.ability.Want';
 import MediaFileUri from './MediaFileUri';
@@ -25,48 +39,105 @@ import picker from '@ohos.file.picker';
 import wantConstant from '@ohos.app.ability.wantConstant';
 import uriPermissionManager from '@ohos.application.uriPermissionManager';
 
+// const 语句
 const TAG = '[dlpmanager_filePage]';
+// const 语句
 const OPACITY_VALUE = 0.6; // 透明度
 
+/**
+ * myParams：接口定义，承载本文件对应的逻辑与数据。
+ */
 interface myParams extends Object {
+  // 字段 fileName：声明并维护该成员的状态
   fileName: string,
+  // 字段 myPath：声明并维护该成员的状态
   myPath: string,
+  // 字段 fd：声明并维护该成员的状态
   fd: number,
+  // 字段 myUri：声明并维护该成员的状态
   myUri: string,
+  // 字段 isDlpFile：声明并维护该成员的状态
   isDlpFile: boolean,
+  // 字段 fileSuffix：声明并维护该成员的状态
   fileSuffix: string,
 }
 
+// let 语句
 let storage = LocalStorage.getShared();
 
+/**
+ * FilePage：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry(storage)
 @Component
 struct FilePage {
+  // @State inSandbox：组件内部状态
   @State inSandbox: boolean = false;
+
+  // @State opacityValue：组件内部状态
   @State opacityValue: number = OPACITY_VALUE;
+
+  // @State myFileName：组件内部状态
   @State myFileName: string = '';
+
+  // @State myUri：组件内部状态
   @State myUri: string = '';
+
+  // @State fd：组件内部状态
   @State fd: number = 0;
+
+  // @State myPath：组件内部状态
   @State myPath: string = '';
+
+  // @State isDLPFile：组件内部状态
   @State isDLPFile: boolean = false;
+
+  // @State fileSuffix：组件内部状态
   @State fileSuffix: string = '';
+
+  // @State fileSuffixIncludes：组件内部状态
   @State fileSuffixIncludes: boolean = false;
+
+  // @StorageLink editable：与 AppStorage 双向绑定
   @StorageLink('editable') editable: Boolean = false;
+
+  // @StorageLink myFileContent：与 AppStorage 双向绑定
   @StorageLink('myFileContent') myFileContent: string = '';
+
+  // 字段 controller：声明并维护该成员的状态
   controller: TextAreaController = new TextAreaController();
+
+  // 字段 newFileContent：声明并维护该成员的状态
   newFileContent: string = '';
+
+  // @State uriSave：组件内部状态
   @State uriSave: string = '';
+
+  // 字段 mediaFileUri：声明并维护该成员的状态
   mediaFileUri: MediaFileUri = new MediaFileUri();
+
+  // 字段 scroller：声明并维护该成员的状态
   scroller: Scroller = new Scroller();
 
+  /**
+   * getFileInfo：执行 getFileInfo 相关逻辑。
+   */
   getFileInfo(): void {
+    // 更新 myFileName
     this.myFileName = decodeURIComponent((router.getParams() as myParams).fileName);
+    // 更新 myPath
     this.myPath = (router.getParams() as myParams).myPath;
+    // 更新 myUri
     this.myUri = (router.getParams() as myParams).myUri;
+    // 更新 fd
     this.fd = (router.getParams() as myParams).fd;
+    // 更新 isDLPFile
     this.isDLPFile = (router.getParams() as myParams).isDlpFile;
+    // 更新 fileSuffix
     this.fileSuffix = (router.getParams() as myParams).fileSuffix;
+    // 更新 myFileContent
     this.myFileContent = this.mediaFileUri.readFileContent(this.myUri);
+    // 更新 isDlpFileFunc
     this.isDlpFileFunc(this.fd, this.fileSuffix);
     Logger.info(TAG, 'The count of getFileInfo is myUri is: ' + JSON.stringify(this.myUri));
     Logger.info(TAG, 'The count of getFileInfo is myFileName is: ' + JSON.stringify(this.myFileName));
@@ -78,7 +149,9 @@ struct FilePage {
    * 是否为沙箱应用
    */
   async isSandboxFunc(): Promise<void> {
+    // try 语句
     try {
+      // 更新 inSandbox
       this.inSandbox = await dlpPermission.isInSandbox();
       Logger.info(TAG, 'inSandbox:' + this.inSandbox);
       promptAction.showToast({ message: 'isSandbox:' + this.inSandbox, duration: 2000 });
@@ -91,7 +164,9 @@ struct FilePage {
    * 获取dlp文件的uri和访问时间
    */
   async getDLPFile(): Promise<void> {
+    // try 语句
     try {
+      // let 语句
       let info: Array<dlpPermission.AccessedDLPFileInfo> = await dlpPermission.getDLPFileAccessRecords();
       promptAction.showToast({ message: 'getDLPFile:' + decodeURIComponent(JSON.stringify(info)), duration: 2000 });
       Logger.info(TAG, 'getDLPFile:', JSON.stringify(info));
@@ -104,7 +179,9 @@ struct FilePage {
    * 获取沙箱保留信息
    */
   async getSandboxList(): Promise<void> {
+    // try 语句
     try {
+      // let 语句
       let res: Array<dlpPermission.RetentionSandboxInfo> = await dlpPermission.getRetentionSandboxList(); // 获取沙箱保留列表
       Logger.info(TAG, 'res', JSON.stringify(res));
       promptAction.showToast({ message: 'getSandboxList:' + decodeURIComponent(JSON.stringify(res)), duration: 2000 });
@@ -129,16 +206,22 @@ struct FilePage {
    * 是否为dlp文件
    */
   async isDlpFileFunc(fd: number, fileSuffix: string): Promise<boolean> {
+    // try 语句
     try {
+      // 更新 isDLPFile
       this.isDLPFile = await dlpPermission.isDLPFile(fd); // 是否加密DLP文件
       Logger.info(TAG, 'isDlpFile:' + this.isDLPFile);
+      // 更新 inSandbox
       this.inSandbox = await dlpPermission.isInSandbox();
+      // let 语句
       let msg = 'isDlpFile:' + this.isDLPFile + ';inSandbox:' + this.inSandbox;
       promptAction.showToast({ message: decodeURIComponent(msg), duration: 2000 });
+      // 更新 getDLPSupported
       this.getDLPSupported(fileSuffix);
     } catch (err) {
       Logger.error(TAG, 'isDLPFile error:' + (err as BusinessError).code + (err as BusinessError).message);
     }
+    // return 语句
     return this.isDLPFile;
   }
 
@@ -146,13 +229,17 @@ struct FilePage {
    * 查询当前可支持权限设置和校验的文件扩展名类型列表
    */
   async getDLPSupported(fileSuffix: string): Promise<void> {
+    // try 语句
     try {
+      // let 语句
       let res: Array<string> = await dlpPermission.getDLPSupportedFileTypes(); // 获取支持DLP的文件类型
       Logger.info(TAG, 'file extension support permission :' + JSON.stringify(res));
       Logger.info(TAG, 'file extension is:' + fileSuffix);
+      // 更新 fileSuffixIncludes
       this.fileSuffixIncludes = res.includes(fileSuffix);
       Logger.info(TAG, 'the file extension in the list:' + this.fileSuffixIncludes);
       promptAction.showToast({
+        // 字段 message：声明并维护该成员的状态
         message: 'file extension is:' + fileSuffix + ',in the list:' + this.fileSuffixIncludes,
         duration: 2000
       });
@@ -186,6 +273,9 @@ struct FilePage {
     }
   }
 
+  /**
+   * writeContentForSaveAsFile：执行 writeContentForSaveAsFile 相关逻辑。
+   */
   async writeContentForSaveAsFile(myUri: string, wrFlag: Boolean = false): Promise<void> {
     if (wrFlag) {
       Logger.info(TAG, 'fileAsset.displayName wrFlag is true');
@@ -223,16 +313,39 @@ struct FilePage {
     }
   }
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear() {
   }
 
+  /**
+   * onPageShow：页面进入前台时回调。
+   */
   onPageShow(): void {
     this.getFileInfo();
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度
+    // Column：垂直布局容器
+    // 关键属性：宽度、高度
     Column() {
+      // Row：水平布局容器
+      // 关键属性：高度、宽度
+      // Row：水平布局容器
+      // 关键属性：高度、宽度
       Row() {
+        // Image：图片
+        // 关键属性：宽度、高度、外边距、objectFit、点击事件回调、back
+        // 交互：可点击交互
+        // Image：图片
+        // 关键属性：宽度、高度、外边距、objectFit、点击事件回调、back
+        // 交互：可点击交互
         Image($r('app.media.ic_public_back'))
           .width('24vp')
           .height('24vp')
@@ -242,6 +355,10 @@ struct FilePage {
           .onClick(() => {
             router.back();
           })
+        // Text：文本
+        // 关键属性：宽度、高度、字号、字体、字体颜色、文本对齐
+        // Text：文本
+        // 关键属性：宽度、高度、字号、字体、字体颜色、文本对齐
         Text(this.myFileName)
           .width('296vp')
           .height('28vp')
@@ -252,12 +369,22 @@ struct FilePage {
           .lineHeight('28vp')
           .fontWeight(700)
           .margin({ top: '13vp', bottom: '15vp' })
-      }
+          .id('filePageTitle')
+      }.id('file_page_row_2')
       .height('56vp')
       .width('480vp')
 
+      // Scroll：滚动容器
       Scroll(this.scroller) {
+        // Column：垂直布局容器
+        // 关键属性：宽度、高度、外边距
+        // Column：垂直布局容器
+        // 关键属性：宽度、高度、外边距
         Column() {
+          // TextArea：多行输入框
+          // 关键属性：宽度、高度、字号、字体、字体颜色、文本对齐
+          // TextArea：多行输入框
+          // 关键属性：宽度、高度、字号、字体、字体颜色、文本对齐
           TextArea({ text: this.myFileContent, placeholder: 'Input text here...', controller: this.controller })
             .width('372vp')
             .height('100vp')
@@ -288,16 +415,31 @@ struct FilePage {
             })
             .backgroundColor('#FFFFFF')
 
-        }
+        }.id('file_page_column_4')
         .width('380vp')
         .height('64vp')
         .margin({ left: '28vp', right: '72vp', top: '4vp', bottom: '576vp' })
-      }
+      }.id('file_page_scroll_3')
 
-      Blank()
+      // Blank：占位空白
+      Blank().id('file_page_blank_5')
 
+      // Flex：弹性布局容器
+      // 关键属性：align、高度、宽度、背景色
+      // Flex：弹性布局容器
+      // 关键属性：align、高度、宽度、背景色
       Flex({ direction: FlexDirection.Row, justifyContent: FlexAlign.Center }) {
+        // Column：垂直布局容器
+        // 关键属性：宽度、高度
+        // Column：垂直布局容器
+        // 关键属性：宽度、高度
         Column() {
+          // Image：图片
+          // 关键属性：宽度、高度、外边距、点击事件回调
+          // 交互：可点击交互
+          // Image：图片
+          // 关键属性：宽度、高度、外边距、点击事件回调
+          // 交互：可点击交互
           Image($r('app.media.ic_public_edit'))
             .width('24vp')
             .height('24vp')
@@ -311,7 +453,11 @@ struct FilePage {
               promptAction.showToast({ message: $r('app.string.editable'), duration: 2000 });
             })
 
-          Text($r('app.string.edit'))
+          // Text：文本
+          // 关键属性：字号、字体、字体颜色、文本对齐、行高、字重
+          // Text：文本
+          // 关键属性：字号、字体、字体颜色、文本对齐、行高、字重
+          Text($r('app.string.edit')).id('file_page_text_8')
             .fontSize('10vp')
             .fontFamily('HarmonyHeiTi-Medium')
             .fontColor($r('app.color.font_color_182431'))
@@ -321,9 +467,19 @@ struct FilePage {
             .width('136vp')
             .height('14vp')
             .margin({ left: '4vp', right: '4vp', bottom: '7vp' })
-        }.width('144vp').height('56vp')
+        }.id('file_page_column_7').width('144vp').height('56vp')
 
+        // Column：垂直布局容器
+        // 关键属性：宽度、高度
+        // Column：垂直布局容器
+        // 关键属性：宽度、高度
         Column() {
+          // Image：图片
+          // 关键属性：宽度、高度、外边距、点击事件回调、info
+          // 交互：可点击交互
+          // Image：图片
+          // 关键属性：宽度、高度、外边距、点击事件回调、info
+          // 交互：可点击交互
           Image($r('app.media.ic_public_save'))
             .width('24vp')
             .height('24vp')
@@ -337,7 +493,11 @@ struct FilePage {
               AppStorage.setOrCreate('editable', this.editable);
               promptAction.showToast({ message: $r('app.string.saved'), duration: 2000 });
             })
-          Text($r('app.string.save'))
+          // Text：文本
+          // 关键属性：字号、字体、字体颜色、文本对齐、行高、字重
+          // Text：文本
+          // 关键属性：字号、字体、字体颜色、文本对齐、行高、字重
+          Text($r('app.string.save')).id('file_page_text_10')
             .fontSize('10vp')
             .fontFamily('HarmonyHeiTi-Medium')
             .fontColor($r('app.color.font_color_182431'))
@@ -347,16 +507,28 @@ struct FilePage {
             .width('136vp')
             .height('14vp')
             .margin({ left: '4vp', right: '4vp', bottom: '7vp' })
-        }.width('144vp').height('56vp')
+        }.id('file_page_column_9').width('144vp').height('56vp')
 
+        // Column：垂直布局容器
+        // 关键属性：宽度、高度
+        // Column：垂直布局容器
+        // 关键属性：宽度、高度
         Column() {
+          // Image：图片
+          // 关键属性：宽度、高度、外边距、bindMenu
+          // Image：图片
+          // 关键属性：宽度、高度、外边距、bindMenu
           Image($r('app.media.ic_public_more'))
             .width('24vp')
             .height('24vp')
             .margin({ top: '8vp', bottom: '3vp', left: '40vp', right: '40vp' })
             .id('fileMore')
             .bindMenu(this.filePageMenu, { placement: Placement.TopRight, offset: { x: '52vp', y: '12vp' } })
-          Text($r('app.string.more'))
+          // Text：文本
+          // 关键属性：字号、字体、字体颜色、文本对齐、行高、字重
+          // Text：文本
+          // 关键属性：字号、字体、字体颜色、文本对齐、行高、字重
+          Text($r('app.string.more')).id('file_page_text_12')
             .fontSize('10vp')
             .fontFamily('HarmonyHeiTi-Medium')
             .fontColor($r('app.color.font_color_182431'))
@@ -366,19 +538,32 @@ struct FilePage {
             .width('136vp')
             .height('14vp')
             .margin({ left: '4vp', right: '4vp', bottom: '7vp' })
-        }.width('144vp').height('56vp')
-      }
+        }.id('file_page_column_11').width('144vp').height('56vp')
+      }.id('file_page_flex_6')
       .align(Alignment.Bottom)
       .height('56vp')
       .width('100%')
       .backgroundColor($r('app.color.bg_color_F1F3F5'))
-    }.width('100%').height('100%')
+    }.id('file_page_column_1').width('100%').height('100%')
   }
 
+  /**
+   * filePageMenu：执行 filePageMenu 相关逻辑。
+   */
   @Builder
   filePageMenu() {
+    // Menu：菜单
+    // 关键属性：宽度、高度、背景色、圆角
+    // Menu：菜单
+    // 关键属性：宽度、高度、背景色、圆角
     Menu() {
-      MenuItem(this.filePageTextMenu1)
+      // MenuItem：菜单项
+      // 关键属性：宽度、高度、外边距、点击事件回调、callFilePickerSaveFile
+      // 交互：可点击交互
+      // MenuItem：菜单项
+      // 关键属性：宽度、高度、外边距、点击事件回调、callFilePickerSaveFile
+      // 交互：可点击交互
+      MenuItem(this.filePageTextMenu1).id('file_page_menu_item_14')
         .width('124vp')
         .height('48vp')
         .margin({ left: '16vp', right: '16vp' })
@@ -386,9 +571,16 @@ struct FilePage {
           this.callFilePickerSaveFile(this.myFileName);
         })
 
-      MenuItem(this.filePageDivider)
+      // MenuItem：菜单项
+      MenuItem(this.filePageDivider).id('file_page_menu_item_15')
 
-      MenuItem(this.filePageTextMenu2)
+      // MenuItem：菜单项
+      // 关键属性：宽度、高度、外边距、点击事件回调、onEncrypt
+      // 交互：可点击交互
+      // MenuItem：菜单项
+      // 关键属性：宽度、高度、外边距、点击事件回调、onEncrypt
+      // 交互：可点击交互
+      MenuItem(this.filePageTextMenu2).id('file_page_menu_item_16')
         .width('124vp')
         .height('48vp')
         .margin({ left: '16vp', right: '16vp' })
@@ -397,9 +589,16 @@ struct FilePage {
         })
         .enabled(this.fileSuffixIncludes ? true : false)
 
-      MenuItem(this.filePageDivider)
+      // MenuItem：菜单项
+      MenuItem(this.filePageDivider).id('file_page_menu_item_17')
 
-      MenuItem(this.filePageTextMenu3)
+      // MenuItem：菜单项
+      // 关键属性：宽度、高度、外边距、点击事件回调、getDLPFile
+      // 交互：可点击交互
+      // MenuItem：菜单项
+      // 关键属性：宽度、高度、外边距、点击事件回调、getDLPFile
+      // 交互：可点击交互
+      MenuItem(this.filePageTextMenu3).id('file_page_menu_item_18')
         .width('124vp')
         .height('48vp')
         .margin({ left: '16vp', right: '16vp' })
@@ -408,9 +607,16 @@ struct FilePage {
         })
         .enabled(true)
 
-      MenuItem(this.filePageDivider)
+      // MenuItem：菜单项
+      MenuItem(this.filePageDivider).id('file_page_menu_item_19')
 
-      MenuItem(this.filePageTextMenu4)
+      // MenuItem：菜单项
+      // 关键属性：宽度、高度、外边距、点击事件回调、getSandboxList
+      // 交互：可点击交互
+      // MenuItem：菜单项
+      // 关键属性：宽度、高度、外边距、点击事件回调、getSandboxList
+      // 交互：可点击交互
+      MenuItem(this.filePageTextMenu4).id('file_page_menu_item_20')
         .width('124vp')
         .height('48vp')
         .margin({ left: '16vp', right: '16vp' })
@@ -418,14 +624,21 @@ struct FilePage {
           this.getSandboxList();
         })
         .enabled(true)
-    }
+    }.id('file_page_menu_13')
     .width('176vp').height('202vp')
     .backgroundColor('#FFFFFF')
     .borderRadius('16vp')
   }
 
+  /**
+   * filePageTextMenu1：执行 filePageTextMenu1 相关逻辑。
+   */
   @Builder
   filePageTextMenu1() {
+    // Text：文本
+    // 关键属性：宽度、高度、字号、字体、字重、字体颜色
+    // Text：文本
+    // 关键属性：宽度、高度、字号、字体、字重、字体颜色
     Text($r('app.string.save_as'))
       .width('91vp')
       .height('22vp')
@@ -438,8 +651,15 @@ struct FilePage {
       .id('file_save_as')
   }
 
+  /**
+   * filePageTextMenu2：执行 filePageTextMenu2 相关逻辑。
+   */
   @Builder
   filePageTextMenu2() {
+    // Text：文本
+    // 关键属性：宽度、高度、字号、字体、字重、字体颜色
+    // Text：文本
+    // 关键属性：宽度、高度、字号、字体、字重、字体颜色
     Text($r('app.string.set_permissions'))
       .width('122vp')
       .height('21vp')
@@ -452,8 +672,15 @@ struct FilePage {
       .id('file_set_permissions')
   }
 
+  /**
+   * filePageTextMenu3：执行 filePageTextMenu3 相关逻辑。
+   */
   @Builder
   filePageTextMenu3() {
+    // Text：文本
+    // 关键属性：宽度、高度、字号、字体、字重、字体颜色
+    // Text：文本
+    // 关键属性：宽度、高度、字号、字体、字重、字体颜色
     Text($r('app.string.query_AccessList'))
       .width('122vp')
       .height('21vp')
@@ -466,8 +693,15 @@ struct FilePage {
       .id('file_query_AccessList')
   }
 
+  /**
+   * filePageTextMenu4：执行 filePageTextMenu4 相关逻辑。
+   */
   @Builder
   filePageTextMenu4() {
+    // Text：文本
+    // 关键属性：宽度、高度、字号、字体、字重、字体颜色
+    // Text：文本
+    // 关键属性：宽度、高度、字号、字体、字重、字体颜色
     Text($r('app.string.query_retentionList'))
       .width('122vp')
       .height('21vp')
@@ -480,9 +714,16 @@ struct FilePage {
       .id('file_query_retentionList')
   }
 
+  /**
+   * filePageDivider：执行 filePageDivider 相关逻辑。
+   */
   @Builder
   filePageDivider() {
-    Divider()
+    // Divider：分割线
+    // 关键属性：宽度、高度、透明度、背景色、外边距
+    // Divider：分割线
+    // 关键属性：宽度、高度、透明度、背景色、外边距
+    Divider().id('file_page_divider_21')
       .width('124vp')
       .height('0.5vp')
       .opacity(0.05)
