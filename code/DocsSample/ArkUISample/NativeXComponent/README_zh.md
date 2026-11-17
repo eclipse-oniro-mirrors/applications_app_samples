@@ -11,7 +11,7 @@
 
 示例五：使用NDK接口创建XComponent，并使用NativeXComponent相关接口
 
-示例六：使用NDK接口创建XComponent作为第三方框架宿主节点，并注册/注销InspectorTreeGetter回调
+示例六：在Native侧创建XComponent作为第三方框架宿主节点，并注册/注销InspectorTreeGetter回调
 
 ### 工程目录
 
@@ -331,19 +331,19 @@ EGL环境。在Native侧的OnsurfaceChanged回调中，传入OH_ArkUI_SurfaceHol
 
 ### 介绍
 
-本示例展示了第三方框架（如Flutter、CMP）如何通过InspectorTreeGetter回调接口向ArkUI Inspector上报组件树信息。在Native侧使用NDK接口创建XComponent节点模拟第三方框架的渲染宿主节点，通过OH_ArkUI_NativeModule_RegisterInspectorTreeGetter在宿主节点上注册InspectorTreeGetter回调。当Inspector遍历组件树并遇到已注册回调的节点时，会调用该回调获取外部组件子树，并将其合并到完整的Inspector树输出中；通过OH_ArkUI_NativeModule_UnregisterInspectorTreeGetter注销回调后，Inspector遍历该节点时将不再调用该回调。
+本示例展示了第三方框架如何通过InspectorTreeGetter回调接口向ArkUI Inspector上报组件树信息。在Native侧创建XComponent节点模拟第三方框架的渲染宿主节点，通过OH_ArkUI_NativeModule_RegisterInspectorTreeGetter在宿主节点上注册InspectorTreeGetter回调。当Inspector遍历组件树并遇到已注册回调的节点时，会调用该回调获取外部组件子树，并将其合并到完整的Inspector树输出中；通过OH_ArkUI_NativeModule_UnregisterInspectorTreeGetter注销回调后，Inspector遍历该节点时将不再调用该回调。
 
-功能主要包括：点击“Register”按钮注册InspectorTreeGetter回调，点击“Get Inspector Tree”按钮获取组件树，此时组件树中包含模拟的第三方框架组件子树（FlutterView等节点）；点击“Unregister”按钮注销回调后再次获取组件树，组件树中不再包含第三方框架组件子树。
+功能主要包括：点击“Register”按钮注册InspectorTreeGetter回调，点击“Get Inspector Tree”按钮获取组件树，此时组件树中包含模拟的第三方框架组件子树（ExternalView等节点）；点击“Unregister”按钮注销回调后再次获取组件树，组件树中不再包含第三方框架组件子树。
 
 使用说明
 
 1. 安装编译生成的HAP包，并启动应用。
 
-2. 点击“NDK InspectorTreeGetter”页签，进入示例页面，页面灰色区域为Native侧创建的XComponent宿主节点（模拟第三方框架渲染区域）。
+2. 点击“InspectorTreeGetter”页签，进入示例页面，页面灰色区域为Native侧创建的XComponent宿主节点（模拟第三方框架渲染区域）。
 
 3. 点击“Register”按钮，在宿主节点上注册InspectorTreeGetter回调，页面显示“register success”。
 
-4. 点击“Get Inspector Tree”按钮，页面显示“tree contains external framework subtree”，并在下方查看组件树JSON，其中包含回调上报的FlutterView、FlutterColumn、FlutterText、FlutterButton等模拟第三方框架组件节点。
+4. 点击“Get Inspector Tree”按钮，页面显示“tree contains external framework subtree”，并在下方查看组件树JSON，其中包含回调上报的ExternalView、ExternalColumn、ExternalText、ExternalButton等模拟第三方框架组件节点。
 
 5. 点击“Unregister”按钮，注销宿主节点上的InspectorTreeGetter回调，页面显示“unregister success”。
 

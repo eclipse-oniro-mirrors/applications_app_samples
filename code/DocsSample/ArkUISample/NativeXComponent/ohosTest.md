@@ -12,7 +12,7 @@
 | 设置期望帧率 | 位于首页 | 1、点击expected对应滑动条，设置期望帧率为120 | 1、滑动条滑块位于中间位置 | 是 | Pass |
 | 单指点击XComponent软键盘消失 | 位于首页 | 1、点击“单指点击XComponent软键盘消失”对应文本输入框。 2、再次点击XComponent区域（灰色背景部分） | 1、软件盘正常拉起2、软件盘消失 | 是 | Pass |
 | 单指点击XComponent软键盘不消失 | 位于首页 | 1、点击needSoftKeyboard=false按钮。2、点击“单指点击XComponent软键盘消失”对应文本输入框。3、再次点击XComponent区域（灰色背景部分） | 2、软件盘正常拉起3、软件盘不消失 | 是 | Pass |
-| 注册InspectorTreeGetter回调 | 位于首页 | 1、点击“NDK InspectorTreeGetter”页签。2、点击“点击此处进入”。3、点击“Register”按钮。 | 1、进入InspectorTreeGetter示例页面。2、页面显示“register success” | 是 | Pass |
-| 获取组件树（包含第三方框架子树） | 位于InspectorTreeGetter示例页面，且已注册回调 | 1、点击“Get Inspector Tree”按钮。 | 1、页面显示“tree contains external framework subtree”，组件树JSON中包含FlutterView等模拟第三方框架节点 | 是 | Pass |
+| 注册InspectorTreeGetter回调 | 位于首页 | 1、点击“InspectorTreeGetter”页签。2、点击“点击此处进入”。3、点击“Register”按钮。 | 1、进入InspectorTreeGetter示例页面。2、页面显示“register success” | 是 | Pass |
+| 获取组件树（包含第三方框架子树） | 位于InspectorTreeGetter示例页面，且已注册回调 | 1、点击“Get Inspector Tree”按钮。 | 1、页面显示“tree contains external framework subtree”，组件树JSON中包含ExternalView等模拟第三方框架节点 | 是 | Pass |
 | 注销InspectorTreeGetter回调 | 位于InspectorTreeGetter示例页面，且已注册回调 | 1、点击“Unregister”按钮。 | 1、页面显示“unregister success” | 是 | Pass |
 | 获取组件树（不包含第三方框架子树） | 位于InspectorTreeGetter示例页面，且已注销回调 | 1、点击“Get Inspector Tree”按钮。 | 1、页面显示“tree does not contain external framework subtree”，组件树JSON中不包含FlutterView等模拟第三方框架节点 | 是 | Pass |

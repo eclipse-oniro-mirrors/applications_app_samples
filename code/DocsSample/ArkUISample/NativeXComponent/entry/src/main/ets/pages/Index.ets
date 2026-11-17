@@ -187,7 +187,7 @@ struct Index {
           .height('100%')
           .justifyContent(FlexAlign.Start)
         }
-        .tabBar(SubTabBarStyle.of('NDK InspectorTreeGetter')
+        .tabBar(SubTabBarStyle.of('InspectorTreeGetter')
           .labelStyle({
             overflow: TextOverflow.Clip,
             maxLines: 2,

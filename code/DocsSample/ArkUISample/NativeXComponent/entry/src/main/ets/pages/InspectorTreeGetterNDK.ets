@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -102,7 +102,7 @@ export struct InspectorTreeGetterNDK {
             .onClick(() => {
               // 获取组件树，注册回调后组件树会合并回调上报的第三方框架组件子树
               this.inspectorTree = this.getUIContext().getFilteredInspectorTree();
-              if (this.inspectorTree.includes('FlutterView')) {
+              if (this.inspectorTree.includes('ExternalView')) {
                 this.currentStatus = 'tree contains external framework subtree';
               } else {
                 this.currentStatus = 'tree does not contain external framework subtree';

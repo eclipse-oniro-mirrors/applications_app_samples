@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -39,9 +39,9 @@ export default function abilityTest6() {
         expect().assertFail();
       }
       await driver.delayMs(1000);
-      // 进入NDK InspectorTreeGetter示例
-      await driver.assertComponentExist(ON.text('NDK InspectorTreeGetter'));
-      let entryBtn = await driver.findComponent(ON.text('NDK InspectorTreeGetter'));
+      // 进入InspectorTreeGetter示例
+      await driver.assertComponentExist(ON.text('InspectorTreeGetter'));
+      let entryBtn = await driver.findComponent(ON.text('InspectorTreeGetter'));
       await entryBtn.click();
       await driver.assertComponentExist(ON.text('点击此处进入'));
       entryBtn = await driver.findComponent(ON.text('点击此处进入'));
