@@ -62,14 +62,14 @@
 - 备份扩展（`entrybackupability/EntryBackupAbility.ets`，`extensionAbilities` 中 `type: backup`、`exported: false`、`metadata: ohos.extension.backup → $profile:backup_config`）：`onBackup` / `onRestore(bundleVersion)` 备份扩展生命周期
 - 被测首页（`pages/Index.ets`）：`RelativeContainer` + `Text`（`id = 'HelloWorld'`，`@State message` 初始 `Hello World`、加粗、`app.float.page_text_font_size`，水平垂直居中），`onClick` 后变为 `Welcome`
 - 模块契约（`module.json5`）：`entry` 类型、`deviceTypes: default + tablet`、`deliveryWithInstall: true`、`installationFree: false`、`EntryAbility` exported 且技能为 `entity.system.home` + `ohos.want.action.home`
-- 测试承载（`ohosTest/module.json5`、`testrunner/OpenHarmonyTestRunner.ets`、`testability/TestAbility.ets` 及其 `pages/Index.ets`）：`entry_test` feature 模块，通过 `aa test`（`aa` 即 ability assistant，OpenHarmony 命令行工具）拉起测试 Ability 后执行 Hypium 套件
+- 测试承载（`ohosTest/module.json5`、`testrunner/OpenHarmonyTestRunner.ets`、`testability/TestAbility.ets` 及其 `pages/Index.ets`）：`entry_test` feature 模块，通过 OpenHarmony Ability assistant（Ability 助手）的 `test` 子命令拉起测试 Ability 后执行 Hypium 套件
 
 ### 3.2 关键风险点
 
 围绕 Stage 模型 Module 级入口场景，重点识别如下风险：
 
 - 冷启动慢或首帧未渲染即被操作，导致 `HelloWorld` 节点缺失、首页探针失败
-- 设备锁屏导致 `aa test` 直接报 `00508013 App launch timed out`，即使勉强启动所有 UI 断言也会因 `HelloWorld node absent` 失败
+- 设备锁屏导致 Ability assistant 的 `test` 子命令直接报 `00508013 App launch timed out`，即使勉强启动所有 UI 断言也会因 `HelloWorld node absent` 失败
 - 首页文案处于 `Welcome` 点击态（脏状态）导致后续用例基线漂移、假通过
 - 并发 UI 操作引起焦点竞争、按键丢失或状态错乱
 - `environment` 配置变更回调未收到或五字段任一缺失，环境感知能力失效
@@ -248,7 +248,7 @@
 
 ## 附录 C：运行方式
 
-> **前置条件（必做）**：设备屏幕必须处于**已解锁**状态。锁屏状态下 `aa test` 会直接报
+> **前置条件（必做）**：设备屏幕必须处于**已解锁**状态。锁屏状态下执行 Ability assistant 的 `test` 子命令会直接报
 > `00508013 App launch timed out. Make sure the screen is unlocked.`；即使测试勉强启动，所有 UI 断言
 > 也会因 `HelloWorld node absent` 失败。仅执行 `power-shell wakeup` 不够，还需上滑解锁：
 >
@@ -263,9 +263,12 @@
 hvigorw --mode module -p module=entry@ohosTest -p product=default \
   assembleHap --analyze=normal --parallel --incremental --no-daemon
 
-# 安装后执行测试（设备需已解锁，见上方前置条件）
+# 安装 HAP
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.samples.abilitystage -m entry_test -s unittest /ets/test/List.test.ets
+
+# 执行 Ability assistant 的 test 子命令拉起测试套件（设备需已解锁，见上方前置条件）
+# 其中 <ability-assistant> 为设备 shell 中 Ability assistant 命令行工具的命令名，执行时替换为对应命令
+hdc shell <ability-assistant> test -b com.samples.abilitystage -m entry_test -s unittest /ets/test/List.test.ets
 ```
 
 ## 附录 D：实测结果（最近一次全量记录）
