@@ -11,7 +11,7 @@
 |组合选项采集|位于TreePage|勾选"仅可见树"和"过滤纯布局节点"，点击"同步采集"|状态行显示schema=1；隐藏节点在可见树下不出现在结果中|是|Pass|
 |交互/无障碍/高阶属性开关|位于TreePage|分别勾选其余四个开关后采集|结果JSON中出现对应字段（clickable/accessibilityContent/advanced组）|否|Pass|
 |目标节点JSON查看|位于TreePage，采集成功|采集后查看目标节点JSON|显示treeTarget输入框节点的JSON片段，隐藏节点按树类型出现或省略|否|Pass|
-|主页导航-注入交互与高阶指令|位于主页|点击"注入交互与高阶指令"按钮|进入CommandPage，显示目标选择、指令预设和提交按钮|是|Pass|
+|主页导航-注入交互与高阶指令|位于主页|点击"注入交互与高阶指令"按钮|进入CommandPage，显示目标选择，指令预设和提交按钮|是|Pass|
 |定位目标并提交setText|位于CommandPage，目标为输入框|点击"设置文本"预设，点击"提交指令"|状态行显示result=0，输入框内容变为hello|是|Pass|
 |追加文本|位于CommandPage，目标为输入框|点击"追加文本"预设，提交|状态行显示result=0，输入框内容末尾追加" world"|否|Pass|
 |删除文本|位于CommandPage，目标为输入框，内容长度大于5|点击"删除文本"预设，提交|状态行显示result=0，输入框前5个字符被删除|否|Pass|
@@ -21,3 +21,10 @@
 |指令JSON编辑|位于CommandPage|在指令JSON输入框修改参数后提交|按修改后的JSON执行，非法JSON经错误路径显示异常信息|否|Pass|
 |指令类型与目标不匹配|位于CommandPage，目标为Swiper|提交setText预设|执行阶段失败，状态行显示result=2（指令不支持）|否|Pass|
 |页面退出保护|位于TreePage或CommandPage，请求进行中|采集或提交过程中快速返回主页|页面退出后无崩溃，迟到结果不更新已退出页面|否|Pass|
+|主页导航-节点图片采集|位于主页|点击"节点图片采集"按钮|进入ImagePage，显示被采集的目标节点和三个采集按钮|是|Pass|
+|采集单个Image节点|位于ImagePage|点击"采集 Image 节点"按钮|状态行显示submitError=0，overallError=0，items=1，结果项尺寸为该Image的完整源图尺寸|是|Pass|
+|一次请求采集三个节点|位于ImagePage|点击"采集 3 个节点"按钮|状态行显示items=3，三个结果项按请求顺序显示|是|Pass|
+|请求中包含已移除节点|位于ImagePage|点击"采集含已移除节点"按钮|已移除节点的结果项itemError为106410且无图片，同一请求的Image结果项仍返回图片，整体错误码为106414|是|Pass|
+|采集非Image节点|位于ImagePage|点击"采集 3 个节点"按钮后查看容器节点与Text节点的结果项|两个结果项均返回节点边界范围内的渲染图片|否|Pass|
+|结果项失败不影响其他项|位于ImagePage，请求中包含已移除节点|采集后逐个查看结果项|失败项只影响自身，其他结果项仍可取到PixelMap|否|Pass|
+|页面退出保护-节点图片采集|位于ImagePage，请求进行中|采集过程中快速返回主页|页面退出后无崩溃，迟到结果不更新已退出页面|否|Pass|

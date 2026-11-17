@@ -251,7 +251,10 @@ int32_t AudioEncoder::Stop()
 {
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
 
-    const int32_t ret = OH_AudioCodec_Stop(encoder_);
+    int ret = Flush();
+    CHECK_AND_RETURN_RET_LOG(ret == AVCODEC_SAMPLE_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,
+                             "Flush failed, ret: %{public}d", ret);
+    ret = OH_AudioCodec_Stop(encoder_);
     CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR, "Stop failed, ret: %{public}d", ret);
     return AVCODEC_SAMPLE_ERR_OK;
 }
@@ -261,7 +264,9 @@ int32_t AudioEncoder::Stop()
 int32_t AudioEncoder::Release()
 {
     if (encoder_ != nullptr) {
-        // 工作线程退出后由业务侧销毁codec，Destroy完成后才能释放回调上下文。
+        // 销毁前刷新并停止编码器，不可重复destroy。
+        Flush();
+        Stop();
         const int32_t ret = OH_AudioCodec_Destroy(encoder_);
         encoder_ = nullptr;
         CHECK_AND_RETURN_RET_LOG(ret == AV_ERR_OK, AVCODEC_SAMPLE_ERR_ERROR,

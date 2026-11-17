@@ -99,7 +99,7 @@ export class RecorderOutputController {
         if (secondary !== undefined) { await fileIo.close(secondary).catch((): void => {}); }
         data.outputfd = -1; data.secondaryOutputfd = -1;
       }
-      throw new Error(JSON.stringify(error));
+      throw error as Error;
     } finally { await helper.release().catch((): void => {}); }
   }
 }

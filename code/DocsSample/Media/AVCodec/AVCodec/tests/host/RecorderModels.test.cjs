@@ -41,6 +41,7 @@ const preferenceValues = new Map();
 let failPreferenceWrite = false;
 let failPreferenceOpen = false;
 let failPlaybackAssetLookup = false;
+let failPlaybackResultClose = false;
 const playbackUriAccessEvents = [];
 const mocks = {
   '@kit.ArkData': { dataSharePredicates: { DataSharePredicates: class {
@@ -105,9 +106,9 @@ const mocks = {
       if (failPlaybackAssetLookup) { throw new Error('media permission unavailable'); }
       return {
       getFirstObject: async () => ({ uri: 'file://media/video' }),
-      close: () => { calls.push('photo.close'); }
+      close: () => { calls.push('photo.close'); if (failPlaybackResultClose) { throw new Error('close failed'); } }
       };
-    } })
+    }, release: async () => { calls.push('photo.release'); } })
   } },
   '@kit.BasicServicesKit': {
     systemDateTime: { TimeType: { STARTUP: 0 }, getUptime: () => 1000 },
@@ -166,6 +167,7 @@ const { DumpFilesModel } = load(path.join(sourceRoot, 'model/DumpFilesModel.ets'
 const { UserConfiguration } = load(path.join(sourceRoot, 'model/UserConfiguration.ets'));
 const { ConfigurationStore } = load(path.join(sourceRoot, 'model/ConfigurationStore.ets'));
 const { PlayerSettingsModel } = load(path.join(sourceRoot, 'model/PlayerSettingsModel.ets'));
+const { PlaybackHistoryModel } = load(path.join(sourceRoot, 'model/PlaybackHistoryModel.ets'));
 const { PlayerSettingsDraft, RecorderSettingsDraft } = load(path.join(sourceRoot, 'model/SettingsDraftModels.ets'));
 const { DumpPolicyModel } = load(path.join(sourceRoot, 'model/DumpPolicyModel.ets'));
 const { ConfigurationFeedback } = load(path.join(sourceRoot, 'model/ConfigurationFeedback.ets'));
@@ -212,6 +214,8 @@ function testLiveDiagnostics() {
 
 async function testConfiguration() {
   const player = new PlayerSettingsModel();
+  assert.equal(player.resumeLastPosition, false);
+  player.resumeLastPosition = true;
   const camera = new CameraDataModel();
   camera.outputfd = 37;
   player.audioTrackIndex = 8;
@@ -229,6 +233,7 @@ async function testConfiguration() {
   assert.equal(restoredPlayer.videoDecoderRunMode, 1);
   assert.equal(restoredPlayer.enableVideoDump, true);
   assert.equal(restoredPlayer.audioTrackIndex, -1);
+  assert.equal(restoredPlayer.resumeLastPosition, true);
   assert.equal(restoredCamera.outputfd, -1);
   assert.equal(restoredCamera.enableDualOutput, true);
   assert.equal(restoredCamera.cropPercent, 90);
@@ -239,6 +244,17 @@ async function testConfiguration() {
   UserConfiguration.restore(legacy, new PlayerSettingsModel(), oldCamera);
   assert.equal(oldCamera.segmentSeconds, 0);
   assert.equal(oldCamera.segmentMiB, 0);
+  const legacyPlayer = new PlayerSettingsModel();
+  legacyPlayer.resumeLastPosition = true;
+  UserConfiguration.restore({ ...snapshot, player: snapshot.player.slice(0, 11) }, legacyPlayer, oldCamera);
+  assert.equal(legacyPlayer.resumeLastPosition, false, 'Legacy settings default resume to off');
+  assert.equal(legacyPlayer.videoDecoderRunMode, 1, 'Legacy playback settings still restore');
+  const invalidPlayer = new PlayerSettingsModel();
+  invalidPlayer.audioVolume = 37;
+  UserConfiguration.restore({ ...snapshot, player: snapshot.player.slice(0, 11).concat(2) },
+    invalidPlayer, oldCamera);
+  assert.equal(invalidPlayer.audioVolume, 37, 'Invalid resume flag rejects the player snapshot');
+  assert.equal(invalidPlayer.resumeLastPosition, false);
   assert.equal(DumpPolicyModel.maxMiB, 0);
   const bad = { player: [NaN], recorder: [1], dump: [-1, 999] };
   UserConfiguration.restore(bad, restoredPlayer, restoredCamera);
@@ -249,17 +265,23 @@ async function testConfiguration() {
     const r = new CameraDataModel();
     UserConfiguration.restore(UserConfiguration.preset(preset), p, r);
     assert.equal(p.enableVideoDump, false);
+    assert.equal(p.resumeLastPosition, false, 'Presets leave resume disabled');
     assert.equal(r.enableVideoDump, false);
     assert.equal(p.videoDecoderRunMode, preset === 1 ? 1 : 0);
     assert.equal(r.cameraHeight, preset === 2 ? 720 : 1080);
     assert.equal(r.frameRate, preset === 3 ? 60 : 30);
   }
   const pd = new PlayerSettingsDraft();
+  assert.equal(pd.resumeLastPosition, false);
   pd.load(player);
+  assert.equal(pd.resumeLastPosition, true);
+  pd.resumeLastPosition = false;
+  assert.equal(player.resumeLastPosition, true, 'Unapplied draft must not change resume');
   pd.runMode = 0;
   assert.equal(player.videoDecoderRunMode, 1);
   assert.equal(pd.apply(player), true);
   assert.equal(player.enableVideoDump, false);
+  assert.equal(player.resumeLastPosition, false);
   const rd = new RecorderSettingsDraft();
   rd.load(camera, true);
   rd.frameRate = 1;
@@ -329,6 +351,14 @@ async function testConfiguration() {
   snapshot.player[0] = 99;
   await pending;
   assert.notEqual((await ConfigurationStore.load()).player[0], 99);
+  const savedPlayer = new PlayerSettingsModel();
+  UserConfiguration.restore(await ConfigurationStore.load(), savedPlayer, new CameraDataModel());
+  assert.equal(savedPlayer.resumeLastPosition, true, 'Enabled resume survives persistence');
+  savedPlayer.resumeLastPosition = false;
+  await ConfigurationStore.save(UserConfiguration.capture(savedPlayer, camera));
+  savedPlayer.resumeLastPosition = true;
+  UserConfiguration.restore(await ConfigurationStore.load(), savedPlayer, new CameraDataModel());
+  assert.equal(savedPlayer.resumeLastPosition, false, 'Disabled resume survives persistence');
   await ConfigurationStore.save(UserConfiguration.preset(2), true);
   assert.equal((await ConfigurationStore.load(true)).recorder[4], 720);
   failPreferenceWrite = true;
@@ -342,6 +372,24 @@ async function testConfiguration() {
   preferenceValues.set('current.snapshot', committed);
   assert.equal(preferenceValues.size, 2, 'One stored value is expected per complete configuration');
   console.info('Configuration: round trip, presets, invalid values, draft isolation, write ordering, and retry passed');
+}
+
+async function testResumeLastPosition() {
+  const history = new PlaybackHistoryModel();
+  await history.load({});
+  await history.update('file://resume', 'resume', 12_000_000, 60_000_000);
+  assert.equal(history.getResumePosition('file://resume', 60_000_000), 0, 'Resume is off by default');
+  assert.equal(history.getResumePosition('file://resume', 60_000_000, false), 0);
+  assert.equal(history.getResumePosition('file://resume', 60_000_000, true), 12_000_000);
+  assert.equal(history.getResumePosition('file://resume', 14_000_000, true), 0, 'Near-end history restarts');
+  assert.equal(history.getResumePosition('file://missing', 60_000_000, true), 0);
+  assert.equal(history.getResumePosition('file://resume', 0, true), 0);
+  const reloaded = new PlaybackHistoryModel();
+  await reloaded.load({});
+  assert.equal(reloaded.getResumePosition('file://resume', 60_000_000), 0);
+  assert.equal(reloaded.getResumePosition('file://resume', 60_000_000, true), 12_000_000,
+    'Turning resume off preserves history for later opt-in');
+  console.info('Playback resume: default off, opt-in, retained history, persistence and near-end restart passed');
 }
 
 async function testDumpCleanup() {
@@ -907,6 +955,11 @@ async function testPlaybackUriAccess() {
   assert.equal(playbackUriAccessEvents.includes('query:uri:file://media/Photo/1/video.mp4'), true);
   assert.equal(playbackUriAccessEvents.includes('getAssets:file://media/Photo/1/video.mp4'), true);
   assert.equal(calls.includes('photo.close'), true, 'Media asset query is always closed');
+  assert.equal(calls.at(-1), 'photo.release');
+  failPlaybackResultClose = true;
+  await PlaybackUriAccessController.prepare('file://media/Photo/1/video.mp4', {});
+  assert.equal(calls.at(-1), 'photo.release', 'Release still runs after FetchResult.close fails');
+  failPlaybackResultClose = false;
   failPlaybackAssetLookup = true;
   await PlaybackUriAccessController.prepare('file://media/Photo/1/video.mp4', {});
   failPlaybackAssetLookup = false;
@@ -938,7 +991,101 @@ async function testVideoOnlyPermissions() {
   console.info('Video-only permissions: microphone is neither checked nor requested; audio mode requests both passed');
 }
 
+async function testScreenOn() {
+  const { ScreenOnController: screen } = load(path.join(sourceRoot, 'controller/ScreenOnController.ets'));
+  const applied = [];
+  let hold;
+  let entered;
+  let fail = false;
+  const target = { setWindowKeepScreenOn: async value => {
+    if (fail) { fail = false; throw new Error('window unavailable'); }
+    if (value && hold) { entered(); await hold; }
+    applied.push(value);
+  } };
+  await screen.unbind();
+  await screen.setForeground(true);
+  await screen.bind(target);
+  assert.deepEqual(applied, [false], 'Idle foreground window follows system timeout');
+  await screen.setPlaybackActive(true);
+  await screen.setRecordingActive(true);
+  await screen.setPlaybackActive(false);
+  assert.equal(applied.at(-1), true, 'Recording still owns screen-on after playback ends');
+  await screen.setForeground(false);
+  assert.equal(applied.at(-1), false);
+  await screen.setForeground(true);
+  assert.equal(applied.at(-1), true);
+  await screen.setRecordingActive(false);
+  assert.equal(applied.at(-1), false);
+  fail = true;
+  await screen.setPlaybackActive(true);
+  assert.equal(applied.at(-1), false);
+  await screen.setPlaybackActive(true);
+  assert.equal(applied.at(-1), true, 'An unchanged state retries a failed window write');
+  await screen.setPlaybackActive(false);
+  let release;
+  hold = new Promise(resolve => { release = resolve; });
+  const started = new Promise(resolve => { entered = resolve; });
+  const enabling = screen.setPlaybackActive(true);
+  await started;
+  const disabling = screen.setPlaybackActive(false);
+  release();
+  await Promise.all([enabling, disabling]);
+  assert.equal(applied.at(-1), false, 'An in-flight enable cannot overwrite pause');
+  hold = undefined;
+  await screen.setPlaybackActive(true);
+  const replacement = [];
+  await screen.bind({ setWindowKeepScreenOn: async value => { replacement.push(value); } });
+  assert.equal(applied.at(-1), false, 'Rebinding disables the old window');
+  assert.equal(replacement.at(-1), true);
+  await screen.unbind();
+  assert.equal(replacement.at(-1), false);
+  await screen.bind(target);
+  assert.equal(applied.at(-1), false, 'Recreated window does not inherit destroyed task ownership');
+  await screen.unbind();
+  console.info('Screen-on: idle, playback, recording, background, serial writes, retry and window replacement passed');
+}
+
+async function testRecorderFailureDetails() {
+  const { RecorderOutputController } = load(path.join(sourceRoot, 'controller/RecorderOutputController.ets'));
+  const helperKit = mocks['@kit.MediaLibraryKit'].photoAccessHelper;
+  const api = mocks['librecorder.so'].default;
+  const originalHelper = { ...helperKit };
+  const originalApi = { ...api };
+  const events = [];
+  let count = 0;
+  const error = Object.assign(new Error('Encoder Configure rejected'), { code: 5400105 });
+  helperKit.PhotoType = { VIDEO: 2 };
+  helperKit.getPhotoAccessHelper = () => ({
+    createAsset: async () => 'file://recording/' + (++count),
+    release: async () => { events.push('release'); }
+  });
+  api.initNative = async () => { throw error; };
+  api.stopEndNative = async () => { events.push('stop'); };
+  api.getDiagnostics = () => ({ active: false });
+  const io = mocks['@kit.CoreFileKit'].fileIo;
+  const originalClose = io.close;
+  io.close = async () => { events.push('close'); };
+  try {
+    const data = new CameraDataModel();
+    data.enableDualOutput = true;
+    await assert.rejects(() => RecorderOutputController.open({ filesDir: '/private' }, data), caught =>
+      caught === error && caught.code === 5400105 && caught.message.includes('Configure'));
+    assert.deepEqual(events, ['stop', 'close', 'close', 'release']);
+    assert.equal(data.outputfd, -1);
+    assert.equal(data.secondaryOutputfd, -1);
+  } finally {
+    for (const key of Object.keys(helperKit)) { delete helperKit[key]; }
+    for (const key of Object.keys(api)) { delete api[key]; }
+    Object.assign(helperKit, originalHelper);
+    Object.assign(api, originalApi);
+    io.close = originalClose;
+  }
+  console.info('Recording failure: original error identity/code/message, Native cleanup and dual fd release passed');
+}
+
 async function main() {
+  await testScreenOn();
+  await testRecorderFailureDetails();
   await testVideoOnlyPermissions();
   await testOutputValidation();
   await testPlaybackStartup();
@@ -947,6 +1094,7 @@ async function main() {
   await testRecordingPause();
   testLiveDiagnostics();
   await testConfiguration();
+  await testResumeLastPosition();
   testPreprocessing();
   await testDumpGroups();
   await testDumpExports();

@@ -14,6 +14,7 @@
  */
 
 import player from 'libplayer.so';
+import { ScreenOnController } from '../controller/ScreenOnController';
 import { formatPlaybackInfo, normalizeSeekPosition } from '../model/PlaybackInfoModel';
 
 const PLAYBACK_INFO_UPDATE_INTERVAL_MS: number = 250;
@@ -139,6 +140,7 @@ export class PlaybackViewModel {
   }
 
   stopUpdates(): void {
+    void ScreenOnController.setPlaybackActive(false);
     if (this.updateTimer !== 0) {
       clearInterval(this.updateTimer);
       this.updateTimer = 0;
@@ -203,6 +205,7 @@ export class PlaybackViewModel {
     this.lastOutputFrames = info.videoOutputFrames;
     this.state = info.state;
     this.hasVideo = info.hasVideo;
+    void ScreenOnController.setPlaybackActive(info.hasVideo && info.state === player.PlayerState.PLAYING);
     this.durationUs = Math.max(0, info.durationUs);
     if (!this.isSeeking) {
       this.positionUs = normalizeSeekPosition(info.positionUs, this.durationUs);

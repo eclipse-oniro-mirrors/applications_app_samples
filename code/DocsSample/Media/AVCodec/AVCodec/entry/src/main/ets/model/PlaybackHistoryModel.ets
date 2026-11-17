@@ -51,7 +51,10 @@ export class PlaybackHistoryModel {
     return this.entries.slice();
   }
 
-  getResumePosition(uri: string, durationUs: number): number {
+  getResumePosition(uri: string, durationUs: number, enabled: boolean = false): number {
+    if (!enabled) {
+      return 0;
+    }
     const entry = this.entries.find((item: PlaybackHistoryEntry) => item.uri === uri);
     if (entry === undefined || entry.positionUs <= 0 || durationUs <= 0 ||
       entry.positionUs >= durationUs - RESUME_EPSILON_US) {

@@ -45,21 +45,21 @@ function testParsing1(): boolean {
     console.info(JSON.stringify(obj1));    // {"info":{"name":"zhangsan","age":18}}
     // 获取JSON字符串中的name信息
     console.info(obj1.info.name); // zhangsan
-    // [StartExclude json_nesting_method1_log]
+    // [StartExclude json_nesting_method1]
     let logMsg = 'JSON.stringify(obj1): ' + JSON.stringify(obj1) + '\nobj1.info.name: ' + obj1.info.name;
     if (globalLogUpdate) {
       globalLogUpdate(logMsg, false);
     }
     return true;
-    // [EndExclude json_nesting_method1_log]
+    // [EndExclude json_nesting_method1]
   } catch(err) {
     console.error('Parsing1 error:', err);
-    // [StartExclude json_nesting_method1_err]
+    // [StartExclude json_nesting_method1]
     if (globalLogUpdate) {
       globalLogUpdate(err, true);
     }
     return false;
-    // [EndExclude json_nesting_method1_err]
+    // [EndExclude json_nesting_method1]
   }
   // [End json_nesting_method1]
 }
@@ -77,21 +77,21 @@ function testParsing2(): boolean {
     // 获取JSON字符串中的name信息
     let obj3 = JSON.parse(obj2.info) as Info;
     console.info(obj3.name); // zhangsan
-    // [StartExclude json_nesting_method2_log]
+    // [StartExclude json_nesting_method2]
     let logMsg = 'JSON.stringify(obj2): ' + JSON.stringify(obj2) + '\nobj3.name: ' + obj3.name;
     if (globalLogUpdate) {
       globalLogUpdate(logMsg, false);
     }
     return true;
-    // [EndExclude json_nesting_method2_log]
+    // [EndExclude json_nesting_method2]
   } catch(err) {
     console.error('Parsing2 error:', err);
-    // [StartExclude json_nesting_method2_err]
+    // [StartExclude json_nesting_method2]
     if (globalLogUpdate) {
       globalLogUpdate(err, true);
     }
     return false;
-    // [EndExclude json_nesting_method2_err]
+    // [EndExclude json_nesting_method2]
   }
   // [End json_nesting_method2]
 }
