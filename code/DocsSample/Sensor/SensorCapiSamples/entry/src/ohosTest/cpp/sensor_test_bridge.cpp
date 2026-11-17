@@ -117,21 +117,12 @@ static void CheckResource(const void *value, const std::string &kind)
         g_observation.violations++;
     }
 }
-namespace SensorTestStandard {
-using namespace ::std;
-namespace this_thread {
+namespace SensorSampleUnderTest {
 static void SleepFor(::std::chrono::milliseconds duration)
 {
     Record("wait", ":" + ::std::to_string(duration.count()));
     g_observation.waitMs += static_cast<int>(duration.count());
 }
-// Retain the standard API spelling used by the included sample.
-inline constexpr auto sleep_for = SleepFor;
-} // namespace this_thread
-} // namespace SensorTestStandard
-
-namespace SensorSampleUnderTest {
-namespace std = SensorTestStandard;
 
 template <typename T> static ::std::string LogValue(const T &value)
 {
@@ -187,7 +178,9 @@ inline constexpr auto napi_module_register = IgnoreSampleRegistration;
 
 // Keep the sample constructor local to the test library. Its registration is ignored above.
 #pragma GCC visibility push(hidden)
+#define SENSOR_CAPI_WAIT_FOR SleepFor
 #include "../../main/cpp/oh_sensor_capi.cpp"
+#undef SENSOR_CAPI_WAIT_FOR
 #pragma GCC visibility pop
 } // namespace SensorSampleUnderTest
 
