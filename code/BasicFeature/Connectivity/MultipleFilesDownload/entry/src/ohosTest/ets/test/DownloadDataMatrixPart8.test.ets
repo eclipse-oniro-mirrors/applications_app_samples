@@ -30,7 +30,7 @@ export default function DownloadDataMatrixPart8Test(): void {
 
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49100
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0100
      * @tc.name      testDownloadData0491
      * @tc.desc      Verify download data row 490 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -53,7 +53,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49200
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0200
      * @tc.name      testDownloadData0492
      * @tc.desc      Verify download data row 491 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -76,7 +76,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49300
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0300
      * @tc.name      testDownloadData0493
      * @tc.desc      Verify download data row 492 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -99,7 +99,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49400
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0400
      * @tc.name      testDownloadData0494
      * @tc.desc      Verify download data row 493 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -122,7 +122,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49500
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0500
      * @tc.name      testDownloadData0495
      * @tc.desc      Verify download data row 494 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -145,7 +145,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49600
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0600
      * @tc.name      testDownloadData0496
      * @tc.desc      Verify download data row 495 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -168,7 +168,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49700
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0700
      * @tc.name      testDownloadData0497
      * @tc.desc      Verify download data row 496 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -191,7 +191,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49800
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0800
      * @tc.name      testDownloadData0498
      * @tc.desc      Verify download data row 497 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -214,7 +214,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_49900
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_0900
      * @tc.name      testDownloadData0499
      * @tc.desc      Verify download data row 498 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
@@ -237,7 +237,7 @@ export default function DownloadDataMatrixPart8Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_50000
+     * @tc.number    SUB_MULTI_DOWNLOAD_DATAP8_ONE_1000
      * @tc.name      testDownloadData0500
      * @tc.desc      Verify download data row 499 keeps url, status, time and sequence id.
      * @tc.size      SMALLTEST
