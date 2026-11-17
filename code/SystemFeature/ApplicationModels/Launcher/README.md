@@ -56,8 +56,18 @@ This sample demonstrates a simple home screen app that provides the following fu
 
 3. DevEco Studio 6.0.0 Release (API Version 26 Release) or later must be used.
 
-4. The permissions configured in this sample are at the system_basic or system_core level. Therefore, you must manually configure the signature for the corresponding permission level. For details about the permission level, see [Permission List](https://gitee.com/openharmony/docs/blob/master/en/application-dev/security/AccessToken/permissions-for-system-apps.md). For details about the configuration operation, see [Having Your App Automatically Signed](https://gitee.com/openharmony/docs/blob/master/en/application-dev/security/hapsigntool-overview.md/).
+4. The permissions configured in this sample are at the system_basic or system_core level. Therefore, you must manually configure the signature for the corresponding permission level. For details about the permission level, see [Permission List](https://gitee.com/openharmony/docs/blob/master/en/application-dev/security/AccessToken/permissions-for-system-apps.md). For details about the configuration operation, see [Having Your App Automatically Signed](https://gitee.com/openharmony/docs/blob/master/en/application-dev/security/hapsigntool-overview.md).
 
-5. This sample uses system APIs, and the Full SDK must be used for compilation. To use the Full SDK, you must manually obtain it from the mirror and switch to it in DevEco Studio. For details, see [Guide to Switching to Full SDK](https://gitee.com/openharmony/docs/blob/master/en/application-dev/faqs/full-sdk-switch-guide.md/).
+5. This sample uses system APIs, and the Full SDK must be used for compilation. To use the Full SDK, you must manually obtain it from the mirror and switch to it in DevEco Studio. For details, see [Guide to Switching to Full SDK](https://gitee.com/openharmony/docs/blob/master/en/application-dev/faqs/full-sdk-switch-guide.md).
 
 6. Currently, this sample supports the functions described in Steps 1-6 only.
+
+### Download
+
+```bash
+git init
+git config core.sparsecheckout true
+echo code/SystemFeature/ApplicationModels/Launcher/ > .git/info/sparse-checkout
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
+git pull origin master
+```
