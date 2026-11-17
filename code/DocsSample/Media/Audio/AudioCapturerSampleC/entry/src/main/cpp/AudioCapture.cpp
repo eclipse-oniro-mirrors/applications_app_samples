@@ -122,6 +122,7 @@ void MyOnError_NewAPI(
 {
     // 根据error表示的音频异常信息，做出相应的处理。
 }
+// [StartExclude Set_AudioCallbackFunction]
 
 // [Start PlaybackCaptureReadDataCallback]
 void MyOnPlaybackCaptureReadData(
@@ -165,7 +166,6 @@ void MyOnPlaybackCaptureStart(
     }
 }
 // [End PlaybackCaptureStartCallback]
-// [StartExclude Set_AudioCallbackFunction]
 
 // [Start callback_Capture]
 // [Start callbackNullptr_Capture]
