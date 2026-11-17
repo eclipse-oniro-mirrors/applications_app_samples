@@ -12,8 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// Index.ets
-// 示例应用的主页面
+// [Start free_window_avoid_window_title_button]
 import { window } from '@kit.ArkUI';
 
 @Entry
@@ -110,3 +109,4 @@ struct Index {
     .width('100%')
   }
 }
+// [End free_window_avoid_window_title_button]
