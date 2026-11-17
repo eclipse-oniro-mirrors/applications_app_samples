@@ -210,12 +210,13 @@
 
 ## 测试执行说明
 
-使用 OpenHarmony Ability Assistant（`aa`，系统自带测试命令）执行全量自动化测试：
+在已连接设备上执行 entry_test 自动化测试：
 
 ```sh
-# aa = OpenHarmony Ability Assistant
-hdc shell aa test -b com.samples.concurrentmodule -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 60000
+hdc shell <test-subcommand> -b com.samples.concurrentmodule -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 60000
 ```
+
+> `<test-subcommand>` 换成设备镜像自带的应用自动化测试子命令，可在 `hdc shell` 中执行 `help` 查看当前系统实际支持的命令名。
 
 - 设备：OpenHarmony API 23（ArkTS 1.1）。
 - 汇总：`Tests run: 2322, Failure: 0, Error: 0, Pass: 2322, Ignore: 0`。
