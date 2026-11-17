@@ -85,6 +85,7 @@ constexpr int AREA_INFO_THREE = 3;
 
 // RBGA8888格式，一个像素点由四个字节组成
 constexpr int RGB_IDX_ZERO = 0;
+constexpr int RGB_IDX_TWO = 2;
 constexpr int RGB_IDX_THREE = 3;
 
 // RGB颜色范围
@@ -475,9 +476,9 @@ std::vector<std::vector<FilterArrayData>> GetFilters(napi_env env, napi_value ar
     std::vector<std::vector<FilterArrayData>> data;
     napi_status status;
 
-    bool is_array;
-    status = napi_is_array(env, arg, &is_array);
-    CHECK_AND_RETURN_RET_LOG(is_array == true, data, "GetFilters napi_is_array fail! status=%{public}d", status);
+    bool isArray;
+    status = napi_is_array(env, arg, &isArray);
+    CHECK_AND_RETURN_RET_LOG(isArray == true, data, "GetFilters napi_is_array fail! status=%{public}d", status);
     
     auto array_length = GetNapiArrayLength(env, arg);
     CHECK_AND_RETURN_RET_LOG(array_length.first == napi_ok, data,
@@ -960,6 +961,10 @@ void UploadGradientTexture(RenderTexture *texture)
 {
     GLsizei width = texture->Width();
     GLsizei height = texture->Height();
+    if (width <= 0 || height <= 0) {
+        LOG_E("invalid texture size, width=%{public}d, height=%{public}d", width, height);
+        return;
+    }
     std::vector<uint8_t> pixels(static_cast<size_t>(width) * static_cast<size_t>(height) * RGBA_BYTES);
     for (GLsizei y = 0; y < height; y++) {
         for (GLsizei x = 0; x < width; x++) {
@@ -967,8 +972,8 @@ void UploadGradientTexture(RenderTexture *texture)
                            RGBA_BYTES;
             pixels[index] = static_cast<uint8_t>(x * RGBA_CHANNEL_MAX / width);
             pixels[index + 1] = static_cast<uint8_t>(y * RGBA_CHANNEL_MAX / height);
-            pixels[index + 2] = static_cast<uint8_t>(RGBA_CHANNEL_MAX - x * RGBA_CHANNEL_MAX / width);
-            pixels[index + 3] = RGBA_CHANNEL_MAX;
+            pixels[index + RGB_IDX_TWO] = static_cast<uint8_t>(RGBA_CHANNEL_MAX - x * RGBA_CHANNEL_MAX / width);
+            pixels[index + RGB_IDX_THREE] = RGBA_CHANNEL_MAX;
         }
     }
     glBindTexture(GL_TEXTURE_2D, texture->GetName());
@@ -1037,6 +1042,70 @@ bool IsFilterUnsupportedInTextureMode(const std::string &filterName)
     return filterName == OH_EFFECT_CROP_FILTER || filterName == "CustomBrightness" || filterName == "CustomCrop";
 }
 
+// 创建输入、输出纹理并上传输入数据。解码失败时使用程序化渐变填充输入纹理。
+bool PrepareTexturePair(const std::string &inputPath, GLsizei &width, GLsizei &height,
+                        std::shared_ptr<RenderTexture> &inputTexture,
+                        std::shared_ptr<RenderTexture> &outputTexture)
+{
+    std::string decodePath = inputPath;
+    std::shared_ptr<OH_PixelmapNative> inputPixelmap = PixelMapHelper::Decode(decodePath);
+    if (inputPixelmap != nullptr) {
+        PixelmapInfo pixelmapInfo = GetPixelmapInfo(inputPixelmap.get());
+        if (pixelmapInfo.width != 0 && pixelmapInfo.height != 0) {
+            width = static_cast<GLsizei>(pixelmapInfo.width);
+            height = static_cast<GLsizei>(pixelmapInfo.height);
+        }
+    }
+    inputTexture = std::make_shared<RenderTexture>(width, height, GL_RGBA8);
+    CHECK_AND_RETURN_RET_LOG(inputTexture->Init(), false, "input texture init fail!");
+    outputTexture = std::make_shared<RenderTexture>(width, height, GL_RGBA8);
+    CHECK_AND_RETURN_RET_LOG(outputTexture->Init(), false, "output texture init fail!");
+    if (inputPixelmap != nullptr) {
+        UploadPixelmapTexture(inputTexture.get(), inputPixelmap.get());
+    } else {
+        UploadGradientTexture(inputTexture.get());
+    }
+    return true;
+}
+
+// 创建效果器并按顺序添加滤镜，纹理输入场景不支持的滤镜会被跳过。
+std::shared_ptr<OH_ImageEffect> CreateImageEffectWithFilters(
+    const std::vector<std::vector<FilterArrayData>> &filters)
+{
+    OH_ImageEffect *imageEffect = OH_ImageEffect_Create("imageEdit");
+    CHECK_AND_RETURN_RET_LOG(imageEffect != nullptr, nullptr, "OH_ImageEffect_Create fail!");
+    std::shared_ptr<OH_ImageEffect> imageEffectPtr(
+        imageEffect, [](OH_ImageEffect *imageEffect) { OH_ImageEffect_Release(imageEffect); });
+    for (int i = 0; i < filters.size(); i++) {
+        if (IsFilterUnsupportedInTextureMode(filters[i][0].name)) {
+            LOG_W("filter %{public}s does not support texture input, skip it.", filters[i][0].name.c_str());
+            continue;
+        }
+        OH_EffectFilter *filter = AddFilter(imageEffectPtr.get(), filters[i][0].name.c_str());
+        CHECK_AND_RETURN_RET_LOG(filter != nullptr, nullptr, "OH_ImageEffect_AddFilter fail!");
+        SetFilterValue(filter, filters[i][0].name.c_str(), filters[i][0].value, nullptr);
+    }
+    return imageEffectPtr;
+}
+
+// 回读输出纹理并编码保存。输出纹理回读失败时回退到输入纹理。
+bool ReadBackAndEncode(const std::shared_ptr<RenderTexture> &inputTexture,
+                       const std::shared_ptr<RenderTexture> &outputTexture,
+                       GLsizei width, GLsizei height, const std::string &outputPath)
+{
+    std::vector<uint8_t> pixels;
+    if (!GLUtils::ReadTextureToRgba(outputTexture->GetName(), width, height, pixels)) {
+        LOG_W("read output texture fail, use input texture instead.");
+        CHECK_AND_RETURN_RET_LOG(
+            GLUtils::ReadTextureToRgba(inputTexture->GetName(), width, height, pixels), false,
+            "read input texture fail!");
+    }
+    std::shared_ptr<OH_PixelmapNative> outputPixelmap = CreatePixelmapFromRgba(pixels, width, height);
+    CHECK_AND_RETURN_RET_LOG(outputPixelmap != nullptr, false, "create output pixelmap fail!");
+    std::string encodePath = outputPath;
+    return PixelMapHelper::Encode(outputPixelmap.get(), encodePath);
+}
+
 napi_value ImageEdit::TextureFilterStart(napi_env env, napi_callback_info info)
 {
     napi_value result = nullptr;
@@ -1055,44 +1124,16 @@ napi_value ImageEdit::TextureFilterStart(napi_env env, napi_callback_info info)
     EglUtils eglContext;
     CHECK_AND_RETURN_RET_LOG(eglContext.Init(), result, "EGL context init fail!");
 
-    std::shared_ptr<OH_PixelmapNative> inputPixelmap = PixelMapHelper::Decode(inputPath);
     GLsizei textureWidth = DEFAULT_TEXTURE_WIDTH;
     GLsizei textureHeight = DEFAULT_TEXTURE_HEIGHT;
-    if (inputPixelmap != nullptr) {
-        PixelmapInfo pixelmapInfo = GetPixelmapInfo(inputPixelmap.get());
-        if (pixelmapInfo.width != 0 && pixelmapInfo.height != 0) {
-            textureWidth = static_cast<GLsizei>(pixelmapInfo.width);
-            textureHeight = static_cast<GLsizei>(pixelmapInfo.height);
-        }
-    }
+    std::shared_ptr<RenderTexture> inputTexture;
+    std::shared_ptr<RenderTexture> outputTexture;
+    CHECK_AND_RETURN_RET_LOG(PrepareTexturePair(inputPath, textureWidth, textureHeight, inputTexture, outputTexture),
+                             result, "prepare texture pair fail!");
 
-    std::shared_ptr<RenderTexture> inputTexture =
-        std::make_shared<RenderTexture>(textureWidth, textureHeight, GL_RGBA8);
-    CHECK_AND_RETURN_RET_LOG(inputTexture->Init(), result, "input texture init fail!");
-    std::shared_ptr<RenderTexture> outputTexture =
-        std::make_shared<RenderTexture>(textureWidth, textureHeight, GL_RGBA8);
-    CHECK_AND_RETURN_RET_LOG(outputTexture->Init(), result, "output texture init fail!");
-
-    if (inputPixelmap != nullptr) {
-        UploadPixelmapTexture(inputTexture.get(), inputPixelmap.get());
-    } else {
-        UploadGradientTexture(inputTexture.get());
-    }
-
-    OH_ImageEffect *imageEffect = OH_ImageEffect_Create("imageEdit");
-    CHECK_AND_RETURN_RET_LOG(imageEffect != nullptr, result, "OH_ImageEffect_Create fail!");
-    std::shared_ptr<OH_ImageEffect> imageEffectPtr(
-        imageEffect, [](OH_ImageEffect *imageEffect) { OH_ImageEffect_Release(imageEffect); });
-
-    for (int i = 0; i < filters.size(); i++) {
-        if (IsFilterUnsupportedInTextureMode(filters[i][0].name)) {
-            LOG_W("filter %{public}s does not support texture input, skip it.", filters[i][0].name.c_str());
-            continue;
-        }
-        OH_EffectFilter *filter = AddFilter(imageEffectPtr.get(), filters[i][0].name.c_str());
-        CHECK_AND_RETURN_RET_LOG(filter != nullptr, result, "OH_ImageEffect_AddFilter fail!");
-        SetFilterValue(filter, filters[i][0].name.c_str(), filters[i][0].value, nullptr);
-    }
+    std::shared_ptr<OH_ImageEffect> imageEffectPtr = CreateImageEffectWithFilters(filters);
+    CHECK_AND_RETURN_RET_LOG(imageEffectPtr != nullptr, result, "create image effect with filters fail!");
+    OH_ImageEffect *imageEffect = imageEffectPtr.get();
 
     ImageEffect_ErrorCode errorCode = ImageEffect_ErrorCode::EFFECT_SUCCESS;
     // [Start image_effect_texture_input]
@@ -1111,18 +1152,8 @@ napi_value ImageEdit::TextureFilterStart(napi_env env, napi_callback_info info)
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_ImageEffect_Start fail! errorCode = %{public}d", errorCode);
 
-    std::vector<uint8_t> pixels;
-    if (!GLUtils::ReadTextureToRgba(outputTexture->GetName(), textureWidth, textureHeight, pixels)) {
-        LOG_W("read output texture fail, use input texture instead.");
-        CHECK_AND_RETURN_RET_LOG(GLUtils::ReadTextureToRgba(inputTexture->GetName(), textureWidth, textureHeight, pixels),
-                                 result, "read input texture fail!");
-    }
-
-    std::shared_ptr<OH_PixelmapNative> outputPixelmap = CreatePixelmapFromRgba(pixels, textureWidth, textureHeight);
-    CHECK_AND_RETURN_RET_LOG(outputPixelmap != nullptr, result, "create output pixelmap fail!");
-
-    bool encodeRes = PixelMapHelper::Encode(outputPixelmap.get(), outputPath);
-    CHECK_AND_RETURN_RET_LOG(encodeRes, result, "Encode path fail! path=%{public}s", outputPath.c_str());
+    CHECK_AND_RETURN_RET_LOG(ReadBackAndEncode(inputTexture, outputTexture, textureWidth, textureHeight, outputPath),
+                             result, "read back and encode texture fail!");
 
     napi_get_boolean(env, true, &result);
     return result;
