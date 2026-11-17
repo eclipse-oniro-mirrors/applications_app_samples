@@ -47,7 +47,6 @@ export default function detailModelTest(): void {
      */
     it('testRowsCount0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRowsCount0001 begin');
-      console.info('testRowsCount0001 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', 'file:///a.txt', 10, SAMPLE_SEC, true);
       expect(rows.length).assertEqual(7);
     })
@@ -61,7 +60,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRowOrder0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRowOrder0002 begin');
       console.info('testRowOrder0002 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', 'file:///a.txt', 10, SAMPLE_SEC, true);
       expect(labelsOf(rows)).assertEqual('名称|类型|MIME|大小|修改时间|加密文件|访问路径');
@@ -77,7 +75,6 @@ export default function detailModelTest(): void {
      */
     it('testNameValue0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNameValue0003 begin');
-      console.info('testNameValue0003 begin');
       const rows: DetailRow[] = DetailModel.build('年度报告.txt', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '名称')).assertEqual('年度报告.txt');
     })
@@ -91,7 +88,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTypeText0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTypeText0004 begin');
       console.info('testTypeText0004 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '类型')).assertEqual('文本');
@@ -107,7 +103,6 @@ export default function detailModelTest(): void {
      */
     it('testTypeDocument0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTypeDocument0005 begin');
-      console.info('testTypeDocument0005 begin');
       const rows: DetailRow[] = DetailModel.build('a.docx', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '类型')).assertEqual('文档');
     })
@@ -121,7 +116,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTypeImage0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTypeImage0006 begin');
       console.info('testTypeImage0006 begin');
       const rows: DetailRow[] = DetailModel.build('a.png', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '类型')).assertEqual('图片');
@@ -137,7 +131,6 @@ export default function detailModelTest(): void {
      */
     it('testTypeUnknown0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTypeUnknown0007 begin');
-      console.info('testTypeUnknown0007 begin');
       const rows: DetailRow[] = DetailModel.build('README', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '类型')).assertEqual('未知');
     })
@@ -151,7 +144,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTypeDlp0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTypeDlp0008 begin');
       console.info('testTypeDlp0008 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt.dlp', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '类型')).assertEqual('文本');
@@ -167,7 +159,6 @@ export default function detailModelTest(): void {
      */
     it('testMimeText0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMimeText0009 begin');
-      console.info('testMimeText0009 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, 'MIME')).assertEqual('text/plain');
     })
@@ -181,7 +172,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMimeDocx0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMimeDocx0010 begin');
       console.info('testMimeDocx0010 begin');
       const rows: DetailRow[] = DetailModel.build('a.docx', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, 'MIME')).assertEqual(
@@ -198,7 +188,6 @@ export default function detailModelTest(): void {
      */
     it('testSizeFormat0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSizeFormat0011 begin');
-      console.info('testSizeFormat0011 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 1536, SAMPLE_SEC, true);
       expect(valueOf(rows, '大小')).assertEqual('1.5 KB');
     })
@@ -212,7 +201,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSizeZero0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSizeZero0012 begin');
       console.info('testSizeZero0012 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 0, SAMPLE_SEC, true);
       expect(valueOf(rows, '大小')).assertEqual('0 B');
@@ -228,7 +216,6 @@ export default function detailModelTest(): void {
      */
     it('testSizeUnknown0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSizeUnknown0013 begin');
-      console.info('testSizeUnknown0013 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', -1, SAMPLE_SEC, true);
       expect(valueOf(rows, '大小')).assertEqual('未知');
     })
@@ -242,7 +229,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testModifiedUtc0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testModifiedUtc0014 begin');
       console.info('testModifiedUtc0014 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '修改时间')).assertEqual('2023/11/14 22:13:20');
@@ -258,7 +244,6 @@ export default function detailModelTest(): void {
      */
     it('testModifiedZero0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testModifiedZero0015 begin');
-      console.info('testModifiedZero0015 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 10, 0, true);
       expect(valueOf(rows, '修改时间')).assertEqual('未知');
     })
@@ -272,7 +257,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testModifiedNegative0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testModifiedNegative0016 begin');
       console.info('testModifiedNegative0016 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 10, -5, true);
       expect(valueOf(rows, '修改时间')).assertEqual('未知');
@@ -288,7 +272,6 @@ export default function detailModelTest(): void {
      */
     it('testUriValue0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUriValue0017 begin');
-      console.info('testUriValue0017 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', 'file:///docs/a.txt', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '访问路径')).assertEqual('file:///docs/a.txt');
     })
@@ -303,7 +286,6 @@ export default function detailModelTest(): void {
      */
     it('testUriEmpty0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUriEmpty0018 begin');
-      console.info('testUriEmpty0018 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '访问路径')).assertEqual('未知');
     })
@@ -317,7 +299,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDlpRows0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDlpRows0019 begin');
       console.info('testDlpRows0019 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt.dlp', '', 10, SAMPLE_SEC, true);
       expect(rows.length).assertEqual(8);
@@ -334,7 +315,6 @@ export default function detailModelTest(): void {
      */
     it('testDlpFlag0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDlpFlag0020 begin');
-      console.info('testDlpFlag0020 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt.dlp', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '加密文件')).assertEqual('是');
     })
@@ -348,7 +328,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPlainFlag0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPlainFlag0021 begin');
       console.info('testPlainFlag0021 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt', '', 10, SAMPLE_SEC, true);
       expect(valueOf(rows, '加密文件')).assertEqual('否');
@@ -364,7 +343,6 @@ export default function detailModelTest(): void {
      */
     it('testDlpOrder0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDlpOrder0022 begin');
-      console.info('testDlpOrder0022 begin');
       const rows: DetailRow[] = DetailModel.build('a.txt.dlp', '', 10, SAMPLE_SEC, true);
       expect(labelsOf(rows)).assertEqual('名称|类型|MIME|大小|修改时间|加密文件|容器内文件|访问路径');
     })
@@ -379,7 +357,6 @@ export default function detailModelTest(): void {
      */
     it('testSummaryKnown0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSummaryKnown0023 begin');
-      console.info('testSummaryKnown0023 begin');
       expect(DetailModel.summary('a.txt', 1536)).assertEqual('文本 · 1.5 KB');
     })
 
@@ -392,7 +369,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSummaryUnknownSize0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSummaryUnknownSize0024 begin');
       console.info('testSummaryUnknownSize0024 begin');
       expect(DetailModel.summary('a.txt', -1)).assertEqual('文本 · 大小未知');
     })
@@ -407,7 +383,6 @@ export default function detailModelTest(): void {
      */
     it('testSummaryDocx0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSummaryDocx0025 begin');
-      console.info('testSummaryDocx0025 begin');
       expect(DetailModel.summary('a.docx', 2048)).assertEqual('文档 · 2 KB');
     })
 
@@ -420,7 +395,6 @@ export default function detailModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLongName0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLongName0026 begin');
       console.info('testLongName0026 begin');
       let name: string = 'report';
       for (let index = 0; index < 40; index++) {

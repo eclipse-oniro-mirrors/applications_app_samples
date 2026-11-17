@@ -57,7 +57,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionSetMask0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionSetMask0001 begin');
-      console.info('testPermissionSetMask0001 begin');
       expect(new PermissionSet(0).mask).assertEqual(0);
       expect(new PermissionSet(PERMISSION_ALL).mask).assertEqual(15);
     })
@@ -71,7 +70,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPermissionSetOverflow0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPermissionSetOverflow0002 begin');
       console.info('testPermissionSetOverflow0002 begin');
       expect(new PermissionSet(16).mask).assertEqual(0);
       expect(new PermissionSet(31).mask).assertEqual(15);
@@ -87,7 +85,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionSetNegative0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionSetNegative0003 begin');
-      console.info('testPermissionSetNegative0003 begin');
       expect(new PermissionSet(-1).mask).assertEqual(15);
     })
 
@@ -100,7 +97,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPermissionHas0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPermissionHas0004 begin');
       console.info('testPermissionHas0004 begin');
       const set: PermissionSet = new PermissionSet(DlpPermission.READ);
       expect(set.has(DlpPermission.READ)).assertTrue();
@@ -119,7 +115,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionGrant0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionGrant0005 begin');
-      console.info('testPermissionGrant0005 begin');
       const set: PermissionSet = new PermissionSet(0).grant(DlpPermission.READ);
       expect(set.mask).assertEqual(1);
       expect(set.grant(DlpPermission.WRITE).mask).assertEqual(3);
@@ -135,7 +130,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionGrantIdempotent0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionGrantIdempotent0006 begin');
-      console.info('testPermissionGrantIdempotent0006 begin');
       const set: PermissionSet = new PermissionSet(DlpPermission.READ);
       expect(set.grant(DlpPermission.READ).mask).assertEqual(1);
     })
@@ -149,7 +143,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPermissionRevoke0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPermissionRevoke0007 begin');
       console.info('testPermissionRevoke0007 begin');
       const set: PermissionSet = new PermissionSet(3);
       expect(set.revoke(DlpPermission.READ).mask).assertEqual(2);
@@ -166,7 +159,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionRevokeAbsent0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionRevokeAbsent0008 begin');
-      console.info('testPermissionRevokeAbsent0008 begin');
       const set: PermissionSet = new PermissionSet(1);
       expect(set.revoke(DlpPermission.PRINT).mask).assertEqual(1);
       expect(set.revoke(DlpPermission.READ).mask).assertEqual(0);
@@ -181,7 +173,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPermissionToggle0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPermissionToggle0009 begin');
       console.info('testPermissionToggle0009 begin');
       const empty: PermissionSet = new PermissionSet(0);
       expect(empty.toggle(DlpPermission.READ).mask).assertEqual(1);
@@ -198,7 +189,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionToggleKeepsOthers0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionToggleKeepsOthers0010 begin');
-      console.info('testPermissionToggleKeepsOthers0010 begin');
       const set: PermissionSet = new PermissionSet(3);
       expect(set.toggle(DlpPermission.PRINT).mask).assertEqual(7);
     })
@@ -213,7 +203,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionEmpty0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionEmpty0011 begin');
-      console.info('testPermissionEmpty0011 begin');
       expect(new PermissionSet(0).isEmpty()).assertTrue();
       expect(new PermissionSet(1).isEmpty()).assertFalse();
     })
@@ -227,7 +216,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPermissionCount0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPermissionCount0012 begin');
       console.info('testPermissionCount0012 begin');
       expect(new PermissionSet(0).count()).assertEqual(0);
       expect(new PermissionSet(1).count()).assertEqual(1);
@@ -244,7 +232,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionFromActions0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionFromActions0013 begin');
-      console.info('testPermissionFromActions0013 begin');
       const set: PermissionSet = PermissionSet.fromActions(['read', 'write']);
       expect(set.mask).assertEqual(3);
       expect(set.has(DlpPermission.WRITE)).assertTrue();
@@ -260,7 +247,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionFromActionsUnknown0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionFromActionsUnknown0014 begin');
-      console.info('testPermissionFromActionsUnknown0014 begin');
       expect(PermissionSet.fromActions(['share']).mask).assertEqual(0);
       expect(PermissionSet.fromActions([]).mask).assertEqual(0);
     })
@@ -275,7 +261,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testActionsEmpty0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testActionsEmpty0015 begin');
-      console.info('testActionsEmpty0015 begin');
       expect(actionsOfMask(0).length).assertEqual(0);
     })
 
@@ -288,7 +273,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testActionsSingle0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testActionsSingle0016 begin');
       console.info('testActionsSingle0016 begin');
       expect(joinTexts(actionsOfMask(1))).assertEqual('read');
       expect(joinTexts(actionsOfMask(4))).assertEqual('print');
@@ -305,7 +289,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testActionsCombined0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testActionsCombined0017 begin');
-      console.info('testActionsCombined0017 begin');
       expect(joinTexts(actionsOfMask(3))).assertEqual('read|write');
       expect(joinTexts(actionsOfMask(15))).assertEqual('read|write|print|copy');
     })
@@ -320,7 +303,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testMaskOfActionsEmpty0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMaskOfActionsEmpty0018 begin');
-      console.info('testMaskOfActionsEmpty0018 begin');
       expect(maskOfActions([])).assertEqual(0);
     })
 
@@ -333,7 +315,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMaskOfActionsBasic0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMaskOfActionsBasic0019 begin');
       console.info('testMaskOfActionsBasic0019 begin');
       expect(maskOfActions(['read'])).assertEqual(1);
       expect(maskOfActions(['write', 'print'])).assertEqual(6);
@@ -350,7 +331,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testMaskOfActionsInvalid0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMaskOfActionsInvalid0020 begin');
-      console.info('testMaskOfActionsInvalid0020 begin');
       expect(maskOfActions(['share', ''])) .assertEqual(0);
       expect(maskOfActions(['READ'])).assertEqual(1);
     })
@@ -365,7 +345,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testLabelsEmpty0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLabelsEmpty0021 begin');
-      console.info('testLabelsEmpty0021 begin');
       expect(permissionLabels(0).length).assertEqual(0);
     })
 
@@ -378,7 +357,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLabelsBasic0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLabelsBasic0022 begin');
       console.info('testLabelsBasic0022 begin');
       expect(joinTexts(permissionLabels(1))).assertEqual('读取');
       expect(joinTexts(permissionLabels(3))).assertEqual('读取|编辑');
@@ -394,7 +372,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testLabelsFull0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLabelsFull0023 begin');
-      console.info('testLabelsFull0023 begin');
       expect(joinTexts(permissionLabels(15))).assertEqual('读取|编辑|打印|复制');
     })
 
@@ -408,7 +385,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testSummaryEmpty0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSummaryEmpty0024 begin');
-      console.info('testSummaryEmpty0024 begin');
       expect(permissionSummary(0)).assertEqual('无权限');
     })
 
@@ -421,7 +397,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSummaryBasic0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSummaryBasic0025 begin');
       console.info('testSummaryBasic0025 begin');
       expect(permissionSummary(1)).assertEqual('读取');
       expect(permissionSummary(3)).assertEqual('读取、编辑');
@@ -437,7 +412,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testSummaryFull0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSummaryFull0026 begin');
-      console.info('testSummaryFull0026 begin');
       expect(permissionSummary(15)).assertEqual('读取、编辑、打印、复制');
     })
 
@@ -450,7 +424,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testValidMaskRange0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testValidMaskRange0027 begin');
       console.info('testValidMaskRange0027 begin');
       expect(isValidMask(0)).assertTrue();
       expect(isValidMask(15)).assertTrue();
@@ -466,7 +439,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testValidMaskOutOfRange0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testValidMaskOutOfRange0028 begin');
-      console.info('testValidMaskOutOfRange0028 begin');
       expect(isValidMask(16)).assertFalse();
       expect(isValidMask(-1)).assertFalse();
     })
@@ -481,7 +453,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testValidMaskFraction0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testValidMaskFraction0029 begin');
-      console.info('testValidMaskFraction0029 begin');
       expect(isValidMask(1.5)).assertFalse();
       expect(isValidMask(Number.NaN)).assertFalse();
     })
@@ -495,7 +466,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDefaultPolicy0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDefaultPolicy0030 begin');
       console.info('testDefaultPolicy0030 begin');
       const policy: DlpPolicy = defaultPolicy('user001', 'User One');
       expect(policy.accountId).assertEqual('user001');
@@ -514,7 +484,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testWithPermission0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testWithPermission0031 begin');
-      console.info('testWithPermission0031 begin');
       const policy: DlpPolicy = withPermission(samplePolicy(), DlpPermission.PRINT);
       expect(policy.mask).assertEqual(7);
     })
@@ -528,7 +497,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testWithoutPermission0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testWithoutPermission0032 begin');
       console.info('testWithoutPermission0032 begin');
       const policy: DlpPolicy = withoutPermission(samplePolicy(), DlpPermission.READ);
       expect(policy.mask).assertEqual(2);
@@ -544,7 +512,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testTogglePermission0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTogglePermission0033 begin');
-      console.info('testTogglePermission0033 begin');
       expect(togglePermission(samplePolicy(), DlpPermission.COPY).mask).assertEqual(11);
       expect(togglePermission(samplePolicy(), DlpPermission.READ).mask).assertEqual(2);
     })
@@ -558,7 +525,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testHasPermission0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testHasPermission0034 begin');
       console.info('testHasPermission0034 begin');
       const policy: DlpPolicy = samplePolicy();
       expect(hasPermission(policy, DlpPermission.READ)).assertTrue();
@@ -574,7 +540,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPermissionImmutable0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPermissionImmutable0035 begin');
       console.info('testPermissionImmutable0035 begin');
       const policy: DlpPolicy = samplePolicy();
       const updated: DlpPolicy = withPermission(policy, DlpPermission.COPY);
@@ -592,7 +557,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testPermissionKeepFields0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPermissionKeepFields0036 begin');
-      console.info('testPermissionKeepFields0036 begin');
       const updated: DlpPolicy = withPermission(samplePolicy(), DlpPermission.COPY);
       expect(updated.accountId).assertEqual('user001');
       expect(updated.watermark).assertEqual('WATERMARK');
@@ -609,7 +573,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testExpiredNever0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testExpiredNever0037 begin');
-      console.info('testExpiredNever0037 begin');
       const policy: DlpPolicy = new DlpPolicy('a', 'n', 1, 0, '', '');
       expect(isExpired(policy, 2000000000)).assertFalse();
     })
@@ -624,7 +587,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testExpiredBefore0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testExpiredBefore0038 begin');
-      console.info('testExpiredBefore0038 begin');
       const policy: DlpPolicy = new DlpPolicy('a', 'n', 1, 100, '', '');
       expect(isExpired(policy, 99)).assertFalse();
     })
@@ -638,7 +600,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testExpiredAt0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testExpiredAt0039 begin');
       console.info('testExpiredAt0039 begin');
       const policy: DlpPolicy = new DlpPolicy('a', 'n', 1, 100, '', '');
       expect(isExpired(policy, 100)).assertTrue();
@@ -655,7 +616,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testExpiredNegative0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testExpiredNegative0040 begin');
-      console.info('testExpiredNegative0040 begin');
       const policy: DlpPolicy = new DlpPolicy('a', 'n', 1, -5, '', '');
       expect(isExpired(policy, 2000000000)).assertFalse();
     })
@@ -669,7 +629,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testValidPolicy0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testValidPolicy0041 begin');
       console.info('testValidPolicy0041 begin');
       const validation: PolicyValidation = validatePolicy(samplePolicy());
       expect(validation.valid).assertTrue();
@@ -686,7 +645,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testEmptyAccountId0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEmptyAccountId0042 begin');
-      console.info('testEmptyAccountId0042 begin');
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('', 'n', 1, 0, '', ''));
       expect(validation.valid).assertFalse();
       expect(issueFields(validation)).assertEqual('accountId:empty');
@@ -702,7 +660,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testBlankAccountId0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBlankAccountId0043 begin');
-      console.info('testBlankAccountId0043 begin');
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('   ', 'n', 1, 0, '', ''));
       expect(validation.valid).assertFalse();
     })
@@ -716,7 +673,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEmptyAccountName0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEmptyAccountName0044 begin');
       console.info('testEmptyAccountName0044 begin');
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('a', '', 1, 0, '', ''));
       expect(issueFields(validation)).assertEqual('accountName:empty');
@@ -732,7 +688,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testZeroMask0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testZeroMask0045 begin');
-      console.info('testZeroMask0045 begin');
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('a', 'n', 0, 0, '', ''));
       expect(issueFields(validation)).assertEqual('mask:empty');
     })
@@ -746,7 +701,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNegativeExpire0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNegativeExpire0046 begin');
       console.info('testNegativeExpire0046 begin');
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('a', 'n', 1, -1, '', ''));
       expect(issueFields(validation)).assertEqual('expiredAtSec:range');
@@ -762,7 +716,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testFractionExpire0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFractionExpire0047 begin');
-      console.info('testFractionExpire0047 begin');
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('a', 'n', 1, 1.5, '', ''));
       expect(validation.valid).assertFalse();
     })
@@ -776,7 +729,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLongWatermark0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLongWatermark0048 begin');
       console.info('testLongWatermark0048 begin');
       const watermark: string = repeatChar('w', 65);
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('a', 'n', 1, 0, watermark, ''));
@@ -793,7 +745,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testLongNickname0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLongNickname0049 begin');
-      console.info('testLongNickname0049 begin');
       const nickname: string = repeatChar('n', 65);
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('a', 'n', 1, 0, '', nickname));
       expect(issueFields(validation)).assertEqual('nickname:length');
@@ -808,7 +759,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMaxTextLength0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMaxTextLength0050 begin');
       console.info('testMaxTextLength0050 begin');
       const text: string = repeatChar('x', 64);
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('a', 'n', 1, 0, text, text));
@@ -825,7 +775,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testMultipleIssues0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMultipleIssues0051 begin');
-      console.info('testMultipleIssues0051 begin');
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('', '', 0, -1, '', ''));
       expect(validation.issues.length).assertEqual(4);
     })
@@ -839,7 +788,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMergeOverrideMask0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMergeOverrideMask0052 begin');
       console.info('testMergeOverrideMask0052 begin');
       const base: DlpPolicy = new DlpPolicy('a', 'n', 1, 0, '', '');
       const override: DlpPolicy = new DlpPolicy('b', 'm', 3, 100, 'W', 'N');
@@ -859,7 +807,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testMergeExpireBothZero0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMergeExpireBothZero0053 begin');
-      console.info('testMergeExpireBothZero0053 begin');
       const base: DlpPolicy = new DlpPolicy('a', 'n', 1, 0, '', '');
       const override: DlpPolicy = new DlpPolicy('b', 'm', 3, 0, '', '');
       expect(mergePolicies(base, override).expiredAtSec).assertEqual(0);
@@ -874,7 +821,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMergeExpireOneZero0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMergeExpireOneZero0054 begin');
       console.info('testMergeExpireOneZero0054 begin');
       const base: DlpPolicy = new DlpPolicy('a', 'n', 1, 100, '', '');
       const override: DlpPolicy = new DlpPolicy('b', 'm', 3, 0, '', '');
@@ -891,7 +837,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testMergeExpireBaseZero0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMergeExpireBaseZero0055 begin');
-      console.info('testMergeExpireBaseZero0055 begin');
       const base: DlpPolicy = new DlpPolicy('a', 'n', 1, 0, '', '');
       const override: DlpPolicy = new DlpPolicy('b', 'm', 3, 100, '', '');
       expect(mergePolicies(base, override).expiredAtSec).assertEqual(100);
@@ -906,7 +851,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMergeExpireMin0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMergeExpireMin0056 begin');
       console.info('testMergeExpireMin0056 begin');
       const base: DlpPolicy = new DlpPolicy('a', 'n', 1, 200, '', '');
       const override: DlpPolicy = new DlpPolicy('b', 'm', 3, 100, '', '');
@@ -923,7 +867,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testMergeExpireMinReverse0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMergeExpireMinReverse0057 begin');
-      console.info('testMergeExpireMinReverse0057 begin');
       const base: DlpPolicy = new DlpPolicy('a', 'n', 1, 100, '', '');
       const override: DlpPolicy = new DlpPolicy('b', 'm', 3, 200, '', '');
       expect(mergePolicies(base, override).expiredAtSec).assertEqual(100);
@@ -938,7 +881,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMergeWatermarkFallback0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMergeWatermarkFallback0058 begin');
       console.info('testMergeWatermarkFallback0058 begin');
       const base: DlpPolicy = new DlpPolicy('a', 'n', 1, 0, 'BASE', 'BaseNick');
       const override: DlpPolicy = new DlpPolicy('b', 'm', 3, 0, '', '');
@@ -957,7 +899,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testMergeOverrideWatermark0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMergeOverrideWatermark0059 begin');
-      console.info('testMergeOverrideWatermark0059 begin');
       const base: DlpPolicy = new DlpPolicy('a', 'n', 1, 0, 'BASE', 'BaseNick');
       const override: DlpPolicy = new DlpPolicy('b', 'm', 3, 0, 'NEW', 'NewNick');
       const merged: DlpPolicy = mergePolicies(base, override);
@@ -975,7 +916,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testTemplatesCount0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTemplatesCount0060 begin');
-      console.info('testTemplatesCount0060 begin');
       expect(builtInTemplates().length).assertEqual(5);
     })
 
@@ -988,7 +928,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTemplateReadOnly0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTemplateReadOnly0061 begin');
       console.info('testTemplateReadOnly0061 begin');
       const template: PolicyTemplate | null = findTemplate('read-only');
       expect(template !== null).assertTrue();
@@ -1007,7 +946,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testTemplateEditable0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTemplateEditable0062 begin');
-      console.info('testTemplateEditable0062 begin');
       const template: PolicyTemplate | null = findTemplate('editable');
       expect(template !== null).assertTrue();
       if (template !== null) {
@@ -1024,7 +962,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTemplatePrintable0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTemplatePrintable0063 begin');
       console.info('testTemplatePrintable0063 begin');
       const template: PolicyTemplate | null = findTemplate('printable');
       expect(template !== null).assertTrue();
@@ -1043,7 +980,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testTemplateCopyable0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTemplateCopyable0064 begin');
-      console.info('testTemplateCopyable0064 begin');
       const template: PolicyTemplate | null = findTemplate('copyable');
       expect(template !== null).assertTrue();
       if (template !== null) {
@@ -1060,7 +996,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTemplateFull0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTemplateFull0065 begin');
       console.info('testTemplateFull0065 begin');
       const template: PolicyTemplate | null = findTemplate('full');
       expect(template !== null).assertTrue();
@@ -1079,7 +1014,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testTemplateMissing0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTemplateMissing0066 begin');
-      console.info('testTemplateMissing0066 begin');
       expect(findTemplate('FULL')).assertNull();
       expect(findTemplate('')).assertNull();
     })
@@ -1093,7 +1027,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSerializeBasic0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSerializeBasic0067 begin');
       console.info('testSerializeBasic0067 begin');
       const policy: DlpPolicy = new DlpPolicy('user001', 'User One', 3, 1700000000, 'W', 'N');
       const text: string = serializePolicy(policy);
@@ -1110,7 +1043,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testSerializeVersion0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSerializeVersion0068 begin');
-      console.info('testSerializeVersion0068 begin');
       expect(serializePolicy(defaultPolicy('a', 'n')).startsWith(POLICY_VERSION + ';')).assertTrue();
     })
 
@@ -1123,7 +1055,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSerializeEscape0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSerializeEscape0069 begin');
       console.info('testSerializeEscape0069 begin');
       const policy: DlpPolicy = new DlpPolicy('a', 'n', 1, 0, 'w;x=y', '');
       expect(serializePolicy(policy).indexOf('%3B') > 0).assertTrue();
@@ -1140,7 +1071,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testSerializeChinese0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSerializeChinese0070 begin');
-      console.info('testSerializeChinese0070 begin');
       const policy: DlpPolicy = new DlpPolicy('a', '张三', 1, 0, '水印', '');
       const text: string = serializePolicy(policy);
       expect(text.indexOf('%E5%BC%A0%E4%B8%89') > 0).assertTrue();
@@ -1156,7 +1086,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testSerializeEmptyText0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSerializeEmptyText0071 begin');
-      console.info('testSerializeEmptyText0071 begin');
       const text: string = serializePolicy(new DlpPolicy('a', 'n', 1, 0, '', ''));
       expect(text.endsWith('watermark=;nickname=')).assertTrue();
     })
@@ -1170,7 +1099,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseRoundTrip0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseRoundTrip0072 begin');
       console.info('testParseRoundTrip0072 begin');
       const policy: DlpPolicy = samplePolicy();
       const parsed: PolicyParseResult = parsePolicy(serializePolicy(policy));
@@ -1196,7 +1124,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseEmpty0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseEmpty0073 begin');
-      console.info('testParseEmpty0073 begin');
       const parsed: PolicyParseResult = parsePolicy('');
       expect(parsed.valid).assertFalse();
       expect(parsed.policy).assertNull();
@@ -1211,7 +1138,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseWrongVersion0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseWrongVersion0074 begin');
       console.info('testParseWrongVersion0074 begin');
       const parsed: PolicyParseResult = parsePolicy('v2;accountId=a;accountName=n;mask=1');
       expect(parsed.valid).assertFalse();
@@ -1228,7 +1154,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseMissingFields0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseMissingFields0075 begin');
-      console.info('testParseMissingFields0075 begin');
       const parsed: PolicyParseResult = parsePolicy('v1');
       expect(parsed.valid).assertFalse();
       expect(parsed.validation.issues.length > 0).assertTrue();
@@ -1243,7 +1168,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseMalformedField0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseMalformedField0076 begin');
       console.info('testParseMalformedField0076 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=1;broken');
       expect(parsed.valid).assertFalse();
@@ -1260,7 +1184,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseUnknownKey0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseUnknownKey0077 begin');
-      console.info('testParseUnknownKey0077 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=1;extra=1');
       expect(parsed.valid).assertTrue();
     })
@@ -1275,7 +1198,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseTrailingSemicolon0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseTrailingSemicolon0078 begin');
-      console.info('testParseTrailingSemicolon0078 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=1;');
       expect(parsed.valid).assertTrue();
     })
@@ -1289,7 +1211,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseEncodedValue0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseEncodedValue0079 begin');
       console.info('testParseEncodedValue0079 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=1;watermark=w%3Bx');
       expect(parsed.policy !== null).assertTrue();
@@ -1308,7 +1229,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseEncodedChinese0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseEncodedChinese0080 begin');
-      console.info('testParseEncodedChinese0080 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=%E5%BC%A0%E4%B8%89;mask=1');
       expect(parsed.policy !== null).assertTrue();
       if (parsed.policy !== null) {
@@ -1326,7 +1246,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseBadEncoding0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseBadEncoding0081 begin');
-      console.info('testParseBadEncoding0081 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=1;watermark=%zz');
       expect(parsed.valid).assertFalse();
     })
@@ -1340,7 +1259,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseNonNumericMask0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseNonNumericMask0082 begin');
       console.info('testParseNonNumericMask0082 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=abc');
       expect(parsed.valid).assertFalse();
@@ -1357,7 +1275,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseNonNumericExpire0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseNonNumericExpire0083 begin');
-      console.info('testParseNonNumericExpire0083 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=1;expire=-5');
       expect(parsed.valid).assertFalse();
       expect(issueFields(parsed.validation).indexOf('expire:format') >= 0).assertTrue();
@@ -1373,7 +1290,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseEmptyMaskValue0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseEmptyMaskValue0084 begin');
-      console.info('testParseEmptyMaskValue0084 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=');
       expect(issueFields(parsed.validation).indexOf('mask:empty') >= 0).assertTrue();
     })
@@ -1387,7 +1303,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseMaskValue0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseMaskValue0085 begin');
       console.info('testParseMaskValue0085 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=9');
       expect(parsed.policy !== null).assertTrue();
@@ -1406,7 +1321,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseExpireValue0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseExpireValue0086 begin');
-      console.info('testParseExpireValue0086 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;accountId=a;accountName=n;mask=1;expire=1700000000');
       expect(parsed.policy !== null).assertTrue();
       if (parsed.policy !== null) {
@@ -1424,7 +1338,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testParseWhitespace0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseWhitespace0087 begin');
-      console.info('testParseWhitespace0087 begin');
       const parsed: PolicyParseResult = parsePolicy('  v1;accountId=a;accountName=n;mask=1  ');
       expect(parsed.valid).assertTrue();
     })
@@ -1438,7 +1351,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseVersionOnly0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseVersionOnly0088 begin');
       console.info('testParseVersionOnly0088 begin');
       const parsed: PolicyParseResult = parsePolicy('v1;');
       expect(parsed.policy !== null).assertTrue();
@@ -1454,7 +1366,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseIssueContent0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseIssueContent0089 begin');
       console.info('testParseIssueContent0089 begin');
       const validation: PolicyValidation = validatePolicy(new DlpPolicy('', 'n', 1, 0, '', ''));
       const issue: PolicyIssue = validation.issues[0];
@@ -1473,7 +1384,6 @@ export default function dlpPolicyCoreTest(): void {
      */
     it('testTemplateFields0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTemplateFields0090 begin');
-      console.info('testTemplateFields0090 begin');
       const templates: PolicyTemplate[] = builtInTemplates();
       expect(templates[0].id).assertEqual('read-only');
       expect(templates[0].nameKey).assertEqual('template_read_only');
@@ -1488,7 +1398,6 @@ export default function dlpPolicyCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTemplateMaskClamp0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTemplateMaskClamp0091 begin');
       console.info('testTemplateMaskClamp0091 begin');
       const template: PolicyTemplate = new PolicyTemplate('x', 'k', 31);
       expect(template.mask).assertEqual(15);

@@ -36,7 +36,6 @@ export default function recentModelTest(): void {
      */
     it('testEmpty0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEmpty0001 begin');
-      console.info('testEmpty0001 begin');
       const model: RecentModel = new RecentModel();
       expect(model.isEmpty()).assertTrue();
       expect(model.count()).assertEqual(0);
@@ -52,7 +51,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testAddOpen0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testAddOpen0002 begin');
       console.info('testAddOpen0002 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a.txt', false, 100);
@@ -71,7 +69,6 @@ export default function recentModelTest(): void {
      */
     it('testMostRecentFirst0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMostRecentFirst0003 begin');
-      console.info('testMostRecentFirst0003 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
       model.addOpen('b.txt', 'file:///b', false, 200);
@@ -87,7 +84,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReopenMovesFront0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testReopenMovesFront0004 begin');
       console.info('testReopenMovesFront0004 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
@@ -108,7 +104,6 @@ export default function recentModelTest(): void {
      */
     it('testReopenKeepsFavorite0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testReopenKeepsFavorite0005 begin');
-      console.info('testReopenKeepsFavorite0005 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
       model.toggleFavorite(buildId('a.txt', 'file:///a'));
@@ -125,7 +120,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCapacityTrim0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCapacityTrim0006 begin');
       console.info('testCapacityTrim0006 begin');
       const model: RecentModel = new RecentModel();
       model.setCapacity(2);
@@ -146,7 +140,6 @@ export default function recentModelTest(): void {
      */
     it('testCapacityClamp0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCapacityClamp0007 begin');
-      console.info('testCapacityClamp0007 begin');
       const model: RecentModel = new RecentModel();
       model.setCapacity(0);
       expect(model.getCapacity()).assertEqual(1);
@@ -164,7 +157,6 @@ export default function recentModelTest(): void {
      */
     it('testDefaultCapacity0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDefaultCapacity0008 begin');
-      console.info('testDefaultCapacity0008 begin');
       expect(new RecentModel().getCapacity()).assertEqual(RECENT_CAPACITY);
     })
 
@@ -177,7 +169,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRemove0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRemove0009 begin');
       console.info('testRemove0009 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
@@ -195,7 +186,6 @@ export default function recentModelTest(): void {
      */
     it('testRemoveMissing0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRemoveMissing0010 begin');
-      console.info('testRemoveMissing0010 begin');
       expect(new RecentModel().remove('missing')).assertFalse();
     })
 
@@ -208,7 +198,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testToggleFavorite0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testToggleFavorite0011 begin');
       console.info('testToggleFavorite0011 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
@@ -228,7 +217,6 @@ export default function recentModelTest(): void {
      */
     it('testToggleFavoriteMissing0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testToggleFavoriteMissing0012 begin');
-      console.info('testToggleFavoriteMissing0012 begin');
       expect(new RecentModel().toggleFavorite('missing')).assertFalse();
     })
 
@@ -241,7 +229,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFavoritesSplit0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFavoritesSplit0013 begin');
       console.info('testFavoritesSplit0013 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
@@ -260,7 +247,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testClearRecents0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testClearRecents0014 begin');
       console.info('testClearRecents0014 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
@@ -281,7 +267,6 @@ export default function recentModelTest(): void {
      */
     it('testClearAll0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testClearAll0015 begin');
-      console.info('testClearAll0015 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
       model.toggleFavorite('file:///a');
@@ -299,7 +284,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUpdateOpened0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUpdateOpened0016 begin');
       console.info('testUpdateOpened0016 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
@@ -319,7 +303,6 @@ export default function recentModelTest(): void {
      */
     it('testUpdateOpenedMissing0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUpdateOpenedMissing0017 begin');
-      console.info('testUpdateOpenedMissing0017 begin');
       expect(new RecentModel().updateOpened('missing', 100)).assertFalse();
     })
 
@@ -332,7 +315,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFind0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFind0018 begin');
       console.info('testFind0018 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', true, 100);
@@ -354,7 +336,6 @@ export default function recentModelTest(): void {
      */
     it('testBuildIdUri0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildIdUri0019 begin');
-      console.info('testBuildIdUri0019 begin');
       expect(buildId('a.txt', 'file:///a.txt')).assertEqual('file:///a.txt');
     })
 
@@ -367,7 +348,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testBuildIdName0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testBuildIdName0020 begin');
       console.info('testBuildIdName0020 begin');
       expect(buildId('a.txt', '')).assertEqual('name:a.txt');
     })
@@ -382,7 +362,6 @@ export default function recentModelTest(): void {
      */
     it('testSerializeEmpty0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSerializeEmpty0021 begin');
-      console.info('testSerializeEmpty0021 begin');
       expect(new RecentModel().serialize()).assertEqual('');
     })
 
@@ -395,7 +374,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRoundTrip0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRoundTrip0022 begin');
       console.info('testRoundTrip0022 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', true, 100);
@@ -417,7 +395,6 @@ export default function recentModelTest(): void {
      */
     it('testRoundTripSpecial0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRoundTripSpecial0023 begin');
-      console.info('testRoundTripSpecial0023 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a|b;c.txt', 'file:///x|y', false, 100);
       const parsed: RecentModel = parseRecentText(model.serialize(), RECENT_CAPACITY);
@@ -434,7 +411,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRoundTripChinese0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRoundTripChinese0024 begin');
       console.info('testRoundTripChinese0024 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('年度报告.txt', '', false, 100);
@@ -453,7 +429,6 @@ export default function recentModelTest(): void {
      */
     it('testParseEmpty0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseEmpty0025 begin');
-      console.info('testParseEmpty0025 begin');
       expect(parseRecentText('', RECENT_CAPACITY).isEmpty()).assertTrue();
     })
 
@@ -466,7 +441,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseMalformed0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseMalformed0026 begin');
       console.info('testParseMalformed0026 begin');
       const parsed: RecentModel = parseRecentText('badline\nname|only|three', RECENT_CAPACITY);
       expect(parsed.isEmpty()).assertTrue();
@@ -482,7 +456,6 @@ export default function recentModelTest(): void {
      */
     it('testParseEmptyFields0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseEmptyFields0027 begin');
-      console.info('testParseEmptyFields0027 begin');
       const parsed: RecentModel = parseRecentText('|a|file:///a|0|100|0', RECENT_CAPACITY);
       expect(parsed.isEmpty()).assertTrue();
     })
@@ -497,7 +470,6 @@ export default function recentModelTest(): void {
      */
     it('testParseBadTime0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseBadTime0028 begin');
-      console.info('testParseBadTime0028 begin');
       const parsed: RecentModel = parseRecentText('a|a.txt|file:///a|0|notatime|0', RECENT_CAPACITY);
       expect(parsed.isEmpty()).assertTrue();
     })
@@ -511,7 +483,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseCapacity0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseCapacity0029 begin');
       console.info('testParseCapacity0029 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('a.txt', 'file:///a', false, 100);
@@ -531,7 +502,6 @@ export default function recentModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSetItemsReset0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSetItemsReset0030 begin');
       console.info('testSetItemsReset0030 begin');
       const model: RecentModel = new RecentModel();
       model.addOpen('old.txt', 'file:///old', false, 100);

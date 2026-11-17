@@ -101,7 +101,7 @@ entry/src/ohosTest/ets/test/           // 设备端 UI 自动化用例（Hypium 
 
 1.本示例仅支持标准系统上运行。
 
-2.本示例已适配API version 11版本SDK，版本号：4.1.3.3。
+2.本示例已适配API version 26.0.0版本SDK。
 
 3.本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400 构建 2023年4月7日)及以上版本才可编译运行。
 

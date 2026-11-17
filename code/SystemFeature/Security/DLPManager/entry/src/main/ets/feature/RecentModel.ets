@@ -181,7 +181,17 @@ export class RecentModel {
 
   private trim(): void {
     while (this.items.length > this.capacity) {
-      this.items.pop();
+      let target: number = -1;
+      for (let index = this.items.length - 1; index >= 0; index--) {
+        if (!this.items[index].favorite) {
+          target = index;
+          break;
+        }
+      }
+      if (target < 0) {
+        return;
+      }
+      this.items.splice(target, 1);
     }
   }
 

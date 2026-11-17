@@ -59,7 +59,6 @@ export default function searchModelTest(): void {
      */
     it('testSetEntries0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSetEntries0001 begin');
-      console.info('testSetEntries0001 begin');
       const model: SearchModel = modelWithEntries();
       expect(model.getEntries().length).assertEqual(5);
       expect(model.total()).assertEqual(5);
@@ -74,7 +73,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSetEntriesResets0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSetEntriesResets0002 begin');
       console.info('testSetEntriesResets0002 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(2);
@@ -95,7 +93,6 @@ export default function searchModelTest(): void {
      */
     it('testSetEntriesEmpty0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSetEntriesEmpty0003 begin');
-      console.info('testSetEntriesEmpty0003 begin');
       const model: SearchModel = new SearchModel();
       model.setEntries([]);
       expect(model.total()).assertEqual(0);
@@ -113,7 +110,6 @@ export default function searchModelTest(): void {
      */
     it('testDefaultPageSize0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDefaultPageSize0004 begin');
-      console.info('testDefaultPageSize0004 begin');
       expect(new SearchModel().getPageSize()).assertEqual(DEFAULT_PAGE_SIZE);
     })
 
@@ -126,7 +122,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPageSizeClampLow0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPageSizeClampLow0005 begin');
       console.info('testPageSizeClampLow0005 begin');
       const model: SearchModel = new SearchModel();
       model.setPageSize(0);
@@ -143,7 +138,6 @@ export default function searchModelTest(): void {
      */
     it('testPageSizeClampHigh0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPageSizeClampHigh0006 begin');
-      console.info('testPageSizeClampHigh0006 begin');
       const model: SearchModel = new SearchModel();
       model.setPageSize(100);
       expect(model.getPageSize()).assertEqual(50);
@@ -158,7 +152,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKeywordFilter0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKeywordFilter0007 begin');
       console.info('testKeywordFilter0007 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('docx');
@@ -176,7 +169,6 @@ export default function searchModelTest(): void {
      */
     it('testKeywordCase0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKeywordCase0008 begin');
-      console.info('testKeywordCase0008 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('PDF');
       expect(model.total()).assertEqual(1);
@@ -191,7 +183,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKeywordResetPage0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKeywordResetPage0009 begin');
       console.info('testKeywordResetPage0009 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(1);
@@ -210,7 +201,6 @@ export default function searchModelTest(): void {
      */
     it('testKindFilter0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindFilter0010 begin');
-      console.info('testKindFilter0010 begin');
       const model: SearchModel = modelWithEntries();
       model.setKind(FileKind.DOCUMENT);
       expect(idsOf(model.results())).assertEqual('2|4');
@@ -225,7 +215,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testToggleKind0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testToggleKind0011 begin');
       console.info('testToggleKind0011 begin');
       const model: SearchModel = modelWithEntries();
       model.toggleKind(FileKind.TEXT);
@@ -246,7 +235,6 @@ export default function searchModelTest(): void {
      */
     it('testToggleTwoKinds0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testToggleTwoKinds0012 begin');
-      console.info('testToggleTwoKinds0012 begin');
       const model: SearchModel = modelWithEntries();
       model.toggleKind(FileKind.TEXT);
       model.toggleKind(FileKind.DOCUMENT);
@@ -262,7 +250,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testClearKinds0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testClearKinds0013 begin');
       console.info('testClearKinds0013 begin');
       const model: SearchModel = modelWithEntries();
       model.setKind(FileKind.IMAGE);
@@ -281,7 +268,6 @@ export default function searchModelTest(): void {
      */
     it('testKindResetPage0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindResetPage0014 begin');
-      console.info('testKindResetPage0014 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(1);
       model.nextPage();
@@ -298,7 +284,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testOnlyDlp0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testOnlyDlp0015 begin');
       console.info('testOnlyDlp0015 begin');
       const model: SearchModel = modelWithEntries();
       model.setOnlyDlp(true);
@@ -317,7 +302,6 @@ export default function searchModelTest(): void {
      */
     it('testOnlyFavorite0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOnlyFavorite0016 begin');
-      console.info('testOnlyFavorite0016 begin');
       const model: SearchModel = modelWithEntries();
       model.setOnlyFavorite(true);
       expect(idsOf(model.results())).assertEqual('1|4');
@@ -332,7 +316,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDlpAndKind0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDlpAndKind0017 begin');
       console.info('testDlpAndKind0017 begin');
       const model: SearchModel = modelWithEntries();
       model.setOnlyDlp(true);
@@ -352,7 +335,6 @@ export default function searchModelTest(): void {
      */
     it('testSortName0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortName0018 begin');
-      console.info('testSortName0018 begin');
       const model: SearchModel = modelWithEntries();
       expect(idsOf(model.results())).assertEqual('2|1|4|3|5');
     })
@@ -366,7 +348,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortSize0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortSize0019 begin');
       console.info('testSortSize0019 begin');
       const model: SearchModel = modelWithEntries();
       model.setSort(SortField.SIZE, false);
@@ -383,7 +364,6 @@ export default function searchModelTest(): void {
      */
     it('testSortTime0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortTime0020 begin');
-      console.info('testSortTime0020 begin');
       const model: SearchModel = modelWithEntries();
       model.setSort(SortField.MODIFIED, false);
       expect(idsOf(model.results())).assertEqual('5|2|3|1|4');
@@ -399,7 +379,6 @@ export default function searchModelTest(): void {
      */
     it('testSortDescending0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortDescending0021 begin');
-      console.info('testSortDescending0021 begin');
       const model: SearchModel = modelWithEntries();
       model.setSort(SortField.SIZE, true);
       expect(idsOf(model.results())).assertEqual('3|1|4|2|5');
@@ -414,7 +393,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortResetPage0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortResetPage0022 begin');
       console.info('testSortResetPage0022 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(2);
@@ -432,7 +410,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPaging0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPaging0023 begin');
       console.info('testPaging0023 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(2);
@@ -454,7 +431,6 @@ export default function searchModelTest(): void {
      */
     it('testNextPageLimit0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNextPageLimit0024 begin');
-      console.info('testNextPageLimit0024 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(2);
       expect(model.nextPage()).assertTrue();
@@ -471,7 +447,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPreviousPage0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPreviousPage0025 begin');
       console.info('testPreviousPage0025 begin');
       const model: SearchModel = modelWithEntries();
       expect(model.previousPage()).assertFalse();
@@ -491,7 +466,6 @@ export default function searchModelTest(): void {
      */
     it('testSetPageClamp0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSetPageClamp0026 begin');
-      console.info('testSetPageClamp0026 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(2);
       model.setPageIndex(99);
@@ -510,7 +484,6 @@ export default function searchModelTest(): void {
      */
     it('testEmptyPageCount0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEmptyPageCount0027 begin');
-      console.info('testEmptyPageCount0027 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('zzz');
       expect(model.pageCount()).assertEqual(0);
@@ -526,7 +499,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPageResultTotal0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPageResultTotal0028 begin');
       console.info('testPageResultTotal0028 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(2);
@@ -546,7 +518,6 @@ export default function searchModelTest(): void {
      */
     it('testActiveFilters0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testActiveFilters0029 begin');
-      console.info('testActiveFilters0029 begin');
       const model: SearchModel = modelWithEntries();
       expect(model.hasActiveFilters()).assertFalse();
       model.setOnlyDlp(true);
@@ -562,7 +533,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testActiveFilterCount0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testActiveFilterCount0030 begin');
       console.info('testActiveFilterCount0030 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('a');
@@ -583,7 +553,6 @@ export default function searchModelTest(): void {
      */
     it('testResetFilters0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testResetFilters0031 begin');
-      console.info('testResetFilters0031 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('a');
       model.setKind(FileKind.TEXT);
@@ -603,7 +572,6 @@ export default function searchModelTest(): void {
      */
     it('testResetFiltersSort0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testResetFiltersSort0032 begin');
-      console.info('testResetFiltersSort0032 begin');
       const model: SearchModel = modelWithEntries();
       model.setSort(SortField.SIZE, true);
       model.resetFilters();
@@ -621,7 +589,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testToggleSelection0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testToggleSelection0033 begin');
       console.info('testToggleSelection0033 begin');
       const model: SearchModel = modelWithEntries();
       model.toggleSelection('1');
@@ -642,7 +609,6 @@ export default function searchModelTest(): void {
      */
     it('testSelectUnselect0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSelectUnselect0034 begin');
-      console.info('testSelectUnselect0034 begin');
       const model: SearchModel = modelWithEntries();
       model.select('2');
       model.select('2');
@@ -662,7 +628,6 @@ export default function searchModelTest(): void {
      */
     it('testSelectAllResults0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSelectAllResults0035 begin');
-      console.info('testSelectAllResults0035 begin');
       const model: SearchModel = modelWithEntries();
       model.setKind(FileKind.DOCUMENT);
       model.selectAllResults();
@@ -680,7 +645,6 @@ export default function searchModelTest(): void {
      */
     it('testSelectAllEmpty0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSelectAllEmpty0036 begin');
-      console.info('testSelectAllEmpty0036 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('zzz');
       model.selectAllResults();
@@ -696,7 +660,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSelectionAcrossPages0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSelectionAcrossPages0037 begin');
       console.info('testSelectionAcrossPages0037 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(2);
@@ -716,7 +679,6 @@ export default function searchModelTest(): void {
      */
     it('testSelectedEntries0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSelectedEntries0038 begin');
-      console.info('testSelectedEntries0038 begin');
       const model: SearchModel = modelWithEntries();
       model.toggleSelection('4');
       model.toggleSelection('2');
@@ -732,7 +694,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSelectedIds0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSelectedIds0039 begin');
       console.info('testSelectedIds0039 begin');
       const model: SearchModel = modelWithEntries();
       model.toggleSelection('3');
@@ -751,7 +712,6 @@ export default function searchModelTest(): void {
      */
     it('testClearSelection0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testClearSelection0040 begin');
-      console.info('testClearSelection0040 begin');
       const model: SearchModel = modelWithEntries();
       model.selectAllResults();
       model.clearSelection();
@@ -769,7 +729,6 @@ export default function searchModelTest(): void {
      */
     it('testSelectionSummary0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSelectionSummary0041 begin');
-      console.info('testSelectionSummary0041 begin');
       const model: SearchModel = modelWithEntries();
       model.toggleSelection('1');
       model.toggleSelection('2');
@@ -785,7 +744,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKeywordAndKind0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKeywordAndKind0042 begin');
       console.info('testKeywordAndKind0042 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('a');
@@ -803,7 +761,6 @@ export default function searchModelTest(): void {
      */
     it('testKeywordNoResult0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKeywordNoResult0043 begin');
-      console.info('testKeywordNoResult0043 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('not-exist');
       expect(model.total()).assertEqual(0);
@@ -820,7 +777,6 @@ export default function searchModelTest(): void {
      */
     it('testKeywordBlank0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKeywordBlank0044 begin');
-      console.info('testKeywordBlank0044 begin');
       const model: SearchModel = modelWithEntries();
       model.setKeyword('   ');
       expect(model.hasActiveFilters()).assertFalse();
@@ -836,7 +792,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPageAfterFilter0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPageAfterFilter0045 begin');
       console.info('testPageAfterFilter0045 begin');
       const model: SearchModel = modelWithEntries();
       model.setKind(FileKind.TEXT);
@@ -856,7 +811,6 @@ export default function searchModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testResultsSorted0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testResultsSorted0046 begin');
       console.info('testResultsSorted0046 begin');
       const model: SearchModel = modelWithEntries();
       model.setPageSize(2);

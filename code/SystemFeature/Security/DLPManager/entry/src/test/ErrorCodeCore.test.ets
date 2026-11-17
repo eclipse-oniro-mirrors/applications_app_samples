@@ -35,7 +35,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testNormalizeZero0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNormalizeZero0001 begin');
-      console.info('testNormalizeZero0001 begin');
       expect(normalizeCode(0)).assertEqual(0);
     })
 
@@ -48,7 +47,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNormalizeFloor0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNormalizeFloor0002 begin');
       console.info('testNormalizeFloor0002 begin');
       expect(normalizeCode(5.9)).assertEqual(5);
       expect(normalizeCode(-3.2)).assertEqual(-4);
@@ -64,7 +62,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testNormalizeInvalid0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNormalizeInvalid0003 begin');
-      console.info('testNormalizeInvalid0003 begin');
       expect(normalizeCode(Number.NaN)).assertEqual(-1);
       expect(normalizeCode(Number.POSITIVE_INFINITY)).assertEqual(-1);
     })
@@ -79,7 +76,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testSuccess0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSuccess0004 begin');
-      console.info('testSuccess0004 begin');
       expect(isSuccess(0)).assertTrue();
       expect(isSuccess(0.4)).assertTrue();
     })
@@ -93,7 +89,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSuccessFalse0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSuccessFalse0005 begin');
       console.info('testSuccessFalse0005 begin');
       expect(isSuccess(1)).assertFalse();
       expect(isSuccess(-1)).assertFalse();
@@ -110,7 +105,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testParseDecimal0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseDecimal0006 begin');
-      console.info('testParseDecimal0006 begin');
       expect(parseErrorCode('0')).assertEqual(0);
       expect(parseErrorCode('13900002')).assertEqual(NOT_FOUND);
     })
@@ -125,7 +119,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testParseTrim0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseTrim0007 begin');
-      console.info('testParseTrim0007 begin');
       expect(parseErrorCode(' 13900002 ')).assertEqual(NOT_FOUND);
     })
 
@@ -138,7 +131,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseHex0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseHex0008 begin');
       console.info('testParseHex0008 begin');
       expect(parseErrorCode('0x10')).assertEqual(16);
       expect(parseErrorCode('0X10')).assertEqual(16);
@@ -154,7 +146,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testParseHexUpper0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseHexUpper0009 begin');
-      console.info('testParseHexUpper0009 begin');
       expect(parseErrorCode('0xD418E2')).assertEqual(NOT_FOUND);
     })
 
@@ -167,7 +158,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseEmpty0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseEmpty0010 begin');
       console.info('testParseEmpty0010 begin');
       expect(parseErrorCode('')).assertEqual(-1);
       expect(parseErrorCode('   ')).assertEqual(-1);
@@ -183,7 +173,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testParseLetters0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseLetters0011 begin');
-      console.info('testParseLetters0011 begin');
       expect(parseErrorCode('abc')).assertEqual(-1);
       expect(parseErrorCode('12abc')).assertEqual(-1);
     })
@@ -197,7 +186,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseLeadingZero0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseLeadingZero0012 begin');
       console.info('testParseLeadingZero0012 begin');
       expect(parseErrorCode('01')).assertEqual(-1);
       expect(parseErrorCode('00000001')).assertEqual(-1);
@@ -213,7 +201,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testParseFraction0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseFraction0013 begin');
-      console.info('testParseFraction0013 begin');
       expect(parseErrorCode('1.5')).assertEqual(-1);
     })
 
@@ -226,7 +213,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseEmptyHex0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseEmptyHex0014 begin');
       console.info('testParseEmptyHex0014 begin');
       expect(parseErrorCode('0x')).assertEqual(-1);
       expect(parseErrorCode('0xZZ')).assertEqual(-1);
@@ -242,7 +228,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testParseNegative0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseNegative0015 begin');
-      console.info('testParseNegative0015 begin');
       expect(parseErrorCode('-5')).assertEqual(-5);
     })
 
@@ -256,7 +241,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testFormatZero0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatZero0016 begin');
-      console.info('testFormatZero0016 begin');
       expect(formatCode(0)).assertEqual('0x00000000');
     })
 
@@ -269,7 +253,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFormatOne0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFormatOne0017 begin');
       console.info('testFormatOne0017 begin');
       expect(formatCode(1)).assertEqual('0x00000001');
       expect(formatCode(15)).assertEqual('0x0000000F');
@@ -285,7 +268,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testFormatByte0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatByte0018 begin');
-      console.info('testFormatByte0018 begin');
       expect(formatCode(255)).assertEqual('0x000000FF');
     })
 
@@ -298,7 +280,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFormatNegative0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFormatNegative0019 begin');
       console.info('testFormatNegative0019 begin');
       expect(formatCode(-1)).assertEqual('0xFFFFFFFF');
       expect(formatCode(Number.NaN)).assertEqual('0xFFFFFFFF');
@@ -314,7 +295,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testFormatSystemCode0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSystemCode0020 begin');
-      console.info('testFormatSystemCode0020 begin');
       expect(formatCode(NOT_FOUND)).assertEqual('0x00D418E2');
     })
 
@@ -327,7 +307,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLookupSuccess0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLookupSuccess0021 begin');
       console.info('testLookupSuccess0021 begin');
       const info: ErrorInfo = lookupError(0);
       expect(info.category).assertEqual(ErrorCategory.NONE);
@@ -346,7 +325,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupNotFound0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupNotFound0022 begin');
-      console.info('testLookupNotFound0022 begin');
       const info: ErrorInfo = lookupError(NOT_FOUND);
       expect(info.category).assertEqual(ErrorCategory.FILE_NOT_FOUND);
       expect(info.severity).assertEqual(ErrorSeverity.ERROR);
@@ -363,7 +341,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupPermission0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupPermission0023 begin');
-      console.info('testLookupPermission0023 begin');
       expect(lookupError(13900001).category).assertEqual(ErrorCategory.PERMISSION_DENIED);
       expect(lookupError(EACCES).category).assertEqual(ErrorCategory.PERMISSION_DENIED);
     })
@@ -377,7 +354,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLookupInterrupted0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLookupInterrupted0024 begin');
       console.info('testLookupInterrupted0024 begin');
       const info: ErrorInfo = lookupError(13900004);
       expect(info.category).assertEqual(ErrorCategory.INTERNAL);
@@ -395,7 +371,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupIo0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupIo0025 begin');
-      console.info('testLookupIo0025 begin');
       expect(lookupError(13900005).retryable).assertTrue();
       expect(lookupError(13900011).retryable).assertTrue();
     })
@@ -409,7 +384,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLookupBadHandle0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLookupBadHandle0026 begin');
       console.info('testLookupBadHandle0026 begin');
       expect(lookupError(13900008).category).assertEqual(ErrorCategory.INTERNAL);
       expect(lookupError(13900008).retryable).assertFalse();
@@ -425,7 +399,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupBusy0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupBusy0027 begin');
-      console.info('testLookupBusy0027 begin');
       expect(lookupError(13900015).severity).assertEqual(ErrorSeverity.WARNING);
       expect(lookupError(13900015).retryable).assertTrue();
     })
@@ -439,7 +412,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLookupInvalidArg0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLookupInvalidArg0028 begin');
       console.info('testLookupInvalidArg0028 begin');
       expect(lookupError(13900013).category).assertEqual(ErrorCategory.INVALID_ARGUMENT);
       expect(lookupError(13900020).category).assertEqual(ErrorCategory.INVALID_ARGUMENT);
@@ -456,7 +428,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupNoSpace0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupNoSpace0029 begin');
-      console.info('testLookupNoSpace0029 begin');
       const info: ErrorInfo = lookupError(ENOSPC);
       expect(info.category).assertEqual(ErrorCategory.STORAGE_FULL);
       expect(info.hint.indexOf('清理') >= 0).assertTrue();
@@ -471,7 +442,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLookupTimeout0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLookupTimeout0030 begin');
       console.info('testLookupTimeout0030 begin');
       const info: ErrorInfo = lookupError(13900042);
       expect(info.category).assertEqual(ErrorCategory.NETWORK);
@@ -488,7 +458,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupDlpPolicy0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupDlpPolicy0031 begin');
-      console.info('testLookupDlpPolicy0031 begin');
       expect(lookupError(19100001).category).assertEqual(ErrorCategory.DLP_POLICY);
       expect(lookupError(19100003).category).assertEqual(ErrorCategory.DLP_POLICY);
     })
@@ -503,7 +472,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupAccount0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupAccount0032 begin');
-      console.info('testLookupAccount0032 begin');
       expect(lookupError(19100002).category).assertEqual(ErrorCategory.ACCOUNT);
     })
 
@@ -517,7 +485,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupDlpPermission0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupDlpPermission0033 begin');
-      console.info('testLookupDlpPermission0033 begin');
       expect(lookupError(19100004).category).assertEqual(ErrorCategory.PERMISSION_DENIED);
     })
 
@@ -530,7 +497,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testLookupUnknown0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testLookupUnknown0034 begin');
       console.info('testLookupUnknown0034 begin');
       const info: ErrorInfo = lookupError(999);
       expect(info.category).assertEqual(ErrorCategory.UNKNOWN);
@@ -548,7 +514,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupUnmappedSystem0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupUnmappedSystem0035 begin');
-      console.info('testLookupUnmappedSystem0035 begin');
       expect(lookupError(13900003).category).assertEqual(ErrorCategory.UNKNOWN);
       expect(lookupError(19100005).category).assertEqual(ErrorCategory.UNKNOWN);
     })
@@ -563,7 +528,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupNegative0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupNegative0036 begin');
-      console.info('testLookupNegative0036 begin');
       expect(lookupError(-1).category).assertEqual(ErrorCategory.UNKNOWN);
     })
 
@@ -577,7 +541,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testLookupFraction0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLookupFraction0037 begin');
-      console.info('testLookupFraction0037 begin');
       expect(lookupError(NOT_FOUND + 0.9).category).assertEqual(ErrorCategory.FILE_NOT_FOUND);
     })
 
@@ -590,7 +553,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCategoryHelper0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCategoryHelper0038 begin');
       console.info('testCategoryHelper0038 begin');
       expect(categoryOf(0)).assertEqual(ErrorCategory.NONE);
       expect(categoryOf(NOT_FOUND)).assertEqual(ErrorCategory.FILE_NOT_FOUND);
@@ -607,7 +569,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testSeverityHelper0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSeverityHelper0039 begin');
-      console.info('testSeverityHelper0039 begin');
       expect(severityOf(0)).assertEqual(ErrorSeverity.INFO);
       expect(severityOf(NOT_FOUND)).assertEqual(ErrorSeverity.ERROR);
       expect(severityOf(13900004)).assertEqual(ErrorSeverity.WARNING);
@@ -622,7 +583,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRetryableHelper0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRetryableHelper0040 begin');
       console.info('testRetryableHelper0040 begin');
       expect(isRetryable(0)).assertFalse();
       expect(isRetryable(NOT_FOUND)).assertFalse();
@@ -640,7 +600,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testDescribeSuccess0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDescribeSuccess0041 begin');
-      console.info('testDescribeSuccess0041 begin');
       expect(describeError(0)).assertEqual('操作成功');
     })
 
@@ -653,7 +612,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDescribeFile0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDescribeFile0042 begin');
       console.info('testDescribeFile0042 begin');
       expect(describeError(NOT_FOUND)).assertEqual('文件不存在');
       expect(describeError(EACCES)).assertEqual('没有文件访问权限');
@@ -669,7 +627,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testDescribeUnknown0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDescribeUnknown0043 begin');
-      console.info('testDescribeUnknown0043 begin');
       expect(describeError(999)).assertEqual('未知错误');
     })
 
@@ -683,7 +640,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testHintSuccess0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHintSuccess0044 begin');
-      console.info('testHintSuccess0044 begin');
       expect(hintOf(0)).assertEqual('');
     })
 
@@ -696,7 +652,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testHintError0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testHintError0045 begin');
       console.info('testHintError0045 begin');
       expect(hintOf(NOT_FOUND).length > 0).assertTrue();
       expect(hintOf(999).length > 0).assertTrue();
@@ -712,7 +667,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testInfoFields0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testInfoFields0046 begin');
-      console.info('testInfoFields0046 begin');
       const info: ErrorInfo = lookupError(NOT_FOUND);
       expect(info.code).assertEqual(NOT_FOUND);
       expect(info.message.length > 0).assertTrue();
@@ -727,7 +681,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReportFields0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testReportFields0047 begin');
       console.info('testReportFields0047 begin');
       const report: ErrorReport = new ErrorReport(NOT_FOUND, 'open', 'detail', SAMPLE_SEC);
       expect(report.code).assertEqual(NOT_FOUND);
@@ -746,7 +699,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testReportFull0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testReportFull0048 begin');
-      console.info('testReportFull0048 begin');
       const report: ErrorReport = new ErrorReport(NOT_FOUND, 'open', 'open failed', SAMPLE_SEC);
       expect(formatErrorReport(report, true)).assertEqual(
         'code=0x00D418E2, category=file_not_found, severity=error, operation=open, ' +
@@ -763,7 +715,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testReportNoOperation0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testReportNoOperation0049 begin');
-      console.info('testReportNoOperation0049 begin');
       const report: ErrorReport = new ErrorReport(NOT_FOUND, '', 'detail', SAMPLE_SEC);
       expect(formatErrorReport(report, true).indexOf('operation=')).assertEqual(-1);
     })
@@ -777,7 +728,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReportNoDetail0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testReportNoDetail0050 begin');
       console.info('testReportNoDetail0050 begin');
       const report: ErrorReport = new ErrorReport(NOT_FOUND, 'open', '', SAMPLE_SEC);
       expect(formatErrorReport(report, true).indexOf('detail=')).assertEqual(-1);
@@ -793,7 +743,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testReportNoTime0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testReportNoTime0051 begin');
-      console.info('testReportNoTime0051 begin');
       const report: ErrorReport = new ErrorReport(NOT_FOUND, 'open', 'd', -1);
       expect(formatErrorReport(report, true).indexOf('time=')).assertEqual(-1);
     })
@@ -807,7 +756,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReportSuccess0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testReportSuccess0052 begin');
       console.info('testReportSuccess0052 begin');
       const report: ErrorReport = new ErrorReport(0, '', '', 0);
       expect(formatErrorReport(report, true)).assertEqual(
@@ -824,7 +772,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testReportUnknown0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testReportUnknown0053 begin');
-      console.info('testReportUnknown0053 begin');
       const report: ErrorReport = new ErrorReport(999, '', '', 0);
       expect(formatErrorReport(report, true).indexOf('category=unknown') > 0).assertTrue();
     })
@@ -838,7 +785,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReportNegative0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testReportNegative0054 begin');
       console.info('testReportNegative0054 begin');
       const report: ErrorReport = new ErrorReport(-1, '', '', 0);
       expect(formatErrorReport(report, true).indexOf('code=0xFFFFFFFF') === 0).assertTrue();
@@ -854,7 +800,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testReportCommaDetail0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testReportCommaDetail0055 begin');
-      console.info('testReportCommaDetail0055 begin');
       const report: ErrorReport = new ErrorReport(NOT_FOUND, '', 'a, b', 0);
       expect(formatErrorReport(report, true).indexOf('detail=a, b') > 0).assertTrue();
     })
@@ -869,7 +814,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testParseFormatRoundTrip0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseFormatRoundTrip0056 begin');
-      console.info('testParseFormatRoundTrip0056 begin');
       expect(parseErrorCode(formatCode(NOT_FOUND))).assertEqual(NOT_FOUND);
       expect(parseErrorCode(formatCode(255))).assertEqual(255);
     })
@@ -883,7 +827,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCategoryValues0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCategoryValues0057 begin');
       console.info('testCategoryValues0057 begin');
       expect(ErrorCategory.FILE_NOT_FOUND.toString()).assertEqual('file_not_found');
       expect(ErrorCategory.DLP_POLICY.toString()).assertEqual('dlp_policy');
@@ -900,7 +843,6 @@ export default function errorCodeCoreTest(): void {
      */
     it('testSeverityValues0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSeverityValues0058 begin');
-      console.info('testSeverityValues0058 begin');
       expect(ErrorSeverity.INFO.toString()).assertEqual('info');
       expect(ErrorSeverity.WARNING.toString()).assertEqual('warning');
       expect(ErrorSeverity.ERROR.toString()).assertEqual('error');
@@ -915,7 +857,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMessagesNonEmpty0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMessagesNonEmpty0059 begin');
       console.info('testMessagesNonEmpty0059 begin');
       const codes: number[] = [0, 13900001, NOT_FOUND, 13900004, 13900005, EACCES, 13900020, ENOSPC,
         13900042, 19100001, 19100002, 19100003, 19100004, 999];
@@ -933,7 +874,6 @@ export default function errorCodeCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNonRetryableSet0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNonRetryableSet0060 begin');
       console.info('testNonRetryableSet0060 begin');
       const codes: number[] = [NOT_FOUND, EACCES, ENOSPC, 13900020, 19100001, 19100004];
       for (let index = 0; index < codes.length; index++) {

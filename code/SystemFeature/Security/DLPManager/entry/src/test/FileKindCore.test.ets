@@ -57,7 +57,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testIsDlpName0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testIsDlpName0001 begin');
-      console.info('testIsDlpName0001 begin');
       expect(isDlpName('a.txt.dlp')).assertTrue();
       expect(isDlpName('a.DLP')).assertTrue();
       expect(isDlpName('a.dlp')).assertTrue();
@@ -72,7 +71,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testIsDlpName0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testIsDlpName0002 begin');
       console.info('testIsDlpName0002 begin');
       expect(isDlpName('a.dlp.txt')).assertFalse();
       expect(isDlpName('')).assertFalse();
@@ -89,7 +87,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testStripDlpSuffix0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testStripDlpSuffix0003 begin');
-      console.info('testStripDlpSuffix0003 begin');
       expect(stripDlpSuffix('a.txt.dlp')).assertEqual('a.txt');
       expect(stripDlpSuffix('A.DLP')).assertEqual('A');
     })
@@ -103,7 +100,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testStripDlpSuffix0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testStripDlpSuffix0004 begin');
       console.info('testStripDlpSuffix0004 begin');
       expect(stripDlpSuffix('a.txt')).assertEqual('a.txt');
       expect(stripDlpSuffix('')).assertEqual('');
@@ -119,7 +115,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testStripDlpSuffix0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testStripDlpSuffix0005 begin');
-      console.info('testStripDlpSuffix0005 begin');
       expect(stripDlpSuffix('.dlp')).assertEqual('');
     })
 
@@ -132,7 +127,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEffectiveName0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEffectiveName0006 begin');
       console.info('testEffectiveName0006 begin');
       expect(effectiveName('report.docx.dlp')).assertEqual('report.docx');
       expect(effectiveName('report.docx')).assertEqual('report.docx');
@@ -148,7 +142,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testExtensionOfName0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testExtensionOfName0007 begin');
-      console.info('testExtensionOfName0007 begin');
       expect(extensionOfName('a.txt.dlp')).assertEqual('txt');
       expect(extensionOfName('a.tar.gz.dlp')).assertEqual('gz');
     })
@@ -162,7 +155,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testExtensionOfName0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testExtensionOfName0008 begin');
       console.info('testExtensionOfName0008 begin');
       expect(extensionOfName('a.TXT')).assertEqual('txt');
       expect(extensionOfName('a')).assertEqual('');
@@ -178,7 +170,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testExtensionOfName0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testExtensionOfName0009 begin');
-      console.info('testExtensionOfName0009 begin');
       expect(extensionOfName('a.dlp')).assertEqual('');
       expect(extensionOfName('.gitignore')).assertEqual('');
     })
@@ -192,7 +183,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKindText0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKindText0010 begin');
       console.info('testKindText0010 begin');
       expect(kindOfExtension('txt')).assertEqual(FileKind.TEXT);
       expect(kindOfExtension('md')).assertEqual(FileKind.TEXT);
@@ -210,7 +200,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testKindImage0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindImage0011 begin');
-      console.info('testKindImage0011 begin');
       expect(kindOfExtension('png')).assertEqual(FileKind.IMAGE);
       expect(kindOfExtension('jpg')).assertEqual(FileKind.IMAGE);
       expect(kindOfExtension('svg')).assertEqual(FileKind.IMAGE);
@@ -225,7 +214,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKindAudioVideo0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKindAudioVideo0012 begin');
       console.info('testKindAudioVideo0012 begin');
       expect(kindOfExtension('mp3')).assertEqual(FileKind.AUDIO);
       expect(kindOfExtension('ogg')).assertEqual(FileKind.AUDIO);
@@ -243,7 +231,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testKindDocument0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindDocument0013 begin');
-      console.info('testKindDocument0013 begin');
       expect(kindOfExtension('pdf')).assertEqual(FileKind.DOCUMENT);
       expect(kindOfExtension('docx')).assertEqual(FileKind.DOCUMENT);
       expect(kindOfExtension('pptx')).assertEqual(FileKind.DOCUMENT);
@@ -258,7 +245,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKindArchive0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKindArchive0014 begin');
       console.info('testKindArchive0014 begin');
       expect(kindOfExtension('zip')).assertEqual(FileKind.ARCHIVE);
       expect(kindOfExtension('gz')).assertEqual(FileKind.ARCHIVE);
@@ -275,7 +261,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testKindDatabaseProgram0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindDatabaseProgram0015 begin');
-      console.info('testKindDatabaseProgram0015 begin');
       expect(kindOfExtension('db')).assertEqual(FileKind.DATABASE);
       expect(kindOfExtension('hap')).assertEqual(FileKind.PROGRAM);
     })
@@ -289,7 +274,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKindUnknown0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKindUnknown0016 begin');
       console.info('testKindUnknown0016 begin');
       expect(kindOfExtension('xyz')).assertEqual(FileKind.UNKNOWN);
       expect(kindOfExtension('')).assertEqual(FileKind.UNKNOWN);
@@ -305,7 +289,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testKindCaseInsensitive0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindCaseInsensitive0017 begin');
-      console.info('testKindCaseInsensitive0017 begin');
       expect(kindOfExtension('TXT')).assertEqual(FileKind.TEXT);
       expect(kindOfExtension('PDF')).assertEqual(FileKind.DOCUMENT);
     })
@@ -319,7 +302,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMimeText0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMimeText0018 begin');
       console.info('testMimeText0018 begin');
       expect(mimeOfExtension('txt')).assertEqual('text/plain');
       expect(mimeOfExtension('md')).assertEqual('text/markdown');
@@ -337,7 +319,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testMimeImage0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMimeImage0019 begin');
-      console.info('testMimeImage0019 begin');
       expect(mimeOfExtension('png')).assertEqual('image/png');
       expect(mimeOfExtension('jpeg')).assertEqual('image/jpeg');
       expect(mimeOfExtension('svg')).assertEqual('image/svg+xml');
@@ -352,7 +333,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMimeMedia0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMimeMedia0020 begin');
       console.info('testMimeMedia0020 begin');
       expect(mimeOfExtension('mp3')).assertEqual('audio/mpeg');
       expect(mimeOfExtension('mp4')).assertEqual('video/mp4');
@@ -369,7 +349,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testMimeDocuments0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMimeDocuments0021 begin');
-      console.info('testMimeDocuments0021 begin');
       expect(mimeOfExtension('pdf')).assertEqual('application/pdf');
       expect(mimeOfExtension('doc')).assertEqual('application/msword');
       expect(mimeOfExtension('docx')).assertEqual(DOCX_MIME);
@@ -384,7 +363,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMimeArchive0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMimeArchive0022 begin');
       console.info('testMimeArchive0022 begin');
       expect(mimeOfExtension('zip')).assertEqual('application/zip');
       expect(mimeOfExtension('gz')).assertEqual('application/gzip');
@@ -401,7 +379,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testMimeOther0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMimeOther0023 begin');
-      console.info('testMimeOther0023 begin');
       expect(mimeOfExtension('sqlite3')).assertEqual('application/vnd.sqlite3');
       expect(mimeOfExtension('hap')).assertEqual('application/vnd.ohos.package');
       expect(mimeOfExtension('unknown')).assertEqual('application/octet-stream');
@@ -416,7 +393,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDescribeText0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDescribeText0024 begin');
       console.info('testDescribeText0024 begin');
       const descriptor: FileDescriptor = describeFile('note.txt', 10);
       expect(descriptor.extension).assertEqual('txt');
@@ -436,7 +412,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDescribeDlp0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDescribeDlp0025 begin');
-      console.info('testDescribeDlp0025 begin');
       const descriptor: FileDescriptor = describeFile('note.txt.dlp', 20);
       expect(descriptor.isDlp).assertTrue();
       expect(descriptor.displayName).assertEqual('note.txt');
@@ -453,7 +428,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDescribeDlpOnly0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDescribeDlpOnly0026 begin');
       console.info('testDescribeDlpOnly0026 begin');
       const descriptor: FileDescriptor = describeFile('note.dlp', 20);
       expect(descriptor.isDlp).assertTrue();
@@ -472,7 +446,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDescribeUpperExtension0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDescribeUpperExtension0027 begin');
-      console.info('testDescribeUpperExtension0027 begin');
       const descriptor: FileDescriptor = describeFile('photo.JPG', 100);
       expect(descriptor.extension).assertEqual('jpg');
       expect(descriptor.kind).assertEqual(FileKind.IMAGE);
@@ -489,7 +462,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDescribeNoExtension0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDescribeNoExtension0028 begin');
-      console.info('testDescribeNoExtension0028 begin');
       expect(describeFile('README', 5).kind).assertEqual(FileKind.UNKNOWN);
       expect(describeFile('.gitignore', 5).extension).assertEqual('');
     })
@@ -503,7 +475,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDescribeMultiDot0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDescribeMultiDot0029 begin');
       console.info('testDescribeMultiDot0029 begin');
       const descriptor: FileDescriptor = describeFile('backup.tar.gz.dlp', 30);
       expect(descriptor.extension).assertEqual('gz');
@@ -521,7 +492,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDescribeKeepName0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDescribeKeepName0030 begin');
-      console.info('testDescribeKeepName0030 begin');
       expect(describeFile('A.Txt.DLP', 1).name).assertEqual('A.Txt.DLP');
     })
 
@@ -534,7 +504,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSampleSupportedTxt0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSampleSupportedTxt0031 begin');
       console.info('testSampleSupportedTxt0031 begin');
       expect(isSampleSupported('a.txt')).assertTrue();
       expect(isSampleSupported('a.doc')).assertTrue();
@@ -551,7 +520,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testSampleSupportedDlp0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSampleSupportedDlp0032 begin');
-      console.info('testSampleSupportedDlp0032 begin');
       expect(isSampleSupported('a.txt.dlp')).assertTrue();
       expect(isSampleSupported('a.docx.dlp')).assertTrue();
     })
@@ -565,7 +533,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSampleUnsupported0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSampleUnsupported0033 begin');
       console.info('testSampleUnsupported0033 begin');
       expect(isSampleSupported('a.png')).assertFalse();
       expect(isSampleSupported('a.dlp')).assertFalse();
@@ -582,7 +549,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testEditableTextEmpty0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEditableTextEmpty0034 begin');
-      console.info('testEditableTextEmpty0034 begin');
       expect(isEditableText(describeFile('a.txt', 0))).assertTrue();
     })
 
@@ -595,7 +561,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEditableTextLimit0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEditableTextLimit0035 begin');
       console.info('testEditableTextLimit0035 begin');
       expect(isEditableText(describeFile('a.txt', MAX_EDITABLE_BYTES))).assertTrue();
     })
@@ -610,7 +575,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testEditableTextOverLimit0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEditableTextOverLimit0036 begin');
-      console.info('testEditableTextOverLimit0036 begin');
       expect(isEditableText(describeFile('a.txt', MAX_EDITABLE_BYTES + 1))).assertFalse();
     })
 
@@ -623,7 +587,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEditableNonText0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEditableNonText0037 begin');
       console.info('testEditableNonText0037 begin');
       expect(isEditableText(describeFile('a.png', 10))).assertFalse();
       expect(isEditableText(describeFile('a.pdf', 10))).assertFalse();
@@ -639,7 +602,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testEditableNegativeSize0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEditableNegativeSize0038 begin');
-      console.info('testEditableNegativeSize0038 begin');
       expect(isEditableText(describeFile('a.txt', -1))).assertFalse();
     })
 
@@ -652,7 +614,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEditableMarkdown0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEditableMarkdown0039 begin');
       console.info('testEditableMarkdown0039 begin');
       expect(isEditableText(describeFile('a.md', 100))).assertTrue();
     })
@@ -667,7 +628,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testSuffixDot0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSuffixDot0040 begin');
-      console.info('testSuffixDot0040 begin');
       expect(matchesAnySuffix('a.txt', ['.txt'])).assertTrue();
     })
 
@@ -681,7 +641,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testSuffixNoDot0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSuffixNoDot0041 begin');
-      console.info('testSuffixNoDot0041 begin');
       expect(matchesAnySuffix('a.txt', ['txt'])).assertTrue();
     })
 
@@ -694,7 +653,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSuffixCase0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSuffixCase0042 begin');
       console.info('testSuffixCase0042 begin');
       expect(matchesAnySuffix('A.TXT', ['.txt'])).assertTrue();
       expect(matchesAnySuffix('a.txt', ['TXT'])).assertTrue();
@@ -710,7 +668,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testSuffixList0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSuffixList0043 begin');
-      console.info('testSuffixList0043 begin');
       expect(matchesAnySuffix('a.txt', ['.png', '.txt'])).assertTrue();
     })
 
@@ -723,7 +680,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSuffixMiss0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSuffixMiss0044 begin');
       console.info('testSuffixMiss0044 begin');
       expect(matchesAnySuffix('a.txt', ['.png'])).assertFalse();
       expect(matchesAnySuffix('a.txt', [])).assertFalse();
@@ -740,7 +696,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testSuffixNotPartial0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSuffixNotPartial0045 begin');
-      console.info('testSuffixNotPartial0045 begin');
       expect(matchesAnySuffix('atxt', ['txt'])).assertFalse();
     })
 
@@ -753,7 +708,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKindLabelText0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKindLabelText0046 begin');
       console.info('testKindLabelText0046 begin');
       expect(kindLabel(FileKind.TEXT)).assertEqual('文本');
       expect(kindLabel(FileKind.IMAGE)).assertEqual('图片');
@@ -769,7 +723,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testKindLabelMedia0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindLabelMedia0047 begin');
-      console.info('testKindLabelMedia0047 begin');
       expect(kindLabel(FileKind.AUDIO)).assertEqual('音频');
       expect(kindLabel(FileKind.VIDEO)).assertEqual('视频');
     })
@@ -783,7 +736,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKindLabelFiles0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKindLabelFiles0048 begin');
       console.info('testKindLabelFiles0048 begin');
       expect(kindLabel(FileKind.DOCUMENT)).assertEqual('文档');
       expect(kindLabel(FileKind.ARCHIVE)).assertEqual('压缩包');
@@ -800,7 +752,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testKindLabelRest0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindLabelRest0049 begin');
-      console.info('testKindLabelRest0049 begin');
       expect(kindLabel(FileKind.PROGRAM)).assertEqual('程序');
       expect(kindLabel(FileKind.UNKNOWN)).assertEqual('未知');
     })
@@ -814,7 +765,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testKindResourceKey0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testKindResourceKey0050 begin');
       console.info('testKindResourceKey0050 begin');
       expect(kindResourceKey(FileKind.TEXT)).assertEqual('kind_text');
       expect(kindResourceKey(FileKind.IMAGE)).assertEqual('kind_image');
@@ -831,7 +781,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testKindPriorityOrder0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindPriorityOrder0051 begin');
-      console.info('testKindPriorityOrder0051 begin');
       expect(kindPriority(FileKind.TEXT)).assertEqual(0);
       expect(kindPriority(FileKind.DOCUMENT)).assertEqual(1);
       expect(kindPriority(FileKind.IMAGE)).assertEqual(2);
@@ -847,7 +796,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testKindPriorityTail0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testKindPriorityTail0052 begin');
-      console.info('testKindPriorityTail0052 begin');
       expect(kindPriority(FileKind.PROGRAM)).assertEqual(7);
       expect(kindPriority(FileKind.UNKNOWN)).assertEqual(9);
     })
@@ -862,7 +810,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testGroupEmpty0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGroupEmpty0053 begin');
-      console.info('testGroupEmpty0053 begin');
       expect(groupByKind([]).length).assertEqual(0);
     })
 
@@ -875,7 +822,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testGroupSingleKind0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testGroupSingleKind0054 begin');
       console.info('testGroupSingleKind0054 begin');
       const groups: KindGroup[] = groupByKind([describeFile('a.txt', 1), describeFile('b.txt', 1)]);
       expect(groups.length).assertEqual(1);
@@ -891,7 +837,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testGroupOrder0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testGroupOrder0055 begin');
       console.info('testGroupOrder0055 begin');
       const groups: KindGroup[] = groupByKind([describeFile('a.png', 1), describeFile('b.txt', 1)]);
       expect(groups.length).assertEqual(2);
@@ -909,7 +854,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testGroupUnknownLast0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGroupUnknownLast0056 begin');
-      console.info('testGroupUnknownLast0056 begin');
       const groups: KindGroup[] = groupByKind([describeFile('a.xyz', 1), describeFile('b.docx', 1)]);
       expect(groups[0].kind).assertEqual(FileKind.DOCUMENT);
       expect(groups[1].kind).assertEqual(FileKind.UNKNOWN);
@@ -925,7 +869,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testGroupKeepsNames0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGroupKeepsNames0057 begin');
-      console.info('testGroupKeepsNames0057 begin');
       const groups: KindGroup[] = groupByKind([describeFile('b.txt', 1), describeFile('a.txt', 1)]);
       expect(namesOf(groups[0].descriptors)).assertEqual('b.txt|a.txt');
     })
@@ -940,7 +883,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectEmpty0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectEmpty0058 begin');
-      console.info('testDetectEmpty0058 begin');
       expect(detectByContent(toBytes([]))).assertEqual(FileKind.UNKNOWN);
     })
 
@@ -953,7 +895,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectPng0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectPng0059 begin');
       console.info('testDetectPng0059 begin');
       expect(detectByContent(toBytes([0x89, 0x50, 0x4E, 0x47, 0x0D]))).assertEqual(FileKind.IMAGE);
     })
@@ -968,7 +909,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectJpeg0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectJpeg0060 begin');
-      console.info('testDetectJpeg0060 begin');
       expect(detectByContent(toBytes([0xFF, 0xD8, 0xFF, 0xE0]))).assertEqual(FileKind.IMAGE);
     })
 
@@ -981,7 +921,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectGif0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectGif0061 begin');
       console.info('testDetectGif0061 begin');
       expect(detectByContent(asciiBytes('GIF89a'))).assertEqual(FileKind.IMAGE);
     })
@@ -996,7 +935,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectBmp0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectBmp0062 begin');
-      console.info('testDetectBmp0062 begin');
       expect(detectByContent(toBytes([0x42, 0x4D, 0x00]))).assertEqual(FileKind.IMAGE);
     })
 
@@ -1009,7 +947,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectWebp0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectWebp0063 begin');
       console.info('testDetectWebp0063 begin');
       const bytes: Uint8Array = toBytes([82, 73, 70, 70, 0, 0, 0, 0, 87, 69, 66, 80]);
       expect(detectByContent(bytes)).assertEqual(FileKind.IMAGE);
@@ -1025,7 +962,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectPdf0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectPdf0064 begin');
-      console.info('testDetectPdf0064 begin');
       expect(detectByContent(asciiBytes('%PDF-1.7'))).assertEqual(FileKind.DOCUMENT);
     })
 
@@ -1038,7 +974,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectZip0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectZip0065 begin');
       console.info('testDetectZip0065 begin');
       expect(detectByContent(toBytes([0x50, 0x4B, 0x03, 0x04, 0x14]))).assertEqual(FileKind.ARCHIVE);
     })
@@ -1053,7 +988,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectGzip0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectGzip0066 begin');
-      console.info('testDetectGzip0066 begin');
       expect(detectByContent(toBytes([0x1F, 0x8B, 0x08]))).assertEqual(FileKind.ARCHIVE);
     })
 
@@ -1066,7 +1000,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectMp40067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectMp40067 begin');
       console.info('testDetectMp40067 begin');
       const bytes: Uint8Array = toBytes([0, 0, 0, 0, 102, 116, 121, 112]);
       expect(detectByContent(bytes)).assertEqual(FileKind.VIDEO);
@@ -1082,7 +1015,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectOgg0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectOgg0068 begin');
-      console.info('testDetectOgg0068 begin');
       expect(detectByContent(asciiBytes('OggS 0'))).assertEqual(FileKind.AUDIO);
     })
 
@@ -1096,7 +1028,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectAscii0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectAscii0069 begin');
-      console.info('testDetectAscii0069 begin');
       expect(detectByContent(asciiBytes('hello world'))).assertEqual(FileKind.TEXT);
     })
 
@@ -1109,7 +1040,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectChinese0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectChinese0070 begin');
       console.info('testDetectChinese0070 begin');
       const bytes: Uint8Array = toBytes([0xE4, 0xBD, 0xA0, 0xE5, 0xA5, 0xBD]);
       expect(detectByContent(bytes)).assertEqual(FileKind.TEXT);
@@ -1125,7 +1055,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectBinary0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectBinary0071 begin');
-      console.info('testDetectBinary0071 begin');
       expect(detectByContent(toBytes([0xFF, 0xFE, 0x00, 0x02]))).assertEqual(FileKind.UNKNOWN);
     })
 
@@ -1138,7 +1067,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectControlHeavy0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectControlHeavy0072 begin');
       console.info('testDetectControlHeavy0072 begin');
       const bytes: Uint8Array = toBytes([0x41, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x42, 0x43]);
       expect(detectByContent(bytes)).assertEqual(FileKind.UNKNOWN);
@@ -1154,7 +1082,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectNewlines0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectNewlines0073 begin');
-      console.info('testDetectNewlines0073 begin');
       expect(detectByContent(asciiBytes('a\nb\tc\r\n'))).assertEqual(FileKind.TEXT);
     })
 
@@ -1167,7 +1094,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectPngShort0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectPngShort0074 begin');
       console.info('testDetectPngShort0074 begin');
       expect(detectByContent(toBytes([0x89, 0x50]))).assertEqual(FileKind.UNKNOWN);
     })
@@ -1182,7 +1108,6 @@ export default function fileKindCoreTest(): void {
      */
     it('testDetectSingleByte0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDetectSingleByte0075 begin');
-      console.info('testDetectSingleByte0075 begin');
       expect(detectByContent(toBytes([0x41]))).assertEqual(FileKind.TEXT);
     })
 
@@ -1195,7 +1120,6 @@ export default function fileKindCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDetectNul0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDetectNul0076 begin');
       console.info('testDetectNul0076 begin');
       expect(detectByContent(toBytes([0x41, 0x00, 0x42]))).assertEqual(FileKind.UNKNOWN);
     })

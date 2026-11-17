@@ -83,7 +83,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testEntryFields0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEntryFields0001 begin');
-      console.info('testEntryFields0001 begin');
       const item: FileEntry = entry('1', 'a.txt', FileKind.TEXT, 10, 100, true, true);
       expect(item.id).assertEqual('1');
       expect(item.kind).assertEqual(FileKind.TEXT);
@@ -101,7 +100,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDefaults0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDefaults0002 begin');
       console.info('testDefaults0002 begin');
       const value: QueryOptions = options();
       expect(value.keyword).assertEqual('');
@@ -121,7 +119,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testNormalizeEmpty0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNormalizeEmpty0003 begin');
-      console.info('testNormalizeEmpty0003 begin');
       expect(normalizeKeyword('')).assertEqual('');
       expect(normalizeKeyword('   ')).assertEqual('');
     })
@@ -136,7 +133,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testNormalizeCase0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNormalizeCase0004 begin');
-      console.info('testNormalizeCase0004 begin');
       expect(normalizeKeyword('ABC')).assertEqual('abc');
     })
 
@@ -149,7 +145,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNormalizeSpaces0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNormalizeSpaces0005 begin');
       console.info('testNormalizeSpaces0005 begin');
       expect(normalizeKeyword('  a  b  ')).assertEqual('a b');
     })
@@ -164,7 +159,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testTokenizeEmpty0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTokenizeEmpty0006 begin');
-      console.info('testTokenizeEmpty0006 begin');
       expect(tokenizeKeyword('').length).assertEqual(0);
       expect(tokenizeKeyword('   ').length).assertEqual(0);
     })
@@ -178,7 +172,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTokenizeBasic0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTokenizeBasic0007 begin');
       console.info('testTokenizeBasic0007 begin');
       expect(tokenizeKeyword('A B').length).assertEqual(2);
       expect(tokenizeKeyword('A B')[0]).assertEqual('a');
@@ -195,7 +188,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testMatchEmptyKeyword0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMatchEmptyKeyword0008 begin');
-      console.info('testMatchEmptyKeyword0008 begin');
       expect(matchesKeyword(entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false), '')).assertTrue();
     })
 
@@ -208,7 +200,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMatchCaseInsensitive0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMatchCaseInsensitive0009 begin');
       console.info('testMatchCaseInsensitive0009 begin');
       const item: FileEntry = entry('1', 'Report.TXT', FileKind.TEXT, 1, 1, false, false);
       expect(matchesKeyword(item, 'report')).assertTrue();
@@ -225,7 +216,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testMatchAllTokens0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMatchAllTokens0010 begin');
-      console.info('testMatchAllTokens0010 begin');
       const item: FileEntry = entry('1', 'report.txt', FileKind.TEXT, 1, 1, false, false);
       expect(matchesKeyword(item, 'rep txt')).assertTrue();
       expect(matchesKeyword(item, 'rep doc')).assertFalse();
@@ -241,7 +231,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testMatchMissing0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMatchMissing0011 begin');
-      console.info('testMatchMissing0011 begin');
       expect(matchesKeyword(entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false), 'xyz')).assertFalse();
     })
 
@@ -255,7 +244,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testMatchChinese0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMatchChinese0012 begin');
-      console.info('testMatchChinese0012 begin');
       expect(matchesKeyword(entry('1', '报告.txt', FileKind.TEXT, 1, 1, false, false), '报告')).assertTrue();
     })
 
@@ -268,7 +256,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testOptionsDefaultMatch0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testOptionsDefaultMatch0013 begin');
       console.info('testOptionsDefaultMatch0013 begin');
       const entries: FileEntry[] = sampleEntries();
       for (let index = 0; index < entries.length; index++) {
@@ -286,7 +273,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testOptionsOnlyDlp0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsOnlyDlp0014 begin');
-      console.info('testOptionsOnlyDlp0014 begin');
       const value: QueryOptions = options();
       value.onlyDlp = true;
       expect(matchesOptions(entry('1', 'a.dlp', FileKind.TEXT, 1, 1, true, false), value)).assertTrue();
@@ -302,7 +288,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testOptionsOnlyFavorite0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testOptionsOnlyFavorite0015 begin');
       console.info('testOptionsOnlyFavorite0015 begin');
       const value: QueryOptions = options();
       value.onlyFavorite = true;
@@ -320,7 +305,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testOptionsKindsHit0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsKindsHit0016 begin');
-      console.info('testOptionsKindsHit0016 begin');
       const value: QueryOptions = options();
       value.kinds = [FileKind.TEXT, FileKind.IMAGE];
       expect(matchesOptions(entry('1', 'a.png', FileKind.IMAGE, 1, 1, false, false), value)).assertTrue();
@@ -336,7 +320,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testOptionsKindsMiss0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsKindsMiss0017 begin');
-      console.info('testOptionsKindsMiss0017 begin');
       const value: QueryOptions = options();
       value.kinds = [FileKind.TEXT];
       expect(matchesOptions(entry('1', 'a.pdf', FileKind.DOCUMENT, 1, 1, false, false), value)).assertFalse();
@@ -351,7 +334,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testOptionsMinSize0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testOptionsMinSize0018 begin');
       console.info('testOptionsMinSize0018 begin');
       const value: QueryOptions = options();
       value.minSize = 100;
@@ -369,7 +351,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testOptionsMaxSize0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsMaxSize0019 begin');
-      console.info('testOptionsMaxSize0019 begin');
       const value: QueryOptions = options();
       value.maxSize = 100;
       expect(matchesOptions(entry('1', 'a.txt', FileKind.TEXT, 100, 1, false, false), value)).assertTrue();
@@ -385,7 +366,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testOptionsSizeRange0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testOptionsSizeRange0020 begin');
       console.info('testOptionsSizeRange0020 begin');
       const value: QueryOptions = options();
       value.minSize = 100;
@@ -404,7 +384,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testOptionsTimeRange0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsTimeRange0021 begin');
-      console.info('testOptionsTimeRange0021 begin');
       const value: QueryOptions = options();
       value.fromSec = 100;
       value.toSec = 200;
@@ -421,7 +400,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testOptionsCombined0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testOptionsCombined0022 begin');
       console.info('testOptionsCombined0022 begin');
       const value: QueryOptions = options();
       value.keyword = 'report';
@@ -440,7 +418,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testFilterEmpty0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFilterEmpty0023 begin');
-      console.info('testFilterEmpty0023 begin');
       expect(filterEntries([], options()).length).assertEqual(0);
     })
 
@@ -453,7 +430,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFilterAll0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFilterAll0024 begin');
       console.info('testFilterAll0024 begin');
       const filtered: FileEntry[] = filterEntries(sampleEntries(), options());
       expect(namesOf(filtered)).assertEqual('Beta.txt|alpha.PDF|gamma.png|delta.docx');
@@ -468,7 +444,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFilterSubset0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFilterSubset0025 begin');
       console.info('testFilterSubset0025 begin');
       const value: QueryOptions = options();
       value.kinds = [FileKind.DOCUMENT];
@@ -485,7 +460,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testFilterNoResult0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFilterNoResult0026 begin');
-      console.info('testFilterNoResult0026 begin');
       const value: QueryOptions = options();
       value.keyword = 'zzz';
       expect(filterEntries(sampleEntries(), value).length).assertEqual(0);
@@ -501,7 +475,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testSortNameAsc0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortNameAsc0027 begin');
-      console.info('testSortNameAsc0027 begin');
       const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.NAME, false);
       expect(namesOf(sorted)).assertEqual('alpha.PDF|Beta.txt|delta.docx|gamma.png');
     })
@@ -515,7 +488,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortNameDesc0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortNameDesc0028 begin');
       console.info('testSortNameDesc0028 begin');
       const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.NAME, true);
       expect(sorted[0].name).assertEqual('gamma.png');
@@ -532,7 +504,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testSortSizeAsc0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortSizeAsc0029 begin');
-      console.info('testSortSizeAsc0029 begin');
       const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.SIZE, false);
       expect(idsOf(sorted)).assertEqual('2|4|1|3');
     })
@@ -546,7 +517,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortSizeDesc0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortSizeDesc0030 begin');
       console.info('testSortSizeDesc0030 begin');
       const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.SIZE, true);
       expect(idsOf(sorted)).assertEqual('3|1|4|2');
@@ -562,7 +532,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testSortModified0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortModified0031 begin');
-      console.info('testSortModified0031 begin');
       const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.MODIFIED, false);
       expect(idsOf(sorted)).assertEqual('2|3|1|4');
     })
@@ -576,7 +545,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortKind0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortKind0032 begin');
       console.info('testSortKind0032 begin');
       const sorted: FileEntry[] = sortEntries(sampleEntries(), SortField.KIND, false);
       expect(sorted[0].kind).assertEqual(FileKind.TEXT);
@@ -593,7 +561,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortStableTie0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortStableTie0033 begin');
       console.info('testSortStableTie0033 begin');
       const items: FileEntry[] = [
         entry('b', 'same.txt', FileKind.TEXT, 1, 1, false, false),
@@ -612,7 +579,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testSortEmpty0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSortEmpty0034 begin');
-      console.info('testSortEmpty0034 begin');
       expect(sortEntries([], SortField.NAME, false).length).assertEqual(0);
     })
 
@@ -625,7 +591,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortSingle0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortSingle0035 begin');
       console.info('testSortSingle0035 begin');
       const items: FileEntry[] = [entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false)];
       expect(sortEntries(items, SortField.SIZE, true).length).assertEqual(1);
@@ -640,7 +605,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortNoMutation0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortNoMutation0036 begin');
       console.info('testSortNoMutation0036 begin');
       const items: FileEntry[] = sampleEntries();
       const sorted: FileEntry[] = sortEntries(items, SortField.SIZE, false);
@@ -657,7 +621,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortKindTieName0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortKindTieName0037 begin');
       console.info('testSortKindTieName0037 begin');
       const items: FileEntry[] = [
         entry('1', 'b.txt', FileKind.TEXT, 1, 1, false, false),
@@ -676,7 +639,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQueryAll0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQueryAll0038 begin');
-      console.info('testQueryAll0038 begin');
       const result: QueryResult = queryEntries(sampleEntries(), options());
       expect(result.total).assertEqual(4);
       expect(result.items.length).assertEqual(4);
@@ -692,7 +654,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testQueryLimit0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testQueryLimit0039 begin');
       console.info('testQueryLimit0039 begin');
       const value: QueryOptions = options();
       value.limit = 2;
@@ -711,7 +672,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testQueryOffset0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testQueryOffset0040 begin');
       console.info('testQueryOffset0040 begin');
       const value: QueryOptions = options();
       value.offset = 1;
@@ -732,7 +692,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQueryLastPage0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQueryLastPage0041 begin');
-      console.info('testQueryLastPage0041 begin');
       const value: QueryOptions = options();
       value.offset = 3;
       value.limit = 2;
@@ -751,7 +710,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQueryOffsetBeyond0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQueryOffsetBeyond0042 begin');
-      console.info('testQueryOffsetBeyond0042 begin');
       const value: QueryOptions = options();
       value.offset = 10;
       const result: QueryResult = queryEntries(sampleEntries(), value);
@@ -769,7 +727,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQueryZeroLimit0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQueryZeroLimit0043 begin');
-      console.info('testQueryZeroLimit0043 begin');
       const value: QueryOptions = options();
       value.limit = 0;
       expect(queryEntries(sampleEntries(), value).items.length).assertEqual(4);
@@ -784,7 +741,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testQueryNegativeOffset0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testQueryNegativeOffset0044 begin');
       console.info('testQueryNegativeOffset0044 begin');
       const value: QueryOptions = options();
       value.offset = -5;
@@ -801,7 +757,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQueryNegativeLimit0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQueryNegativeLimit0045 begin');
-      console.info('testQueryNegativeLimit0045 begin');
       const value: QueryOptions = options();
       value.limit = -1;
       expect(queryEntries(sampleEntries(), value).items.length).assertEqual(4);
@@ -817,7 +772,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQueryExactEnd0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQueryExactEnd0046 begin');
-      console.info('testQueryExactEnd0046 begin');
       const value: QueryOptions = options();
       value.limit = 4;
       expect(queryEntries(sampleEntries(), value).hasMore).assertFalse();
@@ -832,7 +786,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testQueryFilter0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testQueryFilter0047 begin');
       console.info('testQueryFilter0047 begin');
       const value: QueryOptions = options();
       value.kinds = [FileKind.DOCUMENT];
@@ -851,7 +804,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQuerySortPaging0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQuerySortPaging0048 begin');
-      console.info('testQuerySortPaging0048 begin');
       const value: QueryOptions = options();
       value.sortField = SortField.SIZE;
       value.limit = 1;
@@ -869,7 +821,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQueryEmptyInput0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQueryEmptyInput0049 begin');
-      console.info('testQueryEmptyInput0049 begin');
       const result: QueryResult = queryEntries([], options());
       expect(result.total).assertEqual(0);
       expect(result.hasMore).assertFalse();
@@ -885,7 +836,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testCountEmpty0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCountEmpty0050 begin');
-      console.info('testCountEmpty0050 begin');
       expect(countByKind([]).length).assertEqual(0);
     })
 
@@ -898,7 +848,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCountBasic0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCountBasic0051 begin');
       console.info('testCountBasic0051 begin');
       const counts: KindCount[] = countByKind(sampleEntries());
       expect(counts.length).assertEqual(3);
@@ -917,7 +866,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testCountOrder0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCountOrder0052 begin');
-      console.info('testCountOrder0052 begin');
       const counts: KindCount[] = countByKind(sampleEntries());
       expect(counts[2].kind).assertEqual(FileKind.IMAGE);
     })
@@ -931,7 +879,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCountUnknownLast0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCountUnknownLast0053 begin');
       console.info('testCountUnknownLast0053 begin');
       const items: FileEntry[] = [
         entry('1', 'a.xyz', FileKind.UNKNOWN, 1, 1, false, false),
@@ -952,7 +899,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testCountSingle0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCountSingle0054 begin');
-      console.info('testCountSingle0054 begin');
       const counts: KindCount[] = countByKind([entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false)]);
       expect(counts.length).assertEqual(1);
       expect(counts[0].count).assertEqual(1);
@@ -968,7 +914,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testDistinctEmpty0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDistinctEmpty0055 begin');
-      console.info('testDistinctEmpty0055 begin');
       expect(distinctKinds([]).length).assertEqual(0);
     })
 
@@ -981,7 +926,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDistinctBasic0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDistinctBasic0056 begin');
       console.info('testDistinctBasic0056 begin');
       const kinds: FileKind[] = distinctKinds(sampleEntries());
       expect(kinds.length).assertEqual(3);
@@ -999,7 +943,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightEmptyKeyword0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightEmptyKeyword0057 begin');
-      console.info('testHighlightEmptyKeyword0057 begin');
       const spans: TextSpan[] = highlight('abcdef', '');
       expect(spans.length).assertEqual(1);
       expect(spans[0].matched).assertFalse();
@@ -1016,7 +959,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightStart0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightStart0058 begin');
-      console.info('testHighlightStart0058 begin');
       const spans: TextSpan[] = highlight('abcdef', 'ab');
       expect(spansText(spans)).assertEqual('ab|cdef');
       expect(matchedText(spans)).assertEqual('ab');
@@ -1032,7 +974,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightMiddle0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightMiddle0059 begin');
-      console.info('testHighlightMiddle0059 begin');
       const spans: TextSpan[] = highlight('abcdef', 'cd');
       expect(spansText(spans)).assertEqual('ab|cd|ef');
     })
@@ -1047,7 +988,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightEnd0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightEnd0060 begin');
-      console.info('testHighlightEnd0060 begin');
       const spans: TextSpan[] = highlight('abcdef', 'ef');
       expect(spansText(spans)).assertEqual('abcd|ef');
     })
@@ -1061,7 +1001,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightFull0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testHighlightFull0061 begin');
       console.info('testHighlightFull0061 begin');
       const spans: TextSpan[] = highlight('abc', 'abc');
       expect(spans.length).assertEqual(1);
@@ -1078,7 +1017,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightMultiple0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightMultiple0062 begin');
-      console.info('testHighlightMultiple0062 begin');
       const spans: TextSpan[] = highlight('abab', 'ab');
       expect(spans.length).assertEqual(1);
       expect(matchedText(spans)).assertEqual('abab');
@@ -1094,7 +1032,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightCase0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightCase0063 begin');
-      console.info('testHighlightCase0063 begin');
       const spans: TextSpan[] = highlight('ABCdef', 'abc');
       expect(matchedText(spans)).assertEqual('ABC');
     })
@@ -1108,7 +1045,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightOverlap0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testHighlightOverlap0064 begin');
       console.info('testHighlightOverlap0064 begin');
       const spans: TextSpan[] = highlight('abc', 'ab bc');
       expect(spans.length).assertEqual(1);
@@ -1126,7 +1062,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightAdjacent0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightAdjacent0065 begin');
-      console.info('testHighlightAdjacent0065 begin');
       const spans: TextSpan[] = highlight('abcd', 'ab cd');
       expect(spans.length).assertEqual(1);
       expect(matchedText(spans)).assertEqual('abcd');
@@ -1141,7 +1076,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightChinese0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testHighlightChinese0066 begin');
       console.info('testHighlightChinese0066 begin');
       const spans: TextSpan[] = highlight('年度报告.txt', '报告');
       expect(matchedText(spans)).assertEqual('报告');
@@ -1158,7 +1092,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightNoMatch0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightNoMatch0067 begin');
-      console.info('testHighlightNoMatch0067 begin');
       const spans: TextSpan[] = highlight('abcdef', 'zz');
       expect(spans.length).assertEqual(1);
       expect(spans[0].matched).assertFalse();
@@ -1173,7 +1106,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testHighlightReconstruct0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testHighlightReconstruct0068 begin');
       console.info('testHighlightReconstruct0068 begin');
       const source: string = '2026年度报告-final.txt';
       const spans: TextSpan[] = highlight(source, '年度 final');
@@ -1194,7 +1126,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testHighlightEmptyText0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHighlightEmptyText0069 begin');
-      console.info('testHighlightEmptyText0069 begin');
       const spans: TextSpan[] = highlight('', 'ab');
       expect(spans.length).assertEqual(1);
       expect(spans[0].text).assertEqual('');
@@ -1210,7 +1141,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFindByIdHit0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFindByIdHit0070 begin');
       console.info('testFindByIdHit0070 begin');
       const found: FileEntry | null = findEntryById(sampleEntries(), '3');
       expect(found !== null).assertTrue();
@@ -1229,7 +1159,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testFindByIdMiss0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFindByIdMiss0071 begin');
-      console.info('testFindByIdMiss0071 begin');
       expect(findEntryById(sampleEntries(), '99')).assertNull();
       expect(findEntryById([], '1')).assertNull();
     })
@@ -1243,7 +1172,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFindByIdFirst0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFindByIdFirst0072 begin');
       console.info('testFindByIdFirst0072 begin');
       const items: FileEntry[] = [
         entry('1', 'first.txt', FileKind.TEXT, 1, 1, false, false),
@@ -1266,7 +1194,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testMatchSpacesKeyword0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMatchSpacesKeyword0073 begin');
-      console.info('testMatchSpacesKeyword0073 begin');
       expect(matchesKeyword(entry('1', 'a.txt', FileKind.TEXT, 1, 1, false, false), '   ')).assertTrue();
     })
 
@@ -1279,7 +1206,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testOptionsDlpAndFavorite0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testOptionsDlpAndFavorite0074 begin');
       console.info('testOptionsDlpAndFavorite0074 begin');
       const value: QueryOptions = options();
       value.onlyDlp = true;
@@ -1298,7 +1224,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testOptionsFromOnly0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsFromOnly0075 begin');
-      console.info('testOptionsFromOnly0075 begin');
       const value: QueryOptions = options();
       value.fromSec = 1000;
       expect(matchesOptions(entry('1', 'a.txt', FileKind.TEXT, 1, 999, false, false), value)).assertFalse();
@@ -1315,7 +1240,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testOptionsToOnly0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testOptionsToOnly0076 begin');
-      console.info('testOptionsToOnly0076 begin');
       const value: QueryOptions = options();
       value.toSec = 1000;
       expect(matchesOptions(entry('1', 'a.txt', FileKind.TEXT, 1, 1000, false, false), value)).assertTrue();
@@ -1331,7 +1255,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSortDescTie0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSortDescTie0077 begin');
       console.info('testSortDescTie0077 begin');
       const items: FileEntry[] = [
         entry('a', 'same.txt', FileKind.TEXT, 1, 1, false, false),
@@ -1350,7 +1273,6 @@ export default function fileQueryCoreTest(): void {
      */
     it('testQueryHasMoreMiddle0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testQueryHasMoreMiddle0078 begin');
-      console.info('testQueryHasMoreMiddle0078 begin');
       const value: QueryOptions = options();
       value.offset = 1;
       value.limit = 2;
@@ -1366,7 +1288,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testQueryPageContent0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testQueryPageContent0079 begin');
       console.info('testQueryPageContent0079 begin');
       const value: QueryOptions = options();
       value.sortField = SortField.SIZE;
@@ -1386,7 +1307,6 @@ export default function fileQueryCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNormalizeNewline0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNormalizeNewline0080 begin');
       console.info('testNormalizeNewline0080 begin');
       expect(normalizeKeyword('a\nb')).assertEqual('a\nb');
     })

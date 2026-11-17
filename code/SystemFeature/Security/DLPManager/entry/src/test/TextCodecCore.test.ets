@@ -62,7 +62,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testUtf8BomLength0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUtf8BomLength0001 begin');
-      console.info('testUtf8BomLength0001 begin');
       const actual: number = utf8BomLength(toBytes([]));
       expect(actual).assertEqual(0);
     })
@@ -76,7 +75,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUtf8BomLength0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUtf8BomLength0002 begin');
       console.info('testUtf8BomLength0002 begin');
       const actual: number = utf8BomLength(toBytes([0xEF]));
       expect(actual).assertEqual(0);
@@ -92,7 +90,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testUtf8BomLength0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUtf8BomLength0003 begin');
-      console.info('testUtf8BomLength0003 begin');
       const actual: number = utf8BomLength(toBytes([0xEF, 0xBB]));
       expect(actual).assertEqual(0);
     })
@@ -106,7 +103,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUtf8BomLength0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUtf8BomLength0004 begin');
       console.info('testUtf8BomLength0004 begin');
       const actual: number = utf8BomLength(toBytes(BOM));
       expect(actual).assertEqual(3);
@@ -122,7 +118,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testUtf8BomLength0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUtf8BomLength0005 begin');
-      console.info('testUtf8BomLength0005 begin');
       const actual: number = utf8BomLength(toBytes([0xEF, 0xBB, 0xBF, 0x41]));
       expect(actual).assertEqual(3);
     })
@@ -136,7 +131,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUtf8BomLength0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUtf8BomLength0006 begin');
       console.info('testUtf8BomLength0006 begin');
       const actual: number = utf8BomLength(toBytes([0xEF, 0xBB, 0xBE]));
       expect(actual).assertEqual(0);
@@ -152,7 +146,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testHasUtf8Bom0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHasUtf8Bom0007 begin');
-      console.info('testHasUtf8Bom0007 begin');
       expect(hasUtf8Bom(toBytes([]))).assertFalse();
     })
 
@@ -165,7 +158,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testHasUtf8Bom0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testHasUtf8Bom0008 begin');
       console.info('testHasUtf8Bom0008 begin');
       expect(hasUtf8Bom(toBytes(BOM))).assertTrue();
     })
@@ -180,7 +172,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testHasUtf8Bom0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHasUtf8Bom0009 begin');
-      console.info('testHasUtf8Bom0009 begin');
       expect(hasUtf8Bom(toBytes([0xFF, 0xFE]))).assertFalse();
     })
 
@@ -194,7 +185,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testHasUtf8Bom0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testHasUtf8Bom0010 begin');
-      console.info('testHasUtf8Bom0010 begin');
       expect(hasUtf8Bom(toBytes([0x41, 0x42]))).assertFalse();
     })
 
@@ -207,7 +197,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8Empty0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8Empty0011 begin');
       console.info('testDecodeUtf8Empty0011 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([]));
       expect(outcome.text).assertEqual('');
@@ -226,7 +215,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8Ascii0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8Ascii0012 begin');
-      console.info('testDecodeUtf8Ascii0012 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0x41]));
       expect(outcome.text).assertEqual('A');
       expect(outcome.valid).assertTrue();
@@ -243,7 +231,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8AsciiText0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8AsciiText0013 begin');
-      console.info('testDecodeUtf8AsciiText0013 begin');
       const outcome: DecodeOutcome = decodeUtf8(asciiBytes('Hello World'));
       expect(outcome.text).assertEqual('Hello World');
       expect(outcome.bytesConsumed).assertEqual(11);
@@ -258,7 +245,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8Chinese0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8Chinese0014 begin');
       console.info('testDecodeUtf8Chinese0014 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes(CHINESE_BYTES));
       expect(outcome.text).assertEqual('你好');
@@ -275,7 +261,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8Emoji0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8Emoji0015 begin');
       console.info('testDecodeUtf8Emoji0015 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes(SMILE_BYTES));
       expect(outcome.text.length).assertEqual(2);
@@ -294,7 +279,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8TwoByteMin0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8TwoByteMin0016 begin');
-      console.info('testDecodeUtf8TwoByteMin0016 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xC2, 0x80]));
       expect(outcome.text.charCodeAt(0)).assertEqual(0x80);
       expect(outcome.valid).assertTrue();
@@ -309,7 +293,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8TwoByteMax0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8TwoByteMax0017 begin');
       console.info('testDecodeUtf8TwoByteMax0017 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xDF, 0xBF]));
       expect(outcome.text.charCodeAt(0)).assertEqual(0x7FF);
@@ -326,7 +309,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8ThreeByteMin0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8ThreeByteMin0018 begin');
-      console.info('testDecodeUtf8ThreeByteMin0018 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xE0, 0xA0, 0x80]));
       expect(outcome.text.charCodeAt(0)).assertEqual(0x800);
       expect(outcome.valid).assertTrue();
@@ -342,7 +324,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8ThreeByteMax0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8ThreeByteMax0019 begin');
-      console.info('testDecodeUtf8ThreeByteMax0019 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xEF, 0xBF, 0xBF]));
       expect(outcome.text.charCodeAt(0)).assertEqual(0xFFFF);
       expect(outcome.valid).assertTrue();
@@ -357,7 +338,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8FourByteMin0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8FourByteMin0020 begin');
       console.info('testDecodeUtf8FourByteMin0020 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xF0, 0x90, 0x80, 0x80]));
       expect(outcome.text.charCodeAt(0)).assertEqual(0xD800);
@@ -375,7 +355,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8FourByteMax0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8FourByteMax0021 begin');
-      console.info('testDecodeUtf8FourByteMax0021 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xF4, 0x8F, 0xBF, 0xBF]));
       expect(outcome.text.charCodeAt(0)).assertEqual(0xDBFF);
       expect(outcome.text.charCodeAt(1)).assertEqual(0xDFFF);
@@ -391,7 +370,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8LoneContinuation0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8LoneContinuation0022 begin');
       console.info('testDecodeUtf8LoneContinuation0022 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0x80]));
       expect(outcome.text).assertEqual('\uFFFD');
@@ -410,7 +388,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8InvalidStart0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8InvalidStart0023 begin');
-      console.info('testDecodeUtf8InvalidStart0023 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xFF, 0x41]));
       expect(outcome.text).assertEqual('\uFFFDA');
       expect(outcome.replacements).assertEqual(1);
@@ -425,7 +402,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8OverlongC00024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8OverlongC00024 begin');
       console.info('testDecodeUtf8OverlongC00024 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xC0, 0x80]));
       expect(outcome.text).assertEqual('\uFFFD\uFFFD');
@@ -443,7 +419,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8OverlongC10025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8OverlongC10025 begin');
-      console.info('testDecodeUtf8OverlongC10025 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xC1, 0xBF]));
       expect(outcome.text).assertEqual('\uFFFD\uFFFD');
       expect(outcome.replacements).assertEqual(2);
@@ -458,7 +433,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8E0InvalidSecond0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8E0InvalidSecond0026 begin');
       console.info('testDecodeUtf8E0InvalidSecond0026 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xE0, 0x80, 0x80]));
       expect(outcome.text).assertEqual('\uFFFD\uFFFD\uFFFD');
@@ -476,7 +450,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8EdSurrogate0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8EdSurrogate0027 begin');
-      console.info('testDecodeUtf8EdSurrogate0027 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xED, 0xA0, 0x80]));
       expect(outcome.text).assertEqual('\uFFFD\uFFFD\uFFFD');
       expect(outcome.replacements).assertEqual(3);
@@ -491,7 +464,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8F0InvalidSecond0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8F0InvalidSecond0028 begin');
       console.info('testDecodeUtf8F0InvalidSecond0028 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xF0, 0x8F, 0xBF, 0xBF]));
       expect(outcome.text).assertEqual('\uFFFD\uFFFD\uFFFD\uFFFD');
@@ -508,7 +480,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8F4InvalidSecond0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8F4InvalidSecond0029 begin');
-      console.info('testDecodeUtf8F4InvalidSecond0029 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xF4, 0x90, 0x80, 0x80]));
       expect(outcome.text).assertEqual('\uFFFD\uFFFD\uFFFD\uFFFD');
       expect(outcome.replacements).assertEqual(4);
@@ -523,7 +494,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8TruncatedTail0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8TruncatedTail0030 begin');
       console.info('testDecodeUtf8TruncatedTail0030 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0x41, 0xE4, 0xBD]));
       expect(outcome.text).assertEqual('A\uFFFD\uFFFD');
@@ -541,7 +511,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8MixedValidInvalid0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8MixedValidInvalid0031 begin');
-      console.info('testDecodeUtf8MixedValidInvalid0031 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xE4, 0xBD, 0xA0, 0x41]));
       expect(outcome.text).assertEqual('你A');
       expect(outcome.valid).assertTrue();
@@ -557,7 +526,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8Nul0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8Nul0032 begin');
       console.info('testDecodeUtf8Nul0032 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0x41, 0x00, 0x42]));
       expect(outcome.text.length).assertEqual(3);
@@ -575,7 +543,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8BomKept0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8BomKept0033 begin');
-      console.info('testDecodeUtf8BomKept0033 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xEF, 0xBB, 0xBF, 0x41]));
       expect(outcome.text.length).assertEqual(2);
       expect(outcome.text.charCodeAt(0)).assertEqual(0xFEFF);
@@ -592,7 +559,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8PrefixLengthZero0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8PrefixLengthZero0034 begin');
-      console.info('testDecodeUtf8PrefixLengthZero0034 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(asciiBytes('ABC'), 0, false, false);
       expect(outcome.text).assertEqual('');
       expect(outcome.bytesConsumed).assertEqual(0);
@@ -608,7 +574,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8PrefixNegative0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8PrefixNegative0035 begin');
-      console.info('testDecodeUtf8PrefixNegative0035 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(asciiBytes('ABC'), -5, false, false);
       expect(outcome.text).assertEqual('');
     })
@@ -622,7 +587,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8PrefixOverflow0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8PrefixOverflow0036 begin');
       console.info('testDecodeUtf8PrefixOverflow0036 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(asciiBytes('ABCD'), 99, false, false);
       expect(outcome.text).assertEqual('ABCD');
@@ -639,7 +603,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8PrefixPartial0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8PrefixPartial0037 begin');
-      console.info('testDecodeUtf8PrefixPartial0037 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(asciiBytes('ABCD'), 2, false, false);
       expect(outcome.text).assertEqual('AB');
       expect(outcome.bytesConsumed).assertEqual(2);
@@ -654,7 +617,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8PrefixSkipBom0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8PrefixSkipBom0038 begin');
       console.info('testDecodeUtf8PrefixSkipBom0038 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(toBytes([0xEF, 0xBB, 0xBF, 0x41]), 4, true, false);
       expect(outcome.text).assertEqual('A');
@@ -671,7 +633,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8PrefixKeepBom0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8PrefixKeepBom0039 begin');
-      console.info('testDecodeUtf8PrefixKeepBom0039 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(toBytes([0xEF, 0xBB, 0xBF, 0x41]), 4, false, false);
       expect(outcome.text.length).assertEqual(2);
       expect(outcome.text.charCodeAt(0)).assertEqual(0xFEFF);
@@ -686,7 +647,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8PrefixPartialBom0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8PrefixPartialBom0040 begin');
       console.info('testDecodeUtf8PrefixPartialBom0040 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(toBytes([0xEF, 0xBB]), 2, true, false);
       expect(outcome.text).assertEqual('\uFFFD\uFFFD');
@@ -703,7 +663,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8PrefixBomBeyondLength0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8PrefixBomBeyondLength0041 begin');
-      console.info('testDecodeUtf8PrefixBomBeyondLength0041 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(toBytes([0xEF, 0xBB, 0xBF, 0x41]), 2, true, false);
       expect(outcome.text).assertEqual('\uFFFD\uFFFD');
     })
@@ -717,7 +676,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8PrefixStopAtNul0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8PrefixStopAtNul0042 begin');
       console.info('testDecodeUtf8PrefixStopAtNul0042 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(toBytes([0x41, 0x42, 0x00, 0x43]), 4, false, true);
       expect(outcome.text).assertEqual('AB');
@@ -734,7 +692,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8PrefixNulKept0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8PrefixNulKept0043 begin');
-      console.info('testDecodeUtf8PrefixNulKept0043 begin');
       const outcome: DecodeOutcome = decodeUtf8Prefix(toBytes([0x41, 0x00, 0x42]), 3, false, false);
       expect(outcome.text.length).assertEqual(3);
       expect(outcome.bytesConsumed).assertEqual(3);
@@ -749,7 +706,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8PrefixFixedBuffer0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8PrefixFixedBuffer0044 begin');
       console.info('testDecodeUtf8PrefixFixedBuffer0044 begin');
       const buffer: Uint8Array = new Uint8Array(8);
       buffer[0] = 0x48;
@@ -769,7 +725,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testEncodeUtf8Empty0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeUtf8Empty0045 begin');
-      console.info('testEncodeUtf8Empty0045 begin');
       const actual: Uint8Array = encodeUtf8('');
       expect(actual.length).assertEqual(0);
       expect(joinBytes(actual)).assertEqual('');
@@ -785,7 +740,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testEncodeUtf8Ascii0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeUtf8Ascii0046 begin');
-      console.info('testEncodeUtf8Ascii0046 begin');
       expect(joinBytes(encodeUtf8('A'))).assertEqual('65');
     })
 
@@ -798,7 +752,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeUtf8Chinese0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeUtf8Chinese0047 begin');
       console.info('testEncodeUtf8Chinese0047 begin');
       expect(joinBytes(encodeUtf8('你好'))).assertEqual('228,189,160,229,165,189');
       expect(encodeUtf8('你好').length).assertEqual(6);
@@ -814,7 +767,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testEncodeUtf8Emoji0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeUtf8Emoji0048 begin');
-      console.info('testEncodeUtf8Emoji0048 begin');
       expect(joinBytes(encodeUtf8('😀'))).assertEqual('240,159,152,128');
     })
 
@@ -827,7 +779,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeUtf8LoneHigh0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeUtf8LoneHigh0049 begin');
       console.info('testEncodeUtf8LoneHigh0049 begin');
       const text: string = String.fromCharCode(0xD83D);
       expect(joinBytes(encodeUtf8(text))).assertEqual('239,191,189');
@@ -843,7 +794,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testEncodeUtf8LoneLow0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeUtf8LoneLow0050 begin');
-      console.info('testEncodeUtf8LoneLow0050 begin');
       const text: string = String.fromCharCode(0xDE00);
       expect(joinBytes(encodeUtf8(text))).assertEqual('239,191,189');
     })
@@ -857,7 +807,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeUtf8TwoByteMin0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeUtf8TwoByteMin0051 begin');
       console.info('testEncodeUtf8TwoByteMin0051 begin');
       const text: string = String.fromCharCode(0x80);
       expect(joinBytes(encodeUtf8(text))).assertEqual('194,128');
@@ -873,7 +822,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testEncodeUtf8TwoByteMax0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeUtf8TwoByteMax0052 begin');
-      console.info('testEncodeUtf8TwoByteMax0052 begin');
       const text: string = String.fromCharCode(0x7FF);
       expect(joinBytes(encodeUtf8(text))).assertEqual('223,191');
     })
@@ -887,7 +835,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeUtf8ThreeByteMin0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeUtf8ThreeByteMin0053 begin');
       console.info('testEncodeUtf8ThreeByteMin0053 begin');
       const text: string = String.fromCharCode(0x800);
       expect(joinBytes(encodeUtf8(text))).assertEqual('224,160,128');
@@ -903,7 +850,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testEncodeUtf8ThreeByteMax0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeUtf8ThreeByteMax0054 begin');
-      console.info('testEncodeUtf8ThreeByteMax0054 begin');
       const text: string = String.fromCharCode(0xFFFF);
       expect(joinBytes(encodeUtf8(text))).assertEqual('239,191,191');
     })
@@ -918,7 +864,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testEncodeUtf8FourByteMax0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeUtf8FourByteMax0055 begin');
-      console.info('testEncodeUtf8FourByteMax0055 begin');
       const text: string = String.fromCharCode(0xDBFF, 0xDFFF);
       expect(joinBytes(encodeUtf8(text))).assertEqual('244,143,191,191');
     })
@@ -932,7 +877,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeDecodeRoundTrip0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeDecodeRoundTrip0056 begin');
       console.info('testEncodeDecodeRoundTrip0056 begin');
       const source: string = 'abc你好😀';
       const outcome: DecodeOutcome = decodeUtf8(encodeUtf8(source));
@@ -950,7 +894,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testByteLengthEmpty0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testByteLengthEmpty0057 begin');
-      console.info('testByteLengthEmpty0057 begin');
       expect(utf8ByteLength('')).assertEqual(0);
     })
 
@@ -963,7 +906,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testByteLengthAscii0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testByteLengthAscii0058 begin');
       console.info('testByteLengthAscii0058 begin');
       expect(utf8ByteLength('Hello')).assertEqual(5);
     })
@@ -978,7 +920,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testByteLengthChinese0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testByteLengthChinese0059 begin');
-      console.info('testByteLengthChinese0059 begin');
       expect(utf8ByteLength('你好')).assertEqual(6);
     })
 
@@ -992,7 +933,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testByteLengthEmoji0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testByteLengthEmoji0060 begin');
-      console.info('testByteLengthEmoji0060 begin');
       expect(utf8ByteLength('😀')).assertEqual(4);
     })
 
@@ -1005,7 +945,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testByteLengthMatchesEncoding0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testByteLengthMatchesEncoding0061 begin');
       console.info('testByteLengthMatchesEncoding0061 begin');
       const samples: string[] = ['', 'a', '你好', '😀', 'a你好😀z'];
       for (let index = 0; index < samples.length; index++) {
@@ -1023,7 +962,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testTruncateZero0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateZero0062 begin');
-      console.info('testTruncateZero0062 begin');
       expect(truncateToByteLength('abc', 0)).assertEqual('');
     })
 
@@ -1036,7 +974,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateNegative0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateNegative0063 begin');
       console.info('testTruncateNegative0063 begin');
       expect(truncateToByteLength('abc', -1)).assertEqual('');
     })
@@ -1051,7 +988,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testTruncateExact0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateExact0064 begin');
-      console.info('testTruncateExact0064 begin');
       expect(truncateToByteLength('abc', 3)).assertEqual('abc');
     })
 
@@ -1064,7 +1000,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateAscii0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateAscii0065 begin');
       console.info('testTruncateAscii0065 begin');
       expect(truncateToByteLength('abcdef', 2)).assertEqual('ab');
     })
@@ -1079,7 +1014,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testTruncateChinesePartial0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateChinesePartial0066 begin');
-      console.info('testTruncateChinesePartial0066 begin');
       expect(truncateToByteLength('你好', 2)).assertEqual('');
     })
 
@@ -1092,7 +1026,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateChineseOne0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateChineseOne0067 begin');
       console.info('testTruncateChineseOne0067 begin');
       expect(truncateToByteLength('你好', 4)).assertEqual('你');
     })
@@ -1107,7 +1040,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testTruncateEmojiPartial0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateEmojiPartial0068 begin');
-      console.info('testTruncateEmojiPartial0068 begin');
       expect(truncateToByteLength('😀', 3)).assertEqual('');
     })
 
@@ -1120,7 +1052,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateEmojiExact0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateEmojiExact0069 begin');
       console.info('testTruncateEmojiExact0069 begin');
       expect(truncateToByteLength('😀a', 4)).assertEqual('😀');
     })
@@ -1135,7 +1066,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testTruncateEmojiAndAscii0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateEmojiAndAscii0070 begin');
-      console.info('testTruncateEmojiAndAscii0070 begin');
       expect(truncateToByteLength('😀a', 5)).assertEqual('😀a');
     })
 
@@ -1148,7 +1078,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateNoSplitSurrogate0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateNoSplitSurrogate0071 begin');
       console.info('testTruncateNoSplitSurrogate0071 begin');
       const result: string = truncateToByteLength('😀😀', 6);
       expect(result).assertEqual('😀');
@@ -1165,7 +1094,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testCodePointEmpty0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCodePointEmpty0072 begin');
-      console.info('testCodePointEmpty0072 begin');
       expect(countCodePoints('')).assertEqual(0);
     })
 
@@ -1178,7 +1106,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCodePointAscii0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCodePointAscii0073 begin');
       console.info('testCodePointAscii0073 begin');
       expect(countCodePoints('abc')).assertEqual(3);
     })
@@ -1193,7 +1120,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testCodePointChinese0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCodePointChinese0074 begin');
-      console.info('testCodePointChinese0074 begin');
       expect(countCodePoints('你好')).assertEqual(2);
     })
 
@@ -1206,7 +1132,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCodePointEmoji0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCodePointEmoji0075 begin');
       console.info('testCodePointEmoji0075 begin');
       expect(countCodePoints('😀')).assertEqual(1);
       expect('😀'.length).assertEqual(2);
@@ -1222,7 +1147,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testCodePointMixed0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testCodePointMixed0076 begin');
-      console.info('testCodePointMixed0076 begin');
       expect(countCodePoints('a😀b')).assertEqual(3);
     })
 
@@ -1235,7 +1159,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCodePointLoneSurrogate0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCodePointLoneSurrogate0077 begin');
       console.info('testCodePointLoneSurrogate0077 begin');
       expect(countCodePoints(String.fromCharCode(0xD83D))).assertEqual(1);
     })
@@ -1250,7 +1173,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testAsciiEmpty0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testAsciiEmpty0078 begin');
-      console.info('testAsciiEmpty0078 begin');
       expect(isAsciiOnly('')).assertTrue();
     })
 
@@ -1263,7 +1185,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testAsciiTrue0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testAsciiTrue0079 begin');
       console.info('testAsciiTrue0079 begin');
       expect(isAsciiOnly('abcXYZ019')).assertTrue();
     })
@@ -1278,7 +1199,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testAsciiChinese0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testAsciiChinese0080 begin');
-      console.info('testAsciiChinese0080 begin');
       expect(isAsciiOnly('a你')).assertFalse();
     })
 
@@ -1291,7 +1211,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testAsciiHighByte0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testAsciiHighByte0081 begin');
       console.info('testAsciiHighByte0081 begin');
       expect(isAsciiOnly('a' + String.fromCharCode(0x80))).assertFalse();
     })
@@ -1306,7 +1225,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testAsciiControl0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testAsciiControl0082 begin');
-      console.info('testAsciiControl0082 begin');
       expect(isAsciiOnly('a\nb\tc')).assertTrue();
     })
 
@@ -1319,7 +1237,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNormalizeEolEmpty0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNormalizeEolEmpty0083 begin');
       console.info('testNormalizeEolEmpty0083 begin');
       expect(normalizeEol('', false)).assertEqual('');
       expect(normalizeEol('', true)).assertEqual('');
@@ -1335,7 +1252,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testNormalizeEolCrlfToLf0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNormalizeEolCrlfToLf0084 begin');
-      console.info('testNormalizeEolCrlfToLf0084 begin');
       expect(normalizeEol('a\r\nb', false)).assertEqual('a\nb');
     })
 
@@ -1348,7 +1264,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNormalizeEolCrToLf0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNormalizeEolCrToLf0085 begin');
       console.info('testNormalizeEolCrToLf0085 begin');
       expect(normalizeEol('a\rb', false)).assertEqual('a\nb');
     })
@@ -1363,7 +1278,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testNormalizeEolLfToCrlf0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNormalizeEolLfToCrlf0086 begin');
-      console.info('testNormalizeEolLfToCrlf0086 begin');
       expect(normalizeEol('a\nb', true)).assertEqual('a\r\nb');
     })
 
@@ -1376,7 +1290,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNormalizeEolMixed0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNormalizeEolMixed0087 begin');
       console.info('testNormalizeEolMixed0087 begin');
       expect(normalizeEol('a\r\nb\rc\nd', false)).assertEqual('a\nb\nc\nd');
       expect(normalizeEol('a\r\nb\rc\nd', true)).assertEqual('a\r\nb\r\nc\r\nd');
@@ -1391,7 +1304,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNormalizeEolIdempotent0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNormalizeEolIdempotent0088 begin');
       console.info('testNormalizeEolIdempotent0088 begin');
       const source: string = 'a\r\nb\r\n';
       expect(normalizeEol(source, true)).assertEqual(source);
@@ -1408,7 +1320,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testSplitLinesEmpty0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesEmpty0089 begin');
-      console.info('testSplitLinesEmpty0089 begin');
       expect(splitLines('').length).assertEqual(0);
     })
 
@@ -1421,7 +1332,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSplitLinesSingle0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSplitLinesSingle0090 begin');
       console.info('testSplitLinesSingle0090 begin');
       expect(joinTexts(splitLines('abc'))).assertEqual('abc');
     })
@@ -1436,7 +1346,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testSplitLinesLf0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesLf0091 begin');
-      console.info('testSplitLinesLf0091 begin');
       expect(joinTexts(splitLines('a\nb'))).assertEqual('a|b');
     })
 
@@ -1449,7 +1358,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSplitLinesTrailing0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSplitLinesTrailing0092 begin');
       console.info('testSplitLinesTrailing0092 begin');
       const lines: string[] = splitLines('a\nb\n');
       expect(lines.length).assertEqual(2);
@@ -1466,7 +1374,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testSplitLinesCrlf0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesCrlf0093 begin');
-      console.info('testSplitLinesCrlf0093 begin');
       expect(joinTexts(splitLines('a\r\nb\r\nc'))).assertEqual('a|b|c');
     })
 
@@ -1479,7 +1386,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSplitLinesEmptyLines0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSplitLinesEmptyLines0094 begin');
       console.info('testSplitLinesEmptyLines0094 begin');
       const lines: string[] = splitLines('a\n\nb');
       expect(lines.length).assertEqual(3);
@@ -1496,7 +1402,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testSplitLinesOnlyNewline0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesOnlyNewline0095 begin');
-      console.info('testSplitLinesOnlyNewline0095 begin');
       const lines: string[] = splitLines('\n');
       expect(lines.length).assertEqual(1);
       expect(lines[0]).assertEqual('');
@@ -1511,7 +1416,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSplitLinesOnlyCr0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSplitLinesOnlyCr0096 begin');
       console.info('testSplitLinesOnlyCr0096 begin');
       const lines: string[] = splitLines('\r');
       expect(lines.length).assertEqual(1);
@@ -1528,7 +1432,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testSplitLinesCrOnly0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSplitLinesCrOnly0097 begin');
-      console.info('testSplitLinesCrOnly0097 begin');
       expect(joinTexts(splitLines('a\rb\rc'))).assertEqual('a|b|c');
     })
 
@@ -1541,7 +1444,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSplitLinesChinese0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSplitLinesChinese0098 begin');
       console.info('testSplitLinesChinese0098 begin');
       expect(joinTexts(splitLines('你好\n世界'))).assertEqual('你好|世界');
     })
@@ -1556,7 +1458,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testToHexEmpty0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testToHexEmpty0099 begin');
-      console.info('testToHexEmpty0099 begin');
       expect(toHex(toBytes([]), false)).assertEqual('');
     })
 
@@ -1569,7 +1470,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testToHexLower0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testToHexLower0100 begin');
       console.info('testToHexLower0100 begin');
       expect(toHex(toBytes([0x00, 0x0F, 0x10, 0xFF]), false)).assertEqual('000f10ff');
     })
@@ -1584,7 +1484,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testToHexUpper0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testToHexUpper0101 begin');
-      console.info('testToHexUpper0101 begin');
       expect(toHex(toBytes([0x00, 0x0F, 0x10, 0xFF]), true)).assertEqual('000F10FF');
     })
 
@@ -1598,7 +1497,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testToHexBom0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testToHexBom0102 begin');
-      console.info('testToHexBom0102 begin');
       expect(toHex(toBytes(BOM), false)).assertEqual('efbbbf');
     })
 
@@ -1611,7 +1509,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFromHexEmpty0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFromHexEmpty0103 begin');
       console.info('testFromHexEmpty0103 begin');
       const outcome: HexOutcome = fromHex('');
       expect(outcome.valid).assertFalse();
@@ -1628,7 +1525,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testFromHexOdd0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFromHexOdd0104 begin');
-      console.info('testFromHexOdd0104 begin');
       expect(fromHex('414').valid).assertFalse();
     })
 
@@ -1641,7 +1537,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFromHexPrefix0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFromHexPrefix0105 begin');
       console.info('testFromHexPrefix0105 begin');
       const outcome: HexOutcome = fromHex('0x4142');
       expect(outcome.valid).assertTrue();
@@ -1658,7 +1553,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testFromHexUpperPrefix0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFromHexUpperPrefix0106 begin');
-      console.info('testFromHexUpperPrefix0106 begin');
       const outcome: HexOutcome = fromHex('0X41');
       expect(outcome.valid).assertTrue();
       expect(outcome.bytes[0]).assertEqual(0x41);
@@ -1673,7 +1567,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFromHexWhitespace0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFromHexWhitespace0107 begin');
       console.info('testFromHexWhitespace0107 begin');
       const outcome: HexOutcome = fromHex('  41  ');
       expect(outcome.valid).assertTrue();
@@ -1690,7 +1583,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testFromHexInvalidChar0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFromHexInvalidChar0108 begin');
-      console.info('testFromHexInvalidChar0108 begin');
       expect(fromHex('4G').valid).assertFalse();
       expect(fromHex('zz').valid).assertFalse();
     })
@@ -1705,7 +1597,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testFromHexEmptyBody0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFromHexEmptyBody0109 begin');
-      console.info('testFromHexEmptyBody0109 begin');
       expect(fromHex('0x').valid).assertFalse();
     })
 
@@ -1718,7 +1609,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFromHexLower0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFromHexLower0110 begin');
       console.info('testFromHexLower0110 begin');
       const outcome: HexOutcome = fromHex('efbbbf');
       expect(outcome.valid).assertTrue();
@@ -1734,7 +1624,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFromHexRoundTrip0111', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFromHexRoundTrip0111 begin');
       console.info('testFromHexRoundTrip0111 begin');
       const source: Uint8Array = toBytes([0x00, 0x7F, 0x80, 0xFF]);
       const decoded: HexOutcome = fromHex(toHex(source, true));
@@ -1752,7 +1641,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testFromHexZeroByte0112', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFromHexZeroByte0112 begin');
-      console.info('testFromHexZeroByte0112 begin');
       const outcome: HexOutcome = fromHex('00');
       expect(outcome.valid).assertTrue();
       expect(outcome.bytes.length).assertEqual(1);
@@ -1769,7 +1657,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeThenEncodeChinese0113', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeThenEncodeChinese0113 begin');
-      console.info('testDecodeThenEncodeChinese0113 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes(CHINESE_BYTES));
       expect(joinBytes(encodeUtf8(outcome.text))).assertEqual(joinBytes(toBytes(CHINESE_BYTES)));
     })
@@ -1784,7 +1671,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeThenEncodeEmoji0114', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeThenEncodeEmoji0114 begin');
-      console.info('testDecodeThenEncodeEmoji0114 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes(SMILE_BYTES));
       expect(joinBytes(encodeUtf8(outcome.text))).assertEqual(joinBytes(toBytes(SMILE_BYTES)));
     })
@@ -1798,7 +1684,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPrefixWithStopNulAndBom0115', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPrefixWithStopNulAndBom0115 begin');
       console.info('testPrefixWithStopNulAndBom0115 begin');
       const source: Uint8Array = toBytes([0xEF, 0xBB, 0xBF, 0x41, 0x00, 0x42]);
       const outcome: DecodeOutcome = decodeUtf8Prefix(source, 6, true, true);
@@ -1816,7 +1701,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8TabAndNewline0116', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8TabAndNewline0116 begin');
-      console.info('testDecodeUtf8TabAndNewline0116 begin');
       const outcome: DecodeOutcome = decodeUtf8(asciiBytes('a\tb\nc'));
       expect(outcome.text).assertEqual('a\tb\nc');
       expect(outcome.valid).assertTrue();
@@ -1831,7 +1715,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDecodeUtf8FourContinuationBytes0117', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDecodeUtf8FourContinuationBytes0117 begin');
       console.info('testDecodeUtf8FourContinuationBytes0117 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0x80, 0x81, 0x82, 0x83]));
       expect(outcome.replacements).assertEqual(4);
@@ -1848,7 +1731,6 @@ export default function textCodecCoreTest(): void {
      */
     it('testDecodeUtf8AsciiAfterInvalid0118', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeUtf8AsciiAfterInvalid0118 begin');
-      console.info('testDecodeUtf8AsciiAfterInvalid0118 begin');
       const outcome: DecodeOutcome = decodeUtf8(toBytes([0xFF, 0x41, 0x42]));
       expect(outcome.text).assertEqual('\uFFFDAB');
       expect(outcome.replacements).assertEqual(1);
@@ -1864,7 +1746,6 @@ export default function textCodecCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateChineseAsciiMix0119', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateChineseAsciiMix0119 begin');
       console.info('testTruncateChineseAsciiMix0119 begin');
       expect(truncateToByteLength('你a好', 4)).assertEqual('你a');
       expect(truncateToByteLength('你a好', 3)).assertEqual('你');

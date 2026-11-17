@@ -19,3 +19,15 @@ This sample demonstrates DLP (Data Loss Prevention) file management. It uses @oh
 ### Constraints
 
 This sample can only be run on standard-system devices that support DLP.
+
+### Download
+
+To download this project alone, run:
+
+```
+git init
+git config core.sparsecheckout true
+echo code/SystemFeature/Security/DLPManager > .git/info/sparse-checkout
+git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git pull origin master
+```

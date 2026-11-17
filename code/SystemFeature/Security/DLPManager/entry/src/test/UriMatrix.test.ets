@@ -39,7 +39,6 @@ export default function uriMatrixTest(): void {
      */
     it('testEncodeAscii0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeAscii0001 begin');
-      console.info('testEncodeAscii0001 begin');
       expect(roundTrip('abcdefghijklmnopqrstuvwxyz')).assertEqual('abcdefghijklmnopqrstuvwxyz');
     })
 
@@ -52,7 +51,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeUpper0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeUpper0002 begin');
       console.info('testEncodeUpper0002 begin');
       expect(roundTrip('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).assertEqual('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
     })
@@ -67,7 +65,6 @@ export default function uriMatrixTest(): void {
      */
     it('testEncodeDigits0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeDigits0003 begin');
-      console.info('testEncodeDigits0003 begin');
       expect(roundTrip('0123456789')).assertEqual('0123456789');
     })
 
@@ -81,7 +78,6 @@ export default function uriMatrixTest(): void {
      */
     it('testEncodeUnreserved0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeUnreserved0004 begin');
-      console.info('testEncodeUnreserved0004 begin');
       expect(roundTrip('-_.~')).assertEqual('-_.~');
     })
 
@@ -94,7 +90,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeSpace0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeSpace0005 begin');
       console.info('testEncodeSpace0005 begin');
       expect(encodeComponent('a b', false)).assertEqual('a%20b');
       expect(roundTrip('a b')).assertEqual('a b');
@@ -110,7 +105,6 @@ export default function uriMatrixTest(): void {
      */
     it('testEncodeReserved0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeReserved0006 begin');
-      console.info('testEncodeReserved0006 begin');
       expect(encodeComponent('?#&=+', false)).assertEqual('%3F%23%26%3D%2B');
     })
 
@@ -123,7 +117,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeSlash0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeSlash0007 begin');
       console.info('testEncodeSlash0007 begin');
       expect(encodeComponent('a/b', true)).assertEqual('a/b');
       expect(encodeComponent('a/b', false)).assertEqual('a%2Fb');
@@ -139,7 +132,6 @@ export default function uriMatrixTest(): void {
      */
     it('testEncodeChinese0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeChinese0008 begin');
-      console.info('testEncodeChinese0008 begin');
       expect(encodeComponent('你', false)).assertEqual('%E4%BD%A0');
     })
 
@@ -153,7 +145,6 @@ export default function uriMatrixTest(): void {
      */
     it('testEncodeChineseSentence0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeChineseSentence0009 begin');
-      console.info('testEncodeChineseSentence0009 begin');
       expect(roundTrip('年度报告与权限说明')).assertEqual('年度报告与权限说明');
     })
 
@@ -166,7 +157,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeEmoji0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeEmoji0010 begin');
       console.info('testEncodeEmoji0010 begin');
       expect(encodeComponent('😀', false)).assertEqual('%F0%9F%98%80');
       expect(roundTrip('文件😀')).assertEqual('文件😀');
@@ -182,7 +172,6 @@ export default function uriMatrixTest(): void {
      */
     it('testEncodeMixed0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeMixed0011 begin');
-      console.info('testEncodeMixed0011 begin');
       expect(roundTrip('2026 年度 report-final(1).txt')).assertEqual('2026 年度 report-final(1).txt');
     })
 
@@ -195,7 +184,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodePercent0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodePercent0012 begin');
       console.info('testEncodePercent0012 begin');
       expect(encodeComponent('100%', false)).assertEqual('100%25');
       expect(roundTrip('100%')).assertEqual('100%');
@@ -211,7 +199,6 @@ export default function uriMatrixTest(): void {
      */
     it('testEncodeNewline0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEncodeNewline0013 begin');
-      console.info('testEncodeNewline0013 begin');
       expect(roundTrip('a\nb\tc')).assertEqual('a\nb\tc');
     })
 
@@ -224,7 +211,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeLongText0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeLongText0014 begin');
       console.info('testEncodeLongText0014 begin');
       let source: string = '';
       for (let index = 0; index < 100; index++) {
@@ -243,7 +229,6 @@ export default function uriMatrixTest(): void {
      */
     it('testDecodePlusMode0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodePlusMode0015 begin');
-      console.info('testDecodePlusMode0015 begin');
       expect(decodeComponent('a+b', true).text).assertEqual('a b');
       expect(decodeComponent('a+b', false).text).assertEqual('a+b');
     })
@@ -257,7 +242,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseFull0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseFull0016 begin');
       console.info('testParseFull0016 begin');
       const parsed: UriParseResult = parseUri('file://host/a?x=1&y=2#f');
       expect(parsed.parts.scheme).assertEqual('file');
@@ -278,7 +262,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseTripleSlash0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseTripleSlash0017 begin');
-      console.info('testParseTripleSlash0017 begin');
       const parsed: UriParseResult = parseUri('file:///a');
       expect(parsed.parts.authority).assertEqual('');
       expect(parsed.parts.path).assertEqual('/a');
@@ -295,7 +278,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseNoPath0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseNoPath0018 begin');
-      console.info('testParseNoPath0018 begin');
       expect(parseUri('file://host').parts.path).assertEqual('');
     })
 
@@ -308,7 +290,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParsePort0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParsePort0019 begin');
       console.info('testParsePort0019 begin');
       const parsed: UriParseResult = parseUri('http://host:8080/a');
       expect(parsed.parts.authority).assertEqual('host:8080');
@@ -323,7 +304,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseIpv60020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseIpv60020 begin');
       console.info('testParseIpv60020 begin');
       const parsed: UriParseResult = parseUri('file://[::1]/a');
       expect(parsed.parts.authority).assertEqual('[::1]');
@@ -340,7 +320,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseEncodedPath0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseEncodedPath0021 begin');
-      console.info('testParseEncodedPath0021 begin');
       expect(parseUri('file://host/a%20b').parts.path).assertEqual('/a%20b');
     })
 
@@ -353,7 +332,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseUnicodePath0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseUnicodePath0022 begin');
       console.info('testParseUnicodePath0022 begin');
       expect(parseUri('file://host/中文/文件.txt').parts.path).assertEqual('/中文/文件.txt');
     })
@@ -368,7 +346,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseQuestionTwice0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseQuestionTwice0023 begin');
-      console.info('testParseQuestionTwice0023 begin');
       expect(parseUri('file://host/a?q=1?2').parts.query).assertEqual('q=1?2');
     })
 
@@ -382,7 +359,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseHashTwice0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseHashTwice0024 begin');
-      console.info('testParseHashTwice0024 begin');
       expect(parseUri('file://host/a#f#g').parts.fragment).assertEqual('f#g');
     })
 
@@ -395,7 +371,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseMissingScheme0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseMissingScheme0025 begin');
       console.info('testParseMissingScheme0025 begin');
       expect(parseUri('file').valid).assertFalse();
       expect(parseUri('/a/b').valid).assertFalse();
@@ -411,7 +386,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseDigitScheme0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseDigitScheme0026 begin');
-      console.info('testParseDigitScheme0026 begin');
       expect(parseUri('1x://h').valid).assertFalse();
     })
 
@@ -424,7 +398,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseBadSchemeChars0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseBadSchemeChars0027 begin');
       console.info('testParseBadSchemeChars0027 begin');
       expect(parseUri('a b://h').valid).assertFalse();
       expect(parseUri('a_b://h').valid).assertFalse();
@@ -440,7 +413,6 @@ export default function uriMatrixTest(): void {
      */
     it('testBuildTripleSlash0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildTripleSlash0028 begin');
-      console.info('testBuildTripleSlash0028 begin');
       const parts: UriParts = new UriParts('file', '', '/a', '', '', true);
       expect(buildUri(parts)).assertEqual('file:///a');
     })
@@ -454,7 +426,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testBuildSingleSlash0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testBuildSingleSlash0029 begin');
       console.info('testBuildSingleSlash0029 begin');
       const parts: UriParts = new UriParts('file', '', '/a', '', '', false);
       expect(buildUri(parts)).assertEqual('file:/a');
@@ -470,7 +441,6 @@ export default function uriMatrixTest(): void {
      */
     it('testBuildQueryFragment0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQueryFragment0030 begin');
-      console.info('testBuildQueryFragment0030 begin');
       const parts: UriParts = new UriParts('file', 'h', '/a', 'x=1', 'f', true);
       expect(buildUri(parts)).assertEqual('file://h/a?x=1#f');
     })
@@ -484,7 +454,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRoundTripFile0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRoundTripFile0031 begin');
       console.info('testRoundTripFile0031 begin');
       const source: string = 'file://host/a';
       expect(buildUri(parseUri(source).parts)).assertEqual(source);
@@ -500,7 +469,6 @@ export default function uriMatrixTest(): void {
      */
     it('testRoundTripDatashare0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRoundTripDatashare0032 begin');
-      console.info('testRoundTripDatashare0032 begin');
       const source: string = 'datashare:///media/100/a?x=1';
       expect(buildUri(parseUri(source).parts)).assertEqual(source);
     })
@@ -514,7 +482,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRoundTripFragment0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRoundTripFragment0033 begin');
       console.info('testRoundTripFragment0033 begin');
       const source: string = 'file://h/a?x=1&y=2#section';
       expect(buildUri(parseUri(source).parts)).assertEqual(source);
@@ -530,7 +497,6 @@ export default function uriMatrixTest(): void {
      */
     it('testRoundTripAuthorityOnly0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRoundTripAuthorityOnly0034 begin');
-      console.info('testRoundTripAuthorityOnly0034 begin');
       expect(buildUri(parseUri('file://h').parts)).assertEqual('file://h');
     })
 
@@ -544,7 +510,6 @@ export default function uriMatrixTest(): void {
      */
     it('testRoundTripQueryOnly0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRoundTripQueryOnly0035 begin');
-      console.info('testRoundTripQueryOnly0035 begin');
       expect(buildUri(parseUri('file:?q=1').parts)).assertEqual('file:?q=1');
     })
 
@@ -557,7 +522,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseQueryBasic0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseQueryBasic0036 begin');
       console.info('testParseQueryBasic0036 begin');
       const parsed: QueryParseResult = parseQuery('a=1&b=2');
       expect(parsed.params.length).assertEqual(2);
@@ -575,7 +539,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseQueryNoValue0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseQueryNoValue0037 begin');
-      console.info('testParseQueryNoValue0037 begin');
       expect(parseQuery('a').params[0].value).assertEqual('');
       expect(parseQuery('a=').params[0].value).assertEqual('');
     })
@@ -590,7 +553,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseQueryEmptyParts0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseQueryEmptyParts0038 begin');
-      console.info('testParseQueryEmptyParts0038 begin');
       expect(parseQuery('&&a=1&').params.length).assertEqual(1);
     })
 
@@ -603,7 +565,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseQueryEncoded0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseQueryEncoded0039 begin');
       console.info('testParseQueryEncoded0039 begin');
       const parsed: QueryParseResult = parseQuery('k=%E4%B8%AD&v=a+b');
       expect(parsed.params[0].key).assertEqual('k');
@@ -621,7 +582,6 @@ export default function uriMatrixTest(): void {
      */
     it('testParseQueryEqualsInValue0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseQueryEqualsInValue0040 begin');
-      console.info('testParseQueryEqualsInValue0040 begin');
       expect(parseQuery('a=1=2').params[0].value).assertEqual('1=2');
     })
 
@@ -634,7 +594,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testBuildQueryBasic0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testBuildQueryBasic0041 begin');
       console.info('testBuildQueryBasic0041 begin');
       const params: QueryParam[] = [new QueryParam('a', '1'), new QueryParam('b', '2')];
       expect(buildQuery(params)).assertEqual('a=1&b=2');
@@ -650,7 +609,6 @@ export default function uriMatrixTest(): void {
      */
     it('testBuildQueryEncoded0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuildQueryEncoded0042 begin');
-      console.info('testBuildQueryEncoded0042 begin');
       const params: QueryParam[] = [new QueryParam('k', '中 文')];
       expect(buildQuery(params)).assertEqual('k=%E4%B8%AD%20%E6%96%87');
     })
@@ -665,7 +623,6 @@ export default function uriMatrixTest(): void {
      */
     it('testGetQueryParam0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testGetQueryParam0043 begin');
-      console.info('testGetQueryParam0043 begin');
       expect(getQueryParam('file://h/a?x=1&y=2', 'y')).assertEqual('2');
       expect(getQueryParam('file://h/a?x=1', 'z')).assertEqual('');
     })
@@ -679,7 +636,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFindQueryParam0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFindQueryParam0044 begin');
       console.info('testFindQueryParam0044 begin');
       expect(findQueryParam('file://h/a?x=1', 'x') !== null).assertTrue();
       expect(findQueryParam('file://h/a?x=1', 'z')).assertNull();
@@ -696,7 +652,6 @@ export default function uriMatrixTest(): void {
      */
     it('testUpsertAdd0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUpsertAdd0045 begin');
-      console.info('testUpsertAdd0045 begin');
       expect(upsertQuery('file://h/a', 'x', '1')).assertEqual('file://h/a?x=1');
     })
 
@@ -709,7 +664,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUpsertReplace0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUpsertReplace0046 begin');
       console.info('testUpsertReplace0046 begin');
       expect(upsertQuery('file://h/a?x=1&y=2', 'x', '9')).assertEqual('file://h/a?x=9&y=2');
     })
@@ -724,7 +678,6 @@ export default function uriMatrixTest(): void {
      */
     it('testUpsertInvalid0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUpsertInvalid0047 begin');
-      console.info('testUpsertInvalid0047 begin');
       expect(upsertQuery('bad uri', 'x', '1')).assertEqual('bad uri');
     })
 
@@ -737,7 +690,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testJoinPath0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testJoinPath0048 begin');
       console.info('testJoinPath0048 begin');
       expect(joinPath(['/', 'docs', 'a.txt'])).assertEqual('/docs/a.txt');
       expect(joinPath(['a/', '/b'])).assertEqual('a/b');
@@ -753,7 +705,6 @@ export default function uriMatrixTest(): void {
      */
     it('testJoinPathEmpty0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testJoinPathEmpty0049 begin');
-      console.info('testJoinPathEmpty0049 begin');
       expect(joinPath([])).assertEqual('');
       expect(joinPath(['', ''])).assertEqual('');
     })
@@ -768,7 +719,6 @@ export default function uriMatrixTest(): void {
      */
     it('testNormalizeDot0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNormalizeDot0050 begin');
-      console.info('testNormalizeDot0050 begin');
       expect(normalizePath('/a/./b/.')).assertEqual('/a/b');
       expect(normalizePath('./a')).assertEqual('a');
     })
@@ -782,7 +732,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testNormalizeDotDot0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testNormalizeDotDot0051 begin');
       console.info('testNormalizeDotDot0051 begin');
       expect(normalizePath('/a/b/../c')).assertEqual('/a/c');
       expect(normalizePath('a/../../b')).assertEqual('../b');
@@ -799,7 +748,6 @@ export default function uriMatrixTest(): void {
      */
     it('testNormalizeSlash0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testNormalizeSlash0052 begin');
-      console.info('testNormalizeSlash0052 begin');
       expect(normalizePath('a//b///c')).assertEqual('a/b/c');
       expect(normalizePath('/')).assertEqual('/');
     })
@@ -813,7 +761,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSegments0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSegments0053 begin');
       console.info('testSegments0053 begin');
       expect(joinTexts(segmentsOf('//a//b/'))).assertEqual('a|b');
       expect(segmentsOf('/').length).assertEqual(0);
@@ -829,7 +776,6 @@ export default function uriMatrixTest(): void {
      */
     it('testFileName0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFileName0054 begin');
-      console.info('testFileName0054 begin');
       expect(fileNameOf('/docs/a.txt')).assertEqual('a.txt');
       expect(fileNameOf('/docs/')).assertEqual('');
     })
@@ -843,7 +789,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testExtension0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testExtension0055 begin');
       console.info('testExtension0055 begin');
       expect(extensionOf('a.tar.gz')).assertEqual('gz');
       expect(extensionOf('.gitignore')).assertEqual('');
@@ -860,7 +805,6 @@ export default function uriMatrixTest(): void {
      */
     it('testBaseName0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBaseName0056 begin');
-      console.info('testBaseName0056 begin');
       expect(baseNameOf('a.tar.gz')).assertEqual('a.tar');
       expect(baseNameOf('README')).assertEqual('README');
     })
@@ -874,7 +818,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testStripReplace0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testStripReplace0057 begin');
       console.info('testStripReplace0057 begin');
       expect(stripExtension('a.txt')).assertEqual('a');
       expect(replaceExtension('a.txt', 'md')).assertEqual('a.md');
@@ -892,7 +835,6 @@ export default function uriMatrixTest(): void {
      */
     it('testIsScheme0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testIsScheme0058 begin');
-      console.info('testIsScheme0058 begin');
       expect(isScheme('FILE:///a', 'file')).assertTrue();
       expect(isScheme('https://a', 'file')).assertFalse();
     })
@@ -906,7 +848,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFileLike0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFileLike0059 begin');
       console.info('testFileLike0059 begin');
       expect(isFileLikeUri('file:///a')).assertTrue();
       expect(isFileLikeUri('datashare:///a')).assertTrue();
@@ -924,7 +865,6 @@ export default function uriMatrixTest(): void {
      */
     it('testDecodeInvalidPercent0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeInvalidPercent0060 begin');
-      console.info('testDecodeInvalidPercent0060 begin');
       const decoded: UriDecodeResult = decodeComponent('%zz', false);
       expect(decoded.valid).assertFalse();
       expect(decoded.text).assertEqual('%zz');
@@ -940,7 +880,6 @@ export default function uriMatrixTest(): void {
      */
     it('testDecodeRawUnicode0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDecodeRawUnicode0061 begin');
-      console.info('testDecodeRawUnicode0061 begin');
       expect(decodeComponent('中文😀', false).text).assertEqual('中文😀');
     })
 
@@ -953,7 +892,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEncodeEmpty0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEncodeEmpty0062 begin');
       console.info('testEncodeEmpty0062 begin');
       expect(encodeComponent('', false)).assertEqual('');
       expect(decodeComponent('', false).text).assertEqual('');
@@ -969,7 +907,6 @@ export default function uriMatrixTest(): void {
      */
     it('testUpsertFragment0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUpsertFragment0063 begin');
-      console.info('testUpsertFragment0063 begin');
       expect(upsertQuery('file://h/a?x=1#f', 'y', '2')).assertEqual('file://h/a?x=1&y=2#f');
     })
 
@@ -982,7 +919,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRoundTripChineseUri0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRoundTripChineseUri0064 begin');
       console.info('testRoundTripChineseUri0064 begin');
       const source: string = 'file://h/中文/报告.txt';
       expect(buildUri(parseUri(source).parts)).assertEqual(source);
@@ -997,7 +933,6 @@ export default function uriMatrixTest(): void {
      * @tc.level     LEVEL0
      */
     it('testBuildQueryRoundTrip0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testBuildQueryRoundTrip0065 begin');
       console.info('testBuildQueryRoundTrip0065 begin');
       const params: QueryParam[] = [new QueryParam('a b', '中 文'), new QueryParam('x', '1')];
       const parsed: QueryParseResult = parseQuery(buildQuery(params));

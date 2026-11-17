@@ -47,7 +47,6 @@ export default function templateModelTest(): void {
      */
     it('testBuiltIns0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testBuiltIns0001 begin');
-      console.info('testBuiltIns0001 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.allTemplates().length).assertEqual(5);
       expect(model.customCount()).assertEqual(0);
@@ -62,7 +61,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testAddCustom0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testAddCustom0002 begin');
       console.info('testAddCustom0002 begin');
       const model: TemplateModel = new TemplateModel();
       const result: TemplateResult = model.add('工作模板', 3, 100);
@@ -82,7 +80,6 @@ export default function templateModelTest(): void {
      */
     it('testAddEmptyName0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testAddEmptyName0003 begin');
-      console.info('testAddEmptyName0003 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.add('', 1, 100).ok).assertFalse();
       expect(model.add('   ', 1, 100).ok).assertFalse();
@@ -98,7 +95,6 @@ export default function templateModelTest(): void {
      */
     it('testAddLongName0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testAddLongName0004 begin');
-      console.info('testAddLongName0004 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.add(repeatChar('a', 21), 1, 100).ok).assertFalse();
       expect(model.add(repeatChar('a', 20), 1, 100).ok).assertTrue();
@@ -113,7 +109,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testAddDuplicateName0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testAddDuplicateName0005 begin');
       console.info('testAddDuplicateName0005 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('Work', 1, 100);
@@ -132,7 +127,6 @@ export default function templateModelTest(): void {
      */
     it('testAddZeroMask0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testAddZeroMask0006 begin');
-      console.info('testAddZeroMask0006 begin');
       const model: TemplateModel = new TemplateModel();
       const result: TemplateResult = model.add('empty', 0, 100);
       expect(result.ok).assertFalse();
@@ -149,7 +143,6 @@ export default function templateModelTest(): void {
      */
     it('testAddFullMask0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testAddFullMask0007 begin');
-      console.info('testAddFullMask0007 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.add('full', 15, 100).ok).assertTrue();
       expect(model.maskOf('custom-100')).assertEqual(15);
@@ -164,7 +157,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testAddUniqueIds0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testAddUniqueIds0008 begin');
       console.info('testAddUniqueIds0008 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('one', 1, 100);
@@ -181,7 +173,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFind0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFind0009 begin');
       console.info('testFind0009 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('one', 1, 100);
@@ -203,7 +194,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUpdate0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUpdate0010 begin');
       console.info('testUpdate0010 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('one', 1, 100);
@@ -228,7 +218,6 @@ export default function templateModelTest(): void {
      */
     it('testUpdateMissing0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUpdateMissing0011 begin');
-      console.info('testUpdateMissing0011 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.update('missing', 'name', 1).ok).assertFalse();
       expect(model.update('read-only', 'name', 1).ok).assertFalse();
@@ -243,7 +232,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUpdateDuplicate0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUpdateDuplicate0012 begin');
       console.info('testUpdateDuplicate0012 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('one', 1, 100);
@@ -261,7 +249,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRemove0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRemove0013 begin');
       console.info('testRemove0013 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('one', 1, 100);
@@ -281,7 +268,6 @@ export default function templateModelTest(): void {
      */
     it('testMaskOfBuiltIn0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMaskOfBuiltIn0014 begin');
-      console.info('testMaskOfBuiltIn0014 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.maskOf('read-only')).assertEqual(1);
       expect(model.maskOf('editable')).assertEqual(3);
@@ -298,7 +284,6 @@ export default function templateModelTest(): void {
      */
     it('testMaskOfCustom0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMaskOfCustom0015 begin');
-      console.info('testMaskOfCustom0015 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('copy', 9, 100);
       expect(model.maskOf('custom-100')).assertEqual(9);
@@ -314,7 +299,6 @@ export default function templateModelTest(): void {
      */
     it('testMaskOfMissing0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMaskOfMissing0016 begin');
-      console.info('testMaskOfMissing0016 begin');
       expect(new TemplateModel().maskOf('missing')).assertEqual(-1);
     })
 
@@ -327,7 +311,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testToPolicy0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testToPolicy0017 begin');
       console.info('testToPolicy0017 begin');
       const model: TemplateModel = new TemplateModel();
       const policy: DlpPolicy | null = model.toPolicy('user001', 'User', 'editable');
@@ -348,7 +331,6 @@ export default function templateModelTest(): void {
      */
     it('testToPolicyMissing0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testToPolicyMissing0018 begin');
-      console.info('testToPolicyMissing0018 begin');
       expect(new TemplateModel().toPolicy('u', 'n', 'missing')).assertNull();
     })
 
@@ -361,7 +343,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSummary0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSummary0019 begin');
       console.info('testSummary0019 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.summaryOf('read-only')).assertEqual('读取');
@@ -379,7 +360,6 @@ export default function templateModelTest(): void {
      */
     it('testDisplayNames0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDisplayNames0020 begin');
-      console.info('testDisplayNames0020 begin');
       const builtIn: PolicyTemplate[] = new TemplateModel().allTemplates();
       expect(templateDisplayName(builtIn[0])).assertEqual('只读');
       expect(templateDisplayName(builtIn[4])).assertEqual('完全控制');
@@ -394,7 +374,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDisplayCustom0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDisplayCustom0021 begin');
       console.info('testDisplayCustom0021 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('工作模板', 1, 100);
@@ -411,7 +390,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testCustomOrder0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testCustomOrder0022 begin');
       console.info('testCustomOrder0022 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('one', 1, 100);
@@ -431,7 +409,6 @@ export default function templateModelTest(): void {
      */
     it('testSerializeEmpty0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSerializeEmpty0023 begin');
-      console.info('testSerializeEmpty0023 begin');
       expect(new TemplateModel().serialize()).assertEqual('');
     })
 
@@ -444,7 +421,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSerializeRoundTrip0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSerializeRoundTrip0024 begin');
       console.info('testSerializeRoundTrip0024 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('工作模板', 5, 100);
@@ -465,7 +441,6 @@ export default function templateModelTest(): void {
      */
     it('testSerializeSpecial0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSerializeSpecial0025 begin');
-      console.info('testSerializeSpecial0025 begin');
       const model: TemplateModel = new TemplateModel();
       model.add('a|b;c', 1, 100);
       const parsed: TemplateModel = parseTemplateText(model.serialize());
@@ -482,7 +457,6 @@ export default function templateModelTest(): void {
      */
     it('testParseEmpty0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseEmpty0026 begin');
-      console.info('testParseEmpty0026 begin');
       expect(parseTemplateText('').customCount()).assertEqual(0);
     })
 
@@ -495,7 +469,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseMalformed0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseMalformed0027 begin');
       console.info('testParseMalformed0027 begin');
       const parsed: TemplateModel = parseTemplateText('bad\nid|name|notanumber|100');
       expect(parsed.customCount()).assertEqual(0);
@@ -511,7 +484,6 @@ export default function templateModelTest(): void {
      */
     it('testValidateName0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testValidateName0028 begin');
-      console.info('testValidateName0028 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.validateName('', '')).assertEqual('模板名称不能为空');
       expect(model.validateName('ok', '')).assertEqual('');
@@ -526,7 +498,6 @@ export default function templateModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testValidateMask0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testValidateMask0029 begin');
       console.info('testValidateMask0029 begin');
       const model: TemplateModel = new TemplateModel();
       expect(model.validateMask(0).length > 0).assertTrue();

@@ -28,7 +28,6 @@ export default function settingsModelTest(): void {
      */
     it('testDefaults0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDefaults0001 begin');
-      console.info('testDefaults0001 begin');
       const model: SettingsModel = SettingsModel.createDefault();
       expect(model.logLevel).assertEqual('info');
       expect(model.pageSize).assertEqual(10);
@@ -47,7 +46,6 @@ export default function settingsModelTest(): void {
      */
     it('testSetLogLevel0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSetLogLevel0002 begin');
-      console.info('testSetLogLevel0002 begin');
       const model: SettingsModel = new SettingsModel();
       expect(model.setLogLevel('debug')).assertTrue();
       expect(model.logLevel).assertEqual('debug');
@@ -62,7 +60,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSetLogLevelInvalid0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSetLogLevelInvalid0003 begin');
       console.info('testSetLogLevelInvalid0003 begin');
       const model: SettingsModel = new SettingsModel();
       expect(model.setLogLevel('trace')).assertFalse();
@@ -79,7 +76,6 @@ export default function settingsModelTest(): void {
      */
     it('testLogLevelLabel0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testLogLevelLabel0004 begin');
-      console.info('testLogLevelLabel0004 begin');
       expect(logLevelLabel('debug')).assertEqual('调试');
       expect(logLevelLabel('error')).assertEqual('错误');
       expect(logLevelLabel('unknown')).assertEqual('信息');
@@ -95,7 +91,6 @@ export default function settingsModelTest(): void {
      */
     it('testPageSizeLow0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPageSizeLow0005 begin');
-      console.info('testPageSizeLow0005 begin');
       const model: SettingsModel = new SettingsModel();
       expect(model.setPageSize(1)).assertEqual(5);
     })
@@ -109,7 +104,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPageSizeHigh0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPageSizeHigh0006 begin');
       console.info('testPageSizeHigh0006 begin');
       const model: SettingsModel = new SettingsModel();
       expect(model.setPageSize(1000)).assertEqual(50);
@@ -125,7 +119,6 @@ export default function settingsModelTest(): void {
      */
     it('testPageSizeFloor0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPageSizeFloor0007 begin');
-      console.info('testPageSizeFloor0007 begin');
       const model: SettingsModel = new SettingsModel();
       expect(model.setPageSize(10.9)).assertEqual(10);
     })
@@ -139,7 +132,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSetTheme0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSetTheme0008 begin');
       console.info('testSetTheme0008 begin');
       const model: SettingsModel = new SettingsModel();
       expect(model.setTheme('dark')).assertTrue();
@@ -156,7 +148,6 @@ export default function settingsModelTest(): void {
      */
     it('testSetThemeInvalid0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSetThemeInvalid0009 begin');
-      console.info('testSetThemeInvalid0009 begin');
       const model: SettingsModel = new SettingsModel();
       expect(model.setTheme('neon')).assertFalse();
       expect(model.theme).assertEqual('light');
@@ -172,7 +163,6 @@ export default function settingsModelTest(): void {
      */
     it('testThemeLabel0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testThemeLabel0010 begin');
-      console.info('testThemeLabel0010 begin');
       expect(themeLabel('dark')).assertEqual('深色');
       expect(themeLabel('auto')).assertEqual('跟随系统');
       expect(themeLabel('unknown')).assertEqual('浅色');
@@ -187,7 +177,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDefaultTemplate0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDefaultTemplate0011 begin');
       console.info('testDefaultTemplate0011 begin');
       const model: SettingsModel = new SettingsModel();
       expect(model.setDefaultTemplate('')).assertFalse();
@@ -205,7 +194,6 @@ export default function settingsModelTest(): void {
      */
     it('testConfirmFlag0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testConfirmFlag0012 begin');
-      console.info('testConfirmFlag0012 begin');
       const model: SettingsModel = new SettingsModel();
       model.setConfirmBeforeDelete(false);
       expect(model.confirmBeforeDelete).assertFalse();
@@ -220,7 +208,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testReset0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testReset0013 begin');
       console.info('testReset0013 begin');
       const model: SettingsModel = new SettingsModel();
       model.setLogLevel('error');
@@ -246,7 +233,6 @@ export default function settingsModelTest(): void {
      */
     it('testValidateDefault0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testValidateDefault0014 begin');
-      console.info('testValidateDefault0014 begin');
       expect(new SettingsModel().validate().length).assertEqual(0);
     })
 
@@ -259,7 +245,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testValidateBroken0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testValidateBroken0015 begin');
       console.info('testValidateBroken0015 begin');
       const model: SettingsModel = new SettingsModel();
       model.logLevel = 'verbose';
@@ -279,7 +264,6 @@ export default function settingsModelTest(): void {
      */
     it('testSerializeDefault0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSerializeDefault0016 begin');
-      console.info('testSerializeDefault0016 begin');
       expect(new SettingsModel().serialize()).assertEqual(
         'logLevel=info;pageSize=10;theme=light;template=read-only;confirm=1');
     })
@@ -293,7 +277,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSerializeChanged0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSerializeChanged0017 begin');
       console.info('testSerializeChanged0017 begin');
       const model: SettingsModel = new SettingsModel();
       model.setLogLevel('warn');
@@ -315,7 +298,6 @@ export default function settingsModelTest(): void {
      */
     it('testParseEmpty0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseEmpty0018 begin');
-      console.info('testParseEmpty0018 begin');
       const model: SettingsModel = SettingsModel.parse('');
       expect(model.logLevel).assertEqual('info');
       expect(model.pageSize).assertEqual(10);
@@ -330,7 +312,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseRoundTrip0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseRoundTrip0019 begin');
       console.info('testParseRoundTrip0019 begin');
       const source: SettingsModel = new SettingsModel();
       source.setLogLevel('debug');
@@ -356,7 +337,6 @@ export default function settingsModelTest(): void {
      */
     it('testParsePartial0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParsePartial0020 begin');
-      console.info('testParsePartial0020 begin');
       const model: SettingsModel = SettingsModel.parse('theme=auto');
       expect(model.theme).assertEqual('auto');
       expect(model.logLevel).assertEqual('info');
@@ -373,7 +353,6 @@ export default function settingsModelTest(): void {
      */
     it('testParseClamp0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseClamp0021 begin');
-      console.info('testParseClamp0021 begin');
       expect(SettingsModel.parse('pageSize=1000').pageSize).assertEqual(50);
       expect(SettingsModel.parse('pageSize=1').pageSize).assertEqual(5);
     })
@@ -388,7 +367,6 @@ export default function settingsModelTest(): void {
      */
     it('testParseInvalidLog0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseInvalidLog0022 begin');
-      console.info('testParseInvalidLog0022 begin');
       expect(SettingsModel.parse('logLevel=verbose').logLevel).assertEqual('info');
     })
 
@@ -402,7 +380,6 @@ export default function settingsModelTest(): void {
      */
     it('testParseBadPage0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseBadPage0023 begin');
-      console.info('testParseBadPage0023 begin');
       expect(SettingsModel.parse('pageSize=abc').pageSize).assertEqual(10);
     })
 
@@ -415,7 +392,6 @@ export default function settingsModelTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSummary0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSummary0024 begin');
       console.info('testSummary0024 begin');
       expect(new SettingsModel().summary()).assertEqual('信息 · 每页 10 条 · 浅色');
     })

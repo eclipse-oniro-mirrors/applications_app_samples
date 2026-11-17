@@ -32,20 +32,22 @@ export default function recentMatrix2Test(): void {
   describe('RecentMatrix2Test', () => {
     /**
      * @tc.number    SUB_DLP_MANAGER_RECENTMATRIX2_0001
-     * @tc.name      testTrimDropsFavorite0001
-     * @tc.desc      capacity trimming drops favorites that are oldest
+     * @tc.name      testTrimKeepsFavorite0001
+     * @tc.desc      capacity trimming keeps favorites and drops the oldest recent
      * @tc.type      FUNCTION
      * @tc.size      SMALLTEST
      * @tc.level     LEVEL0
      */
-    it('testTrimDropsFavorite0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
+    it('testTrimKeepsFavorite0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       const model: RecentModel = new RecentModel();
       model.setCapacity(2);
       model.addRecent(mkItem('id1', 'a.txt', 100, true));
       model.addOpen('b.txt', 'file:///b', false, 200);
       model.addOpen('c.txt', 'file:///c', false, 300);
       expect(model.count()).assertEqual(2);
-      expect(model.favoriteCount()).assertEqual(0);
+      expect(model.favoriteCount()).assertEqual(1);
+      expect(model.favorites()[0].id).assertEqual('id1');
+      expect(model.nonFavorites()[0].name).assertEqual('c.txt');
     })
 
     /**

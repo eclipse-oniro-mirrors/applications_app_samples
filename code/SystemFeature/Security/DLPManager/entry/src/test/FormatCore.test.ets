@@ -36,7 +36,6 @@ export default function formatCoreTest(): void {
      */
     it('testPadLeft0001', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPadLeft0001 begin');
-      console.info('testPadLeft0001 begin');
       expect(padLeft(0, 2)).assertEqual('00');
     })
 
@@ -49,7 +48,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPadLeft0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPadLeft0002 begin');
       console.info('testPadLeft0002 begin');
       expect(padLeft(5, 2)).assertEqual('05');
     })
@@ -64,7 +62,6 @@ export default function formatCoreTest(): void {
      */
     it('testPadLeft0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPadLeft0003 begin');
-      console.info('testPadLeft0003 begin');
       expect(padLeft(12, 2)).assertEqual('12');
     })
 
@@ -77,7 +74,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPadLeft0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPadLeft0004 begin');
       console.info('testPadLeft0004 begin');
       expect(padLeft(123, 5)).assertEqual('00123');
     })
@@ -92,7 +88,6 @@ export default function formatCoreTest(): void {
      */
     it('testPadLeft0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPadLeft0005 begin');
-      console.info('testPadLeft0005 begin');
       expect(padLeft(123, 1)).assertEqual('123');
     })
 
@@ -105,7 +100,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPadLeft0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPadLeft0006 begin');
       console.info('testPadLeft0006 begin');
       expect(padLeft(7, 4)).assertEqual('0007');
     })
@@ -120,7 +114,6 @@ export default function formatCoreTest(): void {
      */
     it('testPadLeft0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPadLeft0007 begin');
-      console.info('testPadLeft0007 begin');
       expect(padLeft(1, 10)).assertEqual('0000000001');
     })
 
@@ -134,7 +127,6 @@ export default function formatCoreTest(): void {
      */
     it('testFormatSizeZero0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSizeZero0008 begin');
-      console.info('testFormatSizeZero0008 begin');
       expect(formatSize(0, 1)).assertEqual('0 B');
     })
 
@@ -147,7 +139,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFormatSizeBytes0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFormatSizeBytes0009 begin');
       console.info('testFormatSizeBytes0009 begin');
       expect(formatSize(1, 2)).assertEqual('1 B');
       expect(formatSize(999, 2)).assertEqual('999 B');
@@ -163,7 +154,6 @@ export default function formatCoreTest(): void {
      */
     it('testFormatSizeKbBoundary0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSizeKbBoundary0010 begin');
-      console.info('testFormatSizeKbBoundary0010 begin');
       expect(formatSize(1023, 1)).assertEqual('1023 B');
       expect(formatSize(KB, 1)).assertEqual('1 KB');
     })
@@ -178,7 +168,6 @@ export default function formatCoreTest(): void {
      */
     it('testFormatSizeFraction0011', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSizeFraction0011 begin');
-      console.info('testFormatSizeFraction0011 begin');
       expect(formatSize(KB + 512, 1)).assertEqual('1.5 KB');
     })
 
@@ -192,7 +181,6 @@ export default function formatCoreTest(): void {
      */
     it('testFormatSizeTrimZeros0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSizeTrimZeros0012 begin');
-      console.info('testFormatSizeTrimZeros0012 begin');
       expect(formatSize(2 * KB, 3)).assertEqual('2 KB');
     })
 
@@ -205,7 +193,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFormatSizeMegabyte0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFormatSizeMegabyte0013 begin');
       console.info('testFormatSizeMegabyte0013 begin');
       expect(formatSize(MB, 1)).assertEqual('1 MB');
       expect(formatSize(MB * 2, 0)).assertEqual('2 MB');
@@ -221,7 +208,6 @@ export default function formatCoreTest(): void {
      */
     it('testFormatSizeMegabyteDecimal0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSizeMegabyteDecimal0014 begin');
-      console.info('testFormatSizeMegabyteDecimal0014 begin');
       expect(formatSize(1500000, 2)).assertEqual('1.43 MB');
     })
 
@@ -234,7 +220,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFormatSizeGigabyte0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFormatSizeGigabyte0015 begin');
       console.info('testFormatSizeGigabyte0015 begin');
       expect(formatSize(GB, 3)).assertEqual('1 GB');
     })
@@ -249,7 +234,6 @@ export default function formatCoreTest(): void {
      */
     it('testFormatSizeTerabyte0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSizeTerabyte0016 begin');
-      console.info('testFormatSizeTerabyte0016 begin');
       expect(formatSize(TB, 1)).assertEqual('1 TB');
     })
 
@@ -262,7 +246,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFormatSizeHuge0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFormatSizeHuge0017 begin');
       console.info('testFormatSizeHuge0017 begin');
       expect(formatSize(TB * 1024, 1)).assertEqual('1024 TB');
     })
@@ -277,7 +260,6 @@ export default function formatCoreTest(): void {
      */
     it('testFormatSizeNegative0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSizeNegative0018 begin');
-      console.info('testFormatSizeNegative0018 begin');
       expect(formatSize(-KB, 1)).assertEqual('-1 KB');
     })
 
@@ -290,7 +272,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testFormatSizeInvalid0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testFormatSizeInvalid0019 begin');
       console.info('testFormatSizeInvalid0019 begin');
       expect(formatSize(Number.POSITIVE_INFINITY, 1)).assertEqual('0 B');
       expect(formatSize(Number.NaN, 1)).assertEqual('0 B');
@@ -306,7 +287,6 @@ export default function formatCoreTest(): void {
      */
     it('testFormatSizeDecimalsClamp0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testFormatSizeDecimalsClamp0020 begin');
-      console.info('testFormatSizeDecimalsClamp0020 begin');
       expect(formatSize(KB + 128, 9)).assertEqual('1.125 KB');
     })
 
@@ -319,7 +299,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseSizePlainNumber0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseSizePlainNumber0021 begin');
       console.info('testParseSizePlainNumber0021 begin');
       expect(parseSize('0')).assertEqual(0);
       expect(parseSize('1')).assertEqual(1);
@@ -335,7 +314,6 @@ export default function formatCoreTest(): void {
      */
     it('testParseSizeWithByteUnit0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseSizeWithByteUnit0022 begin');
-      console.info('testParseSizeWithByteUnit0022 begin');
       expect(parseSize('1B')).assertEqual(1);
       expect(parseSize('256 b')).assertEqual(256);
     })
@@ -349,7 +327,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseSizeKilobyte0023', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseSizeKilobyte0023 begin');
       console.info('testParseSizeKilobyte0023 begin');
       expect(parseSize('1KB')).assertEqual(KB);
       expect(parseSize('1K')).assertEqual(KB);
@@ -365,7 +342,6 @@ export default function formatCoreTest(): void {
      */
     it('testParseSizeLowercase0024', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseSizeLowercase0024 begin');
-      console.info('testParseSizeLowercase0024 begin');
       expect(parseSize('2kb')).assertEqual(KB * 2);
     })
 
@@ -378,7 +354,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseSizeMegabyte0025', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseSizeMegabyte0025 begin');
       console.info('testParseSizeMegabyte0025 begin');
       expect(parseSize('1.5MB')).assertEqual(MB * 1.5);
     })
@@ -393,7 +368,6 @@ export default function formatCoreTest(): void {
      */
     it('testParseSizeSpaces0026', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseSizeSpaces0026 begin');
-      console.info('testParseSizeSpaces0026 begin');
       expect(parseSize(' 2 GB ')).assertEqual(GB * 2);
     })
 
@@ -406,7 +380,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseSizeTerabyte0027', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseSizeTerabyte0027 begin');
       console.info('testParseSizeTerabyte0027 begin');
       expect(parseSize('1T')).assertEqual(TB);
     })
@@ -421,7 +394,6 @@ export default function formatCoreTest(): void {
      */
     it('testParseSizeInvalidUnit0028', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseSizeInvalidUnit0028 begin');
-      console.info('testParseSizeInvalidUnit0028 begin');
       expect(parseSize('1PB')).assertEqual(-1);
       expect(parseSize('1,5MB')).assertEqual(-1);
     })
@@ -435,7 +407,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseSizeInvalidText0029', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseSizeInvalidText0029 begin');
       console.info('testParseSizeInvalidText0029 begin');
       expect(parseSize('KB')).assertEqual(-1);
       expect(parseSize('-1KB')).assertEqual(-1);
@@ -452,7 +423,6 @@ export default function formatCoreTest(): void {
      */
     it('testParseSizeRound0030', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testParseSizeRound0030 begin');
-      console.info('testParseSizeRound0030 begin');
       expect(parseSize('12.5')).assertEqual(13);
     })
 
@@ -465,7 +435,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testParseSizeRoundTrip0031', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testParseSizeRoundTrip0031 begin');
       console.info('testParseSizeRoundTrip0031 begin');
       expect(parseSize(formatSize(KB * 2, 1))).assertEqual(KB * 2);
       expect(parseSize(formatSize(MB * 4, 0))).assertEqual(MB * 4);
@@ -481,7 +450,6 @@ export default function formatCoreTest(): void {
      */
     it('testTimestampEpoch0032', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTimestampEpoch0032 begin');
-      console.info('testTimestampEpoch0032 begin');
       expect(formatTimestamp(0, true)).assertEqual('1970/01/01 00:00:00');
     })
 
@@ -494,7 +462,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTimestampSecond0033', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTimestampSecond0033 begin');
       console.info('testTimestampSecond0033 begin');
       expect(formatTimestamp(1, true)).assertEqual('1970/01/01 00:00:01');
     })
@@ -509,7 +476,6 @@ export default function formatCoreTest(): void {
      */
     it('testTimestampDayEnd0034', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTimestampDayEnd0034 begin');
-      console.info('testTimestampDayEnd0034 begin');
       expect(formatTimestamp(86399, true)).assertEqual('1970/01/01 23:59:59');
     })
 
@@ -522,7 +488,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTimestampNextDay0035', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTimestampNextDay0035 begin');
       console.info('testTimestampNextDay0035 begin');
       expect(formatTimestamp(86400, true)).assertEqual('1970/01/02 00:00:00');
     })
@@ -537,7 +502,6 @@ export default function formatCoreTest(): void {
      */
     it('testTimestampSample0036', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTimestampSample0036 begin');
-      console.info('testTimestampSample0036 begin');
       expect(formatTimestamp(SAMPLE_SEC, true)).assertEqual('2023/11/14 22:13:20');
     })
 
@@ -550,7 +514,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTimestampLeapDay0037', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTimestampLeapDay0037 begin');
       console.info('testTimestampLeapDay0037 begin');
       expect(formatTimestamp(1709251199, true)).assertEqual('2024/02/29 23:59:59');
     })
@@ -565,7 +528,6 @@ export default function formatCoreTest(): void {
      */
     it('testTimestampFraction0038', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTimestampFraction0038 begin');
-      console.info('testTimestampFraction0038 begin');
       expect(formatTimestamp(1.9, true)).assertEqual('1970/01/01 00:00:01');
     })
 
@@ -578,7 +540,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTimestampNegative0039', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTimestampNegative0039 begin');
       console.info('testTimestampNegative0039 begin');
       expect(formatTimestamp(-1, true)).assertEqual('');
       expect(formatTimestamp(Number.NaN, true)).assertEqual('');
@@ -594,7 +555,6 @@ export default function formatCoreTest(): void {
      */
     it('testTimestampInfinite0040', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTimestampInfinite0040 begin');
-      console.info('testTimestampInfinite0040 begin');
       expect(formatTimestamp(Number.POSITIVE_INFINITY, true)).assertEqual('');
     })
 
@@ -607,7 +567,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDateOnlySample0041', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDateOnlySample0041 begin');
       console.info('testDateOnlySample0041 begin');
       expect(formatDateOnly(SAMPLE_SEC, true)).assertEqual('2023/11/14');
     })
@@ -622,7 +581,6 @@ export default function formatCoreTest(): void {
      */
     it('testDateOnlyEpoch0042', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDateOnlyEpoch0042 begin');
-      console.info('testDateOnlyEpoch0042 begin');
       expect(formatDateOnly(0, true)).assertEqual('1970/01/01');
     })
 
@@ -635,7 +593,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDateOnlyInvalid0043', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDateOnlyInvalid0043 begin');
       console.info('testDateOnlyInvalid0043 begin');
       expect(formatDateOnly(-5, true)).assertEqual('');
       expect(formatDateOnly(Number.NaN, true)).assertEqual('');
@@ -651,7 +608,6 @@ export default function formatCoreTest(): void {
      */
     it('testRelativeJustNow0044', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRelativeJustNow0044 begin');
-      console.info('testRelativeJustNow0044 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC, true)).assertEqual('刚刚');
     })
 
@@ -664,7 +620,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRelativeSeconds0045', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRelativeSeconds0045 begin');
       console.info('testRelativeSeconds0045 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 30, true)).assertEqual('刚刚');
     })
@@ -679,7 +634,6 @@ export default function formatCoreTest(): void {
      */
     it('testRelativeMinute0046', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRelativeMinute0046 begin');
-      console.info('testRelativeMinute0046 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 60, true)).assertEqual('1分钟前');
     })
 
@@ -692,7 +646,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRelativeMinutes0047', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRelativeMinutes0047 begin');
       console.info('testRelativeMinutes0047 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 3599, true)).assertEqual('59分钟前');
     })
@@ -707,7 +660,6 @@ export default function formatCoreTest(): void {
      */
     it('testRelativeHour0048', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRelativeHour0048 begin');
-      console.info('testRelativeHour0048 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 3600, true)).assertEqual('1小时前');
     })
 
@@ -720,7 +672,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRelativeHours0049', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRelativeHours0049 begin');
       console.info('testRelativeHours0049 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 86399, true)).assertEqual('23小时前');
     })
@@ -735,7 +686,6 @@ export default function formatCoreTest(): void {
      */
     it('testRelativeYesterday0050', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRelativeYesterday0050 begin');
-      console.info('testRelativeYesterday0050 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 86400, true)).assertEqual('昨天');
     })
 
@@ -748,7 +698,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRelativeYesterdayUpper0051', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRelativeYesterdayUpper0051 begin');
       console.info('testRelativeYesterdayUpper0051 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 172799, true)).assertEqual('昨天');
     })
@@ -763,7 +712,6 @@ export default function formatCoreTest(): void {
      */
     it('testRelativeDays0052', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRelativeDays0052 begin');
-      console.info('testRelativeDays0052 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 172800, true)).assertEqual('2天前');
     })
 
@@ -776,7 +724,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRelativeDaysUpper0053', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRelativeDaysUpper0053 begin');
       console.info('testRelativeDaysUpper0053 begin');
       expect(formatRelative(SAMPLE_SEC, SAMPLE_SEC + 604799, true)).assertEqual('6天前');
     })
@@ -791,7 +738,6 @@ export default function formatCoreTest(): void {
      */
     it('testRelativeWeekFallback0054', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRelativeWeekFallback0054 begin');
-      console.info('testRelativeWeekFallback0054 begin');
       expect(formatRelative(0, 604800, true)).assertEqual('1970/01/01');
     })
 
@@ -805,7 +751,6 @@ export default function formatCoreTest(): void {
      */
     it('testRelativeFuture0055', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testRelativeFuture0055 begin');
-      console.info('testRelativeFuture0055 begin');
       expect(formatRelative(SAMPLE_SEC + 10, SAMPLE_SEC, true)).assertEqual('未来');
     })
 
@@ -818,7 +763,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testRelativeInvalid0056', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testRelativeInvalid0056 begin');
       console.info('testRelativeInvalid0056 begin');
       expect(formatRelative(-1, SAMPLE_SEC, true)).assertEqual('');
       expect(formatRelative(SAMPLE_SEC, Number.NaN, true)).assertEqual('');
@@ -834,7 +778,6 @@ export default function formatCoreTest(): void {
      */
     it('testDurationZero0057', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDurationZero0057 begin');
-      console.info('testDurationZero0057 begin');
       expect(formatDuration(0)).assertEqual('0:00');
     })
 
@@ -847,7 +790,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDurationSeconds0058', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDurationSeconds0058 begin');
       console.info('testDurationSeconds0058 begin');
       expect(formatDuration(5)).assertEqual('0:05');
       expect(formatDuration(59)).assertEqual('0:59');
@@ -863,7 +805,6 @@ export default function formatCoreTest(): void {
      */
     it('testDurationMinute0059', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDurationMinute0059 begin');
-      console.info('testDurationMinute0059 begin');
       expect(formatDuration(60)).assertEqual('1:00');
     })
 
@@ -876,7 +817,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDurationMinutes0060', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDurationMinutes0060 begin');
       console.info('testDurationMinutes0060 begin');
       expect(formatDuration(3599)).assertEqual('59:59');
     })
@@ -891,7 +831,6 @@ export default function formatCoreTest(): void {
      */
     it('testDurationHour0061', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDurationHour0061 begin');
-      console.info('testDurationHour0061 begin');
       expect(formatDuration(3600)).assertEqual('1:00:00');
     })
 
@@ -904,7 +843,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testDurationMixed0062', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testDurationMixed0062 begin');
       console.info('testDurationMixed0062 begin');
       expect(formatDuration(3661)).assertEqual('1:01:01');
       expect(formatDuration(7325)).assertEqual('2:02:05');
@@ -920,7 +858,6 @@ export default function formatCoreTest(): void {
      */
     it('testDurationInvalid0063', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDurationInvalid0063 begin');
-      console.info('testDurationInvalid0063 begin');
       expect(formatDuration(-1)).assertEqual('--:--');
       expect(formatDuration(Number.NaN)).assertEqual('--:--');
     })
@@ -935,7 +872,6 @@ export default function formatCoreTest(): void {
      */
     it('testDurationFraction0064', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testDurationFraction0064 begin');
-      console.info('testDurationFraction0064 begin');
       expect(formatDuration(59.9)).assertEqual('0:59');
     })
 
@@ -948,7 +884,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPercentZero0065', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPercentZero0065 begin');
       console.info('testPercentZero0065 begin');
       expect(formatPercent(0, 100, 1)).assertEqual('0%');
     })
@@ -963,7 +898,6 @@ export default function formatCoreTest(): void {
      */
     it('testPercentHalf0066', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPercentHalf0066 begin');
-      console.info('testPercentHalf0066 begin');
       expect(formatPercent(50, 100, 1)).assertEqual('50%');
     })
 
@@ -976,7 +910,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPercentRepeating0067', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPercentRepeating0067 begin');
       console.info('testPercentRepeating0067 begin');
       expect(formatPercent(1, 3, 2)).assertEqual('33.33%');
       expect(formatPercent(2, 3, 0)).assertEqual('67%');
@@ -992,7 +925,6 @@ export default function formatCoreTest(): void {
      */
     it('testPercentFull0068', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPercentFull0068 begin');
-      console.info('testPercentFull0068 begin');
       expect(formatPercent(100, 100, 1)).assertEqual('100%');
     })
 
@@ -1006,7 +938,6 @@ export default function formatCoreTest(): void {
      */
     it('testPercentOverflow0069', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPercentOverflow0069 begin');
-      console.info('testPercentOverflow0069 begin');
       expect(formatPercent(150, 100, 1)).assertEqual('150%');
     })
 
@@ -1019,7 +950,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testPercentInvalidTotal0070', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testPercentInvalidTotal0070 begin');
       console.info('testPercentInvalidTotal0070 begin');
       expect(formatPercent(1, 0, 1)).assertEqual('0%');
       expect(formatPercent(1, -10, 1)).assertEqual('0%');
@@ -1036,7 +966,6 @@ export default function formatCoreTest(): void {
      */
     it('testPercentClampDecimals0071', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPercentClampDecimals0071 begin');
-      console.info('testPercentClampDecimals0071 begin');
       expect(formatPercent(1, 3, 9)).assertEqual('33.33%');
     })
 
@@ -1050,7 +979,6 @@ export default function formatCoreTest(): void {
      */
     it('testPercentNegativeValue0072', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testPercentNegativeValue0072 begin');
-      console.info('testPercentNegativeValue0072 begin');
       expect(formatPercent(-25, 100, 0)).assertEqual('-25%');
     })
 
@@ -1063,7 +991,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateEndEmpty0073', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateEndEmpty0073 begin');
       console.info('testTruncateEndEmpty0073 begin');
       expect(truncateEnd('abc', 3, '...')).assertEqual('abc');
       expect(truncateEnd('ab', 5, '...')).assertEqual('ab');
@@ -1079,7 +1006,6 @@ export default function formatCoreTest(): void {
      */
     it('testTruncateEndBasic0074', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateEndBasic0074 begin');
-      console.info('testTruncateEndBasic0074 begin');
       expect(truncateEnd('abcdef', 4, '...')).assertEqual('a...');
     })
 
@@ -1092,7 +1018,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateEndTiny0075', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateEndTiny0075 begin');
       console.info('testTruncateEndTiny0075 begin');
       expect(truncateEnd('abcdef', 3, '...')).assertEqual('abc');
       expect(truncateEnd('abcdef', 2, '...')).assertEqual('ab');
@@ -1108,7 +1033,6 @@ export default function formatCoreTest(): void {
      */
     it('testTruncateEndZero0076', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateEndZero0076 begin');
-      console.info('testTruncateEndZero0076 begin');
       expect(truncateEnd('abcdef', 0, '...')).assertEqual('');
     })
 
@@ -1121,7 +1045,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateEndNoMarker0077', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateEndNoMarker0077 begin');
       console.info('testTruncateEndNoMarker0077 begin');
       expect(truncateEnd('abcdef', 4, '')).assertEqual('abcd');
     })
@@ -1136,7 +1059,6 @@ export default function formatCoreTest(): void {
      */
     it('testTruncateEndChinese0078', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateEndChinese0078 begin');
-      console.info('testTruncateEndChinese0078 begin');
       expect(truncateEnd('你好世界你好', 5, '…')).assertEqual('你好世界…');
     })
 
@@ -1149,7 +1071,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateMiddleBasic0079', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateMiddleBasic0079 begin');
       console.info('testTruncateMiddleBasic0079 begin');
       expect(truncateMiddle('abcdefgh', 6, '...')).assertEqual('a...gh');
     })
@@ -1164,7 +1085,6 @@ export default function formatCoreTest(): void {
      */
     it('testTruncateMiddleShort0080', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateMiddleShort0080 begin');
-      console.info('testTruncateMiddleShort0080 begin');
       expect(truncateMiddle('abc', 6, '...')).assertEqual('abc');
     })
 
@@ -1177,7 +1097,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateMiddleTiny0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateMiddleTiny0081 begin');
       console.info('testTruncateMiddleTiny0081 begin');
       expect(truncateMiddle('abcdefgh', 3, '...')).assertEqual('abc');
       expect(truncateMiddle('abcdefgh', 2, '...')).assertEqual('ab');
@@ -1193,7 +1112,6 @@ export default function formatCoreTest(): void {
      */
     it('testTruncateMiddleTwoDots0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateMiddleTwoDots0082 begin');
-      console.info('testTruncateMiddleTwoDots0082 begin');
       expect(truncateMiddle('abcdefgh', 6, '..')).assertEqual('ab..gh');
     })
 
@@ -1206,7 +1124,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testTruncateMiddleChinese0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testTruncateMiddleChinese0083 begin');
       console.info('testTruncateMiddleChinese0083 begin');
       expect(truncateMiddle('一二三四五六', 5, '…')).assertEqual('一二…五六');
     })
@@ -1221,7 +1138,6 @@ export default function formatCoreTest(): void {
      */
     it('testTruncateMiddleZero0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testTruncateMiddleZero0084 begin');
-      console.info('testTruncateMiddleZero0084 begin');
       expect(truncateMiddle('abcdefgh', 0, '...')).assertEqual('');
     })
 
@@ -1234,7 +1150,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSanitizeEmpty0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSanitizeEmpty0085 begin');
       console.info('testSanitizeEmpty0085 begin');
       expect(sanitizeFileName('')).assertEqual('unnamed');
       expect(sanitizeFileName('..')).assertEqual('unnamed');
@@ -1250,7 +1165,6 @@ export default function formatCoreTest(): void {
      */
     it('testSanitizeSlash0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSanitizeSlash0086 begin');
-      console.info('testSanitizeSlash0086 begin');
       expect(sanitizeFileName('a/b')).assertEqual('ab');
       expect(sanitizeFileName('a\\b')).assertEqual('ab');
     })
@@ -1265,7 +1179,6 @@ export default function formatCoreTest(): void {
      */
     it('testSanitizeIllegalChars0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSanitizeIllegalChars0087 begin');
-      console.info('testSanitizeIllegalChars0087 begin');
       expect(sanitizeFileName('a:b*c?d"e<f>g|h')).assertEqual('abcdefgh');
     })
 
@@ -1278,7 +1191,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSanitizeControl0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSanitizeControl0088 begin');
       console.info('testSanitizeControl0088 begin');
       expect(sanitizeFileName('a' + String.fromCharCode(1) + 'b')).assertEqual('ab');
       expect(sanitizeFileName('a' + String.fromCharCode(0x7F) + 'b')).assertEqual('ab');
@@ -1294,7 +1206,6 @@ export default function formatCoreTest(): void {
      */
     it('testSanitizeTrimSpace0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSanitizeTrimSpace0089 begin');
-      console.info('testSanitizeTrimSpace0089 begin');
       expect(sanitizeFileName('  name  ')).assertEqual('name');
     })
 
@@ -1307,7 +1218,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSanitizeTrimDots0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSanitizeTrimDots0090 begin');
       console.info('testSanitizeTrimDots0090 begin');
       expect(sanitizeFileName('...name...')).assertEqual('name');
       expect(sanitizeFileName('.hidden')).assertEqual('hidden');
@@ -1323,7 +1233,6 @@ export default function formatCoreTest(): void {
      */
     it('testSanitizeReserved0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSanitizeReserved0091 begin');
-      console.info('testSanitizeReserved0091 begin');
       expect(sanitizeFileName('CON')).assertEqual('_CON');
       expect(sanitizeFileName('nul')).assertEqual('_nul');
     })
@@ -1337,7 +1246,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testSanitizeLength0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testSanitizeLength0092 begin');
       console.info('testSanitizeLength0092 begin');
       let longName: string = '';
       for (let index = 0; index < 300; index++) {
@@ -1356,7 +1264,6 @@ export default function formatCoreTest(): void {
      */
     it('testSanitizeChinese0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testSanitizeChinese0093 begin');
-      console.info('testSanitizeChinese0093 begin');
       expect(sanitizeFileName('正常文件.txt')).assertEqual('正常文件.txt');
     })
 
@@ -1369,7 +1276,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEnsureExtensionBasic0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEnsureExtensionBasic0094 begin');
       console.info('testEnsureExtensionBasic0094 begin');
       expect(ensureExtension('a', 'txt')).assertEqual('a.txt');
       expect(ensureExtension('a', '.txt')).assertEqual('a.txt');
@@ -1384,7 +1290,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testEnsureExtensionExisting0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testEnsureExtensionExisting0095 begin');
       console.info('testEnsureExtensionExisting0095 begin');
       expect(ensureExtension('a.txt', 'txt')).assertEqual('a.txt');
       expect(ensureExtension('a.TXT', 'txt')).assertEqual('a.TXT');
@@ -1401,7 +1306,6 @@ export default function formatCoreTest(): void {
      */
     it('testEnsureExtensionEmpty0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEnsureExtensionEmpty0096 begin');
-      console.info('testEnsureExtensionEmpty0096 begin');
       expect(ensureExtension('a', '')).assertEqual('a');
     })
 
@@ -1415,7 +1319,6 @@ export default function formatCoreTest(): void {
      */
     it('testEnsureExtensionUpper0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testEnsureExtensionUpper0097 begin');
-      console.info('testEnsureExtensionUpper0097 begin');
       expect(ensureExtension('report', '.PDF')).assertEqual('report.PDF');
     })
 
@@ -1428,7 +1331,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUniqueNameZero0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUniqueNameZero0098 begin');
       console.info('testUniqueNameZero0098 begin');
       expect(uniqueName('a.txt', 0)).assertEqual('a.txt');
       expect(uniqueName('a.txt', -1)).assertEqual('a.txt');
@@ -1444,7 +1346,6 @@ export default function formatCoreTest(): void {
      */
     it('testUniqueNameBasic0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUniqueNameBasic0099 begin');
-      console.info('testUniqueNameBasic0099 begin');
       expect(uniqueName('a.txt', 1)).assertEqual('a(1).txt');
       expect(uniqueName('a.txt', 10)).assertEqual('a(10).txt');
     })
@@ -1458,7 +1359,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUniqueNameNoExtension0100', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUniqueNameNoExtension0100 begin');
       console.info('testUniqueNameNoExtension0100 begin');
       expect(uniqueName('a', 2)).assertEqual('a(2)');
       expect(uniqueName('.gitignore', 1)).assertEqual('.gitignore(1)');
@@ -1474,7 +1374,6 @@ export default function formatCoreTest(): void {
      */
     it('testUniqueNameMultiDot0101', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testUniqueNameMultiDot0101 begin');
-      console.info('testUniqueNameMultiDot0101 begin');
       expect(uniqueName('a.tar.gz', 3)).assertEqual('a.tar(3).gz');
     })
 
@@ -1487,7 +1386,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testUniqueNameChinese0102', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testUniqueNameChinese0102 begin');
       console.info('testUniqueNameChinese0102 begin');
       expect(uniqueName('报告.docx', 5)).assertEqual('报告(5).docx');
     })
@@ -1502,7 +1400,6 @@ export default function formatCoreTest(): void {
      */
     it('testMaskAccountEmpty0103', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMaskAccountEmpty0103 begin');
-      console.info('testMaskAccountEmpty0103 begin');
       expect(maskAccount('')).assertEqual('');
     })
 
@@ -1515,7 +1412,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMaskAccountShort0104', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMaskAccountShort0104 begin');
       console.info('testMaskAccountShort0104 begin');
       expect(maskAccount('a')).assertEqual('**');
       expect(maskAccount('ab')).assertEqual('**');
@@ -1531,7 +1427,6 @@ export default function formatCoreTest(): void {
      */
     it('testMaskAccountMedium0105', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMaskAccountMedium0105 begin');
-      console.info('testMaskAccountMedium0105 begin');
       expect(maskAccount('abc')).assertEqual('a**c');
       expect(maskAccount('abcd')).assertEqual('a**d');
     })
@@ -1545,7 +1440,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testMaskAccountLong0106', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testMaskAccountLong0106 begin');
       console.info('testMaskAccountLong0106 begin');
       expect(maskAccount('abcde')).assertEqual('ab***de');
       expect(maskAccount('abcdefghij')).assertEqual('ab***ij');
@@ -1561,7 +1455,6 @@ export default function formatCoreTest(): void {
      */
     it('testMaskAccountChinese0107', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testMaskAccountChinese0107 begin');
-      console.info('testMaskAccountChinese0107 begin');
       expect(maskAccount('张三丰')).assertEqual('张**丰');
     })
 
@@ -1574,7 +1467,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testExpiryPermanent0108', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testExpiryPermanent0108 begin');
       console.info('testExpiryPermanent0108 begin');
       expect(formatExpiry(0, true)).assertEqual('永久');
       expect(formatExpiry(-100, true)).assertEqual('永久');
@@ -1590,7 +1482,6 @@ export default function formatCoreTest(): void {
      */
     it('testExpiryInvalid0109', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
       console.info('testExpiryInvalid0109 begin');
-      console.info('testExpiryInvalid0109 begin');
       expect(formatExpiry(Number.NaN, true)).assertEqual('永久');
       expect(formatExpiry(Number.POSITIVE_INFINITY, true)).assertEqual('永久');
     })
@@ -1604,7 +1495,6 @@ export default function formatCoreTest(): void {
      * @tc.level     LEVEL0
      */
     it('testExpiryDate0110', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL0, async () => {
-      console.info('testExpiryDate0110 begin');
       console.info('testExpiryDate0110 begin');
       expect(formatExpiry(SAMPLE_SEC, true)).assertEqual('2023/11/14');
       expect(formatExpiry(86400, true)).assertEqual('1970/01/02');
