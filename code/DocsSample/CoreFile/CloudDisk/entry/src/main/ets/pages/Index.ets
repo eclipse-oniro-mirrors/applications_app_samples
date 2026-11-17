@@ -781,6 +781,7 @@ struct Index {
                       .width('25%').margin(10)
                   }
                   Row() {
+                    // [Start update_on_cloud_size_change]
                     Button($r('app.string.update_on_cloud_size_change_btn'))
                       .id('updateOnCloudSizeChangeBtn')
                       .onClick(() => {
@@ -811,6 +812,7 @@ struct Index {
                           this.promptAction.showDialog({ title: $r('app.string.update_failed'), message: this.resStr($r('app.string.error_code_label')) + ret.toString() + '\n' + this.resStr($r('app.string.reason_label')) + this.getErrorCodeMsg(ret), buttons: [{ text: $r('app.string.confirm'), color: '#000000' }] });
                         }
                       })
+                    // [End update_on_cloud_size_change]
                   }.margin(10)
                 } else if (this.phase2ModuleIndex === 3) {
                   Text($r('app.string.convert_to_regular_file')).fontSize(18).fontWeight(FontWeight.Bold).margin({ top: 10, bottom: 15 }).id('placeholderTitle')
