@@ -42,8 +42,7 @@ Sensor_Result Mock_OH_Sensor_Subscribe(const Sensor_SubscriptionId *id, const Se
 Sensor_Result Mock_OH_Sensor_Unsubscribe(const Sensor_SubscriptionId *id, const Sensor_Subscriber *subscriber);
 
 // Match the SDK API names within the isolated sample namespace.
-namespace SensorSampleUnderTest
-{
+namespace SensorSampleUnderTest {
 inline constexpr auto OH_SensorEvent_GetTimestamp = Mock_OH_SensorEvent_GetTimestamp;
 inline constexpr auto OH_SensorEvent_GetType = Mock_OH_SensorEvent_GetType;
 inline constexpr auto OH_SensorEvent_GetAccuracy = Mock_OH_SensorEvent_GetAccuracy;

@@ -42,7 +42,7 @@ constexpr float EVENT_DATA_SCALE = 4.0f;
 constexpr int64_t MIN_INTERVAL_STEP = 1000;
 constexpr int64_t NANOSECONDS_PER_SECOND = 1000000000;
 constexpr size_t MAX_SCENARIO_LENGTH = 1024;
-constexpr int LOG_DECIMAL_PLACES = 6;
+constexpr int LOG_DECIMAL_PRECISION = 6;
 constexpr int STANDALONE_ARG_COUNT = 2;
 constexpr int EXIT_ARGUMENT_ERROR = 2;
 constexpr int EXIT_OPEN_ERROR = 3;
@@ -117,28 +117,27 @@ static void CheckResource(const void *value, const std::string &kind)
         g_observation.violations++;
     }
 }
-namespace SensorTestStandard
-{
+namespace SensorTestStandard {
 using namespace ::std;
-namespace this_thread
-{
-static void sleep_for(::std::chrono::milliseconds duration)
+namespace this_thread {
+static void SleepFor(::std::chrono::milliseconds duration)
 {
     Record("wait", ":" + ::std::to_string(duration.count()));
     g_observation.waitMs += static_cast<int>(duration.count());
 }
+// Retain the standard API spelling used by the included sample.
+inline constexpr auto sleep_for = SleepFor;
 } // namespace this_thread
 } // namespace SensorTestStandard
 
-namespace SensorSampleUnderTest
-{
+namespace SensorSampleUnderTest {
 namespace std = SensorTestStandard;
 
 template <typename T> static ::std::string LogValue(const T &value)
 {
     ::std::ostringstream output;
     output.imbue(::std::locale::classic());
-    output << ::std::fixed << ::std::setprecision(LOG_DECIMAL_PLACES) << value;
+    output << ::std::fixed << ::std::setprecision(LOG_DECIMAL_PRECISION) << value;
     return output.str();
 }
 
@@ -453,6 +452,21 @@ static std::string Quote(const std::string &text)
     }
     return result + "\"";
 }
+static std::string SerializeObservation()
+{
+    std::ostringstream result;
+    result << "{\"trace\":" << Quote(Join(g_observation.trace));
+    result << ",\"errors\":" << Quote(Join(g_observation.errors));
+    result << ",\"messages\":" << Quote(Join(g_observation.messages));
+    result << ",\"liveResources\":" << g_observation.resources.size();
+    result << ",\"activeSubscriptions\":" << g_observation.active;
+    result << ",\"violations\":" << g_observation.violations;
+    result << ",\"waitMs\":" << g_observation.waitMs;
+    result << ",\"configuredType\":" << g_observation.configuredType;
+    result << ",\"configuredInterval\":" << g_observation.configuredInterval;
+    result << ",\"callbacks\":" << g_observation.callbacks << "}";
+    return result.str();
+}
 static std::string RunScenario(const std::string &input)
 {
     std::lock_guard<std::mutex> guard(g_scenarioMutex);
@@ -484,17 +498,7 @@ static std::string RunScenario(const std::string &input)
         SensorSampleUnderTest::SensorDataCallbackImpl(
             g_scenario.nullEvent ? nullptr : reinterpret_cast<Sensor_Event *>(&g_fakeEvent));
     }
-    std::ostringstream result;
-    result << "{\"trace\":" << Quote(Join(g_observation.trace));
-    result << ",\"errors\":" << Quote(Join(g_observation.errors));
-    result << ",\"messages\":" << Quote(Join(g_observation.messages));
-    result << ",\"liveResources\":" << g_observation.resources.size();
-    result << ",\"activeSubscriptions\":" << g_observation.active;
-    result << ",\"violations\":" << g_observation.violations;
-    result << ",\"waitMs\":" << g_observation.waitMs;
-    result << ",\"configuredType\":" << g_observation.configuredType;
-    result << ",\"configuredInterval\":" << g_observation.configuredInterval;
-    result << ",\"callbacks\":" << g_observation.callbacks << "}";
+    const std::string result = SerializeObservation();
     for (auto &resource : g_observation.resources) {
         if (resource.second == "infos") {
             delete[] reinterpret_cast<Sensor_Info **>(resource.first);
@@ -503,7 +507,7 @@ static std::string RunScenario(const std::string &input)
         }
     }
     g_allocatedInfos = nullptr;
-    return result.str();
+    return result;
 }
 #ifdef SENSOR_STANDALONE
 int main(int argc, char **argv)
