@@ -15,20 +15,7 @@
 
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "material": {
-          "certpath": "C:/Users/mktang/.ohos/config/openharmony/default_Call_3AHjqaCbz-B8HtMySXVAyOVzd3Hyhako1zDHDIZUNAk=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001AE7C8FE5C815E4CF152EC70A13AEB156CCEF7047B3E3CAB7F95B736B5D16CED6F9ED8A56CFD15",
-          "profile": "C:/Users/mktang/.ohos/config/openharmony/default_Call_3AHjqaCbz-B8HtMySXVAyOVzd3Hyhako1zDHDIZUNAk=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/mktang/.ohos/config/openharmony/default_Call_3AHjqaCbz-B8HtMySXVAyOVzd3Hyhako1zDHDIZUNAk=.p12",
-          "storePassword": "0000001A0711AE99610FEBC84F16490AE041E9A3D44BEEBB90B3304B0237418B8EA42D1AF2DA0501418A"
-        }
-      }
-    ],
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",

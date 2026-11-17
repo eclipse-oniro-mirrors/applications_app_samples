@@ -25,11 +25,6 @@ param(
 $hdc = $HdcPath
 if (-not $hdc) { $hdc = (Get-Command hdc.exe -ErrorAction SilentlyContinue).Source }
 if (-not $hdc) {
-  foreach ($candidate in @('E:\KSDK\26.0.0\toolchains\hdc.exe', 'E:\SDK\23\toolchains\hdc.exe')) {
-    if (Test-Path $candidate) { $hdc = $candidate; break }
-  }
-}
-if (-not $hdc) {
   Write-Host 'hdc.exe not found. Pass -HdcPath <path to hdc.exe>'
   exit 2
 }
