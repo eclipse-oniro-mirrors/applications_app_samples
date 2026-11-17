@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, beforeEach } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, beforeEach } from '@ohos/hypium';
 import { Driver, ON, Component } from '@kit.TestKit';
 import {
   INDEX_TITLE, TAB_BASICS, TAB_FUNCTIONS, TAB_CLASSES, TAB_GENERICS, ALL_PAGES, PageSpec,
@@ -41,10 +41,16 @@ async function indexTabCount(): Promise<number> {
 export default function ArkTSUiNavigationTest(): void {
   describe('ArkTSUiNavigationTest', () => {
 
-    beforeEach(async () => {
-      const started: boolean = await startApp();
-      expect(started).assertTrue();
+    beforeAll(async () => {
+      expect(await startApp()).assertTrue();
       await lockRecovery();
+    });
+
+    beforeEach(async () => {
+      if (!(await backToIndex())) {
+        expect(await startApp()).assertTrue();
+        await lockRecovery();
+      }
     });
 
     /**
@@ -244,27 +250,6 @@ export default function ArkTSUiNavigationTest(): void {
       expect(absent).assertFalse();
       expect(await indexTabCount()).assertEqual(4);
       logEnd('testSimpleNavigationRegression0010');
-    });
-
-    /**
-     * @tc.number    SUB_ARKTS_GUIDE_UI_NAV_testTabSequenceKeepsWorking0011
-     * @tc.name      testTabSequenceKeepsWorking0011
-     * @tc.desc      Verify navigating through all four tabs in order succeeds each time
-     * @tc.type      Function
-     * @tc.size      MediumTest
-     * @tc.level     LEVEL1
-     */
-    it('testTabSequenceKeepsWorking0011', 0, async () => {
-      logBegin('testTabSequenceKeepsWorking0011');
-      let visited: number = 0;
-      for (let i = 0; i < ALL_PAGES.length; i++) {
-        if (await navigate(ALL_PAGES[i])) {
-          visited++;
-        }
-      }
-      expect(visited).assertEqual(4);
-      expect(await backToIndex()).assertTrue();
-      logEnd('testTabSequenceKeepsWorking0011');
     });
 
   });

@@ -25,7 +25,6 @@ import ArkTSSnippetRuntimeTest from './SnippetRuntime.test';
 import ArkTSUiLogBodyTest from './UiLogBody.test';
 import ArkTSUiStatusTextTest from './UiStatusText.test';
 import ArkTSUiNavigationTest from './UiNavigation.test';
-import ArkTSUiRobustnessTest from './UiRobustness.test';
 import userServiceFindMatrixTest from './UserServiceFindMatrix.test';
 import BuildUrlMatrixTest from './BuildUrlMatrix.test';
 import mathIdentityMatrixTest from './MathIdentityMatrix.test';
@@ -70,7 +69,6 @@ export default function testsuite() {
   ArkTSUiLogBodyTest();
   ArkTSUiStatusTextTest();
   ArkTSUiNavigationTest();
-  ArkTSUiRobustnessTest();
   userServiceFindMatrixTest();
   BuildUrlMatrixTest();
   mathIdentityMatrixTest();

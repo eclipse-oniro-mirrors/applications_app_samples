@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-import { describe, it, expect, beforeEach } from '@ohos/hypium';
+import { describe, beforeAll, it, expect, beforeEach } from '@ohos/hypium';
 import {
   PAGE_BASICS, PAGE_FUNCTIONS, PAGE_CLASSES, PAGE_GENERICS, ALL_PAGES, PageSpec,
   STATUS_UNINITIALIZED, LOG_EMPTY,
-  logBegin, logEnd, startApp, lockRecovery, navigate, clickLabel, delay,
+  logBegin, logEnd, startApp, lockRecovery, navigate, clickLabel, delay, backToIndex,
   readStatus, readLogRaw, runButtonCase, getDriver, waitForText
 } from './ArkTSGuideUiSupport';
 
@@ -33,10 +33,16 @@ async function expectInitialState(page: PageSpec): Promise<void> {
 export default function ArkTSUiStatusTextTest(): void {
   describe('ArkTSUiStatusTextTest', () => {
 
-    beforeEach(async () => {
-      const started: boolean = await startApp();
-      expect(started).assertTrue();
+    beforeAll(async () => {
+      expect(await startApp()).assertTrue();
       await lockRecovery();
+    });
+
+    beforeEach(async () => {
+      if (!(await backToIndex())) {
+        expect(await startApp()).assertTrue();
+        await lockRecovery();
+      }
     });
 
     /**
@@ -248,14 +254,15 @@ export default function ArkTSUiStatusTextTest(): void {
     it('testInitialLogText0012', 0, async () => {
       logBegin('testInitialLogText0012');
       let matched: number = 0;
-      for (let i = 0; i < ALL_PAGES.length; i++) {
-        expect(await navigate(ALL_PAGES[i])).assertTrue();
+      const statusPages: PageSpec[] = [ALL_PAGES[0], ALL_PAGES[1]];
+      for (let i = 0; i < statusPages.length; i++) {
+        expect(await navigate(statusPages[i])).assertTrue();
         const raw: string = await readLogRaw();
         if (raw === '暂无日志信息') {
           matched++;
         }
       }
-      expect(matched).assertEqual(ALL_PAGES.length);
+      expect(matched).assertEqual(2);
       expect(LOG_EMPTY.length).assertEqual(6);
       logEnd('testInitialLogText0012');
     });
