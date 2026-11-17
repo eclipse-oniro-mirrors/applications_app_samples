@@ -76,20 +76,6 @@ struct ConcurrencyPage {
     this.busy = false;
   }
 
-  @Builder
-  private resultRow(label: Resource, value: string) {
-    Row() {
-      Text(label)
-        .fontSize(13)
-        .fontColor($r('app.color.qos_text_secondary'))
-        .layoutWeight(1)
-      Text(value)
-        .fontSize(13)
-        .fontColor($r('app.color.qos_text_primary'))
-    }
-    .width('100%')
-  }
-
   build() {
     Column({ space: 10 }) {
       Row({ space: 10 }) {
@@ -202,12 +188,71 @@ struct ConcurrencyPage {
         .width('100%')
 
       Column({ space: 4 }) {
-        this.resultRow($r('app.string.concurrency_total'), this.totalRequested.toString())
-        this.resultRow($r('app.string.concurrency_pass'), this.successCount.toString())
-        this.resultRow($r('app.string.concurrency_fail'), this.failCount.toString())
-        this.resultRow($r('app.string.concurrency_avg'), this.avgDuration.toFixed(2))
-        this.resultRow($r('app.string.concurrency_min'), this.minDuration.toFixed(2))
-        this.resultRow($r('app.string.concurrency_max'), this.maxDuration.toFixed(2))
+        Row() {
+          Text($r('app.string.concurrency_total'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.totalRequested.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.concurrency_pass'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.successCount.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.concurrency_fail'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.failCount.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.concurrency_avg'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.avgDuration.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.concurrency_min'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.minDuration.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.concurrency_max'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.maxDuration.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
       }
       .width('100%')
       .padding(10)

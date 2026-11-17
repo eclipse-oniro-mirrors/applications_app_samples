@@ -64,6 +64,7 @@ const ZH_TEXTS: Map<string, string> = new Map<string, string>([
   ['No samples yet.', '暂无样本数据。'],
   ['Avg (ms)', '平均(毫秒)'],
   ['Min', '最小'],
+  ['Max', '最大'],
   ['Summary runs', '累计次数'],
   ['Last level', '最近等级'],
   ['Summary avg (ms)', '累计平均(毫秒)'],

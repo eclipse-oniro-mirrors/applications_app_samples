@@ -158,20 +158,6 @@ struct HistoryPage {
     }
   }
 
-  @Builder
-  private statsRow(label: Resource, value: string) {
-    Row() {
-      Text(label)
-        .fontSize(13)
-        .fontColor($r('app.color.qos_text_secondary'))
-        .layoutWeight(1)
-      Text(value)
-        .fontSize(13)
-        .fontColor($r('app.color.qos_text_primary'))
-    }
-    .width('100%')
-  }
-
   build() {
     Column({ space: 10 }) {
       Row({ space: 10 }) {
@@ -340,13 +326,82 @@ struct HistoryPage {
       }
 
       Column({ space: 4 }) {
-        this.statsRow($r('app.string.history_total'), this.total.toString())
-        this.statsRow($r('app.string.history_capacity'), this.capacity.toString())
-        this.statsRow($r('app.string.history_pass'), this.successCount.toString())
-        this.statsRow($r('app.string.history_fail'), this.failureCount.toString())
-        this.statsRow($r('app.string.history_avg'), this.avgDuration.toFixed(2))
-        this.statsRow($r('app.string.history_min'), this.minDuration.toFixed(2))
-        this.statsRow($r('app.string.history_max'), this.maxDuration.toFixed(2))
+        Row() {
+          Text($r('app.string.history_total'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.total.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.history_capacity'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.capacity.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.history_pass'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.successCount.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.history_fail'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.failureCount.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.history_avg'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.avgDuration.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.history_min'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.minDuration.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.history_max'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.maxDuration.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
       }
       .width('100%')
       .padding(10)

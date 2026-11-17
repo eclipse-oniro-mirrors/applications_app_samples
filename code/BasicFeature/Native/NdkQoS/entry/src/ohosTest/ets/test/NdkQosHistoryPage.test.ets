@@ -534,6 +534,8 @@ export default function ndkQosHistoryPageTest(): void {
       expect(await openHistoryPage(driver)).assertTrue();
       expect(await clickText(driver, CLEAR_BUTTON)).assertTrue();
       expect(await waitForText(driver, CLEARED_STATUS, WAIT_TIMEOUT)).assertTrue();
+      // The page keeps its level selection while it stays on the stack, so pin the level asserted below.
+      expect(await clickButton(driver, '5')).assertTrue();
       expect(await clickText(driver, RECORD_BUTTON)).assertTrue();
       expect(await waitForText(driver, RECORDED_STATUS, RUN_TIMEOUT)).assertTrue();
       expect(await clickButton(driver, '50')).assertTrue();
@@ -594,6 +596,8 @@ export default function ndkQosHistoryPageTest(): void {
       expect(await openHistoryPage(driver)).assertTrue();
       expect(await clickText(driver, CLEAR_BUTTON)).assertTrue();
       expect(await waitForText(driver, CLEARED_STATUS, WAIT_TIMEOUT)).assertTrue();
+      // The page keeps its level selection while it stays on the stack, so pin the level asserted below.
+      expect(await clickButton(driver, '5')).assertTrue();
       expect(await clickText(driver, RECORD_BUTTON)).assertTrue();
       expect(await waitForText(driver, RECORDED_STATUS, RUN_TIMEOUT)).assertTrue();
       const stats: RecordStatsReport = testNapi.getRecordStats(await recordDir());

@@ -118,20 +118,6 @@ struct BenchmarkPage {
     this.statusText = $r('app.string.bench_status_idle');
   }
 
-  @Builder
-  private summaryRow(label: Resource, value: string) {
-    Row() {
-      Text(label)
-        .fontSize(13)
-        .fontColor($r('app.color.qos_text_secondary'))
-        .layoutWeight(1)
-      Text(value)
-        .fontSize(13)
-        .fontColor($r('app.color.qos_text_primary'))
-    }
-    .width('100%')
-  }
-
   build() {
     Column({ space: 10 }) {
       Row({ space: 10 }) {
@@ -274,14 +260,93 @@ struct BenchmarkPage {
         .width('100%')
 
       Column({ space: 4 }) {
-        this.summaryRow($r('app.string.bench_summary_runs'), this.summaryRunCount.toString())
-        this.summaryRow($r('app.string.bench_summary_last'), this.summaryLastLevel.toString())
-        this.summaryRow($r('app.string.bench_summary_avg'), this.summaryAvg.toFixed(2))
-        this.summaryRow($r('app.string.bench_summary_min'), this.summaryMin.toFixed(2))
-        this.summaryRow($r('app.string.bench_summary_max'), this.summaryMax.toFixed(2))
-        this.summaryRow($r('app.string.bench_summary_fastest'), this.fastestLevel.toString())
-        this.summaryRow($r('app.string.bench_summary_slowest'), this.slowestLevel.toString())
-        this.summaryRow($r('app.string.bench_summary_total'), this.totalRuns.toString())
+        Row() {
+          Text($r('app.string.bench_summary_runs'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.summaryRunCount.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.bench_summary_last'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.summaryLastLevel.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.bench_summary_avg'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.summaryAvg.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.bench_summary_min'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.summaryMin.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.bench_summary_max'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.summaryMax.toFixed(2))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.bench_summary_fastest'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.fastestLevel.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.bench_summary_slowest'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.slowestLevel.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.bench_summary_total'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.totalRuns.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
       }
       .width('100%')
       .padding(10)

@@ -120,10 +120,16 @@ async function findText(driver: Driver, text: string): Promise<Component | undef
 
 async function tryWaitText(driver: Driver, text: string, timeout: number): Promise<boolean> {
   try {
-    await driver.waitForComponent(ON.text(text), timeout);
+    // waitForComponent polls on the UiTest side and resolves to null once the deadline passes,
+    // so the returned value has to be checked instead of trusting the call to throw.
+    const component: Component = await driver.waitForComponent(ON.text(text), timeout);
+    if (component === undefined || component === null) {
+      logInfo('waitForText timeout: ' + text);
+      return false;
+    }
     return true;
   } catch (error) {
-    logInfo('waitForText timeout: ' + text + ' -> ' + JSON.stringify(error));
+    logInfo('waitForText failed: ' + text + ' -> ' + JSON.stringify(error));
     return false;
   }
 }
@@ -374,7 +380,7 @@ export default function abilityTest(): void {
     /**
      * @tc.number    SUB_NDK_QOS_ABILITY_0007
      * @tc.name      testNdkQosAbility0007
-     * @tc.desc      Checks the system back key returns from a child page to the home page.
+     * @tc.desc      Checks the page back entry returns from a child page to the home page.
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
@@ -383,7 +389,8 @@ export default function abilityTest(): void {
       logInfo('testNdkQosAbility0007 begin');
       const driver: Driver = Driver.create();
       expect(await openChildPage(driver, BENCH_ENTRY, BENCH_MARK)).assertTrue();
-      await driver.pressBack();
+      // The system back key tears down the UiTest session, so leave the child page with its own back entry.
+      expect(await clickText(driver, BACK_TEXTS[0])).assertTrue();
       expect(await waitForText(driver, HIGH_BUTTON, WAIT_TIMEOUT)).assertTrue();
       expect(await findText(driver, BENCH_MARK) === undefined).assertTrue();
       expect(await countButtons(driver)).assertEqual(INDEX_BUTTONS);

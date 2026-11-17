@@ -226,7 +226,8 @@ export default function ndkQosResourceModelTest(): void {
       logInfo('option count = ' + optionCount.toString() + ', declared count = ' + declaredCount.toString());
       expect(declaredCount).assertEqual(LEVEL_COUNT);
       expect(optionCount).assertEqual(declaredCount);
-      expect(declaredCount - range.minLevel).assertEqual(range.maxLevel);
+      logInfo('level window = ' + range.minLevel.toString() + '..' + range.maxLevel.toString());
+      expect(range.maxLevel - range.minLevel + 1).assertEqual(declaredCount);
       logInfo('testNdkQosResourceModel0006 end');
     })
 

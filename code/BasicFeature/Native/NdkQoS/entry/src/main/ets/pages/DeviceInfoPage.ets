@@ -80,20 +80,6 @@ struct DeviceInfoPage {
     return options;
   }
 
-  @Builder
-  private infoRow(label: Resource, value: string) {
-    Row() {
-      Text(label)
-        .fontSize(13)
-        .fontColor($r('app.color.qos_text_secondary'))
-        .layoutWeight(1)
-      Text(value)
-        .fontSize(13)
-        .fontColor($r('app.color.qos_text_primary'))
-    }
-    .width('100%')
-  }
-
   build() {
     Column({ space: 10 }) {
       Row({ space: 10 }) {
@@ -114,11 +100,60 @@ struct DeviceInfoPage {
       .width('100%')
 
       Column({ space: 4 }) {
-        this.infoRow($r('app.string.device_cpu_count'), this.cpuCount.toString())
-        this.infoRow($r('app.string.device_selected_cpu'), this.selectedCpu.toString())
-        this.infoRow($r('app.string.device_affinity'), this.affinityText())
-        this.infoRow($r('app.string.device_bind_result'), this.bindResult.toString())
-        this.infoRow($r('app.string.device_bind_cpu'), this.bindCpu.toString())
+        Row() {
+          Text($r('app.string.device_cpu_count'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.cpuCount.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.device_selected_cpu'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.selectedCpu.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.device_affinity'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.affinityText())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.device_bind_result'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.bindResult.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
+
+        Row() {
+          Text($r('app.string.device_bind_cpu'))
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_secondary'))
+            .layoutWeight(1)
+          Text(this.bindCpu.toString())
+            .fontSize(13)
+            .fontColor($r('app.color.qos_text_primary'))
+        }
+        .width('100%')
       }
       .width('100%')
       .padding(10)
