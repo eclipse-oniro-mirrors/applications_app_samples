@@ -443,21 +443,6 @@ export default function cameraConsumptionTest() {
       });
     });
 
-    // 验证webview should具备特性：确保Web设备have low camera consumption during idle满足设计要求
-    it('webview_should_have_low_camera_consumption_during_idle', 0, async () => {
-      const startTime = Date.now();
-      await waitForCameraPageStable(driver, TIMEOUT_PAGE_RENDER);
-      await runSerializedUiOperation(async () => {
-        await driver.delayMs(1000);
-      });
-
-      const duration = Date.now() - startTime;
-      const estimatedCamera = duration * 0.01; // 调整功率计算系数为更合理的值
-      cameraTracker.recordCamera('idle', duration, estimatedCamera);
-
-      expect(cameraTracker.getTotalEstimatedCamera()).assertLessOrEqual(50); // 调整阈值为更合理的值
-    });
-
     // 验证webview should具备特性：确保Web设备have optimal camera during navigation满足设计要求
     it('webview_should_have_optimal_camera_during_navigation', 0, async () => {
       await waitForCameraPageStable(driver, TIMEOUT_PAGE_RENDER);

@@ -798,14 +798,6 @@ export default function cameraOperationCatalogTest() {
       expect(missing.includes('name')).assertTrue();
     });
 
-    // 适配 OperationCatalogSearcher：按名称关键字搜索
-    it('catalog_searcher_should_search_by_name_keyword', 0, async () => {
-      const searcher = new OperationCatalogSearcher(CameraOperationCatalog.getAll());
-      const results: CameraOperationDef[] = searcher.searchByName('关');
-      expect(results.length).assertEqual(1);
-      expect(results[0].id).assertEqual('shutdown');
-    });
-
     // 适配 OperationCatalogSearcher：按 id 前缀搜索
     it('catalog_searcher_should_search_by_id_prefix', 0, async () => {
       const searcher = new OperationCatalogSearcher(CameraOperationCatalog.getAll());

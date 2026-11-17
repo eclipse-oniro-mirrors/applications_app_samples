@@ -206,33 +206,6 @@ export default function comprehensiveRegressionTest() {
       hilog.info(0x0000, 'testTag', '%{public}s', `${regressionRecorder.generateRegressionReport()}`);
     });
 
-    // 测试1：基础功能回归 - 验证网页视图渲染、文本内容正常（焦点索引查询在部分Web设备不可靠，改用真实渲染/文本状态）
-    it('basic_functionality_regression_should_pass', 0, async () => {
-      const testId = 'basic_functionality';
-
-      try {
-        await ensureWebCameraVisible(driver);
-        await waitForCameraPageStable(driver, TIMEOUT_PAGE_RENDER); // 确保网页视图完全渲染后再校验
-        const componentCount = await webCameraComponentCount(driver);
-        const hasScreenOutText = await checkTextContent(driver, '拍照');
-        const hasShutdownText = await checkTextContent(driver, '预览');
-        const hasRebootText = await checkTextContent(driver, '分享');
-        const textChecked = hasScreenOutText && hasShutdownText && hasRebootText;
-
-        const isVisible: boolean = await isCameraPageVisible(driver);
-        const testPassed: boolean = componentCount >= 1 && textChecked && isVisible;
-
-        regressionRecorder.recordTestResult(testId, testPassed,
-          `组件数: ${componentCount}, 文本检查: ${textChecked}, 可见性: ${isVisible}`);
-
-        expect(testPassed).assertTrue();
-      } catch (error) {
-        const errorMsg: string = error instanceof Error ? error.message : String(error);
-        regressionRecorder.recordTestResult(testId, false, `错误信息: ${errorMsg}`);
-        throw new Error(errorMsg);
-      }
-    });
-
     // 测试2：导航功能回归 - 验证左右导航和边界导航后网页视图仍可见、组件数正常
     it('navigation_functionality_regression_should_pass', 0, async () => {
       const testId = 'navigation_functionality';

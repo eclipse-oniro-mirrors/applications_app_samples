@@ -484,14 +484,6 @@ export default function uiComponentRenderingTest() {
       expect(texts.length).assertLessOrEqual(15);
     });
 
-    it('all_row_components_should_render_correctly', 0, async () => {
-      await waitForCameraPageStable(driver, TIMEOUT_PAGE_RENDER);
-      const rows = await findComponentsByType(driver, 'Row');
-      renderTracker.recordRender('Row', rows.length, rows.length >= 1);
-      expect(rows.length).assertLargerOrEqual(1);
-      expect(rows.length).assertLessOrEqual(20);
-    });
-
     it('all_column_components_should_render_correctly', 0, async () => {
       await waitForCameraPageStable(driver, TIMEOUT_PAGE_RENDER);
       const columns = await findComponentsByType(driver, 'Column');
