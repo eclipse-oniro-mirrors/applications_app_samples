@@ -17,13 +17,26 @@
 {
   "app": {
     "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/mktang/.ohos/config/openharmony/default_UIExtensionSamples_ZaJZXU6hjt8DRaWNt0_INDV4N37M-pt9OtfT5Q1NYfQ=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001AAB935A4BC22A2009D073B4D400DA4ABE06E5C50A57AAC67D067FAD9F54B1B57E8DAFDFD7BF6A",
+          "profile": "C:/Users/mktang/.ohos/config/openharmony/default_UIExtensionSamples_ZaJZXU6hjt8DRaWNt0_INDV4N37M-pt9OtfT5Q1NYfQ=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/mktang/.ohos/config/openharmony/default_UIExtensionSamples_ZaJZXU6hjt8DRaWNt0_INDV4N37M-pt9OtfT5Q1NYfQ=.p12",
+          "storePassword": "0000001A034A6DB65F09C4E507C003BB23BAFF6C7A380E78BF1F594ABFA5AB50BF9695412D3EC325E7A9"
+        }
+      }
     ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "compatibleSdkVersion": 12,
-        "compileSdkVersion": 12,
+        "compatibleSdkVersion": "26.0.0",
+        "compileSdkVersion": "26.0.0",
+        "targetSdkVersion": "26.0.0",
         "runtimeOS": "OpenHarmony",
       }
     ],
