@@ -47,7 +47,8 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     abilityDelegatorArguments = abilityDelegatorRegistry.getArguments()
     abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
     let moduleName: string = abilityDelegatorArguments.parameters['-m'];
-    let context: common.Context = abilityDelegator.getAppContext().getApplicationContext().createModuleContext(moduleName);
+    let appContext: common.Context = abilityDelegator.getAppContext();
+    let context: common.Context = appContext.getApplicationContext().createModuleContext(moduleName);
     let mResourceManager: resourceManager.ResourceManager = context.resourceManager;
     await checkMock(abilityDelegator, mResourceManager);
     const bundleName: string = abilityDelegatorArguments.bundleName;
@@ -71,7 +72,8 @@ export default class OpenHarmonyTestRunner implements TestRunner {
   }
 }
 
-async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDelegator, resourceManager: resourceManager.ResourceManager) {
+async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDelegator,
+  resourceManager: resourceManager.ResourceManager) {
   let rawFile: Uint8Array;
   try {
     rawFile = resourceManager.getRawFileContentSync(jsonPath);
@@ -80,17 +82,16 @@ async function checkMock(abilityDelegator: abilityDelegatorRegistry.AbilityDeleg
     let mockMap: Record<string, string> = getMockList(mockStr);
     try {
       abilityDelegator.setMockList(mockMap)
-    }
-      catch (error) {
+    } catch (error) {
       let code: number = (error as BusinessError).code;
       let message: string = (error as BusinessError).message;
       hilog.error(0x0000, tag, `abilityDelegator.setMockList failed, error code: ${code}, message: ${message}.`);
     }
-  }
-    catch (error) {
+  } catch (error) {
     let code: number = (error as BusinessError).code;
     let message: string = (error as BusinessError).message;
-    hilog.error(0x0000, tag, `ResourceManager:callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
+    hilog.error(0x0000, tag,
+      `ResourceManager:callback getRawFileContent failed, error code: ${code}, message: ${message}.`);
   }
 }
 
