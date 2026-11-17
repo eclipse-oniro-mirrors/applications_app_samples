@@ -38,9 +38,9 @@
 |性能基线|应用已启动|执行冷启动、菜单响应与包信息查询计时|各操作在设定时间内完成|Pass|
 |组合操作|应用已启动|组合执行选择、播放、标签切换与资源查询|组合操作后页面与资源访问保持正常|Pass|
 |设备信息读取|设备正常运行|读取设备类型、品牌、型号、系统版本与ABI列表|各字段非空，系统版本关系正确|Pass|
-|系统国际化信息|设备正常运行|读取系统语言、地区、Locale与首选语言列表|语言和地区非空，Locale与二者一致|Pass|
+|系统国际化信息|设备正常运行|读取系统语言、地区、Locale与语言偏好列表|语言和地区非空，Locale与二者一致|Pass|
 |运行时工具|设备正常运行|生成UUID，编解码文本，转换buffer|UUID格式正确，编解码内容一致|Pass|
-|URI解析|设备正常运行|解析绝对与相对URI并比较|scheme、host、port、path、query、fragment正确|Pass|
+|URI解析|设备正常运行|解析完整路径与相对路径URI并比较|scheme、host、port、path、query、fragment正确|Pass|
 |集合容器|应用已启动|创建并操作ArrayList、HashMap、LinkedList等容器|增删查改与元素顺序符合预期|Pass|
 |容器扩展|应用已启动|操作List、Vector、LightWeightMap与LightWeightSet|各容器方法返回值和状态正确|Pass|
 |Buffer编解码|应用已启动|构造buffer，读写整数、浮点与字符串|长度与读写值正确|Pass|
