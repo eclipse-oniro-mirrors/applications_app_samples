@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// [Start free_window_setWindowLimits_startOptions]
+// [Start free_window_setWindowLimitsByStartOptions]
 // 示例应用的主页面，用于创建按钮调用接口启动目标Ability
 import { common, StartOptions, Want } from '@kit.AbilityKit';
 @Entry
@@ -35,8 +35,8 @@ struct Index {
               displayId: 0,
               minWindowWidth: 600,
               minWindowHeight: 500,
-              maxWindowWidth: 1500,
-              maxWindowHeight: 1000,
+              maxWindowWidth: 800,
+              maxWindowHeight: 600,
             };
             try {
               // 启动目标Ability
@@ -62,4 +62,4 @@ struct Index {
     .height('100%')
   }
 }
-// [End free_window_setWindowLimits_startOptions]
+// [End free_window_setWindowLimitsByStartOptions]

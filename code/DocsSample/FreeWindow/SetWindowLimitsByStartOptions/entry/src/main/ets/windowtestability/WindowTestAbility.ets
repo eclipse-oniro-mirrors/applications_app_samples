@@ -20,7 +20,7 @@ import { UIAbility } from '@kit.AbilityKit';
 export default class WindowTestAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
-    windowStage.loadContent('pages/Index', (err) => {
+    windowStage.loadContent('pages/TestPage', (err) => {
       if (err.code) {
         console.error(`Failed to load the content. Cause: ${JSON.stringify(err)}`);
         return;
