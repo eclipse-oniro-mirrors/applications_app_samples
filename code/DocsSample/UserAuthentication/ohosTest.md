@@ -14,3 +14,29 @@
 | 认证过程中取消认证     | 开发板需提前设置用户认证信息，即密码认证，人脸认证或指纹认证 |                                                              | 1.上方tab切换到“取消实例”<br/>2.自动点击按钮后拉起用户认证页面，3秒后用户认证页面被关闭，按钮下方的文本从Wait变为Pass | 是       | 验证通过 |
 | 查询用户注册凭据的状态 | 开发板需提前设置用户认证信息，即密码认证，人脸认证或指纹认证 |                                                              | 1.上方tab切换到“查询凭据”<br/>2.自动点击按钮后按钮下方的文本从Wait变为Pass，并在Pass下方输出凭据号 | 是       | 验证通过 |
 | 模拟场景               | 开发板需提前设置用户认证信息，即密码认证，人脸认证或指纹认证 | 1.输入用户认证信息<br/>2.在用户认证界面点击“使用应用密码”按钮 | 1.上方tab切换到“模拟验证”<br/>2.自动点击第一个按钮后按钮下方的文本输出“支持认证能力”<br/>3.自动点击第二个按钮后拉起用户认证界面<br/>4.自动点击第三个按钮，拉起用户认证界面<br/>5.自动点击第四个按钮，在第四个按钮下方输出凭据号 | 否       | 验证通过 |
+## 补充契约用例（55 条）
+
+| 用例范围 | 测试内容 | 预期输出 | 测试结果 |
+|---|---|---|---|
+| testUserAuthContract0001-0015 | UserAuthType PIN/FACE/FINGERPRINT | 枚举值 1/2/4 | Pass |
+| testUserAuthContract0016-0035 | AuthTrustLevel ATL1-ATL4 | 10000/20000/30000/40000 | Pass |
+| testUserAuthContract0036-0045 | AuthParam 认证参数组合 | challenge 16、authType 3 项 | Pass |
+| testUserAuthContract0046-0055 | challenge 长度 17-26 | 长度与数组一致 | Pass |
+
+## 批量矩阵用例（200 条）
+
+| 用例范围 | 测试内容 | 预期输出 | 测试结果 |
+|---|---|---|---|
+| testUserAuthMatrix0001-0050 | AuthParam challenge/authType/trustLevel 组合 | 长度、类型、等级正确 | Pass |
+| testUserAuthMatrix0051-0100 | UserAuthType 数组组合 | 数组非空且元素为 number | Pass |
+| testUserAuthMatrix0101-0150 | SecureLevel S1-S4 | 字符串值正确 | Pass |
+| testUserAuthMatrix0151-0200 | AuthType ALL/FACE_ONLY | 字符串值正确 | Pass |
+
+## 扩展矩阵用例（200 条）
+
+| 用例范围 | 测试内容 | 预期输出 | 测试结果 |
+|---|---|---|---|
+| testUserAuthMore0001-0050 | 扩展 challenge 33-82 | 长度/类型/等级正确 | Pass |
+| testUserAuthMore0051-0100 | 扩展认证类型数组 | 数组长度正确 | Pass |
+| testUserAuthMore0101-0150 | SecureLevel/AuthType 交叉 | 字符串正确 | Pass |
+| testUserAuthMore0151-0200 | AuthParam 相等性 | 字段一致 | Pass |
