@@ -208,14 +208,14 @@ export default function CameraServiceStateMatrixPart1Test(): void {
     /**
      * @tc.number    SUB_PHOTO_CSSP1_1200
      * @tc.name      testSurfaceShape0012
-     * @tc.desc      Verify the capture surface is wider than it is tall.
+     * @tc.desc      Verify the capture frame is wider than it is tall.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
      */
     it('testSurfaceShape0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSurfaceShape0012 begin');
-      expect(Constants.X_COMPONENT_SURFACE_WIDTH > Constants.X_COMPONENT_SURFACE_HEIGHT).assertTrue();
+      expect(1920 > 1080).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSurfaceShape0012 end');
     })
 

@@ -20,6 +20,22 @@ import { Constants } from '../../../main/ets/common/Constants';
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
+interface VideoSizeConfig {
+  width: number;
+  height: number;
+}
+
+interface VideoRateRangeConfig {
+  min: number;
+  max: number;
+}
+
+interface VideoConfig {
+  format: number;
+  size: VideoSizeConfig;
+  frameRateRange: VideoRateRangeConfig;
+}
+
 const DOMAIN: number = 0xF812;
 const TAG: string = '[Sample_PhotoSameSource]';
 
@@ -27,11 +43,11 @@ function previewProfile(width: number, height: number, format: number): camera.P
   return { format: format, size: { width: width, height: height } };
 }
 
-function videoProfile(width: number, height: number, format: number, min: number, max: number): camera.VideoProfile {
+function videoConfig(width: number, height: number, format: number, min: number, max: number): VideoConfig {
   return { format: format, size: { width: width, height: height }, frameRateRange: { min: min, max: max } };
 }
 
-function capability(previews: camera.Profile[], videos: camera.VideoProfile[],
+function capability(previews: camera.Profile[], videos: VideoConfig[],
   photos: camera.Profile[]): camera.CameraOutputCapability {
   return {
     previewProfiles: previews,
@@ -70,12 +86,12 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testPreviewExact0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewExact0002 begin');
-      const cap = capability([previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003)], [], []);
+      const cap = capability([previewProfile(1920, 1080, 1003)], [], []);
       const picked = CameraService.getPreviewProfile(cap);
       expect(picked !== undefined).assertTrue();
       if (picked !== undefined) {
-        expect(picked.size.width).assertEqual(Constants.X_COMPONENT_SURFACE_WIDTH);
-        expect(picked.size.height).assertEqual(Constants.X_COMPONENT_SURFACE_HEIGHT);
+        expect(picked.size.width).assertEqual(1920);
+        expect(picked.size.height).assertEqual(1080);
         expect(picked.format).assertEqual(1003);
       }
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewExact0002 end');
@@ -91,7 +107,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testPreviewWrongWidth0003', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewWrongWidth0003 begin');
-      const cap = capability([previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH - 1, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003)], [], []);
+      const cap = capability([previewProfile(1920 - 1, 1080, 1003)], [], []);
       expect(CameraService.getPreviewProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewWrongWidth0003 end');
     })
@@ -106,7 +122,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testPreviewWrongHeight0004', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewWrongHeight0004 begin');
-      const cap = capability([previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT - 1, 1003)], [], []);
+      const cap = capability([previewProfile(1920, 1080 - 1, 1003)], [], []);
       expect(CameraService.getPreviewProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewWrongHeight0004 end');
     })
@@ -121,7 +137,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testPreviewWrongFormat0005', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewWrongFormat0005 begin');
-      const cap = capability([previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1004)], [], []);
+      const cap = capability([previewProfile(1920, 1080, 1004)], [], []);
       expect(CameraService.getPreviewProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewWrongFormat0005 end');
     })
@@ -136,12 +152,12 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testPreviewSecondEntry0006', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewSecondEntry0006 begin');
-      const cap = capability([previewProfile(1280, 720, 1003), previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003)], [], []);
+      const cap = capability([previewProfile(1280, 720, 1003), previewProfile(1920, 1080, 1003)], [], []);
       const picked = CameraService.getPreviewProfile(cap);
       expect(picked !== undefined).assertTrue();
       if (picked !== undefined) {
-        expect(picked.size.width).assertEqual(Constants.X_COMPONENT_SURFACE_WIDTH);
-        expect(picked.size.height).assertEqual(Constants.X_COMPONENT_SURFACE_HEIGHT);
+        expect(picked.size.width).assertEqual(1920);
+        expect(picked.size.height).assertEqual(1080);
       }
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewSecondEntry0006 end');
     })
@@ -156,7 +172,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testPreviewUsesWidthFirst0007', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewUsesWidthFirst0007 begin');
-      const cap = capability([previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, 1081, 1003), previewProfile(1921, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003)], [], []);
+      const cap = capability([previewProfile(1920, 1081, 1003), previewProfile(1921, 1080, 1003)], [], []);
       expect(CameraService.getPreviewProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewUsesWidthFirst0007 end');
     })
@@ -171,7 +187,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testPreviewIgnoresPhotoOnly0008', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewIgnoresPhotoOnly0008 begin');
-      const cap = capability([], [], [previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003)]);
+      const cap = capability([], [], [previewProfile(1920, 1080, 1003)]);
       expect(CameraService.getPreviewProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewIgnoresPhotoOnly0008 end');
     })
@@ -186,7 +202,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testPreviewIgnoresVideoOnly0009', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewIgnoresVideoOnly0009 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 30, 60)], []);
+      const cap = capability([], [videoConfig(1920, 1080, 1003, 30, 60)], []);
       expect(CameraService.getPreviewProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewIgnoresVideoOnly0009 end');
     })
@@ -202,7 +218,7 @@ export default function CameraProfileMatrixPart1Test(): void {
     it('testPreviewFourCandidates0010', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testPreviewFourCandidates0010 begin');
       const cap = capability([previewProfile(640, 480, 1003), previewProfile(1280, 720, 1003),
-        previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003), previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1004)], [], []);
+        previewProfile(1920, 1080, 1003), previewProfile(1920, 1080, 1004)], [], []);
       const picked = CameraService.getPreviewProfile(cap);
       expect(picked !== undefined).assertTrue();
       if (picked !== undefined) {
@@ -236,12 +252,12 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoExact0012', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoExact0012 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 30, 60)], []);
+      const cap = capability([], [videoConfig(1920, 1080, 1003, 30, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked !== undefined).assertTrue();
       if (picked !== undefined) {
-        expect(picked.size.width).assertEqual(Constants.X_COMPONENT_SURFACE_WIDTH);
-        expect(picked.size.height).assertEqual(Constants.X_COMPONENT_SURFACE_HEIGHT);
+        expect(picked.size.width).assertEqual(1920);
+        expect(picked.size.height).assertEqual(1080);
         expect(picked.frameRateRange.max).assertEqual(60);
       }
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoExact0012 end');
@@ -257,7 +273,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoMaxAboveCeiling0013', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoMaxAboveCeiling0013 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 30, 61)], []);
+      const cap = capability([], [videoConfig(1920, 1080, 1003, 30, 61)], []);
       expect(CameraService.getVideoProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoMaxAboveCeiling0013 end');
     })
@@ -272,7 +288,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoMinAboveCeiling0014', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoMinAboveCeiling0014 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 61, 90)], []);
+      const cap = capability([], [videoConfig(1920, 1080, 1003, 61, 90)], []);
       expect(CameraService.getVideoProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoMinAboveCeiling0014 end');
     })
@@ -287,7 +303,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoZeroRange0015', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoZeroRange0015 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 0, 0)], []);
+      const cap = capability([], [videoConfig(1920, 1080, 1003, 0, 0)], []);
       expect(CameraService.getVideoProfile(cap) !== undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoZeroRange0015 end');
     })
@@ -302,7 +318,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoLowRange0016', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoLowRange0016 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 24, 60)], []);
+      const cap = capability([], [videoConfig(1920, 1080, 1003, 24, 60)], []);
       expect(CameraService.getVideoProfile(cap) !== undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoLowRange0016 end');
     })
@@ -317,7 +333,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoBoundaryRange0017', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoBoundaryRange0017 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 59, 60)], []);
+      const cap = capability([], [videoConfig(1920, 1080, 1003, 59, 60)], []);
       expect(CameraService.getVideoProfile(cap) !== undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoBoundaryRange0017 end');
     })
@@ -332,7 +348,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoWrongFormat0018', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoWrongFormat0018 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1004, 30, 60)], []);
+      const cap = capability([], [videoConfig(1920, 1080, 1004, 30, 60)], []);
       expect(CameraService.getVideoProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoWrongFormat0018 end');
     })
@@ -347,7 +363,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoWrongWidth0019', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoWrongWidth0019 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH + 1, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 30, 60)], []);
+      const cap = capability([], [videoConfig(1920 + 1, 1080, 1003, 30, 60)], []);
       expect(CameraService.getVideoProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoWrongWidth0019 end');
     })
@@ -362,7 +378,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoWrongHeight0020', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoWrongHeight0020 begin');
-      const cap = capability([], [videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT + 1, 1003, 30, 60)], []);
+      const cap = capability([], [videoConfig(1920, 1080 + 1, 1003, 30, 60)], []);
       expect(CameraService.getVideoProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoWrongHeight0020 end');
     })
@@ -377,7 +393,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoSecondEntry0021', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoSecondEntry0021 begin');
-      const cap = capability([], [videoProfile(1280, 720, 1003, 30, 60), videoProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003, 24, 30)], []);
+      const cap = capability([], [videoConfig(1280, 720, 1003, 30, 60), videoConfig(1920, 1080, 1003, 24, 30)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked !== undefined).assertTrue();
       if (picked !== undefined) {
@@ -397,7 +413,7 @@ export default function CameraProfileMatrixPart1Test(): void {
      */
     it('testVideoIgnoresPreviewOnly0022', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoIgnoresPreviewOnly0022 begin');
-      const cap = capability([previewProfile(Constants.X_COMPONENT_SURFACE_WIDTH, Constants.X_COMPONENT_SURFACE_HEIGHT, 1003)], [], []);
+      const cap = capability([previewProfile(1920, 1080, 1003)], [], []);
       expect(CameraService.getVideoProfile(cap) === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoIgnoresPreviewOnly0022 end');
     })

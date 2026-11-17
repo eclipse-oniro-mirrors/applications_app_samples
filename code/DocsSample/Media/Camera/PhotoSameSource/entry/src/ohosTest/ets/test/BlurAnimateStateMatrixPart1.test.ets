@@ -29,7 +29,7 @@ export default function BlurAnimateStateMatrixPart1Test(): void {
     /**
      * @tc.number    SUB_PHOTO_BASP1_0100
      * @tc.name      testSurfaceShotInitiallyEmpty0001
-     * @tc.desc      Verify no surface screenshot exists before any capture.
+     * @tc.desc      Verify no screen capture exists before any capture.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -43,7 +43,7 @@ export default function BlurAnimateStateMatrixPart1Test(): void {
     /**
      * @tc.number    SUB_PHOTO_BASP1_0200
      * @tc.name      testEmptySurfaceIdNoShot0002
-     * @tc.desc      Verify an empty surface id does not create a screenshot.
+     * @tc.desc      Verify an empty capture id does not create a screenshot.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2

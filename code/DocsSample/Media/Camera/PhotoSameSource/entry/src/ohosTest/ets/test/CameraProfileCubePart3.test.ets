@@ -16,7 +16,7 @@
 import { describe, it, expect, TestType, Size, Level } from '@ohos/hypium';
 import CameraService from '../../../main/ets/mode/CameraService';
 import { Constants } from '../../../main/ets/common/Constants';
-import { previewProfile, videoProfile, capability } from './shared/PhotoProfileSupport';
+import { previewProfile, videoConfig, capability } from './shared/PhotoProfileSupport';
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 
@@ -36,7 +36,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0081', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0081 begin');
-      const cap = capability([], [videoProfile(1921, 1079, 1004, 30, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1079, 1004, 30, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0081 end');
@@ -52,7 +52,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0082', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0082 begin');
-      const cap = capability([], [videoProfile(1921, 1079, 1004, 59, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1079, 1004, 59, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0082 end');
@@ -68,7 +68,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0083', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0083 begin');
-      const cap = capability([], [videoProfile(1921, 1079, 1004, 30, 61)], []);
+      const cap = capability([], [videoConfig(1921, 1079, 1004, 30, 61)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0083 end');
@@ -84,7 +84,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0084', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0084 begin');
-      const cap = capability([], [videoProfile(1921, 1080, 1003, 0, 0)], []);
+      const cap = capability([], [videoConfig(1921, 1080, 1003, 0, 0)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0084 end');
@@ -100,7 +100,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0085', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0085 begin');
-      const cap = capability([], [videoProfile(1921, 1080, 1003, 30, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1080, 1003, 30, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0085 end');
@@ -116,7 +116,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0086', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0086 begin');
-      const cap = capability([], [videoProfile(1921, 1080, 1003, 59, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1080, 1003, 59, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0086 end');
@@ -132,7 +132,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0087', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0087 begin');
-      const cap = capability([], [videoProfile(1921, 1080, 1003, 30, 61)], []);
+      const cap = capability([], [videoConfig(1921, 1080, 1003, 30, 61)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0087 end');
@@ -148,7 +148,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0088', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0088 begin');
-      const cap = capability([], [videoProfile(1921, 1080, 1004, 0, 0)], []);
+      const cap = capability([], [videoConfig(1921, 1080, 1004, 0, 0)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0088 end');
@@ -164,7 +164,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0089', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0089 begin');
-      const cap = capability([], [videoProfile(1921, 1080, 1004, 30, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1080, 1004, 30, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0089 end');
@@ -180,7 +180,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0090', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0090 begin');
-      const cap = capability([], [videoProfile(1921, 1080, 1004, 59, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1080, 1004, 59, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0090 end');
@@ -196,7 +196,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0091', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0091 begin');
-      const cap = capability([], [videoProfile(1921, 1080, 1004, 30, 61)], []);
+      const cap = capability([], [videoConfig(1921, 1080, 1004, 30, 61)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0091 end');
@@ -212,7 +212,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0092', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0092 begin');
-      const cap = capability([], [videoProfile(1921, 1081, 1003, 0, 0)], []);
+      const cap = capability([], [videoConfig(1921, 1081, 1003, 0, 0)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0092 end');
@@ -228,7 +228,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0093', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0093 begin');
-      const cap = capability([], [videoProfile(1921, 1081, 1003, 30, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1081, 1003, 30, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0093 end');
@@ -244,7 +244,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0094', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0094 begin');
-      const cap = capability([], [videoProfile(1921, 1081, 1003, 59, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1081, 1003, 59, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0094 end');
@@ -260,7 +260,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0095', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0095 begin');
-      const cap = capability([], [videoProfile(1921, 1081, 1003, 30, 61)], []);
+      const cap = capability([], [videoConfig(1921, 1081, 1003, 30, 61)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0095 end');
@@ -276,7 +276,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0096', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0096 begin');
-      const cap = capability([], [videoProfile(1921, 1081, 1004, 0, 0)], []);
+      const cap = capability([], [videoConfig(1921, 1081, 1004, 0, 0)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0096 end');
@@ -292,7 +292,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0097', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0097 begin');
-      const cap = capability([], [videoProfile(1921, 1081, 1004, 30, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1081, 1004, 30, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0097 end');
@@ -308,7 +308,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0098', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0098 begin');
-      const cap = capability([], [videoProfile(1921, 1081, 1004, 59, 60)], []);
+      const cap = capability([], [videoConfig(1921, 1081, 1004, 59, 60)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0098 end');
@@ -324,7 +324,7 @@ export default function CameraProfileCubePart3Test(): void {
      */
     it('testVideoCube0099', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0099 begin');
-      const cap = capability([], [videoProfile(1921, 1081, 1004, 30, 61)], []);
+      const cap = capability([], [videoConfig(1921, 1081, 1004, 30, 61)], []);
       const picked = CameraService.getVideoProfile(cap);
       expect(picked === undefined).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoCube0099 end');

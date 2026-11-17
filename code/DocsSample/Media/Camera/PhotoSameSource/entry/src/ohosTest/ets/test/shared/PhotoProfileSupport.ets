@@ -15,15 +15,31 @@
 
 import { camera } from '@kit.CameraKit';
 
+export interface VideoSizeConfig {
+  width: number;
+  height: number;
+}
+
+export interface VideoRateRangeConfig {
+  min: number;
+  max: number;
+}
+
+interface VideoConfig {
+  format: number;
+  size: VideoSizeConfig;
+  frameRateRange: VideoRateRangeConfig;
+}
+
 export function previewProfile(width: number, height: number, format: number): camera.Profile {
   return { format: format, size: { width: width, height: height } };
 }
 
-export function videoProfile(width: number, height: number, format: number, min: number, max: number): camera.VideoProfile {
+export function videoConfig(width: number, height: number, format: number, min: number, max: number): VideoConfig {
   return { format: format, size: { width: width, height: height }, frameRateRange: { min: min, max: max } };
 }
 
-export function capability(previews: camera.Profile[], videos: camera.VideoProfile[],
+export function capability(previews: camera.Profile[], videos: VideoConfig[],
   photos: camera.Profile[]): camera.CameraOutputCapability {
   return {
     previewProfiles: previews,
