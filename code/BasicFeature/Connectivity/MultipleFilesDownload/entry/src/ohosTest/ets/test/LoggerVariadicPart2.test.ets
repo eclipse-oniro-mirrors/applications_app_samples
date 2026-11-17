@@ -210,7 +210,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10000
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0100
      * @tc.name      testLoggerVariadic0100
      * @tc.desc      Verify logger.info accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -230,7 +230,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10100
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0200
      * @tc.name      testLoggerVariadic0101
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -250,7 +250,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10200
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0300
      * @tc.name      testLoggerVariadic0102
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -270,7 +270,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10300
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0400
      * @tc.name      testLoggerVariadic0103
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -290,7 +290,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10400
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0500
      * @tc.name      testLoggerVariadic0104
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -310,7 +310,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10500
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0600
      * @tc.name      testLoggerVariadic0105
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -330,7 +330,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10600
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0700
      * @tc.name      testLoggerVariadic0106
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -350,7 +350,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10700
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0800
      * @tc.name      testLoggerVariadic0107
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -370,7 +370,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10800
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_0900
      * @tc.name      testLoggerVariadic0108
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -390,7 +390,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_10900
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1000
      * @tc.name      testLoggerVariadic0109
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -410,7 +410,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11000
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1100
      * @tc.name      testLoggerVariadic0110
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -430,7 +430,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11100
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1200
      * @tc.name      testLoggerVariadic0111
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -450,7 +450,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11200
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1300
      * @tc.name      testLoggerVariadic0112
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -470,7 +470,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11300
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1400
      * @tc.name      testLoggerVariadic0113
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -490,7 +490,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11400
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1500
      * @tc.name      testLoggerVariadic0114
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -510,7 +510,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11500
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1600
      * @tc.name      testLoggerVariadic0115
      * @tc.desc      Verify logger.warn accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -530,7 +530,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11600
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1700
      * @tc.name      testLoggerVariadic0116
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -550,7 +550,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11700
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1800
      * @tc.name      testLoggerVariadic0117
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -570,7 +570,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11800
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_1900
      * @tc.name      testLoggerVariadic0118
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -590,7 +590,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_11900
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2000
      * @tc.name      testLoggerVariadic0119
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -610,7 +610,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12000
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2100
      * @tc.name      testLoggerVariadic0120
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -630,7 +630,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12100
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2200
      * @tc.name      testLoggerVariadic0121
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -650,7 +650,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12200
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2300
      * @tc.name      testLoggerVariadic0122
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -670,7 +670,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12300
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2400
      * @tc.name      testLoggerVariadic0123
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -690,7 +690,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12400
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2500
      * @tc.name      testLoggerVariadic0124
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -710,7 +710,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12500
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2600
      * @tc.name      testLoggerVariadic0125
      * @tc.desc      Verify logger.warn accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -730,7 +730,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12600
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2700
      * @tc.name      testLoggerVariadic0126
      * @tc.desc      Verify logger.warn accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -750,7 +750,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12700
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2800
      * @tc.name      testLoggerVariadic0127
      * @tc.desc      Verify logger.warn accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -770,7 +770,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12800
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_2900
      * @tc.name      testLoggerVariadic0128
      * @tc.desc      Verify logger.warn accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -790,7 +790,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_12900
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3000
      * @tc.name      testLoggerVariadic0129
      * @tc.desc      Verify logger.warn accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -810,7 +810,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13000
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3100
      * @tc.name      testLoggerVariadic0130
      * @tc.desc      Verify logger.warn accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -830,7 +830,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13100
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3200
      * @tc.name      testLoggerVariadic0131
      * @tc.desc      Verify logger.warn accepts 3 argument(s).
      * @tc.size      SMALLTEST
@@ -850,7 +850,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13200
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3300
      * @tc.name      testLoggerVariadic0132
      * @tc.desc      Verify logger.warn accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -870,7 +870,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13300
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3400
      * @tc.name      testLoggerVariadic0133
      * @tc.desc      Verify logger.warn accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -890,7 +890,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13400
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3500
      * @tc.name      testLoggerVariadic0134
      * @tc.desc      Verify logger.warn accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -910,7 +910,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13500
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3600
      * @tc.name      testLoggerVariadic0135
      * @tc.desc      Verify logger.warn accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -930,7 +930,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13600
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3700
      * @tc.name      testLoggerVariadic0136
      * @tc.desc      Verify logger.warn accepts 4 argument(s).
      * @tc.size      SMALLTEST
@@ -950,7 +950,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13700
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3800
      * @tc.name      testLoggerVariadic0137
      * @tc.desc      Verify logger.warn accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -970,7 +970,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13800
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_3900
      * @tc.name      testLoggerVariadic0138
      * @tc.desc      Verify logger.warn accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -990,7 +990,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_13900
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4000
      * @tc.name      testLoggerVariadic0139
      * @tc.desc      Verify logger.warn accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -1010,7 +1010,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14000
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4100
      * @tc.name      testLoggerVariadic0140
      * @tc.desc      Verify logger.warn accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -1030,7 +1030,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14100
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4200
      * @tc.name      testLoggerVariadic0141
      * @tc.desc      Verify logger.warn accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -1050,7 +1050,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14200
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4300
      * @tc.name      testLoggerVariadic0142
      * @tc.desc      Verify logger.warn accepts 5 argument(s).
      * @tc.size      SMALLTEST
@@ -1070,7 +1070,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14300
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4400
      * @tc.name      testLoggerVariadic0143
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1090,7 +1090,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14400
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4500
      * @tc.name      testLoggerVariadic0144
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1110,7 +1110,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14500
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4600
      * @tc.name      testLoggerVariadic0145
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1130,7 +1130,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14600
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4700
      * @tc.name      testLoggerVariadic0146
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1150,7 +1150,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14700
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4800
      * @tc.name      testLoggerVariadic0147
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1170,7 +1170,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14800
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_4900
      * @tc.name      testLoggerVariadic0148
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1190,7 +1190,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_14900
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5000
      * @tc.name      testLoggerVariadic0149
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1210,7 +1210,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15000
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5100
      * @tc.name      testLoggerVariadic0150
      * @tc.desc      Verify logger.warn accepts 2 argument(s).
      * @tc.size      SMALLTEST
@@ -1230,7 +1230,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15100
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5200
      * @tc.name      testLoggerVariadic0151
      * @tc.desc      Verify logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -1250,7 +1250,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15200
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5300
      * @tc.name      testLoggerVariadic0152
      * @tc.desc      Verify logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -1270,7 +1270,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15300
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5400
      * @tc.name      testLoggerVariadic0153
      * @tc.desc      Verify logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -1290,7 +1290,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15400
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5500
      * @tc.name      testLoggerVariadic0154
      * @tc.desc      Verify logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -1310,7 +1310,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15500
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5600
      * @tc.name      testLoggerVariadic0155
      * @tc.desc      Verify logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -1330,7 +1330,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15600
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5700
      * @tc.name      testLoggerVariadic0156
      * @tc.desc      Verify logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -1350,7 +1350,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15700
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5800
      * @tc.name      testLoggerVariadic0157
      * @tc.desc      Verify logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -1370,7 +1370,7 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15800
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_5900
      * @tc.name      testLoggerVariadic0158
      * @tc.desc      Verify logger.error accepts 1 argument(s).
      * @tc.size      SMALLTEST
@@ -1390,9 +1390,9 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_15900
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_6000
      * @tc.name      testLoggerVariadic0159
-     * @tc.desc      Verify logger.error accepts 1 argument(s).
+     * @tc.desc      Verify logger.info accepts representative argument set 1.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1401,7 +1401,7 @@ export default function LoggerVariadicPart2Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0159 begin');
       let threw: boolean = false;
       try {
-        logger.error('tab\tchar');
+        logger.info('');
       } catch (err) {
         threw = true;
       }
@@ -1410,9 +1410,9 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16000
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_6100
      * @tc.name      testLoggerVariadic0160
-     * @tc.desc      Verify logger.error accepts 1 argument(s).
+     * @tc.desc      Verify logger.warn accepts representative argument set 2.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1421,7 +1421,7 @@ export default function LoggerVariadicPart2Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0160 begin');
       let threw: boolean = false;
       try {
-        logger.error('quote\'s');
+        logger.warn('tag', 'value');
       } catch (err) {
         threw = true;
       }
@@ -1430,9 +1430,9 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16100
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_6200
      * @tc.name      testLoggerVariadic0161
-     * @tc.desc      Verify logger.error accepts 1 argument(s).
+     * @tc.desc      Verify logger.error accepts representative argument set 3.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1441,7 +1441,7 @@ export default function LoggerVariadicPart2Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0161 begin');
       let threw: boolean = false;
       try {
-        logger.error('back\\slash');
+        logger.error('a', 'b', 'c', 'd', 'e');
       } catch (err) {
         threw = true;
       }
@@ -1450,9 +1450,9 @@ export default function LoggerVariadicPart2Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16200
+     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_ONE_6300
      * @tc.name      testLoggerVariadic0162
-     * @tc.desc      Verify logger.error accepts 1 argument(s).
+     * @tc.desc      Verify logger.info accepts representative argument set 4.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -1461,372 +1461,12 @@ export default function LoggerVariadicPart2Test(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0162 begin');
       let threw: boolean = false;
       try {
-        logger.error('null');
+        logger.info('中文', 'emoji🙂', 'long_value_0123456789');
       } catch (err) {
         threw = true;
       }
       expect(threw).assertFalse();
       hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0162 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16300
-     * @tc.name      testLoggerVariadic0163
-     * @tc.desc      Verify logger.error accepts 1 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0163', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0163 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('0');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0163 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16400
-     * @tc.name      testLoggerVariadic0164
-     * @tc.desc      Verify logger.error accepts 1 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0164', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0164 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('true');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0164 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16500
-     * @tc.name      testLoggerVariadic0165
-     * @tc.desc      Verify logger.error accepts 1 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0165', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0165 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('false');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0165 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16600
-     * @tc.name      testLoggerVariadic0166
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0166', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0166 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('TAG', 'message');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0166 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16700
-     * @tc.name      testLoggerVariadic0167
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0167', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0167 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('TAG', '');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0167 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16800
-     * @tc.name      testLoggerVariadic0168
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0168', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0168 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('', 'message');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0168 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_16900
-     * @tc.name      testLoggerVariadic0169
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0169', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0169 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('TAG', '中文');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0169 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17000
-     * @tc.name      testLoggerVariadic0170
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0170', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0170 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('TAG', '😀');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0170 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17100
-     * @tc.name      testLoggerVariadic0171
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0171', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0171 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('A', 'B');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0171 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17200
-     * @tc.name      testLoggerVariadic0172
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0172', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0172 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('0', '1');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0172 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17300
-     * @tc.name      testLoggerVariadic0173
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0173', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0173 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('true', 'false');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0173 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17400
-     * @tc.name      testLoggerVariadic0174
-     * @tc.desc      Verify logger.error accepts 2 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0174', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0174 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('left', 'right');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0174 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17500
-     * @tc.name      testLoggerVariadic0175
-     * @tc.desc      Verify logger.error accepts 3 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0175', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0175 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('A', 'B', 'C');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0175 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17600
-     * @tc.name      testLoggerVariadic0176
-     * @tc.desc      Verify logger.error accepts 3 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0176', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0176 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('TAG', 'stage', 'message');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0176 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17700
-     * @tc.name      testLoggerVariadic0177
-     * @tc.desc      Verify logger.error accepts 3 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0177', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0177 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('', '', '');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0177 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17800
-     * @tc.name      testLoggerVariadic0178
-     * @tc.desc      Verify logger.error accepts 3 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0178', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0178 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('中文', '消息', '内容');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0178 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_17900
-     * @tc.name      testLoggerVariadic0179
-     * @tc.desc      Verify logger.error accepts 3 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0179', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0179 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('1', '2', '3');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0179 end');
-    })
-
-    /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_LOGVARP2_18000
-     * @tc.name      testLoggerVariadic0180
-     * @tc.desc      Verify logger.error accepts 3 argument(s).
-     * @tc.size      SMALLTEST
-     * @tc.type      FUNCTION
-     * @tc.level     LEVEL2
-     */
-    it('testLoggerVariadic0180', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0180 begin');
-      let threw: boolean = false;
-      try {
-        logger.error('a', 'b', 'c');
-      } catch (err) {
-        threw = true;
-      }
-      expect(threw).assertFalse();
-      hilog.info(DOMAIN, TAG, '%{public}s', 'testLoggerVariadic0180 end');
     })
 
   })

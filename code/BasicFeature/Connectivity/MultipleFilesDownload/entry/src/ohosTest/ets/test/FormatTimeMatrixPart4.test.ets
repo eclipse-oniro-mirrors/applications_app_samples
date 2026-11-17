@@ -30,7 +30,7 @@ export default function FormatTimeMatrixPart4Test(): void {
 
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27100
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0100
      * @tc.name      testFormatTime0271
      * @tc.desc      Verify format 'D.M.YYYY' for local date component row 270.
      * @tc.size      SMALLTEST
@@ -45,7 +45,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27200
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0200
      * @tc.name      testFormatTime0272
      * @tc.desc      Verify format 'mm:ss' for local date component row 271.
      * @tc.size      SMALLTEST
@@ -60,7 +60,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27300
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0300
      * @tc.name      testFormatTime0273
      * @tc.desc      Verify format 'YYYY-MM-DD HH:mm' for local date component row 272.
      * @tc.size      SMALLTEST
@@ -75,7 +75,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27400
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0400
      * @tc.name      testFormatTime0274
      * @tc.desc      Verify format 'M月D日' for local date component row 273.
      * @tc.size      SMALLTEST
@@ -90,7 +90,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27500
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0500
      * @tc.name      testFormatTime0275
      * @tc.desc      Verify format 'YY-MM-DD' for local date component row 274.
      * @tc.size      SMALLTEST
@@ -105,7 +105,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27600
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0600
      * @tc.name      testFormatTime0276
      * @tc.desc      Verify format 'HH:mm:ss YYYY-MM-DD' for local date component row 275.
      * @tc.size      SMALLTEST
@@ -120,7 +120,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27700
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0700
      * @tc.name      testFormatTime0277
      * @tc.desc      Verify format 'YYYY/MM/DD HH:mm' for local date component row 276.
      * @tc.size      SMALLTEST
@@ -135,7 +135,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27800
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0800
      * @tc.name      testFormatTime0278
      * @tc.desc      Verify format 'M-D-YY' for local date component row 277.
      * @tc.size      SMALLTEST
@@ -150,7 +150,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_27900
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_0900
      * @tc.name      testFormatTime0279
      * @tc.desc      Verify format 'YYYY.MM.DD' for local date component row 278.
      * @tc.size      SMALLTEST
@@ -165,7 +165,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28000
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1000
      * @tc.name      testFormatTime0280
      * @tc.desc      Verify format 'H:m:s' for local date component row 279.
      * @tc.size      SMALLTEST
@@ -180,7 +180,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28100
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1100
      * @tc.name      testFormatTime0281
      * @tc.desc      Verify format 'YYYY-MM-DD' for local date component row 280.
      * @tc.size      SMALLTEST
@@ -195,7 +195,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28200
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1200
      * @tc.name      testFormatTime0282
      * @tc.desc      Verify format 'YY/M/D' for local date component row 281.
      * @tc.size      SMALLTEST
@@ -210,7 +210,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28300
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1300
      * @tc.name      testFormatTime0283
      * @tc.desc      Verify format 'YYYY-MM-DD HH:mm:ss' for local date component row 282.
      * @tc.size      SMALLTEST
@@ -225,7 +225,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28400
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1400
      * @tc.name      testFormatTime0284
      * @tc.desc      Verify format 'MM-DD' for local date component row 283.
      * @tc.size      SMALLTEST
@@ -240,7 +240,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28500
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1500
      * @tc.name      testFormatTime0285
      * @tc.desc      Verify format 'HH:mm' for local date component row 284.
      * @tc.size      SMALLTEST
@@ -255,7 +255,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28600
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1600
      * @tc.name      testFormatTime0286
      * @tc.desc      Verify format 'YYYY年MM月DD日' for local date component row 285.
      * @tc.size      SMALLTEST
@@ -270,7 +270,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28700
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1700
      * @tc.name      testFormatTime0287
      * @tc.desc      Verify format 'YYYYMMDD' for local date component row 286.
      * @tc.size      SMALLTEST
@@ -285,7 +285,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28800
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1800
      * @tc.name      testFormatTime0288
      * @tc.desc      Verify format 'M/D/YY' for local date component row 287.
      * @tc.size      SMALLTEST
@@ -300,7 +300,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_28900
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_1900
      * @tc.name      testFormatTime0289
      * @tc.desc      Verify format 'HH:mm:ss' for local date component row 288.
      * @tc.size      SMALLTEST
@@ -315,7 +315,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29000
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2000
      * @tc.name      testFormatTime0290
      * @tc.desc      Verify format 'YYYY-MM-DDTHH:mm:ss' for local date component row 289.
      * @tc.size      SMALLTEST
@@ -330,7 +330,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29100
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2100
      * @tc.name      testFormatTime0291
      * @tc.desc      Verify format 'D.M.YYYY' for local date component row 290.
      * @tc.size      SMALLTEST
@@ -345,7 +345,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29200
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2200
      * @tc.name      testFormatTime0292
      * @tc.desc      Verify format 'mm:ss' for local date component row 291.
      * @tc.size      SMALLTEST
@@ -360,7 +360,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29300
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2300
      * @tc.name      testFormatTime0293
      * @tc.desc      Verify format 'YYYY-MM-DD HH:mm' for local date component row 292.
      * @tc.size      SMALLTEST
@@ -375,7 +375,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29400
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2400
      * @tc.name      testFormatTime0294
      * @tc.desc      Verify format 'M月D日' for local date component row 293.
      * @tc.size      SMALLTEST
@@ -390,7 +390,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29500
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2500
      * @tc.name      testFormatTime0295
      * @tc.desc      Verify format 'YY-MM-DD' for local date component row 294.
      * @tc.size      SMALLTEST
@@ -405,7 +405,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29600
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2600
      * @tc.name      testFormatTime0296
      * @tc.desc      Verify format 'HH:mm:ss YYYY-MM-DD' for local date component row 295.
      * @tc.size      SMALLTEST
@@ -420,7 +420,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29700
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2700
      * @tc.name      testFormatTime0297
      * @tc.desc      Verify format 'YYYY/MM/DD HH:mm' for local date component row 296.
      * @tc.size      SMALLTEST
@@ -435,7 +435,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29800
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2800
      * @tc.name      testFormatTime0298
      * @tc.desc      Verify format 'M-D-YY' for local date component row 297.
      * @tc.size      SMALLTEST
@@ -450,7 +450,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_29900
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_2900
      * @tc.name      testFormatTime0299
      * @tc.desc      Verify format 'YYYY.MM.DD' for local date component row 298.
      * @tc.size      SMALLTEST
@@ -465,7 +465,7 @@ export default function FormatTimeMatrixPart4Test(): void {
     })
 
     /**
-     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_30000
+     * @tc.number    SUB_MULTI_DOWNLOAD_FTIMEP4_ONE_3000
      * @tc.name      testFormatTime0300
      * @tc.desc      Verify format 'H:m:s' for local date component row 299.
      * @tc.size      SMALLTEST
