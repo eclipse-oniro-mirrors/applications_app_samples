@@ -37,7 +37,11 @@ struct Index {
       return;
     }
     this.mainWindow = windowStage.getMainWindowSync();
-    this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
+    try {
+      this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
+    } catch (error) {
+      this.topAreaHeight = 50;
+    }
     this.mainWindow.on("windowSizeChange", (data) => {
       this.windowSize = data;
       this.topAreaWidth = this.getUIContext().px2vp(this.windowSize.width) - this.titleButtonRect.width;
@@ -84,7 +88,11 @@ struct Index {
                 return;
               }
               this.message = 'Top layout area, hide the title bar and avoid the three buttons.';
-              this.mainWindow.setWindowDecorVisible(false);
+              try {
+                this.mainWindow.setWindowDecorVisible(false);
+              } catch (error) {
+                console.info('setWindowDecorVisible(false) is not supported on this device');
+              }
               this.updateTitleButtonRect();
             })
           Button('do not hide the title bar.')
@@ -93,8 +101,16 @@ struct Index {
                 return;
               }
               this.message = 'Top layout area, do not hide the title bar.';
-              this.mainWindow.setWindowDecorVisible(true);
-              this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
+              try {
+                this.mainWindow.setWindowDecorVisible(true);
+              } catch (error) {
+                console.info('setWindowDecorVisible(true) is not supported on this device');
+              }
+              try {
+                this.topAreaHeight = this.mainWindow.getWindowDecorHeight();
+              } catch (error) {
+                this.topAreaHeight = 50;
+              }
               this.topAreaWidth = '100%';
             })
             .margin(20)
