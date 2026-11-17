@@ -13,7 +13,17 @@
  * limitations under the License.
  */
 import abilityTest from './Ability.test';
+import dlpSandboxTest from './DlpSandbox.test';
+import dlpApiContractTest from './DlpApiContract.test';
+import dlpApiReadOnlyTest from './DlpApiReadOnly.test';
+import dlpApiStateTest from './DlpApiState.test';
+import dlpApiFinalTest from './DlpApiFinal.test';
 
 export default function testsuite() {
   abilityTest();
+  dlpSandboxTest();
+  dlpApiContractTest();
+  dlpApiReadOnlyTest();
+  dlpApiStateTest();
+  dlpApiFinalTest();
 }
