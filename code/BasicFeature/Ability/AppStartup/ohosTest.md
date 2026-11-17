@@ -57,7 +57,7 @@
 
 ## 运行方式
 
-在 DevEco Studio 中构建并安装 `entry@default` 与 `entry@ohosTest` 两个包的 HAP，安装后右键 `entry/src/ohosTest` 运行全部用例；也可用设备命令行方式执行测试，测试模块为 `entry_test`，入口为 `/ets/testrunner/OpenHarmonyTestRunner`。ColdStart 断言的是“EntryAbility 尚未拉起”的状态，单独跑其他套件之前不要先手动打开应用。
+在 DevEco Studio 中构建并安装 `entry@default` 与 `entry@ohosTest` 两个包的 HAP，安装后右键 `entry/src/ohosTest` 运行全部用例；也可用设备命令行方式执行测试，测试模块为 `entry_test`，入口为 `/ets/testrunner/OpenHarmonyTestRunner`。ColdStart 断言的是“EntryAbility 尚未拉起”的状态，单独跑其余套件之前不要先手动打开应用。
 
 签名材料只在本地配置，不入库。
 
@@ -68,9 +68,9 @@
 1. 自动化测试只拉起 TestAbility，entry 的 `startup_config` 要等 EntryAbility 拉起后才加载：此前任何任务名查询都抛 401，run 返回 28800001，run 空列表返回 16000050。
 2. 拉起 EntryAbility 后的基线是 `ImageKnifeTask` 未初始化（`excludeFromAutoStart: true`），其余五个任务已初始化，状态串为 `false,true,true,true,true,true`；每条改动状态的用例结束前都调用 `resetBaseline` 回到基线。
 3. 对未初始化的任务调用 `removeStartupTaskResult` 抛 401 `Parameter error: Failed to remove result.`，基线下的 ImageKnifeTask 和已经移除过的任务都是这样；`removeAllStartupTaskResults` 不抛错。
-4. FileTask 在 taskPool 中执行，不论单独 run 还是和其他任务一起 run，都是 run 返回之后才异步登记为已初始化，断言前要用 `waitForTask` 等待。
+4. FileTask 在 taskPool 中执行，不论单独 run 还是和其余任务一起 run，都是 run 返回之后才异步登记为已初始化，断言前要用 `waitForTask` 等待。
 5. 同一进程内结束并重新拉起 EntryAbility 不会重跑启动任务，RdbStoreTask 也不会多插一行；只有移除结果后再 run 才会重新执行。
-6. 键值库读取带尾随空格的键 `key_test_string ` 会命中业务键；前缀、大写、把业务值当键等其他近似键返回 15100004。
+6. 键值库读取带尾随空格的键 `key_test_string ` 会命中业务键；前缀、大写、把业务值当键等其余近似键返回 15100004。
 7. 应用级 database 目录下是否存在旧的 `RdbTest.db` 与设备历史有关，不做断言；业务库固定在 entry 模块的 `database/entry/rdb` 目录。
 8. `nativeLibraryPath` 实测为 `/data/storage/el1/bundle/libs/arm`；entry 模块的 7 个扩展按名字字典序返回，大写字母排在小写之前。
 9. UiTest 的 `findComponents` 没有匹配时返回 null 而不是空数组，`UiHelper` 统一转成 `[]`。

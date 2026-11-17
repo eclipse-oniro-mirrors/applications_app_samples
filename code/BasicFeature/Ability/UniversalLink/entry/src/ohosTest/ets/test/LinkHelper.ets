@@ -15,7 +15,7 @@
 
 import { common, OpenLinkOptions, UIAbility, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { Component, Driver, ON, UiWindow } from '@kit.TestKit';
+import { Component, Driver, ON } from '@kit.TestKit';
 import {
   getAbilityName,
   getTopAbility,
@@ -27,8 +27,6 @@ import {
   waitForTopAbility
 } from './TestHelper';
 
-/** 没有应用能处理链接时，系统弹出的“无法打开此文件”对话框所属的包。 */
-export const AMS_DIALOG_BUNDLE: string = 'com.ohos.amsdialog';
 export const NO_MATCHING_ABILITY: number = 16000019;
 export const PARAM_INVALID: number = 401;
 export const ABILITY_NOT_EXIST: number = 16000001;
@@ -50,6 +48,7 @@ const SKILL_ENTITIES: string[] = ['entity.system.home', 'entity.system.browsable
 const SELF_BUNDLE: string = 'com.example.universallink';
 const SKILL_MODULE: string = 'entry';
 const DIALOG_CONFIRM_TEXT: string = '知道了';
+const DIALOG_TITLE_TEXT: string = '无法打开此文件';
 const DIALOG_WAIT_MS: number = 2000;
 
 /** 一次拉起尝试的观测结果；成功时记录 OpenLinkAbility 收到的 Want，失败时记录是否弹出了系统对话框。 */
@@ -85,36 +84,32 @@ export function getDriver(): Driver {
   return driver;
 }
 
-async function findDialogWindow(): Promise<UiWindow | null> {
+async function findDialogComponent(text: string): Promise<Component | null> {
   try {
-    return await getDriver().findWindow({ bundleName: AMS_DIALOG_BUNDLE });
+    return await getDriver().findComponent(ON.text(text));
   } catch (error) {
     return null;
   }
 }
 
 /**
- * 等待“无法打开此文件”对话框出现，出现就点“知道了”关掉它，并等窗口消失。
+ * 等待“无法打开此文件”对话框出现，出现就点“知道了”关掉它，并等对话框消失。
  * 返回值表示等待窗口内对话框是否出现过。对话框不关会挡住后续 UI 点击。
+ * 对话框是系统弹窗，这里按它的标题与确认按钮文案识别，不依赖具体包名。
  */
 export async function dismissNoMatchDialog(timeoutMs: number = DIALOG_WAIT_MS): Promise<boolean> {
   const deadline: number = Date.now() + timeoutMs;
-  let window: UiWindow | null = await findDialogWindow();
-  while (window === null && Date.now() < deadline) {
+  let button: Component | null = await findDialogComponent(DIALOG_CONFIRM_TEXT);
+  while (button === null && Date.now() < deadline) {
     await sleep(200);
-    window = await findDialogWindow();
+    button = await findDialogComponent(DIALOG_CONFIRM_TEXT);
   }
-  if (window === null) {
+  if (button === null) {
     return false;
   }
-  const button: Component | null = await getDriver().findComponent(ON.text(DIALOG_CONFIRM_TEXT));
-  if (button !== null) {
-    await button.click();
-  } else {
-    await getDriver().pressBack();
-  }
+  await button.click();
   const closeDeadline: number = Date.now() + 3000;
-  while ((await findDialogWindow()) !== null && Date.now() < closeDeadline) {
+  while ((await findDialogComponent(DIALOG_TITLE_TEXT)) !== null && Date.now() < closeDeadline) {
     await sleep(200);
   }
   await sleep(300);

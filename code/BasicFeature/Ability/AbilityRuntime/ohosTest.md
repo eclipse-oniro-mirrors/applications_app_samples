@@ -82,7 +82,7 @@ setFont 的效果只体现在字形渲染上，UiTest 拿不到字体信息，�
 4. 三方应用调用 `getRunningProcessInformation` 只能看到自己的进程；在自动化测试下 `isRunningInStabilityTest` 返回 false。
 5. 两个未处理的 reject 同时触发时，unhandledRejection 回调的先后顺序不固定，用例按内容核对而不是按顺序。
 6. `dataUriUtils` 的 getId / deleteId / updateId 对不含 `/`、末段为空或无法按 `Number()` 解析、带 query 或 fragment、只用反斜杠分隔、空串的 uri 一律抛 401 `Invalid input parameter.`；不带 id 的 uri 要先 attachId 才能 updateId。
-7. WantAgent 的 trigger 会把 EntryAbility 拉到前台，打断其他 Ability 的状态，放在 WantAgent 套件最后执行。
+7. WantAgent 的 trigger 会把 EntryAbility 拉到前台，打断其余 Ability 的状态，放在 WantAgent 套件最后执行。
 8. WantAgent 页最后两个按钮在 RK3568 上需要滚动到底部才可见，UI 用例点击前先滚动。
 9. 修改 ApplicationContext 的 `area` 会改变 `filesDir` / `cacheDir` / `tempDir` / `preferencesDir` / `databaseDir` 的存储区（el1 / el3 / el4），切回 EL2 后恢复为 el2；`distributedFilesDir` 在 EL1 下是 el1 目录，EL2 及以后仍为 el2 目录；`bundleCodeDir` 始终为 `/data/storage/el1/bundle`。area 是实例属性，切换后必须在同一用例内还原为 EL2。
 10. 测试入口路径必须写成小写的 `/ets/testrunner/OpenHarmonyTestRunner`；`describe` 套件名必须写字符串字面量，否则 IDE “运行全部测试”静态拼接套件清单时会漏掉整个套件。

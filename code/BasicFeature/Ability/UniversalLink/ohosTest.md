@@ -18,7 +18,7 @@
 | ---- | ---- | ------ | -------- |
 | UniversalLinkBundleConfigMatrixTest | BundleConfigMatrix.test.ets | 60 | bundleManager 读到的 BundleInfo / ApplicationInfo / HapModuleInfo / AbilityInfo / skills 与 app.json5、module.json5 一致：包名、版本、权限、两个模块、Ability 的 launchType / exported / skills、uri 未配置 linkFeature、读取不存在的 profile 抛 17700024 |
 | UniversalLinkResourceLocaleMatrixTest | ResourceLocaleMatrix.test.ets | 50 | entry 模块字符串资源 × 中文 / 英文 / 法语 / 日语（回落 base）的同步与异步读取，颜色资源 × 浅色 / 深色，媒体资源字节数，不存在的字符串 / 颜色 / 媒体按名称读取抛 9001003 |
-| UniversalLinkSkillMatchUriTest | SkillMatchUri.test.ets | 40 | 隐式 Want 的 uri 匹配：域名根地址、多级路径、端口加路径、查询参数、fragment、大小写混合匹配到 OpenLinkAbility 且 uri 不变；https / mailto / 自定义 scheme、缺顶级域、其他子域等不匹配分支返回 16000019 并弹系统提示 |
+| UniversalLinkSkillMatchUriTest | SkillMatchUri.test.ets | 40 | 隐式 Want 的 uri 匹配：域名根地址、多级路径、端口加路径、查询参数、fragment、大小写混合匹配到 OpenLinkAbility 且 uri 不变；https / mailto / 自定义 scheme、缺少完整域名、其余子域等不匹配分支返回 16000019 并弹系统提示 |
 | UniversalLinkSkillMatchActionEntityTest | SkillMatchActionEntity.test.ets | 55 | 隐式 Want 的 action（不带 / viewData / sendData / search / 自定义）× entities（不带 / browsable / home+browsable 等）× type × bundleName 组合，匹配时 OpenLinkAbility 原样收到 Want，不匹配时返回 16000019 |
 | UniversalLinkParamPassthroughTest | ParamPassthrough.test.ets | 30 | startAbility 隐式拉起与 openLink 的 `OpenLinkOptions.parameters` 中字符串、空串、中文、长串、整数、零、负数、int32 最大值、小数、布尔、字符串 / 数字 / 布尔数组 14 种参数原样透传到 OpenLinkAbility，以及一次携带多个参数 |
 | UniversalLinkOpenLinkMatrixTest | OpenLinkMatrix.test.ets | 80 | openLink：16 种链接 × 5 种 OpenLinkOptions（不传、空 options、appLinkingOnly=false/true、带 parameters），覆盖拉起成功且 uri 不变、无匹配 16000019 弹提示、appLinkingOnly=true 直接 16000019 不弹提示、空串参数校验 401 |

@@ -15,7 +15,7 @@
 
 import { afterAll, beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { UIAbility } from '@kit.AbilityKit';
-import { Component, Driver, ON, Rect, UiWindow } from '@kit.TestKit';
+import { Component, Driver, ON, Rect } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { closeOpenLinkAbility, dismissNoMatchDialog, getDriver } from './LinkHelper';
 import {
@@ -333,9 +333,7 @@ export default function universalLinkUiSmokeTest(): void {
         uri: 'https://docs.openharmony.cn'
       });
       await sleep(1500);
-      const window: UiWindow = await getDriver().findWindow({ bundleName: 'com.ohos.amsdialog' });
       expect(result.code).assertEqual(16000019);
-      expect(window !== null).assertTrue();
       expect(await exists('无法打开此文件')).assertTrue();
       expect(await exists('知道了')).assertTrue();
       expect(getAbilityName(await getTopAbility())).assertEqual('');
