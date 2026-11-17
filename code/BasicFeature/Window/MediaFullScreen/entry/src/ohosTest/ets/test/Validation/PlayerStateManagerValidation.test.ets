@@ -42,8 +42,8 @@ export default function playerStateManagerValidationTest() {
     beforeAll(() => {
       hilog.info(0x0000, CASE_LOG_TAG, 'suite start PlayerStateManagerValidation');
     });
-
-    it('combo_case_0', 0, () => {
+    it('combo_case_0__player_transition_case_1', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -58,31 +58,33 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(1))).assertEqual(1);
       expect(source.totalCount()).assertEqual(1);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
-    });
-
-    it('player_transition_case_1', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       expect(player.prepare(1000)).assertTrue();
       expect(player.getState()).assertEqual(MediaState.PREPARED);
       expect(player.getDuration()).assertEqual(1000);
+      }
     });
 
-    it('fullscreen_case_2', 0, () => {
+    it('fullscreen_case_2__window_config_case_3', 0, () => {
+      {
       const model: FullscreenModel = new FullscreenModel();
       model.selectVideo('video1');
       expect(model.selectVideo('video2')).assertFalse();
       expect(model.getSelectedVideo()).assertEqual('video1');
-    });
-
-    it('window_config_case_3', 0, () => {
+      }
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       config.enterImmersive();
       config.exitImmersive();
       expect(config.getLayoutFullScreen()).assertFalse();
       expect(config.getBars()).assertEqual(SystemBarMode.BOTH);
+      }
     });
 
-    it('data_source_case_4', 0, () => {
+    it('data_source_case_4__speed_case_5', 0, () => {
+      {
       const source: FlowDataSource = new FlowDataSource();
       const items: FlowItemModel[] = createFlowItems(5);
       expect(source.pushDataArray(items)).assertEqual(5);
@@ -97,9 +99,8 @@ export default function playerStateManagerValidationTest() {
       source.notifyChange();
       expect(source.getReloadNotifications()).assertEqual(1);
       expect(source.getChangeNotifications()).assertEqual(1);
-    });
-
-    it('speed_case_5', 0, () => {
+      }
+      {
       const controller: PlaybackSpeedController = new PlaybackSpeedController();
       expect(controller.setIndex(0)).assertTrue();
       expect(controller.getIndex()).assertEqual(0);
@@ -107,9 +108,11 @@ export default function playerStateManagerValidationTest() {
       expect(controller.getMultiplier()).assertEqual(SPEED_OPTIONS[0].multiplier);
       expect(controller.setIndex(5)).assertFalse();
       expect(controller.setIndex(-1)).assertFalse();
+      }
     });
 
-    it('seek_case_6', 0, () => {
+    it('seek_case_6__aspect_case_7', 0, () => {
+      {
       const duration: number = 7000;
       const percent: number = 6;
       const target: number = SeekController.percentToTime(percent, duration);
@@ -118,9 +121,8 @@ export default function playerStateManagerValidationTest() {
       expect(target <= duration).assertTrue();
       expect(SeekController.timeToPercent(target, duration) >= 0).assertTrue();
       expect(SeekController.timeToPercent(target, duration) <= 100).assertTrue();
-    });
-
-    it('aspect_case_7', 0, () => {
+      }
+      {
       const height: number = 8;
       const width: number = AspectRatioUtil.widthForHeight(height);
       expect(nearlyEqual(width, height * VIDEO_ASPECT_RATIO, 0.000001)).assertTrue();
@@ -128,9 +130,11 @@ export default function playerStateManagerValidationTest() {
       expect(AspectRatioUtil.isLandscapeRatio(VIDEO_ASPECT_RATIO)).assertTrue();
       expect(AspectRatioUtil.isPortraitRatio(0.5)).assertTrue();
       expect(AspectRatioUtil.isSquareRatio(1)).assertTrue();
+      }
     });
 
-    it('session_case_8', 0, () => {
+    it('session_case_8__buffer_case_9', 0, () => {
+      {
       const manager: VideoSessionManager = new VideoSessionManager();
       expect(manager.isIdle()).assertTrue();
       expect(manager.create()).assertTrue();
@@ -141,9 +145,8 @@ export default function playerStateManagerValidationTest() {
       expect(manager.release()).assertFalse();
       expect(manager.getCreated()).assertEqual(1);
       expect(manager.getReleased()).assertEqual(1);
-    });
-
-    it('buffer_case_9', 0, () => {
+      }
+      {
       const buffer: BufferStateModel = new BufferStateModel();
       buffer.onBufferingStart();
       expect(buffer.isBuffering()).assertTrue();
@@ -151,6 +154,7 @@ export default function playerStateManagerValidationTest() {
       expect(buffer.getLastPercent()).assertEqual(90);
       expect(buffer.isBuffering()).assertTrue();
       expect(buffer.getUpdates() > 0).assertTrue();
+      }
     });
 
     it('error_case_10', 0, () => {
@@ -174,7 +178,8 @@ export default function playerStateManagerValidationTest() {
       expect(player.getState()).assertEqual(MediaState.PLAYING);
     });
 
-    it('combo_case_12', 0, () => {
+    it('combo_case_12__time_format_case_13', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -189,21 +194,21 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(3))).assertEqual(3);
       expect(source.totalCount()).assertEqual(3);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
-    });
-
-    it('time_format_case_13', 0, () => {
+      }
+      {
       const inputMs: number = 59029300;
       const formatted: string = TimeFormatter.format(inputMs);
       expect(formatted).assertEqual('16:23:49');
       expect(formatted.length >= 5).assertTrue();
+      }
     });
 
-    it('fillnum_case_14', 0, () => {
+    it('fillnum_case_14__combo_case_15', 0, () => {
+      {
       const value: number = 14;
       expect(TimeFormatter.fillNum(value)).assertEqual('14');
-    });
-
-    it('combo_case_15', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -218,32 +223,34 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(1))).assertEqual(1);
       expect(source.totalCount()).assertEqual(1);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
+      }
     });
 
-    it('player_transition_case_16', 0, () => {
+    it('player_transition_case_16__fullscreen_case_17', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       player.prepare(6000);
       player.play();
       expect(player.seek(-100)).assertTrue();
       expect(player.getPosition()).assertEqual(0);
-    });
-
-    it('fullscreen_case_17', 0, () => {
+      }
+      {
       const model: FullscreenModel = new FullscreenModel();
       expect(model.selectVideo('video1')).assertTrue();
       expect(model.getSelectedVideo()).assertEqual('video1');
       expect(model.getMaskShow()).assertTrue();
+      }
     });
 
-    it('window_config_case_18', 0, () => {
+    it('window_config_case_18__data_source_case_19', 0, () => {
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       config.applyLandscape();
       config.restorePortrait();
       expect(config.getLayoutFullScreen()).assertFalse();
       expect(config.getBars()).assertEqual(SystemBarMode.BOTH);
-    });
-
-    it('data_source_case_19', 0, () => {
+      }
+      {
       const source: FlowDataSource = new FlowDataSource();
       const items: FlowItemModel[] = createFlowItems(5);
       expect(source.pushDataArray(items)).assertEqual(5);
@@ -258,9 +265,11 @@ export default function playerStateManagerValidationTest() {
       source.notifyChange();
       expect(source.getReloadNotifications()).assertEqual(1);
       expect(source.getChangeNotifications()).assertEqual(1);
+      }
     });
 
-    it('speed_case_20', 0, () => {
+    it('speed_case_20__seek_case_21', 0, () => {
+      {
       const controller: PlaybackSpeedController = new PlaybackSpeedController();
       expect(controller.setIndex(0)).assertTrue();
       expect(controller.getIndex()).assertEqual(0);
@@ -268,9 +277,8 @@ export default function playerStateManagerValidationTest() {
       expect(controller.getMultiplier()).assertEqual(SPEED_OPTIONS[0].multiplier);
       expect(controller.setIndex(5)).assertFalse();
       expect(controller.setIndex(-1)).assertFalse();
-    });
-
-    it('seek_case_21', 0, () => {
+      }
+      {
       const duration: number = 2000;
       const percent: number = 21;
       const target: number = SeekController.percentToTime(percent, duration);
@@ -279,9 +287,11 @@ export default function playerStateManagerValidationTest() {
       expect(target <= duration).assertTrue();
       expect(SeekController.timeToPercent(target, duration) >= 0).assertTrue();
       expect(SeekController.timeToPercent(target, duration) <= 100).assertTrue();
+      }
     });
 
-    it('aspect_case_22', 0, () => {
+    it('aspect_case_22__session_case_23', 0, () => {
+      {
       const height: number = 23;
       const width: number = AspectRatioUtil.widthForHeight(height);
       expect(nearlyEqual(width, height * VIDEO_ASPECT_RATIO, 0.000001)).assertTrue();
@@ -289,9 +299,8 @@ export default function playerStateManagerValidationTest() {
       expect(AspectRatioUtil.isLandscapeRatio(VIDEO_ASPECT_RATIO)).assertTrue();
       expect(AspectRatioUtil.isPortraitRatio(0.5)).assertTrue();
       expect(AspectRatioUtil.isSquareRatio(1)).assertTrue();
-    });
-
-    it('session_case_23', 0, () => {
+      }
+      {
       const manager: VideoSessionManager = new VideoSessionManager();
       expect(manager.isIdle()).assertTrue();
       expect(manager.create()).assertTrue();
@@ -302,9 +311,11 @@ export default function playerStateManagerValidationTest() {
       expect(manager.release()).assertFalse();
       expect(manager.getCreated()).assertEqual(1);
       expect(manager.getReleased()).assertEqual(1);
+      }
     });
 
-    it('buffer_case_24', 0, () => {
+    it('buffer_case_24__error_case_25', 0, () => {
+      {
       const buffer: BufferStateModel = new BufferStateModel();
       buffer.onBufferingStart();
       expect(buffer.isBuffering()).assertTrue();
@@ -312,9 +323,8 @@ export default function playerStateManagerValidationTest() {
       expect(buffer.getLastPercent()).assertEqual(20);
       expect(buffer.isBuffering()).assertTrue();
       expect(buffer.getUpdates() > 0).assertTrue();
-    });
-
-    it('error_case_25', 0, () => {
+      }
+      {
       const error: PlayerErrorModel = new PlayerErrorModel();
       error.setError(8, 'codec failure');
       expect(error.getCode()).assertEqual(8);
@@ -322,6 +332,7 @@ export default function playerStateManagerValidationTest() {
       expect(error.getMessage()).assertEqual('codec failure');
       expect(error.describe()).assertEqual('Error 8 - codec failure');
       expect(error.getCount()).assertEqual(1);
+      }
     });
 
     it('async_case_26', 0, async () => {
@@ -335,7 +346,8 @@ export default function playerStateManagerValidationTest() {
       expect(player.getState()).assertEqual(MediaState.PLAYING);
     });
 
-    it('combo_case_27', 0, () => {
+    it('combo_case_27__time_format_case_28', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -350,21 +362,21 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(3))).assertEqual(3);
       expect(source.totalCount()).assertEqual(3);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
-    });
-
-    it('time_format_case_28', 0, () => {
+      }
+      {
       const inputMs: number = 76084800;
       const formatted: string = TimeFormatter.format(inputMs);
       expect(formatted).assertEqual('21:08:04');
       expect(formatted.length >= 5).assertTrue();
+      }
     });
 
-    it('fillnum_case_29', 0, () => {
+    it('fillnum_case_29__combo_case_30', 0, () => {
+      {
       const value: number = 29;
       expect(TimeFormatter.fillNum(value)).assertEqual('29');
-    });
-
-    it('combo_case_30', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -379,31 +391,33 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(1))).assertEqual(1);
       expect(source.totalCount()).assertEqual(1);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
+      }
     });
 
-    it('player_transition_case_31', 0, () => {
+    it('player_transition_case_31__fullscreen_case_32', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       expect(player.prepare(1000)).assertTrue();
       expect(player.getState()).assertEqual(MediaState.PREPARED);
       expect(player.getDuration()).assertEqual(1000);
-    });
-
-    it('fullscreen_case_32', 0, () => {
+      }
+      {
       const model: FullscreenModel = new FullscreenModel();
       expect(model.getIsLandscape()).assertFalse();
       expect(model.getIsFullScreen()).assertFalse();
       expect(model.getMaskShow()).assertFalse();
       expect(model.getSelectedVideo()).assertEqual('');
+      }
     });
 
-    it('window_config_case_33', 0, () => {
+    it('window_config_case_33__data_source_case_34', 0, () => {
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       config.applyLandscape();
       expect(config.getLayoutFullScreen()).assertTrue();
       expect(config.getBars()).assertEqual(SystemBarMode.NONE);
-    });
-
-    it('data_source_case_34', 0, () => {
+      }
+      {
       const source: FlowDataSource = new FlowDataSource();
       const items: FlowItemModel[] = createFlowItems(5);
       expect(source.pushDataArray(items)).assertEqual(5);
@@ -418,9 +432,11 @@ export default function playerStateManagerValidationTest() {
       source.notifyChange();
       expect(source.getReloadNotifications()).assertEqual(1);
       expect(source.getChangeNotifications()).assertEqual(1);
+      }
     });
 
-    it('speed_case_35', 0, () => {
+    it('speed_case_35__seek_case_36', 0, () => {
+      {
       const controller: PlaybackSpeedController = new PlaybackSpeedController();
       expect(controller.setIndex(0)).assertTrue();
       expect(controller.getIndex()).assertEqual(0);
@@ -428,9 +444,8 @@ export default function playerStateManagerValidationTest() {
       expect(controller.getMultiplier()).assertEqual(SPEED_OPTIONS[0].multiplier);
       expect(controller.setIndex(5)).assertFalse();
       expect(controller.setIndex(-1)).assertFalse();
-    });
-
-    it('seek_case_36', 0, () => {
+      }
+      {
       const duration: number = 7000;
       const percent: number = 36;
       const target: number = SeekController.percentToTime(percent, duration);
@@ -439,9 +454,11 @@ export default function playerStateManagerValidationTest() {
       expect(target <= duration).assertTrue();
       expect(SeekController.timeToPercent(target, duration) >= 0).assertTrue();
       expect(SeekController.timeToPercent(target, duration) <= 100).assertTrue();
+      }
     });
 
-    it('aspect_case_37', 0, () => {
+    it('aspect_case_37__session_case_38', 0, () => {
+      {
       const height: number = 38;
       const width: number = AspectRatioUtil.widthForHeight(height);
       expect(nearlyEqual(width, height * VIDEO_ASPECT_RATIO, 0.000001)).assertTrue();
@@ -449,9 +466,8 @@ export default function playerStateManagerValidationTest() {
       expect(AspectRatioUtil.isLandscapeRatio(VIDEO_ASPECT_RATIO)).assertTrue();
       expect(AspectRatioUtil.isPortraitRatio(0.5)).assertTrue();
       expect(AspectRatioUtil.isSquareRatio(1)).assertTrue();
-    });
-
-    it('session_case_38', 0, () => {
+      }
+      {
       const manager: VideoSessionManager = new VideoSessionManager();
       expect(manager.isIdle()).assertTrue();
       expect(manager.create()).assertTrue();
@@ -462,9 +478,11 @@ export default function playerStateManagerValidationTest() {
       expect(manager.release()).assertFalse();
       expect(manager.getCreated()).assertEqual(1);
       expect(manager.getReleased()).assertEqual(1);
+      }
     });
 
-    it('buffer_case_39', 0, () => {
+    it('buffer_case_39__error_case_40', 0, () => {
+      {
       const buffer: BufferStateModel = new BufferStateModel();
       buffer.onBufferingStart();
       expect(buffer.isBuffering()).assertTrue();
@@ -472,9 +490,8 @@ export default function playerStateManagerValidationTest() {
       expect(buffer.getLastPercent()).assertEqual(60);
       expect(buffer.isBuffering()).assertTrue();
       expect(buffer.getUpdates() > 0).assertTrue();
-    });
-
-    it('error_case_40', 0, () => {
+      }
+      {
       const error: PlayerErrorModel = new PlayerErrorModel();
       error.setError(5, 'codec failure');
       expect(error.getCode()).assertEqual(5);
@@ -482,6 +499,7 @@ export default function playerStateManagerValidationTest() {
       expect(error.getMessage()).assertEqual('codec failure');
       expect(error.describe()).assertEqual('Error 5 - codec failure');
       expect(error.getCount()).assertEqual(1);
+      }
     });
 
     it('async_case_41', 0, async () => {
@@ -495,7 +513,8 @@ export default function playerStateManagerValidationTest() {
       expect(player.getState()).assertEqual(MediaState.PLAYING);
     });
 
-    it('combo_case_42', 0, () => {
+    it('combo_case_42__time_format_case_43', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -510,21 +529,21 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(3))).assertEqual(3);
       expect(source.totalCount()).assertEqual(3);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
-    });
-
-    it('time_format_case_43', 0, () => {
+      }
+      {
       const inputMs: number = 6799300;
       const formatted: string = TimeFormatter.format(inputMs);
       expect(formatted).assertEqual('01:53:19');
       expect(formatted.length >= 5).assertTrue();
+      }
     });
 
-    it('fillnum_case_44', 0, () => {
+    it('fillnum_case_44__combo_case_45', 0, () => {
+      {
       const value: number = 44;
       expect(TimeFormatter.fillNum(value)).assertEqual('44');
-    });
-
-    it('combo_case_45', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -539,32 +558,34 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(1))).assertEqual(1);
       expect(source.totalCount()).assertEqual(1);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
+      }
     });
 
-    it('player_transition_case_46', 0, () => {
+    it('player_transition_case_46__fullscreen_case_47', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       player.prepare(6000);
       player.play();
       expect(player.seek(-100)).assertTrue();
       expect(player.getPosition()).assertEqual(0);
-    });
-
-    it('fullscreen_case_47', 0, () => {
+      }
+      {
       const model: FullscreenModel = new FullscreenModel();
       model.selectVideo('video1');
       expect(model.onBackPress()).assertTrue();
       expect(model.getSelectedVideo()).assertEqual('');
       expect(model.getOrientation()).assertEqual(ScreenOrientation.PORTRAIT);
       expect(model.onBackPress()).assertFalse();
+      }
     });
 
-    it('window_config_case_48', 0, () => {
+    it('window_config_case_48__data_source_case_49', 0, () => {
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       expect(config.getLayoutFullScreen()).assertFalse();
       expect(config.getBars()).assertEqual(SystemBarMode.BOTH);
-    });
-
-    it('data_source_case_49', 0, () => {
+      }
+      {
       const source: FlowDataSource = new FlowDataSource();
       const items: FlowItemModel[] = createFlowItems(5);
       expect(source.pushDataArray(items)).assertEqual(5);
@@ -579,9 +600,11 @@ export default function playerStateManagerValidationTest() {
       source.notifyChange();
       expect(source.getReloadNotifications()).assertEqual(1);
       expect(source.getChangeNotifications()).assertEqual(1);
+      }
     });
 
-    it('speed_case_50', 0, () => {
+    it('speed_case_50__seek_case_51', 0, () => {
+      {
       const controller: PlaybackSpeedController = new PlaybackSpeedController();
       expect(controller.setIndex(0)).assertTrue();
       expect(controller.getIndex()).assertEqual(0);
@@ -589,9 +612,8 @@ export default function playerStateManagerValidationTest() {
       expect(controller.getMultiplier()).assertEqual(SPEED_OPTIONS[0].multiplier);
       expect(controller.setIndex(5)).assertFalse();
       expect(controller.setIndex(-1)).assertFalse();
-    });
-
-    it('seek_case_51', 0, () => {
+      }
+      {
       const duration: number = 2000;
       const percent: number = 51;
       const target: number = SeekController.percentToTime(percent, duration);
@@ -600,9 +622,11 @@ export default function playerStateManagerValidationTest() {
       expect(target <= duration).assertTrue();
       expect(SeekController.timeToPercent(target, duration) >= 0).assertTrue();
       expect(SeekController.timeToPercent(target, duration) <= 100).assertTrue();
+      }
     });
 
-    it('aspect_case_52', 0, () => {
+    it('aspect_case_52__session_case_53', 0, () => {
+      {
       const height: number = 3;
       const width: number = AspectRatioUtil.widthForHeight(height);
       expect(nearlyEqual(width, height * VIDEO_ASPECT_RATIO, 0.000001)).assertTrue();
@@ -610,9 +634,8 @@ export default function playerStateManagerValidationTest() {
       expect(AspectRatioUtil.isLandscapeRatio(VIDEO_ASPECT_RATIO)).assertTrue();
       expect(AspectRatioUtil.isPortraitRatio(0.5)).assertTrue();
       expect(AspectRatioUtil.isSquareRatio(1)).assertTrue();
-    });
-
-    it('session_case_53', 0, () => {
+      }
+      {
       const manager: VideoSessionManager = new VideoSessionManager();
       expect(manager.isIdle()).assertTrue();
       expect(manager.create()).assertTrue();
@@ -623,9 +646,11 @@ export default function playerStateManagerValidationTest() {
       expect(manager.release()).assertFalse();
       expect(manager.getCreated()).assertEqual(1);
       expect(manager.getReleased()).assertEqual(1);
+      }
     });
 
-    it('buffer_case_54', 0, () => {
+    it('buffer_case_54__error_case_55', 0, () => {
+      {
       const buffer: BufferStateModel = new BufferStateModel();
       buffer.onBufferingStart();
       expect(buffer.isBuffering()).assertTrue();
@@ -633,9 +658,8 @@ export default function playerStateManagerValidationTest() {
       expect(buffer.getLastPercent()).assertEqual(100);
       expect(buffer.isBuffering()).assertFalse();
       expect(buffer.getUpdates() > 0).assertTrue();
-    });
-
-    it('error_case_55', 0, () => {
+      }
+      {
       const error: PlayerErrorModel = new PlayerErrorModel();
       error.setError(2, 'codec failure');
       expect(error.getCode()).assertEqual(2);
@@ -643,6 +667,7 @@ export default function playerStateManagerValidationTest() {
       expect(error.getMessage()).assertEqual('codec failure');
       expect(error.describe()).assertEqual('Error 2 - codec failure');
       expect(error.getCount()).assertEqual(1);
+      }
     });
 
     it('async_case_56', 0, async () => {
@@ -656,7 +681,8 @@ export default function playerStateManagerValidationTest() {
       expect(player.getState()).assertEqual(MediaState.PLAYING);
     });
 
-    it('combo_case_57', 0, () => {
+    it('combo_case_57__time_format_case_58', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -671,21 +697,21 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(3))).assertEqual(3);
       expect(source.totalCount()).assertEqual(3);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
-    });
-
-    it('time_format_case_58', 0, () => {
+      }
+      {
       const inputMs: number = 23914800;
       const formatted: string = TimeFormatter.format(inputMs);
       expect(formatted).assertEqual('06:38:34');
       expect(formatted.length >= 5).assertTrue();
+      }
     });
 
-    it('fillnum_case_59', 0, () => {
+    it('fillnum_case_59__combo_case_60', 0, () => {
+      {
       const value: number = 59;
       expect(TimeFormatter.fillNum(value)).assertEqual('59');
-    });
-
-    it('combo_case_60', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -700,16 +726,17 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(1))).assertEqual(1);
       expect(source.totalCount()).assertEqual(1);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
+      }
     });
 
-    it('player_transition_case_61', 0, () => {
+    it('player_transition_case_61__fullscreen_case_62', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       expect(player.prepare(1000)).assertTrue();
       expect(player.getState()).assertEqual(MediaState.PREPARED);
       expect(player.getDuration()).assertEqual(1000);
-    });
-
-    it('fullscreen_case_62', 0, () => {
+      }
+      {
       const model: FullscreenModel = new FullscreenModel();
       model.selectVideo('video1');
       model.onPrepared();
@@ -717,17 +744,18 @@ export default function playerStateManagerValidationTest() {
       expect(model.getIsLandscape()).assertFalse();
       expect(model.getSelectedVideo()).assertEqual('');
       expect(model.getOrientation()).assertEqual(ScreenOrientation.UNSPECIFIED);
+      }
     });
 
-    it('window_config_case_63', 0, () => {
+    it('window_config_case_63__data_source_case_64', 0, () => {
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       config.enterImmersive();
       config.exitImmersive();
       expect(config.getLayoutFullScreen()).assertFalse();
       expect(config.getBars()).assertEqual(SystemBarMode.BOTH);
-    });
-
-    it('data_source_case_64', 0, () => {
+      }
+      {
       const source: FlowDataSource = new FlowDataSource();
       const items: FlowItemModel[] = createFlowItems(5);
       expect(source.pushDataArray(items)).assertEqual(5);
@@ -742,9 +770,11 @@ export default function playerStateManagerValidationTest() {
       source.notifyChange();
       expect(source.getReloadNotifications()).assertEqual(1);
       expect(source.getChangeNotifications()).assertEqual(1);
+      }
     });
 
-    it('speed_case_65', 0, () => {
+    it('speed_case_65__seek_case_66', 0, () => {
+      {
       const controller: PlaybackSpeedController = new PlaybackSpeedController();
       expect(controller.setIndex(0)).assertTrue();
       expect(controller.getIndex()).assertEqual(0);
@@ -752,9 +782,8 @@ export default function playerStateManagerValidationTest() {
       expect(controller.getMultiplier()).assertEqual(SPEED_OPTIONS[0].multiplier);
       expect(controller.setIndex(5)).assertFalse();
       expect(controller.setIndex(-1)).assertFalse();
-    });
-
-    it('seek_case_66', 0, () => {
+      }
+      {
       const duration: number = 7000;
       const percent: number = 66;
       const target: number = SeekController.percentToTime(percent, duration);
@@ -763,9 +792,11 @@ export default function playerStateManagerValidationTest() {
       expect(target <= duration).assertTrue();
       expect(SeekController.timeToPercent(target, duration) >= 0).assertTrue();
       expect(SeekController.timeToPercent(target, duration) <= 100).assertTrue();
+      }
     });
 
-    it('aspect_case_67', 0, () => {
+    it('aspect_case_67__session_case_68', 0, () => {
+      {
       const height: number = 18;
       const width: number = AspectRatioUtil.widthForHeight(height);
       expect(nearlyEqual(width, height * VIDEO_ASPECT_RATIO, 0.000001)).assertTrue();
@@ -773,9 +804,8 @@ export default function playerStateManagerValidationTest() {
       expect(AspectRatioUtil.isLandscapeRatio(VIDEO_ASPECT_RATIO)).assertTrue();
       expect(AspectRatioUtil.isPortraitRatio(0.5)).assertTrue();
       expect(AspectRatioUtil.isSquareRatio(1)).assertTrue();
-    });
-
-    it('session_case_68', 0, () => {
+      }
+      {
       const manager: VideoSessionManager = new VideoSessionManager();
       expect(manager.isIdle()).assertTrue();
       expect(manager.create()).assertTrue();
@@ -786,9 +816,11 @@ export default function playerStateManagerValidationTest() {
       expect(manager.release()).assertFalse();
       expect(manager.getCreated()).assertEqual(1);
       expect(manager.getReleased()).assertEqual(1);
+      }
     });
 
-    it('buffer_case_69', 0, () => {
+    it('buffer_case_69__error_case_70', 0, () => {
+      {
       const buffer: BufferStateModel = new BufferStateModel();
       buffer.onBufferingStart();
       expect(buffer.isBuffering()).assertTrue();
@@ -796,9 +828,8 @@ export default function playerStateManagerValidationTest() {
       expect(buffer.getLastPercent()).assertEqual(30);
       expect(buffer.isBuffering()).assertTrue();
       expect(buffer.getUpdates() > 0).assertTrue();
-    });
-
-    it('error_case_70', 0, () => {
+      }
+      {
       const error: PlayerErrorModel = new PlayerErrorModel();
       error.setError(8, 'codec failure');
       expect(error.getCode()).assertEqual(8);
@@ -806,6 +837,7 @@ export default function playerStateManagerValidationTest() {
       expect(error.getMessage()).assertEqual('codec failure');
       expect(error.describe()).assertEqual('Error 8 - codec failure');
       expect(error.getCount()).assertEqual(1);
+      }
     });
 
     it('async_case_71', 0, async () => {
@@ -819,7 +851,8 @@ export default function playerStateManagerValidationTest() {
       expect(player.getState()).assertEqual(MediaState.PLAYING);
     });
 
-    it('combo_case_72', 0, () => {
+    it('combo_case_72__time_format_case_73', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -834,21 +867,21 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(3))).assertEqual(3);
       expect(source.totalCount()).assertEqual(3);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
-    });
-
-    it('time_format_case_73', 0, () => {
+      }
+      {
       const inputMs: number = 41029300;
       const formatted: string = TimeFormatter.format(inputMs);
       expect(formatted).assertEqual('11:23:49');
       expect(formatted.length >= 5).assertTrue();
+      }
     });
 
-    it('fillnum_case_74', 0, () => {
+    it('fillnum_case_74__combo_case_75', 0, () => {
+      {
       const value: number = 74;
       expect(TimeFormatter.fillNum(value)).assertEqual('74');
-    });
-
-    it('combo_case_75', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -863,34 +896,36 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(1))).assertEqual(1);
       expect(source.totalCount()).assertEqual(1);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
+      }
     });
 
-    it('player_transition_case_76', 0, () => {
+    it('player_transition_case_76__fullscreen_case_77', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       player.prepare(6000);
       player.play();
       expect(player.seek(-100)).assertTrue();
       expect(player.getPosition()).assertEqual(0);
-    });
-
-    it('fullscreen_case_77', 0, () => {
+      }
+      {
       const model: FullscreenModel = new FullscreenModel();
       model.selectVideo('video1');
       expect(model.onPrepared()).assertTrue();
       expect(model.getIsFullScreen()).assertTrue();
       expect(model.getIsLandscape()).assertTrue();
       expect(model.getOrientation()).assertEqual(ScreenOrientation.AUTO_LANDSCAPE);
+      }
     });
 
-    it('window_config_case_78', 0, () => {
+    it('window_config_case_78__data_source_case_79', 0, () => {
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       config.applyLandscape();
       config.restorePortrait();
       expect(config.getLayoutFullScreen()).assertFalse();
       expect(config.getBars()).assertEqual(SystemBarMode.BOTH);
-    });
-
-    it('data_source_case_79', 0, () => {
+      }
+      {
       const source: FlowDataSource = new FlowDataSource();
       const items: FlowItemModel[] = createFlowItems(5);
       expect(source.pushDataArray(items)).assertEqual(5);
@@ -905,9 +940,11 @@ export default function playerStateManagerValidationTest() {
       source.notifyChange();
       expect(source.getReloadNotifications()).assertEqual(1);
       expect(source.getChangeNotifications()).assertEqual(1);
+      }
     });
 
-    it('speed_case_80', 0, () => {
+    it('speed_case_80__seek_case_81', 0, () => {
+      {
       const controller: PlaybackSpeedController = new PlaybackSpeedController();
       expect(controller.setIndex(0)).assertTrue();
       expect(controller.getIndex()).assertEqual(0);
@@ -915,9 +952,8 @@ export default function playerStateManagerValidationTest() {
       expect(controller.getMultiplier()).assertEqual(SPEED_OPTIONS[0].multiplier);
       expect(controller.setIndex(5)).assertFalse();
       expect(controller.setIndex(-1)).assertFalse();
-    });
-
-    it('seek_case_81', 0, () => {
+      }
+      {
       const duration: number = 2000;
       const percent: number = 81;
       const target: number = SeekController.percentToTime(percent, duration);
@@ -926,9 +962,11 @@ export default function playerStateManagerValidationTest() {
       expect(target <= duration).assertTrue();
       expect(SeekController.timeToPercent(target, duration) >= 0).assertTrue();
       expect(SeekController.timeToPercent(target, duration) <= 100).assertTrue();
+      }
     });
 
-    it('aspect_case_82', 0, () => {
+    it('aspect_case_82__session_case_83', 0, () => {
+      {
       const height: number = 33;
       const width: number = AspectRatioUtil.widthForHeight(height);
       expect(nearlyEqual(width, height * VIDEO_ASPECT_RATIO, 0.000001)).assertTrue();
@@ -936,9 +974,8 @@ export default function playerStateManagerValidationTest() {
       expect(AspectRatioUtil.isLandscapeRatio(VIDEO_ASPECT_RATIO)).assertTrue();
       expect(AspectRatioUtil.isPortraitRatio(0.5)).assertTrue();
       expect(AspectRatioUtil.isSquareRatio(1)).assertTrue();
-    });
-
-    it('session_case_83', 0, () => {
+      }
+      {
       const manager: VideoSessionManager = new VideoSessionManager();
       expect(manager.isIdle()).assertTrue();
       expect(manager.create()).assertTrue();
@@ -949,9 +986,11 @@ export default function playerStateManagerValidationTest() {
       expect(manager.release()).assertFalse();
       expect(manager.getCreated()).assertEqual(1);
       expect(manager.getReleased()).assertEqual(1);
+      }
     });
 
-    it('buffer_case_84', 0, () => {
+    it('buffer_case_84__error_case_85', 0, () => {
+      {
       const buffer: BufferStateModel = new BufferStateModel();
       buffer.onBufferingStart();
       expect(buffer.isBuffering()).assertTrue();
@@ -959,9 +998,8 @@ export default function playerStateManagerValidationTest() {
       expect(buffer.getLastPercent()).assertEqual(70);
       expect(buffer.isBuffering()).assertTrue();
       expect(buffer.getUpdates() > 0).assertTrue();
-    });
-
-    it('error_case_85', 0, () => {
+      }
+      {
       const error: PlayerErrorModel = new PlayerErrorModel();
       error.setError(5, 'codec failure');
       expect(error.getCode()).assertEqual(5);
@@ -969,6 +1007,7 @@ export default function playerStateManagerValidationTest() {
       expect(error.getMessage()).assertEqual('codec failure');
       expect(error.describe()).assertEqual('Error 5 - codec failure');
       expect(error.getCount()).assertEqual(1);
+      }
     });
 
     it('async_case_86', 0, async () => {
@@ -982,7 +1021,8 @@ export default function playerStateManagerValidationTest() {
       expect(player.getState()).assertEqual(MediaState.PLAYING);
     });
 
-    it('combo_case_87', 0, () => {
+    it('combo_case_87__time_format_case_88', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -997,21 +1037,21 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(3))).assertEqual(3);
       expect(source.totalCount()).assertEqual(3);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
-    });
-
-    it('time_format_case_88', 0, () => {
+      }
+      {
       const inputMs: number = 58084800;
       const formatted: string = TimeFormatter.format(inputMs);
       expect(formatted).assertEqual('16:08:04');
       expect(formatted.length >= 5).assertTrue();
+      }
     });
 
-    it('fillnum_case_89', 0, () => {
+    it('fillnum_case_89__combo_case_90', 0, () => {
+      {
       const value: number = 89;
       expect(TimeFormatter.fillNum(value)).assertEqual('89');
-    });
-
-    it('combo_case_90', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       const fullscreen: FullscreenModel = new FullscreenModel();
       const source: FlowDataSource = new FlowDataSource();
@@ -1026,29 +1066,31 @@ export default function playerStateManagerValidationTest() {
       expect(source.pushDataArray(createFlowItems(1))).assertEqual(1);
       expect(source.totalCount()).assertEqual(1);
       expect(player.getState()).assertEqual(MediaState.PLAYING);
+      }
     });
 
-    it('player_transition_case_91', 0, () => {
+    it('player_transition_case_91__fullscreen_case_92', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       expect(player.prepare(1000)).assertTrue();
       expect(player.getState()).assertEqual(MediaState.PREPARED);
       expect(player.getDuration()).assertEqual(1000);
-    });
-
-    it('fullscreen_case_92', 0, () => {
+      }
+      {
       const model: FullscreenModel = new FullscreenModel();
       expect(model.onPrepared()).assertFalse();
       expect(model.getIsFullScreen()).assertFalse();
+      }
     });
 
-    it('window_config_case_93', 0, () => {
+    it('window_config_case_93__data_source_case_94', 0, () => {
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       config.applyLandscape();
       expect(config.getLayoutFullScreen()).assertTrue();
       expect(config.getBars()).assertEqual(SystemBarMode.NONE);
-    });
-
-    it('data_source_case_94', 0, () => {
+      }
+      {
       const source: FlowDataSource = new FlowDataSource();
       const items: FlowItemModel[] = createFlowItems(5);
       expect(source.pushDataArray(items)).assertEqual(5);
@@ -1063,9 +1105,11 @@ export default function playerStateManagerValidationTest() {
       source.notifyChange();
       expect(source.getReloadNotifications()).assertEqual(1);
       expect(source.getChangeNotifications()).assertEqual(1);
+      }
     });
 
-    it('speed_case_95', 0, () => {
+    it('speed_case_95__seek_case_96', 0, () => {
+      {
       const controller: PlaybackSpeedController = new PlaybackSpeedController();
       expect(controller.setIndex(0)).assertTrue();
       expect(controller.getIndex()).assertEqual(0);
@@ -1073,9 +1117,8 @@ export default function playerStateManagerValidationTest() {
       expect(controller.getMultiplier()).assertEqual(SPEED_OPTIONS[0].multiplier);
       expect(controller.setIndex(5)).assertFalse();
       expect(controller.setIndex(-1)).assertFalse();
-    });
-
-    it('seek_case_96', 0, () => {
+      }
+      {
       const duration: number = 7000;
       const percent: number = 96;
       const target: number = SeekController.percentToTime(percent, duration);
@@ -1084,9 +1127,11 @@ export default function playerStateManagerValidationTest() {
       expect(target <= duration).assertTrue();
       expect(SeekController.timeToPercent(target, duration) >= 0).assertTrue();
       expect(SeekController.timeToPercent(target, duration) <= 100).assertTrue();
+      }
     });
 
-    it('aspect_case_97', 0, () => {
+    it('aspect_case_97__session_case_98', 0, () => {
+      {
       const height: number = 48;
       const width: number = AspectRatioUtil.widthForHeight(height);
       expect(nearlyEqual(width, height * VIDEO_ASPECT_RATIO, 0.000001)).assertTrue();
@@ -1094,9 +1139,8 @@ export default function playerStateManagerValidationTest() {
       expect(AspectRatioUtil.isLandscapeRatio(VIDEO_ASPECT_RATIO)).assertTrue();
       expect(AspectRatioUtil.isPortraitRatio(0.5)).assertTrue();
       expect(AspectRatioUtil.isSquareRatio(1)).assertTrue();
-    });
-
-    it('session_case_98', 0, () => {
+      }
+      {
       const manager: VideoSessionManager = new VideoSessionManager();
       expect(manager.isIdle()).assertTrue();
       expect(manager.create()).assertTrue();
@@ -1107,9 +1151,11 @@ export default function playerStateManagerValidationTest() {
       expect(manager.release()).assertFalse();
       expect(manager.getCreated()).assertEqual(1);
       expect(manager.getReleased()).assertEqual(1);
+      }
     });
 
-    it('buffer_case_99', 0, () => {
+    it('buffer_case_99__error_case_100', 0, () => {
+      {
       const buffer: BufferStateModel = new BufferStateModel();
       buffer.onBufferingStart();
       expect(buffer.isBuffering()).assertTrue();
@@ -1117,9 +1163,8 @@ export default function playerStateManagerValidationTest() {
       expect(buffer.getLastPercent()).assertEqual(0);
       expect(buffer.isBuffering()).assertTrue();
       expect(buffer.getUpdates() > 0).assertTrue();
-    });
-
-    it('error_case_100', 0, () => {
+      }
+      {
       const error: PlayerErrorModel = new PlayerErrorModel();
       error.setError(2, 'codec failure');
       expect(error.getCode()).assertEqual(2);
@@ -1127,6 +1172,7 @@ export default function playerStateManagerValidationTest() {
       expect(error.getMessage()).assertEqual('codec failure');
       expect(error.describe()).assertEqual('Error 2 - codec failure');
       expect(error.getCount()).assertEqual(1);
+      }
     });
 
     afterAll(() => {
