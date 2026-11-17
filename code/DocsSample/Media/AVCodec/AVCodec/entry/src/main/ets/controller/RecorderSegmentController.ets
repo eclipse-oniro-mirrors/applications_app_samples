@@ -23,6 +23,8 @@ export class RecorderSegmentController {
   private startedAt: number = 0;
   private pieces: RecordingSegmentInfo[] = [];
   private allComplete: boolean = true;
+  private historySaved: boolean = true;
+  private cleanupPending: boolean = false;
 
   started(now: number): void { this.startedAt = now; }
   canContinue(): boolean { return this.pieces.length < RecorderSegmentController.MAX_SEGMENTS; }
@@ -38,6 +40,9 @@ export class RecorderSegmentController {
     if (result === undefined || this.pieces.some((item: RecordingSegmentInfo): boolean =>
       item.sessionId === result.sessionId)) { return; }
     this.allComplete = this.allComplete && result.complete;
+    // 保存成功表示共享历史中的全部待保存变更已落盘；未知状态不清除已有失败提示。
+    if (result.historySaved !== undefined) { this.historySaved = result.historySaved; }
+    this.cleanupPending = this.cleanupPending || result.cleanupPending === true;
     this.pieces.push({ sessionId: result.sessionId, uri: result.primaryUri, secondaryUri: result.secondaryUri,
       title: result.title, recordedAt: result.recordedAt, durationSeconds: result.durationSeconds,
       complete: result.complete, validation: result.validation });
@@ -48,6 +53,10 @@ export class RecorderSegmentController {
     return { sessionId: groupId || first.sessionId, recordedAt: first.recordedAt,
       durationSeconds: this.pieces.reduce((sum: number, item: RecordingSegmentInfo): number =>
         sum + item.durationSeconds, 0), title: first.title, primaryUri: first.uri, secondaryUri: first.secondaryUri,
-      complete: this.allComplete && !failed, validation: first.validation, segments: this.pieces.slice() };
+      complete: this.allComplete && !failed,
+      validation: first.validation,
+      segments: this.pieces.slice(),
+      historySaved: this.historySaved,
+      cleanupPending: this.cleanupPending };
   }
 }

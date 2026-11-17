@@ -22,6 +22,7 @@ import { RecorderPreprocessModel } from '../model/RecorderPreprocessModel';
 import { DumpPolicyModel } from '../model/DumpPolicyModel';
 import { CommonConstants as Const } from '../common/CommonConstants';
 import { LocalizedText } from '../common/LocalizedText';
+import { RecordingFileCloser } from './RecordingFileCloser';
 
 export class RecorderOutputController {
   static async open(context: common.Context, data: CameraDataModel): Promise<void> {
@@ -34,11 +35,13 @@ export class RecorderOutputController {
       data.outputUri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, extension, { title: title });
       data.outputTitle = title + '.' + extension;
       primary = await fileIo.open(data.outputUri, fileIo.OpenMode.READ_WRITE);
+      data.outputfd = primary.fd;
       data.secondaryOutputUri = '';
       if (data.enableDualOutput) {
         data.secondaryOutputUri = await helper.createAsset(photoAccessHelper.PhotoType.VIDEO, extension,
           { title: title + '_secondary' });
         secondary = await fileIo.open(data.secondaryOutputUri, fileIo.OpenMode.READ_WRITE);
+        data.secondaryOutputfd = secondary.fd;
       }
       data.outputfd = primary.fd;
       data.secondaryOutputfd = secondary === undefined ? -1 : secondary.fd;
@@ -95,9 +98,8 @@ export class RecorderOutputController {
       // Output descriptors must remain valid until Native has released the codecs and muxers.
       try { await recorder.stopEndNative(); } catch (_stopError) {}
       if (!recorder.getDiagnostics().active) {
-        if (primary !== undefined) { await fileIo.close(primary).catch((): void => {}); }
-        if (secondary !== undefined) { await fileIo.close(secondary).catch((): void => {}); }
-        data.outputfd = -1; data.secondaryOutputfd = -1;
+        if (primary !== undefined && await RecordingFileCloser.close(primary.fd)) { data.outputfd = -1; }
+        if (secondary !== undefined && await RecordingFileCloser.close(secondary.fd)) { data.secondaryOutputfd = -1; }
       }
       throw error as Error;
     } finally { await helper.release().catch((): void => {}); }

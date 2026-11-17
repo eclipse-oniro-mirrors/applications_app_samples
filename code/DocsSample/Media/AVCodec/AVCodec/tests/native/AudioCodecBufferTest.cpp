@@ -66,6 +66,8 @@ constexpr int32_t ENCODER_RELEASE_FLUSHES = 3;
 constexpr int32_t DECODER_STOP_FLUSHES = 0;
 constexpr int32_t DECODER_RELEASE_FLUSHES = 1;
 constexpr int32_t PCM_AND_EOS_FREE_CALLS = 2;
+constexpr int32_t TAIL_ACTION_REPEATS = 20;
+enum class TailOutputAction { PAUSE, SEEK, TRACK_SWITCH, STOP };
 OH_AVCodec g_codec;
 OH_AVFormat g_format;
 
@@ -320,6 +322,53 @@ void TestPlaybackStoppedDuringQuery(OH_AVErrCode queryStatus, bool eos, bool fre
         context.renderQueue.empty(),
         "Stop bypasses PCM callbacks and preserves query and PCM return errors");
 }
+
+void TestTailOutputActions(bool asynchronous, TailOutputAction action)
+{
+    g_codec = {};
+    AudioDecoder decoder;
+    Require(decoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Create tail-action decoder");
+    CodecUserData context;
+    std::atomic<bool> running {true};
+    std::atomic<bool> failed {false};
+    bool discard = false;
+    int32_t rendered = 0;
+    AudioOutputPump pump({decoder, context, running, failed,
+        [&discard](CodecBufferInfo &) { return !discard; },
+        [&decoder, &rendered](CodecBufferInfo &info) {
+            ++rendered;
+            return decoder.FreeOutputBuffer(info) == AVCODEC_SAMPLE_ERR_OK;
+        }, {}});
+    g_codec.output.attr.size = FRAME_BYTES;
+    Require(ProcessPlaybackOutput(pump, context, asynchronous), "Render PCM before the tail action");
+    const int32_t freesBeforeAction = g_codec.frees;
+    if (action == TailOutputAction::PAUSE) {
+        Require(g_codec.frees == freesBeforeAction && rendered == 1, "Paused worker retains ownership state");
+    } else if (action == TailOutputAction::SEEK || action == TailOutputAction::TRACK_SWITCH) {
+        discard = true;
+        Require(ProcessPlaybackOutput(pump, context, asynchronous) && rendered == 1 &&
+            g_codec.frees == freesBeforeAction + 1, "Rebuild discards and returns the pending PCM once");
+    }
+    g_codec.output.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+    const int32_t beforeEos = g_codec.frees;
+    if (action == TailOutputAction::STOP && !asynchronous) {
+        g_codec.stopOnOutputQuery = &running;
+    }
+    Require(!ProcessPlaybackOutput(pump, context, asynchronous) && !failed &&
+        g_codec.frees == beforeEos + 1 && rendered == 1, "Tail EOS returns once after every action");
+    Require(decoder.Release() == AVCODEC_SAMPLE_ERR_OK, "Release after tail EOS");
+    Require(decoder.Create("audio/mp4a-latm") == AVCODEC_SAMPLE_ERR_OK, "Immediately recreate decoder");
+    running = true;
+    discard = false;
+    g_codec.stopOnOutputQuery = nullptr;
+    g_codec.output.attr.flags = AVCODEC_BUFFER_FLAGS_NONE;
+    Require(ProcessPlaybackOutput(pump, context, asynchronous) && rendered == PCM_AND_EOS_FREE_CALLS,
+        "Replay does not inherit the previous EOS state");
+    g_codec.output.attr.flags = AVCODEC_BUFFER_FLAGS_EOS;
+    const int32_t beforeReplayEos = g_codec.frees;
+    Require(!ProcessPlaybackOutput(pump, context, asynchronous) && !failed &&
+        g_codec.frees == beforeReplayEos + 1, "Replay returns its own EOS exactly once");
+}
 } // namespace
 
 namespace CodecCapability {
@@ -521,5 +570,13 @@ int main()
     TestPlaybackStoppedDuringQuery(AV_ERR_OK, true, true);
     TestPlaybackStoppedDuringQuery(AV_ERR_TRY_AGAIN_LATER, true, false);
     TestPlaybackStoppedDuringQuery(AV_ERR_UNKNOWN, true, false);
+    for (int32_t iteration = 0; iteration < TAIL_ACTION_REPEATS; ++iteration) {
+        for (bool asynchronous : {false, true}) {
+            for (auto action : {TailOutputAction::PAUSE, TailOutputAction::SEEK,
+                TailOutputAction::TRACK_SWITCH, TailOutputAction::STOP}) {
+                TestTailOutputActions(asynchronous, action);
+            }
+        }
+    }
     std::cout << "Audio Buffers: END ownership, playback completion, stop races and cleanup lifecycle passed\n";
 }

@@ -136,7 +136,11 @@ export struct Player {
   private playbackSessionController: PlaybackSessionController = new PlaybackSessionController();
   private recovery: PlaybackRecoveryModel = new PlaybackRecoveryModel();
   private playbackSession: number = 0;
+  private playbackStartupRevision: number = 0;
+  private playbackContinuationRevision: number = 0;
+  private isPreparingPlayback: boolean = false;
   private playbackLease: MediaTaskLease | undefined = undefined;
+  private activePlaybackPath: string | null = null;
   private seekRequestId: number = 0;
   private sliderDragging: boolean = false;
   private pageActive: boolean = true;
@@ -159,6 +163,10 @@ export struct Player {
   private playbackHistory: PlaybackHistoryModel = new PlaybackHistoryModel();
   @State playbackQueue: PlaybackQueueController = new PlaybackQueueController();
   private recorderLaunch: RecorderLaunchController = new RecorderLaunchController();
+  private recordingRequestRevision: number = 0;
+  private recordingPageVisible: boolean = true;
+  private isPreparingRecording: boolean = false;
+  private isSavingRecording: boolean = false;
   private lastHistoryPositionUs: number = -1;
   private resumeSeekTimer: number = 0;
   private playbackControls: PlaybackControlsController = new PlaybackControlsController();
@@ -179,7 +187,8 @@ export struct Player {
     (): boolean => this.audioMuted,
     (muted: boolean): void => { this.audioMuted = muted; },
     (): number => this.volumeBeforeMute,
-    (volume: number): void => { this.volumeBeforeMute = volume; });
+    (volume: number): void => { this.volumeBeforeMute = volume; },
+    (): number => this.pageActive && !this.buttonEnabled && !this.isStopping ? this.playbackSession : -1);
   private playbackAbLoop: PlaybackAbLoopController = new PlaybackAbLoopController(
     this.playbackViewModel,
     this.seekRequests,
@@ -217,6 +226,7 @@ export struct Player {
 
   aboutToAppear(): void {
     this.pageActive = true;
+    this.recordingPageVisible = true;
     this.transcodeModel.activate();
     void this.loadConfiguration();
     this.ensurePictureInPictureController();
@@ -354,13 +364,15 @@ export struct Player {
   }
 
   aboutToDisappear(): void {
+    this.recordingPageVisible = false;
+    this.cancelRecordingStartup();
     // 进入系统PiP时页面也会触发消失回调；播放器仍由小窗承载，不能按离页流程停止。
     if (this.isPictureInPictureHoldingPlayback()) {
       void this.persistPlaybackProgress(this.playbackViewModel.positionUs, this.playbackViewModel.durationUs, true);
       return;
     }
     this.pageActive = false;
-    this.playbackSources.clearSelectionTimer();
+    this.playbackSources.cancelSelection();
     this.transcodeModel.dispose();
     this.recovery.cancel();
     this.seekRequests.cancel();
@@ -382,7 +394,13 @@ export struct Player {
     this.resetAbLoop();
   }
 
+  onPageHide(): void {
+    this.recordingPageVisible = false;
+    this.cancelRecordingStartup();
+  }
+
   onPageShow(): void {
+    this.recordingPageVisible = true;
     this.recordingHistoryRevision++;
     const recordingUri: string = AppStorage.get<string>('recordingResultPlayback') ?? '';
     if (recordingUri.length > 0) {
@@ -397,7 +415,9 @@ export struct Player {
   }
 
   private async persistPlaybackProgress(positionUs: number, durationUs: number, force: boolean = false): Promise<void> {
-    if (this.selectFilePath === null || durationUs <= 0 || positionUs < 0) {
+    const sourcePath: string | null = this.activePlaybackPath;
+    const session: number = this.playbackSession;
+    if (sourcePath === null || durationUs <= 0 || positionUs < 0) {
       return;
     }
     if (!force && this.lastHistoryPositionUs >= 0 && Math.abs(positionUs - this.lastHistoryPositionUs) < 2000000) {
@@ -405,8 +425,35 @@ export struct Player {
     }
     // 常规进度按2秒粒度落盘；停止和后台等收尾场景通过force写入最后位置，
     // 避免高频持久化影响播放期间的界面响应。
-    this.lastHistoryPositionUs = await this.playbackSources.persistProgress(positionUs, durationUs, force,
-      this.lastHistoryPositionUs);
+    const savedPositionUs: number = await this.playbackSources.persistProgress(positionUs, durationUs, force,
+      this.lastHistoryPositionUs, sourcePath);
+    if (sourcePath === this.activePlaybackPath && session === this.playbackSession) {
+      this.lastHistoryPositionUs = savedPositionUs;
+    }
+  }
+
+  private async finalizePlaybackHistory(uri: string, durationUs: number = 0): Promise<void> {
+    if (!Number.isFinite(durationUs) || durationUs <= 0) {
+      try {
+        durationUs = player.getCompletedPlaybackInfo().durationUs;
+      } catch (error) {
+        Logger.warn(TAG, `Read completed playback duration failed: ${String(error)}`);
+      }
+    }
+    try {
+      await this.playbackHistory.markCompleted(uri, durationUs);
+    } catch (error) {
+      Logger.warn(TAG, `Complete playback history failed: ${String(error)}`);
+    }
+    try {
+      // 完成标记保存失败时再尝试落盘，不等待存储即可清理界面并续播。
+      const saved: boolean = await this.playbackHistory.flush();
+      if (!saved) {
+        Logger.warn(TAG, 'Final playback history save is still pending');
+      }
+    } catch (error) {
+      Logger.warn(TAG, `Flush completed playback history failed: ${String(error)}`);
+    }
   }
 
   private createPlaybackSessionCallbacks(): PlaybackSessionCallbacks {
@@ -492,6 +539,7 @@ export struct Player {
       return;
     }
     this.playbackQueue.pendingIndex = targetIndex;
+    this.playbackQueue.pendingPositionUs = 0;
     void this.stopPlayback();
   }
 
@@ -501,14 +549,29 @@ export struct Player {
 
   private async continuePendingQueuePlayback(): Promise<void> {
     const targetIndex = this.playbackQueue.pendingIndex;
+    const targetPositionUs: number = this.playbackQueue.pendingPositionUs;
     this.playbackQueue.pendingIndex = -1;
+    this.playbackQueue.pendingPositionUs = 0;
     if (targetIndex < 0 || targetIndex >= this.playbackQueue.paths.length || !this.pageActive) {
       return;
     }
+    const session: number = this.playbackSession;
+    const revision: number = this.playbackContinuationRevision;
+    const queuePaths: string[] = this.playbackQueue.paths;
+    const targetPath: string = queuePaths[targetIndex];
+    const sourcePath: string | null = this.selectFilePath;
     await this.playbackSessionController.stop();
+    await this.seekRequests.waitForIdle();
+    // 等待期间可能已另选文件、清空队列或离页，旧切换不能改写当前状态。
+    if (session !== this.playbackSession || revision !== this.playbackContinuationRevision ||
+      queuePaths !== this.playbackQueue.paths || targetPath !== this.playbackQueue.paths[targetIndex] ||
+      sourcePath !== this.selectFilePath || !this.pageActive || this.isStopping || !this.buttonEnabled) {
+      return;
+    }
     this.playbackQueue.index = targetIndex;
-    this.queueEntries = this.playbackQueue.paths.slice();
-    await this.continuePlayback(this.playbackSession, this.playbackQueue.paths[targetIndex], 0);
+    this.queueEntries = queuePaths.slice();
+    this.selectFilePath = targetPath;
+    await this.play(targetPositionUs);
   }
 
   private clearPlaybackControlsTimer(): void {
@@ -633,6 +696,7 @@ export struct Player {
 
   async selectSubtitleFile(): Promise<void> {
     const sourcePath: string | null = this.selectFilePath;
+    const session: number = this.playbackSession;
     if (sourcePath === null) {
       this.showNoMediaSelectedPrompt();
       return;
@@ -640,6 +704,7 @@ export struct Player {
     try {
       const subtitleName: string = await this.subtitles.selectAndLoad();
       if (subtitleName.length === 0) { return; }
+      if (session !== this.playbackSession) { return; }
       if (!this.pageActive || this.selectFilePath !== sourcePath) {
         this.subtitles.clear();
         return;
@@ -653,7 +718,7 @@ export struct Player {
         bottom: Const.BOTTOM
       });
     } catch (error) {
-      if (this.selectFilePath !== sourcePath) { return; }
+      if (!this.pageActive || session !== this.playbackSession || this.selectFilePath !== sourcePath) { return; }
       Logger.error(TAG, 'Load SRT subtitle failed: ' + JSON.stringify(error));
       this.getUIContext().getPromptAction().showToast({
         message: $r('app.string.playback_subtitle_failed'), duration: Const.DURATION, bottom: Const.BOTTOM
@@ -988,6 +1053,8 @@ export struct Player {
   }
 
   async stopPlayback(): Promise<void> {
+    ++this.playbackStartupRevision;
+    ++this.playbackContinuationRevision;
     if (this.isStopping) {
       return;
     }
@@ -1002,7 +1069,27 @@ export struct Player {
       clearTimeout(this.resumeSeekTimer);
       this.resumeSeekTimer = 0;
     }
+    if (this.isPreparingPlayback) {
+      // URI准备尚未启动Native，直接取消请求，保留已启动任务的完成回调。
+      this.isPreparingPlayback = false;
+      this.buttonEnabled = true;
+      this.isStopping = false;
+      if (this.playbackQueue.pendingIndex >= 0 && this.pageActive) {
+        await this.continuePendingQueuePlayback();
+      } else {
+        this.playbackQueue.pendingIndex = -1;
+        await this.playbackSessionController.stop();
+      }
+      return;
+    }
+    const session: number = this.playbackSession;
+    const sourcePath: string | null = this.activePlaybackPath;
     await this.seekRequests.waitForIdle();
+    if (session !== this.playbackSession || sourcePath !== this.activePlaybackPath || !this.isStopping) {
+      return;
+    }
+    const finalProgress: Promise<void> = this.persistPlaybackProgress(this.playbackViewModel.positionUs,
+      this.playbackViewModel.durationUs, true);
     if (player.stop()) {
       Logger.info(TAG, 'Player stop requested');
     } else {
@@ -1010,6 +1097,8 @@ export struct Player {
       Logger.error(TAG, 'Player stop request rejected, state: ' + player.getState());
       this.updatePlaybackInfo();
     }
+    await finalProgress;
+    await this.playbackHistory.flush();
   }
 
   private capturePlaybackFailure(): void {
@@ -1056,15 +1145,19 @@ export struct Player {
     }
 
     const session: number = ++this.playbackSession;
+    const startupRevision: number = ++this.playbackStartupRevision;
+    ++this.playbackContinuationRevision;
+    this.isPreparingPlayback = true;
     this.configurationController.touched = true;
     let failurePromptShown: boolean = false;
     this.buttonEnabled = false;
     try {
       await PlaybackUriAccessController.prepare(playbackPath, this.getUIContext().getHostContext());
     } catch (error) {
-      if (session !== this.playbackSession) {
+      if (session !== this.playbackSession || startupRevision !== this.playbackStartupRevision) {
         return;
       }
+      this.isPreparingPlayback = false;
       this.buttonEnabled = true;
       if (recoverySnapshot !== undefined) { this.playbackViewModel.markRecoveryFailed(); }
       Logger.error(TAG, 'Prepare playback URI failed: ' + String(error));
@@ -1073,7 +1166,11 @@ export struct Player {
       });
       return;
     }
-    if (session !== this.playbackSession || !this.pageActive || this.isStopping) {
+    if (session !== this.playbackSession || startupRevision !== this.playbackStartupRevision) {
+      return;
+    }
+    this.isPreparingPlayback = false;
+    if (!this.pageActive || this.isStopping) {
       this.buttonEnabled = true;
       return;
     }
@@ -1081,6 +1178,7 @@ export struct Player {
     const launch = PlaybackStartupController.launch(this.getUIContext().getHostContext(), playbackPath,
       this.playerSettings, this.isSmartFluencySupported, (lease: MediaTaskLease): void => {
         this.playbackLease = lease;
+        this.activePlaybackPath = playbackPath;
         this.buttonEnabled = false;
         this.resetAbLoop();
         this.showPlaybackControls(false);
@@ -1092,13 +1190,13 @@ export struct Player {
         this.playbackViewModel.isHdrVividConfirmed = false;
         this.resetPlaybackProgress();
         this.transformType = 0;
-      }, (result: PlaybackResult): void => {
+      }, (result: PlaybackResult, cleanupPending: boolean = false): void => {
         if (session !== this.playbackSession) {
           return;
         }
         this.playbackLease = undefined;
         if (result.reason === 'error') { this.capturePlaybackFailure(); }
-        const retry = result.reason === 'error' && this.autoRecoveryEnabled &&
+        const retry = !cleanupPending && result.reason === 'error' && this.autoRecoveryEnabled &&
           !this.isStopping && this.pageActive ? this.recovery.takeRetry() : undefined;
         if (result.reason === 'error' && retry !== undefined) {
           this.playbackViewModel.markRecoveryPending(PlaybackRecoveryReason.RUNTIME_ERROR);
@@ -1106,13 +1204,12 @@ export struct Player {
         const completedPath = playbackPath;
         const completedPositionUs = this.playbackViewModel.positionUs;
         const completedDurationUs = this.playbackViewModel.durationUs;
-        if (completedPath !== null && completedDurationUs > 0) {
-          if (result.reason === 'completed') {
-            this.playbackHistory.markCompleted(completedPath);
-          } else {
-            this.persistPlaybackProgress(completedPositionUs, completedDurationUs, true);
-          }
+        if (result.reason === 'completed') {
+          void this.finalizePlaybackHistory(completedPath, completedDurationUs);
+        } else if (completedDurationUs > 0) {
+          void this.persistPlaybackProgress(completedPositionUs, completedDurationUs, true);
         }
+        this.activePlaybackPath = null;
         this.playbackSessionController.updateState(player.PlayerState.STOPPING,
           this.requestedSpeed, completedPositionUs, completedDurationUs);
         const requestedQueueIndex = this.playbackQueue.pendingIndex;
@@ -1128,6 +1225,17 @@ export struct Player {
         this.mediaInfoSections = [];
         this.seekRequests.cancel();
         this.seekRequestId++;
+        if (cleanupPending) {
+          ++this.playbackContinuationRevision;
+          this.playbackQueue.pendingIndex = -1;
+          void this.playbackSessionController.stop();
+          if (this.pageActive) {
+            this.getUIContext().getPromptAction().showToast({
+              message: $r('app.string.playback_close_unconfirmed'), duration: 5000
+            });
+          }
+          return;
+        }
         if (!this.pageActive) {
           void this.playbackSessionController.stop();
           return;
@@ -1164,8 +1272,12 @@ export struct Player {
         }
       });
     if (launch.error.length > 0) {
-      if (!launch.nativeOwnsLease) { this.playbackLease = undefined; }
-      const message: Resource = launch.error === 'busy' ? $r('app.string.playback_cleanup_busy') :
+      if (!launch.nativeOwnsLease) {
+        this.playbackLease = undefined;
+        this.activePlaybackPath = null;
+      }
+      const message: Resource = launch.error === 'close_unconfirmed' ? $r('app.string.playback_close_unconfirmed') :
+        launch.error === 'busy' ? $r('app.string.playback_cleanup_busy') :
         (launch.error === 'empty' ? $r('app.string.media_file_empty') : $r('app.string.media_file_open_failed'));
       this.getUIContext().getPromptAction().showToast({
         message: message, duration: Const.DURATION, bottom: Const.BOTTOM
@@ -1176,7 +1288,10 @@ export struct Player {
     }
     const started: boolean = launch.started;
     const nativeOwnsLease: boolean = launch.nativeOwnsLease;
-    if (!nativeOwnsLease) { this.playbackLease = undefined; }
+    if (!nativeOwnsLease) {
+      this.playbackLease = undefined;
+      this.activePlaybackPath = null;
+    }
     if (!started) {
       this.buttonEnabled = !nativeOwnsLease;
       this.playbackViewModel.isSmartFluencyAvailable = false;
@@ -1221,8 +1336,12 @@ export struct Player {
         }
         this.resumeSeekTimer = setTimeout(async () => {
           this.resumeSeekTimer = 0;
-          if (!this.isStopping && session === this.playbackSession &&
-            await this.requestSeek(Math.max(0, resumePositionUs)) === 'completed') {
+          if (!this.pageActive || this.isStopping || this.buttonEnabled || session !== this.playbackSession) {
+            return;
+          }
+          const result: SeekRequestResult = await this.requestSeek(Math.max(0, resumePositionUs));
+          if (result === 'completed' && this.pageActive && !this.isStopping && !this.buttonEnabled &&
+            session === this.playbackSession && this.activePlaybackPath === playbackPath) {
             this.getUIContext().getPromptAction().showToast({
               message: recoverySnapshot === undefined ? $r('app.string.playback_resume_position') :
                 $r('app.string.playback_recovered'), duration: Const.DURATION, bottom: Const.BOTTOM
@@ -1236,42 +1355,75 @@ export struct Player {
 
   private async continuePlayback(session: number, path: string, positionUs: number,
     snapshot?: PlaybackRecoverySnapshot): Promise<void> {
+    const revision: number = this.playbackContinuationRevision;
+    const sourcePath: string | null = this.selectFilePath;
+    const queuePaths: string[] = this.playbackQueue.paths;
     await this.seekRequests.waitForIdle();
-    if (session !== this.playbackSession || !this.pageActive || this.isStopping) {
+    if (session !== this.playbackSession || revision !== this.playbackContinuationRevision ||
+      sourcePath !== this.selectFilePath || queuePaths !== this.playbackQueue.paths ||
+      !this.pageActive || this.isStopping || !this.buttonEnabled) {
       return;
     }
     this.selectFilePath = path;
-    this.play(positionUs, snapshot);
+    await this.play(positionUs, snapshot);
+  }
+
+  private cancelRecordingStartup(): void {
+    ++this.recordingRequestRevision;
+    this.isShow = false;
+    this.recorderLaunch.cancel();
+  }
+
+  private dismissRecordingSheet(action: DismissSheetAction): void {
+    this.cancelRecordingStartup();
+    action.dismiss();
+  }
+
+  private isRecordingRequestCurrent(request: number): boolean {
+    return request === this.recordingRequestRevision && this.pageActive && this.recordingPageVisible;
   }
 
   async prepareRecording(): Promise<void> {
+    if (!this.pageActive || !this.recordingPageVisible || this.isPreparingRecording ||
+      this.isSavingRecording || this.isShow) { return; }
     if (MediaFileActivity.isTranscoding()) {
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.transcode_resource_busy') });
       return;
     }
+    const request: number = ++this.recordingRequestRevision;
+    this.isPreparingRecording = true;
     this.configurationController.touched = true;
-    const context = this.getUIContext().getHostContext();
-    if (context === undefined || !await requestRecordPermissions(context, this.cameraData.recordAudio)) {
-      this.getUIContext().getPromptAction().showToast({
-        message: $r('app.string.record_permission_required'),
-        duration: Const.DURATION,
-        bottom: Const.BOTTOM
-      });
-      return;
+    try {
+      const context = this.getUIContext().getHostContext();
+      const granted: boolean = context !== undefined &&
+        await requestRecordPermissions(context, this.cameraData.recordAudio);
+      if (!this.isRecordingRequestCurrent(request)) { return; }
+      if (!granted) {
+        this.getUIContext().getPromptAction().showToast({
+          message: $r('app.string.record_permission_required'),
+          duration: Const.DURATION,
+          bottom: Const.BOTTOM
+        });
+        return;
+      }
+      this.isShow = true;
+    } finally {
+      this.isPreparingRecording = false;
     }
-
-    this.isShow = true;
   }
 
   async checkIsProfileSupport(): Promise<void> {
+    const request: number = this.recordingRequestRevision;
     const context = this.getUIContext().getHostContext();
     if (context === undefined) { return; }
     try {
       const message: Resource = await RecorderCapabilityController.check(context, this.cameraData);
+      if (!this.isRecordingRequestCurrent(request)) { return; }
       this.getUIContext().getPromptAction().showToast({
         message: message, duration: Const.DURATION, bottom: Const.BOTTOM
       });
     } catch (error) {
+      if (!this.isRecordingRequestCurrent(request)) { return; }
       Logger.error(TAG, 'Check recording capabilities failed: ' + String(error));
       this.getUIContext().getPromptAction().showToast({ message: $r('app.string.alert1') });
     }
@@ -1574,14 +1726,23 @@ export struct Player {
   @Builder
   Authorized() {
     RecorderSaveAuthorizationPanel({
-      onCancel: (): void => { this.isShow = false; },
+      onCancel: (): void => { this.cancelRecordingStartup(); },
       onSave: async (): Promise<void> => { await this.saveRecorderOutput(); }
     })
   }
 
   private async saveRecorderOutput(): Promise<void> {
-    await this.checkIsProfileSupport();
-    await this.recorderLaunch.launch(this.getUIContext(), this.cameraData);
+    if (!this.pageActive || !this.recordingPageVisible || !this.isShow ||
+      this.isPreparingRecording || this.isSavingRecording) { return; }
+    const request: number = ++this.recordingRequestRevision;
+    this.isSavingRecording = true;
+    try {
+      await this.checkIsProfileSupport();
+      if (!this.isRecordingRequestCurrent(request)) { return; }
+      await this.recorderLaunch.launch(this.getUIContext(), this.cameraData);
+    } finally {
+      this.isSavingRecording = false;
+    }
   }
 
   @Builder
@@ -1646,7 +1807,8 @@ export struct Player {
         .height(1)
         .bindSheet($$this.isShow, this.Authorized, {
           height: 210,
-          title: { title: $r('app.string.saveButtonTitle') }
+          title: { title: $r('app.string.saveButtonTitle') },
+          onWillDismiss: (action: DismissSheetAction): void => this.dismissRecordingSheet(action)
         })
     }
     .width('100%')

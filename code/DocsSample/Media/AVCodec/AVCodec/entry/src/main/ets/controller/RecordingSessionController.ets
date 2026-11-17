@@ -14,7 +14,6 @@
  */
 
 import { common } from '@kit.AbilityKit';
-import { fileIo } from '@kit.CoreFileKit';
 import recorder from 'librecorder.so';
 import { CameraDataModel } from '../model/CameraDataModel';
 import { RecordingHistoryModel, RecordingSegmentInfo } from '../model/RecordingHistoryModel';
@@ -24,6 +23,7 @@ import { MediaSessionStore } from '../model/MediaSessionStore';
 import { RecordingClock } from '../model/RecordingClock';
 import { RecordingMetadataReader } from './RecordingMetadataReader';
 import { RecordingOutputCheck } from '../model/RecordingOutputValidation';
+import { RecordingFileCloser } from './RecordingFileCloser';
 
 export interface RecordingResultInfo {
   sessionId: string;
@@ -35,6 +35,8 @@ export interface RecordingResultInfo {
   complete: boolean;
   validation?: RecordingOutputCheck[];
   segments?: RecordingSegmentInfo[];
+  historySaved?: boolean;
+  cleanupPending?: boolean;
 }
 
 export enum RecordingPhase { PREPARING, READY, RECORDING, PAUSED, FINALIZING, FINISHED, FAILED }
@@ -46,6 +48,8 @@ export class RecordingSessionController {
   private pauseTask: Promise<boolean> | undefined = undefined;
   private finishTask: Promise<RecordingResultInfo | undefined> | undefined = undefined;
   private lease: MediaTaskLease | undefined = undefined;
+  private startAttempted: boolean = false;
+  private cameraFailed: boolean = false;
 
   constructor() {
     this.sessionId = recorder.getDiagnostics().sessionId;
@@ -53,10 +57,15 @@ export class RecordingSessionController {
     if (active?.kind === 'recording') { this.lease = active; }
   }
 
-  mark(stage: string, result: string = 'ok'): void { recorder.markStage(this.sessionId, stage, result); }
+  mark(stage: string, result: string = 'ok'): void {
+    if (stage === 'camera.failed') { this.cameraFailed = true; }
+    recorder.markStage(this.sessionId, stage, result);
+  }
   ready(): void { if (this.phase === RecordingPhase.PREPARING) { this.phase = RecordingPhase.READY; } }
   start(): boolean {
-    if (this.phase !== RecordingPhase.READY || !recorder.startNative()) { return false; }
+    if (this.phase !== RecordingPhase.READY) { return false; }
+    this.startAttempted = true;
+    if (!recorder.startNative()) { return false; }
     this.clock.start();
     this.phase = RecordingPhase.RECORDING;
     if (this.lease !== undefined) { MediaTaskCoordinator.running(this.lease); }
@@ -101,14 +110,9 @@ export class RecordingSessionController {
   }
 
   private async closeFile(fd: number): Promise<boolean> {
-    if (fd < 0) { return true; }
-    try {
-      await fileIo.close(fd);
-      return true;
-    } catch (_error) {
-      this.mark('files.close_failed', 'close_failed');
-      return false;
-    }
+    const closed: boolean = await RecordingFileCloser.close(fd);
+    if (!closed) { this.mark('files.close_failed', 'close_failed'); }
+    return closed;
   }
 
   private async finalize(context: common.UIAbilityContext, data: CameraDataModel,
@@ -143,8 +147,8 @@ export class RecordingSessionController {
       if (nativeReleased) {
         primaryClosed = await this.closeFile(data.outputfd);
         secondaryClosed = await this.closeFile(data.secondaryOutputfd);
-        data.outputfd = -1;
-        data.secondaryOutputfd = -1;
+        if (primaryClosed) { data.outputfd = -1; }
+        if (secondaryClosed) { data.secondaryOutputfd = -1; }
         if (primaryClosed && secondaryClosed) { this.mark('files.closed'); }
       }
       await releaseCamera();
@@ -152,17 +156,21 @@ export class RecordingSessionController {
     }
     if (!nativeReleased) { throw new Error('Native recorder release was not confirmed'); }
     const diagnostics = recorder.getDiagnostics();
-    if (this.lease !== undefined) { MediaTaskCoordinator.release(this.lease); }
-    if (this.lease !== undefined) {
+    if (this.lease !== undefined && primaryClosed && secondaryClosed) {
+      MediaTaskCoordinator.release(this.lease);
       await MediaSessionStore.finish(context, this.lease.id)
         .catch((error: Error): void => Logger.warn('RecordingSession', error.message));
     }
+    const cancelled: boolean = !this.startAttempted && !this.cameraFailed && diagnostics.primary.frames === 0 &&
+      diagnostics.secondary.frames === 0 && diagnostics.failure.stage.length === 0 && primaryClosed && secondaryClosed;
+    if (cancelled) { this.phase = RecordingPhase.FINISHED; return undefined; }
     const result: RecordingResultInfo = {
       sessionId: diagnostics.sessionId, recordedAt: Date.now(), durationSeconds: duration,
+      cleanupPending: !primaryClosed || !secondaryClosed,
       title: data.outputTitle,
       primaryUri: diagnostics.primary.fileBytes > 0 && diagnostics.primary.frames > 0 ? data.outputUri : '',
       secondaryUri: diagnostics.secondary.fileBytes > 0 && diagnostics.secondary.frames > 0 ? data.secondaryOutputUri : '',
-      complete: primaryClosed && secondaryClosed && diagnostics.primary.frames > 0 &&
+      complete: !this.cameraFailed && primaryClosed && secondaryClosed && diagnostics.primary.frames > 0 &&
         (!data.enableDualOutput || diagnostics.secondary.frames > 0) &&
         diagnostics.failure.stage.length === 0 &&
         (diagnostics.endReason.length === 0 || diagnostics.endReason === 'user_stop')
@@ -181,9 +189,14 @@ export class RecordingSessionController {
     try {
       const history = new RecordingHistoryModel();
       await history.load(context);
-      await history.add(result.primaryUri, result.title, result.secondaryUri, result.recordedAt, duration,
-        result.sessionId, result.complete, data.recordingGroupId, result.validation);
-    } catch (error) { Logger.warn('RecordingSession', 'History persistence failed: ' + JSON.stringify(error)); }
+      result.historySaved = await history.add(result.primaryUri, result.title, result.secondaryUri,
+        result.recordedAt, duration, result.sessionId, result.complete, data.recordingGroupId, result.validation);
+      if (!result.historySaved) { this.mark('history.save_failed', 'save_failed'); }
+    } catch (error) {
+      result.historySaved = false;
+      this.mark('history.save_failed', 'save_failed');
+      Logger.warn('RecordingSession', 'History persistence failed: ' + JSON.stringify(error));
+    }
     return result;
   }
 }

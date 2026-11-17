@@ -17,6 +17,7 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runVerification } from './VerificationRunner.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -31,10 +32,20 @@ const studio = option('--studio', process.env.DEVECO_STUDIO_HOME);
 const distro = option('--wsl-distro', process.env.AVCODEC_WSL_DISTRO);
 const output = path.join(root, '.validation');
 mkdirSync(output, { recursive: true });
-function run(command, values, options = {}) {
-  const result = spawnSync(command, values, { cwd: root, stdio: 'inherit', ...options });
-  if (result.error) { throw result.error; }
-  if (result.status !== 0) { throw new Error(command + ' failed: ' + result.status); }
+function timeout(name, fallback) {
+  const duration = Number(option(name, fallback));
+  if (!Number.isSafeInteger(duration) || duration <= 0 || duration > 2_147_483_647) {
+    throw new Error('Invalid positive millisecond timeout: ' + name);
+  }
+  return duration;
+}
+const testTimeoutMs = timeout('--test-timeout-ms', 60_000);
+const compileTimeoutMs = timeout('--compile-timeout-ms', 180_000);
+const lintTimeoutMs = timeout('--lint-timeout-ms', 300_000);
+const buildTimeoutMs = timeout('--build-timeout-ms', 600_000);
+function run(command, values, label, timeoutMs, options = {}) {
+  return runVerification(command, values, { cwd: root, label, timeoutMs,
+    logDirectory: path.join(output, 'logs'), ...options });
 }
 function required(value, label) {
   if (!value || !existsSync(value)) { throw new Error('Set ' + label + ' to an existing directory'); }
@@ -42,11 +53,13 @@ function required(value, label) {
 }
 function linuxPath(value) {
   if (process.platform !== 'win32') { return value; }
-  const result = spawnSync('wsl.exe', ['-d', distro, '--exec', 'wslpath', '-a', '-u', value], { encoding: 'utf8' });
+  const result = spawnSync('wsl.exe', ['-d', distro, '--exec', 'wslpath', '-a', '-u', value],
+    { encoding: 'utf8', timeout: 10_000 });
+  if (result.error) { throw new Error('WSL path conversion: ' + result.error.message); }
   if (result.status !== 0) { throw new Error('Cannot convert WSL path: ' + value); }
   return result.stdout.trim();
 }
-function native() {
+async function native() {
   const sdkRoot = required(sdk, '--sdk or OHOS_SDK_HOME');
   if (process.platform === 'win32' && !distro) { throw new Error('Set --wsl-distro or AVCODEC_WSL_DISTRO'); }
   const targets = JSON.parse(readFileSync(path.join(root, 'tests/native/targets.json'), 'utf8'));
@@ -66,29 +79,33 @@ function native() {
       ...sources.map(file => linuxPath(path.join(source, file))), '-o', binary];
     console.log('Native: ' + name);
     if (process.platform === 'win32') {
-      run('wsl.exe', ['-d', distro, '--exec', compiler, ...compile]);
-      run('wsl.exe', ['-d', distro, '--exec', binary]);
+      const bounded = (command, values, label, duration) => run('wsl.exe',
+        ['-d', distro, '--exec', 'timeout', '--signal=KILL', duration / 1000 + 's', command, ...values],
+        label, duration + 5000, { timeoutExitCodes: [124, 137] });
+      await bounded(compiler, compile, 'compile-' + name, compileTimeoutMs);
+      await bounded(binary, [], 'native-' + name, testTimeoutMs);
     } else {
-      run(compiler, compile);
-      run(binary, []);
+      await run(compiler, compile, 'compile-' + name, compileTimeoutMs);
+      await run(binary, [], 'native-' + name, testTimeoutMs);
     }
   }
   console.log('Native: ' + (selection ? 1 : Object.keys(targets).length) + ' executables passed');
 }
-function host() {
+async function host() {
   const compiler = path.join(required(sdk, '--sdk or OHOS_SDK_HOME'),
     'ets/build-tools/ets-loader/node_modules/typescript/lib/typescript.js');
-  for (const file of ['RecorderModels', 'TranscodeModels']) {
-    run(process.execPath, ['tests/host/' + file + '.test.cjs', compiler]);
+  for (const file of ['RecorderModels', 'TranscodeModels', 'PlaybackConcurrency', 'PlaybackStartup', 'PlaybackPageLifecycle',
+    'RecordingPageLifecycle', 'RecordingPersistence', 'PlaybackReview']) {
+    await run(process.execPath, ['tests/host/' + file + '.test.cjs', compiler], 'host-' + file, testTimeoutMs);
   }
+  await run(process.execPath, ['tests/host/VerificationRunner.test.mjs'], 'host-VerificationRunner', testTimeoutMs);
 }
-function lint() {
+async function lint() {
   const entry = path.join(required(studio, '--studio or DEVECO_STUDIO_HOME'), 'plugins/codelinter/run/index.js');
   rmSync(path.join(output, 'lint.json'), { force: true });
-  const result = spawnSync(process.execPath, [entry, '-c', path.join(root, 'code-linter.json5'), '-f', 'json',
-    '-o', path.join(output, 'lint.json'), '--exit-on', 'error,warn', root], { cwd: root, stdio: 'inherit' });
-  if (result.error) { throw result.error; }
-  if (![0, 2, 4, 6].includes(result.status)) { throw new Error('CodeLinter failed: ' + result.status); }
+  await run(process.execPath, [entry, '-c', path.join(root, 'code-linter.json5'), '-f', 'json',
+    '-o', path.join(output, 'lint.json'), '--exit-on', 'error,warn', root], 'lint', lintTimeoutMs,
+    { acceptedExitCodes: [0, 2, 4, 6] });
   const findings = JSON.parse(readFileSync(path.join(output, 'lint.json'), 'utf8'));
   if (!Array.isArray(findings)) { throw new Error('Invalid CodeLinter result'); }
   const baseline = JSON.parse(readFileSync(path.join(root, 'tests/lint-baseline.json'), 'utf8'));
@@ -110,20 +127,20 @@ function lint() {
   console.log('CodeLinter: ' + existing + ' existing findings; ' + added.length + ' new findings (.validation/lint.json)');
   if (added.length) { throw new Error(added.join('\n')); }
 }
-function build() {
+async function build() {
   const studioRoot = required(studio, '--studio or DEVECO_STUDIO_HOME');
   const javaHome = path.join(studioRoot, 'jbr');
   const env = { ...process.env, JAVA_HOME: javaHome };
   const pathKey = Object.keys(env).find(key => key.toLowerCase() === 'path') || 'PATH';
   env[pathKey] = path.join(javaHome, 'bin') + path.delimiter + (env[pathKey] || '');
-  run(process.execPath, [path.join(studioRoot, 'tools/hvigor/bin/hvigorw.js'), '--mode', 'module',
-    '-p', 'product=default', '-p', 'module=entry@default', 'assembleHap', '--no-daemon'], { env });
+  await run(process.execPath, [path.join(studioRoot, 'tools/hvigor/bin/hvigorw.js'), '--mode', 'module',
+    '-p', 'product=default', '-p', 'module=entry@default', 'assembleHap', '--no-daemon'], 'build', buildTimeoutMs, { env });
 }
 try {
   const stage = option('--only', 'all');
   const stages = { host, native, lint, build };
-  if (stage === 'all') { for (const action of Object.values(stages)) { action(); } }
-  else if (stages[stage]) { stages[stage](); }
+  if (stage === 'all') { for (const action of Object.values(stages)) { await action(); } }
+  else if (stages[stage]) { await stages[stage](); }
   else { throw new Error('Unknown --only stage: ' + stage); }
   console.log('Verification passed: ' + stage);
 } catch (error) { console.error(error.message); process.exitCode = 1; }

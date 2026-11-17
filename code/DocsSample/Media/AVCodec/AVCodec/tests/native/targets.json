@@ -18,6 +18,10 @@
     "sample/recorder/input/video/RecorderFrameEffects.cpp"
   ],
   "VideoFramePacerTest": [],
+  "PlaybackLifecycleTest": [
+    "sample/player/output/pipeline/VideoPipeline.cpp",
+    "sample/player/sync/PlayerStateMachine.cpp"
+  ],
   "VideoPresentationGeometryTest": [
     "sample/player/output/video/gpu/VideoPresentationGeometry.cpp"
   ],
