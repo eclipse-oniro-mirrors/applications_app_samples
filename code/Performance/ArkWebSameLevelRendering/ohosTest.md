@@ -35,15 +35,14 @@
 
 ### 2. 部署与运行
 
-使用 DevEco Studio 的 OpenHarmony Test 运行配置部署应用包和测试包；或使用 HDC 安装签名后的两个 HAP，再执行。下方 `aa` 是 OpenHarmony 系统提供的 Ability Assistant（元能力助手）命令行工具，`test` 子命令用于启动自动化测试：
+使用 DevEco Studio 的 OpenHarmony Test 运行配置部署应用包和测试包。运行前确认已生成以下两个签名安装包：
 
-```shell
-hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
-hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
-hdc shell aa test -b com.example.nativeembed -m entry_test -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 30000
+```text
+entry/build/default/outputs/default/entry-default-signed.hap
+entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 ```
 
-应用包需先通过 `entry@default` 目标构建。按套件执行时可追加 `-s class GoodsConstructionPart01`。在 DevEco 中运行时同步将 Timeout 设置为 30,000ms；测试入口也设置该超时，避免默认短超时造成仍在执行的 UI 操作与后续用例重叠。
+应用包需先通过 `entry@default` 目标构建。在 DevEco Studio 中选择已连接设备，打开 `entry/src/ohosTest/ets/test/List.test.ets`，通过测试运行入口执行全部套件；执行单个套件时，打开对应的 `.test.ets` 文件并运行。运行配置使用包名 `com.example.nativeembed`、测试模块 `entry_test` 和运行器 `OpenHarmonyTestRunner`，Timeout 设置为 30,000ms。测试入口也设置该超时，避免默认短超时造成仍在执行的 UI 操作与后续用例重叠。
 
 ## 功能验收用例
 
