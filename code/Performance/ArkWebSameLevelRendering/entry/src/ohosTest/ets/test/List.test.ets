@@ -94,162 +94,83 @@ import NativeInteractionPart78 from './NativeInteraction/NativeInteractionPart78
 import GoodsConstructionPart79 from './GoodsConstruction/GoodsConstructionPart79.test';
 
 export default function testsuite(): void {
-  // Register GoodsConstructionPart01 from ets/test/GoodsConstruction/GoodsConstructionPart01.test.ets.
   GoodsConstructionPart01();
-  // Register GoodsMutationPart02 from ets/test/GoodsMutation/GoodsMutationPart02.test.ets.
   GoodsMutationPart02();
-  // Register CatalogBindingPart03 from ets/test/CatalogBinding/CatalogBindingPart03.test.ets.
   CatalogBindingPart03();
-  // Register ResourceResolutionPart04 from ets/test/ResourceResolution/ResourceResolutionPart04.test.ets.
   ResourceResolutionPart04();
-  // Register EmbedControllerPart05 from ets/test/EmbedController/EmbedControllerPart05.test.ets.
   EmbedControllerPart05();
-  // Register NativeInteractionPart06 from ets/test/NativeInteraction/NativeInteractionPart06.test.ets.
   NativeInteractionPart06();
-  // Register GoodsConstructionPart07 from ets/test/GoodsConstruction/GoodsConstructionPart07.test.ets.
   GoodsConstructionPart07();
-  // Register GoodsMutationPart08 from ets/test/GoodsMutation/GoodsMutationPart08.test.ets.
   GoodsMutationPart08();
-  // Register CatalogBindingPart09 from ets/test/CatalogBinding/CatalogBindingPart09.test.ets.
   CatalogBindingPart09();
-  // Register ResourceResolutionPart10 from ets/test/ResourceResolution/ResourceResolutionPart10.test.ets.
   ResourceResolutionPart10();
-  // Register EmbedControllerPart11 from ets/test/EmbedController/EmbedControllerPart11.test.ets.
   EmbedControllerPart11();
-  // Register NativeInteractionPart12 from ets/test/NativeInteraction/NativeInteractionPart12.test.ets.
   NativeInteractionPart12();
-  // Register GoodsConstructionPart13 from ets/test/GoodsConstruction/GoodsConstructionPart13.test.ets.
   GoodsConstructionPart13();
-  // Register GoodsMutationPart14 from ets/test/GoodsMutation/GoodsMutationPart14.test.ets.
   GoodsMutationPart14();
-  // Register CatalogBindingPart15 from ets/test/CatalogBinding/CatalogBindingPart15.test.ets.
   CatalogBindingPart15();
-  // Register ResourceResolutionPart16 from ets/test/ResourceResolution/ResourceResolutionPart16.test.ets.
   ResourceResolutionPart16();
-  // Register EmbedControllerPart17 from ets/test/EmbedController/EmbedControllerPart17.test.ets.
   EmbedControllerPart17();
-  // Register NativeInteractionPart18 from ets/test/NativeInteraction/NativeInteractionPart18.test.ets.
   NativeInteractionPart18();
-  // Register GoodsConstructionPart19 from ets/test/GoodsConstruction/GoodsConstructionPart19.test.ets.
   GoodsConstructionPart19();
-  // Register GoodsMutationPart20 from ets/test/GoodsMutation/GoodsMutationPart20.test.ets.
   GoodsMutationPart20();
-  // Register CatalogBindingPart21 from ets/test/CatalogBinding/CatalogBindingPart21.test.ets.
   CatalogBindingPart21();
-  // Register ResourceResolutionPart22 from ets/test/ResourceResolution/ResourceResolutionPart22.test.ets.
   ResourceResolutionPart22();
-  // Register EmbedControllerPart23 from ets/test/EmbedController/EmbedControllerPart23.test.ets.
   EmbedControllerPart23();
-  // Register NativeInteractionPart24 from ets/test/NativeInteraction/NativeInteractionPart24.test.ets.
   NativeInteractionPart24();
-  // Register GoodsConstructionPart25 from ets/test/GoodsConstruction/GoodsConstructionPart25.test.ets.
   GoodsConstructionPart25();
-  // Register GoodsMutationPart26 from ets/test/GoodsMutation/GoodsMutationPart26.test.ets.
   GoodsMutationPart26();
-  // Register CatalogBindingPart27 from ets/test/CatalogBinding/CatalogBindingPart27.test.ets.
   CatalogBindingPart27();
-  // Register ResourceResolutionPart28 from ets/test/ResourceResolution/ResourceResolutionPart28.test.ets.
   ResourceResolutionPart28();
-  // Register EmbedControllerPart29 from ets/test/EmbedController/EmbedControllerPart29.test.ets.
   EmbedControllerPart29();
-  // Register NativeInteractionPart30 from ets/test/NativeInteraction/NativeInteractionPart30.test.ets.
   NativeInteractionPart30();
-  // Register GoodsConstructionPart31 from ets/test/GoodsConstruction/GoodsConstructionPart31.test.ets.
   GoodsConstructionPart31();
-  // Register GoodsMutationPart32 from ets/test/GoodsMutation/GoodsMutationPart32.test.ets.
   GoodsMutationPart32();
-  // Register CatalogBindingPart33 from ets/test/CatalogBinding/CatalogBindingPart33.test.ets.
   CatalogBindingPart33();
-  // Register ResourceResolutionPart34 from ets/test/ResourceResolution/ResourceResolutionPart34.test.ets.
   ResourceResolutionPart34();
-  // Register EmbedControllerPart35 from ets/test/EmbedController/EmbedControllerPart35.test.ets.
   EmbedControllerPart35();
-  // Register NativeInteractionPart36 from ets/test/NativeInteraction/NativeInteractionPart36.test.ets.
   NativeInteractionPart36();
-  // Register GoodsConstructionPart37 from ets/test/GoodsConstruction/GoodsConstructionPart37.test.ets.
   GoodsConstructionPart37();
-  // Register GoodsMutationPart38 from ets/test/GoodsMutation/GoodsMutationPart38.test.ets.
   GoodsMutationPart38();
-  // Register CatalogBindingPart39 from ets/test/CatalogBinding/CatalogBindingPart39.test.ets.
   CatalogBindingPart39();
-  // Register ResourceResolutionPart40 from ets/test/ResourceResolution/ResourceResolutionPart40.test.ets.
   ResourceResolutionPart40();
-  // Register EmbedControllerPart41 from ets/test/EmbedController/EmbedControllerPart41.test.ets.
   EmbedControllerPart41();
-  // Register NativeInteractionPart42 from ets/test/NativeInteraction/NativeInteractionPart42.test.ets.
   NativeInteractionPart42();
-  // Register GoodsConstructionPart43 from ets/test/GoodsConstruction/GoodsConstructionPart43.test.ets.
   GoodsConstructionPart43();
-  // Register GoodsMutationPart44 from ets/test/GoodsMutation/GoodsMutationPart44.test.ets.
   GoodsMutationPart44();
-  // Register CatalogBindingPart45 from ets/test/CatalogBinding/CatalogBindingPart45.test.ets.
   CatalogBindingPart45();
-  // Register ResourceResolutionPart46 from ets/test/ResourceResolution/ResourceResolutionPart46.test.ets.
   ResourceResolutionPart46();
-  // Register EmbedControllerPart47 from ets/test/EmbedController/EmbedControllerPart47.test.ets.
   EmbedControllerPart47();
-  // Register NativeInteractionPart48 from ets/test/NativeInteraction/NativeInteractionPart48.test.ets.
   NativeInteractionPart48();
-  // Register GoodsConstructionPart49 from ets/test/GoodsConstruction/GoodsConstructionPart49.test.ets.
   GoodsConstructionPart49();
-  // Register GoodsMutationPart50 from ets/test/GoodsMutation/GoodsMutationPart50.test.ets.
   GoodsMutationPart50();
-  // Register CatalogBindingPart51 from ets/test/CatalogBinding/CatalogBindingPart51.test.ets.
   CatalogBindingPart51();
-  // Register ResourceResolutionPart52 from ets/test/ResourceResolution/ResourceResolutionPart52.test.ets.
   ResourceResolutionPart52();
-  // Register EmbedControllerPart53 from ets/test/EmbedController/EmbedControllerPart53.test.ets.
   EmbedControllerPart53();
-  // Register NativeInteractionPart54 from ets/test/NativeInteraction/NativeInteractionPart54.test.ets.
   NativeInteractionPart54();
-  // Register GoodsConstructionPart55 from ets/test/GoodsConstruction/GoodsConstructionPart55.test.ets.
   GoodsConstructionPart55();
-  // Register GoodsMutationPart56 from ets/test/GoodsMutation/GoodsMutationPart56.test.ets.
   GoodsMutationPart56();
-  // Register CatalogBindingPart57 from ets/test/CatalogBinding/CatalogBindingPart57.test.ets.
   CatalogBindingPart57();
-  // Register ResourceResolutionPart58 from ets/test/ResourceResolution/ResourceResolutionPart58.test.ets.
   ResourceResolutionPart58();
-  // Register EmbedControllerPart59 from ets/test/EmbedController/EmbedControllerPart59.test.ets.
   EmbedControllerPart59();
-  // Register NativeInteractionPart60 from ets/test/NativeInteraction/NativeInteractionPart60.test.ets.
   NativeInteractionPart60();
-  // Register GoodsConstructionPart61 from ets/test/GoodsConstruction/GoodsConstructionPart61.test.ets.
   GoodsConstructionPart61();
-  // Register GoodsMutationPart62 from ets/test/GoodsMutation/GoodsMutationPart62.test.ets.
   GoodsMutationPart62();
-  // Register CatalogBindingPart63 from ets/test/CatalogBinding/CatalogBindingPart63.test.ets.
   CatalogBindingPart63();
-  // Register ResourceResolutionPart64 from ets/test/ResourceResolution/ResourceResolutionPart64.test.ets.
   ResourceResolutionPart64();
-  // Register EmbedControllerPart65 from ets/test/EmbedController/EmbedControllerPart65.test.ets.
   EmbedControllerPart65();
-  // Register NativeInteractionPart66 from ets/test/NativeInteraction/NativeInteractionPart66.test.ets.
   NativeInteractionPart66();
-  // Register GoodsConstructionPart67 from ets/test/GoodsConstruction/GoodsConstructionPart67.test.ets.
   GoodsConstructionPart67();
-  // Register GoodsMutationPart68 from ets/test/GoodsMutation/GoodsMutationPart68.test.ets.
   GoodsMutationPart68();
-  // Register CatalogBindingPart69 from ets/test/CatalogBinding/CatalogBindingPart69.test.ets.
   CatalogBindingPart69();
-  // Register ResourceResolutionPart70 from ets/test/ResourceResolution/ResourceResolutionPart70.test.ets.
   ResourceResolutionPart70();
-  // Register EmbedControllerPart71 from ets/test/EmbedController/EmbedControllerPart71.test.ets.
   EmbedControllerPart71();
-  // Register NativeInteractionPart72 from ets/test/NativeInteraction/NativeInteractionPart72.test.ets.
   NativeInteractionPart72();
-  // Register GoodsConstructionPart73 from ets/test/GoodsConstruction/GoodsConstructionPart73.test.ets.
   GoodsConstructionPart73();
-  // Register GoodsMutationPart74 from ets/test/GoodsMutation/GoodsMutationPart74.test.ets.
   GoodsMutationPart74();
-  // Register CatalogBindingPart75 from ets/test/CatalogBinding/CatalogBindingPart75.test.ets.
   CatalogBindingPart75();
-  // Register ResourceResolutionPart76 from ets/test/ResourceResolution/ResourceResolutionPart76.test.ets.
   ResourceResolutionPart76();
-  // Register EmbedControllerPart77 from ets/test/EmbedController/EmbedControllerPart77.test.ets.
   EmbedControllerPart77();
-  // Register NativeInteractionPart78 from ets/test/NativeInteraction/NativeInteractionPart78.test.ets.
   NativeInteractionPart78();
-  // Register GoodsConstructionPart79 from ets/test/GoodsConstruction/GoodsConstructionPart79.test.ets.
   GoodsConstructionPart79();
 }
