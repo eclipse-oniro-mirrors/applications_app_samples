@@ -1,0 +1,48 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "验证真实应用内代理输入法接口和编辑会话"
+    },
+    {
+      "name": "title",
+      "value": "应用内自定义键盘"
+    },
+    {
+      "name": "close_sample",
+      "value": "关闭示例"
+    },
+    {
+      "name": "text_content",
+      "value": "文本内容"
+    },
+    {
+      "name": "input_placeholder",
+      "value": "点击此处输入"
+    },
+    {
+      "name": "enable_keyboard",
+      "value": "启用键盘"
+    },
+    {
+      "name": "disable_keyboard",
+      "value": "停用键盘"
+    },
+    {
+      "name": "description",
+      "value": "应用获焦后自动注册代理，点击输入框即可输入。停用后可使用系统输入法。"
+    },
+    {
+      "name": "custom_keyboard",
+      "value": "自定义键盘"
+    },
+    {
+      "name": "collapse",
+      "value": "收起"
+    },
+    {
+      "name": "delete",
+      "value": "删除"
+    }
+  ]
+}
