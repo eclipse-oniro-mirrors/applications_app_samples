@@ -16,6 +16,7 @@
 import { NodeController, FrameNode, RenderNode, DrawContext, UIContext, display } from '@kit.ArkUI';
 import { drawing, common2D } from '@kit.ArkGraphics2D';
 import { image } from '@kit.ImageKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { createOffscreenTarget, OffscreenTarget } from '../drawing/DrawingCanvasFactory';
 import {
   paintArcs,
@@ -48,6 +49,7 @@ import { paintGlyphs, paintSingleCharacter, paintTextBlob } from '../drawing/Dra
 import { paintMatrixShowcase } from '../drawing/DrawingMatrix';
 import { paintPenBrushShowcase } from '../drawing/DrawingPenBrush';
 
+const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_Drawing]';
 let screen: display.Display = display.getDefaultDisplaySync();
 let screenWidth: number = screen.width;
@@ -282,17 +284,17 @@ struct RenderTest {
     };
     pixelMap_ = await image.createPixelMap(color, opts);
     if (pixelMap_ === null || pixelMap_ === undefined) {
-      console.log(TAG, 'create pixelMap error');
+      hilog.error(DOMAIN, TAG, 'create pixelMap error');
       return;
     }
 
     // 创建离屏canvas，与pixelMap绑定
     canvas_ = new drawing.Canvas(pixelMap_);
     if (canvas_ === null || canvas_ === undefined) {
-      console.log(TAG, 'create canvas_ error');
+      hilog.error(DOMAIN, TAG, 'create canvas_ error');
       return;
     }
-    console.log(TAG, 'create canvas_ success');
+    hilog.info(DOMAIN, TAG, 'create canvas_ success');
     // 调用自定义函数绘制
     drawCase(canvas_);
   }
@@ -300,10 +302,10 @@ struct RenderTest {
   // 将离屏绘制好的bitmap绘制到屏幕上
   public async drawImage(): Promise<void> {
     if (pixelMap_ === null || pixelMap_ === undefined) {
-      console.error(TAG, 'draw image pixelMap_ is null');
+      hilog.error(DOMAIN, TAG, 'draw image pixelMap_ is null');
       return;
     }
-    console.log(TAG, 'drawImage success');
+    hilog.info(DOMAIN, TAG, 'drawImage success');
     this.context.drawImage(pixelMap_, 0, 100);
   }
 
