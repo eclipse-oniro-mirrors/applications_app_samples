@@ -26,7 +26,7 @@ import {
   assertNumberEqual,
   assertTrue
 } from '../foundation/TestAsserts';
-import { DesktopLayoutHarness } from './AccessibilityLayoutHarness';
+import { DesktopLayoutHarness } from './FocusLayoutHarness';
 
 export default function desktopLayoutBoundaryRegressionTest(): void {
   describe('DesktopLayoutBoundaryRegressionTest', () => {

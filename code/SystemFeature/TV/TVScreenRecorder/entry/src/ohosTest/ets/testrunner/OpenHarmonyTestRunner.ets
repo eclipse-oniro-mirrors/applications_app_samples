@@ -14,6 +14,11 @@
  */
 
 import { abilityDelegatorRegistry, TestRunner } from '@kit.TestKit';
+import hilog from '@ohos.hilog';
+
+const DOMAIN: number = 0x0000;
+
+const TAG: string = 'TestRunner';
 
 interface RunnerArgumentsLike {
     bundleName: string
@@ -35,11 +40,11 @@ interface ShellCommandResultLike {
 }
 
 async function onAbilityCreateCallback(): Promise<void> {
-    console.log('onAbilityCreateCallback');
+    hilog.info(DOMAIN, TAG, '%{public}s', 'onAbilityCreateCallback');
 }
 
 async function addAbilityMonitorCallback(err: ShellCommandErrorLike): Promise<void> {
-    console.info('addAbilityMonitorCallback : ' + JSON.stringify(err));
+    hilog.info(DOMAIN, TAG, '%{public}s', 'addAbilityMonitorCallback: ' + JSON.stringify(err));
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
@@ -47,11 +52,11 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     }
 
     onPrepare(): void {
-        console.info('OpenHarmonyTestRunner OnPrepare ');
+        hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onPrepare');
     }
 
     async onRun(): Promise<void> {
-        console.log('OpenHarmonyTestRunner onRun run');
+        hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun begin');
         const abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
         const abilityDelegatorArguments = abilityDelegatorRegistry.getArguments() as RunnerArgumentsLike;
         const testAbilityName = abilityDelegatorArguments.bundleName + '.TestAbility';
@@ -61,13 +66,13 @@ export default class OpenHarmonyTestRunner implements TestRunner {
         }
         abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback);
         let cmd = 'aa start -d 0 -a TestAbility' + ' -b ' + abilityDelegatorArguments.bundleName;
-        console.info('cmd : ' + cmd);
+        hilog.info(DOMAIN, TAG, '%{public}s', 'cmd: ' + cmd);
         abilityDelegator.executeShellCommand(cmd,
             (err: ShellCommandErrorLike, d: ShellCommandResultLike) => {
-                console.info('executeShellCommand : err : ' + JSON.stringify(err));
-                console.info('executeShellCommand : data : ' + d.stdResult);
-                console.info('executeShellCommand : data : ' + d.exitCode);
+                hilog.info(DOMAIN, TAG, '%{public}s', 'executeShellCommand err: ' + JSON.stringify(err));
+                hilog.info(DOMAIN, TAG, '%{public}s', 'executeShellCommand data: ' + d.stdResult);
+                hilog.info(DOMAIN, TAG, '%{public}s', 'executeShellCommand exitCode: ' + d.exitCode);
             });
-        console.info('OpenHarmonyTestRunner onRun end');
+        hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner onRun end');
     }
 }

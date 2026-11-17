@@ -28,7 +28,7 @@ import {
   assertStringEqual,
   assertTrue
 } from '../foundation/TestAsserts';
-import { RecentStatusJointHarness } from './AccessibilityLayoutHarness';
+import { RecentStatusJointHarness } from './FocusLayoutHarness';
 
 export default function recentStatusBarJointRegressionTest(): void {
   describe('RecentStatusBarJointRegressionTest', () => {
