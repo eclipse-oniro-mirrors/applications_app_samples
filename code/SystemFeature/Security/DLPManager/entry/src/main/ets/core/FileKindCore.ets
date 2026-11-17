@@ -294,10 +294,10 @@ export function kindLabel(kind: FileKind): string {
     return textOf('dlp_kind_image');
   }
   if (kind === FileKind.AUDIO) {
-    return textOf('dlp_kind_video');
+    return textOf('dlp_kind_audio');
   }
   if (kind === FileKind.VIDEO) {
-    return textOf('dlp_kind_audio');
+    return textOf('dlp_kind_video');
   }
   if (kind === FileKind.DOCUMENT) {
     return textOf('dlp_kind_document');

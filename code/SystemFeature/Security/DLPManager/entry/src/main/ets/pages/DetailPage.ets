@@ -42,7 +42,7 @@ struct DetailPage {
           .onClick(() => {
             router.back();
           })
-        Text('文件详情')
+        Text($r('app.string.dlp_page_detail_title'))
           .fontSize('20vp')
           .fontWeight(700)
           .fontColor($r('app.color.font_color_182431'))

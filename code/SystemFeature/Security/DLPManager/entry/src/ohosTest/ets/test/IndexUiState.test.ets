@@ -155,7 +155,9 @@ export default function indexUiStateTest(): void {
 
     afterEach(async () => {
       const driver: Driver = await Driver.create();
-      expect(await ensureIndexPage(driver)).assertTrue();
+      const assertOk1: boolean = await ensureIndexPage(driver);
+      log('afterEach check1: await ensureIndexPage(driver) = ' + String(assertOk1));
+      expect(assertOk1).assertTrue();
     });
 
     /**
@@ -169,9 +171,15 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0501', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0501 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
-      expect(await exists(driver, 'noteBook')).assertTrue();
-      expect(await exists(driver, 'latestFile')).assertTrue();
+      const assertOk2: boolean = await prepare(driver);
+      log('testIndexUiState0501 check2: await prepare(driver) = ' + String(assertOk2));
+      expect(assertOk2).assertTrue();
+      const assertOk3: boolean = await exists(driver, 'noteBook');
+      log('testIndexUiState0501 check3: await exists(driver, \'noteBook\') = ' + String(assertOk3));
+      expect(assertOk3).assertTrue();
+      const assertOk4: boolean = await exists(driver, 'latestFile');
+      log('testIndexUiState0501 check4: await exists(driver, \'latestFile\') = ' + String(assertOk4));
+      expect(assertOk4).assertTrue();
     })
 
     /**
@@ -185,9 +193,15 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0502', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0502 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
-      expect(await exists(driver, 'moreIcon')).assertTrue();
-      expect(await exists(driver, 'add')).assertTrue();
+      const assertOk5: boolean = await prepare(driver);
+      log('testIndexUiState0502 check5: await prepare(driver) = ' + String(assertOk5));
+      expect(assertOk5).assertTrue();
+      const assertOk6: boolean = await exists(driver, 'moreIcon');
+      log('testIndexUiState0502 check6: await exists(driver, \'moreIcon\') = ' + String(assertOk6));
+      expect(assertOk6).assertTrue();
+      const assertOk7: boolean = await exists(driver, 'add');
+      log('testIndexUiState0502 check7: await exists(driver, \'add\') = ' + String(assertOk7));
+      expect(assertOk7).assertTrue();
     })
 
     /**
@@ -201,8 +215,12 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0503', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0503 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
-      expect(await exists(driver, 'indexList')).assertTrue();
+      const assertOk8: boolean = await prepare(driver);
+      log('testIndexUiState0503 check8: await prepare(driver) = ' + String(assertOk8));
+      expect(assertOk8).assertTrue();
+      const assertOk9: boolean = await exists(driver, 'indexList');
+      log('testIndexUiState0503 check9: await exists(driver, \'indexList\') = ' + String(assertOk9));
+      expect(assertOk9).assertTrue();
     })
 
     /**
@@ -216,10 +234,16 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0504', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0504 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
-      expect(await clickId(driver, 'moreIcon')).assertTrue();
+      const assertOk10: boolean = await prepare(driver);
+      log('testIndexUiState0504 check10: await prepare(driver) = ' + String(assertOk10));
+      expect(assertOk10).assertTrue();
+      const assertOk11: boolean = await clickId(driver, 'moreIcon');
+      log('testIndexUiState0504 check11: await clickId(driver, \'moreIcon\') = ' + String(assertOk11));
+      expect(assertOk11).assertTrue();
       await sleep(350);
-      expect(await exists(driver, 'obtain_visit_record')).assertTrue();
+      const assertOk12: boolean = await exists(driver, 'obtain_visit_record');
+      log('testIndexUiState0504 check12: await exists(driver, \'obtain_visit_record\') = ' + String(assertOk12));
+      expect(assertOk12).assertTrue();
       await driver.pressBack();
       await sleep(250);
     })
@@ -235,10 +259,17 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0505', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0505 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
-      expect(await clickId(driver, 'moreIcon')).assertTrue();
+      const assertOk13: boolean = await prepare(driver);
+      log('testIndexUiState0505 check13: await prepare(driver) = ' + String(assertOk13));
+      expect(assertOk13).assertTrue();
+      const assertOk14: boolean = await clickId(driver, 'moreIcon');
+      log('testIndexUiState0505 check14: await clickId(driver, \'moreIcon\') = ' + String(assertOk14));
+      expect(assertOk14).assertTrue();
       await sleep(350);
-      expect(await exists(driver, 'obtain_sandbox_retention_information')).assertTrue();
+      const assertOk15: boolean = await exists(driver, 'obtain_sandbox_retention_information');
+      log('testIndexUiState0505 check15: await exists(driver, \'obtain_sandbox_retention_information\') = ' +
+        String(assertOk15));
+      expect(assertOk15).assertTrue();
       await driver.pressBack();
       await sleep(250);
     })
@@ -254,12 +285,20 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0506', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0506 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
-      expect(await clickId(driver, 'moreIcon')).assertTrue();
+      const assertOk16: boolean = await prepare(driver);
+      log('testIndexUiState0506 check16: await prepare(driver) = ' + String(assertOk16));
+      expect(assertOk16).assertTrue();
+      const assertOk17: boolean = await clickId(driver, 'moreIcon');
+      log('testIndexUiState0506 check17: await clickId(driver, \'moreIcon\') = ' + String(assertOk17));
+      expect(assertOk17).assertTrue();
       await sleep(350);
-      expect(await clickId(driver, 'obtain_visit_record')).assertTrue();
+      const assertOk18: boolean = await clickId(driver, 'obtain_visit_record');
+      log('testIndexUiState0506 check18: await clickId(driver, \'obtain_visit_record\') = ' + String(assertOk18));
+      expect(assertOk18).assertTrue();
       await sleep(350);
-      expect(await exists(driver, 'obtain_visit_record')).assertFalse();
+      const assertOk19: boolean = await exists(driver, 'obtain_visit_record');
+      log('testIndexUiState0506 check19: await exists(driver, \'obtain_visit_record\') = ' + String(assertOk19));
+      expect(assertOk19).assertFalse();
     })
 
     /**
@@ -273,12 +312,22 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0507', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0507 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
-      expect(await clickId(driver, 'moreIcon')).assertTrue();
+      const assertOk20: boolean = await prepare(driver);
+      log('testIndexUiState0507 check20: await prepare(driver) = ' + String(assertOk20));
+      expect(assertOk20).assertTrue();
+      const assertOk21: boolean = await clickId(driver, 'moreIcon');
+      log('testIndexUiState0507 check21: await clickId(driver, \'moreIcon\') = ' + String(assertOk21));
+      expect(assertOk21).assertTrue();
       await sleep(350);
-      expect(await clickId(driver, 'obtain_sandbox_retention_information')).assertTrue();
+      const assertOk22: boolean = await clickId(driver, 'obtain_sandbox_retention_information');
+      log('testIndexUiState0507 check22: await clickId(driver, \'obtain_sandbox_retention_information\') = ' +
+        String(assertOk22));
+      expect(assertOk22).assertTrue();
       await sleep(350);
-      expect(await exists(driver, 'obtain_sandbox_retention_information')).assertFalse();
+      const assertOk23: boolean = await exists(driver, 'obtain_sandbox_retention_information');
+      log('testIndexUiState0507 check23: await exists(driver, \'obtain_sandbox_retention_information\') = ' +
+        String(assertOk23));
+      expect(assertOk23).assertFalse();
     })
 
     /**
@@ -292,11 +341,17 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0511', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0511 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
+      const assertOk24: boolean = await prepare(driver);
+      log('testIndexUiState0511 check24: await prepare(driver) = ' + String(assertOk24));
+      expect(assertOk24).assertTrue();
       await startApp();
       await sleep(350);
-      expect(await exists(driver, 'noteBook')).assertTrue();
-      expect(await exists(driver, 'moreIcon')).assertTrue();
+      const assertOk25: boolean = await exists(driver, 'noteBook');
+      log('testIndexUiState0511 check25: await exists(driver, \'noteBook\') = ' + String(assertOk25));
+      expect(assertOk25).assertTrue();
+      const assertOk26: boolean = await exists(driver, 'moreIcon');
+      log('testIndexUiState0511 check26: await exists(driver, \'moreIcon\') = ' + String(assertOk26));
+      expect(assertOk26).assertTrue();
     })
 
     /**
@@ -310,12 +365,18 @@ export default function indexUiStateTest(): void {
     it('testIndexUiState0513', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       log('testIndexUiState0513 begin');
       const driver: Driver = await Driver.create();
-      expect(await prepare(driver)).assertTrue();
-      expect(await clickId(driver, 'add')).assertTrue();
+      const assertOk27: boolean = await prepare(driver);
+      log('testIndexUiState0513 check27: await prepare(driver) = ' + String(assertOk27));
+      expect(assertOk27).assertTrue();
+      const assertOk28: boolean = await clickId(driver, 'add');
+      log('testIndexUiState0513 check28: await clickId(driver, \'add\') = ' + String(assertOk28));
+      expect(assertOk28).assertTrue();
       await sleep(800);
       await driver.pressBack();
       await sleep(350);
-      expect(await ensureIndexPage(driver)).assertTrue();
+      const assertOk29: boolean = await ensureIndexPage(driver);
+      log('testIndexUiState0513 check29: await ensureIndexPage(driver) = ' + String(assertOk29));
+      expect(assertOk29).assertTrue();
     })
   })
 }

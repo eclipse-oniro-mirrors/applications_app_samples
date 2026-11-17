@@ -31,7 +31,9 @@ export default function settingsUiStateTest(): void {
       logUi('testLaunch0001 begin');
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
-      expect(await existsUi(driver, 'moreIcon')).assertTrue();
+      const assertOk1: boolean = await existsUi(driver, 'moreIcon');
+      logUi('testLaunch0001 check1: await existsUi(driver, \'moreIcon\') = ' + String(assertOk1));
+      expect(assertOk1).assertTrue();
     })
 
     /**
@@ -48,7 +50,9 @@ export default function settingsUiStateTest(): void {
       await launchAppUi(driver);
       await clickIdUi(driver, 'moreIcon');
       await sleepUi(400);
-      expect(await existsUi(driver, 'settings_entry')).assertTrue();
+      const assertOk2: boolean = await existsUi(driver, 'settings_entry');
+      logUi('testMenuEntry0002 check2: await existsUi(driver, \'settings_entry\') = ' + String(assertOk2));
+      expect(assertOk2).assertTrue();
     })
 
     /**
@@ -64,8 +68,12 @@ export default function settingsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       const opened: boolean = await openMenuEntry(driver, 'settings_entry');
-      expect(opened).assertTrue();
-      expect(await existsUi(driver, 'settings_title')).assertTrue();
+      const assertOk3: boolean = opened;
+      logUi('testOpenPage0003 check3: opened = ' + String(assertOk3));
+      expect(assertOk3).assertTrue();
+      const assertOk4: boolean = await existsUi(driver, 'settings_title');
+      logUi('testOpenPage0003 check4: await existsUi(driver, \'settings_title\') = ' + String(assertOk4));
+      expect(assertOk4).assertTrue();
     })
 
     /**
@@ -81,10 +89,18 @@ export default function settingsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
-      expect(await existsUi(driver, 'log_debug')).assertTrue();
-      expect(await existsUi(driver, 'log_info')).assertTrue();
-      expect(await existsUi(driver, 'log_warn')).assertTrue();
-      expect(await existsUi(driver, 'log_error')).assertTrue();
+      const assertOk5: boolean = await existsUi(driver, 'log_debug');
+      logUi('testLogChips0004 check5: await existsUi(driver, \'log_debug\') = ' + String(assertOk5));
+      expect(assertOk5).assertTrue();
+      const assertOk6: boolean = await existsUi(driver, 'log_info');
+      logUi('testLogChips0004 check6: await existsUi(driver, \'log_info\') = ' + String(assertOk6));
+      expect(assertOk6).assertTrue();
+      const assertOk7: boolean = await existsUi(driver, 'log_warn');
+      logUi('testLogChips0004 check7: await existsUi(driver, \'log_warn\') = ' + String(assertOk7));
+      expect(assertOk7).assertTrue();
+      const assertOk8: boolean = await existsUi(driver, 'log_error');
+      logUi('testLogChips0004 check8: await existsUi(driver, \'log_error\') = ' + String(assertOk8));
+      expect(assertOk8).assertTrue();
     })
 
     /**
@@ -100,8 +116,12 @@ export default function settingsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
-      expect(await existsUi(driver, 'page_10')).assertTrue();
-      expect(await existsUi(driver, 'page_50')).assertTrue();
+      const assertOk9: boolean = await existsUi(driver, 'page_10');
+      logUi('testPageChips0005 check9: await existsUi(driver, \'page_10\') = ' + String(assertOk9));
+      expect(assertOk9).assertTrue();
+      const assertOk10: boolean = await existsUi(driver, 'page_50');
+      logUi('testPageChips0005 check10: await existsUi(driver, \'page_50\') = ' + String(assertOk10));
+      expect(assertOk10).assertTrue();
     })
 
     /**
@@ -117,9 +137,15 @@ export default function settingsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
-      expect(await existsUi(driver, 'theme_light')).assertTrue();
-      expect(await existsUi(driver, 'theme_dark')).assertTrue();
-      expect(await existsUi(driver, 'theme_auto')).assertTrue();
+      const assertOk11: boolean = await existsUi(driver, 'theme_light');
+      logUi('testThemeChips0006 check11: await existsUi(driver, \'theme_light\') = ' + String(assertOk11));
+      expect(assertOk11).assertTrue();
+      const assertOk12: boolean = await existsUi(driver, 'theme_dark');
+      logUi('testThemeChips0006 check12: await existsUi(driver, \'theme_dark\') = ' + String(assertOk12));
+      expect(assertOk12).assertTrue();
+      const assertOk13: boolean = await existsUi(driver, 'theme_auto');
+      logUi('testThemeChips0006 check13: await existsUi(driver, \'theme_auto\') = ' + String(assertOk13));
+      expect(assertOk13).assertTrue();
     })
 
     /**
@@ -135,8 +161,12 @@ export default function settingsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
-      expect(await existsUi(driver, 'default_readonly')).assertTrue();
-      expect(await existsUi(driver, 'default_full')).assertTrue();
+      const assertOk14: boolean = await existsUi(driver, 'default_readonly');
+      logUi('testTemplateChips0007 check14: await existsUi(driver, \'default_readonly\') = ' + String(assertOk14));
+      expect(assertOk14).assertTrue();
+      const assertOk15: boolean = await existsUi(driver, 'default_full');
+      logUi('testTemplateChips0007 check15: await existsUi(driver, \'default_full\') = ' + String(assertOk15));
+      expect(assertOk15).assertTrue();
     })
 
     /**
@@ -152,7 +182,9 @@ export default function settingsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
-      expect(await existsUi(driver, 'confirm_switch')).assertTrue();
+      const assertOk16: boolean = await existsUi(driver, 'confirm_switch');
+      logUi('testConfirmSwitch0008 check16: await existsUi(driver, \'confirm_switch\') = ' + String(assertOk16));
+      expect(assertOk16).assertTrue();
     })
 
     /**
@@ -169,7 +201,9 @@ export default function settingsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
       await clickIdUi(driver, 'log_debug');
-      expect(await existsUi(driver, 'settings_save')).assertTrue();
+      const assertOk17: boolean = await existsUi(driver, 'settings_save');
+      logUi('testSelectLogLevel0009 check17: await existsUi(driver, \'settings_save\') = ' + String(assertOk17));
+      expect(assertOk17).assertTrue();
     })
 
     /**
@@ -186,7 +220,9 @@ export default function settingsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
       await clickIdUi(driver, 'settings_save');
-      expect(await existsUi(driver, 'settings_status')).assertTrue();
+      const assertOk18: boolean = await existsUi(driver, 'settings_status');
+      logUi('testSave0010 check18: await existsUi(driver, \'settings_status\') = ' + String(assertOk18));
+      expect(assertOk18).assertTrue();
     })
 
     /**
@@ -203,7 +239,9 @@ export default function settingsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
       await clickIdUi(driver, 'settings_reset');
-      expect(await existsUi(driver, 'settings_status')).assertTrue();
+      const assertOk19: boolean = await existsUi(driver, 'settings_status');
+      logUi('testReset0011 check19: await existsUi(driver, \'settings_status\') = ' + String(assertOk19));
+      expect(assertOk19).assertTrue();
     })
 
     /**
@@ -219,7 +257,9 @@ export default function settingsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
-      expect(await existsUi(driver, 'error_center_entry')).assertTrue();
+      const assertOk20: boolean = await existsUi(driver, 'error_center_entry');
+      logUi('testErrorCenterEntry0012 check20: await existsUi(driver, \'error_center_entry\') = ' + String(assertOk20));
+      expect(assertOk20).assertTrue();
     })
 
     /**
@@ -236,7 +276,9 @@ export default function settingsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
       await clickIdUi(driver, 'error_center_entry');
-      expect(await existsUi(driver, 'error_title')).assertTrue();
+      const assertOk21: boolean = await existsUi(driver, 'error_title');
+      logUi('testOpenErrorCenter0013 check21: await existsUi(driver, \'error_title\') = ' + String(assertOk21));
+      expect(assertOk21).assertTrue();
     })
 
     /**
@@ -253,9 +295,15 @@ export default function settingsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'settings_entry');
       await clickIdUi(driver, 'error_center_entry');
-      expect(await existsUi(driver, 'cat_all')).assertTrue();
-      expect(await existsUi(driver, 'cat_file')).assertTrue();
-      expect(await existsUi(driver, 'cat_permission')).assertTrue();
+      const assertOk22: boolean = await existsUi(driver, 'cat_all');
+      logUi('testErrorCategories0014 check22: await existsUi(driver, \'cat_all\') = ' + String(assertOk22));
+      expect(assertOk22).assertTrue();
+      const assertOk23: boolean = await existsUi(driver, 'cat_file');
+      logUi('testErrorCategories0014 check23: await existsUi(driver, \'cat_file\') = ' + String(assertOk23));
+      expect(assertOk23).assertTrue();
+      const assertOk24: boolean = await existsUi(driver, 'cat_permission');
+      logUi('testErrorCategories0014 check24: await existsUi(driver, \'cat_permission\') = ' + String(assertOk24));
+      expect(assertOk24).assertTrue();
     })
 
     /**
@@ -273,7 +321,9 @@ export default function settingsUiStateTest(): void {
       await openMenuEntry(driver, 'settings_entry');
       await clickIdUi(driver, 'error_center_entry');
       await clickIdUi(driver, 'cat_file');
-      expect(await existsUi(driver, 'error_count')).assertTrue();
+      const assertOk25: boolean = await existsUi(driver, 'error_count');
+      logUi('testErrorFilter0015 check25: await existsUi(driver, \'error_count\') = ' + String(assertOk25));
+      expect(assertOk25).assertTrue();
     })
   });
 }

@@ -507,6 +507,374 @@
     {
       "name": "dlp_settings_summary_tail",
       "value": " items · "
+    },
+    {
+      "name": "dlp_detail_label_name",
+      "value": "Name"
+    },
+    {
+      "name": "dlp_detail_label_kind",
+      "value": "Type"
+    },
+    {
+      "name": "dlp_detail_label_mime",
+      "value": "MIME"
+    },
+    {
+      "name": "dlp_detail_label_size",
+      "value": "Size"
+    },
+    {
+      "name": "dlp_detail_label_modified",
+      "value": "Modified"
+    },
+    {
+      "name": "dlp_detail_label_encrypted",
+      "value": "Encrypted"
+    },
+    {
+      "name": "dlp_detail_label_container",
+      "value": "Container file"
+    },
+    {
+      "name": "dlp_detail_label_uri",
+      "value": "Path"
+    },
+    {
+      "name": "dlp_value_unknown",
+      "value": "Unknown"
+    },
+    {
+      "name": "dlp_value_yes",
+      "value": "Yes"
+    },
+    {
+      "name": "dlp_value_no",
+      "value": "No"
+    },
+    {
+      "name": "dlp_detail_summary_unknown",
+      "value": "Size unknown"
+    },
+    {
+      "name": "dlp_category_none",
+      "value": "Succeeded"
+    },
+    {
+      "name": "dlp_category_file_not_found",
+      "value": "File not found"
+    },
+    {
+      "name": "dlp_category_permission_denied",
+      "value": "Permission denied"
+    },
+    {
+      "name": "dlp_category_invalid_argument",
+      "value": "Invalid argument"
+    },
+    {
+      "name": "dlp_category_network",
+      "value": "Network"
+    },
+    {
+      "name": "dlp_category_storage_full",
+      "value": "Storage full"
+    },
+    {
+      "name": "dlp_category_out_of_memory",
+      "value": "Out of memory"
+    },
+    {
+      "name": "dlp_category_dlp_policy",
+      "value": "DLP policy"
+    },
+    {
+      "name": "dlp_category_account",
+      "value": "Account"
+    },
+    {
+      "name": "dlp_category_internal",
+      "value": "Internal error"
+    },
+    {
+      "name": "dlp_category_unknown",
+      "value": "Unknown"
+    },
+    {
+      "name": "dlp_retryable_yes",
+      "value": "Retryable"
+    },
+    {
+      "name": "dlp_retryable_no",
+      "value": "Not retryable"
+    },
+    {
+      "name": "dlp_search_selected_prefix",
+      "value": "Selected "
+    },
+    {
+      "name": "dlp_search_selected_suffix",
+      "value": " files"
+    },
+    {
+      "name": "dlp_page_detail_title",
+      "value": "File details"
+    },
+    {
+      "name": "dlp_page_error_title",
+      "value": "Error code center"
+    },
+    {
+      "name": "dlp_page_recents_title",
+      "value": "Recents & favorites"
+    },
+    {
+      "name": "dlp_page_settings_title",
+      "value": "Settings"
+    },
+    {
+      "name": "dlp_page_template_title",
+      "value": "DLP permission templates"
+    },
+    {
+      "name": "dlp_error_count",
+      "value": "%d items"
+    },
+    {
+      "name": "dlp_error_search_placeholder",
+      "value": "Enter an error code or keyword"
+    },
+    {
+      "name": "dlp_error_empty",
+      "value": "No matching error codes"
+    },
+    {
+      "name": "dlp_error_cat_all",
+      "value": "All"
+    },
+    {
+      "name": "dlp_recents_refresh",
+      "value": "Refresh"
+    },
+    {
+      "name": "dlp_recents_clear",
+      "value": "Clear recents"
+    },
+    {
+      "name": "dlp_recents_empty",
+      "value": "No recent records. Open a file to see it here."
+    },
+    {
+      "name": "dlp_recents_favorite_section",
+      "value": "Favorites"
+    },
+    {
+      "name": "dlp_recents_recent_section",
+      "value": "Recents"
+    },
+    {
+      "name": "dlp_recents_opened_at",
+      "value": "Opened at: %s"
+    },
+    {
+      "name": "dlp_recents_remove",
+      "value": "Remove"
+    },
+    {
+      "name": "dlp_recents_status_refreshed",
+      "value": "Refreshed"
+    },
+    {
+      "name": "dlp_recents_status_cleared",
+      "value": "Recents cleared"
+    },
+    {
+      "name": "dlp_recents_status_unfavorited",
+      "value": "Removed from favorites"
+    },
+    {
+      "name": "dlp_recents_status_favorited",
+      "value": "Added to favorites"
+    },
+    {
+      "name": "dlp_recents_status_removed",
+      "value": "Record removed"
+    },
+    {
+      "name": "dlp_settings_save",
+      "value": "Save"
+    },
+    {
+      "name": "dlp_settings_log_section",
+      "value": "Log level"
+    },
+    {
+      "name": "dlp_settings_page_section",
+      "value": "Page size"
+    },
+    {
+      "name": "dlp_settings_theme_section",
+      "value": "Theme"
+    },
+    {
+      "name": "dlp_settings_template_section",
+      "value": "Default permission template"
+    },
+    {
+      "name": "dlp_settings_confirm_delete",
+      "value": "Confirm before deletion"
+    },
+    {
+      "name": "dlp_settings_error_center",
+      "value": "Error code center"
+    },
+    {
+      "name": "dlp_settings_view",
+      "value": "View"
+    },
+    {
+      "name": "dlp_settings_reset",
+      "value": "Restore defaults"
+    },
+    {
+      "name": "dlp_settings_status_saved",
+      "value": "Settings saved"
+    },
+    {
+      "name": "dlp_settings_status_save_failed",
+      "value": "Failed to save settings"
+    },
+    {
+      "name": "dlp_settings_status_reset",
+      "value": "Defaults restored. Tap Save to apply."
+    },
+    {
+      "name": "dlp_search_placeholder",
+      "value": "Enter a file name to search"
+    },
+    {
+      "name": "dlp_search_done",
+      "value": "Done"
+    },
+    {
+      "name": "dlp_search_multi",
+      "value": "Select"
+    },
+    {
+      "name": "dlp_search_filter_all",
+      "value": "All"
+    },
+    {
+      "name": "dlp_search_only_dlp",
+      "value": "DLP only"
+    },
+    {
+      "name": "dlp_search_sort",
+      "value": "Sort"
+    },
+    {
+      "name": "dlp_search_sort_name",
+      "value": "Name"
+    },
+    {
+      "name": "dlp_search_sort_size",
+      "value": "Size"
+    },
+    {
+      "name": "dlp_search_sort_time",
+      "value": "Time"
+    },
+    {
+      "name": "dlp_search_total_count",
+      "value": "%d items"
+    },
+    {
+      "name": "dlp_search_empty_filtered",
+      "value": "No matching files"
+    },
+    {
+      "name": "dlp_search_empty_files",
+      "value": "No files to search"
+    },
+    {
+      "name": "dlp_search_prev",
+      "value": "Previous"
+    },
+    {
+      "name": "dlp_search_next",
+      "value": "Next"
+    },
+    {
+      "name": "dlp_search_selected_count",
+      "value": "%d selected"
+    },
+    {
+      "name": "dlp_search_batch_authorize",
+      "value": "Batch authorize"
+    },
+    {
+      "name": "dlp_search_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "dlp_search_open_failed",
+      "value": "Failed to open details: %s"
+    },
+    {
+      "name": "dlp_search_batch_applied",
+      "value": "Applied the read-only template to %d files"
+    },
+    {
+      "name": "dlp_template_section_builtin",
+      "value": "Built-in templates"
+    },
+    {
+      "name": "dlp_template_section_custom",
+      "value": "Custom templates"
+    },
+    {
+      "name": "dlp_template_empty",
+      "value": "No custom templates"
+    },
+    {
+      "name": "dlp_template_delete",
+      "value": "Delete"
+    },
+    {
+      "name": "dlp_template_form_edit",
+      "value": "Edit template"
+    },
+    {
+      "name": "dlp_template_form_create",
+      "value": "New template"
+    },
+    {
+      "name": "dlp_template_name_placeholder",
+      "value": "Template name"
+    },
+    {
+      "name": "dlp_template_save_edit",
+      "value": "Save changes"
+    },
+    {
+      "name": "dlp_template_save_create",
+      "value": "Create template"
+    },
+    {
+      "name": "dlp_template_cancel_edit",
+      "value": "Cancel editing"
+    },
+    {
+      "name": "dlp_template_status_deleted",
+      "value": "Template deleted"
+    },
+    {
+      "name": "dlp_template_status_editing",
+      "value": "Editing: %s"
+    },
+    {
+      "name": "dlp_template_status_cancelled",
+      "value": "Editing cancelled"
     }
   ]
 }

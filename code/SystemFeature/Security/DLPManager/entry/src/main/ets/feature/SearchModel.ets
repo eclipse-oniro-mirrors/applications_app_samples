@@ -16,6 +16,7 @@
 import { FileKind } from '../core/FileKindCore';
 import { FileEntry, QueryOptions, QueryResult, SortField, filterEntries, sortEntries,
   queryEntries } from '../core/FileQueryCore';
+import { textOf } from '../core/TextCatalog';
 
 export const DEFAULT_PAGE_SIZE: number = 10;
 const MAX_PAGE_SIZE: number = 50;
@@ -276,7 +277,8 @@ export class SearchModel {
   }
 
   selectionSummary(): string {
-    return '已选择 ' + this.selectedIds.length.toString() + ' 个文件';
+    return textOf('dlp_search_selected_prefix') + this.selectedIds.length.toString() +
+      textOf('dlp_search_selected_suffix');
   }
 
   private indexOfKind(kind: FileKind): number {

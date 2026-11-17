@@ -99,7 +99,7 @@ struct SearchPage {
     AppStorage.setOrCreate('detailModified', item.modifiedAtSec);
     this.recordRecent(item);
     router.pushUrl({ url: 'pages/DetailPage' }).catch((err: BusinessError) => {
-      promptAction.showToast({ message: '打开详情失败：' + err.message, duration: 2000 });
+      promptAction.showToast({ message: $r('app.string.dlp_search_open_failed', err.message), duration: 2000 });
     });
   }
 
@@ -118,7 +118,8 @@ struct SearchPage {
   }
 
   private batchAuthorize(): void {
-    promptAction.showToast({ message: '已为 ' + this.selectedCount.toString() + ' 个文件应用只读权限模板', duration: 2000 });
+    promptAction.showToast({ message: $r('app.string.dlp_search_batch_applied', this.selectedCount),
+      duration: 2000 });
     this.model.clearSelection();
     this.selectedCount = 0;
     this.selectionMode = false;
@@ -166,7 +167,7 @@ struct SearchPage {
         .onClick(() => {
           router.back();
         })
-      TextInput({ placeholder: '输入文件名搜索' })
+      TextInput({ placeholder: $r('app.string.dlp_search_placeholder') })
         .layoutWeight(1)
         .height('36vp')
         .fontSize('14vp')
@@ -177,7 +178,7 @@ struct SearchPage {
           this.keyword = value;
           this.applyFilters();
         })
-      Text(this.selectionMode ? '完成' : '多选')
+      Text(this.selectionMode ? $r('app.string.dlp_search_done') : $r('app.string.dlp_search_multi'))
         .fontSize('14vp')
         .fontColor($r('app.color.main_blue'))
         .margin({ left: '12vp' })
@@ -199,11 +200,11 @@ struct SearchPage {
   FilterBar() {
     Scroll() {
       Row() {
-        this.KindChip('全部', 'all', 'filter_all')
-        this.KindChip('文本', 'text', 'filter_text')
-        this.KindChip('文档', 'document', 'filter_document')
-        this.KindChip('图片', 'image', 'filter_image')
-        Text('仅加密')
+        this.KindChip($r('app.string.dlp_search_filter_all'), 'all', 'filter_all')
+        this.KindChip($r('app.string.dlp_kind_text'), 'text', 'filter_text')
+        this.KindChip($r('app.string.dlp_kind_document'), 'document', 'filter_document')
+        this.KindChip($r('app.string.dlp_kind_image'), 'image', 'filter_image')
+        Text($r('app.string.dlp_search_only_dlp'))
           .fontSize('14vp')
           .fontColor(this.onlyDlp ? '#FFFFFF' : $r('app.color.font_color_182431'))
           .backgroundColor(this.onlyDlp ? $r('app.color.main_red') : $r('app.color.color_button_grey'))
@@ -226,7 +227,7 @@ struct SearchPage {
   }
 
   @Builder
-  KindChip(label: string, key: string, itemId: string) {
+  KindChip(label: ResourceStr, key: string, itemId: string) {
     Text(label)
       .fontSize('14vp')
       .fontColor(this.kindKey === key ? '#FFFFFF' : $r('app.color.font_color_182431'))
@@ -244,15 +245,15 @@ struct SearchPage {
   @Builder
   SortBar() {
     Row() {
-      Text('排序')
+      Text($r('app.string.dlp_search_sort'))
         .fontSize('12vp')
         .fontColor($r('app.color.color_999999_grey'))
         .margin({ right: '12vp' })
-      this.SortItem('名称', 'name', 'sort_name')
-      this.SortItem('大小', 'size', 'sort_size')
-      this.SortItem('时间', 'time', 'sort_time')
+      this.SortItem($r('app.string.dlp_search_sort_name'), 'name', 'sort_name')
+      this.SortItem($r('app.string.dlp_search_sort_size'), 'size', 'sort_size')
+      this.SortItem($r('app.string.dlp_search_sort_time'), 'time', 'sort_time')
       Blank()
-      Text('共 ' + this.total.toString() + ' 个')
+      Text($r('app.string.dlp_search_total_count', this.total))
         .fontSize('12vp')
         .fontColor($r('app.color.color_666666_grey'))
         .id('search_total')
@@ -263,7 +264,7 @@ struct SearchPage {
   }
 
   @Builder
-  SortItem(label: string, key: string, itemId: string) {
+  SortItem(label: ResourceStr, key: string, itemId: string) {
     Text(label)
       .fontSize('12vp')
       .fontColor(this.sortKey === key ? $r('app.color.main_blue') : $r('app.color.color_666666_grey'))
@@ -279,7 +280,8 @@ struct SearchPage {
   ResultArea() {
     if (this.items.length === 0) {
       Column() {
-        Text(this.keyword.length > 0 || this.kindKey !== 'all' || this.onlyDlp ? '无匹配文件' : '暂无可搜索的文件')
+        Text(this.keyword.length > 0 || this.kindKey !== 'all' || this.onlyDlp ?
+          $r('app.string.dlp_search_empty_filtered') : $r('app.string.dlp_search_empty_files'))
           .fontSize('16vp')
           .fontColor($r('app.color.color_999999_grey'))
           .id('search_empty')
@@ -337,7 +339,7 @@ struct SearchPage {
   @Builder
   Pager() {
     Row() {
-      Button('上一页')
+      Button($r('app.string.dlp_search_prev'))
         .fontSize('12vp')
         .height('28vp')
         .backgroundColor($r('app.color.color_button_grey'))
@@ -351,7 +353,7 @@ struct SearchPage {
         .fontColor($r('app.color.color_666666_grey'))
         .margin({ left: '12vp', right: '12vp' })
         .id('search_page_info')
-      Button('下一页')
+      Button($r('app.string.dlp_search_next'))
         .fontSize('12vp')
         .height('28vp')
         .backgroundColor($r('app.color.color_button_grey'))
@@ -369,12 +371,12 @@ struct SearchPage {
   @Builder
   BatchBar() {
     Row() {
-      Text('已选择 ' + this.selectedCount.toString() + ' 个文件')
+      Text($r('app.string.dlp_search_selected_count', this.selectedCount))
         .fontSize('14vp')
         .fontColor($r('app.color.font_color_182431'))
         .layoutWeight(1)
         .id('batch_count')
-      Button('批量授权')
+      Button($r('app.string.dlp_search_batch_authorize'))
         .fontSize('14vp')
         .height('32vp')
         .backgroundColor($r('app.color.main_blue'))
@@ -384,7 +386,7 @@ struct SearchPage {
         .onClick(() => {
           this.batchAuthorize();
         })
-      Button('取消')
+      Button($r('app.string.dlp_search_cancel'))
         .fontSize('14vp')
         .height('32vp')
         .backgroundColor($r('app.color.color_button_grey'))

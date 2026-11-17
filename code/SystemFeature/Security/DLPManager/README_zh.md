@@ -103,7 +103,7 @@ entry/src/ohosTest/ets/test/           // 设备端 UI 自动化用例（Hypium 
 
 2.本示例已适配API version 26.0.0版本SDK。
 
-3.本示例需要使用DevEco Studio 3.1 Beta2 (Build Version: 3.1.0.400 构建 2023年4月7日)及以上版本才可编译运行。
+3.本示例需要使用DevEco Studio 6.0.0 Release (Build Version: 6.0.0.91)及以上版本才可编译运行。
 
 4.本示例签名时需修改sdk文件夹下`UnsgnedReleasedProfileTemplate.json`文件，如下所示：
 ```json
@@ -154,7 +154,7 @@ hvigorw test --no-daemon
 git init
 git config core.sparsecheckout true
 echo code/SystemFeature/Security/DLPManager > .git/info/sparse-checkout
-git remote add origin https://gitee.com/openharmony/applications_app_samples.git
+git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 
 ```

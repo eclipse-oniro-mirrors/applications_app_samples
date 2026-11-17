@@ -31,7 +31,9 @@ export default function recentsUiStateTest(): void {
       logUi('testLaunch0001 begin');
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
-      expect(await existsUi(driver, 'moreIcon')).assertTrue();
+      const assertOk1: boolean = await existsUi(driver, 'moreIcon');
+      logUi('testLaunch0001 check1: await existsUi(driver, \'moreIcon\') = ' + String(assertOk1));
+      expect(assertOk1).assertTrue();
     })
 
     /**
@@ -48,7 +50,9 @@ export default function recentsUiStateTest(): void {
       await launchAppUi(driver);
       await clickIdUi(driver, 'moreIcon');
       await sleepUi(400);
-      expect(await existsUi(driver, 'recent_files_entry')).assertTrue();
+      const assertOk2: boolean = await existsUi(driver, 'recent_files_entry');
+      logUi('testMenuEntry0002 check2: await existsUi(driver, \'recent_files_entry\') = ' + String(assertOk2));
+      expect(assertOk2).assertTrue();
     })
 
     /**
@@ -64,8 +68,12 @@ export default function recentsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       const opened: boolean = await openMenuEntry(driver, 'recent_files_entry');
-      expect(opened).assertTrue();
-      expect(await existsUi(driver, 'recents_title')).assertTrue();
+      const assertOk3: boolean = opened;
+      logUi('testOpenPage0003 check3: opened = ' + String(assertOk3));
+      expect(assertOk3).assertTrue();
+      const assertOk4: boolean = await existsUi(driver, 'recents_title');
+      logUi('testOpenPage0003 check4: await existsUi(driver, \'recents_title\') = ' + String(assertOk4));
+      expect(assertOk4).assertTrue();
     })
 
     /**
@@ -84,7 +92,9 @@ export default function recentsUiStateTest(): void {
       const empty: boolean = await existsUi(driver, 'recents_empty');
       const favorite: boolean = await existsUi(driver, 'favorite_item_0');
       const recent: boolean = await existsUi(driver, 'recent_item_0');
-      expect(empty || favorite || recent).assertTrue();
+      const assertOk5: boolean = empty || favorite || recent;
+      logUi('testInitialState0004 check5: empty || favorite || recent = ' + String(assertOk5));
+      expect(assertOk5).assertTrue();
     })
 
     /**
@@ -101,7 +111,9 @@ export default function recentsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'recent_files_entry');
       await clickIdUi(driver, 'recents_back');
-      expect(await existsUi(driver, 'moreIcon')).assertTrue();
+      const assertOk6: boolean = await existsUi(driver, 'moreIcon');
+      logUi('testBack0005 check6: await existsUi(driver, \'moreIcon\') = ' + String(assertOk6));
+      expect(assertOk6).assertTrue();
     })
 
     /**
@@ -118,7 +130,9 @@ export default function recentsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'recent_files_entry');
       await clickIdUi(driver, 'recents_refresh');
-      expect(await existsUi(driver, 'recents_title')).assertTrue();
+      const assertOk7: boolean = await existsUi(driver, 'recents_title');
+      logUi('testRefresh0006 check7: await existsUi(driver, \'recents_title\') = ' + String(assertOk7));
+      expect(assertOk7).assertTrue();
     })
 
     /**
@@ -135,7 +149,9 @@ export default function recentsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'recent_files_entry');
       await clickIdUi(driver, 'recents_clear');
-      expect(await existsUi(driver, 'recents_title')).assertTrue();
+      const assertOk8: boolean = await existsUi(driver, 'recents_title');
+      logUi('testClear0007 check8: await existsUi(driver, \'recents_title\') = ' + String(assertOk8));
+      expect(assertOk8).assertTrue();
     })
 
     /**
@@ -152,9 +168,13 @@ export default function recentsUiStateTest(): void {
       await launchAppUi(driver);
       await openMenuEntry(driver, 'recent_files_entry');
       if (await existsUi(driver, 'recent_item_0')) {
-        expect(await existsUi(driver, 'recent_section')).assertTrue();
+        const assertOk9: boolean = await existsUi(driver, 'recent_section');
+        logUi('testSections0008 check9: await existsUi(driver, \'recent_section\') = ' + String(assertOk9));
+        expect(assertOk9).assertTrue();
       } else {
-        expect(await existsUi(driver, 'recents_empty')).assertTrue();
+        const assertOk10: boolean = await existsUi(driver, 'recents_empty');
+        logUi('testSections0008 check10: await existsUi(driver, \'recents_empty\') = ' + String(assertOk10));
+        expect(assertOk10).assertTrue();
       }
     })
 
@@ -173,9 +193,13 @@ export default function recentsUiStateTest(): void {
       await openMenuEntry(driver, 'recent_files_entry');
       if (await existsUi(driver, 'recent_fav_0')) {
         await clickIdUi(driver, 'recent_fav_0');
-        expect(await existsUi(driver, 'recents_title')).assertTrue();
+        const assertOk11: boolean = await existsUi(driver, 'recents_title');
+        logUi('testFavoriteToggle0009 check11: await existsUi(driver, \'recents_title\') = ' + String(assertOk11));
+        expect(assertOk11).assertTrue();
       } else {
-        expect(await existsUi(driver, 'recents_empty')).assertTrue();
+        const assertOk12: boolean = await existsUi(driver, 'recents_empty');
+        logUi('testFavoriteToggle0009 check12: await existsUi(driver, \'recents_empty\') = ' + String(assertOk12));
+        expect(assertOk12).assertTrue();
       }
     })
 
@@ -194,9 +218,13 @@ export default function recentsUiStateTest(): void {
       await openMenuEntry(driver, 'recent_files_entry');
       if (await existsUi(driver, 'recent_remove_0')) {
         await clickIdUi(driver, 'recent_remove_0');
-        expect(await existsUi(driver, 'recents_title')).assertTrue();
+        const assertOk13: boolean = await existsUi(driver, 'recents_title');
+        logUi('testRemoveItem0010 check13: await existsUi(driver, \'recents_title\') = ' + String(assertOk13));
+        expect(assertOk13).assertTrue();
       } else {
-        expect(await existsUi(driver, 'recents_empty')).assertTrue();
+        const assertOk14: boolean = await existsUi(driver, 'recents_empty');
+        logUi('testRemoveItem0010 check14: await existsUi(driver, \'recents_empty\') = ' + String(assertOk14));
+        expect(assertOk14).assertTrue();
       }
     })
 
@@ -215,7 +243,9 @@ export default function recentsUiStateTest(): void {
       await openMenuEntry(driver, 'recent_files_entry');
       await clickIdUi(driver, 'recents_back');
       await openMenuEntry(driver, 'recent_files_entry');
-      expect(await existsUi(driver, 'recents_title')).assertTrue();
+      const assertOk15: boolean = await existsUi(driver, 'recents_title');
+      logUi('testOpenTwice0011 check15: await existsUi(driver, \'recents_title\') = ' + String(assertOk15));
+      expect(assertOk15).assertTrue();
     })
 
     /**
@@ -232,9 +262,16 @@ export default function recentsUiStateTest(): void {
       await launchAppUi(driver);
       await clickIdUi(driver, 'moreIcon');
       await sleepUi(400);
-      expect(await existsUi(driver, 'search_files_entry')).assertTrue();
-      expect(await existsUi(driver, 'policy_templates_entry')).assertTrue();
-      expect(await existsUi(driver, 'settings_entry')).assertTrue();
+      const assertOk16: boolean = await existsUi(driver, 'search_files_entry');
+      logUi('testOtherEntries00012 check16: await existsUi(driver, \'search_files_entry\') = ' + String(assertOk16));
+      expect(assertOk16).assertTrue();
+      const assertOk17: boolean = await existsUi(driver, 'policy_templates_entry');
+      logUi('testOtherEntries00012 check17: await existsUi(driver, \'policy_templates_entry\') = ' +
+        String(assertOk17));
+      expect(assertOk17).assertTrue();
+      const assertOk18: boolean = await existsUi(driver, 'settings_entry');
+      logUi('testOtherEntries00012 check18: await existsUi(driver, \'settings_entry\') = ' + String(assertOk18));
+      expect(assertOk18).assertTrue();
     })
 
     /**
@@ -252,9 +289,13 @@ export default function recentsUiStateTest(): void {
       await openMenuEntry(driver, 'recent_files_entry');
       await clickIdUi(driver, 'recents_refresh');
       if (await existsUi(driver, 'recent_item_0')) {
-        expect(await existsUi(driver, 'recents_status')).assertTrue();
+        const assertOk19: boolean = await existsUi(driver, 'recents_status');
+        logUi('testStatusAfterRefresh0013 check19: await existsUi(driver, \'recents_status\') = ' + String(assertOk19));
+        expect(assertOk19).assertTrue();
       } else {
-        expect(await existsUi(driver, 'recents_empty')).assertTrue();
+        const assertOk20: boolean = await existsUi(driver, 'recents_empty');
+        logUi('testStatusAfterRefresh0013 check20: await existsUi(driver, \'recents_empty\') = ' + String(assertOk20));
+        expect(assertOk20).assertTrue();
       }
     })
 
@@ -271,8 +312,12 @@ export default function recentsUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchAppUi(driver);
       await openMenuEntry(driver, 'recent_files_entry');
-      expect(await existsUi(driver, 'recents_title')).assertTrue();
-      expect(await existsUi(driver, 'recents_back')).assertTrue();
+      const assertOk21: boolean = await existsUi(driver, 'recents_title');
+      logUi('testTitleVisible0014 check21: await existsUi(driver, \'recents_title\') = ' + String(assertOk21));
+      expect(assertOk21).assertTrue();
+      const assertOk22: boolean = await existsUi(driver, 'recents_back');
+      logUi('testTitleVisible0014 check22: await existsUi(driver, \'recents_back\') = ' + String(assertOk22));
+      expect(assertOk22).assertTrue();
     })
 
     /**
@@ -290,7 +335,9 @@ export default function recentsUiStateTest(): void {
       await openMenuEntry(driver, 'recent_files_entry');
       await clickIdUi(driver, 'recents_clear');
       await clickIdUi(driver, 'recents_back');
-      expect(await existsUi(driver, 'moreIcon')).assertTrue();
+      const assertOk23: boolean = await existsUi(driver, 'moreIcon');
+      logUi('testClearThenBack0015 check23: await existsUi(driver, \'moreIcon\') = ' + String(assertOk23));
+      expect(assertOk23).assertTrue();
     })
   });
 }

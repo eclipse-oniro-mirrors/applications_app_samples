@@ -25,7 +25,7 @@ struct RecentsPage {
   @State favorites: RecentItem[] = [];
   @State recents: RecentItem[] = [];
   @State empty: boolean = true;
-  @State status: string = '';
+  @State status: ResourceStr = '';
   private nowSec: number = 0;
 
   aboutToAppear(): void {
@@ -47,7 +47,7 @@ struct RecentsPage {
   private async refresh(): Promise<void> {
     this.nowSec = Math.floor(Date.now() / 1000);
     await this.load();
-    this.status = '已刷新';
+    this.status = $r('app.string.dlp_recents_status_refreshed');
   }
 
   private async clearRecents(): Promise<void> {
@@ -55,14 +55,15 @@ struct RecentsPage {
     this.favorites = model.favorites();
     this.recents = model.nonFavorites();
     this.empty = model.isEmpty();
-    this.status = '已清空最近访问';
+    this.status = $r('app.string.dlp_recents_status_cleared');
   }
 
   private async toggleFavorite(item: RecentItem): Promise<void> {
     const model: RecentModel = await RecentStore.toggleFavorite(this.context(), item.id);
     this.favorites = model.favorites();
     this.recents = model.nonFavorites();
-    this.status = item.favorite ? '已取消收藏' : '已加入收藏';
+    this.status = item.favorite ? $r('app.string.dlp_recents_status_unfavorited') :
+      $r('app.string.dlp_recents_status_favorited');
   }
 
   private async removeItem(item: RecentItem): Promise<void> {
@@ -70,7 +71,7 @@ struct RecentsPage {
     this.favorites = model.favorites();
     this.recents = model.nonFavorites();
     this.empty = model.isEmpty();
-    this.status = '已移除记录';
+    this.status = $r('app.string.dlp_recents_status_removed');
   }
 
   private openDetail(item: RecentItem): void {
@@ -92,13 +93,13 @@ struct RecentsPage {
           .onClick(() => {
             router.back();
           })
-        Text('最近与收藏')
+        Text($r('app.string.dlp_page_recents_title'))
           .fontSize('20vp')
           .fontWeight(700)
           .fontColor($r('app.color.font_color_182431'))
           .layoutWeight(1)
           .id('recents_title')
-        Text('刷新')
+        Text($r('app.string.dlp_recents_refresh'))
           .fontSize('14vp')
           .fontColor($r('app.color.main_blue'))
           .margin({ right: '12vp' })
@@ -106,7 +107,7 @@ struct RecentsPage {
           .onClick(() => {
             this.refresh();
           })
-        Text('清空最近')
+        Text($r('app.string.dlp_recents_clear'))
           .fontSize('14vp')
           .fontColor($r('app.color.main_red'))
           .id('recents_clear')
@@ -120,7 +121,7 @@ struct RecentsPage {
 
       if (this.empty) {
         Column() {
-          Text('暂无最近记录，打开文件后可在这里查看')
+          Text($r('app.string.dlp_recents_empty'))
             .fontSize('16vp')
             .fontColor($r('app.color.color_999999_grey'))
             .id('recents_empty')
@@ -132,7 +133,7 @@ struct RecentsPage {
         Scroll() {
           Column() {
             if (this.favorites.length > 0) {
-              Text('收藏')
+              Text($r('app.string.dlp_recents_favorite_section'))
                 .fontSize('14vp')
                 .fontColor($r('app.color.color_666666_grey'))
                 .width('100%')
@@ -142,7 +143,7 @@ struct RecentsPage {
                 this.ItemRow(item, index, 'fav')
               }, (item: RecentItem): string => 'fav_' + item.id)
             }
-            Text('最近访问')
+            Text($r('app.string.dlp_recents_recent_section'))
               .fontSize('14vp')
               .fontColor($r('app.color.color_666666_grey'))
               .width('100%')
@@ -151,7 +152,7 @@ struct RecentsPage {
             ForEach(this.recents, (item: RecentItem, index: number) => {
               this.ItemRow(item, index, 'recent')
             }, (item: RecentItem): string => 'recent_' + item.id)
-            if (this.status.length > 0) {
+            if (this.status !== '') {
               Text(this.status)
                 .fontSize('12vp')
                 .fontColor($r('app.color.color_999999_grey'))
@@ -184,7 +185,7 @@ struct RecentsPage {
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .id(prefix + '_name_' + index.toString())
-        Text('最近打开：' + formatRelative(item.lastOpenedSec, this.nowSec, false))
+        Text($r('app.string.dlp_recents_opened_at', formatRelative(item.lastOpenedSec, this.nowSec, false)))
           .fontSize('12vp')
           .fontColor($r('app.color.color_666666_grey'))
           .margin({ top: '4vp' })
@@ -202,7 +203,7 @@ struct RecentsPage {
         .onClick(() => {
           this.toggleFavorite(item);
         })
-      Text('移除')
+      Text($r('app.string.dlp_recents_remove'))
         .fontSize('12vp')
         .fontColor($r('app.color.main_red'))
         .margin({ left: '12vp' })

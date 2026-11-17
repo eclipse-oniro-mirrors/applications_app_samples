@@ -27,7 +27,7 @@ struct TemplatePage {
   @State name: string = '';
   @State selectedMask: number = DlpPermission.READ;
   @State editingId: string = '';
-  @State status: string = '';
+  @State status: ResourceStr = '';
   private model: TemplateModel = new TemplateModel();
 
   aboutToAppear(): void {
@@ -94,7 +94,7 @@ struct TemplatePage {
     }
     await TemplateStore.save(this.context(), this.model);
     this.refreshCustoms();
-    this.status = '模板已删除';
+    this.status = $r('app.string.dlp_template_status_deleted');
     if (this.editingId === id) {
       this.resetForm();
     }
@@ -104,7 +104,7 @@ struct TemplatePage {
     this.name = item.name;
     this.selectedMask = item.mask;
     this.editingId = item.id;
-    this.status = '正在编辑：' + item.name;
+    this.status = $r('app.string.dlp_template_status_editing', item.name);
   }
 
   build() {
@@ -118,7 +118,7 @@ struct TemplatePage {
           .onClick(() => {
             router.back();
           })
-        Text('DLP 权限模板')
+        Text($r('app.string.dlp_page_template_title'))
           .fontSize('20vp')
           .fontWeight(700)
           .fontColor($r('app.color.font_color_182431'))
@@ -131,7 +131,7 @@ struct TemplatePage {
 
       Scroll() {
         Column() {
-          Text('内置模板')
+          Text($r('app.string.dlp_template_section_builtin'))
             .fontSize('14vp')
             .fontColor($r('app.color.color_666666_grey'))
             .width('100%')
@@ -155,14 +155,14 @@ struct TemplatePage {
             .id('builtin_item_' + index.toString())
           }, (template: PolicyTemplate): string => template.id)
 
-          Text('自定义模板')
+          Text($r('app.string.dlp_template_section_custom'))
             .fontSize('14vp')
             .fontColor($r('app.color.color_666666_grey'))
             .width('100%')
             .padding({ left: '16vp', top: '16vp', bottom: '6vp' })
             .id('custom_section')
           if (this.customs.length === 0) {
-            Text('暂无自定义模板')
+            Text($r('app.string.dlp_template_empty'))
               .fontSize('14vp')
               .fontColor($r('app.color.color_999999_grey'))
               .width('100%')
@@ -183,7 +183,7 @@ struct TemplatePage {
                 }
                 .alignItems(HorizontalAlign.Start)
                 .layoutWeight(1)
-                Text('删除')
+                Text($r('app.string.dlp_template_delete'))
                   .fontSize('12vp')
                   .fontColor($r('app.color.main_red'))
                   .margin({ left: '12vp' })
@@ -203,13 +203,14 @@ struct TemplatePage {
             }, (item: CustomTemplate): string => item.id)
           }
 
-          Text(this.editingId.length > 0 ? '编辑模板' : '新建模板')
+          Text(this.editingId.length > 0 ? $r('app.string.dlp_template_form_edit') :
+            $r('app.string.dlp_template_form_create'))
             .fontSize('14vp')
             .fontColor($r('app.color.color_666666_grey'))
             .width('100%')
             .padding({ left: '16vp', top: '16vp', bottom: '6vp' })
             .id('form_section')
-          TextInput({ placeholder: '模板名称' })
+          TextInput({ placeholder: $r('app.string.dlp_template_name_placeholder') })
             .height('36vp')
             .fontSize('14vp')
             .backgroundColor($r('app.color.input_background'))
@@ -220,15 +221,16 @@ struct TemplatePage {
               this.name = value;
             })
           Row() {
-            this.PermChip('读取', DlpPermission.READ, 'perm_read')
-            this.PermChip('编辑', DlpPermission.WRITE, 'perm_write')
-            this.PermChip('打印', DlpPermission.PRINT, 'perm_print')
-            this.PermChip('复制', DlpPermission.COPY, 'perm_copy')
+            this.PermChip($r('app.string.dlp_perm_read'), DlpPermission.READ, 'perm_read')
+            this.PermChip($r('app.string.dlp_perm_write'), DlpPermission.WRITE, 'perm_write')
+            this.PermChip($r('app.string.dlp_perm_print'), DlpPermission.PRINT, 'perm_print')
+            this.PermChip($r('app.string.dlp_perm_copy'), DlpPermission.COPY, 'perm_copy')
           }
           .width('100%')
           .padding({ left: '16vp', right: '16vp', top: '10vp' })
           Row() {
-            Button(this.editingId.length > 0 ? '保存修改' : '创建模板')
+            Button(this.editingId.length > 0 ? $r('app.string.dlp_template_save_edit') :
+              $r('app.string.dlp_template_save_create'))
               .fontSize('14vp')
               .height('32vp')
               .backgroundColor($r('app.color.main_blue'))
@@ -239,7 +241,7 @@ struct TemplatePage {
                 this.save();
               })
             if (this.editingId.length > 0) {
-              Button('取消编辑')
+              Button($r('app.string.dlp_template_cancel_edit'))
                 .fontSize('14vp')
                 .height('32vp')
                 .backgroundColor($r('app.color.color_button_grey'))
@@ -247,13 +249,13 @@ struct TemplatePage {
                 .id('tmpl_cancel')
                 .onClick(() => {
                   this.resetForm();
-                  this.status = '已取消编辑';
+                  this.status = $r('app.string.dlp_template_status_cancelled');
                 })
             }
           }
           .width('100%')
           .padding({ left: '16vp', right: '16vp', top: '12vp', bottom: '12vp' })
-          if (this.status.length > 0) {
+          if (this.status !== '') {
             Text(this.status)
               .fontSize('12vp')
               .fontColor($r('app.color.color_999999_grey'))
@@ -277,7 +279,7 @@ struct TemplatePage {
   }
 
   @Builder
-  PermChip(label: string, permission: number, itemId: string) {
+  PermChip(label: ResourceStr, permission: number, itemId: string) {
     Text(label)
       .fontSize('14vp')
       .fontColor(this.hasBit(permission) ? '#FFFFFF' : $r('app.color.font_color_182431'))

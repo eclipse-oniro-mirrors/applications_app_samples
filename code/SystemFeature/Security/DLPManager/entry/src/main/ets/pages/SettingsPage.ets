@@ -15,7 +15,7 @@
 
 import router from '@ohos.router';
 import common from '@ohos.app.ability.common';
-import { SettingsModel, logLevelLabel, themeLabel } from '../feature/SettingsModel';
+import { SettingsModel } from '../feature/SettingsModel';
 import { SettingsStore } from '../feature/PreferenceStore';
 
 @Entry
@@ -26,7 +26,7 @@ struct SettingsPage {
   @State theme: string = 'light';
   @State templateId: string = 'read-only';
   @State confirmBeforeDelete: boolean = true;
-  @State status: string = '';
+  @State status: ResourceStr = '';
   private model: SettingsModel = new SettingsModel();
 
   aboutToAppear(): void {
@@ -53,7 +53,8 @@ struct SettingsPage {
     this.model.setDefaultTemplate(this.templateId);
     this.model.setConfirmBeforeDelete(this.confirmBeforeDelete);
     const saved: boolean = await SettingsStore.save(this.context(), this.model);
-    this.status = saved ? '设置已保存' : '设置保存失败';
+    this.status = saved ? $r('app.string.dlp_settings_status_saved') :
+      $r('app.string.dlp_settings_status_save_failed');
   }
 
   private reset(): void {
@@ -63,7 +64,7 @@ struct SettingsPage {
     this.theme = this.model.theme;
     this.templateId = this.model.defaultTemplateId;
     this.confirmBeforeDelete = this.model.confirmBeforeDelete;
-    this.status = '已恢复默认设置，点击保存后生效';
+    this.status = $r('app.string.dlp_settings_status_reset');
   }
 
 
@@ -96,13 +97,13 @@ struct SettingsPage {
           .onClick(() => {
             router.back();
           })
-        Text('设置')
+        Text($r('app.string.dlp_page_settings_title'))
           .fontSize('20vp')
           .fontWeight(700)
           .fontColor($r('app.color.font_color_182431'))
           .layoutWeight(1)
           .id('settings_title')
-        Text('保存')
+        Text($r('app.string.dlp_settings_save'))
           .fontSize('14vp')
           .fontColor($r('app.color.main_blue'))
           .id('settings_save')
@@ -116,17 +117,17 @@ struct SettingsPage {
 
       Scroll() {
         Column() {
-          this.SectionTitle('日志级别', 'settings_log_section')
+          this.SectionTitle($r('app.string.dlp_settings_log_section'), 'settings_log_section')
           Row() {
-            this.ChoiceChip(logLevelLabel('debug'), this.logLevel === 'debug', 'log_debug', 'logLevel:debug')
-            this.ChoiceChip(logLevelLabel('info'), this.logLevel === 'info', 'log_info', 'logLevel:info')
-            this.ChoiceChip(logLevelLabel('warn'), this.logLevel === 'warn', 'log_warn', 'logLevel:warn')
-            this.ChoiceChip(logLevelLabel('error'), this.logLevel === 'error', 'log_error', 'logLevel:error')
+            this.ChoiceChip($r('app.string.dlp_level_debug'), this.logLevel === 'debug', 'log_debug', 'logLevel:debug')
+            this.ChoiceChip($r('app.string.dlp_level_info'), this.logLevel === 'info', 'log_info', 'logLevel:info')
+            this.ChoiceChip($r('app.string.dlp_level_warn'), this.logLevel === 'warn', 'log_warn', 'logLevel:warn')
+            this.ChoiceChip($r('app.string.dlp_level_error'), this.logLevel === 'error', 'log_error', 'logLevel:error')
           }
           .width('100%')
           .padding({ left: '16vp', right: '16vp' })
 
-          this.SectionTitle('每页数量', 'settings_page_section')
+          this.SectionTitle($r('app.string.dlp_settings_page_section'), 'settings_page_section')
           Row() {
             this.ChoiceChip('5', this.pageSize === 5, 'page_5', 'pageSize:5')
             this.ChoiceChip('10', this.pageSize === 10, 'page_10', 'pageSize:10')
@@ -136,27 +137,31 @@ struct SettingsPage {
           .width('100%')
           .padding({ left: '16vp', right: '16vp' })
 
-          this.SectionTitle('主题', 'settings_theme_section')
+          this.SectionTitle($r('app.string.dlp_settings_theme_section'), 'settings_theme_section')
           Row() {
-            this.ChoiceChip(themeLabel('light'), this.theme === 'light', 'theme_light', 'theme:light')
-            this.ChoiceChip(themeLabel('dark'), this.theme === 'dark', 'theme_dark', 'theme:dark')
-            this.ChoiceChip(themeLabel('auto'), this.theme === 'auto', 'theme_auto', 'theme:auto')
+            this.ChoiceChip($r('app.string.dlp_theme_light'), this.theme === 'light', 'theme_light', 'theme:light')
+            this.ChoiceChip($r('app.string.dlp_theme_dark'), this.theme === 'dark', 'theme_dark', 'theme:dark')
+            this.ChoiceChip($r('app.string.dlp_theme_auto'), this.theme === 'auto', 'theme_auto', 'theme:auto')
           }
           .width('100%')
           .padding({ left: '16vp', right: '16vp' })
 
-          this.SectionTitle('默认权限模板', 'settings_template_section')
+          this.SectionTitle($r('app.string.dlp_settings_template_section'), 'settings_template_section')
           Row() {
-            this.ChoiceChip('只读', this.templateId === 'read-only', 'default_readonly', 'templateId:read-only')
-            this.ChoiceChip('可编辑', this.templateId === 'editable', 'default_editable', 'templateId:editable')
-            this.ChoiceChip('可打印', this.templateId === 'printable', 'default_printable', 'templateId:printable')
-            this.ChoiceChip('完全控制', this.templateId === 'full', 'default_full', 'templateId:full')
+            this.ChoiceChip($r('app.string.dlp_template_read_only'), this.templateId === 'read-only',
+              'default_readonly', 'templateId:read-only')
+            this.ChoiceChip($r('app.string.dlp_template_editable'), this.templateId === 'editable',
+              'default_editable', 'templateId:editable')
+            this.ChoiceChip($r('app.string.dlp_template_printable'), this.templateId === 'printable',
+              'default_printable', 'templateId:printable')
+            this.ChoiceChip($r('app.string.dlp_template_full_control'), this.templateId === 'full',
+              'default_full', 'templateId:full')
           }
           .width('100%')
           .padding({ left: '16vp', right: '16vp' })
 
           Row() {
-            Text('删除前二次确认')
+            Text($r('app.string.dlp_settings_confirm_delete'))
               .fontSize('14vp')
               .fontColor($r('app.color.font_color_182431'))
               .layoutWeight(1)
@@ -170,11 +175,11 @@ struct SettingsPage {
           .padding({ left: '16vp', right: '16vp', top: '16vp', bottom: '8vp' })
 
           Row() {
-            Text('错误码中心')
+            Text($r('app.string.dlp_settings_error_center'))
               .fontSize('14vp')
               .fontColor($r('app.color.font_color_182431'))
               .layoutWeight(1)
-            Text('查看')
+            Text($r('app.string.dlp_settings_view'))
               .fontSize('12vp')
               .fontColor($r('app.color.main_blue'))
           }
@@ -186,7 +191,7 @@ struct SettingsPage {
           })
 
           Row() {
-            Button('恢复默认')
+            Button($r('app.string.dlp_settings_reset'))
               .fontSize('14vp')
               .height('32vp')
               .backgroundColor($r('app.color.color_button_grey'))
@@ -219,7 +224,7 @@ struct SettingsPage {
   }
 
   @Builder
-  SectionTitle(title: string, itemId: string) {
+  SectionTitle(title: ResourceStr, itemId: string) {
     Text(title)
       .fontSize('14vp')
       .fontColor($r('app.color.color_666666_grey'))
@@ -229,7 +234,7 @@ struct SettingsPage {
   }
 
   @Builder
-  ChoiceChip(label: string, selected: boolean, itemId: string, choice: string) {
+  ChoiceChip(label: ResourceStr, selected: boolean, itemId: string, choice: string) {
     Text(label)
       .fontSize('14vp')
       .fontColor(selected ? '#FFFFFF' : $r('app.color.font_color_182431'))

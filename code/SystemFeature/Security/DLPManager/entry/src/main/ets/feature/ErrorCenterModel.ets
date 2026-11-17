@@ -14,42 +14,43 @@
  */
 
 import { ErrorCategory, ErrorInfo, formatCode, lookupError } from '../core/ErrorCodeCore';
+import { textOf } from '../core/TextCatalog';
 
 const KNOWN_CODES: number[] = [0, 13900001, 13900002, 13900004, 13900005, 13900008, 13900011, 13900012,
   13900013, 13900015, 13900019, 13900020, 13900025, 13900030, 13900042, 19100001, 19100002, 19100003, 19100004];
 
 export function categoryLabel(category: ErrorCategory): string {
   if (category === ErrorCategory.NONE) {
-    return '成功';
+    return textOf('dlp_category_none');
   }
   if (category === ErrorCategory.FILE_NOT_FOUND) {
-    return '文件不存在';
+    return textOf('dlp_category_file_not_found');
   }
   if (category === ErrorCategory.PERMISSION_DENIED) {
-    return '权限不足';
+    return textOf('dlp_category_permission_denied');
   }
   if (category === ErrorCategory.INVALID_ARGUMENT) {
-    return '参数错误';
+    return textOf('dlp_category_invalid_argument');
   }
   if (category === ErrorCategory.NETWORK) {
-    return '网络';
+    return textOf('dlp_category_network');
   }
   if (category === ErrorCategory.STORAGE_FULL) {
-    return '存储空间';
+    return textOf('dlp_category_storage_full');
   }
   if (category === ErrorCategory.OUT_OF_MEMORY) {
-    return '内存';
+    return textOf('dlp_category_out_of_memory');
   }
   if (category === ErrorCategory.DLP_POLICY) {
-    return 'DLP 策略';
+    return textOf('dlp_category_dlp_policy');
   }
   if (category === ErrorCategory.ACCOUNT) {
-    return '账号';
+    return textOf('dlp_category_account');
   }
   if (category === ErrorCategory.INTERNAL) {
-    return '内部错误';
+    return textOf('dlp_category_internal');
   }
-  return '未知';
+  return textOf('dlp_category_unknown');
 }
 
 export class ErrorCenterModel {
@@ -111,6 +112,6 @@ export class ErrorCenterModel {
   }
 
   static retryableLabel(info: ErrorInfo): string {
-    return info.retryable ? '可重试' : '不可重试';
+    return info.retryable ? textOf('dlp_retryable_yes') : textOf('dlp_retryable_no');
   }
 }

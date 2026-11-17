@@ -160,7 +160,9 @@ export default function searchUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchApp(driver);
       await driver.delayMs(800);
-      expect(await exists(driver, 'moreIcon')).assertTrue();
+      const assertOk1: boolean = await exists(driver, 'moreIcon');
+      log('testLaunchApp0001 check1: await exists(driver, \'moreIcon\') = ' + String(assertOk1));
+      expect(assertOk1).assertTrue();
     })
 
     /**
@@ -177,7 +179,9 @@ export default function searchUiStateTest(): void {
       await launchApp(driver);
       await clickId(driver, 'moreIcon');
       await driver.delayMs(500);
-      expect(await exists(driver, 'search_files_entry')).assertTrue();
+      const assertOk2: boolean = await exists(driver, 'search_files_entry');
+      log('testOpenHomeMenu0002 check2: await exists(driver, \'search_files_entry\') = ' + String(assertOk2));
+      expect(assertOk2).assertTrue();
     })
 
     /**
@@ -193,8 +197,12 @@ export default function searchUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchApp(driver);
       const opened: boolean = await openSearchPage(driver);
-      expect(opened).assertTrue();
-      expect(await exists(driver, 'search_input')).assertTrue();
+      const assertOk3: boolean = opened;
+      log('testOpenSearchPage0003 check3: opened = ' + String(assertOk3));
+      expect(assertOk3).assertTrue();
+      const assertOk4: boolean = await exists(driver, 'search_input');
+      log('testOpenSearchPage0003 check4: await exists(driver, \'search_input\') = ' + String(assertOk4));
+      expect(assertOk4).assertTrue();
     })
 
     /**
@@ -211,7 +219,9 @@ export default function searchUiStateTest(): void {
       await launchApp(driver);
       await openSearchPage(driver);
       await backToIndex(driver);
-      expect(await exists(driver, 'moreIcon')).assertTrue();
+      const assertOk5: boolean = await exists(driver, 'moreIcon');
+      log('testSearchBack0004 check5: await exists(driver, \'moreIcon\') = ' + String(assertOk5));
+      expect(assertOk5).assertTrue();
     })
 
     /**
@@ -227,10 +237,18 @@ export default function searchUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchApp(driver);
       await openSearchPage(driver);
-      expect(await exists(driver, 'filter_all')).assertTrue();
-      expect(await exists(driver, 'filter_text')).assertTrue();
-      expect(await exists(driver, 'filter_document')).assertTrue();
-      expect(await exists(driver, 'filter_image')).assertTrue();
+      const assertOk6: boolean = await exists(driver, 'filter_all');
+      log('testKindChips0005 check6: await exists(driver, \'filter_all\') = ' + String(assertOk6));
+      expect(assertOk6).assertTrue();
+      const assertOk7: boolean = await exists(driver, 'filter_text');
+      log('testKindChips0005 check7: await exists(driver, \'filter_text\') = ' + String(assertOk7));
+      expect(assertOk7).assertTrue();
+      const assertOk8: boolean = await exists(driver, 'filter_document');
+      log('testKindChips0005 check8: await exists(driver, \'filter_document\') = ' + String(assertOk8));
+      expect(assertOk8).assertTrue();
+      const assertOk9: boolean = await exists(driver, 'filter_image');
+      log('testKindChips0005 check9: await exists(driver, \'filter_image\') = ' + String(assertOk9));
+      expect(assertOk9).assertTrue();
     })
 
     /**
@@ -246,7 +264,9 @@ export default function searchUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchApp(driver);
       await openSearchPage(driver);
-      expect(await exists(driver, 'filter_dlp')).assertTrue();
+      const assertOk10: boolean = await exists(driver, 'filter_dlp');
+      log('testDlpChip0006 check10: await exists(driver, \'filter_dlp\') = ' + String(assertOk10));
+      expect(assertOk10).assertTrue();
     })
 
     /**
@@ -262,9 +282,15 @@ export default function searchUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchApp(driver);
       await openSearchPage(driver);
-      expect(await exists(driver, 'sort_name')).assertTrue();
-      expect(await exists(driver, 'sort_size')).assertTrue();
-      expect(await exists(driver, 'sort_time')).assertTrue();
+      const assertOk11: boolean = await exists(driver, 'sort_name');
+      log('testSortItems0007 check11: await exists(driver, \'sort_name\') = ' + String(assertOk11));
+      expect(assertOk11).assertTrue();
+      const assertOk12: boolean = await exists(driver, 'sort_size');
+      log('testSortItems0007 check12: await exists(driver, \'sort_size\') = ' + String(assertOk12));
+      expect(assertOk12).assertTrue();
+      const assertOk13: boolean = await exists(driver, 'sort_time');
+      log('testSortItems0007 check13: await exists(driver, \'sort_time\') = ' + String(assertOk13));
+      expect(assertOk13).assertTrue();
     })
 
     /**
@@ -281,8 +307,12 @@ export default function searchUiStateTest(): void {
       await launchApp(driver);
       await openSearchPage(driver);
       await clickId(driver, 'filter_text');
-      expect(await exists(driver, 'search_input')).assertTrue();
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk14: boolean = await exists(driver, 'search_input');
+      log('testFilterText0008 check14: await exists(driver, \'search_input\') = ' + String(assertOk14));
+      expect(assertOk14).assertTrue();
+      const assertOk15: boolean = await exists(driver, 'search_total');
+      log('testFilterText0008 check15: await exists(driver, \'search_total\') = ' + String(assertOk15));
+      expect(assertOk15).assertTrue();
     })
 
     /**
@@ -299,7 +329,9 @@ export default function searchUiStateTest(): void {
       await launchApp(driver);
       await openSearchPage(driver);
       await clickId(driver, 'filter_document');
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk16: boolean = await exists(driver, 'search_total');
+      log('testFilterDocument0009 check16: await exists(driver, \'search_total\') = ' + String(assertOk16));
+      expect(assertOk16).assertTrue();
     })
 
     /**
@@ -316,7 +348,9 @@ export default function searchUiStateTest(): void {
       await launchApp(driver);
       await openSearchPage(driver);
       await clickId(driver, 'filter_image');
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk17: boolean = await exists(driver, 'search_total');
+      log('testFilterImage0010 check17: await exists(driver, \'search_total\') = ' + String(assertOk17));
+      expect(assertOk17).assertTrue();
     })
 
     /**
@@ -334,7 +368,9 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       await clickId(driver, 'filter_image');
       await clickId(driver, 'filter_all');
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk18: boolean = await exists(driver, 'search_total');
+      log('testFilterAll0011 check18: await exists(driver, \'search_total\') = ' + String(assertOk18));
+      expect(assertOk18).assertTrue();
     })
 
     /**
@@ -352,7 +388,9 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       await clickId(driver, 'filter_dlp');
       await clickId(driver, 'filter_dlp');
-      expect(await exists(driver, 'search_input')).assertTrue();
+      const assertOk19: boolean = await exists(driver, 'search_input');
+      log('testDlpToggle0012 check19: await exists(driver, \'search_input\') = ' + String(assertOk19));
+      expect(assertOk19).assertTrue();
     })
 
     /**
@@ -369,7 +407,9 @@ export default function searchUiStateTest(): void {
       await launchApp(driver);
       await openSearchPage(driver);
       await clickId(driver, 'sort_size');
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk20: boolean = await exists(driver, 'search_total');
+      log('testSortSize0013 check20: await exists(driver, \'search_total\') = ' + String(assertOk20));
+      expect(assertOk20).assertTrue();
     })
 
     /**
@@ -386,7 +426,9 @@ export default function searchUiStateTest(): void {
       await launchApp(driver);
       await openSearchPage(driver);
       await clickId(driver, 'sort_time');
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk21: boolean = await exists(driver, 'search_total');
+      log('testSortTime0014 check21: await exists(driver, \'search_total\') = ' + String(assertOk21));
+      expect(assertOk21).assertTrue();
     })
 
     /**
@@ -405,7 +447,9 @@ export default function searchUiStateTest(): void {
       await clickId(driver, 'sort_size');
       await clickId(driver, 'sort_time');
       await clickId(driver, 'sort_name');
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk22: boolean = await exists(driver, 'search_total');
+      log('testSortCycle0015 check22: await exists(driver, \'search_total\') = ' + String(assertOk22));
+      expect(assertOk22).assertTrue();
     })
 
     /**
@@ -423,7 +467,9 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       await clickId(driver, 'search_multi_select');
       await clickId(driver, 'search_multi_select');
-      expect(await exists(driver, 'search_input')).assertTrue();
+      const assertOk23: boolean = await exists(driver, 'search_input');
+      log('testMultiSelectToggle0016 check23: await exists(driver, \'search_input\') = ' + String(assertOk23));
+      expect(assertOk23).assertTrue();
     })
 
     /**
@@ -441,7 +487,9 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       const empty: boolean = await exists(driver, 'search_empty');
       const first: boolean = await exists(driver, 'search_item_0');
-      expect(empty || first).assertTrue();
+      const assertOk24: boolean = empty || first;
+      log('testEmptyOrList0017 check24: empty || first = ' + String(assertOk24));
+      expect(assertOk24).assertTrue();
     })
 
     /**
@@ -457,7 +505,9 @@ export default function searchUiStateTest(): void {
       const driver: Driver = Driver.create();
       await launchApp(driver);
       await openSearchPage(driver);
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk25: boolean = await exists(driver, 'search_total');
+      log('testTotalText0018 check25: await exists(driver, \'search_total\') = ' + String(assertOk25));
+      expect(assertOk25).assertTrue();
     })
 
     /**
@@ -478,7 +528,9 @@ export default function searchUiStateTest(): void {
         await input.inputText('txt');
         await sleep(400);
       }
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk26: boolean = await exists(driver, 'search_total');
+      log('testInputKeyword0019 check26: await exists(driver, \'search_total\') = ' + String(assertOk26));
+      expect(assertOk26).assertTrue();
     })
 
     /**
@@ -496,9 +548,13 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       if (await exists(driver, 'search_item_0')) {
         await clickId(driver, 'search_item_0');
-        expect(await exists(driver, 'detail_title')).assertTrue();
+        const assertOk27: boolean = await exists(driver, 'detail_title');
+        log('testOpenDetail0020 check27: await exists(driver, \'detail_title\') = ' + String(assertOk27));
+        expect(assertOk27).assertTrue();
       } else {
-        expect(await exists(driver, 'search_empty')).assertTrue();
+        const assertOk28: boolean = await exists(driver, 'search_empty');
+        log('testOpenDetail0020 check28: await exists(driver, \'search_empty\') = ' + String(assertOk28));
+        expect(assertOk28).assertTrue();
       }
     })
 
@@ -517,10 +573,16 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       if (await exists(driver, 'search_item_0')) {
         await clickId(driver, 'search_item_0');
-        expect(await exists(driver, 'detail_row_0')).assertTrue();
-        expect(await exists(driver, 'detail_row_3')).assertTrue();
+        const assertOk29: boolean = await exists(driver, 'detail_row_0');
+        log('testDetailRows0021 check29: await exists(driver, \'detail_row_0\') = ' + String(assertOk29));
+        expect(assertOk29).assertTrue();
+        const assertOk30: boolean = await exists(driver, 'detail_row_3');
+        log('testDetailRows0021 check30: await exists(driver, \'detail_row_3\') = ' + String(assertOk30));
+        expect(assertOk30).assertTrue();
       } else {
-        expect(await exists(driver, 'search_empty')).assertTrue();
+        const assertOk31: boolean = await exists(driver, 'search_empty');
+        log('testDetailRows0021 check31: await exists(driver, \'search_empty\') = ' + String(assertOk31));
+        expect(assertOk31).assertTrue();
       }
     })
 
@@ -540,9 +602,13 @@ export default function searchUiStateTest(): void {
       if (await exists(driver, 'search_item_0')) {
         await clickId(driver, 'search_item_0');
         await clickId(driver, 'detail_back');
-        expect(await exists(driver, 'search_input')).assertTrue();
+        const assertOk32: boolean = await exists(driver, 'search_input');
+        log('testDetailBack0022 check32: await exists(driver, \'search_input\') = ' + String(assertOk32));
+        expect(assertOk32).assertTrue();
       } else {
-        expect(await exists(driver, 'search_empty')).assertTrue();
+        const assertOk33: boolean = await exists(driver, 'search_empty');
+        log('testDetailBack0022 check33: await exists(driver, \'search_empty\') = ' + String(assertOk33));
+        expect(assertOk33).assertTrue();
       }
     })
 
@@ -562,9 +628,13 @@ export default function searchUiStateTest(): void {
       await clickId(driver, 'search_multi_select');
       if (await exists(driver, 'search_item_0')) {
         await clickId(driver, 'search_item_0');
-        expect(await exists(driver, 'batch_count')).assertTrue();
+        const assertOk34: boolean = await exists(driver, 'batch_count');
+        log('testSelectionFlow0023 check34: await exists(driver, \'batch_count\') = ' + String(assertOk34));
+        expect(assertOk34).assertTrue();
       } else {
-        expect(await exists(driver, 'search_empty')).assertTrue();
+        const assertOk35: boolean = await exists(driver, 'search_empty');
+        log('testSelectionFlow0023 check35: await exists(driver, \'search_empty\') = ' + String(assertOk35));
+        expect(assertOk35).assertTrue();
       }
     })
 
@@ -585,9 +655,13 @@ export default function searchUiStateTest(): void {
       if (await exists(driver, 'search_item_0')) {
         await clickId(driver, 'search_item_0');
         await clickId(driver, 'search_batch_cancel');
-        expect(await exists(driver, 'batch_count')).assertFalse();
+        const assertOk36: boolean = await exists(driver, 'batch_count');
+        log('testBatchCancel0024 check36: await exists(driver, \'batch_count\') = ' + String(assertOk36));
+        expect(assertOk36).assertFalse();
       } else {
-        expect(await exists(driver, 'search_empty')).assertTrue();
+        const assertOk37: boolean = await exists(driver, 'search_empty');
+        log('testBatchCancel0024 check37: await exists(driver, \'search_empty\') = ' + String(assertOk37));
+        expect(assertOk37).assertTrue();
       }
     })
 
@@ -608,9 +682,13 @@ export default function searchUiStateTest(): void {
       if (await exists(driver, 'search_item_0')) {
         await clickId(driver, 'search_item_0');
         await clickId(driver, 'search_batch_authorize');
-        expect(await exists(driver, 'batch_count')).assertFalse();
+        const assertOk38: boolean = await exists(driver, 'batch_count');
+        log('testBatchAuthorize0025 check38: await exists(driver, \'batch_count\') = ' + String(assertOk38));
+        expect(assertOk38).assertFalse();
       } else {
-        expect(await exists(driver, 'search_empty')).assertTrue();
+        const assertOk39: boolean = await exists(driver, 'search_empty');
+        log('testBatchAuthorize0025 check39: await exists(driver, \'search_empty\') = ' + String(assertOk39));
+        expect(assertOk39).assertTrue();
       }
     })
 
@@ -629,7 +707,9 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       await backToIndex(driver);
       await openSearchPage(driver);
-      expect(await exists(driver, 'search_input')).assertTrue();
+      const assertOk40: boolean = await exists(driver, 'search_input');
+      log('testEnterTwice0026 check40: await exists(driver, \'search_input\') = ' + String(assertOk40));
+      expect(assertOk40).assertTrue();
     })
 
     /**
@@ -646,8 +726,13 @@ export default function searchUiStateTest(): void {
       await launchApp(driver);
       await clickId(driver, 'moreIcon');
       await driver.delayMs(400);
-      expect(await exists(driver, 'obtain_visit_record')).assertTrue();
-      expect(await exists(driver, 'obtain_sandbox_retention_information')).assertTrue();
+      const assertOk41: boolean = await exists(driver, 'obtain_visit_record');
+      log('testMenuStillWorks0027 check41: await exists(driver, \'obtain_visit_record\') = ' + String(assertOk41));
+      expect(assertOk41).assertTrue();
+      const assertOk42: boolean = await exists(driver, 'obtain_sandbox_retention_information');
+      log('testMenuStillWorks0027 check42: await exists(driver, \'obtain_sandbox_retention_information\') = ' +
+        String(assertOk42));
+      expect(assertOk42).assertTrue();
     })
 
     /**
@@ -665,7 +750,9 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       await clickId(driver, 'filter_text');
       await clickId(driver, 'sort_size');
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk43: boolean = await exists(driver, 'search_total');
+      log('testFilterThenSort0028 check43: await exists(driver, \'search_total\') = ' + String(assertOk43));
+      expect(assertOk43).assertTrue();
     })
 
     /**
@@ -686,7 +773,9 @@ export default function searchUiStateTest(): void {
         await input.inputText('');
         await sleep(300);
       }
-      expect(await exists(driver, 'search_total')).assertTrue();
+      const assertOk44: boolean = await exists(driver, 'search_total');
+      log('testEmptyKeywordReset0029 check44: await exists(driver, \'search_total\') = ' + String(assertOk44));
+      expect(assertOk44).assertTrue();
     })
 
     /**
@@ -704,7 +793,9 @@ export default function searchUiStateTest(): void {
       await openSearchPage(driver);
       await clickId(driver, 'filter_document');
       await backToIndex(driver);
-      expect(await exists(driver, 'moreIcon')).assertTrue();
+      const assertOk45: boolean = await exists(driver, 'moreIcon');
+      log('testBackAfterFilter0030 check45: await exists(driver, \'moreIcon\') = ' + String(assertOk45));
+      expect(assertOk45).assertTrue();
     })
   });
 }

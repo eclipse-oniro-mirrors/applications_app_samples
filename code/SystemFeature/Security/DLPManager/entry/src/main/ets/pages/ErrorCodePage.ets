@@ -43,13 +43,13 @@ struct ErrorCodePage {
           .onClick(() => {
             router.back();
           })
-        Text('错误码中心')
+        Text($r('app.string.dlp_page_error_title'))
           .fontSize('20vp')
           .fontWeight(700)
           .fontColor($r('app.color.font_color_182431'))
           .layoutWeight(1)
           .id('error_title')
-        Text(this.entries.length.toString() + ' 条')
+        Text($r('app.string.dlp_error_count', this.entries.length))
           .fontSize('12vp')
           .fontColor($r('app.color.color_666666_grey'))
           .id('error_count')
@@ -58,7 +58,7 @@ struct ErrorCodePage {
       .padding({ left: '16vp', right: '16vp', top: '12vp', bottom: '12vp' })
       .backgroundColor($r('app.color.white_bg_color'))
 
-      TextInput({ placeholder: '输入错误码或关键字' })
+      TextInput({ placeholder: $r('app.string.dlp_error_search_placeholder') })
         .height('36vp')
         .fontSize('14vp')
         .backgroundColor($r('app.color.input_background'))
@@ -72,11 +72,11 @@ struct ErrorCodePage {
 
       Scroll() {
         Row() {
-          this.CatChip('全部', 'all', 'cat_all')
-          this.CatChip('文件不存在', 'file_not_found', 'cat_file')
-          this.CatChip('权限不足', 'permission_denied', 'cat_permission')
-          this.CatChip('DLP 策略', 'dlp_policy', 'cat_dlp')
-          this.CatChip('存储空间', 'storage_full', 'cat_storage')
+          this.CatChip($r('app.string.dlp_error_cat_all'), 'all', 'cat_all')
+          this.CatChip($r('app.string.dlp_category_file_not_found'), 'file_not_found', 'cat_file')
+          this.CatChip($r('app.string.dlp_category_permission_denied'), 'permission_denied', 'cat_permission')
+          this.CatChip($r('app.string.dlp_category_dlp_policy'), 'dlp_policy', 'cat_dlp')
+          this.CatChip($r('app.string.dlp_category_storage_full'), 'storage_full', 'cat_storage')
         }
         .padding({ left: '16vp', right: '16vp' })
       }
@@ -87,7 +87,7 @@ struct ErrorCodePage {
 
       if (this.entries.length === 0) {
         Column() {
-          Text('没有匹配的错误码')
+          Text($r('app.string.dlp_error_empty'))
             .fontSize('16vp')
             .fontColor($r('app.color.color_999999_grey'))
             .id('error_empty')
@@ -150,7 +150,7 @@ struct ErrorCodePage {
   }
 
   @Builder
-  CatChip(label: string, key: string, itemId: string) {
+  CatChip(label: ResourceStr, key: string, itemId: string) {
     Text(label)
       .fontSize('14vp')
       .fontColor(this.catKey === key ? '#FFFFFF' : $r('app.color.font_color_182431'))

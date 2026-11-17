@@ -206,11 +206,11 @@
     },
     {
       "name": "dlp_kind_audio",
-      "value": "视频"
+      "value": "音频"
     },
     {
       "name": "dlp_kind_video",
-      "value": "音频"
+      "value": "视频"
     },
     {
       "name": "dlp_kind_image",
@@ -507,6 +507,374 @@
     {
       "name": "dlp_level_debug",
       "value": "调试"
+    },
+    {
+      "name": "dlp_detail_label_name",
+      "value": "名称"
+    },
+    {
+      "name": "dlp_detail_label_kind",
+      "value": "类型"
+    },
+    {
+      "name": "dlp_detail_label_mime",
+      "value": "MIME"
+    },
+    {
+      "name": "dlp_detail_label_size",
+      "value": "大小"
+    },
+    {
+      "name": "dlp_detail_label_modified",
+      "value": "修改时间"
+    },
+    {
+      "name": "dlp_detail_label_encrypted",
+      "value": "加密文件"
+    },
+    {
+      "name": "dlp_detail_label_container",
+      "value": "容器内文件"
+    },
+    {
+      "name": "dlp_detail_label_uri",
+      "value": "访问路径"
+    },
+    {
+      "name": "dlp_value_unknown",
+      "value": "未知"
+    },
+    {
+      "name": "dlp_value_yes",
+      "value": "是"
+    },
+    {
+      "name": "dlp_value_no",
+      "value": "否"
+    },
+    {
+      "name": "dlp_detail_summary_unknown",
+      "value": "大小未知"
+    },
+    {
+      "name": "dlp_category_none",
+      "value": "成功"
+    },
+    {
+      "name": "dlp_category_file_not_found",
+      "value": "文件不存在"
+    },
+    {
+      "name": "dlp_category_permission_denied",
+      "value": "权限不足"
+    },
+    {
+      "name": "dlp_category_invalid_argument",
+      "value": "参数错误"
+    },
+    {
+      "name": "dlp_category_network",
+      "value": "网络"
+    },
+    {
+      "name": "dlp_category_storage_full",
+      "value": "存储空间"
+    },
+    {
+      "name": "dlp_category_out_of_memory",
+      "value": "内存"
+    },
+    {
+      "name": "dlp_category_dlp_policy",
+      "value": "DLP 策略"
+    },
+    {
+      "name": "dlp_category_account",
+      "value": "账号"
+    },
+    {
+      "name": "dlp_category_internal",
+      "value": "内部错误"
+    },
+    {
+      "name": "dlp_category_unknown",
+      "value": "未知"
+    },
+    {
+      "name": "dlp_retryable_yes",
+      "value": "可重试"
+    },
+    {
+      "name": "dlp_retryable_no",
+      "value": "不可重试"
+    },
+    {
+      "name": "dlp_search_selected_prefix",
+      "value": "已选择 "
+    },
+    {
+      "name": "dlp_search_selected_suffix",
+      "value": " 个文件"
+    },
+    {
+      "name": "dlp_page_detail_title",
+      "value": "文件详情"
+    },
+    {
+      "name": "dlp_page_error_title",
+      "value": "错误码中心"
+    },
+    {
+      "name": "dlp_page_recents_title",
+      "value": "最近与收藏"
+    },
+    {
+      "name": "dlp_page_settings_title",
+      "value": "设置"
+    },
+    {
+      "name": "dlp_page_template_title",
+      "value": "DLP 权限模板"
+    },
+    {
+      "name": "dlp_error_count",
+      "value": "%d 条"
+    },
+    {
+      "name": "dlp_error_search_placeholder",
+      "value": "输入错误码或关键字"
+    },
+    {
+      "name": "dlp_error_empty",
+      "value": "没有匹配的错误码"
+    },
+    {
+      "name": "dlp_error_cat_all",
+      "value": "全部"
+    },
+    {
+      "name": "dlp_recents_refresh",
+      "value": "刷新"
+    },
+    {
+      "name": "dlp_recents_clear",
+      "value": "清空最近"
+    },
+    {
+      "name": "dlp_recents_empty",
+      "value": "暂无最近记录，打开文件后可在这里查看"
+    },
+    {
+      "name": "dlp_recents_favorite_section",
+      "value": "收藏"
+    },
+    {
+      "name": "dlp_recents_recent_section",
+      "value": "最近访问"
+    },
+    {
+      "name": "dlp_recents_opened_at",
+      "value": "最近打开：%s"
+    },
+    {
+      "name": "dlp_recents_remove",
+      "value": "移除"
+    },
+    {
+      "name": "dlp_recents_status_refreshed",
+      "value": "已刷新"
+    },
+    {
+      "name": "dlp_recents_status_cleared",
+      "value": "已清空最近访问"
+    },
+    {
+      "name": "dlp_recents_status_unfavorited",
+      "value": "已取消收藏"
+    },
+    {
+      "name": "dlp_recents_status_favorited",
+      "value": "已加入收藏"
+    },
+    {
+      "name": "dlp_recents_status_removed",
+      "value": "已移除记录"
+    },
+    {
+      "name": "dlp_settings_save",
+      "value": "保存"
+    },
+    {
+      "name": "dlp_settings_log_section",
+      "value": "日志级别"
+    },
+    {
+      "name": "dlp_settings_page_section",
+      "value": "每页数量"
+    },
+    {
+      "name": "dlp_settings_theme_section",
+      "value": "主题"
+    },
+    {
+      "name": "dlp_settings_template_section",
+      "value": "默认权限模板"
+    },
+    {
+      "name": "dlp_settings_confirm_delete",
+      "value": "删除前二次确认"
+    },
+    {
+      "name": "dlp_settings_error_center",
+      "value": "错误码中心"
+    },
+    {
+      "name": "dlp_settings_view",
+      "value": "查看"
+    },
+    {
+      "name": "dlp_settings_reset",
+      "value": "恢复默认"
+    },
+    {
+      "name": "dlp_settings_status_saved",
+      "value": "设置已保存"
+    },
+    {
+      "name": "dlp_settings_status_save_failed",
+      "value": "设置保存失败"
+    },
+    {
+      "name": "dlp_settings_status_reset",
+      "value": "已恢复默认设置，点击保存后生效"
+    },
+    {
+      "name": "dlp_search_placeholder",
+      "value": "输入文件名搜索"
+    },
+    {
+      "name": "dlp_search_done",
+      "value": "完成"
+    },
+    {
+      "name": "dlp_search_multi",
+      "value": "多选"
+    },
+    {
+      "name": "dlp_search_filter_all",
+      "value": "全部"
+    },
+    {
+      "name": "dlp_search_only_dlp",
+      "value": "仅加密"
+    },
+    {
+      "name": "dlp_search_sort",
+      "value": "排序"
+    },
+    {
+      "name": "dlp_search_sort_name",
+      "value": "名称"
+    },
+    {
+      "name": "dlp_search_sort_size",
+      "value": "大小"
+    },
+    {
+      "name": "dlp_search_sort_time",
+      "value": "时间"
+    },
+    {
+      "name": "dlp_search_total_count",
+      "value": "共 %d 个"
+    },
+    {
+      "name": "dlp_search_empty_filtered",
+      "value": "无匹配文件"
+    },
+    {
+      "name": "dlp_search_empty_files",
+      "value": "暂无可搜索的文件"
+    },
+    {
+      "name": "dlp_search_prev",
+      "value": "上一页"
+    },
+    {
+      "name": "dlp_search_next",
+      "value": "下一页"
+    },
+    {
+      "name": "dlp_search_selected_count",
+      "value": "已选择 %d 个文件"
+    },
+    {
+      "name": "dlp_search_batch_authorize",
+      "value": "批量授权"
+    },
+    {
+      "name": "dlp_search_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "dlp_search_open_failed",
+      "value": "打开详情失败：%s"
+    },
+    {
+      "name": "dlp_search_batch_applied",
+      "value": "已为 %d 个文件应用只读权限模板"
+    },
+    {
+      "name": "dlp_template_section_builtin",
+      "value": "内置模板"
+    },
+    {
+      "name": "dlp_template_section_custom",
+      "value": "自定义模板"
+    },
+    {
+      "name": "dlp_template_empty",
+      "value": "暂无自定义模板"
+    },
+    {
+      "name": "dlp_template_delete",
+      "value": "删除"
+    },
+    {
+      "name": "dlp_template_form_edit",
+      "value": "编辑模板"
+    },
+    {
+      "name": "dlp_template_form_create",
+      "value": "新建模板"
+    },
+    {
+      "name": "dlp_template_name_placeholder",
+      "value": "模板名称"
+    },
+    {
+      "name": "dlp_template_save_edit",
+      "value": "保存修改"
+    },
+    {
+      "name": "dlp_template_save_create",
+      "value": "创建模板"
+    },
+    {
+      "name": "dlp_template_cancel_edit",
+      "value": "取消编辑"
+    },
+    {
+      "name": "dlp_template_status_deleted",
+      "value": "模板已删除"
+    },
+    {
+      "name": "dlp_template_status_editing",
+      "value": "正在编辑：%s"
+    },
+    {
+      "name": "dlp_template_status_cancelled",
+      "value": "已取消编辑"
     }
   ]
 }
