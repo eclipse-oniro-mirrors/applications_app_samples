@@ -1,0 +1,332 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Main page of codec capability query demo"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "编解码能力查询"
+    },
+    {
+      "name": "codec_detail_query_failed",
+      "value": "查询编解码器详情失败。"
+    },
+    {
+      "name": "main_title",
+      "value": "获取支持的编解码能力"
+    },
+    {
+      "name": "tab_codec_list",
+      "value": "编解码器列表"
+    },
+    {
+      "name": "tab_scenario_verify",
+      "value": "场景验证"
+    },
+    {
+      "name": "codec_count",
+      "value": "共 %d 个编解码器"
+    },
+    {
+      "name": "capability_detail",
+      "value": "能力详情"
+    },
+    {
+      "name": "codec_detail_hint",
+      "value": "点击编解码器查看能力详情。"
+    },
+    {
+      "name": "scenario_result_title_default",
+      "value": "场景验证结果"
+    },
+    {
+      "name": "scenario_result_hint",
+      "value": "点击场景条目执行对应示例。"
+    },
+    {
+      "name": "hardware",
+      "value": "硬件"
+    },
+    {
+      "name": "software",
+      "value": "软件"
+    },
+    {
+      "name": "secure",
+      "value": "安全"
+    },
+    {
+      "name": "execute",
+      "value": "执行"
+    },
+    {
+      "name": "executing",
+      "value": "执行中"
+    },
+    {
+      "name": "scenario_execute_failed",
+      "value": "场景执行失败: %s"
+    },
+    {
+      "name": "max_instances_format",
+      "value": " · 最大实例数: %d"
+    },
+    {
+      "name": "group_obtain_capability_instance",
+      "value": "通用开发指导：获得能力实例"
+    },
+    {
+      "name": "item_obtain_capability_way1",
+      "value": "方式一：OH_AVCodec_GetCapability"
+    },
+    {
+      "name": "item_obtain_capability_way2",
+      "value": "方式二：OH_AVCodec_GetCapabilityByCategory"
+    },
+    {
+      "name": "item_obtain_capability_way3",
+      "value": "方式三：OH_AVCodec_GetCapabilityList"
+    },
+    {
+      "name": "group_create_codec_by_name",
+      "value": "创建指定名称的编解码器"
+    },
+    {
+      "name": "item_create_h264_sw_decoder",
+      "value": "通过名称创建H.264软件解码器"
+    },
+    {
+      "name": "group_configure_by_hw_sw",
+      "value": "针对软硬件类别差异化配置编解码器参数"
+    },
+    {
+      "name": "item_diff_config_frame_rate",
+      "value": "基于软硬件类别差异化配置帧率"
+    },
+    {
+      "name": "group_create_multiple_codecs",
+      "value": "创建多路编解码器"
+    },
+    {
+      "name": "item_create_multi_hw_decoder",
+      "value": "硬件优先创建多路解码器"
+    },
+    {
+      "name": "group_control_encoding_quality",
+      "value": "控制编码质量"
+    },
+    {
+      "name": "item_cbr_vbr_mode",
+      "value": "CBR/VBR码控模式"
+    },
+    {
+      "name": "item_cq_mode",
+      "value": "CQ码控模式"
+    },
+    {
+      "name": "item_sqr_mode",
+      "value": "SQR码控模式"
+    },
+    {
+      "name": "item_cbrhq_mode",
+      "value": "CBRHQ码控模式"
+    },
+    {
+      "name": "group_query_complexity_range",
+      "value": "查询编码器支持复杂度范围"
+    },
+    {
+      "name": "item_complexity_range",
+      "value": "复杂度等级范围查询"
+    },
+    {
+      "name": "group_set_audio_params",
+      "value": "设置正确的音频编解码参数"
+    },
+    {
+      "name": "item_sample_rate_channels_bitrate",
+      "value": "采样率/通道数/码率校验"
+    },
+    {
+      "name": "group_query_profile_level",
+      "value": "查询编解码档次和级别支持情况"
+    },
+    {
+      "name": "item_query_supported_levels",
+      "value": "查询档次支持的级别"
+    },
+    {
+      "name": "item_validate_profile_level",
+      "value": "直接校验档次和级别组合"
+    },
+    {
+      "name": "group_set_video_resolution",
+      "value": "设置正确的视频宽高"
+    },
+    {
+      "name": "item_validate_resolution_combo",
+      "value": "校验视频宽高组合"
+    },
+    {
+      "name": "item_query_height_by_width",
+      "value": "已知视频宽度查询高度范围"
+    },
+    {
+      "name": "item_query_width_by_height",
+      "value": "已知视频高度查询宽度范围"
+    },
+    {
+      "name": "group_set_video_frame_rate",
+      "value": "设置正确的视频帧率"
+    },
+    {
+      "name": "item_validate_frame_rate",
+      "value": "校验帧率是否在可选范围内"
+    },
+    {
+      "name": "item_select_frame_rate_by_size",
+      "value": "按尺寸选择合适的帧率配置"
+    },
+    {
+      "name": "group_set_video_pixel_format",
+      "value": "设置正确的视频像素格式信息"
+    },
+    {
+      "name": "item_query_pixel_formats",
+      "value": "查询支持的像素格式"
+    },
+    {
+      "name": "group_query_feature_support",
+      "value": "查询编解码特性支持情况"
+    },
+    {
+      "name": "item_long_term_ref_frame",
+      "value": "长期参考帧特性查询"
+    },
+    {
+      "name": "group_filter_secure_decoder",
+      "value": "筛选特定MIME类型的安全解码器（DRM播放场景）"
+    },
+    {
+      "name": "item_filter_h264_secure_decoder",
+      "value": "筛选H.264安全解码器"
+    },
+    {
+      "name": "group_video_encoding_low_latency",
+      "value": "各类场景的视频编码基础参数配置：低时延场景"
+    },
+    {
+      "name": "item_video_call_cbr_1080p_30fps",
+      "value": "视频通话CBR 1080p@30fps配置"
+    },
+    {
+      "name": "item_request_idr_dynamically",
+      "value": "运行中动态请求IDR帧"
+    },
+    {
+      "name": "item_cbrhq_config",
+      "value": "CBRHQ码控配置"
+    },
+    {
+      "name": "group_video_encoding_live_streaming",
+      "value": "各类场景的视频编码基础参数配置：实时流媒体编码"
+    },
+    {
+      "name": "item_live_vbr_1080p_25fps",
+      "value": "直播VBR 1080p@25fps配置"
+    },
+    {
+      "name": "item_live_sqr_config",
+      "value": "直播SQR码控配置"
+    },
+    {
+      "name": "group_video_encoding_offline",
+      "value": "各类场景的视频编码基础参数配置：离线编码场景"
+    },
+    {
+      "name": "item_video_share_vbr_1080p_30fps",
+      "value": "视频分享VBR 1080p@30fps配置"
+    },
+    {
+      "name": "item_video_share_sqr_config",
+      "value": "视频分享SQR码控配置"
+    },
+    {
+      "name": "group_b_frame_encoding",
+      "value": "高压缩率B帧编码"
+    },
+    {
+      "name": "item_b_frame_support",
+      "value": "B帧特性校验"
+    },
+    {
+      "name": "item_enable_b_frame",
+      "value": "配置使能B帧"
+    },
+    {
+      "name": "group_temporal_scalability_global",
+      "value": "时域可分层编码：全局时域可分层特性"
+    },
+    {
+      "name": "item_temporal_scalability_support",
+      "value": "特性支持校验"
+    },
+    {
+      "name": "item_create_hw_encoder",
+      "value": "创建硬件编码器实例"
+    },
+    {
+      "name": "item_config_temporal_params",
+      "value": "配置时域分层参数"
+    },
+    {
+      "name": "item_enable_temporal_scalability_dynamically",
+      "value": "动态开启时域可分层"
+    },
+    {
+      "name": "item_disable_temporal_scalability_dynamically",
+      "value": "动态关闭时域可分层"
+    },
+    {
+      "name": "group_temporal_scalability_ltr",
+      "value": "时域可分层编码：长期参考帧特性"
+    },
+    {
+      "name": "item_ltr_support_and_count",
+      "value": "LTR特性与数目校验"
+    },
+    {
+      "name": "item_config_max_ltr_count",
+      "value": "配置最大LTR数目"
+    },
+    {
+      "name": "item_ltr_callback_buffer_mode",
+      "value": "LTR随帧回调注册（Buffer模式）"
+    },
+    {
+      "name": "item_ltr_callback_surface_mode",
+      "value": "LTR随帧回调注册（窗口输入模式）"
+    },
+    {
+      "name": "category_video_decoder",
+      "value": "视频解码器"
+    },
+    {
+      "name": "category_video_encoder",
+      "value": "视频编码器"
+    },
+    {
+      "name": "category_audio_decoder",
+      "value": "音频解码器"
+    },
+    {
+      "name": "category_audio_encoder",
+      "value": "音频编码器"
+    }
+  ]
+}

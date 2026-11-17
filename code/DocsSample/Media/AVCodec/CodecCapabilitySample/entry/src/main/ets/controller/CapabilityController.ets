@@ -20,6 +20,11 @@ import Logger from '../common/utils/Logger';
 const TAG: string = '[CapabilityController]';
 
 /**
+ * 编解码器详情查询失败时的错误码，由页面层映射为本地化文案。
+ */
+export const QUERY_CODEC_DETAIL_FAILED = 'QUERY_CODEC_DETAIL_FAILED';
+
+/**
  * 编解码能力查询控制器，封装native接口调用。
  */
 export class CapabilityController {
@@ -45,14 +50,14 @@ export class CapabilityController {
    *
    * @param category 编解码器类别。
    * @param name 编解码器名称。
-   * @returns 详细能力描述文本。
+   * @returns 详细能力描述文本；失败时返回 QUERY_CODEC_DETAIL_FAILED 错误码。
    */
   static getCodecDetail(category: number, name: string): string {
     try {
       return getCodecDetail(category, name);
     } catch (err) {
       Logger.error(TAG, 'getCodecDetail failed, %{public}s', JSON.stringify(err));
-      return '查询编解码器详情失败。';
+      return QUERY_CODEC_DETAIL_FAILED;
     }
   }
 

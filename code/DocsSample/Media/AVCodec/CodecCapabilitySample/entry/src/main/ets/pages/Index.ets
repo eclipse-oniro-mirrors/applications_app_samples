@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { CapabilityController } from '../controller/CapabilityController';
+import { CapabilityController, QUERY_CODEC_DETAIL_FAILED } from '../controller/CapabilityController';
 import { CodecBrief, ScenarioItem, ScenarioGroup, CodecCategoryConstants, SCENARIO_GROUPS } from '../model/CodecModel';
 import Logger from '../common/utils/Logger';
 
@@ -26,10 +26,10 @@ struct Index {
   @State codecCategory: number = CodecCategoryConstants.VIDEO_DECODER;
   @State codecList: CodecBrief[] = [];
   @State selectedCodecName: string = '';
-  @State codecDetailText: string = '点击编解码器查看能力详情。';
-  @State scenarioResultTitle: string = '场景验证结果';
-  @State scenarioResultText: string = '点击场景条目执行对应示例。';
-  @State runningScenarioName: string = '';
+  @State codecDetailText: string | Resource = $r('app.string.codec_detail_hint');
+  @State scenarioResultTitle: string | Resource = $r('app.string.scenario_result_title_default');
+  @State scenarioResultText: string | Resource = $r('app.string.scenario_result_hint');
+  @State runningScenarioId: number = -1;
 
   aboutToAppear(): void {
     this.refreshCodecList(this.codecCategory);
@@ -38,37 +38,42 @@ struct Index {
   private refreshCodecList(category: number): void {
     this.codecList = CapabilityController.getCodecList(category);
     this.selectedCodecName = '';
-    this.codecDetailText = '点击编解码器查看能力详情。';
+    this.codecDetailText = $r('app.string.codec_detail_hint');
     Logger.info(TAG, 'refreshCodecList, category: %{public}d, size: %{public}d', category, this.codecList.length);
+  }
+
+  private getFormattedString(resource: Resource, ...args: (string | number)[]): string {
+    return getContext().resourceManager.getStringSync(resource.id, ...args);
   }
 
   private onCodecClicked(item: CodecBrief): void {
     this.selectedCodecName = item.name;
-    this.codecDetailText = CapabilityController.getCodecDetail(this.codecCategory, item.name);
+    const detail = CapabilityController.getCodecDetail(this.codecCategory, item.name);
+    this.codecDetailText = detail === QUERY_CODEC_DETAIL_FAILED ? $r('app.string.codec_detail_query_failed') : detail;
     Logger.info(TAG, 'onCodecClicked, name: %{public}s', item.name);
   }
 
   private onScenarioClicked(item: ScenarioItem): void {
-    if (this.runningScenarioName !== '') {
+    if (this.runningScenarioId !== -1) {
       return;
     }
-    this.runningScenarioName = item.name;
-    this.scenarioResultTitle = item.name + '（执行中...）';
+    this.runningScenarioId = item.id;
+    this.scenarioResultTitle = item.name;
     CapabilityController.runScenario(item.id)
       .then((result: string) => {
         this.scenarioResultTitle = item.name;
         this.scenarioResultText = result;
-        this.runningScenarioName = '';
+        this.runningScenarioId = -1;
       })
       .catch((err: Error) => {
         this.scenarioResultTitle = item.name;
-        this.scenarioResultText = '场景执行失败: ' + err.message;
-        this.runningScenarioName = '';
+        this.scenarioResultText = this.getFormattedString($r('app.string.scenario_execute_failed'), err.message);
+        this.runningScenarioId = -1;
       });
   }
 
   @Builder
-  CategoryButton(label: string, category: number) {
+  CategoryButton(label: string | Resource, category: number) {
     Button(label)
       .fontSize(14)
       .fontColor(this.codecCategory === category ? Color.White : '#333333')
@@ -92,14 +97,14 @@ struct Index {
           .layoutWeight(1)
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
-        Text(item.isHardware ? '硬件' : '软件')
+        Text(item.isHardware ? $r('app.string.hardware') : $r('app.string.software'))
           .fontSize(11)
           .fontColor(item.isHardware ? '#0F8B42' : '#8A5B00')
           .backgroundColor(item.isHardware ? '#E6F4EA' : '#FFF3E0')
           .borderRadius(4)
           .padding({ left: 6, right: 6, top: 2, bottom: 2 })
         if (item.isSecure) {
-          Text('安全')
+          Text($r('app.string.secure'))
             .fontSize(11)
             .fontColor('#B3261E')
             .backgroundColor('#FCE8E6')
@@ -109,7 +114,7 @@ struct Index {
       }
       .width('100%')
 
-      Text(item.mime + ' · 最大实例数: ' + item.maxInstances.toString())
+      Text(item.mime + this.getFormattedString($r('app.string.max_instances_format'), item.maxInstances))
         .fontSize(12)
         .fontColor('#999999')
         .maxLines(1)
@@ -126,7 +131,7 @@ struct Index {
   }
 
   @Builder
-  ScenarioGroupHeader(title: string) {
+  ScenarioGroupHeader(title: string | Resource) {
     Text(title)
       .fontSize(13)
       .fontColor('#666666')
@@ -140,11 +145,11 @@ struct Index {
     Row() {
       Text(item.name)
         .fontSize(14)
-        .fontColor(this.runningScenarioName === item.name ? '#007DFF' : '#333333')
+        .fontColor(this.runningScenarioId === item.id ? '#007DFF' : '#333333')
         .layoutWeight(1)
         .maxLines(1)
         .textOverflow({ overflow: TextOverflow.Ellipsis })
-      Text(this.runningScenarioName === item.name ? '执行中' : '执行')
+      Text(this.runningScenarioId === item.id ? $r('app.string.executing') : $r('app.string.execute'))
         .fontSize(12)
         .fontColor('#007DFF')
         .padding({ left: 8, right: 4 })
@@ -161,7 +166,7 @@ struct Index {
 
   build() {
     Column() {
-      Text('获取支持的编解码能力')
+      Text($r('app.string.main_title'))
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .fontColor('#333333')
@@ -180,7 +185,7 @@ struct Index {
             .width('100%')
             .padding({ left: 12, right: 12, top: 4, bottom: 8 })
 
-            Text('共 ' + this.codecList.length.toString() + ' 个编解码器')
+            Text(this.getFormattedString($r('app.string.codec_count'), this.codecList.length))
               .fontSize(12)
               .fontColor('#999999')
               .width('100%')
@@ -200,7 +205,7 @@ struct Index {
 
             Divider().margin({ top: 4, bottom: 4 })
 
-            Text('能力详情')
+            Text($r('app.string.capability_detail'))
               .fontSize(15)
               .fontWeight(FontWeight.Medium)
               .fontColor('#333333')
@@ -227,21 +232,21 @@ struct Index {
           .height('100%')
           .backgroundColor('#F5F6F7')
         }
-        .tabBar('编解码器列表')
+        .tabBar($r('app.string.tab_codec_list'))
 
         TabContent() {
           Column() {
             List() {
               ForEach(SCENARIO_GROUPS, (group: ScenarioGroup) => {
-                ListItem() {
-                  this.ScenarioGroupHeader(group.title)
-                }
-                ForEach(group.items, (item: ScenarioItem) => {
                   ListItem() {
-                    this.ScenarioListItem(item)
+                    this.ScenarioGroupHeader(group.title)
                   }
-                }, (item: ScenarioItem, index: number) => group.title + '_' + index.toString())
-              }, (group: ScenarioGroup) => group.title)
+                  ForEach(group.items, (item: ScenarioItem) => {
+                    ListItem() {
+                      this.ScenarioListItem(item)
+                    }
+                  }, (item: ScenarioItem) => item.id.toString())
+                }, (group: ScenarioGroup, index: number) => index.toString())
             }
             .width('100%')
             .layoutWeight(1)
@@ -279,7 +284,7 @@ struct Index {
           .height('100%')
           .backgroundColor('#F5F6F7')
         }
-        .tabBar('场景验证')
+        .tabBar($r('app.string.tab_scenario_verify'))
       }
       .barMode(BarMode.Fixed)
       .layoutWeight(1)

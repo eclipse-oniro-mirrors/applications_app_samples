@@ -13,3 +13,4 @@
 *.db
 *.db-shm
 *.db-wal
+oh-package-lock.json5

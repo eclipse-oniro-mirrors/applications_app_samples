@@ -18,11 +18,11 @@
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
         "targetSdkVersion": "26.0.0",
         "compatibleSdkVersion": "26.0.0",
         "compileSdkVersion": "26.0.0",
-        "runtimeOS": "OpenHarmony"
+        "runtimeOS": "OpenHarmony",
+        "signingConfig": "8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc"
       }
     ],
     "buildModeSet": [
@@ -33,7 +33,32 @@
         "name": "release"
       }
     ],
-    "signingConfigs": []
+    "signingConfigs": [
+      {
+        "name": "default",
+        "material": {
+          "certpath": "C:/Users/chenchunming/.ohos/config/openharmony/default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B812902423D6CA479A8714EF65F0CB70ADC45674D3B84A303AF48562CE7D77D29EF3DA1C1EB3B05",
+          "profile": "C:/Users/chenchunming/.ohos/config/openharmony/default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/chenchunming/.ohos/config/openharmony/default_CodecCapabilitySample_kHHY4nMt24PNGLJm2MKRuwqwwVL64FQIcKHk6e63PXY=.p12",
+          "storePassword": "0000001BEE4C86D4FA2E42AD29DDB98A0EB9AC8092549432314D8965243B4C9DF52B9405BCFDFE01FE1EFF"
+        }
+      },
+      {
+        "name": "8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc",
+        "material": {
+          "certpath": "C:/Users/chenchunming/.ohos/config/openharmony/auto_ohos_8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc_CodecCapabilitySample_com.samples.codeccapabilitysample.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B49DBACECBC9E80BB398C86602AB0A67DFF7717CD5FDD16A5D358B48EE8DE8D80C376AA1A0CA38C",
+          "profile": "C:/Users/chenchunming/.ohos/config/openharmony/auto_ohos_8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc_CodecCapabilitySample_com.samples.codeccapabilitysample.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:/Users/chenchunming/.ohos/config/openharmony/auto_ohos_8Ro8SV66NFCfYl15YT5kkP7T3ow2AyhIf8xTQgVWzmc_CodecCapabilitySample_com.samples.codeccapabilitysample.p12",
+          "storePassword": "0000001BCFB75BFA2A585B9A32890A4E5958D5E661EB94B1ED02F61B21171695B0DEA8D2C8E5FA14610BF2"
+        }
+      }
+    ]
   },
   "modules": [
     {

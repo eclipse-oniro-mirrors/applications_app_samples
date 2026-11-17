@@ -29,14 +29,14 @@ export interface CodecBrief {
  */
 export interface ScenarioItem {
   id: number;
-  name: string;
+  name: Resource;
 }
 
 /**
  * 场景化示例分组。
  */
 export interface ScenarioGroup {
-  title: string;
+  title: Resource;
   items: ScenarioItem[];
 }
 
@@ -48,7 +48,12 @@ export class CodecCategoryConstants {
   public static readonly VIDEO_ENCODER: number = 1;
   public static readonly AUDIO_DECODER: number = 2;
   public static readonly AUDIO_ENCODER: number = 3;
-  public static readonly CATEGORY_NAMES: string[] = ['视频解码器', '视频编码器', '音频解码器', '音频编码器'];
+  public static readonly CATEGORY_NAMES: Resource[] = [
+    $r('app.string.category_video_decoder'),
+    $r('app.string.category_video_encoder'),
+    $r('app.string.category_audio_decoder'),
+    $r('app.string.category_audio_encoder')
+  ];
 }
 
 /**
@@ -56,138 +61,138 @@ export class CodecCategoryConstants {
  */
 export const SCENARIO_GROUPS: ScenarioGroup[] = [
   {
-    title: '通用开发指导：获得能力实例',
+    title: $r('app.string.group_obtain_capability_instance'),
     items: [
-      { id: 0, name: '方式一：OH_AVCodec_GetCapability' },
-      { id: 1, name: '方式二：OH_AVCodec_GetCapabilityByCategory' },
-      { id: 2, name: '方式三：OH_AVCodec_GetCapabilityList' }
+      { id: 0, name: $r('app.string.item_obtain_capability_way1') },
+      { id: 1, name: $r('app.string.item_obtain_capability_way2') },
+      { id: 2, name: $r('app.string.item_obtain_capability_way3') }
     ]
   },
   {
-    title: '创建指定名称的编解码器',
+    title: $r('app.string.group_create_codec_by_name'),
     items: [
-      { id: 3, name: '通过名称创建H.264软件解码器' }
+      { id: 3, name: $r('app.string.item_create_h264_sw_decoder') }
     ]
   },
   {
-    title: '针对软硬件类别差异化配置编解码器参数',
+    title: $r('app.string.group_configure_by_hw_sw'),
     items: [
-      { id: 4, name: '基于软硬件类别差异化配置帧率' }
+      { id: 4, name: $r('app.string.item_diff_config_frame_rate') }
     ]
   },
   {
-    title: '创建多路编解码器',
+    title: $r('app.string.group_create_multiple_codecs'),
     items: [
-      { id: 5, name: '硬件优先创建多路解码器' }
+      { id: 5, name: $r('app.string.item_create_multi_hw_decoder') }
     ]
   },
   {
-    title: '控制编码质量',
+    title: $r('app.string.group_control_encoding_quality'),
     items: [
-      { id: 6, name: 'CBR/VBR码控模式' },
-      { id: 7, name: 'CQ码控模式' },
-      { id: 8, name: 'SQR码控模式' },
-      { id: 9, name: 'CBRHQ码控模式' }
+      { id: 6, name: $r('app.string.item_cbr_vbr_mode') },
+      { id: 7, name: $r('app.string.item_cq_mode') },
+      { id: 8, name: $r('app.string.item_sqr_mode') },
+      { id: 9, name: $r('app.string.item_cbrhq_mode') }
     ]
   },
   {
-    title: '查询编码器支持复杂度范围',
+    title: $r('app.string.group_query_complexity_range'),
     items: [
-      { id: 10, name: '复杂度等级范围查询' }
+      { id: 10, name: $r('app.string.item_complexity_range') }
     ]
   },
   {
-    title: '设置正确的音频编解码参数',
+    title: $r('app.string.group_set_audio_params'),
     items: [
-      { id: 11, name: '采样率/通道数/码率校验' }
+      { id: 11, name: $r('app.string.item_sample_rate_channels_bitrate') }
     ]
   },
   {
-    title: '查询编解码档次和级别支持情况',
+    title: $r('app.string.group_query_profile_level'),
     items: [
-      { id: 12, name: '查询档次支持的级别' },
-      { id: 13, name: '直接校验档次和级别组合' }
+      { id: 12, name: $r('app.string.item_query_supported_levels') },
+      { id: 13, name: $r('app.string.item_validate_profile_level') }
     ]
   },
   {
-    title: '设置正确的视频宽高',
+    title: $r('app.string.group_set_video_resolution'),
     items: [
-      { id: 14, name: '校验视频宽高组合' },
-      { id: 15, name: '已知视频宽度查询高度范围' },
-      { id: 16, name: '已知视频高度查询宽度范围' }
+      { id: 14, name: $r('app.string.item_validate_resolution_combo') },
+      { id: 15, name: $r('app.string.item_query_height_by_width') },
+      { id: 16, name: $r('app.string.item_query_width_by_height') }
     ]
   },
   {
-    title: '设置正确的视频帧率',
+    title: $r('app.string.group_set_video_frame_rate'),
     items: [
-      { id: 17, name: '校验帧率是否在可选范围内' },
-      { id: 18, name: '按尺寸选择合适的帧率配置' }
+      { id: 17, name: $r('app.string.item_validate_frame_rate') },
+      { id: 18, name: $r('app.string.item_select_frame_rate_by_size') }
     ]
   },
   {
-    title: '设置正确的视频像素格式信息',
+    title: $r('app.string.group_set_video_pixel_format'),
     items: [
-      { id: 19, name: '查询支持的像素格式' }
+      { id: 19, name: $r('app.string.item_query_pixel_formats') }
     ]
   },
   {
-    title: '查询编解码特性支持情况',
+    title: $r('app.string.group_query_feature_support'),
     items: [
-      { id: 20, name: '长期参考帧特性查询' }
+      { id: 20, name: $r('app.string.item_long_term_ref_frame') }
     ]
   },
   {
-    title: '筛选特定MIME类型的安全解码器（DRM播放场景）',
+    title: $r('app.string.group_filter_secure_decoder'),
     items: [
-      { id: 21, name: '筛选H.264安全解码器' }
+      { id: 21, name: $r('app.string.item_filter_h264_secure_decoder') }
     ]
   },
   {
-    title: '各类场景的视频编码基础参数配置：低时延场景',
+    title: $r('app.string.group_video_encoding_low_latency'),
     items: [
-      { id: 22, name: '视频通话CBR 1080p@30fps配置' },
-      { id: 23, name: '运行中动态请求IDR帧' },
-      { id: 24, name: 'CBRHQ码控配置' }
+      { id: 22, name: $r('app.string.item_video_call_cbr_1080p_30fps') },
+      { id: 23, name: $r('app.string.item_request_idr_dynamically') },
+      { id: 24, name: $r('app.string.item_cbrhq_config') }
     ]
   },
   {
-    title: '各类场景的视频编码基础参数配置：实时流媒体编码',
+    title: $r('app.string.group_video_encoding_live_streaming'),
     items: [
-      { id: 25, name: '直播VBR 1080p@25fps配置' },
-      { id: 26, name: '直播SQR码控配置' }
+      { id: 25, name: $r('app.string.item_live_vbr_1080p_25fps') },
+      { id: 26, name: $r('app.string.item_live_sqr_config') }
     ]
   },
   {
-    title: '各类场景的视频编码基础参数配置：离线编码场景',
+    title: $r('app.string.group_video_encoding_offline'),
     items: [
-      { id: 27, name: '视频分享VBR 1080p@30fps配置' },
-      { id: 28, name: '视频分享SQR码控配置' }
+      { id: 27, name: $r('app.string.item_video_share_vbr_1080p_30fps') },
+      { id: 28, name: $r('app.string.item_video_share_sqr_config') }
     ]
   },
   {
-    title: '高压缩率B帧编码',
+    title: $r('app.string.group_b_frame_encoding'),
     items: [
-      { id: 29, name: 'B帧特性校验' },
-      { id: 30, name: '配置使能B帧' }
+      { id: 29, name: $r('app.string.item_b_frame_support') },
+      { id: 30, name: $r('app.string.item_enable_b_frame') }
     ]
   },
   {
-    title: '时域可分层编码：全局时域可分层特性',
+    title: $r('app.string.group_temporal_scalability_global'),
     items: [
-      { id: 31, name: '特性支持校验' },
-      { id: 32, name: '创建硬件编码器实例' },
-      { id: 33, name: '配置时域分层参数' },
-      { id: 34, name: '动态开启时域可分层' },
-      { id: 35, name: '动态关闭时域可分层' }
+      { id: 31, name: $r('app.string.item_temporal_scalability_support') },
+      { id: 32, name: $r('app.string.item_create_hw_encoder') },
+      { id: 33, name: $r('app.string.item_config_temporal_params') },
+      { id: 34, name: $r('app.string.item_enable_temporal_scalability_dynamically') },
+      { id: 35, name: $r('app.string.item_disable_temporal_scalability_dynamically') }
     ]
   },
   {
-    title: '时域可分层编码：长期参考帧特性',
+    title: $r('app.string.group_temporal_scalability_ltr'),
     items: [
-      { id: 36, name: 'LTR特性与数目校验' },
-      { id: 37, name: '配置最大LTR数目' },
-      { id: 38, name: 'LTR随帧回调注册（Buffer模式）' },
-      { id: 39, name: 'LTR随帧回调注册（窗口输入模式）' }
+      { id: 36, name: $r('app.string.item_ltr_support_and_count') },
+      { id: 37, name: $r('app.string.item_config_max_ltr_count') },
+      { id: 38, name: $r('app.string.item_ltr_callback_buffer_mode') },
+      { id: 39, name: $r('app.string.item_ltr_callback_surface_mode') }
     ]
   }
 ];

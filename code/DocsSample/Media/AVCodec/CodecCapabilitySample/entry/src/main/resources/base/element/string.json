@@ -10,7 +10,323 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "编解码能力查询"
+      "value": "Codec Capability Query"
+    },
+    {
+      "name": "codec_detail_query_failed",
+      "value": "Failed to query codec details."
+    },
+    {
+      "name": "main_title",
+      "value": "Get Supported Codec Capabilities"
+    },
+    {
+      "name": "tab_codec_list",
+      "value": "Codec List"
+    },
+    {
+      "name": "tab_scenario_verify",
+      "value": "Scenario Verification"
+    },
+    {
+      "name": "codec_count",
+      "value": "%d codecs"
+    },
+    {
+      "name": "capability_detail",
+      "value": "Capability Details"
+    },
+    {
+      "name": "codec_detail_hint",
+      "value": "Click a codec to view capability details."
+    },
+    {
+      "name": "scenario_result_title_default",
+      "value": "Scenario Verification Result"
+    },
+    {
+      "name": "scenario_result_hint",
+      "value": "Click a scenario item to run the example."
+    },
+    {
+      "name": "hardware",
+      "value": "Hardware"
+    },
+    {
+      "name": "software",
+      "value": "Software"
+    },
+    {
+      "name": "secure",
+      "value": "Secure"
+    },
+    {
+      "name": "execute",
+      "value": "Run"
+    },
+    {
+      "name": "executing",
+      "value": "Running"
+    },
+    {
+      "name": "scenario_execute_failed",
+      "value": "Scenario execution failed: %s"
+    },
+    {
+      "name": "max_instances_format",
+      "value": " · Max instances: %d"
+    },
+    {
+      "name": "group_obtain_capability_instance",
+      "value": "General Development Guide: Obtain Capability Instance"
+    },
+    {
+      "name": "item_obtain_capability_way1",
+      "value": "Way 1: OH_AVCodec_GetCapability"
+    },
+    {
+      "name": "item_obtain_capability_way2",
+      "value": "Way 2: OH_AVCodec_GetCapabilityByCategory"
+    },
+    {
+      "name": "item_obtain_capability_way3",
+      "value": "Way 3: OH_AVCodec_GetCapabilityList"
+    },
+    {
+      "name": "group_create_codec_by_name",
+      "value": "Create Codec by Name"
+    },
+    {
+      "name": "item_create_h264_sw_decoder",
+      "value": "Create H.264 Software Decoder by Name"
+    },
+    {
+      "name": "group_configure_by_hw_sw",
+      "value": "Configure Codec Parameters by Hardware/Software Type"
+    },
+    {
+      "name": "item_diff_config_frame_rate",
+      "value": "Configure Frame Rate by Hardware/Software Type"
+    },
+    {
+      "name": "group_create_multiple_codecs",
+      "value": "Create Multiple Codec Instances"
+    },
+    {
+      "name": "item_create_multi_hw_decoder",
+      "value": "Create Multiple Hardware Decoders"
+    },
+    {
+      "name": "group_control_encoding_quality",
+      "value": "Control Encoding Quality"
+    },
+    {
+      "name": "item_cbr_vbr_mode",
+      "value": "CBR/VBR Bitrate Control Mode"
+    },
+    {
+      "name": "item_cq_mode",
+      "value": "CQ Bitrate Control Mode"
+    },
+    {
+      "name": "item_sqr_mode",
+      "value": "SQR Bitrate Control Mode"
+    },
+    {
+      "name": "item_cbrhq_mode",
+      "value": "CBRHQ Bitrate Control Mode"
+    },
+    {
+      "name": "group_query_complexity_range",
+      "value": "Query Encoder Complexity Range"
+    },
+    {
+      "name": "item_complexity_range",
+      "value": "Complexity Level Range"
+    },
+    {
+      "name": "group_set_audio_params",
+      "value": "Set Correct Audio Codec Parameters"
+    },
+    {
+      "name": "item_sample_rate_channels_bitrate",
+      "value": "Sample Rate/Channel Count/Bitrate Validation"
+    },
+    {
+      "name": "group_query_profile_level",
+      "value": "Query Codec Profile and Level Support"
+    },
+    {
+      "name": "item_query_supported_levels",
+      "value": "Query Supported Levels"
+    },
+    {
+      "name": "item_validate_profile_level",
+      "value": "Validate Profile and Level Combination"
+    },
+    {
+      "name": "group_set_video_resolution",
+      "value": "Set Correct Video Resolution"
+    },
+    {
+      "name": "item_validate_resolution_combo",
+      "value": "Validate Video Resolution Combination"
+    },
+    {
+      "name": "item_query_height_by_width",
+      "value": "Query Height Range by Width"
+    },
+    {
+      "name": "item_query_width_by_height",
+      "value": "Query Width Range by Height"
+    },
+    {
+      "name": "group_set_video_frame_rate",
+      "value": "Set Correct Video Frame Rate"
+    },
+    {
+      "name": "item_validate_frame_rate",
+      "value": "Validate Frame Rate Within Optional Range"
+    },
+    {
+      "name": "item_select_frame_rate_by_size",
+      "value": "Select Frame Rate Configuration by Size"
+    },
+    {
+      "name": "group_set_video_pixel_format",
+      "value": "Set Correct Video Pixel Format"
+    },
+    {
+      "name": "item_query_pixel_formats",
+      "value": "Query Supported Pixel Formats"
+    },
+    {
+      "name": "group_query_feature_support",
+      "value": "Query Codec Feature Support"
+    },
+    {
+      "name": "item_long_term_ref_frame",
+      "value": "Long-Term Reference Frame Feature"
+    },
+    {
+      "name": "group_filter_secure_decoder",
+      "value": "Filter Secure Decoders by MIME Type (DRM)"
+    },
+    {
+      "name": "item_filter_h264_secure_decoder",
+      "value": "Filter H.264 Secure Decoder"
+    },
+    {
+      "name": "group_video_encoding_low_latency",
+      "value": "Video Encoding Basic Params: Low Latency"
+    },
+    {
+      "name": "item_video_call_cbr_1080p_30fps",
+      "value": "Video Call CBR 1080p@30fps"
+    },
+    {
+      "name": "item_request_idr_dynamically",
+      "value": "Request IDR Frame Dynamically"
+    },
+    {
+      "name": "item_cbrhq_config",
+      "value": "CBRHQ Bitrate Control Configuration"
+    },
+    {
+      "name": "group_video_encoding_live_streaming",
+      "value": "Video Encoding Basic Params: Live Streaming"
+    },
+    {
+      "name": "item_live_vbr_1080p_25fps",
+      "value": "Live VBR 1080p@25fps"
+    },
+    {
+      "name": "item_live_sqr_config",
+      "value": "Live SQR Bitrate Control Configuration"
+    },
+    {
+      "name": "group_video_encoding_offline",
+      "value": "Video Encoding Basic Params: Offline Encoding"
+    },
+    {
+      "name": "item_video_share_vbr_1080p_30fps",
+      "value": "Video Share VBR 1080p@30fps"
+    },
+    {
+      "name": "item_video_share_sqr_config",
+      "value": "Video Share SQR Bitrate Control Configuration"
+    },
+    {
+      "name": "group_b_frame_encoding",
+      "value": "High-Compression B-Frame Encoding"
+    },
+    {
+      "name": "item_b_frame_support",
+      "value": "B-Frame Feature Support"
+    },
+    {
+      "name": "item_enable_b_frame",
+      "value": "Enable B-Frame"
+    },
+    {
+      "name": "group_temporal_scalability_global",
+      "value": "Temporal Scalability: Global Temporal Scalability"
+    },
+    {
+      "name": "item_temporal_scalability_support",
+      "value": "Feature Support Validation"
+    },
+    {
+      "name": "item_create_hw_encoder",
+      "value": "Create Hardware Encoder"
+    },
+    {
+      "name": "item_config_temporal_params",
+      "value": "Configure Temporal Scalability Parameters"
+    },
+    {
+      "name": "item_enable_temporal_scalability_dynamically",
+      "value": "Enable Temporal Scalability Dynamically"
+    },
+    {
+      "name": "item_disable_temporal_scalability_dynamically",
+      "value": "Disable Temporal Scalability Dynamically"
+    },
+    {
+      "name": "group_temporal_scalability_ltr",
+      "value": "Temporal Scalability: Long-Term Reference Frame"
+    },
+    {
+      "name": "item_ltr_support_and_count",
+      "value": "LTR Feature and Count Validation"
+    },
+    {
+      "name": "item_config_max_ltr_count",
+      "value": "Configure Maximum LTR Count"
+    },
+    {
+      "name": "item_ltr_callback_buffer_mode",
+      "value": "LTR Frame Callback Registration (Buffer Mode)"
+    },
+    {
+      "name": "item_ltr_callback_surface_mode",
+      "value": "LTR Frame Callback Registration (Surface Mode)"
+    },
+    {
+      "name": "category_video_decoder",
+      "value": "Video Decoder"
+    },
+    {
+      "name": "category_video_encoder",
+      "value": "Video Encoder"
+    },
+    {
+      "name": "category_audio_decoder",
+      "value": "Audio Decoder"
+    },
+    {
+      "name": "category_audio_encoder",
+      "value": "Audio Encoder"
     }
   ]
 }
