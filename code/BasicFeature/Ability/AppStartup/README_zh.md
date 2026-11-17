@@ -16,7 +16,8 @@
 |:-----------------------------------:|:-----------------------------------------:|
 | <img src="screenshots/index.png" /> | <img src="screenshots/ImageKnife.png"  /> | 
 
-使用说明： 
+### 使用说明
+
  在启动应用后：
  1. excludeFromAutoStart:false 是自动模式，index页面中显示的数据都是在应用启动框架AppStartup中初始化完成的；
  2. excludeFromAutoStart:true 是手动模式，点击按钮手动模式在代码中通过startupManager.run()函数来加载ImageKnifeTask后在页面显示出图片；
