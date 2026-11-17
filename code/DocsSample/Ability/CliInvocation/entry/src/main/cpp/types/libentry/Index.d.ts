@@ -12,6 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// [Start cli_start_declare]
+// Index.d.ts
+// [StartExclude cli_start_declare]
 export const add: (a: number, b: number) => number;
+// [EndExclude cli_start_declare]
 export const forkAndExecute: (bundleName: string, abilityName: string) => number;
+// [StartExclude cli_start_declare]
 export const forkAndForceStop: (bundleName: string) => number;
+// [EndExclude cli_start_declare]
+// [End cli_start_declare]
