@@ -42,37 +42,39 @@ export default function mediaFullScreenStressTest() {
     beforeAll(() => {
       hilog.info(0x0000, CASE_LOG_TAG, 'suite start MediaFullScreenStress');
     });
-
-    it('player_transition_case_0', 0, () => {
+    it('player_transition_case_0__player_transition_case_1', 0, () => {
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       expect(player.getState()).assertEqual(MediaState.IDLE);
       expect(player.initialize()).assertTrue();
       expect(player.getState()).assertEqual(MediaState.INITIALIZED);
-    });
-
-    it('player_transition_case_1', 0, () => {
+      }
+      {
       const player: VideoPlayerModel = new VideoPlayerModel();
       expect(player.prepare(1000)).assertTrue();
       expect(player.getState()).assertEqual(MediaState.PREPARED);
       expect(player.getDuration()).assertEqual(1000);
+      }
     });
 
-    it('fullscreen_case_2', 0, () => {
+    it('fullscreen_case_2__window_config_case_3', 0, () => {
+      {
       const model: FullscreenModel = new FullscreenModel();
       model.selectVideo('video1');
       expect(model.selectVideo('video2')).assertFalse();
       expect(model.getSelectedVideo()).assertEqual('video1');
-    });
-
-    it('window_config_case_3', 0, () => {
+      }
+      {
       const config: WindowConfigModel = new WindowConfigModel();
       config.enterImmersive();
       config.exitImmersive();
       expect(config.getLayoutFullScreen()).assertFalse();
       expect(config.getBars()).assertEqual(SystemBarMode.BOTH);
+      }
     });
 
-    it('data_source_case_4', 0, () => {
+    it('data_source_case_4__speed_case_5', 0, () => {
+      {
       const source: FlowDataSource = new FlowDataSource();
       const items: FlowItemModel[] = createFlowItems(5);
       expect(source.pushDataArray(items)).assertEqual(5);
@@ -87,9 +89,8 @@ export default function mediaFullScreenStressTest() {
       source.notifyChange();
       expect(source.getReloadNotifications()).assertEqual(1);
       expect(source.getChangeNotifications()).assertEqual(1);
-    });
-
-    it('speed_case_5', 0, () => {
+      }
+      {
       const controller: PlaybackSpeedController = new PlaybackSpeedController();
       expect(controller.setIndex(0)).assertTrue();
       expect(controller.getIndex()).assertEqual(0);
@@ -97,9 +98,11 @@ export default function mediaFullScreenStressTest() {
       expect(controller.getMultiplier()).assertEqual(SPEED_OPTIONS[0].multiplier);
       expect(controller.setIndex(5)).assertFalse();
       expect(controller.setIndex(-1)).assertFalse();
+      }
     });
 
-    it('seek_case_6', 0, () => {
+    it('seek_case_6__aspect_case_7', 0, () => {
+      {
       const duration: number = 7000;
       const percent: number = 6;
       const target: number = SeekController.percentToTime(percent, duration);
@@ -108,9 +111,8 @@ export default function mediaFullScreenStressTest() {
       expect(target <= duration).assertTrue();
       expect(SeekController.timeToPercent(target, duration) >= 0).assertTrue();
       expect(SeekController.timeToPercent(target, duration) <= 100).assertTrue();
-    });
-
-    it('aspect_case_7', 0, () => {
+      }
+      {
       const height: number = 8;
       const width: number = AspectRatioUtil.widthForHeight(height);
       expect(nearlyEqual(width, height * VIDEO_ASPECT_RATIO, 0.000001)).assertTrue();
@@ -118,6 +120,7 @@ export default function mediaFullScreenStressTest() {
       expect(AspectRatioUtil.isLandscapeRatio(VIDEO_ASPECT_RATIO)).assertTrue();
       expect(AspectRatioUtil.isPortraitRatio(0.5)).assertTrue();
       expect(AspectRatioUtil.isSquareRatio(1)).assertTrue();
+      }
     });
 
     it('session_case_8', 0, () => {
