@@ -85,7 +85,7 @@ export default function ndkQosTopologyTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0001
+     * @tc.number    SUB_QOS_TOPOLOGY_0001
      * @tc.name      testNdkQosTopology0001
      * @tc.desc      Checks the topology reports a usable CPU count and a default computation CPU.
      * @tc.type      FUNCTION
@@ -104,7 +104,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0002
+     * @tc.number    SUB_QOS_TOPOLOGY_0002
      * @tc.name      testNdkQosTopology0002
      * @tc.desc      Checks the affinity list matches its own count and stays inside the online CPU range.
      * @tc.type      FUNCTION
@@ -129,7 +129,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0003
+     * @tc.number    SUB_QOS_TOPOLOGY_0003
      * @tc.name      testNdkQosTopology0003
      * @tc.desc      Checks the affinity list is strictly ascending so callers can treat it as a set.
      * @tc.type      FUNCTION
@@ -146,7 +146,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0004
+     * @tc.number    SUB_QOS_TOPOLOGY_0004
      * @tc.name      testNdkQosTopology0004
      * @tc.desc      Checks two consecutive calls report the same CPU count and default CPU.
      * @tc.type      FUNCTION
@@ -164,7 +164,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0005
+     * @tc.number    SUB_QOS_TOPOLOGY_0005
      * @tc.name      testNdkQosTopology0005
      * @tc.desc      Checks resetting the affinity makes every online CPU available again.
      * @tc.type      FUNCTION
@@ -184,7 +184,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0006
+     * @tc.number    SUB_QOS_TOPOLOGY_0006
      * @tc.name      testNdkQosTopology0006
      * @tc.desc      Checks binding the current thread to CPU 0 reports the bound CPU and its mask.
      * @tc.type      FUNCTION
@@ -204,7 +204,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0007
+     * @tc.number    SUB_QOS_TOPOLOGY_0007
      * @tc.name      testNdkQosTopology0007
      * @tc.desc      Checks binding to the last online CPU succeeds and narrows the mask to that CPU.
      * @tc.type      FUNCTION
@@ -225,7 +225,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0008
+     * @tc.number    SUB_QOS_TOPOLOGY_0008
      * @tc.name      testNdkQosTopology0008
      * @tc.desc      Checks binding to a middle CPU is accepted when the device has several CPUs.
      * @tc.type      FUNCTION
@@ -246,7 +246,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0009
+     * @tc.number    SUB_QOS_TOPOLOGY_0009
      * @tc.name      testNdkQosTopology0009
      * @tc.desc      Checks binding twice keeps only the most recent CPU in the affinity mask.
      * @tc.type      FUNCTION
@@ -265,7 +265,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0010
+     * @tc.number    SUB_QOS_TOPOLOGY_0010
      * @tc.name      testNdkQosTopology0010
      * @tc.desc      Checks the topology read back after binding reports the narrowed affinity mask.
      * @tc.type      FUNCTION
@@ -286,7 +286,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0011
+     * @tc.number    SUB_QOS_TOPOLOGY_0011
      * @tc.name      testNdkQosTopology0011
      * @tc.desc      Checks a negative CPU index is rejected before it reaches the scheduler.
      * @tc.type      FUNCTION
@@ -305,7 +305,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0012
+     * @tc.number    SUB_QOS_TOPOLOGY_0012
      * @tc.name      testNdkQosTopology0012
      * @tc.desc      Checks a CPU index equal to the CPU count is rejected instead of being clamped.
      * @tc.type      FUNCTION
@@ -324,7 +324,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0013
+     * @tc.number    SUB_QOS_TOPOLOGY_0013
      * @tc.name      testNdkQosTopology0013
      * @tc.desc      Checks a far out of range CPU index is rejected and keeps the error fields stable.
      * @tc.type      FUNCTION
@@ -341,7 +341,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0014
+     * @tc.number    SUB_QOS_TOPOLOGY_0014
      * @tc.name      testNdkQosTopology0014
      * @tc.desc      Checks a fractional CPU index is rejected because core indexes are integers.
      * @tc.type      FUNCTION
@@ -359,7 +359,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0015
+     * @tc.number    SUB_QOS_TOPOLOGY_0015
      * @tc.name      testNdkQosTopology0015
      * @tc.desc      Checks a large negative CPU index is rejected and keeps the affinity mask as it was.
      * @tc.type      FUNCTION
@@ -378,7 +378,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0016
+     * @tc.number    SUB_QOS_TOPOLOGY_0016
      * @tc.name      testNdkQosTopology0016
      * @tc.desc      Checks a rejected binding leaves the current affinity mask untouched.
      * @tc.type      FUNCTION
@@ -398,7 +398,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0017
+     * @tc.number    SUB_QOS_TOPOLOGY_0017
      * @tc.name      testNdkQosTopology0017
      * @tc.desc      Checks resetting the affinity twice keeps every online CPU available.
      * @tc.type      FUNCTION
@@ -417,7 +417,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0018
+     * @tc.number    SUB_QOS_TOPOLOGY_0018
      * @tc.name      testNdkQosTopology0018
      * @tc.desc      Checks the affinity count never exceeds the reported CPU count.
      * @tc.type      FUNCTION
@@ -434,7 +434,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0019
+     * @tc.number    SUB_QOS_TOPOLOGY_0019
      * @tc.name      testNdkQosTopology0019
      * @tc.desc      Checks every online CPU can be bound in turn and released back to the default mask.
      * @tc.type      FUNCTION
@@ -461,7 +461,7 @@ export default function ndkQosTopologyTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_TOPOLOGY_0020
+     * @tc.number    SUB_QOS_TOPOLOGY_0020
      * @tc.name      testNdkQosTopology0020
      * @tc.desc      Checks the default computation CPU stays inside the online CPU range across calls.
      * @tc.type      FUNCTION

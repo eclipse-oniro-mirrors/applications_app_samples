@@ -74,7 +74,7 @@ export default function ndkQosBenchTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0001
+     * @tc.number    SUB_QOS_BENCH_0001
      * @tc.name      testNdkQosBench0001
      * @tc.desc      Checks one round reports six samples in ascending level order and echoes the round count.
      * @tc.type      FUNCTION
@@ -96,7 +96,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0002
+     * @tc.number    SUB_QOS_BENCH_0002
      * @tc.name      testNdkQosBench0002
      * @tc.desc      Checks every sample accounts for exactly the requested number of attempts.
      * @tc.type      FUNCTION
@@ -119,7 +119,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0003
+     * @tc.number    SUB_QOS_BENCH_0003
      * @tc.name      testNdkQosBench0003
      * @tc.desc      Checks successful samples carry a positive average and failed samples keep the sentinel.
      * @tc.type      FUNCTION
@@ -148,7 +148,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0004
+     * @tc.number    SUB_QOS_BENCH_0004
      * @tc.name      testNdkQosBench0004
      * @tc.desc      Checks the fastest and slowest levels come from the sampled set and are ordered correctly.
      * @tc.type      FUNCTION
@@ -168,7 +168,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0005
+     * @tc.number    SUB_QOS_BENCH_0005
      * @tc.name      testNdkQosBench0005
      * @tc.desc      Checks each sample keeps its minimum, average and maximum duration ordered.
      * @tc.type      FUNCTION
@@ -194,7 +194,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0006
+     * @tc.number    SUB_QOS_BENCH_0006
      * @tc.name      testNdkQosBench0006
      * @tc.desc      Checks every sample records the platform return codes of its last attempt.
      * @tc.type      FUNCTION
@@ -219,7 +219,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0007
+     * @tc.number    SUB_QOS_BENCH_0007
      * @tc.name      testNdkQosBench0007
      * @tc.desc      Checks two rounds double the number of attempts for every sample.
      * @tc.type      FUNCTION
@@ -244,7 +244,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0008
+     * @tc.number    SUB_QOS_BENCH_0008
      * @tc.name      testNdkQosBench0008
      * @tc.desc      Checks the maximum supported round count is accepted and covers three attempts per level.
      * @tc.type      FUNCTION
@@ -263,7 +263,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0009
+     * @tc.number    SUB_QOS_BENCH_0009
      * @tc.name      testNdkQosBench0009
      * @tc.desc      Checks a zero round count is rejected before any calculation starts.
      * @tc.type      FUNCTION
@@ -287,7 +287,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0010
+     * @tc.number    SUB_QOS_BENCH_0010
      * @tc.name      testNdkQosBench0010
      * @tc.desc      Checks a round count above the supported maximum is rejected.
      * @tc.type      FUNCTION
@@ -317,7 +317,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0011
+     * @tc.number    SUB_QOS_BENCH_0011
      * @tc.name      testNdkQosBench0011
      * @tc.desc      Checks a fractional round count is rejected because rounds are counted in whole attempts.
      * @tc.type      FUNCTION
@@ -341,7 +341,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0012
+     * @tc.number    SUB_QOS_BENCH_0012
      * @tc.name      testNdkQosBench0012
      * @tc.desc      Checks each benchmark adds its attempts to the process level run summary.
      * @tc.type      FUNCTION
@@ -362,7 +362,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0013
+     * @tc.number    SUB_QOS_BENCH_0013
      * @tc.name      testNdkQosBench0013
      * @tc.desc      Checks the run summary counts every level exactly once after a single round benchmark.
      * @tc.type      FUNCTION
@@ -386,7 +386,7 @@ export default function ndkQosBenchTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_BENCH_0014
+     * @tc.number    SUB_QOS_BENCH_0014
      * @tc.name      testNdkQosBench0014
      * @tc.desc      Checks the last run information after a benchmark belongs to the last level in the sweep.
      * @tc.type      FUNCTION

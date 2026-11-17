@@ -100,7 +100,7 @@ export default function ndkQosResourceModelTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0001
+     * @tc.number    SUB_QOS_RESMODEL_0001
      * @tc.name      testNdkQosResourceModel0001
      * @tc.desc      Checks the level model builds six options and every entry is a level option instance.
      * @tc.type      FUNCTION
@@ -124,7 +124,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0002
+     * @tc.number    SUB_QOS_RESMODEL_0002
      * @tc.name      testNdkQosResourceModel0002
      * @tc.desc      Checks the options carry the ascending levels zero to five in array order.
      * @tc.type      FUNCTION
@@ -146,7 +146,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0003
+     * @tc.number    SUB_QOS_RESMODEL_0003
      * @tc.name      testNdkQosResourceModel0003
      * @tc.desc      Checks the level sequence has no gap and no duplicated level.
      * @tc.type      FUNCTION
@@ -166,7 +166,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0004
+     * @tc.number    SUB_QOS_RESMODEL_0004
      * @tc.name      testNdkQosResourceModel0004
      * @tc.desc      Checks the first and last option match the level bounds reported by the native range.
      * @tc.type      FUNCTION
@@ -185,7 +185,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0005
+     * @tc.number    SUB_QOS_RESMODEL_0005
      * @tc.name      testNdkQosResourceModel0005
      * @tc.desc      Checks every option level falls inside the legal level window of the native range.
      * @tc.type      FUNCTION
@@ -210,7 +210,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0006
+     * @tc.number    SUB_QOS_RESMODEL_0006
      * @tc.name      testNdkQosResourceModel0006
      * @tc.desc      Checks the option count equals the level count the native layer declares.
      * @tc.type      FUNCTION
@@ -232,7 +232,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0007
+     * @tc.number    SUB_QOS_RESMODEL_0007
      * @tc.name      testNdkQosResourceModel0007
      * @tc.desc      Checks every option carries a real string resource with a positive identifier.
      * @tc.type      FUNCTION
@@ -257,7 +257,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0008
+     * @tc.number    SUB_QOS_RESMODEL_0008
      * @tc.name      testNdkQosResourceModel0008
      * @tc.desc      Checks the six option labels reference six different string resources.
      * @tc.type      FUNCTION
@@ -276,7 +276,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0009
+     * @tc.number    SUB_QOS_RESMODEL_0009
      * @tc.name      testNdkQosResourceModel0009
      * @tc.desc      Checks the lowest option points at the background level string resource.
      * @tc.type      FUNCTION
@@ -295,7 +295,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0010
+     * @tc.number    SUB_QOS_RESMODEL_0010
      * @tc.name      testNdkQosResourceModel0010
      * @tc.desc      Checks the highest option points at the user interactive level string resource.
      * @tc.type      FUNCTION
@@ -315,7 +315,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0011
+     * @tc.number    SUB_QOS_RESMODEL_0011
      * @tc.name      testNdkQosResourceModel0011
      * @tc.desc      Checks the utility and default options point at their own string resources.
      * @tc.type      FUNCTION
@@ -335,7 +335,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0012
+     * @tc.number    SUB_QOS_RESMODEL_0012
      * @tc.name      testNdkQosResourceModel0012
      * @tc.desc      Checks the user initiated and deadline options point at their own string resources.
      * @tc.type      FUNCTION
@@ -355,7 +355,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0013
+     * @tc.number    SUB_QOS_RESMODEL_0013
      * @tc.name      testNdkQosResourceModel0013
      * @tc.desc      Checks every label identifier stays inside the application resource identifier window.
      * @tc.type      FUNCTION
@@ -379,7 +379,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0014
+     * @tc.number    SUB_QOS_RESMODEL_0014
      * @tc.name      testNdkQosResourceModel0014
      * @tc.desc      Checks two builds report the same level sequence, so the model is deterministic.
      * @tc.type      FUNCTION
@@ -399,7 +399,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0015
+     * @tc.number    SUB_QOS_RESMODEL_0015
      * @tc.name      testNdkQosResourceModel0015
      * @tc.desc      Checks two builds map every level to the same label identifier.
      * @tc.type      FUNCTION
@@ -418,7 +418,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0016
+     * @tc.number    SUB_QOS_RESMODEL_0016
      * @tc.name      testNdkQosResourceModel0016
      * @tc.desc      Checks the options of two builds do not share entries, so editing one leaves the other intact.
      * @tc.type      FUNCTION
@@ -439,7 +439,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0017
+     * @tc.number    SUB_QOS_RESMODEL_0017
      * @tc.name      testNdkQosResourceModel0017
      * @tc.desc      Checks a shortened array does not affect the next build, so each call returns its own array.
      * @tc.type      FUNCTION
@@ -459,7 +459,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0018
+     * @tc.number    SUB_QOS_RESMODEL_0018
      * @tc.name      testNdkQosResourceModel0018
      * @tc.desc      Checks repeated builds do not accumulate options and keep the same level sequence.
      * @tc.type      FUNCTION
@@ -481,7 +481,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0019
+     * @tc.number    SUB_QOS_RESMODEL_0019
      * @tc.name      testNdkQosResourceModel0019
      * @tc.desc      Checks the option constructor keeps the level and the label resource it was given.
      * @tc.type      FUNCTION
@@ -499,7 +499,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0020
+     * @tc.number    SUB_QOS_RESMODEL_0020
      * @tc.name      testNdkQosResourceModel0020
      * @tc.desc      Checks two options made from the same arguments stay independent objects with equal fields.
      * @tc.type      FUNCTION
@@ -520,7 +520,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0021
+     * @tc.number    SUB_QOS_RESMODEL_0021
      * @tc.name      testNdkQosResourceModel0021
      * @tc.desc      Checks options built with different levels keep different levels and the matching labels.
      * @tc.type      FUNCTION
@@ -540,7 +540,7 @@ export default function ndkQosResourceModelTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_RESMODEL_0022
+     * @tc.number    SUB_QOS_RESMODEL_0022
      * @tc.name      testNdkQosResourceModel0022
      * @tc.desc      Checks the highest option level drives a native run that reads back the same level.
      * @tc.type      FUNCTION

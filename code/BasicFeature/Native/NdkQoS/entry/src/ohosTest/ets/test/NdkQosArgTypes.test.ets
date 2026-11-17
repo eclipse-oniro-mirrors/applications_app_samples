@@ -105,7 +105,7 @@ export default function ndkQosArgTypeTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0001
+     * @tc.number    SUB_QOS_ARGTYPE_0001
      * @tc.name      testNdkQosArgType0001
      * @tc.desc      Checks a numeric string level is rejected instead of being coerced into a level.
      * @tc.type      FUNCTION
@@ -125,7 +125,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0002
+     * @tc.number    SUB_QOS_ARGTYPE_0002
      * @tc.name      testNdkQosArgType0002
      * @tc.desc      Checks a boolean level is rejected because only numbers carry a QoS level.
      * @tc.type      FUNCTION
@@ -144,7 +144,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0003
+     * @tc.number    SUB_QOS_ARGTYPE_0003
      * @tc.name      testNdkQosArgType0003
      * @tc.desc      Checks a null level is rejected and leaves the previous run information untouched.
      * @tc.type      FUNCTION
@@ -164,7 +164,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0004
+     * @tc.number    SUB_QOS_ARGTYPE_0004
      * @tc.name      testNdkQosArgType0004
      * @tc.desc      Checks an array or plain object level is rejected rather than read as its first value.
      * @tc.type      FUNCTION
@@ -184,7 +184,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0005
+     * @tc.number    SUB_QOS_ARGTYPE_0005
      * @tc.name      testNdkQosArgType0005
      * @tc.desc      Checks a missing level argument is rejected instead of defaulting to a level.
      * @tc.type      FUNCTION
@@ -203,7 +203,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0006
+     * @tc.number    SUB_QOS_ARGTYPE_0006
      * @tc.name      testNdkQosArgType0006
      * @tc.desc      Checks a trailing extra argument is ignored so the leading level still runs.
      * @tc.type      FUNCTION
@@ -222,7 +222,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0007
+     * @tc.number    SUB_QOS_ARGTYPE_0007
      * @tc.name      testNdkQosArgType0007
      * @tc.desc      Checks the asynchronous run rejects a numeric string level without scheduling work.
      * @tc.type      FUNCTION
@@ -246,7 +246,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0008
+     * @tc.number    SUB_QOS_ARGTYPE_0008
      * @tc.name      testNdkQosArgType0008
      * @tc.desc      Checks the asynchronous run rejects a missing level and keeps serving valid levels.
      * @tc.type      FUNCTION
@@ -270,7 +270,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0009
+     * @tc.number    SUB_QOS_ARGTYPE_0009
      * @tc.name      testNdkQosArgType0009
      * @tc.desc      Checks the benchmark rejects a string round count instead of parsing it.
      * @tc.type      FUNCTION
@@ -302,7 +302,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0010
+     * @tc.number    SUB_QOS_ARGTYPE_0010
      * @tc.name      testNdkQosArgType0010
      * @tc.desc      Checks the concurrent run rejects a string level, thread count and round count.
      * @tc.type      FUNCTION
@@ -339,7 +339,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0011
+     * @tc.number    SUB_QOS_ARGTYPE_0011
      * @tc.name      testNdkQosArgType0011
      * @tc.desc      Checks the concurrent run rejects a request that misses the round argument.
      * @tc.type      FUNCTION
@@ -363,7 +363,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0012
+     * @tc.number    SUB_QOS_ARGTYPE_0012
      * @tc.name      testNdkQosArgType0012
      * @tc.desc      Checks the comparison reports the invalid argument code when a level is missing.
      * @tc.type      FUNCTION
@@ -382,7 +382,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0013
+     * @tc.number    SUB_QOS_ARGTYPE_0013
      * @tc.name      testNdkQosArgType0013
      * @tc.desc      Checks the comparison rejects string levels and keeps the sentinel durations.
      * @tc.type      FUNCTION
@@ -402,7 +402,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0014
+     * @tc.number    SUB_QOS_ARGTYPE_0014
      * @tc.name      testNdkQosArgType0014
      * @tc.desc      Checks a record append rejects a non string directory and reports the untouched capacity.
      * @tc.type      FUNCTION
@@ -422,7 +422,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0015
+     * @tc.number    SUB_QOS_ARGTYPE_0015
      * @tc.name      testNdkQosArgType0015
      * @tc.desc      Checks a record append rejects a string level without writing anything to the file.
      * @tc.type      FUNCTION
@@ -440,7 +440,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0016
+     * @tc.number    SUB_QOS_ARGTYPE_0016
      * @tc.name      testNdkQosArgType0016
      * @tc.desc      Checks a record read rejects a string limit and returns no records.
      * @tc.type      FUNCTION
@@ -461,7 +461,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0017
+     * @tc.number    SUB_QOS_ARGTYPE_0017
      * @tc.name      testNdkQosArgType0017
      * @tc.desc      Checks clearing the records rejects a non string directory and removes nothing.
      * @tc.type      FUNCTION
@@ -480,7 +480,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0018
+     * @tc.number    SUB_QOS_ARGTYPE_0018
      * @tc.name      testNdkQosArgType0018
      * @tc.desc      Checks the record statistics reject a missing directory and keep the sentinel average.
      * @tc.type      FUNCTION
@@ -499,7 +499,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0019
+     * @tc.number    SUB_QOS_ARGTYPE_0019
      * @tc.name      testNdkQosArgType0019
      * @tc.desc      Checks the line parser rejects numbers, booleans and null instead of reading a record.
      * @tc.type      FUNCTION
@@ -521,7 +521,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0020
+     * @tc.number    SUB_QOS_ARGTYPE_0020
      * @tc.name      testNdkQosArgType0020
      * @tc.desc      Checks the line parser still accepts a record made only of strings and numbers.
      * @tc.type      FUNCTION
@@ -539,7 +539,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0021
+     * @tc.number    SUB_QOS_ARGTYPE_0021
      * @tc.name      testNdkQosArgType0021
      * @tc.desc      Checks the affinity binding rejects a string CPU index and keeps an empty affinity list.
      * @tc.type      FUNCTION
@@ -558,7 +558,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0022
+     * @tc.number    SUB_QOS_ARGTYPE_0022
      * @tc.name      testNdkQosArgType0022
      * @tc.desc      Checks the affinity reset accepts trailing arguments and restores every CPU.
      * @tc.type      FUNCTION
@@ -577,7 +577,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0023
+     * @tc.number    SUB_QOS_ARGTYPE_0023
      * @tc.name      testNdkQosArgType0023
      * @tc.desc      Checks the fixed level shortcuts ignore trailing arguments and still measure a run.
      * @tc.type      FUNCTION
@@ -595,7 +595,7 @@ export default function ndkQosArgTypeTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGTYPE_0024
+     * @tc.number    SUB_QOS_ARGTYPE_0024
      * @tc.name      testNdkQosArgType0024
      * @tc.desc      Checks the range query and topology query ignore extra arguments and stay consistent.
      * @tc.type      FUNCTION

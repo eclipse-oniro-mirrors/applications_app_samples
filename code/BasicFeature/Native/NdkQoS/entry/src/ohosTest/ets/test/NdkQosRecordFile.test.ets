@@ -94,7 +94,7 @@ export default function ndkQosRecordTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0001
+     * @tc.number    SUB_QOS_FILE_0001
      * @tc.name      testNdkQosFile0001
      * @tc.desc      Checks clearing an already empty record file reports zero removed records.
      * @tc.type      FUNCTION
@@ -111,7 +111,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0002
+     * @tc.number    SUB_QOS_FILE_0002
      * @tc.name      testNdkQosFile0002
      * @tc.desc      Checks the first appended record reports one stored record and the full capacity.
      * @tc.type      FUNCTION
@@ -130,7 +130,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0003
+     * @tc.number    SUB_QOS_FILE_0003
      * @tc.name      testNdkQosFile0003
      * @tc.desc      Checks a stored record is read back with the same level, duration and result codes.
      * @tc.type      FUNCTION
@@ -154,7 +154,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0004
+     * @tc.number    SUB_QOS_FILE_0004
      * @tc.name      testNdkQosFile0004
      * @tc.desc      Checks a limited read returns the most recent records rather than the oldest ones.
      * @tc.type      FUNCTION
@@ -177,7 +177,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0005
+     * @tc.number    SUB_QOS_FILE_0005
      * @tc.name      testNdkQosFile0005
      * @tc.desc      Checks a read limit equal to the record count returns every record in insertion order.
      * @tc.type      FUNCTION
@@ -198,7 +198,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0006
+     * @tc.number    SUB_QOS_FILE_0006
      * @tc.name      testNdkQosFile0006
      * @tc.desc      Checks a zero read limit is rejected and returns no records.
      * @tc.type      FUNCTION
@@ -217,7 +217,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0007
+     * @tc.number    SUB_QOS_FILE_0007
      * @tc.name      testNdkQosFile0007
      * @tc.desc      Checks a read limit above the storage capacity is rejected.
      * @tc.type      FUNCTION
@@ -234,7 +234,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0008
+     * @tc.number    SUB_QOS_FILE_0008
      * @tc.name      testNdkQosFile0008
      * @tc.desc      Checks a fractional read limit is rejected because the limit is a record count.
      * @tc.type      FUNCTION
@@ -252,7 +252,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0009
+     * @tc.number    SUB_QOS_FILE_0009
      * @tc.name      testNdkQosFile0009
      * @tc.desc      Checks a record with an out of range level is rejected and nothing is stored.
      * @tc.type      FUNCTION
@@ -272,7 +272,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0010
+     * @tc.number    SUB_QOS_FILE_0010
      * @tc.name      testNdkQosFile0010
      * @tc.desc      Checks a record with a negative duration is rejected so statistics stay meaningful.
      * @tc.type      FUNCTION
@@ -289,7 +289,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0011
+     * @tc.number    SUB_QOS_FILE_0011
      * @tc.name      testNdkQosFile0011
      * @tc.desc      Checks an empty directory path is rejected before any file is opened.
      * @tc.type      FUNCTION
@@ -306,7 +306,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0012
+     * @tc.number    SUB_QOS_FILE_0012
      * @tc.name      testNdkQosFile0012
      * @tc.desc      Checks appending into a directory that does not exist reports a write failure.
      * @tc.type      FUNCTION
@@ -324,7 +324,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0013
+     * @tc.number    SUB_QOS_FILE_0013
      * @tc.name      testNdkQosFile0013
      * @tc.desc      Checks reading from a directory without a record file returns an empty list.
      * @tc.type      FUNCTION
@@ -341,7 +341,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0014
+     * @tc.number    SUB_QOS_FILE_0014
      * @tc.name      testNdkQosFile0014
      * @tc.desc      Checks statistics of a directory without a record file report zero totals.
      * @tc.type      FUNCTION
@@ -361,7 +361,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0015
+     * @tc.number    SUB_QOS_FILE_0015
      * @tc.name      testNdkQosFile0015
      * @tc.desc      Checks statistics of an empty record file report sentinel durations and zero level counts.
      * @tc.type      FUNCTION
@@ -381,7 +381,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0016
+     * @tc.number    SUB_QOS_FILE_0016
      * @tc.name      testNdkQosFile0016
      * @tc.desc      Checks the average, minimum and maximum durations of successful records.
      * @tc.type      FUNCTION
@@ -404,7 +404,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0017
+     * @tc.number    SUB_QOS_FILE_0017
      * @tc.name      testNdkQosFile0017
      * @tc.desc      Checks failed runs are counted separately and excluded from the duration statistics.
      * @tc.type      FUNCTION
@@ -426,7 +426,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0018
+     * @tc.number    SUB_QOS_FILE_0018
      * @tc.name      testNdkQosFile0018
      * @tc.desc      Checks the per level record counts follow the levels actually stored.
      * @tc.type      FUNCTION
@@ -449,7 +449,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0019
+     * @tc.number    SUB_QOS_FILE_0019
      * @tc.name      testNdkQosFile0019
      * @tc.desc      Checks clearing removes every record and reports how many were deleted.
      * @tc.type      FUNCTION
@@ -468,7 +468,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0020
+     * @tc.number    SUB_QOS_FILE_0020
      * @tc.name      testNdkQosFile0020
      * @tc.desc      Checks a second clear reports zero removed records.
      * @tc.type      FUNCTION
@@ -487,7 +487,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0021
+     * @tc.number    SUB_QOS_FILE_0021
      * @tc.name      testNdkQosFile0021
      * @tc.desc      Checks each append increases the stored count by one and keeps the previous records.
      * @tc.type      FUNCTION
@@ -510,7 +510,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0022
+     * @tc.number    SUB_QOS_FILE_0022
      * @tc.name      testNdkQosFile0022
      * @tc.desc      Checks a directory path with a trailing slash resolves to the same record file.
      * @tc.type      FUNCTION
@@ -529,7 +529,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0023
+     * @tc.number    SUB_QOS_FILE_0023
      * @tc.name      testNdkQosFile0023
      * @tc.desc      Checks the record file stops growing at its capacity and drops the oldest record.
      * @tc.type      FUNCTION
@@ -548,7 +548,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0024
+     * @tc.number    SUB_QOS_FILE_0024
      * @tc.name      testNdkQosFile0024
      * @tc.desc      Checks the oldest record is the one removed when the capacity is exceeded.
      * @tc.type      FUNCTION
@@ -569,7 +569,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0025
+     * @tc.number    SUB_QOS_FILE_0025
      * @tc.name      testNdkQosFile0025
      * @tc.desc      Checks statistics fall back to the sentinel values after the records are cleared.
      * @tc.type      FUNCTION
@@ -589,7 +589,7 @@ export default function ndkQosRecordTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILE_0026
+     * @tc.number    SUB_QOS_FILE_0026
      * @tc.name      testNdkQosFile0026
      * @tc.desc      Checks a failed run keeps its own result code after being read back from the file.
      * @tc.type      FUNCTION

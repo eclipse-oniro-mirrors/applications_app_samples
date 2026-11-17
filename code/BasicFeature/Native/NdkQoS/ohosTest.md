@@ -2,14 +2,14 @@
 
 共 **23 个套件 / 340 条用例**，全部为 Hypium 自动化用例，源码位于 `entry/src/ohosTest/ets/test/`（23 个套件文件合计 10,779 行，另有只做注册的 `List.test.ets` 66 行）。
 
-用例按三层口径覆盖：
+用例按基础层（三组）与页面层覆盖：
 
 | 层 | 用例数 | 套件构成 |
 |---|---|---|
-| L1 契约与参数 | 92 | ArgTypes 24 + ResourceModel 22 + Invariant 16 + LevelArgs 16 + NapiContract 6 + Capability 5 + QosEffect 3 |
-| L1 计算与系统 | 78 | Topology 20 + Concurrent 18 + Benchmark 14 + Summary 14 + Compare 12 |
-| L1 记录文件 | 61 | RecordFile 26 + RecordParse 21 + RecordFileExt 14 |
-| L2 页面与导航 | 109 | LevelPageUI 22 + BenchmarkPage 17 + ConcurrencyPage 16 + HistoryPage 15 + DevicePage 13 + QoSAbility 10 + Navigation 8 + Dialog 8 |
+| 基础层·契约与参数 | 92 | ArgTypes 24 + ResourceModel 22 + Invariant 16 + LevelArgs 16 + NapiContract 6 + Capability 5 + QosEffect 3 |
+| 基础层·计算与系统 | 78 | Topology 20 + Concurrent 18 + Benchmark 14 + Summary 14 + Compare 12 |
+| 基础层·记录文件 | 61 | RecordFile 26 + RecordParse 21 + RecordFileExt 14 |
+| 页面层·页面与导航 | 109 | LevelPageUI 22 + BenchmarkPage 17 + ConcurrencyPage 16 + HistoryPage 15 + DevicePage 13 + QoSAbility 10 + Navigation 8 + Dialog 8 |
 
 `@tc.size` 分布：SMALLTEST 106 / MEDIUMTEST 234；`@tc.level` 分布：LEVEL0 285 / LEVEL1 52 / LEVEL2 3。
 
@@ -42,7 +42,7 @@
 | `NdkQosDialog.test.ets` | DIALOG | 8 | 462 | MEDIUMTEST |
 | **合计** | - | **340** | **10,779** | - |
 
-> L1 套件预置条件统一为「已安装测试 HAP，`libentry.so` 可加载」；L2 套件统一为「已安装测试 HAP，应用已启动并停在首页」。下表只写与单个用例相关的额外前置。
+> 基础层套件预置条件统一为「已安装测试 HAP，`libentry.so` 可加载」；页面层套件统一为「已安装测试 HAP，应用已启动并停在首页」。下表只写与单个用例相关的额外前置。
 >
 > 各套件用例表一例一行，行数与该套件用例数、上表逐行可核。
 
@@ -119,7 +119,7 @@
 | 并发计数 | - | `runConcurrentAsync(默认等级,2,1)` | 仅该等级 +2 次 | 是 | 通过 |
 | 基准明细自洽 | - | 一轮基准 | 每个样本 `successCount+failCount` 等于轮次，6 个样本之和等于 `totalRuns` | 是 | 通过 |
 | 样本区间与哨兵 | - | 一轮基准 | 成功样本 `min ≤ avg ≤ max`；无成功样本时三值均为 -1 | 是 | 通过 |
-| 最快/最慢等级 | - | 一轮基准 | `fastestLevel` 的平均耗时不大于 `slowestLevel` 的平均耗时 | 是 | 通过 |
+| 耗时最短/最长等级 | - | 一轮基准 | `fastestLevel` 的平均耗时不大于 `slowestLevel` 的平均耗时 | 是 | 通过 |
 | 全局区间包住均值 | - | 对比一次 + 单次运行后读 summary | `minDuration ≤ avgDuration ≤ maxDuration` | 是 | 通过 |
 | 记录文件与计数互证 | - | 运行若干次并逐条写入记录 | 记录 `total` 等于 summary 的 `runCount`，分等级计数一致 | 是 | 通过 |
 | 失败记录只进失败计数 | - | 写入一条 `setResult != 0` 的记录 | `failureCount` +1，`avg/min/maxDuration` 仍为 -1 | 是 | 通过 |
@@ -180,7 +180,7 @@
 | 单轮明细结构 | - | `runLevelBenchmarkAsync(1)` | 6 个样本按等级升序，`rounds=1`、`totalRuns=6` | 是 | 通过 |
 | 每样本尝试次数 | - | 同上 | 每个样本 `successCount+failCount` 等于 1 | 是 | 通过 |
 | 成功样本耗时与失败哨兵 | - | 同上 | 成功样本 `avgDuration>0`；无成功样本时 `avg/min/max` 均为 -1 | 是 | 通过 |
-| 最快与最慢等级 | - | 同上 | 两者都来自 6 个样本，且 `fastestLevel` 的平均耗时不大于 `slowestLevel` | 是 | 通过 |
+| 耗时最短与最长等级 | - | 同上 | 两者都来自 6 个样本，且 `fastestLevel` 的平均耗时不大于 `slowestLevel` | 是 | 通过 |
 | 样本内区间有序 | - | 同上 | 成功样本 `minDuration ≤ avgDuration ≤ maxDuration` | 是 | 通过 |
 | 结果码回写 | - | 同上 | 每个样本记录最后一次的 `setResult/queryLevel/resetResult/bindResult`，`queryLevel` 等于该样本等级 | 是 | 通过 |
 | 两轮翻倍 | - | `runLevelBenchmarkAsync(2)` | 每样本尝试次数为 2，`totalRuns=12` | 是 | 通过 |
@@ -544,7 +544,7 @@ hdc file send 'entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap' /
 hdc shell bm install -p /data/local/tmp/entry_test.hap
 ```
 
-套件执行顺序：L1（契约 → 计算 → 记录文件）先跑，L2（页面 → 导航 → 弹窗）后跑，避免同步 NAPI 计算与 UI 交互互相干扰。
+套件执行顺序：基础层（契约 → 计算 → 记录文件）先跑，页面层（页面 → 导航 → 弹窗）后跑，避免同步 NAPI 计算与 UI 交互互相干扰。
 
 ## 测试结果
 

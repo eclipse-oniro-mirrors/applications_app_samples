@@ -84,7 +84,7 @@ export default function ndkQosInvariantTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0001
+     * @tc.number    SUB_QOS_INVARIANT_0001
      * @tc.name      testNdkQosInvariant0001
      * @tc.desc      Checks the accumulated count still equals the per-level counter sum after mixed calls.
      * @tc.type      FUNCTION
@@ -107,7 +107,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0002
+     * @tc.number    SUB_QOS_INVARIANT_0002
      * @tc.name      testNdkQosInvariant0002
      * @tc.desc      Checks clearing the counters keeps the last run snapshot readable through the info call.
      * @tc.type      FUNCTION
@@ -129,7 +129,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0003
+     * @tc.number    SUB_QOS_INVARIANT_0003
      * @tc.name      testNdkQosInvariant0003
      * @tc.desc      Checks three rounds per level add eighteen experiments with three per level counter.
      * @tc.type      FUNCTION
@@ -149,7 +149,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0004
+     * @tc.number    SUB_QOS_INVARIANT_0004
      * @tc.name      testNdkQosInvariant0004
      * @tc.desc      Checks a comparison adds one experiment to each of the two compared levels.
      * @tc.type      FUNCTION
@@ -168,7 +168,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0005
+     * @tc.number    SUB_QOS_INVARIANT_0005
      * @tc.name      testNdkQosInvariant0005
      * @tc.desc      Checks two workers on the default level add two experiments to that level only.
      * @tc.type      FUNCTION
@@ -187,7 +187,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0006
+     * @tc.number    SUB_QOS_INVARIANT_0006
      * @tc.name      testNdkQosInvariant0006
      * @tc.desc      Checks every benchmark sample accounts for the requested rounds and sums to the total.
      * @tc.type      FUNCTION
@@ -210,7 +210,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0007
+     * @tc.number    SUB_QOS_INVARIANT_0007
      * @tc.name      testNdkQosInvariant0007
      * @tc.desc      Checks a successful sample keeps min, average and max ordered and a failed one the sentinel.
      * @tc.type      FUNCTION
@@ -239,7 +239,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0008
+     * @tc.number    SUB_QOS_INVARIANT_0008
      * @tc.name      testNdkQosInvariant0008
      * @tc.desc      Checks the fastest level holds an average no larger than the slowest level average.
      * @tc.type      FUNCTION
@@ -260,7 +260,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0009
+     * @tc.number    SUB_QOS_INVARIANT_0009
      * @tc.name      testNdkQosInvariant0009
      * @tc.desc      Checks the accumulated bounds still bracket the average after a comparison and a run.
      * @tc.type      FUNCTION
@@ -281,7 +281,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0010
+     * @tc.number    SUB_QOS_INVARIANT_0010
      * @tc.name      testNdkQosInvariant0010
      * @tc.desc      Checks the record file totals agree with the accumulated counters for the same runs.
      * @tc.type      FUNCTION
@@ -305,7 +305,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0011
+     * @tc.number    SUB_QOS_INVARIANT_0011
      * @tc.name      testNdkQosInvariant0011
      * @tc.desc      Checks a failed record only feeds the failure counter and never the duration bounds.
      * @tc.type      FUNCTION
@@ -328,7 +328,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0012
+     * @tc.number    SUB_QOS_INVARIANT_0012
      * @tc.name      testNdkQosInvariant0012
      * @tc.desc      Checks clearing the counters leaves the stored records untouched.
      * @tc.type      FUNCTION
@@ -347,7 +347,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0013
+     * @tc.number    SUB_QOS_INVARIANT_0013
      * @tc.name      testNdkQosInvariant0013
      * @tc.desc      Checks clearing the record file leaves the accumulated counters untouched.
      * @tc.type      FUNCTION
@@ -368,7 +368,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0014
+     * @tc.number    SUB_QOS_INVARIANT_0014
      * @tc.name      testNdkQosInvariant0014
      * @tc.desc      Checks the last run information and the last level both follow the second compared level.
      * @tc.type      FUNCTION
@@ -388,7 +388,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0015
+     * @tc.number    SUB_QOS_INVARIANT_0015
      * @tc.name      testNdkQosInvariant0015
      * @tc.desc      Checks the stress run reports the requested level as the last level of the summary.
      * @tc.type      FUNCTION
@@ -407,7 +407,7 @@ export default function ndkQosInvariantTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_INVARIANT_0016
+     * @tc.number    SUB_QOS_INVARIANT_0016
      * @tc.name      testNdkQosInvariant0016
      * @tc.desc      Checks two consecutive summary reads without a run report the same counters.
      * @tc.type      FUNCTION

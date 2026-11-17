@@ -37,6 +37,7 @@ constexpr int LOAD_SEGMENTS = 2000;
 constexpr int LOAD_PAUSE_US = 2000;
 constexpr int MASK = 2;
 constexpr int CPUS = 4;
+constexpr int ROTATE_BITS = 33;
 
 namespace {
 std::atomic<int> g_loadActive{0};
@@ -56,7 +57,7 @@ long long DoFib(double n)
     return DoFib(n - ONE) + DoFib(n - TWO);
 }
 
-void RunOnce(int level, QosCore::RunInfo* runInfo)
+int ApplyQosLevel(int level, QosCore::RunInfo* runInfo)
 {
     int ret = OH_QoS_SetThreadQoS(static_cast<QoS_Level>(level));
     if (runInfo != nullptr) {
@@ -64,22 +65,29 @@ void RunOnce(int level, QosCore::RunInfo* runInfo)
     }
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "set qos level failed.");
-        return;
+        return ret;
     }
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "set qos level success.");
+    return ret;
+}
 
+void QueryQosLevel(QosCore::RunInfo* runInfo)
+{
     QoS_Level queryLevel = QoS_Level::QOS_DEFAULT;
-    ret = OH_QoS_GetThreadQoS(&queryLevel);
+    int ret = OH_QoS_GetThreadQoS(&queryLevel);
     if (runInfo != nullptr) {
         runInfo->queryLevel = (ret == 0) ? static_cast<int>(queryLevel) : QosCore::INVALID_RESULT;
     }
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "get qos level failed.");
-    } else {
-        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "the qos level of current thread : %{public}d",
-                     static_cast<int>(queryLevel));
+        return;
     }
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "the qos level of current thread : %{public}d",
+                 static_cast<int>(queryLevel));
+}
 
+void BindSelectedCpu(QosCore::RunInfo* runInfo)
+{
     cpu_set_t cpuMask;
     CPU_ZERO(&cpuMask);
     CPU_SET(QosCore::SelectedCpu(), &cpuMask);
@@ -89,37 +97,62 @@ void RunOnce(int level, QosCore::RunInfo* runInfo)
     }
     if (bindResult != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "bind work thread failed");
-    } else {
-        OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "bind work thread success.");
+        return;
     }
+    OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "bind work thread success.");
+}
 
+double MeasureFibonacci()
+{
     auto startTime = std::chrono::system_clock::now();
     long long res = DoFib(DEPTH);
     auto endTime = std::chrono::system_clock::now();
     double duration = std::chrono::duration<double, std::milli>(endTime - startTime).count();
-    if (runInfo != nullptr) {
-        runInfo->duration = duration;
-    }
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "calculate res is: %{public}llu", res);
+    return duration;
+}
 
-    ret = OH_QoS_ResetThreadQoS();
+bool ResetQosLevel(QosCore::RunInfo* runInfo)
+{
+    int ret = OH_QoS_ResetThreadQoS();
     if (runInfo != nullptr) {
         runInfo->resetResult = ret;
     }
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "reset qos level failed!");
-        return;
+        return false;
     }
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "reset qos level success.");
+    return true;
+}
 
-    QoS_Level queryLevelTwo = QoS_Level::QOS_DEFAULT;
-    ret = OH_QoS_GetThreadQoS(&queryLevelTwo);
+void LogLevelAfterReset()
+{
+    QoS_Level afterLevel = QoS_Level::QOS_DEFAULT;
+    int ret = OH_QoS_GetThreadQoS(&afterLevel);
     if (ret != 0) {
         OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_PRINT_DOMAIN, "QoS", "query qos level failed after reset.");
         return;
     }
     OH_LOG_Print(LOG_APP, LOG_INFO, LOG_PRINT_DOMAIN, "QoS", "the qos level after: %{public}d",
-                 static_cast<int>(queryLevelTwo));
+                 static_cast<int>(afterLevel));
+}
+
+void RunOnce(int level, QosCore::RunInfo* runInfo)
+{
+    if (ApplyQosLevel(level, runInfo) != 0) {
+        return;
+    }
+    QueryQosLevel(runInfo);
+    BindSelectedCpu(runInfo);
+    double duration = MeasureFibonacci();
+    if (runInfo != nullptr) {
+        runInfo->duration = duration;
+    }
+    if (!ResetQosLevel(runInfo)) {
+        return;
+    }
+    LogLevelAfterReset();
 }
 
 void AddLoads(int n)
@@ -145,7 +178,7 @@ void AddLoads(int n)
         for (int index = 0; index < LOAD_BURST; index++) {
             unsigned long long value = static_cast<unsigned long long>(index + segment);
             acc = acc * 6364136223846793005ULL + value;
-            acc ^= (acc >> 33);
+            acc ^= (acc >> ROTATE_BITS);
         }
         std::this_thread::sleep_for(std::chrono::microseconds(LOAD_PAUSE_US));
     }
@@ -158,7 +191,7 @@ namespace QosCore {
 int SelectedCpu()
 {
     int cpuCount = CpuCount();
-    return (MASK < cpuCount) ? MASK : 0;
+    return (cpuCount > MASK) ? MASK : 0;
 }
 
 void StartBackgroundLoad()

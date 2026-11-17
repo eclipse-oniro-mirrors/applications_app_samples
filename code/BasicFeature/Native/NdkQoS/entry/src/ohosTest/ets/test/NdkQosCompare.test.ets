@@ -61,7 +61,7 @@ export default function ndkQosCompareTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0001
+     * @tc.number    SUB_QOS_COMPARE_0001
      * @tc.name      testNdkQosCompare0001
      * @tc.desc      Checks comparing the lowest and the highest level echoes both levels and their durations.
      * @tc.type      FUNCTION
@@ -81,7 +81,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0002
+     * @tc.number    SUB_QOS_COMPARE_0002
      * @tc.name      testNdkQosCompare0002
      * @tc.desc      Checks the ratio equals the first duration divided by the second duration.
      * @tc.type      FUNCTION
@@ -100,7 +100,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0003
+     * @tc.number    SUB_QOS_COMPARE_0003
      * @tc.name      testNdkQosCompare0003
      * @tc.desc      Checks the faster level is the one whose duration is shorter.
      * @tc.type      FUNCTION
@@ -121,7 +121,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0004
+     * @tc.number    SUB_QOS_COMPARE_0004
      * @tc.name      testNdkQosCompare0004
      * @tc.desc      Checks a level compared with itself reports a consistent ratio and itself as the faster level.
      * @tc.type      FUNCTION
@@ -145,7 +145,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0005
+     * @tc.number    SUB_QOS_COMPARE_0005
      * @tc.name      testNdkQosCompare0005
      * @tc.desc      Checks a first level above the range is rejected and every field falls back to the sentinel.
      * @tc.type      FUNCTION
@@ -166,7 +166,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0006
+     * @tc.number    SUB_QOS_COMPARE_0006
      * @tc.name      testNdkQosCompare0006
      * @tc.desc      Checks a negative second level is rejected and the run is not executed.
      * @tc.type      FUNCTION
@@ -184,7 +184,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0007
+     * @tc.number    SUB_QOS_COMPARE_0007
      * @tc.name      testNdkQosCompare0007
      * @tc.desc      Checks a fractional level is rejected instead of being truncated into a valid level.
      * @tc.type      FUNCTION
@@ -203,7 +203,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0008
+     * @tc.number    SUB_QOS_COMPARE_0008
      * @tc.name      testNdkQosCompare0008
      * @tc.desc      Checks swapping the two levels keeps the durations attached to their own level.
      * @tc.type      FUNCTION
@@ -224,7 +224,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0009
+     * @tc.number    SUB_QOS_COMPARE_0009
      * @tc.name      testNdkQosCompare0009
      * @tc.desc      Checks one comparison adds exactly two experiments to the accumulated statistics.
      * @tc.type      FUNCTION
@@ -244,7 +244,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0010
+     * @tc.number    SUB_QOS_COMPARE_0010
      * @tc.name      testNdkQosCompare0010
      * @tc.desc      Checks a comparison between one level and itself counts both experiments on that level.
      * @tc.type      FUNCTION
@@ -267,7 +267,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0011
+     * @tc.number    SUB_QOS_COMPARE_0011
      * @tc.name      testNdkQosCompare0011
      * @tc.desc      Checks the last run information follows the second level of the comparison.
      * @tc.type      FUNCTION
@@ -286,7 +286,7 @@ export default function ndkQosCompareTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_COMPARE_0012
+     * @tc.number    SUB_QOS_COMPARE_0012
      * @tc.name      testNdkQosCompare0012
      * @tc.desc      Checks the accumulated bounds cover both durations of the comparison.
      * @tc.type      FUNCTION

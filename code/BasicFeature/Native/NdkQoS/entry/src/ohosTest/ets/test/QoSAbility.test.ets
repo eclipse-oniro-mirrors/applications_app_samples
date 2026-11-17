@@ -243,7 +243,7 @@ export default function abilityTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0001
+     * @tc.number    SUB_QOS_ABILITY_0001
      * @tc.name      testNdkQosAbility0001
      * @tc.desc      Checks the QoS sample ability starts and shows both QoS buttons.
      * @tc.type      FUNCTION
@@ -262,7 +262,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0002
+     * @tc.number    SUB_QOS_ABILITY_0002
      * @tc.name      testNdkQosAbility0002
      * @tc.desc      Checks the page title text and that only one title is rendered.
      * @tc.type      FUNCTION
@@ -285,7 +285,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0003
+     * @tc.number    SUB_QOS_ABILITY_0003
      * @tc.name      testNdkQosAbility0003
      * @tc.desc      Checks the page renders the two QoS buttons and the five page entries.
      * @tc.type      FUNCTION
@@ -305,7 +305,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0004
+     * @tc.number    SUB_QOS_ABILITY_0004
      * @tc.name      testNdkQosAbility0004
      * @tc.desc      Checks both buttons expose their own label.
      * @tc.type      FUNCTION
@@ -331,7 +331,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0005
+     * @tc.number    SUB_QOS_ABILITY_0005
      * @tc.name      testNdkQosAbility0005
      * @tc.desc      Checks the high QoS button is placed above the low QoS button.
      * @tc.type      FUNCTION
@@ -359,7 +359,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0006
+     * @tc.number    SUB_QOS_ABILITY_0006
      * @tc.name      testNdkQosAbility0006
      * @tc.desc      Checks the page stays usable after the ability is started twice.
      * @tc.type      FUNCTION
@@ -378,7 +378,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0007
+     * @tc.number    SUB_QOS_ABILITY_0007
      * @tc.name      testNdkQosAbility0007
      * @tc.desc      Checks the page back entry returns from a child page to the home page.
      * @tc.type      FUNCTION
@@ -398,7 +398,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0008
+     * @tc.number    SUB_QOS_ABILITY_0008
      * @tc.name      testNdkQosAbility0008
      * @tc.desc      Checks every page entry label appears once on the home page.
      * @tc.type      FUNCTION
@@ -421,7 +421,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0009
+     * @tc.number    SUB_QOS_ABILITY_0009
      * @tc.name      testNdkQosAbility0009
      * @tc.desc      Checks the level page can be entered again after leaving it with its back entry.
      * @tc.type      FUNCTION
@@ -442,7 +442,7 @@ export default function abilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ABILITY_0010
+     * @tc.number    SUB_QOS_ABILITY_0010
      * @tc.name      testNdkQosAbility0010
      * @tc.desc      Checks the home page stays usable after visiting two different child pages.
      * @tc.type      FUNCTION

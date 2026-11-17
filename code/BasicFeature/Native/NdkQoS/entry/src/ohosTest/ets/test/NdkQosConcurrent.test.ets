@@ -68,7 +68,7 @@ export default function ndkQosConcurrentTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0001
+     * @tc.number    SUB_QOS_CONCURRENT_0001
      * @tc.name      testNdkQosConcurrent0001
      * @tc.desc      Checks one worker running one round reports a single attempt with the echoed level.
      * @tc.type      FUNCTION
@@ -88,7 +88,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0002
+     * @tc.number    SUB_QOS_CONCURRENT_0002
      * @tc.name      testNdkQosConcurrent0002
      * @tc.desc      Checks the report echoes the requested level, worker count and round count.
      * @tc.type      FUNCTION
@@ -107,7 +107,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0003
+     * @tc.number    SUB_QOS_CONCURRENT_0003
      * @tc.name      testNdkQosConcurrent0003
      * @tc.desc      Checks two workers running one round each account for two attempts.
      * @tc.type      FUNCTION
@@ -124,7 +124,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0004
+     * @tc.number    SUB_QOS_CONCURRENT_0004
      * @tc.name      testNdkQosConcurrent0004
      * @tc.desc      Checks four workers share the compute load without losing any attempt.
      * @tc.type      FUNCTION
@@ -141,7 +141,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0005
+     * @tc.number    SUB_QOS_CONCURRENT_0005
      * @tc.name      testNdkQosConcurrent0005
      * @tc.desc      Checks the highest supported worker count is accepted and fully accounted for.
      * @tc.type      FUNCTION
@@ -159,7 +159,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0006
+     * @tc.number    SUB_QOS_CONCURRENT_0006
      * @tc.name      testNdkQosConcurrent0006
      * @tc.desc      Checks the highest supported round count is repeated by a single worker.
      * @tc.type      FUNCTION
@@ -176,7 +176,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0007
+     * @tc.number    SUB_QOS_CONCURRENT_0007
      * @tc.name      testNdkQosConcurrent0007
      * @tc.desc      Checks the reported average duration stays inside the reported minimum and maximum.
      * @tc.type      FUNCTION
@@ -199,7 +199,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0008
+     * @tc.number    SUB_QOS_CONCURRENT_0008
      * @tc.name      testNdkQosConcurrent0008
      * @tc.desc      Checks the duration bounds keep the minimum below the maximum once several workers ran.
      * @tc.type      FUNCTION
@@ -220,7 +220,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0009
+     * @tc.number    SUB_QOS_CONCURRENT_0009
      * @tc.name      testNdkQosConcurrent0009
      * @tc.desc      Checks every level in the supported range can be used to drive the concurrent load.
      * @tc.type      FUNCTION
@@ -245,7 +245,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0010
+     * @tc.number    SUB_QOS_CONCURRENT_0010
      * @tc.name      testNdkQosConcurrent0010
      * @tc.desc      Checks a level above the interactive level is rejected before any worker starts.
      * @tc.type      FUNCTION
@@ -261,7 +261,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0011
+     * @tc.number    SUB_QOS_CONCURRENT_0011
      * @tc.name      testNdkQosConcurrent0011
      * @tc.desc      Checks a negative level is rejected before any worker starts.
      * @tc.type      FUNCTION
@@ -277,7 +277,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0012
+     * @tc.number    SUB_QOS_CONCURRENT_0012
      * @tc.name      testNdkQosConcurrent0012
      * @tc.desc      Checks a zero worker count is rejected because the load needs at least one worker.
      * @tc.type      FUNCTION
@@ -293,7 +293,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0013
+     * @tc.number    SUB_QOS_CONCURRENT_0013
      * @tc.name      testNdkQosConcurrent0013
      * @tc.desc      Checks a worker count above the supported ceiling is rejected.
      * @tc.type      FUNCTION
@@ -309,7 +309,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0014
+     * @tc.number    SUB_QOS_CONCURRENT_0014
      * @tc.name      testNdkQosConcurrent0014
      * @tc.desc      Checks a zero round count is rejected because every worker has to run at least once.
      * @tc.type      FUNCTION
@@ -325,7 +325,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0015
+     * @tc.number    SUB_QOS_CONCURRENT_0015
      * @tc.name      testNdkQosConcurrent0015
      * @tc.desc      Checks a round count above the supported ceiling is rejected.
      * @tc.type      FUNCTION
@@ -341,7 +341,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0016
+     * @tc.number    SUB_QOS_CONCURRENT_0016
      * @tc.name      testNdkQosConcurrent0016
      * @tc.desc      Checks a fractional worker count is rejected instead of being rounded to a whole worker.
      * @tc.type      FUNCTION
@@ -366,7 +366,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0017
+     * @tc.number    SUB_QOS_CONCURRENT_0017
      * @tc.name      testNdkQosConcurrent0017
      * @tc.desc      Checks a fractional round count is rejected instead of being truncated.
      * @tc.type      FUNCTION
@@ -398,7 +398,7 @@ export default function ndkQosConcurrentTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CONCURRENT_0018
+     * @tc.number    SUB_QOS_CONCURRENT_0018
      * @tc.name      testNdkQosConcurrent0018
      * @tc.desc      Checks two consecutive runs keep their own worker counts and attempt totals.
      * @tc.type      FUNCTION

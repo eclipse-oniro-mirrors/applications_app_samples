@@ -149,7 +149,7 @@ async function waitForText(driver: Driver, text: string, timeout: number): Promi
   return await tryWaitText(driver, localized, timeout);
 }
 
-// UiTest binds to the accessibility service while the driver is created, so a busy system can hand
+// UiTest binds to the system UI service while the driver is created, so a busy system can hand
 // back an empty handle; retrying keeps a transient failure from collapsing the whole case.
 async function createDriver(): Promise<Driver> {
   for (let attempt = 0; attempt < OPEN_ATTEMPTS; attempt++) {
@@ -315,7 +315,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0001
+     * @tc.number    SUB_QOS_PAGE_CONC_0001
      * @tc.name      testNdkQosPageConc0001
      * @tc.desc      Checks the stress test page opens with its idle status and explanatory note.
      * @tc.type      FUNCTION
@@ -337,7 +337,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0002
+     * @tc.number    SUB_QOS_PAGE_CONC_0002
      * @tc.name      testNdkQosPageConc0002
      * @tc.desc      Checks the page starts on the interactive level and shows the level and worker labels.
      * @tc.type      FUNCTION
@@ -359,7 +359,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0003
+     * @tc.number    SUB_QOS_PAGE_CONC_0003
      * @tc.name      testNdkQosPageConc0003
      * @tc.desc      Checks every level from background to interactive is offered as a choice.
      * @tc.type      FUNCTION
@@ -384,7 +384,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0004
+     * @tc.number    SUB_QOS_PAGE_CONC_0004
      * @tc.name      testNdkQosPageConc0004
      * @tc.desc      Checks eight workers run one round each and every attempt is counted once.
      * @tc.type      FUNCTION
@@ -408,7 +408,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0005
+     * @tc.number    SUB_QOS_PAGE_CONC_0005
      * @tc.name      testNdkQosPageConc0005
      * @tc.desc      Checks the default single worker run counts as one experiment and lists the request total.
      * @tc.type      FUNCTION
@@ -430,7 +430,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0006
+     * @tc.number    SUB_QOS_PAGE_CONC_0006
      * @tc.name      testNdkQosPageConc0006
      * @tc.desc      Checks the result card reports pass, fail and the three duration figures after a run.
      * @tc.type      FUNCTION
@@ -451,7 +451,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0007
+     * @tc.number    SUB_QOS_PAGE_CONC_0007
      * @tc.name      testNdkQosPageConc0007
      * @tc.desc      Checks running the stress test twice accumulates two experiments.
      * @tc.type      FUNCTION
@@ -476,7 +476,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0008
+     * @tc.number    SUB_QOS_PAGE_CONC_0008
      * @tc.name      testNdkQosPageConc0008
      * @tc.desc      Checks the back entry returns to the home page from the stress test page.
      * @tc.type      FUNCTION
@@ -495,7 +495,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0009
+     * @tc.number    SUB_QOS_PAGE_CONC_0009
      * @tc.name      testNdkQosPageConc0009
      * @tc.desc      Checks picking the background level replaces the level label without touching the workers.
      * @tc.type      FUNCTION
@@ -518,7 +518,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0010
+     * @tc.number    SUB_QOS_PAGE_CONC_0010
      * @tc.name      testNdkQosPageConc0010
      * @tc.desc      Checks the selected background level is the one the stress test runs with.
      * @tc.type      FUNCTION
@@ -543,7 +543,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0011
+     * @tc.number    SUB_QOS_PAGE_CONC_0011
      * @tc.name      testNdkQosPageConc0011
      * @tc.desc      Checks eight workers on the background level are counted as eight background runs.
      * @tc.type      FUNCTION
@@ -569,7 +569,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0012
+     * @tc.number    SUB_QOS_PAGE_CONC_0012
      * @tc.name      testNdkQosPageConc0012
      * @tc.desc      Checks every level entry and the action stay reachable after a stress test finished.
      * @tc.type      FUNCTION
@@ -597,7 +597,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0013
+     * @tc.number    SUB_QOS_PAGE_CONC_0013
      * @tc.name      testNdkQosPageConc0013
      * @tc.desc      Checks a freshly opened page shows the three duration placeholders in its result card.
      * @tc.type      FUNCTION
@@ -620,7 +620,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0014
+     * @tc.number    SUB_QOS_PAGE_CONC_0014
      * @tc.name      testNdkQosPageConc0014
      * @tc.desc      Checks a finished run replaces the duration placeholders with measured values.
      * @tc.type      FUNCTION
@@ -645,7 +645,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0015
+     * @tc.number    SUB_QOS_PAGE_CONC_0015
      * @tc.name      testNdkQosPageConc0015
      * @tc.desc      Checks a second run refreshes the same result card instead of stacking a new one.
      * @tc.type      FUNCTION
@@ -670,7 +670,7 @@ export default function ndkQosConcurrencyPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_CONC_0016
+     * @tc.number    SUB_QOS_PAGE_CONC_0016
      * @tc.name      testNdkQosPageConc0016
      * @tc.desc      Checks revisiting the page restores the default level and the placeholder card.
      * @tc.type      FUNCTION

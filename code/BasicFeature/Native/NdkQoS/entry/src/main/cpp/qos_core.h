@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef NDK_QOS_CORE_H
-#define NDK_QOS_CORE_H
+#ifndef QOS_CORE_H
+#define QOS_CORE_H
 
 namespace QosCore {
 constexpr int MIN_LEVEL = 0;
@@ -56,4 +56,4 @@ int BindCurrentThread(int cpu);
 int ReadThreadAffinity(int* cpus, int capacity);
 } // namespace QosCore
 
-#endif // NDK_QOS_CORE_H
+#endif // QOS_CORE_H

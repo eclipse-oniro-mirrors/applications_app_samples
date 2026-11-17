@@ -72,7 +72,7 @@ export default function ndkQosSummaryTest(): void {
 
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0001
+     * @tc.number    SUB_QOS_SUMMARY_0001
      * @tc.name      testNdkQosSummary0001
      * @tc.desc      Checks clearing the statistics reports success and a zero experiment count.
      * @tc.type      FUNCTION
@@ -90,7 +90,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0002
+     * @tc.number    SUB_QOS_SUMMARY_0002
      * @tc.name      testNdkQosSummary0002
      * @tc.desc      Checks a freshly cleared summary reports the sentinel values for every duration field.
      * @tc.type      FUNCTION
@@ -110,7 +110,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0003
+     * @tc.number    SUB_QOS_SUMMARY_0003
      * @tc.name      testNdkQosSummary0003
      * @tc.desc      Checks a freshly cleared summary reports six per-level counters that are all zero.
      * @tc.type      FUNCTION
@@ -129,7 +129,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0004
+     * @tc.number    SUB_QOS_SUMMARY_0004
      * @tc.name      testNdkQosSummary0004
      * @tc.desc      Checks one experiment increases the count by one and records the level it used.
      * @tc.type      FUNCTION
@@ -149,7 +149,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0005
+     * @tc.number    SUB_QOS_SUMMARY_0005
      * @tc.name      testNdkQosSummary0005
      * @tc.desc      Checks a single experiment makes the minimum, average and maximum all equal its duration.
      * @tc.type      FUNCTION
@@ -169,7 +169,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0006
+     * @tc.number    SUB_QOS_SUMMARY_0006
      * @tc.name      testNdkQosSummary0006
      * @tc.desc      Checks two experiments accumulate to a count of two and the latest level is reported.
      * @tc.type      FUNCTION
@@ -189,7 +189,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0007
+     * @tc.number    SUB_QOS_SUMMARY_0007
      * @tc.name      testNdkQosSummary0007
      * @tc.desc      Checks the per-level counters add up to the total count after repeating one level twice.
      * @tc.type      FUNCTION
@@ -213,7 +213,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0008
+     * @tc.number    SUB_QOS_SUMMARY_0008
      * @tc.name      testNdkQosSummary0008
      * @tc.desc      Checks the accumulated average stays between the accumulated minimum and maximum.
      * @tc.type      FUNCTION
@@ -237,7 +237,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0009
+     * @tc.number    SUB_QOS_SUMMARY_0009
      * @tc.name      testNdkQosSummary0009
      * @tc.desc      Checks the two shortcut entries are counted on the highest and the lowest level.
      * @tc.type      FUNCTION
@@ -258,7 +258,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0010
+     * @tc.number    SUB_QOS_SUMMARY_0010
      * @tc.name      testNdkQosSummary0010
      * @tc.desc      Checks an asynchronous experiment is counted exactly once with its level.
      * @tc.type      FUNCTION
@@ -277,7 +277,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0011
+     * @tc.number    SUB_QOS_SUMMARY_0011
      * @tc.name      testNdkQosSummary0011
      * @tc.desc      Checks clearing twice is idempotent and drops the counters collected before.
      * @tc.type      FUNCTION
@@ -301,7 +301,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0012
+     * @tc.number    SUB_QOS_SUMMARY_0012
      * @tc.name      testNdkQosSummary0012
      * @tc.desc      Checks a benchmark round is counted as one experiment per level in the summary.
      * @tc.type      FUNCTION
@@ -320,7 +320,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0013
+     * @tc.number    SUB_QOS_SUMMARY_0013
      * @tc.name      testNdkQosSummary0013
      * @tc.desc      Checks a rejected level does not add anything to the accumulated statistics.
      * @tc.type      FUNCTION
@@ -341,7 +341,7 @@ export default function ndkQosSummaryTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_SUMMARY_0014
+     * @tc.number    SUB_QOS_SUMMARY_0014
      * @tc.name      testNdkQosSummary0014
      * @tc.desc      Checks the summary keeps the run information of the last completed experiment.
      * @tc.type      FUNCTION

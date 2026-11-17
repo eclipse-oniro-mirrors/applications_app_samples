@@ -155,7 +155,7 @@ async function waitForText(driver: Driver, text: string, timeout: number): Promi
   return await tryWaitText(driver, localized, timeout);
 }
 
-// UiTest binds to the accessibility service while the driver is created, so a busy system can hand
+// UiTest binds to the system UI service while the driver is created, so a busy system can hand
 // back an empty handle; retrying keeps a transient failure from collapsing the whole case.
 async function createDriver(): Promise<Driver> {
   for (let attempt = 0; attempt < OPEN_ATTEMPTS; attempt++) {
@@ -316,7 +316,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0001
+     * @tc.number    SUB_QOS_PAGE_BENCH_0001
      * @tc.name      testNdkQosPageBench0001
      * @tc.desc      Checks the benchmark page opens from the home page with its empty state and idle status.
      * @tc.type      FUNCTION
@@ -338,7 +338,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0002
+     * @tc.number    SUB_QOS_PAGE_BENCH_0002
      * @tc.name      testNdkQosPageBench0002
      * @tc.desc      Checks the benchmark page shows one title and one back entry.
      * @tc.type      FUNCTION
@@ -358,7 +358,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0003
+     * @tc.number    SUB_QOS_PAGE_BENCH_0003
      * @tc.name      testNdkQosPageBench0003
      * @tc.desc      Checks the benchmark page renders the three round choices and the action buttons.
      * @tc.type      FUNCTION
@@ -378,7 +378,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0004
+     * @tc.number    SUB_QOS_PAGE_BENCH_0004
      * @tc.name      testNdkQosPageBench0004
      * @tc.desc      Checks one benchmark round fills the table and switches the status to finished.
      * @tc.type      FUNCTION
@@ -398,7 +398,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0005
+     * @tc.number    SUB_QOS_PAGE_BENCH_0005
      * @tc.name      testNdkQosPageBench0005
      * @tc.desc      Checks one round is counted as one experiment per level after the summary was reset.
      * @tc.type      FUNCTION
@@ -414,21 +414,21 @@ export default function ndkQosBenchmarkPageTest(): void {
       expect(await clickText(driver, RUN_BUTTON)).assertTrue();
       expect(await waitForText(driver, DONE_STATUS, RUN_TIMEOUT)).assertTrue();
       const summary: RunSummary = testNapi.getRunSummary();
-      // The summary card is built with a by-value builder, so the table rows are the surface that follows a run.
+      // The summary card is built with a by-value builder, so the table rows are the view that follows a run.
       const rowCount: number = await countText(driver, COLUMN_MIN);
       logInfo('summary runs = ' + summary.runCount.toString() + ', rows = ' + rowCount.toString());
       expect(summary.runCount).assertEqual(LEVEL_COUNT);
       expect(sumOfCounts(summary)).assertEqual(LEVEL_COUNT);
       expect(await findText(driver, SUMMARY_TOTAL) !== undefined).assertTrue();
       // The result table sits in a fixed height scroll area, so only the rows inside the viewport
-      // reach the accessibility tree; the column header plus at least one filled row must be there.
+      // reach the UI element tree; the column header plus at least one filled row must be there.
       expect(await findText(driver, EMPTY_TEXT) === undefined).assertTrue();
       expect(rowCount).assertLarger(1);
       logInfo('testNdkQosPageBench0005 end');
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0006
+     * @tc.number    SUB_QOS_PAGE_BENCH_0006
      * @tc.name      testNdkQosPageBench0006
      * @tc.desc      Checks the reset entry clears the samples and returns to the idle status.
      * @tc.type      FUNCTION
@@ -453,7 +453,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0007
+     * @tc.number    SUB_QOS_PAGE_BENCH_0007
      * @tc.name      testNdkQosPageBench0007
      * @tc.desc      Checks two rounds per level are counted as twelve experiments.
      * @tc.type      FUNCTION
@@ -477,7 +477,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0008
+     * @tc.number    SUB_QOS_PAGE_BENCH_0008
      * @tc.name      testNdkQosPageBench0008
      * @tc.desc      Checks refreshing the summary keeps the finished result and adds no experiment.
      * @tc.type      FUNCTION
@@ -502,7 +502,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0009
+     * @tc.number    SUB_QOS_PAGE_BENCH_0009
      * @tc.name      testNdkQosPageBench0009
      * @tc.desc      Checks the back entry returns to the home page.
      * @tc.type      FUNCTION
@@ -521,7 +521,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0010
+     * @tc.number    SUB_QOS_PAGE_BENCH_0010
      * @tc.name      testNdkQosPageBench0010
      * @tc.desc      Checks three rounds per level are counted as eighteen experiments.
      * @tc.type      FUNCTION
@@ -546,7 +546,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0011
+     * @tc.number    SUB_QOS_PAGE_BENCH_0011
      * @tc.name      testNdkQosPageBench0011
      * @tc.desc      Checks two separate one-round benchmarks add up to twelve experiments.
      * @tc.type      FUNCTION
@@ -576,7 +576,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0012
+     * @tc.number    SUB_QOS_PAGE_BENCH_0012
      * @tc.name      testNdkQosPageBench0012
      * @tc.desc      Checks picking a round count alone runs nothing and keeps the empty table.
      * @tc.type      FUNCTION
@@ -603,7 +603,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0013
+     * @tc.number    SUB_QOS_PAGE_BENCH_0013
      * @tc.name      testNdkQosPageBench0013
      * @tc.desc      Checks the last selected round count wins when the choice is changed before a run.
      * @tc.type      FUNCTION
@@ -628,7 +628,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0014
+     * @tc.number    SUB_QOS_PAGE_BENCH_0014
      * @tc.name      testNdkQosPageBench0014
      * @tc.desc      Checks the result table renders every column header after a benchmark.
      * @tc.type      FUNCTION
@@ -653,7 +653,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0015
+     * @tc.number    SUB_QOS_PAGE_BENCH_0015
      * @tc.name      testNdkQosPageBench0015
      * @tc.desc      Checks a reopened page starts from the empty table while the run summary survives.
      * @tc.type      FUNCTION
@@ -680,7 +680,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0016
+     * @tc.number    SUB_QOS_PAGE_BENCH_0016
      * @tc.name      testNdkQosPageBench0016
      * @tc.desc      Checks the summary card lists its eight rows together with the two action entries.
      * @tc.type      FUNCTION
@@ -705,7 +705,7 @@ export default function ndkQosBenchmarkPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_BENCH_0017
+     * @tc.number    SUB_QOS_PAGE_BENCH_0017
      * @tc.name      testNdkQosPageBench0017
      * @tc.desc      Checks resetting after a three-round benchmark clears the table and the summary.
      * @tc.type      FUNCTION

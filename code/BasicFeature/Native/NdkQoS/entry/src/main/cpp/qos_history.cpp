@@ -16,6 +16,9 @@
 #include "qos_history.h"
 
 #include <cstdio>
+#include <iomanip>
+#include <locale>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -31,6 +34,15 @@ constexpr double INVALID_DURATION = QosCore::INVALID_DURATION;
 constexpr int CODE_OK = QosNapi::CODE_OK;
 constexpr int CODE_INVALID_ARG = QosNapi::CODE_INVALID_ARG;
 constexpr int CODE_IO_ERROR = 402;
+constexpr char FIELD_SEPARATOR = ',';
+constexpr int RECORD_FIELD_COUNT = 6;
+constexpr int DURATION_PRECISION = 3;
+constexpr size_t FIELD_LEVEL = 0;
+constexpr size_t FIELD_DURATION = 1;
+constexpr size_t FIELD_SET_RESULT = 2;
+constexpr size_t FIELD_QUERY_LEVEL = 3;
+constexpr size_t FIELD_RESET_RESULT = 4;
+constexpr size_t FIELD_BIND_RESULT = 5;
 
 struct RunRecord {
     int level = INVALID_RESULT;
@@ -52,43 +64,87 @@ std::string BuildRecordPath(const std::string& dirPath)
     return dirPath + "/" + RECORD_FILE_NAME;
 }
 
+std::string TrimSpaces(const std::string& text)
+{
+    const std::string blank = " \t\r\n";
+    size_t begin = text.find_first_not_of(blank);
+    if (begin == std::string::npos) {
+        return "";
+    }
+    size_t end = text.find_last_not_of(blank);
+    return text.substr(begin, end - begin + 1);
+}
+
+std::vector<std::string> SplitFields(const std::string& line)
+{
+    std::vector<std::string> fields;
+    std::istringstream stream(line);
+    stream.imbue(std::locale::classic());
+    std::string field;
+    while (std::getline(stream, field, FIELD_SEPARATOR)) {
+        fields.push_back(TrimSpaces(field));
+    }
+    return fields;
+}
+
+// Converts one field only when the whole trimmed text is consumed, so trailing
+// garbage and empty fields are rejected instead of being silently accepted.
+template <typename T>
+bool ParseField(const std::string& text, T* out)
+{
+    if (out == nullptr || text.empty()) {
+        return false;
+    }
+    std::istringstream stream(text);
+    stream.imbue(std::locale::classic());
+    T value = T();
+    stream >> value;
+    if (stream.fail()) {
+        return false;
+    }
+    stream >> std::ws;
+    if (!stream.eof()) {
+        return false;
+    }
+    *out = value;
+    return true;
+}
+
 bool ParseRecord(const std::string& line, RunRecord* record)
 {
     if (record == nullptr || line.empty()) {
         return false;
     }
-    int level = 0;
-    double duration = 0.0;
-    int setResult = 0;
-    int queryLevel = 0;
-    int resetResult = 0;
-    int bindResult = 0;
-    int matched = std::sscanf(line.c_str(), "%d,%lf,%d,%d,%d,%d", &level, &duration, &setResult, &queryLevel,
-                              &resetResult, &bindResult);
-    if (matched != 6) {
+    std::vector<std::string> fields = SplitFields(line);
+    if (static_cast<int>(fields.size()) < RECORD_FIELD_COUNT) {
         return false;
     }
-    if (level < QosCore::MIN_LEVEL || level > QosCore::MAX_LEVEL || duration < 0.0) {
+    RunRecord parsed;
+    bool valid = ParseField(fields[FIELD_LEVEL], &parsed.level) &&
+        ParseField(fields[FIELD_DURATION], &parsed.duration) &&
+        ParseField(fields[FIELD_SET_RESULT], &parsed.setResult) &&
+        ParseField(fields[FIELD_QUERY_LEVEL], &parsed.queryLevel) &&
+        ParseField(fields[FIELD_RESET_RESULT], &parsed.resetResult) &&
+        ParseField(fields[FIELD_BIND_RESULT], &parsed.bindResult);
+    if (!valid) {
         return false;
     }
-    record->level = level;
-    record->duration = duration;
-    record->setResult = setResult;
-    record->queryLevel = queryLevel;
-    record->resetResult = resetResult;
-    record->bindResult = bindResult;
+    if (parsed.level < QosCore::MIN_LEVEL || parsed.level > QosCore::MAX_LEVEL || parsed.duration < 0.0) {
+        return false;
+    }
+    *record = parsed;
     return true;
 }
 
 std::string FormatRecord(const RunRecord& record)
 {
-    char buffer[160] = {0};
-    int written = std::snprintf(buffer, sizeof(buffer), "%d,%.3f,%d,%d,%d,%d", record.level, record.duration,
-                                record.setResult, record.queryLevel, record.resetResult, record.bindResult);
-    if (written <= 0) {
-        return "";
-    }
-    return std::string(buffer);
+    std::ostringstream stream;
+    stream.imbue(std::locale::classic());
+    stream << record.level << FIELD_SEPARATOR;
+    stream << std::fixed << std::setprecision(DURATION_PRECISION) << record.duration << FIELD_SEPARATOR;
+    stream << record.setResult << FIELD_SEPARATOR << record.queryLevel << FIELD_SEPARATOR;
+    stream << record.resetResult << FIELD_SEPARATOR << record.bindResult;
+    return stream.str();
 }
 
 std::vector<RunRecord> LoadRecords(const std::string& path)
@@ -149,6 +205,76 @@ napi_value BuildEmptyRecordReport(napi_env env)
     QosNapi::SetNamedInt(env, report, "code", CODE_INVALID_ARG);
     SetRecordFields(env, report, empty);
     return report;
+}
+
+struct RecordStats {
+    int total = 0;
+    int successCount = 0;
+    int failureCount = 0;
+    int levelCounts[LEVEL_COUNT] = {0, 0, 0, 0, 0, 0};
+    double avgDuration = INVALID_DURATION;
+    double minDuration = INVALID_DURATION;
+    double maxDuration = INVALID_DURATION;
+};
+
+void AccumulateRecord(const RunRecord& record, RecordStats* stats, double* totalDuration)
+{
+    if (record.level >= QosCore::MIN_LEVEL && record.level <= QosCore::MAX_LEVEL) {
+        stats->levelCounts[record.level - QosCore::MIN_LEVEL]++;
+    }
+    if (record.setResult != 0) {
+        stats->failureCount++;
+        return;
+    }
+    stats->successCount++;
+    *totalDuration += record.duration;
+    if (stats->minDuration < 0.0 || record.duration < stats->minDuration) {
+        stats->minDuration = record.duration;
+    }
+    if (stats->maxDuration < 0.0 || record.duration > stats->maxDuration) {
+        stats->maxDuration = record.duration;
+    }
+}
+
+RecordStats SummarizeRecords(const std::vector<RunRecord>& records)
+{
+    RecordStats stats;
+    stats.total = static_cast<int>(records.size());
+    double totalDuration = 0.0;
+    for (const RunRecord& record : records) {
+        AccumulateRecord(record, &stats, &totalDuration);
+    }
+    if (stats.successCount > 0) {
+        stats.avgDuration = totalDuration / stats.successCount;
+    }
+    return stats;
+}
+
+napi_value BuildStatsReport(napi_env env, const RecordStats& stats, int code)
+{
+    napi_value report = nullptr;
+    napi_create_object(env, &report);
+    QosNapi::SetNamedInt(env, report, "code", code);
+    QosNapi::SetNamedInt(env, report, "total", stats.total);
+    QosNapi::SetNamedInt(env, report, "successCount", stats.successCount);
+    QosNapi::SetNamedInt(env, report, "failureCount", stats.failureCount);
+    QosNapi::SetNamedDouble(env, report, "avgDuration", stats.avgDuration);
+    QosNapi::SetNamedDouble(env, report, "minDuration", stats.minDuration);
+    QosNapi::SetNamedDouble(env, report, "maxDuration", stats.maxDuration);
+
+    napi_value counts = nullptr;
+    napi_create_array_with_length(env, LEVEL_COUNT, &counts);
+    for (int index = 0; index < LEVEL_COUNT; index++) {
+        napi_set_element(env, counts, static_cast<uint32_t>(index), QosNapi::CreateInt(env, stats.levelCounts[index]));
+    }
+    napi_set_named_property(env, report, "levelCounts", counts);
+    return report;
+}
+
+napi_value BuildInvalidStatsReport(napi_env env)
+{
+    RecordStats empty;
+    return BuildStatsReport(env, empty, CODE_INVALID_ARG);
 }
 } // namespace
 
@@ -282,9 +408,6 @@ napi_value GetRecordStats(napi_env env, napi_callback_info info)
 {
     size_t argc = 1;
     napi_value args[1] = {nullptr};
-    napi_value report = nullptr;
-    napi_create_object(env, &report);
-
     std::string dirPath;
     bool valid = (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) == napi_ok) && argc >= 1 &&
         QosNapi::ReadStringArg(env, args[0], &dirPath);
@@ -292,60 +415,9 @@ napi_value GetRecordStats(napi_env env, napi_callback_info info)
         valid = !BuildRecordPath(dirPath).empty();
     }
     if (!valid) {
-        QosNapi::SetNamedInt(env, report, "code", CODE_INVALID_ARG);
-        QosNapi::SetNamedInt(env, report, "total", 0);
-        QosNapi::SetNamedInt(env, report, "successCount", 0);
-        QosNapi::SetNamedInt(env, report, "failureCount", 0);
-        QosNapi::SetNamedDouble(env, report, "avgDuration", INVALID_DURATION);
-        QosNapi::SetNamedDouble(env, report, "minDuration", INVALID_DURATION);
-        QosNapi::SetNamedDouble(env, report, "maxDuration", INVALID_DURATION);
-        napi_value empty = nullptr;
-        napi_create_array_with_length(env, LEVEL_COUNT, &empty);
-        napi_set_named_property(env, report, "levelCounts", empty);
-        return report;
+        return BuildInvalidStatsReport(env);
     }
-
-    std::vector<RunRecord> records = LoadRecords(BuildRecordPath(dirPath));
-    int successCount = 0;
-    int failureCount = 0;
-    int levelCounts[LEVEL_COUNT] = {0, 0, 0, 0, 0, 0};
-    double totalDuration = 0.0;
-    double minDuration = INVALID_DURATION;
-    double maxDuration = INVALID_DURATION;
-    for (const RunRecord& record : records) {
-        if (record.level >= QosCore::MIN_LEVEL && record.level <= QosCore::MAX_LEVEL) {
-            levelCounts[record.level - QosCore::MIN_LEVEL]++;
-        }
-        if (record.setResult != 0) {
-            failureCount++;
-            continue;
-        }
-        successCount++;
-        totalDuration += record.duration;
-        if (minDuration < 0.0 || record.duration < minDuration) {
-            minDuration = record.duration;
-        }
-        if (maxDuration < 0.0 || record.duration > maxDuration) {
-            maxDuration = record.duration;
-        }
-    }
-
-    QosNapi::SetNamedInt(env, report, "code", CODE_OK);
-    QosNapi::SetNamedInt(env, report, "total", static_cast<int>(records.size()));
-    QosNapi::SetNamedInt(env, report, "successCount", successCount);
-    QosNapi::SetNamedInt(env, report, "failureCount", failureCount);
-    QosNapi::SetNamedDouble(env, report, "avgDuration",
-                            (successCount > 0) ? (totalDuration / successCount) : INVALID_DURATION);
-    QosNapi::SetNamedDouble(env, report, "minDuration", minDuration);
-    QosNapi::SetNamedDouble(env, report, "maxDuration", maxDuration);
-
-    napi_value counts = nullptr;
-    napi_create_array_with_length(env, LEVEL_COUNT, &counts);
-    for (int index = 0; index < LEVEL_COUNT; index++) {
-        napi_set_element(env, counts, static_cast<uint32_t>(index), QosNapi::CreateInt(env, levelCounts[index]));
-    }
-    napi_set_named_property(env, report, "levelCounts", counts);
-    return report;
+    return BuildStatsReport(env, SummarizeRecords(LoadRecords(BuildRecordPath(dirPath))), CODE_OK);
 }
 
 napi_value ParseRunRecordLine(napi_env env, napi_callback_info info)

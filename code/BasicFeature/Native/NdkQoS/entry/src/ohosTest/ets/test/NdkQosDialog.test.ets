@@ -269,7 +269,7 @@ export default function ndkQosDialogTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_DIALOG_0001
+     * @tc.number    SUB_QOS_DIALOG_0001
      * @tc.name      testNdkQosDialog0001
      * @tc.desc      Checks the high QoS button opens a dialog with the confirm button and message.
      * @tc.type      FUNCTION
@@ -291,7 +291,7 @@ export default function ndkQosDialogTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_DIALOG_0002
+     * @tc.number    SUB_QOS_DIALOG_0002
      * @tc.name      testNdkQosDialog0002
      * @tc.desc      Checks the high QoS dialog message follows the expected wording and unit.
      * @tc.type      FUNCTION
@@ -314,7 +314,7 @@ export default function ndkQosDialogTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_DIALOG_0003
+     * @tc.number    SUB_QOS_DIALOG_0003
      * @tc.name      testNdkQosDialog0003
      * @tc.desc      Checks the duration displayed by the high QoS dialog is a readable positive value.
      * @tc.type      FUNCTION
@@ -338,7 +338,7 @@ export default function ndkQosDialogTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_DIALOG_0004
+     * @tc.number    SUB_QOS_DIALOG_0004
      * @tc.name      testNdkQosDialog0004
      * @tc.desc      Checks the confirm button closes the dialog and returns to the main page.
      * @tc.type      FUNCTION
@@ -360,7 +360,7 @@ export default function ndkQosDialogTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_DIALOG_0005
+     * @tc.number    SUB_QOS_DIALOG_0005
      * @tc.name      testNdkQosDialog0005
      * @tc.desc      Checks the low QoS button opens a dialog with the low level wording.
      * @tc.type      FUNCTION
@@ -383,7 +383,7 @@ export default function ndkQosDialogTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_DIALOG_0006
+     * @tc.number    SUB_QOS_DIALOG_0006
      * @tc.name      testNdkQosDialog0006
      * @tc.desc      Checks the duration displayed by the low QoS dialog is a readable positive value.
      * @tc.type      FUNCTION
@@ -408,7 +408,7 @@ export default function ndkQosDialogTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_DIALOG_0007
+     * @tc.number    SUB_QOS_DIALOG_0007
      * @tc.name      testNdkQosDialog0007
      * @tc.desc      Checks the high QoS dialog shows up again after it has been closed.
      * @tc.type      FUNCTION
@@ -433,7 +433,7 @@ export default function ndkQosDialogTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_DIALOG_0008
+     * @tc.number    SUB_QOS_DIALOG_0008
      * @tc.name      testNdkQosDialog0008
      * @tc.desc      Checks the high and low QoS dialogs keep their own wording in one run.
      * @tc.type      FUNCTION

@@ -54,7 +54,7 @@ export default function ndkQosCapabilityTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_CAPABILITY_0001
+     * @tc.number    SUB_QOS_CAPABILITY_0001
      * @tc.name      testNdkQosCapability0001
      * @tc.desc      Checks a valid level run reports the level back through the run information.
      * @tc.type      FUNCTION
@@ -75,7 +75,7 @@ export default function ndkQosCapabilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CAPABILITY_0002
+     * @tc.number    SUB_QOS_CAPABILITY_0002
      * @tc.name      testNdkQosCapability0002
      * @tc.desc      Checks out of range levels are rejected instead of being scheduled.
      * @tc.type      FUNCTION
@@ -95,7 +95,7 @@ export default function ndkQosCapabilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CAPABILITY_0003
+     * @tc.number    SUB_QOS_CAPABILITY_0003
      * @tc.name      testNdkQosCapability0003
      * @tc.desc      Checks the asynchronous run resolves with the same duration as the run information.
      * @tc.type      FUNCTION
@@ -114,7 +114,7 @@ export default function ndkQosCapabilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CAPABILITY_0004
+     * @tc.number    SUB_QOS_CAPABILITY_0004
      * @tc.name      testNdkQosCapability0004
      * @tc.desc      Checks the asynchronous run rejects an illegal level and still serves a legal one.
      * @tc.type      FUNCTION
@@ -139,7 +139,7 @@ export default function ndkQosCapabilityTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_CAPABILITY_0005
+     * @tc.number    SUB_QOS_CAPABILITY_0005
      * @tc.name      testNdkQosCapability0005
      * @tc.desc      Checks the boundary levels both complete and the last level is reported back.
      * @tc.type      FUNCTION

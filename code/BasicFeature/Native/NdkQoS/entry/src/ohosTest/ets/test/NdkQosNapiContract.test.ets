@@ -60,7 +60,7 @@ export default function ndkQosNapiContractTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_NAPI_0001
+     * @tc.number    SUB_QOS_NAPI_0001
      * @tc.name      testNdkQosNapi0001
      * @tc.desc      Checks useHighQos returns a positive finite duration that survives a text round trip.
      * @tc.type      FUNCTION
@@ -81,7 +81,7 @@ export default function ndkQosNapiContractTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_NAPI_0002
+     * @tc.number    SUB_QOS_NAPI_0002
      * @tc.name      testNdkQosNapi0002
      * @tc.desc      Checks useLowQos returns a positive finite duration that survives a text round trip.
      * @tc.type      FUNCTION
@@ -102,7 +102,7 @@ export default function ndkQosNapiContractTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_NAPI_0003
+     * @tc.number    SUB_QOS_NAPI_0003
      * @tc.name      testNdkQosNapi0003
      * @tc.desc      Checks two successive high QoS calls both return a valid duration.
      * @tc.type      FUNCTION
@@ -124,7 +124,7 @@ export default function ndkQosNapiContractTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_NAPI_0004
+     * @tc.number    SUB_QOS_NAPI_0004
      * @tc.name      testNdkQosNapi0004
      * @tc.desc      Checks two successive low QoS calls both return a valid duration.
      * @tc.type      FUNCTION
@@ -145,7 +145,7 @@ export default function ndkQosNapiContractTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_NAPI_0005
+     * @tc.number    SUB_QOS_NAPI_0005
      * @tc.name      testNdkQosNapi0005
      * @tc.desc      Checks the high and low QoS calls stay valid when they alternate.
      * @tc.type      FUNCTION
@@ -169,7 +169,7 @@ export default function ndkQosNapiContractTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_NAPI_0006
+     * @tc.number    SUB_QOS_NAPI_0006
      * @tc.name      testNdkQosNapi0006
      * @tc.desc      Checks both QoS entry functions exported by the native module are callable.
      * @tc.type      FUNCTION

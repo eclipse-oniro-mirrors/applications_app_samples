@@ -170,7 +170,7 @@ async function waitForText(driver: Driver, text: string, timeout: number): Promi
   return await tryWaitText(driver, localized, timeout);
 }
 
-// UiTest binds to the accessibility service while the driver is created, so a busy system can hand
+// UiTest binds to the system UI service while the driver is created, so a busy system can hand
 // back an empty handle; retrying keeps a transient failure from collapsing the whole case.
 async function createDriver(): Promise<Driver> {
   for (let attempt = 0; attempt < OPEN_ATTEMPTS; attempt++) {
@@ -311,7 +311,7 @@ export default function ndkQosHistoryPageTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0001
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0001
      * @tc.name      testNdkQosPageHistory0001
      * @tc.desc      Checks the record page opens with its four actions, idle status and storage note.
      * @tc.type      FUNCTION
@@ -336,7 +336,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0002
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0002
      * @tc.name      testNdkQosPageHistory0002
      * @tc.desc      Checks clearing the records reports the empty state and leaves no record behind.
      * @tc.type      FUNCTION
@@ -355,7 +355,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0003
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0003
      * @tc.name      testNdkQosPageHistory0003
      * @tc.desc      Checks one run appends exactly one record and the list replaces the empty hint.
      * @tc.type      FUNCTION
@@ -376,7 +376,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0004
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0004
      * @tc.name      testNdkQosPageHistory0004
      * @tc.desc      Checks reading the records reports the file state and renders the record rows.
      * @tc.type      FUNCTION
@@ -399,7 +399,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0005
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0005
      * @tc.name      testNdkQosPageHistory0005
      * @tc.desc      Checks the statistics refresh reports totals consistent with the stored records.
      * @tc.type      FUNCTION
@@ -425,7 +425,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0006
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0006
      * @tc.name      testNdkQosPageHistory0006
      * @tc.desc      Checks the read limits are offered and a larger limit keeps the read working.
      * @tc.type      FUNCTION
@@ -446,7 +446,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0007
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0007
      * @tc.name      testNdkQosPageHistory0007
      * @tc.desc      Checks clearing twice keeps the file empty and restores the empty hint.
      * @tc.type      FUNCTION
@@ -467,7 +467,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0008
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0008
      * @tc.name      testNdkQosPageHistory0008
      * @tc.desc      Checks a record taken on the utility level is stored with that level.
      * @tc.type      FUNCTION
@@ -493,7 +493,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0009
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0009
      * @tc.name      testNdkQosPageHistory0009
      * @tc.desc      Checks two recorded runs are numbered in write order starting from zero.
      * @tc.type      FUNCTION
@@ -521,7 +521,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0010
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0010
      * @tc.name      testNdkQosPageHistory0010
      * @tc.desc      Checks reading with the medium limit returns the stored record.
      * @tc.type      FUNCTION
@@ -550,7 +550,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0011
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0011
      * @tc.name      testNdkQosPageHistory0011
      * @tc.desc      Checks the read limit larger than the file size still returns every record.
      * @tc.type      FUNCTION
@@ -583,7 +583,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0012
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0012
      * @tc.name      testNdkQosPageHistory0012
      * @tc.desc      Checks the statistics card reports the stored level and the record capacity.
      * @tc.type      FUNCTION
@@ -611,7 +611,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0013
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0013
      * @tc.name      testNdkQosPageHistory0013
      * @tc.desc      Checks revisiting the page clears the list while the record file keeps its entry.
      * @tc.type      FUNCTION
@@ -635,7 +635,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0014
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0014
      * @tc.name      testNdkQosPageHistory0014
      * @tc.desc      Checks reading an emptied file succeeds and reports no record at all.
      * @tc.type      FUNCTION
@@ -660,7 +660,7 @@ export default function ndkQosHistoryPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_HISTORY_0015
+     * @tc.number    SUB_QOS_PAGE_HISTORY_0015
      * @tc.name      testNdkQosPageHistory0015
      * @tc.desc      Checks two records on the same level are grouped under that level in the statistics.
      * @tc.type      FUNCTION

@@ -133,7 +133,7 @@ async function waitForText(driver: Driver, text: string, timeout: number): Promi
   return await tryWaitText(driver, localized, timeout);
 }
 
-// UiTest binds to the accessibility service while the driver is created, so a busy system can hand
+// UiTest binds to the system UI service while the driver is created, so a busy system can hand
 // back an empty handle; retrying keeps a transient failure from collapsing the whole case.
 async function createDriver(): Promise<Driver> {
   for (let attempt = 0; attempt < OPEN_ATTEMPTS; attempt++) {
@@ -242,7 +242,7 @@ export default function ndkQosNavigationTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_NAV_0001
+     * @tc.number    SUB_QOS_PAGE_NAV_0001
      * @tc.name      testNdkQosNavigation0001
      * @tc.desc      Checks the home page offers both quick tests and the five page entries.
      * @tc.type      FUNCTION
@@ -264,7 +264,7 @@ export default function ndkQosNavigationTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_NAV_0002
+     * @tc.number    SUB_QOS_PAGE_NAV_0002
      * @tc.name      testNdkQosNavigation0002
      * @tc.desc      Checks the level entry opens its page and hides the home page.
      * @tc.type      FUNCTION
@@ -282,7 +282,7 @@ export default function ndkQosNavigationTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_NAV_0003
+     * @tc.number    SUB_QOS_PAGE_NAV_0003
      * @tc.name      testNdkQosNavigation0003
      * @tc.desc      Checks the benchmark entry opens the benchmark page.
      * @tc.type      FUNCTION
@@ -300,7 +300,7 @@ export default function ndkQosNavigationTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_NAV_0004
+     * @tc.number    SUB_QOS_PAGE_NAV_0004
      * @tc.name      testNdkQosNavigation0004
      * @tc.desc      Checks the concurrency entry opens the stress test page.
      * @tc.type      FUNCTION
@@ -318,7 +318,7 @@ export default function ndkQosNavigationTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_NAV_0005
+     * @tc.number    SUB_QOS_PAGE_NAV_0005
      * @tc.name      testNdkQosNavigation0005
      * @tc.desc      Checks the device entry opens the topology and affinity page.
      * @tc.type      FUNCTION
@@ -336,7 +336,7 @@ export default function ndkQosNavigationTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_NAV_0006
+     * @tc.number    SUB_QOS_PAGE_NAV_0006
      * @tc.name      testNdkQosNavigation0006
      * @tc.desc      Checks the history entry opens the run records page.
      * @tc.type      FUNCTION
@@ -354,7 +354,7 @@ export default function ndkQosNavigationTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_NAV_0007
+     * @tc.number    SUB_QOS_PAGE_NAV_0007
      * @tc.name      testNdkQosNavigation0007
      * @tc.desc      Checks two child pages can be visited one after another and each back entry returns home.
      * @tc.type      FUNCTION
@@ -374,7 +374,7 @@ export default function ndkQosNavigationTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_NAV_0008
+     * @tc.number    SUB_QOS_PAGE_NAV_0008
      * @tc.name      testNdkQosNavigation0008
      * @tc.desc      Checks the level page keeps a single title once the home page entry is no longer visible.
      * @tc.type      FUNCTION

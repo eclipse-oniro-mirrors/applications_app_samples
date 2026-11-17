@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef NDK_QOS_NAPI_UTIL_H
-#define NDK_QOS_NAPI_UTIL_H
+#ifndef QOS_NAPI_UTIL_H
+#define QOS_NAPI_UTIL_H
 
 #include <string>
 
@@ -23,6 +23,8 @@
 namespace QosNapi {
 constexpr int CODE_OK = 0;
 constexpr int CODE_INVALID_ARG = 401;
+constexpr double INT32_MIN_VALUE = -2147483648.0;
+constexpr double INT32_MAX_VALUE = 2147483647.0;
 
 inline napi_value CreateInt(napi_env env, int value)
 {
@@ -67,47 +69,41 @@ inline void SetNamedString(napi_env env, napi_value object, const char* name, co
     napi_set_named_property(env, object, name, CreateString(env, value));
 }
 
-inline bool ReadIntArg(napi_env env, napi_value value, int* out)
+inline bool IsNumberValue(napi_env env, napi_value value)
 {
     napi_valuetype type = napi_undefined;
-    if (napi_typeof(env, value, &type) != napi_ok || type != napi_number || out == nullptr) {
-        return false;
-    }
-    double raw = 0.0;
-    if (napi_get_value_double(env, value, &raw) != napi_ok) {
-        return false;
-    }
-    if (!(raw >= -2147483648.0 && raw <= 2147483647.0)) {
+    return napi_typeof(env, value, &type) == napi_ok && type == napi_number;
+}
+
+inline bool IsStringValue(napi_env env, napi_value value)
+{
+    napi_valuetype type = napi_undefined;
+    return napi_typeof(env, value, &type) == napi_ok && type == napi_string;
+}
+
+inline bool IsInt32Range(double raw)
+{
+    return raw >= INT32_MIN_VALUE && raw <= INT32_MAX_VALUE;
+}
+
+inline bool NarrowToInt(double raw, int* out)
+{
+    if (out == nullptr || !IsInt32Range(raw)) {
         return false;
     }
     int converted = static_cast<int>(raw);
-    if (static_cast<double>(converted) != raw) {
-        return false;
-    }
     *out = converted;
-    return true;
+    return static_cast<double>(converted) == raw;
 }
 
-inline bool ReadDoubleArg(napi_env env, napi_value value, double* out)
+inline bool ReadUtf8Length(napi_env env, napi_value value, size_t* length)
 {
-    napi_valuetype type = napi_undefined;
-    if (napi_typeof(env, value, &type) != napi_ok || type != napi_number || out == nullptr) {
-        return false;
-    }
-    return napi_get_value_double(env, value, out) == napi_ok;
+    return napi_get_value_string_utf8(env, value, nullptr, 0, length) == napi_ok;
 }
 
-inline bool ReadStringArg(napi_env env, napi_value value, std::string* out)
+inline bool CopyUtf8Value(napi_env env, napi_value value, size_t length, std::string* out)
 {
-    napi_valuetype type = napi_undefined;
-    if (napi_typeof(env, value, &type) != napi_ok || type != napi_string || out == nullptr) {
-        return false;
-    }
-    size_t length = 0;
-    if (napi_get_value_string_utf8(env, value, nullptr, 0, &length) != napi_ok) {
-        return false;
-    }
-    std::string buffer(length, '\0');
+    std::string buffer(length + 1, '\0');
     size_t copied = 0;
     if (napi_get_value_string_utf8(env, value, &buffer[0], length + 1, &copied) != napi_ok) {
         return false;
@@ -115,6 +111,32 @@ inline bool ReadStringArg(napi_env env, napi_value value, std::string* out)
     *out = buffer.substr(0, copied);
     return true;
 }
+
+inline bool ReadDoubleArg(napi_env env, napi_value value, double* out)
+{
+    if (out == nullptr || !IsNumberValue(env, value)) {
+        return false;
+    }
+    return napi_get_value_double(env, value, out) == napi_ok;
+}
+
+inline bool ReadIntArg(napi_env env, napi_value value, int* out)
+{
+    double raw = 0.0;
+    if (out == nullptr || !ReadDoubleArg(env, value, &raw)) {
+        return false;
+    }
+    return NarrowToInt(raw, out);
+}
+
+inline bool ReadStringArg(napi_env env, napi_value value, std::string* out)
+{
+    size_t length = 0;
+    if (out == nullptr || !IsStringValue(env, value) || !ReadUtf8Length(env, value, &length)) {
+        return false;
+    }
+    return CopyUtf8Value(env, value, length, out);
+}
 } // namespace QosNapi
 
-#endif // NDK_QOS_NAPI_UTIL_H
+#endif // QOS_NAPI_UTIL_H

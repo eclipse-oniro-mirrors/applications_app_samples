@@ -84,7 +84,7 @@ export default function ndkQosRecordExtTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0001
+     * @tc.number    SUB_QOS_FILEEXT_0001
      * @tc.name      testNdkQosRecordExt0001
      * @tc.desc      Checks a directory argument that points at the record file fails with the write error.
      * @tc.type      FUNCTION
@@ -105,7 +105,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0002
+     * @tc.number    SUB_QOS_FILEEXT_0002
      * @tc.name      testNdkQosRecordExt0002
      * @tc.desc      Checks a read through a directory argument that points at the record file finds no records.
      * @tc.type      FUNCTION
@@ -126,7 +126,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0003
+     * @tc.number    SUB_QOS_FILEEXT_0003
      * @tc.name      testNdkQosRecordExt0003
      * @tc.desc      Checks statistics through a directory argument that points at the record file stay empty.
      * @tc.type      FUNCTION
@@ -147,7 +147,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0004
+     * @tc.number    SUB_QOS_FILEEXT_0004
      * @tc.name      testNdkQosRecordExt0004
      * @tc.desc      Checks an oversized directory path fails cleanly and the next normal append still succeeds.
      * @tc.type      FUNCTION
@@ -168,7 +168,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0005
+     * @tc.number    SUB_QOS_FILEEXT_0005
      * @tc.name      testNdkQosRecordExt0005
      * @tc.desc      Checks a zero duration is a legal record and turns every duration statistic into zero.
      * @tc.type      FUNCTION
@@ -192,7 +192,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0006
+     * @tc.number    SUB_QOS_FILEEXT_0006
      * @tc.name      testNdkQosRecordExt0006
      * @tc.desc      Checks the stored duration keeps three decimals and rounds the fourth decimal.
      * @tc.type      FUNCTION
@@ -214,7 +214,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0007
+     * @tc.number    SUB_QOS_FILEEXT_0007
      * @tc.name      testNdkQosRecordExt0007
      * @tc.desc      Checks a tiny positive duration is accepted and stored as zero milliseconds.
      * @tc.type      FUNCTION
@@ -234,7 +234,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0008
+     * @tc.number    SUB_QOS_FILEEXT_0008
      * @tc.name      testNdkQosRecordExt0008
      * @tc.desc      Checks a record whose set result is not zero feeds the failure counter and not the durations.
      * @tc.type      FUNCTION
@@ -256,7 +256,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0009
+     * @tc.number    SUB_QOS_FILEEXT_0009
      * @tc.name      testNdkQosRecordExt0009
      * @tc.desc      Checks a failed record keeps its level and negative result codes after the file round trip.
      * @tc.type      FUNCTION
@@ -280,7 +280,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0010
+     * @tc.number    SUB_QOS_FILEEXT_0010
      * @tc.name      testNdkQosRecordExt0010
      * @tc.desc      Checks the two hundredth append fills the file without dropping any record.
      * @tc.type      FUNCTION
@@ -303,7 +303,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0011
+     * @tc.number    SUB_QOS_FILEEXT_0011
      * @tc.name      testNdkQosRecordExt0011
      * @tc.desc      Checks every append beyond the capacity drops exactly one record and keeps the count fixed.
      * @tc.type      FUNCTION
@@ -329,7 +329,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0012
+     * @tc.number    SUB_QOS_FILEEXT_0012
      * @tc.name      testNdkQosRecordExt0012
      * @tc.desc      Checks a limit of one returns only the newest record while the total stays complete.
      * @tc.type      FUNCTION
@@ -353,7 +353,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0013
+     * @tc.number    SUB_QOS_FILEEXT_0013
      * @tc.name      testNdkQosRecordExt0013
      * @tc.desc      Checks clearing a directory without a record file removes nothing and keeps other records.
      * @tc.type      FUNCTION
@@ -372,7 +372,7 @@ export default function ndkQosRecordExtTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_FILEEXT_0014
+     * @tc.number    SUB_QOS_FILEEXT_0014
      * @tc.name      testNdkQosRecordExt0014
      * @tc.desc      Checks the read index counts positions inside the file, so it restarts at zero after a drop.
      * @tc.type      FUNCTION

@@ -52,7 +52,7 @@ export default function ndkQosParseTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0001
+     * @tc.number    SUB_QOS_PARSE_0001
      * @tc.name      testNdkQosParse0001
      * @tc.desc      Checks a complete record line is parsed into every field without loss.
      * @tc.type      FUNCTION
@@ -74,7 +74,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0002
+     * @tc.number    SUB_QOS_PARSE_0002
      * @tc.name      testNdkQosParse0002
      * @tc.desc      Checks the lowest QoS level is accepted and echoed as written.
      * @tc.type      FUNCTION
@@ -92,7 +92,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0003
+     * @tc.number    SUB_QOS_PARSE_0003
      * @tc.name      testNdkQosParse0003
      * @tc.desc      Checks the highest QoS level is accepted and echoed as written.
      * @tc.type      FUNCTION
@@ -110,7 +110,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0004
+     * @tc.number    SUB_QOS_PARSE_0004
      * @tc.name      testNdkQosParse0004
      * @tc.desc      Checks a zero duration record is still a valid record.
      * @tc.type      FUNCTION
@@ -128,7 +128,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0005
+     * @tc.number    SUB_QOS_PARSE_0005
      * @tc.name      testNdkQosParse0005
      * @tc.desc      Checks a fractional duration keeps millisecond precision after the round trip.
      * @tc.type      FUNCTION
@@ -146,7 +146,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0006
+     * @tc.number    SUB_QOS_PARSE_0006
      * @tc.name      testNdkQosParse0006
      * @tc.desc      Checks a record of a failed run keeps its negative result codes.
      * @tc.type      FUNCTION
@@ -167,7 +167,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0007
+     * @tc.number    SUB_QOS_PARSE_0007
      * @tc.name      testNdkQosParse0007
      * @tc.desc      Checks a level above the QoS range is rejected instead of clamped.
      * @tc.type      FUNCTION
@@ -188,7 +188,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0008
+     * @tc.number    SUB_QOS_PARSE_0008
      * @tc.name      testNdkQosParse0008
      * @tc.desc      Checks a negative level is rejected because no QoS level is below background.
      * @tc.type      FUNCTION
@@ -205,7 +205,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0009
+     * @tc.number    SUB_QOS_PARSE_0009
      * @tc.name      testNdkQosParse0009
      * @tc.desc      Checks a negative duration is rejected so statistics never see a negative sample.
      * @tc.type      FUNCTION
@@ -222,7 +222,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0010
+     * @tc.number    SUB_QOS_PARSE_0010
      * @tc.name      testNdkQosParse0010
      * @tc.desc      Checks a line with fewer than six fields is rejected.
      * @tc.type      FUNCTION
@@ -239,7 +239,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0011
+     * @tc.number    SUB_QOS_PARSE_0011
      * @tc.name      testNdkQosParse0011
      * @tc.desc      Checks a blank line is rejected rather than treated as an empty record.
      * @tc.type      FUNCTION
@@ -256,7 +256,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0012
+     * @tc.number    SUB_QOS_PARSE_0012
      * @tc.name      testNdkQosParse0012
      * @tc.desc      Checks text without the expected separators is rejected.
      * @tc.type      FUNCTION
@@ -273,7 +273,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0013
+     * @tc.number    SUB_QOS_PARSE_0013
      * @tc.name      testNdkQosParse0013
      * @tc.desc      Checks a record with an empty duration field is rejected.
      * @tc.type      FUNCTION
@@ -290,7 +290,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0014
+     * @tc.number    SUB_QOS_PARSE_0014
      * @tc.name      testNdkQosParse0014
      * @tc.desc      Checks an empty text is rejected without touching the sentinel fields.
      * @tc.type      FUNCTION
@@ -310,7 +310,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0015
+     * @tc.number    SUB_QOS_PARSE_0015
      * @tc.name      testNdkQosParse0015
      * @tc.desc      Checks content after the sixth field is ignored so extra columns do not break old files.
      * @tc.type      FUNCTION
@@ -328,7 +328,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0016
+     * @tc.number    SUB_QOS_PARSE_0016
      * @tc.name      testNdkQosParse0016
      * @tc.desc      Checks leading spaces before the level are tolerated.
      * @tc.type      FUNCTION
@@ -345,7 +345,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0017
+     * @tc.number    SUB_QOS_PARSE_0017
      * @tc.name      testNdkQosParse0017
      * @tc.desc      Checks a trailing line break from a file read does not break parsing.
      * @tc.type      FUNCTION
@@ -363,7 +363,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0018
+     * @tc.number    SUB_QOS_PARSE_0018
      * @tc.name      testNdkQosParse0018
      * @tc.desc      Checks a very large duration is kept as a finite value.
      * @tc.type      FUNCTION
@@ -381,7 +381,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0019
+     * @tc.number    SUB_QOS_PARSE_0019
      * @tc.name      testNdkQosParse0019
      * @tc.desc      Checks large positive result codes from the platform are preserved.
      * @tc.type      FUNCTION
@@ -399,7 +399,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0020
+     * @tc.number    SUB_QOS_PARSE_0020
      * @tc.name      testNdkQosParse0020
      * @tc.desc      Checks a level field that is not numeric is rejected.
      * @tc.type      FUNCTION
@@ -420,7 +420,7 @@ export default function ndkQosParseTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PARSE_0021
+     * @tc.number    SUB_QOS_PARSE_0021
      * @tc.name      testNdkQosParse0021
      * @tc.desc      Checks parsing the same text twice returns identical values.
      * @tc.type      FUNCTION

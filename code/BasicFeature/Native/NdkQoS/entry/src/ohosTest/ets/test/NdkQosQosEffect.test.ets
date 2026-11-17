@@ -89,7 +89,7 @@ export default function ndkQosEffectTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_EFFECT_0001
+     * @tc.number    SUB_QOS_EFFECT_0001
      * @tc.name      testNdkQosEffect0001
      * @tc.desc      Checks the high QoS duration stays valid and stable across three samples.
      * @tc.type      FUNCTION
@@ -111,7 +111,7 @@ export default function ndkQosEffectTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_EFFECT_0002
+     * @tc.number    SUB_QOS_EFFECT_0002
      * @tc.name      testNdkQosEffect0002
      * @tc.desc      Checks the low QoS duration stays valid and stable across three samples.
      * @tc.type      FUNCTION
@@ -133,7 +133,7 @@ export default function ndkQosEffectTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_EFFECT_0003
+     * @tc.number    SUB_QOS_EFFECT_0003
      * @tc.name      testNdkQosEffect0003
      * @tc.desc      Checks the high QoS thread stays inside the allowed ratio of the low QoS thread.
      * @tc.type      FUNCTION

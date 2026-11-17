@@ -52,7 +52,7 @@ export default function ndkQosLevelArgsTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0001
+     * @tc.number    SUB_QOS_ARGS_0001
      * @tc.name      testNdkQosArgs0001
      * @tc.desc      Checks the level range reports the six QoS levels from background to interactive.
      * @tc.type      FUNCTION
@@ -70,7 +70,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0002
+     * @tc.number    SUB_QOS_ARGS_0002
      * @tc.name      testNdkQosArgs0002
      * @tc.desc      Checks the sentinel values used for failures are both minus one.
      * @tc.type      FUNCTION
@@ -87,7 +87,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0003
+     * @tc.number    SUB_QOS_ARGS_0003
      * @tc.name      testNdkQosArgs0003
      * @tc.desc      Checks the lowest level runs and is reported back as the active level.
      * @tc.type      FUNCTION
@@ -105,7 +105,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0004
+     * @tc.number    SUB_QOS_ARGS_0004
      * @tc.name      testNdkQosArgs0004
      * @tc.desc      Checks the highest level runs and is reported back as the active level.
      * @tc.type      FUNCTION
@@ -123,7 +123,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0005
+     * @tc.number    SUB_QOS_ARGS_0005
      * @tc.name      testNdkQosArgs0005
      * @tc.desc      Checks a fractional level is rejected and leaves the previous run information untouched.
      * @tc.type      FUNCTION
@@ -145,7 +145,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0006
+     * @tc.number    SUB_QOS_ARGS_0006
      * @tc.name      testNdkQosArgs0006
      * @tc.desc      Checks a NaN level is rejected.
      * @tc.type      FUNCTION
@@ -162,7 +162,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0007
+     * @tc.number    SUB_QOS_ARGS_0007
      * @tc.name      testNdkQosArgs0007
      * @tc.desc      Checks an infinite level is rejected.
      * @tc.type      FUNCTION
@@ -180,7 +180,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0008
+     * @tc.number    SUB_QOS_ARGS_0008
      * @tc.name      testNdkQosArgs0008
      * @tc.desc      Checks a level above the interactive level is rejected.
      * @tc.type      FUNCTION
@@ -196,7 +196,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0009
+     * @tc.number    SUB_QOS_ARGS_0009
      * @tc.name      testNdkQosArgs0009
      * @tc.desc      Checks a level below the background level is rejected.
      * @tc.type      FUNCTION
@@ -212,7 +212,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0010
+     * @tc.number    SUB_QOS_ARGS_0010
      * @tc.name      testNdkQosArgs0010
      * @tc.desc      Checks the asynchronous run rejects a fractional level.
      * @tc.type      FUNCTION
@@ -236,7 +236,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0011
+     * @tc.number    SUB_QOS_ARGS_0011
      * @tc.name      testNdkQosArgs0011
      * @tc.desc      Checks the asynchronous run rejects a NaN level.
      * @tc.type      FUNCTION
@@ -258,7 +258,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0012
+     * @tc.number    SUB_QOS_ARGS_0012
      * @tc.name      testNdkQosArgs0012
      * @tc.desc      Checks the asynchronous run rejects a level above the range and still serves the lowest level.
      * @tc.type      FUNCTION
@@ -281,7 +281,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0013
+     * @tc.number    SUB_QOS_ARGS_0013
      * @tc.name      testNdkQosArgs0013
      * @tc.desc      Checks the run information follows each level executed in turn.
      * @tc.type      FUNCTION
@@ -310,7 +310,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0014
+     * @tc.number    SUB_QOS_ARGS_0014
      * @tc.name      testNdkQosArgs0014
      * @tc.desc      Checks the fixed level helpers map to the interactive and background levels.
      * @tc.type      FUNCTION
@@ -332,7 +332,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0015
+     * @tc.number    SUB_QOS_ARGS_0015
      * @tc.name      testNdkQosArgs0015
      * @tc.desc      Checks a rejected level does not overwrite the information of the previous run.
      * @tc.type      FUNCTION
@@ -352,7 +352,7 @@ export default function ndkQosLevelArgsTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_ARGS_0016
+     * @tc.number    SUB_QOS_ARGS_0016
      * @tc.name      testNdkQosArgs0016
      * @tc.desc      Checks every accepted level keeps its own reset and bind result codes.
      * @tc.type      FUNCTION

@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef NDK_QOS_HISTORY_H
-#define NDK_QOS_HISTORY_H
+#ifndef QOS_HISTORY_H
+#define QOS_HISTORY_H
 
 #include "napi/native_api.h"
 
@@ -36,4 +36,4 @@ napi_value GetRecordStats(napi_env env, napi_callback_info info);
 napi_value ParseRunRecordLine(napi_env env, napi_callback_info info);
 } // namespace QosHistory
 
-#endif // NDK_QOS_HISTORY_H
+#endif // QOS_HISTORY_H

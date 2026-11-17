@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef NDK_QOS_BENCH_H
-#define NDK_QOS_BENCH_H
+#ifndef QOS_BENCH_H
+#define QOS_BENCH_H
 
 #include "napi/native_api.h"
 
@@ -31,4 +31,4 @@ napi_value GetRunSummary(napi_env env, napi_callback_info info);
 napi_value ResetRunSummary(napi_env env, napi_callback_info info);
 } // namespace QosBench
 
-#endif // NDK_QOS_BENCH_H
+#endif // QOS_BENCH_H

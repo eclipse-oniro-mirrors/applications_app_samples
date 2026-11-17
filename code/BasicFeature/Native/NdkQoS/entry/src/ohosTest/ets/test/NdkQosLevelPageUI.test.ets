@@ -155,7 +155,7 @@ async function waitForText(driver: Driver, text: string, timeout: number): Promi
   return await tryWaitText(driver, localized, timeout);
 }
 
-// UiTest binds to the accessibility service while the driver is created, so a busy system can hand
+// UiTest binds to the system UI service while the driver is created, so a busy system can hand
 // back an empty handle; retrying keeps a transient failure from collapsing the whole case.
 async function createDriver(): Promise<Driver> {
   for (let attempt = 0; attempt < OPEN_ATTEMPTS; attempt++) {
@@ -276,7 +276,7 @@ export default function ndkQosLevelPageTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0001
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0001
      * @tc.name      testNdkQosPageLevel0001
      * @tc.desc      Checks the level page opens from the home page with its prompt, run entry and idle status.
      * @tc.type      FUNCTION
@@ -298,7 +298,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0002
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0002
      * @tc.name      testNdkQosPageLevel0002
      * @tc.desc      Checks the page lists all six QoS level choices.
      * @tc.type      FUNCTION
@@ -319,7 +319,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0003
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0003
      * @tc.name      testNdkQosPageLevel0003
      * @tc.desc      Checks every level choice appears exactly once, so no level is duplicated or missing.
      * @tc.type      FUNCTION
@@ -343,7 +343,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0004
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0004
      * @tc.name      testNdkQosPageLevel0004
      * @tc.desc      Checks the page renders the five return code and duration rows of the result card.
      * @tc.type      FUNCTION
@@ -363,7 +363,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0005
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0005
      * @tc.name      testNdkQosPageLevel0005
      * @tc.desc      Checks the result card starts with the pending duration and the invalid result rows.
      * @tc.type      FUNCTION
@@ -385,7 +385,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0006
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0006
      * @tc.name      testNdkQosPageLevel0006
      * @tc.desc      Checks the page shows one title, one back entry and the thread scope note.
      * @tc.type      FUNCTION
@@ -405,7 +405,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0007
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0007
      * @tc.name      testNdkQosPageLevel0007
      * @tc.desc      Checks running without touching a level uses the interactive level selected by default.
      * @tc.type      FUNCTION
@@ -426,7 +426,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0008
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0008
      * @tc.name      testNdkQosPageLevel0008
      * @tc.desc      Checks choosing the background level drives the native run to that level.
      * @tc.type      FUNCTION
@@ -448,7 +448,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0009
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0009
      * @tc.name      testNdkQosPageLevel0009
      * @tc.desc      Checks choosing the default level drives the native run to level two.
      * @tc.type      FUNCTION
@@ -470,7 +470,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0010
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0010
      * @tc.name      testNdkQosPageLevel0010
      * @tc.desc      Checks the deadline level choice is accepted and read back after the run.
      * @tc.type      FUNCTION
@@ -492,7 +492,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0011
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0011
      * @tc.name      testNdkQosPageLevel0011
      * @tc.desc      Checks a finished run replaces the pending duration with a measured one.
      * @tc.type      FUNCTION
@@ -514,7 +514,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0012
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0012
      * @tc.name      testNdkQosPageLevel0012
      * @tc.desc      Checks the status switches from idle to finished and the run entry stays available.
      * @tc.type      FUNCTION
@@ -537,7 +537,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0013
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0013
      * @tc.name      testNdkQosPageLevel0013
      * @tc.desc      Checks the level choices stay on screen after a run so another level can be picked.
      * @tc.type      FUNCTION
@@ -556,7 +556,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0014
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0014
      * @tc.name      testNdkQosPageLevel0014
      * @tc.desc      Checks two runs from the page are counted as two experiments with the same last level.
      * @tc.type      FUNCTION
@@ -580,7 +580,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0015
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0015
      * @tc.name      testNdkQosPageLevel0015
      * @tc.desc      Checks picking a second level before running replaces the earlier choice.
      * @tc.type      FUNCTION
@@ -603,7 +603,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0016
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0016
      * @tc.name      testNdkQosPageLevel0016
      * @tc.desc      Checks the interactive choice also works when it is tapped explicitly.
      * @tc.type      FUNCTION
@@ -625,7 +625,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0017
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0017
      * @tc.name      testNdkQosPageLevel0017
      * @tc.desc      Checks a finished run shows a measured duration for both boundary levels.
      * @tc.type      FUNCTION
@@ -651,7 +651,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0018
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0018
      * @tc.name      testNdkQosPageLevel0018
      * @tc.desc      Checks the page keeps one prompt line and one note after a run, so the layout is stable.
      * @tc.type      FUNCTION
@@ -670,7 +670,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0019
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0019
      * @tc.name      testNdkQosPageLevel0019
      * @tc.desc      Checks the result rows report success codes for set, query and reset after a run.
      * @tc.type      FUNCTION
@@ -692,7 +692,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0020
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0020
      * @tc.name      testNdkQosPageLevel0020
      * @tc.desc      Checks the back entry leaves the level page and returns to the home page.
      * @tc.type      FUNCTION
@@ -711,7 +711,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0021
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0021
      * @tc.name      testNdkQosPageLevel0021
      * @tc.desc      Checks a run after returning to the page starts again from the idle status.
      * @tc.type      FUNCTION
@@ -732,7 +732,7 @@ export default function ndkQosLevelPageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_LEVEL_0022
+     * @tc.number    SUB_QOS_PAGE_LEVEL_0022
      * @tc.name      testNdkQosPageLevel0022
      * @tc.desc      Checks the duration row keeps the two decimal format after the run.
      * @tc.type      FUNCTION

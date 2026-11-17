@@ -28,6 +28,15 @@ constexpr int MAX_CONCURRENT_ROUNDS = 5;
 constexpr int LEVEL_COUNT = QosCore::LEVEL_COUNT;
 constexpr int INVALID_RESULT = QosCore::INVALID_RESULT;
 constexpr double INVALID_DURATION = QosCore::INVALID_DURATION;
+constexpr size_t BENCH_ARG_COUNT = 1;
+constexpr size_t CONCURRENT_ARG_COUNT = 3;
+constexpr size_t COMPARE_ARG_COUNT = 2;
+constexpr size_t ARG_BENCH_ROUNDS = 0;
+constexpr size_t ARG_LEVEL = 0;
+constexpr size_t ARG_THREADS = 1;
+constexpr size_t ARG_ROUNDS = 2;
+constexpr size_t ARG_LEVEL_A = 0;
+constexpr size_t ARG_LEVEL_B = 1;
 
 struct LevelSample {
     int level = 0;
@@ -36,6 +45,7 @@ struct LevelSample {
     double avgDuration = INVALID_DURATION;
     double minDuration = INVALID_DURATION;
     double maxDuration = INVALID_DURATION;
+    double totalDuration = 0.0;
     int setResult = INVALID_RESULT;
     int queryLevel = INVALID_RESULT;
     int resetResult = INVALID_RESULT;
@@ -77,6 +87,72 @@ struct ConcurrentContext {
     ConcurrentOutcome outcome;
 };
 
+void ApplySample(LevelSample* sample, double duration, const QosCore::RunInfo& info)
+{
+    sample->setResult = info.setResult;
+    sample->queryLevel = info.queryLevel;
+    sample->resetResult = info.resetResult;
+    sample->bindResult = info.bindResult;
+    if (duration < 0.0 || info.setResult != 0) {
+        sample->failCount++;
+        return;
+    }
+    sample->successCount++;
+    sample->totalDuration += duration;
+    if (sample->minDuration < 0.0 || duration < sample->minDuration) {
+        sample->minDuration = duration;
+    }
+    if (sample->maxDuration < 0.0 || duration > sample->maxDuration) {
+        sample->maxDuration = duration;
+    }
+}
+
+void RunLevelRounds(int level, int rounds, LevelSample* sample, int* totalRuns)
+{
+    for (int round = 0; round < rounds; round++) {
+        double duration = QosCore::RunWithLevel(level);
+        ApplySample(sample, duration, QosCore::LastRunInfo());
+        (*totalRuns)++;
+    }
+    if (sample->successCount > 0) {
+        sample->avgDuration = sample->totalDuration / sample->successCount;
+    }
+}
+
+void UpdateFastest(BenchmarkOutcome* outcome, const LevelSample& sample)
+{
+    if (outcome->fastestLevel != INVALID_RESULT) {
+        int slot = outcome->fastestLevel - QosCore::MIN_LEVEL;
+        if (sample.avgDuration >= outcome->samples[slot].avgDuration) {
+            return;
+        }
+    }
+    outcome->fastestLevel = sample.level;
+}
+
+void UpdateSlowest(BenchmarkOutcome* outcome, const LevelSample& sample)
+{
+    if (outcome->slowestLevel != INVALID_RESULT) {
+        int slot = outcome->slowestLevel - QosCore::MIN_LEVEL;
+        if (sample.avgDuration <= outcome->samples[slot].avgDuration) {
+            return;
+        }
+    }
+    outcome->slowestLevel = sample.level;
+}
+
+void UpdateExtremeLevels(BenchmarkOutcome* outcome)
+{
+    for (int index = 0; index < LEVEL_COUNT; index++) {
+        const LevelSample& sample = outcome->samples[index];
+        if (sample.successCount == 0) {
+            continue;
+        }
+        UpdateFastest(outcome, sample);
+        UpdateSlowest(outcome, sample);
+    }
+}
+
 BenchmarkOutcome ComputeBenchmark(int rounds)
 {
     BenchmarkOutcome outcome;
@@ -84,48 +160,9 @@ BenchmarkOutcome ComputeBenchmark(int rounds)
     for (int level = QosCore::MIN_LEVEL; level <= QosCore::MAX_LEVEL; level++) {
         LevelSample& sample = outcome.samples[level - QosCore::MIN_LEVEL];
         sample.level = level;
-        double total = 0.0;
-        for (int round = 0; round < rounds; round++) {
-            double duration = QosCore::RunWithLevel(level);
-            QosCore::RunInfo info = QosCore::LastRunInfo();
-            outcome.totalRuns++;
-            sample.setResult = info.setResult;
-            sample.queryLevel = info.queryLevel;
-            sample.resetResult = info.resetResult;
-            sample.bindResult = info.bindResult;
-            bool success = duration >= 0.0 && info.setResult == 0;
-            if (success) {
-                sample.successCount++;
-                total += duration;
-                if (sample.minDuration < 0.0 || duration < sample.minDuration) {
-                    sample.minDuration = duration;
-                }
-                if (sample.maxDuration < 0.0 || duration > sample.maxDuration) {
-                    sample.maxDuration = duration;
-                }
-            } else {
-                sample.failCount++;
-            }
-        }
-        if (sample.successCount > 0) {
-            sample.avgDuration = total / sample.successCount;
-        }
+        RunLevelRounds(level, rounds, &sample, &outcome.totalRuns);
     }
-
-    for (int index = 0; index < LEVEL_COUNT; index++) {
-        const LevelSample& sample = outcome.samples[index];
-        if (sample.successCount == 0) {
-            continue;
-        }
-        if (outcome.fastestLevel == INVALID_RESULT ||
-            sample.avgDuration < outcome.samples[outcome.fastestLevel - QosCore::MIN_LEVEL].avgDuration) {
-            outcome.fastestLevel = sample.level;
-        }
-        if (outcome.slowestLevel == INVALID_RESULT ||
-            sample.avgDuration > outcome.samples[outcome.slowestLevel - QosCore::MIN_LEVEL].avgDuration) {
-            outcome.slowestLevel = sample.level;
-        }
-    }
+    UpdateExtremeLevels(&outcome);
     return outcome;
 }
 
@@ -280,13 +317,13 @@ napi_value RejectWith(napi_env env, const char* reason)
 namespace QosBench {
 napi_value RunBenchmarkAsync(napi_env env, napi_callback_info info)
 {
-    size_t argc = 1;
-    napi_value args[1] = {nullptr};
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 1) {
+    size_t argc = BENCH_ARG_COUNT;
+    napi_value args[BENCH_ARG_COUNT] = {nullptr};
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < BENCH_ARG_COUNT) {
         return RejectWith(env, "rounds is required");
     }
     int rounds = 0;
-    if (!QosNapi::ReadIntArg(env, args[0], &rounds) || rounds < 1 || rounds > MAX_BENCH_ROUNDS) {
+    if (!QosNapi::ReadIntArg(env, args[ARG_BENCH_ROUNDS], &rounds) || rounds < 1 || rounds > MAX_BENCH_ROUNDS) {
         return RejectWith(env, "rounds must be 1 to 3");
     }
 
@@ -305,21 +342,22 @@ napi_value RunBenchmarkAsync(napi_env env, napi_callback_info info)
 
 napi_value RunConcurrentAsync(napi_env env, napi_callback_info info)
 {
-    size_t argc = 3;
-    napi_value args[3] = {nullptr, nullptr, nullptr};
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 3) {
+    size_t argc = CONCURRENT_ARG_COUNT;
+    napi_value args[CONCURRENT_ARG_COUNT] = {nullptr, nullptr, nullptr};
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < CONCURRENT_ARG_COUNT) {
         return RejectWith(env, "level, threads and rounds are required");
     }
     int level = 0;
     int threads = 0;
     int rounds = 0;
-    if (!QosNapi::ReadIntArg(env, args[0], &level) || level < QosCore::MIN_LEVEL || level > QosCore::MAX_LEVEL) {
+    if (!QosNapi::ReadIntArg(env, args[ARG_LEVEL], &level) || level < QosCore::MIN_LEVEL ||
+        level > QosCore::MAX_LEVEL) {
         return RejectWith(env, "level must be 0 to 5");
     }
-    if (!QosNapi::ReadIntArg(env, args[1], &threads) || threads < 1 || threads > MAX_CONCURRENT_THREADS) {
+    if (!QosNapi::ReadIntArg(env, args[ARG_THREADS], &threads) || threads < 1 || threads > MAX_CONCURRENT_THREADS) {
         return RejectWith(env, "threads must be 1 to 8");
     }
-    if (!QosNapi::ReadIntArg(env, args[2], &rounds) || rounds < 1 || rounds > MAX_CONCURRENT_ROUNDS) {
+    if (!QosNapi::ReadIntArg(env, args[ARG_ROUNDS], &rounds) || rounds < 1 || rounds > MAX_CONCURRENT_ROUNDS) {
         return RejectWith(env, "rounds must be 1 to 5");
     }
 
@@ -340,15 +378,16 @@ napi_value RunConcurrentAsync(napi_env env, napi_callback_info info)
 
 napi_value CompareLevels(napi_env env, napi_callback_info info)
 {
-    size_t argc = 2;
-    napi_value args[2] = {nullptr, nullptr};
+    size_t argc = COMPARE_ARG_COUNT;
+    napi_value args[COMPARE_ARG_COUNT] = {nullptr, nullptr};
     napi_value report = nullptr;
     napi_create_object(env, &report);
 
     int levelA = 0;
     int levelB = 0;
-    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < 2 ||
-        !QosNapi::ReadIntArg(env, args[0], &levelA) || !QosNapi::ReadIntArg(env, args[1], &levelB) ||
+    if (napi_get_cb_info(env, info, &argc, args, nullptr, nullptr) != napi_ok || argc < COMPARE_ARG_COUNT ||
+        !QosNapi::ReadIntArg(env, args[ARG_LEVEL_A], &levelA) ||
+        !QosNapi::ReadIntArg(env, args[ARG_LEVEL_B], &levelB) ||
         levelA < QosCore::MIN_LEVEL || levelA > QosCore::MAX_LEVEL ||
         levelB < QosCore::MIN_LEVEL || levelB > QosCore::MAX_LEVEL) {
         QosNapi::SetNamedInt(env, report, "code", QosNapi::CODE_INVALID_ARG);

@@ -145,7 +145,7 @@ async function waitForText(driver: Driver, text: string, timeout: number): Promi
   return await tryWaitText(driver, localized, timeout);
 }
 
-// UiTest binds to the accessibility service while the driver is created, so a busy system can hand
+// UiTest binds to the system UI service while the driver is created, so a busy system can hand
 // back an empty handle; retrying keeps a transient failure from collapsing the whole case.
 async function createDriver(): Promise<Driver> {
   for (let attempt = 0; attempt < OPEN_ATTEMPTS; attempt++) {
@@ -307,7 +307,7 @@ export default function ndkQosDevicePageTest(): void {
     });
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0001
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0001
      * @tc.name      testNdkQosPageDevice0001
      * @tc.desc      Checks the device page opens with the topology labels and asks for a refresh first.
      * @tc.type      FUNCTION
@@ -330,7 +330,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0002
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0002
      * @tc.name      testNdkQosPageDevice0002
      * @tc.desc      Checks refreshing the topology offers one bind target per core and reports the refreshed status.
      * @tc.type      FUNCTION
@@ -361,7 +361,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0003
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0003
      * @tc.name      testNdkQosPageDevice0003
      * @tc.desc      Checks one choice is offered for every core plus the fixed action buttons.
      * @tc.type      FUNCTION
@@ -384,7 +384,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0004
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0004
      * @tc.name      testNdkQosPageDevice0004
      * @tc.desc      Checks binding the current thread narrows the affinity to a single core.
      * @tc.type      FUNCTION
@@ -408,7 +408,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0005
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0005
      * @tc.name      testNdkQosPageDevice0005
      * @tc.desc      Checks resetting the affinity restores every core of the device.
      * @tc.type      FUNCTION
@@ -434,7 +434,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0006
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0006
      * @tc.name      testNdkQosPageDevice0006
      * @tc.desc      Checks a freshly opened page shows the unset markers until the topology is refreshed.
      * @tc.type      FUNCTION
@@ -457,7 +457,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0007
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0007
      * @tc.name      testNdkQosPageDevice0007
      * @tc.desc      Checks the back entry returns to the home page from the device page.
      * @tc.type      FUNCTION
@@ -476,7 +476,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0008
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0008
      * @tc.name      testNdkQosPageDevice0008
      * @tc.desc      Checks a bounded thread keeps its single-core affinity when the topology is refreshed again.
      * @tc.type      FUNCTION
@@ -503,7 +503,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0009
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0009
      * @tc.name      testNdkQosPageDevice0009
      * @tc.desc      Checks a refresh after the affinity reset reports every core as available again.
      * @tc.type      FUNCTION
@@ -531,7 +531,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0010
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0010
      * @tc.name      testNdkQosPageDevice0010
      * @tc.desc      Checks two refreshes report the same core count and the same default target core.
      * @tc.type      FUNCTION
@@ -562,7 +562,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0011
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0011
      * @tc.name      testNdkQosPageDevice0011
      * @tc.desc      Checks the chosen target core is the one the thread is bound to.
      * @tc.type      FUNCTION
@@ -589,7 +589,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0012
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0012
      * @tc.name      testNdkQosPageDevice0012
      * @tc.desc      Checks a chosen target core survives a topology refresh before the thread is bound.
      * @tc.type      FUNCTION
@@ -618,7 +618,7 @@ export default function ndkQosDevicePageTest(): void {
     })
 
     /**
-     * @tc.number    SUB_NDK_QOS_PAGE_DEVICE_0013
+     * @tc.number    SUB_QOS_PAGE_DEVICE_0013
      * @tc.name      testNdkQosPageDevice0013
      * @tc.desc      Checks a reopened page offers no core choice and only the four fixed buttons.
      * @tc.type      FUNCTION

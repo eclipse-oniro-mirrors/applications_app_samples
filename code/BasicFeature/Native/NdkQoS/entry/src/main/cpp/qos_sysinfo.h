@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-#ifndef NDK_QOS_SYSINFO_H
-#define NDK_QOS_SYSINFO_H
+#ifndef QOS_SYSINFO_H
+#define QOS_SYSINFO_H
 
 #include "napi/native_api.h"
 
@@ -29,4 +29,4 @@ napi_value BindCurrentThread(napi_env env, napi_callback_info info);
 napi_value ResetThreadAffinity(napi_env env, napi_callback_info info);
 } // namespace QosSysInfo
 
-#endif // NDK_QOS_SYSINFO_H
+#endif // QOS_SYSINFO_H
