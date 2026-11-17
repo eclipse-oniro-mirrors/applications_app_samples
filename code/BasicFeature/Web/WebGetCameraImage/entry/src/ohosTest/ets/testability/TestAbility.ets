@@ -68,6 +68,13 @@ export default class TestAbility extends UIAbility {
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
         JSON.stringify(data) ?? '');
     });
+    // 测试套件执行时间较长，保持屏幕常亮，避免息屏锁屏导致 aa test 拉起超时（00508013）
+    windowStage.getMainWindow().then((mainWindow: window.Window) => {
+      mainWindow.setWindowKeepScreenOn(true);
+      hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility keep screen on');
+    }).catch((error: Error) => {
+      hilog.error(0x0000, 'testTag', 'TestAbility keep screen on failed: %{public}s', JSON.stringify(error) ?? '');
+    });
   }
 
   onWindowStageDestroy() {
