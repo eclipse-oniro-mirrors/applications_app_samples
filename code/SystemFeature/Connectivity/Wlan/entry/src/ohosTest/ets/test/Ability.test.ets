@@ -112,7 +112,7 @@ export default function abilityTest() {
       }
         catch (err) {
         hilog.info(DOMAIN, TAG, BUNDLE + 'ActivateWlanFunction no validWlan')
-        expect((await getResourceString($r('app.string.available_wlan'))).length > 0).assertTrue()
+        expect(false).assertTrue()
         return
       }
       await driver.delayMs(5000)

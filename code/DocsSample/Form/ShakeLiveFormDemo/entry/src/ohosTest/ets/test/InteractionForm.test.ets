@@ -151,8 +151,8 @@ export default function interactionFormTest() {
      * @tc.level  LEVEL0
      */
     it('com.example.shakeliveformdemo_InteractionForm_0006',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0006 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'com.example.shakeliveformdemo_InteractionForm_0006 begin');
       const segmentationUtil: SegmentationUtil = SegmentationUtil.getInstance();
       const invalidResource: Resource = {
         bundleName: 'com.example.shakeliveformdemo',

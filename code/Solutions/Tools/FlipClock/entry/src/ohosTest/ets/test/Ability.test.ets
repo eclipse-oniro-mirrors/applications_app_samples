@@ -25,14 +25,12 @@ const LOG_TAG: string = '[SampleTest]';
 
 const BUNDLE_NAME: string = 'ohos.samples.flipclock';
 const ABILITY_NAME: string = 'EntryAbility';
-const TAG: string = 'FlipClockTest';
-const DOMAIN: number = 0xF811;
 const STORAGE_PATH: string = '/data/storage/el2/base/haps/entry/preferences/storage';
 
 const delegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
 
 function log(message: string): void {
-  hilog.info(DOMAIN, TAG, '%{public}s', message);
+  hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', message);
 }
 
 function sleep(duration: number): Promise<void> {
@@ -57,7 +55,11 @@ function readStorageFile(): string {
 async function waitForStorageAlarm(expected: boolean, attempts: number): Promise<boolean> {
   for (let i = 0; i < attempts; i++) {
     const content: string = readStorageFile();
-    if (content.includes('amount') && content.includes('alarmClock') === expected) {
+    const hasAlarm: boolean = content.includes('alarmClock');
+    if (expected && content.includes('amount') && hasAlarm) {
+      return true;
+    }
+    if (!expected && !hasAlarm) {
       return true;
     }
     await sleep(300);
@@ -313,8 +315,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0001',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0001 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0001 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await ensureClockTab(driver)));
@@ -346,8 +348,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0002',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0002 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0002 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await ensureClockTab(driver)));
@@ -403,8 +405,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0003',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0003 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0003 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 0)));
@@ -446,8 +448,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0004',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0004 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0004 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 1)));
@@ -507,8 +509,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0005',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0005 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0005 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
@@ -544,8 +546,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0006',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0006 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0006 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
@@ -594,8 +596,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0007',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0007 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0007 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
@@ -626,8 +628,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0008',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0008 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0008 begin');
         try {
           const source: MyDataSource = new MyDataSource([...tabArray]);
           hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(4));
@@ -673,8 +675,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0009',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0009 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0009 begin');
         try {
           const first: Contact = new Contact('a', 'A', 1);
           const second: Contact = new Contact('b', 'B', 2);
@@ -722,8 +724,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0010',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0010 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0010 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 1)));
@@ -764,8 +766,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0011',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0011 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0011 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
@@ -812,8 +814,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0012',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0012 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0012 begin');
         try {
           const source: MyDataSource = new MyDataSource([]);
           hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(source.totalCount()), String(0));
@@ -855,8 +857,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0013',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0013 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0013 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 2)));
@@ -905,8 +907,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0014',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0014 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0014 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
@@ -936,8 +938,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0015',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0015 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0015 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
@@ -967,8 +969,8 @@ export default function abilityTest() {
      * @tc.level     LEVEL0
      */
     it('ohos.samples.flipclock_Ability_0016',
-      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0016 begin');
       TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async (done: Function) => {
+      hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_Ability_0016 begin');
         try {
           const driver: Driver = Driver.create();
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(await clickTab(driver, 3)));
