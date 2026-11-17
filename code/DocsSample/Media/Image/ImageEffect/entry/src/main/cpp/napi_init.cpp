@@ -37,7 +37,8 @@ static napi_value Init(napi_env env, napi_value exports)
         {"lookupFilterInfo", nullptr, ImageEdit::LookupFilterInfo, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"lookupFilters", nullptr, ImageEdit::LookupFilters, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getSurfaceId", nullptr, ImageEdit::getSurfaceId, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"TextureFilterStart", nullptr, ImageEdit::TextureFilterStart, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"TextureFilterStart", nullptr, ImageEdit::TextureFilterStart, nullptr, nullptr, nullptr,
+            napi_default, nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
