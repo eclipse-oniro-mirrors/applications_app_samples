@@ -23,22 +23,22 @@
  * CallStateMachine：以事件驱动的方式维护通话状态。
  */
 export class CallStateMachine {
-  static readonly IDLE: string = 'IDLE';
-  static readonly DIALLING: string = 'DIALLING';
-  static readonly RINGING: string = 'RINGING';
-  static readonly ACTIVE: string = 'ACTIVE';
-  static readonly HOLDING: string = 'HOLDING';
-  static readonly DISCONNECTED: string = 'DISCONNECTED';
+  public static readonly IDLE: string = 'IDLE';
+  public static readonly DIALLING: string = 'DIALLING';
+  public static readonly RINGING: string = 'RINGING';
+  public static readonly ACTIVE: string = 'ACTIVE';
+  public static readonly HOLDING: string = 'HOLDING';
+  public static readonly DISCONNECTED: string = 'DISCONNECTED';
 
-  static readonly EVENT_DIAL: string = 'DIAL';
-  static readonly EVENT_INCOMING: string = 'INCOMING';
-  static readonly EVENT_CONNECTED: string = 'CONNECTED';
-  static readonly EVENT_ANSWER: string = 'ANSWER';
-  static readonly EVENT_HOLD: string = 'HOLD';
-  static readonly EVENT_UNHOLD: string = 'UNHOLD';
-  static readonly EVENT_HANGUP: string = 'HANGUP';
-  static readonly EVENT_REJECT: string = 'REJECT';
-  static readonly EVENT_RESET: string = 'RESET';
+  public static readonly EVENT_DIAL: string = 'DIAL';
+  public static readonly EVENT_INCOMING: string = 'INCOMING';
+  public static readonly EVENT_CONNECTED: string = 'CONNECTED';
+  public static readonly EVENT_ANSWER: string = 'ANSWER';
+  public static readonly EVENT_HOLD: string = 'HOLD';
+  public static readonly EVENT_UNHOLD: string = 'UNHOLD';
+  public static readonly EVENT_HANGUP: string = 'HANGUP';
+  public static readonly EVENT_REJECT: string = 'REJECT';
+  public static readonly EVENT_RESET: string = 'RESET';
 
   /**
    * next：按事件计算下一个状态，非法事件保持原状态。

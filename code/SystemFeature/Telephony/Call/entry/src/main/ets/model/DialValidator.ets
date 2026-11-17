@@ -31,16 +31,16 @@ export interface ValidationResult {
  * EmergencyDirectory：按地区维护紧急号码及其语义。
  */
 export class EmergencyDirectory {
-  static readonly CHINA: string[] = ['110', '119', '120', '122'];
-  static readonly UNITED_STATES: string[] = ['911'];
-  static readonly UNITED_KINGDOM: string[] = ['999', '112'];
-  static readonly JAPAN: string[] = ['110', '119'];
-  static readonly GERMANY: string[] = ['110', '112'];
-  static readonly FRANCE: string[] = ['15', '17', '18', '112'];
-  static readonly INDIA: string[] = ['100', '101', '102', '112'];
-  static readonly KOREA: string[] = ['112', '119'];
-  static readonly SINGAPORE: string[] = ['999', '995'];
-  static readonly AUSTRALIA: string[] = ['000', '112'];
+  public static readonly CHINA: string[] = ['110', '119', '120', '122'];
+  public static readonly UNITED_STATES: string[] = ['911'];
+  public static readonly UNITED_KINGDOM: string[] = ['999', '112'];
+  public static readonly JAPAN: string[] = ['110', '119'];
+  public static readonly GERMANY: string[] = ['110', '112'];
+  public static readonly FRANCE: string[] = ['15', '17', '18', '112'];
+  public static readonly INDIA: string[] = ['100', '101', '102', '112'];
+  public static readonly KOREA: string[] = ['112', '119'];
+  public static readonly SINGAPORE: string[] = ['999', '995'];
+  public static readonly AUSTRALIA: string[] = ['000', '112'];
 
   /**
    * byRegion：返回地区紧急号码列表。
@@ -124,11 +124,11 @@ export class EmergencyDirectory {
  * DialValidator：拨号输入校验。
  */
 export class DialValidator {
-  static readonly REASON_OK: string = 'OK';
-  static readonly REASON_EMPTY: string = 'EMPTY';
-  static readonly REASON_INVALID_CHAR: string = 'INVALID_CHAR';
-  static readonly REASON_TOO_LONG: string = 'TOO_LONG';
-  static readonly REASON_TOO_SHORT: string = 'TOO_SHORT';
+  public static readonly REASON_OK: string = 'OK';
+  public static readonly REASON_EMPTY: string = 'EMPTY';
+  public static readonly REASON_INVALID_CHAR: string = 'INVALID_CHAR';
+  public static readonly REASON_TOO_LONG: string = 'TOO_LONG';
+  public static readonly REASON_TOO_SHORT: string = 'TOO_SHORT';
 
   /**
    * isEmergency：判断输入是否为任意地区的紧急号码。

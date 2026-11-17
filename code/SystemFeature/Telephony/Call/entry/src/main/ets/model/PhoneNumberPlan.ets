@@ -32,7 +32,7 @@ export interface CountryPlan {
  * PhoneNumberPlan：号码规划查询与 E.164 编解码。
  */
 export class PhoneNumberPlan {
-  static readonly PLANS: CountryPlan[] = [
+  public static readonly PLANS: CountryPlan[] = [
     { region: 'CN', callingCode: '+86', lengths: [11] },
     { region: 'US', callingCode: '+1', lengths: [10] },
     { region: 'CA', callingCode: '+1', lengths: [10] },

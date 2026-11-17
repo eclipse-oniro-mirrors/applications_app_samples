@@ -21,8 +21,7 @@
 - 如需进一步缩短单次运行时间，可按套件分批，工程根目录提供脚本：
   `powershell -ExecutionPolicy Bypass -File run_call_tests.ps1`
   （脚本会自动查找 `hdc.exe`，也可用 `-HdcPath` 指定；逐个 describe 调用 `-s class <ClassName>`）。
-- 手工执行单批：
-  `hdc shell aa test -b ohos.samples.call -m entry_test -s unittest OpenHarmonyTestRunner -s class CallNumberFormatMatrixA`
+- 手工执行单批：在 `run_call_tests.ps1` 的 `$classes` 中只保留目标套件后运行脚本。
 - 用例日志量较大，抓日志建议 `hilog -z 2000`。
 
 

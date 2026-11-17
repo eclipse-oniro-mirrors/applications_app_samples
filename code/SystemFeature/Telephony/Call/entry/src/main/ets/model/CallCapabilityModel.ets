@@ -26,10 +26,10 @@ import { ValidationResult } from './DialValidator';
  * CallCapabilityModel：把权限、SIM 与输入合法性组合成可拨号结论。
  */
 export class CallCapabilityModel {
-  static readonly OK: string = 'OK';
-  static readonly NO_PERMISSION: string = 'NO_PERMISSION';
-  static readonly NO_SIM: string = 'NO_SIM';
-  static readonly INVALID_NUMBER: string = 'INVALID_NUMBER';
+  public static readonly OK: string = 'OK';
+  public static readonly NO_PERMISSION: string = 'NO_PERMISSION';
+  public static readonly NO_SIM: string = 'NO_SIM';
+  public static readonly INVALID_NUMBER: string = 'INVALID_NUMBER';
 
   /**
    * canDial：判断当前条件下能否拨号。
