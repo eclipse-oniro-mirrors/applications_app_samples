@@ -13,12 +13,14 @@
 |---|---:|
 | `Ability.test.ets` | 4 |
 | `InteractionForm.test.ets` | 6 |
-| `ShakeLiveFormAbility.test.ets` | 10 |
-| `ShakeLiveFormBasicTypes.test.ets` | 10 |
-| `ShakeLiveFormBoundaryTypes.test.ets` | 10 |
 | `ShakeLiveFormBundle.test.ets` | 12 |
-| `ShakeLiveFormCompositeTypes.test.ets` | 10 |
+| `ShakeLiveFormResource.test.ets` | 8 |
+| `ShakeLiveFormAbility.test.ets` | 10 |
 | `ShakeLiveFormConstants.test.ets` | 10 |
+| `ShakeLiveFormBasicTypes.test.ets` | 10 |
+| `ShakeLiveFormCompositeTypes.test.ets` | 10 |
+| `ShakeLiveFormSpecialTypes.test.ets` | 10 |
+| `ShakeLiveFormBoundaryTypes.test.ets` | 10 |
 | `ShakeLiveFormMaxConst10.test.ets` | 1 |
 | `ShakeLiveFormMaxForm01.test.ets` | 16 |
 | `ShakeLiveFormMaxForm02.test.ets` | 16 |
@@ -31,15 +33,6 @@
 | `ShakeLiveFormMaxForm09.test.ets` | 16 |
 | `ShakeLiveFormMaxForm10.test.ets` | 16 |
 | `ShakeLiveFormMaxSeg01.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg02.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg03.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg04.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg05.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg06.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg07.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg08.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg09.test.ets` | 16 |
-| `ShakeLiveFormMaxSeg10.test.ets` | 16 |
 | `ShakeLiveFormMoreConst01.test.ets` | 16 |
 | `ShakeLiveFormMoreConst02.test.ets` | 16 |
 | `ShakeLiveFormMoreConst03.test.ets` | 16 |
@@ -55,9 +48,7 @@
 | `ShakeLiveFormMoreForm06.test.ets` | 16 |
 | `ShakeLiveFormMoreSeg01.test.ets` | 16 |
 | `ShakeLiveFormMoreSeg02.test.ets` | 16 |
-| `ShakeLiveFormResource.test.ets` | 8 |
-| `ShakeLiveFormSpecialTypes.test.ets` | 10 |
 
-合计：**46 个测试套件，651 条用例**。
+合计：**37 个测试套件，507 条用例**。
 
-> 以上用例数与 `List.test.ets` 中实际注册的套件和用例数一致。
+> 以上套件与用例数与 `List.test.ets` 中实际注册内容一致。
