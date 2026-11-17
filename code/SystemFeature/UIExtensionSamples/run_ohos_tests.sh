@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
+# Copyright (c) 2026 Huawei Device Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # 分批执行 UIExtensionSamples 的 ohosTest，避免 2000+ 逻辑用例在主线程连续执行触发 THREAD_BLOCK_6S。
 # 前置条件：已用 DevEco 构建并安装 entry_test 测试包（hdc 能连上设备）。
 # 用法：bash run_ohos_tests.sh

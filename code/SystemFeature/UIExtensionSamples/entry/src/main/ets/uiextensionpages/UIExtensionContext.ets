@@ -219,5 +219,6 @@ struct UIExtensionContext {
     // 根容器铺满整屏，背景色与页面主题保持一致
     .width('100%')
     .height('100%')
-    .backgroundColor($r('app.color.backGrounding'))  }
+    .backgroundColor($r('app.color.backGrounding'))
+  }
 }
