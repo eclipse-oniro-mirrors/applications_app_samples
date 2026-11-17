@@ -134,7 +134,7 @@
 
 - 输入清洗与校验（`InputValidation`：路径、URL、模块名、空值）。
 - 链接白名单与 scheme 校验（`LinkSchemeValidation`）。
-- 敏感信息与日志脱敏（`LoggerValidation`、`BundleSecurity`），日志不输出密钥/签名/绝对路径等敏感数据。
+- 敏感信息与日志脱敏（`LoggerValidation`、`BundleSecurity`），日志不输出密钥/签名/完整文件路径等敏感数据。
 - 包与配置契约（bundleName、版本号、ability/module 声明、overlay 依赖一致性）。
 - 错误码契约（错误码与消息映射稳定，避免接口漂移）。
 
