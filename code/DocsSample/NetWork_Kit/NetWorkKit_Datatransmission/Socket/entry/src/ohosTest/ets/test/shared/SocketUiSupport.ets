@@ -150,3 +150,13 @@ export async function inputIntoField(index: number, value: string): Promise<stri
   await driver.delayMs(SETTLE_MS);
   return await fields[index].getText();
 }
+
+export async function countByType(typeName: string): Promise<number> {
+  let nodes: Component[] = [];
+  try {
+    nodes = await driver.findComponents(ON.type(typeName));
+  } catch (err) {
+    nodes = [];
+  }
+  return nodes.length;
+}
