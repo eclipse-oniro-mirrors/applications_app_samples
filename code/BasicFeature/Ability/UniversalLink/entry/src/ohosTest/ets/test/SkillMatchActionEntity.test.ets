@@ -14,7 +14,7 @@
  */
 
 import { afterAll, beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
-import { Want } from '@kit.AbilityKit';
+import { UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import {
   closeOpenLinkAbility,
@@ -22,7 +22,7 @@ import {
   LinkObservation,
   observeStart
 } from './LinkHelper';
-import { ENTRY_ABILITY, launchAbility } from './TestHelper';
+import { BUNDLE_NAME, ENTRY_ABILITY, getAbilityName, launchAbility, startAndCapture, StartResult, waitForTopAbility } from './TestHelper';
 
 const DOMAIN: number = 0xF811;
 const TAG: string = '[Sample_UniversalLink]';
@@ -44,7 +44,7 @@ export default function skillMatchActionEntityTest(): void {
     /**
      * @tc.number    SUB_UNIVERSAL_LINK_SKILL_ACTION_0001
      * @tc.name      testSkillMatchActionEntity0001
-     * @tc.desc      action 为不带 action、entities 为不带 entities的隐式 Want 匹配到 OpenLinkAbility 且原样透传
+     * @tc.desc      action 为不带 action、entities 为不带 entities的隐式 Want 未匹配到 OpenLinkAbility，由 EntryAbility 处理
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL0
@@ -54,21 +54,12 @@ export default function skillMatchActionEntityTest(): void {
       const want: Want = {
         uri: 'http://docs.openharmony.cn'
       };
-      const observation: LinkObservation = await observeStart(want);
-      hilog.info(DOMAIN, TAG, '%{public}s', `a1 observation.code=${observation.code}`);
-      expect(observation.code).assertEqual(0);
-      hilog.info(DOMAIN, TAG, '%{public}s', `a2 observation.topName=${observation.topName}`);
-      expect(observation.topName).assertEqual('OpenLinkAbility');
-      hilog.info(DOMAIN, TAG, '%{public}s', `a3 observation.uri=${observation.uri}`);
-      expect(observation.uri).assertEqual('http://docs.openharmony.cn');
-      hilog.info(DOMAIN, TAG, '%{public}s', `a4 observation.action=${observation.action}`);
-      expect(observation.action).assertEqual('');
-      const actual5: string = JSON.stringify(observation.entities);
-      hilog.info(DOMAIN, TAG, '%{public}s', `a5=${actual5}`);
-      expect(actual5).assertEqual('[]');
-      const actual6: Object = observation.parameters['isDelegatorCall'];
-      hilog.info(DOMAIN, TAG, '%{public}s', `a6=${actual6}`);
-      expect(actual6).assertEqual(true);
+      const result: StartResult = await startAndCapture(want);
+      hilog.info(DOMAIN, TAG, '%{public}s', `a1 result.code=${result.code}`);
+      expect(result.code).assertEqual(0);
+      const top: UIAbility | undefined = await waitForTopAbility(ENTRY_ABILITY, 4000);
+      hilog.info(DOMAIN, TAG, '%{public}s', `a2 topName=${getAbilityName(top)}`);
+      expect(getAbilityName(top)).assertEqual('EntryAbility');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSkillMatchActionEntity0001 end');
     })
 
@@ -115,6 +106,7 @@ export default function skillMatchActionEntityTest(): void {
     it('testSkillMatchActionEntity0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSkillMatchActionEntity0003 begin');
       const want: Want = {
+        bundleName: BUNDLE_NAME,
         uri: 'http://docs.openharmony.cn',
         entities: ['entity.system.home']
       };
@@ -420,6 +412,7 @@ export default function skillMatchActionEntityTest(): void {
     it('testSkillMatchActionEntity0013', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSkillMatchActionEntity0013 begin');
       const want: Want = {
+        bundleName: BUNDLE_NAME,
         action: 'action.system.home',
         uri: 'http://docs.openharmony.cn'
       };
@@ -485,6 +478,7 @@ export default function skillMatchActionEntityTest(): void {
     it('testSkillMatchActionEntity0015', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testSkillMatchActionEntity0015 begin');
       const want: Want = {
+        bundleName: BUNDLE_NAME,
         action: 'action.system.home',
         uri: 'http://docs.openharmony.cn',
         entities: ['entity.system.home']

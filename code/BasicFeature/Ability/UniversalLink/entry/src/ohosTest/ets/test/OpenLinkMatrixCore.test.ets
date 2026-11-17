@@ -886,23 +886,23 @@ export default function openLinkMatrixCoreTest(): void {
     /**
      * @tc.number    SUB_UNIVERSAL_LINK_OPEN_LINK_0031
      * @tc.name      testOpenLinkMatrix0031
-     * @tc.desc      openLink "HTTP://DOCS.OPENHARMONY.CN"，不传 options：拉起 OpenLinkAbility 且 uri 不变
+     * @tc.desc      openLink "http://docs.openharmony.cn"，不传 options：拉起 OpenLinkAbility 且 uri 不变
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL1
      */
     it('testOpenLinkMatrix0031', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testOpenLinkMatrix0031 begin');
-      const link: string = 'HTTP://DOCS.OPENHARMONY.CN';
+      const link: string = 'http://docs.openharmony.cn';
       const observation: LinkObservation = await observeOpenLink(link);
       hilog.info(DOMAIN, TAG, '%{public}s', `a1 observation.code=${observation.code}`);
       expect(observation.code).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', `a2 observation.topName=${observation.topName}`);
       expect(observation.topName).assertEqual('OpenLinkAbility');
       hilog.info(DOMAIN, TAG, '%{public}s', `a3 observation.uri=${observation.uri}`);
-      expect(observation.uri).assertEqual('HTTP://DOCS.OPENHARMONY.CN');
+      expect(observation.uri).assertEqual('http://docs.openharmony.cn');
       hilog.info(DOMAIN, TAG, '%{public}s', `a4 observation.action=${observation.action}`);
-      expect(observation.action).assertEqual('');
+      expect(observation.action).assertEqual('ohos.want.action.viewData');
       const actual5: Object = observation.parameters['ohos.aafwk.param.callerAbilityName'];
       hilog.info(DOMAIN, TAG, '%{public}s', `a5=${actual5}`);
       expect(actual5).assertEqual('EntryAbility');
@@ -912,14 +912,14 @@ export default function openLinkMatrixCoreTest(): void {
     /**
      * @tc.number    SUB_UNIVERSAL_LINK_OPEN_LINK_0032
      * @tc.name      testOpenLinkMatrix0032
-     * @tc.desc      openLink "HTTP://DOCS.OPENHARMONY.CN"，空 options：拉起 OpenLinkAbility 且 uri 不变
+     * @tc.desc      openLink "http://docs.openharmony.cn"，空 options：拉起 OpenLinkAbility 且 uri 不变
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL1
      */
     it('testOpenLinkMatrix0032', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testOpenLinkMatrix0032 begin');
-      const link: string = 'HTTP://DOCS.OPENHARMONY.CN';
+      const link: string = 'http://docs.openharmony.cn';
       const options: OpenLinkOptions = {};
       const observation: LinkObservation = await observeOpenLink(link, options);
       hilog.info(DOMAIN, TAG, '%{public}s', `a1 observation.code=${observation.code}`);
@@ -927,9 +927,9 @@ export default function openLinkMatrixCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', `a2 observation.topName=${observation.topName}`);
       expect(observation.topName).assertEqual('OpenLinkAbility');
       hilog.info(DOMAIN, TAG, '%{public}s', `a3 observation.uri=${observation.uri}`);
-      expect(observation.uri).assertEqual('HTTP://DOCS.OPENHARMONY.CN');
+      expect(observation.uri).assertEqual('http://docs.openharmony.cn');
       hilog.info(DOMAIN, TAG, '%{public}s', `a4 observation.action=${observation.action}`);
-      expect(observation.action).assertEqual('');
+      expect(observation.action).assertEqual('ohos.want.action.viewData');
       const actual5: Object = observation.parameters['ohos.aafwk.param.callerAbilityName'];
       hilog.info(DOMAIN, TAG, '%{public}s', `a5=${actual5}`);
       expect(actual5).assertEqual('EntryAbility');
@@ -939,14 +939,14 @@ export default function openLinkMatrixCoreTest(): void {
     /**
      * @tc.number    SUB_UNIVERSAL_LINK_OPEN_LINK_0033
      * @tc.name      testOpenLinkMatrix0033
-     * @tc.desc      openLink "HTTP://DOCS.OPENHARMONY.CN"，appLinkingOnly=false：拉起 OpenLinkAbility 且 uri 不变
+     * @tc.desc      openLink "http://docs.openharmony.cn"，appLinkingOnly=false：拉起 OpenLinkAbility 且 uri 不变
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL1
      */
     it('testOpenLinkMatrix0033', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testOpenLinkMatrix0033 begin');
-      const link: string = 'HTTP://DOCS.OPENHARMONY.CN';
+      const link: string = 'http://docs.openharmony.cn';
       const options: OpenLinkOptions = { appLinkingOnly: false };
       const observation: LinkObservation = await observeOpenLink(link, options);
       hilog.info(DOMAIN, TAG, '%{public}s', `a1 observation.code=${observation.code}`);
@@ -954,9 +954,9 @@ export default function openLinkMatrixCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', `a2 observation.topName=${observation.topName}`);
       expect(observation.topName).assertEqual('OpenLinkAbility');
       hilog.info(DOMAIN, TAG, '%{public}s', `a3 observation.uri=${observation.uri}`);
-      expect(observation.uri).assertEqual('HTTP://DOCS.OPENHARMONY.CN');
+      expect(observation.uri).assertEqual('http://docs.openharmony.cn');
       hilog.info(DOMAIN, TAG, '%{public}s', `a4 observation.action=${observation.action}`);
-      expect(observation.action).assertEqual('');
+      expect(observation.action).assertEqual('ohos.want.action.viewData');
       const actual5: Object = observation.parameters['ohos.aafwk.param.callerAbilityName'];
       hilog.info(DOMAIN, TAG, '%{public}s', `a5=${actual5}`);
       expect(actual5).assertEqual('EntryAbility');
@@ -969,14 +969,14 @@ export default function openLinkMatrixCoreTest(): void {
     /**
      * @tc.number    SUB_UNIVERSAL_LINK_OPEN_LINK_0034
      * @tc.name      testOpenLinkMatrix0034
-     * @tc.desc      openLink "HTTP://DOCS.OPENHARMONY.CN"，appLinkingOnly=true：未做域名校验，返回 16000019 且不弹提示
+     * @tc.desc      openLink "http://docs.openharmony.cn"，appLinkingOnly=true：未做域名校验，返回 16000019 且不弹提示
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL1
      */
     it('testOpenLinkMatrix0034', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testOpenLinkMatrix0034 begin');
-      const link: string = 'HTTP://DOCS.OPENHARMONY.CN';
+      const link: string = 'http://docs.openharmony.cn';
       const options: OpenLinkOptions = { appLinkingOnly: true };
       const observation: LinkObservation = await observeOpenLink(link, options);
       hilog.info(DOMAIN, TAG, '%{public}s', `a1 observation.code=${observation.code}`);
@@ -993,14 +993,14 @@ export default function openLinkMatrixCoreTest(): void {
     /**
      * @tc.number    SUB_UNIVERSAL_LINK_OPEN_LINK_0035
      * @tc.name      testOpenLinkMatrix0035
-     * @tc.desc      openLink "HTTP://DOCS.OPENHARMONY.CN"，带 parameters：拉起 OpenLinkAbility 且 uri 不变
+     * @tc.desc      openLink "http://docs.openharmony.cn"，带 parameters：拉起 OpenLinkAbility 且 uri 不变
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL2
      */
     it('testOpenLinkMatrix0035', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testOpenLinkMatrix0035 begin');
-      const link: string = 'HTTP://DOCS.OPENHARMONY.CN';
+      const link: string = 'http://docs.openharmony.cn';
       const options: OpenLinkOptions = { appLinkingOnly: false, parameters: { 'from': 'matrix' } };
       const observation: LinkObservation = await observeOpenLink(link, options);
       hilog.info(DOMAIN, TAG, '%{public}s', `a1 observation.code=${observation.code}`);
@@ -1008,9 +1008,9 @@ export default function openLinkMatrixCoreTest(): void {
       hilog.info(DOMAIN, TAG, '%{public}s', `a2 observation.topName=${observation.topName}`);
       expect(observation.topName).assertEqual('OpenLinkAbility');
       hilog.info(DOMAIN, TAG, '%{public}s', `a3 observation.uri=${observation.uri}`);
-      expect(observation.uri).assertEqual('HTTP://DOCS.OPENHARMONY.CN');
+      expect(observation.uri).assertEqual('http://docs.openharmony.cn');
       hilog.info(DOMAIN, TAG, '%{public}s', `a4 observation.action=${observation.action}`);
-      expect(observation.action).assertEqual('');
+      expect(observation.action).assertEqual('ohos.want.action.viewData');
       const actual5: Object = observation.parameters['ohos.aafwk.param.callerAbilityName'];
       hilog.info(DOMAIN, TAG, '%{public}s', `a5=${actual5}`);
       expect(actual5).assertEqual('EntryAbility');

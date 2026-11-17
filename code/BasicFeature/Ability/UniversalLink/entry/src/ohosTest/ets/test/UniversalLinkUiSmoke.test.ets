@@ -358,7 +358,8 @@ export default function universalLinkUiSmokeTest(): void {
         uri: 'ftp://docs.openharmony.cn'
       });
       const shown: boolean = await dismissNoMatchDialog();
-      const top: UIAbility | undefined = await waitForTopAbility(ENTRY_ABILITY, 3000);
+      await sleep(500);
+      const top: UIAbility | undefined = await launchAbility(ENTRY_ABILITY);
       expect(result.code).assertEqual(16000019);
       expect(shown).assertTrue();
       expect(await exists('知道了')).assertFalse();

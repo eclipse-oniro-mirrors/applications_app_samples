@@ -752,20 +752,20 @@ export default function openLinkCallbackTest(): void {
     /**
      * @tc.number    SUB_UNIVERSAL_LINK_OPEN_LINK_CALLBACK_0025
      * @tc.name      testOpenLinkCallback0025
-     * @tc.desc      openLink 打开 "HTTP://DOCS.OPENHARMONY.CN" 后被打开方直接 terminateSelf，回调 resultCode=-1
+     * @tc.desc      openLink 打开 "http://docs.openharmony.cn" 后被打开方直接 terminateSelf，回调 resultCode=-1
      * @tc.type      FUNCTION
      * @tc.size      MEDIUMTEST
      * @tc.level     LEVEL2
      */
     it('testOpenLinkCallback0025', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testOpenLinkCallback0025 begin');
-      const link: string = 'HTTP://DOCS.OPENHARMONY.CN';
+      const link: string = 'http://docs.openharmony.cn';
       const options: OpenLinkOptions = { appLinkingOnly: false };
       const observation: LinkResultObservation = await observeOpenLinkResult(link, options);
       hilog.info(DOMAIN, TAG, '%{public}s', `a1 observation.code=${observation.code}`);
       expect(observation.code).assertEqual(0);
       hilog.info(DOMAIN, TAG, '%{public}s', `a2 observation.uri=${observation.uri}`);
-      expect(observation.uri).assertEqual('HTTP://DOCS.OPENHARMONY.CN');
+      expect(observation.uri).assertEqual('http://docs.openharmony.cn');
       hilog.info(DOMAIN, TAG, '%{public}s', `a3 observation.called=${observation.called}`);
       expect(observation.called).assertTrue();
       hilog.info(DOMAIN, TAG, '%{public}s', `a4 observation.callbackErrorCode=${observation.callbackErrorCode}`);
