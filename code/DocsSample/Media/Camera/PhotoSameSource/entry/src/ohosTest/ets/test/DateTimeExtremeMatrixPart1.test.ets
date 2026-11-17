@@ -44,7 +44,7 @@ export default function DateTimeExtremeMatrixPart1Test(): void {
     /**
      * @tc.number    SUB_PHOTO_DTXP1_0200
      * @tc.name      testVideoTimeExtreme0002
-     * @tc.desc      Verify getVideoTime(1999) returns '00 : 01'.
+     * @tc.desc      Verify getVideoTime(1998) returns '00 : 01'.
      * @tc.size      SMALLTEST
      * @tc.type      FUNCTION
      * @tc.level     LEVEL2
@@ -52,7 +52,7 @@ export default function DateTimeExtremeMatrixPart1Test(): void {
     it('testVideoTimeExtreme0002', TestType.FUNCTION | Size.SMALLTEST | Level.LEVEL2, async () => {
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoTimeExtreme0002 begin');
       const util: DateTimeUtil = new DateTimeUtil();
-      expect(util.getVideoTime(1999)).assertEqual('00 : 01');
+      expect(util.getVideoTime(1998)).assertEqual('00 : 01');
       hilog.info(DOMAIN, TAG, '%{public}s', 'testVideoTimeExtreme0002 end');
     })
 
