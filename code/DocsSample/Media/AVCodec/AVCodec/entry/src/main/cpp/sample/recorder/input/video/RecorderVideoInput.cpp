@@ -39,7 +39,8 @@ uint64_t Recorder::GetCameraInputSurfaceId() const
     }
     return id;
 }
-
+// [Start recorder_buffer_input_first]
+//  获取首帧视频宽跨距和高跨距。
 bool Recorder::InitSyncVideoInputContext()
 {
     if (!encContext_->isEncFirstFrame) {
@@ -59,6 +60,7 @@ bool Recorder::InitSyncVideoInputContext()
     encContext_->isEncFirstFrame = false;
     return true;
 }
+// [End recorder_buffer_input_first]
 
 int32_t Recorder::StartVideoInputThread()
 {
@@ -109,14 +111,15 @@ OH_ImageNative *Recorder::ReadVideoInputImage(VideoInputState &state)
     return image;
 }
 
-// [Start recorder_video_buffer_input_sync]
 void Recorder::VideoEncInputSyncThread()
 {
     VideoInputState state;
     // 先初始化心跳时间，避免启动瞬间被误判为停滞。
     state.lastSubmittedUs = RecorderClockUs();
+    // [Start recorder_video_buffer_input_sync]
     // videoInputStopping_单独结束视频输入线程，停止读取相机图像、提交普通帧，让输出线程继续排空编码数据。
     while (isStarted_.load() && !videoInputStopping_.load()) {
+        // [StartExclude recorder_video_buffer_input_sync]
         std::unique_lock<std::mutex> inputLock(mediaInputMutex_);
         if (isPaused_) {
             const CameraImage discarded(frameReceiver_->ReadLatest(INPUT_WAIT_MS), OH_ImageNative_Release);
@@ -129,6 +132,14 @@ void Recorder::VideoEncInputSyncThread()
         if (image == nullptr) {
             continue;
         }
+        const int64_t receivedAtUs = RecorderClockUs();
+        // [EndExclude recorder_video_buffer_input_sync]
+        CodecBufferInfo info;
+        // 同步模式主动Query输入索引，再Get对应的编码器Buffer。
+        const int32_t ret = videoEncoder_->GetInputBuffer(info, INPUT_WAIT_US);
+        if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
+            continue;
+        }
         /**
          * 示例：配置输入文件。
          * std::string_view inputFilePath = "/*yourpath*.yuv";
@@ -137,20 +148,15 @@ void Recorder::VideoEncInputSyncThread()
          *     inputFile->open(inputFilePath.data(), std::ios::in | std::ios::binary);
          * }
          */
-        const int64_t receivedAtUs = RecorderClockUs();
-        CodecBufferInfo info;
-        // 同步模式主动Query输入索引，再Get对应的编码器Buffer。
-        const int32_t ret = videoEncoder_->GetInputBuffer(info, INPUT_WAIT_US);
-        if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
-            continue;
-        }
         if (ret != AVCODEC_SAMPLE_ERR_OK || !InitSyncVideoInputContext()) {
             AbortRecording("Get video input buffer or input description failed");
             break;
         }
+        // [StartExclude recorder_video_buffer_input_sync]
         if (!SubmitVideoInputImage(image.get(), info, state, receivedAtUs)) {
             break;
         }
+        // [EndExclude recorder_video_buffer_input_sync]
     }
 }
 // [End recorder_video_buffer_input_sync]

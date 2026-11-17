@@ -391,9 +391,7 @@ int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
 {
     info.buffer = nullptr;
     CHECK_AND_RETURN_RET_LOG(encoder_ != nullptr, AVCODEC_SAMPLE_ERR_ERROR, "Encoder is null");
-    // [StartExclude encoder_sync_get_outputbuffer]
     // 格式变化后只重试一次；持续变化由下次轮询继续处理。
-    // [EndExclude encoder_sync_get_outputbuffer]
     for (uint32_t retry = 0; retry < OUTPUT_BUFFER_QUERY_RETRY_COUNT; ++retry) {
         const int32_t ret = OH_VideoEncoder_QueryOutputBuffer(encoder_, &info.bufferIndex, timeoutUs);
         switch (ret) {
@@ -405,7 +403,32 @@ int32_t VideoEncoder::GetOutputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
                     "Get buffer attr error, ret: %{public}d", getBufferRet);
                 info.buffer = buffer;
                 // 开发者可根据业务需要，对输出数据进行保存/释放处理。
-                return AVCODEC_SAMPLE_ERR_OK;
+                /**
+                 * 示例：将编码完成帧数据buffer写入到对应输出文件中。
+                 * // 获取编码后信息。
+                 * OH_AVCodecBufferAttr attr;
+                 * OH_AVErrCode getBufferRet = OH_AVBuffer_GetBufferAttr(buffer, &attr);
+                 * if (getBufferRet != AV_ERR_OK) {
+                 *     // 异常处理。
+                 * }
+                 * if (attr.flags & AVCODEC_BUFFER_FLAGS_EOS) {
+                 *     // 尾帧处理。
+                 * }
+                 * // 将编码完成帧数据buffer写入到对应输出文件中。
+                 * uint8_t *addr = OH_AVBuffer_GetAddr(buffer);
+                 * if (addr == nullptr) {
+                 *    // 异常处理 。
+                 * }
+                 * if (outputFile != nullptr && outputFile->is_open()) {
+                 *     outputFile->write(reinterpret_cast<char *>(addr), attr.size);
+                 * }
+                 * // 释放已完成写入的数据，index为对应输出队列下标。
+                 * OH_AVErrCode freeOutputRet = OH_VideoEncoder_FreeOutputBuffer(encoder_, info.bufferIndex);
+                 * if (freeOutputRet != AV_ERR_OK) {
+                 *     // 异常处理。
+                 * }
+                 */
+                 return AVCODEC_SAMPLE_ERR_OK;
             }
             case AV_ERR_TRY_AGAIN_LATER: {
                 AVCODEC_SAMPLE_LOGD("Get output buffer timeout.");
@@ -480,7 +503,7 @@ int32_t VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
      *     // 处理文件流得到帧的长度，再将需要编码的数据写入到对应index的buffer中。
      *     memcpy(addr, frameData, frameSize);
      * } else {
-     *     // 如果跨距不等于宽，需要开发者按照跨距进行偏移。
+     *     // 如果跨距不等于宽，需要开发者按照跨距进行对齐处理。
      * }
      *
      * OH_AVCodecBufferAttr attr;
@@ -494,7 +517,6 @@ int32_t VideoEncoder::GetInputBuffer(CodecBufferInfo &info, int64_t timeoutUs)
      * OH_AVErrCode setBufferRet = OH_AVBuffer_SetBufferAttr(buffer, &attr);
      * if (setBufferRet != AV_ERR_OK) {
      *     // 异常处理。
-     *     return false;
      * }
      */
     return AVCODEC_SAMPLE_ERR_OK;

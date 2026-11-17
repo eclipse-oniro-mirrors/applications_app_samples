@@ -46,11 +46,11 @@ void Recorder::VideoEncOutputSyncThread()
         if (ret == AVCODEC_SAMPLE_ERR_AGAIN) {
             continue;
         }
+        // [StartExclude encoder_sync_output_buffer]
         if (ret != AVCODEC_SAMPLE_ERR_OK) {
             AbortRecording("Video output buffer retrieval failed");
             break;
         }
-        // [StartExclude encoder_sync_output_buffer]
         const int64_t receivedAtUs = RecorderClockUs();
         primaryStats_.RecordRetrieval(receivedAtUs - waitStart);
         if (!ProcessVideoOutputBuffer(bufferInfo, true, receivedAtUs)) {
