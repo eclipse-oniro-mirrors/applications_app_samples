@@ -522,6 +522,51 @@ void MyOnUltraFastStatusChange(OH_AudioCapturer* capturer, void* userData, OH_Au
 }
 // [End OnUltraFastStatusChange]
 
+// [Start OnFastStatusChange]
+void MyOnFastStatusChange(OH_AudioCapturer* capturer, void* userData, OH_AudioStream_FastStatus status)
+{
+    // 通过状态变化回调记录录制流当前的实际运行状态
+    g_ultraFastStatus.store(status);
+}
+// [End OnFastStatusChange]
+
+void RegisterFastStatusChangeCallback(OH_AudioStreamBuilder* builder)
+{
+    // [Start SetCapturerFastStatusChangeCallback_Fast]
+    OH_AudioStreamBuilder_SetCapturerFastStatusChangeCallback(builder, MyOnFastStatusChange, nullptr);
+    // [End SetCapturerFastStatusChangeCallback_Fast]
+}
+
+napi_value QueryFastSupport(napi_env env, napi_callback_info info)
+{
+    std::stringstream ss;
+    OH_AudioStreamManager* streamManager = nullptr;
+    OH_AudioCommon_Result ret = OH_AudioManager_GetAudioStreamManager(&streamManager);
+    if (ret != AUDIOCOMMON_RESULT_SUCCESS || streamManager == nullptr) {
+        ss << "获取 OH_AudioStreamManager 失败，返回码: " << ret;
+        return CreateStringResult(env, ss.str());
+    }
+
+    // [Start IsFastRecordingSupported]
+    // 构造与待创建录制流一致的音频流参数。
+    OH_AudioStreamInfo streamInfo;
+    const int SAMPLING_RATE_48K = 48000;
+    streamInfo.samplingRate = SAMPLING_RATE_48K;
+    streamInfo.channelLayout = CH_LAYOUT_STEREO;
+    streamInfo.encodingType = AUDIOSTREAM_ENCODING_TYPE_RAW;
+    streamInfo.sampleFormat = AUDIOSTREAM_SAMPLE_S16LE;
+
+    // 查询当前设备是否支持低时延录制。
+    bool supported = false;
+    supported = OH_AudioStreamManager_IsFastRecordingSupported(
+        streamManager, &streamInfo, AUDIOSTREAM_SOURCE_TYPE_MIC);
+    // [End IsFastRecordingSupported]
+
+    ss << "低时延录制支持查询\n";
+    ss << "查询结果: " << (supported ? "支持" : "不支持");
+    return CreateStringResult(env, ss.str());
+}
+
 // [Start QueryUltraFastSupport]
 napi_value QueryUltraFastSupport(napi_env env, napi_callback_info info)
 {
@@ -978,6 +1023,7 @@ static napi_value Init(napi_env env, napi_value exports)
         {"CreateLowLatencyModeCapturer", nullptr, CreateLowLatencyModeCapturer, nullptr, nullptr, nullptr, napi_default,
          nullptr},
         {"QueryUltraFastSupport", nullptr, QueryUltraFastSupport, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"QueryFastSupport", nullptr, QueryFastSupport, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"CreateUltraFastCapturer", nullptr, CreateUltraFastCapturer, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"GetUltraFastStatus", nullptr, GetUltraFastStatus, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"StopUltraFastCapturer", nullptr, StopUltraFastCapturer, nullptr, nullptr, nullptr, napi_default, nullptr},
