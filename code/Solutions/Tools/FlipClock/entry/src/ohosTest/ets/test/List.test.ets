@@ -80,16 +80,6 @@ import flipClockContactPushLargeTest from './FlipClockContactPushLarge.test';
 import flipClockListenerMultiReloadTest from './FlipClockListenerMultiReload.test';
 import flipClockTabTypeFieldsMoreTest from './FlipClockTabTypeFieldsMore.test';
 import flipClockContactModelMoreTest from './FlipClockContactModelMore.test';
-import flipClockVolumeContact01Test from './FlipClockVolumeContact01.test';
-import flipClockVolumeContact02Test from './FlipClockVolumeContact02.test';
-import flipClockVolumeContact03Test from './FlipClockVolumeContact03.test';
-import flipClockVolumeContact04Test from './FlipClockVolumeContact04.test';
-import flipClockVolumeContact05Test from './FlipClockVolumeContact05.test';
-import flipClockVolumeContact06Test from './FlipClockVolumeContact06.test';
-import flipClockVolumeContact07Test from './FlipClockVolumeContact07.test';
-import flipClockVolumeContact08Test from './FlipClockVolumeContact08.test';
-import flipClockVolumeContact09Test from './FlipClockVolumeContact09.test';
-import flipClockVolumeContact10Test from './FlipClockVolumeContact10.test';
 import flipClockVolumeContact11Test from './FlipClockVolumeContact11.test';
 import flipClockVolumeContact12Test from './FlipClockVolumeContact12.test';
 import flipClockVolumeContact13Test from './FlipClockVolumeContact13.test';
@@ -147,6 +137,7 @@ import flipClockContactAux02Test from './FlipClockContactAux02.test';
 import flipClockContactAux03Test from './FlipClockContactAux03.test';
 import flipClockContactAux04Test from './FlipClockContactAux04.test';
 import flipClockContactAux05Test from './FlipClockContactAux05.test';
+import flipClockVolumeContactRange01Test from './FlipClockVolumeContactRange01.test';
 export default function testsuite() {
   abilityTest();
   flipClockMyDataSourcePushTest();
@@ -214,16 +205,6 @@ export default function testsuite() {
   flipClockListenerMultiReloadTest();
   flipClockTabTypeFieldsMoreTest();
   flipClockContactModelMoreTest();
-  flipClockVolumeContact01Test();
-  flipClockVolumeContact02Test();
-  flipClockVolumeContact03Test();
-  flipClockVolumeContact04Test();
-  flipClockVolumeContact05Test();
-  flipClockVolumeContact06Test();
-  flipClockVolumeContact07Test();
-  flipClockVolumeContact08Test();
-  flipClockVolumeContact09Test();
-  flipClockVolumeContact10Test();
   flipClockVolumeContact11Test();
   flipClockVolumeContact12Test();
   flipClockVolumeContact13Test();
@@ -281,4 +262,5 @@ export default function testsuite() {
   flipClockContactAux03Test();
   flipClockContactAux04Test();
   flipClockContactAux05Test();
+  flipClockVolumeContactRange01Test();
 }

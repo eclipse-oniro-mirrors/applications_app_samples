@@ -77,16 +77,6 @@
 | `FlipClockListenerMultiReload.test.ets` | 8 |
 | `FlipClockTabTypeFieldsMore.test.ets` | 8 |
 | `FlipClockContactModelMore.test.ets` | 8 |
-| `FlipClockVolumeContact01.test.ets` | 20 |
-| `FlipClockVolumeContact02.test.ets` | 20 |
-| `FlipClockVolumeContact03.test.ets` | 20 |
-| `FlipClockVolumeContact04.test.ets` | 20 |
-| `FlipClockVolumeContact05.test.ets` | 20 |
-| `FlipClockVolumeContact06.test.ets` | 20 |
-| `FlipClockVolumeContact07.test.ets` | 20 |
-| `FlipClockVolumeContact08.test.ets` | 20 |
-| `FlipClockVolumeContact09.test.ets` | 20 |
-| `FlipClockVolumeContact10.test.ets` | 20 |
 | `FlipClockVolumeContact11.test.ets` | 20 |
 | `FlipClockVolumeContact12.test.ets` | 20 |
 | `FlipClockVolumeContact13.test.ets` | 20 |
@@ -144,7 +134,8 @@
 | `FlipClockContactAux03.test.ets` | 14 |
 | `FlipClockContactAux04.test.ets` | 14 |
 | `FlipClockContactAux05.test.ets` | 14 |
+| `FlipClockVolumeContactRange01.test.ets` | 1 |
 
-合计：**133 个测试套件，1842 条用例**。
+合计：**124 个测试套件，1643 条用例**。
 
 > 以上套件与用例数与 `List.test.ets` 中实际注册内容一致。
