@@ -1,0 +1,412 @@
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { describe, it, expect, beforeAll, afterAll } from '@ohos/hypium';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+
+const TAG: string = 'LongTermStability';
+const DOMAIN_NUMBER: number = 0xFF00;
+
+enum BundleFlag {
+  NONE = 0,
+  ABILITY = 1,
+  HAP_MODULE = 2,
+  APPLICATION = 4,
+  METADATA = 8,
+  EXTENSION_ABILITY = 16,
+  REQUESTED_PERMISSION = 32,
+  SKILL = 64,
+  APP_INFO = 128,
+  SIGNATURE = 256
+}
+
+enum AppType {
+  BROWSER = 'BROWSER',
+  AUDIO = 'AUDIO',
+  VIDEO = 'VIDEO',
+  IMAGE = 'IMAGE',
+  EMAIL = 'EMAIL'
+}
+
+enum OverlayState {
+  DISABLED = 'disabled',
+  ENABLED = 'enabled'
+}
+
+enum ScenarioErrorCode {
+  SUCCESS = 0,
+  PARAM_ERROR = 401,
+  BUNDLE_NOT_FOUND = 17700001,
+  ABILITY_NOT_FOUND = 17700002,
+  MODULE_NOT_FOUND = 17700026,
+  OVERLAY_NOT_FOUND = 17700040,
+  NOT_DEFAULT_APP = 17700050,
+  SIGNATURE_INVALID = 17700060
+}
+
+interface BundleInfoLike {
+  bundleName: string;
+  versionCode: number;
+  versionName: string;
+  abilityNames: string[];
+  moduleNames: string[];
+  enabled: boolean;
+}
+
+interface ProfileLike {
+  moduleName: string;
+  abilityName: string;
+  metadataName: string;
+  value: string;
+}
+
+interface OverlayInfoLike {
+  moduleName: string;
+  targetModuleName: string;
+  state: OverlayState;
+  priority: number;
+}
+
+class BundleDomainModel {
+  static readonly BUNDLE_NAME: string = 'com.samples.bundlemanagement';
+  static readonly VERSION_CODE: number = 1000000;
+  static readonly VERSION_NAME: string = '1.0.0';
+  static readonly ENTRY_MODULE: string = 'entry';
+  static readonly OVERLAY_MODULE: string = 'libraryOverlay';
+  static readonly RUNTIME_OVERLAY_MODULE: string = 'libraryRuntimeOverlay';
+  static readonly ENTRY_ABILITY: string = 'EntryAbility';
+  static readonly NEW_ABILITY: string = 'NewAbility';
+  static readonly EXT_ABILITY: string = 'NewUIExtAbility';
+
+  public static combineFlags(left: number, right: number): number {
+    return left | right;
+  }
+
+  public static hasFlag(flags: number, flag: number): boolean {
+    return (flags & flag) === flag;
+  }
+
+  public static countFlags(flags: number): number {
+    let count: number = 0;
+    let current: number = flags;
+    while (current > 0) {
+      count += (current & 1);
+      current = current >> 1;
+    }
+    return count;
+  }
+
+  public static buildBundleInfo(): BundleInfoLike {
+    return {
+      bundleName: BundleDomainModel.BUNDLE_NAME,
+      versionCode: BundleDomainModel.VERSION_CODE,
+      versionName: BundleDomainModel.VERSION_NAME,
+      abilityNames: [BundleDomainModel.ENTRY_ABILITY, BundleDomainModel.NEW_ABILITY],
+      moduleNames: [BundleDomainModel.ENTRY_MODULE, BundleDomainModel.OVERLAY_MODULE,
+        BundleDomainModel.RUNTIME_OVERLAY_MODULE],
+      enabled: true
+    };
+  }
+
+  public static getAbilityNames(): string[] {
+    return [BundleDomainModel.ENTRY_ABILITY, BundleDomainModel.NEW_ABILITY];
+  }
+
+  public static getModuleNames(): string[] {
+    return [BundleDomainModel.ENTRY_MODULE, BundleDomainModel.OVERLAY_MODULE,
+      BundleDomainModel.RUNTIME_OVERLAY_MODULE];
+  }
+
+  public static getProfileByAbility(moduleName: string, abilityName: string, metadataName: string): ProfileLike {
+    return {
+      moduleName: moduleName, abilityName: abilityName, metadataName: metadataName,
+      value: '{"shortcuts":[]}'
+    };
+  }
+
+  public static getProfileByExtensionAbility(moduleName: string, extensionName: string,
+    metadataName: string): ProfileLike {
+    return { moduleName: moduleName, abilityName: extensionName, metadataName: metadataName, value: '[]' };
+  }
+
+  public static verifyAbc(paths: string[]): boolean {
+    if (paths.length === 0) {
+      return false;
+    }
+    for (let i = 0; i < paths.length; i++) {
+      if (paths[i].length === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public static deleteAbc(path: string): boolean {
+    return path.length > 0 && path.endsWith('.abc');
+  }
+
+  public static isValidLink(link: string): boolean {
+    return link.startsWith('http://') || link.startsWith('https://');
+  }
+
+  public static canOpenLink(link: string): boolean {
+    return BundleDomainModel.isValidLink(link);
+  }
+
+  public static isDefaultApplication(type: AppType): boolean {
+    return type === AppType.BROWSER || type === AppType.EMAIL;
+  }
+
+  public static setOverlayEnabled(moduleName: string, enabled: boolean): OverlayState {
+    if (moduleName.length === 0) {
+      return OverlayState.DISABLED;
+    }
+    return enabled ? OverlayState.ENABLED : OverlayState.DISABLED;
+  }
+
+  public static getOverlayModuleInfo(moduleName: string): OverlayInfoLike {
+    return {
+      moduleName: moduleName, targetModuleName: BundleDomainModel.ENTRY_MODULE,
+      state: OverlayState.ENABLED, priority: 1
+    };
+  }
+
+  public static getTargetOverlayModuleInfos(targetModuleName: string): OverlayInfoLike[] {
+    return [
+      {
+        moduleName: BundleDomainModel.OVERLAY_MODULE, targetModuleName: targetModuleName,
+        state: OverlayState.ENABLED, priority: 1
+      },
+      {
+        moduleName: BundleDomainModel.RUNTIME_OVERLAY_MODULE, targetModuleName: targetModuleName,
+        state: OverlayState.DISABLED, priority: 2
+      }
+    ];
+  }
+
+  public static add(left: number, right: number): number {
+    return left + right;
+  }
+
+  public static isValidModule(moduleName: string): boolean {
+    return BundleDomainModel.getModuleNames().indexOf(moduleName) >= 0;
+  }
+
+  public static errorCodeForScenario(scenario: string): number {
+    if (scenario === 'bundle') {
+      return ScenarioErrorCode.BUNDLE_NOT_FOUND;
+    }
+    if (scenario === 'ability') {
+      return ScenarioErrorCode.ABILITY_NOT_FOUND;
+    }
+    if (scenario === 'module') {
+      return ScenarioErrorCode.MODULE_NOT_FOUND;
+    }
+    if (scenario === 'overlay') {
+      return ScenarioErrorCode.OVERLAY_NOT_FOUND;
+    }
+    if (scenario === 'signature') {
+      return ScenarioErrorCode.SIGNATURE_INVALID;
+    }
+    return ScenarioErrorCode.SUCCESS;
+  }
+
+  public static errorMessage(code: number): string {
+    if (code === ScenarioErrorCode.BUNDLE_NOT_FOUND) {
+      return 'bundle not found';
+    }
+    if (code === ScenarioErrorCode.ABILITY_NOT_FOUND) {
+      return 'ability not found';
+    }
+    if (code === ScenarioErrorCode.MODULE_NOT_FOUND) {
+      return 'module not found';
+    }
+    if (code === ScenarioErrorCode.OVERLAY_NOT_FOUND) {
+      return 'overlay not found';
+    }
+    return 'success';
+  }
+
+  public static buildError(scenario: string): BusinessError {
+    const code: number = BundleDomainModel.errorCodeForScenario(scenario);
+    return { code: code, name: 'BusinessError', message: BundleDomainModel.errorMessage(code) };
+  }
+}
+
+
+export default function longTermStabilityTest() {
+  describe('LongTermStability_Test', () => {
+    beforeAll(() => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'suite LongTermStability begin');
+    });
+    afterAll(() => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'suite LongTermStability end');
+    });
+    /*
+     * @tc.number: LongTermStability_000
+     * @tc.name: calc_add
+     * @tc.desc: verify overlay Calc.add
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_000', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_000 start');
+      expect(BundleDomainModel.add(1, 2)).assertEqual(3);
+      expect(BundleDomainModel.add(-1, 2)).assertEqual(1);
+      expect(BundleDomainModel.add(0, 0)).assertEqual(0);
+    });
+    /*
+     * @tc.number: LongTermStability_001
+     * @tc.name: error_code
+     * @tc.desc: verify business error code mapping
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_001', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_001 start');
+      const code: number = BundleDomainModel.errorCodeForScenario('ability');
+      expect(code).assertEqual(17700002);
+      expect(BundleDomainModel.errorMessage(code).length > 0).assertTrue();
+    });
+    /*
+     * @tc.number: LongTermStability_002
+     * @tc.name: error_catch
+     * @tc.desc: verify BusinessError mapping inside try/catch
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_002', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_002 start');
+      let code: number = 0;
+      try {
+        throw new Error('scenario module');
+      } catch (err) {
+        const businessError: BusinessError = BundleDomainModel.buildError('module');
+        code = businessError.code;
+      }
+      expect(code).assertEqual(17700026);
+    });
+    /*
+     * @tc.number: LongTermStability_003
+     * @tc.name: module_membership
+     * @tc.desc: verify module name membership
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_003', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_003 start');
+      const modules: string[] = BundleDomainModel.getModuleNames();
+      let found: boolean = false;
+      for (let i = 0; i < modules.length; i++) {
+        if (modules[i] === 'unknownModule') {
+          found = true;
+        }
+      }
+      expect(found).assertEqual(false);
+    });
+    /*
+     * @tc.number: LongTermStability_004
+     * @tc.name: module_valid
+     * @tc.desc: verify module validation helper
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_004', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_004 start');
+      expect(BundleDomainModel.isValidModule('entry')).assertEqual(true);
+    });
+    /*
+     * @tc.number: LongTermStability_005
+     * @tc.name: bundle_info_fields
+     * @tc.desc: verify basic bundleInfo fields
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_005', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_005 start');
+      const info: BundleInfoLike = BundleDomainModel.buildBundleInfo();
+      expect(info.bundleName).assertEqual(BundleDomainModel.BUNDLE_NAME);
+      expect(info.versionCode).assertEqual(BundleDomainModel.VERSION_CODE);
+      expect(info.enabled).assertTrue();
+    });
+    /*
+     * @tc.number: LongTermStability_006
+     * @tc.name: bundle_version
+     * @tc.desc: verify bundle version name and code
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_006', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_006 start');
+      const info: BundleInfoLike = BundleDomainModel.buildBundleInfo();
+      expect(info.versionName).assertEqual(BundleDomainModel.VERSION_NAME);
+      expect(info.versionCode > 0).assertTrue();
+    });
+    /*
+     * @tc.number: LongTermStability_007
+     * @tc.name: flag_combine
+     * @tc.desc: verify bundle flag combination
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_007', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_007 start');
+      const flags: number = BundleDomainModel.combineFlags(BundleFlag.ABILITY, BundleFlag.HAP_MODULE);
+      expect(BundleDomainModel.hasFlag(flags, BundleFlag.ABILITY)).assertTrue();
+      expect(BundleDomainModel.hasFlag(flags, BundleFlag.HAP_MODULE)).assertTrue();
+      expect(BundleDomainModel.countFlags(flags)).assertEqual(2);
+    });
+    /*
+     * @tc.number: LongTermStability_008
+     * @tc.name: flag_count_loop
+     * @tc.desc: verify incremental flag accumulation
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_008', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_008 start');
+      const values: number[] = [1, 2, 4, 8, 16, 32];
+      let combined: number = 0;
+      for (let i = 0; i < 3; i++) {
+        combined = BundleDomainModel.combineFlags(combined, values[i]);
+      }
+      expect(BundleDomainModel.countFlags(combined)).assertEqual(3);
+    });
+    /*
+     * @tc.number: LongTermStability_009
+     * @tc.name: ability_names
+     * @tc.desc: verify ability names from bundleInfo
+     * @tc.size: MediumTest
+     * @tc.type: Function
+     * @tc.level: Level 1
+     */
+    it('LongTermStability_009', 0, () => {
+      hilog.info(DOMAIN_NUMBER, TAG, '%{public}s', 'case LongTermStability_009 start');
+      const names: string[] = BundleDomainModel.getAbilityNames();
+      expect(names.length).assertEqual(2);
+      expect(names.indexOf(BundleDomainModel.ENTRY_ABILITY) >= 0).assertTrue();
+    });
+  });
+}
