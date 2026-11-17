@@ -12,59 +12,80 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import UIAbility from '@ohos.app.ability.UIAbility';
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
-import AbilityConstant from '@ohos.app.ability.AbilityConstant';
-import Want from '@ohos.app.ability.Want';
-import window from '@ohos.window';
 import hilog from '@ohos.hilog';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
+import window from '@ohos.window';
+import Want from '@ohos.app.ability.Want';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+
+async function startWebCameraApp(): Promise<void> {
+  let delegator = AbilityDelegatorRegistry.getAbilityDelegator();
+  let args = AbilityDelegatorRegistry.getArguments();
+  let want: Want = {
+    bundleName: args.bundleName,
+    abilityName: 'EntryAbility'
+  };
+  await delegator.startAbility(want);
+}
 
 export default class TestAbility extends UIAbility {
-  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onCreate');
-    hilog.info(0x0000, 'testTag', '%{public}s', 'want param: ' + JSON.stringify(want) ?? '');
-    hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam: ' + JSON.stringify(launchParam) ?? '');
-
-    const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator =
-      AbilityDelegatorRegistry.getAbilityDelegator();
-    const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
-      AbilityDelegatorRegistry.getArguments();
-
-    hilog.info(0x0000, 'testTag', '%{public}s', 'MediaFullScreen test suite will start');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
+    hilog.info(0x0000, 'testTag', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator;
+    abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs;
+    abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+    hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
     setTimeout(() => {
-      Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      hilog.info(0x0000, 'testTag', '%{public}s', 'start run testcase!!!');
+      startWebCameraApp().then(() => {
+        hilog.info(0x0000, 'testTag', '%{public}s', 'WebCamera app launched');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      }).catch((err: Error) => {
+        hilog.error(0x0000, 'testTag', 'Failed to launch WebCamera app: %{public}s', JSON.stringify(err) ?? '');
+        Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
+      });
     }, 1000);
+
   }
 
-  onDestroy(): void {
+  onDestroy() {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage: window.WindowStage): void {
+  onWindowStageCreate(windowStage: window.WindowStage) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageCreate');
     windowStage.loadContent('testability/pages/Index', (err, data) => {
       if (err.code) {
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s',
-          JSON.stringify(err) ?? '');
+        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
         return;
       }
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content. Data: %{public}s',
         JSON.stringify(data) ?? '');
     });
+    // 测试套件执行时间较长，保持屏幕常亮，避免息屏锁屏导致 aa test 拉起超时（00508013）
+    windowStage.getMainWindow().then((mainWindow: window.Window) => {
+      mainWindow.setWindowKeepScreenOn(true);
+      hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility keep screen on');
+    }).catch((error: Error) => {
+      hilog.error(0x0000, 'testTag', 'TestAbility keep screen on failed: %{public}s', JSON.stringify(error) ?? '');
+    });
   }
 
-  onWindowStageDestroy(): void {
+  onWindowStageDestroy() {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onWindowStageDestroy');
   }
 
-  onForeground(): void {
+  onForeground() {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onForeground');
   }
 
-  onBackground(): void {
+  onBackground() {
     hilog.info(0x0000, 'testTag', '%{public}s', 'TestAbility onBackground');
   }
 }
