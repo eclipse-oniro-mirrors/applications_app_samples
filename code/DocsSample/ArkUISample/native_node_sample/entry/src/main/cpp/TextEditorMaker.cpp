@@ -896,9 +896,9 @@ void SetTextEditorCancelButton()
     }
     cancelButtonEditor = textEditor;
     // 添加交互按钮
-    AddButton("SetCancelButton", BTN_SET_CANCEL_BUTTON, nullptr);
-    AddButton("GetCancelButton", BTN_GET_CANCEL_BUTTON, nullptr);
-    AddButton("ResetCancelButton", BTN_RESET_CANCEL_BUTTON, nullptr);
+    AddButton("SetCancelButton", BTN_SET_CANCEL_BUTTON, controller);
+    AddButton("GetCancelButton", BTN_GET_CANCEL_BUTTON, controller);
+    AddButton("ResetCancelButton", BTN_RESET_CANCEL_BUTTON, controller);
 }
 
 void DoLayoutManager(ArkUI_NodeEvent* event)
@@ -1440,13 +1440,13 @@ void AutoFill()
     ArkUI_AttributeItem controllerItem = {.object = controller};
     Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_STYLED_STRING_CONTROLLER, &controllerItem);
     ArkUI_NumberValue enableAutoFill = {.i32 = false};
-    ArkUI_AttributeItem enableAutoFillItem = {&enableAutoFill, VALUE_1};
+    ArkUI_AttributeItem enableAutoFillItem = {&enableAutoFill, 1};
     Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_INPUT_ENABLE_AUTO_FILL, &enableAutoFillItem);
     ArkUI_NumberValue enableFillAnimation = {.i32 = false};
-    ArkUI_AttributeItem enableFillAnimationItem = {&enableFillAnimation, VALUE_1};
+    ArkUI_AttributeItem enableFillAnimationItem = {&enableFillAnimation, 1};
     Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_ENABLE_AUTO_FILL, &enableFillAnimationItem);
     ArkUI_NumberValue inputContentType = {.i32 = ARKUI_TEXTINPUT_CONTENT_TYPE_PASSWORD};
-    ArkUI_AttributeItem inputContentTypeItem = {&inputContentType, VALUE_1};
+    ArkUI_AttributeItem inputContentTypeItem = {&inputContentType, 1};
     Manager::nodeAPI_->setAttribute(textEditor, NODE_TEXT_EDITOR_CONTENT_TYPE, &inputContentTypeItem);
     const char *passwordRulesVal = "begin:[upper],special:[yes],len:[maxlen:32,minlen:12]";
     ArkUI_AttributeItem passwordRulesItem = {.string = passwordRulesVal};
