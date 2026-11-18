@@ -12,6 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * @file customanimationtab/src/main/ets/model/TabBarAttribute.ets
+ * 文件职责：TabBarAttribute 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：TabBarAttribute。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { CommonConstants } from '../common/CommonConstants';
 
 /**
@@ -21,19 +29,26 @@ import { CommonConstants } from '../common/CommonConstants';
 export class TabBarAttribute {
   // 页签项宽度
   private innerBarItemWidth: Length | undefined;
+
   // 页签条边缘滑动效果
   private innerBarEdgeEffect: EdgeEffect;
+
   // 页签条高度
   private innerBarHeight: Length | undefined;
+
   // 是否可以滚动页签条(false则所有页签均分屏幕宽度)
   private innerScrollable: boolean;
+
   // 页签条位置
   private innerBarVertical: BarPosition;
+
   // 页签条边距
   private innerBarMargin: Margin | undefined;
+
   // 页签条背景颜色
   private innerBarBackgroundColor: ResourceColor;
 
+  /** 构造 TabBarAttribute 实例。 */
   constructor(barItemWidth: Length | undefined = undefined, barHeight: Length | undefined = undefined,
     scrollable: boolean = true, barEdgeEffect: EdgeEffect = EdgeEffect.Spring,
     barVertical: BarPosition = BarPosition.Start,

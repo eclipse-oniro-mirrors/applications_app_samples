@@ -14,14 +14,23 @@
  */
 
 /**
+ * @file customanimationtab/src/main/ets/model/AnimationAttribute.ets
+ * 文件职责：AnimationAttribute 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：AnimationAttribute。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
+/**
  * 动效属性，提供了必需的动效属性，后续添加属性可通过继承该类实现
  *
  */
 export class AnimationAttribute {
   // 背景条左边距，即：背景条左侧离tab组件左侧的距离
   public left: number = 0;
+
   // 背景条宽度
   public indicatorBarWidth: number = 0;
+
   // 背景条高度
   public indicatorBarHeight: number = 0;
 }

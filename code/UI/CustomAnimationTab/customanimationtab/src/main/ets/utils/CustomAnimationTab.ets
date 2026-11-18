@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file customanimationtab/src/main/ets/utils/CustomAnimationTab.ets
+ * 文件职责：CustomAnimationTab 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CustomAnimationTab、baseBuilder、tabBar、indicatorBar。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { ComponentUtils, curves } from '@kit.ArkUI';
 import { CommonConstants } from '../common/CommonConstants';
 import { AnimationAttribute } from '../model/AnimationAttribute';
@@ -51,11 +58,16 @@ import { TabInfo } from '../model/TabInfo';
  * @param {number} [animationDuration] - 页签切换时长
  * @param {number} [startIndex] - 起始页签索引
  */
+/**
+ * CustomAnimationTab：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Component
 export struct CustomAnimationTab {
   // -------------------对外暴露变量-----------------------
   // 动效属性
+  // @Link animationAttribute：与父组件双向绑定的状态
   @Link animationAttribute: AnimationAttribute;
+
   // tab信息
   tabsInfo: TabInfo[] = [
     new TabInfo(CommonConstants.DEFAULT_TITLE1_TAB, wrapBuilder(baseBuilder), wrapBuilder(tabBar)),
@@ -63,20 +75,27 @@ export struct CustomAnimationTab {
     new TabInfo(CommonConstants.DEFAULT_TITLE3_TAB, wrapBuilder(baseBuilder), wrapBuilder(tabBar)),
     new TabInfo(CommonConstants.DEFAULT_TITLE4_TAB, wrapBuilder(baseBuilder), wrapBuilder(tabBar))
   ];
+
   // 背景条属性
   indicatorBarAttribute: IndicatorBarAttribute = new IndicatorBarAttribute(indicatorBar, SizeMode.Normal,
     CommonConstants.DEFAULT_INDICATOR_WIDTH, CommonConstants.DEFAULT_INDICATOR_HEIGHT);
+
   // 页签条属性
   tabBarAttribute: TabBarAttribute =
     new TabBarAttribute(CommonConstants.DEFAULT_LIST_ITEM_WIDTH, CommonConstants.DEFAULT_BAR_HEIGHT);
+
   // tab控制器
   tabController: CustomAnimationTabController = new CustomAnimationTabController();
+
   // 页签条控制器
   scroller: Scroller = new Scroller();
+
   // 页签切换时长
   animationDuration: number = CommonConstants.DEFAULT_ANIMATION_DURATION;
+
   // 起始页签索引
   startIndex: number = 0;
+
   /**
    * 手势滑动动效
    * @param {number} index - 起始页签索引
@@ -98,6 +117,7 @@ export struct CustomAnimationTab {
       this.animationAttribute.indicatorBarWidth = indicatorSize[0];
       this.animationAttribute.indicatorBarHeight = indicatorSize[1];
     };
+
   /**
    * 自动滑动动效
    * @param {number} index - 起始页签索引
@@ -118,6 +138,7 @@ export struct CustomAnimationTab {
       this.animationAttribute.indicatorBarWidth = indicatorSize[0];
       this.animationAttribute.indicatorBarHeight = indicatorSize[1];
     };
+
   /**
    * 点击页签动效
    * @param {number} index - 当前页签索引
@@ -140,6 +161,7 @@ export struct CustomAnimationTab {
         animation: { duration: this.animationDuration, curve: Curve.Linear }
       });
     };
+
   /**
    * 获取页签对应的背景条位置以及页签条偏移
    * @param {number} center - 页签中心点
@@ -161,9 +183,15 @@ export struct CustomAnimationTab {
       finalIndicatorLeft += listOffset - finalListOffset;
       return [finalIndicatorLeft, finalListOffset];
     };
+
   // --------------------私有属性----------------------------
+  // @State curIndex：组件内部状态
   @State curIndex: number = 0;
+
+  // @State barTitles：组件内部状态
   @State barTitles: string[] = [];
+
+  // @State barHeight：组件内部状态
   @State barHeight: Length | undefined = undefined; // 页签条高度
   private componentUtils: ComponentUtils = this.getUIContext().getComponentUtils();
   private tabsWidth: number = 0;
@@ -172,6 +200,8 @@ export struct CustomAnimationTab {
   private isReachBorder: boolean = true; // 判断tab是否到达边界
   private elementsInfo: IndicatorAnimationInfo[] = []; // 页签对应的背景条位置、页签条偏移、背景条高度以及背景条宽度
   private isAnimationStart: boolean = false;
+
+  // @BuilderParam indicatorBar：构建函数参数
   @BuilderParam private indicatorBar: (index: BaseInterface) => void; // 自定义背景条
   private maxIndicatorBarLeft: number = 0; // 背景条最大偏移(<0: 无上限, >=0: maxIndicatorBarLeft)
   private indicatorBarAlign: VerticalAlign = VerticalAlign.Top; // 背景条垂直布局
@@ -188,6 +218,9 @@ export struct CustomAnimationTab {
   private indicatorHeight: number = 0;
   private indicatorWidth: number = 0;
 
+  /**
+   * aboutToAppear：组件即将挂载时回调，用于初始化数据与订阅。
+   */
   aboutToAppear(): void {
     // 检查参数是否合法及初始化
     this.checkNotLegal();
@@ -272,9 +305,16 @@ export struct CustomAnimationTab {
     }
   }
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // RelativeContainer：相对布局容器
+    // 关键属性：宽度、高度、onSizeChange
     RelativeContainer() {
       // tab
+      // Swiper：轮播容器
+      // 关键属性：是否循环、是否纵向、index、duration
       Swiper(this.tabController) {
         ForEach(this.barTitles, (item: string, index: number) => {
           this.factory.getContent(item)?.builder(this.factory.getParams(item));
@@ -364,9 +404,15 @@ export struct CustomAnimationTab {
         this.tabsWidth = Number.isNaN(width) ? 0 : width;
       })
 
+      // Stack：层叠布局容器
+      // 关键属性：高度、背景色
       Stack({ alignContent: Alignment.Start }) {
         // 背景条
+        // Row：水平布局容器
+        // 关键属性：交叉轴对齐
         Row() {
+          // Column：垂直布局容器
+          // 关键属性：高度、宽度、外边距
           Column() {
             this.indicatorBar({ 'curIndex': this.curIndex });
           }
@@ -374,7 +420,7 @@ export struct CustomAnimationTab {
           .height(this.animationAttribute.indicatorBarHeight)
           .width(this.animationAttribute.indicatorBarWidth)
           .margin({ left: this.animationAttribute.left })
-        }
+        }.id('custom_animation_tab_row_2')
         .alignItems(this.indicatorBarAlign)
         // TODO: 知识点: 通过clip保证超出容器的部分被截断
         .clip(true)
@@ -383,17 +429,26 @@ export struct CustomAnimationTab {
 
         // 页签条
         // TODO: 知识点: 通过scroll将list内部所有item加载出来, 否则只能获取部分页签项的背景条位置和页签条偏移
+        // Scroll：滚动容器
+        // 关键属性：外边距、边缘效果、scrollable、滚动条、高度、宽度
         Scroll(this.scroller!) {
+          // List：列表容器
+          // 关键属性：alignListItem、列表方向、滚动条、高度
           List() {
             ForEach(this.barTitles, (item: string, index: number) => {
+              // ListItem：列表项
+              // 关键属性：function toString() { [native code] }、高度、宽度、点击事件回调、changeIndex
+              // 交互：可点击交互
               ListItem() {
+                // Column：垂直布局容器
+                // 关键属性：内边距
                 Column() {
                   if (this.factory.getBar(item) !== undefined) {
                     this.factory.getBar(item)?.builder({ curIndex: this.curIndex, index: index, title: item });
                   } else {
                     tabBar({ curIndex: this.curIndex, index: index, title: item });
                   }
-                }
+                }.id('custom_animation_tab_column_5')
                 .padding(this.sizeMode === SizeMode.Padding ?
                   {
                     left: this.indicatorWidth,
@@ -470,12 +525,12 @@ export struct CustomAnimationTab {
                 }
               })
             }, (item: string, index: number) => index.toString())
-          }
+          }.id('custom_animation_tab_list_4')
           .alignListItem(ListItemAlign.Center)
           .listDirection(Axis.Horizontal)
           .scrollBar(BarState.Off)
           .height(CommonConstants.FULL_PERCENT)
-        }
+        }.id('custom_animation_tab_scroll_3')
         .margin(this.tabBarAttribute.barMargin)
         .edgeEffect(this.barEdgeEffect)
         .scrollable(ScrollDirection.Horizontal)
@@ -524,7 +579,7 @@ export struct CustomAnimationTab {
         right: { anchor: '__container__', align: HorizontalAlign.End },
         left: { anchor: '__container__', align: HorizontalAlign.Start }
       })
-    }
+    }.id('custom_animation_tab_relative_container_1')
     .width(CommonConstants.FULL_PERCENT)
     .height(CommonConstants.FULL_PERCENT)
     .onSizeChange((oldValue: SizeOptions, newValue: SizeOptions) => {
@@ -586,12 +641,22 @@ export struct CustomAnimationTab {
 /**
  * 默认tabContent样式
  */
+/**
+ * baseBuilder：函数定义，承载本文件对应的逻辑与数据。
+ */
 @Builder
 function baseBuilder(params: ESObject) {
+  // Column：垂直布局容器
+  // 关键属性：主轴对齐、高度、宽度
+  /**
+   * Column：执行 Column 相关逻辑。
+   */
   Column() {
-    Text('Text')
+    // Text：文本
+    // 关键属性：字号
+    Text('Text').id('custom_animation_tab_text_7')
       .fontSize(CommonConstants.DEFAULT_TAB_CONTENT_FONT_SIZE)
-  }
+  }.id('custom_animation_tab_column_6')
   .justifyContent(FlexAlign.Center)
   .height(CommonConstants.FULL_PERCENT)
   .width(CommonConstants.FULL_PERCENT)
@@ -601,9 +666,17 @@ function baseBuilder(params: ESObject) {
  * 默认tabBar样式
  * @param {TabBarItemInterface} $$ - 返回的页签信息
  */
+/**
+ * tabBar：函数定义，承载本文件对应的逻辑与数据。
+ */
 @Builder
 function tabBar($$: TabBarItemInterface) {
-  Text($$.title)
+  // Text：文本
+  // 关键属性：字号
+  /**
+   * Text：执行 Text 相关逻辑。
+   */
+  Text($$.title).id('custom_animation_tab_text_8')
     .fontSize($$.curIndex === $$.index ? CommonConstants.DEFAULT_TAB_BAR_SELECT_FONT_SIZE :
     CommonConstants.DEFAULT_TAB_BAR_UNSELECT_FONT_SIZE)
     .fontColor(CommonConstants.DEFAULT_TAB_BAR_FONT_COLOR)
@@ -615,9 +688,17 @@ function tabBar($$: TabBarItemInterface) {
  * 默认背景条样式
  * @param {BaseInterface} $$ - 返回的基本信息
  */
+/**
+ * indicatorBar：函数定义，承载本文件对应的逻辑与数据。
+ */
 @Builder
 function indicatorBar($$: BaseInterface) {
-  Column()
+  // Column：垂直布局容器
+  // 关键属性：高度、宽度、背景色、圆角
+  /**
+   * Column：执行 Column 相关逻辑。
+   */
+  Column().id('custom_animation_tab_column_9')
     .height(CommonConstants.FULL_PERCENT)
     .width(CommonConstants.FULL_PERCENT)
     .backgroundColor(Color.Red)
