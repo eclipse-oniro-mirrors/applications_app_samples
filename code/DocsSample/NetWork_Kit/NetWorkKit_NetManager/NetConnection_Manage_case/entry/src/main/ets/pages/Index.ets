@@ -38,12 +38,17 @@ const TEXT_MARGIN_TOP_L = 10; // 长文本的上边距
 
 // 监控默认网络变化
 function test() {
-  // [Start monitor_default_network_change]
+// [Start monitor_default_network_change]
+try {
   const netConnection = connection.createNetConnection();
   /* 监听默认网络改变 */
   netConnection.on('netAvailable', (data: connection.NetHandle) => {
-    hilog.info(0x0000, 'testTag', JSON.stringify(data));
+  hilog.info(0x0000, 'testTag', JSON.stringify(data));
   });
+  } catch (err) {
+  let error = err as BusinessError;
+  hilog.error(0x0000, 'testTag', createNetConnection failed, code: ${error.code}, message: ${error.message});
+  }
   // [End monitor_default_network_change]
 }
 
@@ -110,9 +115,15 @@ function socketSend(tcpSendOptions: socket.TCPSendOptions) {
 }
 
 function socketTest() {
-  const netConnection = connection.createNetConnection();
+  let netConnection: connection.NetConnection | undefined = undefined;
+try {
+  netConnection = connection.createNetConnection();
+} catch (err) {
+  let error = err as BusinessError;
+  hilog.error(0x0000, 'testTag', createNetConnection failed, code: ${error.code}, message: ${error.message});
+}
   // 网络切换会导致网络发生中断，原socket失效，故需重新建立socket。
-  netConnection.on('netAvailable', (netHandle: connection.NetHandle) => {
+  netConnection?.on('netAvailable', (netHandle: connection.NetHandle) => {
     hilog.info(0x0000, 'testTag', 'default network changed: ' + JSON.stringify(netHandle));
     sock.close();
     sock = socket.constructTCPSocketInstance();
@@ -123,7 +134,7 @@ function socketTest() {
   try {
     // [EndExclude original_network_connection_uses_socket]
     // 订阅指定网络状态变化的通知。
-    netConnection.register((error: BusinessError) => {
+    netConnection?.register((error: BusinessError) => {
       if (error) {
         hilog.error(0x0000, 'testTag', 'register fail: ' + JSON.stringify(error));
       } else {
