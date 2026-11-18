@@ -14,7 +14,7 @@
  */
 
 import { UIAbility } from '@kit.AbilityKit';
-import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 import { window as Window } from '@kit.ArkUI';
@@ -28,8 +28,8 @@ export default class TestAbility extends UIAbility {
   onCreate(want:Want, launchParam:AbilityConstant.LaunchParam) {
     Logger.info(TAG, 'TestAbility onCreate');
     Logger.info(TAG, `want param: ${JSON.stringify(want)}, launchParam: ${JSON.stringify(launchParam)}`);
-    let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs = AbilityDelegatorRegistry.getArguments();
+    let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
+    let abilityDelegatorArguments: abilityDelegatorRegistry.AbilityDelegatorArgs = abilityDelegatorRegistry.getArguments();
     Logger.info(TAG, 'start run testcase!!!');
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }

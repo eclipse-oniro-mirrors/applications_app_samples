@@ -17,13 +17,14 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 import { Rect, Point, Component, Driver, ON } from '@kit.TestKit';
 import logger from '../util/Logger';
-import { UIAbility, AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { UIAbility } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { resourceManager } from '@kit.LocalizationKit';
 
 const TAG: string = '[Sample_CanvasGame]';
 const BUNDLE: string = 'canvasGame_';
 const DRIVER: Driver = Driver.create();
-let abilityDelegatorRegistry: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+let delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 export default function abilityTest() {
   describe('ActsAbilityTest', () => {
@@ -31,7 +32,7 @@ export default function abilityTest() {
     /**
      */
     it(BUNDLE + 'OpenFormList_001', 0, async (done: Function) => {
-      let ability: UIAbility = await abilityDelegatorRegistry.getCurrentTopAbility();
+      let ability: UIAbility = await delegator.getCurrentTopAbility();
       let manager: resourceManager.ResourceManager = ability.context.resourceManager;
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
       logger.info(TAG, `${BUNDLE}OpenFormList_001 begin`);
@@ -57,7 +58,7 @@ export default function abilityTest() {
     it(BUNDLE + 'createForm_001', 0, async (done: Function) => {
       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
       logger.info(TAG, `${BUNDLE}createForm_001 begin`);
-      let resourceManager: resourceManager.ResourceManager = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
+      let resourceManager: resourceManager.ResourceManager = abilityDelegatorRegistry.getAbilityDelegator().getAppContext().resourceManager;
       await DRIVER.delayMs(500);
       await DRIVER.assertComponentExist(ON.text(await resourceManager.getStringValue($r('app.string.AddForm'))));
       let addToDesk: Component = await DRIVER.findComponent(ON.text(await resourceManager.getStringValue($r('app.string.AddForm'))));

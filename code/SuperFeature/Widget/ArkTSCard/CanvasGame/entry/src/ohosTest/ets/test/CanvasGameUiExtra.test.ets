@@ -16,12 +16,13 @@
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { Component, Driver, ON } from '@kit.TestKit';
-import { common, AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { common } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { Want } from '@kit.AbilityKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
 const B: string='com.samples.canvasgame';
-  const D: AbilityDelegatorRegistry.AbilityDelegator=AbilityDelegatorRegistry.getAbilityDelegator();
+  const D: abilityDelegatorRegistry.AbilityDelegator=abilityDelegatorRegistry.getAbilityDelegator();
   let drv: Driver;
   let c: common.Context= D.getAppContext();
 function w(ms:number): Promise<void> {

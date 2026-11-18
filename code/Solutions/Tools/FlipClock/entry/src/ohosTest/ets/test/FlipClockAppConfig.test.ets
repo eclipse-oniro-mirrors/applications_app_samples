@@ -211,7 +211,7 @@ export default function flipClockAppConfigTest() {
     it('ohos.samples.flipclock_AppConfig_0009', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.flipclock_AppConfig_0009 begin');
       for (let i: number = 0; i < info.reqPermissionDetails.length; i++) {
-        const item: bundleManager.PermissionDef = info.reqPermissionDetails[i];
+        const item: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[i];
         if (item.name.includes('CALENDAR')) {
           hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.reason.length > 0));
           expect(item.reason.length > 0).assertTrue();

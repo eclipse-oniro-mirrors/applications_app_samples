@@ -15,7 +15,7 @@
 
 import { afterEach, beforeAll, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
 import { Component, Driver, ON, Point } from '@kit.TestKit';
-import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { fileIo } from '@kit.CoreFileKit';
 import { Contact, ContactSource, MyDataSource } from '../../../main/ets/common/DataSource';
@@ -27,7 +27,7 @@ const BUNDLE_NAME: string = 'ohos.samples.flipclock';
 const ABILITY_NAME: string = 'EntryAbility';
 const STORAGE_PATH: string = '/data/storage/el2/base/haps/entry/preferences/storage';
 
-const delegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+const delegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
 
 function log(message: string): void {
   hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', message);

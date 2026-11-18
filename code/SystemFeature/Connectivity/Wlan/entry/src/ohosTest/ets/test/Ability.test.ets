@@ -15,7 +15,7 @@
 
 import { describe, it, expect } from '@ohos/hypium';
 import { Component, Driver, ON } from '@kit.TestKit';
-import { AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { wifiManager as wifi } from '@kit.ConnectivityKit';
 import { resourceManager } from '@kit.LocalizationKit';
@@ -23,7 +23,7 @@ import { resourceManager } from '@kit.LocalizationKit';
 const TAG: string = '[Sample_Wlan]'
 const DOMAIN: number = 0xFF00
 const BUNDLE: string = 'Wlan_'
-let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
+let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
 async function getResourceString(resource: Resource): Promise<string> {
   let manage: resourceManager.ResourceManager = abilityDelegator.getAppContext().resourceManager
   let text: string = await manage.getStringValue(resource)
@@ -36,7 +36,7 @@ export default function abilityTest() {
      */
     it(BUNDLE + 'StartAbility_001', 0, async (done: Function) => {
       hilog.info(DOMAIN, TAG, BUNDLE + 'StartAbility_001 begin')
-      let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
+      let abilityDelegator: abilityDelegatorRegistry.AbilityDelegator = abilityDelegatorRegistry.getAbilityDelegator()
       try {
         await abilityDelegator.startAbility({
           bundleName: 'ohos.samples.wlan',

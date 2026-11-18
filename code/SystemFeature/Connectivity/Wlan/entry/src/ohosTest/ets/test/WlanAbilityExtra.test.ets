@@ -54,7 +54,7 @@ export default function wlanAbilityExtraTest() {
      */
     it('ohos.samples.wlan_AbilityExtra_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_AbilityExtra_0002 begin');
-      const skill: bundleManager.SkillInfo = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
+      const skill: bundleManager.Skill = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(skill.entities.length), String(1));
       expect(skill.entities.length).assertEqual(1);
       hilog.info(LOG_DOMAIN, LOG_TAG, 'actual=%{public}s expected=%{public}s', String(skill.actions.length), String(1));

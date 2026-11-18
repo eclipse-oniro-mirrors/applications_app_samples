@@ -36,7 +36,7 @@ export default function wlanBundleSceneTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0001 begin');
       let found: boolean = false;
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
-          const item: bundleManager.PermissionDef = info.reqPermissionDetails[index];
+          const item: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[index];
         if (item.name === 'ohos.permission.GET_WIFI_INFO') {
           found = true;
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.abilities.includes('MainAbility')));
@@ -64,7 +64,7 @@ export default function wlanBundleSceneTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0002 begin');
       let found: boolean = false;
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
-          const item: bundleManager.PermissionDef = info.reqPermissionDetails[index];
+          const item: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[index];
         if (item.name === 'ohos.permission.SET_WIFI_INFO') {
           found = true;
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.abilities.includes('MainAbility')));
@@ -92,7 +92,7 @@ export default function wlanBundleSceneTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0003 begin');
       let found: boolean = false;
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
-          const item: bundleManager.PermissionDef = info.reqPermissionDetails[index];
+          const item: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[index];
         if (item.name === 'ohos.permission.LOCATION') {
           found = true;
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.abilities.includes('MainAbility')));
@@ -120,7 +120,7 @@ export default function wlanBundleSceneTest() {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleScene_0004 begin');
       let found: boolean = false;
         for (let index: number = 0; index < info.reqPermissionDetails.length; index++) {
-          const item: bundleManager.PermissionDef = info.reqPermissionDetails[index];
+          const item: bundleManager.ReqPermissionDetail = info.reqPermissionDetails[index];
         if (item.name === 'ohos.permission.APPROXIMATELY_LOCATION') {
           found = true;
         hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(item.usedScene.abilities.includes('MainAbility')));

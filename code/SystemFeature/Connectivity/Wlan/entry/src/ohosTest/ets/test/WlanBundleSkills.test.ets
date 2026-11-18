@@ -54,7 +54,7 @@ export default function wlanBundleSkillsTest() {
      */
     it('ohos.samples.wlan_BundleSkills_0002', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleSkills_0002 begin');
-      const skill: bundleManager.SkillInfo = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
+      const skill: bundleManager.Skill = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(skill.entities.includes('entity.system.home')));
       expect(skill.entities.includes('entity.system.home')).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(skill.entities.length > 0));
@@ -72,7 +72,7 @@ export default function wlanBundleSkillsTest() {
      */
     it('ohos.samples.wlan_BundleSkills_0003', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, () => {
       hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'ohos.samples.wlan_BundleSkills_0003 begin');
-      const skill: bundleManager.SkillInfo = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
+      const skill: bundleManager.Skill = info.hapModulesInfo[0].abilitiesInfo[0].skills[0];
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(skill.actions.includes('action.system.home')));
       expect(skill.actions.includes('action.system.home')).assertTrue();
       hilog.info(LOG_DOMAIN, LOG_TAG, 'value=%{public}s', String(skill.actions.length > 0));

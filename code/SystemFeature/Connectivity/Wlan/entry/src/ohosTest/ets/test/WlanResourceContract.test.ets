@@ -15,10 +15,11 @@
 
 import { describe, it, expect, beforeAll, TestType, Size, Level } from '@ohos/hypium';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { common, AbilityDelegatorRegistry } from '@kit.AbilityKit';
+import { common } from '@kit.AbilityKit';
+import { abilityDelegatorRegistry } from '@kit.TestKit';
 const LOG_DOMAIN: number = 0xF811;
 const LOG_TAG: string = '[SampleTest]';
-let appContext: common.Context = AbilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+let appContext: common.Context = abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
 
 export default function wlanResourceContractTest() {
   describe('WlanResourceContractTest', () => {
