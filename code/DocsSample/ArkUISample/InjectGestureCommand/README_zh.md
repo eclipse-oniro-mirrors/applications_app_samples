@@ -1,6 +1,6 @@
-# 注入手势命令（NdkUiEventInjection）
+# 注入手势命令（InjectGestureCommand）
 
-本示例对应《注入手势命令》开发指南，展示通过NDK接口向UI实例注入手势命令（点击、滚动、内容切换、返回、按键）的方法。
+本示例对应《注入手势命令》开发指南，展示通过Native接口向UI实例注入手势命令（点击、滚动、内容切换、返回、按键）的方法。
 
 ### 使用说明
 
@@ -53,7 +53,7 @@ entry/src/main/
 ```
 git init
 git config core.sparsecheckout true
-echo code/DocsSample/ArkUISample/NdkUiEventInjection > .git/info/sparse-checkout
+echo code/DocsSample/ArkUISample/InjectGestureCommand > .git/info/sparse-checkout
 git remote add origin https://gitcode.com/openharmony/applications_app_samples.git
 git pull origin master
 ```
