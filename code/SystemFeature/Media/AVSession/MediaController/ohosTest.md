@@ -5,12 +5,10 @@
 - 开发板：RK3568，OpenHarmony 7.1.0.21，API 26
 - 测试套件：`MediaControllerTest`，共 2324 条，Level 0/2
 - 测试提供方：由 `ohosTest` 在测试进程中创建 AVSession（audio），激活后发布元数据、播放列表、播放状态与歌词事件
-- 运行命令：
+- 运行方式：DevEco Studio 中选中 entry 模块右键 `Run 'test'`，或命令行：
 
 ```bash
-hdc shell aa test -b com.samples.mediacontroller -m entry_test \
-  -s unittest /ets/TestRunner/OpenHarmonyTestRunner \
-  -s class MediaControllerTest -s timeout 300000
+hvigorw --mode module -p module=entry@ohosTest -p product=default test
 ```
 
 ## 用例清单
