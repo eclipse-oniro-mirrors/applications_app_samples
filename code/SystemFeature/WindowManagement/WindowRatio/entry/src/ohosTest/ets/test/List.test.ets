@@ -49,6 +49,7 @@ import ratioPageStateFlowTest from './logic/RatioPageStateFlow.test';
 import ratioPageStateFlow2Test from './logic/RatioPageStateFlow2.test';
 import ratioPageStateFlow3Test from './logic/RatioPageStateFlow3.test';
 import ratioPageStateFlow4Test from './logic/RatioPageStateFlow4.test';
+import ratioPageStateFlow5Test from './logic/RatioPageStateFlow5.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -90,4 +91,5 @@ export default function testsuite() {
   ratioPageStateFlow2Test();
   ratioPageStateFlow3Test();
   ratioPageStateFlow4Test();
+  ratioPageStateFlow5Test();
 }
