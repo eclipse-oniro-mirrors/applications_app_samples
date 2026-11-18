@@ -1898,3 +1898,1024 @@ export default function localUnitTest() {
     it('StartOptions_bulk_param_227', 0, () => {
       const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1300 };
       expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 228.
+     */
+    it('StartOptions_bulk_param_228', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 229.
+     */
+    it('StartOptions_bulk_param_229', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 230.
+     */
+    it('StartOptions_bulk_param_230', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 231.
+     */
+    it('StartOptions_bulk_param_231', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 232.
+     */
+    it('StartOptions_bulk_param_232', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 233.
+     */
+    it('StartOptions_bulk_param_233', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 234.
+     */
+    it('StartOptions_bulk_param_234', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 235.
+     */
+    it('StartOptions_bulk_param_235', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 236.
+     */
+    it('StartOptions_bulk_param_236', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 237.
+     */
+    it('StartOptions_bulk_param_237', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 238.
+     */
+    it('StartOptions_bulk_param_238', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 239.
+     */
+    it('StartOptions_bulk_param_239', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 240.
+     */
+    it('StartOptions_bulk_param_240', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 241.
+     */
+    it('StartOptions_bulk_param_241', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 242.
+     */
+    it('StartOptions_bulk_param_242', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 243.
+     */
+    it('StartOptions_bulk_param_243', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 244.
+     */
+    it('StartOptions_bulk_param_244', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 245.
+     */
+    it('StartOptions_bulk_param_245', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 246.
+     */
+    it('StartOptions_bulk_param_246', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 247.
+     */
+    it('StartOptions_bulk_param_247', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 248.
+     */
+    it('StartOptions_bulk_param_248', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 249.
+     */
+    it('StartOptions_bulk_param_249', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 250.
+     */
+    it('StartOptions_bulk_param_250', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 251.
+     */
+    it('StartOptions_bulk_param_251', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 252.
+     */
+    it('StartOptions_bulk_param_252', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 253.
+     */
+    it('StartOptions_bulk_param_253', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 254.
+     */
+    it('StartOptions_bulk_param_254', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 255.
+     */
+    it('StartOptions_bulk_param_255', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 256.
+     */
+    it('StartOptions_bulk_param_256', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 257.
+     */
+    it('StartOptions_bulk_param_257', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 258.
+     */
+    it('StartOptions_bulk_param_258', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 259.
+     */
+    it('StartOptions_bulk_param_259', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 260.
+     */
+    it('StartOptions_bulk_param_260', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 261.
+     */
+    it('StartOptions_bulk_param_261', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 262.
+     */
+    it('StartOptions_bulk_param_262', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 263.
+     */
+    it('StartOptions_bulk_param_263', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 264.
+     */
+    it('StartOptions_bulk_param_264', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 265.
+     */
+    it('StartOptions_bulk_param_265', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 266.
+     */
+    it('StartOptions_bulk_param_266', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 267.
+     */
+    it('StartOptions_bulk_param_267', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 268.
+     */
+    it('StartOptions_bulk_param_268', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 269.
+     */
+    it('StartOptions_bulk_param_269', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 270.
+     */
+    it('StartOptions_bulk_param_270', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 271.
+     */
+    it('StartOptions_bulk_param_271', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 272.
+     */
+    it('StartOptions_bulk_param_272', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 273.
+     */
+    it('StartOptions_bulk_param_273', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 274.
+     */
+    it('StartOptions_bulk_param_274', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 275.
+     */
+    it('StartOptions_bulk_param_275', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 276.
+     */
+    it('StartOptions_bulk_param_276', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 277.
+     */
+    it('StartOptions_bulk_param_277', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 278.
+     */
+    it('StartOptions_bulk_param_278', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 279.
+     */
+    it('StartOptions_bulk_param_279', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 280.
+     */
+    it('StartOptions_bulk_param_280', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 281.
+     */
+    it('StartOptions_bulk_param_281', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 282.
+     */
+    it('StartOptions_bulk_param_282', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 283.
+     */
+    it('StartOptions_bulk_param_283', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 284.
+     */
+    it('StartOptions_bulk_param_284', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 285.
+     */
+    it('StartOptions_bulk_param_285', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 286.
+     */
+    it('StartOptions_bulk_param_286', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 287.
+     */
+    it('StartOptions_bulk_param_287', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 288.
+     */
+    it('StartOptions_bulk_param_288', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 289.
+     */
+    it('StartOptions_bulk_param_289', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 290.
+     */
+    it('StartOptions_bulk_param_290', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 291.
+     */
+    it('StartOptions_bulk_param_291', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 292.
+     */
+    it('StartOptions_bulk_param_292', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 293.
+     */
+    it('StartOptions_bulk_param_293', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 294.
+     */
+    it('StartOptions_bulk_param_294', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 295.
+     */
+    it('StartOptions_bulk_param_295', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 296.
+     */
+    it('StartOptions_bulk_param_296', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 297.
+     */
+    it('StartOptions_bulk_param_297', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 298.
+     */
+    it('StartOptions_bulk_param_298', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 299.
+     */
+    it('StartOptions_bulk_param_299', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 300.
+     */
+    it('StartOptions_bulk_param_300', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 301.
+     */
+    it('StartOptions_bulk_param_301', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 302.
+     */
+    it('StartOptions_bulk_param_302', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 303.
+     */
+    it('StartOptions_bulk_param_303', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 304.
+     */
+    it('StartOptions_bulk_param_304', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 305.
+     */
+    it('StartOptions_bulk_param_305', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 306.
+     */
+    it('StartOptions_bulk_param_306', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 307.
+     */
+    it('StartOptions_bulk_param_307', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 308.
+     */
+    it('StartOptions_bulk_param_308', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 309.
+     */
+    it('StartOptions_bulk_param_309', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 310.
+     */
+    it('StartOptions_bulk_param_310', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 311.
+     */
+    it('StartOptions_bulk_param_311', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 312.
+     */
+    it('StartOptions_bulk_param_312', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 313.
+     */
+    it('StartOptions_bulk_param_313', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 314.
+     */
+    it('StartOptions_bulk_param_314', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 315.
+     */
+    it('StartOptions_bulk_param_315', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 316.
+     */
+    it('StartOptions_bulk_param_316', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 317.
+     */
+    it('StartOptions_bulk_param_317', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 318.
+     */
+    it('StartOptions_bulk_param_318', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 319.
+     */
+    it('StartOptions_bulk_param_319', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 320.
+     */
+    it('StartOptions_bulk_param_320', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 321.
+     */
+    it('StartOptions_bulk_param_321', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 322.
+     */
+    it('StartOptions_bulk_param_322', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 323.
+     */
+    it('StartOptions_bulk_param_323', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 324.
+     */
+    it('StartOptions_bulk_param_324', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 325.
+     */
+    it('StartOptions_bulk_param_325', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 326.
+     */
+    it('StartOptions_bulk_param_326', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 327.
+     */
+    it('StartOptions_bulk_param_327', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 328.
+     */
+    it('StartOptions_bulk_param_328', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 329.
+     */
+    it('StartOptions_bulk_param_329', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 330.
+     */
+    it('StartOptions_bulk_param_330', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 331.
+     */
+    it('StartOptions_bulk_param_331', 0, () => {
+      const options: StartOptions = { minWindowWidth: 600, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(600);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 332.
+     */
+    it('StartOptions_bulk_param_332', 0, () => {
+      const options: StartOptions = { minWindowWidth: 620, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(620);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 333.
+     */
+    it('StartOptions_bulk_param_333', 0, () => {
+      const options: StartOptions = { minWindowWidth: 640, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(640);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 334.
+     */
+    it('StartOptions_bulk_param_334', 0, () => {
+      const options: StartOptions = { minWindowWidth: 660, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(660);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 335.
+     */
+    it('StartOptions_bulk_param_335', 0, () => {
+      const options: StartOptions = { minWindowWidth: 680, maxWindowWidth: 1300 };
+      expect(options.minWindowWidth).assertEqual(680);
+      expect(options.maxWindowWidth).assertEqual(1300);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 336.
+     */
+    it('StartOptions_bulk_param_336', 0, () => {
+      const options: StartOptions = { minWindowWidth: 700, maxWindowWidth: 1350 };
+      expect(options.minWindowWidth).assertEqual(700);
+      expect(options.maxWindowWidth).assertEqual(1350);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 337.
+     */
+    it('StartOptions_bulk_param_337', 0, () => {
+      const options: StartOptions = { minWindowWidth: 720, maxWindowWidth: 1400 };
+      expect(options.minWindowWidth).assertEqual(720);
+      expect(options.maxWindowWidth).assertEqual(1400);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 338.
+     */
+    it('StartOptions_bulk_param_338', 0, () => {
+      const options: StartOptions = { minWindowWidth: 740, maxWindowWidth: 1450 };
+      expect(options.minWindowWidth).assertEqual(740);
+      expect(options.maxWindowWidth).assertEqual(1450);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 339.
+     */
+    it('StartOptions_bulk_param_339', 0, () => {
+      const options: StartOptions = { minWindowWidth: 760, maxWindowWidth: 1200 };
+      expect(options.minWindowWidth).assertEqual(760);
+      expect(options.maxWindowWidth).assertEqual(1200);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });
+    /**
+     * Verify the bulk StartOptions configuration 340.
+     */
+    it('StartOptions_bulk_param_340', 0, () => {
+      const options: StartOptions = { minWindowWidth: 780, maxWindowWidth: 1250 };
+      expect(options.minWindowWidth).assertEqual(780);
+      expect(options.maxWindowWidth).assertEqual(1250);
+      expect((options.maxWindowWidth as number) >= (options.minWindowWidth as number)).assertTrue();
+    });  });
+}
