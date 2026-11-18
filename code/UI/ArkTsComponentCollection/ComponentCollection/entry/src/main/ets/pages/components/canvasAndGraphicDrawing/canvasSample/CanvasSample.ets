@@ -13,6 +13,13 @@
  * limitations under the License.
  */
 
+/**
+ * @file entry/src/main/ets/pages/components/canvasAndGraphicDrawing/canvasSample/CanvasSample.ets
+ * 文件职责：CanvasSample 相关的 ArkTS 声明与 UI 构建逻辑。
+ * 主要声明：CanvasSample。
+ * 约定：所有 UI 组件均带 .id() 便于自动化测试按 id 定位；注释描述组件职责与关键属性。
+ */
+
 import { TitleBar } from '../../../../common/TitleBar';
 import { LEFT_PADDING, RIGHT_PADDING } from '../../ComponentData';
 
@@ -23,18 +30,33 @@ import { LEFT_PADDING, RIGHT_PADDING } from '../../ComponentData';
   .padding(12)
 }
 
+/**
+ * CanvasSample：自定义组件定义，承载本文件对应的UI 结构与状态。
+ */
 @Entry
 @Component
 struct CanvasSample {
   private settings: RenderingContextSettings = new RenderingContextSettings(true);
   private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings);
 
+  /**
+   * build：UI 构建入口，声明本组件的组件树结构。
+   */
   build() {
+    // Column：垂直布局容器
+    // 关键属性：背景色、高度
     Column() {
-      TitleBar({ title: $r('app.string.canvas_title') })
+      // TitleBar：TitleBar 自定义组件
+      TitleBar({ title: $r('app.string.canvas_title') }).id('canvas_sample_title_bar_2')
+      // Column：垂直布局容器
+      // 关键属性：内边距
       Column() {
+        // Column：垂直布局容器
+        // 关键属性：cardStyle、高度、内边距
         Column() {
-          Canvas(this.context)
+          // Canvas：画布
+          // 关键属性：背景色、onReady、fillRect
+          Canvas(this.context).id('canvas_sample_canvas_5')
             .backgroundColor('#ff9750d6')
             .onReady(() => {
               this.context.fillRect(40, 30, 100, 100)
@@ -45,10 +67,10 @@ struct CanvasSample {
               this.context.strokeStyle = '#ff00ff'
             })
             .size({ width: 300, height: 200 })
-        }.cardStyle()
+        }.id('canvas_sample_column_4').cardStyle()
         .height('35%')
-      }.padding({ left: LEFT_PADDING, right: RIGHT_PADDING })
-    }
+      }.id('canvas_sample_column_3').padding({ left: LEFT_PADDING, right: RIGHT_PADDING })
+    }.id('canvas_sample_column_1')
     .backgroundColor($r('app.color.background_light_gray'))
     .height('100%')
   }
