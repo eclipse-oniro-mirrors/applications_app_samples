@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Huawei Device Co., Ltd.
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,38 +12,57 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
 
-export default function abilityTest() {
-  describe('ActsAbilityTest', () => {
-    // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, Level, Size, TestType } from '@ohos/hypium';
+import hilog from '@ohos.hilog';
+import { CallTestFixture, makeFailure } from './Shared/CallTestFixture';
+
+export default function AbilityTest(): void {
+  describe('AbilityTest', () => {
+    let fixture: CallTestFixture;
+
     beforeAll(() => {
-      // Presets an action, which is performed only once before all test cases of the test suite start.
-      // This API supports only one parameter: preset action function.
-    })
-    beforeEach(() => {
-      // Presets an action, which is performed before each unit test case starts.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: preset action function.
-    })
+      hilog.info(0x0000, 'MakeCallTest', 'Starting AbilityTest');
+    });
+
+    beforeEach(async () => {
+      fixture = new CallTestFixture();
+      await fixture.yieldToEventLoop();
+    });
+
     afterEach(() => {
-      // Presets a clear action, which is performed after each unit test case ends.
-      // The number of execution times is the same as the number of test cases defined by **it**.
-      // This API supports only one parameter: clear action function.
-    })
+      fixture.dispose();
+    });
+
     afterAll(() => {
-      // Presets a clear action, which is performed after all test cases of the test suite end.
-      // This API supports only one parameter: clear action function.
-    })
-    it('assertContain', 0, () => {
-      // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
-      hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
-      let a = 'abc';
-      let b = 'b';
-      // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
-      expect(a).assertContain(b);
-      expect(a).assertEqual(a);
-    })
-  })
+      hilog.info(0x0000, 'MakeCallTest', 'Finished AbilityTest');
+    });
+
+    /**
+     * @tc.name Ability_deferredSuccess_001
+     * @tc.number SUB_TELEPHONY_MAKECALL_Ability_deferredSuccess_0100
+     * @tc.desc Verify deferredSuccess for request fixture 1, error 401, burst 3.
+     * @tc.type FUNCTION
+     * @tc.size MEDIUMTEST
+     * @tc.level LEVEL2
+     */
+    it('Ability_deferredSuccess_001', TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async (): Promise<void> => {
+      fixture.controller.start('tel:13800000001');
+      expect(fixture.service.capabilityChecks).assertEqual(1);
+      expect(fixture.service.requests.length).assertEqual(1);
+      expect(fixture.service.requests[0]).assertEqual('tel:13800000001');
+      expect(fixture.service.operations.join(',')).assertEqual('capability,makeCall,subscribe');
+      expect(fixture.logger.successes).assertEqual(0);
+      expect(fixture.logger.failures.length).assertEqual(0);
+      expect(fixture.service.subscribeAttempts).assertEqual(1);
+      expect(fixture.service.listeners.length).assertEqual(1);
+      await fixture.service.completeLater(0);
+      expect(fixture.logger.successes).assertEqual(1);
+      expect(fixture.logger.failures.length).assertEqual(0);
+      expect(fixture.logger.states.length).assertEqual(0);
+      fixture.controller.dispose();
+      expect(fixture.service.unsubscribeAttempts).assertEqual(1);
+      expect(fixture.service.removedListeners[0]).assertEqual(fixture.service.listeners[0]);
+    });
+  });
 }
