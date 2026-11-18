@@ -44,7 +44,7 @@ try {
   conn = connection.createNetConnection(netSpecifier, TIMEOUT);
 } catch (err) {
   let error = err as BusinessError;
-  hilog.error(0x0000, 'testTag', createNetConnection failed, code: ${error.code}, message: ${error.message});
+  hilog.error(0x0000, 'testTag', `createNetConnection failed, code: ${error.code}, message: ${error.message}`);
 }
 // [End notification_network_create_NetConnection]
 @Component
