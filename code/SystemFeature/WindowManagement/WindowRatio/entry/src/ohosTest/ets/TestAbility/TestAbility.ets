@@ -12,18 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import AbilityDelegatorRegistry from '@ohos.app.ability.abilityDelegatorRegistry';
 import UIAbility from '@ohos.app.ability.UIAbility';
+import Want from '@ohos.app.ability.Want';
+import AbilityConstant from '@ohos.app.ability.AbilityConstant';
+import window from '@ohos.window';
+import { BusinessError } from '@kit.BasicServicesKit';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 import Logger from '../utils/Logger';
 
 export default class TestAbility extends UIAbility {
-  onCreate(want, launchParam): void {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     Logger.info('TestAbility onCreate');
-    let abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
-    let abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments();
+    const abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
+    const abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs =
+      AbilityDelegatorRegistry.getArguments();
     Logger.info('start run testcase!!!');
     Hypium.hypiumTest(abilityDelegator, abilityDelegatorArguments, testsuite);
   }
@@ -32,17 +36,13 @@ export default class TestAbility extends UIAbility {
     Logger.info('TestAbility onDestroy');
   }
 
-  onWindowStageCreate(windowStage): void {
+  onWindowStageCreate(windowStage: window.WindowStage): void {
     Logger.info('TestAbility onWindowStageCreate');
-    windowStage.loadContent('testability/pages/Index', (err, data) => {
-      if (err.code) {
-        console.error('Failed to load the content. Cause:' + JSON.stringify(err));
-        return;
-      }
-      Logger.info('Succeeded in loading the content. Data: ' + JSON.stringify(data));
+    windowStage.loadContent('testability/pages/Index').then(() => {
+      Logger.info('Succeeded in loading the content.');
+    }).catch((err: BusinessError) => {
+      console.error('Failed to load the content. Cause:' + JSON.stringify(err));
     });
-
-    globalThis.abilityContext = this.context;
   }
 
   onWindowStageDestroy(): void {
