@@ -23,8 +23,8 @@ import { window } from '@kit.ArkUI';
 export default class TestAbility extends UIAbility {
   onCreate(want:Want, launchParam:AbilityConstant.LaunchParam) {
     hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'TestAbility onCreate');
-    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'want param:' + (JSON.stringify(want) ?? ''));
+    hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'launchParam:' + (JSON.stringify(launchParam) ?? ''));
     let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
     let abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
     hilog.info(0x0000, '[Sample_AvoidWindowTitleButton]', '%{public}s', 'start run testcase!!!');

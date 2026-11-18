@@ -25,8 +25,8 @@ export default class TestAbility extends UIAbility {
   onCreate(want:Want, launchParam:AbilityConstant.LaunchParam) {
     setTestAbilityContext(this.context);
     hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'TestAbility onCreate');
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'want param:' + JSON.stringify(want) ?? '');
-    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'launchParam:' + JSON.stringify(launchParam) ?? '');
+    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'want param:' + (JSON.stringify(want) ?? ''));
+    hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'launchParam:' + (JSON.stringify(launchParam) ?? ''));
     let abilityDelegator = abilityDelegatorRegistry.getAbilityDelegator();
     let abilityDelegatorArguments = abilityDelegatorRegistry.getArguments();
     hilog.info(0x0000, '[Sample_MediaController]', '%{public}s', 'start run testcase!!!');

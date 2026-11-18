@@ -158,29 +158,8 @@ export default class control {
     let sessionId: string = controller.sessionId;
     controller.on('metadataChange', 'all', (metadata: AVSessionManager.AVMetadata) => {
       Log.info(TAG, 'get metadata: ' + metadata.title + ' for session :' + sessionId);
-      let dataMap: Map<string, AVSessionManager.AVMetadata> | undefined = that.metaDataMapLink?.get();
-      that.metaDataMapLink?.set(null);
-      Log.info(TAG, 'get metadata check link first: ' + JSON.stringify(that.metaDataMapLink?.get()));
-      dataMap?.set(sessionId, metadata);
-      if (that.metaDataMapLink?.get() == null) {
-        Log.info(TAG, 'get metadata check link NULL');
-      } else {
-        Log.info(TAG, 'get metadata check link second: ' +
-          JSON.stringify((that.metaDataMapLink?.get()?.get(sessionId))));
-      }
-      if (dataMap) {
-        Log.info(TAG, 'get metadata check map: ' + JSON.stringify((dataMap)));
-      } else {
-        Log.info(TAG, 'get metadata check map NULL');
-      }
-
-      that.metaDataMapLink?.set(dataMap);
-      if (that.metaDataMapLink?.get() == null) {
-        Log.info(TAG, 'get metadata check link NULL');
-      } else {
-        Log.info(TAG, 'get metadata check link end: ' +
-          JSON.stringify((that.metaDataMapLink?.get()?.get(sessionId))?.title));
-      }
+      that.metaDataMap.set(sessionId, metadata);
+      that.publishMap(that.metaDataMapLink!, that.metaDataMap);
     });
     controller.on('playbackStateChange', 'all', async (playState: AVSessionManager.AVPlaybackState) => {
       Log.info(TAG, 'get playbackState: ' + playState.state + ' for session:' + sessionId);
@@ -189,40 +168,31 @@ export default class control {
       }
       that.isPlaying = (playState.state == AVSessionManager.PlaybackState.PLAYBACK_STATE_PLAY);
       that.isPlayingLink!.set(that.isPlaying);
-      that.playStateMapLink!.set(null);
-      that.playStateMapLink!.set(that.playStateMap);
+      that.publishMap(that.playStateMapLink!, that.playStateMap);
     });
     controller.on('queueItemsChange', (items: Array<AVSessionManager.AVQueueItem>) => {
       Log.info(TAG, 'get queueItems: ' + items.length + ' for session :' + sessionId);
       that.queueItemsMap.set(sessionId, items);
-      that.queueItemsMapLink!.set(null);
-      that.queueItemsMapLink!.set(that.queueItemsMap);
+      that.publishMap(that.queueItemsMapLink!, that.queueItemsMap);
     });
     controller.on('queueTitleChange', (title: string) => {
       Log.info(TAG, 'get queueTitle  : ' + title + ' for session :' + sessionId);
       that.queueTitleMap.set(sessionId, title);
-      that.queueTitleMapLink!.set(null);
-      that.queueTitleMapLink!.set(that.queueTitleMap);
+      that.publishMap(that.queueTitleMapLink!, that.queueTitleMap);
     });
     controller.on('sessionEvent', async (sessionEvent: string, args) => {
       let lyricStruct = await controller.getExtras();
       let lyricLineNum: number = Number(lyricStruct.lyricsLineNumber);
       that.lyricMap.set(sessionId, String(lyricLineNum + ' : ' + args!.lyrics));
-      that.lyricMapLink!.set(null);
-      that.lyricMapLink!.set(that.lyricMap);
+      that.publishMap(that.lyricMapLink!, that.lyricMap);
     });
   }
 
   private publishMap<T>(link: SubscribedAbstractProperty<Map<string, T>>, source: Map<string, T>): void {
-    let target: Map<string, T> | undefined = link.get();
-    if (!target) {
-      target = new Map<string, T>();
-    }
-    target.clear();
+    let target: Map<string, T> = new Map<string, T>();
     source.forEach((value: T, key: string) => {
-      target!.set(key, value);
+      target.set(key, value);
     });
-    link.set(null);
     link.set(target);
   }
 
