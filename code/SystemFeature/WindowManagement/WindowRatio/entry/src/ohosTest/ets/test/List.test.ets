@@ -45,6 +45,7 @@ import ratioPageStateOnSizeChange3Test from './logic/RatioPageStateOnSizeChange3
 import ratioPageStateOnSizeChange4Test from './logic/RatioPageStateOnSizeChange4.test';
 import ratioPageStateOnSizeChange5Test from './logic/RatioPageStateOnSizeChange5.test';
 import ratioPageStateApplyTest from './logic/RatioPageStateApply.test';
+import ratioPageStateFlowTest from './logic/RatioPageStateFlow.test';
 
 export default function testsuite() {
   // Yield between cases so the main EventHandler can service watchdog tasks.
@@ -82,4 +83,5 @@ export default function testsuite() {
   ratioPageStateOnSizeChange4Test();
   ratioPageStateOnSizeChange5Test();
   ratioPageStateApplyTest();
+  ratioPageStateFlowTest();
 }
