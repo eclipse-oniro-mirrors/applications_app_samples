@@ -29,3 +29,4 @@ export { urlUtils } from './src/main/ets/utils/UrlUtils';
 export { logger } from './src/main/ets/utils/Logger';
 
 export { TOAST_BOTTOM, BackgroundTaskState, NO_IMAGE_SELECTED } from './src/main/ets/utils/Constants';
+export { MediaUtils } from './src/main/ets/utils/MediaUtils';
