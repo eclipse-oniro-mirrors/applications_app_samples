@@ -21,11 +21,7 @@ import { util } from '@kit.ArkTS';
 import { Hypium } from '@ohos/hypium';
 import testsuite from '../test/List.test';
 
-interface CoverageGlobals {
-  __savePath__: string;
-  __readPath__: string;
-  __testMode__: string;
-}
+type CoverageGlobals = Record<string, string>;
 
 interface MockSource {
   source: string;
@@ -47,9 +43,9 @@ export default class OpenHarmonyTestRunner implements TestRunner {
         delegator.getAppContext().getApplicationContext(), args.parameters['-m']);
       const coverageGlobals: CoverageGlobals = new Function('return this')();
       const userId: number = Math.floor(delegator.getAppContext().applicationInfo.uid / 200000);
-      coverageGlobals.__savePath__ = '/data/storage/el2/base/js_coverage.json';
-      coverageGlobals.__readPath__ = '/data/app/el2/' + userId + '/base/' + args.bundleName + '/js_coverage.json';
-      coverageGlobals.__testMode__ = 'ohostest';
+      coverageGlobals['__savePath__'] = '/data/storage/el2/base/js_coverage.json';
+      coverageGlobals['__readPath__'] = '/data/app/el2/' + userId + '/base/' + args.bundleName + '/js_coverage.json';
+      coverageGlobals['__testMode__'] = 'ohostest';
       loadMocks(delegator, context.resourceManager);
       hilog.info(DOMAIN, TAG, '%{public}s', 'OpenHarmonyTestRunner start run testcase');
       Hypium.hypiumTest(delegator, args, testsuite);
