@@ -74,10 +74,16 @@ async function main() {
       console.info('decrypted result string:' + messageDecrypted);
     } else {
       console.error('decrypt failed.');
+      // [StartExclude sm2_encrypt_decrypt_async]
+      throw new Error('decrypt failed.');
+      // [EndExclude sm2_encrypt_decrypt_async]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude sm2_encrypt_decrypt_async]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude sm2_encrypt_decrypt_async]
   }
 }
 

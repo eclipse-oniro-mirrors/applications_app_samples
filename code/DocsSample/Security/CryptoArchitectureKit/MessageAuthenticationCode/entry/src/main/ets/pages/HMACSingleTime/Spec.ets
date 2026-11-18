@@ -45,6 +45,9 @@ async function doHmac() {
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude hmac_spec_async]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude hmac_spec_async]
   }
 }
 
@@ -60,9 +63,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_hmac_spec_async'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            doHmac();
+            await doHmac();
             this.message = 'HMAC Spec Async Success';
           } catch {
             this.message = 'HMAC Spec Async Fail';

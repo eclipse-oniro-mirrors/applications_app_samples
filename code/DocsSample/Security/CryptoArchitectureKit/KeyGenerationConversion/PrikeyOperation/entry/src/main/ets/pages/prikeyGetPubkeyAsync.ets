@@ -76,6 +76,9 @@ async function prikeyGetPubKeyAsync() {
     console.info('result: ' + ret);
   } catch (e) {
     console.error(`get pubkey from prikey failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude prikey_get_pubkey_async]
+    throw new Error(`get pubkey from prikey failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude prikey_get_pubkey_async]
   }
 }
 // [End prikey_get_pubkey_async]

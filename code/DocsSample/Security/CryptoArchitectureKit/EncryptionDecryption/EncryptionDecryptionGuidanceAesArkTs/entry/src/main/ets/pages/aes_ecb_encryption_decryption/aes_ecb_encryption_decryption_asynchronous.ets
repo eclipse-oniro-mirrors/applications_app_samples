@@ -16,6 +16,7 @@
 // [Start ecb_encrypt_decrypt_aes_symkey_async]
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { buffer } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
 
 // 加密消息
 async function encryptMessagePromise(symKey: cryptoFramework.SymKey, plainText: cryptoFramework.DataBlob) {
@@ -54,9 +55,16 @@ async function aesECB() {
       console.info('decrypt plainText: ' + buffer.from(decryptText.data).toString('utf-8'));
     } else {
       console.error('decrypt failed.');
+      // [StartExclude ecb_encrypt_decrypt_aes_symkey_async]
+      throw new Error('decrypt failed.');
+      // [EndExclude ecb_encrypt_decrypt_aes_symkey_async]
     }
   } catch (error) {
-    console.error(`AES ECB failed: errCode: ${error.code}, message: ${error.message}`);
+    let e: BusinessError = error as BusinessError;
+    console.error(`AES ECB failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude ecb_encrypt_decrypt_aes_symkey_async]
+    throw new Error(`AES ECB failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude ecb_encrypt_decrypt_aes_symkey_async]
   }
 }
 // [End ecb_encrypt_decrypt_aes_symkey_async]
@@ -71,9 +79,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_aes_ecb_asynchronous'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            aesECB();
+            await aesECB();
             this.message = 'AES_ECBAsynchronousSuccess';
           } catch {
             this.message = 'AES_ECBAsynchronousFail';

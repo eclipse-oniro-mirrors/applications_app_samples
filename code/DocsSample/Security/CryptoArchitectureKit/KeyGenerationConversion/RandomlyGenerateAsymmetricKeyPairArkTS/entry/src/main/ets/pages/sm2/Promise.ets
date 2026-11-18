@@ -17,12 +17,12 @@
 import { cryptoFramework } from '@kit.CryptoArchitectureKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
-function generateSM2Key() {
-  // 创建一个AsyKeyGenerator实例
-  let sm2Generator = cryptoFramework.createAsyKeyGenerator('SM2_256');
-  // 使用密钥生成器随机生成非对称密钥对
-  let keyGenPromise = sm2Generator.generateKeyPair();
-  keyGenPromise.then(keyPair => {
+async function generateSM2Key() {
+  try {
+    // 创建一个AsyKeyGenerator实例
+    let sm2Generator = cryptoFramework.createAsyKeyGenerator('SM2_256');
+    // 使用密钥生成器随机生成非对称密钥对
+    let keyPair = await sm2Generator.generateKeyPair();
     let pubKey = keyPair.pubKey;
     let priKey = keyPair.priKey;
     // 获取非对称密钥对的二进制数据
@@ -30,9 +30,13 @@ function generateSM2Key() {
     let skBlob = priKey.getEncoded();
     console.info('pk bin data: ' + pkBlob.data);
     console.info('sk bin data: ' + skBlob.data);
-  }).catch((error: BusinessError) => {
-    console.error(`generateSM2Key failed: errCode: ${error.code}, message: ${error.message}`);
-  });
+  } catch (err) {
+    let e: BusinessError = err as BusinessError;
+    console.error(`generateSM2Key failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude generate_sm2_keypair]
+    throw new Error(`generateSM2Key failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude generate_sm2_keypair]
+  }
 }
 // [End generate_sm2_keypair]
 
@@ -46,9 +50,9 @@ struct Index {
       Text(this.message).fontSize(20).fontWeight(FontWeight.Bold)
       Button($r('app.string.call_sm2_promise'))
         .width('70%')
-        .onClick(() => {
+        .onClick(async () => {
           try {
-            generateSM2Key();
+            await generateSM2Key();
             this.message = 'SM2 Promise Success';
           } catch {
             this.message = 'SM2 Promise Fail';

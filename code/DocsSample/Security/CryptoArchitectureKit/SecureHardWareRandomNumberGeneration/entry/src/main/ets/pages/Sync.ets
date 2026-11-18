@@ -27,10 +27,16 @@ function doRandBySync() {
       console.info('[Sync]: rand result: ' + randData.data);
     } else {
       console.error('[Sync]: get rand result: fail!');
+      // [StartExclude secure_hard_ware_random_number_generation_sync]
+      throw new Error('[Sync]: get rand result: fail!');
+      // [EndExclude secure_hard_ware_random_number_generation_sync]
     }
   } catch (error) {
     let e: BusinessError = error as BusinessError;
     console.error(`do rand failed: errCode: ${e.code}, message: ${e.message}`);
+    // [StartExclude secure_hard_ware_random_number_generation_sync]
+    throw new Error(`do rand failed: errCode: ${e.code}, message: ${e.message}`);
+    // [EndExclude secure_hard_ware_random_number_generation_sync]
   }
 }
 // [End secure_hard_ware_random_number_generation_sync]

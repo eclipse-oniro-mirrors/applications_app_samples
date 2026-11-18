@@ -36,10 +36,16 @@ function dhSync() {
       console.info('DH output: ' + secret1.data);
     } else {
       console.error('DH result is not equal.');
+      // [StartExclude use_dh_for_key_negotiation_sync]
+      throw new Error('DH result is not equal.');
+      // [EndExclude use_dh_for_key_negotiation_sync]
     }
   } catch (err) {
     let e: BusinessError = err as BusinessError;
     console.error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [StartExclude use_dh_for_key_negotiation_sync]
+    throw new Error(`call failed: errCode: ${e.code}, errMsg: ${e.message}`);
+    // [EndExclude use_dh_for_key_negotiation_sync]
   }
 }
 // [End use_dh_for_key_negotiation_sync]
