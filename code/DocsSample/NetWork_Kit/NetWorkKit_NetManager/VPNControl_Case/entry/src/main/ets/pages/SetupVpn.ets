@@ -157,7 +157,7 @@ export default struct allNetworksBtn {
       hilog.info(0x0000, 'testTag', 'developTag', '%{public}s', 'vpn start Success');
       this.flag = 'Pass';  // 设置状态为成功
 
-      this.notificationOperations.publishNotificationWithWantAgent();
+      notificationOperations.publishNotificationWithWantAgent();
       // [EndExclude vpn_config_parameters]
     }).catch((err: BusinessError) => {
       // 如果 VPN 创建失败，捕获异常并处理
