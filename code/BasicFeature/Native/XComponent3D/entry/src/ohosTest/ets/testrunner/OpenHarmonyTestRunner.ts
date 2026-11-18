@@ -22,28 +22,31 @@ import Logger from 'ets/util/Logger';
 let abilityDelegator: AbilityDelegatorRegistry.AbilityDelegator | undefined = undefined
 let abilityDelegatorArguments: AbilityDelegatorRegistry.AbilityDelegatorArgs | undefined = undefined
 
-async function onAbilityCreateCallback() {
-  Logger.info('testTag', '%{public}s', 'onAbilityCreateCallback');
+const LOG_TAG: string = '[Sample_AppXComponent3D]';
+const TEST_ABILITY_NAME: string = 'TestAbility';
+
+async function onAbilityCreateCallback(): Promise<void> {
+  Logger.info(LOG_TAG, '%{public}s', 'onAbilityCreateCallback');
 }
 
-async function addAbilityMonitorCallback(err: Error) {
-  Logger.info('testTag', 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
+async function addAbilityMonitorCallback(err: Error): Promise<void> {
+  Logger.info(LOG_TAG, 'addAbilityMonitorCallback : %{public}s', JSON.stringify(err) ?? '');
 }
 
 export default class OpenHarmonyTestRunner implements TestRunner {
   constructor() {
   }
 
-  onPrepare() {
-    Logger.info('testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
+  onPrepare(): void {
+    Logger.info(LOG_TAG, '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
   }
 
-  async onRun() {
-    Logger.info('testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
+  async onRun(): Promise<void> {
+    Logger.info(LOG_TAG, '%{public}s', 'OpenHarmonyTestRunner onRun run');
     abilityDelegatorArguments = AbilityDelegatorRegistry.getArguments()
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator()
-    const bundleName = abilityDelegatorArguments.bundleName;
-    const testAbilityName = 'TestAbility';
+    const bundleName: string = abilityDelegatorArguments.bundleName;
+    const testAbilityName: string = TEST_ABILITY_NAME;
     let lMonitor: AbilityDelegatorRegistry.AbilityMonitor = {
       abilityName: testAbilityName,
       onAbilityCreate: onAbilityCreateCallback,
@@ -51,11 +54,14 @@ export default class OpenHarmonyTestRunner implements TestRunner {
     abilityDelegator.addAbilityMonitor(lMonitor, addAbilityMonitorCallback)
     const want: Want = {
       bundleName: bundleName,
-      abilityName: testAbilityName
+      abilityName: testAbilityName,
+      parameters: abilityDelegatorArguments.parameters
     };
+    Logger.info(LOG_TAG, 'startAbility parameters: %{public}s',
+      JSON.stringify(abilityDelegatorArguments.parameters) ?? '');
     abilityDelegator = AbilityDelegatorRegistry.getAbilityDelegator();
     abilityDelegator.startAbility(want, (err, data) => {
-      Logger.info('testTag', 'startAbility : err : %{public}s', JSON.stringify(err) ?? '');
+      Logger.info(LOG_TAG, 'startAbility : err : %{public}s', JSON.stringify(err) ?? '');
     })
   }
 }
