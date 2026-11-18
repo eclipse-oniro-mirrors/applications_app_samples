@@ -48,7 +48,7 @@
    hvigorw --mode module -p module=entry@ohosTest -p product=default assembleHap
    ```
 
-3. 将构建产物安装到设备后，通过 `aa test` 以 OpenHarmonyTestRunner 执行 `entry_test` 模块
+3. 将构建产物安装到设备后，通过 测试框架命令 以 OpenHarmonyTestRunner 执行 `entry_test` 模块
    中的用例；如需只跑单个套件，可通过 class 参数指定套件名。
 
 ### 断言约定

@@ -5,7 +5,7 @@
 本示例展示了在一个Stage模型中，实现standard、singleton、specified多种模式场景。
 
 本实例参考[开发指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/quick-start/application-package-structure-stage.md) 。
-本实例需要使用[aa工具](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/tools/aa-tool.md) 查看应用Ability 模式信息。 
+本实例需要使用Ability管理命令行工具（[aa-tool](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/tools/aa-tool.md)）查看应用Ability 模式信息。 
 
 ### 效果预览
 
@@ -21,7 +21,7 @@
 
 2）在番茄的详情界面，点击黄瓜，会新建一个黄瓜的Ability，展示黄瓜的详情；
 
-3）使用aa工具查看Ability信息，此时存在以下Ability：1个番茄的Ability、1个黄瓜的Ability、1个首页的Ability；
+3）使用Ability管理命令行工具查看Ability信息，此时存在以下Ability：1个番茄的Ability、1个黄瓜的Ability、1个首页的Ability；
 
 2、singleton模式：
 
@@ -29,7 +29,7 @@
 
 2）在冰淇凌的详情界面，点击螃蟹，会复用冰淇凌的Ability，页面数据会刷新并展示螃蟹的详情；
 
-3）使用aa工具查看Ability信息，此时存在以下Ability：1个冰淇凌的Ability、1个首页Ability；
+3）使用Ability管理命令行工具查看Ability信息，此时存在以下Ability：1个冰淇凌的Ability、1个首页Ability；
 
 3、specified模式：
 
@@ -39,7 +39,7 @@
 
 3）在蓝莓的详情界面，点击核桃，会复用已存在的核桃的Ability，实现specified模式下的单实例特性，页面数据会刷新并展示核桃的详情；
 
-4）使用aa工具查看Ability信息，此时存在以下Ability：1个核桃的Ability、1个蓝莓的Ability、1个首页Ability；
+4）使用Ability管理命令行工具查看Ability信息，此时存在以下Ability：1个核桃的Ability、1个蓝莓的Ability、1个首页Ability；
 
 ### 工程目录
 ```

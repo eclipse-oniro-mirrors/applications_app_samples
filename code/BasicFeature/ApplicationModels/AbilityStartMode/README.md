@@ -5,7 +5,7 @@
 This sample demonstrates how to implement the standard, singleton, and specified launch modes in the stage model.
 
 This sample refers to the [development guide](https://gitee.com/openharmony/docs/blob/master/en/application-dev/quick-start/application-package-structure-stage.md).
-It requires the [aa tool](https://gitee.com/openharmony/docs/blob/master/en/application-dev/tools/aa-tool.md) to view the launch mode information of application abilities.
+It requires the ability management command-line tool ([aa-tool](https://gitee.com/openharmony/docs/blob/master/en/application-dev/tools/aa-tool.md)) to view the launch mode information of application abilities.
 
 ### Preview
 
@@ -21,7 +21,7 @@ It requires the [aa tool](https://gitee.com/openharmony/docs/blob/master/en/appl
 
 2) On the tomato details page, tap the cucumber. A new cucumber ability is created and the cucumber details are displayed.
 
-3) Use the aa tool to check the ability information. At this point, there are the following abilities: 1 tomato ability, 1 cucumber ability, and 1 home ability.
+3) Use the ability management command-line tool to check the ability information. At this point, there are the following abilities: 1 tomato ability, 1 cucumber ability, and 1 home ability.
 
 2. singleton mode:
 
@@ -29,7 +29,7 @@ It requires the [aa tool](https://gitee.com/openharmony/docs/blob/master/en/appl
 
 2) On the ice cream details page, tap the crab. The ice cream ability is reused. The page data is refreshed and the crab details are displayed.
 
-3) Use the aa tool to check the ability information. At this point, there are the following abilities: 1 ice cream ability and 1 home ability.
+3) Use the ability management command-line tool to check the ability information. At this point, there are the following abilities: 1 ice cream ability and 1 home ability.
 
 3. specified mode:
 
@@ -39,7 +39,7 @@ It requires the [aa tool](https://gitee.com/openharmony/docs/blob/master/en/appl
 
 3) On the blueberry details page, tap the walnut. The existing walnut ability is reused, implementing the single-instance behavior of the specified mode. The page data is refreshed and the walnut details are displayed.
 
-4) Use the aa tool to check the ability information. At this point, there are the following abilities: 1 walnut ability, 1 blueberry ability, and 1 home ability.
+4) Use the ability management command-line tool to check the ability information. At this point, there are the following abilities: 1 walnut ability, 1 blueberry ability, and 1 home ability.
 
 ### Project Directory
 
