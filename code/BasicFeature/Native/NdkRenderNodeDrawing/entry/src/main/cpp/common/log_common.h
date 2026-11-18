@@ -14,13 +14,14 @@
  */
 #ifndef LOG_COMMON_H
 #define LOG_COMMON_H
+#include <cstdint>
 #include <hilog/log.h>
-#define LOG_PRINT_DOMAIN 0xFF00
-#define APP_LOG_DOMAIN 0x0001
-constexpr const char *APP_LOG_TAG = "DrawingSample";
-#define DRAWING_LOGI(...) ((void)OH_LOG_Print(LOG_APP, LOG_INFO, LOG_DOMAIN, APP_LOG_TAG, __VA_ARGS__))
-#define DRAWING_LOGD(...) ((void)OH_LOG_Print(LOG_APP, LOG_DEBUG, LOG_DOMAIN, APP_LOG_TAG, __VA_ARGS__))
-#define DRAWING_LOGW(...) ((void)OH_LOG_Print(LOG_APP, LOG_WARN, LOG_DOMAIN, APP_LOG_TAG, __VA_ARGS__))
-#define DRAWING_LOGE(...) ((void)OH_LOG_Print(LOG_APP, LOG_ERROR, LOG_DOMAIN, APP_LOG_TAG, __VA_ARGS__))
+// 业务日志统一使用示例工程的域名与 TAG，便于通过 hilog 过滤。
+constexpr uint32_t NDR_LOG_DOMAIN = 0xF811;
+constexpr const char *APP_LOG_TAG = "[Sample_NdkRenderNodeDrawing]";
+#define DRAWING_LOGI(...) ((void)OH_LOG_Print(LOG_APP, LOG_INFO, NDR_LOG_DOMAIN, APP_LOG_TAG, __VA_ARGS__))
+#define DRAWING_LOGD(...) ((void)OH_LOG_Print(LOG_APP, LOG_DEBUG, NDR_LOG_DOMAIN, APP_LOG_TAG, __VA_ARGS__))
+#define DRAWING_LOGW(...) ((void)OH_LOG_Print(LOG_APP, LOG_WARN, NDR_LOG_DOMAIN, APP_LOG_TAG, __VA_ARGS__))
+#define DRAWING_LOGE(...) ((void)OH_LOG_Print(LOG_APP, LOG_ERROR, NDR_LOG_DOMAIN, APP_LOG_TAG, __VA_ARGS__))
 
 #endif // LOG_COMMON_H
