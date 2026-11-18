@@ -5,7 +5,7 @@
 This sample demonstrates how to implement the standard, singleton, and specified launch modes in the stage model.
 
 This sample refers to the [development guide](https://gitee.com/openharmony/docs/blob/master/en/application-dev/quick-start/application-package-structure-stage.md).
-It requires the ability management command-line tool ([aa-tool](https://gitee.com/openharmony/docs/blob/master/en/application-dev/tools/aa-tool.md)) to view the launch mode information of application abilities.
+It requires the ability management command-line tool ([ability tool](https://gitee.com/openharmony/docs/blob/master/en/application-dev/tools/aa-tool.md)) to view the launch mode information of application abilities.
 
 ### Preview
 

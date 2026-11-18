@@ -5,7 +5,7 @@
 本示例展示了在一个Stage模型中，实现standard、singleton、specified多种模式场景。
 
 本实例参考[开发指南](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/quick-start/application-package-structure-stage.md) 。
-本实例需要使用Ability管理命令行工具（[aa-tool](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/tools/aa-tool.md)）查看应用Ability 模式信息。 
+本实例需要使用Ability管理命令行工具（[ability tool](https://gitee.com/openharmony/docs/blob/master/zh-cn/application-dev/tools/aa-tool.md)）查看应用Ability 模式信息。 
 
 ### 效果预览
 
