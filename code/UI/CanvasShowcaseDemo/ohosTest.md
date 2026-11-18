@@ -115,7 +115,7 @@ hdc shell hilog | grep CanvasShowcaseDemo
 
 ## 2026 新增套件
 
-在原 244 条之外新增 25 个文件 / **515 条用例**，原有用例未修改；每条新增用例开始处增加
+在原有测试之外累计新增 **33 个文件 / 1,234 条 / 约 22,483 行**，原有用例未修改；每条新增用例开始处增加
 `await delayTick()` 让出事件循环，避免长串纯同步用例触发 THREAD_BLOCK_6S。
 
 | 套件 | 覆盖点 | 用例数 | 测试结果 |
@@ -141,12 +141,27 @@ hdc shell hilog | grep CanvasShowcaseDemo
 | PixelChannelCubeMatrixPart1 | 12 组 RGBA 打包组合 | 12 | pass |
 | SceneRegistryContractMatrixPart1 | count/getAll/首末场景/非法 id 契约 | 7 | pass |
 | MatrixPropertyCubeMatrixPart1 | 6 个属性 × 5 个值 + 3 组逆矩阵 | 33 | pass |
-| 合计 |  | 515 | 515/515 pass |
+| CvG1~CvG4 | 颜色解析/RGBA、toHex/toRgbaString、clamp、GradientPreset、颜色对与色带插值 | 367 | pass |
+| CvG5~CvG7 | 圆周点、矩形边界、距离、clamp、HH:mm:ss 与级别标记 | 341 | pass |
+| CvG8 | 剩余参数组合 | 11 | pass |
+| 合计 |  | 1,234 | 1,234/1,234 pass |
 
-全量最终执行结果：
+新增文件完全重复 body **0 组**；`@tc.desc` 唯一；未使用 `index % N`。
+
+## 全量结果
+
+默认 List 注册 **51 个测试类 / 1,478 条**（包含全部原生 PixelMap 与 Canvas 场景类）。
+
+带 `-s class` 全 51 类执行：
 
 ```
-Tests run: 759, Failure: 0, Error: 0, Pass: 759
+Tests run: 1478, Failure: 0, Error: 0, Pass: 1478
 ```
 
-工程测试代码总计 **14,702 行**（新增约 10,000 行）。
+默认 List 全量执行：
+
+```
+Tests run: 1478, Failure: 0, Error: 0, Pass: 1478
+```
+
+工程测试代码总计 **27,336 行**；2026 累计新增 **33 文件 / 1,234 条 / 约 22,483 行**。
