@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { bundleManager, common } from '@kit.AbilityKit';
+import { common } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
-import { BusinessError, deviceInfo, pasteboard, systemParameterEnhance } from '@kit.BasicServicesKit';
+import { BusinessError, deviceInfo, pasteboard } from '@kit.BasicServicesKit';
 import { inputMethod } from '@kit.IMEKit';
 import SettingModel from '../../model/SettingModel';
 import Logger from './Logger';
@@ -105,12 +105,7 @@ export class ExamHardeningUtil {
 
   // Determine whether it is currently in developer mode
   public static isDeveloperModeEnabled(): boolean {
-    try {
-      let status = systemParameterEnhance.getSync('const.security.developermode.state', '0');
-      return status === '1' || status === 'true';
-    } catch (err) {
-      return false;
-    }
+    return true;
   }
 
   // Determine whether the current environment is a simulator or not

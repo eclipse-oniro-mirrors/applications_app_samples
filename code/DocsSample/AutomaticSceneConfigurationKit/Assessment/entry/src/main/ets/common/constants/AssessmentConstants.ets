@@ -38,6 +38,8 @@ export class AssessmentConstants {
   public static readonly MAX_EVENT_LOG: number = 20;
   public static readonly COUNTDOWN_INTERVAL: number = 1000;
   public static readonly DEFAULT_ALLOWED_APP: string = 'com.samples.assessment';
+  public static readonly EMERGENCY_ALLOWED_APP: string = 'com.huawei.hmos.emergencycommunication';
+  public static readonly SCREEN_READER_ALLOWED_APP: string = 'com.huawei.hmos.screenreader';
 
   // The ASCII code of the letter A, it is used to label the options of a question.
   public static readonly OPTION_LABEL_BASE: number = 65;
