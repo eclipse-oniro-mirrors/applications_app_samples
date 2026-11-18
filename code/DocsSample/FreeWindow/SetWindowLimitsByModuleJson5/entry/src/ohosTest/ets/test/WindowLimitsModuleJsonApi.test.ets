@@ -1898,3 +1898,1903 @@ const LIMIT_CASES: LimitCase[] = [
     name: 'testModuleJsonMinWSweep0620', number: '0620',
     limits: { minWidth: 900 }, forcible: false
   },
+  {
+    name: 'testModuleJsonMinWSweep0621', number: '0621',
+    limits: { minWidth: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinWSweep0622', number: '0622',
+    limits: { minWidth: 2000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinWSweep0623', number: '0623',
+    limits: { minWidth: 2559 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinWSweep0624', number: '0624',
+    limits: { minWidth: 2560 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinWSweep0625', number: '0625',
+    limits: { minWidth: Number.MAX_SAFE_INTEGER }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0626', number: '0626',
+    limits: { maxWidth: 400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0627', number: '0627',
+    limits: { maxWidth: 500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0628', number: '0628',
+    limits: { maxWidth: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0629', number: '0629',
+    limits: { maxWidth: 1499 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0630', number: '0630',
+    limits: { maxWidth: 1500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0631', number: '0631',
+    limits: { maxWidth: 2000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0632', number: '0632',
+    limits: { maxWidth: 2559 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0633', number: '0633',
+    limits: { maxWidth: 2560 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0634', number: '0634',
+    limits: { maxWidth: 2561 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxWSweep0635', number: '0635',
+    limits: { maxWidth: 100000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0636', number: '0636',
+    limits: { minHeight: 200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0637', number: '0637',
+    limits: { minHeight: 201 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0638', number: '0638',
+    limits: { minHeight: 399 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0639', number: '0639',
+    limits: { minHeight: 400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0640', number: '0640',
+    limits: { minHeight: 600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0641', number: '0641',
+    limits: { minHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0642', number: '0642',
+    limits: { minHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0643', number: '0643',
+    limits: { minHeight: 1299 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0644', number: '0644',
+    limits: { minHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMinHSweep0645', number: '0645',
+    limits: { minHeight: 2000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0646', number: '0646',
+    limits: { maxHeight: 200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0647', number: '0647',
+    limits: { maxHeight: 300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0648', number: '0648',
+    limits: { maxHeight: 500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0649', number: '0649',
+    limits: { maxHeight: 999 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0650', number: '0650',
+    limits: { maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0651', number: '0651',
+    limits: { maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0652', number: '0652',
+    limits: { maxHeight: 1299 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0653', number: '0653',
+    limits: { maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0654', number: '0654',
+    limits: { maxHeight: 1301 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonMaxHSweep0655', number: '0655',
+    limits: { maxHeight: 10000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0656', number: '0656',
+    limits: { minWidth: 400, minHeight: 200, maxWidth: 400, maxHeight: 200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0657', number: '0657',
+    limits: { minWidth: 2560, minHeight: 1300, maxWidth: 2560, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0658', number: '0658',
+    limits: { minWidth: 400, minHeight: 1300, maxWidth: 400, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0659', number: '0659',
+    limits: { minWidth: 2560, minHeight: 200, maxWidth: 2560, maxHeight: 200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0660', number: '0660',
+    limits: { minWidth: 400, minHeight: 200, maxWidth: 2560, maxHeight: 200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0661', number: '0661',
+    limits: { minWidth: 400, minHeight: 200, maxWidth: 400, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0662', number: '0662',
+    limits: { minWidth: 2560, minHeight: 200, maxWidth: 2560, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0663', number: '0663',
+    limits: { minWidth: 400, minHeight: 1300, maxWidth: 2560, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0664', number: '0664',
+    limits: { minWidth: 401, minHeight: 201, maxWidth: 401, maxHeight: 201 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0665', number: '0665',
+    limits: { minWidth: 2559, minHeight: 1299, maxWidth: 2559, maxHeight: 1299 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0666', number: '0666',
+    limits: { minWidth: 399, minHeight: 199, maxWidth: 2561, maxHeight: 1301 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0667', number: '0667',
+    limits: { minWidth: 2561, minHeight: 1301, maxWidth: 399, maxHeight: 199 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0668', number: '0668',
+    limits: { minWidth: 400, minHeight: 750, maxWidth: 2560, maxHeight: 750 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0669', number: '0669',
+    limits: { minWidth: 1480, minHeight: 200, maxWidth: 1480, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0670', number: '0670',
+    limits: { minWidth: 700, minHeight: 200, maxWidth: 1700, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0671', number: '0671',
+    limits: { minWidth: 400, minHeight: 300, maxWidth: 2560, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0672', number: '0672',
+    limits: { minWidth: 1200, minHeight: 400, maxWidth: 1200, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0673', number: '0673',
+    limits: { minWidth: 1500, minHeight: 500, maxWidth: 2500, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0674', number: '0674',
+    limits: { minWidth: 500, minHeight: 900, maxWidth: 2500, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonCornerGrid0675', number: '0675',
+    limits: { minWidth: 400, minHeight: 200, maxWidth: 600, maxHeight: 300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0680', number: '0680',
+    limits: { minWidth: 400, minHeight: 200, maxWidth: 700, maxHeight: 400 }, forcible: true
+  },
+  {
+    name: 'testModuleJsonBulk0681', number: '0681',
+    limits: { minWidth: 600, minHeight: 200, maxWidth: 1100, maxHeight: 500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0682', number: '0682',
+    limits: { minWidth: 800, minHeight: 200, maxWidth: 1500, maxHeight: 600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0683', number: '0683',
+    limits: { minWidth: 1000, minHeight: 200, maxWidth: 1900, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0684', number: '0684',
+    limits: { minWidth: 1200, minHeight: 200, maxWidth: 2300, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0685', number: '0685',
+    limits: { minWidth: 1400, minHeight: 200, maxWidth: 1700, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0686', number: '0686',
+    limits: { minWidth: 1600, minHeight: 200, maxWidth: 2100, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0687', number: '0687',
+    limits: { minWidth: 1800, minHeight: 200, maxWidth: 2500, maxHeight: 400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0688', number: '0688',
+    limits: { minWidth: 2000, minHeight: 200, maxWidth: 2900, maxHeight: 500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0689', number: '0689',
+    limits: { minWidth: 2200, minHeight: 200, maxWidth: 3300, maxHeight: 600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0690', number: '0690',
+    limits: { minWidth: 400, minHeight: 300, maxWidth: 700, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0691', number: '0691',
+    limits: { minWidth: 600, minHeight: 300, maxWidth: 1100, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0692', number: '0692',
+    limits: { minWidth: 800, minHeight: 300, maxWidth: 1500, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0693', number: '0693',
+    limits: { minWidth: 1000, minHeight: 300, maxWidth: 1900, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0694', number: '0694',
+    limits: { minWidth: 1200, minHeight: 300, maxWidth: 2300, maxHeight: 500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0695', number: '0695',
+    limits: { minWidth: 1400, minHeight: 300, maxWidth: 1700, maxHeight: 600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0696', number: '0696',
+    limits: { minWidth: 1600, minHeight: 300, maxWidth: 2100, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0697', number: '0697',
+    limits: { minWidth: 1800, minHeight: 300, maxWidth: 2500, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0698', number: '0698',
+    limits: { minWidth: 2000, minHeight: 300, maxWidth: 2900, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0699', number: '0699',
+    limits: { minWidth: 2200, minHeight: 300, maxWidth: 3300, maxHeight: 1000 }, forcible: true
+  },
+  {
+    name: 'testModuleJsonBulk0700', number: '0700',
+    limits: { minWidth: 400, minHeight: 400, maxWidth: 700, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0701', number: '0701',
+    limits: { minWidth: 600, minHeight: 400, maxWidth: 1100, maxHeight: 600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0702', number: '0702',
+    limits: { minWidth: 800, minHeight: 400, maxWidth: 1500, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0703', number: '0703',
+    limits: { minWidth: 1000, minHeight: 400, maxWidth: 1900, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0704', number: '0704',
+    limits: { minWidth: 1200, minHeight: 400, maxWidth: 2300, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0705', number: '0705',
+    limits: { minWidth: 1400, minHeight: 400, maxWidth: 1700, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0706', number: '0706',
+    limits: { minWidth: 1600, minHeight: 400, maxWidth: 2100, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0707', number: '0707',
+    limits: { minWidth: 1800, minHeight: 400, maxWidth: 2500, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0708', number: '0708',
+    limits: { minWidth: 2000, minHeight: 400, maxWidth: 2900, maxHeight: 600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0709', number: '0709',
+    limits: { minWidth: 2200, minHeight: 400, maxWidth: 3300, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0710', number: '0710',
+    limits: { minWidth: 400, minHeight: 500, maxWidth: 700, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0711', number: '0711',
+    limits: { minWidth: 600, minHeight: 500, maxWidth: 1100, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0712', number: '0712',
+    limits: { minWidth: 800, minHeight: 500, maxWidth: 1500, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0713', number: '0713',
+    limits: { minWidth: 1000, minHeight: 500, maxWidth: 1900, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0714', number: '0714',
+    limits: { minWidth: 1200, minHeight: 500, maxWidth: 2300, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0715', number: '0715',
+    limits: { minWidth: 1400, minHeight: 500, maxWidth: 1700, maxHeight: 700 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0716', number: '0716',
+    limits: { minWidth: 1600, minHeight: 500, maxWidth: 2100, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0717', number: '0717',
+    limits: { minWidth: 1800, minHeight: 500, maxWidth: 2500, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0718', number: '0718',
+    limits: { minWidth: 2000, minHeight: 500, maxWidth: 2900, maxHeight: 1000 }, forcible: true
+  },
+  {
+    name: 'testModuleJsonBulk0719', number: '0719',
+    limits: { minWidth: 2200, minHeight: 500, maxWidth: 3300, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0720', number: '0720',
+    limits: { minWidth: 400, minHeight: 600, maxWidth: 700, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0721', number: '0721',
+    limits: { minWidth: 600, minHeight: 600, maxWidth: 1100, maxHeight: 1400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0722', number: '0722',
+    limits: { minWidth: 800, minHeight: 600, maxWidth: 1500, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0723', number: '0723',
+    limits: { minWidth: 1000, minHeight: 600, maxWidth: 1900, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0724', number: '0724',
+    limits: { minWidth: 1200, minHeight: 600, maxWidth: 2300, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0725', number: '0725',
+    limits: { minWidth: 1400, minHeight: 600, maxWidth: 1700, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0726', number: '0726',
+    limits: { minWidth: 1600, minHeight: 600, maxWidth: 2100, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0727', number: '0727',
+    limits: { minWidth: 1800, minHeight: 600, maxWidth: 2500, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0728', number: '0728',
+    limits: { minWidth: 2000, minHeight: 600, maxWidth: 2900, maxHeight: 1400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0729', number: '0729',
+    limits: { minWidth: 2200, minHeight: 600, maxWidth: 3300, maxHeight: 800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0730', number: '0730',
+    limits: { minWidth: 400, minHeight: 700, maxWidth: 700, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0731', number: '0731',
+    limits: { minWidth: 600, minHeight: 700, maxWidth: 1100, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0732', number: '0732',
+    limits: { minWidth: 800, minHeight: 700, maxWidth: 1500, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0733', number: '0733',
+    limits: { minWidth: 1000, minHeight: 700, maxWidth: 1900, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0734', number: '0734',
+    limits: { minWidth: 1200, minHeight: 700, maxWidth: 2300, maxHeight: 1400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0735', number: '0735',
+    limits: { minWidth: 1400, minHeight: 700, maxWidth: 1700, maxHeight: 1500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0736', number: '0736',
+    limits: { minWidth: 1600, minHeight: 700, maxWidth: 2100, maxHeight: 900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0737', number: '0737',
+    limits: { minWidth: 1800, minHeight: 700, maxWidth: 2500, maxHeight: 1000 }, forcible: true
+  },
+  {
+    name: 'testModuleJsonBulk0738', number: '0738',
+    limits: { minWidth: 2000, minHeight: 700, maxWidth: 2900, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0739', number: '0739',
+    limits: { minWidth: 2200, minHeight: 700, maxWidth: 3300, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0740', number: '0740',
+    limits: { minWidth: 400, minHeight: 800, maxWidth: 700, maxHeight: 1400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0741', number: '0741',
+    limits: { minWidth: 600, minHeight: 800, maxWidth: 1100, maxHeight: 1500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0742', number: '0742',
+    limits: { minWidth: 800, minHeight: 800, maxWidth: 1500, maxHeight: 1600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0743', number: '0743',
+    limits: { minWidth: 1000, minHeight: 800, maxWidth: 1900, maxHeight: 1000 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0744', number: '0744',
+    limits: { minWidth: 1200, minHeight: 800, maxWidth: 2300, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0745', number: '0745',
+    limits: { minWidth: 1400, minHeight: 800, maxWidth: 1700, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0746', number: '0746',
+    limits: { minWidth: 1600, minHeight: 800, maxWidth: 2100, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0747', number: '0747',
+    limits: { minWidth: 1800, minHeight: 800, maxWidth: 2500, maxHeight: 1400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0748', number: '0748',
+    limits: { minWidth: 2000, minHeight: 800, maxWidth: 2900, maxHeight: 1500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0749', number: '0749',
+    limits: { minWidth: 2200, minHeight: 800, maxWidth: 3300, maxHeight: 1600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0750', number: '0750',
+    limits: { minWidth: 400, minHeight: 900, maxWidth: 700, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0751', number: '0751',
+    limits: { minWidth: 600, minHeight: 900, maxWidth: 1100, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0752', number: '0752',
+    limits: { minWidth: 800, minHeight: 900, maxWidth: 1500, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0753', number: '0753',
+    limits: { minWidth: 1000, minHeight: 900, maxWidth: 1900, maxHeight: 1400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0754', number: '0754',
+    limits: { minWidth: 1200, minHeight: 900, maxWidth: 2300, maxHeight: 1500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0755', number: '0755',
+    limits: { minWidth: 1400, minHeight: 900, maxWidth: 1700, maxHeight: 1600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0756', number: '0756',
+    limits: { minWidth: 1600, minHeight: 900, maxWidth: 2100, maxHeight: 1700 }, forcible: true
+  },
+  {
+    name: 'testModuleJsonBulk0757', number: '0757',
+    limits: { minWidth: 1800, minHeight: 900, maxWidth: 2500, maxHeight: 1100 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0758', number: '0758',
+    limits: { minWidth: 2000, minHeight: 900, maxWidth: 2900, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0759', number: '0759',
+    limits: { minWidth: 2200, minHeight: 900, maxWidth: 3300, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0760', number: '0760',
+    limits: { minWidth: 400, minHeight: 1000, maxWidth: 700, maxHeight: 1500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0761', number: '0761',
+    limits: { minWidth: 600, minHeight: 1000, maxWidth: 1100, maxHeight: 1600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0762', number: '0762',
+    limits: { minWidth: 800, minHeight: 1000, maxWidth: 1500, maxHeight: 1700 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0763', number: '0763',
+    limits: { minWidth: 1000, minHeight: 1000, maxWidth: 1900, maxHeight: 1800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0764', number: '0764',
+    limits: { minWidth: 1200, minHeight: 1000, maxWidth: 2300, maxHeight: 1200 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0765', number: '0765',
+    limits: { minWidth: 1400, minHeight: 1000, maxWidth: 1700, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0766', number: '0766',
+    limits: { minWidth: 1600, minHeight: 1000, maxWidth: 2100, maxHeight: 1400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0767', number: '0767',
+    limits: { minWidth: 1800, minHeight: 1000, maxWidth: 2500, maxHeight: 1500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0768', number: '0768',
+    limits: { minWidth: 2000, minHeight: 1000, maxWidth: 2900, maxHeight: 1600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0769', number: '0769',
+    limits: { minWidth: 2200, minHeight: 1000, maxWidth: 3300, maxHeight: 1700 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0770', number: '0770',
+    limits: { minWidth: 400, minHeight: 1100, maxWidth: 700, maxHeight: 1900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0771', number: '0771',
+    limits: { minWidth: 600, minHeight: 1100, maxWidth: 1100, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0772', number: '0772',
+    limits: { minWidth: 800, minHeight: 1100, maxWidth: 1500, maxHeight: 1400 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0773', number: '0773',
+    limits: { minWidth: 1000, minHeight: 1100, maxWidth: 1900, maxHeight: 1500 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0774', number: '0774',
+    limits: { minWidth: 1200, minHeight: 1100, maxWidth: 2300, maxHeight: 1600 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0775', number: '0775',
+    limits: { minWidth: 1400, minHeight: 1100, maxWidth: 1700, maxHeight: 1700 }, forcible: true
+  },
+  {
+    name: 'testModuleJsonBulk0776', number: '0776',
+    limits: { minWidth: 1600, minHeight: 1100, maxWidth: 2100, maxHeight: 1800 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0777', number: '0777',
+    limits: { minWidth: 1800, minHeight: 1100, maxWidth: 2500, maxHeight: 1900 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0778', number: '0778',
+    limits: { minWidth: 2000, minHeight: 1100, maxWidth: 2900, maxHeight: 1300 }, forcible: false
+  },
+  {
+    name: 'testModuleJsonBulk0779', number: '0779',
+    limits: { minWidth: 2200, minHeight: 1100, maxWidth: 3300, maxHeight: 1400 }, forcible: false
+  }
+];
+
+let testWindow: window.Window | undefined = undefined;
+let originalLimits: window.WindowLimits | undefined = undefined;
+let limitsSupported: boolean = false;
+
+function isUsableLimits(limits: window.WindowLimits | undefined): boolean {
+  if (!limits) {
+    return false;
+  }
+  const minWidth: number = limits.minWidth ?? 0;
+  const minHeight: number = limits.minHeight ?? 0;
+  const maxWidth: number = limits.maxWidth ?? 0;
+  const maxHeight: number = limits.maxHeight ?? 0;
+  return minWidth > 0 && minHeight > 0 && maxWidth >= minWidth && maxHeight >= minHeight;
+}
+
+async function applyLimits(limits: window.WindowLimits, forcible: boolean = false): Promise<SetLimitsResult> {
+  if (!testWindow) {
+    return { ok: false, code: -1 };
+  }
+  try {
+    const finalLimits: window.WindowLimits = forcible
+      ? await testWindow.setWindowLimits(limits, true)
+      : await testWindow.setWindowLimits(limits);
+    return { ok: true, code: 0, limits: finalLimits };
+  } catch (error) {
+    const err: BusinessError = error as BusinessError;
+    hilog.info(LOG_DOMAIN, LOG_TAG, 'setWindowLimits failed code=%{public}d message=%{public}s',
+      err.code, err.message);
+    return { ok: false, code: err.code };
+  }
+}
+
+function isAccepted(result: SetLimitsResult): boolean {
+  return result.ok || UNSUPPORTED_CODES.includes(result.code);
+}
+
+export default function windowLimitsModuleJsonApiTest(): void {
+  describe('SetWindowLimitsModuleJsonApiTest', () => {
+    beforeAll(async () => {
+      const storedWindow: window.Window | undefined = getTestWindow();
+      if (storedWindow) {
+        testWindow = storedWindow;
+      } else {
+        const context = getTestAbilityContext() ?? abilityDelegatorRegistry.getAbilityDelegator().getAppContext();
+        testWindow = await window.getLastWindow(context);
+      }
+      try {
+        originalLimits = testWindow!.getWindowLimits();
+        limitsSupported = true;
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'window limits supported: %{public}s', JSON.stringify(originalLimits));
+      } catch (error) {
+        const err: BusinessError = error as BusinessError;
+        originalLimits = undefined;
+        limitsSupported = false;
+        hilog.info(LOG_DOMAIN, LOG_TAG, 'getWindowLimits not supported, code=%{public}d', err.code);
+      }
+    });    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0001
+     * @tc.name      testModuleJsonGetLimits0001
+     * @tc.desc      Get the current window limits; accept the unsupported result on non-freeform devices.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleJsonGetLimits0001',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonGetLimits0001 begin');
+        expect(testWindow !== undefined).assertTrue();
+        if (limitsSupported) {
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'limits=%{public}s', JSON.stringify(originalLimits));
+          expect(isUsableLimits(originalLimits)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonGetLimits0001 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0002
+     * @tc.name      testModuleJsonSetModuleBounds0002
+     * @tc.desc      Set limits equal to the module.json5 abilities bounds and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL0
+     */
+    it('testModuleJsonSetModuleBounds0002',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL0, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonSetModuleBounds0002 begin');
+        const limits: window.WindowLimits = {
+          minWidth: MODULE_MIN_WIDTH, minHeight: MODULE_MIN_HEIGHT,
+          maxWidth: MODULE_MAX_WIDTH, maxHeight: MODULE_MAX_HEIGHT
+        };
+        const result: SetLimitsResult = await applyLimits(limits);
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          const current: window.WindowLimits = testWindow!.getWindowLimits();
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'current=%{public}s', JSON.stringify(current));
+          expect(isUsableLimits(current)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonSetModuleBounds0002 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0003
+     * @tc.name      testModuleJsonSetNarrowLimits0003
+     * @tc.desc      Set limits narrower than module.json5 bounds and verify the result can be read back.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonSetNarrowLimits0003',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonSetNarrowLimits0003 begin');
+        const limits: window.WindowLimits = { minWidth: 800, minHeight: 400, maxWidth: 2000, maxHeight: 1000 };
+        const result: SetLimitsResult = await applyLimits(limits);
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          const current: window.WindowLimits = testWindow!.getWindowLimits();
+          hilog.info(LOG_DOMAIN, LOG_TAG, 'current=%{public}s', JSON.stringify(current));
+          expect(isUsableLimits(current)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonSetNarrowLimits0003 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0004
+     * @tc.name      testModuleJsonSetMaxOnly0004
+     * @tc.desc      Set only the maximum limits within module.json5 bounds and handle the result.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonSetMaxOnly0004',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonSetMaxOnly0004 begin');
+        const result: SetLimitsResult = await applyLimits({ maxWidth: MODULE_MAX_WIDTH, maxHeight: MODULE_MAX_HEIGHT });
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonSetMaxOnly0004 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0005
+     * @tc.name      testModuleJsonGrowth0005
+     * @tc.desc      Increase the limits step by step within module.json5 bounds and verify each step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonGrowth0005',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonGrowth0005 begin');
+        const steps: window.WindowLimits[] = [
+          { minWidth: 400, minHeight: 200, maxWidth: 1400, maxHeight: 800 },
+          { minWidth: 500, minHeight: 300, maxWidth: 2000, maxHeight: 1000 },
+          { minWidth: 600, minHeight: 400, maxWidth: 2560, maxHeight: 1300 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonGrowth0005 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0006
+     * @tc.name      testModuleJsonShrink0006
+     * @tc.desc      Decrease the limits step by step and verify each step is accepted.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonShrink0006',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonShrink0006 begin');
+        const steps: window.WindowLimits[] = [
+          { minWidth: 700, minHeight: 500, maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 600, minHeight: 400, maxWidth: 2000, maxHeight: 1100 },
+          { minWidth: 500, minHeight: 300, maxWidth: 1600, maxHeight: 900 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonShrink0006 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0007
+     * @tc.name      testModuleJsonAlternating0007
+     * @tc.desc      Alternate valid and invalid limits and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonAlternating0007',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonAlternating0007 begin');
+        const valid: window.WindowLimits = { minWidth: 600, minHeight: 400, maxWidth: 2000, maxHeight: 1000 };
+        const invalid: window.WindowLimits = { minWidth: -1, maxWidth: -2 };
+        const first: SetLimitsResult = await applyLimits(valid);
+        const second: SetLimitsResult = await applyLimits(invalid);
+        const third: SetLimitsResult = await applyLimits(valid);
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+        expect(isAccepted(third)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonAlternating0007 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0008
+     * @tc.name      testModuleJsonMaxOnlyAndGet0008
+     * @tc.desc      Set only max limits and verify getWindowLimits when supported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonMaxOnlyAndGet0008',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonMaxOnlyAndGet0008 begin');
+        const result: SetLimitsResult = await applyLimits({ maxWidth: 2000, maxHeight: 1000 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          const current: window.WindowLimits = testWindow!.getWindowLimits();
+          expect(isUsableLimits(current)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonMaxOnlyAndGet0008 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0009
+     * @tc.name      testModuleJsonEmptyObject0009
+     * @tc.desc      Set an empty limits object and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonEmptyObject0009',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonEmptyObject0009 begin');
+        const result: SetLimitsResult = await applyLimits({});
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonEmptyObject0009 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0080
+     * @tc.name      testModuleJsonPromise0080
+     * @tc.desc      Set valid limits through the Promise overload and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonPromise0080',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonPromise0080 begin');
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 }, false);
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonPromise0080 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0081
+     * @tc.name      testModuleJsonForciblePromise0081
+     * @tc.desc      Set valid limits through the forcible Promise overload and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonForciblePromise0081',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonForciblePromise0081 begin');
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 600, minHeight: 500, maxWidth: 1500, maxHeight: 1000 }, true);
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonForciblePromise0081 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0082
+     * @tc.name      testModuleJsonConcurrent0082
+     * @tc.desc      Issue two setWindowLimits requests concurrently and verify both are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonConcurrent0082',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrent0082 begin');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ minWidth: 400, minHeight: 200, maxWidth: 1600, maxHeight: 900 }),
+          applyLimits({ minWidth: 500, minHeight: 300, maxWidth: 2000, maxHeight: 1100 })
+        ]);
+        expect(results.length).assertEqual(2);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrent0082 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0083
+     * @tc.name      testModuleJsonInterleavedGet0083
+     * @tc.desc      Set limits and read them back synchronously step by step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonInterleavedGet0083',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInterleavedGet0083 begin');
+        const steps: window.WindowLimits[] = [
+          { minWidth: 450, minHeight: 250, maxWidth: 1250, maxHeight: 850 },
+          { minWidth: 500, minHeight: 300, maxWidth: 1300, maxHeight: 900 },
+          { minWidth: 550, minHeight: 350, maxWidth: 1400, maxHeight: 950 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            const current: window.WindowLimits = testWindow!.getWindowLimits();
+            expect(isUsableLimits(current)).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInterleavedGet0083 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0084
+     * @tc.name      testModuleJsonRapidRepeat0084
+     * @tc.desc      Set the same limits rapidly five times and verify the results stay consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRapidRepeat0084',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRapidRepeat0084 begin');
+        const limits: window.WindowLimits = { minWidth: 500, minHeight: 300, maxWidth: 1800, maxHeight: 1000 };
+        let previous: SetLimitsResult | undefined = undefined;
+        for (let index: number = 0; index < 5; index++) {
+          const result: SetLimitsResult = await applyLimits(limits);
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && previous !== undefined && previous.ok) {
+            expect(JSON.stringify(result.limits)).assertEqual(JSON.stringify(previous.limits));
+          }
+          previous = result;
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRapidRepeat0084 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0085
+     * @tc.name      testModuleJsonGetLimitsTwice0085
+     * @tc.desc      Call getWindowLimits twice in a row and verify the results are consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonGetLimitsTwice0085',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonGetLimitsTwice0085 begin');
+        expect(testWindow !== undefined).assertTrue();
+        if (limitsSupported) {
+          const first: window.WindowLimits = testWindow!.getWindowLimits();
+          const second: window.WindowLimits = testWindow!.getWindowLimits();
+          expect(isUsableLimits(first)).assertTrue();
+          expect(JSON.stringify(second)).assertEqual(JSON.stringify(first));
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonGetLimitsTwice0085 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0086
+     * @tc.name      testModuleJsonNonMonotonic0086
+     * @tc.desc      Set a non-monotonic limit sequence and verify each step is accepted.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonNonMonotonic0086',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonNonMonotonic0086 begin');
+        const steps: window.WindowLimits[] = [
+          { minWidth: 400, minHeight: 200, maxWidth: 2000, maxHeight: 1000 },
+          { minWidth: 700, minHeight: 500, maxWidth: 1200, maxHeight: 800 },
+          { minWidth: 450, minHeight: 250, maxWidth: 2560, maxHeight: 1300 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonNonMonotonic0086 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0090
+     * @tc.name      testModuleJsonRestore0090
+     * @tc.desc      Restore the limits captured before the test.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRestore0090',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRestore0090 begin');
+        expect(testWindow !== undefined).assertTrue();
+        if (originalLimits !== undefined) {
+          const result: SetLimitsResult = await applyLimits(originalLimits as window.WindowLimits);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRestore0090 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0441
+     * @tc.name      testModuleJsonConcurrentThree0441
+     * @tc.desc      Issue three setWindowLimits requests concurrently and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonConcurrentThree0441',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrentThree0441 begin');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ minWidth: 400, minHeight: 200, maxWidth: 1200, maxHeight: 800 }),
+          applyLimits({ minWidth: 450, minHeight: 250, maxWidth: 1400, maxHeight: 900 }),
+          applyLimits({ minWidth: 500, minHeight: 300, maxWidth: 1600, maxHeight: 1000 })
+        ]);
+        expect(results.length).assertEqual(3);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrentThree0441 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0442
+     * @tc.name      testModuleJsonConcurrentFive0442
+     * @tc.desc      Issue five setWindowLimits requests concurrently and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonConcurrentFive0442',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrentFive0442 begin');
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 1600 }),
+          applyLimits({ maxWidth: 1800 }),
+          applyLimits({ maxWidth: 2000 }),
+          applyLimits({ maxWidth: 2200 }),
+          applyLimits({ maxWidth: 2400 })
+        ]);
+        expect(results.length).assertEqual(5);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrentFive0442 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0443
+     * @tc.name      testModuleJsonInterleavedFive0443
+     * @tc.desc      Interleave set and get five times and verify each step when supported.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonInterleavedFive0443',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInterleavedFive0443 begin');
+        const widths: number[] = [400, 500, 600, 700, 800];
+        for (let index: number = 0; index < widths.length; index++) {
+          const limits: window.WindowLimits = { minWidth: widths[index], maxWidth: 2000 };
+          const result: SetLimitsResult = await applyLimits(limits);
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            const current: window.WindowLimits = testWindow!.getWindowLimits();
+            expect(isUsableLimits(current)).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInterleavedFive0443 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0444
+     * @tc.name      testModuleJsonForcibleAfterInvalid0444
+     * @tc.desc      Apply an invalid limit then a forcible valid limit; verify both are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonForcibleAfterInvalid0444',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonForcibleAfterInvalid0444 begin');
+        const invalid: SetLimitsResult = await applyLimits({ minWidth: 2000, maxWidth: 1000 });
+        const valid: SetLimitsResult = await applyLimits(
+          { minWidth: 600, minHeight: 400, maxWidth: 2000, maxHeight: 1000 }, true);
+        expect(isAccepted(invalid)).assertTrue();
+        expect(isAccepted(valid)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonForcibleAfterInvalid0444 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0450
+     * @tc.name      testModuleJsonRatioWide0450
+     * @tc.desc      Set limits allowing a wide aspect ratio and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRatioWide0450',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRatioWide0450 begin');
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 2000, minHeight: 200, maxWidth: 2560, maxHeight: 400 });
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRatioWide0450 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0451
+     * @tc.name      testModuleJsonRatioTall0451
+     * @tc.desc      Set limits allowing a tall aspect ratio and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRatioTall0451',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRatioTall0451 begin');
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 400, minHeight: 1000, maxWidth: 500, maxHeight: 1300 });
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRatioTall0451 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0452
+     * @tc.name      testModuleJsonRatioMaxBoundary0452
+     * @tc.desc      Set limits matching the module.json5 maximum ratio boundary and handle the result.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonRatioMaxBoundary0452',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRatioMaxBoundary0452 begin');
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 400, minHeight: 200, maxWidth: 1400, maxHeight: 400 });
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRatioMaxBoundary0452 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0453
+     * @tc.name      testModuleJsonRatioMinBoundary0453
+     * @tc.desc      Set limits matching the module.json5 minimum ratio boundary and handle the result.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonRatioMinBoundary0453',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRatioMinBoundary0453 begin');
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 500, minHeight: 1000, maxWidth: 600, maxHeight: 1200 });
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRatioMinBoundary0453 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0460
+     * @tc.name      testModuleJsonPresenceSubsets0460
+     * @tc.desc      Set all fifteen non-empty combinations of module.json5 limit fields and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonPresenceSubsets0460',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonPresenceSubsets0460 begin');
+        const subsets: window.WindowLimits[] = [
+          { minWidth: 400 }, { minHeight: 200 }, { maxWidth: 2560 }, { maxHeight: 1300 },
+          { minWidth: 400, minHeight: 200 }, { minWidth: 400, maxWidth: 2560 },
+          { minWidth: 400, maxHeight: 1300 }, { minHeight: 200, maxWidth: 2560 },
+          { minHeight: 200, maxHeight: 1300 }, { maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 400, minHeight: 200, maxWidth: 2560 },
+          { minWidth: 400, minHeight: 200, maxHeight: 1300 },
+          { minWidth: 400, maxWidth: 2560, maxHeight: 1300 },
+          { minHeight: 200, maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 400, minHeight: 200, maxWidth: 2560, maxHeight: 1300 }
+        ];
+        for (let index: number = 0; index < subsets.length; index++) {
+          const result: SetLimitsResult = await applyLimits(subsets[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonPresenceSubsets0460 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0461
+     * @tc.name      testModuleJsonFullRamp0461
+     * @tc.desc      Grow to the module.json5 maximum and shrink back within the same test.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonFullRamp0461',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonFullRamp0461 begin');
+        const steps: window.WindowLimits[] = [
+          { minWidth: 400, minHeight: 200, maxWidth: 1200, maxHeight: 700 },
+          { minWidth: 500, minHeight: 300, maxWidth: 1800, maxHeight: 1000 },
+          { minWidth: 600, minHeight: 400, maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 500, minHeight: 300, maxWidth: 1800, maxHeight: 1000 },
+          { minWidth: 400, minHeight: 200, maxWidth: 1200, maxHeight: 700 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonFullRamp0461 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0462
+     * @tc.name      testModuleJsonRapidTen0462
+     * @tc.desc      Set ten different limits rapidly and verify the last readback is usable.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonRapidTen0462',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRapidTen0462 begin');
+        for (let index: number = 0; index < 10; index++) {
+          const limit: number = 400 + index * 100;
+          const result: SetLimitsResult = await applyLimits({ minWidth: limit, maxWidth: 2560 });
+          expect(isAccepted(result)).assertTrue();
+        }
+        if (limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRapidTen0462 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0463
+     * @tc.name      testModuleJsonConcurrentTen0463
+     * @tc.desc      Issue ten setWindowLimits requests concurrently and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonConcurrentTen0463',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrentTen0463 begin');
+        const tasks: Promise<SetLimitsResult>[] = [];
+        for (let index: number = 0; index < 10; index++) {
+          tasks.push(applyLimits({ maxWidth: 1200 + index * 100, maxHeight: 800 + index * 40 }));
+        }
+        const results: SetLimitsResult[] = await Promise.all(tasks);
+        expect(results.length).assertEqual(10);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrentTen0463 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0464
+     * @tc.name      testModuleJsonInterleavedTen0464
+     * @tc.desc      Interleave set and get ten times and verify every readback is usable.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonInterleavedTen0464',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInterleavedTen0464 begin');
+        for (let index: number = 0; index < 10; index++) {
+          const minHeight: number = 200 + index * 50;
+          const result: SetLimitsResult = await applyLimits({ minHeight: minHeight, maxHeight: 1300 });
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInterleavedTen0464 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0465
+     * @tc.name      testModuleJsonInvalidThenValid0465
+     * @tc.desc      Repeat invalid then valid limit cycles five times and verify every request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonInvalidThenValid0465',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInvalidThenValid0465 begin');
+        for (let index: number = 0; index < 5; index++) {
+          const invalid: SetLimitsResult = await applyLimits({ minWidth: 2500, maxWidth: 500 });
+          const valid: SetLimitsResult = await applyLimits({ minWidth: 400, maxWidth: 2560 });
+          expect(isAccepted(invalid)).assertTrue();
+          expect(isAccepted(valid)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInvalidThenValid0465 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0466
+     * @tc.name      testModuleJsonForcibleRepeat0466
+     * @tc.desc      Apply the same forcible limits three times and verify the results stay consistent.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonForcibleRepeat0466',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonForcibleRepeat0466 begin');
+        const limits: window.WindowLimits = { minWidth: 400, minHeight: 200, maxWidth: 2560, maxHeight: 1300 };
+        let previous: SetLimitsResult | undefined = undefined;
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits(limits, true);
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && previous !== undefined && previous.ok) {
+            expect(JSON.stringify(result.limits)).assertEqual(JSON.stringify(previous.limits));
+          }
+          previous = result;
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonForcibleRepeat0466 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0467
+     * @tc.name      testModuleJsonRestoreModuleBounds0467
+     * @tc.desc      Restore the limits to the module.json5 declared bounds and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRestoreModuleBounds0467',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRestoreModuleBounds0467 begin');
+        const result: SetLimitsResult = await applyLimits({
+          minWidth: MODULE_MIN_WIDTH, minHeight: MODULE_MIN_HEIGHT,
+          maxWidth: MODULE_MAX_WIDTH, maxHeight: MODULE_MAX_HEIGHT
+        }, true);
+        expect(isAccepted(result)).assertTrue();
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRestoreModuleBounds0467 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0468
+     * @tc.name      testModuleJsonGetAfterEachSet0468
+     * @tc.desc      Set ten different limits and verify a usable readback after every accepted request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonGetAfterEachSet0468',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonGetAfterEachSet0468 begin');
+        for (let index: number = 0; index < 10; index++) {
+          const minWidth: number = 400 + index * 120;
+          const result: SetLimitsResult = await applyLimits({ minWidth: minWidth, maxWidth: 2560 });
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            const current: window.WindowLimits = testWindow!.getWindowLimits();
+            hilog.info(LOG_DOMAIN, LOG_TAG, 'step=%{public}d current=%{public}s', index, JSON.stringify(current));
+            expect(isUsableLimits(current)).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonGetAfterEachSet0468 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0469
+     * @tc.name      testModuleJsonRestoreOriginalForcible0469
+     * @tc.desc      Restore the original limits with the forcible overload and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRestoreOriginalForcible0469',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRestoreOriginalForcible0469 begin');
+        expect(testWindow !== undefined).assertTrue();
+        if (originalLimits !== undefined) {
+          const result: SetLimitsResult = await applyLimits(originalLimits as window.WindowLimits, true);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRestoreOriginalForcible0469 end');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0480
+     * @tc.name      testModuleJsonPresenceLoop0480
+     * @tc.desc      Set every non-empty field combination once more and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonPresenceLoop0480',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const subsets: window.WindowLimits[] = [
+          { minWidth: 400 }, { minHeight: 200 }, { maxWidth: 2560 }, { maxHeight: 1300 },
+          { minWidth: 400, minHeight: 200 }, { minWidth: 400, maxWidth: 2560 },
+          { minWidth: 400, maxHeight: 1300 }, { minHeight: 200, maxWidth: 2560 },
+          { minHeight: 200, maxHeight: 1300 }, { maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 400, minHeight: 200, maxWidth: 2560 },
+          { minWidth: 400, minHeight: 200, maxHeight: 1300 },
+          { minWidth: 400, maxWidth: 2560, maxHeight: 1300 },
+          { minHeight: 200, maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 400, minHeight: 200, maxWidth: 2560, maxHeight: 1300 }
+        ];
+        for (let index: number = 0; index < subsets.length; index++) {
+          const result: SetLimitsResult = await applyLimits(subsets[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonPresenceLoop0480 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0481
+     * @tc.name      testModuleJsonRampSeven0481
+     * @tc.desc      Grow and shrink through seven steps within the module.json5 bounds.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRampSeven0481',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const steps: window.WindowLimits[] = [
+          { minWidth: 400, minHeight: 200, maxWidth: 800, maxHeight: 500 },
+          { minWidth: 500, minHeight: 300, maxWidth: 1200, maxHeight: 700 },
+          { minWidth: 600, minHeight: 400, maxWidth: 1800, maxHeight: 1000 },
+          { minWidth: 700, minHeight: 500, maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 600, minHeight: 400, maxWidth: 1800, maxHeight: 1000 },
+          { minWidth: 500, minHeight: 300, maxWidth: 1200, maxHeight: 700 },
+          { minWidth: 400, minHeight: 200, maxWidth: 800, maxHeight: 500 }
+        ];
+        for (let index: number = 0; index < steps.length; index++) {
+          const result: SetLimitsResult = await applyLimits(steps[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRampSeven0481 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0482
+     * @tc.name      testModuleJsonConcurrentTwenty0482
+     * @tc.desc      Issue twenty setWindowLimits requests concurrently and verify all are handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonConcurrentTwenty0482',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const tasks: Promise<SetLimitsResult>[] = [];
+        for (let index: number = 0; index < 20; index++) {
+          tasks.push(applyLimits({ maxWidth: 1200 + index * 60, maxHeight: 800 + index * 20 }));
+        }
+        const results: SetLimitsResult[] = await Promise.all(tasks);
+        expect(results.length).assertEqual(20);
+        for (let index: number = 0; index < results.length; index++) {
+          expect(isAccepted(results[index])).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonConcurrentTwenty0482 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0483
+     * @tc.name      testModuleJsonInterleavedTwenty0483
+     * @tc.desc      Interleave set and get twenty times and verify every readback is usable.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonInterleavedTwenty0483',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 20; index++) {
+          const minWidth: number = 400 + index * 20;
+          const result: SetLimitsResult = await applyLimits({ minWidth: minWidth, maxWidth: 2560 });
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonInterleavedTwenty0483 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0484
+     * @tc.name      testModuleJsonForcibleMixed0484
+     * @tc.desc      Apply forcible limits alternating valid and invalid and verify each is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonForcibleMixed0484',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const valid: window.WindowLimits = { minWidth: 400, minHeight: 200, maxWidth: 2560, maxHeight: 1300 };
+        const invalid: window.WindowLimits = { minWidth: 2500, maxWidth: 500 };
+        for (let index: number = 0; index < 3; index++) {
+          const first: SetLimitsResult = await applyLimits(valid, true);
+          const second: SetLimitsResult = await applyLimits(invalid, true);
+          expect(isAccepted(first)).assertTrue();
+          expect(isAccepted(second)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonForcibleMixed0484 end');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0485
+     * @tc.name      testModuleJsonReadbackTwenty0485
+     * @tc.desc      Set twenty limits and verify a usable readback after each accepted request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonReadbackTwenty0485',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 20; index++) {
+          const result: SetLimitsResult = await applyLimits({ maxWidth: 1400 + index * 50, maxHeight: 700 + index * 25 });
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+          }
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonReadbackTwenty0485 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0486
+     * @tc.name      testModuleJsonExtremeLoop0486
+     * @tc.desc      Set five extreme limit combinations and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonExtremeLoop0486',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const extremes: window.WindowLimits[] = [
+          { minWidth: 400, minHeight: 200, maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 1, minHeight: 1, maxWidth: 1, maxHeight: 1 },
+          { minWidth: 2560, minHeight: 1300, maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 0, minHeight: 0, maxWidth: 0, maxHeight: 0 },
+          { minWidth: 400, minHeight: 200, maxWidth: Number.MAX_SAFE_INTEGER, maxHeight: Number.MAX_SAFE_INTEGER }
+        ];
+        for (let index: number = 0; index < extremes.length; index++) {
+          const result: SetLimitsResult = await applyLimits(extremes[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonExtremeLoop0486 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0487
+     * @tc.name      testModuleJsonForcibleAlternate0487
+     * @tc.desc      Alternate forcible and non-forcible valid limits and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonForcibleAlternate0487',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        const limits: window.WindowLimits = { minWidth: 600, minHeight: 400, maxWidth: 2000, maxHeight: 1000 };
+        for (let index: number = 0; index < 4; index++) {
+          const result: SetLimitsResult = await applyLimits(limits, index % 2 === 0);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonForcibleAlternate0487 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0488
+     * @tc.name      testModuleJsonEmptyLoop0488
+     * @tc.desc      Set the empty object five times and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonEmptyLoop0488',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 5; index++) {
+          const result: SetLimitsResult = await applyLimits({});
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonEmptyLoop0488 end');
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0489
+     * @tc.name      testModuleJsonRestoreModuleThrice0489
+     * @tc.desc      Restore the module.json5 limits three times and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRestoreModuleThrice0489',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const limits: window.WindowLimits = {
+          minWidth: MODULE_MIN_WIDTH, minHeight: MODULE_MIN_HEIGHT,
+          maxWidth: MODULE_MAX_WIDTH, maxHeight: MODULE_MAX_HEIGHT
+        };
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits(limits);
+          expect(isAccepted(result)).assertTrue();
+        }
+        hilog.info(LOG_DOMAIN, LOG_TAG, '%{public}s', 'testModuleJsonRestoreModuleThrice0489 end');
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0490
+     * @tc.name      testModuleJsonReadbackLoop0490
+     * @tc.desc      Set ten limits and verify a usable readback for each accepted request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonReadbackLoop0490',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 10; index++) {
+          const result: SetLimitsResult = await applyLimits({ minWidth: 400 + index * 50, maxWidth: 2560 });
+          expect(isAccepted(result)).assertTrue();
+          if (result.ok && limitsSupported) {
+            expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+          }
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0491
+     * @tc.name      testModuleJsonEqualBounds0491
+     * @tc.desc      Set equal minimum and maximum bounds and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonEqualBounds0491',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 1200, minHeight: 800, maxWidth: 1200, maxHeight: 800 });
+        expect(isAccepted(result)).assertTrue();
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0492
+     * @tc.name      testModuleJsonSequentialFive0492
+     * @tc.desc      Start five sequential size changes and verify each request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonSequentialFive0492',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 5; index++) {
+          const result: SetLimitsResult = await applyLimits({ minWidth: 400 + index * 100, maxWidth: 2560 });
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0493
+     * @tc.name      testModuleJsonHeightOnly0493
+     * @tc.desc      Set only the height fields and verify the request is handled.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonHeightOnly0493',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minHeight: 200, maxHeight: 1300 });
+        expect(isAccepted(result)).assertTrue();
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0494
+     * @tc.name      testModuleJsonRestoreAfterSweeps0494
+     * @tc.desc      Restore the original limits after sweeps and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonRestoreAfterSweeps0494',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        expect(testWindow !== undefined).assertTrue();
+        if (originalLimits !== undefined) {
+          const result: SetLimitsResult = await applyLimits(originalLimits as window.WindowLimits);
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0495
+     * @tc.name      testModuleJsonCornerLoop0495
+     * @tc.desc      Apply the four corners of the module bounds and verify each request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonCornerLoop0495',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const corners: window.WindowLimits[] = [
+          { minWidth: 400, minHeight: 200, maxWidth: 2560, maxHeight: 1300 },
+          { minWidth: 400, minHeight: 1300, maxWidth: 400, maxHeight: 1300 },
+          { minWidth: 2560, minHeight: 200, maxWidth: 2560, maxHeight: 200 },
+          { minWidth: 1200, minHeight: 750, maxWidth: 1200, maxHeight: 750 }
+        ];
+        for (let index: number = 0; index < corners.length; index++) {
+          const result: SetLimitsResult = await applyLimits(corners[index]);
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0496
+     * @tc.name      testModuleJsonCenterRange0496
+     * @tc.desc      Apply a centered range and verify the result is usable.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonCenterRange0496',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 800, minHeight: 500, maxWidth: 2000, maxHeight: 1000 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok) {
+          expect(isUsableLimits(result.limits)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0497
+     * @tc.name      testModuleJsonEqualBounds0497
+     * @tc.desc      Apply equal bounds for both dimensions and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonEqualBounds0497',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits(
+          { minWidth: 1500, minHeight: 900, maxWidth: 1500, maxHeight: 900 });
+        expect(isAccepted(result)).assertTrue();
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0498
+     * @tc.name      testModuleJsonWidthSweepFour0498
+     * @tc.desc      Sweep the width four times and verify each request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonWidthSweepFour0498',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 4; index++) {
+          const result: SetLimitsResult = await applyLimits({ minWidth: 400 + index * 200, maxWidth: 2560 });
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_0499
+     * @tc.name      testModuleJsonHeightSweepFour0499
+     * @tc.desc      Sweep the height four times and verify each request.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL2
+     */
+    it('testModuleJsonHeightSweepFour0499',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL2, async () => {
+        for (let index: number = 0; index < 4; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 200 + index * 100, maxHeight: 1300 });
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_500
+     * @tc.name      testModuleJsonBulkCase500
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonBulkCase500',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 400, maxWidth: 1800 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_501
+     * @tc.name      testModuleJsonBulkCase501
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonBulkCase501',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 550, maxHeight: 1300 });
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_502
+     * @tc.name      testModuleJsonBulkCase502
+     * @tc.desc      Apply forcible and non forcible limits alternately.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonBulkCase502',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const first: SetLimitsResult = await applyLimits({ minWidth: 700, maxWidth: 2000 }, true);
+        const second: SetLimitsResult = await applyLimits({ minWidth: 700, maxWidth: 2000 });
+        expect(isAccepted(first)).assertTrue();
+        expect(isAccepted(second)).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_503
+     * @tc.name      testModuleJsonBulkCase503
+     * @tc.desc      Issue three concurrent requests and verify handling.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonBulkCase503',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const results: SetLimitsResult[] = await Promise.all([
+          applyLimits({ maxWidth: 2100 }),
+          applyLimits({ maxWidth: 2200 }),
+          applyLimits({ maxWidth: 2300 })
+        ]);
+        expect(results.length).assertEqual(3);
+        expect(isAccepted(results[0])).assertTrue();
+        expect(isAccepted(results[1])).assertTrue();
+        expect(isAccepted(results[2])).assertTrue();
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_504
+     * @tc.name      testModuleJsonBulkCase504
+     * @tc.desc      Set bulk limits and verify a usable readback.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonBulkCase504',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        const result: SetLimitsResult = await applyLimits({ minWidth: 1000, maxWidth: 1800 });
+        expect(isAccepted(result)).assertTrue();
+        if (result.ok && limitsSupported) {
+          expect(isUsableLimits(testWindow!.getWindowLimits())).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_505
+     * @tc.name      testModuleJsonBulkCase505
+     * @tc.desc      Apply a three step sweep and verify every step.
+     * @tc.type      FUNCTION
+     * @tc.size      MEDIUMTEST
+     * @tc.level     LEVEL1
+     */
+    it('testModuleJsonBulkCase505',
+      TestType.FUNCTION | Size.MEDIUMTEST | Level.LEVEL1, async () => {
+        for (let index: number = 0; index < 3; index++) {
+          const result: SetLimitsResult = await applyLimits({ minHeight: 1150, maxHeight: 1300 });
+          expect(isAccepted(result)).assertTrue();
+        }
+      });
+    /**
+     * @tc.number    SUB_WINDOW_SET_WINDOW_LIMITS_JSON5_API_506
