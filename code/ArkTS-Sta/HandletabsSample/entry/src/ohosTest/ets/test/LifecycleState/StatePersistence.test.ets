@@ -199,7 +199,7 @@ export default function tabsStatePersistenceTest(): void {
     /**
      * @tc.number SUB_SAMPLE_HANDLETABS_TABSSTATEPERSISTENCETEST_0800
      * @tc.name tabsStatePersistenceTestCase008
-     * @tc.desc Verify focusable surface: panel front -> at least one focused node
+     * @tc.desc Verify focusable element: panel front -> at least one focused node
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

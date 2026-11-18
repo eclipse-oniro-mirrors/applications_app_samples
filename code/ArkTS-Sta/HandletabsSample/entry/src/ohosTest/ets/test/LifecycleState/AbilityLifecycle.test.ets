@@ -489,7 +489,7 @@ export default function tabsAbilityLifecycleTest(): void {
     /**
      * @tc.number SUB_SAMPLE_HANDLETABS_TABSABILITYLIFECYCLETEST_0800
      * @tc.name tabsAbilityLifecycleTestCase008
-     * @tc.desc Verify focusable surface: panel front -> at least one focused node
+     * @tc.desc Verify focusable element: panel front -> at least one focused node
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

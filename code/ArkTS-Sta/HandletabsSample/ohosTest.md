@@ -271,12 +271,13 @@ hvigorw --mode module -p module=entry@default -p product=default \
 hdc install -r entry/build/default/outputs/default/entry-default-signed.hap
 hdc install -r entry/build/default/outputs/ohosTest/entry-ohosTest-signed.hap
 
-# 4. 执行测试（设备需已解锁，见上方前置条件）
-hdc shell aa test -b com.samples.HandletabsSample -m entry_test \
+# 4. 执行 Ability assistant 的 test 子命令拉起测试套件（设备需已解锁，见上方前置条件）
+# 其中 <ability-assistant> 为设备 shell 中 Ability assistant 命令行工具的命令名，执行时替换为对应命令
+hdc shell <ability-assistant> test -b com.samples.HandletabsSample -m entry_test \
   -s unittest /ets/testrunner/OpenHarmonyTestRunner -s timeout 15000
 ```
 
-> **注意**：同一 bundle 上不能同时运行两个 `aa test` 会话（DevEco 与命令行同时跑会互相 uninstall / 杀进程）。
+> **注意**：同一 bundle 上不能同时运行两个 Ability assistant 的 `test` 子命令会话（DevEco 与命令行同时跑会互相 uninstall / 杀进程）。
 > 另外 `hvigorw` 增量构建有时会把 `PackageHap` 判为 `UP-TO-DATE`，改完测试代码后建议先 `clean` 或确认 HAP 时间戳。
 
 > **构建陷阱**：若日志出现 `[TID xxx] E/pandafile: Failed to open panda file ... No such file or directory`
@@ -302,4 +303,4 @@ hdc shell aa test -b com.samples.HandletabsSample -m entry_test \
 | Hypium 套件注册/过滤耗时过长 | 套件规模过大时 `OnPrepare` → 首条输出耗时显著增长，超过 DevEco 10 秒启动窗口后报 `00508013`；设备侧可能触发 `THREAD_BLOCK_6S` | 控制 `List.test.ets` 注册规模，并对 `ClassFilter` / `NestFilter` 做索引优化（className 预解析为 Set、单层套件走快速路径），当前约 8.5 秒完成启动 |
 | 用例间状态污染 | 前一用例点过 `+` 后 Tab 数变为 3/4，后续断言"初始两页可见"失败 | `beforeEach` 统一调用 `resetPanelToInitial`（经 `onNewWant` 重新 `loadContent`）；`EntryAbility` 已增加 `onNewWant` 实现 |
 | 测试应用与 EntryAbility 抢主线程 | 应用启动前台化超时（`LIFECYCLE_TIMEOUT`）或测试进程被杀 | `TestAbility.onCreate` 在 `startAbility` 后轮询 `getCurrentTopAbility()` 直到 `EntryAbility` 到达前台，再启动 Hypium |
-| 设备锁屏 | `aa test` 直接报 `00508013 App launch timed out. Make sure the screen is unlocked.` | 执行附录 C 的解锁三步；`deviceLocked: true` 不影响，关键是 `screenLocked: false` |
+| 设备锁屏 | Ability assistant 的 `test` 子命令直接报 `00508013 App launch timed out. Make sure the screen is unlocked.` | 执行附录 C 的解锁三步；`deviceLocked: true` 不影响，关键是 `screenLocked: false` |

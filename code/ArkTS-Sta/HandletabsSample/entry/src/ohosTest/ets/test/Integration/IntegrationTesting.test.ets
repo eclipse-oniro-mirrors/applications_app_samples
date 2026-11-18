@@ -204,7 +204,7 @@ export default function tabsIntegrationTestingTest(): void {
     /**
      * @tc.number SUB_SAMPLE_HANDLETABS_TABSINTEGRATIONTESTINGTEST_0800
      * @tc.name tabsIntegrationTestingTestCase008
-     * @tc.desc Verify focusable surface: panel front -> at least one focused node
+     * @tc.desc Verify focusable element: panel front -> at least one focused node
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

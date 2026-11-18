@@ -817,7 +817,7 @@ export default function tabsGestureRecognitionTest(): void {
     /**
      * @tc.number SUB_SAMPLE_HANDLETABS_TABSGESTURERECOGNITIONTEST_2800
      * @tc.name tabsGestureRecognitionTestCase028
-     * @tc.desc Verify focusable surface: panel front -> at least one focused node
+     * @tc.desc Verify focusable element: panel front -> at least one focused node
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

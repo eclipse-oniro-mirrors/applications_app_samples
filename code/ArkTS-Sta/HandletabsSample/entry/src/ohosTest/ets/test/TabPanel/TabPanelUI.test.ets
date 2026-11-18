@@ -298,7 +298,7 @@ export default function tabPanelUITest(): void {
     /**
      * @tc.number SUB_SAMPLE_HANDLETABS_TABPANELUITEST_0800
      * @tc.name tabPanelUITestCase008
-     * @tc.desc Verify focusable surface: panel front -> at least one focused node
+     * @tc.desc Verify focusable element: panel front -> at least one focused node
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

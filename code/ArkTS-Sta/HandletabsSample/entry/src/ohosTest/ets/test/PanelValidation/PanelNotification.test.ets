@@ -395,7 +395,7 @@ export default function panelNotificationTest(): void {
     /**
      * @tc.number SUB_SAMPLE_HANDLETABS_PANELNOTIFICATIONTEST_0800
      * @tc.name panelNotificationTestCase008
-     * @tc.desc Verify focusable surface: panel front -> at least one focused node
+     * @tc.desc Verify focusable element: panel front -> at least one focused node
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2

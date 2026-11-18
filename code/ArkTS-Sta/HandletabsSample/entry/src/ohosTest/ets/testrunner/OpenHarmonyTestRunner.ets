@@ -35,11 +35,11 @@ export default class OpenHarmonyTestRunner implements TestRunner {
   constructor() {
   }
 
-  onPrepare: () => void = (): void => {
+  public onPrepare: () => void = (): void => {
     hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner OnPrepare ');
   };
 
-  onRun: () => void = (): void => {
+  public onRun: () => void = (): void => {
     hilog.info(0x0000, 'testTag', '%{public}s', 'OpenHarmonyTestRunner onRun run');
     const abilityDelegator: abilityDelegatorRegistry.AbilityDelegator =
       abilityDelegatorRegistry.getAbilityDelegator();

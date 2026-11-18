@@ -684,7 +684,7 @@ export default function tabsAnimationPerformanceTest(): void {
     /**
      * @tc.number SUB_SAMPLE_HANDLETABS_TABSANIMATIONPERFORMANCETEST_2000
      * @tc.name tabsAnimationPerformanceTestCase020
-     * @tc.desc Verify focusable surface: panel front -> at least one focused node
+     * @tc.desc Verify focusable element: panel front -> at least one focused node
      * @tc.size MediumTest
      * @tc.type Function
      * @tc.level LEVEL2
