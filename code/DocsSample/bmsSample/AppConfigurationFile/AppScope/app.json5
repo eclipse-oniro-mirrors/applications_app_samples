@@ -76,6 +76,10 @@
       "com.ohos.screenshot",
       "com.ohos.note"
     ],
+    "nativeChildProcessPreloadSoList": [
+      "libfoo.so",
+      "libbar.so"
+    ],
     "startMode": "mainTask",
     "buildVersion": "1.0.0",
     "allowListenBundleChangedEvent": [
