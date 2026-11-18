@@ -15,18 +15,24 @@
 
 #include <strstream>
 #include <map>
+#include <algorithm>
+#include <vector>
 // [Start image_effect_include_module]
 #include <multimedia/image_effect/image_effect.h>
 #include <multimedia/image_effect/image_effect_filter.h>
 #include <multimedia/image_effect/image_effect_errors.h>
 // [End image_effect_include_module]
 #include <multimedia/image_framework/image_pixel_map_mdk.h>
+#include <multimedia/image_framework/image/pixelmap_native.h>
 #include <native_buffer/native_buffer.h>
+#include <native_color_space_manager/native_color_space_manager.h>
 #include "logging.h"
 #include "image_edit.h"
 #include "utils/common_utils.h"
 #include "utils/pixelmap_helper.h"
 #include "utils/json_utils.h"
+#include "utils/egl_utils.h"
+#include "utils/render_texture.h"
 
 struct FilterArrayData {
     std::string name;
@@ -62,6 +68,14 @@ const float_t DATA_VALUE_MAX = 100.0;
 constexpr int EXPECTED_ARGS_ZERO = 0;
 constexpr int EXPECTED_ARGS_ONE = 1;
 constexpr int EXPECTED_ARGS_TWO = 2;
+constexpr int EXPECTED_ARGS_THREE = 3;
+
+// 纹理输入场景默认的纹理尺寸
+constexpr GLsizei DEFAULT_TEXTURE_WIDTH = 1080;
+constexpr GLsizei DEFAULT_TEXTURE_HEIGHT = 1920;
+// RGBA8888格式，一个像素点由四个字节组成
+constexpr int RGBA_BYTES = 4;
+constexpr int RGBA_CHANNEL_MAX = 255;
 
 // AREA信息索引下标
 constexpr int AREA_INFO_ZERO = 0;
@@ -71,6 +85,7 @@ constexpr int AREA_INFO_THREE = 3;
 
 // RBGA8888格式，一个像素点由四个字节组成
 constexpr int RGB_IDX_ZERO = 0;
+constexpr int RGB_IDX_TWO = 2;
 constexpr int RGB_IDX_THREE = 3;
 
 // RGB颜色范围
@@ -151,7 +166,7 @@ napi_value ImageEdit::PixelMapFilterStart(napi_env env, napi_callback_info info)
     // [End image_effect_start]
 
     // [Start image_effect_save]
-    // 序列化效果器(可选)。
+    // 序列化效果器（可选）。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -219,7 +234,7 @@ napi_value ImageEdit::NativeBufferFilterStart(napi_env env, napi_callback_info i
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_ImageEffect_Start fail! errorCode = %{public}d", errorCode);
 
-    // 序列化效果器(可选)。
+    // 序列化效果器（可选）。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -273,7 +288,7 @@ napi_value ImageEdit::URIFilterStart(napi_env env, napi_callback_info info)
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
                              "OH_ImageEffect_Start fail! errorCode = %{public}d", errorCode);
 
-    // 序列化效果器(可选)。
+    // 序列化效果器（可选）。
     char *imageinfo = nullptr;
     errorCode = OH_ImageEffect_Save(imageEffect, &imageinfo);
     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result, "OH_ImageEffect_Save fail!");
@@ -348,7 +363,7 @@ void AddFilterSingle(const char *filterName, float filterValue, OH_PixelmapNativ
     // [End image_effect_create_filter]
 
     // [Start image_effect_set_filter_value]
-    // 设置滤镜参数, 滤镜强度设置为传入参数。
+    // 设置滤镜参数，滤镜强度设置为传入参数。
     ImageEffect_Any value;
     value.dataType = ImageEffect_DataType::EFFECT_DATA_TYPE_FLOAT;
     value.dataValue.floatValue = static_cast<float>(filterValue);
@@ -461,9 +476,9 @@ std::vector<std::vector<FilterArrayData>> GetFilters(napi_env env, napi_value ar
     std::vector<std::vector<FilterArrayData>> data;
     napi_status status;
 
-    bool is_array;
-    status = napi_is_array(env, arg, &is_array);
-    CHECK_AND_RETURN_RET_LOG(is_array == true, data, "GetFilters napi_is_array fail! status=%{public}d", status);
+    bool isArray;
+    status = napi_is_array(env, arg, &isArray);
+    CHECK_AND_RETURN_RET_LOG(isArray == true, data, "GetFilters napi_is_array fail! status=%{public}d", status);
     
     auto array_length = GetNapiArrayLength(env, arg);
     CHECK_AND_RETURN_RET_LOG(array_length.first == napi_ok, data,
@@ -775,7 +790,7 @@ napi_value ImageEdit::RegisterCustomBrightness()
                     ImageEffect_Any value;
                     value.dataType = ImageEffect_DataType::EFFECT_DATA_TYPE_FLOAT;
                     value.dataValue.floatValue = brightness;
-                    // 设置滤镜参数, value为info中按json解析出来的参数。
+                    // 设置滤镜参数，value为info中按json解析出来的参数。
                     LOG_E("brightness value: %{public}f ", value.dataValue.floatValue);
                     ImageEffect_ErrorCode errorCode = OH_EffectFilter_SetValue(filter, "brightness", &value);
                     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, nullptr,
@@ -838,7 +853,7 @@ napi_value ImageEdit::RegisterCustomCrop()
                     ImageEffect_Any value;
                     value.dataType = ImageEffect_DataType::EFFECT_DATA_TYPE_FLOAT;
                     value.dataValue.floatValue = crop;
-                    // 设置滤镜参数, value为info中按json解析出来的参数。
+                    // 设置滤镜参数，value为info中按json解析出来的参数。
                     LOG_E("crop value: %{public}f ", value.dataValue.floatValue);
                     ImageEffect_ErrorCode errorCode = OH_EffectFilter_SetValue(filter, "crop", &value);
                     CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, nullptr,
@@ -941,3 +956,210 @@ napi_value ImageEdit::getSurfaceId(napi_env env, napi_callback_info info)
     CHECK_AND_RETURN_RET_LOG(status == napi_status::napi_ok, result, "napi_create_string_utf8 fail!");
     return result;
 }
+
+void UploadGradientTexture(RenderTexture *texture)
+{
+    GLsizei width = texture->Width();
+    GLsizei height = texture->Height();
+    if (width <= 0 || height <= 0) {
+        LOG_E("invalid texture size, width=%{public}d, height=%{public}d", width, height);
+        return;
+    }
+    // 宽度和高度为0时无法生成渐变，直接返回；后面的除法使用此处取到的非零分母。
+    GLsizei divisorWidth = (width > 0) ? width : 1;
+    GLsizei divisorHeight = (height > 0) ? height : 1;
+    std::vector<uint8_t> pixels(static_cast<size_t>(width) * static_cast<size_t>(height) * RGBA_BYTES);
+    for (GLsizei y = 0; y < height; y++) {
+        for (GLsizei x = 0; x < width; x++) {
+            size_t index = (static_cast<size_t>(y) * static_cast<size_t>(width) + static_cast<size_t>(x)) *
+                           RGBA_BYTES;
+            pixels[index] = static_cast<uint8_t>(x * RGBA_CHANNEL_MAX / divisorWidth);
+            pixels[index + 1] = static_cast<uint8_t>(y * RGBA_CHANNEL_MAX / divisorHeight);
+            pixels[index + RGB_IDX_TWO] =
+                static_cast<uint8_t>(RGBA_CHANNEL_MAX - x * RGBA_CHANNEL_MAX / divisorWidth);
+            pixels[index + RGB_IDX_THREE] = RGBA_CHANNEL_MAX;
+        }
+    }
+    glBindTexture(GL_TEXTURE_2D, texture->GetName());
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
+    glBindTexture(GL_TEXTURE_2D, GL_NONE);
+    LOG_I("upload gradient texture done, width=%{public}d, height=%{public}d", width, height);
+}
+
+void UploadPixelmapTexture(RenderTexture *texture, OH_PixelmapNative *pixelmap)
+{
+    PixelmapInfo info = GetPixelmapInfo(pixelmap);
+    if (info.format != PIXEL_FORMAT_RGBA_8888 || info.width == 0 || info.height == 0 ||
+        info.width > static_cast<uint32_t>(texture->Width()) ||
+        info.height > static_cast<uint32_t>(texture->Height())) {
+        LOG_W("pixelmap can not be uploaded as RGBA8888 texture, use gradient texture instead.");
+        UploadGradientTexture(texture);
+        return;
+    }
+
+    void *pixelAddr = nullptr;
+    Image_ErrorCode errorCode = OH_PixelmapNative_AccessPixels(pixelmap, &pixelAddr);
+    if (errorCode != Image_ErrorCode::IMAGE_SUCCESS || pixelAddr == nullptr) {
+        LOG_W("OH_PixelmapNative_AccessPixels fail! errorCode=%{public}d, use gradient texture instead.", errorCode);
+        UploadGradientTexture(texture);
+        return;
+    }
+
+    glBindTexture(GL_TEXTURE_2D, texture->GetName());
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glPixelStorei(GL_UNPACK_ROW_LENGTH, static_cast<GLint>(info.rowStride / RGBA_BYTES));
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, static_cast<GLsizei>(info.width), static_cast<GLsizei>(info.height),
+                    GL_RGBA, GL_UNSIGNED_BYTE, pixelAddr);
+    glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+    glBindTexture(GL_TEXTURE_2D, GL_NONE);
+    OH_PixelmapNative_UnaccessPixels(pixelmap);
+    LOG_I("upload pixelmap texture done, width=%{public}d, height=%{public}d", info.width, info.height);
+}
+
+std::shared_ptr<OH_PixelmapNative> CreatePixelmapFromRgba(std::vector<uint8_t> &pixels, GLsizei width, GLsizei height)
+{
+    OH_Pixelmap_InitializationOptions *options = nullptr;
+    OH_PixelmapInitializationOptions_Create(&options);
+    CHECK_AND_RETURN_RET_LOG(options != nullptr, nullptr, "OH_PixelmapInitializationOptions_Create fail!");
+    OH_PixelmapInitializationOptions_SetWidth(options, width);
+    OH_PixelmapInitializationOptions_SetHeight(options, height);
+    OH_PixelmapInitializationOptions_SetPixelFormat(options, PIXEL_FORMAT_RGBA_8888);
+    OH_PixelmapInitializationOptions_SetAlphaType(options, PIXELMAP_ALPHA_TYPE_UNKNOWN);
+
+    OH_PixelmapNative *pixelmap = nullptr;
+    Image_ErrorCode errorCode = OH_PixelmapNative_CreatePixelmap(pixels.data(), pixels.size(), options, &pixelmap);
+    OH_PixelmapInitializationOptions_Release(options);
+    CHECK_AND_RETURN_RET_LOG(errorCode == Image_ErrorCode::IMAGE_SUCCESS && pixelmap != nullptr, nullptr,
+                             "OH_PixelmapNative_CreatePixelmap fail! errorCode=%{public}d", errorCode);
+
+    return std::shared_ptr<OH_PixelmapNative>(pixelmap, [](OH_PixelmapNative *pixelmap) {
+        OH_PixelmapNative_Release(pixelmap);
+    });
+}
+
+// 纹理输入场景只支持基于纹理缓冲的滤镜。Crop需要PixelMap信息计算裁剪区域，
+// CustomBrightness和CustomCrop是以EFFECT_BUFFER_TYPE_PIXEL注册的自定义滤镜，
+// 三者都无法在纹理链路生效，此处跳过并记录日志，避免整个场景处理失败。
+bool IsFilterUnsupportedInTextureMode(const std::string &filterName)
+{
+    return filterName == OH_EFFECT_CROP_FILTER || filterName == "CustomBrightness" || filterName == "CustomCrop";
+}
+
+// 创建输入、输出纹理并上传输入数据。解码失败时使用程序化渐变填充输入纹理。
+bool PrepareTexturePair(const std::string &inputPath, GLsizei &width, GLsizei &height,
+                        std::shared_ptr<RenderTexture> &inputTexture,
+                        std::shared_ptr<RenderTexture> &outputTexture)
+{
+    std::string decodePath = inputPath;
+    std::shared_ptr<OH_PixelmapNative> inputPixelmap = PixelMapHelper::Decode(decodePath);
+    if (inputPixelmap != nullptr) {
+        PixelmapInfo pixelmapInfo = GetPixelmapInfo(inputPixelmap.get());
+        if (pixelmapInfo.width != 0 && pixelmapInfo.height != 0) {
+            width = static_cast<GLsizei>(pixelmapInfo.width);
+            height = static_cast<GLsizei>(pixelmapInfo.height);
+        }
+    }
+    inputTexture = std::make_shared<RenderTexture>(width, height, GL_RGBA8);
+    CHECK_AND_RETURN_RET_LOG(inputTexture->Init(), false, "input texture init fail!");
+    outputTexture = std::make_shared<RenderTexture>(width, height, GL_RGBA8);
+    CHECK_AND_RETURN_RET_LOG(outputTexture->Init(), false, "output texture init fail!");
+    if (inputPixelmap != nullptr) {
+        UploadPixelmapTexture(inputTexture.get(), inputPixelmap.get());
+    } else {
+        UploadGradientTexture(inputTexture.get());
+    }
+    return true;
+}
+
+// 创建效果器并按顺序添加滤镜，纹理输入场景不支持的滤镜会被跳过。
+std::shared_ptr<OH_ImageEffect> CreateImageEffectWithFilters(
+    const std::vector<std::vector<FilterArrayData>> &filters)
+{
+    OH_ImageEffect *imageEffect = OH_ImageEffect_Create("imageEdit");
+    CHECK_AND_RETURN_RET_LOG(imageEffect != nullptr, nullptr, "OH_ImageEffect_Create fail!");
+    std::shared_ptr<OH_ImageEffect> imageEffectPtr(
+        imageEffect, [](OH_ImageEffect *imageEffect) { OH_ImageEffect_Release(imageEffect); });
+    for (int i = 0; i < filters.size(); i++) {
+        if (IsFilterUnsupportedInTextureMode(filters[i][0].name)) {
+            LOG_W("filter %{public}s does not support texture input, skip it.", filters[i][0].name.c_str());
+            continue;
+        }
+        OH_EffectFilter *filter = AddFilter(imageEffectPtr.get(), filters[i][0].name.c_str());
+        CHECK_AND_RETURN_RET_LOG(filter != nullptr, nullptr, "OH_ImageEffect_AddFilter fail!");
+        SetFilterValue(filter, filters[i][0].name.c_str(), filters[i][0].value, nullptr);
+    }
+    return imageEffectPtr;
+}
+
+// 回读输出纹理并编码保存。输出纹理回读失败时回退到输入纹理。
+bool ReadBackAndEncode(const std::shared_ptr<RenderTexture> &inputTexture,
+                       const std::shared_ptr<RenderTexture> &outputTexture,
+                       GLsizei width, GLsizei height, const std::string &outputPath)
+{
+    std::vector<uint8_t> pixels;
+    if (!GLUtils::ReadTextureToRgba(outputTexture->GetName(), width, height, pixels)) {
+        LOG_W("read output texture fail, use input texture instead.");
+        CHECK_AND_RETURN_RET_LOG(
+            GLUtils::ReadTextureToRgba(inputTexture->GetName(), width, height, pixels), false,
+            "read input texture fail!");
+    }
+    std::shared_ptr<OH_PixelmapNative> outputPixelmap = CreatePixelmapFromRgba(pixels, width, height);
+    CHECK_AND_RETURN_RET_LOG(outputPixelmap != nullptr, false, "create output pixelmap fail!");
+    std::string encodePath = outputPath;
+    return PixelMapHelper::Encode(outputPixelmap.get(), encodePath);
+}
+
+napi_value ImageEdit::TextureFilterStart(napi_env env, napi_callback_info info)
+{
+    napi_value result = nullptr;
+    napi_get_boolean(env, false, &result);
+
+    size_t argc = EXPECTED_ARGS_THREE;
+    napi_value args[EXPECTED_ARGS_THREE] = {nullptr};
+    napi_status status = napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    CHECK_AND_RETURN_RET_LOG(status == napi_ok, result, "napi_get_cb_info fail! status = %{public}d", status);
+
+    std::string inputPath = CommonUtils::GetStringArgument(env, args[EXPECTED_ARGS_ZERO]);
+    std::string outputPath = CommonUtils::GetStringArgument(env, args[EXPECTED_ARGS_ONE]);
+    std::vector<std::vector<FilterArrayData>> filters = GetFilters(env, args[EXPECTED_ARGS_TWO]);
+
+    // 纹理输入场景要求应用提供合法的OpenGL上下文环境，此处创建离屏EGL上下文。
+    EglUtils eglContext;
+    CHECK_AND_RETURN_RET_LOG(eglContext.Init(), result, "EGL context init fail!");
+
+    GLsizei textureWidth = DEFAULT_TEXTURE_WIDTH;
+    GLsizei textureHeight = DEFAULT_TEXTURE_HEIGHT;
+    std::shared_ptr<RenderTexture> inputTexture;
+    std::shared_ptr<RenderTexture> outputTexture;
+    CHECK_AND_RETURN_RET_LOG(PrepareTexturePair(inputPath, textureWidth, textureHeight, inputTexture, outputTexture),
+                             result, "prepare texture pair fail!");
+
+    std::shared_ptr<OH_ImageEffect> imageEffectPtr = CreateImageEffectWithFilters(filters);
+    CHECK_AND_RETURN_RET_LOG(imageEffectPtr != nullptr, result, "create image effect with filters fail!");
+    OH_ImageEffect *imageEffect = imageEffectPtr.get();
+
+    ImageEffect_ErrorCode errorCode = ImageEffect_ErrorCode::EFFECT_SUCCESS;
+    // [Start image_effect_texture_input]
+    // 设置输入的纹理ID。
+    errorCode = OH_ImageEffect_SetInputTextureId(imageEffect, inputTexture->GetName(), ColorSpaceName::SRGB);
+    CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
+                             "OH_ImageEffect_SetInputTextureId fail! errorCode = %{public}d", errorCode);
+
+    // 设置输出的纹理ID，注意不能与输入是同一块纹理，否则可能产生渲染异常。
+    errorCode = OH_ImageEffect_SetOutputTextureId(imageEffect, outputTexture->GetName());
+    CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
+                             "OH_ImageEffect_SetOutputTextureId fail!");
+    // [End image_effect_texture_input]
+
+    errorCode = OH_ImageEffect_Start(imageEffectPtr.get());
+    CHECK_AND_RETURN_RET_LOG(errorCode == ImageEffect_ErrorCode::EFFECT_SUCCESS, result,
+                             "OH_ImageEffect_Start fail! errorCode = %{public}d", errorCode);
+
+    CHECK_AND_RETURN_RET_LOG(ReadBackAndEncode(inputTexture, outputTexture, textureWidth, textureHeight, outputPath),
+                             result, "read back and encode texture fail!");
+
+    napi_get_boolean(env, true, &result);
+    return result;
+}
+

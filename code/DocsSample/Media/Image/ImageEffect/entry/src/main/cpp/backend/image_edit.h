@@ -43,6 +43,8 @@ public:
     
     static napi_value getSurfaceId(napi_env env, napi_callback_info info);
     
+    static napi_value TextureFilterStart(napi_env env, napi_callback_info info);
+    
 private:
     static OH_ImageEffect *imageEffect_;
 };
